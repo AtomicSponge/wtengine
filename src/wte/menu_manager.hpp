@@ -34,6 +34,8 @@ class menu_manager {
         const bool add_item(const menu_id, const menu_item);
 
     private:
+        unsigned int menu_position;
+
         std::vector<menu> menus;
         std::stack<menu> opened_menus;
 };

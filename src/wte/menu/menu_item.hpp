@@ -11,6 +11,9 @@
 #ifndef WTE_MENU_MENU_ITEM_HPP
 #define WTE_MENU_MENU_ITEM_HPP
 
+#include <string>
+#include <vector>
+
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
@@ -26,7 +29,9 @@ class menu_item {
         //
 
     private:
-        //
+        std::string item_text;
+        ALLEGRO_BITMAP *item_bitmap;
+        std::vector<int> options;
 };
 
 }  // end namespace mnu

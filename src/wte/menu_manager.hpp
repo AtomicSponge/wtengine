@@ -26,14 +26,26 @@ namespace wte
 namespace mnu
 {
 
+typedef unsigned int menu_id;
+
 class menu_manager {
     public:
-        //
+        const menu_id new_menu(void);
+        const bool add_item(const menu_id, const menu_item);
 
     private:
         std::vector<menu> menus;
         std::stack<menu> opened_menus;
 };
+
+inline const menu_id menu_manager::new_menu(void) {
+    menu_id next_id;
+    return next_id;
+}
+
+inline const bool add_item(const menu_id id, const menu_item item) {
+    return true;
+}
 
 }  // end namespace mnu
 

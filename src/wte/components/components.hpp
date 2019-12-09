@@ -31,8 +31,4 @@
 #include "gfx/texture.hpp"
 #include "gfx/sprite.hpp"
 
-//  Menu components
-#include "menu/menu_background.hpp"
-#include "menu/menu_item.hpp"
-
 #endif

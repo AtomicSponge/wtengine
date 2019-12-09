@@ -1,0 +1,40 @@
+/*
+  WTEngine
+  By:  Matthew Evans
+  File:  enabled.hpp
+
+  See LICENSE.txt for copyright information
+
+  Enabled component
+*/
+
+#ifndef WTE_ECS_COMPONENT_ENABLED_HPP
+#define WTE_ECS_COMPONENT_ENABLED_HPP
+
+#include "component.hpp"
+
+namespace wte
+{
+
+namespace ecs
+{
+
+namespace cmp
+{
+
+//! Enabled component
+/*!
+  Toggle an entity to enabled or disabled state
+*/
+class enabled : public component {
+    public:
+        bool is_enabled;
+};
+
+} //  namespace cmp
+
+} //  namespace ecs
+
+} //  namespace wte
+
+#endif

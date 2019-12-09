@@ -1,0 +1,10 @@
+# Remove vs code stuffs
+.vscode/
+wtengine.code-workspace
+# Remove local backup
+bak/
+wte_backup.bat
+# Remove build dir
+output/
+# Ignore documentation folder
+documentation/

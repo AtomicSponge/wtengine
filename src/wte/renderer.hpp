@@ -169,6 +169,9 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
         //  Draw the title screen
     }
 
+    /*
+      Render game menu if it's opened
+    */
     if(game_flag[GAME_MENU_OPENED]) {
         //  Render game menu
     }

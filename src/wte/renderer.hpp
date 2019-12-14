@@ -97,7 +97,9 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
         }
     }
 
-    //  Render world if the game is running
+    /*
+      Render world if the game is running
+    */
     if(game_flag[GAME_STARTED]) {
         /*
           Draw the background
@@ -166,7 +168,10 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
             } //  End render component loop
         } //  End draw hitbox check
     } else {
-        //  Draw the title screen
+        /*
+          Game is not running - draw the title screen
+        */
+        //
     }
 
     /*

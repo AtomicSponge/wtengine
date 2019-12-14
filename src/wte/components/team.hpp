@@ -26,7 +26,7 @@ namespace cmp
 /*!
   Store the team for an entity
 */
-class team : public component {
+class team final : public component {
     public:
         int team;
 };

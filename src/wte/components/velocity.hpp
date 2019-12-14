@@ -26,7 +26,7 @@ namespace cmp
 /*!
   Store the movement velocity of an entity
 */
-class velocity : public component {
+class velocity final : public component {
     public:
         float speed;
 };

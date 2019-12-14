@@ -11,8 +11,9 @@
 #ifndef WTE_MENU_MENU_MANAGER_HPP
 #define WTE_MENU_MENU_MANAGER_HPP
 
-#include <stack>
+#include <string>
 #include <vector>
+#include <stack>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
@@ -32,6 +33,7 @@ class menu_manager {
     public:
         const menu_id new_menu(void);
         const bool add_item(const menu_id, const menu_item);
+        void display_menu(const std::string);
 
     private:
         unsigned int menu_position;
@@ -40,13 +42,26 @@ class menu_manager {
         std::stack<menu> opened_menus;
 };
 
+//!
+/*!
+*/
 inline const menu_id menu_manager::new_menu(void) {
     menu_id next_id;
     return next_id;
 }
 
+//!
+/*!
+*/
 inline const bool add_item(const menu_id id, const menu_item item) {
     return true;
+}
+
+//!
+/*!
+*/
+inline void display_menu(const std::string name) {
+    //
 }
 
 }  // end namespace mnu

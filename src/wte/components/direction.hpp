@@ -26,7 +26,7 @@ namespace cmp
 /*!
   Store the direction of travel for an entity
 */
-class direction : public component {
+class direction final : public component {
     public:
         float angle;
 };

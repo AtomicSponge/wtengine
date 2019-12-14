@@ -26,7 +26,7 @@ namespace cmp
 /*!
   Toggle an entity to enabled or disabled state
 */
-class enabled : public component {
+class enabled final : public component {
     public:
         bool is_enabled;
 };

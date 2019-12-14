@@ -11,6 +11,7 @@
 #ifndef WTE_MENU_MENU_HPP
 #define WTE_MENU_MENU_HPP
 
+#include <string>
 #include <vector>
 
 #include <allegro5/allegro.h>
@@ -27,11 +28,20 @@ namespace mnu
 
 class menu {
     public:
-        //
+        menu(std::string);
 
     private:
+        std::string menu_name;
         std::vector<menu_item> items;
+        ALLEGRO_BITMAP *background_bitmap;
 };
+
+//!
+/*!
+*/
+inline menu::menu(std::string name) {
+    menu_name = name;
+}
 
 }  // end namespace mnu
 

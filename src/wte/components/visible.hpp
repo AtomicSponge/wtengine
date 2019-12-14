@@ -26,7 +26,7 @@ namespace cmp
 /*!
   Toggles if an entity will be drawn by the Renderer
 */
-class visible : public component {
+class visible final : public component {
     public:
         bool is_visible;
 };

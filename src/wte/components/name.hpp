@@ -28,7 +28,7 @@ namespace cmp
 /*!
   Store the name of an entity
 */
-class name : public component {
+class name final : public component {
     public:
         std::string name;
 };

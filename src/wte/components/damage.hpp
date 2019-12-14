@@ -26,7 +26,7 @@ namespace cmp
 /*!
   Store the amount of damage an entity can do
 */
-class damage : public component {
+class damage final : public component {
     public:
         int dmg;
 };

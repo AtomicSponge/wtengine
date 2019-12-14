@@ -28,7 +28,7 @@ namespace sys
 */
 class colision : public system {
     public:
-        inline void run(entity_manager&, msg::message_queue&, int64_t);
+        inline void run(entity_manager&, msg::message_queue&, int64_t) final;
 };
 
 //!  Run the colision system

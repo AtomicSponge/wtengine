@@ -26,7 +26,7 @@ namespace cmp
 /*!
   Store the x/y location of an entity
 */
-class location : public component {
+class location final : public component {
     public:
         float pos_x, pos_y;
 };

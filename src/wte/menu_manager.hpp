@@ -33,7 +33,8 @@ class menu_manager {
     public:
         const menu_id new_menu(void);
         const bool add_item(const menu_id, const menu_item);
-        void display_menu(const std::string);
+        void run(void);
+        const void display_menu(void) const;
 
     private:
         unsigned int menu_position;
@@ -53,14 +54,21 @@ inline const menu_id menu_manager::new_menu(void) {
 //!
 /*!
 */
-inline const bool add_item(const menu_id id, const menu_item item) {
+inline const bool menu_manager::add_item(const menu_id id, const menu_item item) {
     return true;
 }
 
 //!
 /*!
 */
-inline void display_menu(const std::string name) {
+inline void menu_manager::run(void) {
+    //
+}
+
+//!
+/*!
+*/
+inline const void menu_manager::display_menu(void) const {
     //
 }
 

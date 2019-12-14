@@ -24,6 +24,7 @@
 #include <ctime>
 
 #include "wte_globals.hpp"
+#include "menu_manager.hpp"
 #include "entity_manager.hpp"
 #include "system_manager.hpp"
 #include "audio_manager.hpp"
@@ -61,6 +62,7 @@ class wte_main {
         ecs::entity_manager world;              /*!< Manager for entities */
         ecs::system_manager systems;            /*!< Manager for systems */
         msg::message_queue messages;            /*!< Message queue */
+        mnu::menu_manager menus;
 };
 
 //! Initialize WTEngine
@@ -100,6 +102,9 @@ inline int wte_main::wte_init(void) {
 
     //  Load user configured systems
     load_systems();
+
+    //  Load menu manager
+    menus = mnu::menu_manager();
 
     //  Create render object
     game_screen = renderer(al_create_builtin_font());
@@ -174,7 +179,7 @@ inline void wte_main::do_game(void) {
             }
             /* *** END GAME LOOP ******************************************************** */
 
-            game_screen.render(world, al_get_timer_count(main_timer));
+            game_screen.render(menus, world, al_get_timer_count(main_timer));
         }
 
         //  Send audio messages to the audio queue

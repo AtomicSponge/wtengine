@@ -67,16 +67,36 @@ inline void *get_input(void *arg) {
         if(input_event.type == ALLEGRO_EVENT_KEY_DOWN) {
             switch(input_event.keyboard.keycode) {
                 case ALLEGRO_KEY_UP:
-                    key[KEY_UP] = true;
+                    if(game_flag[GAME_MENU_OPENED] && !al_get_timer_started(input_timer)) {
+                        key[KEY_UP] = true;
+                        al_start_timer(input_timer);
+                    } else {
+                        key[KEY_UP] = true;
+                    }
                     break;
                 case ALLEGRO_KEY_DOWN:
-                    key[KEY_DOWN] = true;
+                    if(game_flag[GAME_MENU_OPENED] && !al_get_timer_started(input_timer)) {
+                        key[KEY_DOWN] = true;
+                        al_start_timer(input_timer);
+                    } else {
+                        key[KEY_DOWN] = true;
+                    }
                     break;
                 case ALLEGRO_KEY_LEFT:
-                    key[KEY_LEFT] = true;
+                    if(game_flag[GAME_MENU_OPENED] && !al_get_timer_started(input_timer)) {
+                        key[KEY_LEFT] = true;
+                        al_start_timer(input_timer);
+                    } else {
+                        key[KEY_LEFT] = true;
+                    }
                     break;
                 case ALLEGRO_KEY_RIGHT:
-                    key[KEY_RIGHT] = true;
+                    if(game_flag[GAME_MENU_OPENED] && !al_get_timer_started(input_timer)) {
+                        key[KEY_RIGHT] = true;
+                        al_start_timer(input_timer);
+                    } else {
+                        key[KEY_RIGHT] = true;
+                    }
                     break;
                 case ALLEGRO_KEY_LCTRL:
                     key[KEY_FIRE_1] = true;

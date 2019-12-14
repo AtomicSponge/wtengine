@@ -22,6 +22,7 @@
 #include <allegro5/allegro_font.h>
 
 #include "wte_globals.hpp"
+#include "menu_manager.hpp"
 #include "entity_manager.hpp"
 #include "components\components.hpp"
 
@@ -43,7 +44,7 @@ class renderer {
     public:
         inline renderer() {};                           /*!< Basic constructor */
         renderer(ALLEGRO_FONT *);                       /*!< Constructor to configure renderer */
-        void render(ecs::entity_manager&, int64_t);     /*!< Call the renderer */
+        void render(mnu::menu_manager&, ecs::entity_manager&, int64_t);     /*!< Call the renderer */
 
     private:
         ALLEGRO_FONT *overlay_font;                     /*!< Allegro font used for the overlay */
@@ -78,8 +79,8 @@ inline renderer::renderer(ALLEGRO_FONT *font) {
 /*!
   Gets passed the entity manager and timer then draws everything to screen
 */
-inline void renderer::render(ecs::entity_manager& world, int64_t current_time) {
-    //  Make sure we're drawing to the screen
+inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& world, int64_t current_time) {
+    //  Make sure we're always drawing to the screen
     al_set_target_backbuffer(al_get_current_display());
 
     /*
@@ -96,71 +97,80 @@ inline void renderer::render(ecs::entity_manager& world, int64_t current_time) {
         }
     }
 
-    /*
-      Draw the background
-    */
-    ecs::component_container layer_components = world.get_components<ecs::cmp::background_layer>();
+    //  Render world if the game is running
+    if(game_flag[GAME_STARTED]) {
+        /*
+          Draw the background
+        */
+        ecs::component_container layer_components = world.get_components<ecs::cmp::background_layer>();
 
-    //  Sort the background layers
-    std::set<entity_component_pair, comparator> layer_componenet_set(
-        layer_components.begin(), layer_components.end(), render_comparator);
+        //  Sort the background layers
+        std::set<entity_component_pair, comparator> layer_componenet_set(
+            layer_components.begin(), layer_components.end(), render_comparator);
 
-    //  Draw each background by layer
-    for(ec_pair_iterator it = layer_componenet_set.begin(); it != layer_componenet_set.end(); it++) {
-        if(world.get_component<ecs::cmp::visible>(it->first)->is_visible == true)
-            al_draw_bitmap(world.get_component<ecs::cmp::background>(it->first)->background_bitmap, 0, 0, 0);
-    }
+        //  Draw each background by layer
+        for(ec_pair_iterator it = layer_componenet_set.begin(); it != layer_componenet_set.end(); it++) {
+            if(world.get_component<ecs::cmp::visible>(it->first)->is_visible == true)
+                al_draw_bitmap(world.get_component<ecs::cmp::background>(it->first)->background_bitmap, 0, 0, 0);
+        }
 
-    /*
-      Draw the remaining entities
-    */
-    ecs::component_container render_components = world.get_components<ecs::cmp::render_order>();
+        /*
+          Draw the remaining entities
+        */
+        ecs::component_container render_components = world.get_components<ecs::cmp::render_order>();
 
-    //  Sort the entity render components
-    std::set<entity_component_pair, comparator> render_componenet_set(
-        render_components.begin(), render_components.end(), render_comparator);
+        //  Sort the entity render components
+        std::set<entity_component_pair, comparator> render_componenet_set(
+            render_components.begin(), render_components.end(), render_comparator);
 
-    //  Draw each entity in order
-    for(ec_pair_iterator it = render_componenet_set.begin(); it != render_componenet_set.end(); it++) {
-        if(world.get_component<ecs::cmp::visible>(it->first)->is_visible == true) {
-            //  Draw...
-            if(world.get_component<ecs::cmp::sprite>(it->first) != nullptr) {
-                //
-            }
-            if(world.get_component<ecs::cmp::texture>(it->first) != nullptr) {
-                //
+        //  Draw each entity in order
+        for(ec_pair_iterator it = render_componenet_set.begin(); it != render_componenet_set.end(); it++) {
+            if(world.get_component<ecs::cmp::visible>(it->first)->is_visible == true) {
+                //  Draw...
+                if(world.get_component<ecs::cmp::sprite>(it->first) != nullptr) {
+                    //
+                }
+                if(world.get_component<ecs::cmp::texture>(it->first) != nullptr) {
+                    //
+                }
             }
         }
+
+        /*
+          Draw hitboxes if enabled
+          Use different colors for each team
+        */
+        if(game_flag[DRAW_HITBOX]) {
+            for(ec_pair_iterator it = render_componenet_set.begin(); it != render_componenet_set.end(); it++) {
+                //  Make sure the entity has a hitbox and is enabled
+                if((world.has_component<ecs::cmp::hitbox>(it->first))
+                &&
+                (world.get_component<ecs::cmp::enabled>(it->first)->is_enabled == true)) {
+                    //  Select color based on team
+                    ALLEGRO_COLOR team_color;
+                    switch(world.get_component<ecs::cmp::team>(it->first)->team) {
+                        case 0: team_color = WTE_COLOR_GREEN; break;
+                        case 1: team_color = WTE_COLOR_RED; break;
+                        case 2: team_color = WTE_COLOR_BLUE; break;
+                        default: team_color = WTE_COLOR_YELLOW;
+                    }
+                    //  Draw the hitbox
+                    for(int i = 0; i < world.get_component<ecs::cmp::hitbox>(it->first)->width; i++) {
+                        for(int j = 0; j < world.get_component<ecs::cmp::hitbox>(it->first)->height; j++) {
+                            al_draw_pixel(world.get_component<ecs::cmp::location>(it->first)->pos_x + i,
+                                        world.get_component<ecs::cmp::location>(it->first)->pos_y + j,
+                                        team_color);
+                        }
+                    } //  End hitbox drawing
+                } //  End hitbox/enabled test
+            } //  End render component loop
+        } //  End draw hitbox check
+    } else {
+        //  Draw the title screen
     }
 
-    /*
-      Draw hitboxes if enabled
-      Use different colors for each team
-    */
-    if(game_flag[DRAW_HITBOX]) {
-        for(ec_pair_iterator it = render_componenet_set.begin(); it != render_componenet_set.end(); it++) {
-            //  Make sure the entity has a hitbox and is enabled
-            if((world.get_component<ecs::cmp::hitbox>(it->first) != nullptr)
-               &&
-               (world.get_component<ecs::cmp::enabled>(it->first)->is_enabled == true)) {
-                //  Select color based on team
-                ALLEGRO_COLOR team_color;
-                switch(world.get_component<ecs::cmp::team>(it->first)->team) {
-                    case 0: team_color = WTE_COLOR_GREEN; break;
-                    case 1: team_color = WTE_COLOR_RED; break;
-                    case 2: team_color = WTE_COLOR_BLUE; break;
-                    default: team_color = WTE_COLOR_YELLOW;
-                }
-                //  Draw the hitbox
-                for(int i = 0; i < world.get_component<ecs::cmp::hitbox>(it->first)->width; i++) {
-                    for(int j = 0; j < world.get_component<ecs::cmp::hitbox>(it->first)->height; j++) {
-                        al_draw_pixel(world.get_component<ecs::cmp::location>(it->first)->pos_x + i,
-                                      world.get_component<ecs::cmp::location>(it->first)->pos_y + j,
-                                      team_color);
-                    }
-                } //  End hitbox drawing
-            } //  End hitbox/enabled test
-        } //  End render component loop
+    if(game_flag[GAME_MENU_OPENED]) {
+        //  Render game menu
     }
 
     /*

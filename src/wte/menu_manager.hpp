@@ -96,7 +96,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) {
     menu_bitmap = al_create_bitmap(300, 200);
     al_set_target_bitmap(menu_bitmap);
 
-    //  Test code to return a bitmap
+    //  Test code to return a visable bitmap
     al_clear_to_color(al_map_rgb(255, 165, 0));
 
     //  Return drawing to the screen

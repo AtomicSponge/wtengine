@@ -47,6 +47,7 @@ class renderer {
         void render(mnu::menu_manager&, ecs::entity_manager&, int64_t);     /*!< Call the renderer */
 
     private:
+        ALLEGRO_BITMAP *menu_bitmap;
         ALLEGRO_FONT *overlay_font;                     /*!< Allegro font used for the overlay */
         int64_t last_tick, this_tick;                   /*!< Store timer ticks to Calculate FPS */
         int fps_counter, fps;                           /*!< FPS counters */
@@ -178,7 +179,11 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
       Render game menu if it's opened
     */
     if(game_flag[GAME_MENU_OPENED]) {
-        //  Render game menu
+        menu_bitmap = al_clone_bitmap(menus.render_menu());
+        al_draw_bitmap(menu_bitmap,
+                       (WTE_ARENA_WIDTH / 2) - (al_get_bitmap_width(menu_bitmap) / 2),
+                       (WTE_ARENA_HEIGHT / 2) - (al_get_bitmap_height(menu_bitmap) / 2),
+                       0);
     }
 
     /*

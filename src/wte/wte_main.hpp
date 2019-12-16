@@ -178,9 +178,10 @@ inline void wte_main::do_game(void) {
                 systems.dispatch(world, messages);
             }
             /* *** END GAME LOOP ******************************************************** */
-
-            game_screen.render(menus, world, al_get_timer_count(main_timer));
         }
+
+        //  Render the screen
+        game_screen.render(menus, world, al_get_timer_count(main_timer));
 
         //  Send audio messages to the audio queue
         msg::message_container temp_audio_msgs = messages.get_messages("audio");

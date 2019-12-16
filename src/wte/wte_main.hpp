@@ -104,7 +104,7 @@ inline int wte_main::wte_init(void) {
     load_systems();
 
     //  Load menu manager
-    menus = mnu::menu_manager();
+    menus = mnu::menu_manager(al_create_builtin_font());
 
     //  Create render object
     game_screen = renderer(al_create_builtin_font());

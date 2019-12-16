@@ -32,6 +32,7 @@ typedef unsigned int menu_id;
 class menu_manager {
     public:
         menu_manager();
+        menu_manager(ALLEGRO_FONT *);
         ~menu_manager();
         const menu_id new_menu(void);
         const bool add_item(const menu_id, const menu_item);
@@ -41,25 +42,37 @@ class menu_manager {
     private:
         unsigned int menu_position;
         ALLEGRO_BITMAP *menu_bitmap;
+        ALLEGRO_FONT *menu_font;
 
         std::vector<menu> menus;
         std::stack<menu> opened_menus;
 };
 
-//!  Menu manager constructor
+//!
 /*!
-  Initializes the menu manager and sets the menu bitmap to null
 */
 inline menu_manager::menu_manager() {
     menu_bitmap = NULL;
+    menu_font = NULL;
+}
+
+//!  Menu manager constructor
+/*!
+  Initializes the menu manager and sets the menu bitmap to null
+  Gets passed an Allegro font for the menus to use
+*/
+inline menu_manager::menu_manager(ALLEGRO_FONT *font) {
+    menu_bitmap = NULL;
+    menu_font = font;
 }
 
 //!  Menu manager destructor
 /*!
-  Cleans up by deleting the menu bitmap
+  Cleans up by deleting the menu bitmap and font
 */
 inline menu_manager::~menu_manager() {
     al_destroy_bitmap(menu_bitmap);
+    //al_destroy_font(menu_font);
 }
 
 //!
@@ -86,7 +99,7 @@ inline void menu_manager::run(void) {
 
 //!  Render the active menu
 /*!
-  Pulls the active menu off the top of the stack and renders
+  Renders the active menu from the top of the stack
 */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) {
     //  Destroy old bitmap if it exists

@@ -42,8 +42,9 @@ typedef std::function<bool(entity_component_pair, entity_component_pair)> compar
 */
 class renderer {
     public:
-        inline renderer() {};                           /*!< Basic constructor */
+        renderer();                           /*!< Basic constructor */
         renderer(ALLEGRO_FONT *);                       /*!< Constructor to configure renderer */
+        ~renderer();
         void render(mnu::menu_manager&, ecs::entity_manager&, int64_t);     /*!< Call the renderer */
 
     private:
@@ -53,6 +54,14 @@ class renderer {
         int fps_counter, fps;                           /*!< FPS counters */
         comparator render_comparator;                   /*!< Store lambda function for comparator */
 };
+
+//!
+/*!
+*/
+inline renderer::renderer() {
+    menu_bitmap = NULL;
+    overlay_font = NULL;
+}
 
 //! Renderer constructor
 /*!
@@ -65,6 +74,7 @@ inline renderer::renderer(ALLEGRO_FONT *font) {
     fps_counter = 0;
     fps = 0;
 
+    menu_bitmap = NULL;
     overlay_font = font;
 
     //  Define comparator as lambda function that sorts components
@@ -72,6 +82,15 @@ inline renderer::renderer(ALLEGRO_FONT *font) {
         [](entity_component_pair r_element1, entity_component_pair r_element2) {
             return r_element1.second < r_element2.second;
         };
+}
+
+//! Renderer destructor
+/*!
+  Cleans up the renderer object
+*/
+inline renderer::~renderer() {
+    al_destroy_bitmap(menu_bitmap);
+    //al_destroy_font(overlay_font);
 }
 
 //! Render method - Draw the game screen

@@ -31,6 +31,8 @@ typedef unsigned int menu_id;
 
 class menu_manager {
     public:
+        menu_manager();
+        ~menu_manager();
         const menu_id new_menu(void);
         const bool add_item(const menu_id, const menu_item);
         void run(void);
@@ -43,6 +45,22 @@ class menu_manager {
         std::vector<menu> menus;
         std::stack<menu> opened_menus;
 };
+
+//!  Menu manager constructor
+/*!
+  Initializes the menu manager and sets the menu bitmap to null
+*/
+inline menu_manager::menu_manager() {
+    menu_bitmap = NULL;
+}
+
+//!  Menu manager destructor
+/*!
+  Cleans up by deleting the menu bitmap
+*/
+inline menu_manager::~menu_manager() {
+    al_destroy_bitmap(menu_bitmap);
+}
 
 //!
 /*!
@@ -66,8 +84,9 @@ inline void menu_manager::run(void) {
     //
 }
 
-//!
+//!  Render the active menu
 /*!
+  Pulls the active menu off the top of the stack and renders
 */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) {
     //  Destroy old bitmap if it exists

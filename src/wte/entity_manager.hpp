@@ -264,9 +264,9 @@ template <typename T> inline const std::shared_ptr<T> entity_manager::set_compon
   Returns a container of components of all the same type
 */
 template <typename T> inline const component_container entity_manager::get_components(void) const {
-    component_container temp_components;
-
     if(world.empty()) throw std::runtime_error("No components were created!");
+    
+    component_container temp_components;
 
     for(auto it = world.begin(); it != world.end(); it++) {
         if(dynamic_cast<T*>(it->second.get()) != nullptr) {

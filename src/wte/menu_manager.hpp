@@ -66,7 +66,6 @@ inline void menu_manager::run(void) {
     //
 }
 
-
 //!
 /*!
 */

@@ -52,8 +52,6 @@ class renderer {
         int64_t last_tick, this_tick;                   /*!< Store timer ticks to Calculate FPS */
         int fps_counter, fps;                           /*!< FPS counters */
         comparator render_comparator;                   /*!< Store lambda function for comparator */
-
-        void overlay(int64_t);                          /*!< Call to render overlay */
 };
 
 //! Renderer constructor
@@ -190,19 +188,6 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
     /*
       Draw the overlay
     */
-    overlay(current_time);
-
-    /*
-      Update the screen
-    */
-    al_flip_display();
-}
-
-//! Render overlay
-/*!
-  Draw the overlay to the screen
-*/
-inline void renderer::overlay(int64_t current_time) {
     std::string fps_string = "FPS: " + std::to_string(fps);
     #ifdef WTE_DEBUG_MODE
         std::string timer_string = "Timer: " + std::to_string(current_time);
@@ -216,6 +201,11 @@ inline void renderer::overlay(int64_t current_time) {
     #ifdef WTE_DEBUG_MODE
         al_draw_text(overlay_font, WTE_COLOR_WHITE, WTE_ARENA_WIDTH, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     #endif
+
+    /*
+      Update the screen
+    */
+    al_flip_display();
 }
 
 } //  namespace wte

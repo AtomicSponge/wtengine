@@ -38,6 +38,7 @@ class menu_manager {
 
     private:
         unsigned int menu_position;
+        ALLEGRO_BITMAP *menu_bitmap;
 
         std::vector<menu> menus;
         std::stack<menu> opened_menus;
@@ -69,11 +70,17 @@ inline void menu_manager::run(void) {
 /*!
 */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) {
-    //  Test code to return a bitmap
-    ALLEGRO_BITMAP *menu_bitmap;
+    //  Destroy old bitmap if it exists
+    al_destroy_bitmap(menu_bitmap);
+
+    //  Create a new menu bitmap and set drawing to it
     menu_bitmap = al_create_bitmap(300, 200);
     al_set_target_bitmap(menu_bitmap);
+
+    //  Test code to return a bitmap
     al_clear_to_color(al_map_rgb(255, 165, 0));
+
+    //  Return drawing to the screen
     al_set_target_backbuffer(al_get_current_display());
     return menu_bitmap;
 }

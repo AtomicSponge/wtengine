@@ -184,6 +184,7 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
                        (WTE_ARENA_WIDTH / 2) - (al_get_bitmap_width(menu_bitmap) / 2),
                        (WTE_ARENA_HEIGHT / 2) - (al_get_bitmap_height(menu_bitmap) / 2),
                        0);
+        al_destroy_bitmap(menu_bitmap);
     }
 
     /*

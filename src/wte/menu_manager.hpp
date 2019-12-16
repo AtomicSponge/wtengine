@@ -31,8 +31,6 @@ typedef unsigned int menu_id;
 
 class menu_manager {
     public:
-        menu_manager();
-        ~menu_manager();
         const menu_id new_menu(void);
         const bool add_item(const menu_id, const menu_item);
         void run(void);
@@ -44,14 +42,6 @@ class menu_manager {
         std::vector<menu> menus;
         std::stack<menu> opened_menus;
 };
-
-inline menu_manager::menu_manager() {
-    //menu_bitmap = al_create_bitmap(300, 200);
-}
-
-inline menu_manager::~menu_manager() {
-    //al_destroy_bitmap(menu_bitmap);
-}
 
 //!
 /*!

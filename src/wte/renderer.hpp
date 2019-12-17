@@ -147,10 +147,10 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
         for(ec_pair_iterator it = render_componenet_set.begin(); it != render_componenet_set.end(); it++) {
             if(world.get_component<ecs::cmp::visible>(it->first)->is_visible == true) {
                 //  Draw...
-                if(world.get_component<ecs::cmp::sprite>(it->first) != nullptr) {
+                if(world.has_component<ecs::cmp::sprite>(it->first)) {
                     //
                 }
-                if(world.get_component<ecs::cmp::texture>(it->first) != nullptr) {
+                if(world.has_component<ecs::cmp::texture>(it->first)) {
                     //
                 }
             }

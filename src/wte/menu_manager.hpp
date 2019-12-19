@@ -20,6 +20,7 @@
 #include <allegro5/allegro_font.h>
 
 #include "menu\menu.hpp"
+#include "wte_globals.hpp"
 
 namespace wte
 {
@@ -36,6 +37,7 @@ class menu_manager {
         ~menu_manager();
         const menu_id new_menu(void);
         const bool add_item(const menu_id, const menu_item);
+        void clear_stack(void);
         void run(void);
         ALLEGRO_BITMAP* render_menu(void);
 
@@ -80,6 +82,12 @@ inline menu_manager::~menu_manager() {
 */
 inline const menu_id menu_manager::new_menu(void) {
     menu_id next_id;
+
+    /*
+      Test code to generate a menu
+    */
+    menu temp_menu = menu("game_menu");
+
     return next_id;
 }
 
@@ -90,11 +98,28 @@ inline const bool menu_manager::add_item(const menu_id id, const menu_item item)
     return true;
 }
 
-//!
+//!  Clear menu stack
 /*!
+  Clear the stack of opened menus and reset the index
+*/
+inline void menu_manager::clear_stack(void) {
+    menu_position = 0;
+    opened_menus = {};
+}
+
+//!  Run the menu manager
+/*!
+  Adds a menu to the stack if none is opened, then processes the menus
 */
 inline void menu_manager::run(void) {
-    //
+    //  No menus currently opened, add one to the stack
+    if(opened_menus.empty()) {
+        if(game_flag[GAME_STARTED]) {
+            //  Add the in-game menu to the stack
+        } else {
+            //  Add the main menu to the stack
+        }
+    }
 }
 
 //!  Render the active menu
@@ -104,6 +129,9 @@ inline void menu_manager::run(void) {
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) {
     //  Destroy old bitmap if it exists
     al_destroy_bitmap(menu_bitmap);
+
+    //  If the menu stack is empty, call the run member
+    if(opened_menus.empty()) run();
 
     //  Create a new menu bitmap and set drawing to it
     menu_bitmap = al_create_bitmap(300, 200);

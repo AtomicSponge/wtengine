@@ -164,26 +164,20 @@ inline void wte_main::do_game(void) {
 
         queue_not_empty = al_get_next_event(main_queue, &event); //  Capture event from queue
 
-        if(game_flag[GAME_MENU_OPENED]) {
-            //  Game menu is opened
-            if(game_flag[GAME_STARTED]) {
-                //  In-game menu opened
-            } else {
-                //  Main menu
-            }
-        } else {
-            /* *** GAME LOOP ************************************************************ */
-            //  Call our game logic update on timer events.  Timer is only running when the game is running.
-            if(event.type == ALLEGRO_EVENT_TIMER && queue_not_empty) {
-                //  Set the message queue's internal timer to the current time
-                messages.set_time(al_get_timer_count(main_timer));
-                //  Run all systems
-                systems.run(world, messages, al_get_timer_count(main_timer));
-                //  Process messages
-                systems.dispatch(world, messages);
-            }
-            /* *** END GAME LOOP ******************************************************** */
+        //  Game menu is opened, run the menu manager
+        if(game_flag[GAME_MENU_OPENED]) menus.run();
+    
+        /* *** GAME LOOP ************************************************************ */
+        //  Call our game logic update on timer events.  Timer is only running when the game is running.
+        if(event.type == ALLEGRO_EVENT_TIMER && queue_not_empty) {
+            //  Set the message queue's internal timer to the current time
+            messages.set_time(al_get_timer_count(main_timer));
+            //  Run all systems
+            systems.run(world, messages, al_get_timer_count(main_timer));
+            //  Process messages
+            systems.dispatch(world, messages);
         }
+        /* *** END GAME LOOP ******************************************************** */
 
         //  Render the screen
         game_screen.render(menus, world, al_get_timer_count(main_timer));

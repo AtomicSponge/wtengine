@@ -26,13 +26,20 @@ namespace mnu
 
 class menu_item {
     public:
-        //
+        menu_item();
 
     private:
         std::string item_text;
-        ALLEGRO_BITMAP *item_bitmap;
         std::vector<int> options;
+        std::vector<std::string> option_text;
 };
+
+//!
+/*!
+*/
+inline menu_item::menu_item() {
+    //
+}
 
 }  // end namespace mnu
 

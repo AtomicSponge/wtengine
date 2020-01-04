@@ -42,15 +42,12 @@ namespace wte
 class wte_main {
     public:
         int wte_init(void);                     /*!< Initialize the engine */
-        void generate_new_game(std::string);    /*!< Call to generate a new game */
         void do_game(void);                     /*!< Run the game loop */
         void wte_unload(void);                  /*!< Unload the engine */
 
-        virtual void load_systems(void) = 0;    /*!< Override to load custom systems */
-        virtual void load_game(void) = 0;       /*!< Override to load initial entities */
-        virtual void end_game(void) = 0;        /*!< Override to define end game process */
-
     private:
+        void handle_sys_msg(msg::message_container);
+        
         ALLEGRO_DISPLAY *display;               /*!< Display to draw to */
         ALLEGRO_TIMER *main_timer;              /*!< Timer to control game loop */
         ALLEGRO_EVENT_QUEUE *main_queue;        /*!< Main event queue */
@@ -59,6 +56,13 @@ class wte_main {
         renderer game_screen;                   /*!< The renderer used to draw the game environment */
 
     protected:
+        virtual void load_systems(void) = 0;    /*!< Override to load custom systems */
+        virtual void load_game(void) = 0;       /*!< Override to load initial entities */
+        virtual void end_game(void) = 0;        /*!< Override to define end game process */
+
+        void generate_new_game(std::string);    /*!< Call to generate a new game */
+        virtual void handle_custom_sys_msg(msg::message_container) {};
+        
         ecs::entity_manager world;              /*!< Manager for entities */
         ecs::system_manager systems;            /*!< Manager for systems */
         msg::message_queue messages;            /*!< Message queue */
@@ -147,6 +151,7 @@ inline void wte_main::generate_new_game(std::string message_data) {
 */
 inline void wte_main::do_game(void) {
     bool queue_not_empty;
+    msg::message_container temp_msgs;
 
     generate_new_game("data\\game.sdf"); //  test code
 
@@ -184,10 +189,14 @@ inline void wte_main::do_game(void) {
         game_screen.render(menus, world, al_get_timer_count(main_timer));
 
         //  Send audio messages to the audio queue
-        msg::message_container temp_audio_msgs = messages.get_messages("audio");
+        temp_msgs = messages.get_messages("audio");
         audio_messages.insert(audio_messages.end(),
-                              std::make_move_iterator(temp_audio_msgs.begin()),
-                              std::make_move_iterator(temp_audio_msgs.end()));
+                              std::make_move_iterator(temp_msgs.begin()),
+                              std::make_move_iterator(temp_msgs.end()));
+
+        //  Get any system messages and pass to handler
+        temp_msgs = messages.get_messages("system");
+        if(!temp_msgs.empty()) handle_sys_msg(temp_msgs);
 
         //  Force quit if the game window is closed
         if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) wte::game_flag[wte::IS_RUNNING] = false;
@@ -203,6 +212,15 @@ inline void wte_main::wte_unload(void) {
     al_destroy_event_queue(main_queue);
     al_destroy_display(display);
     al_uninstall_system();
+}
+
+//! Process system messages
+/*!
+  ...
+*/
+inline void wte_main::handle_sys_msg(msg::message_container sys_msgs) {
+    //
+    handle_custom_sys_msg(sys_msgs);
 }
 
 } //  end namespace wte

@@ -28,10 +28,16 @@ namespace mnu
 
 class menu {
     public:
-        menu(std::string);
+        inline menu() {};
+        menu(std::string, float, float);
+        ~menu();
+
+        const float get_width(void) const;
+        const float get_height(void) const;
 
     private:
         std::string menu_name;
+        float width, height;
         std::vector<menu_item> items;
         ALLEGRO_BITMAP *background_bitmap;
 };
@@ -39,9 +45,30 @@ class menu {
 //!
 /*!
 */
-inline menu::menu(std::string name) {
+inline menu::menu(std::string name, float w, float h) {
     menu_name = name;
+    width = w;
+    height = h;
+
+    background_bitmap = al_create_bitmap(w, h);
 }
+
+//!
+/*!
+*/
+inline menu::~menu() {
+    al_destroy_bitmap(background_bitmap);
+}
+
+//!
+/*!
+*/
+inline const float menu::get_width(void) const { return width; }
+
+//!
+/*!
+*/
+inline const float menu::get_height(void) const { return height; }
 
 }  // end namespace mnu
 

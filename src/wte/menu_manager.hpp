@@ -35,6 +35,7 @@ class menu_manager {
         menu_manager();
         menu_manager(ALLEGRO_FONT *);
         ~menu_manager();
+
         const menu_id new_menu(void);
         const bool add_item(const menu_id, const menu_item);
         void clear_stack(void);
@@ -50,7 +51,7 @@ class menu_manager {
         std::stack<menu> opened_menus;
 };
 
-//!
+//!  Menu manager default constructor
 /*!
 */
 inline menu_manager::menu_manager() {
@@ -77,7 +78,7 @@ inline menu_manager::~menu_manager() {
     //al_destroy_font(menu_font);
 }
 
-//!
+//!  Add a menu to the menu list
 /*!
 */
 inline const menu_id menu_manager::new_menu(void) {
@@ -86,7 +87,7 @@ inline const menu_id menu_manager::new_menu(void) {
     /*
       Test code to generate a menu
     */
-    menu temp_menu = menu("game_menu");
+    menu temp_menu = menu("game_menu", 300, 200);
 
     return next_id;
 }
@@ -109,7 +110,7 @@ inline void menu_manager::clear_stack(void) {
 
 //!  Run the menu manager
 /*!
-  Adds a menu to the stack if none is opened, then processes the menus
+  Adds a menu to the stack if none are opened, then processes the menus
 */
 inline void menu_manager::run(void) {
     //  No menus currently opened, add one to the stack
@@ -127,11 +128,16 @@ inline void menu_manager::run(void) {
   Renders the active menu from the top of the stack
 */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) {
+    //menu current_menu;
+
     //  Destroy old bitmap if it exists
     al_destroy_bitmap(menu_bitmap);
 
     //  If the menu stack is empty, call the run member
     if(opened_menus.empty()) run();
+
+    //  Get the menu at the top of the stack
+    //current_menu = opened_menus.top();
 
     //  Create a new menu bitmap and set drawing to it
     menu_bitmap = al_create_bitmap(300, 200);

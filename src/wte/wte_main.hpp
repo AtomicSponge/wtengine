@@ -193,7 +193,7 @@ inline void wte_main::do_game(void) {
         if(!temp_msgs.empty()) handle_sys_msg(temp_msgs);
 
         //  Force quit if the game window is closed
-        if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) wte::game_flag[wte::IS_RUNNING] = false;
+        if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) game_flag[IS_RUNNING] = false;
     }
 }
 

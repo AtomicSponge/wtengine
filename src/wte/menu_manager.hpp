@@ -136,13 +136,8 @@ inline void menu_manager::reset(void) {
 inline void menu_manager::run(msg::message_queue& messages) {
     if(opened_menus.empty()) {
         //  No menus currently opened, add one to the stack
-        if(game_flag[GAME_STARTED]) {
-            //  Add the in-game menu to the stack
-            open_menu("game_menu");
-        } else {
-            //  Add the main menu to the stack
-            open_menu("main_menu");
-        }
+        if(game_flag[GAME_STARTED]) open_menu("game_menu"); //  Add the in-game menu to the stack
+        else open_menu("main_menu"); //  Add the main menu to the stack
     }
 }
 

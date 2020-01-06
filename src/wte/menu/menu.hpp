@@ -17,6 +17,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
+#include "../wte_globals.hpp"
 #include "menu_item.hpp"
 
 namespace wte
@@ -58,7 +59,7 @@ inline menu::menu(const std::string name, const int w, const int h) {
     menu_name = name;
     background_bitmap = al_create_bitmap(w, h);
     al_set_target_bitmap(background_bitmap);
-    al_clear_to_color(al_map_rgb(255, 165, 0));
+    al_clear_to_color(WTE_COLOR_ORANGE);
 }
 
 //!  Copy constructor

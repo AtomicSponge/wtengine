@@ -24,6 +24,7 @@
 #define WTE_COLOR_YELLOW    al_map_rgb(255,255,0)
 #define WTE_COLOR_BLUE      al_map_rgb(0,0,255)
 #define WTE_COLOR_TEAL      al_map_rgb(0,128,128)
+#define WTE_COLOR_ORANGE    al_map_rgb(255, 165, 0)
 #define WTE_COLOR_WHITE     al_map_rgb(255,255,255)
 
 #define WTE_NUM_GAME_FLAGS 5

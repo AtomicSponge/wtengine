@@ -170,11 +170,10 @@ inline void wte_main::do_game(void) {
 
         //  Game menu is opened, run the menu manager
         if(game_flag[GAME_MENU_OPENED]) menus.run();
-
-        //  Capture event from queue
-        queue_not_empty = al_get_next_event(main_queue, &event);
     
         /* *** GAME LOOP ************************************************************ */
+        //  Capture event from queue
+        queue_not_empty = al_get_next_event(main_queue, &event);
         //  Call our game logic update on timer events.  Timer is only running when the game is running.
         if(event.type == ALLEGRO_EVENT_TIMER && queue_not_empty) {
             //  Set the message queue's internal timer to the current time

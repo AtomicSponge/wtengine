@@ -138,10 +138,10 @@ inline void menu_manager::run(msg::message_queue& messages) {
         //  No menus currently opened, add one to the stack
         if(game_flag[GAME_STARTED]) {
             //  Add the in-game menu to the stack
-            opened_menus.emplace(get_menu("game_menu"));
+            open_menu("game_menu");
         } else {
             //  Add the main menu to the stack
-            opened_menus.emplace(get_menu("main_menu"));
+            open_menu("main_menu");
         }
     }
 }

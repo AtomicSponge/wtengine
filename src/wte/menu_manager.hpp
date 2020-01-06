@@ -28,16 +28,14 @@ namespace wte
 namespace mnu
 {
 
-typedef unsigned int menu_id;
-
 class menu_manager {
     public:
         menu_manager();
         menu_manager(ALLEGRO_FONT *);
         ~menu_manager();
 
-        const menu_id new_menu(void);
-        const bool add_item(const menu_id, const menu_item);
+        void new_menu(void);
+        const bool add_item(const std::string, const menu_item);
         void clear_stack(void);
         void run(void);
         ALLEGRO_BITMAP* render_menu(void);
@@ -62,11 +60,22 @@ inline menu_manager::menu_manager() {
 //!  Menu manager constructor
 /*!
   Initializes the menu manager and sets the menu bitmap to null
+  Also pre-generates the main menu and in-game menu
   Gets passed an Allegro font for the menus to use
 */
 inline menu_manager::menu_manager(ALLEGRO_FONT *font) {
     menu_bitmap = NULL;
     menu_font = font;
+
+    {
+        menu temp_menu = menu("main_menu", 300, 200);
+        menus.push_back(std::move(temp_menu));
+    }
+
+    {
+        menu temp_menu = menu("game_menu", 300, 200);
+        menus.push_back(std::move(temp_menu));
+    }
 }
 
 //!  Menu manager destructor
@@ -81,21 +90,14 @@ inline menu_manager::~menu_manager() {
 //!  Add a menu to the menu list
 /*!
 */
-inline const menu_id menu_manager::new_menu(void) {
-    menu_id next_id;
-
-    /*
-      Test code to generate a menu
-    */
-    menu temp_menu = menu("game_menu", 300, 200);
-
-    return next_id;
+inline void menu_manager::new_menu(void) {
+    //
 }
 
-//!
+//!  Add a menu item to an existing menu
 /*!
 */
-inline const bool menu_manager::add_item(const menu_id id, const menu_item item) {
+inline const bool menu_manager::add_item(const std::string menu_name, const menu_item item) {
     return true;
 }
 

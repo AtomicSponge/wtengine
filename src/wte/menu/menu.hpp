@@ -28,16 +28,16 @@ namespace mnu
 
 class menu {
     public:
-        inline menu() {};
-        menu(std::string, float, float);
+        menu();
+        menu(const std::string, const int, const int);
+        menu(const menu&);
         ~menu();
 
-        const float get_width(void) const;
-        const float get_height(void) const;
+        const int get_width(void) const;
+        const int get_height(void) const;
 
     private:
         std::string menu_name;
-        float width, height;
         std::vector<menu_item> items;
         ALLEGRO_BITMAP *background_bitmap;
 };
@@ -45,12 +45,24 @@ class menu {
 //!
 /*!
 */
-inline menu::menu(std::string name, float w, float h) {
-    menu_name = name;
-    width = w;
-    height = h;
+inline menu::menu() {
+    background_bitmap = NULL;
+}
 
+//!
+/*!
+*/
+inline menu::menu(const std::string name, const int w, const int h) {
+    menu_name = name;
     background_bitmap = al_create_bitmap(w, h);
+}
+
+//!  Copy constructor
+/*!
+*/
+inline menu::menu(const menu& copy_menu) {
+    menu_name = copy_menu.menu_name;
+    background_bitmap = al_clone_bitmap(copy_menu.background_bitmap);
 }
 
 //!
@@ -63,12 +75,12 @@ inline menu::~menu() {
 //!
 /*!
 */
-inline const float menu::get_width(void) const { return width; }
+inline const int menu::get_width(void) const { return al_get_bitmap_width(background_bitmap); }
 
 //!
 /*!
 */
-inline const float menu::get_height(void) const { return height; }
+inline const int menu::get_height(void) const { return al_get_bitmap_height(background_bitmap); }
 
 }  // end namespace mnu
 

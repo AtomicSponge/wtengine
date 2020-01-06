@@ -104,6 +104,8 @@ inline void menu_manager::new_menu(void) {
 
 //!  Get menu by name
 /*!
+  Finds a menu in the menu vector by name and returns a reference
+  If not found, the first menu in the vector is returned
 */
 inline const menu menu_manager::get_menu(const std::string name) {
     for(menu_iterator it = menus.begin(); it != menus.end(); it++) {
@@ -143,7 +145,7 @@ inline void menu_manager::run(msg::message_queue& messages) {
 
 //!  Add a menu to the stack
 /*!
-  ...
+  Performs a copy of a menu object and adds it to the top of the stack
 */
 inline void menu_manager::open_menu(const std::string menu_name) {
     opened_menus.emplace(get_menu(menu_name));

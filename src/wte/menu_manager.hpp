@@ -21,6 +21,7 @@
 
 #include "menu\menu.hpp"
 #include "wte_globals.hpp"
+#include "message_queue.hpp"
 
 namespace wte
 {
@@ -40,7 +41,7 @@ class menu_manager {
         const menu get_menu(const std::string);
         const bool add_item(const std::string, const menu_item);
         void reset(void);
-        void run(void);
+        void run(msg::message_queue&);
         ALLEGRO_BITMAP* render_menu(void);
 
     private:
@@ -131,7 +132,7 @@ inline void menu_manager::reset(void) {
 /*!
   Adds a menu to the stack if none are opened, then processes the menus
 */
-inline void menu_manager::run(void) {
+inline void menu_manager::run(msg::message_queue& messages) {
     //  No menus currently opened, add one to the stack
     if(opened_menus.empty()) {
         if(game_flag[GAME_STARTED]) {
@@ -152,8 +153,12 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) {
     //  Destroy old bitmap if it exists
     al_destroy_bitmap(menu_bitmap);
 
-    //  If the menu stack is empty, call the run member
-    if(opened_menus.empty()) run();
+    //  If the menu stack is empty then the run member hasn't been called yet
+    //  Return a blank bitmap for now
+    if(opened_menus.empty()) {
+        menu_bitmap = al_create_bitmap(1, 1);
+        return menu_bitmap;
+    }
 
     //  Create a new menu bitmap and set drawing to it
     menu_bitmap = al_clone_bitmap(opened_menus.top().get_background());

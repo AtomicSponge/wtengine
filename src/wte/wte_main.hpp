@@ -169,7 +169,7 @@ inline void wte_main::do_game(void) {
         }
 
         //  Game menu is opened, run the menu manager
-        if(game_flag[GAME_MENU_OPENED]) menus.run();
+        if(game_flag[GAME_MENU_OPENED]) menus.run(messages);
     
         /* *** GAME LOOP ************************************************************ */
         //  Capture event from queue

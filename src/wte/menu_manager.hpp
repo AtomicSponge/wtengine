@@ -42,6 +42,7 @@ class menu_manager {
         const bool add_item(const std::string, const menu_item);
         void reset(void);
         void run(msg::message_queue&);
+        void open_menu(const std::string);
         ALLEGRO_BITMAP* render_menu(void);
 
     private:
@@ -143,6 +144,14 @@ inline void menu_manager::run(msg::message_queue& messages) {
             opened_menus.emplace(get_menu("main_menu"));
         }
     }
+}
+
+//!  Add a menu to the stack
+/*!
+  ...
+*/
+inline void menu_manager::open_menu(const std::string menu_name) {
+    opened_menus.emplace(get_menu(menu_name));
 }
 
 //!  Render the active menu

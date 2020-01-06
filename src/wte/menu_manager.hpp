@@ -70,12 +70,15 @@ inline menu_manager::menu_manager(ALLEGRO_FONT *font) {
     menu_bitmap = NULL;
     menu_font = font;
 
+    //  Create default menus in seperate scopes
     {
+        //  Create the main menu
         menu temp_menu = menu("main_menu", 300, 200);
         menus.push_back(temp_menu);
     }
 
     {
+        //  Create the in-game menu
         menu temp_menu = menu("game_menu", 300, 200);
         menus.push_back(temp_menu);
     }

@@ -43,6 +43,7 @@ class menu_manager {
         void reset(void);
         void run(msg::message_queue&);
         void open_menu(const std::string);
+        void close_menu(void);
         ALLEGRO_BITMAP* render_menu(void);
 
     private:
@@ -127,8 +128,8 @@ inline const bool menu_manager::add_item(const std::string menu_name, const menu
   Clear the stack of opened menus and reset the index
 */
 inline void menu_manager::reset(void) {
-    menu_position = 0;
     opened_menus = {};
+    menu_position = 0;
 }
 
 //!  Run the menu manager
@@ -150,6 +151,16 @@ inline void menu_manager::run(msg::message_queue& messages) {
 */
 inline void menu_manager::open_menu(const std::string menu_name) {
     opened_menus.emplace(get_menu(menu_name));
+    menu_position = 0;
+}
+
+//!  Close the current opened menu
+/*!
+  Remove the menu from the top of the stack
+  Also sets the menu position to zero
+*/
+inline void menu_manager::close_menu(void) {
+    opened_menus.pop();
     menu_position = 0;
 }
 

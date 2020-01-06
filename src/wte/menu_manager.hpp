@@ -28,6 +28,8 @@ namespace wte
 namespace mnu
 {
 
+typedef std::vector<menu>::iterator menu_iterator;
+
 class menu_manager {
     public:
         menu_manager();
@@ -35,6 +37,7 @@ class menu_manager {
         ~menu_manager();
 
         void new_menu(void);
+        const menu get_menu(const std::string);
         const bool add_item(const std::string, const menu_item);
         void clear_stack(void);
         void run(void);
@@ -94,6 +97,17 @@ inline void menu_manager::new_menu(void) {
     //
 }
 
+//!  Get menu by name
+/*!
+*/
+inline const menu menu_manager::get_menu(const std::string name) {
+    for(menu_iterator it = menus.begin(); it != menus.end(); it++) {
+        if(name == it->get_name()) return *it;
+    }
+    //  Menu not found - just return the first one in the list
+    return *menus.begin();
+}
+
 //!  Add a menu item to an existing menu
 /*!
 */
@@ -119,8 +133,10 @@ inline void menu_manager::run(void) {
     if(opened_menus.empty()) {
         if(game_flag[GAME_STARTED]) {
             //  Add the in-game menu to the stack
+            opened_menus.push(get_menu("game_menu"));
         } else {
             //  Add the main menu to the stack
+            opened_menus.push(get_menu("main_menu"));
         }
     }
 }
@@ -130,7 +146,7 @@ inline void menu_manager::run(void) {
   Renders the active menu from the top of the stack
 */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) {
-    //menu current_menu;
+    menu current_menu;
 
     //  Destroy old bitmap if it exists
     al_destroy_bitmap(menu_bitmap);

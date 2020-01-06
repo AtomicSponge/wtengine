@@ -159,13 +159,20 @@ inline void wte_main::do_game(void) {
         if(key[KEY_FIRE_3]) generate_new_game("data\\game.sdf"); //  test code to restart game
 
         //  Pause / resume timer depending on if the game menu is opened
-        if(game_flag[GAME_MENU_OPENED] && al_get_timer_started(main_timer)) al_stop_timer(main_timer);
-        if(!game_flag[GAME_MENU_OPENED] && !al_get_timer_started(main_timer)) al_resume_timer(main_timer);
-
-        queue_not_empty = al_get_next_event(main_queue, &event); //  Capture event from queue
+        if(game_flag[GAME_MENU_OPENED] && al_get_timer_started(main_timer)) {
+            menus.reset();
+            al_stop_timer(main_timer);
+        }
+        if(!game_flag[GAME_MENU_OPENED] && !al_get_timer_started(main_timer)) {
+            menus.reset();
+            al_resume_timer(main_timer);
+        }
 
         //  Game menu is opened, run the menu manager
         if(game_flag[GAME_MENU_OPENED]) menus.run();
+
+        //  Capture event from queue
+        queue_not_empty = al_get_next_event(main_queue, &event);
     
         /* *** GAME LOOP ************************************************************ */
         //  Call our game logic update on timer events.  Timer is only running when the game is running.

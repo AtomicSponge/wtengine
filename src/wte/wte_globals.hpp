@@ -40,7 +40,8 @@ enum GLOBAL_STATE_FLAGS {
     IS_RUNNING, GAME_STARTED, GAME_MENU_OPENED, DRAW_HITBOX, DRAW_FPS
 };
 
-extern volatile bool game_flag[WTE_NUM_GAME_FLAGS]; //  Global flags for game state
+//  Global flags for game state
+extern volatile bool game_flag[WTE_NUM_GAME_FLAGS];
 
 } //  end namespace wte
 

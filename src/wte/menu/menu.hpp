@@ -81,12 +81,12 @@ inline menu::~menu() {
 */
 inline const std::string menu::get_name(void) const { return menu_name; }
 
-//!  Get menu bitmap width
+//!  Get menu background bitmap width
 /*!
 */
 inline const int menu::get_width(void) const { return al_get_bitmap_width(background_bitmap); }
 
-//!  Get menu bitmap height
+//!  Get menu background bitmap height
 /*!
 */
 inline const int menu::get_height(void) const { return al_get_bitmap_height(background_bitmap); }

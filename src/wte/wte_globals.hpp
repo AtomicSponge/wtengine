@@ -11,8 +11,6 @@
 #ifndef WTE_GLOBALS_HPP
 #define WTE_GLOBALS_HPP
 
-#include <allegro5/allegro.h>
-
 #define WTE_DEBUG_MODE //  Comment out to turn off debug mode
 
 #define WTE_ARENA_WIDTH     768

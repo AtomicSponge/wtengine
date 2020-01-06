@@ -33,6 +33,7 @@ class menu {
         menu(const menu&);
         ~menu();
 
+        void set_bg_color(ALLEGRO_COLOR);
         const std::string get_name(void) const;
         const int get_width(void) const;
         const int get_height(void) const;
@@ -74,6 +75,15 @@ inline menu::menu(const menu& copy_menu) {
 */
 inline menu::~menu() {
     al_destroy_bitmap(background_bitmap);
+}
+
+//!  Set menu background color
+/*!
+*/
+inline void menu::set_bg_color(ALLEGRO_COLOR color) {
+    al_set_target_bitmap(background_bitmap);
+    al_clear_to_color(color);
+    al_set_target_backbuffer(al_get_current_display());
 }
 
 //!  Get menu name

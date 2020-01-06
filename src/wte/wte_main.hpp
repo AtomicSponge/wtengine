@@ -80,7 +80,7 @@ inline int wte_main::wte_init(void) {
     display = al_create_display(768, 1024);
     if(!display) return -2; //  Failed to set display - Exit
 
-    main_timer = al_create_timer(1.0 / wte::TICKS_PER_SECOND);
+    main_timer = al_create_timer(1.0 / TICKS_PER_SECOND);
     if(!main_timer) return -3; //  Failed to create timer - Exit
 
     main_queue = al_create_event_queue();

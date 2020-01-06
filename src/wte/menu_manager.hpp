@@ -156,7 +156,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) {
     if(opened_menus.empty()) run();
 
     //  Create a new menu bitmap and set drawing to it
-    menu_bitmap = al_clone_bitmap(opened_menus.top().background_bitmap);
+    menu_bitmap = al_clone_bitmap(opened_menus.top().get_background());
     al_set_target_bitmap(menu_bitmap);
 
     //  Draw text...

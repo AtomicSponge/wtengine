@@ -36,12 +36,12 @@ class menu {
         const std::string get_name(void) const;
         const int get_width(void) const;
         const int get_height(void) const;
-
-        ALLEGRO_BITMAP *background_bitmap;
+        ALLEGRO_BITMAP* get_background(void) const;
 
     private:
         std::string menu_name;
         std::vector<menu_item> items;
+        ALLEGRO_BITMAP *background_bitmap;
 };
 
 //!  Default constructor
@@ -90,6 +90,11 @@ inline const int menu::get_width(void) const { return al_get_bitmap_width(backgr
 /*!
 */
 inline const int menu::get_height(void) const { return al_get_bitmap_height(background_bitmap); }
+
+//!  Get menu background bitmap
+/*!
+*/
+inline ALLEGRO_BITMAP* menu::get_background(void) const { return background_bitmap; }
 
 }  // end namespace mnu
 

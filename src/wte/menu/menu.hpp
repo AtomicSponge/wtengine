@@ -83,7 +83,6 @@ inline menu::~menu() {
 inline void menu::set_bg_color(ALLEGRO_COLOR color) {
     al_set_target_bitmap(background_bitmap);
     al_clear_to_color(color);
-    al_set_target_backbuffer(al_get_current_display());
 }
 
 //!  Get menu name

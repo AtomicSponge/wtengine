@@ -68,6 +68,7 @@ inline menu::menu(const std::string name, const int w, const int h, const ALLEGR
 inline menu::menu(const menu& copy_menu) {
     menu_name = copy_menu.menu_name;
     background_bitmap = al_clone_bitmap(copy_menu.background_bitmap);
+    items = copy_menu.items;
 }
 
 //!  Menu destructor

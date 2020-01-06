@@ -42,14 +42,14 @@ class menu {
         ALLEGRO_BITMAP *background_bitmap;
 };
 
-//!
+//!  Default constructor
 /*!
 */
 inline menu::menu() {
     background_bitmap = NULL;
 }
 
-//!
+//!  Menu constructor
 /*!
 */
 inline menu::menu(const std::string name, const int w, const int h) {

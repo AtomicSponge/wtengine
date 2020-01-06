@@ -69,12 +69,12 @@ inline menu_manager::menu_manager(ALLEGRO_FONT *font) {
 
     {
         menu temp_menu = menu("main_menu", 300, 200);
-        menus.push_back(std::move(temp_menu));
+        menus.push_back(temp_menu);
     }
 
     {
         menu temp_menu = menu("game_menu", 300, 200);
-        menus.push_back(std::move(temp_menu));
+        menus.push_back(temp_menu);
     }
 }
 

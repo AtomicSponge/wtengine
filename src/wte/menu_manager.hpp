@@ -39,7 +39,7 @@ class menu_manager {
         void new_menu(void);
         const menu get_menu(const std::string);
         const bool add_item(const std::string, const menu_item);
-        void clear_stack(void);
+        void reset(void);
         void run(void);
         ALLEGRO_BITMAP* render_menu(void);
 
@@ -118,11 +118,11 @@ inline const bool menu_manager::add_item(const std::string menu_name, const menu
     return true;
 }
 
-//!  Clear menu stack
+//!  Reset menu manager
 /*!
   Clear the stack of opened menus and reset the index
 */
-inline void menu_manager::clear_stack(void) {
+inline void menu_manager::reset(void) {
     menu_position = 0;
     opened_menus = {};
 }
@@ -149,23 +149,17 @@ inline void menu_manager::run(void) {
   Renders the active menu from the top of the stack
 */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) {
-    menu current_menu;
-
     //  Destroy old bitmap if it exists
     al_destroy_bitmap(menu_bitmap);
 
     //  If the menu stack is empty, call the run member
     if(opened_menus.empty()) run();
 
-    //  Get the menu at the top of the stack
-    //current_menu = opened_menus.top();
-
     //  Create a new menu bitmap and set drawing to it
-    menu_bitmap = al_create_bitmap(300, 200);
+    menu_bitmap = al_clone_bitmap(opened_menus.top().background_bitmap);
     al_set_target_bitmap(menu_bitmap);
 
-    //  Test code to return a visable bitmap
-    al_clear_to_color(al_map_rgb(255, 165, 0));
+    //  Draw text...
 
     //  Return drawing to the screen
     al_set_target_backbuffer(al_get_current_display());

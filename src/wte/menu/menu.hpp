@@ -37,10 +37,11 @@ class menu {
         const int get_width(void) const;
         const int get_height(void) const;
 
+        ALLEGRO_BITMAP *background_bitmap;
+
     private:
         std::string menu_name;
         std::vector<menu_item> items;
-        ALLEGRO_BITMAP *background_bitmap;
 };
 
 //!  Default constructor

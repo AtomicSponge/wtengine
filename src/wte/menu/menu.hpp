@@ -29,11 +29,11 @@ namespace mnu
 class menu {
     public:
         menu();
-        menu(const std::string, const int, const int);
+        menu(const std::string, const int, const int, const ALLEGRO_COLOR);
         menu(const menu&);
         ~menu();
 
-        void set_bg_color(ALLEGRO_COLOR);
+        void set_bg_color(const ALLEGRO_COLOR);
         const std::string get_name(void) const;
         const int get_width(void) const;
         const int get_height(void) const;
@@ -55,11 +55,11 @@ inline menu::menu() {
 //!  Menu constructor
 /*!
 */
-inline menu::menu(const std::string name, const int w, const int h) {
+inline menu::menu(const std::string name, const int w, const int h, const ALLEGRO_COLOR color) {
     menu_name = name;
     background_bitmap = al_create_bitmap(w, h);
     al_set_target_bitmap(background_bitmap);
-    al_clear_to_color(WTE_COLOR_ORANGE);
+    al_clear_to_color(color);
 }
 
 //!  Copy constructor
@@ -80,7 +80,7 @@ inline menu::~menu() {
 //!  Set menu background color
 /*!
 */
-inline void menu::set_bg_color(ALLEGRO_COLOR color) {
+inline void menu::set_bg_color(const ALLEGRO_COLOR color) {
     al_set_target_bitmap(background_bitmap);
     al_clear_to_color(color);
 }

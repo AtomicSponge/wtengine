@@ -146,9 +146,11 @@ inline void menu_manager::run(msg::message_queue& messages) {
 //!  Add a menu to the stack
 /*!
   Performs a copy of a menu object and adds it to the top of the stack
+  Also sets the menu position to zero
 */
 inline void menu_manager::open_menu(const std::string menu_name) {
     opened_menus.emplace(get_menu(menu_name));
+    menu_position = 0;
 }
 
 //!  Render the active menu

@@ -32,7 +32,7 @@ class menu_item {
 
     private:
         std::string item_text;
-        std::vector<int> options;
+        std::vector<unsigned int> options;
         std::vector<std::string> option_text;
 };
 

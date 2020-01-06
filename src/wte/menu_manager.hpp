@@ -136,10 +136,10 @@ inline void menu_manager::run(void) {
     if(opened_menus.empty()) {
         if(game_flag[GAME_STARTED]) {
             //  Add the in-game menu to the stack
-            opened_menus.push(get_menu("game_menu"));
+            opened_menus.emplace(get_menu("game_menu"));
         } else {
             //  Add the main menu to the stack
-            opened_menus.push(get_menu("main_menu"));
+            opened_menus.emplace(get_menu("main_menu"));
         }
     }
 }

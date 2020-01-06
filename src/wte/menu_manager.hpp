@@ -133,8 +133,8 @@ inline void menu_manager::reset(void) {
   Adds a menu to the stack if none are opened, then processes the menus
 */
 inline void menu_manager::run(msg::message_queue& messages) {
-    //  No menus currently opened, add one to the stack
     if(opened_menus.empty()) {
+        //  No menus currently opened, add one to the stack
         if(game_flag[GAME_STARTED]) {
             //  Add the in-game menu to the stack
             opened_menus.emplace(get_menu("game_menu"));

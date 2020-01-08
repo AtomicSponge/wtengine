@@ -42,8 +42,8 @@ namespace wte
 class wte_main {
     public:
         int wte_init(void);                     /*!< Initialize the engine */
-        void do_game(void);                     /*!< Run the game loop */
         void wte_unload(void);                  /*!< Unload the engine */
+        void do_game(void);                     /*!< Run the game loop */
 
     private:
         void handle_sys_msg(msg::message_container);
@@ -118,6 +118,17 @@ inline int wte_main::wte_init(void) {
     al_flip_display();
 
     return 0;
+}
+
+//! Unload WTEngine
+/*!
+  Shut down the various Allegro objects
+*/
+inline void wte_main::wte_unload(void) {
+    al_destroy_timer(main_timer);
+    al_destroy_event_queue(main_queue);
+    al_destroy_display(display);
+    al_uninstall_system();
 }
 
 //! Call to generate a new game
@@ -201,17 +212,6 @@ inline void wte_main::do_game(void) {
         //  Force quit if the game window is closed
         if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) game_flag[IS_RUNNING] = false;
     }
-}
-
-//! Unload WTEngine
-/*!
-  Shut down the various Allegro objects
-*/
-inline void wte_main::wte_unload(void) {
-    al_destroy_timer(main_timer);
-    al_destroy_event_queue(main_queue);
-    al_destroy_display(display);
-    al_uninstall_system();
 }
 
 //! Process system messages

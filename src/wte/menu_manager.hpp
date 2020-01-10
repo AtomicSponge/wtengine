@@ -127,11 +127,9 @@ inline const bool menu_manager::add_item(const std::string menu_name, const menu
 
 //!  Reset menu manager
 /*!
-  Clear the stack of opened menus and reset the index
+  Clear the stack of opened menus
 */
-inline void menu_manager::reset(void) {
-    opened_menus = {};
-}
+inline void menu_manager::reset(void) { opened_menus = {}; }
 
 //!  Add a menu to the stack
 /*!
@@ -147,9 +145,7 @@ inline void menu_manager::open_menu(const std::string menu_name) {
 /*!
   Remove the menu from the top of the stack
 */
-inline void menu_manager::close_menu(void) {
-    opened_menus.pop();
-}
+inline void menu_manager::close_menu(void) { opened_menus.pop(); }
 
 //!  Run the menu manager
 /*!

@@ -16,6 +16,15 @@
 #include "include/starfield.hpp"
 
 /*
+  Load menus
+
+  Overrides from wte_main
+*/
+void game_loop::load_menus(void) {
+    //
+}
+
+/*
   Load the systems in order
 
   Overrides from wte_main

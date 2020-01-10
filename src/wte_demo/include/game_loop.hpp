@@ -15,10 +15,8 @@
 
 class game_loop : public wte::wte_main {
     private:
-    //  Private members
-
-    public:
     //  Overrides from wte_main:
+    void load_menus(void);
     void load_systems(void);
     void load_game(void);
     void end_game(void);

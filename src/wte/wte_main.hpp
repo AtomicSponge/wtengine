@@ -18,10 +18,8 @@
 //#include <allegro5/allegro_acodec.h>
 //#include <allegro5/allegro_memfile.h>
 
-#include <string>
-#include <vector>
-#include <algorithm>
 #include <ctime>
+#include <stdexcept>
 
 #include "wte_globals.hpp"
 #include "menu_manager.hpp"
@@ -41,13 +39,18 @@ namespace wte
 */
 class wte_main {
     public:
-        int wte_init(void);                     /*!< Initialize the engine */
+        wte_main();
+        ~wte_main();
+
+        const int wte_init(void);               /*!< Initialize the engine */
         void wte_unload(void);                  /*!< Unload the engine */
         void do_game(void);                     /*!< Run the game loop */
 
     private:
+        wte_main(const wte_main&) = delete;     //  Remove copy constructor
+
         void handle_sys_msg(msg::message_container);
-        
+
         ALLEGRO_DISPLAY *display;               /*!< Display to draw to */
         ALLEGRO_TIMER *main_timer;              /*!< Timer to control game loop */
         ALLEGRO_EVENT_QUEUE *main_queue;        /*!< Main event queue */
@@ -55,7 +58,10 @@ class wte_main {
 
         renderer game_screen;                   /*!< The renderer used to draw the game environment */
 
+        bool init_called;                       /*!< Flag to make sure wte_init was called */
+
     protected:
+        virtual void load_menus(void) = 0;      /*!< Override to load custom menus */
         virtual void load_systems(void) = 0;    /*!< Override to load custom systems */
         virtual void load_game(void) = 0;       /*!< Override to load initial entities */
         virtual void end_game(void) = 0;        /*!< Override to define end game process */
@@ -69,11 +75,23 @@ class wte_main {
         mnu::menu_manager menus;
 };
 
+//! wte_main constructor
+/*!
+  Set the init flag to false
+*/
+inline wte_main::wte_main() { init_called = false; }
+
+//! wte_main destructor
+/*!
+  Call wte_unload if it wasn't manually called
+*/
+inline wte_main::~wte_main() { if(init_called == true) wte_unload(); }
+
 //! Initialize WTEngine
 /*!
   Register everything for the engine to run
 */
-inline int wte_main::wte_init(void) {
+inline const int wte_main::wte_init(void) {
     //  Initialize Allegro and it's various objects
     if(!al_init()) return -1; //  Allegro didn't load - Exit
 
@@ -104,14 +122,20 @@ inline int wte_main::wte_init(void) {
     //  Start the audio thread as detached
     al_run_detached_thread(audio_manager, NULL);
 
-    //  Load user configured systems
-    load_systems();
-
     //  Load menu manager
     menus = mnu::menu_manager(al_create_builtin_font());
 
     //  Create render object
     game_screen = renderer(al_create_builtin_font());
+
+    //  Load user configured menus
+    load_menus();
+
+    //  Load user configured systems
+    load_systems();
+
+    //  Init done, set flag to true
+    init_called = true;
 
     //  Blank the screen
     al_clear_to_color(WTE_COLOR_BLACK);
@@ -129,6 +153,7 @@ inline void wte_main::wte_unload(void) {
     al_destroy_event_queue(main_queue);
     al_destroy_display(display);
     al_uninstall_system();
+    init_called = false;
 }
 
 //! Call to generate a new game
@@ -138,9 +163,9 @@ inline void wte_main::wte_unload(void) {
 inline void wte_main::generate_new_game(std::string message_data) {
     end_game(); //  Call end game to clear any previously running game
 
-    std::srand(std::time(nullptr));
+    std::srand(std::time(nullptr));  //  Seed random
 
-    game_flag[GAME_STARTED] = true; //  Set game flag
+    game_flag[GAME_STARTED] = true;  //  Set flag that the game has been started
 
     //  Create a new entity manager
     world = ecs::entity_manager();
@@ -161,6 +186,8 @@ inline void wte_main::generate_new_game(std::string message_data) {
   The main game loop
 */
 inline void wte_main::do_game(void) {
+    if(init_called == false) throw std::runtime_error("WTEngine not initialized!");
+
     bool queue_not_empty;
     msg::message_container temp_msgs;
 

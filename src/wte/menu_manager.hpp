@@ -19,8 +19,8 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 
-#include "menu\menu.hpp"
 #include "wte_globals.hpp"
+#include "menu\menu.hpp"
 #include "message_queue.hpp"
 
 namespace wte
@@ -29,7 +29,7 @@ namespace wte
 namespace mnu
 {
 
-typedef std::vector<menu>::iterator menu_iterator;
+typedef std::vector<menu>::const_iterator menu_citerator;
 
 class menu_manager {
     public:
@@ -42,11 +42,11 @@ class menu_manager {
         void reset(void);
 
         void run(msg::message_queue&);
-        ALLEGRO_BITMAP* render_menu(void);
+        ALLEGRO_BITMAP* render_menu(void) const;
 
     private:
         menu_item_iterator menu_position;
-        ALLEGRO_BITMAP *menu_bitmap;
+        mutable ALLEGRO_BITMAP *menu_bitmap;
         ALLEGRO_FONT *menu_font;
 
         std::vector<menu> menus;
@@ -54,7 +54,7 @@ class menu_manager {
 
         void open_menu(const std::string);
         void close_menu(void);
-        const menu get_menu(const std::string);
+        const menu get_menu(const std::string) const;
 };
 
 //!  Menu manager default constructor
@@ -110,8 +110,8 @@ inline void menu_manager::new_menu(void) {
   Finds a menu in the menu vector by name and returns a reference
   If not found, the first menu in the vector is returned
 */
-inline const menu menu_manager::get_menu(const std::string name) {
-    for(menu_iterator it = menus.begin(); it != menus.end(); it++) {
+inline const menu menu_manager::get_menu(const std::string name) const {
+    for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
         if(name == it->get_name()) return *it;
     }
     //  Menu not found - just return the first one in the list
@@ -171,7 +171,7 @@ inline void menu_manager::run(msg::message_queue& messages) {
 /*!
   Renders the active menu from the top of the stack
 */
-inline ALLEGRO_BITMAP* menu_manager::render_menu(void) {
+inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     //  Destroy old bitmap if it exists
     al_destroy_bitmap(menu_bitmap);
 
@@ -187,7 +187,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) {
     al_set_target_bitmap(menu_bitmap);
 
     //  Render menu text
-    for(menu_item_iterator it = opened_menus.top().get_items().begin();
+    for(menu_item_citerator it = opened_menus.top().get_items().begin();
         it != opened_menus.top().get_items().end(); it++) {
         //
     }

@@ -28,6 +28,7 @@ namespace mnu
 
 typedef std::vector<menu_item> menu_items;
 typedef std::vector<menu_item>::iterator menu_item_iterator;
+typedef std::vector<menu_item>::const_iterator menu_item_citerator;
 
 class menu {
     public:
@@ -52,9 +53,7 @@ class menu {
 //!  Default constructor
 /*!
 */
-inline menu::menu() {
-    background_bitmap = NULL;
-}
+inline menu::menu() { background_bitmap = NULL; }
 
 //!  Menu constructor
 /*!
@@ -80,9 +79,7 @@ inline menu::menu(const menu& copy_menu) {
 /*!
   Deletes the background bitmap 
 */
-inline menu::~menu() {
-    al_destroy_bitmap(background_bitmap);
-}
+inline menu::~menu() { al_destroy_bitmap(background_bitmap); }
 
 //!  Set menu background color
 /*!

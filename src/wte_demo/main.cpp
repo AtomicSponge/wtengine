@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
     wte::game_flag[wte::DRAW_FPS] = true;
 
     //  Initialize game object
-    game_loop main_game_loop = game_loop();
+    game_loop main_game_loop;
 
     init_test = main_game_loop.wte_init();
     if(init_test != 0) {

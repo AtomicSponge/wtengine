@@ -40,7 +40,9 @@ class message_queue {
     int64_t current_time;                           /*!< Store timer for message processing */
     message_container msg_queue;                    /*!< Vector of all messages to be processed */
 
+    #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
     void debug_log_message(message, int64_t);       /*!< Member to log processed messages to a file */
+    #endif
 
     public:
     message_queue();                                /*!< Message queue constructor */
@@ -63,7 +65,7 @@ inline message_queue::message_queue() {
     msg_queue.clear();
 
     //  If debug mode is enabled, create a new log file
-    #ifdef WTE_DEBUG_MODE
+    #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
         std::ofstream debug_log_file;
         debug_log_file.open("wte_debug\\wte_debug_message_queue.txt", std::ios::trunc);
         debug_log_file << "Logging messages";
@@ -76,6 +78,7 @@ inline message_queue::message_queue() {
 /*!
   Write a message to the debug log file if debugging is enabled
 */
+#if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
 inline void message_queue::debug_log_message(message msg, int64_t current_time) {
     std::ofstream debug_log_file;
     debug_log_file.open("wte_debug\\wte_debug_message_queue.txt", std::ios::app);
@@ -86,6 +89,7 @@ inline void message_queue::debug_log_message(message msg, int64_t current_time) 
     debug_log_file << "ARGS:  " << msg.get_args() << std::endl;
     debug_log_file.close();
 }
+#endif
 
 //! Reset the message queue with a new data file
 /*!
@@ -166,7 +170,7 @@ inline message_container message_queue::get_messages(std::string cmd) {
 
         if((it->get_timer() == current_time || it->get_timer() == -1) && it->get_cmd() == cmd) {
             //  Log the message if debug mode is on
-            #ifdef WTE_DEBUG_MODE
+            #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
                 debug_log_message(*it, current_time);
             #endif
             temp_messages.push_back(*it); //  Add the message to the temp vector to be returned

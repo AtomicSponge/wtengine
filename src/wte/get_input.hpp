@@ -11,21 +11,12 @@
 #ifndef WTE_GET_INPUT_HPP
 #define WTE_GET_INPUT_HPP
 
-#define WTE_NUM_KEY_FLAGS 7
-
 #include <allegro5/allegro.h>
 
 #include "wte_globals.hpp"
 
 namespace wte
 {
-
-//  Used for in-game player control
-enum PLAYERKEYS {
-   KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_FIRE_1, KEY_FIRE_2, KEY_FIRE_3
-};
-
-extern volatile bool key[WTE_NUM_KEY_FLAGS]; //  Global flags for key state
 
 //! Get Input thread
 /*!

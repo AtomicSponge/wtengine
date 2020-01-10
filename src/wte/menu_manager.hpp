@@ -38,21 +38,23 @@ class menu_manager {
         ~menu_manager();
 
         void new_menu(void);
-        const menu get_menu(const std::string);
         const bool add_item(const std::string, const menu_item);
         void reset(void);
+
         void run(msg::message_queue&);
-        void open_menu(const std::string);
-        void close_menu(void);
         ALLEGRO_BITMAP* render_menu(void);
 
     private:
-        unsigned int menu_position;
+        menu_item_iterator menu_position;
         ALLEGRO_BITMAP *menu_bitmap;
         ALLEGRO_FONT *menu_font;
 
         std::vector<menu> menus;
         std::stack<menu> opened_menus;
+
+        void open_menu(const std::string);
+        void close_menu(void);
+        const menu get_menu(const std::string);
 };
 
 //!  Menu manager default constructor
@@ -129,7 +131,24 @@ inline const bool menu_manager::add_item(const std::string menu_name, const menu
 */
 inline void menu_manager::reset(void) {
     opened_menus = {};
-    menu_position = 0;
+}
+
+//!  Add a menu to the stack
+/*!
+  Performs a copy of a menu object and adds it to the top of the stack
+  Also resets the menu position
+*/
+inline void menu_manager::open_menu(const std::string menu_name) {
+    opened_menus.emplace(get_menu(menu_name));
+    menu_position = opened_menus.top().get_items().begin();
+}
+
+//!  Close the current opened menu
+/*!
+  Remove the menu from the top of the stack
+*/
+inline void menu_manager::close_menu(void) {
+    opened_menus.pop();
 }
 
 //!  Run the menu manager
@@ -142,26 +161,14 @@ inline void menu_manager::run(msg::message_queue& messages) {
         if(game_flag[GAME_STARTED]) open_menu("game_menu"); //  Add the in-game menu to the stack
         else open_menu("main_menu"); //  Add the main menu to the stack
     }
-}
 
-//!  Add a menu to the stack
-/*!
-  Performs a copy of a menu object and adds it to the top of the stack
-  Also sets the menu position to zero
-*/
-inline void menu_manager::open_menu(const std::string menu_name) {
-    opened_menus.emplace(get_menu(menu_name));
-    menu_position = 0;
-}
+    //  Iterate through the menu items depending on key press
+    if(key[KEY_UP] && menu_position != opened_menus.top().get_items().begin())
+        menu_position--;
+    if(key[KEY_DOWN] && menu_position != opened_menus.top().get_items().end())
+        menu_position++;
 
-//!  Close the current opened menu
-/*!
-  Remove the menu from the top of the stack
-  Also sets the menu position to zero
-*/
-inline void menu_manager::close_menu(void) {
-    opened_menus.pop();
-    menu_position = 0;
+    //...
 }
 
 //!  Render the active menu
@@ -183,7 +190,11 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) {
     menu_bitmap = al_clone_bitmap(opened_menus.top().get_background());
     al_set_target_bitmap(menu_bitmap);
 
-    //  Draw text...
+    //  Render menu text
+    for(menu_item_iterator it = opened_menus.top().get_items().begin();
+        it != opened_menus.top().get_items().end(); it++) {
+        //
+    }
 
     //  Return drawing to the screen
     al_set_target_backbuffer(al_get_current_display());

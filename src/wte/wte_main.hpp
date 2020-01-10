@@ -181,7 +181,7 @@ inline void wte_main::do_game(void) {
 
         //  Game menu is opened, run the menu manager
         if(game_flag[GAME_MENU_OPENED]) menus.run(messages);
-    
+
         /* *** GAME LOOP ************************************************************ */
         //  Capture event from queue
         queue_not_empty = al_get_next_event(main_queue, &event);

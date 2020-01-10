@@ -208,8 +208,8 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
       Draw the overlay
     */
     std::string fps_string = "FPS: " + std::to_string(fps);
-    #ifdef WTE_DEBUG_MODE
-        std::string timer_string = "Timer: " + std::to_string(current_time);
+    #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
+    std::string timer_string = "Timer: " + std::to_string(current_time);
     #endif
 
     //  Draw frame rate
@@ -217,8 +217,8 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
         al_draw_text(overlay_font, WTE_COLOR_WHITE, WTE_ARENA_WIDTH, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
     //  Draw time if debug mode is enabled
-    #ifdef WTE_DEBUG_MODE
-        al_draw_text(overlay_font, WTE_COLOR_WHITE, WTE_ARENA_WIDTH, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
+    #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
+    al_draw_text(overlay_font, WTE_COLOR_WHITE, WTE_ARENA_WIDTH, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     #endif
 
     /*

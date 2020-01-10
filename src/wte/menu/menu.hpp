@@ -26,6 +26,9 @@ namespace wte
 namespace mnu
 {
 
+typedef std::vector<menu_item> menu_items;
+typedef std::vector<menu_item>::iterator menu_item_iterator;
+
 class menu {
     public:
         menu();
@@ -38,10 +41,11 @@ class menu {
         const int get_width(void) const;
         const int get_height(void) const;
         ALLEGRO_BITMAP* get_background(void) const;
+        menu_items get_items(void) const;
 
     private:
         std::string menu_name;
-        std::vector<menu_item> items;
+        menu_items items;
         ALLEGRO_BITMAP *background_bitmap;
 };
 
@@ -64,15 +68,17 @@ inline menu::menu(const std::string name, const int w, const int h, const ALLEGR
 
 //!  Copy constructor
 /*!
+  Called to make a copy of the menu object
 */
 inline menu::menu(const menu& copy_menu) {
     menu_name = copy_menu.menu_name;
-    background_bitmap = al_clone_bitmap(copy_menu.background_bitmap);
     items = copy_menu.items;
+    background_bitmap = al_clone_bitmap(copy_menu.background_bitmap);
 }
 
 //!  Menu destructor
 /*!
+  Deletes the background bitmap 
 */
 inline menu::~menu() {
     al_destroy_bitmap(background_bitmap);
@@ -88,23 +94,33 @@ inline void menu::set_bg_color(const ALLEGRO_COLOR color) {
 
 //!  Get menu name
 /*!
+  Returns the name of the menu
 */
 inline const std::string menu::get_name(void) const { return menu_name; }
 
 //!  Get menu background bitmap width
 /*!
+  Returns the width of the background bitmap
 */
 inline const int menu::get_width(void) const { return al_get_bitmap_width(background_bitmap); }
 
 //!  Get menu background bitmap height
 /*!
+  Returns the height of the background bitmap
 */
 inline const int menu::get_height(void) const { return al_get_bitmap_height(background_bitmap); }
 
 //!  Get menu background bitmap
 /*!
+  Returns a pointer to the background bitmap
 */
 inline ALLEGRO_BITMAP* menu::get_background(void) const { return background_bitmap; }
+
+//!  Get menu items
+/*!
+  Returns the menu item vector
+*/
+inline menu_items menu::get_items(void) const { return items; }
 
 }  // end namespace mnu
 

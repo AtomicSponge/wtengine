@@ -22,14 +22,15 @@ namespace wte
 namespace mnu
 {
 
+typedef std::vector<std::pair<std::string, msg::message>> menu_option;
+
 class menu_item {
     public:
         menu_item();
 
     private:
         std::string item_text;
-        std::vector<unsigned int> options;
-        std::vector<std::string> option_text;
+        menu_option options;
 };
 
 //!

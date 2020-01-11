@@ -57,7 +57,7 @@ extern volatile bool key[MAX_KEY_FLAGS];
 } //  end namespace wte
 
 //  Initialize game flags
-inline volatile bool wte::game_flag[MAX_STATE_FLAGS] = { false, false, false, false, false };
-inline volatile bool wte::key[MAX_KEY_FLAGS] = { false, false, false, false, false, false, false };
+inline volatile bool wte::game_flag[wte::MAX_STATE_FLAGS] = { false, false, false, false, false };
+inline volatile bool wte::key[wte::MAX_KEY_FLAGS] = { false, false, false, false, false, false, false };
 
 #endif

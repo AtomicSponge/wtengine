@@ -33,10 +33,17 @@ namespace sys
 */
 class system {
     public:
+        inline virtual ~system() {};
+
+        void operator=(system const&) = delete;
+
         //  Override this to create custom run method
         virtual void run(entity_manager&, msg::message_queue&, int64_t) = 0;
         //  Override this for message processing.
         virtual void dispatch(entity_manager&, msg::message_queue&) {};
+
+    protected:
+        inline system() {};
 };
 
 //! System unique pointer

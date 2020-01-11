@@ -52,17 +52,13 @@ class system_manager {
 /*!
   Clears system vector
 */
-inline system_manager::system_manager() {
-    systems.clear();
-}
+inline system_manager::system_manager() { systems.clear(); }
 
 //!  System manager destructor
 /*!
   Clears system vector
 */
-inline system_manager::~system_manager() {
-    systems.clear();
-}
+inline system_manager::~system_manager() { systems.clear(); }
 
 //! Add a new system to the manager
 /*!

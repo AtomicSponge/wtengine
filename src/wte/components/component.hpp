@@ -28,8 +28,13 @@ namespace cmp
   Extend this to create a component
 */
 class component {
+    public:
+        inline virtual ~component() {};
+
+        void operator=(component const&) = delete;
+
     protected:
-        virtual void interface(void) {};
+        inline component() {};
 };
 
 //! Component shared pointer

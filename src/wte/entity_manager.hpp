@@ -108,6 +108,10 @@ inline entity_manager::~entity_manager() {
     world.clear();
 }
 
+//!  Clear the entity manager
+/*!
+  Set the entity counter to zero and clear the entities and componenets
+*/
 inline void entity_manager::clear(void) {
     entity_counter = 0;
     entity_vec.clear();

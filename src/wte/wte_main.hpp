@@ -39,8 +39,7 @@ namespace wte
 */
 class wte_main {
     public:
-        wte_main();
-        ~wte_main();
+        virtual ~wte_main();
 
         wte_main(const wte_main&) = delete;     //  Remove copy constructor
         void operator=(wte_main const&) = delete;
@@ -62,6 +61,8 @@ class wte_main {
         bool init_called;                       /*!< Flag to make sure wte_init was called */
 
     protected:
+        wte_main();
+
         virtual void load_menus(void) = 0;      /*!< Override to load custom menus */
         virtual void load_systems(void) = 0;    /*!< Override to load custom systems */
         virtual void load_game(void) = 0;       /*!< Override to load initial entities */

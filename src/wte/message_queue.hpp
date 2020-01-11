@@ -17,6 +17,7 @@
 #include <vector>
 #include <iterator>
 #include <algorithm>
+#include <stdexcept>
 
 #include "wte_globals.hpp"
 #include "message.hpp"
@@ -54,16 +55,23 @@ class message_queue {
     int64_t current_time;                           /*!< Store timer for message processing */
     message_container msg_queue;                    /*!< Vector of all messages to be processed */
 
+    static bool initialized;
+
     #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
     void debug_log_message(message, int64_t);       /*!< Member to log processed messages to a file */
     #endif
 };
+
+inline bool message_queue::initialized = false;
 
 //! Message queue constructor
 /*!
   Clear any existing queue and start logging if debugging is enabled
 */
 inline message_queue::message_queue() {
+    if(initialized == true) throw std::runtime_error("Message Queue already running!");
+    initialized = true;
+
     msg_queue.clear();
 
     //  If debug mode is enabled, create a new log file
@@ -80,7 +88,11 @@ inline message_queue::message_queue() {
 /*!
   Delete message queue object
 */
-inline message_queue::~message_queue() { msg_queue.clear(); }
+inline message_queue::~message_queue() {
+    msg_queue.clear();
+
+    initialized = false;
+}
 
 //! Debug message logging
 /*!

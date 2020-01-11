@@ -86,13 +86,20 @@ class entity_manager {
         entity entity_counter;          /*!< Store counter for entity creation */
         world_container entity_vec;     /*!< Store the list of entities */
         world_map world;                /*!< Store all components for every entity */
+
+        static bool initialized;
 };
+
+inline bool entity_manager::initialized = false;
 
 //! Entity Manager constructor
 /*!
   Set the entity counter to zero and clear the entities and componenets
 */
 inline entity_manager::entity_manager() {
+    if(initialized == true) throw std::runtime_error("Entity Manager already running!");
+    initialized = true;
+
     entity_counter = 0;
     entity_vec.clear();
     world.clear();
@@ -106,6 +113,8 @@ inline entity_manager::~entity_manager() {
     entity_counter = 0;
     entity_vec.clear();
     world.clear();
+
+    initialized = false;
 }
 
 //!  Clear the entity manager

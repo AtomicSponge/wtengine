@@ -15,6 +15,7 @@
 #include <vector>
 #include <stack>
 #include <memory>
+#include <stdexcept>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
@@ -64,13 +65,20 @@ class menu_manager {
 
         std::vector<menu_sptr> menus;
         std::stack<menu_csptr> opened_menus;
+
+        static bool initialized;
 };
+
+inline bool menu_manager::initialized = false;
 
 //!  Menu manager constructor
 /*!
   Generates the menu manager object
 */
 inline menu_manager::menu_manager() {
+    if(initialized == true) throw std::runtime_error("Menu Manager already running!");
+    initialized = true;
+
     menu_bitmap = NULL;
     menu_font = NULL;
 
@@ -88,6 +96,8 @@ inline menu_manager::~menu_manager() {
 
     al_destroy_bitmap(menu_bitmap);
     al_destroy_font(menu_font);
+
+    initialized = false;
 }
 
 //!  Ititialize menu manager

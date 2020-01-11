@@ -46,19 +46,32 @@ class system_manager {
 
     private:
         std::vector<sys::system_uptr> systems;                      /*!< Store the vector of systems */
+        
+        static bool initialized;
 };
+
+inline bool system_manager::initialized = false;
 
 //!  System manager constructor
 /*!
   Clears system vector
 */
-inline system_manager::system_manager() { systems.clear(); }
+inline system_manager::system_manager() {
+    if(initialized == true) throw std::runtime_error("System Manager already running!");
+    initialized = true;
+
+    systems.clear();
+}
 
 //!  System manager destructor
 /*!
   Clears system vector
 */
-inline system_manager::~system_manager() { systems.clear(); }
+inline system_manager::~system_manager() {
+    systems.clear();
+    
+    initialized = false;
+}
 
 //! Add a new system to the manager
 /*!

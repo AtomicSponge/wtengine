@@ -16,6 +16,7 @@
 #include <iterator>
 #include <algorithm>
 #include <functional>
+#include <stdexcept>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
@@ -59,13 +60,20 @@ class renderer {
         int fps_counter, fps;                           /*!< FPS counters */
         
         comparator render_comparator;                   /*!< Store lambda function for comparator */
+
+        static bool initialized;
 };
+
+inline bool renderer::initialized = false;
 
 //! Renderer constructor
 /*!
   Generates the renderer object
 */
 inline renderer::renderer() {
+    if(initialized == true) throw std::runtime_error("Renderer already running!");
+    initialized = true;
+
     menu_bitmap = NULL;
     overlay_font = NULL;
     
@@ -88,6 +96,8 @@ inline renderer::renderer() {
 inline renderer::~renderer() {
     al_destroy_bitmap(menu_bitmap);
     al_destroy_font(overlay_font);
+
+    initialized = false;
 }
 
 //!  Initialize the renderer

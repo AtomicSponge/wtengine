@@ -13,13 +13,6 @@
 #include "include/main.hpp"
 #include "include/game_loop.hpp"
 
-//  Initialize game flags
-volatile bool wte::key[WTE_NUM_KEY_FLAGS] = { false, false, false, false, false, false, false };
-volatile bool wte::game_flag[WTE_NUM_GAME_FLAGS] = { false, false, false, false, false };
-
-//  Initialize global message queue for audio
-wte::audio_deck wte::audio_messages;
-
 int main(int argc, char **argv) {
     int init_test;
 

@@ -28,6 +28,7 @@ typedef std::deque<msg::message> audio_deck;
 
 //!  Global message queue for audio processing
 extern audio_deck audio_messages;
+inline audio_deck audio_messages;
 
 //! Audio manager thread
 /*!

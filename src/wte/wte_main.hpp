@@ -60,6 +60,8 @@ class wte_main {
 
         bool init_called;                       /*!< Flag to make sure wte_init was called */
 
+        static bool initialized;
+
     protected:
         wte_main();
 
@@ -77,17 +79,28 @@ class wte_main {
         mnu::menu_manager menus;                /*!< Manager for menus */
 };
 
+inline bool wte_main::initialized = false;
+
 //! wte_main constructor
 /*!
   Set the init flag to false
 */
-inline wte_main::wte_main() { init_called = false; }
+inline wte_main::wte_main() {
+    if(initialized == true) throw std::runtime_error("WTEngine already running!");
+    initialized = true;
+
+    init_called = false;
+}
 
 //! wte_main destructor
 /*!
   Call wte_unload if it wasn't manually called
 */
-inline wte_main::~wte_main() { if(init_called == true) wte_unload(); }
+inline wte_main::~wte_main() {
+    if(init_called == true) wte_unload();
+
+    initialized = false;
+}
 
 //! Initialize WTEngine
 /*!

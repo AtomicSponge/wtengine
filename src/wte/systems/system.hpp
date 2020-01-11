@@ -35,6 +35,7 @@ class system {
     public:
         inline virtual ~system() {};
 
+        system(const system&) = delete;
         void operator=(system const&) = delete;
 
         //  Override this to create custom run method

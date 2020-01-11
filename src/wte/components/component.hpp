@@ -31,6 +31,7 @@ class component {
     public:
         inline virtual ~component() {};
 
+        component(const component&) = delete;
         void operator=(component const&) = delete;
 
     protected:

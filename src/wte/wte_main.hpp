@@ -42,13 +42,14 @@ class wte_main {
         wte_main();
         ~wte_main();
 
+        wte_main(const wte_main&) = delete;     //  Remove copy constructor
+        void operator=(wte_main const&) = delete;
+
         const int wte_init(void);               /*!< Initialize the engine */
         void wte_unload(void);                  /*!< Unload the engine */
         void do_game(void);                     /*!< Run the game loop */
 
     private:
-        wte_main(const wte_main&) = delete;     //  Remove copy constructor
-
         void handle_sys_msg(msg::message_container);
 
         ALLEGRO_DISPLAY *display;               /*!< Display to draw to */
@@ -161,19 +162,15 @@ inline void wte_main::wte_unload(void) {
   Call every time a new game is starting
 */
 inline void wte_main::generate_new_game(std::string message_data) {
-    end_game(); //  Call end game to clear any previously running game
-
     std::srand(std::time(nullptr));  //  Seed random
 
     game_flag[GAME_STARTED] = true;  //  Set flag that the game has been started
 
-    //  Create a new entity manager
-    world = ecs::entity_manager();
+    //  Clear world and load starting entities
+    world.clear();
     load_game();
 
-    //  Create a new message queue
-    messages = msg::message_queue();
-    messages.new_data_file(message_data);
+    messages.new_data_file(message_data);  //  Load a new message data file
 
     //  Restart the timer at zero
     al_stop_timer(main_timer);

@@ -36,16 +36,12 @@ typedef std::vector<message>::iterator message_iterator;
   Store a collection of message objects in a vector for processing
 */
 class message_queue {
-    private:
-    int64_t current_time;                           /*!< Store timer for message processing */
-    message_container msg_queue;                    /*!< Vector of all messages to be processed */
-
-    #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-    void debug_log_message(message, int64_t);       /*!< Member to log processed messages to a file */
-    #endif
-
     public:
     message_queue();                                /*!< Message queue constructor */
+    ~message_queue();                               /*!< Message queue destructor */
+
+    message_queue(const message_queue&) = delete;
+    void operator=(message_queue const&) = delete;
 
     bool new_data_file(std::string);                /*!< Load a new data file into the message queue */
     void set_time(int64_t);                         /*!< Set the internal timer value */
@@ -54,7 +50,13 @@ class message_queue {
     void clear_queue(void);                         /*!< Clear the message queue */
     message_container get_messages(std::string);    /*!< Get messages based on their command */
 
-    ~message_queue();                               /*!< Message queue destructor */
+    private:
+    int64_t current_time;                           /*!< Store timer for message processing */
+    message_container msg_queue;                    /*!< Vector of all messages to be processed */
+
+    #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
+    void debug_log_message(message, int64_t);       /*!< Member to log processed messages to a file */
+    #endif
 };
 
 //! Message queue constructor
@@ -73,6 +75,12 @@ inline message_queue::message_queue() {
         debug_log_file.close();
     #endif
 }
+
+//! Message queue destructor
+/*!
+  Delete message queue object
+*/
+inline message_queue::~message_queue() { msg_queue.clear(); }
 
 //! Debug message logging
 /*!
@@ -180,12 +188,6 @@ inline message_container message_queue::get_messages(std::string cmd) {
 
     return temp_messages;
 }
-
-//! Message queue destructor
-/*!
-  Delete message queue object
-*/
-inline message_queue::~message_queue() { msg_queue.clear(); }
 
 } //  namespace msg
 

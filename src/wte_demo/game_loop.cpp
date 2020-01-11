@@ -133,11 +133,7 @@ void game_loop::load_game(void) {
   Overrides from wte_main
 */
 void game_loop::end_game(void) {
-    wte::ecs::world_container entities;
-
-    for(wte::ecs::world_iterator it = entities.begin(); it != entities.end(); it++) {
-        world.delete_entity(*it);
-    }
+    world.clear();
 
     wte::game_flag[wte::GAME_STARTED] = false;
 }

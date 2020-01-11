@@ -34,6 +34,12 @@ typedef std::vector<sys::system_uptr>::iterator system_iterator;
 */
 class system_manager {
     public:
+        system_manager();
+        ~system_manager();
+
+        system_manager(const system_manager&) = delete;
+        void operator=(system_manager const&) = delete;
+
         void add(sys::system_uptr);                                 /*!< Add a new system */
         void run(entity_manager&, msg::message_queue&, int64_t);    /*!< Run all systems */
         void dispatch(entity_manager&, msg::message_queue&);        /*!< Dispatch to all systems */
@@ -41,6 +47,22 @@ class system_manager {
     private:
         std::vector<sys::system_uptr> systems;                      /*!< Store the vector of systems */
 };
+
+//!  System manager constructor
+/*!
+  Clears system vector
+*/
+inline system_manager::system_manager() {
+    systems.clear();
+}
+
+//!  System manager destructor
+/*!
+  Clears system vector
+*/
+inline system_manager::~system_manager() {
+    systems.clear();
+}
 
 //! Add a new system to the manager
 /*!

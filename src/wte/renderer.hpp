@@ -43,8 +43,12 @@ typedef std::function<bool(entity_component_pair, entity_component_pair)> compar
 class renderer {
     public:
         renderer();                           /*!< Basic constructor */
-        renderer(ALLEGRO_FONT *);                       /*!< Constructor to configure renderer */
+        renderer(ALLEGRO_FONT *);             /*!< Constructor to configure renderer */
         ~renderer();
+
+        renderer(const renderer&) = delete;
+        //void operator=(renderer const&) = delete;
+
         void render(mnu::menu_manager&, ecs::entity_manager&, int64_t);     /*!< Call the renderer */
 
     private:

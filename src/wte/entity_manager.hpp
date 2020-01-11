@@ -57,7 +57,13 @@ typedef std::unordered_multimap<entity, cmp::component_sptr> world_map;
 */
 class entity_manager {
     public:
-        entity_manager(void);                           /*!< Entity manager constructor */
+        entity_manager();                           /*!< Entity manager constructor */
+        ~entity_manager();
+
+        entity_manager(const entity_manager&) = delete;
+        void operator=(entity_manager const&) = delete;
+
+        void clear(void);
 
         //  Entity members
         const entity new_entity(void);                          /*!< Create a new entity */
@@ -86,7 +92,23 @@ class entity_manager {
 /*!
   Set the entity counter to zero and clear the entities and componenets
 */
-inline entity_manager::entity_manager(void) {
+inline entity_manager::entity_manager() {
+    entity_counter = 0;
+    entity_vec.clear();
+    world.clear();
+}
+
+//! Entity Manager destructor
+/*!
+  Set the entity counter to zero and clear the entities and componenets
+*/
+inline entity_manager::~entity_manager() {
+    entity_counter = 0;
+    entity_vec.clear();
+    world.clear();
+}
+
+inline void entity_manager::clear(void) {
     entity_counter = 0;
     entity_vec.clear();
     world.clear();

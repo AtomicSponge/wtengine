@@ -37,6 +37,9 @@ class menu_manager {
         menu_manager(ALLEGRO_FONT *);
         ~menu_manager();
 
+        menu_manager(const menu_manager&) = delete;
+        //void operator=(menu_manager const&) = delete;
+
         void new_menu(void);
         const bool add_item(const std::string, const menu_item);
         void reset(void);

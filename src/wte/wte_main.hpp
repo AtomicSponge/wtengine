@@ -74,7 +74,7 @@ class wte_main {
         ecs::entity_manager world;              /*!< Manager for entities */
         ecs::system_manager systems;            /*!< Manager for systems */
         msg::message_queue messages;            /*!< Message queue */
-        mnu::menu_manager menus;
+        mnu::menu_manager menus;                /*!< Manager for menus */
 };
 
 //! wte_main constructor
@@ -118,22 +118,16 @@ inline const int wte_main::wte_init(void) {
     al_register_event_source(main_queue, al_get_display_event_source(display));
     al_register_event_source(main_queue, al_get_timer_event_source(main_timer));
 
-    //  Start the input thread as detached
+    //  Start the input & audio threads as detached
     al_run_detached_thread(get_input, NULL);
-
-    //  Start the audio thread as detached
     al_run_detached_thread(audio_manager, NULL);
 
-    //  Load menu manager
-    menus = mnu::menu_manager(al_create_builtin_font());
+    //  Initialize renderer and menu manager, passing them fonts to be used
+    game_screen.initialize(al_create_builtin_font());
+    menus.initialize(al_create_builtin_font());
 
-    //  Create render object
-    game_screen = renderer(al_create_builtin_font());
-
-    //  Load user configured menus
+    //  Load user configured menus & systems
     load_menus();
-
-    //  Load user configured systems
     load_systems();
 
     //  Init done, set flag to true

@@ -42,44 +42,37 @@ typedef std::function<bool(entity_component_pair, entity_component_pair)> compar
 */
 class renderer {
     public:
-        renderer();                           /*!< Basic constructor */
-        renderer(ALLEGRO_FONT *);             /*!< Constructor to configure renderer */
+        renderer();
         ~renderer();
 
         renderer(const renderer&) = delete;
-        //void operator=(renderer const&) = delete;
+        void operator=(renderer const&) = delete;
 
+        void initialize(ALLEGRO_FONT *);
         void render(mnu::menu_manager&, ecs::entity_manager&, int64_t);     /*!< Call the renderer */
 
     private:
         ALLEGRO_BITMAP *menu_bitmap;
         ALLEGRO_FONT *overlay_font;                     /*!< Allegro font used for the overlay */
+        
         int64_t last_tick, this_tick;                   /*!< Store timer ticks to Calculate FPS */
         int fps_counter, fps;                           /*!< FPS counters */
+        
         comparator render_comparator;                   /*!< Store lambda function for comparator */
 };
 
-//!
+//! Renderer constructor
 /*!
+  Generates the renderer object
 */
 inline renderer::renderer() {
     menu_bitmap = NULL;
     overlay_font = NULL;
-}
-
-//! Renderer constructor
-/*!
-  Call to create a new renderer object
-  Gets passed an Allegro font to use for the overlay
-*/
-inline renderer::renderer(ALLEGRO_FONT *font) {
+    
     last_tick = 0;
     this_tick = 0;
     fps_counter = 0;
     fps = 0;
-
-    menu_bitmap = NULL;
-    overlay_font = font;
 
     //  Define comparator as lambda function that sorts components
     render_comparator =
@@ -94,7 +87,15 @@ inline renderer::renderer(ALLEGRO_FONT *font) {
 */
 inline renderer::~renderer() {
     al_destroy_bitmap(menu_bitmap);
-    //al_destroy_font(overlay_font);
+    al_destroy_font(overlay_font);
+}
+
+//!  Initialize the renderer
+/*!
+  Pass an Allegro font for the renderer to use
+*/
+inline void renderer::initialize(ALLEGRO_FONT *font) {
+    overlay_font = font;
 }
 
 //! Render method - Draw the game screen

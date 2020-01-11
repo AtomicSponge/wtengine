@@ -34,11 +34,12 @@ typedef std::vector<menu>::const_iterator menu_citerator;
 class menu_manager {
     public:
         menu_manager();
-        menu_manager(ALLEGRO_FONT *);
         ~menu_manager();
 
         menu_manager(const menu_manager&) = delete;
-        //void operator=(menu_manager const&) = delete;
+        void operator=(menu_manager const&) = delete;
+
+        void initialize(ALLEGRO_FONT *);
 
         void new_menu(void);
         const bool add_item(const std::string, const menu_item);
@@ -48,7 +49,7 @@ class menu_manager {
         ALLEGRO_BITMAP* render_menu(void) const;
 
     private:
-        menu_item_iterator menu_position;
+        menu_item_citerator menu_position;
         mutable ALLEGRO_BITMAP *menu_bitmap;
         ALLEGRO_FONT *menu_font;
 
@@ -60,22 +61,36 @@ class menu_manager {
         const menu get_menu(const std::string) const;
 };
 
-//!  Menu manager default constructor
+//!  Menu manager constructor
 /*!
+  Generates the menu manager object
 */
 inline menu_manager::menu_manager() {
     menu_bitmap = NULL;
     menu_font = NULL;
+
+    menus.clear();
+    opened_menus = {};
 }
 
-//!  Menu manager constructor
+//!  Menu manager destructor
 /*!
-  Initializes the menu manager and sets the menu bitmap to null
-  Also pre-generates the main menu and in-game menu
-  Gets passed an Allegro font for the menus to use
+  Cleans up by deleting the menu bitmap and font
 */
-inline menu_manager::menu_manager(ALLEGRO_FONT *font) {
-    menu_bitmap = NULL;
+inline menu_manager::~menu_manager() {
+    menus.clear();
+    opened_menus = {};
+
+    al_destroy_bitmap(menu_bitmap);
+    al_destroy_font(menu_font);
+}
+
+//!  Ititialize menu manager
+/*!
+  Pass an Allegro font for the menu manager to use
+  Also create the default main menu and in-game menu
+*/
+inline void menu_manager::initialize(ALLEGRO_FONT *font) {
     menu_font = font;
 
     //  Create default menus in seperate scopes
@@ -90,15 +105,6 @@ inline menu_manager::menu_manager(ALLEGRO_FONT *font) {
         menu temp_menu = menu("game_menu", 300, 200, WTE_COLOR_ORANGE);
         menus.push_back(temp_menu);
     }
-}
-
-//!  Menu manager destructor
-/*!
-  Cleans up by deleting the menu bitmap and font
-*/
-inline menu_manager::~menu_manager() {
-    al_destroy_bitmap(menu_bitmap);
-    //al_destroy_font(menu_font);
 }
 
 //!  Add a menu to the menu list

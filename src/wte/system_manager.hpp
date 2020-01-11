@@ -26,7 +26,7 @@ namespace wte
 namespace ecs
 {
 
-typedef std::vector<sys::system_uptr>::iterator system_iterator;
+typedef std::vector<sys::system_uptr>::const_iterator system_citerator;
 
 //! system_manager class
 /*!
@@ -75,7 +75,7 @@ inline void system_manager::add(sys::system_uptr new_system) {
 inline void system_manager::run(entity_manager& entities, msg::message_queue& messages, int64_t current_time) {
     if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
 
-    for(system_iterator it = systems.begin(); it != systems.end(); it++) {
+    for(system_citerator it = systems.begin(); it != systems.end(); it++) {
         (*it)->run(entities, messages, current_time);
     }
 }
@@ -87,7 +87,7 @@ inline void system_manager::run(entity_manager& entities, msg::message_queue& me
 inline void system_manager::dispatch(entity_manager& entities, msg::message_queue& messages) {
     if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
 
-    for(system_iterator it = systems.begin(); it != systems.end(); it++) {
+    for(system_citerator it = systems.begin(); it != systems.end(); it++) {
         (*it)->dispatch(entities, messages);
     }
 }

@@ -37,7 +37,7 @@ extern const unsigned int screen_width;
 extern const unsigned int screen_height;
 
 //!  Set the timer rate
-const float TICKS_PER_SECOND = 60.0;
+extern const float TICKS_PER_SECOND;
 
 //!  Used for the game flags
 enum GLOBAL_STATE_FLAGS {

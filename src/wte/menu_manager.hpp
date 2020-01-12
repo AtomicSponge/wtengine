@@ -33,6 +33,7 @@ namespace mnu
 
 typedef std::shared_ptr<menu> menu_sptr;
 typedef std::shared_ptr<const menu> menu_csptr;
+
 typedef std::vector<menu_sptr>::iterator menu_iterator;
 typedef std::vector<menu_sptr>::const_iterator menu_citerator;
 
@@ -47,7 +48,6 @@ class menu_manager {
         void initialize(ALLEGRO_FONT *);
 
         void new_menu(const menu);
-        const bool add_item(const std::string, const menu_item);
         const menu_csptr get_menu(const std::string) const;
         const menu_sptr set_menu(const std::string);
         void reset(void);
@@ -155,13 +155,6 @@ inline const menu_sptr menu_manager::set_menu(const std::string name) {
     return *menus.begin();
 }
 
-//!  Add a menu item to an existing menu
-/*!
-*/
-inline const bool menu_manager::add_item(const std::string menu_name, const menu_item item) {
-    return true;
-}
-
 //!  Reset menu manager
 /*!
   Clear the stack of opened menus
@@ -226,7 +219,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     //  Render menu text
     for(menu_item_citerator it = opened_menus.top()->get_items().begin();
         it != opened_menus.top()->get_items().end(); it++) {
-        //
+        //it->get_label();
     }
 
     //  Return drawing to the screen

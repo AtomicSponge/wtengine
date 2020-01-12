@@ -38,6 +38,7 @@ class menu {
         ~menu();
 
         void set_bg_color(const ALLEGRO_COLOR);
+        const bool add_item(const menu_item);
         const std::string get_name(void) const;
         const int get_width(void) const;
         const int get_height(void) const;
@@ -87,6 +88,14 @@ inline menu::~menu() { al_destroy_bitmap(background_bitmap); }
 inline void menu::set_bg_color(const ALLEGRO_COLOR color) {
     al_set_target_bitmap(background_bitmap);
     al_clear_to_color(color);
+}
+
+//!  Add a menu item to an existing menu
+/*!
+*/
+inline const bool menu::add_item(const menu_item item) {
+    items.push_back(item);
+    return true;
 }
 
 //!  Get menu name

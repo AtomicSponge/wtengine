@@ -21,7 +21,8 @@
   Overrides from wte_main
 */
 void game_loop::load_menus(void) {
-    //
+    //wte::mnu::menu_item item;
+    //menus.set_menu("game_menu")->add_item(item);
 }
 
 /*

@@ -27,7 +27,7 @@ void custom_logic::custom_run(wte::ecs::entity_manager& world, wte::msg::message
             world.get_component<wte::ecs::cmp::velocity>(it->first)->speed * sin(world.get_component<wte::ecs::cmp::direction>(it->first)->angle * (M_PI / 180));
 
         //  OOB check
-        if(world.get_component<wte::ecs::cmp::location>(it->first)->pos_y > WTE_ARENA_HEIGHT + 100) {
+        if(world.get_component<wte::ecs::cmp::location>(it->first)->pos_y > wte::screen_height + 100) {
             messages.add_message(wte::msg::message("delete", "system", world.get_component<wte::ecs::cmp::name>(it->first)->name, ""));
         }
     }

@@ -30,7 +30,7 @@ void custom_input::custom_run(wte::ecs::entity_manager& world, wte::msg::message
             world.set_component<wte::ecs::cmp::location>(player_entity)->pos_y -= 5;
     }
     if(wte::key[wte::KEY_DOWN]) {
-        if(world.get_component<wte::ecs::cmp::location>(player_entity)->pos_y < WTE_ARENA_HEIGHT)
+        if(world.get_component<wte::ecs::cmp::location>(player_entity)->pos_y < wte::screen_height)
             world.set_component<wte::ecs::cmp::location>(player_entity)->pos_y += 5;
     }
     if(wte::key[wte::KEY_LEFT]) {
@@ -38,7 +38,7 @@ void custom_input::custom_run(wte::ecs::entity_manager& world, wte::msg::message
             world.set_component<wte::ecs::cmp::location>(player_entity)->pos_x -= 5;
     }
     if(wte::key[wte::KEY_RIGHT]) {
-        if(world.get_component<wte::ecs::cmp::location>(player_entity)->pos_x < WTE_ARENA_WIDTH - 10)
+        if(world.get_component<wte::ecs::cmp::location>(player_entity)->pos_x < wte::screen_width - 10)
             world.set_component<wte::ecs::cmp::location>(player_entity)->pos_x += 5;
     }
 

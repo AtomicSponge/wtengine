@@ -38,7 +38,7 @@ class background : public component {
 };
 
 inline background::background() {
-    background_bitmap = al_create_bitmap(WTE_ARENA_WIDTH, WTE_ARENA_HEIGHT);
+    background_bitmap = al_create_bitmap(screen_width, screen_height);
 }
 
 inline background::~background() {

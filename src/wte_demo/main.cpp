@@ -13,6 +13,9 @@
 #include "include/main.hpp"
 #include "include/game_loop.hpp"
 
+const unsigned int wte::screen_width = 768;
+const unsigned int wte::screen_height = 1024;
+
 int main(int argc, char **argv) {
     int init_test;
 

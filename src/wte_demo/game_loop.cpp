@@ -69,8 +69,8 @@ void game_loop::load_game(void) {
     world.add_component(e_id, std::make_shared<wte::ecs::cmp::enabled>());
     world.set_component<wte::ecs::cmp::name>(e_id)->name = "player";
     world.set_component<wte::ecs::cmp::team>(e_id)->team = 0;
-    world.set_component<wte::ecs::cmp::location>(e_id)->pos_x = (WTE_ARENA_WIDTH / 2) - 5;
-    world.set_component<wte::ecs::cmp::location>(e_id)->pos_y = WTE_ARENA_HEIGHT - 40;
+    world.set_component<wte::ecs::cmp::location>(e_id)->pos_x = (wte::screen_width / 2) - 5;
+    world.set_component<wte::ecs::cmp::location>(e_id)->pos_y = wte::screen_height - 40;
     world.set_component<wte::ecs::cmp::hitbox>(e_id)->width = 10;
     world.set_component<wte::ecs::cmp::hitbox>(e_id)->height = 10;
     world.set_component<wte::ecs::cmp::hitbox>(e_id)->solid = true;

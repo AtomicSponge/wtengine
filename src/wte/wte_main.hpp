@@ -110,7 +110,7 @@ inline const int wte_main::wte_init(void) {
     //  Initialize Allegro and it's various objects
     if(!al_init()) return -1; //  Allegro didn't load - Exit
 
-    display = al_create_display(768, 1024);
+    display = al_create_display(screen_width, screen_height);
     if(!display) return -2; //  Failed to set display - Exit
 
     main_timer = al_create_timer(1.0 / TICKS_PER_SECOND);

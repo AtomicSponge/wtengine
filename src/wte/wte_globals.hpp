@@ -20,9 +20,6 @@
 */
 #define WTE_DEBUG_MODE 0
 
-#define WTE_ARENA_WIDTH     768
-#define WTE_ARENA_HEIGHT    1024
-
 #define WTE_COLOR_BLACK     al_map_rgb(0,0,0)
 #define WTE_COLOR_RED       al_map_rgb(255,0,0)
 #define WTE_COLOR_GREEN     al_map_rgb(0,255,0)
@@ -34,6 +31,10 @@
 
 namespace wte 
 {
+
+//!  Set screen width and height
+extern const unsigned int screen_width;
+extern const unsigned int screen_height;
 
 //!  Set the timer rate
 const float TICKS_PER_SECOND = 60.0;

@@ -213,8 +213,8 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
     if(game_flag[GAME_MENU_OPENED]) {
         menu_bitmap = al_clone_bitmap(menus.render_menu());
         al_draw_bitmap(menu_bitmap,
-                       (WTE_ARENA_WIDTH / 2) - (al_get_bitmap_width(menu_bitmap) / 2),
-                       (WTE_ARENA_HEIGHT / 2) - (al_get_bitmap_height(menu_bitmap) / 2),
+                       (screen_width / 2) - (al_get_bitmap_width(menu_bitmap) / 2),
+                       (screen_height / 2) - (al_get_bitmap_height(menu_bitmap) / 2),
                        0);
         al_destroy_bitmap(menu_bitmap);
     }
@@ -229,11 +229,11 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
 
     //  Draw frame rate
     if(game_flag[DRAW_FPS]) {
-        al_draw_text(overlay_font, WTE_COLOR_WHITE, WTE_ARENA_WIDTH, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
+        al_draw_text(overlay_font, WTE_COLOR_WHITE, screen_width, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
     //  Draw time if debug mode is enabled
     #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
-    al_draw_text(overlay_font, WTE_COLOR_WHITE, WTE_ARENA_WIDTH, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
+    al_draw_text(overlay_font, WTE_COLOR_WHITE, screen_width, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     #endif
 
     /*

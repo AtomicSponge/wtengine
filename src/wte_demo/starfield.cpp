@@ -17,8 +17,8 @@ starfield::starfield() {
     speed_mult = 1;
 
     for(int i = 0; i < MAX_STARS; i++) {
-        x[i] = std::rand() % WTE_ARENA_WIDTH + 1;
-        y[i] = std::rand() % WTE_ARENA_HEIGHT + 1;
+        x[i] = std::rand() % wte::screen_width + 1;
+        y[i] = std::rand() % wte::screen_height + 1;
         speed[i] = (std::rand() % 3 + 1) * 3;
         color[i] = std::rand() % 4 + 1;
     }
@@ -38,8 +38,8 @@ void starfield::run(wte::ecs::entity_manager& world, wte::msg::message_queue& me
     //  Move the stars
     for(int i = 0; i < MAX_STARS; i++) {
         y[i] += speed[i] * speed_mult;
-        if(y[i] > WTE_ARENA_HEIGHT) { //  Make a new star
-            x[i] = std::rand() % WTE_ARENA_WIDTH + 1;
+        if(y[i] > wte::screen_height) { //  Make a new star
+            x[i] = std::rand() % wte::screen_width + 1;
             y[i] = 0;
             speed[i] = (std::rand() % 3 + 1) * 3;
             color[i] = std::rand() % 4 + 1;
@@ -68,8 +68,8 @@ void starfield::dispatch(wte::ecs::entity_manager& world, wte::msg::message_queu
             speed_mult = 1;
 
             for(int i = 0; i < MAX_STARS; i++) {
-                x[i] = std::rand() % WTE_ARENA_WIDTH + 1;
-                y[i] = std::rand() % WTE_ARENA_HEIGHT + 1;
+                x[i] = std::rand() % wte::screen_width + 1;
+                y[i] = std::rand() % wte::screen_height + 1;
                 speed[i] = (std::rand() % 3 + 1) * 3;
                 color[i] = std::rand() % 4 + 1;
             }

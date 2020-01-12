@@ -37,16 +37,19 @@ typedef unsigned int entity;
 typedef std::vector<entity> world_container;
 //!  Iterator for world storage
 typedef std::vector<entity>::iterator world_iterator;
+typedef std::vector<entity>::const_iterator world_citerator;
 
 //!  Define container for components related to an entity
 typedef std::vector<cmp::component_sptr> entity_container;
 //!  Iterator for entity storage
 typedef std::vector<cmp::component_sptr>::iterator entity_iterator;
+typedef std::vector<cmp::component_sptr>::const_iterator entity_citerator;
 
 //!  Define container for componets of same type
 typedef std::map<entity, cmp::component_sptr> component_container;
 //!  Iterator for component storage
 typedef std::map<entity, cmp::component_sptr>::iterator component_iterator;
+typedef std::map<entity, cmp::component_sptr>::const_iterator component_citerator;
 
 //!  Define main container for entity/component reference storage
 typedef std::unordered_multimap<entity, cmp::component_sptr> world_map;

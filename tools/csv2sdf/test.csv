@@ -74,3 +74,8 @@
 1680,spawn,system,asteroid,-60;-60;39;4;1
 1680,spawn,system,asteroid,100;-60;99;12;1
 1680,spawn,system,asteroid,800;-60;100;7;1
+1750,spawn,system,asteroid,150;-60;90;20;1
+1751,spawn,system,asteroid,210;-60;90;20;1
+1752,spawn,system,asteroid,270;-60;90;20;1
+1753,spawn,system,asteroid,330;-60;90;20;1
+1754,spawn,system,asteroid,680;-60;90;20;1

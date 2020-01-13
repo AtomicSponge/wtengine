@@ -45,7 +45,7 @@ class message_queue {
         message_queue(const message_queue&) = delete;
         void operator=(message_queue const&) = delete;
 
-        bool new_data_file(std::string);                /*!< Load a new data file into the message queue */
+        void new_data_file(std::string);                /*!< Load a new data file into the message queue */
         void set_time(int64_t);                         /*!< Set the internal timer value */
         void add_message(message);                      /*!< Add a message to the queue */
         void clear_queue(void);                         /*!< Clear the message queue */
@@ -102,7 +102,8 @@ inline message_queue::~message_queue() {
 inline void message_queue::debug_log_message(message msg, int64_t current_time) {
     std::ofstream debug_log_file;
     debug_log_file.open("wte_debug\\wte_debug_message_queue.txt", std::ios::app);
-    debug_log_file << "TIMER:  " << current_time << " | ";
+    debug_log_file << "PROC AT:  " << current_time << " | ";
+    debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
     debug_log_file << "CMD:  " << msg.get_cmd() << " | ";
     debug_log_file << "FROM:  " << msg.get_from() << " | ";
     debug_log_file << "TO:  " << msg.get_to() << " | ";
@@ -115,7 +116,7 @@ inline void message_queue::debug_log_message(message msg, int64_t current_time) 
 /*!
   Events are placed in order according to the timer value
 */
-inline bool message_queue::new_data_file(std::string file) {
+inline void message_queue::new_data_file(std::string file) {
     std::ifstream data_file;
     int64_t timer;
     std::string cmd;
@@ -127,7 +128,7 @@ inline bool message_queue::new_data_file(std::string file) {
 
     //  Open data file - input binary mode
     data_file.open(file, std::fstream::in | std::fstream::binary);
-    if(!data_file.good()) return false; //  Error loading data file
+    if(!data_file.good()) throw std::runtime_error("Error reading game data file!");
 
     //  Loop through the entire data file loading into the queue
     while(true) {
@@ -144,8 +145,6 @@ inline bool message_queue::new_data_file(std::string file) {
 
     //  Sort the queue so timed events are in order first to last
     std::sort(msg_queue.begin(), msg_queue.end());
-    
-    return true;
 }
 
 //! Set the internal timer
@@ -156,7 +155,8 @@ inline void message_queue::set_time(int64_t t) { current_time = t; }
 
 //! Add a message to the queue
 /*!
-  Adds a message object to the msg_queue vector, then sorts if it's a timed event
+  Adds a message object to the start of the msg_queue vector
+  Then sorts if it's a timed event
 */
 inline void message_queue::add_message(message msg) {
     msg_queue.insert(msg_queue.begin(), msg);
@@ -179,7 +179,7 @@ inline const message_container message_queue::get_messages(const std::string cmd
     //  Return empty vector if the queue is empty
     if(msg_queue.empty()) return {};
 
-    for(message_iterator it = msg_queue.begin(); it != msg_queue.end(); it++) {
+    for(message_iterator it = msg_queue.begin(); it != msg_queue.end();) {
         //  End early if events are in the future
         if(it->get_timer() > current_time) break;
 
@@ -190,7 +190,7 @@ inline const message_container message_queue::get_messages(const std::string cmd
             #endif
             temp_messages.push_back(*it); //  Add the message to the temp vector to be returned
             it = msg_queue.erase(it); //  Erase the message once processed
-        }
+        } else it++;
     }
 
     return temp_messages;

@@ -18,7 +18,9 @@
   2 - Message logging
   9 - Turn on all logging
 */
+#ifndef WTE_DEBUG_MODE
 #define WTE_DEBUG_MODE 0
+#endif
 
 #define WTE_COLOR_BLACK     al_map_rgb(0,0,0)
 #define WTE_COLOR_RED       al_map_rgb(255,0,0)

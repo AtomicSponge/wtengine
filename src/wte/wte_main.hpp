@@ -44,7 +44,7 @@ class wte_main {
         wte_main(const wte_main&) = delete;     //  Remove copy constructor
         void operator=(wte_main const&) = delete;
 
-        const int wte_init(void);               /*!< Initialize the engine */
+        void wte_init(void);                    /*!< Initialize the engine */
         void wte_unload(void);                  /*!< Unload the engine */
         void do_game(void);                     /*!< Run the game loop */
 
@@ -60,7 +60,7 @@ class wte_main {
 
         bool init_called;                       /*!< Flag to make sure wte_init was called */
 
-        static bool initialized;
+        static bool initialized;                /*!< Restrict to one instance of the engine running */
 
     protected:
         wte_main();
@@ -83,7 +83,7 @@ inline bool wte_main::initialized = false;
 
 //! wte_main constructor
 /*!
-  Set the init flag to false
+  Verify WTEngine isn't already running and set the init flag to false
 */
 inline wte_main::wte_main() {
     if(initialized == true) throw std::runtime_error("WTEngine already running!");
@@ -106,18 +106,18 @@ inline wte_main::~wte_main() {
 /*!
   Register everything for the engine to run
 */
-inline const int wte_main::wte_init(void) {
+inline void wte_main::wte_init(void) {
     //  Initialize Allegro and it's various objects
-    if(!al_init()) return -1; //  Allegro didn't load - Exit
+    if(!al_init()) throw std::runtime_error("Allegro failed to load!"); //  Allegro didn't load - Exit
 
     display = al_create_display(screen_width, screen_height);
-    if(!display) return -2; //  Failed to set display - Exit
+    if(!display) throw std::runtime_error("Failed to configure display!"); //  Failed to set display - Exit
 
     main_timer = al_create_timer(1.0 / TICKS_PER_SECOND);
-    if(!main_timer) return -3; //  Failed to create timer - Exit
+    if(!main_timer) throw std::runtime_error("Failed to create timer!"); //  Failed to create timer - Exit
 
     main_queue = al_create_event_queue();
-    if(!main_queue) return -4; //  Failed to create event queue - Exit
+    if(!main_queue) throw std::runtime_error("Failed to create event queue!"); //  Failed to create event queue - Exit
 
     //  Initialize additional Allegro components
     al_install_keyboard();
@@ -142,6 +142,8 @@ inline const int wte_main::wte_init(void) {
     //  Load user configured menus & systems
     load_menus();
     load_systems();
+    //  Prevent further systems from being loaded
+    systems.finalize();
 
     //  Init done, set flag to true
     init_called = true;
@@ -149,8 +151,6 @@ inline const int wte_main::wte_init(void) {
     //  Blank the screen
     al_clear_to_color(WTE_COLOR_BLACK);
     al_flip_display();
-
-    return 0;
 }
 
 //! Unload WTEngine
@@ -162,6 +162,7 @@ inline void wte_main::wte_unload(void) {
     al_destroy_event_queue(main_queue);
     al_destroy_display(display);
     al_uninstall_system();
+
     init_called = false;
 }
 
@@ -199,8 +200,6 @@ inline void wte_main::do_game(void) {
     generate_new_game("data\\game.sdf"); //  test code
 
     while(game_flag[IS_RUNNING]) {
-        if(key[KEY_FIRE_3]) generate_new_game("data\\game.sdf"); //  test code to restart game
-
         //  Pause / resume timer depending on if the game menu is opened
         if(game_flag[GAME_MENU_OPENED] && al_get_timer_started(main_timer)) {
             menus.reset();

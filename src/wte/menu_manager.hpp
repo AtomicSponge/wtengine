@@ -60,6 +60,8 @@ class menu_manager {
         void close_menu(void);
 
         menu_item_citerator menu_position;
+        option_citerator option_selection;
+
         mutable ALLEGRO_BITMAP *menu_bitmap;
         ALLEGRO_FONT *menu_font;
 
@@ -194,6 +196,11 @@ inline void menu_manager::run(msg::message_queue& messages) {
     if(key[KEY_DOWN] && menu_position != opened_menus.top()->get_items().end())
         menu_position++;
 
+    //if(key[KEY_LEFT] && menu_position != opened_menus.top()->get_items().begin())
+    //    option_selection--;
+    //if(key[KEY_RIGHT] && menu_position != opened_menus.top()->get_items().end())
+    //    option_selection++;
+
     //...
 }
 
@@ -202,6 +209,9 @@ inline void menu_manager::run(msg::message_queue& messages) {
   Renders the active menu from the top of the stack
 */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
+    //  menu_item_citerator -> iterate items
+    //  option_citerator -> iterate options of an item
+
     //  Destroy old bitmap if it exists
     al_destroy_bitmap(menu_bitmap);
 

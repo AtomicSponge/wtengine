@@ -34,8 +34,12 @@ class component {
         component(const component&) = delete;
         void operator=(component const&) = delete;
 
+        inline const bool is_unique(void) const { return unique; };
+
     protected:
-        inline component() {};
+        inline component() { unique = true; };
+
+        bool unique;
 };
 
 //! Component shared pointer

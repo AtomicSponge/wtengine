@@ -22,22 +22,25 @@ namespace wte
 namespace mnu
 {
 
-typedef std::pair<std::string, msg::message> item_option;
+typedef std::pair<std::string, std::string> item_option;
 
-typedef std::vector<std::pair<std::string, msg::message>>::iterator option_iterator;
-typedef std::vector<std::pair<std::string, msg::message>>::const_iterator option_citerator;
+typedef std::vector<std::pair<std::string, std::string>>::iterator option_iterator;
+typedef std::vector<std::pair<std::string, std::string>>::const_iterator option_citerator;
 
 class menu_item {
     public:
         menu_item();
         ~menu_item();
 
-        void add_option(const std::string, const msg::message);
+        menu_item(std::string, msg::message);
+
+        void add_option(const std::string, const std::string);
         const std::string get_label(void) const;
 
     private:
         std::string label;
         std::vector<item_option> options;
+        msg::message msg;
 };
 
 //!
@@ -50,6 +53,11 @@ inline menu_item::menu_item() {
 //!
 /*!
 */
+inline menu_item::menu_item(std::string l, msg::message m) : label(l), msg(m) {}
+
+//!
+/*!
+*/
 inline menu_item::~menu_item() {
     //
 }
@@ -57,8 +65,8 @@ inline menu_item::~menu_item() {
 //!
 /*!
 */
-inline void menu_item::add_option(const std::string option_label, const msg::message option_message) {
-    options.push_back(std::make_pair(option_label, option_message));
+inline void menu_item::add_option(const std::string option_label, const std::string option_args) {
+    options.push_back(std::make_pair(option_label, option_args));
 }
 
 //!

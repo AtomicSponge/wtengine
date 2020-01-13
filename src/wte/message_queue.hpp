@@ -31,6 +31,7 @@ namespace msg
 
 typedef std::vector<message> message_container;
 typedef std::vector<message>::iterator message_iterator;
+typedef std::vector<message>::const_iterator message_citerator;
 
 //! message_queue class
 /*!
@@ -38,28 +39,27 @@ typedef std::vector<message>::iterator message_iterator;
 */
 class message_queue {
     public:
-    message_queue();                                /*!< Message queue constructor */
-    ~message_queue();                               /*!< Message queue destructor */
+        message_queue();                                /*!< Message queue constructor */
+        ~message_queue();                               /*!< Message queue destructor */
 
-    message_queue(const message_queue&) = delete;
-    void operator=(message_queue const&) = delete;
+        message_queue(const message_queue&) = delete;
+        void operator=(message_queue const&) = delete;
 
-    bool new_data_file(std::string);                /*!< Load a new data file into the message queue */
-    void set_time(int64_t);                         /*!< Set the internal timer value */
-    void add_message(message);                      /*!< Add a message to the queue */
-    void add_event(message);                        /*!< Add a timed message to the queue */
-    void clear_queue(void);                         /*!< Clear the message queue */
-    message_container get_messages(std::string);    /*!< Get messages based on their command */
+        bool new_data_file(std::string);                /*!< Load a new data file into the message queue */
+        void set_time(int64_t);                         /*!< Set the internal timer value */
+        void add_message(message);                      /*!< Add a message to the queue */
+        void clear_queue(void);                         /*!< Clear the message queue */
+        const message_container get_messages(const std::string);    /*!< Get messages based on their command */
 
     private:
-    int64_t current_time;                           /*!< Store timer for message processing */
-    message_container msg_queue;                    /*!< Vector of all messages to be processed */
+        int64_t current_time;                           /*!< Store timer for message processing */
+        message_container msg_queue;                    /*!< Vector of all messages to be processed */
 
-    static bool initialized;
+        static bool initialized;
 
-    #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-    void debug_log_message(message, int64_t);       /*!< Member to log processed messages to a file */
-    #endif
+        #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
+        void debug_log_message(message, int64_t);       /*!< Member to log processed messages to a file */
+        #endif
 };
 
 inline bool message_queue::initialized = false;
@@ -154,21 +154,13 @@ inline bool message_queue::new_data_file(std::string file) {
 */
 inline void message_queue::set_time(int64_t t) { current_time = t; }
 
-//! Add a message to the start of the queue
+//! Add a message to the queue
 /*!
-  No sort performed in this member
+  Adds a message object to the msg_queue vector, then sorts if it's a timed event
 */
 inline void message_queue::add_message(message msg) {
     msg_queue.insert(msg_queue.begin(), msg);
-}
-
-//! Add a message to the start of the queue, then sort
-/*!
-  This is done to place the timed event in order
-*/
-inline void message_queue::add_event(message msg) {
-    msg_queue.insert(msg_queue.begin(), msg);
-    std::sort(msg_queue.begin(), msg_queue.end());
+    if(msg.is_timed_event()) std::sort(msg_queue.begin(), msg_queue.end());
 }
 
 //! Clear the queue
@@ -181,8 +173,11 @@ inline void message_queue::clear_queue(void) { msg_queue.clear(); }
 /*!
   Once events in the future are reached, break early
 */
-inline message_container message_queue::get_messages(std::string cmd) {
+inline const message_container message_queue::get_messages(const std::string cmd) {
     message_container temp_messages;
+
+    //  Return empty vector if the queue is empty
+    if(msg_queue.empty()) return {};
 
     for(message_iterator it = msg_queue.begin(); it != msg_queue.end(); it++) {
         //  End early if events are in the future
@@ -194,7 +189,7 @@ inline message_container message_queue::get_messages(std::string cmd) {
                 debug_log_message(*it, current_time);
             #endif
             temp_messages.push_back(*it); //  Add the message to the temp vector to be returned
-            it = msg_queue.erase(it); //  Erase the event once processed
+            it = msg_queue.erase(it); //  Erase the message once processed
         }
     }
 

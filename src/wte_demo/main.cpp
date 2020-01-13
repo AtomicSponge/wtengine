@@ -19,8 +19,6 @@ const unsigned int wte::screen_height = 1024;
 const float wte::TICKS_PER_SECOND = 60.0;
 
 int main(int argc, char **argv) {
-    int init_test;
-
     //  Set some default values for the game flags
     wte::game_flag[wte::IS_RUNNING] = true;
     wte::game_flag[wte::GAME_STARTED] = false;
@@ -30,11 +28,7 @@ int main(int argc, char **argv) {
 
     //  Initialize game object
     game_loop main_game_loop;
-
-    init_test = main_game_loop.wte_init();
-    if(init_test != 0) {
-        return init_test; //  WTE Init failed, exit
-    }
+    main_game_loop.wte_init();
 
     //  Run the game loop
     main_game_loop.do_game();

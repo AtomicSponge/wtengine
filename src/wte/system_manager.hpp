@@ -40,6 +40,8 @@ class system_manager {
         system_manager(const system_manager&) = delete;
         void operator=(system_manager const&) = delete;
 
+        void finalize(void);
+
         void add(sys::system_uptr);                                 /*!< Add a new system */
         void run(entity_manager&, msg::message_queue&, int64_t);    /*!< Run all systems */
         void dispatch(entity_manager&, msg::message_queue&);        /*!< Dispatch to all systems */
@@ -47,6 +49,7 @@ class system_manager {
     private:
         std::vector<sys::system_uptr> systems;                      /*!< Store the vector of systems */
         
+        bool finalized;
         static bool initialized;
 };
 
@@ -59,6 +62,8 @@ inline bool system_manager::initialized = false;
 inline system_manager::system_manager() {
     if(initialized == true) throw std::runtime_error("System Manager already running!");
     initialized = true;
+
+    finalized = false;
 
     systems.clear();
 }
@@ -73,11 +78,18 @@ inline system_manager::~system_manager() {
     initialized = false;
 }
 
+//!  Finalize system manager
+/*!
+  Set finalized flag to prevent additional systems from being loaded
+*/
+inline void system_manager::finalize(void) { finalized = true; }
+
 //! Add a new system to the manager
 /*!
   Systems run in the order they were added
 */
 inline void system_manager::add(sys::system_uptr new_system) {
+    if(finalized == true) throw std::runtime_error("System manager already configured - Can't add additional system!");
     systems.push_back(std::move(new_system));
 }
 

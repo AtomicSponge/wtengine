@@ -17,10 +17,11 @@
 
 class starfield : public wte::ecs::sys::system {
     public:
-        void run(wte::ecs::entity_manager&, wte::msg::message_queue&, int64_t);
-        void dispatch(wte::ecs::entity_manager&, wte::msg::message_queue&);
-
         starfield();
+
+        void run(wte::ecs::entity_manager&, wte::msg::message_queue&, int64_t);
+        void dispatch(wte::ecs::entity_manager&, wte::msg::message_container);
+
     private:
         float x[MAX_STARS];
         float y[MAX_STARS];

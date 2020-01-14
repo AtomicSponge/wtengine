@@ -95,6 +95,7 @@ inline void system_manager::add(sys::system_uptr new_system) {
 
 //! Run all systems
 /*!
+  Iterate through the system vector and run each
   Throw error if no systems have been loaded
 */
 inline void system_manager::run(entity_manager& entities, msg::message_queue& messages, int64_t current_time) {
@@ -107,13 +108,14 @@ inline void system_manager::run(entity_manager& entities, msg::message_queue& me
 
 //! Process dispatch for all systems
 /*!
+  Checks each system for its name and sends corresponding messages
   Throw error if no systems have been loaded
 */
 inline void system_manager::dispatch(entity_manager& entities, msg::message_queue& messages) {
     if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
 
     for(system_citerator it = systems.begin(); it != systems.end(); it++) {
-        (*it)->dispatch(entities, messages);
+        (*it)->dispatch(entities, messages.get_messages((*it)->get_name()));
     }
 }
 

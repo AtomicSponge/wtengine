@@ -250,8 +250,14 @@ inline void wte_main::do_game(void) {
   ...
 */
 inline void wte_main::handle_sys_msg(msg::message_container sys_msgs) {
-    //
-    handle_custom_sys_msg(sys_msgs);
+    for(msg::message_iterator it = sys_msgs.begin(); it != sys_msgs.end();) {
+        if(true) {
+            it = sys_msgs.erase(it);
+        } else it++;
+    }
+
+    //  Pass remaining system messages to custom handler
+    if(!sys_msgs.empty()) handle_custom_sys_msg(sys_msgs);
 }
 
 } //  end namespace wte

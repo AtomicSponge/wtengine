@@ -29,6 +29,9 @@ namespace sys
 */
 class input : public system {
     public:
+        inline input() { name = "input"; };
+        inline ~input() {};
+
         inline void run(entity_manager&, msg::message_queue&, int64_t);
 
     protected:

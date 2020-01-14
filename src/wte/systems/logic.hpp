@@ -29,14 +29,17 @@ namespace sys
 */
 class logic : public system {
     public:
+        inline logic() { name = "logic"; };
+        inline ~logic() {};
+
         void run(entity_manager&, msg::message_queue&, int64_t);    /*!< Run the logic system */
-        void dispatch(entity_manager&, msg::message_queue&);        /*!< Dispatch logic messages */
+        void dispatch(entity_manager&, msg::message_container);        /*!< Dispatch logic messages */
 
     protected:
         component_container ai_components;  /*!< Container for logic components */
 
         virtual void custom_run(entity_manager&, msg::message_queue&, int64_t) {};  /*!< Override to define behaviour */
-        virtual void process_messages(entity_manager&, msg::message_container) {};  /*!< Override to define behaviour */
+        virtual void process_message(entity_manager&, msg::message) {};  /*!< Override to define behaviour */
 };
 
 //! Run the logic system
@@ -57,9 +60,10 @@ inline void logic::run(entity_manager& world, msg::message_queue& messages, int6
   Get logic messages for processing
   Override the process_messages member to define behaviour
 */
-inline void logic::dispatch(entity_manager& world, msg::message_queue& messages) {
-    msg::message_container spawner_messages = messages.get_messages("logic");
-    process_messages(world, spawner_messages);
+inline void logic::dispatch(entity_manager& world, msg::message_container messages) {
+    for(msg::message_iterator it = messages.begin(); it != messages.end(); it++) {
+        process_message(world, *it);
+    }
 }
 
 } //  namespace sys

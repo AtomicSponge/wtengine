@@ -6,7 +6,6 @@
   See LICENSE.txt for copyright information
 
   Define the message object
-  Format:  timer (int64_t), cmd (string), from (string), to (string), args (string)
 */
 
 #ifndef WTE_MSG_MESSAGE_HPP
@@ -33,15 +32,18 @@ class message {
         inline message() {};
         inline ~message() {};
 
-        message(std::string, std::string, std::string, std::string);
-        message(int64_t, std::string, std::string, std::string, std::string);
+        message(int64_t, std::string, std::string, std::string);
+        message(std::string, std::string, std::string);
+        message(std::string, std::string, std::string, std::string, std::string);
+        message(int64_t, std::string, std::string, std::string, std::string, std::string);
 
         const bool is_timed_event(void) const;
         const arg_list get_split_args(void) const;
 
         const int64_t get_timer(void) const;
-        const std::string get_from(void) const;
+        const std::string get_sys(void) const;
         const std::string get_to(void) const;
+        const std::string get_from(void) const;
         const std::string get_cmd(void) const;
         const std::string get_args(void) const;
 
@@ -52,9 +54,10 @@ class message {
 
     private:
         int64_t timer;          /*!< Timer value that the message will be processed at */
+        std::string sys;        /*!< System that will process the message */
+        std::string to;         /*!< Message to entity field */
+        std::string from;       /*!< Message from entity field */
         std::string cmd;        /*!< Message command */
-        std::string from;       /*!< Message from field */
-        std::string to;         /*!< Message to field */
         std::string args;       /*!< Message arguments */
 };
 
@@ -62,8 +65,8 @@ class message {
 /*!
   Create a new message object that is not synced to the timer
 */
-inline message::message(std::string c, std::string f, std::string t, std::string a) :
-    cmd(c), from(f), to(t), args(a) {
+inline message::message(std::string s, std::string c, std::string a) :
+    sys(s), cmd(c), args(a) {
     timer = -1;
 }
 
@@ -71,8 +74,26 @@ inline message::message(std::string c, std::string f, std::string t, std::string
 /*!
   Create a new message object that is synced to the timer
 */
-inline message::message(int64_t e, std::string c, std::string f, std::string t, std::string a) :
-    timer(e), cmd(c), from(f), to(t), args(a) {}
+inline message::message(int64_t e, std::string s, std::string c, std::string a) :
+    timer(e), sys(s), cmd(c), args(a) {}
+
+//! To/From Message constructor
+/*!
+  Create a new message object that is not synced to the timer
+  Also contains to/from for communication between entities
+*/
+inline message::message(std::string s, std::string t, std::string f, std::string c, std::string a) :
+    sys(s), to(t), from(f), cmd(c), args(a) {
+    timer = -1;
+}
+
+//! Timed To/From Message constructor
+/*!
+  Create a new message object that is synced to the timer
+  Also contains to/from for communication between entities
+*/
+inline message::message(int64_t e, std::string s, std::string t, std::string f, std::string c, std::string a) :
+    timer(e), sys(s), to(t), from(f), cmd(c), args(a) {}
 
 //! Check if the event is synced to the timer
 /*!
@@ -105,11 +126,17 @@ inline const arg_list message::get_split_args(void) const {
 */
 inline const int64_t message::get_timer(void) const { return timer; }
 
-//! Message get command
+//! Message get system
 /*!
-  Get command value of message object
+  Get system value of message object
 */
-inline const std::string message::get_cmd(void) const { return cmd; }
+inline const std::string message::get_sys(void) const { return sys; }
+
+//! Message get to
+/*!
+  Get to value of message object
+*/
+inline const std::string message::get_to(void) const { return to; }
 
 //! Message get from
 /*!
@@ -117,11 +144,11 @@ inline const std::string message::get_cmd(void) const { return cmd; }
 */
 inline const std::string message::get_from(void) const { return from; }
 
-//! Message get to
+//! Message get command
 /*!
-  Get to value of message object
+  Get command value of message object
 */
-inline const std::string message::get_to(void) const { return to; }
+inline const std::string message::get_cmd(void) const { return cmd; }
 
 //! Message get args
 /*!

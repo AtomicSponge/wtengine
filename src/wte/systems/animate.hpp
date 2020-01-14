@@ -29,6 +29,9 @@ namespace sys
 */
 class animate : public system {
     public:
+        inline animate() { name = "animate"; };
+        inline ~animate() {};
+        
         inline void run(entity_manager&, msg::message_queue&, int64_t);
 };
 

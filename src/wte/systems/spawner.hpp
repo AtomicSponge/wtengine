@@ -31,14 +31,14 @@ namespace sys
 */
 class spawner : public system {
     public:
+        inline spawner() { name = "spawner"; };
+        inline ~spawner() {};
+
         inline void run(entity_manager&, msg::message_queue&, int64_t);
-        inline void dispatch(entity_manager&, msg::message_queue&);
-    
-    private:
-        void process_deletes(entity_manager&, msg::message_container);
+        inline void dispatch(entity_manager&, msg::message_container);
 
     protected:
-        virtual void process_spawns(entity_manager&, msg::message_container) {};
+        virtual void process_spawn(entity_manager&, msg::arg_list) {};
 };
 
 
@@ -54,27 +54,18 @@ inline void spawner::run(entity_manager& world, msg::message_queue& messages, in
 /*!
   Split out the spawn and delete messages, pass them to each corresponding member for processing
 */
-inline void spawner::dispatch(entity_manager& world, msg::message_queue& messages) {
-    msg::message_container spawner_messages = messages.get_messages("spawn");
-    process_spawns(world, spawner_messages);
+inline void spawner::dispatch(entity_manager& world, msg::message_container messages) {
+    for(msg::message_iterator it = messages.begin(); it != messages.end(); it++) {
+        if(it->get_cmd() == "new") process_spawn(world, it->get_split_args());
 
-    msg::message_container delete_messages = messages.get_messages("delete");
-    process_deletes(world, delete_messages);
-}
-
-//! Spawner process deletes member
-/*!
-  Deletes entities based on the to field of the message
-  Checks entites by name and deletes if found
-*/
-inline void spawner::process_deletes(entity_manager& world, msg::message_container messages) {
-    for(msg::message_iterator m_it = messages.begin(); m_it != messages.end(); m_it++) {
-        ecs::component_container name_components = world.get_components<cmp::name>();
+        if(it->get_cmd() == "delete") {
+            ecs::component_container name_components = world.get_components<cmp::name>();
         
-        //  Check all named entities and delete if it exists
-        for(ecs::component_iterator c_it = name_components.begin(); c_it != name_components.end(); c_it++) {
-            if(m_it->get_to() == dynamic_cast<cmp::name*>(c_it->second.get())->name) {
-                world.delete_entity(c_it->first);
+            //  Check all named entities and delete if it exists
+            for(ecs::component_iterator c_it = name_components.begin(); c_it != name_components.end(); c_it++) {
+                if(it->get_args() == dynamic_cast<cmp::name*>(c_it->second.get())->name) {
+                    world.delete_entity(c_it->first);
+                }
             }
         }
     }

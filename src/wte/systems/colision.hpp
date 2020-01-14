@@ -28,6 +28,9 @@ namespace sys
 */
 class colision : public system {
     public:
+        inline colision() { name = "colision"; };
+        inline ~colision() {};
+
         inline void run(entity_manager&, msg::message_queue&, int64_t) final;
 };
 
@@ -67,9 +70,9 @@ inline void colision::run(entity_manager& world,
                 {
                     //  Send a message to the logic system that two entities colided
                     messages.add_message(msg::message("logic",
-                                                      world.get_component<cmp::name>(it_a->first)->name,
                                                       world.get_component<cmp::name>(it_b->first)->name,
-                                                      "colision"));
+                                                      world.get_component<cmp::name>(it_a->first)->name,
+                                                      "colision", ""));
                 }
             } //  End skip self check
         } //  End it_b loop

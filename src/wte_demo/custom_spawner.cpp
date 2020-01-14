@@ -14,14 +14,11 @@
 /*
   Process the spawn messages
 */
-void custom_spawner::process_spawns(wte::ecs::entity_manager& world, wte::msg::message_container messages) {
-    for(wte::msg::message_iterator it = messages.begin(); it != messages.end(); it++) {
-        //  Spawn an asteroid
-        if(it->get_to() == "asteroid") {
-            wte::msg::arg_list args = it->get_split_args();
-            if(args.size() == 5) new_asteroid(world, std::stof(args[0]), std::stof(args[1]),
-                                            std::stof(args[2]), std::stof(args[3]), std::stoi(args[4]));
-        }
+void custom_spawner::process_spawn(wte::ecs::entity_manager& world, wte::msg::arg_list args) {
+    //  Spawn an asteroid
+    if(args[0] == "asteroid") {
+        if(args.size() == 6) new_asteroid(world, std::stof(args[1]), std::stof(args[2]),
+                                          std::stof(args[3]), std::stof(args[4]), std::stoi(args[5]));
     }
 }
 

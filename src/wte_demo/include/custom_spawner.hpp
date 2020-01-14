@@ -15,7 +15,7 @@
 
 class custom_spawner : public wte::ecs::sys::spawner {
     private:
-        void process_spawns(wte::ecs::entity_manager&, wte::msg::message_container);
+        void process_spawn(wte::ecs::entity_manager&, wte::msg::arg_list);
 
         void new_asteroid(wte::ecs::entity_manager&, float, float, float, float, int);
         void new_wall(wte::ecs::entity_manager&, float, float);

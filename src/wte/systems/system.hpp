@@ -12,6 +12,7 @@
 #ifndef WTE_ECS_SYSTEM_HPP
 #define WTE_ECS_SYSTEM_HPP
 
+#include <string>
 #include <memory>
 
 #include "../message_queue.hpp"
@@ -38,13 +39,17 @@ class system {
         system(const system&) = delete;
         void operator=(system const&) = delete;
 
+        inline const std::string get_name(void) const { return name; };
+
         //  Override this to create custom run method
         virtual void run(entity_manager&, msg::message_queue&, int64_t) = 0;
         //  Override this for message processing.
-        virtual void dispatch(entity_manager&, msg::message_queue&) {};
+        virtual void dispatch(entity_manager&, msg::message_container) {};
 
     protected:
         inline system() {};
+
+        std::string name;
 };
 
 //! System unique pointer

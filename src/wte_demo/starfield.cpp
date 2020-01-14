@@ -57,14 +57,12 @@ void starfield::run(wte::ecs::entity_manager& world, wte::msg::message_queue& me
 /*
   Process messages for the starfield
 */
-void starfield::dispatch(wte::ecs::entity_manager& world, wte::msg::message_queue& messages) {
-    wte::msg::message_container starfield_messages = messages.get_messages("starfield");
-
-    for(wte::msg::message_iterator it = starfield_messages.begin(); it != starfield_messages.end(); it++) {
-        if(it->get_args() == "default") speed_mult = 1;
-        if(it->get_args() == "up") speed_mult *= 2;
-        if(it->get_args() == "down") speed_mult /= 2;
-        if(it->get_args() == "reset") {
+void starfield::dispatch(wte::ecs::entity_manager& world, wte::msg::message_container messages) {
+    for(wte::msg::message_iterator it = messages.begin(); it != messages.end(); it++) {
+        if(it->get_cmd() == "default") speed_mult = 1;
+        if(it->get_cmd() == "up") speed_mult *= 2;
+        if(it->get_cmd() == "down") speed_mult /= 2;
+        if(it->get_cmd() == "reset") {
             speed_mult = 1;
 
             for(int i = 0; i < MAX_STARS; i++) {

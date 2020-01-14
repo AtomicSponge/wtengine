@@ -104,9 +104,10 @@ inline void message_queue::debug_log_message(message msg, int64_t current_time) 
     debug_log_file.open("wte_debug\\wte_debug_message_queue.txt", std::ios::app);
     debug_log_file << "PROC AT:  " << current_time << " | ";
     debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
-    debug_log_file << "CMD:  " << msg.get_cmd() << " | ";
-    debug_log_file << "FROM:  " << msg.get_from() << " | ";
+    debug_log_file << "SYS:  " << msg.get_sys() << " | ";
     debug_log_file << "TO:  " << msg.get_to() << " | ";
+    debug_log_file << "FROM:  " << msg.get_from() << " | ";
+    debug_log_file << "CMD:  " << msg.get_cmd() << " | ";
     debug_log_file << "ARGS:  " << msg.get_args() << std::endl;
     debug_log_file.close();
 }
@@ -119,9 +120,8 @@ inline void message_queue::debug_log_message(message msg, int64_t current_time) 
 inline void message_queue::new_data_file(std::string file) {
     std::ifstream data_file;
     int64_t timer;
+    std::string sys;
     std::string cmd;
-    std::string from;
-    std::string to;
     std::string args;
 
     msg_queue.clear();
@@ -133,13 +133,12 @@ inline void message_queue::new_data_file(std::string file) {
     //  Loop through the entire data file loading into the queue
     while(true) {
         data_file.read(reinterpret_cast<char *>(&timer), sizeof(int64_t));
+        std::getline(data_file, sys, '\0');
         std::getline(data_file, cmd, '\0');
-        std::getline(data_file, from, '\0');
-        std::getline(data_file, to, '\0');
         std::getline(data_file, args, '\0');
 
         if(data_file.eof()) break;
-        msg_queue.push_back(message(timer, cmd, from, to, args));
+        msg_queue.push_back(message(timer, sys, cmd, args));
     }
     data_file.close();
 
@@ -173,7 +172,7 @@ inline void message_queue::clear_queue(void) { msg_queue.clear(); }
 /*!
   Once events in the future are reached, break early
 */
-inline const message_container message_queue::get_messages(const std::string cmd) {
+inline const message_container message_queue::get_messages(const std::string sys) {
     message_container temp_messages;
 
     //  Return empty vector if the queue is empty
@@ -183,7 +182,7 @@ inline const message_container message_queue::get_messages(const std::string cmd
         //  End early if events are in the future
         if(it->get_timer() > current_time) break;
 
-        if((it->get_timer() == current_time || it->get_timer() == -1) && it->get_cmd() == cmd) {
+        if((it->get_timer() == current_time || it->get_timer() == -1) && it->get_sys() == sys) {
             //  Log the message if debug mode is on
             #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
                 debug_log_message(*it, current_time);

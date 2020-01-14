@@ -86,10 +86,17 @@ inline void system_manager::finalize(void) { finalized = true; }
 
 //! Add a new system to the manager
 /*!
+  Checks to see if a similar named system is already loaded
+  Enters system into the vector of systems if not
   Systems run in the order they were added
 */
 inline void system_manager::add(sys::system_uptr new_system) {
     if(finalized == true) throw std::runtime_error("System manager already configured - Can't add additional system!");
+
+    for(system_citerator it = systems.begin(); it != systems.end(); it++) {
+        if((*it)->get_name() == new_system->get_name()) throw std::runtime_error("System already loaded!");
+    }
+
     systems.push_back(std::move(new_system));
 }
 

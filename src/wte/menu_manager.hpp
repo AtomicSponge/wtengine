@@ -45,7 +45,7 @@ class menu_manager {
         menu_manager(const menu_manager&) = delete;
         void operator=(menu_manager const&) = delete;
 
-        void initialize(ALLEGRO_FONT *);
+        void initialize(ALLEGRO_FONT *, ALLEGRO_COLOR);
 
         void new_menu(const menu);
         const menu_csptr get_menu(const std::string) const;
@@ -63,7 +63,9 @@ class menu_manager {
         option_citerator option_selection;
 
         mutable ALLEGRO_BITMAP *menu_bitmap;
+        ALLEGRO_BITMAP *menu_cursor;
         ALLEGRO_FONT *menu_font;
+        ALLEGRO_COLOR menu_font_color;
 
         std::vector<menu_sptr> menus;
         std::stack<menu_csptr> opened_menus;
@@ -82,6 +84,7 @@ inline menu_manager::menu_manager() {
     initialized = true;
 
     menu_bitmap = NULL;
+    menu_cursor = NULL;
     menu_font = NULL;
 
     menus.clear();
@@ -97,6 +100,7 @@ inline menu_manager::~menu_manager() {
     opened_menus = {};
 
     al_destroy_bitmap(menu_bitmap);
+    al_destroy_bitmap(menu_cursor);
     al_destroy_font(menu_font);
 
     initialized = false;
@@ -107,24 +111,30 @@ inline menu_manager::~menu_manager() {
   Pass an Allegro font for the menu manager to use
   Also create the default main menu and in-game menu
 */
-inline void menu_manager::initialize(ALLEGRO_FONT *font) {
+inline void menu_manager::initialize(ALLEGRO_FONT *font, ALLEGRO_COLOR color) {
     menu_font = font;
+    menu_font_color = color;
 
     //  Create default menus in seperate scopes
     {
         //  Create the main menu
-        menu temp_menu = menu("main_menu", 300, 200, WTE_COLOR_ORANGE);
+        menu temp_menu = menu("main_menu", 300, 200, WTE_COLOR_BLUE);
         new_menu(temp_menu);
     }
 
     {
         //  Create the in-game menu
-        menu temp_menu = menu("game_menu", 300, 200, WTE_COLOR_ORANGE);
+        menu temp_menu = menu("game_menu", 300, 200, WTE_COLOR_BLUE);
         new_menu(temp_menu);
     }
+
+    menu_cursor = al_create_bitmap(8, 8);
+    al_set_target_bitmap(menu_cursor);
+    al_clear_to_color(color);
+    al_set_target_backbuffer(al_get_current_display());
 }
 
-//!  Add a menu to the menu list
+//!  Add a menu to the menu vector
 /*!
 */
 inline void menu_manager::new_menu(const menu new_menu) {
@@ -138,9 +148,9 @@ inline void menu_manager::new_menu(const menu new_menu) {
 */
 inline const menu_csptr menu_manager::get_menu(const std::string name) const {
     for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
-        if(name == (*it)->get_name()) return *it;
+        if(name == (*it)->get_id()) return *it;
     }
-    //  Menu not found - just return the first one in the list
+    //  Menu not found - just return the first one in the vector
     return *menus.begin();
 }
 
@@ -151,9 +161,9 @@ inline const menu_csptr menu_manager::get_menu(const std::string name) const {
 */
 inline const menu_sptr menu_manager::set_menu(const std::string name) {
     for(menu_iterator it = menus.begin(); it != menus.end(); it++) {
-        if(name == (*it)->get_name()) return *it;
+        if(name == (*it)->get_id()) return *it;
     }
-    //  Menu not found - just return the first one in the list
+    //  Menu not found - just return the first one in the vector
     return *menus.begin();
 }
 
@@ -168,8 +178,8 @@ inline void menu_manager::reset(void) { opened_menus = {}; }
   Takes a menu from the vector container and adds it to the top of the opened stack
   Also resets the menu position
 */
-inline void menu_manager::open_menu(const std::string menu_name) {
-    opened_menus.push(get_menu(menu_name));
+inline void menu_manager::open_menu(const std::string menu_id) {
+    opened_menus.push(get_menu(menu_id));
     menu_position = opened_menus.top()->get_items().begin();
 }
 
@@ -191,10 +201,12 @@ inline void menu_manager::run(msg::message_queue& messages) {
     }
 
     //  Iterate through the menu items depending on key press
-    if(key[KEY_UP] && menu_position != opened_menus.top()->get_items().begin())
+    if(key[KEY_UP] && menu_position != opened_menus.top()->get_items().begin()) {
         menu_position--;
-    if(key[KEY_DOWN] && menu_position != opened_menus.top()->get_items().end())
+    }
+    if(key[KEY_DOWN] && menu_position != opened_menus.top()->get_items().end()) {
         menu_position++;
+    }
 
     //if(key[KEY_LEFT] && menu_position != opened_menus.top()->get_items().begin())
     //    option_selection--;
@@ -209,6 +221,7 @@ inline void menu_manager::run(msg::message_queue& messages) {
   Renders the active menu from the top of the stack
 */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
+    bool has_title = false;
     //  menu_item_citerator -> iterate items
     //  option_citerator -> iterate options of an item
 
@@ -226,10 +239,22 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     menu_bitmap = al_clone_bitmap(opened_menus.top()->get_background());
     al_set_target_bitmap(menu_bitmap);
 
-    //  Render menu text
+    /*
+      Render menu text
+    */
+    //  Render menu title if one is set
+    if(opened_menus.top()->get_title() != "") {
+        al_draw_text(menu_font, menu_font_color,
+                     opened_menus.top()->get_width() / 2, opened_menus.top()->get_border(),
+                     ALLEGRO_ALIGN_CENTER, opened_menus.top()->get_title().c_str());
+        has_title = true;
+    }
+
+    //  Render menu items
     for(menu_item_citerator it = opened_menus.top()->get_items().begin();
         it != opened_menus.top()->get_items().end(); it++) {
         //it->get_label();
+        //al_draw_text(menu_font, menu_font_color, x, y, ALLEGRO_ALIGN_CENTER, str.c_str())
     }
 
     //  Return drawing to the screen

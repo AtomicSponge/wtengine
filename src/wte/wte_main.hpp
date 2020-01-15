@@ -135,15 +135,20 @@ inline void wte_main::wte_init(void) {
     al_run_detached_thread(get_input, NULL);
     al_run_detached_thread(audio_manager, NULL);
 
-    //  Initialize renderer and menu manager, passing them fonts to be used
+    //  Initialize renderer and menu manager
     game_screen.initialize(al_create_builtin_font());
-    menus.initialize(al_create_builtin_font());
+    menus.initialize(al_create_builtin_font(), WTE_COLOR_WHITE);
 
     //  Load user configured menus & systems
     load_menus();
     load_systems();
     //  Prevent further systems from being loaded
     systems.finalize();
+
+    //  Set game flags
+    game_flag[IS_RUNNING] = true;
+    game_flag[GAME_STARTED] = false;
+    game_flag[GAME_MENU_OPENED] = true;
 
     //  Init done, set flag to true
     init_called = true;
@@ -197,7 +202,7 @@ inline void wte_main::do_game(void) {
     bool queue_not_empty;
     msg::message_container temp_msgs;
 
-    generate_new_game("data\\game.sdf"); //  test code
+    //generate_new_game("data\\game.sdf"); //  test code
 
     while(game_flag[IS_RUNNING]) {
         //  Pause / resume timer depending on if the game menu is opened

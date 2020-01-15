@@ -39,15 +39,20 @@ class menu {
 
         void set_bg_color(const ALLEGRO_COLOR);
         const bool add_item(const menu_item);
-        const std::string get_name(void) const;
-        const int get_width(void) const;
-        const int get_height(void) const;
+        const std::string get_id(void) const;
+        void set_title(std::string);
+        const std::string get_title(void) const;
+        const float get_border(void) const;
+        const float get_width(void) const;
+        const float get_height(void) const;
         ALLEGRO_BITMAP* get_background(void) const;
         menu_items get_items(void) const;
 
     private:
-        std::string menu_name;
+        std::string id;
+        std::string title;
         menu_items items;
+        float border;
         ALLEGRO_BITMAP *background_bitmap;
 };
 
@@ -59,8 +64,10 @@ inline menu::menu() { background_bitmap = NULL; }
 //!  Menu constructor
 /*!
 */
-inline menu::menu(const std::string name, const int w, const int h, const ALLEGRO_COLOR color) {
-    menu_name = name;
+inline menu::menu(const std::string i, const int w, const int h, const ALLEGRO_COLOR color) {
+    id = i;
+    title = "";
+    border = 10;
     background_bitmap = al_create_bitmap(w, h);
     al_set_target_bitmap(background_bitmap);
     al_clear_to_color(color);
@@ -71,7 +78,9 @@ inline menu::menu(const std::string name, const int w, const int h, const ALLEGR
   Called to make a copy of the menu object
 */
 inline menu::menu(const menu& copy_menu) {
-    menu_name = copy_menu.menu_name;
+    id = copy_menu.id;
+    title = copy_menu.title;
+    border = copy_menu.border;
     items = copy_menu.items;
     background_bitmap = al_clone_bitmap(copy_menu.background_bitmap);
 }
@@ -102,19 +111,34 @@ inline const bool menu::add_item(const menu_item item) {
 /*!
   Returns the name of the menu
 */
-inline const std::string menu::get_name(void) const { return menu_name; }
+inline const std::string menu::get_id(void) const { return id; }
+
+//!  Set menu title
+/*!
+*/
+inline void menu::set_title(std::string t) { title = t; }
+
+//!  Get menu title
+/*!
+*/
+inline const std::string menu::get_title(void) const { return title; }
+
+//!  Get menu border
+/*!
+*/
+inline const float menu::get_border(void) const { return border; }
 
 //!  Get menu background bitmap width
 /*!
   Returns the width of the background bitmap
 */
-inline const int menu::get_width(void) const { return al_get_bitmap_width(background_bitmap); }
+inline const float menu::get_width(void) const { return al_get_bitmap_width(background_bitmap); }
 
 //!  Get menu background bitmap height
 /*!
   Returns the height of the background bitmap
 */
-inline const int menu::get_height(void) const { return al_get_bitmap_height(background_bitmap); }
+inline const float menu::get_height(void) const { return al_get_bitmap_height(background_bitmap); }
 
 //!  Get menu background bitmap
 /*!

@@ -19,6 +19,8 @@
 //#include <allegro5/allegro_memfile.h>
 
 #include <ctime>
+#include <string>
+#include <map>
 #include <stdexcept>
 
 #include "wte_globals.hpp"
@@ -41,7 +43,7 @@ class wte_main {
     public:
         virtual ~wte_main();
 
-        wte_main(const wte_main&) = delete;     //  Remove copy constructor
+        wte_main(const wte_main&) = delete;
         void operator=(wte_main const&) = delete;
 
         void wte_init(void);                    /*!< Initialize the engine */
@@ -50,6 +52,8 @@ class wte_main {
 
     private:
         void handle_sys_msg(msg::message_container);
+        void generate_new_game(void);    /*!< Call to generate a new game */
+        void unload_game(void);
 
         ALLEGRO_DISPLAY *display;               /*!< Display to draw to */
         ALLEGRO_TIMER *main_timer;              /*!< Timer to control game loop */
@@ -57,6 +61,14 @@ class wte_main {
         ALLEGRO_EVENT event;                    /*!< Container to fetch event */
 
         renderer game_screen;                   /*!< The renderer used to draw the game environment */
+
+        //  Used for switching on system messages:
+        enum cmd_str_value { ev_cmd_ndef,
+                             ev_cmd1,
+                             ev_cmd2,
+                             ev_cmd3,
+                             ev_end };
+        std::map<std::string, cmd_str_value> map_cmd_str_values;
 
         bool init_called;                       /*!< Flag to make sure wte_init was called */
 
@@ -70,9 +82,8 @@ class wte_main {
         virtual void load_game(void) = 0;       /*!< Override to load initial entities */
         virtual void end_game(void) = 0;        /*!< Override to define end game process */
 
-        void generate_new_game(std::string);    /*!< Call to generate a new game */
-        virtual void handle_custom_sys_msg(msg::message_container) {};
-        
+        virtual void handle_custom_sys_msg(msg::message) {};
+
         ecs::entity_manager world;              /*!< Manager for entities */
         ecs::system_manager systems;            /*!< Manager for systems */
         msg::message_queue messages;            /*!< Message queue */
@@ -145,6 +156,12 @@ inline void wte_main::wte_init(void) {
     //  Prevent further systems from being loaded
     systems.finalize();
 
+    //  Map commands to enums for switching over in the system msg handler
+    map_cmd_str_values["exit"] = ev_cmd1;
+    map_cmd_str_values["new_game"] = ev_cmd2;
+    map_cmd_str_values["end_game"] = ev_cmd3;
+    map_cmd_str_values["end"] = ev_end;
+
     //  Set game flags
     game_flag[IS_RUNNING] = true;
     game_flag[GAME_STARTED] = false;
@@ -175,21 +192,35 @@ inline void wte_main::wte_unload(void) {
 /*!
   Call every time a new game is starting
 */
-inline void wte_main::generate_new_game(std::string message_data) {
+inline void wte_main::generate_new_game(void) {
     std::srand(std::time(nullptr));  //  Seed random
 
+    game_flag[GAME_MENU_OPENED] = false;
     game_flag[GAME_STARTED] = true;  //  Set flag that the game has been started
 
     //  Clear world and load starting entities
     world.clear();
     load_game();
 
-    messages.new_data_file(message_data);  //  Load a new message data file
+    //  Load a new message data file
+    messages.new_data_file("data\\game.sdf");  //  Update later to load from settings
 
     //  Restart the timer at zero
     al_stop_timer(main_timer);
     al_set_timer_count(main_timer, 0);
     al_start_timer(main_timer);
+}
+
+//!
+/*
+*/
+inline void wte_main::unload_game(void) {
+    al_stop_timer(main_timer);
+    end_game();
+
+    world.clear();
+    game_flag[GAME_STARTED] = false;
+    game_flag[GAME_MENU_OPENED] = true;
 }
 
 //! Main game logic
@@ -202,7 +233,7 @@ inline void wte_main::do_game(void) {
     bool queue_not_empty;
     msg::message_container temp_msgs;
 
-    //generate_new_game("data\\game.sdf"); //  test code
+    generate_new_game(); //  test code
 
     while(game_flag[IS_RUNNING]) {
         //  Pause / resume timer depending on if the game menu is opened
@@ -252,17 +283,50 @@ inline void wte_main::do_game(void) {
 
 //! Process system messages
 /*!
-  ...
+  Switch over the system messages and process
+  Remaining messages are passed to the custom handler
 */
 inline void wte_main::handle_sys_msg(msg::message_container sys_msgs) {
     for(msg::message_iterator it = sys_msgs.begin(); it != sys_msgs.end();) {
-        if(true) {
-            it = sys_msgs.erase(it);
-        } else it++;
+        //  Switch over the system messages, deleting each as they are processed
+        switch(map_cmd_str_values[it->get_cmd()]) {
+            //  cmd:  exit - Shut down engine
+            case ev_cmd1:
+                if(game_flag[GAME_STARTED] == true) unload_game();
+                game_flag[IS_RUNNING] = false;
+                it = sys_msgs.erase(it);
+                break;
+
+            //  cmd:  new_game - start up a new game
+            case ev_cmd2:
+                if(game_flag[GAME_STARTED] == true) unload_game();
+                generate_new_game();
+                it = sys_msgs.erase(it);
+                break;
+
+            //  cmd:  end_game - end current game
+            case ev_cmd3:
+                unload_game();
+                it = sys_msgs.erase(it);
+                break;
+
+            //case ev_cmdX:
+                //
+                //it = sys_msgs.erase(it);
+                //break;
+
+            //  Command not defined, iterate to next
+            default:
+                it++;
+        }
     }
 
     //  Pass remaining system messages to custom handler
-    if(!sys_msgs.empty()) handle_custom_sys_msg(sys_msgs);
+    if(!sys_msgs.empty()) {
+        for(msg::message_iterator it = sys_msgs.begin(); it != sys_msgs.end(); it++) {
+            handle_custom_sys_msg(*it);
+        }
+    }
 }
 
 } //  end namespace wte

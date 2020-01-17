@@ -43,7 +43,7 @@ inline void *get_input(void *arg) {
     al_register_event_source(input_queue, al_get_keyboard_event_source());
     if(al_is_joystick_installed()) al_register_event_source(input_queue, al_get_joystick_event_source());
 
-    while( game_flag[IS_RUNNING] ) {
+    while(game_flag[IS_RUNNING]) {
         //  After 3 ticks, stop and reset input timer
         if(al_get_timer_count(input_timer) == 2) {
             al_stop_timer(input_timer);

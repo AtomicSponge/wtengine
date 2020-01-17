@@ -130,12 +130,9 @@ void game_loop::load_game(void) {
 
 /*
   Stop the game
-  Delete all of the entities and toggle the game started flag to false
 
   Overrides from wte_main
 */
 void game_loop::end_game(void) {
-    world.clear();
-
-    wte::game_flag[wte::GAME_STARTED] = false;
+    //
 }

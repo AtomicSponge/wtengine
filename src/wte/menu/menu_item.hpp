@@ -32,7 +32,7 @@ class menu_item {
         menu_item();
         ~menu_item();
 
-        menu_item(std::string, msg::message);
+        menu_item(std::string);
 
         void add_option(const std::string, const std::string);
         const std::string get_label(void) const;
@@ -40,20 +40,24 @@ class menu_item {
     private:
         std::string label;
         std::vector<item_option> options;
-        msg::message msg;
+
+        //  Used for generating the system message:
+        std::string sys;
+        std::string cmd;
+        std::string args;
 };
 
 //!
 /*!
 */
-inline menu_item::menu_item() {
-    //
-}
+inline menu_item::menu_item() {}
 
 //!
 /*!
 */
-inline menu_item::menu_item(std::string l, msg::message m) : label(l), msg(m) {}
+inline menu_item::menu_item(std::string l) : label(l) {
+    sys = "system";
+}
 
 //!
 /*!

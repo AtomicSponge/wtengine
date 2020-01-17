@@ -195,8 +195,9 @@ inline void wte_main::wte_unload(void) {
 inline void wte_main::generate_new_game(void) {
     std::srand(std::time(nullptr));  //  Seed random
 
+    //  Set global flags
     game_flag[GAME_MENU_OPENED] = false;
-    game_flag[GAME_STARTED] = true;  //  Set flag that the game has been started
+    game_flag[GAME_STARTED] = true;
 
     //  Clear world and load starting entities
     world.clear();

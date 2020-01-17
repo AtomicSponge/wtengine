@@ -11,6 +11,8 @@
 #ifndef WTE_GET_INPUT_HPP
 #define WTE_GET_INPUT_HPP
 
+#include <iostream>
+
 #include <allegro5/allegro.h>
 
 #include "wte_globals.hpp"
@@ -44,6 +46,7 @@ inline void *get_input(void *arg) {
     if(al_is_joystick_installed()) al_register_event_source(input_queue, al_get_joystick_event_source());
 
     while(game_flag[IS_RUNNING]) {
+        //std::cout << game_flag[GAME_STARTED] << std::endl;
         //  After 3 ticks, stop and reset input timer
         if(al_get_timer_count(input_timer) == 2) {
             al_stop_timer(input_timer);
@@ -99,7 +102,8 @@ inline void *get_input(void *arg) {
                     key[KEY_FIRE_3] = true;
                     break;
                 case ALLEGRO_KEY_ESCAPE:
-                    if(!al_get_timer_started(input_timer)) {
+                    //  Open / close menu if game is running
+                    if(!al_get_timer_started(input_timer) && game_flag[GAME_STARTED]) {
                         if(game_flag[GAME_MENU_OPENED]) {
                             game_flag[GAME_MENU_OPENED] = false;
                         } else {
@@ -161,7 +165,7 @@ inline void *get_input(void *arg) {
             if(input_event.joystick.button == joy.fire_2_button) key[KEY_FIRE_2] = true;
             if(input_event.joystick.button == joy.fire_3_button) key[KEY_FIRE_3] = true;
             if(input_event.joystick.button == joy.start_button) {
-                if(game_flag[GAME_MENU_OPENED]) {
+                if(game_flag[GAME_MENU_OPENED] && game_flag[GAME_STARTED]) {
                     game_flag[GAME_MENU_OPENED] = false;
                 } else {
                     game_flag[GAME_MENU_OPENED] = true;

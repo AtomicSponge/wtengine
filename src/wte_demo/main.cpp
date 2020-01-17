@@ -17,6 +17,7 @@
 const unsigned int wte::screen_width = 768;
 const unsigned int wte::screen_height = 1024;
 
+//  Set game timer rate
 const float wte::TICKS_PER_SECOND = 60.0;
 
 int main(int argc, char **argv) {

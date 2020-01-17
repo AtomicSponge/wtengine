@@ -234,7 +234,7 @@ inline void wte_main::do_game(void) {
     bool queue_not_empty;
     msg::message_container temp_msgs;
 
-    //generate_new_game(); //  test code
+    generate_new_game(); //  test code
 
     while(game_flag[IS_RUNNING]) {
         //  Pause / resume timer depending on if the game menu is opened

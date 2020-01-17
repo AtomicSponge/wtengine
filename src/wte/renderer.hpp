@@ -79,7 +79,7 @@ inline renderer::renderer() {
     
     last_tick = 0;
     this_tick = 0;
-    fps_counter = 0;
+    fps_counter = 1;
     fps = 0;
 
     //  Define comparator as lambda function that sorts components
@@ -125,7 +125,7 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
         //  Update fps on unique ticks only
         if(current_time % (int64_t)TICKS_PER_SECOND == 0 && this_tick != last_tick) {
             fps = fps_counter;
-            fps_counter = 0;
+            fps_counter = 1;
             last_tick = current_time;
         }
     }

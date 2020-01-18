@@ -37,7 +37,7 @@ class component {
         inline const bool is_unique(void) const { return unique; };
 
     protected:
-        inline component() { unique = true; };
+        inline component() : unique(true) {};
 
         bool unique;
 };

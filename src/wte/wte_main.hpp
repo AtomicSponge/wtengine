@@ -212,8 +212,9 @@ inline void wte_main::generate_new_game(void) {
     al_start_timer(main_timer);
 }
 
-//!
+//!  Call to stop the game in progress
 /*
+  Calls the user defined end game process, then shuts down the game
 */
 inline void wte_main::unload_game(void) {
     al_stop_timer(main_timer);
@@ -234,7 +235,7 @@ inline void wte_main::do_game(void) {
     bool queue_not_empty;
     msg::message_container temp_msgs;
 
-    generate_new_game(); //  test code
+    //generate_new_game(); //  test code
 
     while(game_flag[IS_RUNNING]) {
         //  Pause / resume timer depending on if the game menu is opened

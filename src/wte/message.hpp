@@ -32,20 +32,24 @@ class message {
         inline message() {};
         inline ~message() {};
 
-        message(int64_t, std::string, std::string, std::string);
-        message(std::string, std::string, std::string);
-        message(std::string, std::string, std::string, std::string, std::string);
-        message(int64_t, std::string, std::string, std::string, std::string, std::string);
+        inline message(std::string s, std::string c, std::string a) :
+                       timer(-1), sys(s), cmd(c), args(a) {};
+        inline message(int64_t e, std::string s, std::string c, std::string a) :
+                       timer(e), sys(s), cmd(c), args(a) {};
+        inline message(std::string s, std::string t, std::string f, std::string c, std::string a) :
+                       timer(-1), sys(s), to(t), from(f), cmd(c), args(a) {};
+        inline message(int64_t e, std::string s, std::string t, std::string f, std::string c, std::string a) :
+                       timer(e), sys(s), to(t), from(f), cmd(c), args(a) {};
 
         const bool is_timed_event(void) const;
         const arg_list get_split_args(void) const;
 
-        const int64_t get_timer(void) const;
-        const std::string get_sys(void) const;
-        const std::string get_to(void) const;
-        const std::string get_from(void) const;
-        const std::string get_cmd(void) const;
-        const std::string get_args(void) const;
+        inline const int64_t get_timer(void) const { return timer; };
+        inline const std::string get_sys(void) const { return sys; };
+        inline const std::string get_to(void) const { return to; };
+        inline const std::string get_from(void) const { return from; };
+        inline const std::string get_cmd(void) const { return cmd; };
+        inline const std::string get_args(void) const { return args; };
 
         //  Used to sort by timer value
         bool operator<(const message& a) const {
@@ -60,40 +64,6 @@ class message {
         std::string cmd;        /*!< Message command */
         std::string args;       /*!< Message arguments */
 };
-
-//! Message constructor
-/*!
-  Create a new message object that is not synced to the timer
-*/
-inline message::message(std::string s, std::string c, std::string a) :
-    sys(s), cmd(c), args(a) {
-    timer = -1;
-}
-
-//! Timed Message constructor
-/*!
-  Create a new message object that is synced to the timer
-*/
-inline message::message(int64_t e, std::string s, std::string c, std::string a) :
-    timer(e), sys(s), cmd(c), args(a) {}
-
-//! To/From Message constructor
-/*!
-  Create a new message object that is not synced to the timer
-  Also contains to/from for communication between entities
-*/
-inline message::message(std::string s, std::string t, std::string f, std::string c, std::string a) :
-    sys(s), to(t), from(f), cmd(c), args(a) {
-    timer = -1;
-}
-
-//! Timed To/From Message constructor
-/*!
-  Create a new message object that is synced to the timer
-  Also contains to/from for communication between entities
-*/
-inline message::message(int64_t e, std::string s, std::string t, std::string f, std::string c, std::string a) :
-    timer(e), sys(s), to(t), from(f), cmd(c), args(a) {}
 
 //! Check if the event is synced to the timer
 /*!
@@ -119,42 +89,6 @@ inline const arg_list message::get_split_args(void) const {
 
     return arglist;
 }
-
-//! Message get timer
-/*!
-  Get timer value of message object
-*/
-inline const int64_t message::get_timer(void) const { return timer; }
-
-//! Message get system
-/*!
-  Get system value of message object
-*/
-inline const std::string message::get_sys(void) const { return sys; }
-
-//! Message get to
-/*!
-  Get to value of message object
-*/
-inline const std::string message::get_to(void) const { return to; }
-
-//! Message get from
-/*!
-  Get from value of message object
-*/
-inline const std::string message::get_from(void) const { return from; }
-
-//! Message get command
-/*!
-  Get command value of message object
-*/
-inline const std::string message::get_cmd(void) const { return cmd; }
-
-//! Message get args
-/*!
-  Get args value of message object
-*/
-inline const std::string message::get_args(void) const { return args; }
 
 } //  namespace msg
 

@@ -30,11 +30,11 @@ namespace cmp
 */
 class sprite : public component {
     public:
+        ~sprite();
+
         ALLEGRO_BITMAP *sprite_bitmap;
         float sprite_height, sprite_width, draw_offset;
         unsigned int current_frame, speed;
-
-        ~sprite();
 };
 
 inline sprite::~sprite() {

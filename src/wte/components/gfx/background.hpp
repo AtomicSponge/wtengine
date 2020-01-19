@@ -31,10 +31,10 @@ namespace cmp
 */
 class background : public component {
     public:
-        ALLEGRO_BITMAP *background_bitmap;
-
         background();
         ~background();
+
+        ALLEGRO_BITMAP *background_bitmap;
 };
 
 inline background::background() {

@@ -30,9 +30,9 @@ namespace cmp
 */
 class texture : public component {
     public:
-        ALLEGRO_BITMAP *texture_bitmap;
-
         ~texture();
+
+        ALLEGRO_BITMAP *texture_bitmap;
 };
 
 inline texture::~texture() {

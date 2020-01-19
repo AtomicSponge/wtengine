@@ -118,13 +118,13 @@ inline void menu_manager::initialize(ALLEGRO_FONT *font, ALLEGRO_COLOR color) {
     //  Create default menus in seperate scopes
     {
         //  Create the main menu
-        menu temp_menu = menu("main_menu", 300, 200, WTE_COLOR_BLUE);
+        menu temp_menu = menu("main_menu", 300, 200, WTE_COLOR_DARKPURPLE);
         new_menu(temp_menu);
     }
 
     {
         //  Create the in-game menu
-        menu temp_menu = menu("game_menu", 300, 200, WTE_COLOR_BLUE);
+        menu temp_menu = menu("game_menu", 300, 200, WTE_COLOR_DARKPURPLE);
         new_menu(temp_menu);
     }
 
@@ -245,7 +245,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     //  Render menu title if one is set
     if(opened_menus.top()->get_title() != "") {
         al_draw_text(menu_font, menu_font_color,
-                     opened_menus.top()->get_width() / 2, opened_menus.top()->get_border(),
+                     opened_menus.top()->get_width() / 2, opened_menus.top()->get_padding(),
                      ALLEGRO_ALIGN_CENTER, opened_menus.top()->get_title().c_str());
         has_title = true;
     }

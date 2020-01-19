@@ -50,82 +50,46 @@ void game_loop::load_game(void) {
 
     //  Background entity
     e_id = world.new_entity();
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::name>());
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::name>("starfield"));
     world.add_component(e_id, std::make_shared<wte::ecs::cmp::background>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::background_layer>());
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::background_layer>(0));
     world.add_component(e_id, std::make_shared<wte::ecs::cmp::visible>());
-    world.set_component<wte::ecs::cmp::name>(e_id)->name = "starfield";
-    world.set_component<wte::ecs::cmp::background_layer>(e_id)->layer = 0;
-    world.set_component<wte::ecs::cmp::visible>(e_id)->is_visible = true;
 
     //  Player entity
     e_id = world.new_entity();
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::name>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::team>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::location>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::hitbox>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::health>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::render_order>());
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::name>("player"));
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::team>(0));
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::location>((wte::screen_width / 2) - 5, wte::screen_height - 40));
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::hitbox>(10, 10));
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::health>(1));
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::render_order>(1));
     world.add_component(e_id, std::make_shared<wte::ecs::cmp::input_handler>());
     world.add_component(e_id, std::make_shared<wte::ecs::cmp::visible>());
     world.add_component(e_id, std::make_shared<wte::ecs::cmp::enabled>());
-    world.set_component<wte::ecs::cmp::name>(e_id)->name = "player";
-    world.set_component<wte::ecs::cmp::team>(e_id)->team = 0;
-    world.set_component<wte::ecs::cmp::location>(e_id)->pos_x = (wte::screen_width / 2) - 5;
-    world.set_component<wte::ecs::cmp::location>(e_id)->pos_y = wte::screen_height - 40;
-    world.set_component<wte::ecs::cmp::hitbox>(e_id)->width = 10;
-    world.set_component<wte::ecs::cmp::hitbox>(e_id)->height = 10;
-    world.set_component<wte::ecs::cmp::hitbox>(e_id)->solid = true;
-    world.set_component<wte::ecs::cmp::health>(e_id)->hp = 1;
-    world.set_component<wte::ecs::cmp::render_order>(e_id)->order = 1;
-    world.set_component<wte::ecs::cmp::visible>(e_id)->is_visible = true;
-    world.set_component<wte::ecs::cmp::enabled>(e_id)->is_enabled = true;
 
     //  Main cannon entity
     e_id = world.new_entity();
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::name>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::team>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::location>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::hitbox>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::damage>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::render_order>());
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::name>("main_cannon"));
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::team>(0));
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::location>(0, 0));
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::hitbox>(10, 200, false));
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::damage>(5));
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::render_order>(2));
     world.add_component(e_id, std::make_shared<wte::ecs::cmp::input_handler>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::visible>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::enabled>());
-    world.set_component<wte::ecs::cmp::name>(e_id)->name = "main_cannon";
-    world.set_component<wte::ecs::cmp::team>(e_id)->team = 0;
-    world.set_component<wte::ecs::cmp::location>(e_id)->pos_x = 0;
-    world.set_component<wte::ecs::cmp::location>(e_id)->pos_y = 0;
-    world.set_component<wte::ecs::cmp::hitbox>(e_id)->width = 10;
-    world.set_component<wte::ecs::cmp::hitbox>(e_id)->height = 200;
-    world.set_component<wte::ecs::cmp::hitbox>(e_id)->solid = false;
-    world.set_component<wte::ecs::cmp::damage>(e_id)->dmg = 5;
-    world.set_component<wte::ecs::cmp::render_order>(e_id)->order = 2;
-    world.set_component<wte::ecs::cmp::visible>(e_id)->is_visible = false;
-    world.set_component<wte::ecs::cmp::enabled>(e_id)->is_enabled = false;
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::visible>(false));
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::enabled>(false));
 
     //  Shield entity
     e_id = world.new_entity();
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::name>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::team>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::location>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::hitbox>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::damage>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::render_order>());
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::name>("shield"));
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::team>(0));
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::location>(0, 0));
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::hitbox>(40, 40, false));
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::damage>(100));
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::render_order>(2));
     world.add_component(e_id, std::make_shared<wte::ecs::cmp::input_handler>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::visible>());
-    world.add_component(e_id, std::make_shared<wte::ecs::cmp::enabled>());
-    world.set_component<wte::ecs::cmp::name>(e_id)->name = "shield";
-    world.set_component<wte::ecs::cmp::team>(e_id)->team = 0;
-    world.set_component<wte::ecs::cmp::location>(e_id)->pos_x = 0;
-    world.set_component<wte::ecs::cmp::location>(e_id)->pos_y = 0;
-    world.set_component<wte::ecs::cmp::hitbox>(e_id)->width = 40;
-    world.set_component<wte::ecs::cmp::hitbox>(e_id)->height = 40;
-    world.set_component<wte::ecs::cmp::hitbox>(e_id)->solid = false;
-    world.set_component<wte::ecs::cmp::damage>(e_id)->dmg = 100;
-    world.set_component<wte::ecs::cmp::render_order>(e_id)->order = 2;
-    world.set_component<wte::ecs::cmp::visible>(e_id)->is_visible = false;
-    world.set_component<wte::ecs::cmp::enabled>(e_id)->is_enabled = false;
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::visible>(false));
+    world.add_component(e_id, std::make_shared<wte::ecs::cmp::enabled>(false));
 }
 
 /*

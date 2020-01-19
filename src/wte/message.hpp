@@ -32,24 +32,34 @@ class message {
         inline message() {};
         inline ~message() {};
 
+        //!
         inline message(std::string s, std::string c, std::string a) :
                        timer(-1), sys(s), cmd(c), args(a) {};
+        //!
         inline message(int64_t e, std::string s, std::string c, std::string a) :
                        timer(e), sys(s), cmd(c), args(a) {};
+        //!
         inline message(std::string s, std::string t, std::string f, std::string c, std::string a) :
                        timer(-1), sys(s), to(t), from(f), cmd(c), args(a) {};
+        //!
         inline message(int64_t e, std::string s, std::string t, std::string f, std::string c, std::string a) :
                        timer(e), sys(s), to(t), from(f), cmd(c), args(a) {};
 
+        //!
+        inline const int64_t get_timer(void) const { return timer; };
+        //!
+        inline const std::string get_sys(void) const { return sys; };
+        //!
+        inline const std::string get_to(void) const { return to; };
+        //!
+        inline const std::string get_from(void) const { return from; };
+        //!
+        inline const std::string get_cmd(void) const { return cmd; };
+        //!
+        inline const std::string get_args(void) const { return args; };
+
         const bool is_timed_event(void) const;
         const arg_list get_split_args(void) const;
-
-        inline const int64_t get_timer(void) const { return timer; };
-        inline const std::string get_sys(void) const { return sys; };
-        inline const std::string get_to(void) const { return to; };
-        inline const std::string get_from(void) const { return from; };
-        inline const std::string get_cmd(void) const { return cmd; };
-        inline const std::string get_args(void) const { return args; };
 
         //  Used to sort by timer value
         bool operator<(const message& a) const {

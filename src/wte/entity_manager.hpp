@@ -220,25 +220,23 @@ inline const entity_container entity_manager::get_entity(const entity e_id) cons
 //! Add a new component to an entity
 /*!
   Return false if the entity does not exist
-  Return false if the entity already has a unique component of the same type
+  Return false if the entity already has a component of the same type
   Return true on success
 */
 inline const bool entity_manager::add_component(const entity e_id, const cmp::component_sptr comp) {
     if(!entity_exists(e_id)) return false;
 
-    if(comp->is_unique()) {
-        //  Check derived types of existing components, make sure one does not already exist
-        entity_container check_entity = get_entity(e_id);
-        for(entity_iterator it = check_entity.begin(); it != check_entity.end(); it++) {
-            if(typeid(**it).name() == typeid(*comp).name()) return false;
-        }
+    //  Check derived types of existing components, make sure one does not already exist
+    entity_container check_entity = get_entity(e_id);
+    for(entity_iterator it = check_entity.begin(); it != check_entity.end(); it++) {
+        if(typeid(**it).name() == typeid(*comp).name()) return false;
     }
 
     world.insert(std::make_pair(e_id, comp));
     return true;
 }
 
-//!  Delete all components by type for an entity
+//!  Delete components by type for an entity
 /*!
   Return true if a component was deleted
   Return false if no components were deleted

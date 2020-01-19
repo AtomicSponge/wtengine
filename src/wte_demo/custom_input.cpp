@@ -20,9 +20,9 @@ void custom_input::custom_run(wte::ecs::entity_manager& world, wte::msg::message
     wte::ecs::entity shield_entity;
 
     for(wte::ecs::component_iterator it = input_components.begin(); it != input_components.end(); it++) {
-        if(world.get_component<wte::ecs::cmp::name>(it->first)->name == "player") player_entity = it->first;
-        if(world.get_component<wte::ecs::cmp::name>(it->first)->name == "main_cannon") cannon_entity = it->first;
-        if(world.get_component<wte::ecs::cmp::name>(it->first)->name == "shield") shield_entity = it->first;
+        if(world.get_component<wte::ecs::cmp::name>(it->first)->name_str == "player") player_entity = it->first;
+        if(world.get_component<wte::ecs::cmp::name>(it->first)->name_str == "main_cannon") cannon_entity = it->first;
+        if(world.get_component<wte::ecs::cmp::name>(it->first)->name_str == "shield") shield_entity = it->first;
     }
 
     if(wte::key[wte::KEY_UP]) {

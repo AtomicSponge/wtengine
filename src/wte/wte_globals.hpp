@@ -22,14 +22,16 @@
 #define WTE_DEBUG_MODE 0
 #endif
 
-#define WTE_COLOR_BLACK     al_map_rgb(0,0,0)
-#define WTE_COLOR_RED       al_map_rgb(255,0,0)
-#define WTE_COLOR_GREEN     al_map_rgb(0,255,0)
-#define WTE_COLOR_YELLOW    al_map_rgb(255,255,0)
-#define WTE_COLOR_BLUE      al_map_rgb(0,0,255)
-#define WTE_COLOR_TEAL      al_map_rgb(0,128,128)
-#define WTE_COLOR_ORANGE    al_map_rgb(255, 165, 0)
-#define WTE_COLOR_WHITE     al_map_rgb(255,255,255)
+#define WTE_COLOR_BLACK         al_map_rgb(0,0,0)
+#define WTE_COLOR_RED           al_map_rgb(255,0,0)
+#define WTE_COLOR_GREEN         al_map_rgb(0,255,0)
+#define WTE_COLOR_YELLOW        al_map_rgb(255,255,0)
+#define WTE_COLOR_BLUE          al_map_rgb(0,0,255)
+#define WTE_COLOR_TEAL          al_map_rgb(0,128,128)
+#define WTE_COLOR_ORANGE        al_map_rgb(255, 165, 0)
+#define WTE_COLOR_PURPLE        al_map_rgb(135, 31, 120)
+#define WTE_COLOR_DARKPURPLE    al_map_rgb(48, 25, 52)
+#define WTE_COLOR_WHITE         al_map_rgb(255,255,255)
 
 namespace wte 
 {

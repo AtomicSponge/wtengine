@@ -31,6 +31,8 @@ namespace cmp
 */
 class background_layer : public component {
     public:
+        inline background_layer(int l) : layer(l) {};
+
         int layer;
 };
 

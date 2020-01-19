@@ -63,7 +63,7 @@ inline void spawner::dispatch(entity_manager& world, msg::message_container mess
         
             //  Check all named entities and delete if it exists
             for(ecs::component_iterator c_it = name_components.begin(); c_it != name_components.end(); c_it++) {
-                if(it->get_args() == dynamic_cast<cmp::name*>(c_it->second.get())->name) {
+                if(it->get_args() == dynamic_cast<cmp::name*>(c_it->second.get())->name_str) {
                     world.delete_entity(c_it->first);
                 }
             }

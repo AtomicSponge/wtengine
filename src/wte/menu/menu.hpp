@@ -42,7 +42,7 @@ class menu {
         const std::string get_id(void) const;
         void set_title(std::string);
         const std::string get_title(void) const;
-        const float get_border(void) const;
+        const float get_padding(void) const;
         const float get_width(void) const;
         const float get_height(void) const;
         ALLEGRO_BITMAP* get_background(void) const;
@@ -52,7 +52,7 @@ class menu {
         std::string id;
         std::string title;
         menu_items items;
-        float border;
+        float padding;
         ALLEGRO_BITMAP *background_bitmap;
 };
 
@@ -67,7 +67,7 @@ inline menu::menu() { background_bitmap = NULL; }
 inline menu::menu(const std::string i, const int w, const int h, const ALLEGRO_COLOR color) {
     id = i;
     title = "";
-    border = 10;
+    padding = 10;
     background_bitmap = al_create_bitmap(w, h);
     al_set_target_bitmap(background_bitmap);
     al_clear_to_color(color);
@@ -80,7 +80,7 @@ inline menu::menu(const std::string i, const int w, const int h, const ALLEGRO_C
 inline menu::menu(const menu& copy_menu) {
     id = copy_menu.id;
     title = copy_menu.title;
-    border = copy_menu.border;
+    padding = copy_menu.padding;
     items = copy_menu.items;
     background_bitmap = al_clone_bitmap(copy_menu.background_bitmap);
 }
@@ -126,7 +126,7 @@ inline const std::string menu::get_title(void) const { return title; }
 //!  Get menu border
 /*!
 */
-inline const float menu::get_border(void) const { return border; }
+inline const float menu::get_padding(void) const { return padding; }
 
 //!  Get menu background bitmap width
 /*!

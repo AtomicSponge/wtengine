@@ -28,6 +28,9 @@ namespace cmp
 */
 class visible final : public component {
     public:
+        inline visible() : is_visible(true) {};
+        inline visible(bool v) : is_visible(v) {};
+
         bool is_visible;
 };
 

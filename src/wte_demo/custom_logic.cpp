@@ -32,7 +32,7 @@ void custom_logic::custom_run(wte::ecs::entity_manager& world, wte::msg::message
         //  OOB check
         if(world.get_component<wte::ecs::cmp::location>(it->first)->pos_y > wte::screen_height + 100) {
             messages.add_message(wte::msg::message("spawner", "delete",
-                                 world.get_component<wte::ecs::cmp::name>(it->first)->name));
+                                 world.get_component<wte::ecs::cmp::name>(it->first)->name_str));
         }
     }
 
@@ -40,12 +40,12 @@ void custom_logic::custom_run(wte::ecs::entity_manager& world, wte::msg::message
     wte::ecs::component_container health_components = world.get_components<wte::ecs::cmp::health>();
     for(wte::ecs::component_iterator it = health_components.begin(); it != health_components.end(); it++) {
         if(dynamic_cast<wte::ecs::cmp::health*>(it->second.get())->hp < 1) {
-            if(world.get_component<wte::ecs::cmp::name>(it->first)->name == "player") {
+            if(world.get_component<wte::ecs::cmp::name>(it->first)->name_str == "player") {
                 //  Handle player death
             } else {
                 //  Everything else
                 messages.add_message(wte::msg::message("spawner", "delete",
-                                     world.get_component<wte::ecs::cmp::name>(it->first)->name));
+                                     world.get_component<wte::ecs::cmp::name>(it->first)->name_str));
             }
         }
     }
@@ -65,7 +65,7 @@ void custom_logic::process_message(wte::ecs::entity_manager& world, wte::msg::me
         if(message.get_from() == "main_cannon") {
             //  Get the entity ID of the object being hit
             for(wte::ecs::component_iterator c_it = named_components.begin(); c_it != named_components.end(); c_it++) {
-                if(message.get_to() == dynamic_cast<wte::ecs::cmp::name*>(c_it->second.get())->name) {
+                if(message.get_to() == dynamic_cast<wte::ecs::cmp::name*>(c_it->second.get())->name_str) {
                     //  If to:entity has a health componenet, take damage
                     if(world.has_component<wte::ecs::cmp::health>(c_it->first)) {
                         world.set_component<wte::ecs::cmp::health>(c_it->first)->hp -= 1;
@@ -78,7 +78,7 @@ void custom_logic::process_message(wte::ecs::entity_manager& world, wte::msg::me
         if(message.get_from() == "shield") {
             //  Get the entity ID of the object being hit
             for(wte::ecs::component_iterator c_it = named_components.begin(); c_it != named_components.end(); c_it++) {
-                if(message.get_to() == dynamic_cast<wte::ecs::cmp::name*>(c_it->second.get())->name) {
+                if(message.get_to() == dynamic_cast<wte::ecs::cmp::name*>(c_it->second.get())->name_str) {
                     //  If to:entity has a health componenet, take damage
                     if(world.has_component<wte::ecs::cmp::health>(c_it->first)) {
                         world.set_component<wte::ecs::cmp::health>(c_it->first)->hp -= 10;

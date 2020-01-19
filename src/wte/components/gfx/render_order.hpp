@@ -28,6 +28,8 @@ namespace cmp
 */
 class render_order : public component {
     public:
+        inline render_order(int o) : order(o) {};
+
         int order;
 };
 

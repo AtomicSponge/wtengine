@@ -28,6 +28,9 @@ namespace cmp
 */
 class hitbox final : public component {
     public:
+        inline hitbox(float w, float h) : width(w), height(h), solid(true) {};
+        inline hitbox(float w, float h, bool s) : width(w), height(h), solid(s) {};
+
         float width, height;
         bool solid;
 };

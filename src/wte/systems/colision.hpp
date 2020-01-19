@@ -51,7 +51,7 @@ inline void colision::run(entity_manager& world,
     for(component_iterator it_a = team_components.begin(); it_a != team_components.end(); it_a++) {
         for(component_iterator it_b = team_components.begin(); it_b != team_components.end(); it_b++) {
             //  Only test different teams, if the entity has a location and a hitbox component, and it is enabled
-            if((dynamic_cast<cmp::team*>(it_a->second.get())->team != dynamic_cast<cmp::team*>(it_b->second.get())->team)
+            if((dynamic_cast<cmp::team*>(it_a->second.get())->this_team != dynamic_cast<cmp::team*>(it_b->second.get())->this_team)
                &&
                (world.has_component<cmp::location>(it_a->first) && world.has_component<cmp::location>(it_b->first))
                &&
@@ -70,8 +70,8 @@ inline void colision::run(entity_manager& world,
                 {
                     //  Send a message to the logic system that two entities colided
                     messages.add_message(msg::message("logic",
-                                                      world.get_component<cmp::name>(it_b->first)->name,
-                                                      world.get_component<cmp::name>(it_a->first)->name,
+                                                      world.get_component<cmp::name>(it_b->first)->name_str,
+                                                      world.get_component<cmp::name>(it_a->first)->name_str,
                                                       "colision", ""));
                 }
             } //  End skip self check

@@ -28,7 +28,9 @@ namespace cmp
 */
 class team final : public component {
     public:
-        int team;
+        inline team(int t) : this_team(t) {};
+
+        int this_team;
 };
 
 } //  namespace cmp

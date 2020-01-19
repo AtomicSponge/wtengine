@@ -183,7 +183,7 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
                 (world.get_component<ecs::cmp::enabled>(it->first)->is_enabled == true)) {
                     //  Select color based on team
                     ALLEGRO_COLOR team_color;
-                    switch(world.get_component<ecs::cmp::team>(it->first)->team) {
+                    switch(world.get_component<ecs::cmp::team>(it->first)->this_team) {
                         case 0: team_color = WTE_COLOR_GREEN; break;
                         case 1: team_color = WTE_COLOR_RED; break;
                         case 2: team_color = WTE_COLOR_BLUE; break;

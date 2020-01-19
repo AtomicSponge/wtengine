@@ -28,6 +28,8 @@ namespace cmp
 */
 class damage final : public component {
     public:
+        inline damage(int d) : dmg(d) {};
+
         int dmg;
 };
 

@@ -28,6 +28,9 @@ namespace cmp
 */
 class enabled final : public component {
     public:
+        inline enabled() : is_enabled(true) {};
+        inline enabled(bool e) : is_enabled(e) {};
+
         bool is_enabled;
 };
 

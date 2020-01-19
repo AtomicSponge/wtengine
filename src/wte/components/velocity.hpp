@@ -28,6 +28,8 @@ namespace cmp
 */
 class velocity final : public component {
     public:
+        inline velocity(float v) : speed(v) {};
+
         float speed;
 };
 

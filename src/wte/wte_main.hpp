@@ -60,6 +60,7 @@ class wte_main {
         ALLEGRO_EVENT_QUEUE *main_queue;        /*!< Main event queue */
         ALLEGRO_EVENT event;                    /*!< Container to fetch event */
 
+        msg::message_queue messages;            /*!< Message queue */
         renderer game_screen;                   /*!< The renderer used to draw the game environment */
 
         //  Used for switching on system messages:
@@ -86,7 +87,6 @@ class wte_main {
 
         ecs::entity_manager world;              /*!< Manager for entities */
         ecs::system_manager systems;            /*!< Manager for systems */
-        msg::message_queue messages;            /*!< Message queue */
         mnu::menu_manager menus;                /*!< Manager for menus */
 };
 
@@ -232,10 +232,10 @@ inline void wte_main::unload_game(void) {
 inline void wte_main::do_game(void) {
     if(init_called == false) throw std::runtime_error("WTEngine not initialized!");
 
-    bool queue_not_empty;
+    bool queue_not_empty = false;
     msg::message_container temp_msgs;
 
-    //generate_new_game(); //  test code
+    generate_new_game(); //  test code
 
     while(game_flag[IS_RUNNING]) {
         //  Pause / resume timer depending on if the game menu is opened
@@ -312,6 +312,7 @@ inline void wte_main::handle_sys_msg(msg::message_container sys_msgs) {
                 it = sys_msgs.erase(it);
                 break;
 
+            //  cmd:  new_cmd - description
             //case ev_cmdX:
                 //
                 //it = sys_msgs.erase(it);

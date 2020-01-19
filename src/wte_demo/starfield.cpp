@@ -14,6 +14,8 @@
   Initialize the starfield
 */
 starfield::starfield() {
+    name = "starfield";
+
     speed_mult = 1;
 
     for(int i = 0; i < MAX_STARS; i++) {

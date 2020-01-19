@@ -30,7 +30,9 @@ namespace cmp
 */
 class name final : public component {
     public:
-        std::string name;
+        inline name(std::string n) : name_str(n) {};
+
+        std::string name_str;
 };
 
 } //  namespace cmp

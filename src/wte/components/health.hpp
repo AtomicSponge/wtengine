@@ -28,6 +28,8 @@ namespace cmp
 */
 class health final : public component {
     public:
+        inline health(int h) : hp(h) {};
+
         int hp;
 };
 

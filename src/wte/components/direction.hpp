@@ -28,6 +28,8 @@ namespace cmp
 */
 class direction final : public component {
     public:
+        inline direction(float a) : angle(a) {};
+
         float angle;
 };
 

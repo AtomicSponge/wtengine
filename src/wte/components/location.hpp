@@ -28,6 +28,8 @@ namespace cmp
 */
 class location final : public component {
     public:
+        inline location(float x, float y) : pos_x(x), pos_y(y) {};
+
         float pos_x, pos_y;
 };
 

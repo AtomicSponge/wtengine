@@ -235,7 +235,7 @@ inline void wte_main::do_game(void) {
     bool queue_not_empty = false;
     msg::message_container temp_msgs;
 
-    generate_new_game(); //  test code
+    //generate_new_game(); //  test code
 
     while(game_flag[IS_RUNNING]) {
         //  Pause / resume timer depending on if the game menu is opened
@@ -270,9 +270,9 @@ inline void wte_main::do_game(void) {
 
         //  Send audio messages to the audio queue
         temp_msgs = messages.get_messages("audio");
-        audio_messages.insert(audio_messages.end(),
-                              std::make_move_iterator(temp_msgs.begin()),
-                              std::make_move_iterator(temp_msgs.end()));
+        if(!temp_msgs.empty()) audio_messages.insert(audio_messages.end(),
+                                                     std::make_move_iterator(temp_msgs.begin()),
+                                                     std::make_move_iterator(temp_msgs.end()));
 
         //  Get any system messages and pass to handler
         temp_msgs = messages.get_messages("system");

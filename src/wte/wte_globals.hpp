@@ -44,12 +44,12 @@ extern const unsigned int screen_height;
 extern const float TICKS_PER_SECOND;
 
 //!  Used for the game flags
-enum GLOBAL_STATE_FLAGS {
-    IS_RUNNING, GAME_STARTED, GAME_MENU_OPENED, DRAW_HITBOX, DRAW_FPS, MAX_STATE_FLAGS
+enum GLOBAL_SYSTEM_FLAGS {
+    IS_RUNNING, GAME_STARTED, GAME_MENU_OPENED, DRAW_HITBOX, DRAW_FPS, MAX_SYSTEM_FLAGS
 };
 
 //!  Global flags for game state
-extern volatile bool game_flag[MAX_STATE_FLAGS];
+extern volatile bool sys_flag[MAX_SYSTEM_FLAGS];
 
 //!  Used for in-game player control
 enum PLAYERKEYS {
@@ -62,7 +62,7 @@ extern volatile bool key[MAX_KEY_FLAGS];
 } //  end namespace wte
 
 //  Initialize game flags
-inline volatile bool wte::game_flag[wte::MAX_STATE_FLAGS] = { false, false, false, false, false };
+inline volatile bool wte::sys_flag[wte::MAX_SYSTEM_FLAGS] = { false, false, false, false, false };
 inline volatile bool wte::key[wte::MAX_KEY_FLAGS] = { false, false, false, false, false, false, false };
 
 #endif

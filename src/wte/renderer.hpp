@@ -119,7 +119,7 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
     /*
       Calculate fps if enabled
     */
-    if(game_flag[DRAW_FPS]) {
+    if(sys_flag[DRAW_FPS]) {
         fps_counter++;
         this_tick = current_time;
         //  Update fps on unique ticks only
@@ -133,7 +133,7 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
     /*
       Render world if the game is running
     */
-    if(game_flag[GAME_STARTED]) {
+    if(sys_flag[GAME_STARTED]) {
         /*
           Draw the background
         */
@@ -175,7 +175,7 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
           Draw hitboxes if enabled
           Use different colors for each team
         */
-        if(game_flag[DRAW_HITBOX]) {
+        if(sys_flag[DRAW_HITBOX]) {
             for(ec_pair_iterator it = render_componenet_set.begin(); it != render_componenet_set.end(); it++) {
                 //  Make sure the entity has a hitbox and is enabled
                 if((world.has_component<ecs::cmp::hitbox>(it->first))
@@ -210,7 +210,7 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
     /*
       Render game menu if it's opened
     */
-    if(game_flag[GAME_MENU_OPENED]) {
+    if(sys_flag[GAME_MENU_OPENED]) {
         menu_bitmap = al_clone_bitmap(menus.render_menu());
         al_draw_bitmap(menu_bitmap,
                        (screen_width / 2) - (al_get_bitmap_width(menu_bitmap) / 2),
@@ -228,7 +228,7 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
     #endif
 
     //  Draw frame rate
-    if(game_flag[DRAW_FPS]) {
+    if(sys_flag[DRAW_FPS]) {
         al_draw_text(overlay_font, WTE_COLOR_WHITE, screen_width, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
     //  Draw time if debug mode is enabled

@@ -73,3 +73,4 @@
 1752,spawner,new,asteroid;270;-60;90;20;1
 1753,spawner,new,asteroid;330;-60;90;20;1
 1754,spawner,new,asteroid;680;-60;90;20;1
+2000,system,new_game,

@@ -45,8 +45,8 @@ inline void *get_input(void *arg) {
     al_register_event_source(input_queue, al_get_keyboard_event_source());
     if(al_is_joystick_installed()) al_register_event_source(input_queue, al_get_joystick_event_source());
 
-    while(game_flag[IS_RUNNING]) {
-        //std::cout << game_flag[GAME_STARTED] << std::endl;
+    while(sys_flag[IS_RUNNING]) {
+        //std::cout << sys_flag[GAME_STARTED] << std::endl;
         //  After 3 ticks, stop and reset input timer
         if(al_get_timer_count(input_timer) == 2) {
             al_stop_timer(input_timer);
@@ -61,7 +61,7 @@ inline void *get_input(void *arg) {
         if(input_event.type == ALLEGRO_EVENT_KEY_DOWN) {
             switch(input_event.keyboard.keycode) {
                 case ALLEGRO_KEY_UP:
-                    if(game_flag[GAME_MENU_OPENED] && !al_get_timer_started(input_timer)) {
+                    if(sys_flag[GAME_MENU_OPENED] && !al_get_timer_started(input_timer)) {
                         key[KEY_UP] = true;
                         al_start_timer(input_timer);
                     } else {
@@ -69,7 +69,7 @@ inline void *get_input(void *arg) {
                     }
                     break;
                 case ALLEGRO_KEY_DOWN:
-                    if(game_flag[GAME_MENU_OPENED] && !al_get_timer_started(input_timer)) {
+                    if(sys_flag[GAME_MENU_OPENED] && !al_get_timer_started(input_timer)) {
                         key[KEY_DOWN] = true;
                         al_start_timer(input_timer);
                     } else {
@@ -77,7 +77,7 @@ inline void *get_input(void *arg) {
                     }
                     break;
                 case ALLEGRO_KEY_LEFT:
-                    if(game_flag[GAME_MENU_OPENED] && !al_get_timer_started(input_timer)) {
+                    if(sys_flag[GAME_MENU_OPENED] && !al_get_timer_started(input_timer)) {
                         key[KEY_LEFT] = true;
                         al_start_timer(input_timer);
                     } else {
@@ -85,7 +85,7 @@ inline void *get_input(void *arg) {
                     }
                     break;
                 case ALLEGRO_KEY_RIGHT:
-                    if(game_flag[GAME_MENU_OPENED] && !al_get_timer_started(input_timer)) {
+                    if(sys_flag[GAME_MENU_OPENED] && !al_get_timer_started(input_timer)) {
                         key[KEY_RIGHT] = true;
                         al_start_timer(input_timer);
                     } else {
@@ -103,11 +103,11 @@ inline void *get_input(void *arg) {
                     break;
                 case ALLEGRO_KEY_ESCAPE:
                     //  Open / close menu if game is running
-                    if(!al_get_timer_started(input_timer) && game_flag[GAME_STARTED]) {
-                        if(game_flag[GAME_MENU_OPENED]) {
-                            game_flag[GAME_MENU_OPENED] = false;
+                    if(!al_get_timer_started(input_timer) && sys_flag[GAME_STARTED]) {
+                        if(sys_flag[GAME_MENU_OPENED]) {
+                            sys_flag[GAME_MENU_OPENED] = false;
                         } else {
-                            game_flag[GAME_MENU_OPENED] = true;
+                            sys_flag[GAME_MENU_OPENED] = true;
                         }
                         al_start_timer(input_timer);
                     }
@@ -165,10 +165,10 @@ inline void *get_input(void *arg) {
             if(input_event.joystick.button == joy.fire_2_button) key[KEY_FIRE_2] = true;
             if(input_event.joystick.button == joy.fire_3_button) key[KEY_FIRE_3] = true;
             if(input_event.joystick.button == joy.start_button) {
-                if(game_flag[GAME_MENU_OPENED] && game_flag[GAME_STARTED]) {
-                    game_flag[GAME_MENU_OPENED] = false;
+                if(sys_flag[GAME_MENU_OPENED] && sys_flag[GAME_STARTED]) {
+                    sys_flag[GAME_MENU_OPENED] = false;
                 } else {
-                    game_flag[GAME_MENU_OPENED] = true;
+                    sys_flag[GAME_MENU_OPENED] = true;
                 }
             }
         } //  End if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)

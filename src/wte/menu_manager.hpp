@@ -196,7 +196,7 @@ inline void menu_manager::close_menu(void) { opened_menus.pop(); }
 inline void menu_manager::run(msg::message_queue& messages) {
     if(opened_menus.empty()) {
         //  No menus currently opened, add one to the stack
-        if(game_flag[GAME_STARTED]) open_menu("game_menu"); //  Add the in-game menu to the stack
+        if(sys_flag[GAME_STARTED]) open_menu("game_menu"); //  Add the in-game menu to the stack
         else open_menu("main_menu"); //  Add the main menu to the stack
     }
 

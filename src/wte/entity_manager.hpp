@@ -247,11 +247,11 @@ template <typename T> inline const bool entity_manager::delete_component(const e
     bool deleted_component = false;
     auto results = world.equal_range(e_id);
 
-    for(auto it = results.first; it != results.second; it++) {
+    for(auto it = results.first; it != results.second;) {
         if(dynamic_cast<T*>(it->second.get()) != nullptr) {
             it = world.erase(it);
             deleted_component = true;
-        }
+        } else it++;
     }
 
     return deleted_component;
@@ -265,14 +265,13 @@ template <typename T> inline const bool entity_manager::delete_component(const e
 template <typename T> inline const bool entity_manager::has_component(const entity e_id) const {
     if(world.empty()) throw std::runtime_error("No components were created!");
 
-    bool has_component = false;
     auto results = world.equal_range(e_id);
 
     for(auto it = results.first; it != results.second; it++) {
-        if(dynamic_cast<T*>(it->second.get()) != nullptr) has_component = true;
+        if(dynamic_cast<T*>(it->second.get()) != nullptr) return true;
     }
 
-    return has_component;
+    return false;
 }
 
 //! Read the value of a component by type for an entity

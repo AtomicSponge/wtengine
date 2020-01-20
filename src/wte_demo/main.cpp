@@ -22,10 +22,10 @@ const float wte::TICKS_PER_SECOND = 60.0;
 
 int main(int argc, char **argv) {
     //  Set some default values for the game flags
-    wte::game_flag[wte::IS_RUNNING] = true;
-    wte::game_flag[wte::GAME_STARTED] = false;
-    wte::game_flag[wte::DRAW_HITBOX] = true;
-    wte::game_flag[wte::DRAW_FPS] = true;
+    wte::sys_flag[wte::IS_RUNNING] = true;
+    wte::sys_flag[wte::GAME_STARTED] = false;
+    wte::sys_flag[wte::DRAW_HITBOX] = true;
+    wte::sys_flag[wte::DRAW_FPS] = true;
 
     //  Initialize game object
     game_loop main_game_loop;

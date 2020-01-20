@@ -35,7 +35,7 @@ inline audio_deck audio_messages;
   Gets passed audio messages from the main thread and processes them
 */
 inline void *audio_manager(void *arg) {
-    while( game_flag[IS_RUNNING] ) {
+    while(sys_flag[IS_RUNNING]) {
         //  Check audio messages and process
         if(!audio_messages.empty()) {
             //std::cout << "Audio event:  " << audio_messages.front().get_args() << std::endl;

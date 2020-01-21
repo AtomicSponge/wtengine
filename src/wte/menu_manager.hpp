@@ -52,13 +52,13 @@ class menu_manager {
         const menu_sptr set_menu(const std::string);
         void reset(void);
 
+        void open_menu(const std::string);
+        void close_menu(void);
+
         void run(msg::message_queue&);
         ALLEGRO_BITMAP* render_menu(void) const;
 
     private:
-        void open_menu(const std::string);
-        void close_menu(void);
-
         menu_item_citerator menu_position;
         option_citerator option_selection;
 
@@ -171,7 +171,10 @@ inline const menu_sptr menu_manager::set_menu(const std::string name) {
 /*!
   Clear the stack of opened menus
 */
-inline void menu_manager::reset(void) { opened_menus = {}; }
+inline void menu_manager::reset(void) {
+    opened_menus = {};
+    sys_flag[GAME_MENU_OPENED] = false;
+}
 
 //!  Add a menu to the stack
 /*!
@@ -180,6 +183,7 @@ inline void menu_manager::reset(void) { opened_menus = {}; }
 */
 inline void menu_manager::open_menu(const std::string menu_id) {
     opened_menus.push(get_menu(menu_id));
+    sys_flag[GAME_MENU_OPENED] = true;
     menu_position = opened_menus.top()->get_items().begin();
 }
 
@@ -187,7 +191,10 @@ inline void menu_manager::open_menu(const std::string menu_id) {
 /*!
   Remove the menu from the top of the stack
 */
-inline void menu_manager::close_menu(void) { opened_menus.pop(); }
+inline void menu_manager::close_menu(void) {
+    opened_menus.pop();
+    if(opened_menus.empty()) sys_flag[GAME_MENU_OPENED] = false;
+}
 
 //!  Run the menu manager
 /*!

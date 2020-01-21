@@ -64,11 +64,11 @@ class wte_main {
         renderer game_screen;                   /*!< The renderer used to draw the game environment */
 
         //  Used for switching on system messages:
-        enum cmd_str_value { ev_cmd_ndef,
-                             ev_cmd1,
-                             ev_cmd2,
-                             ev_cmd3,
-                             ev_end };
+        enum cmd_str_value {
+                                ev_cmd_ndef,       ev_cmd_exit,
+                                ev_cmd_new_game,   ev_cmd_end_game,
+                                ev_cmd_open_menu,  ev_cmd_close_menu
+                            };
         std::map<std::string, cmd_str_value> map_cmd_str_values;
 
         bool init_called;                       /*!< Flag to make sure wte_init was called */
@@ -157,10 +157,11 @@ inline void wte_main::wte_init(void) {
     systems.finalize();
 
     //  Map commands to enums for switching over in the system msg handler
-    map_cmd_str_values["exit"] = ev_cmd1;
-    map_cmd_str_values["new_game"] = ev_cmd2;
-    map_cmd_str_values["end_game"] = ev_cmd3;
-    map_cmd_str_values["end"] = ev_end;
+    map_cmd_str_values["exit"] = ev_cmd_exit;
+    map_cmd_str_values["new_game"] = ev_cmd_new_game;
+    map_cmd_str_values["end_game"] = ev_cmd_end_game;
+    map_cmd_str_values["open_menu"] = ev_cmd_open_menu;
+    map_cmd_str_values["close_menu"] = ev_cmd_close_menu;
 
     //  Set game flags
     sys_flag[IS_RUNNING] = true;
@@ -235,19 +236,21 @@ inline void wte_main::do_game(void) {
     bool queue_not_empty = false;
     msg::message_container temp_msgs;
 
-    generate_new_game(); //  test code
+    messages.clear_queue();
+    sys_flag[GAME_STARTED] = false;
+
+    //generate_new_game(); //  test code
 
     while(sys_flag[IS_RUNNING]) {
         //  Pause / resume timer depending on if the game menu is opened
-        if(sys_flag[GAME_MENU_OPENED] && al_get_timer_started(main_timer)) {
-            menus.reset();
-            al_stop_timer(main_timer);
-        }
-        if(!sys_flag[GAME_MENU_OPENED] && !al_get_timer_started(main_timer)) {
-            menus.reset();
-            al_resume_timer(main_timer);
-        }
+        if(sys_flag[GAME_MENU_OPENED] && al_get_timer_started(main_timer)) al_stop_timer(main_timer);
+        if(!sys_flag[GAME_MENU_OPENED] && !al_get_timer_started(main_timer)) al_resume_timer(main_timer);
 
+        //  Game not running, make sure the timer isn't and force the menu manager
+        if(sys_flag[GAME_STARTED] == false) {
+            al_stop_timer(main_timer);
+            sys_flag[GAME_MENU_OPENED] = true;
+        }
         //  Game menu is opened, run the menu manager
         if(sys_flag[GAME_MENU_OPENED]) menus.run(messages);
 
@@ -293,27 +296,43 @@ inline void wte_main::handle_sys_msg(msg::message_container sys_msgs) {
         //  Switch over the system messages, deleting each as they are processed
         switch(map_cmd_str_values[it->get_cmd()]) {
             //  cmd:  exit - Shut down engine
-            case ev_cmd1:
+            case ev_cmd_exit:
                 if(sys_flag[GAME_STARTED] == true) unload_game();
                 sys_flag[IS_RUNNING] = false;
                 it = sys_msgs.erase(it);
                 break;
 
             //  cmd:  new_game - start up a new game
-            case ev_cmd2:
+            case ev_cmd_new_game:
                 if(sys_flag[GAME_STARTED] == true) unload_game();
                 generate_new_game();
                 it = sys_msgs.erase(it);
                 break;
 
             //  cmd:  end_game - end current game
-            case ev_cmd3:
+            case ev_cmd_end_game:
                 unload_game();
                 it = sys_msgs.erase(it);
                 break;
 
+            //  cmd:  open_menu argstring - open a menu, passing a string as an argument
+            //  If the menu doesn't exist, the default will be opened
+            case ev_cmd_open_menu:
+                sys_flag[GAME_MENU_OPENED] = true;
+                menus.open_menu(std::string(it->get_args()));
+                it = sys_msgs.erase(it);
+                break;
+
+            //  cmd:  close_menu argstring - close the opened menu
+            //  If argstring = "all", close all opened menus
+            case ev_cmd_close_menu:
+                if(std::string(it->get_args()) == "all") menus.reset();
+                else menus.close_menu();
+                it = sys_msgs.erase(it);
+                break;
+
             //  cmd:  new_cmd - description
-            //case ev_cmdX:
+            //case ev_cmd_X:
                 //
                 //it = sys_msgs.erase(it);
                 //break;

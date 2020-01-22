@@ -1,5 +1,5 @@
 /*
-  Menu manager
+  WTEngine
   By:  Matthew Evans
   File:  menu_manager.hpp
 

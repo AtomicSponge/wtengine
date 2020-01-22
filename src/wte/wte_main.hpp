@@ -30,7 +30,7 @@
 #include "audio_manager.hpp"
 #include "message_queue.hpp"
 #include "renderer.hpp"
-#include "get_input.hpp"
+#include "input_thread.hpp"
 
 namespace wte
 {
@@ -62,6 +62,8 @@ class wte_main {
 
         msg::message_queue messages;            /*!< Message queue */
         renderer game_screen;                   /*!< The renderer used to draw the game environment */
+        input_thread input_th;
+        audio_manager audio_th;
 
         //  Used for switching on system messages:
         enum cmd_str_value {
@@ -142,9 +144,9 @@ inline void wte_main::wte_init(void) {
     al_register_event_source(main_queue, al_get_display_event_source(display));
     al_register_event_source(main_queue, al_get_timer_event_source(main_timer));
 
-    //  Start the input & audio threads as detached
-    al_run_detached_thread(get_input, NULL);
-    al_run_detached_thread(audio_manager, NULL);
+    //  Start the input & audio threads
+    input_th.start();
+    audio_th.start();
 
     //  Initialize renderer and menu manager
     game_screen.initialize(al_create_builtin_font());
@@ -181,6 +183,9 @@ inline void wte_main::wte_init(void) {
   Shut down the various Allegro objects
 */
 inline void wte_main::wte_unload(void) {
+    input_th.stop();
+    audio_th.stop();
+
     al_destroy_timer(main_timer);
     al_destroy_event_queue(main_queue);
     al_destroy_display(display);
@@ -239,7 +244,7 @@ inline void wte_main::do_game(void) {
     messages.clear_queue();
     sys_flag[GAME_STARTED] = false;
 
-    //generate_new_game(); //  test code
+    generate_new_game(); //  test code
 
     while(sys_flag[IS_RUNNING]) {
         //  Pause / resume timer depending on if the game menu is opened

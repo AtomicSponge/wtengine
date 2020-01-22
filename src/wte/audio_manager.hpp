@@ -18,6 +18,7 @@
 #include <allegro5/allegro_audio.h>
 
 #include "wte_globals.hpp"
+#include "make_thread.hpp"
 #include "message.hpp"
 
 namespace wte
@@ -30,20 +31,19 @@ typedef std::deque<msg::message> audio_deck;
 extern audio_deck audio_messages;
 inline audio_deck audio_messages;
 
-//! Audio manager thread
-/*!
-  Gets passed audio messages from the main thread and processes them
-*/
-inline void *audio_manager(void *arg) {
-    while(sys_flag[IS_RUNNING]) {
+class audio_manager final : public make_thread {
+    private:
+        void run(void);
+};
+
+inline void audio_manager::run(void) {
+    while(is_running() == true) {
         //  Check audio messages and process
         if(!audio_messages.empty()) {
             //std::cout << "Audio event:  " << audio_messages.front().get_args() << std::endl;
             audio_messages.pop_front(); //  Remove processed message from the deck
         }
     }
-
-    return NULL;
 }
 
 } //  end namespace wte

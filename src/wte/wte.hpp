@@ -14,7 +14,7 @@
 
 #include "wte_globals.hpp"
 #include "wte_main.hpp"
-#include "get_input.hpp"
+#include "input_thread.hpp"
 #include "message.hpp"
 #include "message_queue.hpp"
 #include "entity_manager.hpp"

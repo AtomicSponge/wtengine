@@ -1,30 +1,32 @@
 /*
   WTEngine
   By:  Matthew Evans
-  File:  get_input.hpp
+  File:  input_thread.hpp
 
   See LICENSE.txt for copyright information
 
   Handle player input in its own thread
 */
 
-#ifndef WTE_GET_INPUT_HPP
-#define WTE_GET_INPUT_HPP
+#ifndef WTE_input_thread_HPP
+#define WTE_input_thread_HPP
 
 #include <iostream>
 
 #include <allegro5/allegro.h>
 
 #include "wte_globals.hpp"
+#include "make_thread.hpp"
 
 namespace wte
 {
 
-//! Get Input thread
-/*!
-  Run a loop and listen for key presses
-*/
-inline void *get_input(void *arg) {
+class input_thread final : public make_thread {
+    private:
+        void run(void);
+};
+
+inline void input_thread::run(void) {
     ALLEGRO_TIMER *input_timer;
     ALLEGRO_EVENT_QUEUE *input_queue;
     ALLEGRO_EVENT input_event;
@@ -45,8 +47,7 @@ inline void *get_input(void *arg) {
     al_register_event_source(input_queue, al_get_keyboard_event_source());
     if(al_is_joystick_installed()) al_register_event_source(input_queue, al_get_joystick_event_source());
 
-    while(sys_flag[IS_RUNNING]) {
-        //std::cout << sys_flag[GAME_STARTED] << std::endl;
+    while(is_running() == true) {
         //  After 3 ticks, stop and reset input timer
         if(al_get_timer_count(input_timer) == 2) {
             al_stop_timer(input_timer);
@@ -182,8 +183,6 @@ inline void *get_input(void *arg) {
 
     al_destroy_timer(input_timer);
     al_destroy_event_queue(input_queue);
-
-    return NULL;
 }
 
 } //  end namespace wte

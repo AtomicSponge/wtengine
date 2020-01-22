@@ -67,7 +67,7 @@ class wte_main {
 
         //  Used for switching on system messages:
         enum cmd_str_value {
-                                ev_cmd_ndef,       ev_cmd_exit,
+                                ev_cmd_exit,
                                 ev_cmd_new_game,   ev_cmd_end_game,
                                 ev_cmd_open_menu,  ev_cmd_close_menu
                             };

@@ -8,8 +8,8 @@
   Handle player input in its own thread
 */
 
-#ifndef WTE_input_thread_HPP
-#define WTE_input_thread_HPP
+#ifndef WTE_INPUT_THREAD_HPP
+#define WTE_INPUT_THREAD_HPP
 
 #include <iostream>
 
@@ -179,7 +179,7 @@ inline void input_thread::run(void) {
             if(input_event.joystick.button == joy.fire_3_button) key[KEY_FIRE_3] = false;
         } //  End if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_UP)
 
-    } //  End while( IS_RUNNING )
+    } //  End while( is_running == true )
 
     al_destroy_timer(input_timer);
     al_destroy_event_queue(input_queue);

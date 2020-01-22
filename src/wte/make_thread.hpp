@@ -20,7 +20,7 @@ namespace wte
 
 class make_thread {
     public:
-        inline virtual ~make_thread() {};
+        inline virtual ~make_thread() { stop(); };
 
         make_thread(const make_thread&) = delete;
         void operator=(make_thread const&) = delete;

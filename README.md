@@ -14,6 +14,11 @@ Allegro can be found at:  https://liballeg.org
 
 Doxygen:  http://doxygen.nl/
 
+**Features:**
+ - a
+ - b
+ - c
+
 --------------------------
 
 **DEMO:**

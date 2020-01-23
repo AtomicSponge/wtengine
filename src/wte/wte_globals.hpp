@@ -43,17 +43,6 @@ extern const unsigned int screen_height;
 //!  Set the timer rate
 extern const float TICKS_PER_SECOND;
 
-//!  Used for in-game player control
-enum PLAYERKEYS {
-   KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_FIRE_1, KEY_FIRE_2, KEY_FIRE_3, MAX_KEY_FLAGS
-};
-
-//!  Global flags for key state
-extern volatile bool key[MAX_KEY_FLAGS];
-
 } //  end namespace wte
-
-//  Initialize game flags
-inline volatile bool wte::key[wte::MAX_KEY_FLAGS] = { false, false, false, false, false, false, false };
 
 #endif

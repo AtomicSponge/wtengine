@@ -23,6 +23,7 @@
 #include "manager.hpp"
 #include "..\wte_globals.hpp"
 #include "..\sys_flags.hpp"
+#include "..\key_flags.hpp"
 #include "..\menu\menu.hpp"
 #include "message_manager.hpp"
 
@@ -199,16 +200,16 @@ inline void menu_manager::run(message_manager& messages) {
     }
 
     //  Iterate through the menu items depending on key press
-    if(key[KEY_UP] && menu_position != opened_menus.top()->get_items().begin()) {
+    if(key_flags::is_set(KEY_UP) && menu_position != opened_menus.top()->get_items().begin()) {
         menu_position--;
     }
-    if(key[KEY_DOWN] && menu_position != opened_menus.top()->get_items().end()) {
+    if(key_flags::is_set(KEY_DOWN) && menu_position != opened_menus.top()->get_items().end()) {
         menu_position++;
     }
 
-    //if(key[KEY_LEFT] && menu_position != opened_menus.top()->get_items().begin())
+    //if(key_flags::is_set(KEY_LEFT) && menu_position != opened_menus.top()->get_items().begin())
     //    option_selection--;
-    //if(key[KEY_RIGHT] && menu_position != opened_menus.top()->get_items().end())
+    //if(key_flags::is_set(KEY_RIGHT) && menu_position != opened_menus.top()->get_items().end())
     //    option_selection++;
 
     //...

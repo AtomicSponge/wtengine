@@ -34,7 +34,7 @@ namespace wte
 /*!
   Main engine object
 */
-class wte_main : public sys_flags {
+class wte_main {
     public:
         virtual ~wte_main();
 

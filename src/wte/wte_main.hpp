@@ -24,6 +24,7 @@
 #include <stdexcept>
 
 #include "wte_globals.hpp"
+#include "sys_flags.hpp"
 #include "managers\managers.hpp"
 
 namespace wte
@@ -33,7 +34,7 @@ namespace wte
 /*!
   Main engine object
 */
-class wte_main {
+class wte_main : public sys_flags {
     public:
         virtual ~wte_main();
 
@@ -158,9 +159,8 @@ inline void wte_main::wte_init(void) {
     map_cmd_str_values["close_menu"] = ev_cmd_close_menu;
 
     //  Set game flags
-    sys_flag[IS_RUNNING] = true;
-    sys_flag[GAME_STARTED] = false;
-    sys_flag[GAME_MENU_OPENED] = true;
+    sys_flags::set(GAME_STARTED, false);
+    sys_flags::set(GAME_MENU_OPENED, true);
 
     //  Init done, set flag to true
     init_called = true;
@@ -194,8 +194,8 @@ inline void wte_main::generate_new_game(void) {
     std::srand(std::time(nullptr));  //  Seed random
 
     //  Set global flags
-    sys_flag[GAME_MENU_OPENED] = false;
-    sys_flag[GAME_STARTED] = true;
+    sys_flags::set(GAME_MENU_OPENED, false);
+    sys_flags::set(GAME_STARTED, true);
 
     //  Clear world and load starting entities
     world.clear();
@@ -219,8 +219,8 @@ inline void wte_main::unload_game(void) {
     end_game();
 
     world.clear();
-    sys_flag[GAME_STARTED] = false;
-    sys_flag[GAME_MENU_OPENED] = true;
+    sys_flags::set(GAME_STARTED, false);
+    sys_flags::set(GAME_MENU_OPENED, true);
 }
 
 //! Main game logic
@@ -234,22 +234,29 @@ inline void wte_main::do_game(void) {
     message_container temp_msgs;
 
     messages.clear_queue();
-    sys_flag[GAME_STARTED] = false;
 
-    generate_new_game(); //  test code
+    sys_flags::set(IS_RUNNING, true);
+    sys_flags::set(GAME_STARTED, false);
 
-    while(sys_flag[IS_RUNNING]) {
+    //  test code
+    sys_flags::set(DRAW_HITBOX, true);
+    sys_flags::set(DRAW_FPS, true);
+    generate_new_game();
+    //  end test code
+
+    while(sys_flags::is_set(IS_RUNNING)) {
         //  Pause / resume timer depending on if the game menu is opened
-        if(sys_flag[GAME_MENU_OPENED] && al_get_timer_started(main_timer)) al_stop_timer(main_timer);
-        if(!sys_flag[GAME_MENU_OPENED] && !al_get_timer_started(main_timer)) al_resume_timer(main_timer);
+        if(sys_flags::is_set(GAME_MENU_OPENED) && al_get_timer_started(main_timer)) al_stop_timer(main_timer);
+        if(!sys_flags::is_set(GAME_MENU_OPENED) && !al_get_timer_started(main_timer)) al_resume_timer(main_timer);
 
         //  Game not running, make sure the timer isn't and force the menu manager
-        if(sys_flag[GAME_STARTED] == false) {
+        if(!sys_flags::is_set(GAME_STARTED)) {
             al_stop_timer(main_timer);
-            sys_flag[GAME_MENU_OPENED] = true;
+            //sys_flag[GAME_MENU_OPENED] = true;
+            sys_flags::set(GAME_MENU_OPENED, true);
         }
         //  Game menu is opened, run the menu manager
-        if(sys_flag[GAME_MENU_OPENED]) menus.run(messages);
+        if(sys_flags::is_set(GAME_MENU_OPENED)) menus.run(messages);
 
         /* *** GAME LOOP ************************************************************ */
         //  Capture event from queue
@@ -277,7 +284,7 @@ inline void wte_main::do_game(void) {
         if(!temp_msgs.empty()) handle_sys_msg(temp_msgs);
 
         //  Force quit if the game window is closed
-        if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) sys_flag[IS_RUNNING] = false;
+        if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) sys_flags::set(IS_RUNNING, false);
     }
 }
 
@@ -292,14 +299,14 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
         switch(map_cmd_str_values[it->get_cmd()]) {
             //  cmd:  exit - Shut down engine
             case ev_cmd_exit:
-                if(sys_flag[GAME_STARTED] == true) unload_game();
-                sys_flag[IS_RUNNING] = false;
+                if(sys_flags::is_set(GAME_STARTED)) unload_game();
+                sys_flags::set(IS_RUNNING, false);
                 it = sys_msgs.erase(it);
                 break;
 
             //  cmd:  new_game - start up a new game
             case ev_cmd_new_game:
-                if(sys_flag[GAME_STARTED] == true) unload_game();
+                if(sys_flags::is_set(GAME_STARTED)) unload_game();
                 generate_new_game();
                 it = sys_msgs.erase(it);
                 break;
@@ -313,7 +320,7 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
             //  cmd:  open_menu argstring - open a menu, passing a string as an argument
             //  If the menu doesn't exist, the default will be opened
             case ev_cmd_open_menu:
-                sys_flag[GAME_MENU_OPENED] = true;
+                sys_flags::set(GAME_MENU_OPENED, true);
                 menus.open_menu(std::string(it->get_args()));
                 it = sys_msgs.erase(it);
                 break;

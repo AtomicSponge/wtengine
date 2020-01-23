@@ -24,6 +24,7 @@
 
 #include "manager.hpp"
 #include "..\wte_globals.hpp"
+#include "..\sys_flags.hpp"
 #include "..\components\components.hpp"
 #include "menu_manager.hpp"
 #include "entity_manager.hpp"
@@ -113,7 +114,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world, i
     /*
       Calculate fps if enabled
     */
-    if(sys_flag[DRAW_FPS]) {
+    if(sys_flags::is_set(DRAW_FPS)) {
         fps_counter++;
         this_tick = current_time;
         //  Update fps on unique ticks only
@@ -127,7 +128,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world, i
     /*
       Render world if the game is running
     */
-    if(sys_flag[GAME_STARTED]) {
+    if(sys_flags::is_set(GAME_STARTED)) {
         /*
           Draw the background
         */
@@ -169,7 +170,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world, i
           Draw hitboxes if enabled
           Use different colors for each team
         */
-        if(sys_flag[DRAW_HITBOX]) {
+        if(sys_flags::is_set(DRAW_HITBOX)) {
             for(ec_pair_iterator it = render_componenet_set.begin(); it != render_componenet_set.end(); it++) {
                 //  Make sure the entity has a hitbox and is enabled
                 if((world.has_component<cmp::hitbox>(it->first))
@@ -204,7 +205,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world, i
     /*
       Render game menu if it's opened
     */
-    if(sys_flag[GAME_MENU_OPENED]) {
+    if(sys_flags::is_set(GAME_MENU_OPENED)) {
         menu_bitmap = al_clone_bitmap(menus.render_menu());
         al_draw_bitmap(menu_bitmap,
                        (screen_width / 2) - (al_get_bitmap_width(menu_bitmap) / 2),
@@ -222,7 +223,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world, i
     #endif
 
     //  Draw frame rate
-    if(sys_flag[DRAW_FPS]) {
+    if(sys_flags::is_set(DRAW_FPS)) {
         al_draw_text(overlay_font, WTE_COLOR_WHITE, screen_width, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
     //  Draw time if debug mode is enabled

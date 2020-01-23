@@ -22,6 +22,7 @@
 
 #include "manager.hpp"
 #include "..\wte_globals.hpp"
+#include "..\sys_flags.hpp"
 #include "..\menu\menu.hpp"
 #include "message_manager.hpp"
 
@@ -163,7 +164,7 @@ inline const menu_sptr menu_manager::set_menu(const std::string name) {
 */
 inline void menu_manager::reset(void) {
     opened_menus = {};
-    sys_flag[GAME_MENU_OPENED] = false;
+    sys_flags::set(GAME_MENU_OPENED, false);
 }
 
 //!  Add a menu to the stack
@@ -173,7 +174,7 @@ inline void menu_manager::reset(void) {
 */
 inline void menu_manager::open_menu(const std::string menu_id) {
     opened_menus.push(get_menu(menu_id));
-    sys_flag[GAME_MENU_OPENED] = true;
+    sys_flags::set(GAME_MENU_OPENED, true);
     menu_position = opened_menus.top()->get_items().begin();
 }
 
@@ -183,7 +184,7 @@ inline void menu_manager::open_menu(const std::string menu_id) {
 */
 inline void menu_manager::close_menu(void) {
     opened_menus.pop();
-    if(opened_menus.empty()) sys_flag[GAME_MENU_OPENED] = false;
+    if(opened_menus.empty()) sys_flags::set(GAME_MENU_OPENED, false);
 }
 
 //!  Run the menu manager
@@ -193,7 +194,7 @@ inline void menu_manager::close_menu(void) {
 inline void menu_manager::run(message_manager& messages) {
     if(opened_menus.empty()) {
         //  No menus currently opened, add one to the stack
-        if(sys_flag[GAME_STARTED]) open_menu("game_menu"); //  Add the in-game menu to the stack
+        if(sys_flags::is_set(GAME_STARTED)) open_menu("game_menu"); //  Add the in-game menu to the stack
         else open_menu("main_menu"); //  Add the main menu to the stack
     }
 

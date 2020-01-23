@@ -17,6 +17,7 @@
 
 #include "manager.hpp"
 #include "..\wte_globals.hpp"
+#include "..\sys_flags.hpp"
 #include "..\make_thread.hpp"
 
 namespace wte
@@ -78,7 +79,7 @@ inline void input_manager::run(void) {
         if(input_event.type == ALLEGRO_EVENT_KEY_DOWN) {
             switch(input_event.keyboard.keycode) {
                 case ALLEGRO_KEY_UP:
-                    if(sys_flag[GAME_MENU_OPENED] && !al_get_timer_started(input_timer)) {
+                    if(sys_flags::is_set(GAME_MENU_OPENED) && !al_get_timer_started(input_timer)) {
                         key[KEY_UP] = true;
                         al_start_timer(input_timer);
                     } else {
@@ -86,7 +87,7 @@ inline void input_manager::run(void) {
                     }
                     break;
                 case ALLEGRO_KEY_DOWN:
-                    if(sys_flag[GAME_MENU_OPENED] && !al_get_timer_started(input_timer)) {
+                    if(sys_flags::is_set(GAME_MENU_OPENED) && !al_get_timer_started(input_timer)) {
                         key[KEY_DOWN] = true;
                         al_start_timer(input_timer);
                     } else {
@@ -94,7 +95,7 @@ inline void input_manager::run(void) {
                     }
                     break;
                 case ALLEGRO_KEY_LEFT:
-                    if(sys_flag[GAME_MENU_OPENED] && !al_get_timer_started(input_timer)) {
+                    if(sys_flags::is_set(GAME_MENU_OPENED) && !al_get_timer_started(input_timer)) {
                         key[KEY_LEFT] = true;
                         al_start_timer(input_timer);
                     } else {
@@ -102,7 +103,7 @@ inline void input_manager::run(void) {
                     }
                     break;
                 case ALLEGRO_KEY_RIGHT:
-                    if(sys_flag[GAME_MENU_OPENED] && !al_get_timer_started(input_timer)) {
+                    if(sys_flags::is_set(GAME_MENU_OPENED) && !al_get_timer_started(input_timer)) {
                         key[KEY_RIGHT] = true;
                         al_start_timer(input_timer);
                     } else {
@@ -120,11 +121,11 @@ inline void input_manager::run(void) {
                     break;
                 case ALLEGRO_KEY_ESCAPE:
                     //  Open / close menu if game is running
-                    if(!al_get_timer_started(input_timer) && sys_flag[GAME_STARTED]) {
-                        if(sys_flag[GAME_MENU_OPENED]) {
-                            sys_flag[GAME_MENU_OPENED] = false;
+                    if(!al_get_timer_started(input_timer) && sys_flags::is_set(GAME_STARTED)) {
+                        if(sys_flags::is_set(GAME_MENU_OPENED)) {
+                            sys_flags::set(GAME_MENU_OPENED, false);
                         } else {
-                            sys_flag[GAME_MENU_OPENED] = true;
+                            sys_flags::set(GAME_MENU_OPENED, true);
                         }
                         al_start_timer(input_timer);
                     }
@@ -182,10 +183,10 @@ inline void input_manager::run(void) {
             if(input_event.joystick.button == joy.fire_2_button) key[KEY_FIRE_2] = true;
             if(input_event.joystick.button == joy.fire_3_button) key[KEY_FIRE_3] = true;
             if(input_event.joystick.button == joy.start_button) {
-                if(sys_flag[GAME_MENU_OPENED] && sys_flag[GAME_STARTED]) {
-                    sys_flag[GAME_MENU_OPENED] = false;
+                if(sys_flags::is_set(GAME_MENU_OPENED) && sys_flags::is_set(GAME_STARTED)) {
+                    sys_flags::set(GAME_MENU_OPENED, false);
                 } else {
-                    sys_flag[GAME_MENU_OPENED] = true;
+                    sys_flags::set(GAME_MENU_OPENED, true);
                 }
             }
         } //  End if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)

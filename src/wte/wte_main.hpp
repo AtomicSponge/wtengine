@@ -158,10 +158,6 @@ inline void wte_main::wte_init(void) {
     map_cmd_str_values["open_menu"] = ev_cmd_open_menu;
     map_cmd_str_values["close_menu"] = ev_cmd_close_menu;
 
-    //  Set game flags
-    sys_flags::set(GAME_STARTED, false);
-    sys_flags::set(GAME_MENU_OPENED, true);
-
     //  Init done, set flag to true
     init_called = true;
 
@@ -237,6 +233,7 @@ inline void wte_main::do_game(void) {
 
     sys_flags::set(IS_RUNNING, true);
     sys_flags::set(GAME_STARTED, false);
+    sys_flags::set(GAME_MENU_OPENED, true);
 
     //  test code
     sys_flags::set(DRAW_HITBOX, true);

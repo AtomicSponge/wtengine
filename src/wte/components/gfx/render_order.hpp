@@ -8,15 +8,12 @@
   Render order component
 */
 
-#ifndef WTE_ECS_COMPONENT_RENDER_ORDER_HPP
-#define WTE_ECS_COMPONENT_RENDER_ORDER_HPP
+#ifndef WTE_CMP_RENDER_ORDER_HPP
+#define WTE_CMP_RENDER_ORDER_HPP
 
 #include "../component.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace cmp
@@ -34,8 +31,6 @@ class render_order : public component {
 };
 
 } //  namespace cmp
-
-} //  namespace ecs
 
 } //  namespace wte
 

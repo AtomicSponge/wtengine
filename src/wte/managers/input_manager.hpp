@@ -1,32 +1,38 @@
 /*
   WTEngine
   By:  Matthew Evans
-  File:  input_thread.hpp
+  File:  input_manager.hpp
 
   See LICENSE.txt for copyright information
 
   Handle player input in its own thread
 */
 
-#ifndef WTE_INPUT_THREAD_HPP
-#define WTE_INPUT_THREAD_HPP
+#ifndef WTE_MGR_INPUT_MANAGER_HPP
+#define WTE_MGR_INPUT_MANAGER_HPP
 
 #include <iostream>
 
 #include <allegro5/allegro.h>
 
-#include "wte_globals.hpp"
-#include "make_thread.hpp"
+#include "manager.hpp"
+#include "..\wte_globals.hpp"
+#include "..\make_thread.hpp"
 
 namespace wte
 {
 
-class input_thread final : public make_thread {
+namespace mgr
+{
+
+class input_manager final : public manager<input_manager>, public make_thread {
     private:
         void run(void);
 };
 
-inline void input_thread::run(void) {
+template <> inline bool input_manager::manager<input_manager>::initialized = false;
+
+inline void input_manager::run(void) {
     ALLEGRO_TIMER *input_timer;
     ALLEGRO_EVENT_QUEUE *input_queue;
     ALLEGRO_EVENT input_event;
@@ -184,6 +190,8 @@ inline void input_thread::run(void) {
     al_destroy_timer(input_timer);
     al_destroy_event_queue(input_queue);
 }
+
+} //  namespace mgr
 
 } //  end namespace wte
 

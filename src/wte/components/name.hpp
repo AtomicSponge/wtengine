@@ -8,17 +8,14 @@
   Name component
 */
 
-#ifndef WTE_ECS_COMPONENT_NAME_HPP
-#define WTE_ECS_COMPONENT_NAME_HPP
+#ifndef WTE_CMP_NAME_HPP
+#define WTE_CMP_NAME_HPP
 
 #include <string>
 
 #include "component.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace cmp
@@ -36,8 +33,6 @@ class name final : public component {
 };
 
 } //  namespace cmp
-
-} //  namespace ecs
 
 } //  namespace wte
 

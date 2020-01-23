@@ -8,15 +8,12 @@
   Health component
 */
 
-#ifndef WTE_ECS_COMPONENT_TEAM_HPP
-#define WTE_ECS_COMPONENT_TEAM_HPP
+#ifndef WTE_CMP_TEAM_HPP
+#define WTE_CMP_TEAM_HPP
 
 #include "component.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace cmp
@@ -34,8 +31,6 @@ class team final : public component {
 };
 
 } //  namespace cmp
-
-} //  namespace ecs
 
 } //  namespace wte
 

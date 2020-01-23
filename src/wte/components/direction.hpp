@@ -8,15 +8,12 @@
   Direction component
 */
 
-#ifndef WTE_ECS_COMPONENT_DIRECTION_HPP
-#define WTE_ECS_COMPONENT_DIRECTION_HPP
+#ifndef WTE_CMP_DIRECTION_HPP
+#define WTE_CMP_DIRECTION_HPP
 
 #include "component.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace cmp
@@ -34,8 +31,6 @@ class direction final : public component {
 };
 
 } //  namespace cmp
-
-} //  namespace ecs
 
 } //  namespace wte
 

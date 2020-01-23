@@ -13,9 +13,9 @@
 
 #include "wte/wte.hpp"
 
-class custom_input : public wte::ecs::sys::input {
+class custom_input : public wte::sys::input {
     private:
-        void custom_run(wte::ecs::entity_manager&, wte::msg::message_queue&);
+        void custom_run(wte::mgr::entity_manager&, wte::mgr::message_manager&);
 };
 
 #endif

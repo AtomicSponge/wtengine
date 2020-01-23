@@ -8,46 +8,43 @@
   Menu manager
 */
 
-#ifndef WTE_MENU_MENU_MANAGER_HPP
-#define WTE_MENU_MENU_MANAGER_HPP
+#ifndef WTE_MGR_MENU_MANAGER_HPP
+#define WTE_MGR_MENU_MANAGER_HPP
 
 #include <string>
 #include <vector>
 #include <stack>
 #include <memory>
-#include <stdexcept>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 
-#include "wte_globals.hpp"
-#include "menu\menu.hpp"
-#include "message_queue.hpp"
+#include "manager.hpp"
+#include "..\wte_globals.hpp"
+#include "..\menu\menu.hpp"
+#include "message_manager.hpp"
 
 namespace wte
 {
 
-namespace mnu
-{
-
-typedef std::shared_ptr<menu> menu_sptr;
-typedef std::shared_ptr<const menu> menu_csptr;
+typedef std::shared_ptr<mnu::menu> menu_sptr;
+typedef std::shared_ptr<const mnu::menu> menu_csptr;
 
 typedef std::vector<menu_sptr>::iterator menu_iterator;
 typedef std::vector<menu_sptr>::const_iterator menu_citerator;
 
-class menu_manager {
+namespace mgr
+{
+
+class menu_manager : public manager<menu_manager> {
     public:
         menu_manager();
         ~menu_manager();
 
-        menu_manager(const menu_manager&) = delete;
-        void operator=(menu_manager const&) = delete;
-
         void initialize(ALLEGRO_FONT *, ALLEGRO_COLOR);
 
-        void new_menu(const menu);
+        void new_menu(const mnu::menu);
         const menu_csptr get_menu(const std::string) const;
         const menu_sptr set_menu(const std::string);
         void reset(void);
@@ -55,12 +52,12 @@ class menu_manager {
         void open_menu(const std::string);
         void close_menu(void);
 
-        void run(msg::message_queue&);
+        void run(message_manager&);
         ALLEGRO_BITMAP* render_menu(void) const;
 
     private:
-        menu_item_citerator menu_position;
-        option_citerator option_selection;
+        mnu::menu_item_citerator menu_position;
+        mnu::option_citerator option_selection;
 
         mutable ALLEGRO_BITMAP *menu_bitmap;
         ALLEGRO_BITMAP *menu_cursor;
@@ -69,20 +66,15 @@ class menu_manager {
 
         std::vector<menu_sptr> menus;
         std::stack<menu_csptr> opened_menus;
-
-        static bool initialized;
 };
 
-inline bool menu_manager::initialized = false;
+template <> inline bool menu_manager::manager<menu_manager>::initialized = false;
 
 //!  Menu manager constructor
 /*!
   Generates the menu manager object
 */
 inline menu_manager::menu_manager() {
-    if(initialized == true) throw std::runtime_error("Menu Manager already running!");
-    initialized = true;
-
     menu_bitmap = NULL;
     menu_cursor = NULL;
     menu_font = NULL;
@@ -102,8 +94,6 @@ inline menu_manager::~menu_manager() {
     al_destroy_bitmap(menu_bitmap);
     al_destroy_bitmap(menu_cursor);
     al_destroy_font(menu_font);
-
-    initialized = false;
 }
 
 //!  Ititialize menu manager
@@ -118,13 +108,13 @@ inline void menu_manager::initialize(ALLEGRO_FONT *font, ALLEGRO_COLOR color) {
     //  Create default menus in seperate scopes
     {
         //  Create the main menu
-        menu temp_menu = menu("main_menu", 300, 200, WTE_COLOR_DARKPURPLE);
+        mnu::menu temp_menu = mnu::menu("main_menu", 300, 200, WTE_COLOR_DARKPURPLE);
         new_menu(temp_menu);
     }
 
     {
         //  Create the in-game menu
-        menu temp_menu = menu("game_menu", 300, 200, WTE_COLOR_DARKPURPLE);
+        mnu::menu temp_menu = mnu::menu("game_menu", 300, 200, WTE_COLOR_DARKPURPLE);
         new_menu(temp_menu);
     }
 
@@ -137,8 +127,8 @@ inline void menu_manager::initialize(ALLEGRO_FONT *font, ALLEGRO_COLOR color) {
 //!  Add a menu to the menu vector
 /*!
 */
-inline void menu_manager::new_menu(const menu new_menu) {
-    menus.push_back(std::make_shared<menu>(new_menu));
+inline void menu_manager::new_menu(const mnu::menu new_menu) {
+    menus.push_back(std::make_shared<mnu::menu>(new_menu));
 }
 
 //!  Get menu by name
@@ -200,7 +190,7 @@ inline void menu_manager::close_menu(void) {
 /*!
   Adds a menu to the stack if none are opened, then processes the menus
 */
-inline void menu_manager::run(msg::message_queue& messages) {
+inline void menu_manager::run(message_manager& messages) {
     if(opened_menus.empty()) {
         //  No menus currently opened, add one to the stack
         if(sys_flag[GAME_STARTED]) open_menu("game_menu"); //  Add the in-game menu to the stack
@@ -258,7 +248,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     }
 
     //  Render menu items
-    for(menu_item_citerator it = opened_menus.top()->get_items().begin();
+    for(mnu::menu_item_citerator it = opened_menus.top()->get_items().begin();
         it != opened_menus.top()->get_items().end(); it++) {
         //it->get_label();
         //al_draw_text(menu_font, menu_font_color, x, y, ALLEGRO_ALIGN_CENTER, str.c_str())
@@ -269,7 +259,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     return menu_bitmap;
 }
 
-}  // end namespace mnu
+}  // end namespace mgr
 
 }  // end namespace wte
 

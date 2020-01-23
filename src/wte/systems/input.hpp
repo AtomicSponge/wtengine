@@ -9,15 +9,12 @@
   Override this to create a custom input system
 */
 
-#ifndef WTE_ECS_SYSTEM_INPUT_HPP
-#define WTE_ECS_SYSTEM_INPUT_HPP
+#ifndef WTE_SYS_INPUT_HPP
+#define WTE_SYS_INPUT_HPP
 
 #include "system.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace sys
@@ -32,18 +29,18 @@ class input : public system {
         inline input() { name = "input"; };
         inline ~input() {};
 
-        inline void run(entity_manager&, msg::message_queue&, int64_t);
+        inline void run(mgr::entity_manager&, mgr::message_manager&, int64_t);
 
     protected:
         component_container input_components;
-        virtual void custom_run(entity_manager&, msg::message_queue&) {};
+        virtual void custom_run(mgr::entity_manager&, mgr::message_manager&) {};
 };
 
 //! Input system run method
 /*!
   Get all entities tagged with the input_handler component and store for processing
 */
-inline void input::run(entity_manager& world, msg::message_queue& messages, int64_t current_time) {
+inline void input::run(mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
     //  Find the entities with the input handler component
     input_components = world.get_components<cmp::input_handler>();
 
@@ -52,8 +49,6 @@ inline void input::run(entity_manager& world, msg::message_queue& messages, int6
 }
 
 } //  namespace sys
-
-} //  namespace ecs
 
 } //  namespace wte
 

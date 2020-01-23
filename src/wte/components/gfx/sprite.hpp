@@ -8,17 +8,14 @@
   Sprite component
 */
 
-#ifndef WTE_ECS_COMPONENT_SPRITE_HPP
-#define WTE_ECS_COMPONENT_SPRITE_HPP
+#ifndef WTE_CMP_SPRITE_HPP
+#define WTE_CMP_SPRITE_HPP
 
 #include <allegro5/allegro.h>
 
 #include "../component.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace cmp
@@ -42,8 +39,6 @@ inline sprite::~sprite() {
 }
 
 } //  namespace cmp
-
-} //  namespace ecs
 
 } //  namespace wte
 

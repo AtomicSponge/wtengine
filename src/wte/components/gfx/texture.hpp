@@ -8,17 +8,14 @@
   Texture component
 */
 
-#ifndef WTE_ECS_COMPONENT_TEXTURE_HPP
-#define WTE_ECS_COMPONENT_TEXTURE_HPP
+#ifndef WTE_CMP_TEXTURE_HPP
+#define WTE_CMP_TEXTURE_HPP
 
 #include <allegro5/allegro.h>
 
 #include "../component.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace cmp
@@ -40,8 +37,6 @@ inline texture::~texture() {
 }
 
 } //  namespace cmp
-
-} //  namespace ecs
 
 } //  namespace wte
 

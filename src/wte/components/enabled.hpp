@@ -8,15 +8,12 @@
   Enabled component
 */
 
-#ifndef WTE_ECS_COMPONENT_ENABLED_HPP
-#define WTE_ECS_COMPONENT_ENABLED_HPP
+#ifndef WTE_CMP_ENABLED_HPP
+#define WTE_CMP_ENABLED_HPP
 
 #include "component.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace cmp
@@ -35,8 +32,6 @@ class enabled final : public component {
 };
 
 } //  namespace cmp
-
-} //  namespace ecs
 
 } //  namespace wte
 

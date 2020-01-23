@@ -9,15 +9,12 @@
   Extend this to create a new component
 */
 
-#ifndef WTE_ECS_COMPONENT_HPP
-#define WTE_ECS_COMPONENT_HPP
+#ifndef WTE_CMP_COMPONENT_HPP
+#define WTE_CMP_COMPONENT_HPP
 
 #include <memory>
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace cmp
@@ -39,11 +36,9 @@ class component {
 };
 
 //! Component shared pointer
-typedef std::shared_ptr<component> component_sptr;
+typedef std::shared_ptr<cmp::component> component_sptr;
 
 } //  namespace cmp
-
-} //  namespace ecs
 
 } //  namespace wte
 

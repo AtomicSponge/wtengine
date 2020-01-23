@@ -8,15 +8,12 @@
   Colision system
 */
 
-#ifndef WTE_ECS_SYSTEM_COLISION_HPP
-#define WTE_ECS_SYSTEM_COLISION_HPP
+#ifndef WTE_SYS_COLISION_HPP
+#define WTE_SYS_COLISION_HPP
 
 #include "system.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace sys
@@ -31,7 +28,7 @@ class colision : public system {
         inline colision() { name = "colision"; };
         inline ~colision() {};
 
-        inline void run(entity_manager&, msg::message_queue&, int64_t) final;
+        inline void run(mgr::entity_manager&, mgr::message_manager&, int64_t) final;
 };
 
 //!  Run the colision system
@@ -41,8 +38,8 @@ class colision : public system {
   Verifies there is a location and hitbox component when testing
   Also verifies the entity is enabled and the entity being hit is solid
 */
-inline void colision::run(entity_manager& world,
-                          msg::message_queue& messages,
+inline void colision::run(mgr::entity_manager& world,
+                          mgr::message_manager& messages,
                           int64_t current_time) {
     component_container team_components;
 
@@ -80,8 +77,6 @@ inline void colision::run(entity_manager& world,
 }
 
 } //  namespace sys
-
-} //  namespace ecs
 
 } //  namespace wte
 

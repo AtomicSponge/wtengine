@@ -15,12 +15,12 @@
 
 #define MAX_STARS 64
 
-class starfield : public wte::ecs::sys::system {
+class starfield : public wte::sys::system {
     public:
         starfield();
 
-        void run(wte::ecs::entity_manager&, wte::msg::message_queue&, int64_t);
-        void dispatch(wte::ecs::entity_manager&, wte::msg::message_container);
+        void run(wte::mgr::entity_manager&, wte::mgr::message_manager&, int64_t);
+        void dispatch(wte::mgr::entity_manager&, wte::message_container);
 
     private:
         float x[MAX_STARS];

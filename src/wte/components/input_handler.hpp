@@ -8,15 +8,12 @@
   Input handler component - tag to be processed by input system
 */
 
-#ifndef WTE_ECS_COMPONENT_INPUT_HANDLER_HPP
-#define WTE_ECS_COMPONENT_INPUT_HANDLER_HPP
+#ifndef WTE_CMP_INPUT_HANDLER_HPP
+#define WTE_CMP_INPUT_HANDLER_HPP
 
 #include "component.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace cmp
@@ -31,8 +28,6 @@ class input_handler final : public component {
 };
 
 } //  namespace cmp
-
-} //  namespace ecs
 
 } //  namespace wte
 

@@ -8,15 +8,12 @@
   AI component - tag to be processed by logic system
 */
 
-#ifndef WTE_ECS_COMPONENT_AI_HPP
-#define WTE_ECS_COMPONENT_AI_HPP
+#ifndef WTE_CMP_AI_HPP
+#define WTE_CMP_AI_HPP
 
 #include "component.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace cmp
@@ -32,8 +29,6 @@ class ai : public component {
 };
 
 } //  namespace cmp
-
-} //  namespace ecs
 
 } //  namespace wte
 

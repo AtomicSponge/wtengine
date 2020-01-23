@@ -24,13 +24,7 @@
 #include <stdexcept>
 
 #include "wte_globals.hpp"
-#include "menu_manager.hpp"
-#include "entity_manager.hpp"
-#include "system_manager.hpp"
-#include "audio_manager.hpp"
-#include "message_queue.hpp"
-#include "renderer.hpp"
-#include "input_thread.hpp"
+#include "managers\managers.hpp"
 
 namespace wte
 {
@@ -51,7 +45,7 @@ class wte_main {
         void do_game(void);                     /*!< Run the game loop */
 
     private:
-        void handle_sys_msg(msg::message_container);
+        void handle_sys_msg(message_container);
         void generate_new_game(void);    /*!< Call to generate a new game */
         void unload_game(void);
 
@@ -60,10 +54,10 @@ class wte_main {
         ALLEGRO_EVENT_QUEUE *main_queue;        /*!< Main event queue */
         ALLEGRO_EVENT event;                    /*!< Container to fetch event */
 
-        msg::message_queue messages;            /*!< Message queue */
-        renderer game_screen;                   /*!< The renderer used to draw the game environment */
-        input_thread input_th;
-        audio_manager audio_th;
+        mgr::message_manager messages;            /*!< Message queue */
+        mgr::render_manager game_screen;                   /*!< The renderer used to draw the game environment */
+        mgr::input_manager input_th;
+        mgr::audio_manager audio_th;
 
         //  Used for switching on system messages:
         enum cmd_str_value {
@@ -87,9 +81,9 @@ class wte_main {
 
         virtual void handle_custom_sys_msg(msg::message) {};
 
-        ecs::entity_manager world;              /*!< Manager for entities */
-        ecs::system_manager systems;            /*!< Manager for systems */
-        mnu::menu_manager menus;                /*!< Manager for menus */
+        mgr::entity_manager world;              /*!< Manager for entities */
+        mgr::system_manager systems;            /*!< Manager for systems */
+        mgr::menu_manager menus;                /*!< Manager for menus */
 };
 
 inline bool wte_main::initialized = false;
@@ -98,11 +92,9 @@ inline bool wte_main::initialized = false;
 /*!
   Verify WTEngine isn't already running and set the init flag to false
 */
-inline wte_main::wte_main() {
+inline wte_main::wte_main() : init_called(false) {
     if(initialized == true) throw std::runtime_error("WTEngine already running!");
     initialized = true;
-
-    init_called = false;
 }
 
 //! wte_main destructor
@@ -239,7 +231,7 @@ inline void wte_main::do_game(void) {
     if(init_called == false) throw std::runtime_error("WTEngine not initialized!");
 
     bool queue_not_empty = false;
-    msg::message_container temp_msgs;
+    message_container temp_msgs;
 
     messages.clear_queue();
     sys_flag[GAME_STARTED] = false;
@@ -278,9 +270,7 @@ inline void wte_main::do_game(void) {
 
         //  Send audio messages to the audio queue
         temp_msgs = messages.get_messages("audio");
-        if(!temp_msgs.empty()) audio_messages.insert(audio_messages.end(),
-                                                     std::make_move_iterator(temp_msgs.begin()),
-                                                     std::make_move_iterator(temp_msgs.end()));
+        if(!temp_msgs.empty()) audio_th.transfer_messages(temp_msgs);
 
         //  Get any system messages and pass to handler
         temp_msgs = messages.get_messages("system");
@@ -296,8 +286,8 @@ inline void wte_main::do_game(void) {
   Switch over the system messages and process
   Remaining messages are passed to the custom handler
 */
-inline void wte_main::handle_sys_msg(msg::message_container sys_msgs) {
-    for(msg::message_iterator it = sys_msgs.begin(); it != sys_msgs.end();) {
+inline void wte_main::handle_sys_msg(message_container sys_msgs) {
+    for(message_iterator it = sys_msgs.begin(); it != sys_msgs.end();) {
         //  Switch over the system messages, deleting each as they are processed
         switch(map_cmd_str_values[it->get_cmd()]) {
             //  cmd:  exit - Shut down engine
@@ -350,7 +340,7 @@ inline void wte_main::handle_sys_msg(msg::message_container sys_msgs) {
 
     //  Pass remaining system messages to custom handler
     if(!sys_msgs.empty()) {
-        for(msg::message_iterator it = sys_msgs.begin(); it != sys_msgs.end(); it++) {
+        for(message_iterator it = sys_msgs.begin(); it != sys_msgs.end(); it++) {
             handle_custom_sys_msg(*it);
         }
     }

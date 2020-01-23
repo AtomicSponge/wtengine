@@ -8,15 +8,12 @@
   Velocity component
 */
 
-#ifndef WTE_ECS_COMPONENT_VELOCITY_HPP
-#define WTE_ECS_COMPONENT_VELOCITY_HPP
+#ifndef WTE_CMP_VELOCITY_HPP
+#define WTE_CMP_VELOCITY_HPP
 
 #include "component.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace cmp
@@ -34,8 +31,6 @@ class velocity final : public component {
 };
 
 } //  namespace cmp
-
-} //  namespace ecs
 
 } //  namespace wte
 

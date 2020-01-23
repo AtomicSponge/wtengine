@@ -8,8 +8,8 @@
   Inlcude all systems
 */
 
-#ifndef WTE_ECS_SYSTEMS_HPP
-#define WTE_ECS_SYSTEMS_HPP
+#ifndef WTE_SYSTEMS_HPP
+#define WTE_SYSTEMS_HPP
 
 #include "input.hpp"
 #include "spawner.hpp"

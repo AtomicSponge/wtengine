@@ -9,15 +9,12 @@
   Override this to define custom ai
 */
 
-#ifndef WTE_ECS_SYSTEM_LOGIC_HPP
-#define WTE_ECS_SYSTEM_LOGIC_HPP
+#ifndef WTE_SYS_LOGIC_HPP
+#define WTE_SYS_LOGIC_HPP
 
 #include "system.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace sys
@@ -32,14 +29,14 @@ class logic : public system {
         inline logic() { name = "logic"; };
         inline ~logic() {};
 
-        void run(entity_manager&, msg::message_queue&, int64_t);    /*!< Run the logic system */
-        void dispatch(entity_manager&, msg::message_container);        /*!< Dispatch logic messages */
+        void run(mgr::entity_manager&, mgr::message_manager&, int64_t);    /*!< Run the logic system */
+        void dispatch(mgr::entity_manager&, message_container);        /*!< Dispatch logic messages */
 
     protected:
         component_container ai_components;  /*!< Container for logic components */
 
-        virtual void custom_run(entity_manager&, msg::message_queue&, int64_t) {};  /*!< Override to define behaviour */
-        virtual void process_message(entity_manager&, msg::message) {};  /*!< Override to define behaviour */
+        virtual void custom_run(mgr::entity_manager&, mgr::message_manager&, int64_t) {};  /*!< Override to define behaviour */
+        virtual void process_message(mgr::entity_manager&, msg::message) {};  /*!< Override to define behaviour */
 };
 
 //! Run the logic system
@@ -47,7 +44,7 @@ class logic : public system {
   Finds all entities with an ai component and processes their logic
   Override the custom_run member to define behaviour
 */
-inline void logic::run(entity_manager& world, msg::message_queue& messages, int64_t current_time) {
+inline void logic::run(mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
     //  Find the entities with the input handler component
     ai_components = world.get_components<cmp::ai>();
 
@@ -60,15 +57,13 @@ inline void logic::run(entity_manager& world, msg::message_queue& messages, int6
   Get logic messages for processing
   Override the process_messages member to define behaviour
 */
-inline void logic::dispatch(entity_manager& world, msg::message_container messages) {
-    for(msg::message_iterator it = messages.begin(); it != messages.end(); it++) {
+inline void logic::dispatch(mgr::entity_manager& world, message_container messages) {
+    for(message_iterator it = messages.begin(); it != messages.end(); it++) {
         process_message(world, *it);
     }
 }
 
 } //  namespace sys
-
-} //  namespace ecs
 
 } //  namespace wte
 

@@ -1,15 +1,15 @@
 /*
   WTEngine
   By:  Matthew Evans
-  File:  renderer.hpp
+  File:  render_manager.hpp
 
   See LICENSE.txt for copyright information
 
-  Renderer object
+  render_manager object
 */
 
-#ifndef WTE_RENDERER_HPP
-#define WTE_RENDERER_HPP
+#ifndef WTE_MGR_RENDER_MANAGER_HPP
+#define WTE_MGR_RENDER_MANAGER_HPP
 
 #include <string>
 #include <set>
@@ -22,35 +22,36 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 
-#include "wte_globals.hpp"
+#include "manager.hpp"
+#include "..\wte_globals.hpp"
+#include "..\components\components.hpp"
 #include "menu_manager.hpp"
 #include "entity_manager.hpp"
-#include "components\components.hpp"
 
 namespace wte
 {
 
+namespace mgr
+{
+
 //!  Define a container for an entity and component pair
-typedef std::pair<ecs::entity, ecs::cmp::component_sptr> entity_component_pair;
+typedef std::pair<entity, cmp::component_sptr> entity_component_pair;
 //!  Iterator for the entity/component pair
 typedef std::set<entity_component_pair>::iterator ec_pair_iterator;
 //!  Comparator for sorting entity/component pairs
 typedef std::function<bool(entity_component_pair, entity_component_pair)> comparator;
 
-//! Renderer class
+//! render_manager class
 /*!
   An object that handles drawing the world to the screen
 */
-class renderer {
+class render_manager : public manager<render_manager> {
     public:
-        renderer();
-        ~renderer();
-
-        renderer(const renderer&) = delete;
-        void operator=(renderer const&) = delete;
+        render_manager();
+        ~render_manager();
 
         void initialize(ALLEGRO_FONT *);
-        void render(mnu::menu_manager&, ecs::entity_manager&, int64_t);     /*!< Call the renderer */
+        void render(menu_manager&, entity_manager&, int64_t);     /*!< Call the render_manager */
 
     private:
         ALLEGRO_BITMAP *menu_bitmap;
@@ -60,20 +61,15 @@ class renderer {
         int fps_counter, fps;                           /*!< FPS counters */
         
         comparator render_comparator;                   /*!< Store lambda function for comparator */
-
-        static bool initialized;
 };
 
-inline bool renderer::initialized = false;
+template <> inline bool render_manager::manager<render_manager>::initialized = false;
 
-//! Renderer constructor
+//! render_manager constructor
 /*!
-  Generates the renderer object
+  Generates the render_manager object
 */
-inline renderer::renderer() {
-    if(initialized == true) throw std::runtime_error("Renderer already running!");
-    initialized = true;
-
+inline render_manager::render_manager() {
     menu_bitmap = NULL;
     overlay_font = NULL;
     
@@ -89,22 +85,20 @@ inline renderer::renderer() {
         };
 }
 
-//! Renderer destructor
+//! render_manager destructor
 /*!
-  Cleans up the renderer object
+  Cleans up the render_manager object
 */
-inline renderer::~renderer() {
+inline render_manager::~render_manager() {
     al_destroy_bitmap(menu_bitmap);
     al_destroy_font(overlay_font);
-
-    initialized = false;
 }
 
-//!  Initialize the renderer
+//!  Initialize the render_manager
 /*!
-  Pass an Allegro font for the renderer to use
+  Pass an Allegro font for the render_manager to use
 */
-inline void renderer::initialize(ALLEGRO_FONT *font) {
+inline void render_manager::initialize(ALLEGRO_FONT *font) {
     overlay_font = font;
 }
 
@@ -112,7 +106,7 @@ inline void renderer::initialize(ALLEGRO_FONT *font) {
 /*!
   Gets passed the entity manager and timer then draws everything to screen
 */
-inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& world, int64_t current_time) {
+inline void render_manager::render(menu_manager& menus, entity_manager& world, int64_t current_time) {
     //  Make sure we're always drawing to the screen
     al_set_target_backbuffer(al_get_current_display());
 
@@ -137,7 +131,7 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
         /*
           Draw the background
         */
-        ecs::component_container layer_components = world.get_components<ecs::cmp::background_layer>();
+        component_container layer_components = world.get_components<cmp::background_layer>();
 
         //  Sort the background layers
         std::set<entity_component_pair, comparator> layer_componenet_set(
@@ -145,14 +139,14 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
 
         //  Draw each background by layer
         for(ec_pair_iterator it = layer_componenet_set.begin(); it != layer_componenet_set.end(); it++) {
-            if(world.get_component<ecs::cmp::visible>(it->first)->is_visible == true)
-                al_draw_bitmap(world.get_component<ecs::cmp::background>(it->first)->background_bitmap, 0, 0, 0);
+            if(world.get_component<cmp::visible>(it->first)->is_visible == true)
+                al_draw_bitmap(world.get_component<cmp::background>(it->first)->background_bitmap, 0, 0, 0);
         }
 
         /*
           Draw the remaining entities
         */
-        ecs::component_container render_components = world.get_components<ecs::cmp::render_order>();
+        component_container render_components = world.get_components<cmp::render_order>();
 
         //  Sort the entity render components
         std::set<entity_component_pair, comparator> render_componenet_set(
@@ -160,12 +154,12 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
 
         //  Draw each entity in order
         for(ec_pair_iterator it = render_componenet_set.begin(); it != render_componenet_set.end(); it++) {
-            if(world.get_component<ecs::cmp::visible>(it->first)->is_visible == true) {
+            if(world.get_component<cmp::visible>(it->first)->is_visible == true) {
                 //  Draw...
-                if(world.has_component<ecs::cmp::sprite>(it->first)) {
+                if(world.has_component<cmp::sprite>(it->first)) {
                     //
                 }
-                if(world.has_component<ecs::cmp::texture>(it->first)) {
+                if(world.has_component<cmp::texture>(it->first)) {
                     //
                 }
             }
@@ -178,22 +172,22 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
         if(sys_flag[DRAW_HITBOX]) {
             for(ec_pair_iterator it = render_componenet_set.begin(); it != render_componenet_set.end(); it++) {
                 //  Make sure the entity has a hitbox and is enabled
-                if((world.has_component<ecs::cmp::hitbox>(it->first))
+                if((world.has_component<cmp::hitbox>(it->first))
                 &&
-                (world.get_component<ecs::cmp::enabled>(it->first)->is_enabled == true)) {
+                (world.get_component<cmp::enabled>(it->first)->is_enabled == true)) {
                     //  Select color based on team
                     ALLEGRO_COLOR team_color;
-                    switch(world.get_component<ecs::cmp::team>(it->first)->this_team) {
+                    switch(world.get_component<cmp::team>(it->first)->this_team) {
                         case 0: team_color = WTE_COLOR_GREEN; break;
                         case 1: team_color = WTE_COLOR_RED; break;
                         case 2: team_color = WTE_COLOR_BLUE; break;
                         default: team_color = WTE_COLOR_YELLOW;
                     }
                     //  Draw the hitbox
-                    for(int i = 0; i < world.get_component<ecs::cmp::hitbox>(it->first)->width; i++) {
-                        for(int j = 0; j < world.get_component<ecs::cmp::hitbox>(it->first)->height; j++) {
-                            al_draw_pixel(world.get_component<ecs::cmp::location>(it->first)->pos_x + i,
-                                        world.get_component<ecs::cmp::location>(it->first)->pos_y + j,
+                    for(int i = 0; i < world.get_component<cmp::hitbox>(it->first)->width; i++) {
+                        for(int j = 0; j < world.get_component<cmp::hitbox>(it->first)->height; j++) {
+                            al_draw_pixel(world.get_component<cmp::location>(it->first)->pos_x + i,
+                                        world.get_component<cmp::location>(it->first)->pos_y + j,
                                         team_color);
                         }
                     } //  End hitbox drawing
@@ -241,6 +235,8 @@ inline void renderer::render(mnu::menu_manager& menus, ecs::entity_manager& worl
     */
     al_flip_display();
 }
+
+} //  namespace mgr
 
 } //  namespace wte
 

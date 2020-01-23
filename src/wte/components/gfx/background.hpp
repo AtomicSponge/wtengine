@@ -8,8 +8,8 @@
   Background component
 */
 
-#ifndef WTE_ECS_COMPONENT_BACKGROUND_HPP
-#define WTE_ECS_COMPONENT_BACKGROUND_HPP
+#ifndef WTE_CMP_BACKGROUND_HPP
+#define WTE_CMP_BACKGROUND_HPP
 
 #include <allegro5/allegro.h>
 
@@ -17,9 +17,6 @@
 #include "../component.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace cmp
@@ -46,8 +43,6 @@ inline background::~background() {
 }
 
 } //  namespace cmp
-
-} //  namespace ecs
 
 } //  namespace wte
 

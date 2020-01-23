@@ -8,15 +8,12 @@
   Location component
 */
 
-#ifndef WTE_ECS_COMPONENT_LOCATION_HPP
-#define WTE_ECS_COMPONENT_LOCATION_HPP
+#ifndef WTE_CMP_LOCATION_HPP
+#define WTE_CMP_LOCATION_HPP
 
 #include "component.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace cmp
@@ -34,8 +31,6 @@ class location final : public component {
 };
 
 } //  namespace cmp
-
-} //  namespace ecs
 
 } //  namespace wte
 

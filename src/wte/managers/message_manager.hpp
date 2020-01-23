@@ -1,7 +1,7 @@
 /*
   WTEngine
   By:  Matthew Evans
-  File:  message_queue.hpp
+  File:  message_manager.hpp
 
   See LICENSE.txt for copyright information
 
@@ -9,8 +9,8 @@
   Stores a vector of messages and processes them
 */
 
-#ifndef WTE_MSG_MESSAGE_QUEUE_HPP
-#define WTE_MSG_MESSAGE_QUEUE_HPP
+#ifndef WTE_MGR_MESSAGE_MANAGER_HPP
+#define WTE_MGR_MESSAGE_MANAGER_HPP
 
 #include <iostream>
 #include <fstream>
@@ -19,35 +19,33 @@
 #include <algorithm>
 #include <stdexcept>
 
-#include "wte_globals.hpp"
-#include "message.hpp"
+#include "..\wte_globals.hpp"
+#include "..\message.hpp"
+#include "manager.hpp"
 #include "entity_manager.hpp"
 
 namespace wte
 {
 
-namespace msg
+typedef std::vector<msg::message> message_container;
+typedef std::vector<msg::message>::iterator message_iterator;
+typedef std::vector<msg::message>::const_iterator message_citerator;
+
+namespace mgr
 {
 
-typedef std::vector<message> message_container;
-typedef std::vector<message>::iterator message_iterator;
-typedef std::vector<message>::const_iterator message_citerator;
-
-//! message_queue class
+//! message_manager class
 /*!
   Store a collection of message objects in a vector for processing
 */
-class message_queue {
+class message_manager : public manager<message_manager> {
     public:
-        message_queue();                                /*!< Message queue constructor */
-        ~message_queue();                               /*!< Message queue destructor */
-
-        message_queue(const message_queue&) = delete;
-        void operator=(message_queue const&) = delete;
+        message_manager();                                /*!< Message queue constructor */
+        ~message_manager();                               /*!< Message queue destructor */
 
         void new_data_file(std::string);                /*!< Load a new data file into the message queue */
         void set_time(int64_t);                         /*!< Set the internal timer value */
-        void add_message(message);                      /*!< Add a message to the queue */
+        void add_message(msg::message);                      /*!< Add a message to the queue */
         void clear_queue(void);                         /*!< Clear the message queue */
         const message_container get_messages(const std::string);    /*!< Get messages based on their command */
 
@@ -55,29 +53,25 @@ class message_queue {
         int64_t current_time;                           /*!< Store timer for message processing */
         message_container msg_queue;                    /*!< Vector of all messages to be processed */
 
-        static bool initialized;
-
         #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
         void debug_log_message(message, int64_t);       /*!< Member to log processed messages to a file */
         #endif
 };
 
-inline bool message_queue::initialized = false;
+template <> inline bool message_manager::manager<message_manager>::initialized = false;
 
 //! Message queue constructor
 /*!
   Clear any existing queue and start logging if debugging is enabled
 */
-inline message_queue::message_queue() {
-    if(initialized == true) throw std::runtime_error("Message Queue already running!");
-    initialized = true;
+inline message_manager::message_manager() {
 
     msg_queue.clear();
 
     //  If debug mode is enabled, create a new log file
     #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
         std::ofstream debug_log_file;
-        debug_log_file.open("wte_debug\\wte_debug_message_queue.txt", std::ios::trunc);
+        debug_log_file.open("wte_debug\\wte_debug_message_manager.txt", std::ios::trunc);
         debug_log_file << "Logging messages";
         debug_log_file << std::endl << std::endl;
         debug_log_file.close();
@@ -88,10 +82,8 @@ inline message_queue::message_queue() {
 /*!
   Delete message queue object
 */
-inline message_queue::~message_queue() {
+inline message_manager::~message_manager() {
     msg_queue.clear();
-
-    initialized = false;
 }
 
 //! Debug message logging
@@ -99,9 +91,9 @@ inline message_queue::~message_queue() {
   Write a message to the debug log file if debugging is enabled
 */
 #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-inline void message_queue::debug_log_message(message msg, int64_t current_time) {
+inline void message_manager::debug_log_message(message msg, int64_t current_time) {
     std::ofstream debug_log_file;
-    debug_log_file.open("wte_debug\\wte_debug_message_queue.txt", std::ios::app);
+    debug_log_file.open("wte_debug\\wte_debug_message_manager.txt", std::ios::app);
     debug_log_file << "PROC AT:  " << current_time << " | ";
     debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
     debug_log_file << "SYS:  " << msg.get_sys() << " | ";
@@ -117,7 +109,7 @@ inline void message_queue::debug_log_message(message msg, int64_t current_time) 
 /*!
   Events are placed in order according to the timer value
 */
-inline void message_queue::new_data_file(std::string file) {
+inline void message_manager::new_data_file(std::string file) {
     std::ifstream data_file;
     int64_t timer;
     std::string sys;
@@ -138,7 +130,7 @@ inline void message_queue::new_data_file(std::string file) {
         std::getline(data_file, args, '\0');
 
         if(data_file.eof()) break;
-        msg_queue.push_back(message(timer, sys, cmd, args));
+        msg_queue.push_back(msg::message(timer, sys, cmd, args));
     }
     data_file.close();
 
@@ -150,14 +142,14 @@ inline void message_queue::new_data_file(std::string file) {
 /*!
   Called by the main engine loop
 */
-inline void message_queue::set_time(int64_t t) { current_time = t; }
+inline void message_manager::set_time(int64_t t) { current_time = t; }
 
 //! Add a message to the queue
 /*!
   Adds a message object to the start of the msg_queue vector
   Then sorts if it's a timed event
 */
-inline void message_queue::add_message(message msg) {
+inline void message_manager::add_message(msg::message msg) {
     msg_queue.insert(msg_queue.begin(), msg);
     if(msg.is_timed_event()) std::sort(msg_queue.begin(), msg_queue.end());
 }
@@ -166,13 +158,13 @@ inline void message_queue::add_message(message msg) {
 /*!
   Wipe the existing message queue
 */
-inline void message_queue::clear_queue(void) { msg_queue.clear(); }
+inline void message_manager::clear_queue(void) { msg_queue.clear(); }
 
 //! Get current messages based on the command field
 /*!
   Once events in the future are reached, break early
 */
-inline const message_container message_queue::get_messages(const std::string sys) {
+inline const message_container message_manager::get_messages(const std::string sys) {
     message_container temp_messages;
 
     //  Return empty vector if the queue is empty
@@ -195,7 +187,7 @@ inline const message_container message_queue::get_messages(const std::string sys
     return temp_messages;
 }
 
-} //  namespace msg
+} //  namespace mgr
 
 } //  namespace wte
 

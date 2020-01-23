@@ -29,10 +29,10 @@ starfield::starfield() {
 /*
   Update the starfield
 */
-void starfield::run(wte::ecs::entity_manager& world, wte::msg::message_queue& messages, int64_t current_time) {
+void starfield::run(wte::mgr::entity_manager& world, wte::mgr::message_manager& messages, int64_t current_time) {
     //  Find the background component and set drawing to it
-    wte::ecs::entity background_id = world.get_components<wte::ecs::cmp::background>().begin()->first;
-    al_set_target_bitmap(world.get_component<wte::ecs::cmp::background>(background_id)->background_bitmap);
+    wte::entity background_id = world.get_components<wte::cmp::background>().begin()->first;
+    al_set_target_bitmap(world.get_component<wte::cmp::background>(background_id)->background_bitmap);
 
     //  Clear background to black
     al_clear_to_color(WTE_COLOR_BLACK);
@@ -59,8 +59,8 @@ void starfield::run(wte::ecs::entity_manager& world, wte::msg::message_queue& me
 /*
   Process messages for the starfield
 */
-void starfield::dispatch(wte::ecs::entity_manager& world, wte::msg::message_container messages) {
-    for(wte::msg::message_iterator it = messages.begin(); it != messages.end(); it++) {
+void starfield::dispatch(wte::mgr::entity_manager& world, wte::message_container messages) {
+    for(wte::message_iterator it = messages.begin(); it != messages.end(); it++) {
         if(it->get_cmd() == "default") speed_mult = 1;
         if(it->get_cmd() == "up") speed_mult *= 2;
         if(it->get_cmd() == "down") speed_mult /= 2;

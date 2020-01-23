@@ -8,8 +8,8 @@
   Inlcude all engine components
 */
 
-#ifndef WTE_ECS_COMPONENTS_HPP
-#define WTE_ECS_COMPONENTS_HPP
+#ifndef WTE_COMPONENTS_HPP
+#define WTE_COMPONENTS_HPP
 
 #include "name.hpp"
 #include "enabled.hpp"

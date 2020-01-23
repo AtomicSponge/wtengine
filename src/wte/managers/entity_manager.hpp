@@ -8,8 +8,8 @@
   Entity Manager class
 */
 
-#ifndef WTE_ECS_ENTITY_MANAGER_HPP
-#define WTE_ECS_ENTITY_MANAGER_HPP
+#ifndef WTE_MGR_ENTITY_MANAGER_HPP
+#define WTE_MGR_ENTITY_MANAGER_HPP
 
 #include <vector>
 #include <map>
@@ -19,12 +19,10 @@
 #include <limits>
 #include <stdexcept>
 
-#include "components\component.hpp"
+#include "manager.hpp"
+#include "..\components\component.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 /*
@@ -54,17 +52,17 @@ typedef std::map<entity, cmp::component_sptr>::const_iterator component_citerato
 //!  Define main container for entity/component reference storage
 typedef std::unordered_multimap<entity, cmp::component_sptr> world_map;
 
+namespace mgr
+{
+
 //! entity_manager class
 /*!
   Store a collection of entities and their corresponding components in memory
 */
-class entity_manager {
+class entity_manager : public manager<entity_manager> {
     public:
-        entity_manager();                           /*!< Entity manager constructor */
-        ~entity_manager();
-
-        entity_manager(const entity_manager&) = delete;
-        void operator=(entity_manager const&) = delete;
+        inline entity_manager() { clear(); };                           /*!< Entity manager constructor */
+        inline ~entity_manager() { clear(); };
 
         void clear(void);
 
@@ -89,36 +87,9 @@ class entity_manager {
         entity entity_counter;          /*!< Store counter for entity creation */
         world_container entity_vec;     /*!< Store the list of entities */
         world_map world;                /*!< Store all components for every entity */
-
-        static bool initialized;
 };
 
-inline bool entity_manager::initialized = false;
-
-//! Entity Manager constructor
-/*!
-  Set the entity counter to zero and clear the entities and componenets
-*/
-inline entity_manager::entity_manager() {
-    if(initialized == true) throw std::runtime_error("Entity Manager already running!");
-    initialized = true;
-
-    entity_counter = 0;
-    entity_vec.clear();
-    world.clear();
-}
-
-//! Entity Manager destructor
-/*!
-  Set the entity counter to zero and clear the entities and componenets
-*/
-inline entity_manager::~entity_manager() {
-    entity_counter = 0;
-    entity_vec.clear();
-    world.clear();
-
-    initialized = false;
-}
+template <> inline bool entity_manager::manager<entity_manager>::initialized = false;
 
 //!  Clear the entity manager
 /*!
@@ -322,7 +293,7 @@ template <typename T> inline const component_container entity_manager::get_compo
     return temp_components;
 }
 
-} //  namespace ecs
+} //  namespace mgr
 
 } //  namespace wte
 

@@ -8,8 +8,8 @@
   Background layer component
 */
 
-#ifndef WTE_ECS_COMPONENT_BACKGROUND_LAYER_HPP
-#define WTE_ECS_COMPONENT_BACKGROUND_LAYER_HPP
+#ifndef WTE_CMP_BACKGROUND_LAYER_HPP
+#define WTE_CMP_BACKGROUND_LAYER_HPP
 
 #include <allegro5/allegro.h>
 
@@ -17,9 +17,6 @@
 #include "../component.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace cmp
@@ -37,8 +34,6 @@ class background_layer : public component {
 };
 
 } //  namespace cmp
-
-} //  namespace ecs
 
 } //  namespace wte
 

@@ -8,15 +8,12 @@
   Visible component
 */
 
-#ifndef WTE_ECS_COMPONENT_VISIBLE_HPP
-#define WTE_ECS_COMPONENT_VISIBLE_HPP
+#ifndef WTE_CMP_VISIBLE_HPP
+#define WTE_CMP_VISIBLE_HPP
 
 #include "component.hpp"
 
 namespace wte
-{
-
-namespace ecs
 {
 
 namespace cmp
@@ -35,8 +32,6 @@ class visible final : public component {
 };
 
 } //  namespace cmp
-
-} //  namespace ecs
 
 } //  namespace wte
 

@@ -9,6 +9,7 @@ The engine is written in C++ and uses the Allegro Game Library.
 It is available under the MIT license to be used as a learning tool or for use in your own projects.
 
 Allegro can be found at:  https://liballeg.org
+
 Doxygen:  http://doxygen.nl/
 
 --------------------------

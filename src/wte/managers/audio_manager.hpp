@@ -34,6 +34,9 @@ namespace mgr
 */
 class audio_manager final : public manager<audio_manager>, public make_thread {
     public:
+        inline audio_manager() { audio_messages.clear(); }
+        inline ~audio_manager() { audio_messages.clear(); }
+
         void transfer_messages(message_container);
 
     private:

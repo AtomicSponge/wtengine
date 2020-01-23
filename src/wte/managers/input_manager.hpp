@@ -26,6 +26,10 @@ namespace mgr
 {
 
 class input_manager final : public manager<input_manager>, public make_thread {
+    public:
+        inline input_manager() {};
+        inline ~input_manager() {};
+
     private:
         void run(void);
 };

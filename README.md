@@ -42,7 +42,7 @@ Doxygen:  http://doxygen.nl/
 ...
 
 --------------------------
-### ENTITIES/COMPONENTS:**
+### ENTITIES/COMPONENTS:
 --------------------------
 
 ...

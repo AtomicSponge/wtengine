@@ -1,10 +1,6 @@
 WIP
 
---------------------------
-
-# INTRODUCTION:
-
---------------------------
+## INTRODUCTION:
 
 WTEngine (What the Engine?) is an implementation of an entity/messaging system as used in many modern games.
 The engine is written in C++ and uses the Allegro Game Library.
@@ -19,43 +15,23 @@ Doxygen:  http://doxygen.nl/
  - b
  - c
 
---------------------------
-
-**DEMO:**
-
---------------------------
+## DEMO:
 
 ...
 
---------------------------
-
-**SETUP:**
-
---------------------------
+## SETUP:
 
 ...
 
---------------------------
-
-**MESSAGING:**
-
---------------------------
+## MESSAGING:
 
 ...
 
---------------------------
-
-**MANAGERS:**
-
---------------------------
+## MANAGERS:
 
 ...
 
---------------------------
-
-**ENTITIES/COMPONENTS:**
-
---------------------------
+## ENTITIES/COMPONENTS:**
 
 ...
 

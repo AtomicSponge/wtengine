@@ -18,6 +18,9 @@
 namespace wte
 {
 
+//!
+/*!
+*/
 class make_thread {
     public:
         inline virtual ~make_thread() { stop(); };

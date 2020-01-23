@@ -23,6 +23,12 @@ enum GLOBAL_SYSTEM_FLAGS {
 */
 class sys_flags {
     public:
+        inline sys_flags() {};
+        inline ~sys_flags() {};
+
+        sys_flags(const sys_flags&) = delete;
+        void operator=(sys_flags const&) = delete;
+
         inline static const bool is_set(const int flag) { return sys_flag[flag]; };
         inline static void set(const int flag, const bool set) { sys_flag[flag] = set; };
 

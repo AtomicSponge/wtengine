@@ -23,6 +23,12 @@ enum PLAYERKEYS {
 */
 class key_flags {
     public:
+        inline key_flags() {};
+        inline ~key_flags() {};
+
+        key_flags(const key_flags&) = delete;
+        void operator=(key_flags const&) = delete;
+
         inline static const bool is_set(const int flag) { return key[flag]; };
         inline static void set(const int flag, const bool set) { key[flag] = set; };
 

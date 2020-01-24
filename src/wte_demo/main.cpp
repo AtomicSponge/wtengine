@@ -10,7 +10,6 @@
 
 #include "include/wte/wte.hpp"
 
-#include "include/main.hpp"
 #include "include/game_loop.hpp"
 
 //  Set game timer rate

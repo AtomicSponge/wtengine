@@ -59,8 +59,8 @@ void game_loop::load_game(void) {
     e_id = world.new_entity();
     world.add_component(e_id, std::make_shared<wte::cmp::name>("player"));
     world.add_component(e_id, std::make_shared<wte::cmp::team>(0));
-    world.add_component(e_id, std::make_shared<wte::cmp::location>((wte::screen_width / 2) - 5,
-                                                                         wte::screen_height - 40));
+    world.add_component(e_id, std::make_shared<wte::cmp::location>((wte::wte_config::screen_width / 2) - 5,
+                                                                         wte::wte_config::screen_height - 40));
     world.add_component(e_id, std::make_shared<wte::cmp::hitbox>(10, 10));
     world.add_component(e_id, std::make_shared<wte::cmp::health>(1));
     world.add_component(e_id, std::make_shared<wte::cmp::render_order>(1));

@@ -24,6 +24,7 @@
 
 #include "manager.hpp"
 #include "..\wte_globals.hpp"
+#include "..\wte_config.hpp"
 #include "..\sys_flags.hpp"
 #include "..\components\components.hpp"
 #include "menu_manager.hpp"
@@ -118,7 +119,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world, i
         fps_counter++;
         this_tick = current_time;
         //  Update fps on unique ticks only
-        if(current_time % (int64_t)TICKS_PER_SECOND == 0 && this_tick != last_tick) {
+        if(current_time % (int64_t)wte_config::TICKS_PER_SECOND == 0 && this_tick != last_tick) {
             fps = fps_counter;
             fps_counter = 1;
             last_tick = current_time;
@@ -208,8 +209,8 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world, i
     if(sys_flags::is_set(GAME_MENU_OPENED)) {
         menu_bitmap = al_clone_bitmap(menus.render_menu());
         al_draw_bitmap(menu_bitmap,
-                       (screen_width / 2) - (al_get_bitmap_width(menu_bitmap) / 2),
-                       (screen_height / 2) - (al_get_bitmap_height(menu_bitmap) / 2),
+                       (wte_config::screen_width / 2) - (al_get_bitmap_width(menu_bitmap) / 2),
+                       (wte_config::screen_height / 2) - (al_get_bitmap_height(menu_bitmap) / 2),
                        0);
         al_destroy_bitmap(menu_bitmap);
     }
@@ -224,7 +225,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world, i
 
     //  Draw frame rate
     if(sys_flags::is_set(DRAW_FPS)) {
-        al_draw_text(overlay_font, WTE_COLOR_WHITE, screen_width, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
+        al_draw_text(overlay_font, WTE_COLOR_WHITE, wte_config::screen_width, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
     //  Draw time if debug mode is enabled
     #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9

@@ -24,6 +24,7 @@
 #include <stdexcept>
 
 #include "wte_globals.hpp"
+#include "wte_config.hpp"
 #include "sys_flags.hpp"
 #include "managers\managers.hpp"
 
@@ -116,10 +117,10 @@ inline void wte_main::wte_init(void) {
     //  Initialize Allegro and it's various objects
     if(!al_init()) throw std::runtime_error("Allegro failed to load!"); //  Allegro didn't load - Exit
 
-    display = al_create_display(screen_width, screen_height);
+    display = al_create_display(wte_config::screen_width, wte_config::screen_height);
     if(!display) throw std::runtime_error("Failed to configure display!"); //  Failed to set display - Exit
 
-    main_timer = al_create_timer(1.0 / TICKS_PER_SECOND);
+    main_timer = al_create_timer(1.0 / wte_config::TICKS_PER_SECOND);
     if(!main_timer) throw std::runtime_error("Failed to create timer!"); //  Failed to create timer - Exit
 
     main_queue = al_create_event_queue();

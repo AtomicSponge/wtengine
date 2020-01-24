@@ -13,14 +13,13 @@
 #include "include/main.hpp"
 #include "include/game_loop.hpp"
 
-//  Set screen width & height
-const unsigned int wte::screen_width = 768;
-const unsigned int wte::screen_height = 1024;
-
 //  Set game timer rate
-const float wte::TICKS_PER_SECOND = 60.0;
+const float wte::wte_config::TICKS_PER_SECOND = 60.0;
 
 int main(int argc, char **argv) {
+    wte::wte_config::screen_width = 768;
+    wte::wte_config::screen_height = 1024;
+
     //  Initialize game object
     game_loop main_game_loop;
     main_game_loop.wte_init();

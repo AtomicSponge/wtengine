@@ -13,6 +13,7 @@
 #define WTE_MAIN_INCLUDE_HPP
 
 #include "wte_globals.hpp"
+#include "wte_config.hpp"
 
 #include "menu\menu.hpp"
 #include "managers\managers.hpp"

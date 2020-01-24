@@ -33,16 +33,4 @@
 #define WTE_COLOR_DARKPURPLE    al_map_rgb(48, 25, 52)
 #define WTE_COLOR_WHITE         al_map_rgb(255,255,255)
 
-namespace wte 
-{
-
-//!  Set screen width and height
-extern const unsigned int screen_width;
-extern const unsigned int screen_height;
-
-//!  Set the timer rate
-extern const float TICKS_PER_SECOND;
-
-} //  end namespace wte
-
 #endif

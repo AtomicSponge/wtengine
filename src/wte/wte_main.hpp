@@ -23,7 +23,7 @@
 #include <map>
 #include <stdexcept>
 
-#include "wte_globals.hpp"
+#include "wte_global_defines.hpp"
 #include "wte_config.hpp"
 #include "sys_flags.hpp"
 #include "managers\managers.hpp"

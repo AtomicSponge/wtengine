@@ -21,7 +21,7 @@
 #include <allegro5/allegro_font.h>
 
 #include "manager.hpp"
-#include "..\wte_globals.hpp"
+#include "..\wte_global_defines.hpp"
 #include "..\sys_flags.hpp"
 #include "..\key_flags.hpp"
 #include "..\menu\menu.hpp"

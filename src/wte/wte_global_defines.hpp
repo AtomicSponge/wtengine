@@ -1,15 +1,15 @@
 /*
   WTEngine
   By:  Matthew Evans
-  File:  wte_globals.hpp
+  File:  wte_global_defines.hpp
 
   See LICENSE.txt for copyright information
 
   Global defines for WTE engine
 */
 
-#ifndef WTE_GLOBALS_HPP
-#define WTE_GLOBALS_HPP
+#ifndef WTE_GLOBAL_DEFINES_HPP
+#define WTE_GLOBAL_DEFINES_HPP
 
 //!Set level of debugging
 /*!

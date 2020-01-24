@@ -12,7 +12,6 @@
 #ifndef WTE_SYS_SPAWNER_HPP
 #define WTE_SYS_SPAWNER_HPP
 
-#include "../wte_globals.hpp"
 #include "system.hpp"
 
 namespace wte

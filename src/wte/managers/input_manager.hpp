@@ -16,10 +16,9 @@
 #include <allegro5/allegro.h>
 
 #include "manager.hpp"
-#include "..\wte_globals.hpp"
+#include "..\make_thread.hpp"
 #include "..\sys_flags.hpp"
 #include "..\key_flags.hpp"
-#include "..\make_thread.hpp"
 
 namespace wte
 {

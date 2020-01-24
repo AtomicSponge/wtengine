@@ -23,7 +23,7 @@
 #include <allegro5/allegro_font.h>
 
 #include "manager.hpp"
-#include "..\wte_globals.hpp"
+#include "..\wte_global_defines.hpp"
 #include "..\wte_config.hpp"
 #include "..\sys_flags.hpp"
 #include "..\components\components.hpp"

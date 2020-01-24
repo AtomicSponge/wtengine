@@ -13,7 +13,6 @@
 
 #include <allegro5/allegro.h>
 
-#include "../../wte_globals.hpp"
 #include "../component.hpp"
 
 namespace wte

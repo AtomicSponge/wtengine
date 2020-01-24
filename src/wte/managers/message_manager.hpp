@@ -19,7 +19,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-#include "..\wte_globals.hpp"
+#include "..\wte_global_defines.hpp"
 #include "..\message.hpp"
 #include "manager.hpp"
 #include "entity_manager.hpp"

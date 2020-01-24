@@ -19,7 +19,6 @@
 
 #include "manager.hpp"
 #include "message_manager.hpp"
-#include "..\wte_globals.hpp"
 #include "..\make_thread.hpp"
 #include "..\message.hpp"
 

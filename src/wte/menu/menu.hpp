@@ -17,7 +17,6 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
-#include "../wte_globals.hpp"
 #include "menu_item.hpp"
 
 namespace wte

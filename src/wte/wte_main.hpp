@@ -37,8 +37,14 @@ namespace wte
 */
 class wte_main {
     public:
-        wte_main();
-        ~wte_main();
+        inline wte_main() : init_called(false) {
+            if(initialized == true) throw std::runtime_error("WTEngine already running!");
+            initialized = true;
+        }
+        inline ~wte_main() {
+            if(init_called == true) wte_unload();
+            initialized = false;
+        }
 
         wte_main(const wte_main&) = delete;
         void operator=(wte_main const&) = delete;
@@ -87,25 +93,6 @@ class wte_main {
 };
 
 inline bool wte_main::initialized = false;
-
-//! wte_main constructor
-/*!
-  Verify WTEngine isn't already running and set the init flag to false
-*/
-inline wte_main::wte_main() : init_called(false) {
-    if(initialized == true) throw std::runtime_error("WTEngine already running!");
-    initialized = true;
-}
-
-//! wte_main destructor
-/*!
-  Call wte_unload if it wasn't manually called
-*/
-inline wte_main::~wte_main() {
-    if(init_called == true) wte_unload();
-
-    initialized = false;
-}
 
 //! Initialize WTEngine
 /*!

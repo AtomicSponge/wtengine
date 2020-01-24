@@ -37,7 +37,8 @@ namespace wte
 */
 class wte_main {
     public:
-        virtual ~wte_main();
+        wte_main();
+        ~wte_main();
 
         wte_main(const wte_main&) = delete;
         void operator=(wte_main const&) = delete;
@@ -48,16 +49,27 @@ class wte_main {
 
     private:
         void handle_sys_msg(message_container);
-        void generate_new_game(void);    /*!< Call to generate a new game */
+        void generate_new_game(void);
         void unload_game(void);
+
+        /* These functions are defined in their own source file */
+        void load_menus(void);
+        void load_systems(void);
+        void load_game(void);
+        void end_game(void);
+        void handle_custom_sys_msg(msg::message);
+        /* End custom members */
 
         ALLEGRO_DISPLAY *display;               /*!< Display to draw to */
         ALLEGRO_TIMER *main_timer;              /*!< Timer to control game loop */
         ALLEGRO_EVENT_QUEUE *main_queue;        /*!< Main event queue */
         ALLEGRO_EVENT event;                    /*!< Container to fetch event */
 
-        mgr::message_manager messages;            /*!< Message queue */
-        mgr::render_manager game_screen;                   /*!< The renderer used to draw the game environment */
+        mgr::message_manager messages;          /*!< Message queue */
+        mgr::render_manager game_screen;        /*!< The renderer used to draw the game environment */
+        mgr::entity_manager world;              /*!< Manager for entities */
+        mgr::system_manager systems;            /*!< Manager for systems */
+        mgr::menu_manager menus;                /*!< Manager for menus */
         mgr::input_manager input_th;
         mgr::audio_manager audio_th;
 
@@ -72,20 +84,6 @@ class wte_main {
         bool init_called;                       /*!< Flag to make sure wte_init was called */
 
         static bool initialized;                /*!< Restrict to one instance of the engine running */
-
-    protected:
-        wte_main();
-
-        virtual void load_menus(void) = 0;      /*!< Override to load custom menus */
-        virtual void load_systems(void) = 0;    /*!< Override to load custom systems */
-        virtual void load_game(void) = 0;       /*!< Override to load initial entities */
-        virtual void end_game(void) = 0;        /*!< Override to define end game process */
-
-        virtual void handle_custom_sys_msg(msg::message) {};
-
-        mgr::entity_manager world;              /*!< Manager for entities */
-        mgr::system_manager systems;            /*!< Manager for systems */
-        mgr::menu_manager menus;                /*!< Manager for menus */
 };
 
 inline bool wte_main::initialized = false;

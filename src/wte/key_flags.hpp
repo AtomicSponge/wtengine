@@ -29,8 +29,9 @@ class key_flags {
         key_flags(const key_flags&) = delete;
         void operator=(key_flags const&) = delete;
 
+        inline static void set(const int flag) { key[flag] = true; };
+        inline static void unset(const int flag) { key[flag] = false; };
         inline static const bool is_set(const int flag) { return key[flag]; };
-        inline static void set(const int flag, const bool set) { key[flag] = set; };
 
     private:
         static bool key[MAX_KEY_FLAGS];

@@ -29,8 +29,9 @@ class sys_flags {
         sys_flags(const sys_flags&) = delete;
         void operator=(sys_flags const&) = delete;
 
+        inline static void set(const int flag) { sys_flag[flag] = true; };
+        inline static void unset(const int flag) { sys_flag[flag] = false; };
         inline static const bool is_set(const int flag) { return sys_flag[flag]; };
-        inline static void set(const int flag, const bool set) { sys_flag[flag] = set; };
 
     private:
         static bool sys_flag[MAX_SYSTEM_FLAGS];

@@ -165,7 +165,7 @@ inline const menu_sptr menu_manager::set_menu(const std::string name) {
 */
 inline void menu_manager::reset(void) {
     opened_menus = {};
-    sys_flags::set(GAME_MENU_OPENED, false);
+    sys_flags::unset(GAME_MENU_OPENED);
 }
 
 //!  Add a menu to the stack
@@ -175,7 +175,7 @@ inline void menu_manager::reset(void) {
 */
 inline void menu_manager::open_menu(const std::string menu_id) {
     opened_menus.push(get_menu(menu_id));
-    sys_flags::set(GAME_MENU_OPENED, true);
+    sys_flags::set(GAME_MENU_OPENED);
     menu_position = opened_menus.top()->get_items().begin();
 }
 
@@ -185,7 +185,7 @@ inline void menu_manager::open_menu(const std::string menu_id) {
 */
 inline void menu_manager::close_menu(void) {
     opened_menus.pop();
-    if(opened_menus.empty()) sys_flags::set(GAME_MENU_OPENED, false);
+    if(opened_menus.empty()) sys_flags::unset(GAME_MENU_OPENED);
 }
 
 //!  Run the menu manager

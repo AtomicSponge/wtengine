@@ -59,7 +59,7 @@ namespace mgr
 /*!
   Store a collection of entities and their corresponding components in memory
 */
-class entity_manager : public manager<entity_manager> {
+class entity_manager final : public manager<entity_manager> {
     public:
         inline entity_manager() { clear(); };                           /*!< Entity manager constructor */
         inline ~entity_manager() { clear(); };

@@ -46,7 +46,7 @@ typedef std::function<bool(entity_component_pair, entity_component_pair)> compar
 /*!
   An object that handles drawing the world to the screen
 */
-class render_manager : public manager<render_manager> {
+class render_manager final : public manager<render_manager> {
     public:
         render_manager();
         ~render_manager();

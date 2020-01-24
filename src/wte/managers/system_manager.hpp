@@ -33,7 +33,7 @@ typedef std::vector<sys::system_uptr>::const_iterator system_citerator;
 /*!
   Store the configured systems and process their runs and dispatches
 */
-class system_manager : public manager<system_manager> {
+class system_manager final : public manager<system_manager> {
     public:
         inline system_manager() : finalized(false) { systems.clear(); }
         inline ~system_manager() { systems.clear(); }

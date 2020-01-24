@@ -38,7 +38,7 @@ namespace mgr
 /*!
   Store a collection of message objects in a vector for processing
 */
-class message_manager : public manager<message_manager> {
+class message_manager final : public manager<message_manager> {
     public:
         message_manager();                                /*!< Message queue constructor */
         ~message_manager();                               /*!< Message queue destructor */

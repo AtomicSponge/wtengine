@@ -72,7 +72,7 @@ class wte_main {
         ALLEGRO_EVENT event;                        /*!< Container to fetch event */
 
         mgr::message_manager messages;          /*!< Message queue */
-        mgr::render_manager screen;        /*!< The renderer used to draw the game environment */
+        mgr::render_manager screen;             /*!< The renderer used to draw the game environment */
         mgr::entity_manager world;              /*!< Manager for entities */
         mgr::system_manager systems;            /*!< Manager for systems */
         mgr::menu_manager menus;                /*!< Manager for menus */

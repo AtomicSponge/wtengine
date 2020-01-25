@@ -250,11 +250,11 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
 
     //  Draw frame rate
     if(sys_flags::is_set(DRAW_FPS)) {
-        al_draw_text(overlay_font, WTE_COLOR_WHITE, wte_config::screen_width, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
+        al_draw_text(overlay_font, WTE_COLOR_YELLOW, wte_config::screen_width, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
     //  Draw time if debug mode is enabled
     #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
-    al_draw_text(overlay_font, WTE_COLOR_WHITE, wte_config::screen_width, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
+    al_draw_text(overlay_font, WTE_COLOR_YELLOW, wte_config::screen_width, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     #endif
 
     /*

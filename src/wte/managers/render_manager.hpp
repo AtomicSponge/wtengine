@@ -91,7 +91,7 @@ inline render_manager::render_manager() : fps_counter(1), fps(0) {
     fps_event_queue = NULL;
 
     #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
-    current_time = 0
+    current_time = 0;
     #endif
 
     //  Define comparator as lambda function that sorts components

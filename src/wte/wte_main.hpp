@@ -35,7 +35,7 @@ namespace wte
 /*!
   Main engine object
 */
-class wte_main {
+class wte_main final {
     public:
         inline wte_main() : init_called(false) {
             if(initialized == true) throw std::runtime_error("WTEngine already running!");

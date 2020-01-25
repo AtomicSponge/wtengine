@@ -54,9 +54,9 @@ class wte_main {
         void do_game(void);                     /*!< Run the game loop */
 
     private:
-        void handle_sys_msg(message_container);
         void generate_new_game(void);
         void unload_game(void);
+        void handle_sys_msg(message_container);
 
         /* These functions are defined in their own source file */
         void load_menus(void);
@@ -66,10 +66,10 @@ class wte_main {
         void handle_custom_sys_msg(msg::message);
         /* End custom members */
 
-        ALLEGRO_DISPLAY *display;               /*!< Display to draw to */
-        ALLEGRO_TIMER *main_timer;              /*!< Timer to control game loop */
-        ALLEGRO_EVENT_QUEUE *main_queue;        /*!< Main event queue */
-        ALLEGRO_EVENT event;                    /*!< Container to fetch event */
+        static ALLEGRO_DISPLAY* display;            /*!< Display to draw to */
+        static ALLEGRO_TIMER* main_timer;           /*!< Timer to control game loop */
+        static ALLEGRO_EVENT_QUEUE* main_queue;     /*!< Main event queue */
+        ALLEGRO_EVENT event;                        /*!< Container to fetch event */
 
         mgr::message_manager messages;          /*!< Message queue */
         mgr::render_manager game_screen;        /*!< The renderer used to draw the game environment */
@@ -91,6 +91,10 @@ class wte_main {
 
         static bool initialized;                /*!< Restrict to one instance of the engine running */
 };
+
+inline ALLEGRO_DISPLAY* wte_main::display = NULL;
+inline ALLEGRO_TIMER* wte_main::main_timer = NULL;
+inline ALLEGRO_EVENT_QUEUE* wte_main::main_queue = NULL;
 
 inline bool wte_main::initialized = false;
 

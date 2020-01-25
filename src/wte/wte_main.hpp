@@ -72,7 +72,7 @@ class wte_main {
         ALLEGRO_EVENT event;                        /*!< Container to fetch event */
 
         mgr::message_manager messages;          /*!< Message queue */
-        mgr::render_manager game_screen;        /*!< The renderer used to draw the game environment */
+        mgr::render_manager screen;        /*!< The renderer used to draw the game environment */
         mgr::entity_manager world;              /*!< Manager for entities */
         mgr::system_manager systems;            /*!< Manager for systems */
         mgr::menu_manager menus;                /*!< Manager for menus */
@@ -132,7 +132,7 @@ inline void wte_main::wte_init(void) {
     audio_th.start();
 
     //  Initialize renderer and menu manager
-    game_screen.initialize(al_create_builtin_font());
+    screen.initialize(al_create_builtin_font());
     menus.initialize(al_create_builtin_font(), WTE_COLOR_WHITE);
 
     //  Load user configured menus & systems
@@ -257,13 +257,13 @@ inline void wte_main::do_game(void) {
             systems.dispatch(world, messages);
 
             #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
-            game_screen.set_current_time(al_get_timer_count(main_timer));
+            screen.set_current_time(al_get_timer_count(main_timer));
             #endif
         }
         /* *** END GAME LOOP ******************************************************** */
 
         //  Render the screen
-        game_screen.render(menus, world);
+        screen.render(menus, world);
 
         //  Send audio messages to the audio queue
         temp_msgs = messages.get_messages("audio");

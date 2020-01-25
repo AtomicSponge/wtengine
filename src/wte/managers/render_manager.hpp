@@ -83,15 +83,16 @@ template <> inline bool render_manager::manager<render_manager>::initialized = f
 /*!
   Generates the render_manager object
 */
-inline render_manager::render_manager() {
+inline render_manager::render_manager() : fps_counter(1), fps(0) {
     menu_bitmap = NULL;
     overlay_font = NULL;
 
     fps_timer = NULL;
     fps_event_queue = NULL;
 
-    fps_counter = 1;
-    fps = 0;
+    #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
+    current_time = 0
+    #endif
 
     //  Define comparator as lambda function that sorts components
     render_comparator =

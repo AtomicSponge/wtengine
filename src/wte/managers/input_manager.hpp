@@ -199,8 +199,8 @@ inline void input_manager::run(void) {
 
     } //  End while( is_running == true )
 
-    al_destroy_timer(input_timer);
     al_destroy_event_queue(input_queue);
+    al_destroy_timer(input_timer);
 }
 
 } //  namespace mgr

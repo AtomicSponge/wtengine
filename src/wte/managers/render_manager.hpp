@@ -23,6 +23,7 @@
 #include <allegro5/allegro_font.h>
 
 #include "manager.hpp"
+
 #include "..\wte_global_defines.hpp"
 #include "..\wte_config.hpp"
 #include "..\sys_flags.hpp"
@@ -53,16 +54,27 @@ class render_manager final : public manager<render_manager> {
         ~render_manager();
 
         void initialize(ALLEGRO_FONT *);
-        void render(menu_manager&, entity_manager&, int64_t);     /*!< Call the render_manager */
+        void render(menu_manager&, entity_manager&);     /*!< Call the render_manager */
+
+        #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
+        inline void set_current_time(const int64_t ctime) { current_time = ctime; };
+        #endif
 
     private:
         ALLEGRO_BITMAP *menu_bitmap;
         ALLEGRO_FONT *overlay_font;                     /*!< Allegro font used for the overlay */
-        
-        int64_t last_tick, this_tick;                   /*!< Store timer ticks to Calculate FPS */
+
+        ALLEGRO_TIMER *fps_timer;
+        ALLEGRO_EVENT_QUEUE *fps_event_queue;
+        ALLEGRO_EVENT fps_event;
+
         int fps_counter, fps;                           /*!< FPS counters */
         
         comparator render_comparator;                   /*!< Store lambda function for comparator */
+
+        #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
+        int64_t current_time;
+        #endif
 };
 
 template <> inline bool render_manager::manager<render_manager>::initialized = false;
@@ -74,9 +86,10 @@ template <> inline bool render_manager::manager<render_manager>::initialized = f
 inline render_manager::render_manager() {
     menu_bitmap = NULL;
     overlay_font = NULL;
-    
-    last_tick = 0;
-    this_tick = 0;
+
+    fps_timer = NULL;
+    fps_event_queue = NULL;
+
     fps_counter = 1;
     fps = 0;
 
@@ -94,6 +107,9 @@ inline render_manager::render_manager() {
 inline render_manager::~render_manager() {
     al_destroy_bitmap(menu_bitmap);
     al_destroy_font(overlay_font);
+
+    al_destroy_event_queue(fps_event_queue);
+    al_destroy_timer(fps_timer);
 }
 
 //!  Initialize the render_manager
@@ -102,13 +118,22 @@ inline render_manager::~render_manager() {
 */
 inline void render_manager::initialize(ALLEGRO_FONT *font) {
     overlay_font = font;
+
+    fps_timer = al_create_timer(1);
+
+    fps_event_queue = al_create_event_queue();
+    al_register_event_source(fps_event_queue, al_get_timer_event_source(fps_timer));
+
+    al_start_timer(fps_timer);
 }
 
 //! Render method - Draw the game screen
 /*!
   Gets passed the entity manager and timer then draws everything to screen
 */
-inline void render_manager::render(menu_manager& menus, entity_manager& world, int64_t current_time) {
+inline void render_manager::render(menu_manager& menus, entity_manager& world) {
+    bool queue_not_empty = false;
+
     //  Make sure we're always drawing to the screen
     al_set_target_backbuffer(al_get_current_display());
 
@@ -117,12 +142,11 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world, i
     */
     if(sys_flags::is_set(DRAW_FPS)) {
         fps_counter++;
-        this_tick = current_time;
         //  Update fps on unique ticks only
-        if(current_time % (int64_t)wte_config::TICKS_PER_SECOND == 0 && this_tick != last_tick) {
+        queue_not_empty = al_get_next_event(fps_event_queue, &fps_event);
+        if(fps_event.type == ALLEGRO_EVENT_TIMER && queue_not_empty) {
             fps = fps_counter;
             fps_counter = 1;
-            last_tick = current_time;
         }
     }
 
@@ -229,7 +253,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world, i
     }
     //  Draw time if debug mode is enabled
     #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
-    al_draw_text(overlay_font, WTE_COLOR_WHITE, screen_width, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
+    al_draw_text(overlay_font, WTE_COLOR_WHITE, wte_config::screen_width, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     #endif
 
     /*

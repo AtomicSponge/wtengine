@@ -255,11 +255,15 @@ inline void wte_main::do_game(void) {
             systems.run(world, messages, al_get_timer_count(main_timer));
             //  Process messages
             systems.dispatch(world, messages);
+
+            #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
+            game_screen.set_current_time(al_get_timer_count(main_timer));
+            #endif
         }
         /* *** END GAME LOOP ******************************************************** */
 
         //  Render the screen
-        game_screen.render(menus, world, al_get_timer_count(main_timer));
+        game_screen.render(menus, world);
 
         //  Send audio messages to the audio queue
         temp_msgs = messages.get_messages("audio");

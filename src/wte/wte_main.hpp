@@ -81,10 +81,10 @@ class wte_main final {
 
         //  Used for switching on system messages:
         enum cmd_str_value {
-                                ev_cmd_exit,
-                                ev_cmd_new_game,   ev_cmd_end_game,
-                                ev_cmd_open_menu,  ev_cmd_close_menu
-                            };
+            ev_cmd_exit,
+            ev_cmd_new_game,   ev_cmd_end_game,
+            ev_cmd_open_menu,  ev_cmd_close_menu
+        };
         std::map<std::string, cmd_str_value> map_cmd_str_values;
 
         bool init_called;                       /*!< Flag to make sure wte_init was called */

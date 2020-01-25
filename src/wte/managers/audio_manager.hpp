@@ -18,8 +18,9 @@
 #include <allegro5/allegro_audio.h>
 
 #include "manager.hpp"
+#include "make_thread.hpp"
+
 #include "message_manager.hpp"
-#include "..\make_thread.hpp"
 #include "..\message.hpp"
 
 namespace wte

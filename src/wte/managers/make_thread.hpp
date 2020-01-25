@@ -18,6 +18,9 @@
 namespace wte
 {
 
+namespace mgr
+{
+
 //!
 /*!
 */
@@ -59,6 +62,8 @@ class make_thread {
 
         virtual void run() = 0;
 };
+
+} //  end namespace mgr
 
 } //  end namespace wte
 

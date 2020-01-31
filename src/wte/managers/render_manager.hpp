@@ -53,7 +53,7 @@ class render_manager final : public manager<render_manager> {
         render_manager();
         ~render_manager();
 
-        void initialize(ALLEGRO_FONT *);
+        void initialize(ALLEGRO_FONT*);
         void render(menu_manager&, entity_manager&);     /*!< Call the render_manager */
 
         #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
@@ -61,11 +61,11 @@ class render_manager final : public manager<render_manager> {
         #endif
 
     private:
-        ALLEGRO_BITMAP *menu_bitmap;
-        ALLEGRO_FONT *overlay_font;                     /*!< Allegro font used for the overlay */
+        ALLEGRO_BITMAP* menu_bitmap;
+        ALLEGRO_FONT* overlay_font;                     /*!< Allegro font used for the overlay */
 
-        ALLEGRO_TIMER *fps_timer;
-        ALLEGRO_EVENT_QUEUE *fps_event_queue;
+        ALLEGRO_TIMER* fps_timer;
+        ALLEGRO_EVENT_QUEUE* fps_event_queue;
         ALLEGRO_EVENT fps_event;
 
         int fps_counter, fps;                           /*!< FPS counters */
@@ -117,7 +117,7 @@ inline render_manager::~render_manager() {
 /*!
   Pass an Allegro font for the render_manager to use
 */
-inline void render_manager::initialize(ALLEGRO_FONT *font) {
+inline void render_manager::initialize(ALLEGRO_FONT* font) {
     overlay_font = font;
 
     fps_timer = al_create_timer(1);

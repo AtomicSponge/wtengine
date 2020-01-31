@@ -44,7 +44,7 @@ class menu_manager final : public manager<menu_manager> {
         menu_manager();
         ~menu_manager();
 
-        void initialize(ALLEGRO_FONT *, ALLEGRO_COLOR);
+        void initialize(ALLEGRO_FONT*, ALLEGRO_COLOR);
 
         void new_menu(const mnu::menu);
         const menu_csptr get_menu(const std::string) const;
@@ -61,9 +61,9 @@ class menu_manager final : public manager<menu_manager> {
         mnu::menu_item_citerator menu_position;
         mnu::option_citerator option_selection;
 
-        mutable ALLEGRO_BITMAP *menu_bitmap;
-        ALLEGRO_BITMAP *menu_cursor;
-        ALLEGRO_FONT *menu_font;
+        mutable ALLEGRO_BITMAP* menu_bitmap;
+        ALLEGRO_BITMAP* menu_cursor;
+        ALLEGRO_FONT* menu_font;
         ALLEGRO_COLOR menu_font_color;
 
         std::vector<menu_sptr> menus;
@@ -103,7 +103,7 @@ inline menu_manager::~menu_manager() {
   Pass an Allegro font for the menu manager to use
   Also create the default main menu and in-game menu
 */
-inline void menu_manager::initialize(ALLEGRO_FONT *font, ALLEGRO_COLOR color) {
+inline void menu_manager::initialize(ALLEGRO_FONT* font, ALLEGRO_COLOR color) {
     menu_font = font;
     menu_font_color = color;
 

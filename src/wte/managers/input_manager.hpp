@@ -45,8 +45,8 @@ template <> inline bool input_manager::manager<input_manager>::initialized = fal
 /*!
 */
 inline void input_manager::run(void) {
-    ALLEGRO_TIMER *input_timer;
-    ALLEGRO_EVENT_QUEUE *input_queue;
+    ALLEGRO_TIMER* input_timer;
+    ALLEGRO_EVENT_QUEUE* input_queue;
     ALLEGRO_EVENT input_event;
 
     //  TODO: let user define these in a menu

@@ -7,6 +7,7 @@ WTEngine (What the Engine?) aims to be an object oriented game engine that can b
 The engine is written in C++ and uses the Allegro Game Library.
 
 Allegro can be found at:  https://liballeg.org
+
 Doxygen:  http://doxygen.nl/
 
 **Features:**

@@ -25,7 +25,7 @@
 
 #include "wte_global_defines.hpp"
 #include "wte_config.hpp"
-#include "sys_flags.hpp"
+#include "engine_flags.hpp"
 #include "managers\managers.hpp"
 
 namespace wte
@@ -180,8 +180,8 @@ inline void wte_main::generate_new_game(void) {
     std::srand(std::time(nullptr));  //  Seed random
 
     //  Set global flags
-    sys_flags::unset(GAME_MENU_OPENED);
-    sys_flags::set(GAME_STARTED);
+    engine_flags::unset(GAME_MENU_OPENED);
+    engine_flags::set(GAME_STARTED);
 
     //  Clear world and load starting entities
     world.clear();
@@ -205,8 +205,8 @@ inline void wte_main::unload_game(void) {
     end_game();
 
     world.clear();
-    sys_flags::unset(GAME_STARTED);
-    sys_flags::set(GAME_MENU_OPENED);
+    engine_flags::unset(GAME_STARTED);
+    engine_flags::set(GAME_MENU_OPENED);
 }
 
 //! Main game logic
@@ -221,28 +221,28 @@ inline void wte_main::do_game(void) {
 
     messages.clear_queue();
 
-    sys_flags::set(IS_RUNNING);
-    sys_flags::unset(GAME_STARTED);
-    sys_flags::set(GAME_MENU_OPENED);
+    engine_flags::set(IS_RUNNING);
+    engine_flags::unset(GAME_STARTED);
+    engine_flags::set(GAME_MENU_OPENED);
 
     //  test code
-    sys_flags::set(DRAW_HITBOX);
-    sys_flags::set(DRAW_FPS);
+    engine_flags::set(DRAW_HITBOX);
+    engine_flags::set(DRAW_FPS);
     generate_new_game();
     //  end test code
 
-    while(sys_flags::is_set(IS_RUNNING)) {
+    while(engine_flags::is_set(IS_RUNNING)) {
         //  Pause / resume timer depending on if the game menu is opened
-        if(sys_flags::is_set(GAME_MENU_OPENED) && al_get_timer_started(main_timer)) al_stop_timer(main_timer);
-        if(!sys_flags::is_set(GAME_MENU_OPENED) && !al_get_timer_started(main_timer)) al_resume_timer(main_timer);
+        if(engine_flags::is_set(GAME_MENU_OPENED) && al_get_timer_started(main_timer)) al_stop_timer(main_timer);
+        if(!engine_flags::is_set(GAME_MENU_OPENED) && !al_get_timer_started(main_timer)) al_resume_timer(main_timer);
 
         //  Game not running, make sure the timer isn't and force the menu manager
-        if(!sys_flags::is_set(GAME_STARTED)) {
+        if(!engine_flags::is_set(GAME_STARTED)) {
             al_stop_timer(main_timer);
-            sys_flags::set(GAME_MENU_OPENED);
+            engine_flags::set(GAME_MENU_OPENED);
         }
         //  Game menu is opened, run the menu manager
-        if(sys_flags::is_set(GAME_MENU_OPENED)) menus.run(messages);
+        if(engine_flags::is_set(GAME_MENU_OPENED)) menus.run(messages);
 
         /* *** GAME LOOP ************************************************************ */
         //  Capture event from queue
@@ -274,7 +274,7 @@ inline void wte_main::do_game(void) {
         if(!temp_msgs.empty()) handle_sys_msg(temp_msgs);
 
         //  Force quit if the game window is closed
-        if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) sys_flags::unset(IS_RUNNING);
+        if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) engine_flags::unset(IS_RUNNING);
     }
 }
 
@@ -289,14 +289,14 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
         switch(map_cmd_str_values[it->get_cmd()]) {
             //  cmd:  exit - Shut down engine
             case ev_cmd_exit:
-                if(sys_flags::is_set(GAME_STARTED)) unload_game();
-                sys_flags::unset(IS_RUNNING);
+                if(engine_flags::is_set(GAME_STARTED)) unload_game();
+                engine_flags::unset(IS_RUNNING);
                 it = sys_msgs.erase(it);
                 break;
 
             //  cmd:  new_game - start up a new game
             case ev_cmd_new_game:
-                if(sys_flags::is_set(GAME_STARTED)) unload_game();
+                if(engine_flags::is_set(GAME_STARTED)) unload_game();
                 generate_new_game();
                 it = sys_msgs.erase(it);
                 break;
@@ -310,7 +310,7 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
             //  cmd:  open_menu argstring - open a menu, passing a string as an argument
             //  If the menu doesn't exist, the default will be opened
             case ev_cmd_open_menu:
-                sys_flags::set(GAME_MENU_OPENED);
+                engine_flags::set(GAME_MENU_OPENED);
                 menus.open_menu(std::string(it->get_args()));
                 it = sys_msgs.erase(it);
                 break;

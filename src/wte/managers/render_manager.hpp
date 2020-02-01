@@ -26,7 +26,7 @@
 
 #include "..\wte_global_defines.hpp"
 #include "..\wte_config.hpp"
-#include "..\sys_flags.hpp"
+#include "..\engine_flags.hpp"
 #include "..\components\components.hpp"
 #include "menu_manager.hpp"
 #include "entity_manager.hpp"
@@ -141,7 +141,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
     /*
       Calculate fps if enabled
     */
-    if(sys_flags::is_set(DRAW_FPS)) {
+    if(engine_flags::is_set(DRAW_FPS)) {
         fps_counter++;
         //  Update fps on unique ticks only
         queue_not_empty = al_get_next_event(fps_event_queue, &fps_event);
@@ -154,7 +154,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
     /*
       Render world if the game is running
     */
-    if(sys_flags::is_set(GAME_STARTED)) {
+    if(engine_flags::is_set(GAME_STARTED)) {
         /*
           Draw the background
         */
@@ -196,7 +196,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
           Draw hitboxes if enabled
           Use different colors for each team
         */
-        if(sys_flags::is_set(DRAW_HITBOX)) {
+        if(engine_flags::is_set(DRAW_HITBOX)) {
             for(ec_pair_iterator it = render_componenet_set.begin(); it != render_componenet_set.end(); it++) {
                 //  Make sure the entity has a hitbox and is enabled
                 if((world.has_component<cmp::hitbox>(it->first))
@@ -231,7 +231,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
     /*
       Render game menu if it's opened
     */
-    if(sys_flags::is_set(GAME_MENU_OPENED)) {
+    if(engine_flags::is_set(GAME_MENU_OPENED)) {
         menu_bitmap = al_clone_bitmap(menus.render_menu());
         al_draw_bitmap(menu_bitmap,
                        (wte_config::screen_width / 2) - (al_get_bitmap_width(menu_bitmap) / 2),
@@ -249,7 +249,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
     #endif
 
     //  Draw frame rate
-    if(sys_flags::is_set(DRAW_FPS)) {
+    if(engine_flags::is_set(DRAW_FPS)) {
         al_draw_text(overlay_font, WTE_COLOR_YELLOW, wte_config::screen_width, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
     //  Draw time if debug mode is enabled

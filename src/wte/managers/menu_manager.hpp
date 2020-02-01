@@ -22,8 +22,8 @@
 
 #include "manager.hpp"
 #include "..\wte_global_defines.hpp"
-#include "..\sys_flags.hpp"
-#include "..\key_flags.hpp"
+#include "..\engine_flags.hpp"
+#include "..\input_flags.hpp"
 #include "..\menu\menu.hpp"
 #include "message_manager.hpp"
 
@@ -165,7 +165,7 @@ inline const menu_sptr menu_manager::set_menu(const std::string name) {
 */
 inline void menu_manager::reset(void) {
     opened_menus = {};
-    sys_flags::unset(GAME_MENU_OPENED);
+    engine_flags::unset(GAME_MENU_OPENED);
 }
 
 //!  Add a menu to the stack
@@ -175,7 +175,7 @@ inline void menu_manager::reset(void) {
 */
 inline void menu_manager::open_menu(const std::string menu_id) {
     opened_menus.push(get_menu(menu_id));
-    sys_flags::set(GAME_MENU_OPENED);
+    engine_flags::set(GAME_MENU_OPENED);
     menu_position = opened_menus.top()->get_items().begin();
 }
 
@@ -185,7 +185,7 @@ inline void menu_manager::open_menu(const std::string menu_id) {
 */
 inline void menu_manager::close_menu(void) {
     opened_menus.pop();
-    if(opened_menus.empty()) sys_flags::unset(GAME_MENU_OPENED);
+    if(opened_menus.empty()) engine_flags::unset(GAME_MENU_OPENED);
 }
 
 //!  Run the menu manager
@@ -195,21 +195,21 @@ inline void menu_manager::close_menu(void) {
 inline void menu_manager::run(message_manager& messages) {
     if(opened_menus.empty()) {
         //  No menus currently opened, add one to the stack
-        if(sys_flags::is_set(GAME_STARTED)) open_menu("game_menu"); //  Add the in-game menu to the stack
+        if(engine_flags::is_set(GAME_STARTED)) open_menu("game_menu"); //  Add the in-game menu to the stack
         else open_menu("main_menu"); //  Add the main menu to the stack
     }
 
     //  Iterate through the menu items depending on key press
-    if(key_flags::is_set(KEY_UP) && menu_position != opened_menus.top()->get_items().begin()) {
+    if(input_flags::is_set(KEY_UP) && menu_position != opened_menus.top()->get_items().begin()) {
         menu_position--;
     }
-    if(key_flags::is_set(KEY_DOWN) && menu_position != opened_menus.top()->get_items().end()) {
+    if(input_flags::is_set(KEY_DOWN) && menu_position != opened_menus.top()->get_items().end()) {
         menu_position++;
     }
 
-    //if(key_flags::is_set(KEY_LEFT) && menu_position != opened_menus.top()->get_items().begin())
+    //if(input_flags::is_set(KEY_LEFT) && menu_position != opened_menus.top()->get_items().begin())
     //    option_selection--;
-    //if(key_flags::is_set(KEY_RIGHT) && menu_position != opened_menus.top()->get_items().end())
+    //if(input_flags::is_set(KEY_RIGHT) && menu_position != opened_menus.top()->get_items().end())
     //    option_selection++;
 
     //...

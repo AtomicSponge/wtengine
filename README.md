@@ -8,19 +8,17 @@ The engine is written in C++ and uses the Allegro Game Library.
 
 Allegro can be found at:  https://liballeg.org
 
-**Features:**
+#### Features:
  - Internal messaging queue 
  - Memory manager for in-game objects
  - Some multi-threading of tasks
 
-**TODO:**
+#### TODO:
  - Finish basic menu system implementation
  - Implement audio
  - Implement sprites
 
---------------------------
-### DEMO:
---------------------------
+#### DEMO:
 
 A compiled demo can be found in the [releases](https://github.com/wtfsystems/releases) repository.
 

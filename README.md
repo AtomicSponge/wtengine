@@ -10,7 +10,7 @@ Allegro can be found at:  https://liballeg.org
 
 Doxygen:  http://doxygen.nl/
 
-**Features:**
+***Features:***
  - 
  - Internal messaging queue 
  - Memory manager for in-game objects

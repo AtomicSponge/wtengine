@@ -14,7 +14,7 @@
 namespace wte
 {
 
-enum PLAYERKEYS {
+enum INPUT_FLAG_ENUM {
    KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT,
    KEY_FIRE_1, KEY_FIRE_2, KEY_FIRE_3,
    MAX_KEY_FLAGS

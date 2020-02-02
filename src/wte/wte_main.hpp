@@ -85,7 +85,7 @@ class wte_main final {
             CMD_STR_NEW_GAME,   CMD_STR_END_GAME,
             CMD_STR_OPEN_MENU,  CMD_STR_CLOSE_MENU
         };
-        std::map<std::string, CMD_STR_VALUE> map_CMD_STR_VALUEs;
+        std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
 
         bool init_called;                       /*!< Flag to make sure wte_init was called */
 
@@ -142,11 +142,11 @@ inline void wte_main::wte_init(void) {
     systems.finalize();
 
     //  Map commands to enums for switching over in the system msg handler
-    map_CMD_STR_VALUEs["exit"] = CMD_STR_EXIT;
-    map_CMD_STR_VALUEs["new_game"] = CMD_STR_NEW_GAME;
-    map_CMD_STR_VALUEs["end_game"] = CMD_STR_END_GAME;
-    map_CMD_STR_VALUEs["open_menu"] = CMD_STR_OPEN_MENU;
-    map_CMD_STR_VALUEs["close_menu"] = CMD_STR_CLOSE_MENU;
+    map_cmd_str_values["exit"] = CMD_STR_EXIT;
+    map_cmd_str_values["new_game"] = CMD_STR_NEW_GAME;
+    map_cmd_str_values["end_game"] = CMD_STR_END_GAME;
+    map_cmd_str_values["open_menu"] = CMD_STR_OPEN_MENU;
+    map_cmd_str_values["close_menu"] = CMD_STR_CLOSE_MENU;
 
     //  Init done, set flag to true
     init_called = true;
@@ -287,7 +287,7 @@ inline void wte_main::do_game(void) {
 inline void wte_main::handle_sys_msg(message_container sys_msgs) {
     for(message_iterator it = sys_msgs.begin(); it != sys_msgs.end();) {
         //  Switch over the system messages, deleting each as they are processed
-        switch(map_CMD_STR_VALUEs[it->get_cmd()]) {
+        switch(map_cmd_str_values[it->get_cmd()]) {
             //  cmd:  exit - Shut down engine
             case CMD_STR_EXIT:
                 if(engine_flags::is_set(GAME_STARTED)) unload_game();

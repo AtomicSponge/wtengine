@@ -202,15 +202,22 @@ inline void menu_manager::run(message_manager& messages) {
     //  Iterate through the menu items depending on key press
     if(input_flags::is_set(KEY_UP) && menu_position != opened_menus.top()->get_items().begin()) {
         menu_position--;
+        input_flags::unset(KEY_UP);
     }
     if(input_flags::is_set(KEY_DOWN) && menu_position != opened_menus.top()->get_items().end()) {
         menu_position++;
+        input_flags::unset(KEY_DOWN);
     }
 
     //if(input_flags::is_set(KEY_LEFT) && menu_position != opened_menus.top()->get_items().begin())
     //    option_selection--;
     //if(input_flags::is_set(KEY_RIGHT) && menu_position != opened_menus.top()->get_items().end())
     //    option_selection++;
+
+    if(input_flags::is_set(INPUT_MENU_SELECT)) {
+        //...
+        input_flags::unset(INPUT_MENU_SELECT);
+    }
 
     //...
 }

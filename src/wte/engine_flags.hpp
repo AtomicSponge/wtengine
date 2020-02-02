@@ -41,7 +41,7 @@ class engine_flags final {
         static bool flags[MAX_SYSTEM_FLAGS];
 };
 
-inline bool engine_flags::flags[MAX_SYSTEM_FLAGS] = { false, false, false, false, false };
+inline bool engine_flags::flags[MAX_SYSTEM_FLAGS] = {};
 
 } //  end namespace wte
 

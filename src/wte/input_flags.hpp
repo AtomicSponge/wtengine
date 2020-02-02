@@ -40,7 +40,7 @@ class input_flags final {
         static bool flags[MAX_KEY_FLAGS];
 };
 
-inline bool input_flags::flags[MAX_KEY_FLAGS] = { false, false, false, false, false, false, false };
+inline bool input_flags::flags[MAX_KEY_FLAGS] = {};
 
 } //  end namespace wte
 

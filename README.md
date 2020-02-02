@@ -1,6 +1,6 @@
 
 --------------------------
-### INTRODUCTION:
+### INTRODUCTION
 --------------------------
 
 WTEngine (What the Engine?) aims to be an object oriented game engine that can be used to make a simple 2D action game.
@@ -25,7 +25,7 @@ Built and tested with [MSYS2](https://www.msys2.org/)
 A compiled demo can be found in the [releases](https://github.com/wtfsystems/releases) repository.
 
 --------------------------
-### HOW TO USE:
+### HOW TO USE
 --------------------------
 
 The main loop for the game engine is implemented in wte_main.  The per-new-game functions for this class are completed in a seperate source file.  Certain systems are then extended to implement your game.  For a list of all members and their function, build the source documentation with [Doxygen](http://doxygen.nl/)

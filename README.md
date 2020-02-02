@@ -18,6 +18,7 @@ Built and tested with [MSYS2](https://www.msys2.org/)
  - Finish basic menu system implementation
  - Implement audio
  - Implement sprites
+ - Better documentation :p
 
 #### DEMO:
 

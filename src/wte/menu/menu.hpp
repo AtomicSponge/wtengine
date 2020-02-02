@@ -31,34 +31,34 @@ typedef std::vector<menu_item>::const_iterator menu_item_citerator;
 
 class menu {
     public:
-        menu();
+        inline menu() { background_bitmap = NULL; }
         menu(const std::string, const int, const int, const ALLEGRO_COLOR);
         menu(const menu&);
-        ~menu();
+        inline ~menu() { al_destroy_bitmap(background_bitmap); }
 
         void set_bg_color(const ALLEGRO_COLOR);
         const bool add_item(const menu_item);
-        const std::string get_id(void) const;
-        void set_title(std::string);
-        const std::string get_title(void) const;
-        const float get_padding(void) const;
-        const float get_width(void) const;
-        const float get_height(void) const;
-        ALLEGRO_BITMAP* get_background(void) const;
-        menu_items get_items(void) const;
+
+        inline const std::string get_id(void) const { return id; }
+        inline const std::string get_title(void) const { return title; }
+        inline const float get_padding(void) const { return padding; }
+        inline const float get_width(void) const { return al_get_bitmap_width(background_bitmap); }
+        inline const float get_height(void) const { return al_get_bitmap_height(background_bitmap); }
+        inline ALLEGRO_BITMAP* get_background(void) const { return background_bitmap; }
+        inline menu_items get_items(void) const { return items; }
+
+        inline void set_title(const std::string t) { title = t; }
 
     private:
+        menu_items items;
+
         std::string id;
         std::string title;
-        menu_items items;
+
         float padding;
+
         ALLEGRO_BITMAP *background_bitmap;
 };
-
-//!  Default constructor
-/*!
-*/
-inline menu::menu() { background_bitmap = NULL; }
 
 //!  Menu constructor
 /*!
@@ -84,12 +84,6 @@ inline menu::menu(const menu& copy_menu) {
     background_bitmap = al_clone_bitmap(copy_menu.background_bitmap);
 }
 
-//!  Menu destructor
-/*!
-  Deletes the background bitmap 
-*/
-inline menu::~menu() { al_destroy_bitmap(background_bitmap); }
-
 //!  Set menu background color
 /*!
 */
@@ -105,51 +99,6 @@ inline const bool menu::add_item(const menu_item item) {
     items.push_back(item);
     return true;
 }
-
-//!  Get menu name
-/*!
-  Returns the name of the menu
-*/
-inline const std::string menu::get_id(void) const { return id; }
-
-//!  Set menu title
-/*!
-*/
-inline void menu::set_title(std::string t) { title = t; }
-
-//!  Get menu title
-/*!
-*/
-inline const std::string menu::get_title(void) const { return title; }
-
-//!  Get menu border
-/*!
-*/
-inline const float menu::get_padding(void) const { return padding; }
-
-//!  Get menu background bitmap width
-/*!
-  Returns the width of the background bitmap
-*/
-inline const float menu::get_width(void) const { return al_get_bitmap_width(background_bitmap); }
-
-//!  Get menu background bitmap height
-/*!
-  Returns the height of the background bitmap
-*/
-inline const float menu::get_height(void) const { return al_get_bitmap_height(background_bitmap); }
-
-//!  Get menu background bitmap
-/*!
-  Returns a pointer to the background bitmap
-*/
-inline ALLEGRO_BITMAP* menu::get_background(void) const { return background_bitmap; }
-
-//!  Get menu items
-/*!
-  Returns the menu item vector
-*/
-inline menu_items menu::get_items(void) const { return items; }
 
 }  // end namespace mnu
 

@@ -112,6 +112,7 @@ inline void input_manager::run(void) {
                         }
                         break;
                     case ALLEGRO_KEY_ESCAPE:
+                        //  Can only exit menus if the game is running
                         if(!al_get_timer_started(input_timer) && engine_flags::is_set(GAME_STARTED)) {
                             engine_flags::unset(GAME_MENU_OPENED);
                             al_start_timer(input_timer);
@@ -204,7 +205,7 @@ inline void input_manager::run(void) {
                         input_flags::set(KEY_FIRE_3);
                         break;
                     case ALLEGRO_KEY_ESCAPE:
-                        if(!al_get_timer_started(input_timer) && engine_flags::is_set(GAME_STARTED)) {
+                        if(!al_get_timer_started(input_timer)) {
                             engine_flags::set(GAME_MENU_OPENED);
                             al_start_timer(input_timer);
                         }

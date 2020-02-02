@@ -116,65 +116,52 @@ inline void input_manager::run(void) {
                         break;
                     case ALLEGRO_KEY_ESCAPE:
                         //  Can only exit menus if the game is running
-                        if(!al_get_timer_started(input_timer) && engine_flags::is_set(GAME_STARTED)) {
+                        if(engine_flags::is_set(GAME_STARTED) && !al_get_timer_started(input_timer)) {
                             engine_flags::unset(GAME_MENU_OPENED);
                             al_start_timer(input_timer);
                         }
                         break;
                 } //  End switch(input_event.keyboard.keycode)
             } //  End if(input_event.type == ALLEGRO_EVENT_KEY_DOWN)
-            if(input_event.type == ALLEGRO_EVENT_KEY_UP) {
-                switch(input_event.keyboard.keycode) {
-                    case ALLEGRO_KEY_UP:
-                        input_flags::unset(INPUT_UP);
-                        break;
-                    case ALLEGRO_KEY_DOWN:
-                        input_flags::unset(INPUT_DOWN);
-                        break;
-                    case ALLEGRO_KEY_LEFT:
-                        input_flags::unset(INPUT_LEFT);
-                        break;
-                    case ALLEGRO_KEY_RIGHT:
-                        input_flags::unset(INPUT_RIGHT);
-                        break;
-                    case ALLEGRO_KEY_SPACE:
-                    case ALLEGRO_KEY_ENTER:
-                        input_flags::unset(INPUT_MENU_SELECT);
-                        break;
-                } //  End switch(input_event.keyboard.keycode)
-            } //  End if(input_event.type == ALLEGRO_EVENT_KEY_UP)
 
             /* *** Joystick events *** */
             if(input_event.type == ALLEGRO_EVENT_JOYSTICK_AXIS) {
                 //std::cout << input_event.joystick.stick << std::endl;
                 switch(input_event.joystick.axis) {
                     case 0: //  X axis
-                        if(input_event.joystick.pos < 0) input_flags::set(INPUT_LEFT);
-                        else input_flags::unset(INPUT_LEFT);
-                        if(input_event.joystick.pos > 0) input_flags::set(INPUT_RIGHT);
-                        else input_flags::unset(INPUT_RIGHT);
+                        if((input_event.joystick.pos < 0) && !al_get_timer_started(input_timer)) {
+                            input_flags::set(INPUT_LEFT);
+                            al_start_timer(input_timer);
+                        }
+                        if((input_event.joystick.pos > 0) && !al_get_timer_started(input_timer)) {
+                            input_flags::set(INPUT_RIGHT);
+                            al_start_timer(input_timer);
+                        }
                         break;
                     case 1: //  Y axis
-                        if(input_event.joystick.pos < 0) input_flags::set(INPUT_UP);
-                        else input_flags::unset(INPUT_UP);
-                        if(input_event.joystick.pos > 0) input_flags::set(INPUT_DOWN);
-                        else input_flags::unset(INPUT_DOWN);
+                        if((input_event.joystick.pos < 0) && !al_get_timer_started(input_timer)) {
+                            input_flags::set(INPUT_UP);
+                            al_start_timer(input_timer);
+                        }
+                        if((input_event.joystick.pos > 0) && !al_get_timer_started(input_timer)) {
+                            input_flags::set(INPUT_DOWN);
+                            al_start_timer(input_timer);
+                        }
                         break;
                 } //  End switch(input_event.joystick.axis)
             } //  End if(input_event.type == ALLEGRO_EVENT_JOYSTICK_AXIS)
             if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN) {
-                //if(input_event.joystick.button == joy.fire_1_button) input_flags::set(INPUT_MENU_SELECT);
+                if((input_event.joystick.button == joy.fire_1_button) && !al_get_timer_started(input_timer)) {
+                    input_flags::set(INPUT_MENU_SELECT);
+                    al_start_timer(input_timer);
+                }
                 if(input_event.joystick.button == joy.start_button) {
-                    if(engine_flags::is_set(GAME_MENU_OPENED) && engine_flags::is_set(GAME_STARTED)) {
+                    if(engine_flags::is_set(GAME_STARTED) && !al_get_timer_started(input_timer)) {
                         engine_flags::unset(GAME_MENU_OPENED);
-                    } else {
-                        engine_flags::set(GAME_MENU_OPENED);
+                        al_start_timer(input_timer);
                     }
                 }
             } //  End if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)
-            if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_UP) {
-                //if(input_event.joystick.button == joy.fire_1_button) input_flags::unset(INPUT_MENU_SELECT);
-            } //  End if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_UP)
         } //  End menu event processing
 
         /* *** PROCESS EVENTS WHILE GAME IS RUNNING *** */

@@ -83,7 +83,7 @@ template <> inline bool render_manager::manager<render_manager>::initialized = f
 /*!
   Generates the render_manager object
 */
-inline render_manager::render_manager() : fps_counter(1), fps(0) {
+inline render_manager::render_manager() : fps_counter(0), fps(0) {
     menu_bitmap = NULL;
     overlay_font = NULL;
 
@@ -148,7 +148,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
         queue_not_empty = al_get_next_event(fps_event_queue, &fps_event);
         if(fps_event.type == ALLEGRO_EVENT_TIMER && queue_not_empty) {
             fps = fps_counter;
-            fps_counter = 1;
+            fps_counter = 0;
         }
     }
 
@@ -261,6 +261,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
     /*
       Update the screen
     */
+    if(engine_flags::is_set(WAIT_FOR_VSYNC)) al_wait_for_vsync();
     al_flip_display();
 }
 

@@ -24,7 +24,7 @@ enum INPUT_FLAG_ENUM {
 //!
 /*!
 */
-class input_flags {
+class input_flags final {
     public:
         inline input_flags() {};
         inline ~input_flags() {};

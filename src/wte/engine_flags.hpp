@@ -18,13 +18,14 @@ enum ENGINE_FLAG_ENUM {
     IS_RUNNING,
     GAME_STARTED, GAME_MENU_OPENED,
     DRAW_HITBOX, DRAW_FPS,
+    WAIT_FOR_VSYNC,
     MAX_SYSTEM_FLAGS
 };
 
 //!
 /*!
 */
-class engine_flags {
+class engine_flags final {
     public:
         inline engine_flags() {};
         inline ~engine_flags() {};

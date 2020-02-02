@@ -103,7 +103,8 @@ inline void input_manager::run(void) {
                             al_start_timer(input_timer);
                         }
                         break;
-                    case ALLEGRO_KEY_SPACE || ALLEGRO_KEY_ENTER:
+                    case ALLEGRO_KEY_SPACE:
+                    case ALLEGRO_KEY_ENTER:
                         if(!al_get_timer_started(input_timer)) {
                             input_flags::set(INPUT_MENU_SELECT);
                             al_start_timer(input_timer);
@@ -131,7 +132,8 @@ inline void input_manager::run(void) {
                     case ALLEGRO_KEY_RIGHT:
                         input_flags::unset(KEY_RIGHT);
                         break;
-                    case ALLEGRO_KEY_SPACE || ALLEGRO_KEY_ENTER:
+                    case ALLEGRO_KEY_SPACE:
+                    case ALLEGRO_KEY_ENTER:
                         input_flags::unset(INPUT_MENU_SELECT);
                         break;
                 } //  End switch(input_event.keyboard.keycode)

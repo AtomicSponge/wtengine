@@ -49,7 +49,8 @@ inline void input_manager::run(void) {
     ALLEGRO_EVENT_QUEUE* input_queue;
     ALLEGRO_EVENT input_event;
 
-    //  TODO: let user define these in a menu
+    //  NOTE:  Joystick input is not complete
+    //  TODO:  Let user define these in a menu
     struct buttons {
         int fire_1_button = 1; //  B
         int fire_2_button = 0; //  A

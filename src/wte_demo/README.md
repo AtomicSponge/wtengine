@@ -1,1 +1,1 @@
-Simple demo game
+Simple demo game using WTEngine

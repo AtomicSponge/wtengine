@@ -163,9 +163,7 @@ inline void input_manager::run(void) {
                 } //  End switch(input_event.joystick.axis)
             } //  End if(input_event.type == ALLEGRO_EVENT_JOYSTICK_AXIS)
             if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN) {
-                //if(input_event.joystick.button == joy.fire_1_button) input_flags::set(KEY_FIRE_1);
-                //if(input_event.joystick.button == joy.fire_2_button) input_flags::set(KEY_FIRE_2);
-                //if(input_event.joystick.button == joy.fire_3_button) input_flags::set(KEY_FIRE_3);
+                //if(input_event.joystick.button == joy.fire_1_button) input_flags::set(INPUT_MENU_SELECT);
                 if(input_event.joystick.button == joy.start_button) {
                     if(engine_flags::is_set(GAME_MENU_OPENED) && engine_flags::is_set(GAME_STARTED)) {
                         engine_flags::unset(GAME_MENU_OPENED);
@@ -175,9 +173,7 @@ inline void input_manager::run(void) {
                 }
             } //  End if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)
             if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_UP) {
-                //if(input_event.joystick.button == joy.fire_1_button) input_flags::unset(KEY_FIRE_1);
-                //if(input_event.joystick.button == joy.fire_2_button) input_flags::unset(KEY_FIRE_2);
-                //if(input_event.joystick.button == joy.fire_3_button) input_flags::unset(KEY_FIRE_3);
+                //if(input_event.joystick.button == joy.fire_1_button) input_flags::unset(INPUT_MENU_SELECT);
             } //  End if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_UP)
         } //  End menu event processing
 

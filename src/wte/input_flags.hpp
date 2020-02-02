@@ -15,10 +15,10 @@ namespace wte
 {
 
 enum INPUT_FLAG_ENUM {
-   KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT,
-   KEY_FIRE_1, KEY_FIRE_2, KEY_FIRE_3,
+   INPUT_UP, INPUT_DOWN, INPUT_LEFT, INPUT_RIGHT,
+   INPUT_ACTION_1, INPUT_ACTION_2, INPUT_ACTION_3,
    INPUT_MENU_SELECT,
-   MAX_KEY_FLAGS
+   MAX_INPUT_FLAGS
 };
 
 //!
@@ -37,10 +37,10 @@ class input_flags final {
         inline static const bool is_set(const int f) { return flags[f]; };
 
     private:
-        static bool flags[MAX_KEY_FLAGS];
+        static bool flags[MAX_INPUT_FLAGS];
 };
 
-inline bool input_flags::flags[MAX_KEY_FLAGS] = {};
+inline bool input_flags::flags[MAX_INPUT_FLAGS] = {};
 
 } //  end namespace wte
 

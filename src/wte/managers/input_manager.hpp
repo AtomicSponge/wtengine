@@ -59,6 +59,9 @@ inline void input_manager::run(void) {
         int start_button = 9;
     } joy;
 
+    //  Unset all input flags
+    for(int i = 0; i < MAX_INPUT_FLAGS; i++) input_flags::unset(i);
+
     //  Timer for limiting input - 4 ticks / sec
     input_timer = al_create_timer(0.25);
 
@@ -82,25 +85,25 @@ inline void input_manager::run(void) {
                 switch(input_event.keyboard.keycode) {
                     case ALLEGRO_KEY_UP:
                         if(!al_get_timer_started(input_timer)) {
-                            input_flags::set(KEY_UP);
+                            input_flags::set(INPUT_UP);
                             al_start_timer(input_timer);
                         }
                         break;
                     case ALLEGRO_KEY_DOWN:
                         if(!al_get_timer_started(input_timer)) {
-                            input_flags::set(KEY_DOWN);
+                            input_flags::set(INPUT_DOWN);
                             al_start_timer(input_timer);
                         }
                         break;
                     case ALLEGRO_KEY_LEFT:
                         if(!al_get_timer_started(input_timer)) {
-                            input_flags::set(KEY_LEFT);
+                            input_flags::set(INPUT_LEFT);
                             al_start_timer(input_timer);
                         }
                         break;
                     case ALLEGRO_KEY_RIGHT:
                         if(!al_get_timer_started(input_timer)) {
-                            input_flags::set(KEY_RIGHT);
+                            input_flags::set(INPUT_RIGHT);
                             al_start_timer(input_timer);
                         }
                         break;
@@ -123,16 +126,16 @@ inline void input_manager::run(void) {
             if(input_event.type == ALLEGRO_EVENT_KEY_UP) {
                 switch(input_event.keyboard.keycode) {
                     case ALLEGRO_KEY_UP:
-                        input_flags::unset(KEY_UP);
+                        input_flags::unset(INPUT_UP);
                         break;
                     case ALLEGRO_KEY_DOWN:
-                        input_flags::unset(KEY_DOWN);
+                        input_flags::unset(INPUT_DOWN);
                         break;
                     case ALLEGRO_KEY_LEFT:
-                        input_flags::unset(KEY_LEFT);
+                        input_flags::unset(INPUT_LEFT);
                         break;
                     case ALLEGRO_KEY_RIGHT:
-                        input_flags::unset(KEY_RIGHT);
+                        input_flags::unset(INPUT_RIGHT);
                         break;
                     case ALLEGRO_KEY_SPACE:
                     case ALLEGRO_KEY_ENTER:
@@ -146,16 +149,16 @@ inline void input_manager::run(void) {
                 //std::cout << input_event.joystick.stick << std::endl;
                 switch(input_event.joystick.axis) {
                     case 0: //  X axis
-                        if(input_event.joystick.pos < 0) input_flags::set(KEY_LEFT);
-                        else input_flags::unset(KEY_LEFT);
-                        if(input_event.joystick.pos > 0) input_flags::set(KEY_RIGHT);
-                        else input_flags::unset(KEY_RIGHT);
+                        if(input_event.joystick.pos < 0) input_flags::set(INPUT_LEFT);
+                        else input_flags::unset(INPUT_LEFT);
+                        if(input_event.joystick.pos > 0) input_flags::set(INPUT_RIGHT);
+                        else input_flags::unset(INPUT_RIGHT);
                         break;
                     case 1: //  Y axis
-                        if(input_event.joystick.pos < 0) input_flags::set(KEY_UP);
-                        else input_flags::unset(KEY_UP);
-                        if(input_event.joystick.pos > 0) input_flags::set(KEY_DOWN);
-                        else input_flags::unset(KEY_DOWN);
+                        if(input_event.joystick.pos < 0) input_flags::set(INPUT_UP);
+                        else input_flags::unset(INPUT_UP);
+                        if(input_event.joystick.pos > 0) input_flags::set(INPUT_DOWN);
+                        else input_flags::unset(INPUT_DOWN);
                         break;
                 } //  End switch(input_event.joystick.axis)
             } //  End if(input_event.type == ALLEGRO_EVENT_JOYSTICK_AXIS)
@@ -184,25 +187,25 @@ inline void input_manager::run(void) {
             if(input_event.type == ALLEGRO_EVENT_KEY_DOWN) {
                 switch(input_event.keyboard.keycode) {
                     case ALLEGRO_KEY_UP:
-                        input_flags::set(KEY_UP);
+                        input_flags::set(INPUT_UP);
                         break;
                     case ALLEGRO_KEY_DOWN:
-                        input_flags::set(KEY_DOWN);
+                        input_flags::set(INPUT_DOWN);
                         break;
                     case ALLEGRO_KEY_LEFT:
-                        input_flags::set(KEY_LEFT);
+                        input_flags::set(INPUT_LEFT);
                         break;
                     case ALLEGRO_KEY_RIGHT:
-                        input_flags::set(KEY_RIGHT);
+                        input_flags::set(INPUT_RIGHT);
                         break;
                     case ALLEGRO_KEY_LCTRL:
-                        input_flags::set(KEY_FIRE_1);
+                        input_flags::set(INPUT_ACTION_1);
                         break;
                     case ALLEGRO_KEY_ALT:
-                        input_flags::set(KEY_FIRE_2);
+                        input_flags::set(INPUT_ACTION_2);
                         break;
                     case ALLEGRO_KEY_SPACE:
-                        input_flags::set(KEY_FIRE_3);
+                        input_flags::set(INPUT_ACTION_3);
                         break;
                     case ALLEGRO_KEY_ESCAPE:
                         if(!al_get_timer_started(input_timer)) {
@@ -215,25 +218,25 @@ inline void input_manager::run(void) {
             if(input_event.type == ALLEGRO_EVENT_KEY_UP) {
                 switch(input_event.keyboard.keycode) {
                     case ALLEGRO_KEY_UP:
-                        input_flags::unset(KEY_UP);
+                        input_flags::unset(INPUT_UP);
                         break;
                     case ALLEGRO_KEY_DOWN:
-                        input_flags::unset(KEY_DOWN);
+                        input_flags::unset(INPUT_DOWN);
                         break;
                     case ALLEGRO_KEY_LEFT:
-                        input_flags::unset(KEY_LEFT);
+                        input_flags::unset(INPUT_LEFT);
                         break;
                     case ALLEGRO_KEY_RIGHT:
-                        input_flags::unset(KEY_RIGHT);
+                        input_flags::unset(INPUT_RIGHT);
                         break;
                     case ALLEGRO_KEY_LCTRL:
-                        input_flags::unset(KEY_FIRE_1);
+                        input_flags::unset(INPUT_ACTION_1);
                         break;
                     case ALLEGRO_KEY_ALT:
-                        input_flags::unset(KEY_FIRE_2);
+                        input_flags::unset(INPUT_ACTION_2);
                         break;
                     case ALLEGRO_KEY_SPACE:
-                        input_flags::unset(KEY_FIRE_3);
+                        input_flags::unset(INPUT_ACTION_3);
                         break;
                 } //  End switch(input_event.keyboard.keycode)
             } //  End if(input_event.type == ALLEGRO_EVENT_KEY_UP)
@@ -243,29 +246,29 @@ inline void input_manager::run(void) {
                 //std::cout << input_event.joystick.stick << std::endl;
                 switch(input_event.joystick.axis) {
                     case 0: //  X axis
-                        if(input_event.joystick.pos < 0) input_flags::set(KEY_LEFT);
-                        else input_flags::unset(KEY_LEFT);
-                        if(input_event.joystick.pos > 0) input_flags::set(KEY_RIGHT);
-                        else input_flags::unset(KEY_RIGHT);
+                        if(input_event.joystick.pos < 0) input_flags::set(INPUT_LEFT);
+                        else input_flags::unset(INPUT_LEFT);
+                        if(input_event.joystick.pos > 0) input_flags::set(INPUT_RIGHT);
+                        else input_flags::unset(INPUT_RIGHT);
                         break;
                     case 1: //  Y axis
-                        if(input_event.joystick.pos < 0) input_flags::set(KEY_UP);
-                        else input_flags::unset(KEY_UP);
-                        if(input_event.joystick.pos > 0) input_flags::set(KEY_DOWN);
-                        else input_flags::unset(KEY_DOWN);
+                        if(input_event.joystick.pos < 0) input_flags::set(INPUT_UP);
+                        else input_flags::unset(INPUT_UP);
+                        if(input_event.joystick.pos > 0) input_flags::set(INPUT_DOWN);
+                        else input_flags::unset(INPUT_DOWN);
                         break;
                 } //  End switch(input_event.joystick.axis)
             } //  End if(input_event.type == ALLEGRO_EVENT_JOYSTICK_AXIS)
             if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN) {
-                if(input_event.joystick.button == joy.fire_1_button) input_flags::set(KEY_FIRE_1);
-                if(input_event.joystick.button == joy.fire_2_button) input_flags::set(KEY_FIRE_2);
-                if(input_event.joystick.button == joy.fire_3_button) input_flags::set(KEY_FIRE_3);
+                if(input_event.joystick.button == joy.fire_1_button) input_flags::set(INPUT_ACTION_1);
+                if(input_event.joystick.button == joy.fire_2_button) input_flags::set(INPUT_ACTION_2);
+                if(input_event.joystick.button == joy.fire_3_button) input_flags::set(INPUT_ACTION_3);
                 if(input_event.joystick.button == joy.start_button) engine_flags::set(GAME_MENU_OPENED);
             } //  End if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)
             if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_UP) {
-                if(input_event.joystick.button == joy.fire_1_button) input_flags::unset(KEY_FIRE_1);
-                if(input_event.joystick.button == joy.fire_2_button) input_flags::unset(KEY_FIRE_2);
-                if(input_event.joystick.button == joy.fire_3_button) input_flags::unset(KEY_FIRE_3);
+                if(input_event.joystick.button == joy.fire_1_button) input_flags::unset(INPUT_ACTION_1);
+                if(input_event.joystick.button == joy.fire_2_button) input_flags::unset(INPUT_ACTION_2);
+                if(input_event.joystick.button == joy.fire_3_button) input_flags::unset(INPUT_ACTION_3);
             } //  End if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_UP)
         } //  End game event processing
     } //  End while(is_running == true)

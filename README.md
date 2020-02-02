@@ -12,6 +12,7 @@ Built and tested with [MSYS2](https://www.msys2.org/)
  - Internal messaging queue 
  - Memory manager for in-game objects
  - Some multi-threading of tasks
+ - Buildable debug modes
 
 #### TODO:
  - Finish basic menu system implementation

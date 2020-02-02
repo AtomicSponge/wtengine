@@ -8,7 +8,7 @@ The engine is written in C++ and uses the [Allegro Game Library](https://liballe
 
 Built and tested with [MSYS2](https://www.msys2.org/)
 
-#### Features:
+#### FEATURES:
  - Internal messaging queue 
  - Memory manager for in-game objects
  - Some multi-threading of tasks

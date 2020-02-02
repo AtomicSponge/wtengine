@@ -26,7 +26,7 @@ namespace mgr
 */
 class make_thread {
     public:
-        inline virtual ~make_thread() { stop(); };
+        inline virtual ~make_thread() { if(started) stop(); };
 
         make_thread(const make_thread&) = delete;
         void operator=(make_thread const&) = delete;

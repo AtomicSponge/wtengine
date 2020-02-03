@@ -36,6 +36,10 @@ class system {
         system(const system&) = delete;
         void operator=(system const&) = delete;
 
+        inline const void enable(void) { enabled = true; };
+        inline const void disable(void) { enabled = false; };
+        inline const bool is_enabled(void) const { return enabled; };
+
         inline const std::string get_name(void) const { return name; };
 
         //  Override this to create custom run method
@@ -44,8 +48,9 @@ class system {
         virtual void dispatch(mgr::entity_manager&, message_container) {};
 
     protected:
-        inline system() {};
+        inline system() : enabled(true) {};
 
+        bool enabled;
         std::string name;
 };
 

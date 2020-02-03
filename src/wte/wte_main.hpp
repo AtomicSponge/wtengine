@@ -82,8 +82,9 @@ class wte_main final {
         //  Used for switching on system messages:
         enum CMD_STR_VALUE {
             CMD_STR_EXIT,
-            CMD_STR_NEW_GAME,   CMD_STR_END_GAME,
-            CMD_STR_OPEN_MENU,  CMD_STR_CLOSE_MENU
+            CMD_STR_NEW_GAME,       CMD_STR_END_GAME,
+            CMD_STR_OPEN_MENU,      CMD_STR_CLOSE_MENU,
+            CMD_STR_ENABLE_SYSTEM,  CMD_STR_DISABLE_SYSTEM
         };
         std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
 
@@ -147,6 +148,8 @@ inline void wte_main::wte_init(void) {
     map_cmd_str_values["end_game"] = CMD_STR_END_GAME;
     map_cmd_str_values["open_menu"] = CMD_STR_OPEN_MENU;
     map_cmd_str_values["close_menu"] = CMD_STR_CLOSE_MENU;
+    map_cmd_str_values["enable_system"] = CMD_STR_ENABLE_SYSTEM;
+    map_cmd_str_values["disable_system"] = CMD_STR_DISABLE_SYSTEM;
 
     //  Init done, set flag to true
     init_called = true;
@@ -324,8 +327,21 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
                 it = sys_msgs.erase(it);
                 break;
 
+            //  cmd:  enable_system - Turn a system on for processing
+            case CMD_STR_ENABLE_SYSTEM:
+                systems.enable_system(std::string(it->get_args()));
+                it = sys_msgs.erase(it);
+                break;
+
+            //  cmd:  disable_system - Turn a system off so it's run member is skipped
+            //  Message dispatching is still processed
+            case CMD_STR_DISABLE_SYSTEM:
+                systems.disable_system(std::string(it->get_args()));
+                it = sys_msgs.erase(it);
+                break;
+
             //  cmd:  new_cmd - description
-            //case ev_cmd_X:
+            //case CMD_STR_X:
                 //
                 //it = sys_msgs.erase(it);
                 //break;

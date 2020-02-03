@@ -11,6 +11,7 @@
 #ifndef WTE_MGR_SYSTEM_MANAGER_HPP
 #define WTE_MGR_SYSTEM_MANAGER_HPP
 
+#include <string>
 #include <vector>
 #include <iterator>
 #include <memory>
@@ -27,6 +28,7 @@ namespace wte
 namespace mgr
 {
 
+typedef std::vector<sys::system_uptr>::iterator system_iterator;
 typedef std::vector<sys::system_uptr>::const_iterator system_citerator;
 
 //! system_manager class
@@ -43,6 +45,9 @@ class system_manager final : public manager<system_manager> {
         void add(sys::system_uptr);                                 /*!< Add a new system */
         void run(entity_manager&, mgr::message_manager&, int64_t);    /*!< Run all systems */
         void dispatch(entity_manager&, mgr::message_manager&);        /*!< Dispatch to all systems */
+
+        const bool enable_system(std::string);
+        const bool disable_system(std::string);
 
     private:
         std::vector<sys::system_uptr> systems;                      /*!< Store the vector of systems */
@@ -83,7 +88,7 @@ inline void system_manager::run(entity_manager& entities, mgr::message_manager& 
     if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
 
     for(system_citerator it = systems.begin(); it != systems.end(); it++) {
-        (*it)->run(entities, messages, current_time);
+        if((*it)->is_enabled()) (*it)->run(entities, messages, current_time);
     }
 }
 
@@ -98,6 +103,35 @@ inline void system_manager::dispatch(entity_manager& entities, mgr::message_mana
     for(system_citerator it = systems.begin(); it != systems.end(); it++) {
         (*it)->dispatch(entities, messages.get_messages((*it)->get_name()));
     }
+}
+
+//!  Enable a system
+/*!
+  Toggle a system to enabled so it's run member is processed
+*/
+inline const bool system_manager::enable_system(std:: string sys) {
+    if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
+
+    for(system_iterator it = systems.begin(); it != systems.end(); it++) {
+        if((*it)->get_name() == sys) (*it)->enable();
+        return true;
+    }
+    return false;
+}
+
+//!  Disable a system
+/*!
+  Toggle a system to disabled so it's run member is skipped
+  Dispatching will still be processed
+*/
+inline const bool system_manager::disable_system(std:: string sys) {
+    if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
+
+    for(system_iterator it = systems.begin(); it != systems.end(); it++) {
+        if((*it)->get_name() == sys) (*it)->disable();
+        return true;
+    }
+    return false;
 }
 
 } //  namespace mgr

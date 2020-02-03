@@ -210,10 +210,14 @@ inline void menu_manager::run(message_manager& messages) {
         input_flags::unset(INPUT_DOWN);
     }
 
-    //if(input_flags::is_set(INPUT_LEFT) && menu_position != opened_menus.top()->get_items().begin())
-    //    option_selection--;
-    //if(input_flags::is_set(INPUT_RIGHT) && menu_position != opened_menus.top()->get_items().end())
-    //    option_selection++;
+    if(input_flags::is_set(INPUT_LEFT) && menu_position != opened_menus.top()->get_items().begin()) {
+        //option_selection--;
+        input_flags::unset(INPUT_LEFT);
+    }
+    if(input_flags::is_set(INPUT_RIGHT) && menu_position != opened_menus.top()->get_items().end()) {
+        //option_selection++;
+        input_flags::unset(INPUT_RIGHT);
+    }
 
     if(input_flags::is_set(INPUT_MENU_SELECT)) {
         //...

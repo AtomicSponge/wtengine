@@ -23,8 +23,8 @@ using namespace wte;
 */
 void wte_main::load_menus(void) {
     menus.set_menu("main_menu")->set_title("WTE Demo");
-    //mnu::menu_item item;
-    //menus.set_menu("game_menu")->add_item(item);
+    //mnu::menu_item_action item;
+    //menus.set_menu("main_menu")->add_item(item);
 }
 
 /*

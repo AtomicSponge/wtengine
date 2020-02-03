@@ -149,6 +149,8 @@ inline const bool menu_manager::new_menu(const mnu::menu new_menu) {
   If not found, the first menu in the vector is returned
 */
 inline const menu_csptr menu_manager::get_menu(const std::string name) const {
+    if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
+
     for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
         if(name == (*it)->get_id()) return *it;
     }

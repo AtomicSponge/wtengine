@@ -234,6 +234,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
     */
     if(engine_flags::is_set(GAME_MENU_OPENED)) {
         menu_bitmap = al_clone_bitmap(menus.render_menu());
+        al_set_target_backbuffer(al_get_current_display());
         al_draw_bitmap(menu_bitmap,
                        (wte_config::screen_width / 2) - (al_get_bitmap_width(menu_bitmap) / 2),
                        (wte_config::screen_height / 2) - (al_get_bitmap_height(menu_bitmap) / 2),

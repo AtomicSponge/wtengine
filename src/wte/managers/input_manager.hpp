@@ -118,6 +118,7 @@ inline void input_manager::run(void) {
                         //  Can only exit menus if the game is running
                         if(engine_flags::is_set(GAME_STARTED) && !al_get_timer_started(input_timer)) {
                             engine_flags::unset(GAME_MENU_OPENED);
+                            for(int i = 0; i < MAX_INPUT_FLAGS; i++) input_flags::unset(i);
                             al_start_timer(input_timer);
                         }
                         break;
@@ -158,6 +159,7 @@ inline void input_manager::run(void) {
                 if(input_event.joystick.button == joy.start_button) {
                     if(engine_flags::is_set(GAME_STARTED) && !al_get_timer_started(input_timer)) {
                         engine_flags::unset(GAME_MENU_OPENED);
+                        for(int i = 0; i < MAX_INPUT_FLAGS; i++) input_flags::unset(i);
                         al_start_timer(input_timer);
                     }
                 }
@@ -193,6 +195,7 @@ inline void input_manager::run(void) {
                     case ALLEGRO_KEY_ESCAPE:
                         if(!al_get_timer_started(input_timer)) {
                             engine_flags::set(GAME_MENU_OPENED);
+                            for(int i = 0; i < MAX_INPUT_FLAGS; i++) input_flags::unset(i);
                             al_start_timer(input_timer);
                         }
                         break;
@@ -246,7 +249,11 @@ inline void input_manager::run(void) {
                 if(input_event.joystick.button == joy.fire_1_button) input_flags::set(INPUT_ACTION_1);
                 if(input_event.joystick.button == joy.fire_2_button) input_flags::set(INPUT_ACTION_2);
                 if(input_event.joystick.button == joy.fire_3_button) input_flags::set(INPUT_ACTION_3);
-                if(input_event.joystick.button == joy.start_button) engine_flags::set(GAME_MENU_OPENED);
+                if((input_event.joystick.button == joy.start_button) && !al_get_timer_started(input_timer)) {
+                    engine_flags::set(GAME_MENU_OPENED);
+                    for(int i = 0; i < MAX_INPUT_FLAGS; i++) input_flags::unset(i);
+                    al_start_timer(input_timer);
+                }
             } //  End if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)
             if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_UP) {
                 if(input_event.joystick.button == joy.fire_1_button) input_flags::unset(INPUT_ACTION_1);

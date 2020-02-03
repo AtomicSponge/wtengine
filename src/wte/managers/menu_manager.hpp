@@ -120,10 +120,11 @@ inline void menu_manager::initialize(ALLEGRO_FONT* font, ALLEGRO_COLOR color) {
         new_menu(temp_menu);
     }
 
+    al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
     menu_cursor = al_create_bitmap(8, 8);
     al_set_target_bitmap(menu_cursor);
     al_clear_to_color(color);
-    al_set_target_backbuffer(al_get_current_display());
+    al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
 }
 
 //!  Add a menu to the menu vector
@@ -234,10 +235,13 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     //  Destroy old bitmap if it exists
     al_destroy_bitmap(menu_bitmap);
 
+    al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
+
     //  If the menu stack is empty then the run member hasn't been called yet
     //  Return a blank bitmap for now
     if(opened_menus.empty()) {
         menu_bitmap = al_create_bitmap(1, 1);
+        al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
         return menu_bitmap;
     }
 
@@ -263,8 +267,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
         //al_draw_text(menu_font, menu_font_color, x, y, ALLEGRO_ALIGN_CENTER, str.c_str())
     }
 
-    //  Return drawing to the screen
-    al_set_target_backbuffer(al_get_current_display());
+    al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
     return menu_bitmap;
 }
 

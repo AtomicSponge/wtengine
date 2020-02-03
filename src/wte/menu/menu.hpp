@@ -67,9 +67,11 @@ inline menu::menu(const std::string i, const int w, const int h, const ALLEGRO_C
     id = i;
     title = "";
     padding = 10;
+    al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
     background_bitmap = al_create_bitmap(w, h);
     al_set_target_bitmap(background_bitmap);
     al_clear_to_color(color);
+    al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
 }
 
 //!  Copy constructor
@@ -81,7 +83,9 @@ inline menu::menu(const menu& copy_menu) {
     title = copy_menu.title;
     padding = copy_menu.padding;
     items = copy_menu.items;
+    al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
     background_bitmap = al_clone_bitmap(copy_menu.background_bitmap);
+    al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
 }
 
 //!  Set menu background color

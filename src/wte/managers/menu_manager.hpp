@@ -15,6 +15,7 @@
 #include <vector>
 #include <stack>
 #include <memory>
+#include <stdexcept>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
@@ -113,13 +114,13 @@ inline void menu_manager::initialize(ALLEGRO_FONT* font, ALLEGRO_COLOR fcolor, A
     {
         //  Create the main menu
         mnu::menu temp_menu = mnu::menu("main_menu", 300, 200, 10);
-        new_menu(temp_menu);
+        if(!new_menu(temp_menu)) throw std::runtime_error("Unable to create main menu!");
     }
 
     {
         //  Create the in-game menu
         mnu::menu temp_menu = mnu::menu("game_menu", 300, 200, 10);
-        new_menu(temp_menu);
+        if(!new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 
     al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
@@ -214,6 +215,8 @@ inline void menu_manager::close_menu(void) {
   Adds a menu to the stack if none are opened, then processes the menus
 */
 inline void menu_manager::run(message_manager& messages) {
+    if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
+
     if(opened_menus.empty()) {
         //  No menus currently opened, add one to the stack
         if(engine_flags::is_set(GAME_STARTED)) open_menu("game_menu"); //  Add the in-game menu to the stack

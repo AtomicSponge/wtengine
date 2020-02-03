@@ -31,23 +31,22 @@ typedef std::vector<menu_item>::const_iterator menu_item_citerator;
 
 class menu {
     public:
-        inline menu() { background_bitmap = NULL; }
-        menu(const std::string, const int, const int, const ALLEGRO_COLOR);
-        menu(const menu&);
-        inline ~menu() { al_destroy_bitmap(background_bitmap); }
-
-        void set_bg_color(const ALLEGRO_COLOR);
-        const bool add_item(const menu_item);
+        inline menu(const std::string i, const int w, const int h, const int p) :
+                    id(i), title(""), width(w), height(h), padding(p) {};
+        inline menu(const std::string i, const std::string t, const int w, const int h, const int p) :
+                    id(i), title(t), width(w), height(h), padding(p) {};
+        inline ~menu() {};
 
         inline const std::string get_id(void) const { return id; }
         inline const std::string get_title(void) const { return title; }
-        inline const float get_padding(void) const { return padding; }
-        inline const float get_width(void) const { return al_get_bitmap_width(background_bitmap); }
-        inline const float get_height(void) const { return al_get_bitmap_height(background_bitmap); }
-        inline ALLEGRO_BITMAP* get_background(void) const { return background_bitmap; }
+        inline const int get_width(void) const { return width; }
+        inline const int get_height(void) const { return height; }
+        inline const int get_padding(void) const { return padding; }
         inline menu_items get_items(void) const { return items; }
 
         inline void set_title(const std::string t) { title = t; }
+
+        const bool add_item(const menu_item);
 
     private:
         menu_items items;
@@ -55,46 +54,8 @@ class menu {
         std::string id;
         std::string title;
 
-        float padding;
-
-        ALLEGRO_BITMAP *background_bitmap;
+        int width, height, padding;
 };
-
-//!  Menu constructor
-/*!
-*/
-inline menu::menu(const std::string i, const int w, const int h, const ALLEGRO_COLOR color) {
-    id = i;
-    title = "";
-    padding = 10;
-    al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
-    background_bitmap = al_create_bitmap(w, h);
-    al_set_target_bitmap(background_bitmap);
-    al_clear_to_color(color);
-    al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
-}
-
-//!  Copy constructor
-/*!
-  Called to make a copy of the menu object
-*/
-inline menu::menu(const menu& copy_menu) {
-    id = copy_menu.id;
-    title = copy_menu.title;
-    padding = copy_menu.padding;
-    items = copy_menu.items;
-    al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
-    background_bitmap = al_clone_bitmap(copy_menu.background_bitmap);
-    al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
-}
-
-//!  Set menu background color
-/*!
-*/
-inline void menu::set_bg_color(const ALLEGRO_COLOR color) {
-    al_set_target_bitmap(background_bitmap);
-    al_clear_to_color(color);
-}
 
 //!  Add a menu item to an existing menu
 /*!

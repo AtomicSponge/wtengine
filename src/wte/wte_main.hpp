@@ -134,7 +134,7 @@ inline void wte_main::wte_init(void) {
 
     //  Initialize renderer and menu manager
     screen.initialize(al_create_builtin_font());
-    menus.initialize(al_create_builtin_font(), WTE_COLOR_WHITE);
+    menus.initialize(al_create_builtin_font(), WTE_COLOR_WHITE, WTE_COLOR_DARKPURPLE);
 
     //  Load user configured menus & systems
     load_menus();
@@ -153,10 +153,6 @@ inline void wte_main::wte_init(void) {
 
     //  Init done, set flag to true
     init_called = true;
-
-    //  Blank the screen
-    al_clear_to_color(WTE_COLOR_BLACK);
-    al_flip_display();
 }
 
 //! Unload WTEngine
@@ -232,7 +228,7 @@ inline void wte_main::do_game(void) {
     engine_flags::unset(WAIT_FOR_VSYNC);
     engine_flags::set(DRAW_HITBOX);
     engine_flags::set(DRAW_FPS);
-    generate_new_game();
+    //generate_new_game();
     //  end test code
 
     while(engine_flags::is_set(IS_RUNNING)) {

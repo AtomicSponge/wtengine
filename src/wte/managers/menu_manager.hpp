@@ -44,7 +44,7 @@ class menu_manager final : public manager<menu_manager> {
         menu_manager();
         ~menu_manager();
 
-        void initialize(ALLEGRO_FONT*, ALLEGRO_COLOR);
+        void initialize(ALLEGRO_FONT*, ALLEGRO_COLOR, ALLEGRO_COLOR);
 
         void new_menu(const mnu::menu);
         const menu_csptr get_menu(const std::string) const;
@@ -65,6 +65,7 @@ class menu_manager final : public manager<menu_manager> {
         ALLEGRO_BITMAP* menu_cursor;
         ALLEGRO_FONT* menu_font;
         ALLEGRO_COLOR menu_font_color;
+        ALLEGRO_COLOR menu_bg_color;
 
         std::vector<menu_sptr> menus;
         std::stack<menu_csptr> opened_menus;
@@ -103,27 +104,28 @@ inline menu_manager::~menu_manager() {
   Pass an Allegro font for the menu manager to use
   Also create the default main menu and in-game menu
 */
-inline void menu_manager::initialize(ALLEGRO_FONT* font, ALLEGRO_COLOR color) {
+inline void menu_manager::initialize(ALLEGRO_FONT* font, ALLEGRO_COLOR fcolor, ALLEGRO_COLOR bgcolor) {
     menu_font = font;
-    menu_font_color = color;
+    menu_font_color = fcolor;
+    menu_bg_color = bgcolor;
 
     //  Create default menus in seperate scopes
     {
         //  Create the main menu
-        mnu::menu temp_menu = mnu::menu("main_menu", 300, 200, WTE_COLOR_DARKPURPLE);
+        mnu::menu temp_menu = mnu::menu("main_menu", 300, 200, 10);
         new_menu(temp_menu);
     }
 
     {
         //  Create the in-game menu
-        mnu::menu temp_menu = mnu::menu("game_menu", 300, 200, WTE_COLOR_DARKPURPLE);
+        mnu::menu temp_menu = mnu::menu("game_menu", 300, 200, 10);
         new_menu(temp_menu);
     }
 
     al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
     menu_cursor = al_create_bitmap(8, 8);
     al_set_target_bitmap(menu_cursor);
-    al_clear_to_color(color);
+    al_clear_to_color(menu_font_color);
     al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
 }
 
@@ -143,7 +145,19 @@ inline const menu_csptr menu_manager::get_menu(const std::string name) const {
     for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
         if(name == (*it)->get_id()) return *it;
     }
-    //  Menu not found - just return the first one in the vector
+
+    //  Menu not found, return main menu or game menu if the game is running
+    if(engine_flags::is_set(GAME_STARTED)) {
+        for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
+            if("game_menu" == (*it)->get_id()) return *it;
+        }
+    } else {
+        for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
+            if("main_menu" == (*it)->get_id()) return *it;
+        }
+    }
+
+    //  Menu still not found - just return the first one in the vector
     return *menus.begin();
 }
 
@@ -250,8 +264,9 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     }
 
     //  Create a new menu bitmap and set drawing to it
-    menu_bitmap = al_clone_bitmap(opened_menus.top()->get_background());
+    menu_bitmap = al_create_bitmap(opened_menus.top()->get_width(), opened_menus.top()->get_height());
     al_set_target_bitmap(menu_bitmap);
+    al_clear_to_color(menu_bg_color);
 
     /*
       Render menu text

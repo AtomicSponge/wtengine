@@ -36,6 +36,10 @@ class input_flags final {
         inline static void unset(const int f) { flags[f] = false; };
         inline static const bool is_set(const int f) { return flags[f]; };
 
+        inline static void unset_all(void) {
+            for(int i = 0; i < MAX_INPUT_FLAGS; i++) flags[i] = false;
+        }
+
     private:
         static bool flags[MAX_INPUT_FLAGS];
 };

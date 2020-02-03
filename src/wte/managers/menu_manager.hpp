@@ -146,7 +146,8 @@ inline const bool menu_manager::new_menu(const mnu::menu new_menu) {
 //!  Get menu by name
 /*!
   Finds a menu in the menu vector by name and returns it
-  If not found, the first menu in the vector is returned
+  If not found, try returning the main or game menu
+  Return the first menu in the vector if no others found
 */
 inline const menu_csptr menu_manager::get_menu(const std::string name) const {
     if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
@@ -173,14 +174,17 @@ inline const menu_csptr menu_manager::get_menu(const std::string name) const {
 //!  Set menu by name
 /*!
   Finds a menu in the menu vector by name and returns it
-  If not found, the first menu in the vector is returned
+  If not found, return a null pointer
 */
 inline const menu_sptr menu_manager::set_menu(const std::string name) {
+    if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
+
     for(menu_iterator it = menus.begin(); it != menus.end(); it++) {
         if(name == (*it)->get_id()) return *it;
     }
-    //  Menu not found - just return the first one in the vector
-    return *menus.begin();
+
+    //  Menu not found - return null pointer
+    return nullptr;
 }
 
 //!  Reset menu manager

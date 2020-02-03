@@ -34,6 +34,20 @@ class menu_item_action final : public menu_item {
         void do_item(void);
 };
 
+//!
+/*!
+*/
+inline std::vector<std::string> menu_item_action::get_text(void) {
+    return {};
+}
+
+//!
+/*!
+*/
+inline void menu_item_action::do_item(void) {
+    //
+}
+
 }  // end namespace mnu
 
 }  // end namespace wte

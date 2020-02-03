@@ -16,6 +16,7 @@
 #include "wte_config.hpp"
 
 #include "menu\menu.hpp"
+#include "menu\menu_items.hpp"
 #include "managers\managers.hpp"
 #include "components\components.hpp"
 #include "systems\systems.hpp"

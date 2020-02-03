@@ -34,10 +34,10 @@ class message {
 
         //!
         inline message(std::string s, std::string c, std::string a) :
-                       timer(-1), sys(s), cmd(c), args(a) {};
+                       timer(-1), sys(s), to(""), from(""), cmd(c), args(a) {};
         //!
         inline message(int64_t e, std::string s, std::string c, std::string a) :
-                       timer(e), sys(s), cmd(c), args(a) {};
+                       timer(e), sys(s), to(""), from(""), cmd(c), args(a) {};
         //!
         inline message(std::string s, std::string t, std::string f, std::string c, std::string a) :
                        timer(-1), sys(s), to(t), from(f), cmd(c), args(a) {};

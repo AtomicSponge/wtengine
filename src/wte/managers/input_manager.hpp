@@ -69,8 +69,8 @@ inline void input_manager::run(void) {
     if(al_is_joystick_installed()) al_register_event_source(input_queue, al_get_joystick_event_source());
 
     while(is_running() == true) {
-        //  After 3 ticks, stop and reset input timer
-        if(al_get_timer_count(input_timer) == 2) {
+        //  After half sec, stop and reset input timer
+        if(al_get_timer_count(input_timer) == 1) {
             al_stop_timer(input_timer);
             al_set_timer_count(input_timer, 0);
         }

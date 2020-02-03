@@ -55,7 +55,7 @@ class system {
 };
 
 //! System unique pointer
-typedef std::unique_ptr<sys::system> system_uptr;
+typedef std::unique_ptr<system> system_uptr;
 
 } //  namespace sys
 

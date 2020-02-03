@@ -11,10 +11,7 @@
 #ifndef WTE_MENU_MENU_ITEM_HPP
 #define WTE_MENU_MENU_ITEM_HPP
 
-#include <string>
-#include <vector>
-
-#include "../message.hpp"
+#include <memory>
 
 namespace wte
 {
@@ -22,61 +19,18 @@ namespace wte
 namespace mnu
 {
 
-typedef std::pair<std::string, std::string> item_option;
-
-typedef std::vector<std::pair<std::string, std::string>>::iterator option_iterator;
-typedef std::vector<std::pair<std::string, std::string>>::const_iterator option_citerator;
-
 class menu_item {
     public:
-        menu_item();
-        ~menu_item();
-
-        menu_item(std::string);
-
-        void add_option(const std::string, const std::string);
-        const std::string get_label(void) const;
+        inline virtual ~menu_item() {};
 
     private:
-        std::string label;
-        std::vector<item_option> options;
 
-        //  Used for generating the system message:
-        std::string sys;
-        std::string cmd;
-        std::string args;
+    protected:
+        inline menu_item() {};
 };
 
-//!
-/*!
-*/
-inline menu_item::menu_item() {}
-
-//!
-/*!
-*/
-inline menu_item::menu_item(std::string l) : label(l) {
-    sys = "system";
-}
-
-//!
-/*!
-*/
-inline menu_item::~menu_item() {
-    //
-}
-
-//!
-/*!
-*/
-inline void menu_item::add_option(const std::string option_label, const std::string option_args) {
-    options.push_back(std::make_pair(option_label, option_args));
-}
-
-//!
-/*!
-*/
-inline const std::string menu_item::get_label(void) const { return label; }
+//! Menu Item shared pointer
+typedef std::shared_ptr<menu_item> menu_item_sptr;
 
 }  // end namespace mnu
 

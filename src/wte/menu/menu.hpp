@@ -25,9 +25,9 @@ namespace wte
 namespace mnu
 {
 
-typedef std::vector<menu_item> menu_items;
-typedef std::vector<menu_item>::iterator menu_item_iterator;
-typedef std::vector<menu_item>::const_iterator menu_item_citerator;
+typedef std::vector<menu_item_sptr> menu_items;
+typedef std::vector<menu_item_sptr>::iterator menu_item_iterator;
+typedef std::vector<menu_item_sptr>::const_iterator menu_item_citerator;
 
 class menu {
     public:
@@ -61,7 +61,7 @@ class menu {
 /*!
 */
 inline const bool menu::add_item(const menu_item item) {
-    items.push_back(item);
+    items.push_back(std::make_shared<menu_item>(item));
     return true;
 }
 

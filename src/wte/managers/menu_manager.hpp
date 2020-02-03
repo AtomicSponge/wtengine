@@ -46,7 +46,7 @@ class menu_manager final : public manager<menu_manager> {
 
         void initialize(ALLEGRO_FONT*, ALLEGRO_COLOR, ALLEGRO_COLOR);
 
-        void new_menu(const mnu::menu);
+        const bool new_menu(const mnu::menu);
         const menu_csptr get_menu(const std::string) const;
         const menu_sptr set_menu(const std::string);
         void reset(void);
@@ -59,7 +59,7 @@ class menu_manager final : public manager<menu_manager> {
 
     private:
         mnu::menu_item_citerator menu_position;
-        mnu::option_citerator option_selection;
+        //mnu::option_citerator option_selection;
 
         mutable ALLEGRO_BITMAP* menu_bitmap;
         ALLEGRO_BITMAP* menu_cursor;
@@ -88,7 +88,7 @@ inline menu_manager::menu_manager() {
 
 //!  Menu manager destructor
 /*!
-  Cleans up by deleting the menu bitmap and font
+  Cleans up by deleting the menu bitmaps and font
 */
 inline menu_manager::~menu_manager() {
     menus.clear();
@@ -131,9 +131,15 @@ inline void menu_manager::initialize(ALLEGRO_FONT* font, ALLEGRO_COLOR fcolor, A
 
 //!  Add a menu to the menu vector
 /*!
+  Returns false if a menu with a similar ID already exists
+  Returns true on success
 */
-inline void menu_manager::new_menu(const mnu::menu new_menu) {
+inline const bool menu_manager::new_menu(const mnu::menu new_menu) {
+    for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
+        if(new_menu.get_id() == (*it)->get_id()) return false;
+    }
     menus.push_back(std::make_shared<mnu::menu>(new_menu));
+    return true;
 }
 
 //!  Get menu by name

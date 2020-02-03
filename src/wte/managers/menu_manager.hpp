@@ -221,8 +221,6 @@ inline void menu_manager::close_menu(void) {
   Adds a menu to the stack if none are opened, then processes the menus
 */
 inline void menu_manager::run(message_manager& messages) {
-    if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
-
     if(opened_menus.empty()) {
         //  No menus currently opened, add one to the stack
         if(engine_flags::is_set(GAME_STARTED)) open_menu("game_menu"); //  Add the in-game menu to the stack

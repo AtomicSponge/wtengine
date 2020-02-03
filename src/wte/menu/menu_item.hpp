@@ -11,6 +11,8 @@
 #ifndef WTE_MENU_MENU_ITEM_HPP
 #define WTE_MENU_MENU_ITEM_HPP
 
+#include <string>
+#include <vector>
 #include <memory>
 
 namespace wte
@@ -19,9 +21,15 @@ namespace wte
 namespace mnu
 {
 
+//!
+/*!
+*/
 class menu_item {
     public:
         inline virtual ~menu_item() {};
+
+        virtual std::vector<std::string> get_text(void);
+        virtual void do_item(void);
 
     private:
 

@@ -29,6 +29,8 @@ class input : public system {
         inline input() { name = "input"; };
         inline ~input() {};
 
+        inline void disable(void) { enabled = false; };
+
         inline void run(mgr::entity_manager&, mgr::message_manager&, int64_t);
 
     protected:

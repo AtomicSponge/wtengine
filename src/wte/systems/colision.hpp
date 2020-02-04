@@ -28,6 +28,8 @@ class colision : public system {
         inline colision() { name = "colision"; };
         inline ~colision() {};
 
+        inline void disable(void) { enabled = false; };
+
         inline void run(mgr::entity_manager&, mgr::message_manager&, int64_t) final;
 };
 

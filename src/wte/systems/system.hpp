@@ -36,8 +36,8 @@ class system {
         system(const system&) = delete;
         void operator=(system const&) = delete;
 
-        inline const void enable(void) { enabled = true; };
-        inline const void disable(void) { enabled = false; };
+        inline void enable(void) { enabled = true; };
+        inline virtual void disable(void) {};
         inline const bool is_enabled(void) const { return enabled; };
 
         inline const std::string get_name(void) const { return name; };

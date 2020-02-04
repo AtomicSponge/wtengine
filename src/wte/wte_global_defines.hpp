@@ -11,8 +11,8 @@
 #ifndef WTE_GLOBAL_DEFINES_HPP
 #define WTE_GLOBAL_DEFINES_HPP
 
-//!Set level of debugging
-/*!
+//Set level of debugging
+/*
   0 - off
   1 - Display timer counter
   2 - Message logging

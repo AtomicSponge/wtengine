@@ -28,12 +28,13 @@ class colision : public system {
         inline colision() { name = "colision"; };
         inline ~colision() {};
 
+        //!  Allow the colision system to be disabled
         inline void disable(void) { enabled = false; };
 
+        //!  Run the colision system
         inline void run(mgr::entity_manager&, mgr::message_manager&, int64_t) final;
 };
 
-//!  Run the colision system
 /*!
   Overrides virtual run member inherited from system object
   Selects components by team, then tests each team to see if there is a colision

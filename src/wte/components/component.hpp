@@ -28,14 +28,16 @@ class component {
     public:
         inline virtual ~component() {};
 
+        //!  Remove copy constructor
         component(const component&) = delete;
+        //!  Remove assignment operator
         void operator=(component const&) = delete;
 
     protected:
         inline component() {};
 };
 
-//! Component shared pointer
+// Component shared pointer
 typedef std::shared_ptr<cmp::component> component_sptr;
 
 } //  namespace cmp

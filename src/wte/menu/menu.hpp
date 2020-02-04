@@ -43,6 +43,7 @@ class menu {
 
         inline void set_title(const std::string t) { title = t; }
 
+        //!  Add a menu item to an existing menu
         const bool add_item(const menu_item);
 
     private:
@@ -54,7 +55,6 @@ class menu {
         int width, height, padding;
 };
 
-//!  Add a menu item to an existing menu
 /*!
 */
 inline const bool menu::add_item(const menu_item item) {

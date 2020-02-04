@@ -31,14 +31,15 @@ class input : public system {
 
         inline void disable(void) { enabled = false; };
 
+        //! Input system run method
         inline void run(mgr::entity_manager&, mgr::message_manager&, int64_t);
 
     protected:
         component_container input_components;
+        //!  Override this to implement input handling
         virtual void custom_run(mgr::entity_manager&, mgr::message_manager&) {};
 };
 
-//! Input system run method
 /*!
   Get all entities tagged with the input_handler component and store for processing
 */

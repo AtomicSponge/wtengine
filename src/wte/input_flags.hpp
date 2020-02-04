@@ -21,21 +21,28 @@ enum INPUT_FLAG_ENUM {
    MAX_INPUT_FLAGS
 };
 
-//!
+//!  Input flags
 /*!
+  Colletion of flags to store input state
 */
 class input_flags final {
     public:
         inline input_flags() {};
         inline ~input_flags() {};
 
+        //!  Remove copy constructor
         input_flags(const input_flags&) = delete;
+        //!  Remove assignment operator
         void operator=(input_flags const&) = delete;
 
+        //!  Set a flag to true
         inline static void set(const int f) { flags[f] = true; };
+        //!  Set a flag to false
         inline static void unset(const int f) { flags[f] = false; };
+        //!  Check the state of a flag
         inline static const bool is_set(const int f) { return flags[f]; };
 
+        //!  Set all input flags to false
         inline static void unset_all(void) {
             for(int i = 0; i < MAX_INPUT_FLAGS; i++) flags[i] = false;
         }

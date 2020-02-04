@@ -29,17 +29,22 @@ namespace wte
 namespace mgr
 {
 
-//!
+//!  Audio Manager
 /*!
+  Handles audio messages in a thread
 */
 class audio_manager final : public manager<audio_manager>, public make_thread {
     public:
+        //!  Clears the internal audio deck
         inline audio_manager() { audio_messages.clear(); }
+        //!  Clears the internal audio deck
         inline ~audio_manager() { audio_messages.clear(); }
 
+        //!  Copy a container of messages to the internal audio deck
         void transfer_messages(message_container);
 
     private:
+        //!  Run the audio manager
         void run(void);
 
         std::deque<msg::message> audio_messages;
@@ -47,7 +52,6 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
 
 template <> inline bool audio_manager::manager<audio_manager>::initialized = false;
 
-//!
 /*!
 */
 inline void audio_manager::transfer_messages(message_container messages) {
@@ -56,7 +60,6 @@ inline void audio_manager::transfer_messages(message_container messages) {
                           std::make_move_iterator(messages.end()));
 }
 
-//!
 /*!
 */
 inline void audio_manager::run(void) {

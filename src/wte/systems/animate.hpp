@@ -29,10 +29,10 @@ class animate : public system {
         inline animate() { name = "animate"; };
         inline ~animate() {};
 
+        //! Animate system run member
         inline void run(mgr::entity_manager&, mgr::message_manager&, int64_t);
 };
 
-//! Animate system run member
 /*!
   WIP
 */

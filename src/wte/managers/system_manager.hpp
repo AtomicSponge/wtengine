@@ -108,6 +108,7 @@ inline void system_manager::dispatch(entity_manager& entities, mgr::message_mana
 //!  Enable a system
 /*!
   Toggle a system to enabled so it's run member is processed
+  Returns true if the system was found, false if it was not
 */
 inline const bool system_manager::enable_system(std:: string sys) {
     if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
@@ -123,6 +124,7 @@ inline const bool system_manager::enable_system(std:: string sys) {
 /*!
   Toggle a system to disabled so it's run member is skipped
   Dispatching will still be processed
+  Returns true if the system was found, false if it was not
 */
 inline const bool system_manager::disable_system(std:: string sys) {
     if(systems.empty()) throw std::runtime_error("No systems have been loaded!");

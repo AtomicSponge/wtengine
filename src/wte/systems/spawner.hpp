@@ -30,15 +30,17 @@ class spawner : public system {
         inline spawner() { name = "spawner"; };
         inline ~spawner() {};
 
+        //! Run the spawner system
         inline void run(mgr::entity_manager&, mgr::message_manager&, int64_t);
+        //! Spawner dispatch member
         inline void dispatch(mgr::entity_manager&, message_container);
 
     protected:
+        //!  Override to process messages and create entities
         virtual void process_spawn(mgr::entity_manager&, msg::arg_list) {};
 };
 
 
-//! Run the spawner system
 /*!
   Empty run member
 */
@@ -46,7 +48,6 @@ inline void spawner::run(mgr::entity_manager& world, mgr::message_manager& messa
     //
 }
 
-//! Spawner dispatch member
 /*!
   Split out the spawn and delete messages, pass them to each corresponding member for processing
 */

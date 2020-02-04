@@ -14,22 +14,26 @@
 namespace wte
 {
 
-//!
+//!  Engine config
 /*!
+  Statics to store engine config variables
 */
 class wte_config {
     public:
         inline wte_config() {};
         inline ~wte_config() {};
 
+        //!  Remove copy constructor
         wte_config(const wte_config&) = delete;
+        //!  Remove assignment operator
         void operator=(wte_config const&) = delete;
 
         //!  Set the timer rate
         static const float TICKS_PER_SECOND;
 
-        //!  Set screen width and height
+        //!  Set screen width
         static unsigned int screen_width;
+        //!  Set screen height
         static unsigned int screen_height;
 
     private:

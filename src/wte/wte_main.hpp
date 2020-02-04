@@ -31,51 +31,70 @@
 namespace wte
 {
 
-//! wte_main class
+//! WTEngine Main Class
 /*!
-  Main engine object
+  The main engine object.
+  Sets up various system objects used by the engine.
+  Contains the main game loop and members for managing the game and engine.
 */
 class wte_main final {
     public:
+        //!  Force single instance, set initialized flag to true.
+        //!  Throws a runtime error if another instance is called.
         inline wte_main() : init_called(false) {
             if(initialized == true) throw std::runtime_error("WTEngine already running!");
             initialized = true;
         }
+        //!  Frees up instance, set initialized flag to false.
+        //!  Also makes sure to unload the engine.
         inline ~wte_main() {
             if(init_called == true) wte_unload();
             initialized = false;
         }
 
+        //!  Remove copy constructor
         wte_main(const wte_main&) = delete;
+        //!  Remove assignment operator
         void operator=(wte_main const&) = delete;
 
-        void wte_init(void);                    /*!< Initialize the engine */
-        void wte_unload(void);                  /*!< Unload the engine */
-        void do_game(void);                     /*!< Run the game loop */
+        //!  Call first to initialize the engine
+        void wte_init(void);
+        //!  Call to unload the engine
+        void wte_unload(void);
+        //!  Call to start up the main game loop
+        void do_game(void);
 
     private:
+        //!  Start up a new game
         void generate_new_game(void);
+        //!  End the game in progress
         void unload_game(void);
+        //!  Process messages passed to the system
         void handle_sys_msg(message_container);
 
         /* These functions are defined in their own source file */
+        //!  Define this to implement custom menu layout
         void load_menus(void);
+        //!  Define this to load all systems to be used by the game
         void load_systems(void);
+        //!  Define what gets loaded when a game starts
         void load_game(void);
+        //!  Define what happens at the end of a game
         void end_game(void);
+        //!  Define custom system message handling
         void handle_custom_sys_msg(msg::message);
-        /* End custom members */
+        /* *** End custom members *** */
 
-        static ALLEGRO_DISPLAY* display;            /*!< Display to draw to */
-        static ALLEGRO_TIMER* main_timer;           /*!< Timer to control game loop */
-        static ALLEGRO_EVENT_QUEUE* main_queue;     /*!< Main event queue */
-        ALLEGRO_EVENT event;                        /*!< Container to fetch event */
+        static ALLEGRO_DISPLAY* display;
+        static ALLEGRO_TIMER* main_timer;
+        static ALLEGRO_EVENT_QUEUE* main_queue;
+        ALLEGRO_EVENT event;
 
-        mgr::message_manager messages;          /*!< Message queue */
-        mgr::render_manager screen;             /*!< The renderer used to draw the game environment */
-        mgr::entity_manager world;              /*!< Manager for entities */
-        mgr::system_manager systems;            /*!< Manager for systems */
-        mgr::menu_manager menus;                /*!< Manager for menus */
+        mgr::message_manager messages;
+        mgr::render_manager screen;
+        mgr::entity_manager world;
+        mgr::system_manager systems;
+        mgr::menu_manager menus;
         mgr::input_manager input_th;
         mgr::audio_manager audio_th;
 
@@ -88,9 +107,9 @@ class wte_main final {
         };
         std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
 
-        bool init_called;                       /*!< Flag to make sure wte_init was called */
+        bool init_called;        //  Flag to make sure wte_init was called
 
-        static bool initialized;                /*!< Restrict to one instance of the engine running */
+        static bool initialized; //  Restrict to one instance of the engine running
 };
 
 inline ALLEGRO_DISPLAY* wte_main::display = NULL;
@@ -99,7 +118,6 @@ inline ALLEGRO_EVENT_QUEUE* wte_main::main_queue = NULL;
 
 inline bool wte_main::initialized = false;
 
-//! Initialize WTEngine
 /*!
   Register everything for the engine to run
 */
@@ -155,9 +173,8 @@ inline void wte_main::wte_init(void) {
     init_called = true;
 }
 
-//! Unload WTEngine
 /*!
-  Shut down the various Allegro objects
+  Shut down the engine
 */
 inline void wte_main::wte_unload(void) {
     input_th.stop();
@@ -171,7 +188,6 @@ inline void wte_main::wte_unload(void) {
     init_called = false;
 }
 
-//! Call to generate a new game
 /*!
   Call every time a new game is starting
 */
@@ -195,7 +211,6 @@ inline void wte_main::generate_new_game(void) {
     al_start_timer(main_timer);
 }
 
-//!  Call to stop the game in progress
 /*
   Calls the user defined end game process, then shuts down the game
 */
@@ -208,7 +223,6 @@ inline void wte_main::unload_game(void) {
     engine_flags::set(GAME_MENU_OPENED);
 }
 
-//! Main game logic
 /*!
   The main game loop
 */
@@ -228,7 +242,7 @@ inline void wte_main::do_game(void) {
     engine_flags::unset(WAIT_FOR_VSYNC);
     engine_flags::set(DRAW_HITBOX);
     engine_flags::set(DRAW_FPS);
-    generate_new_game();
+    //generate_new_game();
     //  end test code
 
     while(engine_flags::is_set(IS_RUNNING)) {
@@ -278,7 +292,6 @@ inline void wte_main::do_game(void) {
     }
 }
 
-//! Process system messages
 /*!
   Switch over the system messages and process
   Remaining messages are passed to the custom handler

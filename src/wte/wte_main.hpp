@@ -310,12 +310,14 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
             //  cmd:  new_game - start up a new game
             case CMD_STR_NEW_GAME:
                 if(engine_flags::is_set(GAME_STARTED)) unload_game();
+                menus.reset();
                 generate_new_game();
                 it = sys_msgs.erase(it);
                 break;
 
             //  cmd:  end_game - end current game
             case CMD_STR_END_GAME:
+                menus.reset();
                 unload_game();
                 it = sys_msgs.erase(it);
                 break;

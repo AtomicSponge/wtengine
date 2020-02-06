@@ -42,9 +42,9 @@ class alert {
         inline static const ALLEGRO_COLOR get_bg_color(void) { return bg_color; };
 
         //!  Set the font color for alerts
-        inline static void set_font_color(ALLEGRO_COLOR c) { font_color = c; };
+        inline static void set_font_color(const ALLEGRO_COLOR c) { font_color = c; };
         //!  Set the background color for alerts
-        inline static void set_bg_color(ALLEGRO_COLOR c) { bg_color = c; };
+        inline static void set_bg_color(const ALLEGRO_COLOR c) { bg_color = c; };
 
         //!  Clear the alert
         inline static void clear(void) { alert_set = false; };

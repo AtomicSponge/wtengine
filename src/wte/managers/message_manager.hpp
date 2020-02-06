@@ -54,7 +54,7 @@ class message_manager final : public manager<message_manager> {
         message_container msg_queue;                    /*!< Vector of all messages to be processed */
 
         #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-        void debug_log_message(message, int64_t);       /*!< Member to log processed messages to a file */
+        void debug_log_message(msg::message, int64_t);       /*!< Member to log processed messages to a file */
         #endif
 };
 
@@ -91,7 +91,7 @@ inline message_manager::~message_manager() {
   Write a message to the debug log file if debugging is enabled
 */
 #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-inline void message_manager::debug_log_message(message msg, int64_t current_time) {
+inline void message_manager::debug_log_message(msg::message msg, int64_t current_time) {
     std::ofstream debug_log_file;
     debug_log_file.open("wte_debug\\wte_debug_message_manager.txt", std::ios::app);
     debug_log_file << "PROC AT:  " << current_time << " | ";

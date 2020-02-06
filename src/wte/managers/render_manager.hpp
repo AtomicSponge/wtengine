@@ -28,6 +28,7 @@
 #include "..\wte_config.hpp"
 #include "..\engine_flags.hpp"
 #include "..\components\components.hpp"
+#include "..\alert.hpp"
 #include "menu_manager.hpp"
 #include "entity_manager.hpp"
 
@@ -61,7 +62,7 @@ class render_manager final : public manager<render_manager> {
         #endif
 
     private:
-        ALLEGRO_BITMAP* menu_bitmap;
+        ALLEGRO_BITMAP* render_tmp_bmp;
         ALLEGRO_FONT* overlay_font;                     /*!< Allegro font used for the overlay */
 
         ALLEGRO_TIMER* fps_timer;
@@ -84,7 +85,7 @@ template <> inline bool render_manager::manager<render_manager>::initialized = f
   Generates the render_manager object
 */
 inline render_manager::render_manager() : fps_counter(0), fps(0) {
-    menu_bitmap = NULL;
+    render_tmp_bmp = NULL;
     overlay_font = NULL;
 
     fps_timer = NULL;
@@ -106,7 +107,7 @@ inline render_manager::render_manager() : fps_counter(0), fps(0) {
   Cleans up the render_manager object
 */
 inline render_manager::~render_manager() {
-    al_destroy_bitmap(menu_bitmap);
+    al_destroy_bitmap(render_tmp_bmp);
     al_destroy_font(overlay_font);
 
     al_destroy_event_queue(fps_event_queue);
@@ -233,13 +234,35 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
       Render game menu if it's opened
     */
     if(engine_flags::is_set(GAME_MENU_OPENED)) {
-        menu_bitmap = al_clone_bitmap(menus.render_menu());
+        render_tmp_bmp = al_clone_bitmap(menus.render_menu());
         al_set_target_backbuffer(al_get_current_display());
-        al_draw_bitmap(menu_bitmap,
-                       (wte_config::screen_width / 2) - (al_get_bitmap_width(menu_bitmap) / 2),
-                       (wte_config::screen_height / 2) - (al_get_bitmap_height(menu_bitmap) / 2),
+        al_draw_bitmap(render_tmp_bmp,
+                       (wte_config::screen_width / 2) - (al_get_bitmap_width(render_tmp_bmp) / 2),
+                       (wte_config::screen_height / 2) - (al_get_bitmap_height(render_tmp_bmp) / 2),
                        0);
-        al_destroy_bitmap(menu_bitmap);
+        al_destroy_bitmap(render_tmp_bmp);
+    }
+
+    /*
+      Render alerts
+    */
+    if(alert::is_set()) {
+        render_tmp_bmp = al_create_bitmap((alert::get_alert().length() * 8) + 20, 28);
+        al_set_target_bitmap(render_tmp_bmp);
+        //al_clear_to_color(alert::get_bg_color());
+        al_clear_to_color(WTE_COLOR_RED);
+        //al_draw_text(overlay_font, alert::get_font_color(), 10, 10,
+        //             ALLEGRO_ALIGN_CENTER, alert::get_alert().c_str());
+        al_draw_text(overlay_font, WTE_COLOR_WHITE,
+                     (al_get_bitmap_width(render_tmp_bmp) / 2), 10,
+                     ALLEGRO_ALIGN_CENTER, alert::get_alert().c_str());
+
+        al_set_target_backbuffer(al_get_current_display());
+        al_draw_bitmap(render_tmp_bmp,
+                       (wte_config::screen_width / 2) - (al_get_bitmap_width(render_tmp_bmp) / 2),
+                       (wte_config::screen_height / 2) - (al_get_bitmap_height(render_tmp_bmp) / 2),
+                       0);
+        al_destroy_bitmap(render_tmp_bmp);
     }
 
     /*

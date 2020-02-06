@@ -27,6 +27,7 @@
 #include "wte_config.hpp"
 #include "engine_flags.hpp"
 #include "managers\managers.hpp"
+#include "alert.hpp"
 
 namespace wte
 {
@@ -100,7 +101,7 @@ class wte_main final {
 
         //  Used for switching on system messages:
         enum CMD_STR_VALUE {
-            CMD_STR_EXIT,
+            CMD_STR_EXIT,           CMD_STR_ALERT,
             CMD_STR_NEW_GAME,       CMD_STR_END_GAME,
             CMD_STR_OPEN_MENU,      CMD_STR_CLOSE_MENU,
             CMD_STR_ENABLE_SYSTEM,  CMD_STR_DISABLE_SYSTEM
@@ -162,6 +163,7 @@ inline void wte_main::wte_init(void) {
 
     //  Map commands to enums for switching over in the system msg handler
     map_cmd_str_values["exit"] = CMD_STR_EXIT;
+    map_cmd_str_values["alert"] = CMD_STR_ALERT;
     map_cmd_str_values["new_game"] = CMD_STR_NEW_GAME;
     map_cmd_str_values["end_game"] = CMD_STR_END_GAME;
     map_cmd_str_values["open_menu"] = CMD_STR_OPEN_MENU;
@@ -242,7 +244,7 @@ inline void wte_main::do_game(void) {
     engine_flags::unset(WAIT_FOR_VSYNC);
     engine_flags::set(DRAW_HITBOX);
     engine_flags::set(DRAW_FPS);
-    //generate_new_game();
+    generate_new_game();
     //  end test code
 
     while(engine_flags::is_set(IS_RUNNING)) {
@@ -304,6 +306,12 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
             case CMD_STR_EXIT:
                 if(engine_flags::is_set(GAME_STARTED)) unload_game();
                 engine_flags::unset(IS_RUNNING);
+                it = sys_msgs.erase(it);
+                break;
+
+            //  cmd:  alert - Display an alert
+            case CMD_STR_ALERT:
+                alert::set_alert(std::string(it->get_args()));
                 it = sys_msgs.erase(it);
                 break;
 

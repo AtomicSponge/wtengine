@@ -8,6 +8,7 @@
 180,spawner,new,asteroid;-60;-60;53;8;1
 180,spawner,new,asteroid;100;-60;90;10;1
 180,spawner,new,asteroid;800;-60;76;7;1
+180,system,alert,This is a test of the engine alerts
 240,spawner,new,asteroid;-60;-60;39;4;1
 240,spawner,new,asteroid;100;-60;99;12;1
 240,spawner,new,asteroid;800;-60;82;7;1

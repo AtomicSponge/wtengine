@@ -68,7 +68,7 @@ inline void input_manager::run(void) {
     while(is_running() == true) {
         al_get_next_event(input_queue, &input_event);
 
-        //  Clear any active alerts
+        //  Clear any active alerts on input event
         if(input_event.type == ALLEGRO_EVENT_KEY_DOWN || input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN) {
             if(alert::is_set()) alert::clear();
         }

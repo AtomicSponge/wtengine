@@ -171,6 +171,10 @@ inline void wte_main::wte_init(void) {
     map_cmd_str_values["enable_system"] = CMD_STR_ENABLE_SYSTEM;
     map_cmd_str_values["disable_system"] = CMD_STR_DISABLE_SYSTEM;
 
+    //  Set default colors for alerts
+    alert::set_font_color(WTE_COLOR_WHITE);
+    alert::set_bg_color(WTE_COLOR_RED);
+
     //  Init done, set flag to true
     init_called = true;
 }

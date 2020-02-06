@@ -247,13 +247,12 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
       Render alerts
     */
     if(alert::is_set()) {
-        render_tmp_bmp = al_create_bitmap((alert::get_alert().length() * 8) + 20, 28);
+        int font_size = al_get_font_line_height(overlay_font);
+        render_tmp_bmp = al_create_bitmap((alert::get_alert().length() * font_size) + 20, font_size + 20);
         al_set_target_bitmap(render_tmp_bmp);
-        //al_clear_to_color(alert::get_bg_color());
-        al_clear_to_color(WTE_COLOR_RED);
-        //al_draw_text(overlay_font, alert::get_font_color(), 10, 10,
-        //             ALLEGRO_ALIGN_CENTER, alert::get_alert().c_str());
-        al_draw_text(overlay_font, WTE_COLOR_WHITE,
+        al_clear_to_color(alert::get_bg_color());
+
+        al_draw_text(overlay_font, alert::get_font_color(),
                      (al_get_bitmap_width(render_tmp_bmp) / 2), 10,
                      ALLEGRO_ALIGN_CENTER, alert::get_alert().c_str());
 

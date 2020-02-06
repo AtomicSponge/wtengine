@@ -28,8 +28,9 @@ namespace wte
 namespace mgr
 {
 
-//!
+//!  Input manager class
 /*!
+  Handles input in a thread
 */
 class input_manager final : public manager<input_manager>, public make_thread {
     public:
@@ -37,12 +38,12 @@ class input_manager final : public manager<input_manager>, public make_thread {
         inline ~input_manager() {};
 
     private:
+        //!  Run the input manager
         void run(void);
 };
 
 template <> inline bool input_manager::manager<input_manager>::initialized = false;
 
-//!
 /*!
 */
 inline void input_manager::run(void) {

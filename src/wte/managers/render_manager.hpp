@@ -51,13 +51,18 @@ typedef std::function<bool(entity_component_pair, entity_component_pair)> compar
 */
 class render_manager final : public manager<render_manager> {
     public:
+        //! render_manager constructor
         render_manager();
+        //! render_manager destructor
         ~render_manager();
 
+        //!  Initialize the render_manager
         void initialize(ALLEGRO_FONT*);
+        //!  Render method - Draw the game screen
         void render(menu_manager&, entity_manager&);     /*!< Call the render_manager */
 
         #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
+        //!  Tracks the engine timer if debugging is enabled
         inline void set_current_time(const int64_t ctime) { current_time = ctime; };
         #endif
 
@@ -80,7 +85,6 @@ class render_manager final : public manager<render_manager> {
 
 template <> inline bool render_manager::manager<render_manager>::initialized = false;
 
-//! render_manager constructor
 /*!
   Generates the render_manager object
 */
@@ -102,7 +106,6 @@ inline render_manager::render_manager() : fps_counter(0), fps(0) {
         };
 }
 
-//! render_manager destructor
 /*!
   Cleans up the render_manager object
 */
@@ -114,7 +117,6 @@ inline render_manager::~render_manager() {
     al_destroy_timer(fps_timer);
 }
 
-//!  Initialize the render_manager
 /*!
   Pass an Allegro font for the render_manager to use
 */
@@ -129,7 +131,6 @@ inline void render_manager::initialize(ALLEGRO_FONT* font) {
     al_start_timer(fps_timer);
 }
 
-//! Render method - Draw the game screen
 /*!
   Gets passed the entity manager and timer then draws everything to screen
 */

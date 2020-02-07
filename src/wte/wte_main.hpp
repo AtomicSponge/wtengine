@@ -218,7 +218,7 @@ inline void wte_main::generate_new_game(void) {
     al_start_timer(main_timer);
 }
 
-/*
+/*!
   Calls the user defined end game process, then shuts down the game
 */
 inline void wte_main::unload_game(void) {

@@ -155,11 +155,8 @@ inline void wte_main::wte_init(void) {
     screen.initialize(al_create_builtin_font());
     menus.initialize(al_create_builtin_font(), WTE_COLOR_WHITE, WTE_COLOR_DARKPURPLE);
 
-    //  Load user configured menus & systems
+    //  Load user configured menus
     load_menus();
-    load_systems();
-    //  Prevent further systems from being loaded
-    systems.finalize();
 
     //  Map commands to enums for switching over in the system msg handler
     map_cmd_str_values["exit"] = CMD_STR_EXIT;
@@ -208,6 +205,10 @@ inline void wte_main::generate_new_game(void) {
     world.clear();
     load_game();
 
+    //  Load systems and prevent further systems from being loaded
+    load_systems();
+    systems.finalize();
+
     //  Load a new message data file
     messages.new_data_file("data\\game.sdf");  //  Update later to load from settings
 
@@ -225,6 +226,8 @@ inline void wte_main::unload_game(void) {
     end_game();
 
     world.clear();
+    systems.clear();
+
     engine_flags::unset(GAME_STARTED);
     engine_flags::set(GAME_MENU_OPENED);
 }

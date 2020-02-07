@@ -37,33 +37,43 @@ typedef std::vector<sys::system_uptr>::const_iterator system_citerator;
 */
 class system_manager final : public manager<system_manager> {
     public:
-        inline system_manager() : finalized(false) { systems.clear(); }
-        inline ~system_manager() { systems.clear(); }
+        //!  System Manager constructor
+        //!  Clears the systems vector and sets the finalized flag to false
+        inline system_manager() : finalized(false) { systems.clear(); };
+        //!  System Manager destructor
+        //!  Makes sure the systems are cleared
+        inline ~system_manager() { systems.clear(); };
 
-        void finalize(void);
+        //!  Clear the system manager and allow systems to be loaded again
+        inline void clear(void) {
+            systems.clear();
+            finalized = false;
+        };
 
-        void add(sys::system_uptr);                                 /*!< Add a new system */
-        void run(entity_manager&, mgr::message_manager&, int64_t);    /*!< Run all systems */
-        void dispatch(entity_manager&, mgr::message_manager&);        /*!< Dispatch to all systems */
+        //!  Finalize system manager
+        //!  Set finalized flag to prevent additional systems from being loaded
+        inline void finalize(void) { finalized = true; };
 
+        //!  Add a new system to the manager
+        void add(sys::system_uptr);
+        //!  Run all systems
+        void run(entity_manager&, mgr::message_manager&, int64_t);
+        //!  Process dispatch for all systems
+        void dispatch(entity_manager&, mgr::message_manager&);
+
+        //!  Enable a system
         const bool enable_system(std::string);
+        //!  Disable a system
         const bool disable_system(std::string);
 
     private:
-        std::vector<sys::system_uptr> systems;                      /*!< Store the vector of systems */
+        std::vector<sys::system_uptr> systems;  // Store the vector of systems
         
-        bool finalized;
+        bool finalized; //  Flag to disallow loading of additional systems
 };
 
 template <> inline bool system_manager::manager<system_manager>::initialized = false;
 
-//!  Finalize system manager
-/*!
-  Set finalized flag to prevent additional systems from being loaded
-*/
-inline void system_manager::finalize(void) { finalized = true; }
-
-//! Add a new system to the manager
 /*!
   Checks to see if a similar named system is already loaded
   Enters system into the vector of systems if not
@@ -79,7 +89,6 @@ inline void system_manager::add(sys::system_uptr new_system) {
     systems.push_back(std::move(new_system));
 }
 
-//! Run all systems
 /*!
   Iterate through the system vector and run each
   Throw error if no systems have been loaded
@@ -92,7 +101,6 @@ inline void system_manager::run(entity_manager& entities, mgr::message_manager& 
     }
 }
 
-//! Process dispatch for all systems
 /*!
   Checks each system for its name and sends corresponding messages
   Throw error if no systems have been loaded
@@ -105,7 +113,6 @@ inline void system_manager::dispatch(entity_manager& entities, mgr::message_mana
     }
 }
 
-//!  Enable a system
 /*!
   Toggle a system to enabled so it's run member is processed
   Returns true if the system was found, false if it was not
@@ -120,7 +127,6 @@ inline const bool system_manager::enable_system(std:: string sys) {
     return false;
 }
 
-//!  Disable a system
 /*!
   Toggle a system to disabled so it's run member is skipped
   Dispatching will still be processed

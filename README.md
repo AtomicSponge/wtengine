@@ -34,6 +34,10 @@ The main loop for the game engine is implemented in wte_main.  The per-new-game 
 
 All in-engine communication is done with the messaging queue.  Messages can be used to change game settings, control the game menus, or have entities interact with each other.  Messages can also be set with a timer value to be processed later.
 
+Timer | System | To | From | Command | Arguments
+------------ | -------------
+Timer value to run at (-1 for instant) | The system to process the message | To entity | From entity | Command to exectute | Arguments for command
+
 #### ENTITIES/COMPONENTS:
 
 Entities are in-game objects, and components are the data containers that make them up.  The engine tracks these in an internal database, and user-defined components can be created by extending the base object.  This data can then be fetched in various ways by entity ID or component type.

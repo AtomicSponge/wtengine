@@ -280,6 +280,7 @@ inline void wte_main::do_game(void) {
             systems.dispatch(world, messages);
 
             #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
+            //  Update the renderer with the system time if debugging is enabled
             screen.set_current_time(al_get_timer_count(main_timer));
             #endif
         }

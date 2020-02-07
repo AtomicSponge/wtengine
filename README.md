@@ -38,7 +38,7 @@ All in-engine communication is done with the messaging queue.  Messages can be u
 
 | Timer | System | To | From | Command | Arguments |
 | ----- | ------ | -- | ---- | ------- | --------- |
-| Timer value to run at (-1 for instant) | The system to process the message | To entity | From entity | Command to exectute | Arguments for command |
+| <font size="-1">Timer value to run at (-1 for instant)</font> | The system to process the message | To entity | From entity | Command to exectute | Arguments for command |
 
 #### ENTITIES/COMPONENTS:
 

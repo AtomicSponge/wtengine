@@ -26,8 +26,8 @@
 #include "wte_global_defines.hpp"
 #include "wte_config.hpp"
 #include "engine_flags.hpp"
-#include "managers\managers.hpp"
 #include "alert.hpp"
+#include "managers\managers.hpp"
 
 namespace wte
 {

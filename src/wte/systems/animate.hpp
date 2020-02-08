@@ -26,7 +26,7 @@ namespace sys
 */
 class animate : public system {
     public:
-        inline animate() { name = "animate"; };
+        inline animate() : system("animate") {};
         inline ~animate() {};
 
         //! Animate system run member

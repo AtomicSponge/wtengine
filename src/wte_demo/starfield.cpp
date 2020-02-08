@@ -13,11 +13,7 @@
 /*
   Initialize the starfield
 */
-starfield::starfield() {
-    name = "starfield";
-
-    speed_mult = 1;
-
+starfield::starfield() : system("starfield"), speed_mult(1) {
     for(int i = 0; i < MAX_STARS; i++) {
         x[i] = std::rand() % wte::wte_config::screen_width + 1;
         y[i] = std::rand() % wte::wte_config::screen_height + 1;

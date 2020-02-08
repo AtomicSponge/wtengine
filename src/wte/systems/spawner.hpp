@@ -27,7 +27,7 @@ namespace sys
 */
 class spawner : public system {
     public:
-        inline spawner() { name = "spawner"; };
+        inline spawner() : system("spawner") {};
         inline ~spawner() {};
 
         //! Run the spawner system

@@ -25,7 +25,7 @@ namespace sys
 */
 class colision : public system {
     public:
-        inline colision() { name = "colision"; };
+        inline colision() : system("colision") {};
         inline ~colision() {};
 
         //!  Allow the colision system to be disabled

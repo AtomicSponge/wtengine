@@ -26,7 +26,7 @@ namespace sys
 */
 class logic : public system {
     public:
-        inline logic() { name = "logic"; };
+        inline logic() : system("logic") {};
         inline ~logic() {};
 
         //! Run the logic system

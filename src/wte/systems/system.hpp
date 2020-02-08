@@ -54,7 +54,7 @@ class system {
         virtual void dispatch(mgr::entity_manager&, message_container) {};
 
     protected:
-        inline system() : enabled(true) {};
+        inline system(const std::string n) : name(n), enabled(true) {};
 
         bool enabled;
         std::string name;

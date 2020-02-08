@@ -26,7 +26,7 @@ namespace sys
 */
 class input : public system {
     public:
-        inline input() { name = "input"; };
+        inline input() : system("input") {};
         inline ~input() {};
 
         inline void disable(void) { enabled = false; };

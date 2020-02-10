@@ -40,7 +40,7 @@ class logic : public system {
         //!  Override this to define run
         virtual void custom_run(mgr::entity_manager&, mgr::message_manager&, int64_t) {};  /*!< Override to define behaviour */
         //!  Override this to process messages sent to the system
-        virtual void process_message(mgr::entity_manager&, msg::message) {};  /*!< Override to define behaviour */
+        virtual void process_message(mgr::entity_manager&, message) {};  /*!< Override to define behaviour */
 };
 
 /*!

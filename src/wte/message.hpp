@@ -18,10 +18,7 @@
 namespace wte
 {
 
-namespace msg
-{
-
-typedef std::vector<std::string> arg_list;
+typedef std::vector<std::string> msg_arg_list;
 
 //! Message class
 /*!
@@ -61,7 +58,7 @@ class message {
         //! Check if the event is synced to the timer
         const bool is_timed_event(void) const;
         //! Split the args up into a vector of strings
-        const arg_list get_split_args(void) const;
+        const msg_arg_list get_split_args(void) const;
 
         //!  Used to sort by timer value
         bool operator<(const message& a) const {
@@ -88,7 +85,7 @@ inline const bool message::is_timed_event(void) const {
 /*!
   Returns a vector of the arguments, delimited by ;
 */
-inline const arg_list message::get_split_args(void) const {
+inline const msg_arg_list message::get_split_args(void) const {
     std::stringstream arg_stream(args);
     std::string segment;
     std::vector<std::string> arglist;
@@ -99,8 +96,6 @@ inline const arg_list message::get_split_args(void) const {
 
     return arglist;
 }
-
-} //  namespace msg
 
 } //  namespace wte
 

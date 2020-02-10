@@ -21,7 +21,6 @@
 #include "make_thread.hpp"
 
 #include "message_manager.hpp"
-#include "..\message.hpp"
 
 namespace wte
 {
@@ -47,7 +46,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         //!  Run the audio manager
         void run(void);
 
-        std::deque<msg::message> audio_messages;
+        std::deque<message> audio_messages;
 };
 
 template <> inline bool audio_manager::manager<audio_manager>::initialized = false;
@@ -63,6 +62,10 @@ inline void audio_manager::transfer_messages(message_container messages) {
 /*!
 */
 inline void audio_manager::run(void) {
+    ALLEGRO_VOICE* voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
+    ALLEGRO_MIXER* mixer_1 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
+    ALLEGRO_MIXER* mixer_2 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
+
     while(is_running() == true) {
         //  Check audio messages and process
         if(!audio_messages.empty()) {
@@ -70,6 +73,10 @@ inline void audio_manager::run(void) {
             audio_messages.pop_front(); //  Remove processed message from the deck
         }
     }
+
+    al_destroy_mixer(mixer_1);
+    al_destroy_mixer(mixer_2);
+    al_destroy_voice(voice);
 }
 
 } //  namespace mgr

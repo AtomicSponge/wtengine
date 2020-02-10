@@ -69,10 +69,10 @@ inline void colision::run(mgr::entity_manager& world,
                     world.get_component<cmp::location>(it_a->first)->pos_y + world.get_component<cmp::hitbox>(it_a->first)->height > world.get_component<cmp::location>(it_b->first)->pos_y))
                 {
                     //  Send a message to the logic system that two entities colided
-                    messages.add_message(msg::message("logic",
-                                                      world.get_component<cmp::name>(it_b->first)->name_str,
-                                                      world.get_component<cmp::name>(it_a->first)->name_str,
-                                                      "colision", ""));
+                    messages.add_message(message("logic",
+                                                 world.get_component<cmp::name>(it_b->first)->name_str,
+                                                 world.get_component<cmp::name>(it_a->first)->name_str,
+                                                 "colision", ""));
                 }
             } //  End skip self check
         } //  End it_b loop

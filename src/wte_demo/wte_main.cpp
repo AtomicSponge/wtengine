@@ -100,6 +100,6 @@ void wte_main::end_game(void) {
 /*
   Process custom system messages
 */
-void wte_main::handle_custom_sys_msg(msg::message message) {
+void wte_main::handle_custom_sys_msg(message message) {
     //
 }

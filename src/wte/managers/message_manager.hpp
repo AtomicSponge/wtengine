@@ -27,9 +27,9 @@
 namespace wte
 {
 
-typedef std::vector<msg::message> message_container;
-typedef std::vector<msg::message>::iterator message_iterator;
-typedef std::vector<msg::message>::const_iterator message_citerator;
+typedef std::vector<message> message_container;
+typedef std::vector<message>::iterator message_iterator;
+typedef std::vector<message>::const_iterator message_citerator;
 
 namespace mgr
 {
@@ -45,7 +45,7 @@ class message_manager final : public manager<message_manager> {
 
         void new_data_file(std::string);                /*!< Load a new data file into the message queue */
         void set_time(int64_t);                         /*!< Set the internal timer value */
-        void add_message(msg::message);                      /*!< Add a message to the queue */
+        void add_message(message);                      /*!< Add a message to the queue */
         void clear_queue(void);                         /*!< Clear the message queue */
         const message_container get_messages(const std::string);    /*!< Get messages based on their command */
 
@@ -54,7 +54,7 @@ class message_manager final : public manager<message_manager> {
         message_container msg_queue;                    /*!< Vector of all messages to be processed */
 
         #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-        void debug_log_message(msg::message, int64_t);       /*!< Member to log processed messages to a file */
+        void debug_log_message(message, int64_t);       /*!< Member to log processed messages to a file */
         #endif
 };
 
@@ -91,7 +91,7 @@ inline message_manager::~message_manager() {
   Write a message to the debug log file if debugging is enabled
 */
 #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-inline void message_manager::debug_log_message(msg::message msg, int64_t current_time) {
+inline void message_manager::debug_log_message(message msg, int64_t current_time) {
     std::ofstream debug_log_file;
     debug_log_file.open("wte_debug\\wte_debug_message_manager.txt", std::ios::app);
     debug_log_file << "PROC AT:  " << current_time << " | ";
@@ -130,7 +130,7 @@ inline void message_manager::new_data_file(std::string file) {
         std::getline(data_file, args, '\0');
 
         if(data_file.eof()) break;
-        msg_queue.push_back(msg::message(timer, sys, cmd, args));
+        msg_queue.push_back(message(timer, sys, cmd, args));
     }
     data_file.close();
 
@@ -149,7 +149,7 @@ inline void message_manager::set_time(int64_t t) { current_time = t; }
   Adds a message object to the start of the msg_queue vector
   Then sorts if it's a timed event
 */
-inline void message_manager::add_message(msg::message msg) {
+inline void message_manager::add_message(message msg) {
     msg_queue.insert(msg_queue.begin(), msg);
     if(msg.is_timed_event()) std::sort(msg_queue.begin(), msg_queue.end());
 }

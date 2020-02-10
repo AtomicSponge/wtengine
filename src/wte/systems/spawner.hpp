@@ -37,9 +37,8 @@ class spawner : public system {
 
     protected:
         //!  Override to process messages and create entities
-        virtual void process_spawn(mgr::entity_manager&, msg::arg_list) {};
+        virtual void process_spawn(mgr::entity_manager&, msg_arg_list) {};
 };
-
 
 /*!
   Empty run member

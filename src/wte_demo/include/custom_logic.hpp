@@ -16,7 +16,7 @@
 class custom_logic : public wte::sys::logic {
     private:
         void custom_run(wte::mgr::entity_manager&, wte::mgr::message_manager&, int64_t);
-        void process_message(wte::mgr::entity_manager&, wte::msg::message);
+        void process_message(wte::mgr::entity_manager&, wte::message);
 };
 
 #endif

@@ -14,7 +14,7 @@
 /*
   Process the spawn messages
 */
-void custom_spawner::process_spawn(wte::mgr::entity_manager& world, wte::msg::arg_list args) {
+void custom_spawner::process_spawn(wte::mgr::entity_manager& world, wte::msg_arg_list args) {
     //  Spawn an asteroid
     if(args[0] == "asteroid") {
         if(args.size() == 6) new_asteroid(world, std::stof(args[1]), std::stof(args[2]),

@@ -83,7 +83,7 @@ class wte_main final {
         //!  Define what happens at the end of a game
         void end_game(void);
         //!  Define custom system message handling
-        void handle_custom_sys_msg(msg::message);
+        void handle_custom_sys_msg(message);
         /* *** End custom members *** */
 
         static ALLEGRO_DISPLAY* display;

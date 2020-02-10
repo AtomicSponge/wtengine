@@ -31,7 +31,7 @@ void custom_logic::custom_run(wte::mgr::entity_manager& world, wte::mgr::message
 
         //  OOB check
         if(world.get_component<wte::cmp::location>(it->first)->pos_y > wte::wte_config::screen_height + 100) {
-            messages.add_message(wte::msg::message("spawner", "delete",
+            messages.add_message(wte::message("spawner", "delete",
                                  world.get_component<wte::cmp::name>(it->first)->name_str));
         }
     }
@@ -44,7 +44,7 @@ void custom_logic::custom_run(wte::mgr::entity_manager& world, wte::mgr::message
                 //  Handle player death
             } else {
                 //  Everything else
-                messages.add_message(wte::msg::message("spawner", "delete",
+                messages.add_message(wte::message("spawner", "delete",
                                      world.get_component<wte::cmp::name>(it->first)->name_str));
             }
         }
@@ -54,7 +54,7 @@ void custom_logic::custom_run(wte::mgr::entity_manager& world, wte::mgr::message
 /*
   Custom logic process_messages member
 */
-void custom_logic::process_message(wte::mgr::entity_manager& world, wte::msg::message message) {
+void custom_logic::process_message(wte::mgr::entity_manager& world, wte::message message) {
     wte::component_container named_components;
     named_components = world.get_components<wte::cmp::name>();
 

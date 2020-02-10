@@ -25,8 +25,8 @@ namespace mgr
 /*!
   Extend this to create a threaded object.  Has a virtual run member that is defined
   in the inheriting class.  Calling start runs the "run" member in a detached thread.
-  Inside the run member, is_running can be called to see if the thread is considered running.
-  Call the stop member to end the thread.
+  Inside the run member, is_running can be called to see if the thread is considered
+  active.  Call the stop member to end the thread.
 */
 class make_thread {
     public:
@@ -52,7 +52,7 @@ class make_thread {
             exit_signal.set_value();
             started = false;
             exit_signal = std::promise<void>();
-        }
+        };
 
     private:
         //  Call to trigger exit
@@ -72,9 +72,9 @@ class make_thread {
             if(exit_state.wait_for(std::chrono::milliseconds(0)) == std::future_status::timeout)
                 return true;
             return false;
-        }
+        };
 
-        //!  Extend this to implement a thread
+        //!  Override this in extended class to implement a thread
         virtual void run() = 0;
 };
 

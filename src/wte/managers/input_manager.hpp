@@ -70,11 +70,14 @@ inline void input_manager::run(void) {
         al_get_next_event(input_queue, &input_event);
 
         //  Clear any active alerts on input event
-        if(input_event.type == ALLEGRO_EVENT_KEY_DOWN || input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN) {
-            if(alert::is_set()) alert::clear();
+        if(alert::is_set() &&
+           (input_event.type == ALLEGRO_EVENT_KEY_DOWN ||
+            input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)) {
+            alert::clear();
         }
 
         /* *** PROCESS EVENTS WHILE MENU IS OPENED *** */
+        //  Menu input events are cleared in the menu manager
         if(engine_flags::is_set(GAME_MENU_OPENED)) {
             /* *** Keyboard events *** */
             if(input_event.type == ALLEGRO_EVENT_KEY_DOWN) {

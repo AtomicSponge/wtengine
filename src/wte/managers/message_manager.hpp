@@ -40,7 +40,7 @@ namespace mgr
 /*!
   Store a collection of message objects in a vector for processing
 */
-class message_manager final : public manager<message_manager>, public engine_time {
+class message_manager final : public manager<message_manager>, private engine_time {
     public:
         //!  Message queue constructor
         message_manager();

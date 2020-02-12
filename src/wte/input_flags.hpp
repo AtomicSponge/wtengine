@@ -11,6 +11,8 @@
 #ifndef WTE_INPUT_FLAGS_HPP
 #define WTE_INPUT_FLAGS_HPP
 
+#include <atomic>
+
 namespace wte
 {
 
@@ -48,10 +50,10 @@ class input_flags final {
         }
 
     private:
-        static bool flags[MAX_INPUT_FLAGS];
+        static std::atomic<bool> flags[MAX_INPUT_FLAGS];
 };
 
-inline bool input_flags::flags[MAX_INPUT_FLAGS] = {};
+inline std::atomic<bool> input_flags::flags[MAX_INPUT_FLAGS] = {};
 
 } //  end namespace wte
 

@@ -11,6 +11,8 @@
 #ifndef WTE_ENGINE_FLAGS_HPP
 #define WTE_ENGINE_FLAGS_HPP
 
+#include <atomic>
+
 namespace wte
 {
 
@@ -44,10 +46,10 @@ class engine_flags final {
         inline static const bool is_set(const int f) { return flags[f]; };
 
     private:
-        static bool flags[MAX_SYSTEM_FLAGS];
+        static std::atomic<bool> flags[MAX_SYSTEM_FLAGS];
 };
 
-inline bool engine_flags::flags[MAX_SYSTEM_FLAGS] = {};
+inline std::atomic<bool> engine_flags::flags[MAX_SYSTEM_FLAGS] = {};
 
 } //  end namespace wte
 

@@ -21,14 +21,14 @@ namespace mgr
 
 //!  Engine Time class
 /*!
-  Have a manager extend this to track the game timer
+  Have a manager extend this to track the game timer.
 */
 class engine_time {
     public:
         inline virtual ~engine_time() {};
 
-        //!  Set the internal timer
-        //!  This is called once during the game loop in class wte_main
+        //!  Set the internal timer.
+        //!  This is called once during the game loop in class wte_main.
         inline static void set_time(const int64_t t) { current_time = t; };
 
     private:
@@ -38,8 +38,8 @@ class engine_time {
     protected:
         inline engine_time() {};
 
-        //!  Check the internal timer
-        //!  Classes that extend this object can call this member to check the game timer
+        //!  Check the internal timer.
+        //!  Classes that extend this object can call this member to check the game timer.
         inline const int64_t check_time(void) const { return current_time; };
 };
 

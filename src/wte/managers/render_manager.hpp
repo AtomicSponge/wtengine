@@ -59,19 +59,19 @@ class render_manager final : public manager<render_manager>, private engine_time
         //!  Initialize the render_manager
         void initialize(ALLEGRO_FONT*);
         //!  Render method - Draw the game screen
-        void render(menu_manager&, entity_manager&);     /*!< Call the render_manager */
+        void render(menu_manager&, entity_manager&);
 
     private:
         ALLEGRO_BITMAP* render_tmp_bmp;
-        ALLEGRO_FONT* overlay_font;                     /*!< Allegro font used for the overlay */
+        ALLEGRO_FONT* overlay_font;
 
         ALLEGRO_TIMER* fps_timer;
         ALLEGRO_EVENT_QUEUE* fps_event_queue;
         ALLEGRO_EVENT fps_event;
 
-        comparator render_comparator;                   /*!< Store lambda function for comparator */
+        comparator render_comparator;
 
-        int fps_counter, fps;                           /*!< FPS counters */
+        int fps_counter, fps;
 };
 
 template <> inline bool render_manager::manager<render_manager>::initialized = false;

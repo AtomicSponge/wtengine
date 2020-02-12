@@ -375,7 +375,7 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
         }
     }
 
-    //  Pass remaining system messages to custom handler
+    //  Pass remaining system messages to the custom handler
     if(!sys_msgs.empty()) {
         for(message_iterator it = sys_msgs.begin(); it != sys_msgs.end(); it++) {
             handle_custom_sys_msg(*it);

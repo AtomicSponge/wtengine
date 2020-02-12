@@ -40,7 +40,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         inline ~audio_manager() { audio_messages.clear(); }
 
         //!  Copy a container of messages to the internal audio deck
-        void transfer_messages(message_container);
+        void transfer_messages(const message_container);
 
     private:
         //!  Run the audio manager
@@ -52,14 +52,16 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
 template <> inline bool audio_manager::manager<audio_manager>::initialized = false;
 
 /*!
+  Take a vector of messages and pass them into the audio messages deck
 */
-inline void audio_manager::transfer_messages(message_container messages) {
+inline void audio_manager::transfer_messages(const message_container messages) {
     audio_messages.insert(audio_messages.end(),
                           std::make_move_iterator(messages.begin()),
                           std::make_move_iterator(messages.end()));
 }
 
 /*!
+  Audio playback
 */
 inline void audio_manager::run(void) {
     ALLEGRO_VOICE* voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);

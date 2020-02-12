@@ -27,6 +27,7 @@
 #include "wte_config.hpp"
 #include "engine_flags.hpp"
 #include "alert.hpp"
+#include "managers\engine_time.hpp"
 #include "managers\managers.hpp"
 
 namespace wte
@@ -272,17 +273,12 @@ inline void wte_main::do_game(void) {
         queue_not_empty = al_get_next_event(main_queue, &event);
         //  Call our game logic update on timer events.  Timer is only running when the game is running.
         if(event.type == ALLEGRO_EVENT_TIMER && queue_not_empty) {
-            //  Set the message queue's internal timer to the current time
-            messages.set_time(al_get_timer_count(main_timer));
+            //  Set the engine_time object to the current time
+            mgr::engine_time::set_time(al_get_timer_count(main_timer));
             //  Run all systems
             systems.run(world, messages, al_get_timer_count(main_timer));
             //  Process messages
             systems.dispatch(world, messages);
-
-            #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
-            //  Update the renderer with the system time if debugging is enabled
-            screen.set_current_time(al_get_timer_count(main_timer));
-            #endif
         }
         /* *** END GAME LOOP ******************************************************** */
 

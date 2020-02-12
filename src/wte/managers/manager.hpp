@@ -5,7 +5,7 @@
 
   See LICENSE.txt for copyright information
 
-  Manager
+  Manager base class
 */
 
 #ifndef WTE_MGR_MANAGER_HPP

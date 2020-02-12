@@ -22,6 +22,7 @@
 #include <allegro5/allegro_font.h>
 
 #include "manager.hpp"
+#include "engine_time.hpp"
 
 #include "..\wte_global_defines.hpp"
 #include "..\wte_config.hpp"
@@ -48,7 +49,7 @@ typedef std::function<bool(entity_component_pair, entity_component_pair)> compar
 /*!
   An object that handles drawing the world to the screen
 */
-class render_manager final : public manager<render_manager> {
+class render_manager final : public manager<render_manager>, public engine_time {
     public:
         //! render_manager constructor
         render_manager();
@@ -60,11 +61,6 @@ class render_manager final : public manager<render_manager> {
         //!  Render method - Draw the game screen
         void render(menu_manager&, entity_manager&);     /*!< Call the render_manager */
 
-        #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
-        //!  Tracks the engine timer if debugging is enabled
-        inline void set_current_time(const int64_t ctime) { current_time = ctime; };
-        #endif
-
     private:
         ALLEGRO_BITMAP* render_tmp_bmp;
         ALLEGRO_FONT* overlay_font;                     /*!< Allegro font used for the overlay */
@@ -73,13 +69,9 @@ class render_manager final : public manager<render_manager> {
         ALLEGRO_EVENT_QUEUE* fps_event_queue;
         ALLEGRO_EVENT fps_event;
 
-        int fps_counter, fps;                           /*!< FPS counters */
-        
         comparator render_comparator;                   /*!< Store lambda function for comparator */
 
-        #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
-        int64_t current_time;
-        #endif
+        int fps_counter, fps;                           /*!< FPS counters */
 };
 
 template <> inline bool render_manager::manager<render_manager>::initialized = false;
@@ -93,10 +85,6 @@ inline render_manager::render_manager() : fps_counter(0), fps(0) {
 
     fps_timer = NULL;
     fps_event_queue = NULL;
-
-    #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
-    current_time = 0;
-    #endif
 
     //  Define comparator as lambda function that sorts components
     render_comparator =
@@ -269,7 +257,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
     */
     std::string fps_string = "FPS: " + std::to_string(fps);
     #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
-    std::string timer_string = "Timer: " + std::to_string(current_time);
+    std::string timer_string = "Timer: " + std::to_string(check_time());
     #endif
 
     //  Draw frame rate

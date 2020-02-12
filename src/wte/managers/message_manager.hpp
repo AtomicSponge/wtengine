@@ -19,9 +19,11 @@
 #include <algorithm>
 #include <stdexcept>
 
+#include "manager.hpp"
+#include "engine_time.hpp"
+
 #include "..\wte_global_defines.hpp"
 #include "..\message.hpp"
-#include "manager.hpp"
 #include "entity_manager.hpp"
 
 namespace wte
@@ -38,29 +40,34 @@ namespace mgr
 /*!
   Store a collection of message objects in a vector for processing
 */
-class message_manager final : public manager<message_manager> {
+class message_manager final : public manager<message_manager>, public engine_time {
     public:
-        message_manager();                                /*!< Message queue constructor */
-        ~message_manager();                               /*!< Message queue destructor */
+        //!  Message queue constructor
+        message_manager();
+        //!  Message queue destructor
+        ~message_manager();
 
-        void new_data_file(std::string);                /*!< Load a new data file into the message queue */
-        void set_time(int64_t);                         /*!< Set the internal timer value */
-        void add_message(message);                      /*!< Add a message to the queue */
-        void clear_queue(void);                         /*!< Clear the message queue */
-        const message_container get_messages(const std::string);    /*!< Get messages based on their command */
+        //!  Load a new data file into the message queue
+        void new_data_file(const std::string);
+        //!  Add a message to the queue
+        void add_message(const message);
+        //!  Clear the message queue
+        void clear_queue(void);
+        //!  Get messages based on their command
+        const message_container get_messages(const std::string);
 
     private:
-        int64_t current_time;                           /*!< Store timer for message processing */
-        message_container msg_queue;                    /*!< Vector of all messages to be processed */
+        //  Vector of all messages to be processed
+        message_container msg_queue;
 
         #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-        void debug_log_message(message, int64_t);       /*!< Member to log processed messages to a file */
+        //!  Log processed messages to a file
+        void debug_log_message(const message);
         #endif
 };
 
 template <> inline bool message_manager::manager<message_manager>::initialized = false;
 
-//! Message queue constructor
 /*!
   Clear any existing queue and start logging if debugging is enabled
 */
@@ -78,7 +85,6 @@ inline message_manager::message_manager() {
     #endif
 }
 
-//! Message queue destructor
 /*!
   Delete message queue object
 */
@@ -86,15 +92,14 @@ inline message_manager::~message_manager() {
     msg_queue.clear();
 }
 
-//! Debug message logging
 /*!
   Write a message to the debug log file if debugging is enabled
 */
 #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-inline void message_manager::debug_log_message(message msg, int64_t current_time) {
+inline void message_manager::debug_log_message(const message msg) {
     std::ofstream debug_log_file;
     debug_log_file.open("wte_debug\\wte_debug_message_manager.txt", std::ios::app);
-    debug_log_file << "PROC AT:  " << current_time << " | ";
+    debug_log_file << "PROC AT:  " << check_time() << " | ";
     debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
     debug_log_file << "SYS:  " << msg.get_sys() << " | ";
     debug_log_file << "TO:  " << msg.get_to() << " | ";
@@ -105,11 +110,10 @@ inline void message_manager::debug_log_message(message msg, int64_t current_time
 }
 #endif
 
-//! Reset the message queue with a new data file
 /*!
   Events are placed in order according to the timer value
 */
-inline void message_manager::new_data_file(std::string file) {
+inline void message_manager::new_data_file(const std::string file) {
     std::ifstream data_file;
     int64_t timer;
     std::string sys;
@@ -138,29 +142,20 @@ inline void message_manager::new_data_file(std::string file) {
     std::sort(msg_queue.begin(), msg_queue.end());
 }
 
-//! Set the internal timer
-/*!
-  Called by the main engine loop
-*/
-inline void message_manager::set_time(int64_t t) { current_time = t; }
-
-//! Add a message to the queue
 /*!
   Adds a message object to the start of the msg_queue vector
   Then sorts if it's a timed event
 */
-inline void message_manager::add_message(message msg) {
+inline void message_manager::add_message(const message msg) {
     msg_queue.insert(msg_queue.begin(), msg);
     if(msg.is_timed_event()) std::sort(msg_queue.begin(), msg_queue.end());
 }
 
-//! Clear the queue
 /*!
   Wipe the existing message queue
 */
 inline void message_manager::clear_queue(void) { msg_queue.clear(); }
 
-//! Get current messages based on the command field
 /*!
   Once events in the future are reached, break early
 */
@@ -172,12 +167,12 @@ inline const message_container message_manager::get_messages(const std::string s
 
     for(message_iterator it = msg_queue.begin(); it != msg_queue.end();) {
         //  End early if events are in the future
-        if(it->get_timer() > current_time) break;
+        if(it->get_timer() > check_time()) break;
 
-        if((it->get_timer() == current_time || it->get_timer() == -1) && it->get_sys() == sys) {
+        if((it->get_timer() == check_time() || it->get_timer() == -1) && it->get_sys() == sys) {
             //  Log the message if debug mode is on
             #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-            debug_log_message(*it, current_time);
+            debug_log_message(*it);
             #endif
             temp_messages.push_back(*it); //  Add the message to the temp vector to be returned
             it = msg_queue.erase(it); //  Erase the message once processed

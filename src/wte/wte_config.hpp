@@ -20,9 +20,6 @@ namespace wte
 */
 class wte_config {
     public:
-        inline wte_config() {};
-        inline ~wte_config() {};
-
         //!  Remove copy constructor
         wte_config(const wte_config&) = delete;
         //!  Remove assignment operator
@@ -37,7 +34,8 @@ class wte_config {
         static unsigned int screen_height;
 
     private:
-        //
+        inline wte_config() {};
+        inline ~wte_config() {};
 };
 
 inline unsigned int wte_config::screen_width;

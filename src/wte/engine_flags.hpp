@@ -30,9 +30,6 @@ enum ENGINE_FLAG_ENUM {
 */
 class engine_flags final {
     public:
-        inline engine_flags() {};
-        inline ~engine_flags() {};
-
         //!  Remove copy constructor
         engine_flags(const engine_flags&) = delete;
         //!  Remove assignment operator
@@ -46,6 +43,9 @@ class engine_flags final {
         inline static const bool is_set(const int f) { return flags[f]; };
 
     private:
+        inline engine_flags() {};
+        inline ~engine_flags() {};
+
         static std::atomic<bool> flags[MAX_SYSTEM_FLAGS];
 };
 

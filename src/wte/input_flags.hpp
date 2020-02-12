@@ -29,9 +29,6 @@ enum INPUT_FLAG_ENUM {
 */
 class input_flags final {
     public:
-        inline input_flags() {};
-        inline ~input_flags() {};
-
         //!  Remove copy constructor
         input_flags(const input_flags&) = delete;
         //!  Remove assignment operator
@@ -50,6 +47,9 @@ class input_flags final {
         }
 
     private:
+        inline input_flags() {};
+        inline ~input_flags() {};
+
         static std::atomic<bool> flags[MAX_INPUT_FLAGS];
 };
 

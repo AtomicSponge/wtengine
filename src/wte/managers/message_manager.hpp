@@ -102,7 +102,7 @@ inline void message_manager::debug_log_message(const message msg) {
     debug_log_file << "PROC AT:  " << check_time() << " | ";
     debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
     debug_log_file << "SYS:  " << msg.get_sys() << " | ";
-    if((msg.get_to() != "") && (msg.get_from() != "")) {
+    if((msg.get_to() != "") || (msg.get_from() != "")) {
         debug_log_file << "TO:  " << msg.get_to() << " | ";
         debug_log_file << "FROM:  " << msg.get_from() << " | ";
     }

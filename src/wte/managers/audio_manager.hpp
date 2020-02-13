@@ -39,6 +39,7 @@ namespace mgr
 */
 class audio_manager final : public manager<audio_manager>, public make_thread {
     public:
+        //!  Audio Manager Constructor
         //!  Clears the internal audio deck
         inline audio_manager() {
             map_cmd_str_values["play_song"] = CMD_STR_PLAY_SONG;
@@ -49,6 +50,8 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             al_install_audio();
             al_init_acodec_addon();
         }
+
+        //!  Audio Manager Destructor
         //!  Clears the internal audio deck
         inline ~audio_manager() {
             al_uninstall_audio();
@@ -56,8 +59,12 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             audio_messages.clear();
         }
 
-        //!  Copy a container of messages to the internal audio deck
-        void transfer_messages(const message_container);
+        //!  Take a vector of messages and pass them into the audio messages deck
+        inline void transfer_messages(const message_container messages) {
+            audio_messages.insert(audio_messages.end(),
+                                std::make_move_iterator(messages.begin()),
+                                std::make_move_iterator(messages.end()));
+        }
 
     private:
         //!  Run the audio manager
@@ -74,15 +81,6 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
 };
 
 template <> inline bool audio_manager::manager<audio_manager>::initialized = false;
-
-/*!
-  Take a vector of messages and pass them into the audio messages deck
-*/
-inline void audio_manager::transfer_messages(const message_container messages) {
-    audio_messages.insert(audio_messages.end(),
-                          std::make_move_iterator(messages.begin()),
-                          std::make_move_iterator(messages.end()));
-}
 
 /*!
   Audio playback

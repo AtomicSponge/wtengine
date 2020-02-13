@@ -52,7 +52,8 @@ void custom_input::custom_run(wte::mgr::entity_manager& world, wte::mgr::message
 
         world.set_component<wte::cmp::visible>(cannon_entity)->is_visible = true;
         world.set_component<wte::cmp::enabled>(cannon_entity)->is_enabled = true;
-    } else {
+    }
+    if(!wte::input_flags::is_set(wte::INPUT_ACTION_1) && world.get_component<wte::cmp::enabled>(cannon_entity)->is_enabled) {
         world.set_component<wte::cmp::visible>(cannon_entity)->is_visible = false;
         world.set_component<wte::cmp::enabled>(cannon_entity)->is_enabled = false;
     }
@@ -71,7 +72,8 @@ void custom_input::custom_run(wte::mgr::entity_manager& world, wte::mgr::message
         world.set_component<wte::cmp::visible>(shield_entity)->is_visible = true;
         world.set_component<wte::cmp::enabled>(shield_entity)->is_enabled = true;
         world.set_component<wte::cmp::hitbox>(player_entity)->solid = false;
-    } else {
+    }
+    if(!wte::input_flags::is_set(wte::INPUT_ACTION_2) && world.get_component<wte::cmp::enabled>(shield_entity)->is_enabled) {
         world.set_component<wte::cmp::visible>(shield_entity)->is_visible = false;
         world.set_component<wte::cmp::enabled>(shield_entity)->is_enabled = false;
         world.set_component<wte::cmp::hitbox>(player_entity)->solid = true;

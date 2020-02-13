@@ -14,8 +14,6 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
-#include <allegro5/allegro_audio.h>
-//#include <allegro5/allegro_acodec.h>
 //#include <allegro5/allegro_memfile.h>
 
 #include <ctime>
@@ -141,8 +139,6 @@ inline void wte_main::wte_init(void) {
     al_install_joystick();
     al_init_image_addon();
     al_init_font_addon();
-    al_install_audio();
-    //al_init_acodec_addon();
 
     //  Register event sources
     al_register_event_source(main_queue, al_get_display_event_source(display));

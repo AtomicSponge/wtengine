@@ -1,5 +1,5 @@
 0,starfield,reset,
-0,audio,play_song,song.ogg
+0,audio,play_music,song.ogg
 90,spawnerer,new,asteroid;-60;-60;53;8;1
 90,spawner,new,asteroid;100;-60;90;10;1
 90,spawner,new,asteroid;800;-60;100;7;1

@@ -42,10 +42,12 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         //!  Audio Manager Constructor
         //!  Clears the internal audio deck
         inline audio_manager() {
-            map_cmd_str_values["play_song"] = CMD_STR_PLAY_SONG;
-            map_cmd_str_values["stop_song"] = CMD_STR_STOP_SONG;
-            map_cmd_str_values["pause_song"] = CMD_STR_PAUSE_SONG;
-            map_cmd_str_values["unpause_song"] = CMD_STR_UNPAUSE_SONG;
+            map_cmd_str_values["enable_loop"] = CMD_STR_ENABLE_LOOP;
+            map_cmd_str_values["disable_loop"] = CMD_STR_DISABLE_LOOP;
+            map_cmd_str_values["play_music"] = CMD_STR_PLAY_MUSIC;
+            map_cmd_str_values["stop_music"] = CMD_STR_STOP_MUSIC;
+            map_cmd_str_values["pause_music"] = CMD_STR_PAUSE_MUSIC;
+            map_cmd_str_values["unpause_music"] = CMD_STR_UNPAUSE_MUSIC;
             audio_messages.clear();
             al_install_audio();
             al_init_acodec_addon();
@@ -72,8 +74,9 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
 
         //  Used for switching on audio messages:
         enum CMD_STR_VALUE {
-            CMD_STR_PLAY_SONG,      CMD_STR_STOP_SONG,
-            CMD_STR_PAUSE_SONG,     CMD_STR_UNPAUSE_SONG,
+            CMD_STR_ENABLE_LOOP,     CMD_STR_DISABLE_LOOP,
+            CMD_STR_PLAY_MUSIC,      CMD_STR_STOP_MUSIC,
+            CMD_STR_PAUSE_MUSIC,     CMD_STR_UNPAUSE_MUSIC,
         };
         std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
 
@@ -83,7 +86,9 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
 template <> inline bool audio_manager::manager<audio_manager>::initialized = false;
 
 /*!
-  Audio playback
+  Waits for messages to be loaded into the internal queue then processes.
+  On startup, creates multiple mixer objects to play sound through, then allows playback
+  control via messages.
 */
 inline void audio_manager::run(void) {
     ALLEGRO_VOICE* voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
@@ -93,7 +98,8 @@ inline void audio_manager::run(void) {
 
     ALLEGRO_AUDIO_STREAM* stream = NULL;
 
-    bool song_loaded = false, song_paused = false, loop_song = true;
+    //  Music looping on by default
+    bool music_loaded = false, music_paused = false, loop_music = true;
 
     al_attach_mixer_to_voice(mixer_main, voice);
     al_attach_mixer_to_mixer(mixer_1, mixer_main);
@@ -110,37 +116,47 @@ inline void audio_manager::run(void) {
                 //audio_messages.front().get_args()
                 //audio_messages.front().get_split_args()
 
-                //  cmd:  play_song - Play a song
-                case CMD_STR_PLAY_SONG:
+                //  cmd:  enable_loop - Turn music looping on
+                case CMD_STR_ENABLE_LOOP:
+                    loop_music = true;
+                    break;
+
+                //  cmd:  disable_loop - Turn music looping off
+                case CMD_STR_DISABLE_LOOP:
+                    loop_music = false;
+                    break;
+
+                //  cmd:  play_music - Load a file and play in a stream
+                case CMD_STR_PLAY_MUSIC:
                     //  If something's playing, stop it first
                     if(al_get_mixer_playing(mixer_1)) al_destroy_audio_stream(stream);
                     //  Load stream and play
                     stream = al_load_audio_stream(("data\\" + audio_messages.front().get_args()).c_str(), 4, 2048);
                     if(!stream) break;  //  Didn't load audio, end
                     al_attach_audio_stream_to_mixer(stream, mixer_1);
-                    song_loaded = true;
-                    song_paused = false;
+                    music_loaded = true;
+                    music_paused = false;
                     break;
 
-                //  cmd:  stop_song - Stop current song from playing
-                case CMD_STR_STOP_SONG:
+                //  cmd:  stop_music - Stop current music from playing
+                case CMD_STR_STOP_MUSIC:
                     al_destroy_audio_stream(stream);
-                    song_loaded = false;
+                    music_loaded = false;
                     break;
 
-                //  cmd:  pause_song - Pause song if one is playing
-                case CMD_STR_PAUSE_SONG:
-                    if(song_loaded && al_get_mixer_playing(mixer_1)) {
+                //  cmd:  pause_music - Pause music if it is playing
+                case CMD_STR_PAUSE_MUSIC:
+                    if(music_loaded && al_get_mixer_playing(mixer_1)) {
                         al_set_audio_stream_playing(stream, false);
-                        song_paused = true;
+                        music_paused = true;
                     }
                     break;
 
-                //  cmd:  unpause_song - Unpause song if one is paused
-                case CMD_STR_UNPAUSE_SONG:
-                    if(song_loaded && !al_get_mixer_playing(mixer_1)) {
+                //  cmd:  unpause_music - Unpause music if it is paused
+                case CMD_STR_UNPAUSE_MUSIC:
+                    if(music_loaded && !al_get_mixer_playing(mixer_1)) {
                         al_set_audio_stream_playing(stream, true);
-                        song_paused = false;
+                        music_paused = false;
                     }
                     break;
 
@@ -154,8 +170,8 @@ inline void audio_manager::run(void) {
         }  //  End if(!audio_messages.empty())
 
         /* ***** Audio manager maintenance ***** */
-        //  Keep loaded song playing on loop
-        if(song_loaded && loop_song && !song_paused && !al_get_mixer_playing(mixer_1)) {
+        //  Keep loaded music playing on loop
+        if(music_loaded && loop_music && !music_paused && !al_get_mixer_playing(mixer_1)) {
             al_rewind_audio_stream(stream);
             al_set_audio_stream_playing(stream, true);
         }

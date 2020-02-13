@@ -11,12 +11,13 @@ Built and tested with [MSYS2](https://www.msys2.org/)
 #### FEATURES:
  - Internal messaging queue 
  - Memory manager for in-game objects
+ - Music playback via messages
  - Some multi-threading of tasks
  - Buildable debug modes
 
 #### TODO:
  - Finish basic menu system implementation
- - Implement audio
+ - Implement sound fx
  - Implement sprites
  - Better documentation :p
 

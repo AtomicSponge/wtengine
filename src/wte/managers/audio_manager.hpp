@@ -39,8 +39,8 @@ namespace mgr
 */
 class audio_manager final : public manager<audio_manager>, public make_thread {
     public:
-        //!  Audio Manager Constructor
-        //!  Clears the internal audio deck
+        //!  Audio Manager Constructor.
+        //!  Clears the internal audio deck.
         inline audio_manager() {
             map_cmd_str_values["enable_loop"] = CMD_STR_ENABLE_LOOP;
             map_cmd_str_values["disable_loop"] = CMD_STR_DISABLE_LOOP;
@@ -53,8 +53,8 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             al_init_acodec_addon();
         }
 
-        //!  Audio Manager Destructor
-        //!  Clears the internal audio deck
+        //!  Audio Manager Destructor.
+        //!  Clears the internal audio deck.
         inline ~audio_manager() {
             al_uninstall_audio();
             map_cmd_str_values.clear();
@@ -69,7 +69,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         }
 
     private:
-        //!  Run the audio manager
+        //!  Run the audio manager.
         void run(void);
 
         //  Used for switching on audio messages:

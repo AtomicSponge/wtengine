@@ -46,9 +46,12 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             map_cmd_str_values["pause_song"] = CMD_STR_PAUSE_SONG;
             map_cmd_str_values["unpause_song"] = CMD_STR_UNPAUSE_SONG;
             audio_messages.clear();
+            al_install_audio();
+            al_init_acodec_addon();
         }
         //!  Clears the internal audio deck
         inline ~audio_manager() {
+            al_uninstall_audio();
             map_cmd_str_values.clear();
             audio_messages.clear();
         }
@@ -85,9 +88,6 @@ inline void audio_manager::transfer_messages(const message_container messages) {
   Audio playback
 */
 inline void audio_manager::run(void) {
-    al_install_audio();
-    al_init_acodec_addon();
-
     ALLEGRO_VOICE* voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
     ALLEGRO_MIXER* mixer_main = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
     ALLEGRO_MIXER* mixer_1 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
@@ -171,8 +171,6 @@ inline void audio_manager::run(void) {
     al_destroy_mixer(mixer_2);
     al_destroy_mixer(mixer_main);
     al_destroy_voice(voice);
-
-    al_uninstall_audio();
 }
 
 } //  namespace mgr

@@ -243,7 +243,18 @@ inline void audio_manager::run(void) {
                     break;
 
                 //  cmd:  unload_sample - arg:  sample_num - Unload sample if one is loaded
+                //  If arg == "all" unload all samples
                 case CMD_STR_UNLOAD_SAMPLE:
+                    //  Unload all samples
+                    if(audio_messages.front().get_args() == "all") {
+                        for(pos = 0; pos < MAX_SAMPLES; pos++) {
+                            al_destroy_sample(AL_SAMPLES[pos].sample);
+                            sample_loaded[pos] = false;
+                            sample_playing[pos] = false;
+                        }
+                        break;
+                    }
+                    //  Unload a sample by position
                     pos = std::stoi(audio_messages.front().get_args());
                     if(pos < 0 || pos >= MAX_SAMPLES) break;  //  Out of sample range, end
                     if(!sample_loaded[pos]) break;  //  Sample not loaded, end

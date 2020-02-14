@@ -150,7 +150,7 @@ inline void audio_manager::run(void) {
                     if(audio_messages.front().get_args() == "disable") loop_music = false;
                     break;
 
-                //  cmd:  play_music - Load a file and play in a stream
+                //  cmd:  play_music - arg:  file.name - Load a file and play in a stream
                 case CMD_STR_PLAY_MUSIC:
                     //  If something's playing, stop it first
                     if(al_get_mixer_playing(mixer_1)) al_destroy_audio_stream(music_stream);
@@ -185,7 +185,7 @@ inline void audio_manager::run(void) {
                     break;
 
                 /* ***  Voice controls  *** */
-                //  cmd:  play_voice - Load a file and play in a stream
+                //  cmd:  play_voice - arg:  file.name - Load a file and play in a stream
                 case CMD_STR_PLAY_VOICE:
                     //  If something's playing, stop it first
                     if(al_get_mixer_playing(mixer_3)) al_destroy_audio_stream(voice_stream);
@@ -226,7 +226,7 @@ inline void audio_manager::run(void) {
                     if(audio_messages.front().get_args() == "disable") loop_ambiance = false;
                     break;
 
-                //  cmd:  play_ambiance - Load a file and play in a stream
+                //  cmd:  play_ambiance - arg:  file.name - Load a file and play in a stream
                 case CMD_STR_PLAY_AMBIANCE:
                     //  If something's playing, stop it first
                     if(al_get_mixer_playing(mixer_4)) al_destroy_audio_stream(ambiance_stream);

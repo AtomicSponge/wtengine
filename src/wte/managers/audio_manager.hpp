@@ -12,6 +12,8 @@
 #ifndef WTE_MGR_AUDIO_MANAGER_HPP
 #define WTE_MGR_AUDIO_MANAGER_HPP
 
+#define MAX_SAMPLES 8
+
 #include <string>
 #include <deque>
 
@@ -49,6 +51,11 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             map_cmd_str_values["stop_music"] = CMD_STR_STOP_MUSIC;
             map_cmd_str_values["pause_music"] = CMD_STR_PAUSE_MUSIC;
             map_cmd_str_values["unpause_music"] = CMD_STR_UNPAUSE_MUSIC;
+
+            map_cmd_str_values["load_sample"] = CMD_STR_LOAD_SAMPLE;
+            map_cmd_str_values["unload_sample"] = CMD_STR_UNLOAD_SAMPLE;
+            map_cmd_str_values["play_sample"] = CMD_STR_PLAY_SAMPLE;
+            map_cmd_str_values["stop_sample"] = CMD_STR_STOP_SAMPLE;
 
             map_cmd_str_values["play_voice"] = CMD_STR_PLAY_VOICE;
             map_cmd_str_values["stop_voice"] = CMD_STR_STOP_VOICE;
@@ -90,6 +97,9 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             CMD_STR_PLAY_MUSIC,      CMD_STR_STOP_MUSIC,
             CMD_STR_PAUSE_MUSIC,     CMD_STR_UNPAUSE_MUSIC,
 
+            CMD_STR_LOAD_SAMPLE,     CMD_STR_UNLOAD_SAMPLE,
+            CMD_STR_PLAY_SAMPLE,     CMD_STR_STOP_SAMPLE,
+
             CMD_STR_PLAY_VOICE,      CMD_STR_STOP_VOICE,
             CMD_STR_PAUSE_VOICE,     CMD_STR_UNPAUSE_VOICE,
 
@@ -121,10 +131,23 @@ inline void audio_manager::run(void) {
     ALLEGRO_AUDIO_STREAM* ambiance_stream = NULL;
     ALLEGRO_AUDIO_STREAM* voice_stream = NULL;
 
+    struct al_sample_instances {
+        ALLEGRO_SAMPLE_INSTANCE* instance;
+    } AL_SAMPLE_INSTANCES[MAX_SAMPLES];
+
+    int pos = 0;
+
+    for(pos = 0; pos < MAX_SAMPLES; pos++) AL_SAMPLE_INSTANCES[pos].instance = al_create_sample_instance(NULL);
+
     //  Music & ambiance looping on by default
     bool music_loaded = false, music_paused = false, loop_music = true;
     bool ambiance_loaded = false, ambiance_paused = false, loop_ambiance = true;
     bool voice_loaded = false, voice_paused = false;
+
+    bool sample_loaded[MAX_SAMPLES], sample_playing[MAX_SAMPLES];
+
+    for(pos = 0; pos < MAX_SAMPLES; pos++) sample_loaded[pos] = false;
+    for(pos = 0; pos < MAX_SAMPLES; pos++) sample_playing[pos] = false;
 
     al_attach_mixer_to_voice(mixer_main, voice);
     al_attach_mixer_to_mixer(mixer_1, mixer_main);
@@ -132,18 +155,19 @@ inline void audio_manager::run(void) {
     al_attach_mixer_to_mixer(mixer_3, mixer_main);
     al_attach_mixer_to_mixer(mixer_4, mixer_main);
 
-    //al_set_default_mixer(mixer_2);
-    //al_reserve_samples(8);
+    for(pos = 0; pos < MAX_SAMPLES; pos++) al_attach_sample_instance_to_mixer(AL_SAMPLE_INSTANCES[pos].instance, mixer_2);
+
+    al_set_default_mixer(mixer_main);
+
+    //  Reset pos
+    pos = 0;
 
     while(is_running() == true) {
         /* ***** Check audio messages and process ***** */
         if(!audio_messages.empty()) {
             //  Switch over the audio message and process
             switch(map_cmd_str_values[audio_messages.front().get_cmd()]) {
-                //audio_messages.front().get_args()
-                //audio_messages.front().get_split_args()
-
-                /* ***  Music controls  *** */
+                /* ***  Mixer 1 - Music controls  *** */
                 //  cmd:  music_loop - arg:  enable/disable - Turn music looping on or off
                 case CMD_STR_MUSIC_LOOP:
                     if(audio_messages.front().get_args() == "enable") loop_music = true;
@@ -184,7 +208,48 @@ inline void audio_manager::run(void) {
                     }
                     break;
 
-                /* ***  Voice controls  *** */
+                /* ***  Mixer 2 - Sample controls  *** */
+                //  cmd:  load_sample - args:  sample_num ; file - Load a sample
+                case CMD_STR_LOAD_SAMPLE:
+                    pos = std::stoi(audio_messages.front().get_split_args()[0]);
+                    if(pos < 0 || pos >= MAX_SAMPLES) break;
+                    if(sample_loaded[pos]) true; //  unload first
+                    //  Load
+                    sample_loaded[pos] = true;
+                    sample_playing[pos] = false;
+                    break;
+
+                //  cmd:  unload_sample - arg:  sample_num - Unload sample if one is loaded
+                case CMD_STR_UNLOAD_SAMPLE:
+                    pos = std::stoi(audio_messages.front().get_args());
+                    if(pos < 0 || pos >= MAX_SAMPLES) break;
+                    if(!sample_loaded[pos]) break;
+                    //  Unload
+                    sample_loaded[pos] = false;
+                    sample_playing[pos] = false;
+                    break;
+
+                //  cmd:  play_sample - arg:  sample_num - Start playing loaded sample
+                case CMD_STR_PLAY_SAMPLE:
+                    pos = std::stoi(audio_messages.front().get_args());
+                    if(pos < 0 || pos >= MAX_SAMPLES) break;
+                    if(!sample_loaded[pos]) break;
+                    if(sample_playing[pos]) break;
+                    al_play_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
+                    sample_playing[pos] = true;
+                    break;
+
+                //  cmd:  stop_sample - arg:  sample_num - Stop playing loaded sample
+                case CMD_STR_STOP_SAMPLE:
+                    pos = std::stoi(audio_messages.front().get_args());
+                    if(pos < 0 || pos >= MAX_SAMPLES) break;
+                    if(!sample_loaded[pos]) break;
+                    if(!sample_playing[pos]) break;
+                    al_stop_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
+                    sample_playing[pos] = false;
+                    break;
+
+                /* ***  Mixer 3 - Voice controls  *** */
                 //  cmd:  play_voice - arg:  file.name - Load a file and play in a stream
                 case CMD_STR_PLAY_VOICE:
                     //  If something's playing, stop it first
@@ -219,7 +284,7 @@ inline void audio_manager::run(void) {
                     }
                     break;
 
-                /* ***  Ambiance controls  *** */
+                /* ***  Mixer 4 - Ambiance controls  *** */
                 //  cmd:  ambiance_loop - arg:  enable/disable - Turn music looping on or off
                 case CMD_STR_AMBIANCE_LOOP:
                     if(audio_messages.front().get_args() == "enable") loop_ambiance = true;
@@ -280,10 +345,13 @@ inline void audio_manager::run(void) {
             al_rewind_audio_stream(ambiance_stream);
             al_set_audio_stream_playing(ambiance_stream, true);
         }
-
+        //  Reset pos
+        pos = 0;
     }  //  End while(is_running() == true)
 
     //  Cleanup local objects
+    for(int i = 0; i < MAX_SAMPLES; i++) al_destroy_sample_instance(AL_SAMPLE_INSTANCES[i].instance);
+
     al_destroy_audio_stream(music_stream);
     al_destroy_audio_stream(ambiance_stream);
     al_destroy_audio_stream(voice_stream);

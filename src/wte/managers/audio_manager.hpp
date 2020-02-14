@@ -42,11 +42,11 @@ namespace mgr
   As messages are placed in the deck, take them from the top and process.
 
   The manager creates the following mixers:
-  Mixer Main - All other mixers attach to this
-  Mixer 1 - Play music
-  Mixer 2 - Play samples (has set number of samples)
-  Mixer 3 - Play voice
-  Mixer 4 - Play ambiance
+  Mixer Main - All other mixers attach to this.
+  Mixer 1 - Play music - Load a file and play in a loop.  Looping can be disabled.
+  Mixer 2 - Play samples - Has set number of samples that can be loaded in.
+  Mixer 3 - Play voice - Load a file and play once.
+  Mixer 4 - Play ambiance - Load a file and play in a loop.  Looping can be disabled.
 */
 class audio_manager final : public manager<audio_manager>, public make_thread {
     public:
@@ -373,7 +373,8 @@ inline void audio_manager::run(void) {
     }  //  End while(is_running() == true)
 
     //  Cleanup local objects
-    for(int i = 0; i < MAX_SAMPLES; i++) al_destroy_sample_instance(AL_SAMPLE_INSTANCES[i].instance);
+    for(pos = 0; pos < MAX_SAMPLES; pos++) al_destroy_sample(AL_SAMPLES[pos].sample);
+    for(pos = 0; pos < MAX_SAMPLES; pos++) al_destroy_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
 
     al_destroy_audio_stream(music_stream);
     al_destroy_audio_stream(ambiance_stream);

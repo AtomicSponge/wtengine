@@ -7,6 +7,8 @@
 
   Handle playback of audio in its own thread
   Waits for messages to be loaded into the audio deck
+
+  NOTE:  NEEDS TESTING!!!
 */
 
 #ifndef WTE_MGR_AUDIO_MANAGER_HPP
@@ -33,35 +35,42 @@ namespace mgr
 
 //!  Audio Manager
 /*!
-  Handles audio messages in a thread
+  Handles audio messages in a thread.
+  Initializes the Allegro audio and Allegro codec addons durring construction.
+  Messages get passed from the main engine loop via transfer_messages().
+  The Audio Manager is then implemented as a thread, creating local Allegro objects.
+  As messages are placed in the deck, take them from the top and process.
 
+  The manager creates the following mixers:
   Mixer Main - All other mixers attach to this
   Mixer 1 - Play music
-  Mixer 2 - Play sound effects
-  Mixer 3 - Voice
+  Mixer 2 - Play samples (has set number of samples)
+  Mixer 3 - Play voice
   Mixer 4 - Play ambiance
 */
 class audio_manager final : public manager<audio_manager>, public make_thread {
     public:
-        //!  Audio Manager Constructor.
-        //!  Clears the internal audio deck.
+        //!  Audio Manager Constructor.  Configures the Allegro audio addons.
+        //!  Clears the internal audio deck and maps the audio commands.
         inline audio_manager() {
+            //  Map the audio commands
+            //  Mixer 1
             map_cmd_str_values["music_loop"] = CMD_STR_MUSIC_LOOP;
             map_cmd_str_values["play_music"] = CMD_STR_PLAY_MUSIC;
             map_cmd_str_values["stop_music"] = CMD_STR_STOP_MUSIC;
             map_cmd_str_values["pause_music"] = CMD_STR_PAUSE_MUSIC;
             map_cmd_str_values["unpause_music"] = CMD_STR_UNPAUSE_MUSIC;
-
+            //  Mixer 2
             map_cmd_str_values["load_sample"] = CMD_STR_LOAD_SAMPLE;
             map_cmd_str_values["unload_sample"] = CMD_STR_UNLOAD_SAMPLE;
             map_cmd_str_values["play_sample"] = CMD_STR_PLAY_SAMPLE;
             map_cmd_str_values["stop_sample"] = CMD_STR_STOP_SAMPLE;
-
+            //  Mixer 3
             map_cmd_str_values["play_voice"] = CMD_STR_PLAY_VOICE;
             map_cmd_str_values["stop_voice"] = CMD_STR_STOP_VOICE;
             map_cmd_str_values["pause_voice"] = CMD_STR_PAUSE_VOICE;
             map_cmd_str_values["unpause_voice"] = CMD_STR_UNPAUSE_VOICE;
-
+            //  Mixer 4
             map_cmd_str_values["ambiance_loop"] = CMD_STR_AMBIANCE_LOOP;
             map_cmd_str_values["play_ambiance"] = CMD_STR_PLAY_AMBIANCE;
             map_cmd_str_values["stop_ambiance"] = CMD_STR_STOP_AMBIANCE;
@@ -72,7 +81,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             al_init_acodec_addon();
         }
 
-        //!  Audio Manager Destructor.
+        //!  Audio Manager Destructor.  Uninstalls Allegro audio addons.
         //!  Clears the internal audio deck.
         inline ~audio_manager() {
             al_uninstall_audio();
@@ -83,8 +92,8 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         //!  Take a vector of messages and pass them into the audio messages deck
         inline void transfer_messages(const message_container messages) {
             audio_messages.insert(audio_messages.end(),
-                                std::make_move_iterator(messages.begin()),
-                                std::make_move_iterator(messages.end()));
+                                  std::make_move_iterator(messages.begin()),
+                                  std::make_move_iterator(messages.end()));
         }
 
     private:
@@ -93,16 +102,17 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
 
         //  Used for switching on audio messages:
         enum CMD_STR_VALUE {
+            //  Mixer 1
             CMD_STR_MUSIC_LOOP,
             CMD_STR_PLAY_MUSIC,      CMD_STR_STOP_MUSIC,
             CMD_STR_PAUSE_MUSIC,     CMD_STR_UNPAUSE_MUSIC,
-
+            //  Mixer 2
             CMD_STR_LOAD_SAMPLE,     CMD_STR_UNLOAD_SAMPLE,
             CMD_STR_PLAY_SAMPLE,     CMD_STR_STOP_SAMPLE,
-
+            //  Mixer 3
             CMD_STR_PLAY_VOICE,      CMD_STR_STOP_VOICE,
             CMD_STR_PAUSE_VOICE,     CMD_STR_UNPAUSE_VOICE,
-
+            //  Mixer 4
             CMD_STR_AMBIANCE_LOOP,
             CMD_STR_PLAY_AMBIANCE,      CMD_STR_STOP_AMBIANCE,
             CMD_STR_PAUSE_AMBIANCE,     CMD_STR_UNPAUSE_AMBIANCE
@@ -131,14 +141,17 @@ inline void audio_manager::run(void) {
     ALLEGRO_AUDIO_STREAM* ambiance_stream = NULL;
     ALLEGRO_AUDIO_STREAM* voice_stream = NULL;
 
+    struct al_samples {
+        ALLEGRO_SAMPLE* sample;
+    } AL_SAMPLES[MAX_SAMPLES];
+
     struct al_sample_instances {
         ALLEGRO_SAMPLE_INSTANCE* instance;
     } AL_SAMPLE_INSTANCES[MAX_SAMPLES];
 
     int pos = 0;
 
-    for(pos = 0; pos < MAX_SAMPLES; pos++) AL_SAMPLE_INSTANCES[pos].instance = al_create_sample_instance(NULL);
-
+    //  Flags for checking various states
     //  Music & ambiance looping on by default
     bool music_loaded = false, music_paused = false, loop_music = true;
     bool ambiance_loaded = false, ambiance_paused = false, loop_ambiance = true;
@@ -146,16 +159,23 @@ inline void audio_manager::run(void) {
 
     bool sample_loaded[MAX_SAMPLES], sample_playing[MAX_SAMPLES];
 
+    //  Set sample flags all to false
     for(pos = 0; pos < MAX_SAMPLES; pos++) sample_loaded[pos] = false;
     for(pos = 0; pos < MAX_SAMPLES; pos++) sample_playing[pos] = false;
 
+    //  Set up the mixers
     al_attach_mixer_to_voice(mixer_main, voice);
     al_attach_mixer_to_mixer(mixer_1, mixer_main);
     al_attach_mixer_to_mixer(mixer_2, mixer_main);
     al_attach_mixer_to_mixer(mixer_3, mixer_main);
     al_attach_mixer_to_mixer(mixer_4, mixer_main);
 
-    for(pos = 0; pos < MAX_SAMPLES; pos++) al_attach_sample_instance_to_mixer(AL_SAMPLE_INSTANCES[pos].instance, mixer_2);
+    //  Create sample instances and attach to mixer 2
+    for(pos = 0; pos < MAX_SAMPLES; pos++) AL_SAMPLES[pos].sample = NULL;
+    for(pos = 0; pos < MAX_SAMPLES; pos++)
+        AL_SAMPLE_INSTANCES[pos].instance = al_create_sample_instance(AL_SAMPLES[pos].sample);
+    for(pos = 0; pos < MAX_SAMPLES; pos++)
+        al_attach_sample_instance_to_mixer(AL_SAMPLE_INSTANCES[pos].instance, mixer_2);
 
     al_set_default_mixer(mixer_main);
 
@@ -212,19 +232,22 @@ inline void audio_manager::run(void) {
                 //  cmd:  load_sample - args:  sample_num ; file - Load a sample
                 case CMD_STR_LOAD_SAMPLE:
                     pos = std::stoi(audio_messages.front().get_split_args()[0]);
-                    if(pos < 0 || pos >= MAX_SAMPLES) break;
-                    if(sample_loaded[pos]) true; //  unload first
-                    //  Load
-                    sample_loaded[pos] = true;
+                    if(pos < 0 || pos >= MAX_SAMPLES) break;  //  Out of sample range, end
+                    if(sample_loaded[pos]) al_destroy_sample(AL_SAMPLES[pos].sample);
+                    sample_loaded[pos] = false;
                     sample_playing[pos] = false;
+                    AL_SAMPLES[pos].sample = al_load_sample(("data\\" + audio_messages.front().get_split_args()[1]).c_str());
+                    if(!AL_SAMPLES[pos].sample) break;  //  Failed to load sample, end
+                    //al_set_sample(AL_SAMPLE_INSTANCES[pos].instance, AL_SAMPLES[pos].sample);
+                    sample_loaded[pos] = true;
                     break;
 
                 //  cmd:  unload_sample - arg:  sample_num - Unload sample if one is loaded
                 case CMD_STR_UNLOAD_SAMPLE:
                     pos = std::stoi(audio_messages.front().get_args());
-                    if(pos < 0 || pos >= MAX_SAMPLES) break;
-                    if(!sample_loaded[pos]) break;
-                    //  Unload
+                    if(pos < 0 || pos >= MAX_SAMPLES) break;  //  Out of sample range, end
+                    if(!sample_loaded[pos]) break;  //  Sample not loaded, end
+                    al_destroy_sample(AL_SAMPLES[pos].sample);
                     sample_loaded[pos] = false;
                     sample_playing[pos] = false;
                     break;
@@ -232,9 +255,9 @@ inline void audio_manager::run(void) {
                 //  cmd:  play_sample - arg:  sample_num - Start playing loaded sample
                 case CMD_STR_PLAY_SAMPLE:
                     pos = std::stoi(audio_messages.front().get_args());
-                    if(pos < 0 || pos >= MAX_SAMPLES) break;
-                    if(!sample_loaded[pos]) break;
-                    if(sample_playing[pos]) break;
+                    if(pos < 0 || pos >= MAX_SAMPLES) break;  //  Out of sample range, end
+                    if(!sample_loaded[pos]) break;  //  Sample not loaded, end
+                    if(sample_playing[pos]) break;  //  Sample already playing, end
                     al_play_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
                     sample_playing[pos] = true;
                     break;
@@ -242,9 +265,9 @@ inline void audio_manager::run(void) {
                 //  cmd:  stop_sample - arg:  sample_num - Stop playing loaded sample
                 case CMD_STR_STOP_SAMPLE:
                     pos = std::stoi(audio_messages.front().get_args());
-                    if(pos < 0 || pos >= MAX_SAMPLES) break;
-                    if(!sample_loaded[pos]) break;
-                    if(!sample_playing[pos]) break;
+                    if(pos < 0 || pos >= MAX_SAMPLES) break;  //  Out of sample range, end
+                    if(!sample_loaded[pos]) break;  //  Sample not loaded, end
+                    if(!sample_playing[pos]) break;  //  Sample not playing, end
                     al_stop_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
                     sample_playing[pos] = false;
                     break;

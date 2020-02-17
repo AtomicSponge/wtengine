@@ -5,7 +5,7 @@
 
   See LICENSE.txt for copyright information
 
-  Global defines for WTE engine
+  Global defines for WTEngine
 */
 
 #ifndef WTE_GLOBAL_DEFINES_HPP

@@ -246,7 +246,7 @@ inline void audio_manager::run(void) {
                 //  cmd:  unload_sample - arg:  sample_num - Unload sample if one is loaded.
                 //  If arg == "all" unload all samples.
                 case CMD_STR_UNLOAD_SAMPLE:
-                    //  Unload all samples
+                    //  Unload all samples.
                     if(audio_messages.front().get_args() == "all") {
                         for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) {
                             al_destroy_sample(AL_SAMPLES[pos].sample);

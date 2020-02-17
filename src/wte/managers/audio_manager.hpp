@@ -164,7 +164,7 @@ inline void audio_manager::run(void) {
     for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) sample_loaded[pos] = false;
     for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) sample_playing[pos] = false;
 
-    //  Set up the mixers
+    //  Set up the mixers.
     al_attach_mixer_to_voice(mixer_main, voice);
     al_attach_mixer_to_mixer(mixer_1, mixer_main);
     al_attach_mixer_to_mixer(mixer_2, mixer_main);
@@ -330,7 +330,7 @@ inline void audio_manager::run(void) {
                 case CMD_STR_PLAY_AMBIANCE:
                     //  If something's playing, stop it first.
                     if(al_get_mixer_playing(mixer_4)) al_destroy_audio_stream(ambiance_stream);
-                    //  Load stream and play
+                    //  Load stream and play.
                     ambiance_stream = al_load_audio_stream(("data\\" + audio_messages.front().get_args()).c_str(), 4, 2048);
                     if(!ambiance_stream) break;  //  Didn't load audio, end.
                     al_attach_audio_stream_to_mixer(ambiance_stream, mixer_4);

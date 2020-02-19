@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
 
     //  Initialize game object
     wte::wte_main my_game;
-    my_game.wte_init();
+    my_game.wte_load();
 
     //  Run the game loop
     my_game.do_game();

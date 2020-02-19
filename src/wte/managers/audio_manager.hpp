@@ -50,7 +50,7 @@ namespace mgr
 */
 class audio_manager final : public manager<audio_manager>, public make_thread {
     public:
-        //!  Audio Manager Constructor.  Configures the Allegro audio addons.
+        //!  Configures the Allegro audio addons.
         //!  Clears the internal audio deck and maps the audio commands.
         inline audio_manager() {
             //  Map the audio commands.
@@ -81,7 +81,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             al_init_acodec_addon();
         }
 
-        //!  Audio Manager Destructor.  Uninstalls Allegro audio addons.
+        //!  Uninstalls Allegro audio addons.
         //!  Clears the internal audio deck and audio command map.
         inline ~audio_manager() {
             al_uninstall_audio();
@@ -123,6 +123,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         std::deque<message> audio_messages;
 };
 
+//  Used to restrict class to a single instance.
 template <> inline bool audio_manager::manager<audio_manager>::initialized = false;
 
 /*!

@@ -41,14 +41,57 @@ class wte_main final {
     public:
         //!  Force single instance, set initialized flag to true.
         //!  Throws a runtime error if another instance is called.
-        inline wte_main() : init_called(false) {
+        inline wte_main() : load_called(false) {
             if(initialized == true) throw std::runtime_error("WTEngine already running!");
             initialized = true;
+
+            //  Initialize Allegro
+            if(!al_init()) throw std::runtime_error("Allegro failed to load!"); //  Allegro didn't load - Exit
+
+            //  Initialize additional Allegro components
+            if(!al_install_keyboard()) throw std::runtime_error("Failed to detect keyboard!");
+            if(al_install_joystick()) wte_config::joystick_detected = true;
+            if(!al_init_image_addon()) throw std::runtime_error("Failed to load Allegro image addon!");
+            if(!al_init_font_addon()) throw std::runtime_error("Failed to load Allegro font addon!");
+
+            display = al_create_display(wte_config::screen_width, wte_config::screen_height);
+            if(!display) throw std::runtime_error("Failed to configure display!"); //  Failed to set display - Exit
+
+            main_timer = al_create_timer(1.0 / wte_config::TICKS_PER_SECOND);
+            if(!main_timer) throw std::runtime_error("Failed to create timer!"); //  Failed to create timer - Exit
+
+            main_queue = al_create_event_queue();
+            if(!main_queue) throw std::runtime_error("Failed to create event queue!"); //  Failed to create event queue - Exit
+
+            //  Register event sources
+            al_register_event_source(main_queue, al_get_display_event_source(display));
+            al_register_event_source(main_queue, al_get_timer_event_source(main_timer));
+
+            //  Map commands to enums for switching over in the system msg handler
+            map_cmd_str_values["exit"] = CMD_STR_EXIT;
+            map_cmd_str_values["alert"] = CMD_STR_ALERT;
+            map_cmd_str_values["new_game"] = CMD_STR_NEW_GAME;
+            map_cmd_str_values["end_game"] = CMD_STR_END_GAME;
+            map_cmd_str_values["open_menu"] = CMD_STR_OPEN_MENU;
+            map_cmd_str_values["close_menu"] = CMD_STR_CLOSE_MENU;
+            map_cmd_str_values["enable_system"] = CMD_STR_ENABLE_SYSTEM;
+            map_cmd_str_values["disable_system"] = CMD_STR_DISABLE_SYSTEM;
+
+            //  Set default colors for alerts
+            alert::set_font_color(WTE_COLOR_WHITE);
+            alert::set_bg_color(WTE_COLOR_RED);
         }
+
         //!  Frees up instance, set initialized flag to false.
         //!  Also makes sure to unload the engine.
         inline ~wte_main() {
-            if(init_called == true) wte_unload();
+            if(load_called == true) wte_unload();
+
+            al_destroy_timer(main_timer);
+            al_destroy_event_queue(main_queue);
+            al_destroy_display(display);
+            al_uninstall_system();
+
             initialized = false;
         }
 
@@ -57,10 +100,31 @@ class wte_main final {
         //!  Remove assignment operator
         void operator=(wte_main const&) = delete;
 
-        //!  Call first to initialize the engine
-        void wte_init(void);
+        //!  Call first to load the engine
+        inline void wte_load(void) {
+            //  Start the input & audio threads
+            input_th.start();
+            audio_th.start();
+
+            //  Initialize renderer and menu manager
+            screen.initialize(al_create_builtin_font());
+            menus.initialize(al_create_builtin_font(), WTE_COLOR_WHITE, WTE_COLOR_DARKPURPLE);
+
+            //  Load user configured menus
+            load_menus();
+
+            //  Init done, set flag to true
+            load_called = true;
+        }
+
         //!  Call to unload the engine
-        void wte_unload(void);
+        inline void wte_unload(void) {
+            input_th.stop();
+            audio_th.stop();
+
+            load_called = false;
+        }
+    
         //!  Call to start up the main game loop
         void do_game(void);
 
@@ -107,7 +171,7 @@ class wte_main final {
         };
         std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
 
-        bool init_called;        //  Flag to make sure wte_init was called
+        bool load_called;        //  Flag to make sure wte_load was called
 
         static bool initialized; //  Restrict to one instance of the engine running
 };
@@ -117,76 +181,6 @@ inline ALLEGRO_TIMER* wte_main::main_timer = NULL;
 inline ALLEGRO_EVENT_QUEUE* wte_main::main_queue = NULL;
 
 inline bool wte_main::initialized = false;
-
-/*!
-  Register everything for the engine to run
-*/
-inline void wte_main::wte_init(void) {
-    //  Initialize Allegro and it's various objects
-    if(!al_init()) throw std::runtime_error("Allegro failed to load!"); //  Allegro didn't load - Exit
-
-    display = al_create_display(wte_config::screen_width, wte_config::screen_height);
-    if(!display) throw std::runtime_error("Failed to configure display!"); //  Failed to set display - Exit
-
-    main_timer = al_create_timer(1.0 / wte_config::TICKS_PER_SECOND);
-    if(!main_timer) throw std::runtime_error("Failed to create timer!"); //  Failed to create timer - Exit
-
-    main_queue = al_create_event_queue();
-    if(!main_queue) throw std::runtime_error("Failed to create event queue!"); //  Failed to create event queue - Exit
-
-    //  Initialize additional Allegro components
-    al_install_keyboard();
-    al_install_joystick();
-    al_init_image_addon();
-    al_init_font_addon();
-
-    //  Register event sources
-    al_register_event_source(main_queue, al_get_display_event_source(display));
-    al_register_event_source(main_queue, al_get_timer_event_source(main_timer));
-
-    //  Start the input & audio threads
-    input_th.start();
-    audio_th.start();
-
-    //  Initialize renderer and menu manager
-    screen.initialize(al_create_builtin_font());
-    menus.initialize(al_create_builtin_font(), WTE_COLOR_WHITE, WTE_COLOR_DARKPURPLE);
-
-    //  Load user configured menus
-    load_menus();
-
-    //  Map commands to enums for switching over in the system msg handler
-    map_cmd_str_values["exit"] = CMD_STR_EXIT;
-    map_cmd_str_values["alert"] = CMD_STR_ALERT;
-    map_cmd_str_values["new_game"] = CMD_STR_NEW_GAME;
-    map_cmd_str_values["end_game"] = CMD_STR_END_GAME;
-    map_cmd_str_values["open_menu"] = CMD_STR_OPEN_MENU;
-    map_cmd_str_values["close_menu"] = CMD_STR_CLOSE_MENU;
-    map_cmd_str_values["enable_system"] = CMD_STR_ENABLE_SYSTEM;
-    map_cmd_str_values["disable_system"] = CMD_STR_DISABLE_SYSTEM;
-
-    //  Set default colors for alerts
-    alert::set_font_color(WTE_COLOR_WHITE);
-    alert::set_bg_color(WTE_COLOR_RED);
-
-    //  Init done, set flag to true
-    init_called = true;
-}
-
-/*!
-  Shut down the engine
-*/
-inline void wte_main::wte_unload(void) {
-    input_th.stop();
-    audio_th.stop();
-
-    al_destroy_timer(main_timer);
-    al_destroy_event_queue(main_queue);
-    al_destroy_display(display);
-    al_uninstall_system();
-
-    init_called = false;
-}
 
 /*!
   Call every time a new game is starting
@@ -233,7 +227,7 @@ inline void wte_main::unload_game(void) {
   The main game loop
 */
 inline void wte_main::do_game(void) {
-    if(init_called == false) throw std::runtime_error("WTEngine not initialized!");
+    if(load_called == false) throw std::runtime_error("WTEngine not initialized!");
 
     bool queue_not_empty = false;
     message_container temp_msgs;
@@ -311,7 +305,7 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
 
             //  cmd:  alert - Display an alert
             case CMD_STR_ALERT:
-                alert::set_alert(std::string(it->get_args()));
+                alert::set_alert(it->get_args());
                 it = sys_msgs.erase(it);
                 break;
 
@@ -334,28 +328,28 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
             //  If the menu doesn't exist, the default will be opened
             case CMD_STR_OPEN_MENU:
                 engine_flags::set(GAME_MENU_OPENED);
-                menus.open_menu(std::string(it->get_args()));
+                menus.open_menu(it->get_args());
                 it = sys_msgs.erase(it);
                 break;
 
             //  cmd:  close_menu argstring - close the opened menu
             //  If argstring = "all", close all opened menus
             case CMD_STR_CLOSE_MENU:
-                if(std::string(it->get_args()) == "all") menus.reset();
+                if(it->get_args() == "all") menus.reset();
                 else menus.close_menu();
                 it = sys_msgs.erase(it);
                 break;
 
             //  cmd:  enable_system - Turn a system on for processing
             case CMD_STR_ENABLE_SYSTEM:
-                systems.enable_system(std::string(it->get_args()));
+                systems.enable_system(it->get_args());
                 it = sys_msgs.erase(it);
                 break;
 
             //  cmd:  disable_system - Turn a system off so it's run member is skipped
             //  Message dispatching is still processed
             case CMD_STR_DISABLE_SYSTEM:
-                systems.disable_system(std::string(it->get_args()));
+                systems.disable_system(it->get_args());
                 it = sys_msgs.erase(it);
                 break;
 

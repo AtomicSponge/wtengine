@@ -4,8 +4,6 @@
   File:  wte_main.hpp
 
   See LICENSE.txt for copyright information
-
-  The main engine class.  Extend this to create your game loop.
 */
 
 #ifndef WTE_MAIN_HPP

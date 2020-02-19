@@ -46,7 +46,7 @@ class wte_main final {
             initialized = true;
 
             //  Initialize Allegro
-            if(!al_init()) throw std::runtime_error("Allegro failed to load!"); //  Allegro didn't load - Exit
+            if(!al_init()) throw std::runtime_error("Allegro failed to load!");
 
             //  Initialize additional Allegro components
             if(!al_install_keyboard()) throw std::runtime_error("Failed to detect keyboard!");
@@ -55,13 +55,13 @@ class wte_main final {
             if(!al_init_font_addon()) throw std::runtime_error("Failed to load Allegro font addon!");
 
             display = al_create_display(wte_config::screen_width, wte_config::screen_height);
-            if(!display) throw std::runtime_error("Failed to configure display!"); //  Failed to set display - Exit
+            if(!display) throw std::runtime_error("Failed to configure display!");
 
             main_timer = al_create_timer(1.0 / wte_config::TICKS_PER_SECOND);
-            if(!main_timer) throw std::runtime_error("Failed to create timer!"); //  Failed to create timer - Exit
+            if(!main_timer) throw std::runtime_error("Failed to create timer!");
 
             main_queue = al_create_event_queue();
-            if(!main_queue) throw std::runtime_error("Failed to create event queue!"); //  Failed to create event queue - Exit
+            if(!main_queue) throw std::runtime_error("Failed to create event queue!");
 
             //  Register event sources
             al_register_event_source(main_queue, al_get_display_event_source(display));

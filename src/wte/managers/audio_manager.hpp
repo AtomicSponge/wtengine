@@ -157,8 +157,6 @@ inline void audio_manager::run(void) {
     int pos = 0;
 
     //  Flags for checking various states.
-    bool music_loaded = false, music_paused = false;
-    bool ambiance_loaded = false, ambiance_paused = false;
     bool voice_loaded = false, voice_paused = false;
 
     bool sample_loaded[WTE_MAX_SAMPLES], sample_playing[WTE_MAX_SAMPLES];
@@ -182,10 +180,6 @@ inline void audio_manager::run(void) {
         al_attach_sample_instance_to_mixer(AL_SAMPLE_INSTANCES[pos].instance, mixer_2);
 
     al_set_default_mixer(mixer_main);
-
-    //al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_LOOP);
-    //al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
-    //al_set_audio_stream_playmode(voice_stream, ALLEGRO_PLAYMODE_ONCE);
 
     //  Reset pos
     pos = 0;
@@ -212,30 +206,23 @@ inline void audio_manager::run(void) {
                     if(!music_stream) break;  //  Didn't load audio, end.
                     al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_LOOP);
                     al_attach_audio_stream_to_mixer(music_stream, mixer_1);
-                    music_loaded = true;
-                    music_paused = false;
                     break;
 
                 //  cmd:  stop_music - Stop current music from playing.
                 case CMD_STR_STOP_MUSIC:
                     al_destroy_audio_stream(music_stream);
-                    music_loaded = false;
                     break;
 
                 //  cmd:  pause_music - Pause music if it is playing.
                 case CMD_STR_PAUSE_MUSIC:
-                    if(music_loaded && al_get_mixer_playing(mixer_1)) {
-                        al_set_audio_stream_playing(music_stream, false);
-                        music_paused = true;
-                    }
+                    if(!music_stream) break;
+                    al_set_audio_stream_playing(music_stream, false);
                     break;
 
                 //  cmd:  unpause_music - Unpause music if it is paused.
                 case CMD_STR_UNPAUSE_MUSIC:
-                    if(music_loaded && !al_get_mixer_playing(mixer_1)) {
-                        al_set_audio_stream_playing(music_stream, true);
-                        music_paused = false;
-                    }
+                    if(!music_stream) break;
+                    al_set_audio_stream_playing(music_stream, true);
                     break;
 
                 /* ***  Mixer 2 - Sample controls  *** */
@@ -346,30 +333,23 @@ inline void audio_manager::run(void) {
                     if(!ambiance_stream) break;  //  Didn't load audio, end.
                     al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
                     al_attach_audio_stream_to_mixer(ambiance_stream, mixer_4);
-                    ambiance_loaded = true;
-                    ambiance_paused = false;
                     break;
 
                 //  cmd:  stop_ambiance - Stop current ambiance from playing.
                 case CMD_STR_STOP_AMBIANCE:
                     al_destroy_audio_stream(ambiance_stream);
-                    ambiance_loaded = false;
                     break;
 
                 //  cmd:  pause_ambiance - Pause ambiance if it is playing.
                 case CMD_STR_PAUSE_AMBIANCE:
-                    if(ambiance_loaded && al_get_mixer_playing(mixer_4)) {
-                        al_set_audio_stream_playing(ambiance_stream, false);
-                        ambiance_paused = true;
-                    }
+                    if(!ambiance_stream) break;
+                    al_set_audio_stream_playing(ambiance_stream, false);
                     break;
 
                 //  cmd:  unpause_ambiance - Unpause ambiance if it is paused.
                 case CMD_STR_UNPAUSE_AMBIANCE:
-                    if(ambiance_loaded && !al_get_mixer_playing(mixer_4)) {
-                        al_set_audio_stream_playing(ambiance_stream, true);
-                        ambiance_paused = false;
-                    }
+                    if(!ambiance_stream) break;
+                    al_set_audio_stream_playing(ambiance_stream, true);
                     break;
 
                 //  cmd:  new_cmd - description.

@@ -48,9 +48,9 @@ class wte_main final {
 
             //  Initialize additional Allegro components
             if(!al_install_keyboard()) throw std::runtime_error("Failed to detect keyboard!");
-            if(al_install_joystick()) wte_config::joystick_detected = true;
             if(!al_init_image_addon()) throw std::runtime_error("Failed to load Allegro image addon!");
             if(!al_init_font_addon()) throw std::runtime_error("Failed to load Allegro font addon!");
+            al_install_joystick();
 
             display = al_create_display(wte_config::screen_width, wte_config::screen_height);
             if(!display) throw std::runtime_error("Failed to configure display!");
@@ -225,7 +225,7 @@ inline void wte_main::unload_game(void) {
   The main game loop
 */
 inline void wte_main::do_game(void) {
-    if(load_called == false) throw std::runtime_error("WTEngine not initialized!");
+    if(load_called == false) wte_load();  //  Auto call load.
 
     bool queue_not_empty = false;
     message_container temp_msgs;

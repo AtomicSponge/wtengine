@@ -33,8 +33,6 @@ class wte_config {
         //!  Set screen height
         static unsigned int screen_height;
 
-        static bool joystick_detected;
-
     private:
         inline wte_config() {};
         inline ~wte_config() {};
@@ -42,8 +40,6 @@ class wte_config {
 
 inline unsigned int wte_config::screen_width;
 inline unsigned int wte_config::screen_height;
-
-inline bool wte_config::joystick_detected = false;
 
 } //  end namespace wte
 

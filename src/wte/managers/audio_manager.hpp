@@ -18,6 +18,7 @@
 
 #include <string>
 #include <deque>
+#include <stdexcept>
 
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
@@ -53,6 +54,9 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         //!  Configures the Allegro audio addons.
         //!  Clears the internal audio deck and maps the audio commands.
         inline audio_manager() {
+            if(!al_install_audio()) throw std::runtime_error("Failed to load audio!");
+            if(!al_init_acodec_addon()) throw std::runtime_error("Failed to load Allegro audio addon!");
+
             //  Map the audio commands.
             //  Mixer 1
             map_cmd_str_values["music_loop"] = CMD_STR_MUSIC_LOOP;
@@ -76,9 +80,8 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             map_cmd_str_values["stop_ambiance"] = CMD_STR_STOP_AMBIANCE;
             map_cmd_str_values["pause_ambiance"] = CMD_STR_PAUSE_AMBIANCE;
             map_cmd_str_values["unpause_ambiance"] = CMD_STR_UNPAUSE_AMBIANCE;
+
             audio_messages.clear();
-            al_install_audio();
-            al_init_acodec_addon();
         }
 
         //!  Uninstalls Allegro audio addons.
@@ -154,9 +157,8 @@ inline void audio_manager::run(void) {
     int pos = 0;
 
     //  Flags for checking various states.
-    //  Music & ambiance looping on by default.
-    bool music_loaded = false, music_paused = false, loop_music = true;
-    bool ambiance_loaded = false, ambiance_paused = false, loop_ambiance = true;
+    bool music_loaded = false, music_paused = false;
+    bool ambiance_loaded = false, ambiance_paused = false;
     bool voice_loaded = false, voice_paused = false;
 
     bool sample_loaded[WTE_MAX_SAMPLES], sample_playing[WTE_MAX_SAMPLES];
@@ -181,6 +183,10 @@ inline void audio_manager::run(void) {
 
     al_set_default_mixer(mixer_main);
 
+    //al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_LOOP);
+    //al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
+    //al_set_audio_stream_playmode(voice_stream, ALLEGRO_PLAYMODE_ONCE);
+
     //  Reset pos
     pos = 0;
 
@@ -192,8 +198,9 @@ inline void audio_manager::run(void) {
                 /* ***  Mixer 1 - Music controls  *** */
                 //  cmd:  music_loop - arg:  enable/disable - Turn music looping on or off.
                 case CMD_STR_MUSIC_LOOP:
-                    if(audio_messages.front().get_args() == "enable") loop_music = true;
-                    if(audio_messages.front().get_args() == "disable") loop_music = false;
+                    if(!music_stream) break;
+                    if(audio_messages.front().get_args() == "enable") al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_LOOP);
+                    if(audio_messages.front().get_args() == "disable") al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_ONCE);
                     break;
 
                 //  cmd:  play_music - arg:  file.name - Load a file and play in a stream.
@@ -203,6 +210,7 @@ inline void audio_manager::run(void) {
                     //  Load stream and play.
                     music_stream = al_load_audio_stream(("data\\" + audio_messages.front().get_args()).c_str(), 4, 2048);
                     if(!music_stream) break;  //  Didn't load audio, end.
+                    al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_LOOP);
                     al_attach_audio_stream_to_mixer(music_stream, mixer_1);
                     music_loaded = true;
                     music_paused = false;
@@ -293,6 +301,7 @@ inline void audio_manager::run(void) {
                     //  Load stream and play.
                     voice_stream = al_load_audio_stream(("data\\" + audio_messages.front().get_args()).c_str(), 4, 2048);
                     if(!voice_stream) break;  //  Didn't load audio, end.
+                    al_set_audio_stream_playmode(voice_stream, ALLEGRO_PLAYMODE_ONCE);
                     al_attach_audio_stream_to_mixer(voice_stream, mixer_3);
                     voice_loaded = true;
                     voice_paused = false;
@@ -323,8 +332,9 @@ inline void audio_manager::run(void) {
                 /* ***  Mixer 4 - Ambiance controls  *** */
                 //  cmd:  ambiance_loop - arg:  enable/disable - Turn music looping on or off.
                 case CMD_STR_AMBIANCE_LOOP:
-                    if(audio_messages.front().get_args() == "enable") loop_ambiance = true;
-                    if(audio_messages.front().get_args() == "disable") loop_ambiance = false;
+                    if(!ambiance_stream) break;
+                    if(audio_messages.front().get_args() == "enable") al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
+                    if(audio_messages.front().get_args() == "disable") al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_ONCE);
                     break;
 
                 //  cmd:  play_ambiance - arg:  file.name - Load a file and play in a stream.
@@ -334,6 +344,7 @@ inline void audio_manager::run(void) {
                     //  Load stream and play.
                     ambiance_stream = al_load_audio_stream(("data\\" + audio_messages.front().get_args()).c_str(), 4, 2048);
                     if(!ambiance_stream) break;  //  Didn't load audio, end.
+                    al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
                     al_attach_audio_stream_to_mixer(ambiance_stream, mixer_4);
                     ambiance_loaded = true;
                     ambiance_paused = false;
@@ -371,16 +382,6 @@ inline void audio_manager::run(void) {
         }  //  End if(!audio_messages.empty())
 
         /* ***** AUDIO MANAGER MAINTENANCE ***** */
-        //  Keep loaded music playing on loop.
-        if(music_loaded && loop_music && !music_paused && !al_get_mixer_playing(mixer_1)) {
-            al_rewind_audio_stream(music_stream);
-            al_set_audio_stream_playing(music_stream, true);
-        }
-        //  Keep loaded ambiance playing on loop.
-        if(ambiance_loaded && loop_ambiance && !ambiance_paused && !al_get_mixer_playing(mixer_4)) {
-            al_rewind_audio_stream(ambiance_stream);
-            al_set_audio_stream_playing(ambiance_stream, true);
-        }
         //  Reset pos
         pos = 0;
     }  //  End while(is_running() == true)

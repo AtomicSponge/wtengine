@@ -67,6 +67,8 @@ inline void input_manager::run(void) {
     if(al_is_joystick_installed()) al_register_event_source(input_queue, al_get_joystick_event_source());
 
     while(is_running() == true) {
+        if(al_reconfigure_joysticks()) {}
+
         al_get_next_event(input_queue, &input_event);
 
         //  Clear any active alerts on input event

@@ -76,19 +76,19 @@ class message {
         inline const std::string get_arg(const std::size_t pos) const {
             if(pos > arglist.size()-1) return "";  //  Out of range, return empty string
             return arglist[pos];
-        }
+        };
 
         //!  Check if the event is synced to the timer
         //!  Returns false if the timer value is -1
         inline const bool is_timed_event(void) const {
             if(timer == -1) return false;
             else return true;
-        }
+        };
 
         //!  Used to sort by timer value
         bool operator<(const message& a) const {
             return timer < a.timer;
-        }
+        };
 
     private:
         int64_t timer;         //  Timer value that the message will be processed at

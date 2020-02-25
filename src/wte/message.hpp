@@ -31,44 +31,47 @@ class message {
 
         //!  Create a non-timed message
         inline message(std::string s, std::string c, std::string a) :
-                       timer(-1), sys(s), to(""), from(""), cmd(c), args(a) {
-                            std::stringstream arg_stream(args);
-                            std::string segment;
+                timer(-1), sys(s), to(""), from(""), cmd(c), args(a) {
+            std::stringstream arg_stream(args);
+            std::string segment;
 
-                            while(std::getline(arg_stream, segment, ';')) {
-                                arglist.push_back(segment);
-                            }
-                       };
+            while(std::getline(arg_stream, segment, ';')) {
+                arglist.push_back(segment);
+            }
+        };
+
         //!  Create a timed message
         inline message(int64_t e, std::string s, std::string c, std::string a) :
-                       timer(e), sys(s), to(""), from(""), cmd(c), args(a) {
-                            std::stringstream arg_stream(args);
-                            std::string segment;
+                timer(e), sys(s), to(""), from(""), cmd(c), args(a) {
+            std::stringstream arg_stream(args);
+            std::string segment;
 
-                            while(std::getline(arg_stream, segment, ';')) {
-                                arglist.push_back(segment);
-                            }
-                       };
+            while(std::getline(arg_stream, segment, ';')) {
+                arglist.push_back(segment);
+            }
+        };
+
         //!  Create a non-timed message with a to & from
         inline message(std::string s, std::string t, std::string f, std::string c, std::string a) :
-                       timer(-1), sys(s), to(t), from(f), cmd(c), args(a) {
-                            std::stringstream arg_stream(args);
-                            std::string segment;
+                timer(-1), sys(s), to(t), from(f), cmd(c), args(a) {
+            std::stringstream arg_stream(args);
+            std::string segment;
 
-                            while(std::getline(arg_stream, segment, ';')) {
-                                arglist.push_back(segment);
-                            }
-                       };
+            while(std::getline(arg_stream, segment, ';')) {
+                arglist.push_back(segment);
+            }
+        };
+
         //!  Create a timed message with a to & from
         inline message(int64_t e, std::string s, std::string t, std::string f, std::string c, std::string a) :
-                       timer(e), sys(s), to(t), from(f), cmd(c), args(a) {
-                            std::stringstream arg_stream(args);
-                            std::string segment;
+                timer(e), sys(s), to(t), from(f), cmd(c), args(a) {
+            std::stringstream arg_stream(args);
+            std::string segment;
 
-                            while(std::getline(arg_stream, segment, ';')) {
-                                arglist.push_back(segment);
-                            }
-                       };
+            while(std::getline(arg_stream, segment, ';')) {
+                arglist.push_back(segment);
+            }
+        };
 
         //!  Return the value of timer
         inline const int64_t get_timer(void) const { return timer; };

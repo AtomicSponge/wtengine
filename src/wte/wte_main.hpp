@@ -78,7 +78,7 @@ class wte_main final {
             //  Set default colors for alerts
             alert::set_font_color(WTE_COLOR_WHITE);
             alert::set_bg_color(WTE_COLOR_RED);
-        }
+        };
 
         //!  Frees up instance, set initialized flag to false.
         //!  Also makes sure to unload the engine.
@@ -91,7 +91,7 @@ class wte_main final {
             al_uninstall_system();
 
             initialized = false;
-        }
+        };
 
         //!  Remove copy constructor
         wte_main(const wte_main&) = delete;
@@ -113,7 +113,7 @@ class wte_main final {
 
             //  Init done, set flag to true
             load_called = true;
-        }
+        };
 
         //!  Call to unload the engine
         inline void wte_unload(void) {
@@ -121,7 +121,7 @@ class wte_main final {
             audio_th.stop();
 
             load_called = false;
-        }
+        };
     
         //!  Call to start up the main game loop
         void do_game(void);

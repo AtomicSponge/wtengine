@@ -82,7 +82,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             map_cmd_str_values["unpause_ambiance"] = CMD_STR_UNPAUSE_AMBIANCE;
 
             audio_messages.clear();
-        }
+        };
 
         //!  Uninstalls Allegro audio addons.
         //!  Clears the internal audio deck and audio command map.
@@ -90,14 +90,14 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             al_uninstall_audio();
             map_cmd_str_values.clear();
             audio_messages.clear();
-        }
+        };
 
         //!  Take a vector of messages and pass them into the audio messages deck.
         inline void transfer_messages(const message_container messages) {
             audio_messages.insert(audio_messages.end(),
                                   std::make_move_iterator(messages.begin()),
                                   std::make_move_iterator(messages.end()));
-        }
+        };
 
     private:
         //!  Run the audio manager in a thread.

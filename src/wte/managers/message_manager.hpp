@@ -43,16 +43,35 @@ namespace mgr
 class message_manager final : public manager<message_manager>, private engine_time {
     public:
         //!  Message queue constructor
-        message_manager();
+        //!  Clear any existing queue and start logging if debugging is enabled
+        inline message_manager() {
+            msg_queue.clear();
+
+            //  If debug mode is enabled, create a new log file
+            #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
+            std::ofstream debug_log_file;
+            debug_log_file.open("wte_debug\\wte_debug_message_manager.txt", std::ios::trunc);
+            debug_log_file << "Logging messages";
+            debug_log_file << std::endl << std::endl;
+            debug_log_file.close();
+            #endif
+        };
+
         //!  Message queue destructor
-        ~message_manager();
+        //!  Delete message queue object
+        inline ~message_manager() { msg_queue.clear(); };
+
+        //!  Adds a message object to the start of the msg_queue vector
+        //!  Then sorts if it's a timed event
+        inline void add_message(const message msg) {
+            msg_queue.insert(msg_queue.begin(), msg);
+            if(msg.is_timed_event()) std::sort(msg_queue.begin(), msg_queue.end());
+        };
 
         //!  Load a new data file into the message queue
         void new_data_file(const std::string);
-        //!  Add a message to the queue
-        void add_message(const message);
         //!  Clear the message queue
-        void clear_queue(void);
+        inline void clear_queue(void) { msg_queue.clear(); };
         //!  Get messages based on their command
         const message_container get_messages(const std::string);
 
@@ -67,30 +86,6 @@ class message_manager final : public manager<message_manager>, private engine_ti
 };
 
 template <> inline bool message_manager::manager<message_manager>::initialized = false;
-
-/*!
-  Clear any existing queue and start logging if debugging is enabled
-*/
-inline message_manager::message_manager() {
-
-    msg_queue.clear();
-
-    //  If debug mode is enabled, create a new log file
-    #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-    std::ofstream debug_log_file;
-    debug_log_file.open("wte_debug\\wte_debug_message_manager.txt", std::ios::trunc);
-    debug_log_file << "Logging messages";
-    debug_log_file << std::endl << std::endl;
-    debug_log_file.close();
-    #endif
-}
-
-/*!
-  Delete message queue object
-*/
-inline message_manager::~message_manager() {
-    msg_queue.clear();
-}
 
 /*!
   Write a message to the debug log file if debugging is enabled
@@ -149,20 +144,6 @@ inline void message_manager::new_data_file(const std::string file) {
     //  Sort the queue so timed events are in order first to last
     std::sort(msg_queue.begin(), msg_queue.end());
 }
-
-/*!
-  Adds a message object to the start of the msg_queue vector
-  Then sorts if it's a timed event
-*/
-inline void message_manager::add_message(const message msg) {
-    msg_queue.insert(msg_queue.begin(), msg);
-    if(msg.is_timed_event()) std::sort(msg_queue.begin(), msg_queue.end());
-}
-
-/*!
-  Wipe the existing message queue
-*/
-inline void message_manager::clear_queue(void) { msg_queue.clear(); }
 
 /*!
   Once events in the future are reached, break early

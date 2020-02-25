@@ -56,7 +56,7 @@ class message {
                     arglist.push_back(segment);
                 }
             }
-        }
+        };
 
         //!  Return the value of timer
         inline const int64_t get_timer(void) const { return timer; };
@@ -70,7 +70,7 @@ class message {
         inline const std::string get_cmd(void) const { return cmd; };
 
         //!  Returns the vector of the arguments
-        inline const msg_arg_list get_arglist(void) const { return arglist; }
+        inline const msg_arg_list get_arglist(void) const { return arglist; };
 
         //!  Returns a single argument by index from the argument list
         inline const std::string get_arg(const std::size_t pos) const {

@@ -31,47 +31,29 @@ class message {
 
         //!  Create a non-timed message
         inline message(std::string s, std::string c, std::string a) :
-                timer(-1), sys(s), to(""), from(""), cmd(c), args(a) {
-            std::stringstream arg_stream(args);
-            std::string segment;
-
-            while(std::getline(arg_stream, segment, ';')) {
-                arglist.push_back(segment);
-            }
-        };
+            timer(-1), sys(s), to(""), from(""), cmd(c), args(a) { split_args(a); };
 
         //!  Create a timed message
         inline message(int64_t e, std::string s, std::string c, std::string a) :
-                timer(e), sys(s), to(""), from(""), cmd(c), args(a) {
-            std::stringstream arg_stream(args);
-            std::string segment;
-
-            while(std::getline(arg_stream, segment, ';')) {
-                arglist.push_back(segment);
-            }
-        };
+            timer(e), sys(s), to(""), from(""), cmd(c), args(a) { split_args(a); };
 
         //!  Create a non-timed message with a to & from
         inline message(std::string s, std::string t, std::string f, std::string c, std::string a) :
-                timer(-1), sys(s), to(t), from(f), cmd(c), args(a) {
-            std::stringstream arg_stream(args);
-            std::string segment;
-
-            while(std::getline(arg_stream, segment, ';')) {
-                arglist.push_back(segment);
-            }
-        };
+            timer(-1), sys(s), to(t), from(f), cmd(c), args(a) { split_args(a); };
 
         //!  Create a timed message with a to & from
         inline message(int64_t e, std::string s, std::string t, std::string f, std::string c, std::string a) :
-                timer(e), sys(s), to(t), from(f), cmd(c), args(a) {
-            std::stringstream arg_stream(args);
+            timer(e), sys(s), to(t), from(f), cmd(c), args(a) { split_args(a); };
+
+        //!  Split arguments up into a vector
+        inline void split_args(const std::string a) {
+            std::stringstream arg_stream(a);
             std::string segment;
 
             while(std::getline(arg_stream, segment, ';')) {
                 arglist.push_back(segment);
             }
-        };
+        }
 
         //!  Return the value of timer
         inline const int64_t get_timer(void) const { return timer; };
@@ -110,13 +92,13 @@ class message {
         }
 
     private:
-        int64_t timer;      //  Timer value that the message will be processed at
-        std::string sys;    //  System that will process the message
-        std::string to;     //  Message to entity field
-        std::string from;   //  Message from entity field
-        std::string cmd;    //  Message command
-        std::string args;   //  Message arguments
-        msg_arg_list arglist;
+        int64_t timer;         //  Timer value that the message will be processed at
+        std::string sys;       //  System that will process the message
+        std::string to;        //  Message to entity field
+        std::string from;      //  Message from entity field
+        std::string cmd;       //  Message command
+        std::string args;      //  Message arguments
+        msg_arg_list arglist;  //  Message arguments
 };
 
 } //  namespace wte

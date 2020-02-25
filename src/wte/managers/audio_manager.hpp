@@ -175,11 +175,11 @@ inline void audio_manager::run(void) {
 
     al_set_default_mixer(mixer_main);
 
-    //  Reset pos
-    pos = 0;
-
     while(is_running() == true) {
-        /* ***** CHECK AUDIO MESSAGES AND PROCESS ***** */
+        //  Reset pos & pan
+        pos = 0;
+        pan = 0.0;
+
         if(!audio_messages.empty()) {
             //  Switch over the audio message and process.
             switch(map_cmd_str_values[audio_messages.front().get_cmd()]) {
@@ -361,11 +361,6 @@ inline void audio_manager::run(void) {
             //  Remove processed message from the deck.
             audio_messages.pop_front();
         }  //  End if(!audio_messages.empty())
-
-        /* ***** AUDIO MANAGER MAINTENANCE ***** */
-        //  Reset pos & pan
-        pos = 0;
-        pan = 0.0;
     }  //  End while(is_running() == true)
 
     //  Cleanup local objects.

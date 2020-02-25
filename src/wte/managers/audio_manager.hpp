@@ -223,6 +223,7 @@ inline void audio_manager::run(void) {
                 case CMD_STR_LOAD_SAMPLE:
                     pos = std::stoi(audio_messages.front().get_split_args()[0]);
                     if(pos < 0 || pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
+                    //  Sample loaded, unload first.
                     if(al_get_sample_instance_attached(AL_SAMPLE_INSTANCES[pos].instance)) {
                         al_detach_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
                         al_destroy_sample(AL_SAMPLES[pos].sample);

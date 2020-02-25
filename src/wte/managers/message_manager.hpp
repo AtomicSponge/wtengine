@@ -47,19 +47,24 @@ class message_manager final : public manager<message_manager>, private engine_ti
         inline message_manager() {
             msg_queue.clear();
 
-            //  If debug mode is enabled, create a new log file
             #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-            std::ofstream debug_log_file;
+            //  If debug mode is enabled, create a new log file
             debug_log_file.open("wte_debug\\wte_debug_message_manager.txt", std::ios::trunc);
-            debug_log_file << "Logging messages";
+            debug_log_file << "Logging messages...";
             debug_log_file << std::endl << std::endl;
-            debug_log_file.close();
             #endif
         };
 
         //!  Message queue destructor
         //!  Delete message queue object
-        inline ~message_manager() { msg_queue.clear(); };
+        inline ~message_manager() {
+            msg_queue.clear();
+
+            #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
+            //  Close debug if logging is enabled
+            debug_log_file.close();
+            #endif
+        };
 
         //!  Adds a message object to the start of the msg_queue vector
         //!  Then sorts if it's a timed event
@@ -81,19 +86,18 @@ class message_manager final : public manager<message_manager>, private engine_ti
 
         #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
         //!  Log processed messages to a file
+        std::ofstream debug_log_file;
         void debug_log_message(const message);
         #endif
 };
 
 template <> inline bool message_manager::manager<message_manager>::initialized = false;
 
+#if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
 /*!
   Write a message to the debug log file if debugging is enabled
 */
-#if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
 inline void message_manager::debug_log_message(const message msg) {
-    std::ofstream debug_log_file;
-    debug_log_file.open("wte_debug\\wte_debug_message_manager.txt", std::ios::app);
     debug_log_file << "PROC AT:  " << check_time() << " | ";
     debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
     debug_log_file << "SYS:  " << msg.get_sys() << " | ";
@@ -109,7 +113,6 @@ inline void message_manager::debug_log_message(const message msg) {
         if(std::next(i, 1) != arglist.end()) debug_log_file << ";";
     }
     debug_log_file << std::endl;
-    debug_log_file.close();
 }
 #endif
 
@@ -159,8 +162,8 @@ inline const message_container message_manager::get_messages(const std::string s
         if(it->get_timer() > check_time()) break;
 
         if((it->get_timer() == check_time() || it->get_timer() == -1) && it->get_sys() == sys) {
-            //  Log the message if debug mode is on
             #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
+            //  Log the message if debug mode is on
             debug_log_message(*it);
             #endif
             temp_messages.push_back(*it); //  Add the message to the temp vector to be returned

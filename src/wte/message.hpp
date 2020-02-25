@@ -75,7 +75,7 @@ class message {
         //!  Get a single argument
         //!  Returns a string by index from the argument list, delimited by ;
         inline const std::string get_split_args(const std::size_t pos) const {
-            if(pos > arglist.size()-1 || pos < 0) return "";  //  Out of range, return empty string
+            if(pos > arglist.size()-1) return "";  //  Out of range, return empty string
             return arglist[pos];
         }
 

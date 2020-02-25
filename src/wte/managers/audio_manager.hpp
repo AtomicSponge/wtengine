@@ -7,13 +7,12 @@
 
   Handle playback of audio in its own thread
   Waits for messages to be loaded into the audio deck
-
-  NOTE:  NEEDS TESTING!!!
 */
 
 #ifndef WTE_MGR_AUDIO_MANAGER_HPP
 #define WTE_MGR_AUDIO_MANAGER_HPP
 
+//  Set max number of samples
 #define WTE_MAX_SAMPLES 8
 
 #include <string>

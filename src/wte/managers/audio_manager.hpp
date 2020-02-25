@@ -219,7 +219,7 @@ inline void audio_manager::run(void) {
                     break;
 
                 /* ***  Mixer 2 - Sample controls  *** */
-                //  cmd:  load_sample - args:  sample_num (0 - MAX); file ; mode (1 = once, else = loop) - Load a sample.
+                //  cmd:  load_sample - args:  sample_num (0 - MAX); file ; mode (once, loop) - Load a sample.
                 case CMD_STR_LOAD_SAMPLE:
                     pos = std::stoi(audio_messages.front().get_split_args()[0]);
                     if(pos < 0 || pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
@@ -230,8 +230,8 @@ inline void audio_manager::run(void) {
                     if(!AL_SAMPLES[pos].sample) break;  //  Failed to load sample, end.
                     //  Set the instance to the loaded sample.
                     al_set_sample(AL_SAMPLE_INSTANCES[pos].instance, AL_SAMPLES[pos].sample);
-                    //  Set playmode, 1 = play once, else = play in loop.
-                    if(std::stoi(audio_messages.front().get_split_args()[2]) == 1)
+                    //  Set playmode, once = play once, else = play in loop.
+                    if(audio_messages.front().get_split_args()[2] == "once")
                         al_set_sample_instance_playmode(AL_SAMPLE_INSTANCES[pos].instance, ALLEGRO_PLAYMODE_ONCE);
                     else
                         al_set_sample_instance_playmode(AL_SAMPLE_INSTANCES[pos].instance, ALLEGRO_PLAYMODE_LOOP);

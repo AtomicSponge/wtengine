@@ -155,7 +155,7 @@ inline void audio_manager::run(void) {
         ALLEGRO_SAMPLE_INSTANCE* instance;
     } AL_SAMPLE_INSTANCES[WTE_MAX_SAMPLES];
 
-    int pos = 0;
+    std::size_t pos = 0;
     float pan = 0.0;
 
     //  Set up the mixers.

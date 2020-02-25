@@ -55,10 +55,17 @@ class message {
         //!  Return the value of args
         inline const std::string get_args(void) const { return args; };
 
-        //! Check if the event is synced to the timer
-        const bool is_timed_event(void) const;
-        //! Split the args up into a vector of strings
+        //!  Check if the event is synced to the timer
+        //!  Returns false if the timer value is -1
+        inline const bool is_timed_event(void) const {
+            if(timer == -1) return false;
+            else return true;
+        }
+
+        //!  Split the args up into a vector of strings
         const msg_arg_list get_split_args(void) const;
+        //!  Get a single argument
+        const std::string get_split_args(const std::size_t) const;
 
         //!  Used to sort by timer value
         bool operator<(const message& a) const {
@@ -75,14 +82,6 @@ class message {
 };
 
 /*!
-  Returns false if the timer value is -1
-*/
-inline const bool message::is_timed_event(void) const {
-    if(timer == -1) return false;
-    else return true;
-}
-
-/*!
   Returns a vector of the arguments, delimited by ;
 */
 inline const msg_arg_list message::get_split_args(void) const {
@@ -95,6 +94,24 @@ inline const msg_arg_list message::get_split_args(void) const {
     }
 
     return arglist;
+}
+
+/*!
+  Returns a string by index from the argument list, delimited by ;
+*/
+inline const std::string message::get_split_args(const std::size_t pos) const {
+    std::stringstream arg_stream(args);
+    std::string segment;
+    std::vector<std::string> arglist;
+
+    while(std::getline(arg_stream, segment, ';')) {
+        arglist.push_back(segment);
+    }
+
+    //  Out of range, return empty string.
+    if(pos > arglist.size()-1 || pos < 0) return "";
+
+    return arglist[pos];
 }
 
 } //  namespace wte

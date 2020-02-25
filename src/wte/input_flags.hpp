@@ -35,15 +35,15 @@ class input_flags final {
         void operator=(input_flags const&) = delete;
 
         //!  Set a flag to true
-        inline static void set(const int f) { flags[f] = true; };
+        inline static void set(const std::size_t f) { flags[f] = true; };
         //!  Set a flag to false
-        inline static void unset(const int f) { flags[f] = false; };
+        inline static void unset(const std::size_t f) { flags[f] = false; };
         //!  Check the state of a flag
-        inline static const bool is_set(const int f) { return flags[f]; };
+        inline static const bool is_set(const std::size_t f) { return flags[f]; };
 
         //!  Set all input flags to false
         inline static void unset_all(void) {
-            for(int i = 0; i < MAX_INPUT_FLAGS; i++) flags[i] = false;
+            for(std::size_t i = 0; i < MAX_INPUT_FLAGS; i++) flags[i] = false;
         }
 
     private:

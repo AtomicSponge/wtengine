@@ -159,13 +159,6 @@ inline void audio_manager::run(void) {
     int pos = 0;
     float pan = 0.0;
 
-    //  Flags for checking various sample states.
-    //bool sample_loaded[WTE_MAX_SAMPLES], sample_playing[WTE_MAX_SAMPLES];
-
-    //  Set sample flags all to false.
-    //for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) sample_loaded[pos] = false;
-    //for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) sample_playing[pos] = false;
-
     //  Set up the mixers.
     al_attach_mixer_to_voice(mixer_main, voice);
     al_attach_mixer_to_mixer(mixer_1, mixer_main);
@@ -177,10 +170,8 @@ inline void audio_manager::run(void) {
     for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) AL_SAMPLES[pos].sample = NULL;
     for(pos = 0; pos < WTE_MAX_SAMPLES; pos++)
         AL_SAMPLE_INSTANCES[pos].instance = al_create_sample_instance(NULL);
-    //for(pos = 0; pos < WTE_MAX_SAMPLES; pos++)
-    //    al_attach_sample_instance_to_mixer(AL_SAMPLE_INSTANCES[pos].instance, mixer_2);
-    //for(pos = 0; pos < WTE_MAX_SAMPLES; pos++)
-    //    al_set_sample_instance_playmode(AL_SAMPLE_INSTANCES[pos].instance, ALLEGRO_PLAYMODE_ONCE);
+    for(pos = 0; pos < WTE_MAX_SAMPLES; pos++)
+        al_attach_sample_instance_to_mixer(AL_SAMPLE_INSTANCES[pos].instance, mixer_2);
 
     al_set_default_mixer(mixer_main);
 

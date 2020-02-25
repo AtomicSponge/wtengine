@@ -303,7 +303,7 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
 
             //  cmd:  alert - Display an alert
             case CMD_STR_ALERT:
-                alert::set_alert(it->get_args());
+                alert::set_alert(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 
@@ -326,28 +326,28 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
             //  If the menu doesn't exist, the default will be opened
             case CMD_STR_OPEN_MENU:
                 engine_flags::set(GAME_MENU_OPENED);
-                menus.open_menu(it->get_args());
+                menus.open_menu(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 
             //  cmd:  close_menu argstring - close the opened menu
             //  If argstring = "all", close all opened menus
             case CMD_STR_CLOSE_MENU:
-                if(it->get_args() == "all") menus.reset();
+                if(it->get_arg(0) == "all") menus.reset();
                 else menus.close_menu();
                 it = sys_msgs.erase(it);
                 break;
 
             //  cmd:  enable_system - Turn a system on for processing
             case CMD_STR_ENABLE_SYSTEM:
-                systems.enable_system(it->get_args());
+                systems.enable_system(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 
             //  cmd:  disable_system - Turn a system off so it's run member is skipped
             //  Message dispatching is still processed
             case CMD_STR_DISABLE_SYSTEM:
-                systems.disable_system(it->get_args());
+                systems.disable_system(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 

@@ -186,8 +186,8 @@ inline void audio_manager::run(void) {
                 //  cmd:  music_loop - arg:  enable/disable - Turn music looping on or off.
                 case CMD_STR_MUSIC_LOOP:
                     if(!music_stream) break;  //  Music not loaded, end.
-                    if(audio_messages.front().get_args() == "enable") al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_LOOP);
-                    if(audio_messages.front().get_args() == "disable") al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_ONCE);
+                    if(audio_messages.front().get_arg(0) == "enable") al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_LOOP);
+                    if(audio_messages.front().get_arg(0) == "disable") al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_ONCE);
                     break;
 
                 //  cmd:  play_music - arg:  file.name - Load a file and play in a stream.
@@ -195,7 +195,7 @@ inline void audio_manager::run(void) {
                     //  If something's playing, stop it first.
                     if(al_get_mixer_playing(mixer_1)) al_destroy_audio_stream(music_stream);
                     //  Load stream and play.
-                    music_stream = al_load_audio_stream(("data\\" + audio_messages.front().get_args()).c_str(), 4, 2048);
+                    music_stream = al_load_audio_stream(("data\\" + audio_messages.front().get_arg(0)).c_str(), 4, 2048);
                     if(!music_stream) break;  //  Didn't load audio, end.
                     al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_LOOP);
                     al_attach_audio_stream_to_mixer(music_stream, mixer_1);
@@ -221,17 +221,17 @@ inline void audio_manager::run(void) {
                 /* ***  Mixer 2 - Sample controls  *** */
                 //  cmd:  load_sample - args:  sample_num (0 - MAX); file ; mode (once, loop) - Load a sample.
                 case CMD_STR_LOAD_SAMPLE:
-                    pos = std::stoi(audio_messages.front().get_split_args(0));
+                    pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos < 0 || pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     //  Sample loaded, unload first.
                     if(al_get_sample(AL_SAMPLE_INSTANCES[pos].instance)) al_destroy_sample(AL_SAMPLES[pos].sample);
                     //  Load sample from file
-                    AL_SAMPLES[pos].sample = al_load_sample(("data\\" + audio_messages.front().get_split_args(1)).c_str());
+                    AL_SAMPLES[pos].sample = al_load_sample(("data\\" + audio_messages.front().get_arg(1)).c_str());
                     if(!AL_SAMPLES[pos].sample) break;  //  Failed to load sample, end.
                     //  Set the instance to the loaded sample.
                     al_set_sample(AL_SAMPLE_INSTANCES[pos].instance, AL_SAMPLES[pos].sample);
                     //  Set playmode, once = play once, else = play in loop.
-                    if(audio_messages.front().get_split_args(2) == "once")
+                    if(audio_messages.front().get_arg(2) == "once")
                         al_set_sample_instance_playmode(AL_SAMPLE_INSTANCES[pos].instance, ALLEGRO_PLAYMODE_ONCE);
                     else
                         al_set_sample_instance_playmode(AL_SAMPLE_INSTANCES[pos].instance, ALLEGRO_PLAYMODE_LOOP);
@@ -241,21 +241,21 @@ inline void audio_manager::run(void) {
                 //  If arg == "all" unload all samples.
                 case CMD_STR_UNLOAD_SAMPLE:
                     //  Unload all samples.
-                    if(audio_messages.front().get_args() == "all") {
+                    if(audio_messages.front().get_arg(0) == "all") {
                         for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) {
                             al_destroy_sample(AL_SAMPLES[pos].sample);
                         }
                         break;
                     }
                     //  Unload a sample by position.
-                    pos = std::stoi(audio_messages.front().get_args());
+                    pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos < 0 || pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     al_destroy_sample(AL_SAMPLES[pos].sample);
                     break;
 
                 //  cmd:  play_sample - arg:  sample_num (0 - MAX) - Start playing loaded sample.
                 case CMD_STR_PLAY_SAMPLE:
-                    pos = std::stoi(audio_messages.front().get_args());
+                    pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos < 0 || pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     if(!al_get_sample(AL_SAMPLE_INSTANCES[pos].instance)) break;  //  Sample not loaded, end.
                     al_play_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
@@ -263,7 +263,7 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  stop_sample - arg:  sample_num (0 - MAX) - Stop playing loaded sample.
                 case CMD_STR_STOP_SAMPLE:
-                    pos = std::stoi(audio_messages.front().get_args());
+                    pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos < 0 || pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     if(!al_get_sample(AL_SAMPLE_INSTANCES[pos].instance)) break;  //  Sample not loaded, end.
                     al_stop_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
@@ -272,14 +272,14 @@ inline void audio_manager::run(void) {
                 //  cmd:  pan_sample - arg:  sample_num (0 - MAX) ; pan ([left]-1.0 thru 1.0[right] or none) - Set sample pan.
                 case CMD_STR_PAN_SAMPLE:
                     if(!al_get_sample(AL_SAMPLE_INSTANCES[pos].instance)) break;  //  Sample not loaded, end.
-                    pos = std::stoi(audio_messages.front().get_split_args(0));
+                    pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos < 0 || pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     //  If arg == "none" set no panning
-                    if(audio_messages.front().get_split_args(1) == "none") {
+                    if(audio_messages.front().get_arg(1) == "none") {
                         al_set_sample_instance_pan(AL_SAMPLE_INSTANCES[pos].instance, ALLEGRO_AUDIO_PAN_NONE);
                         break;
                     }
-                    pan = std::atof(audio_messages.front().get_split_args(1).c_str());
+                    pan = std::atof(audio_messages.front().get_arg(1).c_str());
                     if(pan < -1.0 || pan > 1.0) break;  //  Out of pan range
                     al_set_sample_instance_pan(AL_SAMPLE_INSTANCES[pos].instance, pan);
                     break;
@@ -290,7 +290,7 @@ inline void audio_manager::run(void) {
                     //  If something's playing, stop it first.
                     if(al_get_mixer_playing(mixer_3)) al_destroy_audio_stream(voice_stream);
                     //  Load stream and play.
-                    voice_stream = al_load_audio_stream(("data\\" + audio_messages.front().get_args()).c_str(), 4, 2048);
+                    voice_stream = al_load_audio_stream(("data\\" + audio_messages.front().get_arg(0)).c_str(), 4, 2048);
                     if(!voice_stream) break;  //  Didn't load audio, end.
                     al_set_audio_stream_playmode(voice_stream, ALLEGRO_PLAYMODE_ONCE);
                     al_attach_audio_stream_to_mixer(voice_stream, mixer_3);
@@ -317,8 +317,8 @@ inline void audio_manager::run(void) {
                 //  cmd:  ambiance_loop - arg:  enable/disable - Turn music looping on or off.
                 case CMD_STR_AMBIANCE_LOOP:
                     if(!ambiance_stream) break;  //  Ambiance not loaded, end.
-                    if(audio_messages.front().get_args() == "enable") al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
-                    if(audio_messages.front().get_args() == "disable") al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_ONCE);
+                    if(audio_messages.front().get_arg(0) == "enable") al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
+                    if(audio_messages.front().get_arg(0) == "disable") al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_ONCE);
                     break;
 
                 //  cmd:  play_ambiance - arg:  file.name - Load a file and play in a stream.
@@ -326,7 +326,7 @@ inline void audio_manager::run(void) {
                     //  If something's playing, stop it first.
                     if(al_get_mixer_playing(mixer_4)) al_destroy_audio_stream(ambiance_stream);
                     //  Load stream and play.
-                    ambiance_stream = al_load_audio_stream(("data\\" + audio_messages.front().get_args()).c_str(), 4, 2048);
+                    ambiance_stream = al_load_audio_stream(("data\\" + audio_messages.front().get_arg(0)).c_str(), 4, 2048);
                     if(!ambiance_stream) break;  //  Didn't load audio, end.
                     al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
                     al_attach_audio_stream_to_mixer(ambiance_stream, mixer_4);

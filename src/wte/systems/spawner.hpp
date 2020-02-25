@@ -52,14 +52,14 @@ inline void spawner::run(mgr::entity_manager& world, mgr::message_manager& messa
 */
 inline void spawner::dispatch(mgr::entity_manager& world, message_container messages) {
     for(message_iterator it = messages.begin(); it != messages.end(); it++) {
-        if(it->get_cmd() == "new") process_spawn(world, it->get_split_args());
+        if(it->get_cmd() == "new") process_spawn(world, it->get_arglist());
 
         if(it->get_cmd() == "delete") {
             component_container name_components = world.get_components<cmp::name>();
         
             //  Check all named entities and delete if it exists
             for(component_iterator c_it = name_components.begin(); c_it != name_components.end(); c_it++) {
-                if(it->get_args() == dynamic_cast<cmp::name*>(c_it->second.get())->name_str) {
+                if(it->get_arg(0) == dynamic_cast<cmp::name*>(c_it->second.get())->name_str) {
                     world.delete_entity(c_it->first);
                 }
             }

@@ -107,7 +107,13 @@ inline void message_manager::debug_log_message(const message msg) {
         debug_log_file << "FROM:  " << msg.get_from() << " | ";
     }
     debug_log_file << "CMD:  " << msg.get_cmd() << " | ";
-    debug_log_file << "ARGS:  " << msg.get_args() << std::endl;
+    debug_log_file << "ARGS:  ";
+    msg_arg_list arglist = msg.get_arglist();
+    for(auto i = arglist.begin(); i != arglist.end(); i++) {
+        debug_log_file << *i;
+        if(std::next(i, 1) != arglist.end()) debug_log_file << ";";
+    }
+    debug_log_file << std::endl;
     debug_log_file.close();
 }
 #endif

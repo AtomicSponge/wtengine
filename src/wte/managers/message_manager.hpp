@@ -85,8 +85,8 @@ class message_manager final : public manager<message_manager>, private engine_ti
         message_container msg_queue;
 
         #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-        //!  Log processed messages to a file
         std::ofstream debug_log_file;
+        //!  Log processed messages to a file
         void debug_log_message(const message);
         #endif
 };

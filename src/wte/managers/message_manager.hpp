@@ -50,18 +50,17 @@ class message_manager final : public manager<message_manager>, private engine_ti
             #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
             //  If debug mode is enabled, create a new log file
             debug_log_file.open("wte_debug\\wte_debug_message_manager.txt", std::ios::trunc);
-            debug_log_file << "Logging messages...";
-            debug_log_file << std::endl << std::endl;
+            debug_log_file << "Logging messages..." << std::endl << std::endl;
             #endif
         };
 
         //!  Message queue destructor
-        //!  Delete message queue object
+        //!  Delete message queue object and close log file if debugging is enabled
         inline ~message_manager() {
             msg_queue.clear();
 
             #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-            //  Close debug if logging is enabled
+            //  Close log file if debugging is enabled
             debug_log_file.close();
             #endif
         };

@@ -298,6 +298,7 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  stop_voice - Stop current voice from playing.
                 case CMD_STR_STOP_VOICE:
+                    if(!voice_stream) break;  //  Voice not loaded, end.
                     al_destroy_audio_stream(voice_stream);
                     break;
 

@@ -166,9 +166,9 @@ inline const message_container message_manager::get_messages(const std::string s
             //  Log the message if debug mode is on
             debug_log_message(*it);
             #endif
-            temp_messages.push_back(*it); //  Add the message to the temp vector to be returned
-            it = msg_queue.erase(it); //  Erase the message once processed
-        } else it++;
+            temp_messages.push_back(*it);  //  Add the message to the temp vector to be returned.
+            it = msg_queue.erase(it);  //  Erase the message once processed.
+        } else it++;  //  Message not processed, iterate to next.
     }
 
     return temp_messages;

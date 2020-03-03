@@ -222,7 +222,7 @@ inline void audio_manager::run(void) {
                 //  cmd:  load_sample - args:  sample_num (0 - MAX); file ; mode (once, loop) - Load a sample.
                 case CMD_STR_LOAD_SAMPLE:
                     pos = std::stoi(audio_messages.front().get_arg(0));
-                    if(pos < 0 || pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
+                    if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     //  Sample loaded, unload first.
                     if(al_get_sample(AL_SAMPLE_INSTANCES[pos].instance)) al_destroy_sample(AL_SAMPLES[pos].sample);
                     //  Load sample from file
@@ -249,14 +249,14 @@ inline void audio_manager::run(void) {
                     }
                     //  Unload a sample by position.
                     pos = std::stoi(audio_messages.front().get_arg(0));
-                    if(pos < 0 || pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
+                    if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     al_destroy_sample(AL_SAMPLES[pos].sample);
                     break;
 
                 //  cmd:  play_sample - arg:  sample_num (0 - MAX) - Start playing loaded sample.
                 case CMD_STR_PLAY_SAMPLE:
                     pos = std::stoi(audio_messages.front().get_arg(0));
-                    if(pos < 0 || pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
+                    if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     if(!al_get_sample(AL_SAMPLE_INSTANCES[pos].instance)) break;  //  Sample not loaded, end.
                     al_play_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
                     break;
@@ -264,7 +264,7 @@ inline void audio_manager::run(void) {
                 //  cmd:  stop_sample - arg:  sample_num (0 - MAX) - Stop playing loaded sample.
                 case CMD_STR_STOP_SAMPLE:
                     pos = std::stoi(audio_messages.front().get_arg(0));
-                    if(pos < 0 || pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
+                    if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     if(!al_get_sample(AL_SAMPLE_INSTANCES[pos].instance)) break;  //  Sample not loaded, end.
                     al_stop_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
                     break;
@@ -273,7 +273,7 @@ inline void audio_manager::run(void) {
                 case CMD_STR_PAN_SAMPLE:
                     if(!al_get_sample(AL_SAMPLE_INSTANCES[pos].instance)) break;  //  Sample not loaded, end.
                     pos = std::stoi(audio_messages.front().get_arg(0));
-                    if(pos < 0 || pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
+                    if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     //  If arg == "none" set no panning
                     if(audio_messages.front().get_arg(1) == "none") {
                         al_set_sample_instance_pan(AL_SAMPLE_INSTANCES[pos].instance, ALLEGRO_AUDIO_PAN_NONE);

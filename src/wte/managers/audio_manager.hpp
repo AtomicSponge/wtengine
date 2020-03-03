@@ -287,8 +287,8 @@ inline void audio_manager::run(void) {
                 /* ***  Mixer 3 - Voice controls  *** */
                 //  cmd:  play_voice - arg:  file.name - Load a file and play in a stream.
                 case CMD_STR_PLAY_VOICE:
-                    //  If something's playing, stop it first.
-                    if(al_get_mixer_playing(mixer_3)) al_destroy_audio_stream(voice_stream);
+                    //  If a voice is already loaded, unload first.
+                    //if(voice_stream) al_destroy_audio_stream(voice_stream);
                     //  Load stream and play.
                     voice_stream = al_load_audio_stream(("data\\" + audio_messages.front().get_arg(0)).c_str(), 4, 2048);
                     if(!voice_stream) break;  //  Didn't load audio, end.

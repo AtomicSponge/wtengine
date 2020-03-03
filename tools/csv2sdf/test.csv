@@ -16,7 +16,6 @@
 1600,audio,play_voice,voice.wav
 1630,audio,pause_voice,
 1700,audio,unpause_voice,
-1800,audio,load_sample,fx1.wav
 90,spawnerer,new,asteroid;-60;-60;53;8;1
 90,spawner,new,asteroid;100;-60;90;10;1
 90,spawner,new,asteroid;800;-60;100;7;1

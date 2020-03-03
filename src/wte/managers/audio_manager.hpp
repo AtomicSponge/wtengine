@@ -192,8 +192,6 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  play_music - arg:  file.name - Load a file and play in a stream.
                 case CMD_STR_PLAY_MUSIC:
-                    //  If something's playing, stop it first.
-                    if(al_get_mixer_playing(mixer_1)) al_destroy_audio_stream(music_stream);
                     //  Load stream and play.
                     music_stream = al_load_audio_stream(("data\\" + audio_messages.front().get_arg(0)).c_str(), 4, 2048);
                     if(!music_stream) break;  //  Didn't load audio, end.
@@ -287,8 +285,6 @@ inline void audio_manager::run(void) {
                 /* ***  Mixer 3 - Voice controls  *** */
                 //  cmd:  play_voice - arg:  file.name - Load a file and play in a stream.
                 case CMD_STR_PLAY_VOICE:
-                    //  If a voice is already loaded, unload first.
-                    //if(voice_stream) al_destroy_audio_stream(voice_stream);
                     //  Load stream and play.
                     voice_stream = al_load_audio_stream(("data\\" + audio_messages.front().get_arg(0)).c_str(), 4, 2048);
                     if(!voice_stream) break;  //  Didn't load audio, end.
@@ -324,8 +320,6 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  play_ambiance - arg:  file.name - Load a file and play in a stream.
                 case CMD_STR_PLAY_AMBIANCE:
-                    //  If something's playing, stop it first.
-                    if(al_get_mixer_playing(mixer_4)) al_destroy_audio_stream(ambiance_stream);
                     //  Load stream and play.
                     ambiance_stream = al_load_audio_stream(("data\\" + audio_messages.front().get_arg(0)).c_str(), 4, 2048);
                     if(!ambiance_stream) break;  //  Didn't load audio, end.

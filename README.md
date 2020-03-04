@@ -8,6 +8,8 @@ The engine is written in C++ and uses the [Allegro Game Library](https://liballe
 
 Built and tested with [MSYS2](https://www.msys2.org/)
 
+API Documentation:  https://wtfsystems.github.io/
+
 #### FEATURES:
  - Internal messaging queue 
  - Memory manager for in-game objects
@@ -16,10 +18,9 @@ Built and tested with [MSYS2](https://www.msys2.org/)
  - Buildable debug modes
 
 #### TODO:
- - Need to test audio manager!!
+ - Finish SFX tests
  - Finish basic menu system implementation
  - Implement sprites
- - Better documentation :p
 
 #### DEMO:
 
@@ -29,7 +30,7 @@ A compiled demo can be found in the [releases](https://github.com/wtfsystems/rel
 ### HOW TO USE
 --------------------------
 
-The main loop for the game engine is implemented in wte_main.  The per-new-game functions for this class are completed in a seperate source file.  Certain systems are then extended to implement your game.  For a list of all members and their function, build the source documentation with [Doxygen](http://doxygen.nl/)
+The main loop for the game engine is implemented in wte_main.  The per-new-game functions for this class are completed in a seperate source file.  Certain systems are then extended to implement your game.
 
 #### MESSAGING:
 

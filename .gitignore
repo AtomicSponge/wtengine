@@ -7,5 +7,6 @@ wte_backup.bat
 # Remove build dir
 output/
 wte_update_dlls.bat
-# Ignore documentation folder
+# Ignore documentation
 documentation/
+wte_purge_docs.bat

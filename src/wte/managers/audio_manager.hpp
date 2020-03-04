@@ -13,7 +13,9 @@
 #define WTE_MGR_AUDIO_MANAGER_HPP
 
 //  Set max number of samples
+#ifndef WTE_MAX_SAMPLES
 #define WTE_MAX_SAMPLES 8
+#endif
 
 #include <string>
 #include <deque>

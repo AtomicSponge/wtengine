@@ -69,6 +69,8 @@ class message {
         //!  Return the value of cmd
         inline const std::string get_cmd(void) const { return cmd; };
 
+        //!  Return the number of arguments
+        inline const std::size_t num_args(void) const { return arglist.size(); };
         //!  Returns the vector of the arguments
         inline const msg_arg_list get_arglist(void) const { return arglist; };
 

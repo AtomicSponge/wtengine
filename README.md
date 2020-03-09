@@ -8,7 +8,7 @@ The engine is written in C++ and uses the [Allegro Game Library](https://liballe
 
 Built and tested with [MSYS2](https://www.msys2.org/)
 
-API Documentation:  https://wtfsystems.github.io/docs/wtengine/index.html
+API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
 
 #### FEATURES:
  - Internal messaging queue 

@@ -15,6 +15,8 @@
 #include <vector>
 #include <memory>
 
+#include "../message.hpp"
+
 namespace wte
 {
 
@@ -29,7 +31,10 @@ class menu_item {
         inline virtual ~menu_item() {};
 
         virtual std::vector<std::string> get_text(void);
-        virtual void do_item(void);
+
+        virtual void on_left(void);
+        virtual void on_right(void);
+        virtual message on_select(void);
 
     private:
 

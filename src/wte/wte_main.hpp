@@ -103,6 +103,7 @@ class wte_main final {
             //  Start the input & audio threads
             input_th.start();
 
+            //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined
             #ifndef WTE_NO_AUDIO
             audio_th.start();
             #endif
@@ -122,6 +123,7 @@ class wte_main final {
         inline void wte_unload(void) {
             input_th.stop();
 
+            //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined
             #ifndef WTE_NO_AUDIO
             audio_th.stop();
             #endif
@@ -165,6 +167,7 @@ class wte_main final {
         mgr::menu_manager menus;
         mgr::input_manager input_th;
 
+        //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined
         #ifndef WTE_NO_AUDIO
         mgr::audio_manager audio_th;
         #endif
@@ -282,6 +285,7 @@ inline void wte_main::do_game(void) {
         //  Render the screen
         screen.render(menus, world);
 
+        //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined
         #ifndef WTE_NO_AUDIO
         //  Send audio messages to the audio queue
         temp_msgs = messages.get_messages("audio");

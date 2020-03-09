@@ -12,6 +12,7 @@
 #ifndef WTE_MGR_AUDIO_MANAGER_HPP
 #define WTE_MGR_AUDIO_MANAGER_HPP
 
+//  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined
 #ifndef WTE_NO_AUDIO
 
 //  Set max number of samples

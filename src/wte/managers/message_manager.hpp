@@ -72,6 +72,18 @@ class message_manager final : public manager<message_manager>, private engine_ti
             if(msg.is_timed_event()) std::sort(msg_queue.begin(), msg_queue.end());
         };
 
+        //  Ignore message pruning if WTE_NO_PRUNE build flag is defined
+        #ifndef WTE_NO_PRUNE
+        //!  Deletes messages that were not processed.
+        inline void prune(void) {
+            for(message_citerator it = msg_queue.begin(); it != msg_queue.end();) {
+                //  End early if events are in the future.
+                if(it->get_timer() > check_time()) break;
+                else it = msg_queue.erase(it);
+            }
+        };
+        #endif
+
         //!  Load a new data file into the message queue
         void new_data_file(const std::string);
         //!  Clear the message queue

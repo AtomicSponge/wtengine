@@ -22,6 +22,16 @@
 #define WTE_DEBUG_MODE 0
 #endif
 
+//  Enabled audio if WTE_NO_AUDIO is not defined
+#ifndef WTE_NO_AUDIO
+#define WTE_AUDIO_ENABLED
+#endif
+
+//  Endable message pruning if WTE_NO_PRUNE is not defined
+#ifndef WTE_NO_PRUNE
+#define WTE_PRUNE_ENABLED
+#endif
+
 #define WTE_COLOR_BLACK         al_map_rgb(0,0,0)
 #define WTE_COLOR_RED           al_map_rgb(255,0,0)
 #define WTE_COLOR_GREEN         al_map_rgb(0,255,0)

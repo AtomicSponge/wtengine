@@ -296,6 +296,12 @@ inline void wte_main::do_game(void) {
         temp_msgs = messages.get_messages("system");
         if(!temp_msgs.empty()) handle_sys_msg(temp_msgs);
 
+        //  Ignore message pruning if WTE_NO_PRUNE build flag is defined
+        #ifndef WTE_NO_PRUNE
+        //  Delete messages that were not processed.
+        messages.prune();
+        #endif
+
         //  Force quit if the game window is closed
         if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) engine_flags::unset(IS_RUNNING);
     }

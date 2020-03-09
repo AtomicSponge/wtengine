@@ -1,10 +1,10 @@
-# Remove vs code stuffs
+# Ignore vs code stuffs
 .vscode/
 wtengine.code-workspace
-# Remove local backup
+# Ignore local backup
 bak/
 wte_backup.bat
-# Remove build dir
+# Ignore build stuffs
 output/
 wte_update_dlls.bat
 # Ignore documentation

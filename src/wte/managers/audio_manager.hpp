@@ -12,6 +12,8 @@
 #ifndef WTE_MGR_AUDIO_MANAGER_HPP
 #define WTE_MGR_AUDIO_MANAGER_HPP
 
+#ifndef WTE_NO_AUDIO
+
 //  Set max number of samples
 #ifndef WTE_MAX_SAMPLES
 #define WTE_MAX_SAMPLES 8
@@ -375,4 +377,5 @@ inline void audio_manager::run(void) {
 
 } //  end namespace wte
 
-#endif
+#endif  //  End #ifndef WTE_NO_AUDIO
+#endif  //  End #ifndef WTE_MGR_AUDIO_MANAGER_HPP

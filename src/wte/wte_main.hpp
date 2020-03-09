@@ -102,7 +102,10 @@ class wte_main final {
         inline void wte_load(void) {
             //  Start the input & audio threads
             input_th.start();
+
+            #ifndef WTE_NO_AUDIO
             audio_th.start();
+            #endif
 
             //  Initialize renderer and menu manager
             screen.initialize(al_create_builtin_font());
@@ -118,7 +121,10 @@ class wte_main final {
         //!  Call to unload the engine
         inline void wte_unload(void) {
             input_th.stop();
+
+            #ifndef WTE_NO_AUDIO
             audio_th.stop();
+            #endif
 
             load_called = false;
         };
@@ -158,7 +164,10 @@ class wte_main final {
         mgr::system_manager systems;
         mgr::menu_manager menus;
         mgr::input_manager input_th;
+
+        #ifndef WTE_NO_AUDIO
         mgr::audio_manager audio_th;
+        #endif
 
         //  Used for switching on system messages:
         enum CMD_STR_VALUE {
@@ -273,9 +282,11 @@ inline void wte_main::do_game(void) {
         //  Render the screen
         screen.render(menus, world);
 
+        #ifndef WTE_NO_AUDIO
         //  Send audio messages to the audio queue
         temp_msgs = messages.get_messages("audio");
         if(!temp_msgs.empty()) audio_th.transfer_messages(temp_msgs);
+        #endif
 
         //  Get any system messages and pass to handler
         temp_msgs = messages.get_messages("system");

@@ -77,7 +77,7 @@ class message {
         //!  Returns a single argument by index from the argument list
         inline const std::string get_arg(const std::size_t pos) const {
             if(pos > arglist.size()-1) return "";  //  Out of range, return empty string
-            return arglist[pos];
+            else return arglist[pos];
         };
 
         //!  Check if the event is synced to the timer

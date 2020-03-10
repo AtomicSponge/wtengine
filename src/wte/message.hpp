@@ -1,11 +1,12 @@
 /*!
- * \brief WTEngine - File:  message.hpp
+ * \brief WTEngine | File:  message.hpp
  * \author Matthew Evans
  *
- * \copyright See LICENSE.txt for copyright information.
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
  *
- * \details Define the message object.
+ * \details Class for defining the message object.
  */
 
 #ifndef WTE_MSG_MESSAGE_HPP
@@ -23,10 +24,12 @@ namespace wte
  */
 typedef std::vector<std::string> msg_arg_list;
 
-//! Message class
 /*!
-  Define individual message objects
-*/
+ * \class message
+ * \brief Message class
+ * 
+ * Define individual message objects
+ */
 class message {
     public:
         inline message() {};
@@ -82,8 +85,9 @@ class message {
         inline message(int64_t e, std::string s, std::string t, std::string f, std::string c, std::string a) :
             timer(e), sys(s), to(t), from(f), cmd(c) { split_args(a); };
 
-        //!  Split arguments into a vector of strings.
         /*!
+         * Split arguments into a vector of strings.
+         * 
          * \param a String of arguments, delimited by ;
          */
         inline void split_args(const std::string a) {
@@ -133,8 +137,9 @@ class message {
          */
         inline const msg_arg_list get_arglist(void) const { return arglist; };
 
-        //!  Returns a single argument by index from the argument list
         /*!
+         * Returns a single argument by index from the argument list
+         * 
          * \param pos The position in the argument vector.
          * \return The argument string by position.
          */
@@ -143,8 +148,9 @@ class message {
             else return arglist[pos];
         };
 
-        //!  Check if the event is synced to the timer.
         /*!
+         * Check if the event is synced to the timer.
+         * 
          * \return Returns false if the timer value is -1, else true.
          */
         inline const bool is_timed_event(void) const {
@@ -152,8 +158,9 @@ class message {
             else return true;
         };
 
-        //!  Override < operator to sort by timer value.
         /*!
+         * Override < operator to sort by timer value.
+         * 
          * \param a Object to compare to.
          */
         bool operator<(const message& a) const {

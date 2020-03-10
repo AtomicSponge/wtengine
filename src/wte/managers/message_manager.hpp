@@ -1,13 +1,14 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  message_manager.hpp
-
-  See LICENSE.txt for copyright information
-
-  Message queue object
-  Stores a vector of messages and processes them
-*/
+/*!
+ * \brief WTEngine | File:  message_manager.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Message queue object.
+ * Stores a vector of messages and processes them.
+ */
 
 #ifndef WTE_MGR_MESSAGE_MANAGER_HPP
 #define WTE_MGR_MESSAGE_MANAGER_HPP

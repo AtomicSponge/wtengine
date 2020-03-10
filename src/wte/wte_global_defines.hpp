@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  wte_global_defines.hpp
-
-  See LICENSE.txt for copyright information
-
-  Global defines for WTEngine
-*/
+/*!
+ * \brief WTEngine | File:  wte_global_defines.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Global defines for WTEngine.
+ */
 
 #ifndef WTE_GLOBAL_DEFINES_HPP
 #define WTE_GLOBAL_DEFINES_HPP

@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  system_manager.hpp
-
-  See LICENSE.txt for copyright information
-
-  System Manager
-*/
+/*!
+ * \brief WTEngine | File:  system_manager.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details System manager.
+ */
 
 #ifndef WTE_MGR_SYSTEM_MANAGER_HPP
 #define WTE_MGR_SYSTEM_MANAGER_HPP

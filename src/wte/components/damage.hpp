@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  damage.hpp
-
-  See LICENSE.txt for copyright information
-
-  Damage component
-*/
+/*!
+ * \brief WTEngine | File:  damage.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Damage component.
+ */
 
 #ifndef WTE_CMP_DAMAGE_HPP
 #define WTE_CMP_DAMAGE_HPP

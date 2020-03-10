@@ -1,13 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  component.hpp
-
-  See LICENSE.txt for copyright information
-
-  Component interface class
-  Extend this to create a new component
-*/
+/*!
+ * \brief WTEngine | File:  component.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Component interface class.  Extend this to create a new component.
+ */
 
 #ifndef WTE_CMP_COMPONENT_HPP
 #define WTE_CMP_COMPONENT_HPP

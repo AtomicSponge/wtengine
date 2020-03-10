@@ -1,13 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  logic.hpp
-
-  See LICENSE.txt for copyright information
-
-  Logic system
-  Override this to define custom ai
-*/
+/*!
+ * \brief WTEngine | File:  logic.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Logic system.  Override this to define custom ai.
+ */
 
 #ifndef WTE_SYS_LOGIC_HPP
 #define WTE_SYS_LOGIC_HPP

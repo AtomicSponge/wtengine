@@ -1,13 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  colision.hpp
-
-  See LICENSE.txt for copyright information
-
-  Animation system
-  Updates all sprite components
-*/
+/*!
+ * \brief WTEngine | File:  animate.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Animation system.  Updates all sprite components.
+ */
 
 #ifndef WTE_SYS_ANIMATE_HPP
 #define WTE_SYS_ANIMATE_HPP

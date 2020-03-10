@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  render_manager.hpp
-
-  See LICENSE.txt for copyright information
-
-  render_manager object
-*/
+/*!
+ * \brief WTEngine | File:  render_manager.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Render manager.
+ */
 
 #ifndef WTE_MGR_RENDER_MANAGER_HPP
 #define WTE_MGR_RENDER_MANAGER_HPP

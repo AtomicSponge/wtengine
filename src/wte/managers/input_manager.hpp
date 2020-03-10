@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  input_manager.hpp
-
-  See LICENSE.txt for copyright information
-
-  Handle player input in its own thread
-*/
+/*!
+ * \brief WTEngine | File:  input_manager.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Handle player input in its own thread.
+ */
 
 #ifndef WTE_MGR_INPUT_MANAGER_HPP
 #define WTE_MGR_INPUT_MANAGER_HPP

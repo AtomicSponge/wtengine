@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  enabled.hpp
-
-  See LICENSE.txt for copyright information
-
-  Enabled component
-*/
+/*!
+ * \brief WTEngine | File:  enabled.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Enabled component.
+ */
 
 #ifndef WTE_CMP_ENABLED_HPP
 #define WTE_CMP_ENABLED_HPP

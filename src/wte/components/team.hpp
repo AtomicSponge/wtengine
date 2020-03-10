@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  team.hpp
-
-  See LICENSE.txt for copyright information
-
-  Health component
-*/
+/*!
+ * \brief WTEngine | File:  team.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Team component.
+ */
 
 #ifndef WTE_CMP_TEAM_HPP
 #define WTE_CMP_TEAM_HPP

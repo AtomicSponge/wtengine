@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  render_order.hpp
-
-  See LICENSE.txt for copyright information
-
-  Render order component
-*/
+/*!
+ * \brief WTEngine | File:  render_order.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Render order component.
+ */
 
 #ifndef WTE_CMP_RENDER_ORDER_HPP
 #define WTE_CMP_RENDER_ORDER_HPP

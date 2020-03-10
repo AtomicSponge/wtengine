@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  input_handler.hpp
-
-  See LICENSE.txt for copyright information
-
-  Input handler component - tag to be processed by input system
-*/
+/*!
+ * \brief WTEngine | File:  input_handler.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Input handler component.  Tag to be processed by input system.
+ */
 
 #ifndef WTE_CMP_INPUT_HANDLER_HPP
 #define WTE_CMP_INPUT_HANDLER_HPP

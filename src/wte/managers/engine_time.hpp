@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  engine_time.hpp
-
-  See LICENSE.txt for copyright information
-
-  Engine Time base class
-*/
+/*!
+ * \brief WTEngine | File:  engine_time.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Engine Time base class.
+ */
 
 #ifndef WTE_MGR_ENGINE_TIME_HPP
 #define WTE_MGR_ENGINE_TIME_HPP

@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  alert.hpp
-
-  See LICENSE.txt for copyright information
-
-  Alerts
-*/
+/*!
+ * \brief WTEngine | File:  alert.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Alerts.
+ */
 
 #ifndef WTE_ALERT_HPP
 #define WTE_ALERT_HPP

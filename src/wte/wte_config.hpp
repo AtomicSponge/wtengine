@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  wte_config.hpp
-
-  See LICENSE.txt for copyright information
-
-  Engine config
-*/
+/*!
+ * \brief WTEngine | File:  wte_config.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Engine config.
+ */
 
 #ifndef WTE_CONFIG_HPP
 #define WTE_CONFIG_HPP

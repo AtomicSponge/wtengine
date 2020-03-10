@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  menu_item_action.hpp
-
-  See LICENSE.txt for copyright information
-
-  Action menu item
-*/
+/*!
+ * \brief WTEngine | File:  menu_item_action.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Action menu item.
+ */
 
 #ifndef WTE_MENU_MENU_ITEM_ACTION_HPP
 #define WTE_MENU_MENU_ITEM_ACTION_HPP

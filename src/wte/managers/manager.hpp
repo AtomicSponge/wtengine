@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  manager.hpp
-
-  See LICENSE.txt for copyright information
-
-  Manager base class
-*/
+/*!
+ * \brief WTEngine | File:  manager.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Manager base class.
+ */
 
 #ifndef WTE_MGR_MANAGER_HPP
 #define WTE_MGR_MANAGER_HPP

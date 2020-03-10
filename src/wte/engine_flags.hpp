@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  engine_flags.hpp
-
-  See LICENSE.txt for copyright information
-
-  System flags
-*/
+/*!
+ * \brief WTEngine | File:  engine_flags.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Engine flags.
+ */
 
 #ifndef WTE_ENGINE_FLAGS_HPP
 #define WTE_ENGINE_FLAGS_HPP

@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  background.hpp
-
-  See LICENSE.txt for copyright information
-
-  Background component
-*/
+/*!
+ * \brief WTEngine | File:  background.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Background component.
+ */
 
 #ifndef WTE_CMP_BACKGROUND_HPP
 #define WTE_CMP_BACKGROUND_HPP

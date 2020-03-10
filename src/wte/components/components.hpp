@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  components.hpp
-
-  See LICENSE.txt for copyright information
-
-  Inlcude all engine components
-*/
+/*!
+ * \brief WTEngine | File:  components.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Inlcude all engine components.
+ */
 
 #ifndef WTE_COMPONENTS_HPP
 #define WTE_COMPONENTS_HPP

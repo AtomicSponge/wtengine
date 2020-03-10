@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  texture.hpp
-
-  See LICENSE.txt for copyright information
-
-  Texture component
-*/
+/*!
+ * \brief WTEngine | File:  texture.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Texture component.
+ */
 
 #ifndef WTE_CMP_TEXTURE_HPP
 #define WTE_CMP_TEXTURE_HPP

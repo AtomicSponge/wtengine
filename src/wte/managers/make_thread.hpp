@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  make_thread.hpp
-
-  See LICENSE.txt for copyright information
-
-  Wrapper class for creating a threaded object
-*/
+/*!
+ * \brief WTEngine | File:  make_thread.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Wrapper class for creating a threaded object.
+ */
 
 #ifndef WTE_MAKE_THREAD_HPP
 #define WTE_MAKE_THREAD_HPP

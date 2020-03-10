@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  ai.hpp
-
-  See LICENSE.txt for copyright information
-
-  AI component - tag to be processed by logic system
-*/
+/*!
+ * \brief WTEngine | File:  ai.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details AI component - tag to be processed by logic system.
+ */
 
 #ifndef WTE_CMP_AI_HPP
 #define WTE_CMP_AI_HPP

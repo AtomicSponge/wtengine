@@ -1,10 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  wte_main.hpp
-
-  See LICENSE.txt for copyright information
-*/
+/*!
+ * \brief WTEngine | File:  wte_main.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details The main engine object.
+ */
 
 #ifndef WTE_MAIN_HPP
 #define WTE_MAIN_HPP

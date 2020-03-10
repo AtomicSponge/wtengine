@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  background_layer.hpp
-
-  See LICENSE.txt for copyright information
-
-  Background layer component
-*/
+/*!
+ * \brief WTEngine | File:  background_layer.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Background layer component.
+ */
 
 #ifndef WTE_CMP_BACKGROUND_LAYER_HPP
 #define WTE_CMP_BACKGROUND_LAYER_HPP

@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  colision.hpp
-
-  See LICENSE.txt for copyright information
-
-  Colision system
-*/
+/*!
+ * \brief WTEngine | File:  colision.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Colision system.
+ */
 
 #ifndef WTE_SYS_COLISION_HPP
 #define WTE_SYS_COLISION_HPP

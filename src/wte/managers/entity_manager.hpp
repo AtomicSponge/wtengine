@@ -1,12 +1,13 @@
-/*
-  WTEngine
-  By:  Matthew Evans
-  File:  entity_manager.hpp
-
-  See LICENSE.txt for copyright information
-
-  Entity Manager class
-*/
+/*!
+ * \brief WTEngine | File:  entity_manager.hpp
+ * \author Matthew Evans
+ *
+ * \version 0.1a
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2020
+ *
+ * \details Entity Manager class.
+ */
 
 #ifndef WTE_MGR_ENTITY_MANAGER_HPP
 #define WTE_MGR_ENTITY_MANAGER_HPP

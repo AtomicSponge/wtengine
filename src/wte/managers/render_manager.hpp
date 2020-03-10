@@ -51,13 +51,45 @@ typedef std::function<bool(entity_component_pair, entity_component_pair)> compar
 */
 class render_manager final : public manager<render_manager>, private engine_time {
     public:
-        //! render_manager constructor
-        render_manager();
-        //! render_manager destructor
-        ~render_manager();
+        //!  render_manager constructor
+        //!  Generates the render_manager object
+        inline render_manager() : fps_counter(0), fps(0) {
+            render_tmp_bmp = NULL;
+            overlay_font = NULL;
+
+            fps_timer = NULL;
+            fps_event_queue = NULL;
+
+            //  Define comparator as lambda function that sorts components
+            render_comparator =
+                [](entity_component_pair r_element1, entity_component_pair r_element2) {
+                    return r_element1.second < r_element2.second;
+                };
+        };
+    
+        //!  render_manager destructor
+        //!  Cleans up the render_manager object
+        inline ~render_manager() {
+            al_destroy_bitmap(render_tmp_bmp);
+            al_destroy_font(overlay_font);
+
+            al_destroy_event_queue(fps_event_queue);
+            al_destroy_timer(fps_timer);
+        };
 
         //!  Initialize the render_manager
-        void initialize(ALLEGRO_FONT*);
+        //!  Pass an Allegro font for the render_manager to use
+        inline void initialize(ALLEGRO_FONT* font) {
+            overlay_font = font;
+
+            fps_timer = al_create_timer(1);
+
+            fps_event_queue = al_create_event_queue();
+            al_register_event_source(fps_event_queue, al_get_timer_event_source(fps_timer));
+
+            al_start_timer(fps_timer);
+        };
+
         //!  Render method - Draw the game screen
         void render(menu_manager&, entity_manager&);
 
@@ -75,48 +107,6 @@ class render_manager final : public manager<render_manager>, private engine_time
 };
 
 template <> inline bool render_manager::manager<render_manager>::initialized = false;
-
-/*!
-  Generates the render_manager object
-*/
-inline render_manager::render_manager() : fps_counter(0), fps(0) {
-    render_tmp_bmp = NULL;
-    overlay_font = NULL;
-
-    fps_timer = NULL;
-    fps_event_queue = NULL;
-
-    //  Define comparator as lambda function that sorts components
-    render_comparator =
-        [](entity_component_pair r_element1, entity_component_pair r_element2) {
-            return r_element1.second < r_element2.second;
-        };
-}
-
-/*!
-  Cleans up the render_manager object
-*/
-inline render_manager::~render_manager() {
-    al_destroy_bitmap(render_tmp_bmp);
-    al_destroy_font(overlay_font);
-
-    al_destroy_event_queue(fps_event_queue);
-    al_destroy_timer(fps_timer);
-}
-
-/*!
-  Pass an Allegro font for the render_manager to use
-*/
-inline void render_manager::initialize(ALLEGRO_FONT* font) {
-    overlay_font = font;
-
-    fps_timer = al_create_timer(1);
-
-    fps_event_queue = al_create_event_queue();
-    al_register_event_source(fps_event_queue, al_get_timer_event_source(fps_timer));
-
-    al_start_timer(fps_timer);
-}
 
 /*!
   Gets passed the entity manager and timer then draws everything to screen

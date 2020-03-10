@@ -11,6 +11,7 @@
 #ifndef WTE_MGR_MANAGER_HPP
 #define WTE_MGR_MANAGER_HPP
 
+#include <memory>
 #include <stdexcept>
 
 namespace wte
@@ -33,6 +34,9 @@ template <typename derived> class manager {
         manager(const manager&) = delete;
         //!  Remove assignment operator
         void operator=(manager const&) = delete;
+
+        //!  Get a unique smart pointer to a derived manager
+        std::unique_ptr<derived> get(void) const { return std::make_unique<derived>(*this); }
 
     private:
         //  Flag used to force single instance

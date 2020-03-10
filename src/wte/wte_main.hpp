@@ -312,7 +312,7 @@ inline void wte_main::do_game(void) {
   Remaining messages are passed to the custom handler
 */
 inline void wte_main::handle_sys_msg(message_container sys_msgs) {
-    for(message_iterator it = sys_msgs.begin(); it != sys_msgs.end();) {
+    for(auto it = sys_msgs.begin(); it != sys_msgs.end();) {
         //  Switch over the system messages, deleting each as they are processed
         switch(map_cmd_str_values[it->get_cmd()]) {
             //  cmd:  exit - Shut down engine
@@ -386,7 +386,7 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
 
     //  Pass remaining system messages to the custom handler
     if(!sys_msgs.empty()) {
-        for(message_iterator it = sys_msgs.begin(); it != sys_msgs.end(); it++) {
+        for(auto it = sys_msgs.begin(); it != sys_msgs.end(); it++) {
             handle_custom_sys_msg(*it);
         }
     }

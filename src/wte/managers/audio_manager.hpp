@@ -21,6 +21,7 @@
 #endif
 
 #include <string>
+#include <map>
 #include <deque>
 #include <stdexcept>
 
@@ -29,8 +30,7 @@
 
 #include "manager.hpp"
 #include "make_thread.hpp"
-
-#include "message_manager.hpp"
+#include "../message.hpp"
 
 namespace wte
 {

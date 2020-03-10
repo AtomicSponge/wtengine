@@ -51,7 +51,7 @@ inline void spawner::run(mgr::entity_manager& world, mgr::message_manager& messa
   Split out the spawn and delete messages, pass them to each corresponding member for processing
 */
 inline void spawner::dispatch(mgr::entity_manager& world, message_container messages) {
-    for(message_iterator it = messages.begin(); it != messages.end(); it++) {
+    for(auto it = messages.begin(); it != messages.end(); it++) {
         if(it->get_cmd() == "new") process_spawn(world, it->get_arglist());
 
         if(it->get_cmd() == "delete") {

@@ -101,6 +101,8 @@ class message {
         msg_arg_list arglist;  //  Message arguments
 };
 
+typedef std::vector<message> message_container;
+
 } //  namespace wte
 
 #endif

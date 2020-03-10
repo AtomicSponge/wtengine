@@ -56,7 +56,7 @@ void starfield::run(wte::mgr::entity_manager& world, wte::mgr::message_manager& 
   Process messages for the starfield
 */
 void starfield::dispatch(wte::mgr::entity_manager& world, wte::message_container messages) {
-    for(wte::message_iterator it = messages.begin(); it != messages.end(); it++) {
+    for(auto it = messages.begin(); it != messages.end(); it++) {
         if(it->get_cmd() == "default") speed_mult = 1;
         if(it->get_cmd() == "up") speed_mult *= 2;
         if(it->get_cmd() == "down") speed_mult /= 2;

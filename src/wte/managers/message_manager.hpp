@@ -24,14 +24,9 @@
 
 #include "..\wte_global_defines.hpp"
 #include "..\message.hpp"
-#include "entity_manager.hpp"
 
 namespace wte
 {
-
-typedef std::vector<message> message_container;
-typedef std::vector<message>::iterator message_iterator;
-typedef std::vector<message>::const_iterator message_citerator;
 
 namespace mgr
 {
@@ -168,7 +163,7 @@ inline const message_container message_manager::get_messages(const std::string s
     //  Return empty vector if the queue is empty
     if(msg_queue.empty()) return {};
 
-    for(message_iterator it = msg_queue.begin(); it != msg_queue.end();) {
+    for(auto it = msg_queue.begin(); it != msg_queue.end();) {
         //  End early if events are in the future
         if(it->get_timer() > check_time()) break;
 

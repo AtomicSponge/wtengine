@@ -11,11 +11,11 @@
 #include "include/wte/wte.hpp"
 
 //  Set game timer rate
-const float wte::wte_config::TICKS_PER_SECOND = 60.0;
+const float wte::engine_cfg::TICKS_PER_SECOND = 60.0;
 
 int main(int argc, char **argv) {
-    wte::wte_config::screen_width = 768;
-    wte::wte_config::screen_height = 1024;
+    wte::engine_cfg::screen_width = 768;
+    wte::engine_cfg::screen_height = 1024;
 
     //  Initialize game object
     wte::wte_main my_game;

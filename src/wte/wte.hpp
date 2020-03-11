@@ -14,7 +14,7 @@
 #define WTE_MAIN_INCLUDE_HPP
 
 #include "wte_global_defines.hpp"
-#include "wte_config.hpp"
+#include "engine_cfg.hpp"
 
 #include "menu\menu.hpp"
 #include "menu\menu_items.hpp"

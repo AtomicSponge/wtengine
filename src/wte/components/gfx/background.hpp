@@ -14,7 +14,7 @@
 
 #include <allegro5/allegro.h>
 
-#include "../../wte_config.hpp"
+#include "../../engine_cfg.hpp"
 #include "../component.hpp"
 
 namespace wte
@@ -36,7 +36,7 @@ class background : public component {
 };
 
 inline background::background() {
-    background_bitmap = al_create_bitmap(wte_config::screen_width, wte_config::screen_height);
+    background_bitmap = al_create_bitmap(engine_cfg::screen_width, engine_cfg::screen_height);
 }
 
 inline background::~background() {

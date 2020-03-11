@@ -23,7 +23,7 @@
 #include <stdexcept>
 
 #include "wte_global_defines.hpp"
-#include "wte_config.hpp"
+#include "engine_cfg.hpp"
 #include "engine_flags.hpp"
 #include "alert.hpp"
 #include "managers\engine_time.hpp"
@@ -55,10 +55,10 @@ class wte_main final {
             if(!al_init_font_addon()) throw std::runtime_error("Failed to load Allegro font addon!");
             al_install_joystick();
 
-            display = al_create_display(wte_config::screen_width, wte_config::screen_height);
+            display = al_create_display(engine_cfg::screen_width, engine_cfg::screen_height);
             if(!display) throw std::runtime_error("Failed to configure display!");
 
-            main_timer = al_create_timer(1.0 / wte_config::TICKS_PER_SECOND);
+            main_timer = al_create_timer(1.0 / engine_cfg::TICKS_PER_SECOND);
             if(!main_timer) throw std::runtime_error("Failed to create timer!");
 
             main_queue = al_create_event_queue();

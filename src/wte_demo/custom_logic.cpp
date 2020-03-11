@@ -30,7 +30,7 @@ void custom_logic::custom_run(wte::mgr::entity_manager& world, wte::mgr::message
             sin(world.get_component<wte::cmp::direction>(it->first)->angle * (M_PI / 180));
 
         //  OOB check
-        if(world.get_component<wte::cmp::location>(it->first)->pos_y > wte::wte_config::screen_height + 100) {
+        if(world.get_component<wte::cmp::location>(it->first)->pos_y > wte::engine_cfg::screen_height + 100) {
             messages.add_message(wte::message("spawner", "delete",
                                  world.get_component<wte::cmp::name>(it->first)->name_str));
         }

@@ -36,8 +36,8 @@ template <typename derived> class manager {
         //!  Remove assignment operator
         void operator=(manager const&) = delete;
 
-        //!  Get a unique smart pointer to a derived manager
-        std::unique_ptr<derived> get(void) const { return std::make_unique<derived>(*this); }
+        //!  Get a smart pointer to a derived manager
+        //std::shared_ptr<manager> get(void) const { return std::make_shared<manager>(*this); }
 
     private:
         //  Flag used to force single instance

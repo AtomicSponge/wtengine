@@ -17,6 +17,9 @@ int main(int argc, char **argv) {
     wte::engine_cfg::screen_width = 768;
     wte::engine_cfg::screen_height = 1024;
 
+    //wte::engine_cfg::reg("screen_width");
+    //wte::engine_cfg::reg("screen_height");
+
     //  Initialize game object
     wte::wte_main my_game;
     my_game.wte_load();

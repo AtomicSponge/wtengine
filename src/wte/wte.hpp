@@ -15,12 +15,13 @@
 
 #include "wte_global_defines.hpp"
 #include "engine_cfg.hpp"
+#include "variable_map.hpp"
 
-#include "menu\menu.hpp"
-#include "menu\menu_items.hpp"
-#include "managers\managers.hpp"
-#include "components\components.hpp"
-#include "systems\systems.hpp"
+#include "menu/menu.hpp"
+#include "menu/menu_items.hpp"
+#include "managers/managers.hpp"
+#include "components/components.hpp"
+#include "systems/systems.hpp"
 
 #include "wte_main.hpp"
 

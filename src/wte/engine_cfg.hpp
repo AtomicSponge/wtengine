@@ -12,9 +12,6 @@
 #ifndef WTE_ENGINE_CFG_HPP
 #define WTE_ENGINE_CFG_HPP
 
-#include <string>
-#include <map>
-
 namespace wte
 {
 
@@ -22,17 +19,8 @@ namespace wte
 /*!
  * Statics to store engine config variables
  */
-class engine_cfg {
+class engine_cfg final {
     public:
-        //!  Remove copy constructor
-        engine_cfg(const engine_cfg&) = delete;
-        //!  Remove assignment operator
-        void operator=(engine_cfg const&) = delete;
-
-        //static reg(const std::string, data);
-        //static set(const std::string, data);
-        //<type>get(const std::string);
-
         //!  Set the timer rate
         static const float TICKS_PER_SECOND;
 
@@ -40,12 +28,6 @@ class engine_cfg {
         static unsigned int screen_width;
         //!  Set screen height
         static unsigned int screen_height;
-
-    private:
-        inline engine_cfg() {};
-        inline ~engine_cfg() {};
-
-        static std::map<std::string, int> engine_cfg_map; 
 };
 
 inline unsigned int engine_cfg::screen_width;

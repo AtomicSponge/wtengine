@@ -8,6 +8,9 @@
  *
  * \details Handle playback of audio in its own thread.
  * Waits for messages to be loaded into the audio deck.
+ * 
+ * \bug Samples currently have a memory leak.
+ * Need to investigate loading/unloading.
  */
 
 #ifndef WTE_MGR_AUDIO_MANAGER_HPP

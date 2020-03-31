@@ -42,6 +42,19 @@ template <class derived> class variable_map {
         };
 
         /*!
+         * Create a new entry in the map.
+         * Call this first before accessing.
+         */
+        inline static const bool reg(const std::string expr) {
+            std::string var = expr.substr(0, expr.find("="));
+            std::string val = expr.substr(expr.find("=") + 1, expr.length());
+
+            auto ret = _map.insert(std::make_pair(var, val));
+            if(ret.second == false) return false;  //  Key exists already
+            else return true;  //  Inserted new key/pair
+        };
+
+        /*!
          * Set key to value
          */
         inline static const bool set(const std::string var, const std::string val) {

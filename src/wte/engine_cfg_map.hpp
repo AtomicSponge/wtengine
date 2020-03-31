@@ -1,5 +1,5 @@
 /*!
- * \brief WTEngine | File:  engine_cfg.hpp
+ * \brief WTEngine | File:  engine_cfg_map.hpp
  * \author Matthew Evans
  *
  * \version 0.1a

@@ -26,7 +26,7 @@
 #include "engine_time.hpp"
 
 #include "..\wte_global_defines.hpp"
-#include "..\engine_cfg.hpp"
+#include "..\engine_cfg_map.hpp"
 #include "..\engine_flags.hpp"
 #include "..\components\components.hpp"
 #include "..\alert.hpp"
@@ -216,8 +216,8 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
         render_tmp_bmp = al_clone_bitmap(menus.render_menu());
         al_set_target_backbuffer(al_get_current_display());
         al_draw_bitmap(render_tmp_bmp,
-                       (engine_cfg::screen_width / 2) - (al_get_bitmap_width(render_tmp_bmp) / 2),
-                       (engine_cfg::screen_height / 2) - (al_get_bitmap_height(render_tmp_bmp) / 2),
+                       (engine_cfg::get<int>("screen_width") / 2) - (al_get_bitmap_width(render_tmp_bmp) / 2),
+                       (engine_cfg::get<int>("screen_height") / 2) - (al_get_bitmap_height(render_tmp_bmp) / 2),
                        0);
         al_destroy_bitmap(render_tmp_bmp);
     }
@@ -237,8 +237,8 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
 
         al_set_target_backbuffer(al_get_current_display());
         al_draw_bitmap(render_tmp_bmp,
-                       (engine_cfg::screen_width / 2) - (al_get_bitmap_width(render_tmp_bmp) / 2),
-                       (engine_cfg::screen_height / 2) - (al_get_bitmap_height(render_tmp_bmp) / 2),
+                       (engine_cfg::get<int>("screen_width") / 2) - (al_get_bitmap_width(render_tmp_bmp) / 2),
+                       (engine_cfg::get<int>("screen_height") / 2) - (al_get_bitmap_height(render_tmp_bmp) / 2),
                        0);
         al_destroy_bitmap(render_tmp_bmp);
     }
@@ -253,11 +253,11 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
 
     //  Draw frame rate
     if(engine_flags::is_set(DRAW_FPS)) {
-        al_draw_text(overlay_font, WTE_COLOR_YELLOW, engine_cfg::screen_width, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
+        al_draw_text(overlay_font, WTE_COLOR_YELLOW, engine_cfg::get<int>("screen_width"), 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
     //  Draw time if debug mode is enabled
     #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
-    al_draw_text(overlay_font, WTE_COLOR_YELLOW, engine_cfg::screen_width, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
+    al_draw_text(overlay_font, WTE_COLOR_YELLOW, engine_cfg::get<int>("screen_width"), 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     #endif
 
     /*

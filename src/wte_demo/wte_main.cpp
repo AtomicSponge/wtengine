@@ -56,8 +56,8 @@ void wte_main::load_game(void) {
     e_id = world.new_entity();
     world.add_component(e_id, std::make_shared<cmp::name>("player"));
     world.add_component(e_id, std::make_shared<cmp::team>(0));
-    world.add_component(e_id, std::make_shared<cmp::location>((engine_cfg::screen_width / 2) - 5,
-                                                               engine_cfg::screen_height - 40));
+    world.add_component(e_id, std::make_shared<cmp::location>((engine_cfg::get<int>("screen_width") / 2) - 5,
+                                                               engine_cfg::get<int>("screen_height") - 40));
     world.add_component(e_id, std::make_shared<cmp::hitbox>(10, 10));
     world.add_component(e_id, std::make_shared<cmp::health>(1));
     world.add_component(e_id, std::make_shared<cmp::render_order>(1));

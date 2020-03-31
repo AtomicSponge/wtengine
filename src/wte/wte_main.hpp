@@ -24,6 +24,7 @@
 
 #include "wte_global_defines.hpp"
 #include "engine_cfg_map.hpp"
+#include "game_cfg_map.hpp"
 #include "engine_flags.hpp"
 #include "alert.hpp"
 #include "managers/engine_time.hpp"
@@ -82,6 +83,7 @@ class wte_main final {
             map_cmd_str_values["enable_system"] = CMD_STR_ENABLE_SYSTEM;
             map_cmd_str_values["disable_system"] = CMD_STR_DISABLE_SYSTEM;
             map_cmd_str_values["set_engcfg"] = CMD_STR_SET_ENGCFG;
+            map_cmd_str_values["set_gamecfg"] = CMD_STR_SET_GAMECFG;
 
             //  Set default colors for alerts
             alert::set_font_color(WTE_COLOR_WHITE);
@@ -186,7 +188,7 @@ class wte_main final {
             CMD_STR_NEW_GAME,       CMD_STR_END_GAME,
             CMD_STR_OPEN_MENU,      CMD_STR_CLOSE_MENU,
             CMD_STR_ENABLE_SYSTEM,  CMD_STR_DISABLE_SYSTEM,
-            CMD_STR_SET_ENGCFG
+            CMD_STR_SET_ENGCFG,     CMD_STR_SET_GAMECFG
         };
         std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
 
@@ -385,6 +387,13 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
             case CMD_STR_SET_ENGCFG:
                 for(std::size_t i = 0; i < it->num_args(); i++)
                     engine_cfg::set(it->get_arg(i));
+                it = sys_msgs.erase(it);
+                break;
+
+            //  cmd:  set_gamecfg - Set game cfg variable
+            case CMD_STR_SET_GAMECFG:
+                for(std::size_t i = 0; i < it->num_args(); i++)
+                    game_cfg::set(it->get_arg(i));
                 it = sys_msgs.erase(it);
                 break;
 

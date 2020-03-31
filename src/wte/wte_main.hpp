@@ -55,10 +55,13 @@ class wte_main final {
             if(!al_init_font_addon()) throw std::runtime_error("Failed to load Allegro font addon!");
             al_install_joystick();
 
+            if(!engine_cfg::is_reg("screen_width")) throw std::runtime_error("Screen width not set!");
+            if(!engine_cfg::is_reg("screen_height")) throw std::runtime_error("Screen height not set!");
             display = al_create_display(engine_cfg::get<int>("screen_width"),
                                         engine_cfg::get<int>("screen_height"));
             if(!display) throw std::runtime_error("Failed to configure display!");
 
+            if(!engine_cfg::is_reg("TICKS_PER_SECOND")) throw std::runtime_error("Timer value not set!");
             main_timer = al_create_timer(1.0 / engine_cfg::get<double>("TICKS_PER_SECOND"));
             if(!main_timer) throw std::runtime_error("Failed to create timer!");
 

@@ -55,6 +55,18 @@ template <class derived> class variable_map {
         };
 
         /*!
+         * Check if a variable is registered in the map.
+         */
+        inline static const bool is_reg(const std::string var) {
+            try {
+                _map.at(var);
+                return true;
+            } catch (std::out_of_range& e) {
+                return false;  //  Didn't find var
+            }
+        }
+
+        /*!
          * Set key to value
          */
         inline static const bool set(const std::string var, const std::string val) {

@@ -25,7 +25,7 @@ namespace mgr
 /*!
   Extend this to create a manager class.  These are restricted to a single instance.
 */
-template <typename derived> class manager {
+template <class derived> class manager {
     public:
         //!  Free up single instance,
         //!  sets the initialized flag to false.

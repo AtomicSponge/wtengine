@@ -26,9 +26,6 @@ namespace wte
  */
 template <class derived> class variable_map {
     public:
-        inline variable_map() { _map.clear(); };
-        inline ~variable_map() { _map.clear(); };
-
         //!  Remove copy constructor
         variable_map(const variable_map&) = delete;
         //!  Remove assignment operator
@@ -38,17 +35,16 @@ template <class derived> class variable_map {
          * Create a new entry in the map.
          * Call this first before accessing.
          */
-        inline const bool reg(const std::string var, const std::string val) {
+        inline static const bool reg(const std::string var, const std::string val) {
             auto ret = _map.insert(std::make_pair(var, val));
             if(ret.second == false) return false;  //  Key exists already
             else return true;  //  Inserted new key/pair
         };
 
         /*!
-         * Set key
-         * Will override value
+         * Set key to value
          */
-        inline bool set(const std::string var, const std::string val) {
+        inline static const bool set(const std::string var, const std::string val) {
             try {
                 _map.at(var) = val;
                 return true;
@@ -59,9 +55,8 @@ template <class derived> class variable_map {
 
         /*!
          * Set based on string
-         * Will match type in map
          */
-        inline bool set(const std::string expr) {
+        inline static const bool set(const std::string expr) {
             std::string var = expr.substr(0, expr.find("="));
             std::string val = expr.substr(expr.find("=") + 1, expr.length());
 
@@ -76,7 +71,7 @@ template <class derived> class variable_map {
         /*!
          * Get value
          */
-        template <typename T> inline const T get(const std::string var) {
+        template <typename T> inline static const T get(const std::string var) {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >> temp;
@@ -89,13 +84,11 @@ template <class derived> class variable_map {
         };
 
     private:
-        //inline variable_map() { _map.clear(); };
-        //inline ~variable_map() { _map.clear(); };
+        inline variable_map() { _map.clear(); };
+        inline ~variable_map() { _map.clear(); };
 
         static std::map<std::string, std::string> _map;
 };
-
-//typedef variable_map<engine_stuffs> engine_stuffs;
 
 } //  end namespace wte
 

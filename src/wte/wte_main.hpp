@@ -55,7 +55,8 @@ class wte_main final {
             if(!al_init_font_addon()) throw std::runtime_error("Failed to load Allegro font addon!");
             al_install_joystick();
 
-            display = al_create_display(engine_cfg::get<int>("screen_width"), engine_cfg::get<int>("screen_height"));
+            display = al_create_display(engine_cfg::get<int>("screen_width"),
+                                        engine_cfg::get<int>("screen_height"));
             if(!display) throw std::runtime_error("Failed to configure display!");
 
             main_timer = al_create_timer(1.0 / engine_cfg::get<double>("TICKS_PER_SECOND"));

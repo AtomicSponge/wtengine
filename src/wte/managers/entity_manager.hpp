@@ -116,8 +116,8 @@ inline const entity entity_manager::new_entity(void) {
         next_id = 0;
 
         for(world_iterator it = entity_vec.begin(); it != entity_vec.end(); it++) {
-            //  No more room for entities, fail
-            if(next_id == std::numeric_limits<entity>::max()) throw std::runtime_error("No room for more entities!");
+            //  No more room for entities, soft fail.
+            if(next_id == std::numeric_limits<entity>::max()) return 0;
             if(*it == next_id) {          //  Entity ID exists
                 next_id++;                //  Increment next_id by one
                 it = entity_vec.begin();  //  Then start the search over

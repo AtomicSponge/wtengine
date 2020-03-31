@@ -95,6 +95,7 @@ template <class derived> class variable_map {
 
         /*!
          * Get value
+         * Returns by type
          */
         template <typename T> inline static const T get(const std::string var) {
             try {

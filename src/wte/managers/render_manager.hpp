@@ -25,11 +25,11 @@
 #include "manager.hpp"
 #include "engine_time.hpp"
 
-#include "..\wte_global_defines.hpp"
-#include "..\engine_cfg_map.hpp"
-#include "..\engine_flags.hpp"
-#include "..\components\components.hpp"
-#include "..\alert.hpp"
+#include "../wte_global_defines.hpp"
+#include "../engine_cfg_map.hpp"
+#include "../engine_flags.hpp"
+#include "../components/components.hpp"
+#include "../alert.hpp"
 #include "menu_manager.hpp"
 #include "entity_manager.hpp"
 

@@ -23,10 +23,10 @@
 #include <allegro5/allegro_font.h>
 
 #include "manager.hpp"
-#include "..\wte_global_defines.hpp"
-#include "..\engine_flags.hpp"
-#include "..\input_flags.hpp"
-#include "..\menu\menu.hpp"
+#include "../wte_global_defines.hpp"
+#include "../engine_flags.hpp"
+#include "../input_flags.hpp"
+#include "../menu/menu.hpp"
 #include "message_manager.hpp"
 
 namespace wte

@@ -23,8 +23,8 @@
 #include "manager.hpp"
 #include "engine_time.hpp"
 
-#include "..\wte_global_defines.hpp"
-#include "..\message.hpp"
+#include "../wte_global_defines.hpp"
+#include "../message.hpp"
 
 namespace wte
 {

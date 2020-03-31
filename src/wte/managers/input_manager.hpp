@@ -19,9 +19,9 @@
 #include "manager.hpp"
 #include "make_thread.hpp"
 
-#include "..\engine_flags.hpp"
-#include "..\input_flags.hpp"
-#include "..\alert.hpp"
+#include "../engine_flags.hpp"
+#include "../input_flags.hpp"
+#include "../alert.hpp"
 
 namespace wte
 {

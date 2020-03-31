@@ -21,7 +21,7 @@
 #include <stdexcept>
 
 #include "manager.hpp"
-#include "..\components\component.hpp"
+#include "../components/component.hpp"
 
 namespace wte
 {

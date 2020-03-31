@@ -19,7 +19,7 @@
 #include <stdexcept>
 
 #include "manager.hpp"
-#include "..\systems\system.hpp"
+#include "../systems/system.hpp"
 #include "message_manager.hpp"
 #include "entity_manager.hpp"
 

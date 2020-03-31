@@ -16,6 +16,7 @@
 #include "wte_global_defines.hpp"
 
 #include "engine_cfg_map.hpp"
+#include "game_cfg_map.hpp"
 
 #include "menu/menu.hpp"
 #include "menu/menu_items.hpp"

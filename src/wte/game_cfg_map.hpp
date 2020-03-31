@@ -21,7 +21,7 @@ namespace wte
 /*!
  * Statics to store game config variables
  */
-class game_cfg_map : public variable_map<game_cfg_map> {};
+class game_cfg_map final : public variable_map<game_cfg_map> {};
 
 typedef game_cfg_map::variable_map<game_cfg_map> game_cfg;
 

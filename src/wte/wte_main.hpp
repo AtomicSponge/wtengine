@@ -379,7 +379,8 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
 
             //  cmd:  set_engcfg - Set engine cfg variable
             case CMD_STR_SET_ENGCFG:
-                //
+                for(std::size_t i = 0; i < it->num_args(); i++)
+                    engine_cfg::set(it->get_arg(i));
                 it = sys_msgs.erase(it);
                 break;
 

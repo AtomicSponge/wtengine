@@ -13,8 +13,9 @@
 #define WTE_VARIABLE_MAP_HPP
 
 #include <string>
-#include <any>
 #include <map>
+#include <sstream>
+#include <any>
 
 namespace wte
 {
@@ -23,65 +24,75 @@ namespace wte
 /*!
  * Create a map of variables
  */
-template <typename derived> class variable_map {
+template <class derived> class variable_map {
     public:
+        inline variable_map() { _map.clear(); };
+        inline ~variable_map() { _map.clear(); };
+
         //!  Remove copy constructor
         variable_map(const variable_map&) = delete;
         //!  Remove assignment operator
         void operator=(variable_map const&) = delete;
 
         /*!
-         *
+         * Create a new entry in the map.
+         * Call this first before accessing.
          */
-        template <class T>  inline static const bool reg(const std::string var, const T val) {
+        inline const bool reg(const std::string var, const std::string val) {
             auto ret = _map.insert(std::make_pair(var, val));
             if(ret.second == false) return false;  //  Key exists already
             else return true;  //  Inserted new key/pair
         };
 
         /*!
-         *
+         * Set key
+         * Will override value
          */
-        inline static void check_type(const std::string var) {
-            //
-        };
-
-        /*!
-         *
-         */
-        inline static void set(const std::string expr) {
-            set<int>(expr, 0);
-        };
-
-        /*!
-         *
-         */
-        template <class T> inline static void set(const std::string var, const T val) {
+        inline bool set(const std::string var, const std::string val) {
             try {
                 _map.at(var) = val;
-            } catch (...) {
-                //  Didn't find var
+                return true;
+            } catch (std::out_of_range& e) {
+                return false;  //  Didn't find var
             }
         };
 
         /*!
-         *
+         * Set based on string
+         * Will match type in map
          */
-        template <class T> inline static const T get(const std::string var) {
+        inline bool set(const std::string expr) {
+            std::string var = expr.substr(0, expr.find("="));
+            std::string val = expr.substr(expr.find("=") + 1, expr.length());
+
             try {
-                return std::any_cast<T>(_map.at(var));
+                _map.at(var) = val;
+                return true;
             } catch (std::out_of_range& e) {
-                std::exit(0);  //  Didn't find
+                return false;  //  Didn't find var
+            }
+        };
+
+        /*!
+         * Get value
+         */
+        template <typename T> inline const T get(const std::string var) {
+            try {
+                T temp;
+                std::stringstream(_map.at(var)) >> temp;
+                return std::any_cast<const T>(temp);
+            } catch (std::out_of_range& e) {
+                return std::any_cast<const bool>(false);  //  Didn't find
             } catch (std::bad_any_cast& e) {
-                std::exit(0);  //  Bad cast
+                return std::any_cast<const bool>(false);  //  Bad cast
             }
         };
 
     private:
-        //inline variable_map() {};
-        //inline ~variable_map() {};
+        //inline variable_map() { _map.clear(); };
+        //inline ~variable_map() { _map.clear(); };
 
-        static std::map<std::string, std::any> _map;
+        static std::map<std::string, std::string> _map;
 };
 
 //typedef variable_map<engine_stuffs> engine_stuffs;

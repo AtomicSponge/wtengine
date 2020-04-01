@@ -36,6 +36,10 @@ template <class derived> class variable_map {
          * Call this first before accessing.
          */
         inline static const bool reg(const std::string var, const std::string val) {
+            if(var.find('=') != std::string::npos)
+                return false;
+            if(val.find('=') != std::string::npos)
+                return false;
             auto ret = _map.insert(std::make_pair(var, val));
             if(ret.second == false) return false;  //  Key exists already
             else return true;  //  Inserted new key/pair
@@ -49,9 +53,7 @@ template <class derived> class variable_map {
             std::string var = expr.substr(0, expr.find("="));
             std::string val = expr.substr(expr.find("=") + 1, expr.length());
 
-            auto ret = _map.insert(std::make_pair(var, val));
-            if(ret.second == false) return false;  //  Key exists already
-            else return true;  //  Inserted new key/pair
+            return reg(var, val);
         };
 
         /*!
@@ -85,12 +87,7 @@ template <class derived> class variable_map {
             std::string var = expr.substr(0, expr.find("="));
             std::string val = expr.substr(expr.find("=") + 1, expr.length());
 
-            try {
-                _map.at(var) = val;
-                return true;
-            } catch (std::out_of_range& e) {
-                return false;  //  Didn't find var
-            }
+            return set(var, val);
         };
 
         /*!

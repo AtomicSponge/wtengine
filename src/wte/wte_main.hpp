@@ -62,8 +62,7 @@ class wte_main final {
                                         engine_cfg::get<int>("screen_height"));
             if(!display) throw std::runtime_error("Failed to configure display!");
 
-            if(!engine_cfg::is_reg("TICKS_PER_SECOND")) throw std::runtime_error("Timer value not set!");
-            main_timer = al_create_timer(1.0 / engine_cfg::get<double>("TICKS_PER_SECOND"));
+            main_timer = al_create_timer(1.0 / WTE_TICKS_PER_SECOND);
             if(!main_timer) throw std::runtime_error("Failed to create timer!");
 
             main_queue = al_create_event_queue();

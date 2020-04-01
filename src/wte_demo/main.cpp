@@ -12,7 +12,6 @@
 
 int main(int argc, char **argv) {
     //  Register engine settings
-    wte::engine_cfg::reg("TICKS_PER_SECOND=60.0");
     wte::engine_cfg::reg("screen_width=768");
     wte::engine_cfg::reg("screen_height=1024");
 

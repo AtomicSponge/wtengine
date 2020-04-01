@@ -12,6 +12,11 @@
 #ifndef WTE_GLOBAL_DEFINES_HPP
 #define WTE_GLOBAL_DEFINES_HPP
 
+//  Set timer rate
+#ifndef WTE_TICKS_PER_SECOND
+#define WTE_TICKS_PER_SECOND 60.0
+#endif
+
 //  Set level of debugging
 /*
   0 - off

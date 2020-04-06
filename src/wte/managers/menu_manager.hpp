@@ -229,20 +229,20 @@ inline void menu_manager::run(message_manager& messages) {
     }
 
     //  Iterate through the menu items depending on key press
-    if(input_flags::is_set(INPUT_UP) && menu_position != opened_menus.top()->get_items().begin()) {
+    if(input_flags::is_set(INPUT_UP) && menu_position != opened_menus.top()->get_items().cbegin()) {
         menu_position--;
         input_flags::unset(INPUT_UP);
     }
-    if(input_flags::is_set(INPUT_DOWN) && menu_position != opened_menus.top()->get_items().end()) {
+    if(input_flags::is_set(INPUT_DOWN) && menu_position != opened_menus.top()->get_items().cend()) {
         menu_position++;
         input_flags::unset(INPUT_DOWN);
     }
 
-    if(input_flags::is_set(INPUT_LEFT) && menu_position != opened_menus.top()->get_items().begin()) {
+    if(input_flags::is_set(INPUT_LEFT) && menu_position != opened_menus.top()->get_items().cbegin()) {
         //option_selection--;
         input_flags::unset(INPUT_LEFT);
     }
-    if(input_flags::is_set(INPUT_RIGHT) && menu_position != opened_menus.top()->get_items().end()) {
+    if(input_flags::is_set(INPUT_RIGHT) && menu_position != opened_menus.top()->get_items().cend()) {
         //option_selection++;
         input_flags::unset(INPUT_RIGHT);
     }
@@ -267,8 +267,6 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     //  Destroy old bitmap if it exists
     al_destroy_bitmap(menu_bitmap);
 
-    al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
-
     //  If the menu stack is empty then the run member hasn't been called yet
     //  Return a blank bitmap for now
     if(opened_menus.empty()) {
@@ -278,6 +276,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     }
 
     //  Create a new menu bitmap and set drawing to it
+    al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
     menu_bitmap = al_create_bitmap(opened_menus.top()->get_width(), opened_menus.top()->get_height());
     al_set_target_bitmap(menu_bitmap);
     al_clear_to_color(menu_bg_color);
@@ -294,8 +293,8 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     }
 
     //  Render menu items
-    for(mnu::menu_item_citerator it = opened_menus.top()->get_items().begin();
-        it != opened_menus.top()->get_items().end(); it++) {
+    for(auto it = opened_menus.top()->get_items().cbegin();
+        it != opened_menus.top()->get_items().cend(); it++) {
         //it->get_label();
         //al_draw_text(menu_font, menu_font_color, x, y, ALLEGRO_ALIGN_CENTER, str.c_str())
     }

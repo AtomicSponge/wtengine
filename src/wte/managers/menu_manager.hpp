@@ -250,8 +250,10 @@ inline void menu_manager::run(message_manager& messages) {
     }
 
     if(input_flags::is_set(INPUT_MENU_SELECT)) {
-        if(menu_position != opened_menus.top()->get_items().cend())
-            messages.add_message(menu_position->get()->on_select());
+        if(menu_position != opened_menus.top()->get_items().cend()) {
+            message temp_msg = menu_position->get()->on_select();
+            if(temp_msg.get_cmd() != "null") messages.add_message(temp_msg);
+        }
         input_flags::unset(INPUT_MENU_SELECT);
     }
 

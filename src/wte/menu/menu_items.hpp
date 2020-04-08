@@ -12,6 +12,7 @@
 #ifndef WTE_MENU_ITEMS_HPP
 #define WTE_MENU_ITEMS_HPP
 
-//#include "menu_item_action.hpp"
+#include "menu_item_action.hpp"
+#include "menu_item_setting.hpp"
 
 #endif

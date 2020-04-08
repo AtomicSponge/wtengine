@@ -65,7 +65,15 @@ class entity_manager final : public manager<entity_manager> {
         inline entity_manager() { clear(); };                           /*!< Entity manager constructor */
         inline ~entity_manager() { clear(); };
 
-        void clear(void);
+        //!  Clear the entity manager
+        /*!
+        Set the entity counter to zero and clear the entities and componenets
+        */
+        inline void clear(void) {
+            entity_counter = 0;
+            entity_vec.clear();
+            world.clear();
+        }
 
         //  Entity members
         const entity new_entity(void);                          /*!< Create a new entity */
@@ -91,16 +99,6 @@ class entity_manager final : public manager<entity_manager> {
 };
 
 template <> inline bool entity_manager::manager<entity_manager>::initialized = false;
-
-//!  Clear the entity manager
-/*!
-  Set the entity counter to zero and clear the entities and componenets
-*/
-inline void entity_manager::clear(void) {
-    entity_counter = 0;
-    entity_vec.clear();
-    world.clear();
-}
 
 //! Create new entity
 /*!

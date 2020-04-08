@@ -51,7 +51,7 @@ typedef std::map<entity, cmp::component_sptr>::iterator component_iterator;
 typedef std::map<entity, cmp::component_sptr>::const_iterator component_citerator;
 
 //!  Define main container for entity/component reference storage
-typedef std::unordered_multimap<entity, cmp::component_sptr> world_map;
+typedef std::multimap<entity, cmp::component_sptr> world_map;
 
 namespace mgr
 {

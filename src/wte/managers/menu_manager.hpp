@@ -205,7 +205,7 @@ inline void menu_manager::reset(void) {
 inline void menu_manager::open_menu(const std::string menu_id) {
     opened_menus.push(get_menu(menu_id));
     engine_flags::set(GAME_MENU_OPENED);
-    menu_position = opened_menus.top()->get_items().begin();
+    menu_position = opened_menus.top()->get_items().cbegin();
 }
 
 //!  Close the current opened menu
@@ -239,16 +239,16 @@ inline void menu_manager::run(message_manager& messages) {
     }
 
     if(input_flags::is_set(INPUT_LEFT) && menu_position != opened_menus.top()->get_items().cbegin()) {
-        //option_selection--;
+        menu_position->get()->on_left();
         input_flags::unset(INPUT_LEFT);
     }
     if(input_flags::is_set(INPUT_RIGHT) && menu_position != opened_menus.top()->get_items().cend()) {
-        //option_selection++;
+        menu_position->get()->on_right();
         input_flags::unset(INPUT_RIGHT);
     }
 
     if(input_flags::is_set(INPUT_MENU_SELECT)) {
-        //...
+        messages.add_message(menu_position->get()->on_select());
         input_flags::unset(INPUT_MENU_SELECT);
     }
 

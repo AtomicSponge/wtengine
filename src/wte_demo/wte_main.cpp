@@ -26,6 +26,13 @@ void wte_main::load_menus(void) {
     menus.set_menu("game_menu")->set_title("WTE Demo - Game Paused");
     //mnu::menu_item_action item;
     //menus.set_menu("main_menu")->add_item(item);
+
+    {
+        //  Create the settings menu
+        mnu::menu temp_menu = mnu::menu("settings", 300, 200, 10);
+        temp_menu.set_title("Settings");
+        if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
+    }
 }
 
 /*

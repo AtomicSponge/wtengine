@@ -33,9 +33,9 @@ class menu_item {
 
         virtual std::vector<std::string> get_text(void);
 
-        virtual void on_left(void);
-        virtual void on_right(void);
-        virtual message on_select(void);
+        virtual void on_left(void) {};
+        virtual void on_right(void) {};
+        virtual message on_select(void) { return message("system", "null", "null"); };
 
     private:
 

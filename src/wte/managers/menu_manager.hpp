@@ -230,25 +230,28 @@ inline void menu_manager::run(message_manager& messages) {
 
     //  Iterate through the menu items depending on key press
     if(input_flags::is_set(INPUT_UP) && menu_position != opened_menus.top()->get_items().cbegin()) {
-        menu_position--;
+        if(menu_position != opened_menus.top()->get_items().cend()) menu_position--;
         input_flags::unset(INPUT_UP);
     }
     if(input_flags::is_set(INPUT_DOWN) && menu_position != opened_menus.top()->get_items().cend()) {
-        menu_position++;
+        if(menu_position != opened_menus.top()->get_items().cend()) menu_position++;
         input_flags::unset(INPUT_DOWN);
     }
 
     if(input_flags::is_set(INPUT_LEFT) && menu_position != opened_menus.top()->get_items().cbegin()) {
-        menu_position->get()->on_left();
+        if(menu_position != opened_menus.top()->get_items().cend())
+            menu_position->get()->on_left();
         input_flags::unset(INPUT_LEFT);
     }
     if(input_flags::is_set(INPUT_RIGHT) && menu_position != opened_menus.top()->get_items().cend()) {
-        menu_position->get()->on_right();
+        if(menu_position != opened_menus.top()->get_items().cend())
+            menu_position->get()->on_right();
         input_flags::unset(INPUT_RIGHT);
     }
 
     if(input_flags::is_set(INPUT_MENU_SELECT)) {
-        messages.add_message(menu_position->get()->on_select());
+        if(menu_position != opened_menus.top()->get_items().cend())
+            messages.add_message(menu_position->get()->on_select());
         input_flags::unset(INPUT_MENU_SELECT);
     }
 

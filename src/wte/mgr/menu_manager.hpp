@@ -259,6 +259,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
 
     //  Destroy old bitmap if it exists
     al_destroy_bitmap(menu_bitmap);
+    al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
 
     //  If the menu stack is empty then the run member hasn't been called yet
     //  Return a blank bitmap for now
@@ -269,7 +270,6 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     }
 
     //  Create a new menu bitmap and set drawing to it
-    al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
     menu_bitmap = al_create_bitmap(opened_menus.top()->get_width(), opened_menus.top()->get_height());
     al_set_target_bitmap(menu_bitmap);
     al_clear_to_color(menu_bg_color);

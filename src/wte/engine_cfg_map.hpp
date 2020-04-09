@@ -27,7 +27,8 @@ class engine_cfg_map final : public variable_map<engine_cfg_map> {
         * Load
         */
         inline engine_cfg_map() {
-            //reg("a", "b");
+            //reg("screen_width=768");
+            //engine_cfg_map::variable_map<engine_cfg_map>::reg("screen_height=1024");
         };
 
         /*!

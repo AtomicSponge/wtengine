@@ -44,7 +44,7 @@ class menu_item {
         std::string label;
 
     protected:
-        inline menu_item(std::string l) : label(l) {};
+        inline menu_item(const std::string l) : label(l) {};
 };
 
 //! Menu Item shared pointer

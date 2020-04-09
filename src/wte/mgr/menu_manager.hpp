@@ -265,6 +265,8 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     //  Return a blank bitmap for now
     if(opened_menus.empty()) {
         menu_bitmap = al_create_bitmap(1, 1);
+        al_set_target_bitmap(menu_bitmap);
+        al_clear_to_color(menu_bg_color);
         al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
         return menu_bitmap;
     }

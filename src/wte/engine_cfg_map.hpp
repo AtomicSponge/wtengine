@@ -26,12 +26,16 @@ class engine_cfg_map final : public variable_map<engine_cfg_map> {
         /*!
         * Load
         */
-        inline engine_cfg_map() {};
+        inline engine_cfg_map() {
+            //reg("a", "b");
+        };
 
         /*!
         * Unload
         */
-        inline ~engine_cfg_map() {};
+        inline ~engine_cfg_map() {
+            //
+        };
 };
 
 typedef engine_cfg_map::variable_map<engine_cfg_map> engine_cfg;

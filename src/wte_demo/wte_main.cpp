@@ -25,7 +25,7 @@ void wte_main::load_menus(void) {
     {
         //  Configure main menu
         menus.set_menu("main_menu")->set_title("WTE Demo");
-        //mnu::menu_item_action item;
+        //mnu::menu_item_action item = mnu::menu_item_action("Label", "cmd", "args");
         //menus.set_menu("main_menu")->add_item(item);
     }
 

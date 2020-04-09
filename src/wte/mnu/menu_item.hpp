@@ -41,7 +41,7 @@ class menu_item {
         const std::string get_label(void) const { return label; };
 
     private:
-        const std::string label;
+        std::string label;
 
     protected:
         inline menu_item(std::string l) : label(l) {};

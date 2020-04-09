@@ -32,25 +32,14 @@ class menu_item_action final : public menu_item {
         inline menu_item_action(std::string c, std::string a) : cmd(c), arg(a) {};
         inline ~menu_item_action() {};
 
-        std::vector<std::string> get_text(void);
-        void do_item(void);
-    
+        message on_select(void) { return message("system", cmd, arg); };
+
+        std::vector<std::string> get_text(void) { return {}; };
+
     private:
         std::string cmd;
         std::string arg;
 };
-
-/*!
-*/
-inline std::vector<std::string> menu_item_action::get_text(void) {
-    return {};
-}
-
-/*!
-*/
-inline void menu_item_action::do_item(void) {
-    //
-}
 
 }  // end namespace mnu
 

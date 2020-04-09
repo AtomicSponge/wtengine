@@ -18,11 +18,11 @@
 #include "engine_cfg_map.hpp"
 #include "game_cfg_map.hpp"
 
-#include "menu/menu.hpp"
-#include "menu/menu_items.hpp"
-#include "managers/managers.hpp"
-#include "components/components.hpp"
-#include "systems/systems.hpp"
+#include "mnu/menu.hpp"
+#include "mnu/menu_items.hpp"
+#include "mgr/managers.hpp"
+#include "cmp/components.hpp"
+#include "sys/systems.hpp"
 
 #include "wte_main.hpp"
 

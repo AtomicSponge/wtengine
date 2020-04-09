@@ -27,8 +27,8 @@
 #include "game_cfg_map.hpp"
 #include "engine_flags.hpp"
 #include "alert.hpp"
-#include "managers/engine_time.hpp"
-#include "managers/managers.hpp"
+#include "mgr/engine_time.hpp"
+#include "mgr/managers.hpp"
 
 namespace wte
 {

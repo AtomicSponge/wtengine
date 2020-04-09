@@ -39,9 +39,10 @@ class menu_item {
         virtual message on_select(void) { return message("system", "null", "null"); };
 
     private:
+        std::string label;
 
     protected:
-        inline menu_item() {};
+        inline menu_item(std::string l) : label(l) {};
 };
 
 //! Menu Item shared pointer

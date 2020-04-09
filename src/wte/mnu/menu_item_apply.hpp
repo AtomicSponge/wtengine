@@ -28,7 +28,7 @@ namespace mnu
 */
 class menu_item_apply final : public menu_item {
     public:
-        inline menu_item_apply(std::string c, std::string a) : cmd(c), arg(a) {};
+        inline menu_item_apply(std::string l, std::string c, std::string a) : menu_item(l), cmd(c), arg(a) {};
         inline ~menu_item_apply() {};
 
         message on_select(void) override { return message("system", cmd, arg); };

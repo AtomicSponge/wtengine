@@ -28,7 +28,7 @@ namespace mnu
 */
 class menu_item_setting final : public menu_item {
     public:
-        inline menu_item_setting(std::string vr, std::string vl) : var(vr), val(val) {};
+        inline menu_item_setting(std::string l, std::string vr, std::string vl) : menu_item(l), var(vr), val(val) {};
         inline ~menu_item_setting() {};
 
         std::vector<std::string> get_text(void) override { return {}; };

@@ -29,7 +29,7 @@ namespace mnu
 */
 class menu_item_action final : public menu_item {
     public:
-        inline menu_item_action(std::string c, std::string a) : cmd(c), arg(a) {};
+        inline menu_item_action(std::string l, std::string c, std::string a) : menu_item(l), cmd(c), arg(a) {};
         inline ~menu_item_action() {};
 
         message on_select(void) override { return message("system", cmd, arg); };

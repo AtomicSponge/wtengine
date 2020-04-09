@@ -38,8 +38,10 @@ class menu_item {
 
         virtual message on_select(void) { return message("system", "null", "null"); };
 
+        const std::string get_label(void) const { return label; };
+
     private:
-        std::string label;
+        const std::string label;
 
     protected:
         inline menu_item(std::string l) : label(l) {};

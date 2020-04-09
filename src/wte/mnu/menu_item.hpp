@@ -35,6 +35,7 @@ class menu_item {
 
         virtual void on_left(void) {};
         virtual void on_right(void) {};
+
         virtual message on_select(void) { return message("system", "null", "null"); };
 
     private:

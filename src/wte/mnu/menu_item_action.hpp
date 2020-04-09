@@ -32,7 +32,7 @@ class menu_item_action final : public menu_item {
         inline menu_item_action(std::string c, std::string a) : cmd(c), arg(a) {};
         inline ~menu_item_action() {};
 
-        message on_select(void) { return message("system", cmd, arg); };
+        message on_select(void) override { return message("system", cmd, arg); };
 
         std::vector<std::string> get_text(void) { return {}; };
 

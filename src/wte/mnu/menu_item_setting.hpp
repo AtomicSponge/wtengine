@@ -31,25 +31,12 @@ class menu_item_setting final : public menu_item {
         inline menu_item_setting(std::string vr, std::string vl) : var(vr), val(val) {};
         inline ~menu_item_setting() {};
 
-        std::vector<std::string> get_text(void);
-        void do_item(void);
+        std::vector<std::string> get_text(void) { return {}; };
 
     private:
         std::string var;
         std::string val;
 };
-
-/*!
-*/
-inline std::vector<std::string> menu_item_setting::get_text(void) {
-    return {};
-}
-
-/*!
-*/
-inline void menu_item_setting::do_item(void) {
-    //
-}
 
 }  // end namespace mnu
 

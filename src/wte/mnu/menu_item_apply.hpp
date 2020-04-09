@@ -33,7 +33,7 @@ class menu_item_apply final : public menu_item {
 
         message on_select(void) override { return message("system", cmd, arg); };
 
-        std::vector<std::string> get_text(void) { return {}; };
+        std::vector<std::string> get_text(void) override { return {}; };
 
     private:
         std::string cmd;

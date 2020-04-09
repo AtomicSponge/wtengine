@@ -31,7 +31,7 @@ class menu_item_setting final : public menu_item {
         inline menu_item_setting(std::string vr, std::string vl) : var(vr), val(val) {};
         inline ~menu_item_setting() {};
 
-        std::vector<std::string> get_text(void) { return {}; };
+        std::vector<std::string> get_text(void) override { return {}; };
 
     private:
         std::string var;

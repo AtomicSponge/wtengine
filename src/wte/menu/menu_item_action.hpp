@@ -23,16 +23,21 @@ namespace wte
 namespace mnu
 {
 
-//!
+//!  Menu item action.
 /*!
+ * Menu item that runs a message
 */
 class menu_item_action final : public menu_item {
     public:
-        inline menu_item_action() {};
+        inline menu_item_action(std::string c, std::string a) : cmd(c), arg(a) {};
         inline ~menu_item_action() {};
 
         std::vector<std::string> get_text(void);
         void do_item(void);
+    
+    private:
+        std::string cmd;
+        std::string arg;
 };
 
 /*!

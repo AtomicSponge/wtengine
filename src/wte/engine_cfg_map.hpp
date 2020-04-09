@@ -23,7 +23,14 @@ namespace wte
  */
 class engine_cfg_map final : public variable_map<engine_cfg_map> {
     public:
+        /*!
+        * Load
+        */
         inline engine_cfg_map() {};
+
+        /*!
+        * Unload
+        */
         inline ~engine_cfg_map() {};
 };
 

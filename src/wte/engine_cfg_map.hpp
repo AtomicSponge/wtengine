@@ -21,7 +21,11 @@ namespace wte
 /*!
  * Statics to store engine config variables
  */
-class engine_cfg_map final : public variable_map<engine_cfg_map> {};
+class engine_cfg_map final : public variable_map<engine_cfg_map> {
+    public:
+        inline engine_cfg_map() {};
+        inline ~engine_cfg_map() {};
+};
 
 typedef engine_cfg_map::variable_map<engine_cfg_map> engine_cfg;
 

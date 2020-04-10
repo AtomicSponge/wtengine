@@ -59,7 +59,7 @@ class engine_cfg_map final : public variable_map<engine_cfg_map> {
             if(!data_file.good()) return false;
 
             //  Write each pair to file
-            for(auto it = _map.begin(); it != _map.end(); it++) {
+            for(auto it = _map.cbegin(); it != _map.cend(); it++) {
                 data_file << it->first << "=" << it->second << std::endl;
             }
 

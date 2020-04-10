@@ -27,8 +27,9 @@ namespace wte
 class engine_cfg_map final : public variable_map<engine_cfg_map> {
     public:
         /*!
-        * Load
-        */
+         * Load
+         * False on fail, true on success
+         */
         inline static bool load(void) {
             std::ifstream data_file("settings.cfg");
             //  Data file doesn't exist, create one
@@ -49,8 +50,9 @@ class engine_cfg_map final : public variable_map<engine_cfg_map> {
         };
 
         /*!
-        * Save
-        */
+         * Save
+         * False on fail, true on success
+         */
         inline static bool save(void) {
             std::ofstream data_file("settings.cfg");
             if(!data_file.good()) return false;

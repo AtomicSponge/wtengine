@@ -244,7 +244,6 @@ inline void menu_manager::run(message_manager& messages) {
         if(temp_msg.get_cmd() != "null") messages.add_message(temp_msg);
     }
 
-    //...
     input_flags::unset_all();
 }
 

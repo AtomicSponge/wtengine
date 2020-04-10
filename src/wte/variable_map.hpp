@@ -26,8 +26,6 @@ namespace wte
  */
 template <class derived> class variable_map {
     public:
-        inline ~variable_map() { _map.clear(); };
-
         //!  Remove copy constructor
         variable_map(const variable_map&) = delete;
         //!  Remove assignment operator
@@ -109,10 +107,11 @@ template <class derived> class variable_map {
         };
 
     protected:
-        inline variable_map() { _map.clear(); };
-        
-    private:
         static std::map<std::string, std::string> _map;
+
+    private:
+        inline variable_map() { _map.clear(); };
+        inline ~variable_map() { _map.clear(); };
 };
 
 } //  end namespace wte

@@ -15,6 +15,9 @@ int main(int argc, char **argv) {
     wte::engine_cfg::reg("screen_width=768");
     wte::engine_cfg::reg("screen_height=1024");
 
+    //  Load settings
+    wte::engine_cfg_map::load();
+
     //wte::game_cfg::reg("test=1");
 
     //  Initialize game object
@@ -26,6 +29,9 @@ int main(int argc, char **argv) {
 
     //  Clean up
     my_game.wte_unload();
+
+    //  Save settings
+    wte::engine_cfg_map::save();
 
     return 0; //  Exit program
 }

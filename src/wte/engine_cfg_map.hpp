@@ -12,6 +12,9 @@
 #ifndef WTE_ENGINE_CFG_MAP_HPP
 #define WTE_ENGINE_CFG_MAP_HPP
 
+#include <fstream>
+#include <stdexcept>
+
 #include "variable_map.hpp"
 
 namespace wte
@@ -26,16 +29,39 @@ class engine_cfg_map final : public variable_map<engine_cfg_map> {
         /*!
         * Load
         */
-        inline engine_cfg_map() {
-            //reg("screen_width=768");
-            //engine_cfg_map::variable_map<engine_cfg_map>::reg("screen_height=1024");
+        inline static bool load(void) {
+            std::ifstream data_file("settings.cfg");
+            //  Data file doesn't exist, create one
+            if(!data_file.good()) {
+                save();
+                data_file.open("settings.cfg");
+            }
+            if(!data_file.good()) return false;
+
+            std::string it;
+            //  Read each line, try to register or set
+            while(std::getline(data_file, it)) {
+                if(!reg(it)) set(it);
+            }
+
+            data_file.close();
+            return true;
         };
 
         /*!
-        * Unload
+        * Save
         */
-        inline ~engine_cfg_map() {
-            //
+        inline static bool save(void) {
+            std::ofstream data_file("settings.cfg");
+            if(!data_file.good()) return false;
+
+            //  Write each pair to file
+            for(auto it = _map.begin(); it != _map.end(); it++) {
+                data_file << it->first << "=" << it->second << std::endl;
+            }
+
+            data_file.close();
+            return true;
         };
 };
 

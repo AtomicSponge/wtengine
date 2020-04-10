@@ -12,6 +12,7 @@
 #ifndef WTE_ENGINE_CFG_MAP_HPP
 #define WTE_ENGINE_CFG_MAP_HPP
 
+#include <string>
 #include <fstream>
 #include <stdexcept>
 

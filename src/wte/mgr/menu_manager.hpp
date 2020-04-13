@@ -250,6 +250,8 @@ inline void menu_manager::run(message_manager& messages) {
   Renders the active menu from the top of the stack
 */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
+    int cursor_pos = 10;
+
     //  Destroy old bitmap if it exists
     al_destroy_bitmap(menu_bitmap);
 
@@ -274,14 +276,15 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     for(auto it = opened_menus.top()->begin(); it != opened_menus.top()->end(); it++) {
         for(std::size_t i = 0; i < (*it)->get_text().size(); i++) {
             al_draw_text(menu_font, menu_font_color,
-                         10,
-                         10,
+                         (menu_width / 2),
+                         (menu_height - (menu_padding + 8 + menu_padding)) / 2,
                          ALLEGRO_ALIGN_CENTER, (*it)->get_text()[i].c_str());
+            if(it == menu_position) cursor_pos = 10;
         }
     }
 
     //  Render menu cursor
-    if(opened_menus.top()->num_items() != 0) al_draw_bitmap(menu_cursor, 10, 10, 0);
+    if(opened_menus.top()->num_items() != 0) al_draw_bitmap(menu_cursor, 10, cursor_pos, 0);
 
     al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
     return menu_bitmap;

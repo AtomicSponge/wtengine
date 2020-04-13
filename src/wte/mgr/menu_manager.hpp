@@ -43,8 +43,31 @@ namespace mgr
 
 class menu_manager final : public manager<menu_manager> {
     public:
-        menu_manager();
-        ~menu_manager();
+        //!  Menu manager constructor
+        /*!
+        Generates the menu manager object
+        */
+        inline menu_manager() : menu_width(300), menu_height(200), menu_padding(10) {
+            menu_bitmap = NULL;
+            menu_cursor = NULL;
+            menu_font = NULL;
+
+            menus.clear();
+            opened_menus = {};
+        }
+
+        //!  Menu manager destructor
+        /*!
+        Cleans up by deleting the menu bitmaps and font
+        */
+        inline ~menu_manager() {
+            menus.clear();
+            opened_menus = {};
+
+            al_destroy_bitmap(menu_bitmap);
+            al_destroy_bitmap(menu_cursor);
+            al_destroy_font(menu_font);
+        }
 
         void initialize(ALLEGRO_FONT*, ALLEGRO_COLOR, ALLEGRO_COLOR);
 
@@ -75,32 +98,6 @@ class menu_manager final : public manager<menu_manager> {
 };
 
 template <> inline bool menu_manager::manager<menu_manager>::initialized = false;
-
-//!  Menu manager constructor
-/*!
-  Generates the menu manager object
-*/
-inline menu_manager::menu_manager() : menu_width(300), menu_height(200), menu_padding(10) {
-    menu_bitmap = NULL;
-    menu_cursor = NULL;
-    menu_font = NULL;
-
-    menus.clear();
-    opened_menus = {};
-}
-
-//!  Menu manager destructor
-/*!
-  Cleans up by deleting the menu bitmaps and font
-*/
-inline menu_manager::~menu_manager() {
-    menus.clear();
-    opened_menus = {};
-
-    al_destroy_bitmap(menu_bitmap);
-    al_destroy_bitmap(menu_cursor);
-    al_destroy_font(menu_font);
-}
 
 //!  Ititialize menu manager
 /*!

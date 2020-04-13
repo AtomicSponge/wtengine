@@ -26,5 +26,8 @@ int main(int argc, char **argv) {
     //  Run the game loop
     my_game.do_game();
 
+    //  Save settings
+    engine_cfg_map::save();
+
     return 0; //  Exit program
 }

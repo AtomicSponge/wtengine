@@ -33,9 +33,6 @@ wte_demo::wte_demo() {
 wte_demo::~wte_demo() {
     game_cfg_map::clear_save();
     game_cfg_map::save("hiscore");
-
-    //  Save settings
-    engine_cfg_map::save();
 }
 
 /*
@@ -126,6 +123,8 @@ void wte_demo::load_game(void) {
     world.add_component(e_id, std::make_shared<cmp::input_handler>());
     world.add_component(e_id, std::make_shared<cmp::visible>(false));
     world.add_component(e_id, std::make_shared<cmp::enabled>(false));
+
+    game_cfg::set("score=0");
 }
 
 /*

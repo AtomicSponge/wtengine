@@ -71,6 +71,8 @@ class menu_manager final : public manager<menu_manager> {
 
         std::vector<menu_sptr> menus;
         std::stack<menu_csptr> opened_menus;
+
+        int width, height, padding;
 };
 
 template <> inline bool menu_manager::manager<menu_manager>::initialized = false;
@@ -79,7 +81,7 @@ template <> inline bool menu_manager::manager<menu_manager>::initialized = false
 /*!
   Generates the menu manager object
 */
-inline menu_manager::menu_manager() {
+inline menu_manager::menu_manager() : width(300), height(200), padding(10) {
     menu_bitmap = NULL;
     menu_cursor = NULL;
     menu_font = NULL;
@@ -114,13 +116,13 @@ inline void menu_manager::initialize(ALLEGRO_FONT* font, ALLEGRO_COLOR fcolor, A
     //  Create default menus in seperate scopes
     {
         //  Create the main menu
-        mnu::menu temp_menu = mnu::menu("main_menu", 300, 200, 10);
+        mnu::menu temp_menu = mnu::menu("main_menu", "Main Menu");
         if(!new_menu(temp_menu)) throw std::runtime_error("Unable to create main menu!");
     }
 
     {
         //  Create the in-game menu
-        mnu::menu temp_menu = mnu::menu("game_menu", 300, 200, 10);
+        mnu::menu temp_menu = mnu::menu("game_menu", "Game Menu");
         if(!new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 
@@ -258,30 +260,26 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
 
     //  Destroy old bitmap if it exists
     al_destroy_bitmap(menu_bitmap);
+
+    //  Create a new menu bitmap and set drawing to it
     al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
+    menu_bitmap = al_create_bitmap(width, height);
+    al_set_target_bitmap(menu_bitmap);
+    al_clear_to_color(menu_bg_color);
 
     //  If the menu stack is empty then the run member hasn't been called yet
     //  Return a blank bitmap for now
     if(opened_menus.empty()) {
-        menu_bitmap = al_create_bitmap(1, 1);
-        al_set_target_bitmap(menu_bitmap);
-        al_clear_to_color(menu_bg_color);
         al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
         return menu_bitmap;
     }
-
-    //  Create a new menu bitmap and set drawing to it
-    menu_bitmap = al_create_bitmap(opened_menus.top()->get_width(), opened_menus.top()->get_height());
-    al_set_target_bitmap(menu_bitmap);
-    al_clear_to_color(menu_bg_color);
 
     /*
       Render menu text
     */
     //  Render menu title if one is set
     if(opened_menus.top()->get_title() != "") {
-        al_draw_text(menu_font, menu_font_color,
-                     opened_menus.top()->get_width() / 2, opened_menus.top()->get_padding(),
+        al_draw_text(menu_font, menu_font_color, width / 2, padding,
                      ALLEGRO_ALIGN_CENTER, opened_menus.top()->get_title().c_str());
         has_title = true;
     }

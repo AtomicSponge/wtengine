@@ -35,8 +35,7 @@ void wte_main::load_menus(void) {
 
     {
         //  Create the settings menu
-        mnu::menu temp_menu = mnu::menu("settings", 300, 200, 10);
-        temp_menu.set_title("Settings");
+        mnu::menu temp_menu = mnu::menu("settings", "Settings");
         if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 }

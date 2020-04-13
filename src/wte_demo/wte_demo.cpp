@@ -114,10 +114,3 @@ void wte_demo::load_game(void) {
 void wte_demo::end_game(void) {
     //
 }
-
-/*
-  Process custom system messages
-*/
-void wte_demo::handle_custom_sys_msg(message message) {
-    //
-}

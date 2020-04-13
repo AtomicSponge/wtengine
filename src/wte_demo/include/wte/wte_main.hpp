@@ -154,7 +154,7 @@ class wte_main {
         //!  Define what happens at the end of a game
         virtual void end_game(void) = 0;
         //!  Define custom system message handling
-        virtual void handle_custom_sys_msg(message) = 0;
+        virtual void handle_custom_sys_msg(message) {};
         /* *** End custom members *** */
 
         mgr::message_manager messages;

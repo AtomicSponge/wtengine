@@ -29,8 +29,6 @@ class wte_demo final : public wte_main {
         void load_game(void) override;
         //!  Define what happens at the end of a game
         void end_game(void) override;
-        //!  Define custom system message handling
-        void handle_custom_sys_msg(message) override;
 };
 
 #endif

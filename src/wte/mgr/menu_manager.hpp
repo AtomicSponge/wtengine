@@ -123,13 +123,13 @@ inline void menu_manager::initialize(ALLEGRO_FONT* font, ALLEGRO_COLOR fcolor, A
         if(!new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 
+    font_size = 8;
+
     al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
-    menu_cursor = al_create_bitmap(8, 8);
+    menu_cursor = al_create_bitmap(font_size, font_size);
     al_set_target_bitmap(menu_cursor);
     al_clear_to_color(menu_font_color);
     al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
-
-    font_size = 8;
 }
 
 //!  Add a menu to the menu vector

@@ -250,9 +250,6 @@ inline void menu_manager::run(message_manager& messages) {
   Renders the active menu from the top of the stack
 */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
-    //  menu_item_citerator -> iterate items
-    //  option_citerator -> iterate options of an item
-
     //  Destroy old bitmap if it exists
     al_destroy_bitmap(menu_bitmap);
 
@@ -263,8 +260,8 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     al_clear_to_color(menu_bg_color);
 
     //  If the menu stack is empty then the run member hasn't been called yet
-    //  Return a blank bitmap for now
     if(opened_menus.empty()) {
+        //  Return a blank bitmap for now
         al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
         return menu_bitmap;
     }

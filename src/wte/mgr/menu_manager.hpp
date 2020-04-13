@@ -273,9 +273,6 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
         return menu_bitmap;
     }
 
-    /*
-      Render menu text
-    */
     //  Render menu title
     al_draw_text(menu_font, menu_font_color, menu_width / 2, menu_padding,
                  ALLEGRO_ALIGN_CENTER, opened_menus.top()->get_title().c_str());

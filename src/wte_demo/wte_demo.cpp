@@ -132,4 +132,10 @@ void wte_demo::load_game(void) {
 */
 void wte_demo::end_game(void) {
     game_cfg::set("hiscore=0");
+    //  test code
+    game_cfg_map::add<int>("hiscore", 20);
+    game_cfg_map::divide<int>("hiscore", 2);
+    game_cfg_map::multiply<int>("hiscore", 4);
+    game_cfg_map::subtract<int>("hiscore", 3);
+    //  end test code
 }

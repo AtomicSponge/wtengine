@@ -71,6 +71,70 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
             data_file.close();
             return true;
         };
+
+        /*!
+         * Add
+         */
+        template <typename T> inline static bool add(const std::string var, T val) {
+            try {
+                T temp;
+                std::stringstream(_map.at(var)) >> temp;
+                _map.at(var) = std::to_string(temp += val);
+                return true;
+            } catch (std::out_of_range& e) {
+                return false;  //  Didn't find
+            } catch (std::bad_any_cast& e) {
+                return false;  //  Bad cast
+            }
+        };
+
+        /*!
+         * Subtract
+         */
+        template <typename T> inline static bool subtract(const std::string var, T val) {
+            try {
+                T temp;
+                std::stringstream(_map.at(var)) >> temp;
+                _map.at(var) = std::to_string(temp -= val);
+                return true;
+            } catch (std::out_of_range& e) {
+                return false;  //  Didn't find
+            } catch (std::bad_any_cast& e) {
+                return false;  //  Bad cast
+            }
+        };
+
+        /*!
+         * Multiply
+         */
+        template <typename T> inline static bool multiply(const std::string var, T val) {
+            try {
+                T temp;
+                std::stringstream(_map.at(var)) >> temp;
+                _map.at(var) = std::to_string(temp *= val);
+                return true;
+            } catch (std::out_of_range& e) {
+                return false;  //  Didn't find
+            } catch (std::bad_any_cast& e) {
+                return false;  //  Bad cast
+            }
+        };
+
+        /*!
+         * Divide
+         */
+        template <typename T> inline static bool divide(const std::string var, T val) {
+            try {
+                T temp;
+                std::stringstream(_map.at(var)) >> temp;
+                _map.at(var) = std::to_string(temp /= val);
+                return true;
+            } catch (std::out_of_range& e) {
+                return false;  //  Didn't find
+            } catch (std::bad_any_cast& e) {
+                return false;  //  Bad cast
+            }
+        };
 };
 
 typedef game_cfg_map::variable_map<game_cfg_map> game_cfg;

@@ -37,6 +37,9 @@ class menu {
         inline menu_items get_items(void) const { return items; };
         inline std::size_t num_items(void) const { return items.size(); };
 
+        inline auto begin() const { return items.begin(); };
+        inline auto end() const { return items.end(); };
+
         inline void set_title(const std::string t) { title = t; };
 
         //!  Add a menu item to an existing menu

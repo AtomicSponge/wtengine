@@ -60,8 +60,7 @@ class menu_manager final : public manager<menu_manager> {
         ALLEGRO_BITMAP* render_menu(void) const;
 
     private:
-        mnu::menu_item_citerator menu_position;
-        //mnu::option_citerator option_selection;
+        mnu::menu_item_iterator menu_position;
 
         mutable ALLEGRO_BITMAP* menu_bitmap;
         ALLEGRO_BITMAP* menu_cursor;
@@ -207,7 +206,7 @@ inline void menu_manager::reset(void) {
 inline void menu_manager::open_menu(const std::string menu_id) {
     opened_menus.push(get_menu(menu_id));
     engine_flags::set(GAME_MENU_OPENED);
-    menu_position = opened_menus.top()->get_items().cbegin();
+    menu_position = opened_menus.top()->get_items().begin();
 }
 
 //!  Close the current opened menu
@@ -237,12 +236,12 @@ inline void menu_manager::run(message_manager& messages) {
         menu_position++;
 
     if(input_flags::is_set(INPUT_LEFT) && menu_position != opened_menus.top()->get_items().cend())
-        menu_position->get()->on_left();
+        (*menu_position)->on_left();
     if(input_flags::is_set(INPUT_RIGHT) && menu_position != opened_menus.top()->get_items().cend())
-        menu_position->get()->on_right();
+        (*menu_position)->on_right();
 
     if(input_flags::is_set(INPUT_MENU_SELECT) && menu_position != opened_menus.top()->get_items().cend()) {
-        message temp_msg = menu_position->get()->on_select();
+        message temp_msg = (*menu_position)->on_select();
         if(temp_msg.get_cmd() != "null") messages.add_message(temp_msg);
     }
 
@@ -278,14 +277,14 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
                  ALLEGRO_ALIGN_CENTER, opened_menus.top()->get_title().c_str());
 
     //  Render menu items
-    //for(auto it = opened_menus.top()->get_items().cbegin();
-        //it != opened_menus.top()->get_items().cend(); it++) {
-        //for(auto t_it = it->get()->get_text().cbegin(); t_it != it->get()->get_text().cend(); t_it++)
-            //al_draw_text(menu_font, menu_font_color,
-                         //menu_width / (opened_menus.top()->num_items() *2),
-                         //(menu_height - 8 - (menu_padding * 2)) / (it->get()->get_text().size() * 2),
-                         //ALLEGRO_ALIGN_CENTER, t_it->c_str());
-    //}
+    for(auto it = opened_menus.top()->get_items().cbegin();
+        it != opened_menus.top()->get_items().cend(); it++) {
+        for(auto t_it = (*it)->get_text().cbegin(); t_it != (*it)->get_text().cend(); t_it++)
+            al_draw_text(menu_font, menu_font_color,
+                         menu_width / (opened_menus.top()->num_items() *2),
+                         (menu_height - 8 - (menu_padding * 2)) / ((*it)->get_text().size() * 2),
+                         ALLEGRO_ALIGN_CENTER, t_it->c_str());
+    }
 
     //  Render menu_cursor
     //if(opened_menus.top()->num_items() != 0) al_draw_bitmap(menu_cursor, 10, 10, 0);

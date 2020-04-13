@@ -31,14 +31,14 @@ class menu_item {
     public:
         inline virtual ~menu_item() {};
 
-        virtual std::vector<std::string> get_text(void);
+        inline virtual std::vector<std::string> get_text(void) { return {"null"}; };
 
-        virtual void on_left(void) {};
-        virtual void on_right(void) {};
+        inline virtual void on_left(void) {};
+        inline virtual void on_right(void) {};
 
-        virtual message on_select(void) { return message("system", "null", "null"); };
+        inline virtual message on_select(void) { return message("system", "null", "null"); };
 
-        const std::string get_label(void) const { return label; };
+        inline const std::string get_label(void) const { return label; };
 
     private:
         std::string label;

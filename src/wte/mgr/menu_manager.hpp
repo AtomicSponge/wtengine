@@ -72,7 +72,7 @@ class menu_manager final : public manager<menu_manager> {
         std::vector<menu_sptr> menus;
         std::stack<menu_csptr> opened_menus;
 
-        int width, height, padding;
+        int menu_width, menu_height, menu_padding;
 };
 
 template <> inline bool menu_manager::manager<menu_manager>::initialized = false;
@@ -81,7 +81,7 @@ template <> inline bool menu_manager::manager<menu_manager>::initialized = false
 /*!
   Generates the menu manager object
 */
-inline menu_manager::menu_manager() : width(300), height(200), padding(10) {
+inline menu_manager::menu_manager() : menu_width(300), menu_height(200), menu_padding(10) {
     menu_bitmap = NULL;
     menu_cursor = NULL;
     menu_font = NULL;
@@ -254,7 +254,6 @@ inline void menu_manager::run(message_manager& messages) {
   Renders the active menu from the top of the stack
 */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
-    bool has_title = false;
     //  menu_item_citerator -> iterate items
     //  option_citerator -> iterate options of an item
 
@@ -263,7 +262,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
 
     //  Create a new menu bitmap and set drawing to it
     al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
-    menu_bitmap = al_create_bitmap(width, height);
+    menu_bitmap = al_create_bitmap(menu_width, menu_height);
     al_set_target_bitmap(menu_bitmap);
     al_clear_to_color(menu_bg_color);
 
@@ -277,19 +276,22 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     /*
       Render menu text
     */
-    //  Render menu title if one is set
-    if(opened_menus.top()->get_title() != "") {
-        al_draw_text(menu_font, menu_font_color, width / 2, padding,
-                     ALLEGRO_ALIGN_CENTER, opened_menus.top()->get_title().c_str());
-        has_title = true;
-    }
+    //  Render menu title
+    al_draw_text(menu_font, menu_font_color, menu_width / 2, menu_padding,
+                 ALLEGRO_ALIGN_CENTER, opened_menus.top()->get_title().c_str());
 
     //  Render menu items
     for(auto it = opened_menus.top()->get_items().cbegin();
         it != opened_menus.top()->get_items().cend(); it++) {
-        //it->get_text();
-        //al_draw_text(menu_font, menu_font_color, x, y, ALLEGRO_ALIGN_CENTER, str.c_str())
+        for(auto t_it = it->get()->get_text().cbegin(); t_it != it->get()->get_text().cend(); t_it++)
+            al_draw_text(menu_font, menu_font_color,
+                         menu_width / (opened_menus.top()->num_items() *2),
+                         (menu_height - 8 - (menu_padding * 2)) / (it->get()->get_text().size() * 2),
+                         ALLEGRO_ALIGN_CENTER, t_it->c_str());
     }
+
+    //  Render menu_cursor
+    if(opened_menus.top()->num_items() != 0) al_draw_bitmap(menu_cursor, 10, 10, 0);
 
     al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
     return menu_bitmap;

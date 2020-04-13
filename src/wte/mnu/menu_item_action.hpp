@@ -33,9 +33,9 @@ class menu_item_action final : public menu_item {
             menu_item(l), cmd(c), arg(a) {};
         inline ~menu_item_action() {};
 
-        message on_select(void) override { return message("system", cmd, arg); };
+        inline message on_select(void) override { return message("system", cmd, arg); };
 
-        std::vector<std::string> get_text(void) override { return {}; };
+        inline std::vector<std::string> get_text(void) override { return {get_label()}; };
 
     private:
         std::string cmd;

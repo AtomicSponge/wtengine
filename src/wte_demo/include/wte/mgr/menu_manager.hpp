@@ -71,6 +71,10 @@ class menu_manager final : public manager<menu_manager> {
 
         void initialize(ALLEGRO_FONT*, ALLEGRO_COLOR, ALLEGRO_COLOR);
 
+        inline void set_width(const float mw) { menu_width = mw; };
+        inline void set_height(const float mh) { menu_height = mh; };
+        inline void set_padding(const float mp) { menu_padding = mp; };
+
         const bool new_menu(const mnu::menu);
         const menu_csptr get_menu(const std::string) const;
         const menu_sptr set_menu(const std::string);

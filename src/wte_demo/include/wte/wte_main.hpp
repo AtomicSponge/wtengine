@@ -39,56 +39,8 @@ namespace wte
   Sets up various system objects used by the engine.
   Contains the main game loop and members for managing the game and engine.
 */
-class wte_main final {
+class wte_main {
     public:
-        //!  Force single instance, set initialized flag to true.
-        //!  Throws a runtime error if another instance is called.
-        inline wte_main() : load_called(false) {
-            if(initialized == true) throw std::runtime_error("WTEngine already running!");
-            initialized = true;
-
-            //  Initialize Allegro
-            if(!al_init()) throw std::runtime_error("Allegro failed to load!");
-
-            //  Initialize additional Allegro components
-            if(!al_install_keyboard()) throw std::runtime_error("Failed to detect keyboard!");
-            if(!al_init_image_addon()) throw std::runtime_error("Failed to load Allegro image addon!");
-            if(!al_init_font_addon()) throw std::runtime_error("Failed to load Allegro font addon!");
-            al_install_joystick();
-
-            if(!engine_cfg::is_reg("screen_width")) throw std::runtime_error("Screen width not set!");
-            if(!engine_cfg::is_reg("screen_height")) throw std::runtime_error("Screen height not set!");
-            display = al_create_display(engine_cfg::get<int>("screen_width"),
-                                        engine_cfg::get<int>("screen_height"));
-            if(!display) throw std::runtime_error("Failed to configure display!");
-
-            main_timer = al_create_timer(1.0 / WTE_TICKS_PER_SECOND);
-            if(!main_timer) throw std::runtime_error("Failed to create timer!");
-
-            main_queue = al_create_event_queue();
-            if(!main_queue) throw std::runtime_error("Failed to create event queue!");
-
-            //  Register event sources
-            al_register_event_source(main_queue, al_get_display_event_source(display));
-            al_register_event_source(main_queue, al_get_timer_event_source(main_timer));
-
-            //  Map commands to enums for switching over in the system msg handler
-            map_cmd_str_values["exit"] = CMD_STR_EXIT;
-            map_cmd_str_values["alert"] = CMD_STR_ALERT;
-            map_cmd_str_values["new_game"] = CMD_STR_NEW_GAME;
-            map_cmd_str_values["end_game"] = CMD_STR_END_GAME;
-            map_cmd_str_values["open_menu"] = CMD_STR_OPEN_MENU;
-            map_cmd_str_values["close_menu"] = CMD_STR_CLOSE_MENU;
-            map_cmd_str_values["enable_system"] = CMD_STR_ENABLE_SYSTEM;
-            map_cmd_str_values["disable_system"] = CMD_STR_DISABLE_SYSTEM;
-            map_cmd_str_values["set_engcfg"] = CMD_STR_SET_ENGCFG;
-            map_cmd_str_values["set_gamecfg"] = CMD_STR_SET_GAMECFG;
-
-            //  Set default colors for alerts
-            alert::set_font_color(WTE_COLOR_WHITE);
-            alert::set_bg_color(WTE_COLOR_RED);
-        };
-
         //!  Frees up instance, set initialized flag to false.
         //!  Also makes sure to unload the engine.
         inline ~wte_main() {
@@ -143,31 +95,67 @@ class wte_main final {
         //!  Call to start up the main game loop
         void do_game(void);
 
-    private:
-        //!  Start up a new game
-        void generate_new_game(void);
-        //!  End the game in progress
-        void unload_game(void);
-        //!  Process messages passed to the system
-        void handle_sys_msg(message_container);
+    protected:
+        //!  Force single instance, set initialized flag to true.
+        //!  Throws a runtime error if another instance is called.
+        inline wte_main() : load_called(false) {
+            if(initialized == true) throw std::runtime_error("WTEngine already running!");
+            initialized = true;
 
+            //  Initialize Allegro
+            if(!al_init()) throw std::runtime_error("Allegro failed to load!");
+
+            //  Initialize additional Allegro components
+            if(!al_install_keyboard()) throw std::runtime_error("Failed to detect keyboard!");
+            if(!al_init_image_addon()) throw std::runtime_error("Failed to load Allegro image addon!");
+            if(!al_init_font_addon()) throw std::runtime_error("Failed to load Allegro font addon!");
+            al_install_joystick();
+
+            if(!engine_cfg::is_reg("screen_width")) throw std::runtime_error("Screen width not set!");
+            if(!engine_cfg::is_reg("screen_height")) throw std::runtime_error("Screen height not set!");
+            display = al_create_display(engine_cfg::get<int>("screen_width"),
+                                        engine_cfg::get<int>("screen_height"));
+            if(!display) throw std::runtime_error("Failed to configure display!");
+
+            main_timer = al_create_timer(1.0 / WTE_TICKS_PER_SECOND);
+            if(!main_timer) throw std::runtime_error("Failed to create timer!");
+
+            main_queue = al_create_event_queue();
+            if(!main_queue) throw std::runtime_error("Failed to create event queue!");
+
+            //  Register event sources
+            al_register_event_source(main_queue, al_get_display_event_source(display));
+            al_register_event_source(main_queue, al_get_timer_event_source(main_timer));
+
+            //  Map commands to enums for switching over in the system msg handler
+            map_cmd_str_values["exit"] = CMD_STR_EXIT;
+            map_cmd_str_values["alert"] = CMD_STR_ALERT;
+            map_cmd_str_values["new_game"] = CMD_STR_NEW_GAME;
+            map_cmd_str_values["end_game"] = CMD_STR_END_GAME;
+            map_cmd_str_values["open_menu"] = CMD_STR_OPEN_MENU;
+            map_cmd_str_values["close_menu"] = CMD_STR_CLOSE_MENU;
+            map_cmd_str_values["enable_system"] = CMD_STR_ENABLE_SYSTEM;
+            map_cmd_str_values["disable_system"] = CMD_STR_DISABLE_SYSTEM;
+            map_cmd_str_values["set_engcfg"] = CMD_STR_SET_ENGCFG;
+            map_cmd_str_values["set_gamecfg"] = CMD_STR_SET_GAMECFG;
+
+            //  Set default colors for alerts
+            alert::set_font_color(WTE_COLOR_WHITE);
+            alert::set_bg_color(WTE_COLOR_RED);
+        };
+    
         /* These functions are defined in their own source file */
         //!  Define this to implement custom menu layout
-        void load_menus(void);
+        virtual void load_menus(void) = 0;
         //!  Define this to load all systems to be used by the game
-        void load_systems(void);
+        virtual void load_systems(void) = 0;
         //!  Define what gets loaded when a game starts
-        void load_game(void);
+        virtual void load_game(void) = 0;
         //!  Define what happens at the end of a game
-        void end_game(void);
+        virtual void end_game(void) = 0;
         //!  Define custom system message handling
-        void handle_custom_sys_msg(message);
+        virtual void handle_custom_sys_msg(message) = 0;
         /* *** End custom members *** */
-
-        static ALLEGRO_DISPLAY* display;
-        static ALLEGRO_TIMER* main_timer;
-        static ALLEGRO_EVENT_QUEUE* main_queue;
-        ALLEGRO_EVENT event;
 
         mgr::message_manager messages;
         mgr::render_manager screen;
@@ -181,6 +169,14 @@ class wte_main final {
         mgr::audio_manager audio_th;
         #endif
 
+    private:
+        //!  Start up a new game
+        void generate_new_game(void);
+        //!  End the game in progress
+        void unload_game(void);
+        //!  Process messages passed to the system
+        void handle_sys_msg(message_container);
+
         //  Used for switching on system messages:
         enum CMD_STR_VALUE {
             CMD_STR_EXIT,           CMD_STR_ALERT,
@@ -191,16 +187,15 @@ class wte_main final {
         };
         std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
 
+        inline static ALLEGRO_DISPLAY* display = NULL;
+        inline static ALLEGRO_TIMER* main_timer = NULL;
+        inline static ALLEGRO_EVENT_QUEUE* main_queue = NULL;
+        ALLEGRO_EVENT event;
+
         bool load_called;        //  Flag to make sure wte_load was called
 
-        static bool initialized; //  Restrict to one instance of the engine running
+        inline static bool initialized = false; //  Restrict to one instance of the engine running
 };
-
-inline ALLEGRO_DISPLAY* wte_main::display = NULL;
-inline ALLEGRO_TIMER* wte_main::main_timer = NULL;
-inline ALLEGRO_EVENT_QUEUE* wte_main::main_queue = NULL;
-
-inline bool wte_main::initialized = false;
 
 /*!
   Call every time a new game is starting

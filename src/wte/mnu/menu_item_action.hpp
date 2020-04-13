@@ -31,6 +31,8 @@ class menu_item_action final : public menu_item {
     public:
         inline menu_item_action(const std::string l, const std::string c, const std::string a) :
             menu_item(l), cmd(c), arg(a) {};
+        inline menu_item_action(const std::string l, const std::string c) :
+            menu_item(l), cmd(c), arg("") {};
         inline ~menu_item_action() {};
 
         inline message on_select(void) override { return message("system", cmd, arg); };

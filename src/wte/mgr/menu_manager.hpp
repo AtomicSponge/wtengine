@@ -206,7 +206,6 @@ inline void menu_manager::reset(void) {
 inline void menu_manager::open_menu(const std::string menu_id) {
     opened_menus.push(get_menu(menu_id));
     engine_flags::set(GAME_MENU_OPENED);
-    //menu_position = opened_menus.top()->get_items().begin();
     menu_position = opened_menus.top()->begin();
 }
 

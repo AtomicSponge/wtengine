@@ -25,21 +25,22 @@ void wte_main::load_menus(void) {
     {
         //  Configure main menu
         menus.set_menu("main_menu")->set_title("WTE Demo");
-        menus.set_menu("main_menu")->add_item(std::make_shared<mnu::menu_item_action>("New Game", "new_game", "null"));
-        menus.set_menu("main_menu")->add_item(std::make_shared<mnu::menu_item_action>("Exit Game", "exit", "null"));
+        menus.set_menu("main_menu")->add_item(std::make_shared<mnu::menu_item_action>("New Game", "new_game"));
+        menus.set_menu("main_menu")->add_item(std::make_shared<mnu::menu_item_action>("Exit Game", "exit"));
     }
 
     {
         //  Configure in-game menu
         menus.set_menu("game_menu")->set_title("WTE Demo - Game Paused");
         menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("Resume Game", "close_menu", "all"));
-        menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("End Game", "end_game", "null"));
-        menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("Exit Game", "exit", "null"));
+        menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("End Game", "end_game"));
+        menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("Exit Game", "exit"));
     }
 
     {
         //  Create the settings menu
         mnu::menu temp_menu = mnu::menu("settings", "Settings");
+        temp_menu.add_item(std::make_shared<mnu::menu_item_action>("Return", "close_menu"));
         if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 }

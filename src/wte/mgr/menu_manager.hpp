@@ -278,7 +278,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
 
     //  Render menu items
     for(auto it = opened_menus.top()->begin(); it != opened_menus.top()->end(); it++) {
-        for(std::size_t i = 0; i != (*it)->get_text().size(); i++) {
+        for(std::size_t i = 0; i < (*it)->get_text().size(); i++) {
             al_draw_text(menu_font, menu_font_color,
                          10,
                          10,

@@ -25,13 +25,8 @@ int main(int argc, char **argv) {
 
     //  Initialize game object
     wte_demo my_game;
-    my_game.wte_load();
-
     //  Run the game loop
     my_game.do_game();
-
-    //  Clean up
-    my_game.wte_unload();
 
     //  Save settings
     engine_cfg_map::save();

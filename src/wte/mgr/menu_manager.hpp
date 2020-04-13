@@ -278,17 +278,17 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
                  ALLEGRO_ALIGN_CENTER, opened_menus.top()->get_title().c_str());
 
     //  Render menu items
-    for(auto it = opened_menus.top()->get_items().cbegin();
-        it != opened_menus.top()->get_items().cend(); it++) {
-        for(auto t_it = it->get()->get_text().cbegin(); t_it != it->get()->get_text().cend(); t_it++)
-            al_draw_text(menu_font, menu_font_color,
-                         menu_width / (opened_menus.top()->num_items() *2),
-                         (menu_height - 8 - (menu_padding * 2)) / (it->get()->get_text().size() * 2),
-                         ALLEGRO_ALIGN_CENTER, t_it->c_str());
-    }
+    //for(auto it = opened_menus.top()->get_items().cbegin();
+        //it != opened_menus.top()->get_items().cend(); it++) {
+        //for(auto t_it = it->get()->get_text().cbegin(); t_it != it->get()->get_text().cend(); t_it++)
+            //al_draw_text(menu_font, menu_font_color,
+                         //menu_width / (opened_menus.top()->num_items() *2),
+                         //(menu_height - 8 - (menu_padding * 2)) / (it->get()->get_text().size() * 2),
+                         //ALLEGRO_ALIGN_CENTER, t_it->c_str());
+    //}
 
     //  Render menu_cursor
-    if(opened_menus.top()->num_items() != 0) al_draw_bitmap(menu_cursor, 10, 10, 0);
+    //if(opened_menus.top()->num_items() != 0) al_draw_bitmap(menu_cursor, 10, 10, 0);
 
     al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
     return menu_bitmap;

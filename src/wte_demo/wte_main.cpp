@@ -25,12 +25,16 @@ void wte_main::load_menus(void) {
     {
         //  Configure main menu
         menus.set_menu("main_menu")->set_title("WTE Demo");
-        //menus.set_menu("main_menu")->add_item(mnu::menu_item_action("Label", "cmd", "args"));
+        menus.set_menu("main_menu")->add_item(std::make_shared<mnu::menu_item_action>("New Game", "new_game", "null"));
+        menus.set_menu("main_menu")->add_item(std::make_shared<mnu::menu_item_action>("Exit Game", "exit", "null"));
     }
 
     {
         //  Configure in-game menu
         menus.set_menu("game_menu")->set_title("WTE Demo - Game Paused");
+        menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("Resume Game", "close_menu", "all"));
+        menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("End Game", "end_game", "null"));
+        menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("Exit Game", "exit", "null"));
     }
 
     {

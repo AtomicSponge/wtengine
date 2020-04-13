@@ -40,8 +40,8 @@ class menu {
         inline void set_title(const std::string t) { title = t; };
 
         //!  Add a menu item to an existing menu
-        inline const bool add_item(const menu_item item) {
-            items.push_back(std::make_shared<menu_item>(item));
+        inline const bool add_item(const menu_item_sptr item) {
+            items.push_back(item);
             return true;
         };
 

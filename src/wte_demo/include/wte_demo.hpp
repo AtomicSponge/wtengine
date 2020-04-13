@@ -16,10 +16,6 @@
 using namespace wte;
 
 class wte_demo final : public wte_main {
-    public:
-        wte_demo() {};
-        ~wte_demo() {};
-
     private:
         //!  Define this to implement custom menu layout
         void load_menus(void) override;

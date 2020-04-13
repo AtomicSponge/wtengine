@@ -287,7 +287,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
         }
     }
 
-    //  Render menu_cursor
+    //  Render menu cursor
     if(opened_menus.top()->num_items() != 0) al_draw_bitmap(menu_cursor, 10, 10, 0);
 
     al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);

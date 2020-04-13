@@ -47,7 +47,7 @@ class menu_manager final : public manager<menu_manager> {
         /*!
         Generates the menu manager object
         */
-        inline menu_manager() : menu_width(300), menu_height(200), menu_padding(10), font_size(8) {
+        inline menu_manager() : menu_width(300.0), menu_height(200.0), menu_padding(10.0), font_size(8) {
             menu_bitmap = NULL;
             menu_cursor = NULL;
             menu_font = NULL;
@@ -94,7 +94,7 @@ class menu_manager final : public manager<menu_manager> {
         std::vector<menu_sptr> menus;
         std::stack<menu_csptr> opened_menus;
 
-        int menu_width, menu_height, menu_padding;
+        float menu_width, menu_height, menu_padding;
         int font_size;
 };
 
@@ -253,7 +253,7 @@ inline void menu_manager::run(message_manager& messages) {
   Renders the active menu from the top of the stack
 */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
-    int cursor_pos = 10;
+    float cursor_pos = 10.0;
 
     //  Destroy old bitmap if it exists
     al_destroy_bitmap(menu_bitmap);
@@ -282,8 +282,8 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
                          (menu_width / 2),
                          (menu_height - (menu_padding + font_size + menu_padding)) / 2,
                          ALLEGRO_ALIGN_CENTER, (*it)->get_text()[i].c_str());
-            if(it == menu_position) cursor_pos = 10;
         }
+        if(it == menu_position) cursor_pos = 40;
     }
 
     //  Render menu cursor

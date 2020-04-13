@@ -20,6 +20,7 @@ API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
 #### TODO:
  - Finish SFX tests
  - Finish basic menu system implementation
+ - Code review / documentation
  - Implement sprites
 
 #### DEMO:

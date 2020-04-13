@@ -131,5 +131,5 @@ void wte_demo::load_game(void) {
   Stop the game
 */
 void wte_demo::end_game(void) {
-    //
+    game_cfg::set("hiscore=0");
 }

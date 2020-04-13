@@ -92,6 +92,18 @@ template <class derived> class variable_map {
 
         /*!
          * Get value
+         * Returns by string
+         */
+        inline static const std::string get(const std::string var) {
+            try {
+                return _map.at(var);
+            } catch (std::out_of_range& e) {
+                return nullptr;  //  Didn't find
+            }
+        };
+
+        /*!
+         * Get value
          * Returns by type
          */
         template <typename T> inline static const T get(const std::string var) {

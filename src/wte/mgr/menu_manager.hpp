@@ -47,7 +47,7 @@ class menu_manager final : public manager<menu_manager> {
         /*!
         Generates the menu manager object
         */
-        inline menu_manager() : menu_width(300), menu_height(200), menu_padding(10) {
+        inline menu_manager() : menu_width(300), menu_height(200), menu_padding(10), font_size(8) {
             menu_bitmap = NULL;
             menu_cursor = NULL;
             menu_font = NULL;
@@ -95,6 +95,7 @@ class menu_manager final : public manager<menu_manager> {
         std::stack<menu_csptr> opened_menus;
 
         int menu_width, menu_height, menu_padding;
+        int font_size;
 };
 
 template <> inline bool menu_manager::manager<menu_manager>::initialized = false;
@@ -127,6 +128,8 @@ inline void menu_manager::initialize(ALLEGRO_FONT* font, ALLEGRO_COLOR fcolor, A
     al_set_target_bitmap(menu_cursor);
     al_clear_to_color(menu_font_color);
     al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
+
+    font_size = 8;
 }
 
 //!  Add a menu to the menu vector
@@ -277,7 +280,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
         for(std::size_t i = 0; i < (*it)->get_text().size(); i++) {
             al_draw_text(menu_font, menu_font_color,
                          (menu_width / 2),
-                         (menu_height - (menu_padding + 8 + menu_padding)) / 2,
+                         (menu_height - (menu_padding + font_size + menu_padding)) / 2,
                          ALLEGRO_ALIGN_CENTER, (*it)->get_text()[i].c_str());
             if(it == menu_position) cursor_pos = 10;
         }

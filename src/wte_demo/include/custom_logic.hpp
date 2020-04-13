@@ -13,10 +13,12 @@
 
 #include "wte/wte.hpp"
 
-class custom_logic : public wte::sys::logic {
+using namespace wte;
+
+class custom_logic : public sys::logic {
     private:
-        void custom_run(wte::mgr::entity_manager&, wte::mgr::message_manager&, int64_t);
-        void process_message(wte::mgr::entity_manager&, wte::message);
+        void custom_run(mgr::entity_manager&, mgr::message_manager&, int64_t);
+        void process_message(mgr::entity_manager&, message);
 };
 
 #endif

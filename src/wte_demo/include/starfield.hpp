@@ -13,14 +13,16 @@
 
 #include "wte/wte.hpp"
 
+using namespace wte;
+
 #define MAX_STARS 64
 
-class starfield : public wte::sys::system {
+class starfield : public sys::system {
     public:
         starfield();
 
-        void run(wte::mgr::entity_manager&, wte::mgr::message_manager&, int64_t);
-        void dispatch(wte::mgr::entity_manager&, wte::message_container);
+        void run(mgr::entity_manager&, mgr::message_manager&, int64_t);
+        void dispatch(mgr::entity_manager&, message_container);
 
     private:
         float x[MAX_STARS];

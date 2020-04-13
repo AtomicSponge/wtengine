@@ -10,13 +10,15 @@
 
 #include "include/starfield.hpp"
 
+using namespace wte;
+
 /*
   Initialize the starfield
 */
 starfield::starfield() : system("starfield"), speed_mult(1) {
     for(int i = 0; i < MAX_STARS; i++) {
-        x[i] = std::rand() % wte::engine_cfg::get<int>("screen_width") + 1;
-        y[i] = std::rand() % wte::engine_cfg::get<int>("screen_height") + 1;
+        x[i] = std::rand() % engine_cfg::get<int>("screen_width") + 1;
+        y[i] = std::rand() % engine_cfg::get<int>("screen_height") + 1;
         speed[i] = (std::rand() % 3 + 1) * 3;
         color[i] = std::rand() % 4 + 1;
     }
@@ -25,10 +27,10 @@ starfield::starfield() : system("starfield"), speed_mult(1) {
 /*
   Update the starfield
 */
-void starfield::run(wte::mgr::entity_manager& world, wte::mgr::message_manager& messages, int64_t current_time) {
+void starfield::run(mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
     //  Find the background component and set drawing to it
-    wte::entity background_id = world.get_components<wte::cmp::background>().begin()->first;
-    al_set_target_bitmap(world.get_component<wte::cmp::background>(background_id)->background_bitmap);
+    entity background_id = world.get_components<cmp::background>().begin()->first;
+    al_set_target_bitmap(world.get_component<cmp::background>(background_id)->background_bitmap);
 
     //  Clear background to black
     al_clear_to_color(WTE_COLOR_BLACK);
@@ -36,8 +38,8 @@ void starfield::run(wte::mgr::entity_manager& world, wte::mgr::message_manager& 
     //  Move the stars
     for(int i = 0; i < MAX_STARS; i++) {
         y[i] += speed[i] * speed_mult;
-        if(y[i] > wte::engine_cfg::get<int>("screen_height")) { //  Make a new star
-            x[i] = std::rand() % wte::engine_cfg::get<int>("screen_width") + 1;
+        if(y[i] > engine_cfg::get<int>("screen_height")) { //  Make a new star
+            x[i] = std::rand() % engine_cfg::get<int>("screen_width") + 1;
             y[i] = 0;
             speed[i] = (std::rand() % 3 + 1) * 3;
             color[i] = std::rand() % 4 + 1;
@@ -55,7 +57,7 @@ void starfield::run(wte::mgr::entity_manager& world, wte::mgr::message_manager& 
 /*
   Process messages for the starfield
 */
-void starfield::dispatch(wte::mgr::entity_manager& world, wte::message_container messages) {
+void starfield::dispatch(mgr::entity_manager& world, message_container messages) {
     for(auto it = messages.begin(); it != messages.end(); it++) {
         if(it->get_cmd() == "default") speed_mult = 1;
         if(it->get_cmd() == "up") speed_mult *= 2;
@@ -64,8 +66,8 @@ void starfield::dispatch(wte::mgr::entity_manager& world, wte::message_container
             speed_mult = 1;
 
             for(int i = 0; i < MAX_STARS; i++) {
-                x[i] = std::rand() % wte::engine_cfg::get<int>("screen_width") + 1;
-                y[i] = std::rand() % wte::engine_cfg::get<int>("screen_height") + 1;
+                x[i] = std::rand() % engine_cfg::get<int>("screen_width") + 1;
+                y[i] = std::rand() % engine_cfg::get<int>("screen_height") + 1;
                 speed[i] = (std::rand() % 3 + 1) * 3;
                 color[i] = std::rand() % 4 + 1;
             }

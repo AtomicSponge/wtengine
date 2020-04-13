@@ -13,12 +13,14 @@
 
 #include "wte/wte.hpp"
 
-class custom_spawner : public wte::sys::spawner {
-    private:
-        void process_spawn(wte::mgr::entity_manager&, wte::msg_arg_list);
+using namespace wte;
 
-        void new_asteroid(wte::mgr::entity_manager&, float, float, float, float, int);
-        void new_wall(wte::mgr::entity_manager&, float, float);
+class custom_spawner : public sys::spawner {
+    private:
+        void process_spawn(mgr::entity_manager&, msg_arg_list);
+
+        void new_asteroid(mgr::entity_manager&, float, float, float, float, int);
+        void new_wall(mgr::entity_manager&, float, float);
 };
 
 #endif

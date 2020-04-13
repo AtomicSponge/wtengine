@@ -18,6 +18,26 @@
 
 using namespace wte;
 
+/*!
+ * wte_demo
+ */
+wte_demo::wte_demo() {
+    game_cfg::reg("score=0");
+    game_cfg::reg("hiscore=0");
+    game_cfg_map::load();
+}
+
+/*!
+ * ~wte_demo
+ */
+wte_demo::~wte_demo() {
+    game_cfg_map::clear_save();
+    game_cfg_map::save("hiscore");
+
+    //  Save settings
+    engine_cfg_map::save();
+}
+
 /*
   Load menus
 */

@@ -21,15 +21,10 @@ int main(int argc, char **argv) {
     //  Load settings
     engine_cfg_map::load();
 
-    //game_cfg::reg("test=1");
-
     //  Initialize game object
     wte_demo my_game;
     //  Run the game loop
     my_game.do_game();
-
-    //  Save settings
-    engine_cfg_map::save();
 
     return 0; //  Exit program
 }

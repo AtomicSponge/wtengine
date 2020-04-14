@@ -9,3 +9,6 @@ output/
 wte_update_dlls.bat
 # Ignore documentation
 documentation/
+# Ignore test scripts
+tools/csv2sdf/*.sdf
+tools/csv2sdf/*.csv

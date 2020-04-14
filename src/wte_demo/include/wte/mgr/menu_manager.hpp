@@ -47,7 +47,7 @@ class menu_manager final : public manager<menu_manager> {
         /*!
         Generates the menu manager object
         */
-        inline menu_manager() : menu_width(340.0), menu_height(240.0), menu_padding(24.0), font_size(8) {
+        inline menu_manager() : menu_width(340.0), menu_height(240.0), menu_padding(20.0), font_size(8) {
             menu_bitmap = NULL;
             menu_cursor = NULL;
             menu_font = NULL;

@@ -33,7 +33,7 @@
 namespace wte
 {
 
-//! WTEngine Main Class
+//! WTEngine Main Class.
 /*!
   The main engine object.
   Sets up various system objects used by the engine.
@@ -54,37 +54,37 @@ class wte_main {
             initialized = false;
         };
 
-        //!  Remove copy constructor
+        //!  Remove copy constructor.
         wte_main(const wte_main&) = delete;
-        //!  Remove assignment operator
+        //!  Remove assignment operator.
         void operator=(wte_main const&) = delete;
 
-        //!  Call first to load the engine
+        //!  Call first to load the engine.
         inline void wte_load(void) {
-            //  Start the input & audio threads
+            //  Start the input & audio threads.
             input_th.start();
 
-            //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined
+            //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined.
             #ifndef WTE_NO_AUDIO
             audio_th.start();
             #endif
 
-            //  Initialize renderer and menu manager
+            //  Initialize renderer and menu manager.
             screen.initialize(al_create_builtin_font());
             menus.initialize(al_create_builtin_font(), WTE_COLOR_WHITE, WTE_COLOR_DARKPURPLE);
 
-            //  Load user configured menus
+            //  Load user configured menus.
             load_menus();
 
-            //  Init done, set flag to true
+            //  Init done, set flag to true.
             load_called = true;
         };
 
-        //!  Call to unload the engine
+        //!  Call to unload the engine.
         inline void wte_unload(void) {
             input_th.stop();
 
-            //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined
+            //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined.
             #ifndef WTE_NO_AUDIO
             audio_th.stop();
             #endif
@@ -92,7 +92,7 @@ class wte_main {
             load_called = false;
         };
     
-        //!  Call to start up the main game loop
+        //!  Call to start up the main game loop.
         void do_game(void);
 
     protected:
@@ -102,10 +102,10 @@ class wte_main {
             if(initialized == true) throw std::runtime_error("WTEngine already running!");
             initialized = true;
 
-            //  Initialize Allegro
+            //  Initialize Allegro.
             if(!al_init()) throw std::runtime_error("Allegro failed to load!");
 
-            //  Initialize additional Allegro components
+            //  Initialize additional Allegro components.
             if(!al_install_keyboard()) throw std::runtime_error("Failed to detect keyboard!");
             if(!al_init_image_addon()) throw std::runtime_error("Failed to load Allegro image addon!");
             if(!al_init_font_addon()) throw std::runtime_error("Failed to load Allegro font addon!");
@@ -123,11 +123,11 @@ class wte_main {
             main_queue = al_create_event_queue();
             if(!main_queue) throw std::runtime_error("Failed to create event queue!");
 
-            //  Register event sources
+            //  Register event sources.
             al_register_event_source(main_queue, al_get_display_event_source(display));
             al_register_event_source(main_queue, al_get_timer_event_source(main_timer));
 
-            //  Map commands to enums for switching over in the system msg handler
+            //  Map commands to enums for switching over in the system msg handler.
             map_cmd_str_values["exit"] = CMD_STR_EXIT;
             map_cmd_str_values["alert"] = CMD_STR_ALERT;
             map_cmd_str_values["new_game"] = CMD_STR_NEW_GAME;
@@ -139,21 +139,25 @@ class wte_main {
             map_cmd_str_values["set_engcfg"] = CMD_STR_SET_ENGCFG;
             map_cmd_str_values["set_gamecfg"] = CMD_STR_SET_GAMECFG;
 
-            //  Set default colors for alerts
+            //  Set default colors for alerts.
             alert::set_font_color(WTE_COLOR_WHITE);
             alert::set_bg_color(WTE_COLOR_RED);
         };
     
         /* These functions are defined in their own source file */
-        //!  Define this to implement custom menu layout
+        //!  Define this to implement custom menu layout.
         virtual void load_menus(void) = 0;
-        //!  Define this to load all systems to be used by the game
+        //!  Define this to load all systems to be used by the game.
         virtual void load_systems(void) = 0;
-        //!  Define what gets loaded when a game starts
+        //!  Define what gets loaded when a game starts.
         virtual void load_game(void) = 0;
-        //!  Define what happens at the end of a game
+        //!  Define what happens at the end of a game.
         virtual void end_game(void) = 0;
-        //!  Define custom system message handling
+        //!  On menu open.
+        virtual void on_menu_open(mgr::message_manager&) {};
+        //!  On menu open.
+        virtual void on_menu_close(mgr::message_manager&) {};
+        //!  Define custom system message handling.
         virtual void handle_custom_sys_msg(message) {};
         /* *** End custom members *** */
 
@@ -164,17 +168,17 @@ class wte_main {
         mgr::menu_manager menus;
         mgr::input_manager input_th;
 
-        //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined
+        //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined.
         #ifndef WTE_NO_AUDIO
         mgr::audio_manager audio_th;
         #endif
 
     private:
-        //!  Start up a new game
+        //!  Start up a new game.
         void generate_new_game(void);
-        //!  End the game in progress
+        //!  End the game in progress.
         void unload_game(void);
-        //!  Process messages passed to the system
+        //!  Process messages passed to the system.
         void handle_sys_msg(message_container);
 
         //  Used for switching on system messages:
@@ -192,40 +196,40 @@ class wte_main {
         inline static ALLEGRO_EVENT_QUEUE* main_queue = NULL;
         ALLEGRO_EVENT event;
 
-        bool load_called;        //  Flag to make sure wte_load was called
+        bool load_called;        //  Flag to make sure wte_load was called.
 
-        inline static bool initialized = false; //  Restrict to one instance of the engine running
+        inline static bool initialized = false; //  Restrict to one instance of the engine running.
 };
 
 /*!
-  Call every time a new game is starting
+  Call every time a new game is starting.
 */
 inline void wte_main::generate_new_game(void) {
-    std::srand(std::time(nullptr));  //  Seed random
+    std::srand(std::time(nullptr));  //  Seed random.
 
-    //  Set global flags
+    //  Set global flags.
     engine_flags::unset(GAME_MENU_OPENED);
     engine_flags::set(GAME_STARTED);
 
-    //  Clear world and load starting entities
+    //  Clear world and load starting entities.
     world.clear();
     load_game();
 
-    //  Load systems and prevent further systems from being loaded
+    //  Load systems and prevent further systems from being loaded.
     load_systems();
     systems.finalize();
 
-    //  Load a new message data file
-    messages.new_data_file("data\\game.sdf");  //  Update later to load from settings
+    //  Load a new message data file.
+    messages.new_data_file("data\\game.sdf");  //  Update later to load from settings.
 
-    //  Restart the timer at zero
+    //  Restart the timer at zero.
     al_stop_timer(main_timer);
     al_set_timer_count(main_timer, 0);
     al_start_timer(main_timer);
 }
 
 /*!
-  Calls the user defined end game process, then shuts down the game
+  Calls the user defined end game process, then shuts down the game.
 */
 inline void wte_main::unload_game(void) {
     al_stop_timer(main_timer);
@@ -239,7 +243,7 @@ inline void wte_main::unload_game(void) {
 }
 
 /*!
-  The main game loop
+  The main game loop.
 */
 inline void wte_main::do_game(void) {
     if(load_called == false) wte_load();  //  Auto call load.
@@ -253,18 +257,25 @@ inline void wte_main::do_game(void) {
     engine_flags::unset(GAME_STARTED);
     engine_flags::set(GAME_MENU_OPENED);
 
-    //  test code
+    //  test code.
     engine_flags::unset(WAIT_FOR_VSYNC);
     engine_flags::set(DRAW_HITBOX);
     engine_flags::set(DRAW_FPS);
-    //  end test code
+    //  end test code.
 
     while(engine_flags::is_set(IS_RUNNING)) {
-        //  Pause / resume timer depending on if the game menu is opened
-        if(engine_flags::is_set(GAME_MENU_OPENED) && al_get_timer_started(main_timer)) al_stop_timer(main_timer);
-        if(!engine_flags::is_set(GAME_MENU_OPENED) && !al_get_timer_started(main_timer)) al_resume_timer(main_timer);
+        //  Pause / resume timer depending on if the game menu is opened.
+        //  Also process the on_menu events.
+        if(engine_flags::is_set(GAME_MENU_OPENED) && al_get_timer_started(main_timer)) {
+            al_stop_timer(main_timer);
+            on_menu_open(messages);
+        }
+        if(!engine_flags::is_set(GAME_MENU_OPENED) && !al_get_timer_started(main_timer)) {
+            on_menu_close(messages);
+            al_resume_timer(main_timer);
+        }
 
-        //  Game not running, make sure the timer isn't and force the menu manager
+        //  Game not running, make sure the timer isn't and force the menu manager.
         if(!engine_flags::is_set(GAME_STARTED)) {
             al_stop_timer(main_timer);
             engine_flags::set(GAME_MENU_OPENED);
@@ -273,66 +284,66 @@ inline void wte_main::do_game(void) {
         if(engine_flags::is_set(GAME_MENU_OPENED)) menus.run(messages);
 
         /* *** GAME LOOP ************************************************************ */
-        //  Capture event from queue
+        //  Capture event from queue.
         queue_not_empty = al_get_next_event(main_queue, &event);
         //  Call our game logic update on timer events.  Timer is only running when the game is running.
         if(event.type == ALLEGRO_EVENT_TIMER && queue_not_empty) {
-            //  Set the engine_time object to the current time
+            //  Set the engine_time object to the current time.
             mgr::engine_time::set_time(al_get_timer_count(main_timer));
-            //  Run all systems
+            //  Run all systems.
             systems.run(world, messages, al_get_timer_count(main_timer));
-            //  Process messages
+            //  Process messages.
             systems.dispatch(world, messages);
         }
         /* *** END GAME LOOP ******************************************************** */
 
-        //  Render the screen
+        //  Render the screen.
         screen.render(menus, world);
 
-        //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined
+        //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined.
         #ifndef WTE_NO_AUDIO
-        //  Send audio messages to the audio queue
+        //  Send audio messages to the audio queue.
         temp_msgs = messages.get_messages("audio");
         if(!temp_msgs.empty()) audio_th.transfer_messages(temp_msgs);
         #endif
 
-        //  Get any system messages and pass to handler
+        //  Get any system messages and pass to handler.
         temp_msgs = messages.get_messages("system");
         if(!temp_msgs.empty()) handle_sys_msg(temp_msgs);
 
-        //  Ignore message pruning if WTE_NO_PRUNE build flag is defined
+        //  Ignore message pruning if WTE_NO_PRUNE build flag is defined.
         #ifndef WTE_NO_PRUNE
         //  Delete messages that were not processed.
         messages.prune();
         #endif
 
-        //  Force quit if the game window is closed
+        //  Force quit if the game window is closed.
         if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) engine_flags::unset(IS_RUNNING);
     }
 }
 
 /*!
-  Switch over the system messages and process
-  Remaining messages are passed to the custom handler
+  Switch over the system messages and process.
+  Remaining messages are passed to the custom handler.
 */
 inline void wte_main::handle_sys_msg(message_container sys_msgs) {
     for(auto it = sys_msgs.begin(); it != sys_msgs.end();) {
-        //  Switch over the system messages, deleting each as they are processed
+        //  Switch over the system messages, deleting each as they are processed.
         switch(map_cmd_str_values[it->get_cmd()]) {
-            //  cmd:  exit - Shut down engine
+            //  cmd:  exit - Shut down engine.
             case CMD_STR_EXIT:
                 if(engine_flags::is_set(GAME_STARTED)) unload_game();
                 engine_flags::unset(IS_RUNNING);
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  alert - Display an alert
+            //  cmd:  alert - Display an alert.
             case CMD_STR_ALERT:
                 alert::set_alert(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  new_game - start up a new game
+            //  cmd:  new_game - start up a new game.
             case CMD_STR_NEW_GAME:
                 if(engine_flags::is_set(GAME_STARTED)) unload_game();
                 menus.reset();
@@ -340,50 +351,50 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  end_game - end current game
+            //  cmd:  end_game - end current game.
             case CMD_STR_END_GAME:
                 menus.reset();
                 unload_game();
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  open_menu argstring - open a menu, passing a string as an argument
-            //  If the menu doesn't exist, the default will be opened
+            //  cmd:  open_menu argstring - open a menu, passing a string as an argument.
+            //  If the menu doesn't exist, the default will be opened.
             case CMD_STR_OPEN_MENU:
                 engine_flags::set(GAME_MENU_OPENED);
                 menus.open_menu(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  close_menu argstring - close the opened menu
-            //  If argstring = "all", close all opened menus
+            //  cmd:  close_menu argstring - close the opened menu.
+            //  If argstring = "all", close all opened menus.
             case CMD_STR_CLOSE_MENU:
                 if(it->get_arg(0) == "all") menus.reset();
                 else menus.close_menu();
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  enable_system - Turn a system on for processing
+            //  cmd:  enable_system - Turn a system on for processing.
             case CMD_STR_ENABLE_SYSTEM:
                 systems.enable_system(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  disable_system - Turn a system off so it's run member is skipped
-            //  Message dispatching is still processed
+            //  cmd:  disable_system - Turn a system off so it's run member is skipped.
+            //  Message dispatching is still processed.
             case CMD_STR_DISABLE_SYSTEM:
                 systems.disable_system(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  set_engcfg - Set engine cfg variable
+            //  cmd:  set_engcfg - Set engine cfg variable.
             case CMD_STR_SET_ENGCFG:
                 for(std::size_t i = 0; i < it->num_args(); i++)
                     engine_cfg::set(it->get_arg(i));
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  set_gamecfg - Set game cfg variable
+            //  cmd:  set_gamecfg - Set game cfg variable.
             case CMD_STR_SET_GAMECFG:
                 for(std::size_t i = 0; i < it->num_args(); i++)
                     game_cfg::set(it->get_arg(i));
@@ -402,7 +413,7 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
         }
     }
 
-    //  Pass remaining system messages to the custom handler
+    //  Pass remaining system messages to the custom handler.
     if(!sys_msgs.empty()) {
         for(auto it = sys_msgs.begin(); it != sys_msgs.end(); it++) {
             handle_custom_sys_msg(*it);

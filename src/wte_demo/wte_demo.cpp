@@ -142,3 +142,17 @@ void wte_demo::end_game(void) {
     game_cfg_map::subtract<int>("hiscore", 3);
     //  end test code
 }
+
+/*! 
+ * On menu open
+ */
+void wte_demo::on_menu_open(mgr::message_manager& messages) {
+    //
+}
+
+/*! 
+ * On menu close
+ */
+void wte_demo::on_menu_close(mgr::message_manager& messages) {
+    //
+}

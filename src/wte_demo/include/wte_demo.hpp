@@ -29,6 +29,10 @@ class wte_demo final : public wte_main {
         void load_game(void) override;
         //!  Define what happens at the end of a game
         void end_game(void) override;
+        //!  On menu open
+        void on_menu_open(mgr::message_manager&) override;
+        //!  On menu close
+        void on_menu_close(mgr::message_manager&) override;
 };
 
 #endif

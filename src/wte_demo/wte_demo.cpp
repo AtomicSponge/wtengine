@@ -147,7 +147,7 @@ void wte_demo::end_game(void) {
  * On menu open
  */
 void wte_demo::on_menu_open(mgr::message_manager& messages) {
-    //
+    //messages.add_message(message("audio", "", ""));
 }
 
 /*! 

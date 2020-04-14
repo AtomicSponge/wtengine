@@ -24,6 +24,7 @@ using namespace wte;
 wte_demo::wte_demo() {
     game_cfg::reg("score=0");
     game_cfg::reg("hiscore=0");
+    game_cfg::reg("lives=3");
     game_cfg_map::load();
 }
 

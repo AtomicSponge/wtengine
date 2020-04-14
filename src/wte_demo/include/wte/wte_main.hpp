@@ -155,7 +155,7 @@ class wte_main {
         virtual void end_game(void) = 0;
         //!  Optional:  On menu open.
         virtual void on_menu_open(void) {};
-        //!  Optional:  On menu open.
+        //!  Optional:  On menu close.
         virtual void on_menu_close(void) {};
         //!  Optional:  Define custom system message handling.
         virtual void handle_custom_sys_msg(message) {};

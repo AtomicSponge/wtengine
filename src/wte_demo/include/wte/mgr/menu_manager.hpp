@@ -282,18 +282,18 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
                  ALLEGRO_ALIGN_CENTER, opened_menus.top()->get_title().c_str());
 
     //  Render menu items
-    //offset = menu_padding + font_size + menu_padding;
-    hpart = menu_height / (opened_menus.top()->num_items() + 1);
+    offset = menu_padding + font_size + menu_padding;
+    hpart = (menu_height - offset) / (opened_menus.top()->num_items() + 1);
     for(auto it = opened_menus.top()->begin(); it != opened_menus.top()->end(); it++) {
         vcounter++;
         for(std::size_t i = 0; i < (*it)->get_text().size(); i++) {
             vpart = menu_width / ((*it)->get_text().size() * 2);
             al_draw_text(menu_font, menu_font_color,
                          vpart * (i + 1),
-                         hpart * vcounter,
+                         (offset / 2) + (hpart * vcounter),
                          ALLEGRO_ALIGN_CENTER, (*it)->get_text()[i].c_str());
         }
-        if(it == menu_position) cursor_pos = hpart * vcounter;
+        if(it == menu_position) cursor_pos = (offset / 2) + (hpart * vcounter);
     }
 
     //  Render menu cursor

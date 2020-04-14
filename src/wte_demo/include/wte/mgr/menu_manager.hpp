@@ -47,7 +47,7 @@ class menu_manager final : public manager<menu_manager> {
         /*!
         Generates the menu manager object
         */
-        inline menu_manager() : menu_width(300.0), menu_height(200.0), menu_padding(10.0), font_size(8) {
+        inline menu_manager() : menu_width(340.0), menu_height(240.0), menu_padding(24.0), font_size(8) {
             menu_bitmap = NULL;
             menu_cursor = NULL;
             menu_font = NULL;
@@ -127,7 +127,7 @@ inline void menu_manager::initialize(ALLEGRO_FONT* font, ALLEGRO_COLOR fcolor, A
         if(!new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 
-    font_size = 8;
+    font_size = al_get_font_line_height(menu_font);
 
     al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
     menu_cursor = al_create_bitmap(font_size, font_size);

@@ -154,9 +154,9 @@ class wte_main {
         //!  Define what happens at the end of a game.
         virtual void end_game(void) = 0;
         //!  On menu open.
-        virtual void on_menu_open(mgr::message_manager&) {};
+        virtual void on_menu_open(void) {};
         //!  On menu open.
-        virtual void on_menu_close(mgr::message_manager&) {};
+        virtual void on_menu_close(void) {};
         //!  Define custom system message handling.
         virtual void handle_custom_sys_msg(message) {};
         /* *** End custom members *** */
@@ -268,10 +268,10 @@ inline void wte_main::do_game(void) {
         //  Also process the on_menu events.
         if(engine_flags::is_set(GAME_MENU_OPENED) && al_get_timer_started(main_timer)) {
             al_stop_timer(main_timer);
-            on_menu_open(messages);
+            on_menu_open();
         }
         if(!engine_flags::is_set(GAME_MENU_OPENED) && !al_get_timer_started(main_timer)) {
-            on_menu_close(messages);
+            on_menu_close();
             al_resume_timer(main_timer);
         }
 

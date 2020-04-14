@@ -7,6 +7,9 @@
  * \date 2019-2020
  *
  * \details Menu manager.
+ * 
+ * \bug Item iterator oob
+ * 
  */
 
 #ifndef WTE_MGR_MENU_MANAGER_HPP

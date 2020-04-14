@@ -258,6 +258,8 @@ inline void menu_manager::run(message_manager& messages) {
 */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     float cursor_pos = 10.0;
+    float vpart, hpart, offset;
+    std::size_t vcounter = 0;
 
     //  Destroy old bitmap if it exists
     al_destroy_bitmap(menu_bitmap);
@@ -280,14 +282,18 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
                  ALLEGRO_ALIGN_CENTER, opened_menus.top()->get_title().c_str());
 
     //  Render menu items
+    //offset = menu_padding + font_size + menu_padding;
+    hpart = menu_height / (opened_menus.top()->num_items() + 1);
     for(auto it = opened_menus.top()->begin(); it != opened_menus.top()->end(); it++) {
+        vcounter++;
         for(std::size_t i = 0; i < (*it)->get_text().size(); i++) {
+            vpart = menu_width / ((*it)->get_text().size() * 2);
             al_draw_text(menu_font, menu_font_color,
-                         (menu_width / 2),
-                         (menu_height - (menu_padding + font_size + menu_padding)) / 2,
+                         vpart * (i + 1),
+                         hpart * vcounter,
                          ALLEGRO_ALIGN_CENTER, (*it)->get_text()[i].c_str());
         }
-        if(it == menu_position) cursor_pos = 40;
+        if(it == menu_position) cursor_pos = hpart * vcounter;
     }
 
     //  Render menu cursor

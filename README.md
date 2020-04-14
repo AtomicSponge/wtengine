@@ -12,6 +12,7 @@ API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
 
 #### FEATURES:
  - Internal messaging queue 
+ - Programmable menu interface
  - Memory manager for in-game objects
  - Music & audio playback via messages
  - Some multi-threading of tasks
@@ -19,9 +20,9 @@ API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
 
 #### TODO:
  - Finish SFX tests
- - Finish basic menu system implementation
+ - Finish menu debugging / add features
  - Code review / documentation
- - Implement sprites
+ - Implement sprites / finish rendering
 
 #### DEMO:
 

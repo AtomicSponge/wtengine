@@ -18,4 +18,5 @@ tools/csv2sdf/*.sdf
 tools/csv2sdf/*.csv
 
 # Ignore cmake stuffs
+CMakeFiles/
 CMakeCache.txt

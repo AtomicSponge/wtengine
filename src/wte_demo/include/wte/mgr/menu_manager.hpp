@@ -261,10 +261,6 @@ inline void menu_manager::run(message_manager& messages) {
   Renders the active menu from the top of the stack
 */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
-    float cursor_pos = 10.0;
-    float vpart, hpart, offset;
-    std::size_t vcounter = 0;
-
     //  Destroy old bitmap if it exists
     al_destroy_bitmap(menu_bitmap);
 
@@ -286,6 +282,10 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
                  ALLEGRO_ALIGN_CENTER, opened_menus.top()->get_title().c_str());
 
     //  Render menu items
+    float cursor_pos = 10.0;
+    float vpart = 0.0, hpart = 0.0, offset = 0.0;
+    std::size_t vcounter = 0;
+
     offset = menu_padding + font_size + menu_padding;
     vpart = (menu_height - offset) / (opened_menus.top()->num_items() + 1);
     for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {

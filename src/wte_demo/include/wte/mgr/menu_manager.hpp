@@ -221,6 +221,7 @@ inline void menu_manager::open_menu(const std::string menu_id) {
 inline void menu_manager::close_menu(void) {
     opened_menus.pop();
     if(opened_menus.empty()) engine_flags::unset(GAME_MENU_OPENED);
+    else menu_position = opened_menus.top()->items_begin();
 }
 
 //!  Run the menu manager

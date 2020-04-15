@@ -8,8 +8,6 @@
  *
  * \details Menu manager.
  * 
- * \bug Item iterator oob
- * 
  */
 
 #ifndef WTE_MGR_MENU_MANAGER_HPP
@@ -241,6 +239,9 @@ inline void menu_manager::run(message_manager& messages) {
         menu_position--;
     if(input_flags::is_set(INPUT_DOWN) && menu_position != opened_menus.top()->items_end())
         menu_position++;
+    //  The code above logically allows the index to go one beyond the vector.
+    //  The code below fixes that :)
+    if(menu_position == opened_menus.top()->items_end()) menu_position--;
 
     if(input_flags::is_set(INPUT_LEFT) && menu_position != opened_menus.top()->items_end())
         (*menu_position)->on_left();

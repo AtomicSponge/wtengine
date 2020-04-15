@@ -213,7 +213,7 @@ inline void menu_manager::reset(void) {
 inline void menu_manager::open_menu(const std::string menu_id) {
     opened_menus.push(get_menu(menu_id));
     engine_flags::set(GAME_MENU_OPENED);
-    menu_position = opened_menus.top()->begin();
+    menu_position = opened_menus.top()->items_begin();
 }
 
 //!  Close the current opened menu
@@ -237,17 +237,17 @@ inline void menu_manager::run(message_manager& messages) {
     }
 
     //  Iterate through the menu items depending on key press
-    if(input_flags::is_set(INPUT_UP) && menu_position != opened_menus.top()->begin())
+    if(input_flags::is_set(INPUT_UP) && menu_position != opened_menus.top()->items_begin())
         menu_position--;
-    if(input_flags::is_set(INPUT_DOWN) && menu_position != opened_menus.top()->end())
+    if(input_flags::is_set(INPUT_DOWN) && menu_position != opened_menus.top()->items_end())
         menu_position++;
 
-    if(input_flags::is_set(INPUT_LEFT) && menu_position != opened_menus.top()->end())
+    if(input_flags::is_set(INPUT_LEFT) && menu_position != opened_menus.top()->items_end())
         (*menu_position)->on_left();
-    if(input_flags::is_set(INPUT_RIGHT) && menu_position != opened_menus.top()->end())
+    if(input_flags::is_set(INPUT_RIGHT) && menu_position != opened_menus.top()->items_end())
         (*menu_position)->on_right();
 
-    if(input_flags::is_set(INPUT_MENU_SELECT) && menu_position != opened_menus.top()->end()) {
+    if(input_flags::is_set(INPUT_MENU_SELECT) && menu_position != opened_menus.top()->items_end()) {
         message temp_msg = (*menu_position)->on_select();
         if(temp_msg.get_cmd() != "null") messages.add_message(temp_msg);
     }
@@ -287,7 +287,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     //  Render menu items
     offset = menu_padding + font_size + menu_padding;
     vpart = (menu_height - offset) / (opened_menus.top()->num_items() + 1);
-    for(auto it = opened_menus.top()->begin(); it != opened_menus.top()->end(); it++) {
+    for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
         vcounter++;
         hpart = menu_width / ((*it)->get_text().size() + 1);
         for(std::size_t i = 0; i < (*it)->get_text().size(); i++)

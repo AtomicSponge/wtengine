@@ -24,26 +24,48 @@ namespace wte
 namespace mnu
 {
 
-//!
 /*!
-*/
+ *
+ */
 class menu_item {
     public:
+        /*!
+         *
+         */
         inline virtual ~menu_item() {};
 
+        /*!
+         *
+         */
         inline virtual std::vector<std::string> get_text(void) { return {"null"}; };
 
+        /*!
+         *
+         */
         inline virtual void on_left(void) {};
+        
+        /*!
+         *
+         */
         inline virtual void on_right(void) {};
 
+        /*!
+         *
+         */
         inline virtual message on_select(void) { return message("system", "null", "null"); };
 
+        /*!
+         *
+         */
         inline const std::string get_label(void) const { return label; };
 
     private:
         std::string label;
 
     protected:
+        /*!
+         *
+         */
         inline menu_item(const std::string l) : label(l) {};
 };
 

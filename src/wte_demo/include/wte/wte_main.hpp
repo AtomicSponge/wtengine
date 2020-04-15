@@ -150,7 +150,7 @@ class wte_main {
         //!  Define this to load all systems to be used by the game.
         virtual void load_systems(void) = 0;
         //!  Define what gets loaded when a game starts.
-        virtual void load_game(void) = 0;
+        virtual void new_game(void) = 0;
         //!  Define what happens at the end of a game.
         virtual void end_game(void) = 0;
         //!  Optional:  On menu open.
@@ -175,9 +175,9 @@ class wte_main {
 
     private:
         //!  Start up a new game.
-        void generate_new_game(void);
+        void process_new_game(void);
         //!  End the game in progress.
-        void unload_game(void);
+        void process_end_game(void);
         //!  Process messages passed to the system.
         void handle_sys_msg(message_container);
 
@@ -204,7 +204,7 @@ class wte_main {
 /*!
   Call every time a new game is starting.
 */
-inline void wte_main::generate_new_game(void) {
+inline void wte_main::process_new_game(void) {
     std::srand(std::time(nullptr));  //  Seed random.
 
     //  Set global flags.
@@ -213,7 +213,7 @@ inline void wte_main::generate_new_game(void) {
 
     //  Clear world and load starting entities.
     world.clear();
-    load_game();
+    new_game();
 
     //  Load systems and prevent further systems from being loaded.
     load_systems();
@@ -231,12 +231,20 @@ inline void wte_main::generate_new_game(void) {
 /*!
   Calls the user defined end game process, then shuts down the game.
 */
-inline void wte_main::unload_game(void) {
+inline void wte_main::process_end_game(void) {
     al_stop_timer(main_timer);
+    al_set_timer_count(main_timer, 0);
+
+    //  Call end game process
     end_game();
 
     world.clear();
     systems.clear();
+
+    //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined.
+    #ifndef WTE_NO_AUDIO
+    messages.add_message(message("audio", "null", "test"));
+    #endif
 
     engine_flags::unset(GAME_STARTED);
     engine_flags::set(GAME_MENU_OPENED);
@@ -332,7 +340,7 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
         switch(map_cmd_str_values[it->get_cmd()]) {
             //  cmd:  exit - Shut down engine.
             case CMD_STR_EXIT:
-                if(engine_flags::is_set(GAME_STARTED)) unload_game();
+                if(engine_flags::is_set(GAME_STARTED)) process_end_game();
                 engine_flags::unset(IS_RUNNING);
                 it = sys_msgs.erase(it);
                 break;
@@ -345,16 +353,16 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
 
             //  cmd:  new_game - start up a new game.
             case CMD_STR_NEW_GAME:
-                if(engine_flags::is_set(GAME_STARTED)) unload_game();
+                if(engine_flags::is_set(GAME_STARTED)) process_end_game();
                 menus.reset();
-                generate_new_game();
+                process_new_game();
                 it = sys_msgs.erase(it);
                 break;
 
             //  cmd:  end_game - end current game.
             case CMD_STR_END_GAME:
                 menus.reset();
-                unload_game();
+                process_end_game();
                 it = sys_msgs.erase(it);
                 break;
 

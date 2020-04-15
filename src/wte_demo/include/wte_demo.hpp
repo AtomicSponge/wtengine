@@ -26,7 +26,7 @@ class wte_demo final : public wte_main {
         //!  Define this to load all systems to be used by the game
         void load_systems(void) override;
         //!  Define what gets loaded when a game starts
-        void load_game(void) override;
+        void new_game(void) override;
         //!  Define what happens at the end of a game
         void end_game(void) override;
         //!  On menu open

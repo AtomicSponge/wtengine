@@ -78,7 +78,7 @@ void wte_demo::load_systems(void) {
 /*
   Pre-load starting entities
 */
-void wte_demo::load_game(void) {
+void wte_demo::new_game(void) {
     entity e_id;
 
     //  Background entity

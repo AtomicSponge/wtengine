@@ -55,8 +55,8 @@ class menu {
         /*!
          *
          */
-        inline menu_items get_items(void) const { return items; };
-        
+        //inline menu_items get_items(void) const { return items; };
+
         /*!
          *
          */

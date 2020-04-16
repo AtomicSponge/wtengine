@@ -143,7 +143,7 @@ class wte_main {
             alert::set_font_color(WTE_COLOR_WHITE);
             alert::set_bg_color(WTE_COLOR_RED);
         };
-    
+
         /* These function members are overrided in the derived class */
         //!  Define this to implement custom menu layout.
         virtual void load_menus(void) = 0;

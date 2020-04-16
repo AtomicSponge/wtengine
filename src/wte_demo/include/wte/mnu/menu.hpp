@@ -65,12 +65,22 @@ class menu {
         /*!
          *
          */
-        inline menu_item_citerator items_begin() const { return items.cbegin(); };
+        inline menu_item_citerator items_begin() const { return items.begin(); };
         
         /*!
          *
          */
-        inline menu_item_citerator items_end() const { return items.cend(); };
+        inline menu_item_citerator items_end() const { return items.end(); };
+
+        /*!
+         *
+         */
+        inline menu_item_citerator items_cbegin() const { return items.cbegin(); };
+        
+        /*!
+         *
+         */
+        inline menu_item_citerator items_cend() const { return items.cend(); };
 
         /*!
          *

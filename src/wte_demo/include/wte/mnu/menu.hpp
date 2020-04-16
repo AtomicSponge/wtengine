@@ -38,7 +38,7 @@ class menu {
          * \return void
          */
         inline menu(const std::string i, const std::string t) : id(i), title(t) { items.clear(); };
-        
+
         /*!
          * Description
          * \param void
@@ -52,14 +52,14 @@ class menu {
          * \return void
          */
         inline const std::string get_id(void) const { return id; };
-        
+
         /*!
          * Description
          * \param void
          * \return void
          */
         inline const std::string get_title(void) const { return title; };
-        
+
         /*!
          * Description
          * \param void
@@ -80,7 +80,7 @@ class menu {
          * \return void
          */
         inline menu_item_citerator items_begin() const { return items.begin(); };
-        
+
         /*!
          * Description
          * \param void
@@ -94,7 +94,7 @@ class menu {
          * \return void
          */
         inline menu_item_citerator items_cbegin() const { return items.cbegin(); };
-        
+
         /*!
          * Description
          * \param void

@@ -30,29 +30,39 @@ namespace mnu
 class menu_item_action final : public menu_item {
     public:
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline menu_item_action(const std::string l, const std::string c, const std::string a) :
             menu_item(l), cmd(c), arg(a) {};
         
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline menu_item_action(const std::string l, const std::string c) :
             menu_item(l), cmd(c), arg("") {};
         
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline ~menu_item_action() {};
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline message on_select(void) override { return message("system", cmd, arg); };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline std::vector<std::string> get_text(void) override { return {get_label()}; };
 

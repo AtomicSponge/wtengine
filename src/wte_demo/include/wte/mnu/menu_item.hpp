@@ -30,32 +30,44 @@ namespace mnu
 class menu_item {
     public:
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline virtual ~menu_item() {};
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline virtual std::vector<std::string> get_text(void) { return {"null"}; };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline virtual void on_left(void) {};
         
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline virtual void on_right(void) {};
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline virtual message on_select(void) { return message("system", "null", "null"); };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline const std::string get_label(void) const { return label; };
 
@@ -64,7 +76,9 @@ class menu_item {
 
     protected:
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline menu_item(const std::string l) : label(l) {};
 };

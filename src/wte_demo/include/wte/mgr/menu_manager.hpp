@@ -289,7 +289,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
 
     offset = menu_padding + font_size + menu_padding;
     vpart = (menu_height - offset) / (opened_menus.top()->num_items() + 1);
-    for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
+    for(auto it = opened_menus.top()->items_cbegin(); it != opened_menus.top()->items_cend(); it++) {
         vcounter++;
         hpart = menu_width / ((*it)->get_text().size() + 1);
         for(std::size_t i = 0; i < (*it)->get_text().size(); i++)

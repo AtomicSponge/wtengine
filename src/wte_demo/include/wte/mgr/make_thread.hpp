@@ -31,15 +31,32 @@ namespace mgr
 */
 class make_thread {
     public:
-        //!  Calls stop member if started flag is true
+        /*!
+         * Calls stop member if started flag is true
+         * \param void
+         * \return void
+         */
         inline virtual ~make_thread() { if(started) stop(); };
 
-        //!  Remove copy constructor
+        /*!
+         * Remove copy constructor
+         * \param void
+         * \return void
+         */
         make_thread(const make_thread&) = delete;
-        //!  Remove assignment operator
+
+        /*!
+         * Remove assignment operator
+         * \param void
+         * \return void
+         */
         void operator=(make_thread const&) = delete;
 
-        //!  Call to start execution of thread
+        /*!
+         * Call to start execution of thread
+         * \param void
+         * \return void
+         */
         inline void start(void) {
             if(started == true) return;
             exit_state = exit_signal.get_future();
@@ -48,14 +65,22 @@ class make_thread {
             started = true;
         };
 
-        //!  Call to end thread
+        /*!
+         * Call to end thread
+         * \param void
+         * \return void
+         */
         inline void stop(void) {
             exit_signal.set_value();
             started = false;
             exit_signal = std::promise<void>();
         };
 
-        //!  Check if thread is running
+        /*!
+         * Check if thread is running
+         * \param void
+         * \return void
+         */
         inline const bool is_running(void) const { return started; };
 
     private:
@@ -68,17 +93,29 @@ class make_thread {
         bool started;
 
     protected:
-        //!  Set started flag to false
+        /*!
+         * Set started flag to false
+         * \param void
+         * \return void
+         */
         inline make_thread() : started(false) {};
 
-        //!  Call this within run() to check if the thread is running
+        /*!
+         * Call this within run() to check if the thread is running
+         * \param void
+         * \return void
+         */
         inline bool keep_running(void) {
             if(exit_state.wait_for(std::chrono::milliseconds(0)) == std::future_status::timeout)
                 return true;
             return false;
         };
 
-        //!  Override this in extended class to implement a thread
+        /*!
+         * Override this in extended class to implement a thread
+         * \param void
+         * \return void
+         */
         virtual void run(void) = 0;
 };
 

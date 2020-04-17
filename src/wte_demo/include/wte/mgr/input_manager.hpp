@@ -40,7 +40,7 @@ class input_manager final : public manager<input_manager>, public make_thread {
 
     private:
         //!  Run the input manager
-        void run(void);
+        void run(void) override;
 };
 
 template <> inline bool input_manager::manager<input_manager>::initialized = false;

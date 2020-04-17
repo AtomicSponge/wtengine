@@ -112,7 +112,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
 
     private:
         //!  Run the audio manager in a thread.
-        void run(void);
+        void run(void) override;
 
         //  Used for switching on audio messages:
         enum CMD_STR_VALUE {

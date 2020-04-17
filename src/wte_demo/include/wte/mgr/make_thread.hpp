@@ -79,7 +79,7 @@ class make_thread {
         };
 
         //!  Override this in extended class to implement a thread
-        virtual void run() = 0;
+        virtual void run(void) = 0;
 };
 
 } //  end namespace mgr

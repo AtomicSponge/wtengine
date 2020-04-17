@@ -28,11 +28,18 @@ namespace wte
 class game_cfg_map final : public variable_map<game_cfg_map> {
     public:
         /*!
+         *
+         */
+        inline static void set_game_cfg_file(const std::string fname) {
+            data_file_name = fname;
+        }
+
+        /*!
          * Load
          * False on fail, true on success
          */
         inline static bool load(void) {
-            std::ifstream data_file("game.cfg");
+            std::ifstream data_file(data_file_name);
             if(!data_file.good()) return false;
 
             std::string it;
@@ -49,7 +56,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
          * Clear save
          */
         inline static void clear_save(void) {
-            std::ofstream data_file("game.cfg", std::ofstream::trunc);
+            std::ofstream data_file(data_file_name, std::ofstream::trunc);
             data_file.close();
         };
 
@@ -58,7 +65,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
          * False on fail, true on success
          */
         inline static bool save(const std::string var) {
-            std::ofstream data_file("game.cfg", std::ofstream::app);
+            std::ofstream data_file(data_file_name, std::ofstream::app);
             if(!data_file.good()) return false;
 
             try {
@@ -135,6 +142,9 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
                 return false;  //  Bad cast
             }
         };
+
+    private:
+        inline static std::string data_file_name = "game.cfg";
 };
 
 typedef game_cfg_map::variable_map<game_cfg_map> game_cfg;

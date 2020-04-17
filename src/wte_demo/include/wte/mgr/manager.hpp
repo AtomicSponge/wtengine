@@ -36,9 +36,6 @@ template <class derived> class manager {
         //!  Remove assignment operator
         void operator=(manager const&) = delete;
 
-        //!  Get a smart pointer to a derived manager
-        //std::shared_ptr<manager> get(void) const { return std::make_shared<manager>(*this); }
-
     private:
         //  Flag used to force single instance
         static bool initialized;

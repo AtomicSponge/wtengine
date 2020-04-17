@@ -38,18 +38,9 @@ class make_thread {
          */
         inline virtual ~make_thread() { if(started) stop(); };
 
-        /*!
-         * Remove copy constructor
-         * \param void
-         * \return void
-         */
+        //!  Remove copy constructor
         make_thread(const make_thread&) = delete;
-
-        /*!
-         * Remove assignment operator
-         * \param void
-         * \return void
-         */
+        //!  Remove assignment operator
         void operator=(make_thread const&) = delete;
 
         /*!

@@ -89,6 +89,8 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             map_cmd_str_values["stop_ambiance"] = CMD_STR_STOP_AMBIANCE;
             map_cmd_str_values["pause_ambiance"] = CMD_STR_PAUSE_AMBIANCE;
             map_cmd_str_values["unpause_ambiance"] = CMD_STR_UNPAUSE_AMBIANCE;
+            //  General
+            map_cmd_str_values["set_volume"] = CMD_STR_SET_VOLUME;
 
             audio_messages.clear();
         };
@@ -128,7 +130,9 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             //  Mixer 4
             CMD_STR_AMBIANCE_LOOP,
             CMD_STR_PLAY_AMBIANCE,      CMD_STR_STOP_AMBIANCE,
-            CMD_STR_PAUSE_AMBIANCE,     CMD_STR_UNPAUSE_AMBIANCE
+            CMD_STR_PAUSE_AMBIANCE,     CMD_STR_UNPAUSE_AMBIANCE,
+            //  General
+            CMD_STR_SET_VOLUME
         };
         std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
 
@@ -350,6 +354,29 @@ inline void audio_manager::run(void) {
                 case CMD_STR_UNPAUSE_AMBIANCE:
                     if(!ambiance_stream) break;  //  Ambiance not loaded, end.
                     al_set_audio_stream_playing(ambiance_stream, true);
+                    break;
+
+                /* *** General commands *** */
+                //  cmd:  new_cmd - description.
+                case CMD_STR_SET_VOLUME:
+                    pos = std::stoi(audio_messages.front().get_arg(0));
+                    switch(pos) {
+                        case 0:
+                            al_set_mixer_gain(mixer_main, std::atof(audio_messages.front().get_arg(1).c_str()));
+                            break;
+                        case 1:
+                            al_set_mixer_gain(mixer_1, std::atof(audio_messages.front().get_arg(1).c_str()));
+                            break;
+                        case 2:
+                            al_set_mixer_gain(mixer_2, std::atof(audio_messages.front().get_arg(1).c_str()));
+                            break;
+                        case 3:
+                            al_set_mixer_gain(mixer_3, std::atof(audio_messages.front().get_arg(1).c_str()));
+                            break;
+                        case 4:
+                            al_set_mixer_gain(mixer_4, std::atof(audio_messages.front().get_arg(1).c_str()));
+                            break;
+                    }
                     break;
 
                 //  cmd:  new_cmd - description.

@@ -79,6 +79,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
             return true;
         };
 
+        //  Below needs more testing
         /*!
          * Add
          */

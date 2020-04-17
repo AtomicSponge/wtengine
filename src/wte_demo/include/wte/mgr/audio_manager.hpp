@@ -357,7 +357,7 @@ inline void audio_manager::run(void) {
                     break;
 
                 /* *** General commands *** */
-                //  cmd:  new_cmd - description.
+                //  cmd:  set_volume - arg:  mixer # ; volume - Set the volume of a mixer.
                 case CMD_STR_SET_VOLUME:
                     pos = std::stoi(audio_messages.front().get_arg(0));
                     float vol = std::atof(audio_messages.front().get_arg(1).c_str());

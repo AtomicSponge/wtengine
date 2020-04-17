@@ -187,7 +187,7 @@ inline void audio_manager::run(void) {
 
     al_set_default_mixer(mixer_main);
 
-    while(is_running() == true) {
+    while(keep_running() == true) {
         //  Reset pos & pan
         pos = 0;
         pan = 0.0;
@@ -361,7 +361,7 @@ inline void audio_manager::run(void) {
                 case CMD_STR_SET_VOLUME:
                     pos = std::stoi(audio_messages.front().get_arg(0));
                     float vol = std::atof(audio_messages.front().get_arg(1).c_str());
-                    if(vol >= 0 && vol <= 1.0) {
+                    if(vol >= 0.0 && vol <= 1.0) {
                         if(pos == 0) al_set_mixer_gain(mixer_main, vol);
                         if(pos == 1) al_set_mixer_gain(mixer_1, vol);
                         if(pos == 2) al_set_mixer_gain(mixer_2, vol);

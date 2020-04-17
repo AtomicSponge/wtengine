@@ -55,6 +55,9 @@ class make_thread {
             exit_signal = std::promise<void>();
         };
 
+        //!  Check if thread is running
+        inline const bool is_running(void) const { return started; };
+
     private:
         //  Call to trigger exit
         std::promise<void> exit_signal;
@@ -69,7 +72,7 @@ class make_thread {
         inline make_thread() : started(false) {};
 
         //!  Call this within run() to check if the thread is running
-        inline bool is_running(void) {
+        inline bool keep_running(void) {
             if(exit_state.wait_for(std::chrono::milliseconds(0)) == std::future_status::timeout)
                 return true;
             return false;

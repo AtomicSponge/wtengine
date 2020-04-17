@@ -40,6 +40,7 @@ wte_demo::~wte_demo() {
   Load menus
 */
 void wte_demo::load_menus(void) {
+    //  First configure the root main menu and game menu
     {
         //  Configure main menu
         menus.set_menu("main_menu")->set_title("WTE Demo");
@@ -57,6 +58,7 @@ void wte_demo::load_menus(void) {
         menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("Exit Game", "exit"));
     }
 
+    //  Then define other custom menus
     {
         //  Create the settings menu
         mnu::menu temp_menu = mnu::menu("settings", "Settings");

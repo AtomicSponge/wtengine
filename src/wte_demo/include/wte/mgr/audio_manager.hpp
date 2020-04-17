@@ -360,22 +360,25 @@ inline void audio_manager::run(void) {
                 //  cmd:  new_cmd - description.
                 case CMD_STR_SET_VOLUME:
                     pos = std::stoi(audio_messages.front().get_arg(0));
-                    switch(pos) {
-                        case 0:
-                            al_set_mixer_gain(mixer_main, std::atof(audio_messages.front().get_arg(1).c_str()));
-                            break;
-                        case 1:
-                            al_set_mixer_gain(mixer_1, std::atof(audio_messages.front().get_arg(1).c_str()));
-                            break;
-                        case 2:
-                            al_set_mixer_gain(mixer_2, std::atof(audio_messages.front().get_arg(1).c_str()));
-                            break;
-                        case 3:
-                            al_set_mixer_gain(mixer_3, std::atof(audio_messages.front().get_arg(1).c_str()));
-                            break;
-                        case 4:
-                            al_set_mixer_gain(mixer_4, std::atof(audio_messages.front().get_arg(1).c_str()));
-                            break;
+                    float vol = std::atof(audio_messages.front().get_arg(1).c_str());
+                    if(vol >= 0 && vol <= 1.0) {
+                        switch(pos) {
+                            case 0:
+                                al_set_mixer_gain(mixer_main, vol);
+                                break;
+                            case 1:
+                                al_set_mixer_gain(mixer_1, vol);
+                                break;
+                            case 2:
+                                al_set_mixer_gain(mixer_2, vol);
+                                break;
+                            case 3:
+                                al_set_mixer_gain(mixer_3, vol);
+                                break;
+                            case 4:
+                                al_set_mixer_gain(mixer_4, vol);
+                                break;
+                        }
                     }
                     break;
 

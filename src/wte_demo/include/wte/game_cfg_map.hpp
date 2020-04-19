@@ -14,6 +14,8 @@
 
 #include <string>
 #include <fstream>
+#include <sstream>
+#include <any>
 #include <stdexcept>
 
 #include "variable_map.hpp"

@@ -38,7 +38,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
 
         /*!
          * Load
-         * False on fail, true on success
+         * \return False on fail, true on success
          */
         inline static bool load(void) {
             std::ifstream data_file(data_file_name);
@@ -64,7 +64,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
 
         /*!
          * Save
-         * False on fail, true on success
+         * \return False on fail, true on success
          */
         inline static bool save(const std::string var) {
             std::ofstream data_file(data_file_name, std::ofstream::app);
@@ -83,6 +83,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
 
         /*!
          * Add
+         * \return False on fail, true on success
          */
         template <typename T> inline static bool add(const std::string var, T val) {
             try {
@@ -99,6 +100,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
 
         /*!
          * Subtract
+         * \return False on fail, true on success
          */
         template <typename T> inline static bool subtract(const std::string var, T val) {
             try {
@@ -115,6 +117,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
 
         /*!
          * Multiply
+         * \return False on fail, true on success
          */
         template <typename T> inline static bool multiply(const std::string var, T val) {
             try {
@@ -131,6 +134,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
 
         /*!
          * Divide
+         * \return False on fail, true on success
          */
         template <typename T> inline static bool divide(const std::string var, T val) {
             try {

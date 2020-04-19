@@ -79,7 +79,6 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
             return true;
         };
 
-        //  Below needs more testing
         /*!
          * Add
          */
@@ -87,7 +86,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >> temp;
-                _map.at(var) = std::to_string(temp += val);
+                _map.at(var) = std::to_string(std::any_cast<T>(temp += val));
                 return true;
             } catch (std::out_of_range& e) {
                 return false;  //  Didn't find
@@ -103,7 +102,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >> temp;
-                _map.at(var) = std::to_string(temp -= val);
+                _map.at(var) = std::to_string(std::any_cast<T>(temp -= val));
                 return true;
             } catch (std::out_of_range& e) {
                 return false;  //  Didn't find
@@ -119,7 +118,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >> temp;
-                _map.at(var) = std::to_string(temp *= val);
+                _map.at(var) = std::to_string(std::any_cast<T>(temp *= val));
                 return true;
             } catch (std::out_of_range& e) {
                 return false;  //  Didn't find
@@ -135,7 +134,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >> temp;
-                _map.at(var) = std::to_string(temp /= val);
+                _map.at(var) = std::to_string(std::any_cast<T>(temp /= val));
                 return true;
             } catch (std::out_of_range& e) {
                 return false;  //  Didn't find

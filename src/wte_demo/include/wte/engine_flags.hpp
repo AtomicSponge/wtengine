@@ -44,8 +44,13 @@ class engine_flags final {
         inline static const bool is_set(const std::size_t f) { return flags[f]; };
 
     private:
-        inline engine_flags() {};
-        inline ~engine_flags() {};
+        inline engine_flags() { unset_all(); };
+        inline ~engine_flags() { unset_all(); };
+
+        //!  Set all engine flags to false
+        inline static void unset_all(void) {
+            for(std::size_t i = 0; i < MAX_SYSTEM_FLAGS; i++) flags[i] = false;
+        }
 
         static std::atomic<bool> flags[MAX_SYSTEM_FLAGS];
 };

@@ -107,10 +107,8 @@ inline void input_manager::run(void) {
                         break;
                     case ALLEGRO_KEY_ESCAPE:
                         //  Can only exit menus if the game is running
-                        if(engine_flags::is_set(GAME_STARTED)) {
-                            engine_flags::unset(GAME_MENU_OPENED);
-                            input_flags::unset_all();
-                        }
+                        if(engine_flags::is_set(GAME_STARTED))
+                            input_flags::set(INPUT_MENU_CLOSE);
                         break;
                 } //  End switch(input_event.keyboard.keycode)
             } //  End if(input_event.type == ALLEGRO_EVENT_KEY_DOWN)

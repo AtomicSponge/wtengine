@@ -20,7 +20,7 @@ namespace wte
 enum INPUT_FLAG_ENUM {
    INPUT_UP, INPUT_DOWN, INPUT_LEFT, INPUT_RIGHT,
    INPUT_ACTION_1, INPUT_ACTION_2, INPUT_ACTION_3,
-   INPUT_MENU_SELECT,
+   INPUT_MENU_SELECT, INPUT_MENU_CLOSE,
    MAX_INPUT_FLAGS
 };
 
@@ -48,8 +48,8 @@ class input_flags final {
         }
 
     private:
-        inline input_flags() {};
-        inline ~input_flags() {};
+        inline input_flags() { unset_all(); };
+        inline ~input_flags() { unset_all(); };
 
         static std::atomic<bool> flags[MAX_INPUT_FLAGS];
 };

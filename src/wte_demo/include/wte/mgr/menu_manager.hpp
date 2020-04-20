@@ -50,7 +50,7 @@ class menu_manager final : public manager<menu_manager> {
         */
         inline menu_manager() : menu_width(340.0), menu_height(240.0), menu_padding(20.0), font_size(8) {
             menu_bitmap = NULL;
-            menu_cursor = NULL;
+            cursor_bitmap = NULL;
             menu_font = NULL;
 
             menus.clear();
@@ -66,7 +66,7 @@ class menu_manager final : public manager<menu_manager> {
             opened_menus = {};
 
             al_destroy_bitmap(menu_bitmap);
-            al_destroy_bitmap(menu_cursor);
+            al_destroy_bitmap(cursor_bitmap);
             al_destroy_font(menu_font);
         }
 
@@ -91,7 +91,7 @@ class menu_manager final : public manager<menu_manager> {
         mnu::menu_item_citerator menu_position;
 
         mutable ALLEGRO_BITMAP* menu_bitmap;
-        ALLEGRO_BITMAP* menu_cursor;
+        ALLEGRO_BITMAP* cursor_bitmap;
         ALLEGRO_FONT* menu_font;
         ALLEGRO_COLOR menu_font_color;
         ALLEGRO_COLOR menu_bg_color;
@@ -131,8 +131,8 @@ inline void menu_manager::initialize(ALLEGRO_FONT* font, ALLEGRO_COLOR fcolor, A
     font_size = al_get_font_line_height(menu_font);
 
     al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
-    menu_cursor = al_create_bitmap(font_size, font_size);
-    al_set_target_bitmap(menu_cursor);
+    cursor_bitmap = al_create_bitmap(font_size, font_size);
+    al_set_target_bitmap(cursor_bitmap);
     al_clear_to_color(menu_font_color);
     al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
 }
@@ -254,38 +254,33 @@ inline void menu_manager::run(message_manager& messages) {
         if(temp_msg.get_cmd() != "null") messages.add_message(temp_msg);
     }
 
+    if(input_flags::is_set(INPUT_MENU_CLOSE)) reset();
+
     input_flags::unset_all();
 }
 
-//!  Render the active menu
+//!  Render the active menu.
 /*!
- * Renders the active menu from the top of the stack
- * 
- * Note:  Memory bitmap creation is commented out for now as it was affecting
- * performance.
+ * Renders the active menu from the top of the stack.
  */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
-    //  Destroy old bitmap if it exists
+    //  Destroy old bitmap if it exists.
     al_destroy_bitmap(menu_bitmap);
 
-    //  Create a new menu bitmap and set drawing to it
-    //al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
+    //  Create a new menu bitmap and set drawing to it.
     menu_bitmap = al_create_bitmap(menu_width, menu_height);
     al_set_target_bitmap(menu_bitmap);
     al_clear_to_color(menu_bg_color);
 
-    //  If the menu stack is empty then the run member hasn't been called yet
-    if(opened_menus.empty()) {
-        //  Return a blank bitmap for now
-        //al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
-        return menu_bitmap;
-    }
+    //  If the menu stack is empty then the run member hasn't been called yet.
+    //  Return a blank bitmap for now.
+    if(opened_menus.empty()) return menu_bitmap;
 
-    //  Render menu title
+    //  Render menu title.
     al_draw_text(menu_font, menu_font_color, menu_width / 2, menu_padding,
                  ALLEGRO_ALIGN_CENTER, opened_menus.top()->get_title().c_str());
 
-    //  Render menu items
+    //  Render menu items.
     float cursor_pos = 10.0;
     float vpart = 0.0, hpart = 0.0, offset = 0.0;
     std::size_t vcounter = 0;
@@ -301,10 +296,9 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
         if(it == menu_position) cursor_pos = (offset / 2) + (vpart * vcounter);
     }
 
-    //  Render menu cursor
-    if(opened_menus.top()->num_items() != 0) al_draw_bitmap(menu_cursor, menu_padding, cursor_pos, 0);
+    //  Render menu cursor.
+    if(opened_menus.top()->num_items() != 0) al_draw_bitmap(cursor_bitmap, menu_padding, cursor_pos, 0);
 
-    //al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
     return menu_bitmap;
 }
 

@@ -259,14 +259,17 @@ inline void menu_manager::run(message_manager& messages) {
 
 //!  Render the active menu
 /*!
-  Renders the active menu from the top of the stack
-*/
+ * Renders the active menu from the top of the stack
+ * 
+ * Note:  Memory bitmap creation is commented out for now as it was affecting
+ * performance.
+ */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     //  Destroy old bitmap if it exists
     al_destroy_bitmap(menu_bitmap);
 
     //  Create a new menu bitmap and set drawing to it
-    al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
+    //al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
     menu_bitmap = al_create_bitmap(menu_width, menu_height);
     al_set_target_bitmap(menu_bitmap);
     al_clear_to_color(menu_bg_color);
@@ -274,7 +277,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     //  If the menu stack is empty then the run member hasn't been called yet
     if(opened_menus.empty()) {
         //  Return a blank bitmap for now
-        al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
+        //al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
         return menu_bitmap;
     }
 
@@ -301,7 +304,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     //  Render menu cursor
     if(opened_menus.top()->num_items() != 0) al_draw_bitmap(menu_cursor, menu_padding, cursor_pos, 0);
 
-    al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
+    //al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
     return menu_bitmap;
 }
 

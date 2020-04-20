@@ -52,10 +52,8 @@ class engine_flags final {
             for(std::size_t i = 0; i < MAX_SYSTEM_FLAGS; i++) flags[i] = false;
         }
 
-        static std::atomic<bool> flags[MAX_SYSTEM_FLAGS];
+        inline static std::atomic<bool> flags[MAX_SYSTEM_FLAGS] = {};
 };
-
-inline std::atomic<bool> engine_flags::flags[MAX_SYSTEM_FLAGS] = {};
 
 } //  end namespace wte
 

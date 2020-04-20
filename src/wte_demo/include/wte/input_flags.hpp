@@ -51,10 +51,8 @@ class input_flags final {
         inline input_flags() { unset_all(); };
         inline ~input_flags() { unset_all(); };
 
-        static std::atomic<bool> flags[MAX_INPUT_FLAGS];
+        inline static std::atomic<bool> flags[MAX_INPUT_FLAGS] = {};
 };
-
-inline std::atomic<bool> input_flags::flags[MAX_INPUT_FLAGS] = {};
 
 } //  end namespace wte
 

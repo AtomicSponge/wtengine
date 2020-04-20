@@ -51,18 +51,15 @@ class alert {
         inline static void clear(void) { alert_set = false; };
 
     private:
-        static ALLEGRO_COLOR font_color;
-        static ALLEGRO_COLOR bg_color;
+        inline alert() {};
+        inline ~alert() {};
 
-        static std::string alert_text;
-        static bool alert_set;
+        inline static ALLEGRO_COLOR font_color = {};
+        inline static ALLEGRO_COLOR bg_color = {};
+
+        inline static std::string alert_text = "";
+        inline static bool alert_set = false;
 };
-
-inline ALLEGRO_COLOR alert::font_color = {};
-inline ALLEGRO_COLOR alert::bg_color = {};
-
-inline std::string alert::alert_text = "";
-inline bool alert::alert_set = false;
 
 } //  end namespace wte
 

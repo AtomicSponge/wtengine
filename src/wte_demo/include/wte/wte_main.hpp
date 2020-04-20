@@ -326,7 +326,10 @@ inline void wte_main::do_game(void) {
         #endif
 
         //  Force quit if the game window is closed.
-        if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) engine_flags::unset(IS_RUNNING);
+        if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+            if(engine_flags::is_set(GAME_STARTED)) process_end_game();
+            engine_flags::unset(IS_RUNNING);
+        }
     }
 }
 

@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 include_directories(${PROJECT_SOURCE_DIR})
 
-file(GLOB wtengine_SRC "*.cpp" CONFIGURE_DEPENDS)
+#file(GLOB wtengine_SRC "*.cpp" CONFIGURE_DEPENDS)
 
 #option(WTE_DEBUG_MODE)
 #option(WTE_NO_AUDIO)

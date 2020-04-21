@@ -44,10 +44,12 @@ void custom_logic::custom_run(mgr::entity_manager& world, mgr::message_manager& 
         if(dynamic_cast<cmp::health*>(it->second.get())->hp < 1) {
             if(world.get_component<cmp::name>(it->first)->name_str == "player") {
                 //  Handle player death
+                game_cfg_map::subtract<int>("lives", 1);
             } else {
                 //  Everything else
                 messages.add_message(message("spawner", "delete",
                                      world.get_component<cmp::name>(it->first)->name_str));
+                game_cfg_map::add<int>("score", 10);
             }
         }
     }

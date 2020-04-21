@@ -15,7 +15,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
-#include <allegro5/allegro_memfile.h>
+#include <allegro5/allegro_physfs.h>
 
 #include <ctime>
 #include <string>
@@ -110,6 +110,7 @@ class wte_main {
             if(!al_init_image_addon()) throw std::runtime_error("Failed to load Allegro image addon!");
             if(!al_init_font_addon()) throw std::runtime_error("Failed to load Allegro font addon!");
             al_install_joystick();
+            al_set_physfs_file_interface();
 
             if(!engine_cfg::is_reg("screen_width")) throw std::runtime_error("Screen width not set!");
             if(!engine_cfg::is_reg("screen_height")) throw std::runtime_error("Screen height not set!");

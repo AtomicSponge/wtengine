@@ -22,8 +22,8 @@ namespace cmp
 
 //! Health component
 /*!
-  Store the amount of health an entity has
-*/
+ * Store the amount of health an entity has
+ */
 class health final : public component {
     public:
         inline health(int h) : hp(h) {};

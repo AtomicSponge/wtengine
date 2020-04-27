@@ -22,8 +22,8 @@ namespace cmp
 
 //! Team component
 /*!
-  Store the team for an entity
-*/
+ * Store the team for an entity
+ */
 class team final : public component {
     public:
         inline team(int t) : this_team(t) {};

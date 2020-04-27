@@ -24,8 +24,8 @@ namespace cmp
 
 //! Background Layer component
 /*!
-  Used to render different backgrounds in order
-*/
+ * Used to render different backgrounds in order
+ */
 class background_layer : public component {
     public:
         inline background_layer(int l) : layer(l) {};

@@ -22,8 +22,8 @@ namespace cmp
 
 //! Velocity component
 /*!
-  Store the movement velocity of an entity
-*/
+ * Store the movement velocity of an entity
+ */
 class velocity final : public component {
     public:
         inline velocity(float v) : speed(v) {};

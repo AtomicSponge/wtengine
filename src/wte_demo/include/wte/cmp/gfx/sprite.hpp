@@ -24,8 +24,8 @@ namespace cmp
 
 //! Sprite component
 /*!
-  WIP
-*/
+ * WIP
+ */
 class sprite : public component {
     public:
         ~sprite();

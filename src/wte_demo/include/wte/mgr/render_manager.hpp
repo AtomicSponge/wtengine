@@ -48,8 +48,8 @@ typedef std::function<bool(entity_component_pair, entity_component_pair)> compar
 
 //! render_manager class
 /*!
-  An object that handles drawing the world to the screen
-*/
+ * An object that handles drawing the world to the screen
+ */
 class render_manager final : public manager<render_manager>, private engine_time {
     public:
         //!  render_manager constructor
@@ -110,8 +110,8 @@ class render_manager final : public manager<render_manager>, private engine_time
 template <> inline bool render_manager::manager<render_manager>::initialized = false;
 
 /*!
-  Gets passed the entity manager and timer then draws everything to screen
-*/
+ * Gets passed the entity manager and timer then draws everything to screen
+ */
 inline void render_manager::render(menu_manager& menus, entity_manager& world) {
     bool queue_not_empty = false;
 

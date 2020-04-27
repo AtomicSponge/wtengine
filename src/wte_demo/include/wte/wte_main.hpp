@@ -35,10 +35,10 @@ namespace wte
 
 //! WTEngine Main Class.
 /*!
-  The main engine object.
-  Sets up various system objects used by the engine.
-  Contains the main game loop and members for managing the game and engine.
-*/
+ * The main engine object.
+ * Sets up various system objects used by the engine.
+ * Contains the main game loop and members for managing the game and engine.
+ */
 class wte_main {
     public:
         //!  Frees up instance, set initialized flag to false.
@@ -203,8 +203,8 @@ class wte_main {
 };
 
 /*!
-  Call every time a new game is starting.
-*/
+ * Call every time a new game is starting.
+ */
 inline void wte_main::process_new_game(void) {
     std::srand(std::time(nullptr));  //  Seed random.
 
@@ -221,7 +221,11 @@ inline void wte_main::process_new_game(void) {
     systems.finalize();
 
     //  Load a new message data file.
-    messages.new_data_file("data\\game.sdf");  //  Update later to load from settings.
+    messages.new_data_file("data//game.sdf");  //  Update later to load from settings.
+
+    #ifndef WTE_NO_AUDIO
+    messages.add_message(message("audio", "null", "test"));
+    #endif
 
     //  Restart the timer at zero.
     al_stop_timer(main_timer);
@@ -230,8 +234,8 @@ inline void wte_main::process_new_game(void) {
 }
 
 /*!
-  Calls the user defined end game process, then shuts down the game.
-*/
+ * Calls the user defined end game process, then shuts down the game.
+ */
 inline void wte_main::process_end_game(void) {
     al_stop_timer(main_timer);
     al_set_timer_count(main_timer, 0);
@@ -252,8 +256,8 @@ inline void wte_main::process_end_game(void) {
 }
 
 /*!
-  The main game loop.
-*/
+ * The main game loop.
+ */
 inline void wte_main::do_game(void) {
     if(load_called == false) wte_load();  //  Auto call load.
 
@@ -335,9 +339,9 @@ inline void wte_main::do_game(void) {
 }
 
 /*!
-  Switch over the system messages and process.
-  Remaining messages are passed to the custom handler.
-*/
+ * Switch over the system messages and process.
+ * Remaining messages are passed to the custom handler.
+ */
 inline void wte_main::handle_sys_msg(message_container sys_msgs) {
     for(auto it = sys_msgs.begin(); it != sys_msgs.end();) {
         //  Switch over the system messages, deleting each as they are processed.

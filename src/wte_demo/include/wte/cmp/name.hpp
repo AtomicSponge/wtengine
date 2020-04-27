@@ -24,8 +24,8 @@ namespace cmp
 
 //! Name component
 /*!
-  Store the name of an entity
-*/
+ * Store the name of an entity
+ */
 class name final : public component {
     public:
         inline name(std::string n) : name_str(n) {};

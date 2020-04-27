@@ -23,8 +23,8 @@ namespace mgr
 
 //!  Manager base class
 /*!
-  Extend this to create a manager class.  These are restricted to a single instance.
-*/
+ * Extend this to create a manager class.  These are restricted to a single instance.
+ */
 template <class derived> class manager {
     public:
         //!  Free up single instance,

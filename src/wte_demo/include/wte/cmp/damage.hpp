@@ -22,8 +22,8 @@ namespace cmp
 
 //! Damage component
 /*!
-  Store the amount of damage an entity can do
-*/
+ * Store the amount of damage an entity can do
+ */
 class damage final : public component {
     public:
         inline damage(int d) : dmg(d) {};

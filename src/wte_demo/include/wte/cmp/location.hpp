@@ -22,8 +22,8 @@ namespace cmp
 
 //! Location component
 /*!
-  Store the x/y location of an entity
-*/
+ * Store the x/y location of an entity
+ */
 class location final : public component {
     public:
         inline location(float x, float y) : pos_x(x), pos_y(y) {};

@@ -24,6 +24,7 @@
 #include "engine_time.hpp"
 
 #include "../wte_global_defines.hpp"
+#include "../engine_flags.hpp"
 #include "../message.hpp"
 
 namespace wte
@@ -34,8 +35,8 @@ namespace mgr
 
 //! message_manager class
 /*!
-  Store a collection of message objects in a vector for processing
-*/
+ * Store a collection of message objects in a vector for processing
+ */
 class message_manager final : public manager<message_manager>, private engine_time {
     public:
         //!  Message queue constructor
@@ -45,7 +46,7 @@ class message_manager final : public manager<message_manager>, private engine_ti
 
             #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
             //  If debug mode is enabled, create a new log file
-            debug_log_file.open("wte_debug\\wte_debug_message_manager.txt", std::ios::trunc);
+            debug_log_file.open("wte_debug//wte_debug_message_manager.txt", std::ios::trunc);
             debug_log_file << "Logging messages..." << std::endl << std::endl;
             #endif
         };
@@ -102,8 +103,8 @@ template <> inline bool message_manager::manager<message_manager>::initialized =
 
 #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
 /*!
-  Write a message to the debug log file if debugging is enabled
-*/
+ * Write a message to the debug log file if debugging is enabled
+ */
 inline void message_manager::debug_log_message(const message msg) {
     debug_log_file << "PROC AT:  " << check_time() << " | ";
     debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
@@ -124,8 +125,8 @@ inline void message_manager::debug_log_message(const message msg) {
 #endif
 
 /*!
-  Events are placed in order according to the timer value
-*/
+ * Events are placed in order according to the timer value
+ */
 inline void message_manager::new_data_file(const std::string file) {
     std::ifstream data_file;
     int64_t timer;
@@ -156,8 +157,8 @@ inline void message_manager::new_data_file(const std::string file) {
 }
 
 /*!
-  Once events in the future are reached, break early
-*/
+ * Once events in the future are reached, break early
+ */
 inline const message_container message_manager::get_messages(const std::string sys) {
     message_container temp_messages;
 
@@ -168,7 +169,7 @@ inline const message_container message_manager::get_messages(const std::string s
         //  End early if events are in the future
         if(it->get_timer() > check_time()) break;
 
-        if((it->get_timer() == check_time() || it->get_timer() == -1) && it->get_sys() == sys) {
+        if((it->get_timer() == -1 || it->get_timer() == check_time()) && it->get_sys() == sys) {
             #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
             //  Log the message if debug mode is on
             debug_log_message(*it);

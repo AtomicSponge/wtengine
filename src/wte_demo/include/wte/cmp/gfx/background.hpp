@@ -25,8 +25,8 @@ namespace cmp
 
 //! Background component
 /*!
-  Store the background bitmap
-*/
+ * Store the background bitmap
+ */
 class background : public component {
     public:
         background();

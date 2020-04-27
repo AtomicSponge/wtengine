@@ -22,9 +22,9 @@ namespace cmp
 
 //! AI component
 /*!
-  Tag components to be processed by the Logic system
-  Has no members
-*/
+ * Tag components to be processed by the Logic system
+ * Has no members
+ */
 class ai : public component {
     //  No members
 };

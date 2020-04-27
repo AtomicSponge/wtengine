@@ -22,8 +22,8 @@ namespace cmp
 
 //! Visible component
 /*!
-  Toggles if an entity will be drawn by the Renderer
-*/
+ * Toggles if an entity will be drawn by the Renderer
+ */
 class visible final : public component {
     public:
         inline visible() : is_visible(true) {};

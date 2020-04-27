@@ -46,8 +46,8 @@ class menu_manager final : public manager<menu_manager> {
     public:
         //!  Menu manager constructor
         /*!
-        Generates the menu manager object
-        */
+         *Generates the menu manager object
+         */
         inline menu_manager() : menu_width(340.0), menu_height(240.0), menu_padding(20.0), font_size(8) {
             menu_bitmap = NULL;
             cursor_bitmap = NULL;
@@ -59,8 +59,8 @@ class menu_manager final : public manager<menu_manager> {
 
         //!  Menu manager destructor
         /*!
-        Cleans up by deleting the menu bitmaps and font
-        */
+         * Cleans up by deleting the menu bitmaps and font
+         */
         inline ~menu_manager() {
             menus.clear();
             opened_menus = {};
@@ -107,9 +107,9 @@ template <> inline bool menu_manager::manager<menu_manager>::initialized = false
 
 //!  Ititialize menu manager
 /*!
-  Pass an Allegro font for the menu manager to use
-  Also create the default main menu and in-game menu
-*/
+ * Pass an Allegro font for the menu manager to use
+ * Also create the default main menu and in-game menu
+ */
 inline void menu_manager::initialize(ALLEGRO_FONT* font, ALLEGRO_COLOR fcolor, ALLEGRO_COLOR bgcolor) {
     menu_font = font;
     menu_font_color = fcolor;
@@ -139,9 +139,9 @@ inline void menu_manager::initialize(ALLEGRO_FONT* font, ALLEGRO_COLOR fcolor, A
 
 //!  Add a menu to the menu vector
 /*!
-  Returns false if a menu with a similar ID already exists
-  Returns true on success
-*/
+ * Returns false if a menu with a similar ID already exists
+ * Returns true on success
+ */
 inline const bool menu_manager::new_menu(const mnu::menu new_menu) {
     for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
         if(new_menu.get_id() == (*it)->get_id()) return false;
@@ -152,10 +152,10 @@ inline const bool menu_manager::new_menu(const mnu::menu new_menu) {
 
 //!  Get menu by name
 /*!
-  Finds a menu in the menu vector by name and returns it
-  If not found, try returning the main or game menu
-  Return the first menu in the vector if no others found
-*/
+ * Finds a menu in the menu vector by name and returns it
+ * If not found, try returning the main or game menu
+ * Return the first menu in the vector if no others found
+ */
 inline const menu_csptr menu_manager::get_menu(const std::string name) const {
     if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
 
@@ -180,9 +180,9 @@ inline const menu_csptr menu_manager::get_menu(const std::string name) const {
 
 //!  Set menu by name
 /*!
-  Finds a menu in the menu vector by name and returns it
-  If not found, return a null pointer
-*/
+ * Finds a menu in the menu vector by name and returns it
+ * If not found, return a null pointer
+ */
 inline const menu_sptr menu_manager::set_menu(const std::string name) {
     if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
 
@@ -196,8 +196,8 @@ inline const menu_sptr menu_manager::set_menu(const std::string name) {
 
 //!  Reset menu manager
 /*!
-  Clear the stack of opened menus
-*/
+ * Clear the stack of opened menus
+ */
 inline void menu_manager::reset(void) {
     opened_menus = {};
     engine_flags::unset(GAME_MENU_OPENED);
@@ -205,9 +205,9 @@ inline void menu_manager::reset(void) {
 
 //!  Add a menu to the stack
 /*!
-  Takes a menu from the vector container and adds it to the top of the opened stack
-  Also resets the menu position
-*/
+ * Takes a menu from the vector container and adds it to the top of the opened stack
+ * Also resets the menu position
+ */
 inline void menu_manager::open_menu(const std::string menu_id) {
     opened_menus.push(get_menu(menu_id));
     engine_flags::set(GAME_MENU_OPENED);
@@ -216,8 +216,8 @@ inline void menu_manager::open_menu(const std::string menu_id) {
 
 //!  Close the current opened menu
 /*!
-  Remove the menu from the top of the stack
-*/
+ * Remove the menu from the top of the stack
+ */
 inline void menu_manager::close_menu(void) {
     opened_menus.pop();
     if(opened_menus.empty()) engine_flags::unset(GAME_MENU_OPENED);
@@ -226,8 +226,8 @@ inline void menu_manager::close_menu(void) {
 
 //!  Run the menu manager
 /*!
-  Adds a menu to the stack if none are opened, then processes the menus
-*/
+ * Adds a menu to the stack if none are opened, then processes the menus
+ */
 inline void menu_manager::run(message_manager& messages) {
     if(opened_menus.empty()) {
         //  No menus currently opened, add one to the stack

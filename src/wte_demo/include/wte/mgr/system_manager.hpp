@@ -34,8 +34,8 @@ typedef std::vector<sys::system_uptr>::const_iterator system_citerator;
 
 //! system_manager class
 /*!
-  Store the configured systems and process their runs and dispatches
-*/
+ * Store the configured systems and process their runs and dispatches
+ */
 class system_manager final : public manager<system_manager> {
     public:
         //!  System Manager constructor
@@ -76,10 +76,10 @@ class system_manager final : public manager<system_manager> {
 template <> inline bool system_manager::manager<system_manager>::initialized = false;
 
 /*!
-  Checks to see if a similar named system is already loaded
-  Enters system into the vector of systems if not
-  Systems run in the order they were added
-*/
+ * Checks to see if a similar named system is already loaded
+ * Enters system into the vector of systems if not
+ * Systems run in the order they were added
+ */
 inline void system_manager::add(sys::system_uptr new_system) {
     if(finalized == true) throw std::runtime_error("System manager already configured - Can't add additional system!");
 
@@ -91,9 +91,9 @@ inline void system_manager::add(sys::system_uptr new_system) {
 }
 
 /*!
-  Iterate through the system vector and run each
-  Throw error if no systems have been loaded
-*/
+ * Iterate through the system vector and run each
+ * Throw error if no systems have been loaded
+ */
 inline void system_manager::run(entity_manager& entities, mgr::message_manager& messages, int64_t current_time) {
     if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
 
@@ -103,9 +103,9 @@ inline void system_manager::run(entity_manager& entities, mgr::message_manager& 
 }
 
 /*!
-  Checks each system for its name and sends corresponding messages
-  Throw error if no systems have been loaded
-*/
+ * Checks each system for its name and sends corresponding messages
+ * Throw error if no systems have been loaded
+ */
 inline void system_manager::dispatch(entity_manager& entities, mgr::message_manager& messages) {
     if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
 
@@ -115,9 +115,9 @@ inline void system_manager::dispatch(entity_manager& entities, mgr::message_mana
 }
 
 /*!
-  Toggle a system to enabled so it's run member is processed
-  Returns true if the system was found, false if it was not
-*/
+ * Toggle a system to enabled so it's run member is processed
+ * Returns true if the system was found, false if it was not
+ */
 inline const bool system_manager::enable_system(std:: string sys) {
     if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
 
@@ -129,10 +129,10 @@ inline const bool system_manager::enable_system(std:: string sys) {
 }
 
 /*!
-  Toggle a system to disabled so it's run member is skipped
-  Dispatching will still be processed
-  Returns true if the system was found, false if it was not
-*/
+ * Toggle a system to disabled so it's run member is skipped
+ * Dispatching will still be processed
+ * Returns true if the system was found, false if it was not
+ */
 inline const bool system_manager::disable_system(std:: string sys) {
     if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
 

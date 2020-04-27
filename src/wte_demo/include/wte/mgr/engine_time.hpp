@@ -22,8 +22,8 @@ namespace mgr
 
 //!  Engine Time class
 /*!
-  Have a manager extend this to track the game timer.
-*/
+ * Have a manager extend this to track the game timer.
+ */
 class engine_time {
     public:
         inline virtual ~engine_time() {};

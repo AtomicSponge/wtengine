@@ -27,8 +27,8 @@ enum ENGINE_FLAG_ENUM {
 
 //!  Engine flags
 /*!
-  Collection of flags to store engine state
-*/
+ * Collection of flags to store engine state
+ */
 class engine_flags final {
     public:
         //!  Remove copy constructor

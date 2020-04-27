@@ -22,8 +22,8 @@ namespace cmp
 
 //! Direction component
 /*!
-  Store the direction of travel for an entity
-*/
+ * Store the direction of travel for an entity
+ */
 class direction final : public component {
     public:
         inline direction(float a) : angle(a) {};

@@ -22,8 +22,8 @@ namespace cmp
 
 //! Component interface class
 /*!
-  Extend this to create a component
-*/
+ * Extend this to create a component
+ */
 class component {
     public:
         inline virtual ~component() {};

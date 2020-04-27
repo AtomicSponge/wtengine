@@ -22,8 +22,8 @@ namespace cmp
 
 //! Hitbox component
 /*!
-  Store the width and height for an entity's hitbox
-*/
+ * Store the width and height for an entity's hitbox
+ */
 class hitbox final : public component {
     public:
         inline hitbox(float w, float h) : width(w), height(h), solid(true) {};

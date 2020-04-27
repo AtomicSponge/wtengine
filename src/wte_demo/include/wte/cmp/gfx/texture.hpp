@@ -24,8 +24,8 @@ namespace cmp
 
 //! Texture component
 /*!
-  WIP
-*/
+ * WIP
+ */
 class texture : public component {
     public:
         ~texture();

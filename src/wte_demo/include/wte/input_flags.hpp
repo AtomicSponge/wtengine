@@ -26,8 +26,8 @@ enum INPUT_FLAG_ENUM {
 
 //!  Input flags
 /*!
-  Colletion of flags to store input state
-*/
+ * Colletion of flags to store input state
+ */
 class input_flags final {
     public:
         //!  Remove copy constructor

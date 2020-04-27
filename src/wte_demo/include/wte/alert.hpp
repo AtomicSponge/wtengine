@@ -21,8 +21,8 @@ namespace wte
 
 //!  Alert class
 /*!
-  Allows the engine to set an alert flag to be displayed
-*/
+ * Allows the engine to set an alert flag to be displayed
+ */
 class alert {
     public:
         //!  Set the alert text and flag there is an alert

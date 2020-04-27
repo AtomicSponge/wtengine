@@ -44,19 +44,19 @@ namespace mgr
 
 //!  Audio Manager
 /*!
-  Handles audio messages in a thread.
-  Initializes the Allegro audio and Allegro codec addons durring construction.
-  Messages get passed from the main engine loop via transfer_messages().
-  The Audio Manager is then implemented as a thread, creating local Allegro objects.
-  As messages are placed in the deck, take them from the top and process.
-
-  The manager creates the following mixers:
-  Mixer Main - All other mixers attach to this.
-  Mixer 1 - Play music - Load a file and play in a loop.  Looping can be disabled.
-  Mixer 2 - Play samples - Has set number of samples that can be loaded in.
-  Mixer 3 - Play voice - Load a file and play once.
-  Mixer 4 - Play ambiance - Load a file and play in a loop.  Looping can be disabled.
-*/
+ * Handles audio messages in a thread.
+ * Initializes the Allegro audio and Allegro codec addons durring construction.
+ * Messages get passed from the main engine loop via transfer_messages().
+ * The Audio Manager is then implemented as a thread, creating local Allegro objects.
+ * As messages are placed in the deck, take them from the top and process.
+ *
+ * The manager creates the following mixers:
+ * Mixer Main - All other mixers attach to this.
+ * Mixer 1 - Play music - Load a file and play in a loop.  Looping can be disabled.
+ * Mixer 2 - Play samples - Has set number of samples that can be loaded in.
+ * Mixer 3 - Play voice - Load a file and play once.
+ * Mixer 4 - Play ambiance - Load a file and play in a loop.  Looping can be disabled.
+ */
 class audio_manager final : public manager<audio_manager>, public make_thread {
     public:
         //!  Configures the Allegro audio addons.
@@ -144,10 +144,10 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
 template <> inline bool audio_manager::manager<audio_manager>::initialized = false;
 
 /*!
-  Waits for messages to be loaded into the internal queue then processes.
-  On startup, creates multiple mixer objects to play sound through, then allows playback
-  control via messages.
-*/
+ * Waits for messages to be loaded into the internal queue then processes.
+ * On startup, creates multiple mixer objects to play sound through, then allows playback
+ * control via messages.
+ */
 inline void audio_manager::run(void) {
     ALLEGRO_VOICE* voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
     ALLEGRO_MIXER* mixer_main = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);

@@ -22,8 +22,8 @@ namespace cmp
 
 //! Input Handler component
 /*!
-  Tag an entity to be processed by the Input system
-*/
+ * Tag an entity to be processed by the Input system
+ */
 class input_handler final : public component {
     //  No members
 };

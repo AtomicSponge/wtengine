@@ -22,8 +22,8 @@ namespace cmp
 
 //! Render Order component
 /*!
-  Used to sort entities in the Renderer
-*/
+ * Used to sort entities in the Renderer
+ */
 class render_order : public component {
     public:
         inline render_order(int o) : order(o) {};

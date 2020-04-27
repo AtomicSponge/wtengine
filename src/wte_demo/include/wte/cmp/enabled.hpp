@@ -22,8 +22,8 @@ namespace cmp
 
 //! Enabled component
 /*!
-  Toggle an entity to enabled or disabled state
-*/
+ * Toggle an entity to enabled or disabled state
+ */
 class enabled final : public component {
     public:
         inline enabled() : is_enabled(true) {};

@@ -26,6 +26,11 @@ namespace cmp
  */
 class direction final : public component {
     public:
+        /*!
+         * Direction
+         * \param void
+         * \return void
+         */
         inline direction(float a) : angle(a) {};
 
         float angle;

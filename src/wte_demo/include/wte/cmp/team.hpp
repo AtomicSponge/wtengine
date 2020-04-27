@@ -26,6 +26,11 @@ namespace cmp
  */
 class team final : public component {
     public:
+        /*!
+         * Team
+         * \param void
+         * \return void
+         */
         inline team(int t) : this_team(t) {};
 
         int this_team;

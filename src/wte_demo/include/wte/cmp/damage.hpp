@@ -26,6 +26,11 @@ namespace cmp
  */
 class damage final : public component {
     public:
+        /*!
+         * Damage
+         * \param void
+         * \return void
+         */
         inline damage(int d) : dmg(d) {};
 
         int dmg;

@@ -26,7 +26,18 @@ namespace cmp
  */
 class hitbox final : public component {
     public:
+        /*!
+         * Hitbox
+         * \param void
+         * \return void
+         */
         inline hitbox(float w, float h) : width(w), height(h), solid(true) {};
+
+        /*!
+         * Hitbox
+         * \param void
+         * \return void
+         */
         inline hitbox(float w, float h, bool s) : width(w), height(h), solid(s) {};
 
         float width, height;

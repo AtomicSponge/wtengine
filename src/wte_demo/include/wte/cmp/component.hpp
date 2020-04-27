@@ -26,6 +26,11 @@ namespace cmp
  */
 class component {
     public:
+        /*!
+         * Component
+         * \param void
+         * \return void
+         */
         inline virtual ~component() {};
 
         //!  Remove copy constructor
@@ -34,6 +39,11 @@ class component {
         void operator=(component const&) = delete;
 
     protected:
+        /*!
+         * Component
+         * \param void
+         * \return void
+         */
         inline component() {};
 };
 

@@ -26,7 +26,18 @@ namespace cmp
  */
 class visible final : public component {
     public:
+        /*!
+         * Visible
+         * \param void
+         * \return void
+         */
         inline visible() : is_visible(true) {};
+
+        /*!
+         * Visible
+         * \param void
+         * \return void
+         */
         inline visible(bool v) : is_visible(v) {};
 
         bool is_visible;

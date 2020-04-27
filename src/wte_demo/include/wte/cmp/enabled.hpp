@@ -26,7 +26,18 @@ namespace cmp
  */
 class enabled final : public component {
     public:
+        /*!
+         * Enabled
+         * \param void
+         * \return void
+         */
         inline enabled() : is_enabled(true) {};
+
+        /*!
+         * Enabled
+         * \param void
+         * \return void
+         */
         inline enabled(bool e) : is_enabled(e) {};
 
         bool is_enabled;

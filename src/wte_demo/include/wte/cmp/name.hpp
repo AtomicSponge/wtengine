@@ -28,6 +28,11 @@ namespace cmp
  */
 class name final : public component {
     public:
+        /*!
+         * Name
+         * \param void
+         * \return void
+         */
         inline name(std::string n) : name_str(n) {};
 
         std::string name_str;

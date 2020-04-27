@@ -26,6 +26,11 @@ namespace cmp
  */
 class velocity final : public component {
     public:
+        /*!
+         * Velocity
+         * \param void
+         * \return void
+         */
         inline velocity(float v) : speed(v) {};
 
         float speed;

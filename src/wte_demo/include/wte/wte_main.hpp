@@ -204,6 +204,8 @@ class wte_main {
 
 /*!
  * Call every time a new game is starting.
+ * \param void
+ * \return void
  */
 inline void wte_main::process_new_game(void) {
     std::srand(std::time(nullptr));  //  Seed random.
@@ -235,6 +237,8 @@ inline void wte_main::process_new_game(void) {
 
 /*!
  * Calls the user defined end game process, then shuts down the game.
+ * \param void
+ * \return void
  */
 inline void wte_main::process_end_game(void) {
     al_stop_timer(main_timer);
@@ -257,6 +261,8 @@ inline void wte_main::process_end_game(void) {
 
 /*!
  * The main game loop.
+ * \param void
+ * \return void
  */
 inline void wte_main::do_game(void) {
     if(load_called == false) wte_load();  //  Auto call load.
@@ -341,6 +347,8 @@ inline void wte_main::do_game(void) {
 /*!
  * Switch over the system messages and process.
  * Remaining messages are passed to the custom handler.
+ * \param void
+ * \return void
  */
 inline void wte_main::handle_sys_msg(message_container sys_msgs) {
     for(auto it = sys_msgs.begin(); it != sys_msgs.end();) {

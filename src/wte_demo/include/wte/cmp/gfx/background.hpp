@@ -29,19 +29,26 @@ namespace cmp
  */
 class background : public component {
     public:
-        background();
-        ~background();
+        /*!
+         * Background
+         * \param void
+         * \return void
+         */
+        inline background() {
+            background_bitmap = al_create_bitmap(engine_cfg::get<int>("screen_width"), engine_cfg::get<int>("screen_height"));
+        }
+
+        /*!
+         * Background
+         * \param void
+         * \return void
+         */
+        inline ~background() {
+            al_destroy_bitmap(background_bitmap);
+        }
 
         ALLEGRO_BITMAP *background_bitmap;
 };
-
-inline background::background() {
-    background_bitmap = al_create_bitmap(engine_cfg::get<int>("screen_width"), engine_cfg::get<int>("screen_height"));
-}
-
-inline background::~background() {
-    al_destroy_bitmap(background_bitmap);
-}
 
 } //  namespace cmp
 

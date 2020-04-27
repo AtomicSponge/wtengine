@@ -28,6 +28,11 @@ namespace cmp
  */
 class background_layer : public component {
     public:
+        /*!
+         * Background layer
+         * \param void
+         * \return void
+         */
         inline background_layer(int l) : layer(l) {};
 
         int layer;

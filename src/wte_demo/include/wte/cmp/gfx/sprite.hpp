@@ -28,16 +28,19 @@ namespace cmp
  */
 class sprite : public component {
     public:
-        ~sprite();
+        /*!
+         * Sprite
+         * \param void
+         * \return void
+         */
+        inline ~sprite() {
+            al_destroy_bitmap(sprite_bitmap);
+        }
 
         ALLEGRO_BITMAP *sprite_bitmap;
         float sprite_height, sprite_width, draw_offset;
         unsigned int current_frame, speed;
 };
-
-inline sprite::~sprite() {
-    al_destroy_bitmap(sprite_bitmap);
-}
 
 } //  namespace cmp
 

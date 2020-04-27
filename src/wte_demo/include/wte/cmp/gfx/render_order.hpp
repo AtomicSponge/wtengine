@@ -26,6 +26,11 @@ namespace cmp
  */
 class render_order : public component {
     public:
+        /*!
+         * Render order
+         * \param void
+         * \return void
+         */
         inline render_order(int o) : order(o) {};
 
         int order;

@@ -28,14 +28,17 @@ namespace cmp
  */
 class texture : public component {
     public:
-        ~texture();
+        /*!
+         * Texture
+         * \param void
+         * \return void
+         */
+        inline ~texture() {
+            al_destroy_bitmap(texture_bitmap);
+        }
 
         ALLEGRO_BITMAP *texture_bitmap;
 };
-
-inline texture::~texture() {
-    al_destroy_bitmap(texture_bitmap);
-}
 
 } //  namespace cmp
 

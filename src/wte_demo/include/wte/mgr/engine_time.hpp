@@ -28,8 +28,11 @@ class engine_time {
     public:
         inline virtual ~engine_time() {};
 
-        //!  Set the internal timer.
-        //!  This is called once during the game loop in class wte_main.
+        /*!
+         * Set the internal timer.
+         * This is called once during the game loop in class wte_main
+         * and when starting/stopping the game.
+         */
         inline static void set_time(const int64_t t) { current_time = t; };
 
     private:

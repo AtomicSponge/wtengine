@@ -371,16 +371,21 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
 
             //  cmd:  new_game - start up a new game.
             case CMD_STR_NEW_GAME:
-                if(engine_flags::is_set(GAME_STARTED)) process_end_game();
-                menus.reset();
-                process_new_game();
+                //  If the game is running, ignore.
+                if(!engine_flags::is_set(GAME_STARTED)) {
+                    menus.reset();
+                    process_new_game();
+                }
                 it = sys_msgs.erase(it);
                 break;
 
             //  cmd:  end_game - end current game.
             case CMD_STR_END_GAME:
-                menus.reset();
-                process_end_game();
+                //  If the game not is running, ignore.
+                if(engine_flags::is_set(GAME_STARTED)) {
+                    process_end_game();
+                    menus.reset();
+                }
                 it = sys_msgs.erase(it);
                 break;
 

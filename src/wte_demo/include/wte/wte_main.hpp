@@ -392,7 +392,6 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
             //  cmd:  open_menu argstring - open a menu, passing a string as an argument.
             //  If the menu doesn't exist, the default will be opened.
             case CMD_STR_OPEN_MENU:
-                engine_flags::set(GAME_MENU_OPENED);
                 menus.open_menu(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;

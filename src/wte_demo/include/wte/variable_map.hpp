@@ -34,6 +34,8 @@ template <class derived> class variable_map {
         /*!
          * Create a new entry in the map.
          * Call this first before accessing.
+         * \param void
+         * \return void
          */
         inline static const bool reg(const std::string var, const std::string val) {
             if(var.find('=') != std::string::npos)
@@ -48,6 +50,8 @@ template <class derived> class variable_map {
         /*!
          * Create a new entry in the map.
          * Call this first before accessing.
+         * \param void
+         * \return void
          */
         inline static const bool reg(const std::string expr) {
             std::string var = expr.substr(0, expr.find("="));
@@ -58,6 +62,8 @@ template <class derived> class variable_map {
 
         /*!
          * Check if a variable is registered in the map.
+         * \param void
+         * \return void
          */
         inline static const bool is_reg(const std::string var) {
             try {
@@ -70,6 +76,8 @@ template <class derived> class variable_map {
 
         /*!
          * Set key to value
+         * \param void
+         * \return void
          */
         inline static const bool set(const std::string var, const std::string val) {
             try {
@@ -82,6 +90,8 @@ template <class derived> class variable_map {
 
         /*!
          * Set based on string
+         * \param void
+         * \return void
          */
         inline static const bool set(const std::string expr) {
             std::string var = expr.substr(0, expr.find("="));
@@ -93,6 +103,8 @@ template <class derived> class variable_map {
         /*!
          * Get value
          * Returns by string
+         * \param void
+         * \return void
          */
         inline static const std::string get(const std::string var) {
             try {
@@ -105,6 +117,8 @@ template <class derived> class variable_map {
         /*!
          * Get value
          * Returns by type
+         * \param void
+         * \return void
          */
         template <typename T> inline static const T get(const std::string var) {
             try {

@@ -91,7 +91,7 @@ class wte_main {
 
             load_called = false;
         };
-    
+
         //!  Call to start up the main game loop.
         void do_game(void);
 

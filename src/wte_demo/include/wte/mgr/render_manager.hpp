@@ -206,7 +206,17 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
         /*
           Overlay rendering
         */
-        //...
+        component_container overlay_components = world.get_components<cmp::overlay>();
+
+        //  Sort the overlay layers
+        std::set<entity_component_pair, comparator> overlay_componenet_set(
+            overlay_components.begin(), overlay_components.end(), render_comparator);
+
+        //  Draw each overlay by layer
+        for(ec_pair_iterator it = overlay_componenet_set.begin(); it != overlay_componenet_set.end(); it++) {
+            if(world.get_component<cmp::visible>(it->first)->is_visible == true)
+                al_draw_bitmap(world.get_component<cmp::overlay>(it->first)->overlay_bitmap, 0, 0, 0);
+        }
     } else {
         /*
           Game is not running - draw the title screen

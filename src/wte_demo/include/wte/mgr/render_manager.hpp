@@ -215,7 +215,9 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
         //  Draw each overlay by layer
         for(ec_pair_iterator it = overlay_componenet_set.begin(); it != overlay_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible == true)
-                al_draw_bitmap(world.get_component<cmp::overlay>(it->first)->overlay_bitmap, 0, 0, 0);
+                al_draw_bitmap(world.get_component<cmp::overlay>(it->first)->overlay_bitmap,
+                               world.get_component<cmp::overlay>(it->first)->pos_x,
+                               world.get_component<cmp::overlay>(it->first)->pos_y, 0);
         }
     } else {
         /*

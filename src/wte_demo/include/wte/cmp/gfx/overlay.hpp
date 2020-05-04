@@ -34,9 +34,8 @@ class overlay : public component {
          * \param void
          * \return void
          */
-        inline overlay(std::size_t l) : layer(l) {
-            overlay_bitmap = al_create_bitmap(engine_cfg::get<int>("screen_width"),
-                                                 engine_cfg::get<int>("screen_height"));
+        inline overlay(int w, int h, float x, float y, std::size_t l) : pos_x(x), pos_y(y), layer(l) {
+            overlay_bitmap = al_create_bitmap(w, h);
         }
 
         /*!
@@ -58,6 +57,7 @@ class overlay : public component {
         };
 
         ALLEGRO_BITMAP *overlay_bitmap;
+        float pos_x, pos_y;
         std::size_t layer;
 };
 

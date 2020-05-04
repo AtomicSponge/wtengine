@@ -201,7 +201,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
         }  //  End draw hitbox check
 
         /*
-          Overlay rendering
+          Draw the overlay
         */
         component_container overlay_components = world.get_components<cmp::overlay>();
 

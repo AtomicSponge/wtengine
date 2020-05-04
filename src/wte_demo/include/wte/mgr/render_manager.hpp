@@ -67,7 +67,7 @@ class render_manager final : public manager<render_manager>, private engine_time
                     return r_element1.second < r_element2.second;
                 };
         };
-    
+
         //!  render_manager destructor
         //!  Cleans up the render_manager object
         inline ~render_manager() {

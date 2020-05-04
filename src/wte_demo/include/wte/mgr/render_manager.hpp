@@ -198,10 +198,15 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
                                         world.get_component<cmp::location>(it->first)->pos_y + j,
                                         team_color);
                         }
-                    } //  End hitbox drawing
-                } //  End hitbox/enabled test
-            } //  End render component loop
-        } //  End draw hitbox check
+                    }  //  End hitbox drawing
+                }  //  End hitbox/enabled test
+            }  //  End render component loop
+        }  //  End draw hitbox check
+
+        /*
+          Overlay rendering
+        */
+        //...
     } else {
         /*
           Game is not running - draw the title screen
@@ -244,7 +249,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
     }
 
     /*
-      Draw the overlay
+      Framerate and timer rendering
     */
     std::string fps_string = "FPS: " + std::to_string(fps);
     #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9

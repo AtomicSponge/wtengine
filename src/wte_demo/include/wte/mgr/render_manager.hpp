@@ -152,22 +152,19 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
         }
 
         /*
-          Draw the remaining entities
+          Draw the sprites
         */
         component_container render_components = world.get_components<cmp::render_order>();
 
-        //  Sort the entity render components
+        //  Sort the sprite render components
         std::set<entity_component_pair, comparator> render_componenet_set(
             render_components.begin(), render_components.end(), render_comparator);
 
-        //  Draw each entity in order
+        //  Draw each sprite in order
         for(ec_pair_iterator it = render_componenet_set.begin(); it != render_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible == true) {
                 //  Draw...
                 if(world.has_component<cmp::sprite>(it->first)) {
-                    //
-                }
-                if(world.has_component<cmp::texture>(it->first)) {
                     //
                 }
             }

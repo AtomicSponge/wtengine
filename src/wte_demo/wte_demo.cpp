@@ -88,8 +88,7 @@ void wte_demo::new_game(void) {
     //  Background entity
     e_id = world.new_entity();
     world.add_component(e_id, std::make_shared<cmp::name>("starfield"));
-    world.add_component(e_id, std::make_shared<cmp::background>());
-    world.add_component(e_id, std::make_shared<cmp::background_layer>(0));
+    world.add_component(e_id, std::make_shared<cmp::background>(0));
     world.add_component(e_id, std::make_shared<cmp::visible>());
 
     //  Player entity

@@ -139,14 +139,14 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
         /*
           Draw the background
         */
-        component_container layer_components = world.get_components<cmp::background_layer>();
+        component_container background_components = world.get_components<cmp::background>();
 
         //  Sort the background layers
-        std::set<entity_component_pair, comparator> layer_componenet_set(
-            layer_components.begin(), layer_components.end(), render_comparator);
+        std::set<entity_component_pair, comparator> background_componenet_set(
+            background_components.begin(), background_components.end(), render_comparator);
 
         //  Draw each background by layer
-        for(ec_pair_iterator it = layer_componenet_set.begin(); it != layer_componenet_set.end(); it++) {
+        for(ec_pair_iterator it = background_componenet_set.begin(); it != background_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible == true)
                 al_draw_bitmap(world.get_component<cmp::background>(it->first)->background_bitmap, 0, 0, 0);
         }

@@ -20,6 +20,7 @@ API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
 
 #### TODO:
  - Finish SFX tests
+ - Additional audio commands
  - Implement additional menu items
  - Code review / documentation
  - Implement sprites / finish rendering

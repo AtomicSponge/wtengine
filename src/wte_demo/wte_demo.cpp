@@ -92,9 +92,9 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::name>("starfield"));
     world.add_component(e_id, std::make_shared<cmp::visible>());
     world.add_component(e_id, std::make_shared<stars>());
-    //  Define the animation process for the background.
     world.add_component(e_id, std::make_shared<cmp::background>(0,
         [](entity bkg_id, mgr::entity_manager& world, int64_t engine_time) {
+            //  Define the animation process for the background.
             al_set_target_bitmap(world.get_component<cmp::background>(bkg_id)->background_bitmap);
             al_clear_to_color(WTE_COLOR_BLACK);
 

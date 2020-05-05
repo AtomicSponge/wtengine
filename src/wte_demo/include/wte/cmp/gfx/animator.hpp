@@ -48,7 +48,7 @@ class animator {
             //
         }
 
-        std::function<void(mgr::entity_manager&)> animate;
+        std::function<void(mgr::entity_manager&, int64_t)> animate;
 };
 
 } //  namespace cmp

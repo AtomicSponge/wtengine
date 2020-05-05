@@ -1,13 +1,13 @@
 /*
-  WTEngine Demo
-  By:  Matthew Evans
-  File:  wte_demo.cpp
-
-  See LICENSE.txt for copyright information
-
-  Remaining members for wte_demo
-  Allows us to set custom behaviour for our game
-*/
+ * WTEngine Demo
+ * By:  Matthew Evans
+ * File:  wte_demo.cpp
+ *
+ * See LICENSE.txt for copyright information
+ *
+ * Remaining members for wte_demo
+ * Allows us to set custom behaviour for our game
+ */
 
 #include "include/wte_demo.hpp"
 
@@ -18,7 +18,7 @@
 
 using namespace wte;
 
-/*!
+/*
  * wte_demo
  */
 wte_demo::wte_demo() {
@@ -28,7 +28,7 @@ wte_demo::wte_demo() {
     game_cfg_map::load();
 }
 
-/*!
+/*
  * ~wte_demo
  */
 wte_demo::~wte_demo() {
@@ -37,10 +37,11 @@ wte_demo::~wte_demo() {
 }
 
 /*
-  Load menus
-*/
+ * Load menus.
+ * Items will appear in the order they were added.
+ */
 void wte_demo::load_menus(void) {
-    //  First configure the root main menu and game menu
+    //  First configure the root main menu and game menu.
     {
         //  Configure main menu
         menus.set_menu("main_menu")->set_title("WTE Demo");
@@ -50,7 +51,7 @@ void wte_demo::load_menus(void) {
     }
 
     {
-        //  Configure in-game menu
+        //  Configure in-game menu.
         menus.set_menu("game_menu")->set_title("WTE Demo - Game Paused");
         menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("Resume Game", "close_menu", "all"));
         menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("Settings", "open_menu", "settings"));
@@ -58,9 +59,9 @@ void wte_demo::load_menus(void) {
         menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("Exit Game", "exit"));
     }
 
-    //  Then define other custom menus
+    //  Then define other custom menus.
     {
-        //  Create the settings menu
+        //  Create the settings menu.
         mnu::menu temp_menu = mnu::menu("settings", "Settings");
         temp_menu.add_item(std::make_shared<mnu::menu_item_action>("Return", "close_menu"));
         if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
@@ -68,8 +69,8 @@ void wte_demo::load_menus(void) {
 }
 
 /*
-  Load the systems in order
-*/
+ * Load the systems in order.
+ */
 void wte_demo::load_systems(void) {
     systems.add(std::make_unique<custom_input>());
     systems.add(std::make_unique<custom_spawner>());
@@ -80,8 +81,8 @@ void wte_demo::load_systems(void) {
 }
 
 /*
-  Pre-load starting entities
-*/
+ * Pre-load starting entities.
+ */
 void wte_demo::new_game(void) {
     entity e_id;
 
@@ -132,22 +133,22 @@ void wte_demo::new_game(void) {
 }
 
 /*
-  Stop the game
-*/
+ * Stop the game.
+ */
 void wte_demo::end_game(void) {
     if(game_cfg::get<int>("score") > game_cfg::get<int>("hiscore"))
         game_cfg::set("hiscore", game_cfg::get("score"));
 }
 
-/*! 
- * On menu open
+/*
+ * On menu open.
  */
 void wte_demo::on_menu_open(void) {
     messages.add_message(message("audio", "null", "null"));
 }
 
-/*! 
- * On menu close
+/*
+ * On menu close.
  */
 void wte_demo::on_menu_close(void) {
     messages.add_message(message("audio", "null", "null"));

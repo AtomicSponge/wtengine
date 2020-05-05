@@ -43,7 +43,7 @@ wte_demo::~wte_demo() {
 void wte_demo::load_menus(void) {
     //  First configure the root main menu and game menu.
     {
-        //  Configure main menu
+        //  Configure main menu.
         menus.set_menu("main_menu")->set_title("WTE Demo");
         menus.set_menu("main_menu")->add_item(std::make_shared<mnu::menu_item_action>("New Game", "new_game"));
         menus.set_menu("main_menu")->add_item(std::make_shared<mnu::menu_item_action>("Settings", "open_menu", "settings"));
@@ -86,13 +86,13 @@ void wte_demo::load_systems(void) {
 void wte_demo::new_game(void) {
     entity e_id;
 
-    //  Background entity
+    //  Background entity.
     e_id = world.new_entity();
     world.add_component(e_id, std::make_shared<cmp::name>("starfield"));
     world.add_component(e_id, std::make_shared<cmp::background>(0));
     world.add_component(e_id, std::make_shared<cmp::visible>());
 
-    //  Player entity
+    //  Player entity.
     e_id = world.new_entity();
     world.add_component(e_id, std::make_shared<cmp::name>("player"));
     world.add_component(e_id, std::make_shared<cmp::team>(0));
@@ -105,7 +105,7 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::visible>());
     world.add_component(e_id, std::make_shared<cmp::enabled>());
 
-    //  Main cannon entity
+    //  Main cannon entity.
     e_id = world.new_entity();
     world.add_component(e_id, std::make_shared<cmp::name>("main_cannon"));
     world.add_component(e_id, std::make_shared<cmp::team>(0));
@@ -117,7 +117,7 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::visible>(false));
     world.add_component(e_id, std::make_shared<cmp::enabled>(false));
 
-    //  Shield entity
+    //  Shield entity.
     e_id = world.new_entity();
     world.add_component(e_id, std::make_shared<cmp::name>("shield"));
     world.add_component(e_id, std::make_shared<cmp::team>(0));

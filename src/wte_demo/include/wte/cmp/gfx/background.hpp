@@ -40,7 +40,7 @@ class background final : public animator {
         }
 
         /*!
-         * Background
+         * Background with custom animation
          * \param void
          * \return void
          */

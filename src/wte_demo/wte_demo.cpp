@@ -122,6 +122,11 @@ void wte_demo::new_game(void) {
         }));
 
     /*
+     * Overlay entity.
+     */
+    //e_id = world.new_entity();
+
+    /*
      * Player entity.
      */
     e_id = world.new_entity();

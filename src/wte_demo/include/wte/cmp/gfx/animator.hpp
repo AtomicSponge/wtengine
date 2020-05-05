@@ -12,7 +12,11 @@
 #ifndef WTE_CMP_ANIMATOR_HPP
 #define WTE_CMP_ANIMATOR_HPP
 
-#include <allegro5/allegro.h>
+//#include <allegro5/allegro.h>
+
+#include <functional>
+
+#include "../../mgr/entity_manager.hpp"
 
 namespace wte
 {
@@ -43,6 +47,8 @@ class animator {
         inline ~animator() {
             //
         }
+
+        std::function<void(mgr::entity_manager&)> animate;
 };
 
 } //  namespace cmp

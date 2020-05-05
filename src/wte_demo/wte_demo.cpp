@@ -98,7 +98,7 @@ void wte_demo::new_game(void) {
             al_set_target_bitmap(world.get_component<cmp::background>(bkg_id)->background_bitmap);
             al_clear_to_color(WTE_COLOR_BLACK);
 
-            //  Move the stars
+            //  Move the stars.
             for(int i = 0; i < MAX_STARS; i++) {
                 world.set_component<stars>(bkg_id)->y[i] +=
                     world.get_component<stars>(bkg_id)->speed[i] * world.get_component<stars>(bkg_id)->speed_mult;
@@ -110,7 +110,7 @@ void wte_demo::new_game(void) {
                 }
             }
 
-            //  Draw stars
+            //  Draw the stars.
             for(int i = 0; i < MAX_STARS; i++) {
                 if(world.get_component<stars>(bkg_id)->color[i] == 1 || 4)
                     al_draw_pixel(world.get_component<stars>(bkg_id)->x[i], world.get_component<stars>(bkg_id)->y[i], WTE_COLOR_WHITE);

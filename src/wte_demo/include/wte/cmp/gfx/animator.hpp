@@ -16,6 +16,7 @@
 
 #include <functional>
 
+#include "../component.hpp"
 #include "../../mgr/entity_manager.hpp"
 
 namespace wte
@@ -28,27 +29,35 @@ namespace cmp
 /*!
  * Animator
  */
-class animator {
+class animator : public component {
     public:
         /*!
          * animator
          * \param void
          * \return void
          */
-        inline animator() {
-            //
-        }
+        inline animator() {}
 
         /*!
          * animator
          * \param void
          * \return void
          */
-        inline ~animator() {
-            //
+        inline animator(void func(entity, mgr::entity_manager&, int64_t)) : animate(func) {}
+
+        /*!
+         * animator
+         * \param void
+         * \return void
+         */
+        inline ~animator() {}
+
+        inline void run(entity eid, mgr::entity_manager& world, int64_t engine_time) {
+            animate(eid, world, engine_time);
         }
 
-        std::function<void(mgr::entity_manager&, int64_t)> animate;
+    protected:
+        std::function<void(entity, mgr::entity_manager&, int64_t)> animate;
 };
 
 } //  namespace cmp

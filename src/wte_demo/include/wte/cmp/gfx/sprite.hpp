@@ -14,7 +14,7 @@
 
 #include <allegro5/allegro.h>
 
-#include "../component.hpp"
+#include "animator.hpp"
 
 namespace wte
 {
@@ -26,7 +26,7 @@ namespace cmp
 /*!
  * WIP
  */
-class sprite : public component {
+class sprite final : public animator {
     public:
         /*!
          * Sprite

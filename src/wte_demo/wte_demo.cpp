@@ -14,7 +14,7 @@
 #include "include/custom_input.hpp"
 #include "include/custom_spawner.hpp"
 #include "include/custom_logic.hpp"
-#include "include/starfield.hpp"
+#include "include/stars.hpp"
 
 using namespace wte;
 
@@ -77,7 +77,6 @@ void wte_demo::load_systems(void) {
     systems.add(std::make_unique<custom_logic>());
     systems.add(std::make_unique<sys::colision>());
     systems.add(std::make_unique<sys::animate>());
-    systems.add(std::make_unique<starfield>());
 }
 
 /*
@@ -86,13 +85,45 @@ void wte_demo::load_systems(void) {
 void wte_demo::new_game(void) {
     entity e_id;
 
-    //  Background entity.
+    /*
+     * Background entity.
+     */
     e_id = world.new_entity();
     world.add_component(e_id, std::make_shared<cmp::name>("starfield"));
-    world.add_component(e_id, std::make_shared<cmp::background>(0));
     world.add_component(e_id, std::make_shared<cmp::visible>());
+    world.add_component(e_id, std::make_shared<stars>());
+    //  Define the animation process for the background.
+    world.add_component(e_id, std::make_shared<cmp::background>(0,
+        [](entity bkg_id, mgr::entity_manager& world, int64_t engine_time) {
+            al_set_target_bitmap(world.get_component<cmp::background>(bkg_id)->background_bitmap);
+            al_clear_to_color(WTE_COLOR_BLACK);
 
-    //  Player entity.
+            //  Move the stars
+            for(int i = 0; i < MAX_STARS; i++) {
+                world.set_component<stars>(bkg_id)->y[i] +=
+                    world.get_component<stars>(bkg_id)->speed[i] * world.get_component<stars>(bkg_id)->speed_mult;
+                if(world.get_component<stars>(bkg_id)->y[i] > engine_cfg::get<int>("screen_height")) { //  Make a new star
+                    world.set_component<stars>(bkg_id)->x[i] = std::rand() % engine_cfg::get<int>("screen_width") + 1;
+                    world.set_component<stars>(bkg_id)->y[i] = 0;
+                    world.set_component<stars>(bkg_id)->speed[i] = (std::rand() % 3 + 1) * 3;
+                    world.set_component<stars>(bkg_id)->color[i] = std::rand() % 4 + 1;
+                }
+            }
+
+            //  Draw stars
+            for(int i = 0; i < MAX_STARS; i++) {
+                if(world.get_component<stars>(bkg_id)->color[i] == 1 || 4)
+                    al_draw_pixel(world.get_component<stars>(bkg_id)->x[i], world.get_component<stars>(bkg_id)->y[i], WTE_COLOR_WHITE);
+                if(world.get_component<stars>(bkg_id)->color[i] == 2)
+                    al_draw_pixel(world.get_component<stars>(bkg_id)->x[i], world.get_component<stars>(bkg_id)->y[i], WTE_COLOR_YELLOW);
+                if(world.get_component<stars>(bkg_id)->color[i] == 3)
+                    al_draw_pixel(world.get_component<stars>(bkg_id)->x[i], world.get_component<stars>(bkg_id)->y[i], WTE_COLOR_RED);
+            }
+        }));
+
+    /*
+     * Player entity.
+     */
     e_id = world.new_entity();
     world.add_component(e_id, std::make_shared<cmp::name>("player"));
     world.add_component(e_id, std::make_shared<cmp::team>(0));
@@ -105,7 +136,9 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::visible>());
     world.add_component(e_id, std::make_shared<cmp::enabled>());
 
-    //  Main cannon entity.
+    /*
+     * Main cannon entity.
+     */
     e_id = world.new_entity();
     world.add_component(e_id, std::make_shared<cmp::name>("main_cannon"));
     world.add_component(e_id, std::make_shared<cmp::team>(0));
@@ -117,7 +150,9 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::visible>(false));
     world.add_component(e_id, std::make_shared<cmp::enabled>(false));
 
-    //  Shield entity.
+    /*
+     * Shield entity.
+     */
     e_id = world.new_entity();
     world.add_component(e_id, std::make_shared<cmp::name>("shield"));
     world.add_component(e_id, std::make_shared<cmp::team>(0));

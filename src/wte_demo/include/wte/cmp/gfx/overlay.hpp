@@ -15,7 +15,7 @@
 #include <allegro5/allegro.h>
 
 #include "../../engine_cfg_map.hpp"
-#include "../component.hpp"
+#include "animator.hpp"
 
 namespace wte
 {
@@ -27,7 +27,7 @@ namespace cmp
 /*!
  * Store the overlay bitmap
  */
-class overlay : public component {
+class overlay final : public animator {
     public:
         /*!
          * overlay

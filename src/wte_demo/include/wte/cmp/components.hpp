@@ -26,11 +26,10 @@
 #include "ai.hpp"
 
 //  Graphics components
-#include "gfx/animator.hpp"
 #include "gfx/background.hpp"
 #include "gfx/overlay.hpp"
 #include "gfx/render_order.hpp"
-#include "gfx/texture.hpp"
 #include "gfx/sprite.hpp"
+#include "gfx/texture.hpp"
 
 #endif

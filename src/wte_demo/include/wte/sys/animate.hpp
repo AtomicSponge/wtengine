@@ -6,7 +6,7 @@
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
  *
- * \details Animation system.  Updates all sprite components.
+ * \details Animation system.  Updates all components tagged with an animator.
  */
 
 #ifndef WTE_SYS_ANIMATE_HPP
@@ -22,8 +22,8 @@ namespace sys
 
 //! Animate system
 /*!
-  WIP
-*/
+ * Animate
+ */
 class animate : public system {
     public:
         inline animate() : system("animate") {};
@@ -34,12 +34,16 @@ class animate : public system {
 };
 
 /*!
-  WIP
-*/
+ * Animate system run
+ */
 inline void animate::run(mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
-    component_container sprite_components;
+    component_container animation_components;
 
-    sprite_components = world.get_components<cmp::sprite>();
+    animation_components = world.get_components<cmp::animator>();
+
+    for(component_iterator it = animation_components.begin(); it != animation_components.end(); it++) {
+        dynamic_cast<cmp::animator*>(it->second.get())->run(it->first, world, current_time);
+    }
 }
 
 } //  namespace sys

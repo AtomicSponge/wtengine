@@ -53,7 +53,8 @@ void custom_spawner::new_asteroid(mgr::entity_manager& world, float x, float y, 
     world.add_component(e_id, std::make_shared<cmp::enabled>());
     world.add_component(e_id, std::make_shared<cmp::ai>(
         [](entity ast_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            //  AI for asteroids.  Move them at their speed and angle.
+            //  AI for asteroids defined here.
+            //  Move them at their speed and angle.
             world.set_component<cmp::location>(ast_id)->pos_x +=
                 world.get_component<cmp::velocity>(ast_id)->speed *
                 cos(world.get_component<cmp::direction>(ast_id)->angle * (M_PI / 180));
@@ -62,13 +63,13 @@ void custom_spawner::new_asteroid(mgr::entity_manager& world, float x, float y, 
                 world.get_component<cmp::velocity>(ast_id)->speed *
                 sin(world.get_component<cmp::direction>(ast_id)->angle * (M_PI / 180));
 
-            //  OOB check.
+            //  Perform OOB check.
             if(world.get_component<cmp::location>(ast_id)->pos_y > engine_cfg::get<int>("screen_height") + 100) {
                 messages.add_message(message("spawner", "delete",
                                      world.get_component<cmp::name>(ast_id)->name_str));
             }
 
-            //  Health check.  Asteroid's HP is 0, reward player with points and delete the entity.
+            //  Health check.  If asteroid's HP is <= 0, reward player with points and delete the entity.
             if(world.get_component<cmp::health>(ast_id)->hp <= 0) {
                 messages.add_message(message("spawner", "delete", world.get_component<cmp::name>(ast_id)->name_str));
                 game_cfg_map::add<int>("score", 10);

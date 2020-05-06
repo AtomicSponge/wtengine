@@ -31,7 +31,6 @@ namespace cmp
  */
 class ai final : public component {
     public:
-        inline ai() {};
         inline ai(void func(entity, mgr::entity_manager&, mgr::message_manager&, int64_t)) : do_ai(func) {};
         inline ~ai() {};
 

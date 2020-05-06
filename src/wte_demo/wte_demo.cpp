@@ -94,7 +94,7 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<stars>());
     world.add_component(e_id, std::make_shared<cmp::background>(0,
         [](entity bkg_id, mgr::entity_manager& world, int64_t engine_time) {
-            //  Define the animation process for the background.
+            //  Define the animation process for the starfield.
             al_set_target_bitmap(world.get_component<cmp::background>(bkg_id)->background_bitmap);
             al_clear_to_color(WTE_COLOR_BLACK);
 
@@ -119,7 +119,26 @@ void wte_demo::new_game(void) {
                 if(world.get_component<stars>(bkg_id)->color[i] == 3)
                     al_draw_pixel(world.get_component<stars>(bkg_id)->x[i], world.get_component<stars>(bkg_id)->y[i], WTE_COLOR_RED);
             }
-        }));
+        }
+    ));
+    world.add_component(e_id, std::make_shared<cmp::dispatcher>(
+        [](entity bkg_id, mgr::entity_manager& world, message msg, int64_t engine_time) {
+            //  Define message processing for the starfield.
+            if(msg.get_cmd() == "default") world.set_component<stars>(bkg_id)->speed_mult = 1;
+            if(msg.get_cmd() == "up") world.set_component<stars>(bkg_id)->speed_mult *= 2;
+            if(msg.get_cmd() == "down") world.set_component<stars>(bkg_id)->speed_mult /= 2;
+            if(msg.get_cmd() == "reset") {
+                world.set_component<stars>(bkg_id)->speed_mult = 1;
+
+                for(std::size_t i = 0; i < MAX_STARS; i++) {
+                    world.set_component<stars>(bkg_id)->x[i] = std::rand() % engine_cfg::get<int>("screen_width") + 1;
+                    world.set_component<stars>(bkg_id)->y[i] = std::rand() % engine_cfg::get<int>("screen_height") + 1;
+                    world.set_component<stars>(bkg_id)->speed[i] = (std::rand() % 3 + 1) * 3;
+                    world.set_component<stars>(bkg_id)->color[i] = std::rand() % 4 + 1;
+                }
+            }
+        }
+    ));
 
     /*
      * Overlay entity.
@@ -136,7 +155,8 @@ void wte_demo::new_game(void) {
             world.set_component<cmp::overlay>(ovr_id)->set_text(game_cfg::get("score"), WTE_COLOR_WHITE, 110, 0, ALLEGRO_ALIGN_LEFT);
             world.set_component<cmp::overlay>(ovr_id)->set_text("High Score:  ", WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_RIGHT);
             world.set_component<cmp::overlay>(ovr_id)->set_text(game_cfg::get("hiscore"), WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_LEFT);
-        }));
+        }
+    ));
     world.set_component<cmp::overlay>(e_id)->set_font(al_create_builtin_font());
 
     /*
@@ -153,6 +173,11 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::input_handler>());
     world.add_component(e_id, std::make_shared<cmp::visible>());
     world.add_component(e_id, std::make_shared<cmp::enabled>());
+    world.add_component(e_id, std::make_shared<cmp::dispatcher>(
+        [](entity plr_id, mgr::entity_manager& world, message msg, int64_t engine_time) {
+            //  Define message processing for the player.
+        }
+    ));
 
     /*
      * Main cannon entity.

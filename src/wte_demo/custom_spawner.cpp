@@ -47,7 +47,16 @@ void custom_spawner::new_asteroid(mgr::entity_manager& world, float x, float y, 
     world.add_component(e_id, std::make_shared<cmp::render_order>(0));
     world.add_component(e_id, std::make_shared<cmp::visible>());
     world.add_component(e_id, std::make_shared<cmp::enabled>());
-    world.add_component(e_id, std::make_shared<cmp::ai>());
+    world.add_component(e_id, std::make_shared<cmp::ai>(
+        [](entity ast_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            //
+        }
+    ));
+    world.add_component(e_id, std::make_shared<cmp::dispatcher>(
+        [](entity ast_id, mgr::entity_manager& world, message msg, int64_t engine_time) {
+            //  ...
+        }
+    ));
 }
 
 /*

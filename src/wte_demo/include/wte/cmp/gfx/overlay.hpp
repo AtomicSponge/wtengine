@@ -34,9 +34,11 @@ class overlay final : public animator {
          * \param void
          * \return void
          */
-        inline overlay(int w, int h, float x, float y, std::size_t l) : pos_x(x), pos_y(y), layer(l) {
+        inline overlay(int w, int h, float x, float y, std::size_t l, void func(entity, mgr::entity_manager&, int64_t)) :
+        animator(func), pos_x(x), pos_y(y), layer(l) {
             overlay_bitmap = al_create_bitmap(w, h);
-        }
+            overlay_font = NULL;
+        };
 
         /*!
          * overlay
@@ -45,7 +47,8 @@ class overlay final : public animator {
          */
         inline ~overlay() {
             al_destroy_bitmap(overlay_bitmap);
-        }
+            al_destroy_font(overlay_font);
+        };
 
         /*!
          * Override < operator to sort by layer value.
@@ -56,9 +59,24 @@ class overlay final : public animator {
             return layer < a.layer;
         };
 
-        ALLEGRO_BITMAP *overlay_bitmap;
+        /*!
+         *
+         */
+        inline void set_font(ALLEGRO_FONT* font) { overlay_font = font; };
+
+        /*!
+         *
+         */
+        inline void set_text(std::string txt, ALLEGRO_COLOR color) {
+            //
+        };
+
+        ALLEGRO_BITMAP* overlay_bitmap;
         float pos_x, pos_y;
         std::size_t layer;
+
+    private:
+        ALLEGRO_FONT* overlay_font;
 };
 
 } //  namespace cmp

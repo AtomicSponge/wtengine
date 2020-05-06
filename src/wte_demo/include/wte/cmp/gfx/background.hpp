@@ -37,7 +37,7 @@ class background final : public animator {
         inline background(std::size_t l) : layer(l) {
             background_bitmap = al_create_bitmap(engine_cfg::get<int>("screen_width"),
                                                  engine_cfg::get<int>("screen_height"));
-        }
+        };
 
         /*!
          * Background with custom animation
@@ -48,7 +48,7 @@ class background final : public animator {
         animator(func),  layer(l) {
             background_bitmap = al_create_bitmap(engine_cfg::get<int>("screen_width"),
                                                  engine_cfg::get<int>("screen_height"));
-        }
+        };
 
         /*!
          * Background
@@ -57,7 +57,7 @@ class background final : public animator {
          */
         inline ~background() {
             al_destroy_bitmap(background_bitmap);
-        }
+        };
 
         /*!
          * Override < operator to sort by layer value.

@@ -99,7 +99,7 @@ void wte_demo::new_game(void) {
             al_clear_to_color(WTE_COLOR_BLACK);
 
             //  Move the stars.
-            for(int i = 0; i < MAX_STARS; i++) {
+            for(std::size_t i = 0; i < MAX_STARS; i++) {
                 world.set_component<stars>(bkg_id)->y[i] +=
                     world.get_component<stars>(bkg_id)->speed[i] * world.get_component<stars>(bkg_id)->speed_mult;
                 if(world.get_component<stars>(bkg_id)->y[i] > engine_cfg::get<int>("screen_height")) { //  Make a new star
@@ -111,7 +111,7 @@ void wte_demo::new_game(void) {
             }
 
             //  Draw the stars.
-            for(int i = 0; i < MAX_STARS; i++) {
+            for(std::size_t i = 0; i < MAX_STARS; i++) {
                 if(world.get_component<stars>(bkg_id)->color[i] == 1 || 4)
                     al_draw_pixel(world.get_component<stars>(bkg_id)->x[i], world.get_component<stars>(bkg_id)->y[i], WTE_COLOR_WHITE);
                 if(world.get_component<stars>(bkg_id)->color[i] == 2)
@@ -124,7 +124,18 @@ void wte_demo::new_game(void) {
     /*
      * Overlay entity.
      */
-    //e_id = world.new_entity();
+    e_id = world.new_entity();
+    world.add_component(e_id, std::make_shared<cmp::name>("overlay"));
+    world.add_component(e_id, std::make_shared<cmp::visible>());
+    world.add_component(e_id, std::make_shared<cmp::overlay>(200, 20, 0, engine_cfg::get<int>("screen_height") - 20, 0,
+        [](entity ovr_id, mgr::entity_manager& world, int64_t engine_time) {
+            //  Define what gets displayed on the overlay.
+            al_set_target_bitmap(world.get_component<cmp::overlay>(ovr_id)->overlay_bitmap);
+            al_clear_to_color(WTE_COLOR_YELLOW);
+            world.set_component<cmp::overlay>(ovr_id)->set_text("Score:  ", WTE_COLOR_WHITE);
+            // + engine_cfg::get("score")
+        }));
+    world.set_component<cmp::overlay>(e_id)->set_font(al_create_builtin_font());
 
     /*
      * Player entity.

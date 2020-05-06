@@ -31,32 +31,32 @@ namespace cmp
  */
 class animator : public component {
     public:
-        /*!
-         * animator
-         * \param void
-         * \return void
-         */
-        inline animator() {}
-
-        /*!
-         * animator
-         * \param void
-         * \return void
-         */
-        inline animator(void func(entity, mgr::entity_manager&, int64_t)) : animate(func) {}
-
-        /*!
-         * animator
-         * \param void
-         * \return void
-         */
-        inline ~animator() {}
-
         inline void run(entity eid, mgr::entity_manager& world, int64_t engine_time) {
             animate(eid, world, engine_time);
-        }
+        };
 
     protected:
+        /*!
+         * animator
+         * \param void
+         * \return void
+         */
+        inline animator() {};
+
+        /*!
+         * animator
+         * \param void
+         * \return void
+         */
+        inline animator(void func(entity, mgr::entity_manager&, int64_t)) : animate(func) {};
+
+        /*!
+         * animator
+         * \param void
+         * \return void
+         */
+        inline ~animator() {};
+
         std::function<void(entity, mgr::entity_manager&, int64_t)> animate;
 };
 

@@ -51,6 +51,10 @@ inline void logic::run(mgr::entity_manager& world, mgr::message_manager& message
     //  Find the entities with the input handler component
     ai_components = world.get_components<cmp::ai>();
 
+    for(component_iterator it = ai_components.begin(); it != ai_components.end(); it++) {
+        //
+    }
+
     //  Run custom input handler
     custom_run(world, messages, current_time);
 }

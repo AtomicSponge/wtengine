@@ -9,6 +9,10 @@
   This overrides the spawner system to define custom behavior
 */
 
+#define _USE_MATH_DEFINES
+
+#include <cmath>
+
 #include "include/custom_spawner.hpp"
 
 using namespace wte;
@@ -49,7 +53,20 @@ void custom_spawner::new_asteroid(mgr::entity_manager& world, float x, float y, 
     world.add_component(e_id, std::make_shared<cmp::enabled>());
     world.add_component(e_id, std::make_shared<cmp::ai>(
         [](entity ast_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            //
+            //  AI for asteroids.  Move them at their speed and angle.
+            world.set_component<cmp::location>(ast_id)->pos_x +=
+                world.get_component<cmp::velocity>(ast_id)->speed *
+                cos(world.get_component<cmp::direction>(ast_id)->angle * (M_PI / 180));
+
+            world.set_component<cmp::location>(ast_id)->pos_y +=
+                world.get_component<cmp::velocity>(ast_id)->speed *
+                sin(world.get_component<cmp::direction>(ast_id)->angle * (M_PI / 180));
+
+            //  OOB check
+            if(world.get_component<cmp::location>(ast_id)->pos_y > engine_cfg::get<int>("screen_height") + 100) {
+                messages.add_message(message("spawner", "delete",
+                                     world.get_component<cmp::name>(ast_id)->name_str));
+            }
         }
     ));
     world.add_component(e_id, std::make_shared<cmp::dispatcher>(
@@ -63,11 +80,4 @@ void custom_spawner::new_asteroid(mgr::entity_manager& world, float x, float y, 
             } //  end colision messages
         }
     ));
-}
-
-/*
-  Create a wall entity
-*/
-void custom_spawner::new_wall(mgr::entity_manager& world, float x, float y) {
-    //
 }

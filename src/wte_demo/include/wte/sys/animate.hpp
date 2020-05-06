@@ -24,7 +24,7 @@ namespace sys
 /*!
  * Animate
  */
-class animate : public system {
+class animate final : public system {
     public:
         inline animate() : system("animate") {};
         inline ~animate() {};

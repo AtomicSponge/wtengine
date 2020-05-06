@@ -16,7 +16,7 @@
 
 #include "component.hpp"
 #include "../mgr/entity_manager.hpp"
-#include "../message.hpp"
+#include "../mgr/message_manager.hpp"
 
 namespace wte
 {
@@ -31,7 +31,7 @@ namespace cmp
  */
 class ai : public component {
     public:
-        std::function<void(entity, mgr::entity_manager&, message, int64_t)> do_ai;
+        std::function<void(entity, mgr::entity_manager&, mgr::message_manager&, int64_t)> do_ai;
 };
 
 } //  namespace cmp

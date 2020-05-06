@@ -29,22 +29,19 @@ class animate : public system {
         inline animate() : system("animate") {};
         inline ~animate() {};
 
-        //! Animate system run member
-        inline void run(mgr::entity_manager&, mgr::message_manager&, int64_t);
+        /*!
+         * Animate system run
+         */
+        inline void run(mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
+            component_container animation_components;
+
+            animation_components = world.get_components<cmp::animator>();
+
+            for(component_iterator it = animation_components.begin(); it != animation_components.end(); it++) {
+                dynamic_cast<cmp::animator*>(it->second.get())->run(it->first, world, current_time);
+            }
+        }
 };
-
-/*!
- * Animate system run
- */
-inline void animate::run(mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
-    component_container animation_components;
-
-    animation_components = world.get_components<cmp::animator>();
-
-    for(component_iterator it = animation_components.begin(); it != animation_components.end(); it++) {
-        dynamic_cast<cmp::animator*>(it->second.get())->run(it->first, world, current_time);
-    }
-}
 
 } //  namespace sys
 

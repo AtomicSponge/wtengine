@@ -67,8 +67,8 @@ class overlay final : public animator {
         /*!
          *
          */
-        inline void set_text(std::string txt, ALLEGRO_COLOR color) {
-            //
+        inline void set_text(const std::string txt, const ALLEGRO_COLOR color, const float x, const float y, const int f) {
+            al_draw_text(overlay_font, color, x, y, f, txt.c_str());
         };
 
         ALLEGRO_BITMAP* overlay_bitmap;

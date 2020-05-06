@@ -13,7 +13,7 @@
 
 #include "include/custom_input.hpp"
 #include "include/custom_spawner.hpp"
-#include "include/custom_logic.hpp"
+//#include "include/custom_logic.hpp"
 #include "include/stars.hpp"
 
 using namespace wte;
@@ -75,7 +75,7 @@ void wte_demo::load_systems(void) {
     systems.add(std::make_unique<custom_input>());
     systems.add(std::make_unique<custom_spawner>());
     systems.add(std::make_unique<sys::colision>());
-    systems.add(std::make_unique<custom_logic>());
+    systems.add(std::make_unique<sys::logic>());
     systems.add(std::make_unique<sys::animate>());
 }
 
@@ -176,6 +176,7 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::dispatcher>(
         [](entity plr_id, mgr::entity_manager& world, message msg, int64_t engine_time) {
             //  Define message processing for the player.
+            if(msg.get_cmd() == "colision") game_cfg_map::subtract<int>("lives", 1);
         }
     ));
 

@@ -24,52 +24,43 @@ namespace sys
 /*!
   Processes entities that have ai components
 */
-class logic : public system {
+class logic final : public system {
     public:
+        /*!
+         * ...
+         */
         inline logic() : system("logic") {};
+
+        /*!
+         * ...
+         */
         inline ~logic() {};
 
-        //! Run the logic system
-        void run(mgr::entity_manager&, mgr::message_manager&, int64_t);    /*!< Run the logic system */
-        //! Logic dispatch member
-        void dispatch(mgr::entity_manager&, message_container);        /*!< Dispatch logic messages */
+        /*!
+         * Finds all entities with an ai component and processes their logic
+         * Override the custom_run member to define behaviour
+         */
+        inline void run(mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
+            //  Find the entities with the input handler component
+            component_container ai_components = world.get_components<cmp::ai>();
 
-    protected:
-        component_container ai_components;  /*!< Container for logic components */
+            for(component_iterator it = ai_components.begin(); it != ai_components.end(); it++) {
+                //
+            }
+        }
 
-        //!  Override this to define run
-        virtual void custom_run(mgr::entity_manager&, mgr::message_manager&, int64_t) {};  /*!< Override to define behaviour */
-        //!  Override this to process messages sent to the system
-        virtual void process_message(mgr::entity_manager&, message) {};  /*!< Override to define behaviour */
+        /*!
+         * Get logic messages for processing
+         * Override the process_messages member to define behaviour
+         */
+        inline void dispatch(mgr::entity_manager& world, message_container messages) {
+            component_container dispatch_components = world.get_components<cmp::dispatcher>();
+
+            for(component_iterator it = dispatch_components.begin(); it != dispatch_components.end(); it++) {
+                //
+            }
+        }
 };
-
-/*!
-  Finds all entities with an ai component and processes their logic
-  Override the custom_run member to define behaviour
-*/
-inline void logic::run(mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
-    //  Find the entities with the input handler component
-    ai_components = world.get_components<cmp::ai>();
-
-    for(component_iterator it = ai_components.begin(); it != ai_components.end(); it++) {
-        //
-    }
-
-    //  Run custom input handler
-    custom_run(world, messages, current_time);
-}
-
-/*!
-  Get logic messages for processing
-  Override the process_messages member to define behaviour
-*/
-inline void logic::dispatch(mgr::entity_manager& world, message_container messages) {
-    component_container dispatch_components = world.get_components<cmp::dispatcher>();
-
-    for(auto it = messages.begin(); it != messages.end(); it++) {
-        process_message(world, *it);
-    }
-}
 
 } //  namespace sys
 

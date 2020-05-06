@@ -29,8 +29,13 @@ namespace cmp
  * Tag components to be processed by the Logic system.
  * Define logic in do_ai lambda.
  */
-class ai : public component {
+class ai final : public component {
     public:
+        inline ai() {};
+        inline ai(void func(entity, mgr::entity_manager&, mgr::message_manager&, int64_t)) : do_ai(func) {};
+        inline ~ai() {};
+
+    private:
         std::function<void(entity, mgr::entity_manager&, mgr::message_manager&, int64_t)> do_ai;
 };
 

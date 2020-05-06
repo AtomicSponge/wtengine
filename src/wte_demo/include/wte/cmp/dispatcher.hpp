@@ -29,8 +29,12 @@ namespace cmp
  * Tag components to be processed by the Logic system.
  * Define message processing in handle_msg lambda.
  */
-class dispatcher : public component {
+class dispatcher final : public component {
     public:
+        inline dispatcher(void func(entity, mgr::entity_manager&, message, int64_t)) : handle_msg(func) {};
+        inline ~dispatcher() {};
+
+    private:
         std::function<void(entity, mgr::entity_manager&, message, int64_t)> handle_msg;
 };
 

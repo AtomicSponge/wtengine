@@ -69,7 +69,7 @@ void custom_spawner::new_asteroid(mgr::entity_manager& world, float x, float y, 
             }
 
             //  Health check.  Asteroid's HP is 0, reward player with points and delete the entity.
-            if(world.get_component<cmp::health>(ast_id)->hp == 0) {
+            if(world.get_component<cmp::health>(ast_id)->hp <= 0) {
                 messages.add_message(message("spawner", "delete", world.get_component<cmp::name>(ast_id)->name_str));
                 game_cfg_map::add<int>("score", 10);
             }

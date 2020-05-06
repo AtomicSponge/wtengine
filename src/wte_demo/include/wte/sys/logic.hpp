@@ -60,6 +60,8 @@ inline void logic::run(mgr::entity_manager& world, mgr::message_manager& message
   Override the process_messages member to define behaviour
 */
 inline void logic::dispatch(mgr::entity_manager& world, message_container messages) {
+    component_container dispatch_components = world.get_components<cmp::dispatcher>();
+
     for(auto it = messages.begin(); it != messages.end(); it++) {
         process_message(world, *it);
     }

@@ -1,16 +1,16 @@
 /*!
- * \brief WTEngine | File:  ai.hpp
+ * \brief WTEngine | File:  dispatcher.hpp
  * \author Matthew Evans
  *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
  *
- * \details AI component - tag to be processed by logic system.
+ * \details Dispatcher component - tag to be processed by logic system.
  */
 
-#ifndef WTE_CMP_AI_HPP
-#define WTE_CMP_AI_HPP
+#ifndef WTE_CMP_DISPATCHER_HPP
+#define WTE_CMP_DISPATCHER_HPP
 
 #include <functional>
 
@@ -24,15 +24,13 @@ namespace wte
 namespace cmp
 {
 
-//! AI component
+//! Dispatcher component
 /*!
  * Tag components to be processed by the Logic system.
- * Define logic in do_ai lambda.
  * Define message processing in handle_msg lambda.
  */
-class ai : public component {
+class dispatcher : public component {
     public:
-        std::function<void(entity, mgr::entity_manager&, message_container, int64_t)> do_ai;
         std::function<void(entity, mgr::entity_manager&, message_container, int64_t)> handle_msg;
 };
 

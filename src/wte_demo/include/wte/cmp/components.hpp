@@ -12,18 +12,19 @@
 #ifndef WTE_COMPONENTS_HPP
 #define WTE_COMPONENTS_HPP
 
-#include "name.hpp"
-#include "enabled.hpp"
-#include "visible.hpp"
-#include "location.hpp"
-#include "team.hpp"
-#include "hitbox.hpp"
-#include "health.hpp"
+#include "ai.hpp"
 #include "damage.hpp"
 #include "direction.hpp"
-#include "velocity.hpp"
+#include "dispatcher.hpp"
+#include "enabled.hpp"
+#include "health.hpp"
+#include "hitbox.hpp"
 #include "input_handler.hpp"
-#include "ai.hpp"
+#include "location.hpp"
+#include "name.hpp"
+#include "team.hpp"
+#include "velocity.hpp"
+#include "visible.hpp"
 
 //  Graphics components
 #include "gfx/background.hpp"

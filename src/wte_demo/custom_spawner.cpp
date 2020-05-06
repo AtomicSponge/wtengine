@@ -54,7 +54,13 @@ void custom_spawner::new_asteroid(mgr::entity_manager& world, float x, float y, 
     ));
     world.add_component(e_id, std::make_shared<cmp::dispatcher>(
         [](entity ast_id, mgr::entity_manager& world, message msg, int64_t engine_time) {
-            //  ...
+            //  Process colision messages
+            if(msg.get_cmd() == "colision") {
+                //  Main cannon hit the enemy.
+                if(msg.get_from() == "main_cannon") world.set_component<cmp::health>(ast_id)->hp -= 1;
+                //  Shield hit the enemy.
+                if(msg.get_from() == "shield") world.set_component<cmp::health>(ast_id)->hp -= 10;
+            } //  end colision messages
         }
     ));
 }

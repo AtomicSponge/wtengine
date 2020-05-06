@@ -74,8 +74,8 @@ void wte_demo::load_menus(void) {
 void wte_demo::load_systems(void) {
     systems.add(std::make_unique<custom_input>());
     systems.add(std::make_unique<custom_spawner>());
-    systems.add(std::make_unique<custom_logic>());
     systems.add(std::make_unique<sys::colision>());
+    systems.add(std::make_unique<custom_logic>());
     systems.add(std::make_unique<sys::animate>());
 }
 

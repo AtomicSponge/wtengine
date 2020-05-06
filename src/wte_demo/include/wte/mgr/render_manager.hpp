@@ -260,17 +260,15 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
     /*
       Framerate and timer rendering
     */
-    std::string fps_string = "FPS: " + std::to_string(fps);
-    #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
-    std::string timer_string = "Timer: " + std::to_string(check_time());
-    #endif
-
     //  Draw frame rate
     if(engine_flags::is_set(DRAW_FPS)) {
+        std::string fps_string = "FPS: " + std::to_string(fps);
         al_draw_text(overlay_font, WTE_COLOR_YELLOW, engine_cfg::get<int>("screen_width"), 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
+
     //  Draw time if debug mode is enabled
     #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
+    std::string timer_string = "Timer: " + std::to_string(check_time());
     al_draw_text(overlay_font, WTE_COLOR_YELLOW, engine_cfg::get<int>("screen_width"), 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     #endif
 

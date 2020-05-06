@@ -28,12 +28,10 @@ namespace cmp
 /*!
  * Tag components to be processed by the Logic system.
  * Define logic in do_ai lambda.
- * Define message processing in handle_msg lambda.
  */
 class ai : public component {
     public:
-        std::function<void(entity, mgr::entity_manager&, message_container, int64_t)> do_ai;
-        std::function<void(entity, mgr::entity_manager&, message_container, int64_t)> handle_msg;
+        std::function<void(entity, mgr::entity_manager&, message, int64_t)> do_ai;
 };
 
 } //  namespace cmp

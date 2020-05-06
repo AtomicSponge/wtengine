@@ -31,7 +31,7 @@ namespace cmp
  */
 class dispatcher : public component {
     public:
-        std::function<void(entity, mgr::entity_manager&, message_container, int64_t)> handle_msg;
+        std::function<void(entity, mgr::entity_manager&, message, int64_t)> handle_msg;
 };
 
 } //  namespace cmp

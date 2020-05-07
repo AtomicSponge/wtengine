@@ -6,7 +6,7 @@
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
  *
- * \details Logic system.  Override this to define custom ai.
+ * \details Logic system.
  */
 
 #ifndef WTE_SYS_LOGIC_HPP
@@ -38,7 +38,6 @@ class logic final : public system {
 
         /*!
          * Finds all entities with an ai component and processes their logic
-         * Override the custom_run member to define behaviour
          */
         inline void run(mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
             //  Find the entities with the input handler component
@@ -51,7 +50,6 @@ class logic final : public system {
 
         /*!
          * Get logic messages for processing
-         * Override the process_messages member to define behaviour
          */
         inline void dispatch(mgr::entity_manager& world, message_container messages) {
             component_container dispatch_components = world.get_components<cmp::dispatcher>();

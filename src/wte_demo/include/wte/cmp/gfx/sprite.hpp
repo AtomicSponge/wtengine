@@ -12,7 +12,10 @@
 #ifndef WTE_CMP_SPRITE_HPP
 #define WTE_CMP_SPRITE_HPP
 
+#include <string>
+
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
 
 #include "animator.hpp"
 
@@ -54,7 +57,9 @@ class sprite final : public animator {
          * \param void
          * \return void
          */
-        inline void load_sprite(void) {};
+        inline void load_sprite(std::string fname) {
+            sprite_bitmap = al_load_bitmap(fname.c_str());
+        };
 
         ALLEGRO_BITMAP *sprite_bitmap;
         float sprite_height, sprite_width, draw_offset;

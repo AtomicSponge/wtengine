@@ -33,13 +33,26 @@ class ai final : public component {
     public:
         /*!
          * ...
+         * \param void
+         * \return void
          */
         inline ai(void func(entity, mgr::entity_manager&, mgr::message_manager&, int64_t)) : do_ai(func) {};
 
         /*!
          * ...
+         * \param void
+         * \return void
          */
         inline ~ai() {};
+
+        /*!
+         * ...
+         * \param void
+         * \return void
+         */
+        inline void run(entity eid, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            do_ai(eid, world, messages, engine_time);
+        };
 
     private:
         std::function<void(entity, mgr::entity_manager&, mgr::message_manager&, int64_t)> do_ai;

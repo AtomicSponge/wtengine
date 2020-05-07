@@ -12,6 +12,8 @@
 #ifndef WTE_SYS_LOGIC_HPP
 #define WTE_SYS_LOGIC_HPP
 
+#include <string>
+
 #include "system.hpp"
 
 namespace wte
@@ -45,7 +47,7 @@ class logic final : public system {
             component_container ai_components = world.get_components<cmp::ai>();
 
             for(component_iterator it = ai_components.begin(); it != ai_components.end(); it++) {
-                //
+                dynamic_cast<cmp::ai*>(it->second.get())->run(it->first, world, messages, current_time);
             }
         }
 
@@ -57,7 +59,13 @@ class logic final : public system {
             component_container dispatch_components = world.get_components<cmp::dispatcher>();
 
             for(component_iterator it = dispatch_components.begin(); it != dispatch_components.end(); it++) {
-                //
+                std::string temp_name = world.get_component<cmp::name>(it->first)->name_str;
+                for(auto m_it = messages.begin(); m_it != messages.end();) {
+                    if(m_it->get_to() == temp_name) {
+                        dynamic_cast<cmp::dispatcher*>(it->second.get())->run(it->first, world, *m_it);
+                        m_it = messages.erase(m_it);
+                    } else m_it++;
+                }
             }
         }
 };

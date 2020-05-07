@@ -33,16 +33,29 @@ class dispatcher final : public component {
     public:
         /*!
          * ...
+         * \param void
+         * \return void
          */
-        inline dispatcher(void func(entity, mgr::entity_manager&, message, int64_t)) : handle_msg(func) {};
+        inline dispatcher(void func(entity, mgr::entity_manager&, message)) : handle_msg(func) {};
 
         /*!
          * ...
+         * \param void
+         * \return void
          */
         inline ~dispatcher() {};
 
+        /*!
+         * ...
+         * \param void
+         * \return void
+         */
+        inline void run(entity eid, mgr::entity_manager& world, message msg) {
+            handle_msg(eid, world, msg);
+        };
+
     private:
-        std::function<void(entity, mgr::entity_manager&, message, int64_t)> handle_msg;
+        std::function<void(entity, mgr::entity_manager&, message)> handle_msg;
 };
 
 } //  namespace cmp

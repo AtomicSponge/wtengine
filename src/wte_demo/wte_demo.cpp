@@ -122,7 +122,7 @@ void wte_demo::new_game(void) {
         }
     ));
     world.add_component(e_id, std::make_shared<cmp::dispatcher>(
-        [](entity bkg_id, mgr::entity_manager& world, message msg, int64_t engine_time) {
+        [](entity bkg_id, mgr::entity_manager& world, message msg) {
             //  Define message processing for the starfield.
             if(msg.get_cmd() == "default") world.set_component<stars>(bkg_id)->speed_mult = 1;
             if(msg.get_cmd() == "up") world.set_component<stars>(bkg_id)->speed_mult *= 2;
@@ -174,7 +174,7 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::visible>());
     world.add_component(e_id, std::make_shared<cmp::enabled>());
     world.add_component(e_id, std::make_shared<cmp::dispatcher>(
-        [](entity plr_id, mgr::entity_manager& world, message msg, int64_t engine_time) {
+        [](entity plr_id, mgr::entity_manager& world, message msg) {
             //  Define message processing for the player.
             if(msg.get_cmd() == "colision") game_cfg_map::subtract<int>("lives", 1);
         }

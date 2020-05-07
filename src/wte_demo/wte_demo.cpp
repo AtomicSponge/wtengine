@@ -13,7 +13,6 @@
 
 #include "include/custom_input.hpp"
 #include "include/custom_spawner.hpp"
-//#include "include/custom_logic.hpp"
 #include "include/stars.hpp"
 
 using namespace wte;

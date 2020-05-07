@@ -33,9 +33,28 @@ class sprite final : public animator {
          * \param void
          * \return void
          */
+        inline sprite() :
+        animator([](entity e_id, mgr::entity_manager& world, int64_t engine_time) {
+            //  Define sprite animation process
+        }) {
+            sprite_bitmap = NULL;
+        };
+
+        /*!
+         * Sprite
+         * \param void
+         * \return void
+         */
         inline ~sprite() {
             al_destroy_bitmap(sprite_bitmap);
-        }
+        };
+
+        /*!
+         * Sprite
+         * \param void
+         * \return void
+         */
+        inline void load_sprite(void) {};
 
         ALLEGRO_BITMAP *sprite_bitmap;
         float sprite_height, sprite_width, draw_offset;

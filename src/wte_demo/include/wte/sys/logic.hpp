@@ -66,6 +66,7 @@ class logic final : public system {
                         m_it = messages.erase(m_it);
                     } else m_it++;
                 }
+                if(messages.empty()) break;  //  Out of messages, end early.
             }
         }
 };

@@ -20,6 +20,7 @@
 #include <allegro5/allegro_image.h>
 
 #include "animator.hpp"
+#include "../../mgr/entity_manager.hpp"
 
 namespace wte
 {
@@ -59,8 +60,10 @@ class sprite final : public animator {
          * \param void
          * \return void
          */
-        inline void load_sprite(std::string fname) {
+        inline void load_sprite(std::string fname, float sh, float sw) {
             sprite_bitmap = al_load_bitmap(fname.c_str());
+            sprite_height = sh;
+            sprite_width = sw;
         };
 
         /*!

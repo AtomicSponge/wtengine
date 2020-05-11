@@ -51,12 +51,16 @@ class overlay final : public animator {
         };
 
         /*!
-         *
+         * overlay
+         * \param void
+         * \return void
          */
         inline void set_font(ALLEGRO_FONT* font) { overlay_font = font; };
 
         /*!
-         *
+         * overlay
+         * \param void
+         * \return void
          */
         inline void set_text(const std::string txt, const ALLEGRO_COLOR color, const float x, const float y, const int f) {
             al_draw_text(overlay_font, color, x, y, f, txt.c_str());

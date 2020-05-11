@@ -13,6 +13,8 @@
 #define WTE_CMP_SPRITE_HPP
 
 #include <string>
+#include <utility>
+#include <map>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
@@ -61,9 +63,36 @@ class sprite final : public animator {
             sprite_bitmap = al_load_bitmap(fname.c_str());
         };
 
+        /*!
+         * Sprite
+         * \param void
+         * \return void
+         */
+        inline void add_cycle(std::string name, std::size_t start, std::size_t stop) {
+            cycles.insert(std::make_pair(name, std::make_pair(start, stop)));
+        };
+
+        /*!
+         * Sprite
+         * \param void
+         * \return void
+         */
+        inline void set_cycle(std::string name) {
+            auto it = cycles.find(name);
+            if(it != cycles.end()) {
+                start_frame = it->second.first;
+                stop_frame = it->second.second;
+            }
+        };
+
         ALLEGRO_BITMAP *sprite_bitmap;
+
+    private:
         float sprite_height, sprite_width, draw_offset;
-        unsigned int current_frame, speed;
+        std::size_t current_frame, speed;
+        std::size_t start_frame, stop_frame;
+
+        std::map<std::string, std::pair<std::size_t, std::size_t>> cycles;
 };
 
 } //  namespace cmp

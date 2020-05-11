@@ -34,7 +34,7 @@ class background final : public animator {
          * \param void
          * \return void
          */
-        inline background(std::size_t l) : layer(l) {
+        inline background(std::size_t l) : animator(l) {
             background_bitmap = al_create_bitmap(engine_cfg::get<int>("screen_width"),
                                                  engine_cfg::get<int>("screen_height"));
         };
@@ -45,7 +45,7 @@ class background final : public animator {
          * \return void
          */
         inline background(std::size_t l, void func(entity, mgr::entity_manager&, int64_t)) :
-        animator(func),  layer(l) {
+        animator(l, func) {
             background_bitmap = al_create_bitmap(engine_cfg::get<int>("screen_width"),
                                                  engine_cfg::get<int>("screen_height"));
         };
@@ -59,17 +59,7 @@ class background final : public animator {
             al_destroy_bitmap(background_bitmap);
         };
 
-        /*!
-         * Override < operator to sort by layer value.
-         * 
-         * \param a Object to compare to.
-         */
-        bool operator<(const background& a) const {
-            return layer < a.layer;
-        };
-
         ALLEGRO_BITMAP *background_bitmap;
-        std::size_t layer;
 };
 
 } //  namespace cmp

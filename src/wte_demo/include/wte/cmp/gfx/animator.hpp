@@ -38,20 +38,30 @@ class animator : public component {
             animate(eid, world, engine_time);
         };
 
+        /*!
+         * Override < operator to sort by layer value.
+         * 
+         * \param a Object to compare to.
+         */
+        bool operator<(const animator& a) const {
+            return layer < a.layer;
+        };
+
     protected:
         /*!
          * animator
          * \param void
          * \return void
          */
-        inline animator() {};
+        inline animator(std::size_t l) : layer(l) {};
 
         /*!
          * animator
          * \param void
          * \return void
          */
-        inline animator(void func(entity, mgr::entity_manager&, int64_t)) : animate(func) {};
+        inline animator(std::size_t l, void func(entity, mgr::entity_manager&, int64_t)) :
+        layer(l), animate(func) {};
 
         /*!
          * animator
@@ -60,6 +70,7 @@ class animator : public component {
          */
         inline ~animator() {};
 
+        std::size_t layer;
         std::function<void(entity, mgr::entity_manager&, int64_t)> animate;
 };
 

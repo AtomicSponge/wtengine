@@ -39,8 +39,8 @@ class sprite final : public animator {
          * \param void
          * \return void
          */
-        inline sprite() :
-        animator([](entity e_id, mgr::entity_manager& world, int64_t engine_time) {
+        inline sprite(std::size_t l) :
+        animator(l, [](entity e_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define sprite animation process
         }) {
             sprite_bitmap = NULL;

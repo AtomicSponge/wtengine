@@ -53,13 +53,6 @@ class animator : public component {
          * \param void
          * \return void
          */
-        inline animator(std::size_t l) : layer(l) {};
-
-        /*!
-         * animator
-         * \param void
-         * \return void
-         */
         inline animator(std::size_t l, void func(entity, mgr::entity_manager&, int64_t)) :
         layer(l), animate(func) {};
 

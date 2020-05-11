@@ -34,7 +34,7 @@ class background final : public animator {
          * \param void
          * \return void
          */
-        inline background(std::size_t l) : animator(l) {
+        inline background(std::size_t l) : animator(l, {}) {
             background_bitmap = al_create_bitmap(engine_cfg::get<int>("screen_width"),
                                                  engine_cfg::get<int>("screen_height"));
         };

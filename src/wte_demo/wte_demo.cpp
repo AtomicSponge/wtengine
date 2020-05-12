@@ -178,6 +178,10 @@ void wte_demo::new_game(void) {
             if(msg.get_cmd() == "colision") game_cfg_map::subtract<int>("lives", 1);
         }
     ));
+    world.add_component(e_id, std::make_shared<cmp::sprite>(32, 32, -10, -10, 30, 1));
+    world.set_component<cmp::sprite>(e_id)->load_sprite("data\\player_ship.bmp");
+    world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
+    world.set_component<cmp::sprite>(e_id)->set_cycle("main");
 
     /*
      * Main cannon entity.

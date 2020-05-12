@@ -15,6 +15,7 @@
 #include <string>
 #include <utility>
 #include <map>
+#include <stdexcept>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
@@ -39,9 +40,9 @@ class sprite final : public animator {
          * \param void
          * \return void
          */
-        inline sprite(float sw, float sh, float dox, float doy, std::size_t sp, std::size_t l) :
-        sprite_width(sw), sprite_height(sh), draw_offset_x(dox), draw_offset_y(doy),
-        start_frame(0), stop_frame(0), current_frame(0), speed(sp),
+        inline sprite(const float sw, const float sh, const float dox, const float doy, const std::size_t sp, const std::size_t l) :
+        sprite_width(sw - 1.0), sprite_height(sh - 1.0), draw_offset_x(dox), draw_offset_y(doy),
+        sprite_x(0), sprite_y(0), start_frame(0), stop_frame(0), current_frame(0), speed(sp),
         animator(l, [](entity e_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define sprite animation process.
             if(engine_time % world.get_component<sprite>(e_id)->speed == 0) {
@@ -52,6 +53,7 @@ class sprite final : public animator {
             }
             world.set_component<sprite>(e_id)->sprite_x = 0;
             world.set_component<sprite>(e_id)->sprite_y = 0;
+            //world.set_component<sprite>(e_id)->sprite_x = world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width;
         }) {
             sprite_bitmap = NULL;
         };
@@ -70,8 +72,9 @@ class sprite final : public animator {
          * \param void
          * \return void
          */
-        inline void load_sprite(std::string fname) {
+        inline void load_sprite(const std::string fname) {
             sprite_bitmap = al_load_bitmap(fname.c_str());
+            if(sprite_bitmap == NULL) throw std::runtime_error("Error loading sprite file:  " + fname);
         };
 
         /*!
@@ -79,7 +82,7 @@ class sprite final : public animator {
          * \param void
          * \return void
          */
-        inline void add_cycle(std::string name, std::size_t start, std::size_t stop) {
+        inline void add_cycle(const std::string name, const std::size_t start, const std::size_t stop) {
             cycles.insert(std::make_pair(name, std::make_pair(start, stop)));
         };
 
@@ -88,7 +91,7 @@ class sprite final : public animator {
          * \param void
          * \return void
          */
-        inline void set_cycle(std::string name) {
+        inline void set_cycle(const std::string name) {
             auto it = cycles.find(name);
             if(it != cycles.end()) {
                 start_frame = it->second.first;
@@ -98,9 +101,9 @@ class sprite final : public animator {
 
         ALLEGRO_BITMAP* sprite_bitmap;
 
-        float sprite_height, sprite_width;
-        float sprite_x, sprite_y;
+        float sprite_width, sprite_height;
         float draw_offset_x, draw_offset_y;
+        float sprite_x, sprite_y;
         std::size_t current_frame, speed;
         std::size_t start_frame, stop_frame;
 

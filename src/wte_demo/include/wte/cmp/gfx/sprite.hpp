@@ -44,6 +44,8 @@ class sprite final : public animator {
         start_frame(0), stop_frame(0), current_frame(0), speed(sp),
         animator(l, [](entity e_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define sprite animation process
+            if(world.get_component<sprite>(e_id)->current_frame > world.get_component<sprite>(e_id)->stop_frame)
+                world.set_component<sprite>(e_id)->current_frame = world.get_component<sprite>(e_id)->start_frame;
         }) {
             sprite_bitmap = NULL;
         };
@@ -90,12 +92,12 @@ class sprite final : public animator {
 
         ALLEGRO_BITMAP* sprite_bitmap;
 
-    private:
         float sprite_height, sprite_width;
         float draw_offset_x, draw_offset_y;
         std::size_t current_frame, speed;
         std::size_t start_frame, stop_frame;
 
+    private:
         std::map<std::string, std::pair<std::size_t, std::size_t>> cycles;
 };
 

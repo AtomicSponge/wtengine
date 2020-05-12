@@ -162,7 +162,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
 
         //  Draw each sprite in order
         for(ec_pair_iterator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
-            if(world.get_component<cmp::visible>(it->first)->is_visible && world.has_component<cmp::sprite>(it->first)) {
+            if(world.get_component<cmp::visible>(it->first)->is_visible) {
                 al_draw_bitmap_region(world.get_component<cmp::sprite>(it->first)->sprite_bitmap,
                     world.get_component<cmp::sprite>(it->first)->sprite_x, world.get_component<cmp::sprite>(it->first)->sprite_y,
                     world.get_component<cmp::sprite>(it->first)->sprite_width, world.get_component<cmp::sprite>(it->first)->sprite_height,

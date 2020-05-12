@@ -210,9 +210,7 @@ class wte_main {
 inline void wte_main::process_new_game(void) {
     std::srand(std::time(nullptr));  //  Seed random.
 
-    //  Set global flags.
     engine_flags::unset(GAME_MENU_OPENED);
-    engine_flags::set(GAME_STARTED);
 
     //  Clear world and load starting entities.
     world.clear();
@@ -233,6 +231,7 @@ inline void wte_main::process_new_game(void) {
     al_stop_timer(main_timer);
     al_set_timer_count(main_timer, 0);
     al_start_timer(main_timer);
+    engine_flags::set(GAME_STARTED);
     mgr::engine_time::set_time(al_get_timer_count(main_timer));
 }
 
@@ -244,6 +243,7 @@ inline void wte_main::process_new_game(void) {
 inline void wte_main::process_end_game(void) {
     al_stop_timer(main_timer);
     al_set_timer_count(main_timer, 0);
+    engine_flags::unset(GAME_STARTED);
     mgr::engine_time::set_time(al_get_timer_count(main_timer));
 
     //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined.
@@ -257,7 +257,6 @@ inline void wte_main::process_end_game(void) {
     world.clear();
     systems.clear();
 
-    engine_flags::unset(GAME_STARTED);
     engine_flags::set(GAME_MENU_OPENED);
 }
 

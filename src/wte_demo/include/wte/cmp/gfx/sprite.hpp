@@ -39,7 +39,9 @@ class sprite final : public animator {
          * \param void
          * \return void
          */
-        inline sprite(std::size_t l) :
+        inline sprite(float sw, float sh, float dox, float doy, std::size_t sp, std::size_t l) :
+        sprite_width(sw), sprite_height(sh), draw_offset_x(dox), draw_offset_y(doy),
+        start_frame(0), stop_frame(0), current_frame(0), speed(sp),
         animator(l, [](entity e_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define sprite animation process
         }) {
@@ -60,10 +62,8 @@ class sprite final : public animator {
          * \param void
          * \return void
          */
-        inline void load_sprite(std::string fname, float sh, float sw) {
+        inline void load_sprite(std::string fname) {
             sprite_bitmap = al_load_bitmap(fname.c_str());
-            sprite_height = sh;
-            sprite_width = sw;
         };
 
         /*!
@@ -88,10 +88,11 @@ class sprite final : public animator {
             }
         };
 
-        ALLEGRO_BITMAP *sprite_bitmap;
+        ALLEGRO_BITMAP* sprite_bitmap;
 
     private:
-        float sprite_height, sprite_width, draw_offset;
+        float sprite_height, sprite_width;
+        float draw_offset_x, draw_offset_y;
         std::size_t current_frame, speed;
         std::size_t start_frame, stop_frame;
 

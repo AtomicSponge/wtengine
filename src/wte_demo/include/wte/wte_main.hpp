@@ -145,7 +145,7 @@ class wte_main {
             alert::set_bg_color(WTE_COLOR_RED);
         };
 
-        /* These function members are overrided in the derived class */
+        /* These function members are overridden in the derived class */
         //!  Define this to implement custom menu layout.
         virtual void load_menus(void) = 0;
         //!  Define this to load all systems to be used by the game.
@@ -160,7 +160,7 @@ class wte_main {
         virtual void on_menu_close(void) {};
         //!  Optional:  Define custom system message handling.
         virtual void handle_custom_sys_msg(message) {};
-        /* *** End overrided function members *** */
+        /* *** End overridden function members *** */
 
         mgr::message_manager messages;
         mgr::render_manager screen;

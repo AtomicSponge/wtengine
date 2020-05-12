@@ -22,8 +22,9 @@ namespace sys
 
 //! Logic system
 /*!
-  Processes entities that have ai components
-*/
+ * Processes entities that have ai components.
+ * Also sends messages to entities with dispatch components.
+ */
 class logic final : public system {
     public:
         /*!

@@ -120,8 +120,8 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
     al_clear_to_color(WTE_COLOR_BLACK);
 
     /*
-      Calculate fps if enabled
-    */
+     * Calculate fps if enabled
+     */
     if(engine_flags::is_set(DRAW_FPS)) {
         fps_counter++;
         //  Update fps on unique ticks only
@@ -133,12 +133,12 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
     }
 
     /*
-      Render world if the game is running
-    */
+     * Render world if the game is running
+     */
     if(engine_flags::is_set(GAME_STARTED)) {
         /*
-          Draw the background
-        */
+         * Draw the background
+         */
         component_container background_components = world.get_components<cmp::background>();
 
         //  Sort the background layers
@@ -152,29 +152,36 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
         }
 
         /*
-          Draw the sprites
-        */
-        component_container render_components = world.get_components<cmp::render_order>();
+         * Draw the sprites
+         */
+        component_container sprite_components = world.get_components<cmp::sprite>();
 
         //  Sort the sprite render components
-        std::set<entity_component_pair, comparator> render_componenet_set(
-            render_components.begin(), render_components.end(), render_comparator);
+        std::set<entity_component_pair, comparator> sprite_componenet_set(
+            sprite_components.begin(), sprite_components.end(), render_comparator);
 
         //  Draw each sprite in order
-        for(ec_pair_iterator it = render_componenet_set.begin(); it != render_componenet_set.end(); it++) {
-            if(world.get_component<cmp::visible>(it->first)->is_visible == true) {
-                //  Draw...
-                if(world.has_component<cmp::sprite>(it->first)) {
-                    //
-                }
+        for(ec_pair_iterator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
+            if(world.get_component<cmp::visible>(it->first)->is_visible && world.has_component<cmp::sprite>(it->first)) {
+                al_draw_bitmap_region(world.get_component<cmp::sprite>(it->first)->sprite_bitmap,
+                    world.get_component<cmp::sprite>(it->first)->sprite_x, world.get_component<cmp::sprite>(it->first)->sprite_y,
+                    world.get_component<cmp::sprite>(it->first)->sprite_width, world.get_component<cmp::sprite>(it->first)->sprite_height,
+                    world.get_component<cmp::location>(it->first)->pos_x + world.get_component<cmp::sprite>(it->first)->draw_offset_x,
+                    world.get_component<cmp::location>(it->first)->pos_y + world.get_component<cmp::sprite>(it->first)->draw_offset_y,
+                    0);
             }
         }
 
         /*
-          Draw hitboxes if enabled
-          Use different colors for each team
-        */
+         * Draw hitboxes if enabled
+         * Use different colors for each team
+         */
         if(engine_flags::is_set(DRAW_HITBOX)) {
+            component_container render_components = world.get_components<cmp::render_order>();
+
+            //  Sort the sprite render components
+            std::set<entity_component_pair, comparator> render_componenet_set(
+                render_components.begin(), render_components.end(), render_comparator);
             for(ec_pair_iterator it = render_componenet_set.begin(); it != render_componenet_set.end(); it++) {
                 //  Make sure the entity has a hitbox and is enabled
                 if((world.has_component<cmp::hitbox>(it->first))
@@ -192,8 +199,8 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
                     for(int i = 0; i < world.get_component<cmp::hitbox>(it->first)->width; i++) {
                         for(int j = 0; j < world.get_component<cmp::hitbox>(it->first)->height; j++) {
                             al_draw_pixel(world.get_component<cmp::location>(it->first)->pos_x + i,
-                                        world.get_component<cmp::location>(it->first)->pos_y + j,
-                                        team_color);
+                                          world.get_component<cmp::location>(it->first)->pos_y + j,
+                                          team_color);
                         }
                     }  //  End hitbox drawing
                 }  //  End hitbox/enabled test
@@ -201,8 +208,8 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
         }  //  End draw hitbox check
 
         /*
-          Draw the overlay
-        */
+         * Draw the overlay
+         */
         component_container overlay_components = world.get_components<cmp::overlay>();
 
         //  Sort the overlay layers
@@ -218,14 +225,14 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
         }
     } else {
         /*
-          Game is not running - draw the title screen
-        */
+         * Game is not running - draw the title screen
+         */
         //if(engine_cfg::is_reg("title_screen")) ...
     }
 
     /*
-      Render game menu if it's opened
-    */
+     * Render game menu if it's opened
+     */
     if(engine_flags::is_set(GAME_MENU_OPENED)) {
         render_tmp_bmp = al_clone_bitmap(menus.render_menu());
         al_set_target_backbuffer(al_get_current_display());
@@ -237,8 +244,8 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
     }
 
     /*
-      Render alerts
-    */
+     * Render alerts
+     */
     if(alert::is_set()) {
         int font_size = al_get_font_line_height(overlay_font);
         render_tmp_bmp = al_create_bitmap((alert::get_alert().length() * font_size) + 20, font_size + 20);
@@ -258,8 +265,8 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
     }
 
     /*
-      Framerate and timer rendering
-    */
+     * Framerate and timer rendering
+     */
     //  Draw frame rate
     if(engine_flags::is_set(DRAW_FPS)) {
         std::string fps_string = "FPS: " + std::to_string(fps);
@@ -273,8 +280,8 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
     #endif
 
     /*
-      Update the screen
-    */
+     * Update the screen
+     */
     if(engine_flags::is_set(WAIT_FOR_VSYNC)) al_wait_for_vsync();
     al_flip_display();
 }

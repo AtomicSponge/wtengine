@@ -7,8 +7,6 @@
  * \date 2019-2020
  *
  * \details Sprite component.
- * 
- * \bug Issue loading image.
  */
 
 #ifndef WTE_CMP_SPRITE_HPP
@@ -90,13 +88,9 @@ class sprite final : public animator {
         inline void load_sprite(const std::string fname, const std::string ftype) {
             ALLEGRO_FILE* file;
             file = al_fopen(("data/" + fname).c_str(), "rb");
-            //sprite_bitmap = al_load_bitmap_f(file, ftype.c_str());
-            //if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
+            sprite_bitmap = al_load_bitmap_f(file, ftype.c_str());
+            if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
             al_fclose(file);
-
-            sprite_bitmap = al_create_bitmap(128, 32);
-            al_set_target_bitmap(sprite_bitmap);
-            al_clear_to_color(al_map_rgb(100,100,100));
         };
 
         /*!

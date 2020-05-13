@@ -7,6 +7,8 @@
  * \date 2019-2020
  *
  * \details Sprite component.
+ * 
+ * \bug Issue loading image.
  */
 
 #ifndef WTE_CMP_SPRITE_HPP

@@ -22,6 +22,7 @@
 
 #include "animator.hpp"
 #include "../../mgr/entity_manager.hpp"
+#include "../../wte_global_defines.hpp"
 
 namespace wte
 {
@@ -53,7 +54,7 @@ class sprite final : public animator {
             }
             world.set_component<sprite>(e_id)->sprite_x = 0;
             world.set_component<sprite>(e_id)->sprite_y = 0;
-            //world.set_component<sprite>(e_id)->sprite_x = world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width;
+            world.set_component<sprite>(e_id)->sprite_x = world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width;
         }) {
             sprite_bitmap = NULL;
         };
@@ -78,6 +79,7 @@ class sprite final : public animator {
             sprite_bitmap = al_load_bitmap_f(file, NULL);
             if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
             al_fclose(file);
+            al_convert_mask_to_alpha(sprite_bitmap, WTE_MAGIC_PINK);
         };
 
         /*!
@@ -91,6 +93,7 @@ class sprite final : public animator {
             sprite_bitmap = al_load_bitmap_f(file, ftype.c_str());
             if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
             al_fclose(file);
+            al_convert_mask_to_alpha(sprite_bitmap, WTE_MAGIC_PINK);
         };
 
         /*!

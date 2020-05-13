@@ -49,5 +49,6 @@
 #define WTE_COLOR_DARKPURPLE    al_map_rgb(48, 25, 52)
 #define WTE_COLOR_WHITE         al_map_rgb(255,255,255)
 #define WTE_COLOR_TRANSPARENT   al_map_rgba(0, 0, 0, 255)
+#define WTE_MAGIC_PINK          al_map_rgb(255, 0, 255)
 
 #endif

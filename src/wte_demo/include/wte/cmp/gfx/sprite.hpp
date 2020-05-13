@@ -49,13 +49,13 @@ class sprite final : public animator {
             //  Define sprite animation process.
             if(engine_time % world.get_component<sprite>(e_id)->speed == 0) {
                 world.set_component<sprite>(e_id)->current_frame++;
+                if(world.get_component<sprite>(e_id)->current_frame > world.get_component<sprite>(e_id)->stop_frame) {
+                    world.set_component<sprite>(e_id)->current_frame = world.get_component<sprite>(e_id)->start_frame;
+                }
+                world.set_component<sprite>(e_id)->sprite_x = 0;
+                world.set_component<sprite>(e_id)->sprite_y = 0;
+                world.set_component<sprite>(e_id)->sprite_x = world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width;
             }
-            if(world.get_component<sprite>(e_id)->current_frame > world.get_component<sprite>(e_id)->stop_frame) {
-                world.set_component<sprite>(e_id)->current_frame = world.get_component<sprite>(e_id)->start_frame;
-            }
-            world.set_component<sprite>(e_id)->sprite_x = 0;
-            world.set_component<sprite>(e_id)->sprite_y = 0;
-            world.set_component<sprite>(e_id)->sprite_x = world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width;
         }) {
             sprite_bitmap = NULL;
             if(speed == 0) speed = 1;
@@ -81,7 +81,9 @@ class sprite final : public animator {
             sprite_bitmap = al_load_bitmap_f(file, NULL);
             if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
             al_fclose(file);
-            if(engine_cfg::is_reg("use_magic_pink")) al_convert_mask_to_alpha(sprite_bitmap, WTE_MAGIC_PINK);
+            #ifndef WTE_NO_MAGIC_PINK
+            al_convert_mask_to_alpha(sprite_bitmap, WTE_MAGIC_PINK);
+            #endif
         };
 
         /*!
@@ -95,7 +97,9 @@ class sprite final : public animator {
             sprite_bitmap = al_load_bitmap_f(file, ftype.c_str());
             if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
             al_fclose(file);
-            if(engine_cfg::is_reg("use_magic_pink")) al_convert_mask_to_alpha(sprite_bitmap, WTE_MAGIC_PINK);
+            #ifndef WTE_NO_MAGIC_PINK
+            al_convert_mask_to_alpha(sprite_bitmap, WTE_MAGIC_PINK);
+            #endif
         };
 
         /*!

@@ -57,6 +57,7 @@ class sprite final : public animator {
             world.set_component<sprite>(e_id)->sprite_x = world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width;
         }) {
             sprite_bitmap = NULL;
+            if(speed == 0) speed = 1;
         };
 
         /*!

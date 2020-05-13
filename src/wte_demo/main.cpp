@@ -14,15 +14,16 @@
 using namespace wte;
 
 int main(int argc, char **argv) {
-    //  Register engine settings
+    //  Register default engine settings
     engine_cfg::reg("screen_width=768");
     engine_cfg::reg("screen_height=1024");
+    engine_cfg::reg("use_magic_pink", "");
 
     //  Load settings
     engine_cfg_map::load();
 
     //  Initialize game object
-    wte_demo my_game;
+    wte_demo my_game("WTE Demo");
     //  Run the game loop
     my_game.do_game();
 

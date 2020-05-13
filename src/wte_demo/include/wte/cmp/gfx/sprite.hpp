@@ -23,6 +23,7 @@
 #include "animator.hpp"
 #include "../../mgr/entity_manager.hpp"
 #include "../../wte_global_defines.hpp"
+#include "../../engine_cfg_map.hpp"
 
 namespace wte
 {
@@ -80,7 +81,7 @@ class sprite final : public animator {
             sprite_bitmap = al_load_bitmap_f(file, NULL);
             if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
             al_fclose(file);
-            al_convert_mask_to_alpha(sprite_bitmap, WTE_MAGIC_PINK);
+            if(engine_cfg::is_reg("use_magic_pink")) al_convert_mask_to_alpha(sprite_bitmap, WTE_MAGIC_PINK);
         };
 
         /*!
@@ -94,7 +95,7 @@ class sprite final : public animator {
             sprite_bitmap = al_load_bitmap_f(file, ftype.c_str());
             if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
             al_fclose(file);
-            al_convert_mask_to_alpha(sprite_bitmap, WTE_MAGIC_PINK);
+            if(engine_cfg::is_reg("use_magic_pink")) al_convert_mask_to_alpha(sprite_bitmap, WTE_MAGIC_PINK);
         };
 
         /*!

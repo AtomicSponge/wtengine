@@ -17,7 +17,7 @@ using namespace wte;
 
 class wte_demo final : public wte_main {
     public:
-        wte_demo();
+        wte_demo(std::string title);
         ~wte_demo();
 
     private:

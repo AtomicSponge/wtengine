@@ -98,7 +98,7 @@ class wte_main {
     protected:
         //!  Force single instance, set initialized flag to true.
         //!  Throws a runtime error if another instance is called.
-        inline wte_main() : load_called(false) {
+        inline wte_main(std::string title) : window_title(title), load_called(false) {
             if(initialized == true) throw std::runtime_error("WTEngine already running!");
             initialized = true;
 
@@ -118,6 +118,7 @@ class wte_main {
             display = al_create_display(engine_cfg::get<int>("screen_width"),
                                         engine_cfg::get<int>("screen_height"));
             if(!display) throw std::runtime_error("Failed to configure display!");
+            al_set_window_title(display, window_title.c_str());
 
             main_timer = al_create_timer(1.0 / WTE_TICKS_PER_SECOND);
             if(!main_timer) throw std::runtime_error("Failed to create timer!");
@@ -182,6 +183,8 @@ class wte_main {
         void process_end_game(void);
         //!  Process messages passed to the system.
         void handle_sys_msg(message_container);
+
+        std::string window_title;
 
         //  Used for switching on system messages:
         enum CMD_STR_VALUE {

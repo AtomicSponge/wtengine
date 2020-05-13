@@ -20,7 +20,7 @@ using namespace wte;
 /*
  * wte_demo
  */
-wte_demo::wte_demo(std::string title) : wte_main(title) {
+wte_demo::wte_demo() : wte_main("WTE Demo") {
     game_cfg::reg("score=0");
     game_cfg::reg("hiscore=0");
     game_cfg::reg("lives=3");

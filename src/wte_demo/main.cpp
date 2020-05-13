@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
     engine_cfg_map::load();
 
     //  Initialize game object
-    wte_demo my_game("WTE Demo");
+    wte_demo my_game;
     //  Run the game loop
     my_game.do_game();
 

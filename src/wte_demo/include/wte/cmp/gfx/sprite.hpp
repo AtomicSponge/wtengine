@@ -41,7 +41,7 @@ class sprite final : public animator {
          * \return void
          */
         inline sprite(const float sw, const float sh, const float dox, const float doy, const std::size_t sp, const std::size_t l) :
-        sprite_width(sw - 1.0), sprite_height(sh - 1.0), draw_offset_x(dox), draw_offset_y(doy),
+        sprite_width(sw), sprite_height(sh), draw_offset_x(dox - 1.0), draw_offset_y(doy - 1.0),
         sprite_x(0), sprite_y(0), start_frame(0), stop_frame(0), current_frame(0), speed(sp),
         animator(l, [](entity e_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define sprite animation process.
@@ -73,14 +73,15 @@ class sprite final : public animator {
          * \return void
          */
         inline void load_sprite(const std::string fname) {
-            sprite_bitmap = al_load_bitmap(("data/" + fname).c_str());
-            //if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
-
             //ALLEGRO_FILE* file;
             //file = al_fopen(("data/" + fname).c_str(), "rb");
             //sprite_bitmap = al_load_bitmap_f(file, ".bmp");
             //if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
             //al_fclose(file);
+
+            sprite_bitmap = al_create_bitmap(128, 32);
+            al_set_target_bitmap(sprite_bitmap);
+            al_clear_to_color(al_map_rgb(100,100,100));
         };
 
         /*!

@@ -178,8 +178,8 @@ void wte_demo::new_game(void) {
             if(msg.get_cmd() == "colision") game_cfg_map::subtract<int>("lives", 1);
         }
     ));
-    world.add_component(e_id, std::make_shared<cmp::sprite>(32, 32, -10, -10, 30, 1));
-    //world.set_component<cmp::sprite>(e_id)->load_sprite("player_ship.bmp");
+    world.add_component(e_id, std::make_shared<cmp::sprite>(32, 32, -11.0, 0.0, 30, 1));
+    world.set_component<cmp::sprite>(e_id)->load_sprite("player_ship.bmp");
     world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");
 
@@ -204,7 +204,7 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::name>("shield"));
     world.add_component(e_id, std::make_shared<cmp::team>(0));
     world.add_component(e_id, std::make_shared<cmp::location>(0, 0));
-    world.add_component(e_id, std::make_shared<cmp::hitbox>(40, 40, false));
+    world.add_component(e_id, std::make_shared<cmp::hitbox>(64, 64, false));
     world.add_component(e_id, std::make_shared<cmp::damage>(100));
     world.add_component(e_id, std::make_shared<cmp::render_order>(2));
     world.add_component(e_id, std::make_shared<cmp::input_handler>());

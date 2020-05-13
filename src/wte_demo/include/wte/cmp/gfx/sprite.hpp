@@ -23,7 +23,6 @@
 #include "animator.hpp"
 #include "../../mgr/entity_manager.hpp"
 #include "../../wte_global_defines.hpp"
-#include "../../engine_cfg_map.hpp"
 
 namespace wte
 {
@@ -33,7 +32,7 @@ namespace cmp
 
 //! Sprite component
 /*!
- * WIP
+ * Sprite
  */
 class sprite final : public animator {
     public:
@@ -52,9 +51,12 @@ class sprite final : public animator {
                 if(world.get_component<sprite>(e_id)->current_frame > world.get_component<sprite>(e_id)->stop_frame) {
                     world.set_component<sprite>(e_id)->current_frame = world.get_component<sprite>(e_id)->start_frame;
                 }
-                world.set_component<sprite>(e_id)->sprite_x = 0;
-                world.set_component<sprite>(e_id)->sprite_y = 0;
-                world.set_component<sprite>(e_id)->sprite_x = world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width;
+                world.set_component<sprite>(e_id)->sprite_x = (float)
+                    ((int)(world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width +
+                    world.get_component<sprite>(e_id)->sheet_width) % world.get_component<sprite>(e_id)->sheet_width);
+                world.set_component<sprite>(e_id)->sprite_y = (float)
+                    ((int)(world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width) /
+                    world.get_component<sprite>(e_id)->sheet_width) * world.get_component<sprite>(e_id)->sprite_height;
             }
         }) {
             sprite_bitmap = NULL;
@@ -85,6 +87,8 @@ class sprite final : public animator {
             #ifndef WTE_NO_MAGIC_PINK
             al_convert_mask_to_alpha(sprite_bitmap, WTE_MAGIC_PINK);
             #endif
+            sheet_width = al_get_bitmap_width(sprite_bitmap);
+            sheet_height = al_get_bitmap_height(sprite_bitmap);
         };
 
         /*!
@@ -102,6 +106,8 @@ class sprite final : public animator {
             #ifndef WTE_NO_MAGIC_PINK
             al_convert_mask_to_alpha(sprite_bitmap, WTE_MAGIC_PINK);
             #endif
+            sheet_width = al_get_bitmap_width(sprite_bitmap);
+            sheet_height = al_get_bitmap_height(sprite_bitmap);
         };
 
         /*!
@@ -131,6 +137,7 @@ class sprite final : public animator {
         float sprite_width, sprite_height;
         float draw_offset_x, draw_offset_y;
         float sprite_x, sprite_y;
+        int sheet_width, sheet_height;
         std::size_t current_frame, rate;
         std::size_t start_frame, stop_frame;
 

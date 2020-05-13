@@ -55,8 +55,8 @@ class sprite final : public animator {
                     ((int)(world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width +
                     world.get_component<sprite>(e_id)->sheet_width) % world.get_component<sprite>(e_id)->sheet_width);
                 world.set_component<sprite>(e_id)->sprite_y = (float)
-                    ((int)(world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width) /
-                    world.get_component<sprite>(e_id)->sheet_width) * world.get_component<sprite>(e_id)->sprite_height;
+                    ((int)((world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width) /
+                    world.get_component<sprite>(e_id)->sheet_width) * world.get_component<sprite>(e_id)->sprite_height);
             }
         }) {
             sprite_bitmap = NULL;

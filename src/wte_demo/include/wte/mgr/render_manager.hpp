@@ -228,6 +228,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
          * Game is not running - draw the title screen
          */
         //if(engine_cfg::is_reg("title_screen")) ...
+        al_clear_to_color(WTE_COLOR_BLACK);
     }
 
     /*

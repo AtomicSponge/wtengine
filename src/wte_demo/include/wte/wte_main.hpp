@@ -16,6 +16,7 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_physfs.h>
+#include <physfs.h>
 
 #include <ctime>
 #include <string>
@@ -45,6 +46,8 @@ class wte_main {
         //!  Also makes sure to unload the engine.
         inline ~wte_main() {
             if(load_called == true) wte_unload();
+
+            //PHYSFS_deinit();
 
             al_destroy_timer(main_timer);
             al_destroy_event_queue(main_queue);
@@ -98,7 +101,7 @@ class wte_main {
     protected:
         //!  Force single instance, set initialized flag to true.
         //!  Throws a runtime error if another instance is called.
-        inline wte_main(std::string title) : window_title(title), load_called(false) {
+        inline wte_main(int argc, char **argv, std::string title) : window_title(title), load_called(false) {
             if(initialized == true) throw std::runtime_error("WTEngine already running!");
             initialized = true;
 
@@ -110,8 +113,11 @@ class wte_main {
             if(!al_init_image_addon()) throw std::runtime_error("Failed to load Allegro image addon!");
             if(!al_init_font_addon()) throw std::runtime_error("Failed to load Allegro font addon!");
             al_install_joystick();
-            //al_set_physfs_file_interface();
             al_set_standard_file_interface();
+
+            //if(!PHYSFS_init(argv[0])) throw std::runtime_error("Failed to load PhysFS!");
+            //PHYSFS_mount("data.zip", NULL, 1);
+            //al_set_physfs_file_interface();
 
             if(!engine_cfg::is_reg("screen_width")) throw std::runtime_error("Screen width not set!");
             if(!engine_cfg::is_reg("screen_height")) throw std::runtime_error("Screen height not set!");

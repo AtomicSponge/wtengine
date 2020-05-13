@@ -179,7 +179,7 @@ void wte_demo::new_game(void) {
         }
     ));
     world.add_component(e_id, std::make_shared<cmp::sprite>(32, 32, -11.0, 0.0, 1, 1));
-    world.set_component<cmp::sprite>(e_id)->load_sprite("player_ship.bmp", ".bmp");
+    world.set_component<cmp::sprite>(e_id)->load_sprite("ship.bmp", ".bmp");
     world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");
 
@@ -196,6 +196,10 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::input_handler>());
     world.add_component(e_id, std::make_shared<cmp::visible>(false));
     world.add_component(e_id, std::make_shared<cmp::enabled>(false));
+    world.add_component(e_id, std::make_shared<cmp::sprite>(10, 200, 0.0, 0.0, 1, 2));
+    world.set_component<cmp::sprite>(e_id)->load_sprite("cannon.bmp", ".bmp");
+    world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
+    world.set_component<cmp::sprite>(e_id)->set_cycle("main");
 
     /*
      * Shield entity.
@@ -210,6 +214,10 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::input_handler>());
     world.add_component(e_id, std::make_shared<cmp::visible>(false));
     world.add_component(e_id, std::make_shared<cmp::enabled>(false));
+    world.add_component(e_id, std::make_shared<cmp::sprite>(64, 64, 0.0, 0.0, 1, 2));
+    world.set_component<cmp::sprite>(e_id)->load_sprite("shield.bmp", ".bmp");
+    world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
+    world.set_component<cmp::sprite>(e_id)->set_cycle("main");
 
     game_cfg::set("score=0");
 }

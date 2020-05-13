@@ -183,6 +183,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
             std::set<entity_component_pair, comparator> render_componenet_set(
                 render_components.begin(), render_components.end(), render_comparator);
             for(ec_pair_iterator it = render_componenet_set.begin(); it != render_componenet_set.end(); it++) {
+            //for(ec_pair_iterator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
                 //  Make sure the entity has a hitbox and is enabled
                 if((world.has_component<cmp::hitbox>(it->first))
                 &&

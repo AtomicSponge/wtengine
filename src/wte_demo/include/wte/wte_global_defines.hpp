@@ -12,12 +12,16 @@
 #ifndef WTE_GLOBAL_DEFINES_HPP
 #define WTE_GLOBAL_DEFINES_HPP
 
-//  Set timer rate
+//  Define true & false for macro use.
+#define TRUE 1
+#define FALSE 0
+
+//  Set timer rate.
 #ifndef WTE_TICKS_PER_SECOND
 #define WTE_TICKS_PER_SECOND 60.0
 #endif
 
-//  Set level of debugging
+//  Set level of debugging.
 /*
   0 - off
   1 - Display timer counter
@@ -28,16 +32,17 @@
 #define WTE_DEBUG_MODE 0
 #endif
 
-//  Enable audio if WTE_NO_AUDIO is not defined
+//  Enable audio if WTE_NO_AUDIO is not defined.
 #ifndef WTE_NO_AUDIO
-#define WTE_AUDIO_ENABLED
+#define WTE_AUDIO_ENABLED TRUE
 #endif
 
-//  Enable message pruning if WTE_NO_PRUNE is not defined
+//  Enable message pruning if WTE_NO_PRUNE is not defined.
 #ifndef WTE_NO_PRUNE
-#define WTE_PRUNE_ENABLED
+#define WTE_PRUNE_ENABLED TRUE
 #endif
 
+//  Define some colors for use in the engine.
 #define WTE_COLOR_BLACK         al_map_rgb(0,0,0)
 #define WTE_COLOR_RED           al_map_rgb(255,0,0)
 #define WTE_COLOR_GREEN         al_map_rgb(0,255,0)
@@ -50,6 +55,7 @@
 #define WTE_COLOR_WHITE         al_map_rgb(255,255,255)
 #define WTE_COLOR_TRANSPARENT   al_map_rgba(0, 0, 0, 255)
 
+//  Enable magic pink for transparency if WTE_NO_MAGIC_PINK is not defined.
 #ifndef WTE_NO_MAGIC_PINK
 #define WTE_MAGIC_PINK          al_map_rgb(255, 0, 255)
 #endif

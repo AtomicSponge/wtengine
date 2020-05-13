@@ -72,6 +72,7 @@ class sprite final : public animator {
 
         /*!
          * Sprite
+         * Let al_load_bitmap_f() determine the file type.
          * \param void
          * \return void
          */
@@ -88,6 +89,7 @@ class sprite final : public animator {
 
         /*!
          * Sprite
+         * Provide the file type to al_load_bitmap_f().
          * \param void
          * \return void
          */

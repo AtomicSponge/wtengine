@@ -117,7 +117,6 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
 
     //  Make sure we're always drawing to the screen
     al_set_target_backbuffer(al_get_current_display());
-    al_clear_to_color(WTE_COLOR_BLACK);
 
     /*
      * Calculate fps if enabled

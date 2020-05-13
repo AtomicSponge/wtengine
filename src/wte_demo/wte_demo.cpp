@@ -179,7 +179,7 @@ void wte_demo::new_game(void) {
         }
     ));
     world.add_component(e_id, std::make_shared<cmp::sprite>(32, 32, -11.0, 0.0, 30, 1));
-    world.set_component<cmp::sprite>(e_id)->load_sprite("player_ship.bmp");
+    world.set_component<cmp::sprite>(e_id)->load_sprite("player_ship.bmp", ".bmp");
     world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");
 

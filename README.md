@@ -23,7 +23,6 @@ API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
  - Additional audio commands
  - Implement additional menu items
  - Code review / documentation
- - Implement sprites / finish rendering
 
 #### DEMO:
 

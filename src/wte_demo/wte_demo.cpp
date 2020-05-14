@@ -145,7 +145,7 @@ void wte_demo::new_game(void) {
     e_id = world.new_entity();
     world.add_component(e_id, std::make_shared<cmp::name>("overlay"));
     world.add_component(e_id, std::make_shared<cmp::visible>());
-    world.add_component(e_id, std::make_shared<cmp::overlay>(300, 20, 0, engine_cfg::get<int>("screen_height") - 20, 0,
+    world.add_component(e_id, std::make_shared<cmp::overlay>(200, 20, 0, engine_cfg::get<int>("screen_height") - 20, 0,
         [](entity ovr_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define what gets displayed on the overlay.
             al_set_target_bitmap(world.get_component<cmp::overlay>(ovr_id)->overlay_bitmap);

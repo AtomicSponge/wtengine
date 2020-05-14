@@ -53,7 +53,7 @@
 #define WTE_COLOR_PURPLE        al_map_rgb(135, 31, 120)
 #define WTE_COLOR_DARKPURPLE    al_map_rgb(48, 25, 52)
 #define WTE_COLOR_WHITE         al_map_rgb(255,255,255)
-#define WTE_COLOR_TRANSPARENT   al_map_rgba(0, 0, 0, 255)
+#define WTE_COLOR_TRANSPARENT   al_map_rgba(0, 0, 0, 0)
 
 //  Enable magic pink for transparency if WTE_NO_MAGIC_PINK is not defined.
 #ifndef WTE_NO_MAGIC_PINK

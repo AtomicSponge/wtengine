@@ -31,9 +31,11 @@ class team final : public component {
          * \param void
          * \return void
          */
-        inline team(int t) : this_team(t) {};
+        inline team(std::size_t t) : this_team(t) {
+            if(this_team > 3) this_team = 3;
+        };
 
-        int this_team;
+        std::size_t this_team;
 };
 
 } //  namespace cmp

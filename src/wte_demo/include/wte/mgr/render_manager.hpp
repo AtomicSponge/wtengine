@@ -172,21 +172,16 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
         }
 
         /*
-         * Draw hitboxes if enabled
-         * Use different colors for each team
+         * Draw hitboxes if enabled.
+         * Use different colors for each team.
+         * Note:  Re-uses sprite container for rendering.
          */
         if(engine_flags::is_set(DRAW_HITBOX)) {
-            component_container render_components = world.get_components<cmp::render_order>();
-
-            //  Sort the sprite render components
-            std::set<entity_component_pair, comparator> render_componenet_set(
-                render_components.begin(), render_components.end(), render_comparator);
-            for(ec_pair_iterator it = render_componenet_set.begin(); it != render_componenet_set.end(); it++) {
-            //for(ec_pair_iterator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
+            for(ec_pair_iterator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
                 //  Make sure the entity has a hitbox and is enabled
                 if((world.has_component<cmp::hitbox>(it->first))
-                &&
-                (world.get_component<cmp::enabled>(it->first)->is_enabled == true)) {
+                  &&
+                  (world.get_component<cmp::enabled>(it->first)->is_enabled == true)) {
                     //  Select color based on team
                     ALLEGRO_COLOR team_color;
                     switch(world.get_component<cmp::team>(it->first)->this_team) {

@@ -168,7 +168,6 @@ void wte_demo::new_game(void) {
                                                                engine_cfg::get<int>("screen_height") - 40));
     world.add_component(e_id, std::make_shared<cmp::hitbox>(10, 10));
     world.add_component(e_id, std::make_shared<cmp::health>(1));
-    world.add_component(e_id, std::make_shared<cmp::render_order>(1));
     world.add_component(e_id, std::make_shared<cmp::input_handler>());
     world.add_component(e_id, std::make_shared<cmp::visible>());
     world.add_component(e_id, std::make_shared<cmp::enabled>());
@@ -192,7 +191,6 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::location>(0, 0));
     world.add_component(e_id, std::make_shared<cmp::hitbox>(10, 200, false));
     world.add_component(e_id, std::make_shared<cmp::damage>(5));
-    world.add_component(e_id, std::make_shared<cmp::render_order>(2));
     world.add_component(e_id, std::make_shared<cmp::input_handler>());
     world.add_component(e_id, std::make_shared<cmp::visible>(false));
     world.add_component(e_id, std::make_shared<cmp::enabled>(false));
@@ -210,7 +208,6 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::location>(0, 0));
     world.add_component(e_id, std::make_shared<cmp::hitbox>(64, 64, false));
     world.add_component(e_id, std::make_shared<cmp::damage>(100));
-    world.add_component(e_id, std::make_shared<cmp::render_order>(2));
     world.add_component(e_id, std::make_shared<cmp::input_handler>());
     world.add_component(e_id, std::make_shared<cmp::visible>(false));
     world.add_component(e_id, std::make_shared<cmp::enabled>(false));

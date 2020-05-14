@@ -29,7 +29,6 @@
 //  Graphics components
 #include "gfx/background.hpp"
 #include "gfx/overlay.hpp"
-#include "gfx/render_order.hpp"
 #include "gfx/sprite.hpp"
 #include "gfx/texture.hpp"
 

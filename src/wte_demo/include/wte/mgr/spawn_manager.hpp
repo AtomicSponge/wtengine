@@ -52,7 +52,9 @@ class spawn_manager final : public manager<spawn_manager> {
          * \return void
          */
         inline void process(const message_container messages, entity_manager& world) {
-            //
+            for(auto it = messages.begin(); it != messages.end(); it++) {
+                //
+            }
         };
 
         /*!

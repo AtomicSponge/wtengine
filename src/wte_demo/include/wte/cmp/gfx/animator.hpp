@@ -37,21 +37,21 @@ class animator : public component {
         inline ~animator() {};
 
         /*!
-         * animator
-         * \param void
-         * \return void
-         */
-        inline void run(const entity e_id, mgr::entity_manager& world, const int64_t engine_time) {
-            animate(e_id, world, engine_time);
-        };
-
-        /*!
          * Override < operator to sort by layer value.
          * 
          * \param a Object to compare to.
          */
         bool operator<(const animator& a) const {
             return layer < a.layer;
+        };
+
+        /*!
+         * animator
+         * \param void
+         * \return void
+         */
+        inline void run(const entity e_id, mgr::entity_manager& world, const int64_t engine_time) {
+            animate(e_id, world, engine_time);
         };
 
     protected:

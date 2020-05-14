@@ -21,6 +21,7 @@
 #include "menu_manager.hpp"
 #include "message_manager.hpp"
 #include "render_manager.hpp"
+#include "spawn_manager.hpp"
 #include "system_manager.hpp"
 
 #endif

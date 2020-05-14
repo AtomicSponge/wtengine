@@ -170,12 +170,13 @@ class wte_main {
         virtual void handle_custom_sys_msg(message) {};
         /* *** End overridden function members *** */
 
+        mgr::entity_manager world;
+        mgr::input_manager input_th;
+        mgr::menu_manager menus;
         mgr::message_manager messages;
         mgr::render_manager screen;
-        mgr::entity_manager world;
+        mgr::spawn_manager spawner;
         mgr::system_manager systems;
-        mgr::menu_manager menus;
-        mgr::input_manager input_th;
 
         //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined.
         #ifndef WTE_NO_AUDIO
@@ -320,10 +321,15 @@ inline void wte_main::do_game(void) {
         if(event.type == ALLEGRO_EVENT_TIMER && queue_not_empty) {
             //  Set the engine_time object to the current time.
             mgr::engine_time::set_time(al_get_timer_count(main_timer));
+
             //  Run all systems.
             systems.run(world, messages, al_get_timer_count(main_timer));
             //  Process messages.
             systems.dispatch(world, messages);
+
+            //  Get any spawner messages and pass to handler.
+            temp_msgs = messages.get_messages("spawner");
+            if(!temp_msgs.empty()) spawner.process(temp_msgs, world);
         }
         /* *** END GAME LOOP ******************************************************** */
 

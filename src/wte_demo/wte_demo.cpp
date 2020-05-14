@@ -183,23 +183,6 @@ void wte_demo::new_game(void) {
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");
 
     /*
-     * Main cannon entity.
-     */
-    e_id = world.new_entity();
-    world.add_component(e_id, std::make_shared<cmp::name>("main_cannon"));
-    world.add_component(e_id, std::make_shared<cmp::team>(0));
-    world.add_component(e_id, std::make_shared<cmp::location>(0, 0));
-    world.add_component(e_id, std::make_shared<cmp::hitbox>(10, 200, false));
-    world.add_component(e_id, std::make_shared<cmp::damage>(5));
-    world.add_component(e_id, std::make_shared<cmp::input_handler>());
-    world.add_component(e_id, std::make_shared<cmp::visible>(false));
-    world.add_component(e_id, std::make_shared<cmp::enabled>(false));
-    world.add_component(e_id, std::make_shared<cmp::sprite>(10, 200, 0.0, 0.0, 1, 2));
-    world.set_component<cmp::sprite>(e_id)->load_sprite("cannon.bmp", ".bmp");
-    world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
-    world.set_component<cmp::sprite>(e_id)->set_cycle("main");
-
-    /*
      * Shield entity.
      */
     e_id = world.new_entity();
@@ -213,6 +196,23 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::enabled>(false));
     world.add_component(e_id, std::make_shared<cmp::sprite>(64, 64, 0.0, 0.0, 1, 2));
     world.set_component<cmp::sprite>(e_id)->load_sprite("shield.bmp", ".bmp");
+    world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
+    world.set_component<cmp::sprite>(e_id)->set_cycle("main");
+
+    /*
+     * Main cannon entity.
+     */
+    e_id = world.new_entity();
+    world.add_component(e_id, std::make_shared<cmp::name>("main_cannon"));
+    world.add_component(e_id, std::make_shared<cmp::team>(0));
+    world.add_component(e_id, std::make_shared<cmp::location>(0, 0));
+    world.add_component(e_id, std::make_shared<cmp::hitbox>(10, 200, false));
+    world.add_component(e_id, std::make_shared<cmp::damage>(5));
+    world.add_component(e_id, std::make_shared<cmp::input_handler>());
+    world.add_component(e_id, std::make_shared<cmp::visible>(false));
+    world.add_component(e_id, std::make_shared<cmp::enabled>(false));
+    world.add_component(e_id, std::make_shared<cmp::sprite>(10, 200, 0.0, 0.0, 1, 3));
+    world.set_component<cmp::sprite>(e_id)->load_sprite("cannon.bmp", ".bmp");
     world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");
 

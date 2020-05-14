@@ -289,7 +289,7 @@ inline void wte_main::do_game(void) {
 
     //  test code.
     engine_flags::unset(WAIT_FOR_VSYNC);
-    engine_flags::set(DRAW_HITBOX);
+    //engine_flags::set(DRAW_HITBOX);
     engine_flags::set(DRAW_FPS);
     //  end test code.
 

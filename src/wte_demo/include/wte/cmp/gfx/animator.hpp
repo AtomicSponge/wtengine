@@ -34,6 +34,13 @@ class animator : public component {
          * \param void
          * \return void
          */
+        inline ~animator() {};
+
+        /*!
+         * animator
+         * \param void
+         * \return void
+         */
         inline void run(const entity e_id, mgr::entity_manager& world, const int64_t engine_time) {
             animate(e_id, world, engine_time);
         };
@@ -55,13 +62,6 @@ class animator : public component {
          */
         inline animator(std::size_t l, void func(const entity, mgr::entity_manager&, const int64_t)) :
         layer(l), animate(func) {};
-
-        /*!
-         * animator
-         * \param void
-         * \return void
-         */
-        inline ~animator() {};
 
         std::size_t layer;
         std::function<void(const entity, mgr::entity_manager&, const int64_t)> animate;

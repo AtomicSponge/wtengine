@@ -86,7 +86,7 @@ void custom_spawner::new_asteroid(mgr::entity_manager& world, float x, float y, 
             } //  end colision messages
         }
     ));
-    world.add_component(e_id, std::make_shared<cmp::sprite>(10, 200, 0.0, 0.0, 1, 2));
+    world.add_component(e_id, std::make_shared<cmp::sprite>(10, 200, 0.0, 0.0, 10, 0));
     world.set_component<cmp::sprite>(e_id)->load_sprite("ship.bmp", ".bmp");
     world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");

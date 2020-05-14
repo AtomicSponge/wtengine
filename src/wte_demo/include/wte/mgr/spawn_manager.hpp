@@ -37,14 +37,14 @@ class spawn_manager final : public manager<spawn_manager> {
          * \param void
          * \return void
          */
-        inline spawn_manager() {};
+        inline spawn_manager() { spawner.clear(); };
 
         /*!
          * spawn_manager
          * \param void
          * \return void
          */
-        inline ~spawn_manager() {};
+        inline ~spawn_manager() { spawner.clear(); };
 
         /*!
          * spawn_manager

@@ -146,7 +146,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
 
         //  Draw each background by layer
         for(ec_pair_iterator it = background_componenet_set.begin(); it != background_componenet_set.end(); it++) {
-            if(world.get_component<cmp::visible>(it->first)->is_visible == true)
+            if(world.get_component<cmp::visible>(it->first)->is_visible)
                 al_draw_bitmap(world.get_component<cmp::background>(it->first)->background_bitmap, 0, 0, 0);
         }
 
@@ -179,9 +179,8 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
         if(engine_flags::is_set(DRAW_HITBOX)) {
             for(ec_pair_iterator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
                 //  Make sure the entity has a hitbox and is enabled
-                if((world.has_component<cmp::hitbox>(it->first))
-                  &&
-                  (world.get_component<cmp::enabled>(it->first)->is_enabled == true)) {
+                if((world.has_component<cmp::hitbox>(it->first)) &&
+                   (world.get_component<cmp::enabled>(it->first)->is_enabled)) {
                     //  Select color based on team
                     ALLEGRO_COLOR team_color;
                     switch(world.get_component<cmp::team>(it->first)->this_team) {
@@ -213,7 +212,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
 
         //  Draw each overlay by layer
         for(ec_pair_iterator it = overlay_componenet_set.begin(); it != overlay_componenet_set.end(); it++) {
-            if(world.get_component<cmp::visible>(it->first)->is_visible == true)
+            if(world.get_component<cmp::visible>(it->first)->is_visible)
                 al_draw_bitmap(world.get_component<cmp::overlay>(it->first)->overlay_bitmap,
                                world.get_component<cmp::overlay>(it->first)->pos_x,
                                world.get_component<cmp::overlay>(it->first)->pos_y, 0);

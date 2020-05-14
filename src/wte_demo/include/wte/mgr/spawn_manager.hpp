@@ -28,7 +28,7 @@ namespace mgr
 
 //! spawn_manager class
 /*!
- * Store the configured systems and process their runs and dispatches
+ * Spawn stuff
  */
 class spawn_manager final : public manager<spawn_manager> {
     public:
@@ -61,7 +61,7 @@ class spawn_manager final : public manager<spawn_manager> {
          * \return void
          */
         inline void add_spawn(std::string name, void func()) {
-            //
+            spawner.insert(std::make_pair(name, func));
         };
 
     private:

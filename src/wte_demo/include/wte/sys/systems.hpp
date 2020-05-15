@@ -13,7 +13,6 @@
 #define WTE_SYSTEMS_HPP
 
 #include "input.hpp"
-#include "spawner.hpp"
 #include "animate.hpp"
 #include "colision.hpp"
 #include "logic.hpp"

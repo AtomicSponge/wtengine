@@ -9,10 +9,12 @@
  * Allows us to set custom behaviour for our game
  */
 
-#include "include/wte_demo.hpp"
+#define _USE_MATH_DEFINES
 
+#include <cmath>
+
+#include "include/wte_demo.hpp"
 #include "include/custom_input.hpp"
-#include "include/custom_spawner.hpp"
 #include "include/stars.hpp"
 
 using namespace wte;
@@ -72,7 +74,6 @@ void wte_demo::load_menus(void) {
  */
 void wte_demo::load_systems(void) {
     systems.add(std::make_unique<custom_input>());
-    systems.add(std::make_unique<custom_spawner>());
     systems.add(std::make_unique<sys::colision>());
     systems.add(std::make_unique<sys::logic>());
     systems.add(std::make_unique<sys::animate>());
@@ -215,6 +216,68 @@ void wte_demo::new_game(void) {
     world.set_component<cmp::sprite>(e_id)->load_sprite("cannon.bmp", ".bmp");
     world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");
+
+    /*
+     * Add asteroid to spawner
+     */
+    spawner.add_spawn("asteroid", 5,
+        [](entity e_id, mgr::entity_manager& world, msg_arg_list args) {
+            int s = std::stoi(args[5]);
+            if(s < 1) s = 1;
+            if(s > 8) s = 8;
+
+            world.add_component(e_id, std::make_shared<cmp::name>("asteroid" + std::to_string(e_id)));
+            world.add_component(e_id, std::make_shared<cmp::team>(1));
+            world.add_component(e_id, std::make_shared<cmp::location>(std::stof(args[1]), std::stof(args[2])));
+            world.add_component(e_id, std::make_shared<cmp::hitbox>((float)(s * 16), (float)(s * 16)));
+            world.add_component(e_id, std::make_shared<cmp::health>(s * 10));
+            world.add_component(e_id, std::make_shared<cmp::damage>(10));
+            world.add_component(e_id, std::make_shared<cmp::direction>(std::stof(args[3])));
+            world.add_component(e_id, std::make_shared<cmp::velocity>(std::stof(args[4])));
+            world.add_component(e_id, std::make_shared<cmp::visible>());
+            world.add_component(e_id, std::make_shared<cmp::enabled>());
+            world.add_component(e_id, std::make_shared<cmp::ai>(
+                [](entity ast_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+                    //  AI for asteroids defined here.
+                    //  Move them at their speed and angle.
+                    world.set_component<cmp::location>(ast_id)->pos_x +=
+                        world.get_component<cmp::velocity>(ast_id)->speed *
+                        cos(world.get_component<cmp::direction>(ast_id)->angle * (M_PI / 180));
+
+                    world.set_component<cmp::location>(ast_id)->pos_y +=
+                        world.get_component<cmp::velocity>(ast_id)->speed *
+                        sin(world.get_component<cmp::direction>(ast_id)->angle * (M_PI / 180));
+
+                    //  Perform OOB check.
+                    if(world.get_component<cmp::location>(ast_id)->pos_y > engine_cfg::get<int>("screen_height") + 100) {
+                        messages.add_message(message("spawner", "delete",
+                                            world.get_component<cmp::name>(ast_id)->name_str));
+                    }
+
+                    //  Health check.  If asteroid's HP is <= 0, reward player with points and delete the entity.
+                    if(world.get_component<cmp::health>(ast_id)->hp <= 0) {
+                        messages.add_message(message("spawner", "delete", world.get_component<cmp::name>(ast_id)->name_str));
+                        game_cfg_map::add<int>("score", 10);
+                    }
+                }
+            ));
+            world.add_component(e_id, std::make_shared<cmp::dispatcher>(
+                [](entity ast_id, mgr::entity_manager& world, message msg) {
+                    //  Process colision messages
+                    if(msg.get_cmd() == "colision") {
+                        //  Main cannon hit the enemy.
+                        if(msg.get_from() == "main_cannon") world.set_component<cmp::health>(ast_id)->hp -= 1;
+                        //  Shield hit the enemy.
+                        if(msg.get_from() == "shield") world.set_component<cmp::health>(ast_id)->hp -= 10;
+                    } //  end colision messages
+                }
+            ));
+            world.add_component(e_id, std::make_shared<cmp::sprite>(10, 200, 0.0, 0.0, 10, 0));
+            world.set_component<cmp::sprite>(e_id)->load_sprite("ship.bmp", ".bmp");
+            world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
+            world.set_component<cmp::sprite>(e_id)->set_cycle("main");
+        }
+    );
 
     game_cfg::set("score=0");
 }

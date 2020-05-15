@@ -218,7 +218,7 @@ void wte_demo::new_game(void) {
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");
 
     /*
-     * Add asteroid to spawner
+     * Add the asteroid entity to the spawner.
      */
     spawner.add_spawn("asteroid", 5,
         [](entity e_id, mgr::entity_manager& world, msg_arg_list args) {

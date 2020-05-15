@@ -171,8 +171,7 @@ void wte_demo::new_game(void) {
             al_set_target_bitmap(world.get_component<cmp::overlay>(ovr_id)->overlay_bitmap);
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
             world.set_component<cmp::overlay>(ovr_id)->set_text("Shield", WTE_COLOR_WHITE, 200, 0, ALLEGRO_ALIGN_RIGHT);
-            world.set_component<cmp::overlay>(ovr_id)->set_text("Lives:  ", WTE_COLOR_WHITE, 170, 10, ALLEGRO_ALIGN_RIGHT);
-            world.set_component<cmp::overlay>(ovr_id)->set_text(game_cfg::get("lives"), WTE_COLOR_WHITE, 170, 10, ALLEGRO_ALIGN_LEFT);
+            world.set_component<cmp::overlay>(ovr_id)->set_text("Lives:  " + game_cfg::get("lives"), WTE_COLOR_WHITE, 200, 10, ALLEGRO_ALIGN_RIGHT);
         }
     ));
     world.set_component<cmp::overlay>(e_id)->set_font(al_create_builtin_font());

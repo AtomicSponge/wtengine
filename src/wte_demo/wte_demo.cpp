@@ -291,14 +291,14 @@ void wte_demo::end_game(void) {
 }
 
 /*
- * On menu open.
+ * On menu open.  WIP
  */
 void wte_demo::on_menu_open(void) {
     messages.add_message(message("audio", "null", "null"));
 }
 
 /*
- * On menu close.
+ * On menu close.  WIP
  */
 void wte_demo::on_menu_close(void) {
     messages.add_message(message("audio", "null", "null"));

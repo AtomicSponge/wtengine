@@ -80,7 +80,7 @@ void wte_demo::load_systems(void) {
 }
 
 /*
- * Pre-load starting entities.
+ * Pre-load starting entities and load entities into the spawner.
  */
 void wte_demo::new_game(void) {
     entity e_id;

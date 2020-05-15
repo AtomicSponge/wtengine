@@ -66,11 +66,7 @@ class wte_main {
         inline void wte_load(void) {
             //  Start the input & audio threads.
             input_th.start();
-
-            //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined.
-            #ifndef WTE_NO_AUDIO
             audio_th.start();
-            #endif
 
             //  Initialize renderer and menu manager.
             screen.initialize(al_create_builtin_font());
@@ -86,11 +82,7 @@ class wte_main {
         //!  Call to unload the engine.
         inline void wte_unload(void) {
             input_th.stop();
-
-            //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined.
-            #ifndef WTE_NO_AUDIO
             audio_th.stop();
-            #endif
 
             load_called = false;
         };
@@ -170,6 +162,7 @@ class wte_main {
         virtual void handle_custom_sys_msg(message) {};
         /* *** End overridden function members *** */
 
+        mgr::audio_manager audio_th;
         mgr::entity_manager world;
         mgr::input_manager input_th;
         mgr::menu_manager menus;
@@ -177,11 +170,6 @@ class wte_main {
         mgr::render_manager screen;
         mgr::spawn_manager spawner;
         mgr::system_manager systems;
-
-        //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined.
-        #ifndef WTE_NO_AUDIO
-        mgr::audio_manager audio_th;
-        #endif
 
     private:
         //!  Start up a new game.
@@ -234,9 +222,8 @@ inline void wte_main::process_new_game(void) {
     //  Load a new message data file.
     messages.new_data_file("data//game.sdf");  //  Update later to load from settings.
 
-    #ifndef WTE_NO_AUDIO
+    //  WIP
     messages.add_message(message("audio", "null", "test"));
-    #endif
 
     //  Restart the timer at zero.
     al_stop_timer(main_timer);
@@ -257,10 +244,8 @@ inline void wte_main::process_end_game(void) {
     al_set_timer_count(main_timer, 0);
     mgr::engine_time::set_time(al_get_timer_count(main_timer));
 
-    //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined.
-    #ifndef WTE_NO_AUDIO
+    //  WIP
     messages.add_message(message("audio", "null", "test"));
-    #endif
 
     //  Call end game process
     end_game();
@@ -336,12 +321,9 @@ inline void wte_main::do_game(void) {
         //  Render the screen.
         screen.render(menus, world);
 
-        //  Ignore Audio Manager if WTE_NO_AUDIO build flag is defined.
-        #ifndef WTE_NO_AUDIO
         //  Send audio messages to the audio queue.
         temp_msgs = messages.get_messages("audio");
         if(!temp_msgs.empty()) audio_th.transfer_messages(temp_msgs);
-        #endif
 
         //  Get any system messages and pass to handler.
         temp_msgs = messages.get_messages("system");

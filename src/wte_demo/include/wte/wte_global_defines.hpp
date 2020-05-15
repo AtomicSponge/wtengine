@@ -32,11 +32,6 @@
 #define WTE_DEBUG_MODE 0
 #endif
 
-//  Enable audio if WTE_NO_AUDIO is not defined.
-#ifndef WTE_NO_AUDIO
-#define WTE_AUDIO_ENABLED TRUE
-#endif
-
 //  Enable message pruning if WTE_NO_PRUNE is not defined.
 #ifndef WTE_NO_PRUNE
 #define WTE_PRUNE_ENABLED TRUE

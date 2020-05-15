@@ -81,8 +81,7 @@ class spawn_manager final : public manager<spawn_manager> {
          * \param void
          * \return void
          */
-        inline const bool add_spawn(std::string name,
-                                    std::size_t num_args,
+        inline const bool add_spawn(std::string name, std::size_t num_args,
                                     void func(const entity, entity_manager&, const msg_arg_list)) {
             auto ret = spawner.insert(std::make_pair(name, std::make_pair(num_args, func)));
             return ret.second;

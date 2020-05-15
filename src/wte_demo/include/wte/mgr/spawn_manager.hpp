@@ -81,12 +81,12 @@ class spawn_manager final : public manager<spawn_manager> {
          * \param void
          * \return void
          */
-        inline void add_spawn(std::string name, std::size_t num_args, void func(entity, entity_manager&, msg_arg_list)) {
+        inline void add_spawn(std::string name, std::size_t num_args, void func(const entity, entity_manager&, const msg_arg_list)) {
             spawner.insert(std::make_pair(name, std::make_pair(num_args, func)));
         };
 
     private:
-        std::map<std::string, std::pair<std::size_t, std::function<void(entity, entity_manager&, msg_arg_list)>>> spawner;
+        std::map<std::string, std::pair<std::size_t, std::function<void(const entity, entity_manager&, const msg_arg_list)>>> spawner;
 };
 
 template <> inline bool spawn_manager::manager<spawn_manager>::initialized = false;

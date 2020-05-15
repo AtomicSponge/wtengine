@@ -88,7 +88,8 @@ class spawn_manager final : public manager<spawn_manager> {
         };
 
     private:
-        std::map<std::string, std::pair<std::size_t, std::function<void(const entity, entity_manager&, const msg_arg_list)>>> spawner;
+        std::map<std::string, std::pair<std::size_t,
+            std::function<void(const entity, entity_manager&, const msg_arg_list)>>> spawner;
 };
 
 template <> inline bool spawn_manager::manager<spawn_manager>::initialized = false;

@@ -131,6 +131,8 @@ inline void message_manager::new_data_file(const std::string file) {
     std::ifstream data_file;
     int64_t timer;
     std::string sys;
+    std::string to;
+    std::string from;
     std::string cmd;
     std::string args;
 
@@ -144,11 +146,13 @@ inline void message_manager::new_data_file(const std::string file) {
     while(true) {
         data_file.read(reinterpret_cast<char *>(&timer), sizeof(int64_t));
         std::getline(data_file, sys, '\0');
+        std::getline(data_file, to, '\0');
+        std::getline(data_file, from, '\0');
         std::getline(data_file, cmd, '\0');
         std::getline(data_file, args, '\0');
 
         if(data_file.eof()) break;
-        msg_queue.push_back(message(timer, sys, cmd, args));
+        msg_queue.push_back(message(timer, sys, to, from, cmd, args));
     }
     data_file.close();
 

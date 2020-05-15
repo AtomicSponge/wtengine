@@ -57,8 +57,12 @@ with open(infilename, newline='') as csvfile:
         outdata = row[1] + "\x00"
         outfile.write(outdata.encode("utf-8"))          #  Write the system name
         outdata = row[2] + "\x00"
-        outfile.write(outdata.encode("utf-8"))          #  Write the command name
+        outfile.write(outdata.encode("utf-8"))          #  Write the to field
         outdata = row[3] + "\x00"
+        outfile.write(outdata.encode("utf-8"))          #  Write the from field
+        outdata = row[4] + "\x00"
+        outfile.write(outdata.encode("utf-8"))          #  Write the command name
+        outdata = row[5] + "\x00"
         outfile.write(outdata.encode("utf-8"))          #  Write the parameters
 
 print("Wrote file", outfilename)

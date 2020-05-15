@@ -3,7 +3,7 @@
  * By:  Matthew Evans
  * File:  wte_demo.cpp
  *
- * See LICENSE.txt for copyright information
+ * See LICENSE.md for copyright information
  *
  * Remaining members for wte_demo
  * Allows us to set custom behaviour for our game

@@ -141,10 +141,10 @@ void wte_demo::new_game(void) {
     ));
 
     /*
-     * Overlay entity.
+     * Score overlay entity.
      */
     e_id = world.new_entity();
-    world.add_component(e_id, std::make_shared<cmp::name>("overlay"));
+    world.add_component(e_id, std::make_shared<cmp::name>("score_overlay"));
     world.add_component(e_id, std::make_shared<cmp::visible>());
     world.add_component(e_id, std::make_shared<cmp::overlay>(200, 20, 0, engine_cfg::get<int>("screen_height") - 20, 0,
         [](entity ovr_id, mgr::entity_manager& world, int64_t engine_time) {
@@ -155,6 +155,24 @@ void wte_demo::new_game(void) {
             world.set_component<cmp::overlay>(ovr_id)->set_text(game_cfg::get("score"), WTE_COLOR_WHITE, 110, 0, ALLEGRO_ALIGN_LEFT);
             world.set_component<cmp::overlay>(ovr_id)->set_text("High Score:  ", WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_RIGHT);
             world.set_component<cmp::overlay>(ovr_id)->set_text(game_cfg::get("hiscore"), WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_LEFT);
+        }
+    ));
+    world.set_component<cmp::overlay>(e_id)->set_font(al_create_builtin_font());
+
+    /*
+     * Player Info overlay entity.
+     */
+    e_id = world.new_entity();
+    world.add_component(e_id, std::make_shared<cmp::name>("player_info_overlay"));
+    world.add_component(e_id, std::make_shared<cmp::visible>());
+    world.add_component(e_id, std::make_shared<cmp::overlay>(200, 20, engine_cfg::get<int>("screen_width") - 200, engine_cfg::get<int>("screen_height") - 20, 0,
+        [](entity ovr_id, mgr::entity_manager& world, int64_t engine_time) {
+            //  Define what gets displayed on the overlay.
+            al_set_target_bitmap(world.get_component<cmp::overlay>(ovr_id)->overlay_bitmap);
+            al_clear_to_color(WTE_COLOR_TRANSPARENT);
+            world.set_component<cmp::overlay>(ovr_id)->set_text("Shield", WTE_COLOR_WHITE, 200, 0, ALLEGRO_ALIGN_RIGHT);
+            world.set_component<cmp::overlay>(ovr_id)->set_text("Lives:  ", WTE_COLOR_WHITE, 170, 10, ALLEGRO_ALIGN_RIGHT);
+            world.set_component<cmp::overlay>(ovr_id)->set_text(game_cfg::get("lives"), WTE_COLOR_WHITE, 170, 10, ALLEGRO_ALIGN_LEFT);
         }
     ));
     world.set_component<cmp::overlay>(e_id)->set_font(al_create_builtin_font());
@@ -279,6 +297,7 @@ void wte_demo::new_game(void) {
         }
     );
 
+    //  Reset score.
     game_cfg::set("score=0");
 }
 

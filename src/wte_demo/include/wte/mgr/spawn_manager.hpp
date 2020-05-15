@@ -63,7 +63,7 @@ class spawn_manager final : public manager<spawn_manager> {
                 if(it->get_cmd() == "delete") {
                     component_container name_components = world.get_components<cmp::name>();
                 
-                    //  Check all named entities and delete if it exists
+                    //  Check all named entities and delete if it exists.
                     for(component_iterator c_it = name_components.begin(); c_it != name_components.end(); c_it++) {
                         if(it->get_arg(0) == dynamic_cast<cmp::name*>(c_it->second.get())->name_str) {
                             world.delete_entity(c_it->first);

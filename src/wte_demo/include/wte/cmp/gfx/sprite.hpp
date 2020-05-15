@@ -44,21 +44,23 @@ class sprite final : public animator {
         inline sprite(const float sw, const float sh, const float dox, const float doy, const std::size_t rt, const std::size_t l) :
         sprite_width(sw), sprite_height(sh), draw_offset_x(dox - 1.0), draw_offset_y(doy - 1.0),
         sprite_x(0), sprite_y(0), start_frame(0), stop_frame(0), current_frame(0), rate(rt),
-        animator(l, [](entity e_id, mgr::entity_manager& world, int64_t engine_time) {
-            //  Define sprite animation process.
-            if(engine_time % world.get_component<sprite>(e_id)->rate == 0) {
-                world.set_component<sprite>(e_id)->current_frame++;
-                if(world.get_component<sprite>(e_id)->current_frame > world.get_component<sprite>(e_id)->stop_frame) {
-                    world.set_component<sprite>(e_id)->current_frame = world.get_component<sprite>(e_id)->start_frame;
+        animator(l,
+            [](entity e_id, mgr::entity_manager& world, int64_t engine_time) {
+                //  Define sprite animation process.
+                if(engine_time % world.get_component<sprite>(e_id)->rate == 0) {
+                    world.set_component<sprite>(e_id)->current_frame++;
+                    if(world.get_component<sprite>(e_id)->current_frame > world.get_component<sprite>(e_id)->stop_frame) {
+                        world.set_component<sprite>(e_id)->current_frame = world.get_component<sprite>(e_id)->start_frame;
+                    }
+                    world.set_component<sprite>(e_id)->sprite_x = (float)
+                        ((int)(world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width +
+                        world.get_component<sprite>(e_id)->sheet_width) % world.get_component<sprite>(e_id)->sheet_width);
+                    world.set_component<sprite>(e_id)->sprite_y = (float)
+                        ((int)((world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width) /
+                        world.get_component<sprite>(e_id)->sheet_width) * world.get_component<sprite>(e_id)->sprite_height);
                 }
-                world.set_component<sprite>(e_id)->sprite_x = (float)
-                    ((int)(world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width +
-                    world.get_component<sprite>(e_id)->sheet_width) % world.get_component<sprite>(e_id)->sheet_width);
-                world.set_component<sprite>(e_id)->sprite_y = (float)
-                    ((int)((world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width) /
-                    world.get_component<sprite>(e_id)->sheet_width) * world.get_component<sprite>(e_id)->sprite_height);
             }
-        }) {
+        ) {
             sprite_bitmap = NULL;
             if(rate == 0) rate = 1;
         };

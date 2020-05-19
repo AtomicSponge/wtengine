@@ -152,6 +152,7 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
             fps = fps_counter;
             fps_counter = 0;
         }
+        al_set_timer_count(fps_timer, 0);
     }
 
     /*

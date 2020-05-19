@@ -300,7 +300,6 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
     /*
      * Update the screen
      */
-    if(engine_flags::is_set(WAIT_FOR_VSYNC)) al_wait_for_vsync();
     al_flip_display();
 }
 

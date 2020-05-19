@@ -84,8 +84,8 @@ class sprite final : public animator {
             ALLEGRO_FILE* file;
             file = al_fopen(("data/" + fname).c_str(), "rb");
             sprite_bitmap = al_load_bitmap_f(file, NULL);
-            if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
             al_fclose(file);
+            if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
             #ifndef WTE_NO_MAGIC_PINK
             al_convert_mask_to_alpha(sprite_bitmap, WTE_MAGIC_PINK);
             #endif
@@ -103,8 +103,8 @@ class sprite final : public animator {
             ALLEGRO_FILE* file;
             file = al_fopen(("data/" + fname).c_str(), "rb");
             sprite_bitmap = al_load_bitmap_f(file, ftype.c_str());
-            if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
             al_fclose(file);
+            if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
             #ifndef WTE_NO_MAGIC_PINK
             al_convert_mask_to_alpha(sprite_bitmap, WTE_MAGIC_PINK);
             #endif

@@ -52,8 +52,10 @@ typedef std::function<bool(entity_component_pair, entity_component_pair)> compar
  */
 class render_manager final : public manager<render_manager>, private engine_time {
     public:
-        //!  render_manager constructor
-        //!  Generates the render_manager object
+        /*!
+         * render_manager constructor
+         * Generates the render_manager object
+         */
         inline render_manager() : fps_counter(0), fps(0) {
             render_tmp_bmp = NULL;
             overlay_font = NULL;
@@ -68,8 +70,10 @@ class render_manager final : public manager<render_manager>, private engine_time
                 };
         };
 
-        //!  render_manager destructor
-        //!  Cleans up the render_manager object
+        /*!
+         * render_manager destructor
+         * Cleans up the render_manager object
+         */
         inline ~render_manager() {
             al_destroy_bitmap(render_tmp_bmp);
             al_destroy_font(overlay_font);
@@ -78,10 +82,14 @@ class render_manager final : public manager<render_manager>, private engine_time
             al_destroy_timer(fps_timer);
         };
 
-        //!  Initialize the render_manager
-        //!  Pass an Allegro font for the render_manager to use
+        /*!
+         * Initialize the render_manager
+         * Pass an Allegro font for the render_manager to use
+         */
         inline void initialize(ALLEGRO_FONT* font) {
             overlay_font = font;
+
+            set_title_screen("test");
 
             fps_timer = al_create_timer(1);
 
@@ -91,11 +99,26 @@ class render_manager final : public manager<render_manager>, private engine_time
             al_start_timer(fps_timer);
         };
 
-        //!  Render method - Draw the game screen
+        /*!
+         * Set the title screen.
+         */
+        inline bool set_title_screen(std::string fname) {
+            ALLEGRO_FILE* file;
+            file = al_fopen("data/title.bmp", "rb");
+            title_bmp = al_load_bitmap_f(file, NULL);
+            al_fclose(file);
+            if(!title_bmp) return false;
+            return true;
+        };
+
+        /*!
+         * Render method - Draw the game screen
+         */
         void render(menu_manager&, entity_manager&);
 
     private:
         ALLEGRO_BITMAP* render_tmp_bmp;
+        ALLEGRO_BITMAP* title_bmp;
         ALLEGRO_FONT* overlay_font;
 
         ALLEGRO_TIMER* fps_timer;
@@ -221,8 +244,8 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
         /*
          * Game is not running - draw the title screen
          */
-        //if(engine_cfg::is_reg("title_screen")) ...
-        al_clear_to_color(WTE_COLOR_BLACK);
+        if(!title_bmp) al_clear_to_color(WTE_COLOR_BLACK);
+        else al_draw_bitmap(title_bmp, 0, 0, 0);
     }
 
     /*

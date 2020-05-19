@@ -163,7 +163,7 @@ class message {
          * 
          * \param a Object to compare to.
          */
-        bool operator<(const message& a) const {
+        inline const bool operator<(const message& a) const {
             return timer < a.timer;
         };
 

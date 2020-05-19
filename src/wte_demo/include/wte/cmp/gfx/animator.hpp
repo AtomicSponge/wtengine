@@ -41,7 +41,7 @@ class animator : public component {
          * 
          * \param a Object to compare to.
          */
-        bool operator<(const animator& a) const {
+        inline const bool operator<(const animator& a) const {
             return layer < a.layer;
         };
 

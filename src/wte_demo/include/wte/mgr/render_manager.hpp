@@ -199,30 +199,30 @@ inline void render_manager::render(menu_manager& menus, entity_manager& world) {
          * Use different colors for each team.
          * Note:  Re-uses sprite container for rendering.
          */
-        if(engine_flags::is_set(DRAW_HITBOX)) {
-            for(ec_pair_iterator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
-                //  Make sure the entity has a hitbox and is enabled
-                if((world.has_component<cmp::hitbox>(it->first)) &&
-                   (world.get_component<cmp::enabled>(it->first)->is_enabled)) {
-                    //  Select color based on team
-                    ALLEGRO_COLOR team_color;
-                    switch(world.get_component<cmp::team>(it->first)->this_team) {
-                        case 0: team_color = WTE_COLOR_GREEN; break;
-                        case 1: team_color = WTE_COLOR_RED; break;
-                        case 2: team_color = WTE_COLOR_BLUE; break;
-                        default: team_color = WTE_COLOR_YELLOW;
+        #if WTE_DEBUG_MODE == 3 || WTE_DEBUG_MODE == 9
+        for(ec_pair_iterator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
+            //  Make sure the entity has a hitbox and is enabled
+            if((world.has_component<cmp::hitbox>(it->first)) &&
+                (world.get_component<cmp::enabled>(it->first)->is_enabled)) {
+                //  Select color based on team
+                ALLEGRO_COLOR team_color;
+                switch(world.get_component<cmp::team>(it->first)->this_team) {
+                    case 0: team_color = WTE_COLOR_GREEN; break;
+                    case 1: team_color = WTE_COLOR_RED; break;
+                    case 2: team_color = WTE_COLOR_BLUE; break;
+                    default: team_color = WTE_COLOR_YELLOW;
+                }
+                //  Draw the hitbox
+                for(int i = 0; i < world.get_component<cmp::hitbox>(it->first)->width; i++) {
+                    for(int j = 0; j < world.get_component<cmp::hitbox>(it->first)->height; j++) {
+                        al_draw_pixel(world.get_component<cmp::location>(it->first)->pos_x + i,
+                                        world.get_component<cmp::location>(it->first)->pos_y + j,
+                                        team_color);
                     }
-                    //  Draw the hitbox
-                    for(int i = 0; i < world.get_component<cmp::hitbox>(it->first)->width; i++) {
-                        for(int j = 0; j < world.get_component<cmp::hitbox>(it->first)->height; j++) {
-                            al_draw_pixel(world.get_component<cmp::location>(it->first)->pos_x + i,
-                                          world.get_component<cmp::location>(it->first)->pos_y + j,
-                                          team_color);
-                        }
-                    }  //  End hitbox drawing
-                }  //  End hitbox/enabled test
-            }  //  End render component loop
-        }  //  End draw hitbox check
+                }  //  End hitbox drawing
+            }  //  End hitbox/enabled test
+        }  //  End render component loop
+        #endif  //  End draw hitbox check
 
         /*
          * Draw the overlay

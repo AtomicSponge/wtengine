@@ -26,6 +26,7 @@
   0 - off
   1 - Display timer counter
   2 - Message logging
+  3 - Draw hitboxes
   9 - Turn on all logging
 */
 #ifndef WTE_DEBUG_MODE

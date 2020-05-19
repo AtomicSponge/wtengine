@@ -1,21 +1,21 @@
 /*
-  WTEngine Demo
-  By:  Matthew Evans
-  File:  custom_input.cpp
-
-  See LICENSE.txt for copyright information
-
-  Custom input code
-  This overrides the input system to define custom behavior
-*/
+ * WTEngine Demo
+ * By:  Matthew Evans
+ * File:  custom_input.cpp
+ *
+ * See LICENSE.txt for copyright information
+ *
+ * Custom input code
+ * This overrides the input system to define custom behavior
+ */
 
 #include "include/custom_input.hpp"
 
 using namespace wte;
 
 /*
-  Custom input code
-*/
+ * Custom input code
+ */
 void custom_input::custom_run(mgr::entity_manager& world, mgr::message_manager& messages) {
     entity player_entity;
     entity cannon_entity;

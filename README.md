@@ -19,10 +19,10 @@ API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
  - Buildable debug modes
 
 #### TODO:
- - Finish SFX tests
- - Additional audio commands
- - Implement additional menu items
+ - SFX & input debugging
+ - Additional audio commands and menu items
  - Code review / documentation
+ - Configure cmake
 
 #### DEMO:
 

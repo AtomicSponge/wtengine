@@ -86,6 +86,15 @@ class message {
             timer(e), sys(s), to(t), from(f), cmd(c) { split_args(a); };
 
         /*!
+         * Override < operator to sort by timer value.
+         * 
+         * \param a Object to compare to.
+         */
+        inline const bool operator<(const message& a) const {
+            return timer < a.timer;
+        };
+
+        /*!
          * Split arguments into a vector of strings.
          * 
          * \param a String of arguments, delimited by ;
@@ -156,15 +165,6 @@ class message {
         inline const bool is_timed_event(void) const {
             if(timer == -1) return false;
             else return true;
-        };
-
-        /*!
-         * Override < operator to sort by timer value.
-         * 
-         * \param a Object to compare to.
-         */
-        inline const bool operator<(const message& a) const {
-            return timer < a.timer;
         };
 
     private:

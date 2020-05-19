@@ -42,8 +42,10 @@ namespace wte
  */
 class wte_main {
     public:
-        //!  Frees up instance, set initialized flag to false.
-        //!  Also makes sure to unload the engine.
+        /*!
+         * Frees up instance, set initialized flag to false.
+         * Also makes sure to unload the engine.
+         */
         inline ~wte_main() {
             if(load_called == true) wte_unload();
 
@@ -62,7 +64,9 @@ class wte_main {
         //!  Remove assignment operator.
         void operator=(wte_main const&) = delete;
 
-        //!  Call first to load the engine.
+        /*!
+         * Call first to load the engine.
+         */
         inline void wte_load(void) {
             //  Start the input & audio threads.
             input_th.start();
@@ -79,7 +83,9 @@ class wte_main {
             load_called = true;
         };
 
-        //!  Call to unload the engine.
+        /*!
+         * Call to unload the engine.
+         */
         inline void wte_unload(void) {
             input_th.stop();
             audio_th.stop();
@@ -91,8 +97,10 @@ class wte_main {
         void do_game(void);
 
     protected:
-        //!  Force single instance, set initialized flag to true.
-        //!  Throws a runtime error if another instance is called.
+        /*!
+         * Force single instance, set initialized flag to true.
+         * Throws a runtime error if another instance is called.
+         */
         inline wte_main(int argc, char **argv, std::string title) : window_title(title), load_called(false) {
             if(initialized == true) throw std::runtime_error("WTEngine already running!");
             initialized = true;
@@ -139,6 +147,7 @@ class wte_main {
             map_cmd_str_values["disable_system"] = CMD_STR_DISABLE_SYSTEM;
             map_cmd_str_values["set_engcfg"] = CMD_STR_SET_ENGCFG;
             map_cmd_str_values["set_gamecfg"] = CMD_STR_SET_GAMECFG;
+            map_cmd_str_values["set_fps"] = CMD_STR_SET_FPS;
 
             //  Set default colors for alerts.
             alert::set_font_color(WTE_COLOR_WHITE);
@@ -162,6 +171,8 @@ class wte_main {
         virtual void handle_custom_sys_msg(message) {};
         /* *** End overridden function members *** */
 
+        
+        //  Managers used by the engine declared here.
         mgr::audio_manager audio_th;
         mgr::entity_manager world;
         mgr::input_manager input_th;
@@ -187,7 +198,8 @@ class wte_main {
             CMD_STR_NEW_GAME,       CMD_STR_END_GAME,
             CMD_STR_OPEN_MENU,      CMD_STR_CLOSE_MENU,
             CMD_STR_ENABLE_SYSTEM,  CMD_STR_DISABLE_SYSTEM,
-            CMD_STR_SET_ENGCFG,     CMD_STR_SET_GAMECFG
+            CMD_STR_SET_ENGCFG,     CMD_STR_SET_GAMECFG,
+            CMD_STR_SET_FPS
         };
         std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
 
@@ -427,13 +439,20 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
                 it = sys_msgs.erase(it);
                 break;
 
+            //  cmd:  set_fps - Enable/disable on-screen fps counter.
+            case CMD_STR_SET_FPS:
+                if(it->get_arg(0) == "on") engine_flags::set(DRAW_FPS);
+                if(it->get_arg(0) == "off") engine_flags::unset(DRAW_FPS);
+                it = sys_msgs.erase(it);
+                break;
+
             //  cmd:  new_cmd - description
             //case CMD_STR_X:
                 //
                 //it = sys_msgs.erase(it);
                 //break;
 
-            //  Command not defined, iterate to next
+            //  Command not defined, iterate to next.
             default:
                 it++;
         }

@@ -60,7 +60,7 @@ void custom_input::custom_run(mgr::entity_manager& world, mgr::message_manager& 
         world.set_component<cmp::enabled>(cannon_entity)->is_enabled = false;
     }
 
-    if(input_flags::is_set(INPUT_ACTION_2)) {
+    if(input_flags::is_set(INPUT_ACTION_2) && game_cfg::get<int>("shield") > 0) {
         //  Set the shield's location to match the player
         world.set_component<cmp::location>(shield_entity)->pos_x =
             world.get_component<cmp::location>(player_entity)->pos_x - 28;
@@ -70,8 +70,13 @@ void custom_input::custom_run(mgr::entity_manager& world, mgr::message_manager& 
         world.set_component<cmp::visible>(shield_entity)->is_visible = true;
         world.set_component<cmp::enabled>(shield_entity)->is_enabled = true;
         world.set_component<cmp::hitbox>(player_entity)->solid = false;
+        game_cfg_map::subtract<int>("shield", 1);
+    } else {
+        if(game_cfg::get<int>("shield") < game_cfg::get<int>("max_shield"))
+            game_cfg_map::add<int>("shield", 1);
     }
-    if(!input_flags::is_set(INPUT_ACTION_2) && world.get_component<cmp::enabled>(shield_entity)->is_enabled) {
+    if((!input_flags::is_set(INPUT_ACTION_2) && world.get_component<cmp::enabled>(shield_entity)->is_enabled)
+        || game_cfg::get<int>("shield") == 0) {
         world.set_component<cmp::visible>(shield_entity)->is_visible = false;
         world.set_component<cmp::enabled>(shield_entity)->is_enabled = false;
         world.set_component<cmp::hitbox>(player_entity)->solid = true;

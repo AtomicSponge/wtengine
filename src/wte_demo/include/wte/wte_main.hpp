@@ -286,7 +286,6 @@ inline void wte_main::do_game(void) {
     engine_flags::set(GAME_MENU_OPENED);
 
     //  test code.
-    //engine_flags::set(DRAW_HITBOX);
     engine_flags::set(DRAW_FPS);
     //  end test code.
 

@@ -63,13 +63,9 @@ void custom_input::custom_run(mgr::entity_manager& world, mgr::message_manager& 
     if(input_flags::is_set(INPUT_ACTION_2)) {
         //  Set the shield's location to match the player
         world.set_component<cmp::location>(shield_entity)->pos_x =
-            world.get_component<cmp::location>(player_entity)->pos_x -
-            (world.get_component<cmp::hitbox>(shield_entity)->width / 2) +
-            (world.get_component<cmp::hitbox>(player_entity)->width / 2);
+            world.get_component<cmp::location>(player_entity)->pos_x - 28;
         world.set_component<cmp::location>(shield_entity)->pos_y =
-            world.get_component<cmp::location>(player_entity)->pos_y -
-            (world.get_component<cmp::hitbox>(shield_entity)->height / 2) +
-            (world.get_component<cmp::hitbox>(player_entity)->height / 2);
+            world.get_component<cmp::location>(player_entity)->pos_y - 16;
 
         world.set_component<cmp::visible>(shield_entity)->is_visible = true;
         world.set_component<cmp::enabled>(shield_entity)->is_enabled = true;

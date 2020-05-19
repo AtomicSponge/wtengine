@@ -25,7 +25,11 @@ using namespace wte;
 wte_demo::wte_demo(int argc, char **argv) : wte_main(argc, argv, "WTE Demo") {
     game_cfg::reg("score=0");
     game_cfg::reg("hiscore=0");
+    game_cfg::reg("max_lives=3");
     game_cfg::reg("lives=3");
+    game_cfg::reg("max_shield=100");
+    game_cfg::reg("shield=50");
+
     game_cfg_map::load();
 }
 
@@ -34,6 +38,7 @@ wte_demo::wte_demo(int argc, char **argv) : wte_main(argc, argv, "WTE Demo") {
  */
 wte_demo::~wte_demo() {
     game_cfg_map::clear_save();
+    game_cfg_map::save("max_lives");
     game_cfg_map::save("hiscore");
 }
 
@@ -80,7 +85,8 @@ void wte_demo::load_systems(void) {
 }
 
 /*
- * Pre-load starting entities and load entities into the spawner.
+ * New game process.
+ * Create starting entities and load entities into the spawner.
  */
 void wte_demo::new_game(void) {
     entity e_id;
@@ -298,6 +304,11 @@ void wte_demo::new_game(void) {
 
     //  Reset score.
     game_cfg::set("score=0");
+
+    //  Set number of lives.
+    if(game_cfg::get<int>("max_lives") > 5 || game_cfg::get<int>("max_lives") < 3)
+        game_cfg::set("max_lives=3");
+    game_cfg::set("lives", game_cfg::get("max_lives"));
 }
 
 /*

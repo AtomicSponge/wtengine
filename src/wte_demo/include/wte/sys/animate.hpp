@@ -32,7 +32,9 @@ class animate final : public system {
         /*!
          * Animate system run
          */
-        inline void run(mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
+        inline void run(mgr::entity_manager& world,
+                        mgr::message_manager& messages,
+                        const int64_t current_time) {
             component_container animation_components;
 
             animation_components = world.get_components<cmp::animator>();

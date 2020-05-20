@@ -276,7 +276,6 @@ inline void wte_main::process_end_game(void) {
 inline void wte_main::do_game(void) {
     if(load_called == false) wte_load();  //  Auto call load.
 
-    bool queue_not_empty = false;
     message_container temp_msgs;
 
     messages.clear_queue();
@@ -311,14 +310,15 @@ inline void wte_main::do_game(void) {
 
         /* *** GAME LOOP ************************************************************ */
         //  Capture event from queue.
-        queue_not_empty = al_get_next_event(main_queue, &event);
+        const bool queue_not_empty = al_get_next_event(main_queue, &event);
         //  Call our game logic update on timer events.  Timer is only running when the game is running.
         if(event.type == ALLEGRO_EVENT_TIMER && queue_not_empty) {
+            const int64_t the_time = al_get_timer_count(main_timer);
             //  Set the engine_time object to the current time.
-            mgr::engine_time::set_time(al_get_timer_count(main_timer));
+            mgr::engine_time::set_time(the_time);
 
             //  Run all systems.
-            systems.run(world, messages, al_get_timer_count(main_timer));
+            systems.run(world, messages, the_time);
             //  Process messages.
             systems.dispatch(world, messages);
 

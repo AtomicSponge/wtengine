@@ -32,24 +32,24 @@ class input : public system {
         inline void disable(void) { enabled = false; };
 
         //! Input system run method
-        inline void run(mgr::entity_manager&, mgr::message_manager&, int64_t);
+        /*!
+         * Get all entities tagged with the input_handler component and store for processing
+         */
+        inline void run(mgr::entity_manager& world,
+                        mgr::message_manager& messages,
+                        const int64_t current_time) {
+            //  Find the entities with the input handler component
+            input_components = world.get_components<cmp::input_handler>();
+
+            //  Run custom input handler
+            custom_run(world, messages);
+        }
 
     protected:
         component_container input_components;
         //!  Override this to implement input handling
         virtual void custom_run(mgr::entity_manager&, mgr::message_manager&) {};
 };
-
-/*!
-  Get all entities tagged with the input_handler component and store for processing
-*/
-inline void input::run(mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
-    //  Find the entities with the input handler component
-    input_components = world.get_components<cmp::input_handler>();
-
-    //  Run custom input handler
-    custom_run(world, messages);
-}
 
 } //  namespace sys
 

@@ -40,7 +40,9 @@ class logic final : public system {
         /*!
          * Finds all entities with an ai component and processes their logic
          */
-        inline void run(mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
+        inline void run(mgr::entity_manager& world,
+                        mgr::message_manager& messages,
+                        const int64_t current_time) {
             //  Find the entities with the input handler component
             component_container ai_components = world.get_components<cmp::ai>();
 

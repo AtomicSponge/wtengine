@@ -43,8 +43,8 @@ namespace mgr
 typedef std::pair<entity, cmp::component_sptr> entity_component_pair;
 //!  Iterator for the entity/component pair
 typedef std::set<entity_component_pair>::const_iterator ec_pair_iterator;
-//!  Comparator for sorting entity/component pairs
-typedef std::function<const bool(entity_component_pair, entity_component_pair)> comparator;
+//!  render_comparator for sorting entity/component pairs
+typedef std::function<const bool(entity_component_pair, entity_component_pair)> render_comparator;
 
 //! render_manager class
 /*!
@@ -63,8 +63,8 @@ class render_manager final : public manager<render_manager>, private engine_time
             fps_timer = NULL;
             fps_event_queue = NULL;
 
-            //  Define comparator as lambda function that sorts components
-            render_comparator =
+            //  Define render_comparator as lambda function that sorts components
+            comparator =
                 [](const entity_component_pair r_element1, const entity_component_pair r_element2) {
                     return r_element1.second < r_element2.second;
                 };
@@ -125,7 +125,7 @@ class render_manager final : public manager<render_manager>, private engine_time
         ALLEGRO_EVENT_QUEUE* fps_event_queue;
         ALLEGRO_EVENT fps_event;
 
-        comparator render_comparator;
+        render_comparator comparator;
 
         std::size_t fps_counter, fps;
 };
@@ -163,8 +163,8 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         const component_container background_components = world.get_components<cmp::background>();
 
         //  Sort the background layers
-        std::set<entity_component_pair, comparator> background_componenet_set(
-            background_components.begin(), background_components.end(), render_comparator);
+        std::set<entity_component_pair, render_comparator> background_componenet_set(
+            background_components.begin(), background_components.end(), comparator);
 
         //  Draw each background by layer
         for(ec_pair_iterator it = background_componenet_set.begin(); it != background_componenet_set.end(); it++) {
@@ -178,8 +178,8 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         const component_container sprite_components = world.get_components<cmp::sprite>();
 
         //  Sort the sprite render components
-        std::set<entity_component_pair, comparator> sprite_componenet_set(
-            sprite_components.begin(), sprite_components.end(), render_comparator);
+        std::set<entity_component_pair, render_comparator> sprite_componenet_set(
+            sprite_components.begin(), sprite_components.end(), comparator);
 
         //  Draw each sprite in order
         for(ec_pair_iterator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
@@ -229,8 +229,8 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         const component_container overlay_components = world.get_components<cmp::overlay>();
 
         //  Sort the overlay layers
-        std::set<entity_component_pair, comparator> overlay_componenet_set(
-            overlay_components.begin(), overlay_components.end(), render_comparator);
+        std::set<entity_component_pair, render_comparator> overlay_componenet_set(
+            overlay_components.begin(), overlay_components.end(), comparator);
 
         //  Draw each overlay by layer
         for(ec_pair_iterator it = overlay_componenet_set.begin(); it != overlay_componenet_set.end(); it++) {

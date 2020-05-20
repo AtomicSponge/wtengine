@@ -101,7 +101,7 @@ class wte_main {
          * Force single instance, set initialized flag to true.
          * Throws a runtime error if another instance is called.
          */
-        inline wte_main(int argc, char **argv, std::string title) : window_title(title), load_called(false) {
+        inline wte_main(const int argc, char **argv, const std::string title) : window_title(title), load_called(false) {
             if(initialized == true) throw std::runtime_error("WTEngine already running!");
             initialized = true;
 
@@ -171,7 +171,6 @@ class wte_main {
         virtual void handle_custom_sys_msg(message) {};
         /* *** End overridden function members *** */
 
-        
         //  Managers used by the engine declared here.
         mgr::audio_manager audio_th;
         mgr::entity_manager world;

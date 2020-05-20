@@ -65,7 +65,7 @@ class render_manager final : public manager<render_manager>, private engine_time
 
             //  Define comparator as lambda function that sorts components
             render_comparator =
-                [](entity_component_pair r_element1, entity_component_pair r_element2) {
+                [](const entity_component_pair r_element1, const entity_component_pair r_element2) {
                     return r_element1.second < r_element2.second;
                 };
         };
@@ -102,7 +102,7 @@ class render_manager final : public manager<render_manager>, private engine_time
         /*!
          * Set the title screen.
          */
-        inline bool set_title_screen(std::string fname) {
+        inline bool set_title_screen(const std::string fname) {
             ALLEGRO_FILE* file;
             file = al_fopen("data/title.bmp", "rb");
             title_bmp = al_load_bitmap_f(file, NULL);
@@ -136,8 +136,6 @@ template <> inline bool render_manager::manager<render_manager>::initialized = f
  * Gets passed the entity manager and timer then draws everything to screen
  */
 inline void render_manager::render(const menu_manager& menus, const entity_manager& world) {
-    bool queue_not_empty = false;
-
     //  Make sure we're always drawing to the screen
     al_set_target_backbuffer(al_get_current_display());
 
@@ -147,7 +145,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
     if(engine_flags::is_set(DRAW_FPS)) {
         fps_counter++;
         //  Update fps on unique ticks only
-        queue_not_empty = al_get_next_event(fps_event_queue, &fps_event);
+        const bool queue_not_empty = al_get_next_event(fps_event_queue, &fps_event);
         if(fps_event.type == ALLEGRO_EVENT_TIMER && queue_not_empty) {
             fps = fps_counter;
             fps_counter = 0;
@@ -162,7 +160,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         /*
          * Draw the background
          */
-        component_container background_components = world.get_components<cmp::background>();
+        const component_container background_components = world.get_components<cmp::background>();
 
         //  Sort the background layers
         std::set<entity_component_pair, comparator> background_componenet_set(
@@ -177,7 +175,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         /*
          * Draw the sprites
          */
-        component_container sprite_components = world.get_components<cmp::sprite>();
+        const component_container sprite_components = world.get_components<cmp::sprite>();
 
         //  Sort the sprite render components
         std::set<entity_component_pair, comparator> sprite_componenet_set(
@@ -228,7 +226,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         /*
          * Draw the overlay
          */
-        component_container overlay_components = world.get_components<cmp::overlay>();
+        const component_container overlay_components = world.get_components<cmp::overlay>();
 
         //  Sort the overlay layers
         std::set<entity_component_pair, comparator> overlay_componenet_set(

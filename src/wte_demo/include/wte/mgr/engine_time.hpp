@@ -37,7 +37,7 @@ class engine_time {
 
     private:
         //  Track game timer
-        static std::atomic<int64_t> current_time;
+        inline static std::atomic<int64_t> current_time = 0;
 
     protected:
         inline engine_time() {};
@@ -46,8 +46,6 @@ class engine_time {
         //!  Classes that extend this object can call this member to check the game timer.
         inline const int64_t check_time(void) const { return current_time; };
 };
-
-inline std::atomic<int64_t> engine_time::current_time = 0;
 
 }  // end namespace mgr
 

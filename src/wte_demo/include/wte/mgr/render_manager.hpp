@@ -114,7 +114,7 @@ class render_manager final : public manager<render_manager>, private engine_time
         /*!
          * Render method - Draw the game screen
          */
-        void render(menu_manager&, entity_manager&);
+        void render(const menu_manager&, const entity_manager&);
 
     private:
         ALLEGRO_BITMAP* render_tmp_bmp;
@@ -127,7 +127,7 @@ class render_manager final : public manager<render_manager>, private engine_time
 
         comparator render_comparator;
 
-        int fps_counter, fps;
+        std::size_t fps_counter, fps;
 };
 
 template <> inline bool render_manager::manager<render_manager>::initialized = false;
@@ -135,7 +135,7 @@ template <> inline bool render_manager::manager<render_manager>::initialized = f
 /*!
  * Gets passed the entity manager and timer then draws everything to screen
  */
-inline void render_manager::render(menu_manager& menus, entity_manager& world) {
+inline void render_manager::render(const menu_manager& menus, const entity_manager& world) {
     bool queue_not_empty = false;
 
     //  Make sure we're always drawing to the screen

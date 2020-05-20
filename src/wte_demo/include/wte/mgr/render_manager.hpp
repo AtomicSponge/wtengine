@@ -44,7 +44,7 @@ typedef std::pair<entity, cmp::component_sptr> entity_component_pair;
 //!  Iterator for the entity/component pair
 typedef std::set<entity_component_pair>::const_iterator ec_pair_iterator;
 //!  Comparator for sorting entity/component pairs
-typedef std::function<bool(entity_component_pair, entity_component_pair)> comparator;
+typedef std::function<const bool(entity_component_pair, entity_component_pair)> comparator;
 
 //! render_manager class
 /*!

@@ -155,7 +155,7 @@ class wte_main {
             map_cmd_str_values["disable_system"] = CMD_STR_DISABLE_SYSTEM;
             map_cmd_str_values["set_engcfg"] = CMD_STR_SET_ENGCFG;
             map_cmd_str_values["set_gamecfg"] = CMD_STR_SET_GAMECFG;
-            map_cmd_str_values["set_fps"] = CMD_STR_SET_FPS;
+            map_cmd_str_values["fps_counter"] = CMD_STR_FPS_COUNTER;
 
             //  Set default colors for alerts.
             alert::set_font_color(WTE_COLOR_WHITE);
@@ -206,7 +206,7 @@ class wte_main {
             CMD_STR_OPEN_MENU,      CMD_STR_CLOSE_MENU,
             CMD_STR_ENABLE_SYSTEM,  CMD_STR_DISABLE_SYSTEM,
             CMD_STR_SET_ENGCFG,     CMD_STR_SET_GAMECFG,
-            CMD_STR_SET_FPS
+            CMD_STR_FPS_COUNTER
         };
         std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
 
@@ -445,8 +445,8 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  set_fps - Enable/disable on-screen fps counter.
-            case CMD_STR_SET_FPS:
+            //  cmd:  fps_counter - Enable/disable on-screen fps counter.
+            case CMD_STR_FPS_COUNTER:
                 if(it->get_arg(0) == "on") engine_flags::set(DRAW_FPS);
                 if(it->get_arg(0) == "off") engine_flags::unset(DRAW_FPS);
                 it = sys_msgs.erase(it);

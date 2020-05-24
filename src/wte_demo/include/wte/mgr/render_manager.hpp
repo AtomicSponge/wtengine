@@ -42,7 +42,7 @@ namespace mgr
 //!  Define a container for an entity and component pair
 typedef std::pair<entity, cmp::component_sptr> entity_component_pair;
 //!  Iterator for the entity/component pair
-typedef std::set<entity_component_pair>::const_iterator ec_pair_iterator;
+typedef std::set<entity_component_pair>::const_iterator ec_pair_citerator;
 //!  render_comparator for sorting entity/component pairs
 typedef std::function<const bool(entity_component_pair, entity_component_pair)> render_comparator;
 
@@ -104,7 +104,7 @@ class render_manager final : public manager<render_manager>, private engine_time
          */
         inline bool set_title_screen(const std::string fname) {
             ALLEGRO_FILE* file;
-            file = al_fopen("data/title.bmp", "rb");
+            file = al_fopen("title.bmp", "rb");
             title_bmp = al_load_bitmap_f(file, NULL);
             al_fclose(file);
             if(!title_bmp) return false;
@@ -167,7 +167,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
             background_components.begin(), background_components.end(), comparator);
 
         //  Draw each background by layer
-        for(ec_pair_iterator it = background_componenet_set.begin(); it != background_componenet_set.end(); it++) {
+        for(ec_pair_citerator it = background_componenet_set.begin(); it != background_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible)
                 al_draw_bitmap(world.get_component<cmp::background>(it->first)->background_bitmap, 0, 0, 0);
         }
@@ -182,7 +182,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
             sprite_components.begin(), sprite_components.end(), comparator);
 
         //  Draw each sprite in order
-        for(ec_pair_iterator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
+        for(ec_pair_citerator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible) {
                 al_draw_bitmap_region(world.get_component<cmp::sprite>(it->first)->sprite_bitmap,
                     world.get_component<cmp::sprite>(it->first)->sprite_x, world.get_component<cmp::sprite>(it->first)->sprite_y,
@@ -199,7 +199,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
          * Note:  Re-uses sprite container for rendering.
          */
         #if WTE_DEBUG_MODE == 3 || WTE_DEBUG_MODE == 9
-        for(ec_pair_iterator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
+        for(ec_pair_citerator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
             //  Make sure the entity has a hitbox and is enabled
             if((world.has_component<cmp::hitbox>(it->first)) &&
                 (world.get_component<cmp::enabled>(it->first)->is_enabled)) {
@@ -233,7 +233,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
             overlay_components.begin(), overlay_components.end(), comparator);
 
         //  Draw each overlay by layer
-        for(ec_pair_iterator it = overlay_componenet_set.begin(); it != overlay_componenet_set.end(); it++) {
+        for(ec_pair_citerator it = overlay_componenet_set.begin(); it != overlay_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible)
                 al_draw_bitmap(world.get_component<cmp::overlay>(it->first)->overlay_bitmap,
                                world.get_component<cmp::overlay>(it->first)->pos_x,

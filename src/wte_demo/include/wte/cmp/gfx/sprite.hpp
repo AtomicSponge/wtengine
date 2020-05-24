@@ -82,7 +82,7 @@ class sprite final : public animator {
          */
         inline void load_sprite(const std::string fname) {
             ALLEGRO_FILE* file;
-            file = al_fopen(("data/" + fname).c_str(), "rb");
+            file = al_fopen(fname.c_str(), "rb");
             sprite_bitmap = al_load_bitmap_f(file, NULL);
             al_fclose(file);
             if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
@@ -101,7 +101,7 @@ class sprite final : public animator {
          */
         inline void load_sprite(const std::string fname, const std::string ftype) {
             ALLEGRO_FILE* file;
-            file = al_fopen(("data/" + fname).c_str(), "rb");
+            file = al_fopen(fname.c_str(), "rb");
             sprite_bitmap = al_load_bitmap_f(file, ftype.c_str());
             al_fclose(file);
             if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);

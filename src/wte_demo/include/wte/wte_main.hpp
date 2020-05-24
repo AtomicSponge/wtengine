@@ -96,6 +96,8 @@ class wte_main {
         //!  Call to start up the main game loop.
         void do_game(void);
 
+        inline static std::vector<std::string> file_locations = {};
+
     protected:
         /*!
          * Force single instance, set initialized flag to true.
@@ -116,8 +118,9 @@ class wte_main {
 
             //  Configure physfs.
             if(!PHYSFS_init(argv[0])) throw std::runtime_error("Failed to load PhysFS!");
-            PHYSFS_mount("data", NULL, 1);
-            PHYSFS_mount("data.zip", NULL, 1);
+            if(file_locations.empty()) throw std::runtime_error("Need to configure locations for PhysFS!");
+            for(auto it = file_locations.begin(); it != file_locations.end(); it++)
+                PHYSFS_mount((*it).c_str(), NULL, 1);
             al_set_physfs_file_interface();
 
             //  Configure display.

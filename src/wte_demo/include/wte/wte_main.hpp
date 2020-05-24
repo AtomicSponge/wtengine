@@ -49,7 +49,7 @@ class wte_main {
         inline ~wte_main() {
             if(load_called == true) wte_unload();
 
-            //PHYSFS_deinit();
+            PHYSFS_deinit();
 
             al_destroy_timer(main_timer);
             al_destroy_event_queue(main_queue);

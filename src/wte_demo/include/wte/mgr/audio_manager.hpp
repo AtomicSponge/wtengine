@@ -148,6 +148,7 @@ template <> inline bool audio_manager::manager<audio_manager>::initialized = fal
  * control via messages.
  */
 inline void audio_manager::run(void) {
+    //  Initialize pointers.
     ALLEGRO_VOICE* voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
     ALLEGRO_MIXER* mixer_main = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
     ALLEGRO_MIXER* mixer_1 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
@@ -170,6 +171,8 @@ inline void audio_manager::run(void) {
     std::size_t pos = 0;
     float pan = 0.0;
 
+    //  Set PhysFS interface for the thread.
+    //  PhysFS is initialized in the wte_main constructor.
     al_set_physfs_file_interface();
 
     //  Set up the mixers.
@@ -237,7 +240,7 @@ inline void audio_manager::run(void) {
                     pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     //  Load sample from file
-                    AL_SAMPLES[pos].sample = al_load_sample(("data/" + audio_messages.front().get_arg(1)).c_str());
+                    AL_SAMPLES[pos].sample = al_load_sample(audio_messages.front().get_arg(1).c_str());
                     if(!AL_SAMPLES[pos].sample) break;  //  Failed to load sample, end.
                     //  Set the instance to the loaded sample.
                     al_set_sample(AL_SAMPLE_INSTANCES[pos].instance, AL_SAMPLES[pos].sample);
@@ -299,7 +302,7 @@ inline void audio_manager::run(void) {
                 //  cmd:  play_voice - arg:  file.name - Load a file and play in a stream.
                 case CMD_STR_PLAY_VOICE:
                     //  Load stream and play.
-                    voice_stream = al_load_audio_stream(("data/" + audio_messages.front().get_arg(0)).c_str(), 4, 2048);
+                    voice_stream = al_load_audio_stream(audio_messages.front().get_arg(0).c_str(), 4, 2048);
                     if(!voice_stream) break;  //  Didn't load audio, end.
                     al_set_audio_stream_playmode(voice_stream, ALLEGRO_PLAYMODE_ONCE);
                     al_attach_audio_stream_to_mixer(voice_stream, mixer_3);
@@ -334,7 +337,7 @@ inline void audio_manager::run(void) {
                 //  cmd:  play_ambiance - arg:  file.name - Load a file and play in a stream.
                 case CMD_STR_PLAY_AMBIANCE:
                     //  Load stream and play.
-                    ambiance_stream = al_load_audio_stream(("data/" + audio_messages.front().get_arg(0)).c_str(), 4, 2048);
+                    ambiance_stream = al_load_audio_stream(audio_messages.front().get_arg(0).c_str(), 4, 2048);
                     if(!ambiance_stream) break;  //  Didn't load audio, end.
                     al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
                     al_attach_audio_stream_to_mixer(ambiance_stream, mixer_4);
@@ -381,7 +384,7 @@ inline void audio_manager::run(void) {
         }  //  End if(!audio_messages.empty())
     }  //  End while(is_running() == true)
 
-    //  Cleanup local objects.
+    //  Cleanup local data.
     for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) al_destroy_sample(AL_SAMPLES[pos].sample);
     for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) al_destroy_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
 

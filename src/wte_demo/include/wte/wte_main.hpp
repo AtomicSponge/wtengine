@@ -20,6 +20,7 @@
 
 #include <ctime>
 #include <string>
+#include <vector>
 #include <map>
 #include <stdexcept>
 

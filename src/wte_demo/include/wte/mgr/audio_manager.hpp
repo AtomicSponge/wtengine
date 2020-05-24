@@ -26,10 +26,10 @@
 #include <deque>
 #include <stdexcept>
 
+#include <allegro5/allegro.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_physfs.h>
-//#include <physfs.h>
 
 #include "manager.hpp"
 #include "make_thread.hpp"
@@ -207,7 +207,7 @@ inline void audio_manager::run(void) {
                 //  cmd:  play_music - arg:  file.name - Load a file and play in a stream.
                 case CMD_STR_PLAY_MUSIC:
                     //  Load stream and play.
-                    music_stream = al_load_audio_stream(("data/" + audio_messages.front().get_arg(0)).c_str(), 4, 2048);
+                    music_stream = al_load_audio_stream(audio_messages.front().get_arg(0).c_str(), 4, 2048);
                     if(!music_stream) break;  //  Didn't load audio, end.
                     al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_LOOP);
                     al_attach_audio_stream_to_mixer(music_stream, mixer_1);

@@ -28,6 +28,8 @@
 
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
+#include <allegro5/allegro_physfs.h>
+//#include <physfs.h>
 
 #include "manager.hpp"
 #include "make_thread.hpp"
@@ -167,6 +169,8 @@ inline void audio_manager::run(void) {
 
     std::size_t pos = 0;
     float pan = 0.0;
+
+    al_set_physfs_file_interface();
 
     //  Set up the mixers.
     al_attach_mixer_to_voice(mixer_main, voice);

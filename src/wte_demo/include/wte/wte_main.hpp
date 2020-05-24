@@ -114,11 +114,13 @@ class wte_main {
             if(!al_init_font_addon()) throw std::runtime_error("Failed to load Allegro font addon!");
             al_install_joystick();
 
+            //  Configure physfs.
             if(!PHYSFS_init(argv[0])) throw std::runtime_error("Failed to load PhysFS!");
             PHYSFS_mount("data", NULL, 1);
             PHYSFS_mount("data.zip", NULL, 1);
             al_set_physfs_file_interface();
 
+            //  Configure display.
             if(!engine_cfg::is_reg("screen_width")) throw std::runtime_error("Screen width not set!");
             if(!engine_cfg::is_reg("screen_height")) throw std::runtime_error("Screen height not set!");
             display = al_create_display(engine_cfg::get<int>("screen_width"),
@@ -126,9 +128,11 @@ class wte_main {
             if(!display) throw std::runtime_error("Failed to configure display!");
             al_set_window_title(display, window_title.c_str());
 
+            //  Configure main timer.
             main_timer = al_create_timer(1.0 / WTE_TICKS_PER_SECOND);
             if(!main_timer) throw std::runtime_error("Failed to create timer!");
 
+            //  Configure main event queue.
             main_queue = al_create_event_queue();
             if(!main_queue) throw std::runtime_error("Failed to create event queue!");
 

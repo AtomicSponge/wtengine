@@ -405,4 +405,4 @@ inline void audio_manager::run(void) {
 
 } //  end namespace wte
 
-#endif  //  End #ifndef WTE_MGR_AUDIO_MANAGER_HPP
+#endif

@@ -97,6 +97,7 @@ class wte_main {
         //!  Call to start up the main game loop.
         void do_game(void);
 
+        //!  Vector of file paths to provide to PhysFS.
         inline static std::vector<std::string> file_locations = {};
 
     protected:

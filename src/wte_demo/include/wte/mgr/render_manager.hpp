@@ -149,8 +149,8 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         if(fps_event.type == ALLEGRO_EVENT_TIMER && queue_not_empty) {
             fps = fps_counter;
             fps_counter = 0;
+            al_set_timer_count(fps_timer, 0);
         }
-        al_set_timer_count(fps_timer, 0);
     }
 
     /*

@@ -140,17 +140,15 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
     al_set_target_backbuffer(al_get_current_display());
 
     /*
-     * Calculate fps if enabled
+     * Calculate fps
      */
-    if(engine_flags::is_set(DRAW_FPS)) {
-        fps_counter++;
-        //  Update fps on unique ticks only
-        const bool queue_not_empty = al_get_next_event(fps_event_queue, &fps_event);
-        if(fps_event.type == ALLEGRO_EVENT_TIMER && queue_not_empty) {
-            fps = fps_counter;
-            fps_counter = 0;
-            al_set_timer_count(fps_timer, 0);
-        }
+    fps_counter++;
+    //  Update fps on unique ticks only
+    const bool queue_not_empty = al_get_next_event(fps_event_queue, &fps_event);
+    if(fps_event.type == ALLEGRO_EVENT_TIMER && queue_not_empty) {
+        fps = fps_counter;
+        fps_counter = 0;
+        al_set_timer_count(fps_timer, 0);
     }
 
     /*

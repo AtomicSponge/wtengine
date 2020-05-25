@@ -20,6 +20,9 @@
 #include <algorithm>
 #include <stdexcept>
 
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_physfs.h>
+
 #include "manager.hpp"
 #include "engine_time.hpp"
 
@@ -127,6 +130,43 @@ inline void message_manager::debug_log_message(const message msg) {
 /*!
  * Events are placed in order according to the timer value
  */
+/*inline void message_manager::new_data_file(const std::string fname) {
+    std::ifstream data_file;
+    int64_t timer;
+    std::string sys;
+    std::string to;
+    std::string from;
+    std::string cmd;
+    std::string args;
+
+    msg_queue.clear();
+
+    //  Open data file - input binary mode
+    ALLEGRO_FILE* file;
+    file = al_fopen(fname.c_str(), "rb");
+    if(!file) throw std::runtime_error("Error reading game data file!");
+
+    //  Loop through the entire data file loading into the queue
+    while(true) {
+        al_fread(file, timer, sizeof(int64_t));
+        //data_file.read(reinterpret_cast<char *>(&timer), sizeof(int64_t));
+
+        int c = al_fgetc(file);
+        std::getline(data_file, sys, '\0');
+        std::getline(data_file, to, '\0');
+        std::getline(data_file, from, '\0');
+        std::getline(data_file, cmd, '\0');
+        std::getline(data_file, args, '\0');
+
+        if(data_file.eof()) break;
+        msg_queue.push_back(message(timer, sys, to, from, cmd, args));
+    }
+    al_fclose(file);
+
+    //  Sort the queue so timed events are in order first to last
+    std::sort(msg_queue.begin(), msg_queue.end());
+}*/
+
 inline void message_manager::new_data_file(const std::string file) {
     std::ifstream data_file;
     int64_t timer;

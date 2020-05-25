@@ -106,7 +106,7 @@ class wte_main {
          * Throws a runtime error if another instance is called.
          */
         inline wte_main(const int argc, char **argv, const std::string title) : window_title(title), load_called(false) {
-            if(initialized == true) throw std::runtime_error("WTEngine already running!");
+            if(initialized == true) throw std::runtime_error(window_title + " already running!");
             initialized = true;
 
             //  Initialize Allegro.
@@ -118,7 +118,7 @@ class wte_main {
             if(!al_init_font_addon()) throw std::runtime_error("Failed to load Allegro font addon!");
             al_install_joystick();
 
-            //  Configure physfs.
+            //  Configure PhysFS.
             if(!PHYSFS_init(argv[0])) throw std::runtime_error("Failed to load PhysFS!");
             if(file_locations.empty()) throw std::runtime_error("Need to configure locations for PhysFS!");
             for(auto & it : file_locations) PHYSFS_mount(it.c_str(), NULL, 1);

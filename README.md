@@ -23,7 +23,6 @@ API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
  - Additional audio commands and menu items
  - Code review / documentation
  - Configure cmake
- - Implement physfs & its Allegro integration
 
 #### DEMO:
 

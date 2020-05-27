@@ -130,7 +130,7 @@ inline void message_manager::debug_log_message(const message msg) {
 #endif
 
 /*!
- * Events are placed in order according to the timer value
+ * Events are placed in order according to the timer value.
  */
 inline void message_manager::new_data_file(const std::string fname) {
     msg_queue.clear();
@@ -140,7 +140,7 @@ inline void message_manager::new_data_file(const std::string fname) {
     file = al_fopen(fname.c_str(), "rb");
     if(!file) throw std::runtime_error("Error reading game data file!");
 
-    //  Loop through the entire data file loading into the queue
+    //  Loop through the entire data file loading into the queue.
     while(true) {
         if(al_feof(file)) break;  //  End loop if eof.
 

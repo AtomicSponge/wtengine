@@ -235,16 +235,16 @@ inline void wte_main::process_new_game(void) {
 
     engine_flags::unset(GAME_MENU_OPENED);
 
-    //  Clear world and load starting entities.
-    world.clear();
-    new_game();
+    //  Load a new message data file.
+    messages.new_data_file("data//game.sdf");  //  Update later to load from settings.
 
     //  Load systems and prevent further systems from being loaded.
     load_systems();
     systems.finalize();
 
-    //  Load a new message data file.
-    messages.new_data_file("data//game.sdf");  //  Update later to load from settings.
+    //  Clear world and load starting entities.
+    world.clear();
+    new_game();
 
     //  WIP
     messages.add_message(message("audio", "null", "test"));

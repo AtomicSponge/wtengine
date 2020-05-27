@@ -94,11 +94,13 @@ class wte_main {
             load_called = false;
         };
 
+        //!  Add file path to provide to PhysFS.
+        inline static void add_file_location(const std::string flocation) {
+            file_locations.push_back(flocation);
+        };
+
         //!  Call to start up the main game loop.
         void do_game(void);
-
-        //!  Vector of file paths to provide to PhysFS.
-        inline static std::vector<std::string> file_locations = {};
 
     protected:
         /*!
@@ -197,9 +199,7 @@ class wte_main {
         //!  Process messages passed to the system.
         void handle_sys_msg(message_container);
 
-        std::string window_title;
-
-        //  Used for switching on system messages:
+        //  Used for mapping commands and switching on system messages:
         enum CMD_STR_VALUE {
             CMD_STR_EXIT,           CMD_STR_ALERT,
             CMD_STR_NEW_GAME,       CMD_STR_END_GAME,
@@ -210,14 +210,19 @@ class wte_main {
         };
         std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
 
+        //  Allegro objects used by the engine.
         inline static ALLEGRO_DISPLAY* display = NULL;
         inline static ALLEGRO_TIMER* main_timer = NULL;
         inline static ALLEGRO_EVENT_QUEUE* main_queue = NULL;
         ALLEGRO_EVENT event;
 
-        bool load_called;        //  Flag to make sure wte_load was called.
+        bool load_called;  //  Flag to make sure wte_load was called.
+        std::string window_title;  //  Title for application window.
 
-        inline static bool initialized = false; //  Restrict to one instance of the engine running.
+        //  Vector of file paths to provide to PhysFS.
+        inline static std::vector<std::string> file_locations = {};
+        //  Restrict to one instance of the engine running.
+        inline static bool initialized = false;
 };
 
 /*!

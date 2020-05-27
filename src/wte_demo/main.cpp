@@ -15,7 +15,8 @@ using namespace wte;
 
 int main(int argc, char **argv) {
     //  Set locations to load game data from.
-    wte_main::file_locations = { "data", "data.zip" };
+    wte_main::add_file_location("data");
+    wte_main::add_file_location("data.zip");
 
     //  Register default engine settings
     engine_cfg::reg("screen_width=768");

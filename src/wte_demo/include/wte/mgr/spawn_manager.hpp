@@ -53,24 +53,24 @@ class spawn_manager final : public manager<spawn_manager> {
          * \return void
          */
         inline void process(const message_container messages, entity_manager& world) {
-            for(auto m_it = messages.begin(); m_it != messages.end(); m_it++) {
-                if(m_it->get_cmd() == "new") {
-                    auto s_it = spawner.find(m_it->get_arg(0));
+            for(auto & m_it : messages) {
+                if(m_it.get_cmd() == "new") {
+                    auto s_it = spawner.find(m_it.get_arg(0));
                     if(s_it != spawner.end())
                         //  Make sure the number of arguments match what's expected.
-                        if(m_it->num_args() == s_it->second.first + 1) {
+                        if(m_it.num_args() == s_it->second.first + 1) {
                             entity e_id = world.new_entity();
-                            s_it->second.second(e_id, world, m_it->get_arglist());
+                            s_it->second.second(e_id, world, m_it.get_arglist());
                         }
                 }
 
-                if(m_it->get_cmd() == "delete") {
+                if(m_it.get_cmd() == "delete") {
                     component_container name_components = world.get_components<cmp::name>();
 
                     //  Check all named entities and delete if it exists.
-                    for(component_iterator c_it = name_components.begin(); c_it != name_components.end(); c_it++) {
-                        if(m_it->get_arg(0) == dynamic_cast<cmp::name*>(c_it->second.get())->name_str)
-                            world.delete_entity(c_it->first);
+                    for(auto & c_it : name_components) {
+                        if(m_it.get_arg(0) == dynamic_cast<cmp::name*>(c_it.second.get())->name_str)
+                            world.delete_entity(c_it.first);
                     }
                 }
             }  //  End for(m_it)

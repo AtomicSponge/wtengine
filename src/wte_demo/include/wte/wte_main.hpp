@@ -180,7 +180,7 @@ class wte_main {
         //!  Optional:  On menu close.
         virtual void on_menu_close(void) {};
         //!  Optional:  Define custom system message handling.
-        virtual void handle_custom_sys_msg(message) {};
+        virtual void handle_custom_sys_msg(const message) {};
         /* *** End overridden function members *** */
 
         //  Managers used by the engine declared here.
@@ -471,9 +471,7 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
     }
 
     //  Pass remaining system messages to the custom handler.
-    if(!sys_msgs.empty())
-        for(auto it = sys_msgs.begin(); it != sys_msgs.end(); it++)
-            handle_custom_sys_msg(*it);
+    if(!sys_msgs.empty()) for(auto & it : sys_msgs) handle_custom_sys_msg(it);
 }
 
 } //  end namespace wte

@@ -46,8 +46,8 @@ class logic final : public system {
             //  Find the entities with the input handler component
             component_container ai_components = world.get_components<cmp::ai>();
 
-            for(component_iterator it = ai_components.begin(); it != ai_components.end(); it++) {
-                dynamic_cast<cmp::ai*>(it->second.get())->run(it->first, world, messages, current_time);
+            for(auto & it : ai_components) {
+                dynamic_cast<cmp::ai*>(it.second.get())->run(it.first, world, messages, current_time);
             }
         }
 
@@ -57,10 +57,10 @@ class logic final : public system {
         inline void dispatch(mgr::entity_manager& world, message_container messages) {
             component_container dispatch_components = world.get_components<cmp::dispatcher>();
 
-            for(component_iterator it = dispatch_components.begin(); it != dispatch_components.end(); it++) {
+            for(auto & it : dispatch_components) {
                 for(auto m_it = messages.begin(); m_it != messages.end();) {
-                    if(m_it->get_to() == world.get_component<cmp::name>(it->first)->name_str) {
-                        dynamic_cast<cmp::dispatcher*>(it->second.get())->run(it->first, world, *m_it);
+                    if(m_it->get_to() == world.get_component<cmp::name>(it.first)->name_str) {
+                        dynamic_cast<cmp::dispatcher*>(it.second.get())->run(it.first, world, *m_it);
                         m_it = messages.erase(m_it);
                     } else m_it++;
                 }

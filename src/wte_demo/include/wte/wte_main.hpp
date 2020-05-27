@@ -94,7 +94,9 @@ class wte_main {
             load_called = false;
         };
 
-        //!  Add file path to provide to PhysFS.
+        /*!
+         * Add file path to provide to PhysFS.
+         */
         inline static void add_file_location(const std::string flocation) {
             file_locations.push_back(flocation);
         };
@@ -236,7 +238,7 @@ inline void wte_main::process_new_game(void) {
     engine_flags::unset(GAME_MENU_OPENED);
 
     //  Load a new message data file.
-    messages.new_data_file("data//game.sdf");  //  Update later to load from settings.
+    messages.new_data_file("game.sdf");  //  Update later to load from settings.
 
     //  Load systems and prevent further systems from being loaded.
     load_systems();
@@ -273,7 +275,6 @@ inline void wte_main::process_end_game(void) {
 
     //  Call end game process
     end_game();
-
     world.clear();
     systems.clear();
 

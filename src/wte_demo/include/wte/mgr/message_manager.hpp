@@ -13,10 +13,12 @@
 #ifndef WTE_MGR_MESSAGE_MANAGER_HPP
 #define WTE_MGR_MESSAGE_MANAGER_HPP
 
-#include <iostream>
+#if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
 #include <fstream>
+#endif
+
+#include <string>
 #include <vector>
-#include <iterator>
 #include <algorithm>
 #include <stdexcept>
 
@@ -130,73 +132,67 @@ inline void message_manager::debug_log_message(const message msg) {
 /*!
  * Events are placed in order according to the timer value
  */
-/*inline void message_manager::new_data_file(const std::string fname) {
-    std::ifstream data_file;
-    int64_t timer;
-    std::string sys;
-    std::string to;
-    std::string from;
-    std::string cmd;
-    std::string args;
-
+inline void message_manager::new_data_file(const std::string fname) {
     msg_queue.clear();
 
-    //  Open data file - input binary mode
+    //  Open data file - read binary mode.
     ALLEGRO_FILE* file;
     file = al_fopen(fname.c_str(), "rb");
     if(!file) throw std::runtime_error("Error reading game data file!");
 
     //  Loop through the entire data file loading into the queue
     while(true) {
-        al_fread(file, timer, sizeof(int64_t));
-        //data_file.read(reinterpret_cast<char *>(&timer), sizeof(int64_t));
+        if(al_feof(file)) break;  //  End loop if eof.
 
-        int c = al_fgetc(file);
-        std::getline(data_file, sys, '\0');
-        std::getline(data_file, to, '\0');
-        std::getline(data_file, from, '\0');
-        std::getline(data_file, cmd, '\0');
-        std::getline(data_file, args, '\0');
+        int64_t timer = 0;
+        std::string sys = "";
+        std::string to = "";
+        std::string from = "";
+        std::string cmd = "";
+        std::string args = "";
 
-        if(data_file.eof()) break;
-        msg_queue.push_back(message(timer, sys, to, from, cmd, args));
+        //  Read in timer value.
+        al_fread(file, &timer, sizeof(int64_t));
+
+        //  For each of the strings above, loop through and read
+        //  each charecter, ending if we reach null termed or eof.
+        while(true) {
+            const char ch = al_fgetc(file);
+            if(ch == EOF) break;  //  End loop if eof.
+            if(ch == '\0') break;  //  End loop if null terminated.
+            sys += ch;
+        }
+        while(true) {
+            const char ch = al_fgetc(file);
+            if(ch == EOF) break;  //  End loop if eof.
+            if(ch == '\0') break;  //  End loop if null terminated.
+            to += ch;
+        }
+        while(true) {
+            const char ch = al_fgetc(file);
+            if(ch == EOF) break;  //  End loop if eof.
+            if(ch == '\0') break;  //  End loop if null terminated.
+            from += ch;
+        }
+        while(true) {
+            const char ch = al_fgetc(file);
+            if(ch == EOF) break;  //  End loop if eof.
+            if(ch == '\0') break;  //  End loop if null terminated.
+            cmd += ch;
+        }
+        while(true) {
+            const char ch = al_fgetc(file);
+            if(ch == EOF) break;  //  End loop if eof.
+            if(ch == '\0') break;  //  End loop if null terminated.
+            args += ch;
+        }
+
+        //  Add message to queue.  Ignore incomplete messages.
+        if(sys != "" && cmd != "") msg_queue.push_back(message(timer, sys, to, from, cmd, args));
     }
     al_fclose(file);
 
-    //  Sort the queue so timed events are in order first to last
-    std::sort(msg_queue.begin(), msg_queue.end());
-}*/
-
-inline void message_manager::new_data_file(const std::string file) {
-    std::ifstream data_file;
-    int64_t timer;
-    std::string sys;
-    std::string to;
-    std::string from;
-    std::string cmd;
-    std::string args;
-
-    msg_queue.clear();
-
-    //  Open data file - input binary mode
-    data_file.open(file, std::fstream::in | std::fstream::binary);
-    if(!data_file.good()) throw std::runtime_error("Error reading game data file!");
-
-    //  Loop through the entire data file loading into the queue
-    while(true) {
-        data_file.read(reinterpret_cast<char *>(&timer), sizeof(int64_t));
-        std::getline(data_file, sys, '\0');
-        std::getline(data_file, to, '\0');
-        std::getline(data_file, from, '\0');
-        std::getline(data_file, cmd, '\0');
-        std::getline(data_file, args, '\0');
-
-        if(data_file.eof()) break;
-        msg_queue.push_back(message(timer, sys, to, from, cmd, args));
-    }
-    data_file.close();
-
-    //  Sort the queue so timed events are in order first to last
+    //  Sort the queue so timed events are in order first to last.
     std::sort(msg_queue.begin(), msg_queue.end());
 }
 

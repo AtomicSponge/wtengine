@@ -2,6 +2,14 @@
 .vscode/
 wtengine.code-workspace
 
+# Ignore cmake stuffs
+.cmake/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+Makefile
+
 # Ignore local backup
 bak/
 wte_backup.bat
@@ -16,7 +24,3 @@ documentation/
 # Ignore test scripts
 tools/csv2sdf/*.sdf
 tools/csv2sdf/*.csv
-
-# Ignore cmake stuffs
-CMakeFiles/
-CMakeCache.txt

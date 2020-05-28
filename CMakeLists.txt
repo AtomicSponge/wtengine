@@ -5,6 +5,18 @@ project(wte_demo VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+
+if(MINGW)
+    set(CMAKE_CXX_FLAGS_DEBUG "-mwindows")
+    set(CMAKE_CXX_FLAGS_RELEASE "-mwindows")
+endif()
+
 find_package(PkgConfig REQUIRED)
 
 pkg_check_modules(alleg-5 REQUIRED IMPORTED_TARGET allegro-5)
@@ -25,7 +37,6 @@ target_include_directories(wte_demo PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set_target_properties(wte_demo PROPERTIES LINKER_LANGUAGE CXX)
 
 #option(WTE_DEBUG_MODE)
-#option(WTE_NO_AUDIO)
 #option(WTE_MAX_SAMPLES)
 #option(WTE_NO_PRUNE)
 
@@ -40,4 +51,4 @@ target_link_libraries(wte_demo libphysfs
                                PkgConfig::alleg_image-5
                                PkgConfig::alleg_primitives-5)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/output)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/output)

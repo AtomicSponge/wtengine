@@ -15,7 +15,7 @@ bak/
 wte_backup.bat
 
 # Ignore build stuffs
-output/
+build/
 wte_update_dlls.bat
 
 # Ignore documentation

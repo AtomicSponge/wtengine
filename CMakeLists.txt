@@ -17,20 +17,17 @@ pkg_check_modules(alleg_image-5 REQUIRED IMPORTED_TARGET allegro_image-5)
 
 pkg_check_modules(alleg_primitives-5 REQUIRED IMPORTED_TARGET allegro_primitives-5)
 
-#set(SOURCE)
+set(SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+add_executable(wte_demo ${SOURCE})
+add_subdirectory("${PROJECT_SOURCE_DIR}/src/wte_demo")
 
-#enable_testing()
-
-#target_include_directories(${PROJECT_SOURCE_DIR})
+target_include_directories(wte_demo PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set_target_properties(wte_demo PROPERTIES LINKER_LANGUAGE CXX)
 
 #option(WTE_DEBUG_MODE)
 #option(WTE_NO_AUDIO)
 #option(WTE_MAX_SAMPLES)
 #option(WTE_NO_PRUNE)
-
-add_executable(wte_demo main.cpp
-                        wte_demo.cpp
-                        custom_input.cpp)
 
 target_link_libraries(wte_demo libphysfs
                                pthread

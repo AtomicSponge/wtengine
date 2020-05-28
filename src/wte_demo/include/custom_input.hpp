@@ -11,7 +11,7 @@
 #ifndef WTEDEMO_CUSTOM_INPUT_HPP
 #define WTEDEMO_CUSTOM_INPUT_HPP
 
-#include "wte/wte.hpp"
+#include <wte/wte.hpp>
 
 using namespace wte;
 

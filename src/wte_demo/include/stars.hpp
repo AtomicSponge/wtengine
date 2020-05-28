@@ -11,7 +11,7 @@
 #ifndef WTEDEMO_COMPONENT_STARS_HPP
 #define WTEDEMO_COMPONENT_STARS_HPP
 
-#include "wte/wte.hpp"
+#include <wte/wte.hpp>
 
 using namespace wte;
 

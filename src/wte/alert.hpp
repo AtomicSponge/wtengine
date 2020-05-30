@@ -1,12 +1,12 @@
 /*!
- * \brief WTEngine | File:  alert.hpp
+ * WTEngine
+ * \file alert.hpp
+ * \brief Display alerts to the screen.
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Alerts.
  */
 
 #ifndef WTE_ALERT_HPP
@@ -19,7 +19,6 @@
 namespace wte
 {
 
-//!  Alerts
 /*!
  * Allows the engine to set an alert to be displayed to the screen.
  * Alerts are cleared after the player presses a button.
@@ -37,7 +36,7 @@ class alert {
         };
 
         /*!
-         * Return the alert string
+         * Return the alert string.
          * \param void
          * \return The alert message itself.
          */

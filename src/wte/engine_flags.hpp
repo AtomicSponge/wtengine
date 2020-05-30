@@ -35,18 +35,36 @@ class engine_flags final {
         //!  Remove assignment operator
         void operator=(engine_flags const&) = delete;
 
-        //!  Set a flag to true
+        /*!
+         * Set a flag to true.
+         * \param f Index of the flag.
+         * \return void
+         */
         inline static void set(const std::size_t f) { flags[f] = true; };
-        //!  Set a flag to false
+
+        /*!
+         * Set a flag to false.
+         * \param f Index of the flag.
+         * \return void
+         */
         inline static void unset(const std::size_t f) { flags[f] = false; };
-        //!  Check the state of a flag
+
+        /*!
+         * Check the state of a flag.
+         * \param f Index of the flag.
+         * \return True if the flag is set, false if not.
+         */
         inline static const bool is_set(const std::size_t f) { return flags[f]; };
 
     private:
         inline engine_flags() { unset_all(); };
         inline ~engine_flags() { unset_all(); };
 
-        //!  Set all engine flags to false
+        /*!
+         * Set all engine flags to false.
+         * \param void
+         * \return void
+         */
         inline static void unset_all(void) {
             for(std::size_t i = 0; i < MAX_SYSTEM_FLAGS; i++) flags[i] = false;
         }

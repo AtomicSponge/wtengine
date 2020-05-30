@@ -21,15 +21,20 @@
 namespace wte
 {
 
-//!  Engine config
+//!  Engine config map
 /*!
- * Statics to store engine config variables
+ * Statics to store engine config variables.
+ * Inherits map functionality from the variable_map class.
+ * This class provides load/save functions.
  */
 class engine_cfg_map final : public variable_map<engine_cfg_map> {
     public:
         /*!
-         * Load
-         * False on fail, true on success
+         * Load engine config settings from file.
+         * Will create the config variable if it does not exist.
+         * If it does exist, the value is updated from the file.
+         * \param void
+         * \return False on fail, true on success.
          */
         inline static bool load(void) {
             std::ifstream data_file("settings.cfg");
@@ -51,8 +56,9 @@ class engine_cfg_map final : public variable_map<engine_cfg_map> {
         };
 
         /*!
-         * Save
-         * False on fail, true on success
+         * Save engine config settings to file.
+         * \param void
+         * \return False on fail, true on success
          */
         inline static bool save(void) {
             std::ofstream data_file("settings.cfg");

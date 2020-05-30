@@ -26,7 +26,7 @@ enum INPUT_FLAG_ENUM {
 
 //!  Input flags
 /*!
- * Colletion of flags to store input state
+ * Colletion of flags to store input state.
  */
 class input_flags final {
     public:
@@ -35,14 +35,32 @@ class input_flags final {
         //!  Remove assignment operator
         void operator=(input_flags const&) = delete;
 
-        //!  Set a flag to true
+        /*!
+         * Set a flag to true.
+         * \param f Index of the flag.
+         * \return void
+         */
         inline static void set(const std::size_t f) { flags[f] = true; };
-        //!  Set a flag to false
+
+        /*!
+         * Set a flag to false.
+         * \param f Index of the flag.
+         * \return void
+         */
         inline static void unset(const std::size_t f) { flags[f] = false; };
-        //!  Check the state of a flag
+
+        /*!
+         * Check the state of a flag.
+         * \param f Index of the flag.
+         * \return True if set, false if not set.
+         */
         inline static const bool is_set(const std::size_t f) { return flags[f]; };
 
-        //!  Set all input flags to false
+        /*!
+         * Set all input flags to false.
+         * \param void
+         * \return void
+         */
         inline static void unset_all(void) {
             for(std::size_t i = 0; i < MAX_INPUT_FLAGS; i++) flags[i] = false;
         }

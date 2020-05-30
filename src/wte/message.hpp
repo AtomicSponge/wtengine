@@ -20,7 +20,7 @@ namespace wte
 {
 
 /*!
- * \typedef msg_arg_list Argument strings get split by ; then stored in a vector
+ * \typedef msg_arg_list Argument strings get split by ; then stored in a vector.
  */
 typedef std::vector<std::string> msg_arg_list;
 

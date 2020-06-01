@@ -49,7 +49,7 @@ class menu_item {
          * \return void
          */
         inline virtual void on_left(void) {};
-        
+
         /*!
          * Description
          * \param void

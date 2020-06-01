@@ -78,6 +78,16 @@ class menu_item_toggle final : public menu_item {
             return arg_off;
         };
 
+        /*!
+         *
+         */
+        inline void reset_to_default(void) {};
+
+        /*!
+         *
+         */
+        inline void set_default(void) {};
+
     private:
         bool toggled;
         std::string cmd_on;

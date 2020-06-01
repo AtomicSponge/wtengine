@@ -67,7 +67,6 @@ void wte_demo::load_menus(void) {
         //  Configure in-game menu.
         menus.set_menu("game_menu")->set_title("WTE Demo - Game Paused");
         menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("Resume Game", "close_menu", "all"));
-        menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("Settings", "open_menu", "settings"));
         menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("End Game", "end_game"));
         menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("Exit Game", "exit"));
     }
@@ -76,6 +75,7 @@ void wte_demo::load_menus(void) {
     {
         //  Create the settings menu.
         mnu::menu temp_menu = mnu::menu("settings", "Settings");
+        temp_menu.add_item(std::make_shared<mnu::menu_item_apply>());
         temp_menu.add_item(std::make_shared<mnu::menu_item_action>("Return", "close_menu"));
         if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }

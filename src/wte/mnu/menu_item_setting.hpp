@@ -14,6 +14,7 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "menu_item.hpp"
 
@@ -28,14 +29,56 @@ namespace mnu
 */
 class menu_item_setting final : public menu_item {
     public:
-        inline menu_item_setting(std::string l, std::string vr, std::string vl) : menu_item(l), var(vr), val(val) {};
+        /*!
+         *
+         */
+        inline menu_item_setting(std::string l, std::string vr, std::vector<std::string> vl) : menu_item(l), var(vr), vals(vl) {
+            current_val = vals.begin();
+            default_val = current_val;
+        };
+
+        /*!
+         *
+         */
+        inline menu_item_setting(std::string l, std::string vr, std::vector<std::string> vl, std::string def) : menu_item(l), var(vr), vals(vl) {
+            current_val = std::find(std::begin(vals), std::end(vals), def);
+            if(current_val == vals.end()) current_val = vals.begin();
+            default_val = current_val;
+        };
+
+        /*!
+         *
+         */
         inline ~menu_item_setting() {};
 
-        std::vector<std::string> get_text(void) override { return {}; };
+        /*!
+         *
+         */
+        inline void on_left(void) override { if(current_val != vals.begin()) current_val--; };
+
+        /*!
+         *
+         */
+        inline void on_right(void) override {
+            if(current_val != vals.end()) current_val++;
+            if(current_val == vals.end()) current_val--;
+        };
+
+        /*!
+         *
+         */
+        inline std::vector<std::string> get_text(void) override { return { get_label(), "< " + *current_val + " >" }; };
+
+        /*!
+         *
+         */
+        inline void set_default_val(void) { current_val = default_val; };
 
     private:
         std::string var;
-        std::string val;
+        std::vector<std::string> vals;
+        std::vector<std::string>::const_iterator current_val;
+        std::vector<std::string>::const_iterator default_val;
 };
 
 }  // end namespace mnu

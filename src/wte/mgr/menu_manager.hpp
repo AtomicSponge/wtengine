@@ -251,7 +251,23 @@ inline void menu_manager::run(message_manager& messages) {
 
     if(input_flags::is_set(INPUT_MENU_SELECT) && menu_position != opened_menus.top()->items_end()) {
         message temp_msg = (*menu_position)->on_select();
-        if(temp_msg.get_cmd() != "null") messages.add_message(temp_msg);
+        //  Check if the message is for the menu system and process.
+        if(temp_msg.get_sys() == "menu") {
+            if(temp_msg.get_cmd() == "apply") {
+                //  Do apply.  Go through menu items, find all menu settings objects, build message.
+                for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
+                    //
+                }
+            }
+            if(temp_msg.get_cmd() == "cancel") {
+                //  Do cancel.  Go through menu items, reset menu settings objects to their defaults.
+                for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
+                    //
+                }
+            }
+        }
+        //  If not for the menu system, add to the message queue.
+        else if(temp_msg.get_cmd() != "null") messages.add_message(temp_msg);
     }
 
     if(input_flags::is_set(INPUT_MENU_CLOSE)) reset();

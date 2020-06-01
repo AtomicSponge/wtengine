@@ -25,15 +25,35 @@ namespace mnu
 
 //!
 /*!
-*/
+ *
+ */
 class menu_item_apply final : public menu_item {
     public:
-        inline menu_item_apply(std::string l, std::string c, std::string a) : menu_item(l), cmd(c), arg(a) {};
+        inline menu_item_apply() : menu_item("applier"), cmd("cancel"), arg("") {};
         inline ~menu_item_apply() {};
 
-        message on_select(void) override { return message("system", cmd, arg); };
+        /*!
+         *
+         */
+        inline void on_left(void) override { if(cmd == "apply") cmd = "cancel"; };
 
-        std::vector<std::string> get_text(void) override { return {}; };
+        /*!
+         *
+         */
+        inline void on_right(void) override { if(cmd == "cancel") cmd = "apply"; };
+
+        /*!
+         *
+         */
+        inline message on_select(void) override { return message("menu", cmd, arg); };
+
+        /*!
+         *
+         */
+        inline std::vector<std::string> get_text(void) override {
+            if(cmd == "apply") return { "Cancel", "< Apply >" };
+            return { "< Cancel >", "Apply" };
+        };
 
     private:
         std::string cmd;

@@ -57,14 +57,14 @@ class menu_item_action final : public menu_item {
          * \param void
          * \return void
          */
-        inline message on_select(void) override { return message("system", cmd, arg); };
+        inline const message on_select(void) override { return message("system", cmd, arg); };
 
         /*!
          * Description
          * \param void
          * \return void
          */
-        inline std::vector<std::string> get_text(void) override { return {get_label()}; };
+        inline const std::vector<std::string> get_text(void) override { return {get_label()}; };
 
     private:
         std::string cmd;

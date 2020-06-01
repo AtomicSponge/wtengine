@@ -45,12 +45,12 @@ class menu_item_apply final : public menu_item {
         /*!
          *
          */
-        inline message on_select(void) override { return message("menu", cmd, arg); };
+        inline const message on_select(void) override { return message("menu", cmd, arg); };
 
         /*!
          *
          */
-        inline std::vector<std::string> get_text(void) override {
+        inline const std::vector<std::string> get_text(void) override {
             if(cmd == "apply") return { "Cancel", "< Apply >" };
             return { "< Cancel >", "Apply" };
         };

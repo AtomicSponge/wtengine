@@ -41,7 +41,7 @@ class menu_item {
          * \param void
          * \return void
          */
-        inline virtual std::vector<std::string> get_text(void) { return {"null"}; };
+        inline virtual const std::vector<std::string> get_text(void) { return {"null"}; };
 
         /*!
          * Description
@@ -62,7 +62,7 @@ class menu_item {
          * \param void
          * \return void
          */
-        inline virtual message on_select(void) { return message("system", "null", "null"); };
+        inline virtual const message on_select(void) { return message("system", "null", "null"); };
 
         /*!
          * Description

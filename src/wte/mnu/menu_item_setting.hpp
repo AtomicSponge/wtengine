@@ -65,7 +65,7 @@ class menu_item_setting final : public menu_item {
         /*!
          *
          */
-        inline std::vector<std::string> get_text(void) override { return { get_label(), "< " + *current_val + " >" }; };
+        inline const std::vector<std::string> get_text(void) override { return { get_label(), "< " + *current_val + " >" }; };
 
         /*!
          *
@@ -85,7 +85,7 @@ class menu_item_setting final : public menu_item {
         /*!
          *
          */
-        inline std::string get_setting(void) { return var + "=" + *current_val; };
+        inline const std::string get_setting(void) { return var + "=" + *current_val; };
 
         /*!
          *

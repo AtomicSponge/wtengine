@@ -57,7 +57,7 @@ class menu_item_toggle final : public menu_item {
         /*!
          *
          */
-        inline std::vector<std::string> get_text(void) override {
+        inline const std::vector<std::string> get_text(void) override {
             if(toggled) return { get_label(), "< On >", "Off" };
             return { get_label(), "On", "< Off >" };
         };
@@ -65,7 +65,7 @@ class menu_item_toggle final : public menu_item {
         /*!
          *
          */
-        inline std::string get_active_cmd(void) {
+        inline const std::string get_active_cmd(void) {
             if(toggled) return cmd_on;
             return cmd_off;
         };
@@ -73,7 +73,7 @@ class menu_item_toggle final : public menu_item {
         /*!
          *
          */
-        inline std::string get_active_args(void) {
+        inline const std::string get_active_args(void) {
             if(toggled) return arg_on;
             return arg_off;
         };

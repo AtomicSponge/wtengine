@@ -295,7 +295,7 @@ inline void menu_manager::run(message_manager& messages) {
                         dynamic_cast<mnu::menu_item_setting*>(it->get())->reset_to_default();
                 }
             }
-        }
+        }  //  End menu messages.
         //  If not for the menu system, add to the message queue.
         else if(temp_msg.get_cmd() != "null") messages.add_message(temp_msg);
     }

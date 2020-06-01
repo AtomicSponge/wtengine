@@ -21,8 +21,9 @@ API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
 #### TODO:
  - Improve cmake config
  - SFX & input debugging
- - Additional audio commands and menu items
+ - Additional audio commands
  - Code review / documentation
+ - Engine reloading
 
 #### DEMO:
 

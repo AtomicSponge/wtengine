@@ -242,13 +242,13 @@ inline void menu_manager::run(message_manager& messages) {
     }
 
     //  Iterate through the menu items depending on key press
-    if(input_flags::is_set(INPUT_UP) && menu_position != opened_menus.top()->items_begin())
+    if(input_flags::is_set(INPUT_UP) && menu_position != opened_menus.top()->items_begin()) {
         menu_position--;
-    if(input_flags::is_set(INPUT_DOWN) && menu_position != opened_menus.top()->items_end())
+    }
+    if(input_flags::is_set(INPUT_DOWN) && menu_position != opened_menus.top()->items_end()) {
         menu_position++;
-    //  The code above logically allows the index to go one beyond the vector.
-    //  The code below fixes that :)
-    if(menu_position == opened_menus.top()->items_end()) menu_position--;
+        if(menu_position == opened_menus.top()->items_end()) menu_position--;
+    }
 
     if(input_flags::is_set(INPUT_LEFT) && menu_position != opened_menus.top()->items_end())
         (*menu_position)->on_left();

@@ -330,15 +330,17 @@ void wte_demo::end_game(void) {
 }
 
 /*
- * On menu open.  WIP
+ * On menu open.
  */
 void wte_demo::on_menu_open(void) {
-    messages.add_message(message("audio", "null", "null"));
+    messages.add_message(message("audio", "pause_music", ""));
+    messages.add_message(message("audio", "pause_ambiance", ""));
 }
 
 /*
- * On menu close.  WIP
+ * On menu close.
  */
 void wte_demo::on_menu_close(void) {
-    messages.add_message(message("audio", "null", "null"));
+    messages.add_message(message("audio", "unpause_music", ""));
+    messages.add_message(message("audio", "unpause_ambiance", ""));
 }

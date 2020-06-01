@@ -261,10 +261,11 @@ inline void menu_manager::run(message_manager& messages) {
         //  Check if the message is for the menu system and process.
         if(temp_msg.get_sys() == "menu") {
             if(temp_msg.get_cmd() == "apply") {
-                //  Do apply.  Go through menu items, find all menu settings objects, build message.
+                //  Do apply.  Go through menu items, find all actionable menu objects and process.
                 std::string eng_settings_string = "";
                 std::string game_settings_string = "";
                 for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
+                    //  Process menu setting objects.
                     if(dynamic_cast<mnu::menu_item_setting*>(it->get()) != nullptr) {
                         //  See if the setting is a game or engine setting, add to correct string.
                         if(dynamic_cast<mnu::menu_item_setting*>(it->get())->is_engine_setting()) {
@@ -275,12 +276,18 @@ inline void menu_manager::run(message_manager& messages) {
                             game_settings_string += dynamic_cast<mnu::menu_item_setting*>(it->get())->get_setting();
                         }
                     }
+                    //  Process menu toggle objects.
+                    if(dynamic_cast<mnu::menu_item_toggle*>(it->get()) != nullptr) {
+                        messages.add_message(message("system",
+                                             dynamic_cast<mnu::menu_item_toggle*>(it->get())->get_active_cmd(),
+                                             dynamic_cast<mnu::menu_item_toggle*>(it->get())->get_active_args()));
+                    }
                 }
                 //  Send messages in reverse order for system to process correctly.
                 messages.add_message(message("system", "alert", "Settings applied."));
                 //  Apply engine settings if any.
                 if(!eng_settings_string.empty()) {
-                    messages.add_message(message("system", "reload_engine", ""));
+                    //messages.add_message(message("system", "reload_engine", ""));
                     messages.add_message(message("system", "set_engcfg", eng_settings_string));
                 }
                 //  Apply game settings if any.

@@ -62,6 +62,22 @@ class menu_item_toggle final : public menu_item {
             return { get_label(), "On", "< Off >" };
         };
 
+        /*!
+         *
+         */
+        inline std::string get_active_cmd(void) {
+            if(toggled) return cmd_on;
+            return cmd_off;
+        };
+
+        /*!
+         *
+         */
+        inline std::string get_active_args(void) {
+            if(toggled) return arg_on;
+            return arg_off;
+        };
+
     private:
         bool toggled;
         std::string cmd_on;

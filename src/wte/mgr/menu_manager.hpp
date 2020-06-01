@@ -280,7 +280,7 @@ inline void menu_manager::run(message_manager& messages) {
                 messages.add_message(message("system", "alert", "Settings applied."));
                 //  Apply engine settings if any.
                 if(!eng_settings_string.empty()) {
-                    //TODO:  Reload engine message --> messages.add_message(message());
+                    messages.add_message(message("system", "reload_engine", ""));
                     messages.add_message(message("system", "set_engcfg", eng_settings_string));
                 }
                 //  Apply game settings if any.

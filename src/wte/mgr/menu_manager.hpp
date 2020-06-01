@@ -275,14 +275,17 @@ inline void menu_manager::run(message_manager& messages) {
                             game_settings_string += dynamic_cast<mnu::menu_item_setting*>(it->get())->get_setting();
                         }
                     }
-                    if(!eng_settings_string.empty()) {
-                        messages.add_message(message("system", "set_engcfg", eng_settings_string));
-                        //TODO:  Reload engine message --> messages.add_message(message());
-                    }
-                    if(!game_settings_string.empty()) {
-                        messages.add_message(message("system", "set_gamecfg", game_settings_string));
-                    }
-                    messages.add_message(message("system", "alert", "Settings applied."));
+                }
+                //  Send messages in reverse order for system to process correctly.
+                messages.add_message(message("system", "alert", "Settings applied."));
+                //  Apply engine settings if any.
+                if(!eng_settings_string.empty()) {
+                    //TODO:  Reload engine message --> messages.add_message(message());
+                    messages.add_message(message("system", "set_engcfg", eng_settings_string));
+                }
+                //  Apply game settings if any.
+                if(!game_settings_string.empty()) {
+                    messages.add_message(message("system", "set_gamecfg", game_settings_string));
                 }
             }
             if(temp_msg.get_cmd() == "cancel") {

@@ -29,26 +29,45 @@ namespace mnu
  */
 class menu_item_apply final : public menu_item {
     public:
+        /*!
+         * Description
+         * \param void
+         * \return void
+         */
         inline menu_item_apply() : menu_item("applier"), cmd("cancel"), arg("") {};
+
+        /*!
+         * Description
+         * \param void
+         * \return void
+         */
         inline ~menu_item_apply() {};
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline void on_left(void) override { if(cmd == "apply") cmd = "cancel"; };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline void on_right(void) override { if(cmd == "cancel") cmd = "apply"; };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline const message on_select(void) override { return message("menu", cmd, arg); };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline const std::vector<std::string> get_text(void) override {
             if(cmd == "apply") return { "Cancel", "< Apply >" };

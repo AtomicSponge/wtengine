@@ -30,7 +30,9 @@ namespace mnu
 class menu_item_toggle final : public menu_item {
     public:
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline menu_item_toggle(const std::string label,
                                 const std::string con,
@@ -40,22 +42,30 @@ class menu_item_toggle final : public menu_item {
         menu_item(label), cmd_on(con), arg_on(aon), cmd_off(coff), arg_off(aoff) {};
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline ~menu_item_toggle() {};
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline void on_left(void) override { toggled = true; };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline void on_right(void) override { toggled = false; };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline const std::vector<std::string> get_text(void) override {
             if(toggled) return { get_label(), "< On >", "Off" };
@@ -63,7 +73,9 @@ class menu_item_toggle final : public menu_item {
         };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline const std::string get_active_cmd(void) {
             if(toggled) return cmd_on;
@@ -71,7 +83,9 @@ class menu_item_toggle final : public menu_item {
         };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline const std::string get_active_args(void) {
             if(toggled) return arg_on;
@@ -79,14 +93,18 @@ class menu_item_toggle final : public menu_item {
         };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
-        inline void reset_to_default(void) {};
+        inline void reset_to_default(void) override {};
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
-        inline void set_default(void) {};
+        inline void set_default(void) override {};
 
     private:
         bool toggled;

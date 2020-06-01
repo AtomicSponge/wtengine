@@ -33,7 +33,9 @@ namespace mnu
 class menu_item_setting final : public menu_item {
     public:
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline menu_item_setting(const std::string l,
                                  const std::string vr,
@@ -45,17 +47,23 @@ class menu_item_setting final : public menu_item {
         };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline ~menu_item_setting() {};
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline void on_left(void) override { if(current_val != vals.begin()) current_val--; };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline void on_right(void) override {
             if(current_val != vals.end()) current_val++;
@@ -63,19 +71,25 @@ class menu_item_setting final : public menu_item {
         };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline const std::vector<std::string> get_text(void) override { return { get_label(), "< " + *current_val + " >" }; };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
-        inline void reset_to_default(void) { current_val = default_val; };
+        inline void reset_to_default(void) override { current_val = default_val; };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
-        inline void set_default(void) {
+        inline void set_default(void) override {
             if(is_eng_setting) current_val = std::find(std::begin(vals), std::end(vals), engine_cfg::get(var));
             else current_val = std::find(std::begin(vals), std::end(vals), game_cfg::get(var));
             if(current_val == vals.end()) current_val = vals.begin();
@@ -83,12 +97,16 @@ class menu_item_setting final : public menu_item {
         };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline const std::string get_setting(void) { return var + "=" + *current_val; };
 
         /*!
-         *
+         * Description
+         * \param void
+         * \return void
          */
         inline const bool is_engine_setting(void) { return is_eng_setting; }
 

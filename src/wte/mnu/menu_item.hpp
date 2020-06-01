@@ -69,6 +69,20 @@ class menu_item {
          * \param void
          * \return void
          */
+        inline virtual void reset_to_default(void) {};
+
+        /*!
+         * Description
+         * \param void
+         * \return void
+         */
+        inline virtual void set_default(void) {};
+
+        /*!
+         * Description
+         * \param void
+         * \return void
+         */
         inline const std::string get_label(void) const { return label; };
 
     private:

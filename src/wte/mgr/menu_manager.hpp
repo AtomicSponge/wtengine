@@ -216,8 +216,7 @@ inline void menu_manager::open_menu(const std::string menu_id) {
 
     //  Set default values for any menu settings objects.
     for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
-        if(dynamic_cast<mnu::menu_item_setting*>(it->get()) != nullptr)
-            dynamic_cast<mnu::menu_item_setting*>(it->get())->set_default();
+        (*it)->set_default();
     }
 }
 
@@ -298,8 +297,7 @@ inline void menu_manager::run(message_manager& messages) {
             if(temp_msg.get_cmd() == "cancel") {
                 //  Do cancel.  Go through menu items, reset menu settings objects to their defaults.
                 for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
-                    if(dynamic_cast<mnu::menu_item_setting*>(it->get()) != nullptr)
-                        dynamic_cast<mnu::menu_item_setting*>(it->get())->reset_to_default();
+                    (*it)->reset_to_default();
                 }
             }
         }  //  End menu messages.

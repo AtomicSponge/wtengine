@@ -18,6 +18,9 @@
 
 #include "menu_item.hpp"
 
+#include "../engine_cfg_map.hpp"
+#include "../game_cfg_map.hpp"
+
 namespace wte
 {
 
@@ -32,17 +35,12 @@ class menu_item_setting final : public menu_item {
         /*!
          *
          */
-        inline menu_item_setting(std::string l, std::string vr, std::vector<std::string> vl) : menu_item(l), var(vr), vals(vl) {
+        inline menu_item_setting(const std::string l,
+                                 const std::string vr,
+                                 const std::vector<std::string> vl,
+                                 const bool is_engine_set) :
+        menu_item(l), var(vr), vals(vl), is_engine_setting(is_engine_set) {
             current_val = vals.begin();
-            default_val = current_val;
-        };
-
-        /*!
-         *
-         */
-        inline menu_item_setting(std::string l, std::string vr, std::vector<std::string> vl, std::string def) : menu_item(l), var(vr), vals(vl) {
-            current_val = std::find(std::begin(vals), std::end(vals), def);
-            if(current_val == vals.end()) current_val = vals.begin();
             default_val = current_val;
         };
 
@@ -72,9 +70,20 @@ class menu_item_setting final : public menu_item {
         /*!
          *
          */
-        inline void set_default_val(void) { current_val = default_val; };
+        inline void reset_to_default(void) { current_val = default_val; };
+
+        /*!
+         *
+         */
+        inline void set_default(void) {
+            if(is_engine_setting) current_val = std::find(std::begin(vals), std::end(vals), engine_cfg::get(var));
+            else current_val = std::find(std::begin(vals), std::end(vals), game_cfg::get(var));
+            if(current_val == vals.end()) current_val = vals.begin();
+            default_val = current_val;
+        };
 
     private:
+        bool is_engine_setting;
         std::string var;
         std::vector<std::string> vals;
         std::vector<std::string>::const_iterator current_val;

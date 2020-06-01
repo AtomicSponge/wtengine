@@ -24,11 +24,12 @@
 #include <allegro5/allegro_font.h>
 
 #include "manager.hpp"
+#include "message_manager.hpp"
+#include "../mnu/menu_items.hpp"
 #include "../wte_global_defines.hpp"
 #include "../engine_flags.hpp"
 #include "../input_flags.hpp"
 #include "../mnu/menu.hpp"
-#include "message_manager.hpp"
 
 namespace wte
 {
@@ -212,6 +213,12 @@ inline void menu_manager::open_menu(const std::string menu_id) {
     opened_menus.push(get_menu(menu_id));
     engine_flags::set(GAME_MENU_OPENED);
     menu_position = opened_menus.top()->items_begin();
+
+    //  Set defaults
+    for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
+        if(dynamic_cast<mnu::menu_item_setting*>(it->get()) != nullptr)
+            dynamic_cast<mnu::menu_item_setting*>(it->get())->set_default();
+    }
 }
 
 //!  Close the current opened menu
@@ -257,12 +264,16 @@ inline void menu_manager::run(message_manager& messages) {
                 //  Do apply.  Go through menu items, find all menu settings objects, build message.
                 for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
                     //
+                    //messages.add_message(message());
+                    //messages.add_message(message());
+                    messages.add_message(message("system", "alert", "Settings applied."));
                 }
             }
             if(temp_msg.get_cmd() == "cancel") {
                 //  Do cancel.  Go through menu items, reset menu settings objects to their defaults.
                 for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
-                    //
+                    if(dynamic_cast<mnu::menu_item_setting*>(it->get()) != nullptr)
+                        dynamic_cast<mnu::menu_item_setting*>(it->get())->reset_to_default();
                 }
             }
         }

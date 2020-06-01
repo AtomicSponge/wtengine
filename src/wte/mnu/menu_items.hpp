@@ -15,5 +15,6 @@
 #include "menu_item_action.hpp"
 #include "menu_item_setting.hpp"
 #include "menu_item_apply.hpp"
+#include "menu_item_toggle.hpp"
 
 #endif

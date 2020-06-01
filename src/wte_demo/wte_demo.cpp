@@ -77,6 +77,7 @@ void wte_demo::load_menus(void) {
         mnu::menu temp_menu = mnu::menu("settings", "Settings");
         std::vector<std::string> lives_vec = { "3", "4", "5" };
         temp_menu.add_item(std::make_shared<mnu::menu_item_setting>("Lives:", "max_lives", lives_vec, false));
+        temp_menu.add_item(std::make_shared<mnu::menu_item_toggle>("FPS:", "fps_counter", "on", "fps_counter", "off"));
         temp_menu.add_item(std::make_shared<mnu::menu_item_apply>());
         temp_menu.add_item(std::make_shared<mnu::menu_item_action>("Return", "close_menu"));
         if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");

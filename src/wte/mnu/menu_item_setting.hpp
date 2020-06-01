@@ -39,7 +39,7 @@ class menu_item_setting final : public menu_item {
                                  const std::string vr,
                                  const std::vector<std::string> vl,
                                  const bool is_engine_set) :
-        menu_item(l), var(vr), vals(vl), is_engine_setting(is_engine_set) {
+        menu_item(l), var(vr), vals(vl), is_eng_setting(is_engine_set) {
             current_val = vals.begin();
             default_val = current_val;
         };
@@ -76,14 +76,24 @@ class menu_item_setting final : public menu_item {
          *
          */
         inline void set_default(void) {
-            if(is_engine_setting) current_val = std::find(std::begin(vals), std::end(vals), engine_cfg::get(var));
+            if(is_eng_setting) current_val = std::find(std::begin(vals), std::end(vals), engine_cfg::get(var));
             else current_val = std::find(std::begin(vals), std::end(vals), game_cfg::get(var));
             if(current_val == vals.end()) current_val = vals.begin();
             default_val = current_val;
         };
 
+        /*!
+         *
+         */
+        inline std::string get_setting(void) { return var + "=" + *current_val; };
+
+        /*!
+         *
+         */
+        inline const bool is_engine_setting(void) { return is_eng_setting; }
+
     private:
-        bool is_engine_setting;
+        bool is_eng_setting;
         std::string var;
         std::vector<std::string> vals;
         std::vector<std::string>::const_iterator current_val;

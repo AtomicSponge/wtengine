@@ -214,7 +214,7 @@ inline void menu_manager::open_menu(const std::string menu_id) {
     engine_flags::set(GAME_MENU_OPENED);
     menu_position = opened_menus.top()->items_begin();
 
-    //  Set defaults
+    //  Set default values for any menu settings objects.
     for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
         if(dynamic_cast<mnu::menu_item_setting*>(it->get()) != nullptr)
             dynamic_cast<mnu::menu_item_setting*>(it->get())->set_default();
@@ -262,10 +262,26 @@ inline void menu_manager::run(message_manager& messages) {
         if(temp_msg.get_sys() == "menu") {
             if(temp_msg.get_cmd() == "apply") {
                 //  Do apply.  Go through menu items, find all menu settings objects, build message.
+                std::string eng_settings_string = "";
+                std::string game_settings_string = "";
                 for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
-                    //
-                    //messages.add_message(message());
-                    //messages.add_message(message());
+                    if(dynamic_cast<mnu::menu_item_setting*>(it->get()) != nullptr) {
+                        //  See if the setting is a game or engine setting, add to correct string.
+                        if(dynamic_cast<mnu::menu_item_setting*>(it->get())->is_engine_setting()) {
+                            if(!eng_settings_string.empty()) eng_settings_string += ";";
+                            eng_settings_string += dynamic_cast<mnu::menu_item_setting*>(it->get())->get_setting();
+                        } else {
+                            if(!game_settings_string.empty()) game_settings_string += ";";
+                            game_settings_string += dynamic_cast<mnu::menu_item_setting*>(it->get())->get_setting();
+                        }
+                    }
+                    if(!eng_settings_string.empty()) {
+                        messages.add_message(message("system", "set_engcfg", eng_settings_string));
+                        //TODO:  Reload engine message --> messages.add_message(message());
+                    }
+                    if(!game_settings_string.empty()) {
+                        messages.add_message(message("system", "set_gamecfg", game_settings_string));
+                    }
                     messages.add_message(message("system", "alert", "Settings applied."));
                 }
             }

@@ -71,19 +71,128 @@ class menu_manager final : public manager<menu_manager> {
             al_destroy_font(menu_font);
         }
 
-        void initialize(ALLEGRO_FONT*, ALLEGRO_COLOR, ALLEGRO_COLOR);
+        //!  Ititialize menu manager
+        /*!
+        * Pass an Allegro font for the menu manager to use
+        * Also create the default main menu and in-game menu
+        */
+        inline void initialize(ALLEGRO_FONT* font, ALLEGRO_COLOR fcolor, ALLEGRO_COLOR bgcolor) {
+            menu_font = font;
+            menu_font_color = fcolor;
+            menu_bg_color = bgcolor;
+
+            //  Create the main menu
+            mnu::menu temp_main_menu = mnu::menu("main_menu", "Main Menu");
+            if(!new_menu(temp_main_menu)) throw std::runtime_error("Unable to create main menu!");
+
+            //  Create the in-game menu
+            mnu::menu temp_game_menu = mnu::menu("game_menu", "Game Menu");
+            if(!new_menu(temp_game_menu)) throw std::runtime_error("Unable to create game menu!");
+
+            font_size = al_get_font_line_height(menu_font);
+
+            al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
+            cursor_bitmap = al_create_bitmap(font_size, font_size);
+            al_set_target_bitmap(cursor_bitmap);
+            al_clear_to_color(menu_font_color);
+            al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
+        }
 
         inline void set_width(const float mw) { menu_width = mw; };
         inline void set_height(const float mh) { menu_height = mh; };
         inline void set_padding(const float mp) { menu_padding = mp; };
 
-        const bool new_menu(const mnu::menu);
-        const menu_csptr get_menu(const std::string) const;
-        const menu_sptr set_menu(const std::string);
-        void reset(void);
+        //!  Add a menu to the menu vector
+        /*!
+        * Returns false if a menu with a similar ID already exists
+        * Returns true on success
+        */
+        inline const bool new_menu(const mnu::menu new_menu) {
+            for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
+                if(new_menu.get_id() == (*it)->get_id()) return false;
+            }
+            menus.push_back(std::make_shared<mnu::menu>(new_menu));
+            return true;
+        }
 
-        void open_menu(const std::string);
-        void close_menu(void);
+        //!  Get menu by name
+        /*!
+        * Finds a menu in the menu vector by name and returns it
+        * If not found, try returning the main or game menu
+        * Return the first menu in the vector if no others found
+        */
+        inline const menu_csptr get_menu(const std::string name) const {
+            if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
+
+            for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
+                if(name == (*it)->get_id()) return *it;
+            }
+
+            //  Menu not found, return main menu or game menu if the game is running
+            if(engine_flags::is_set(GAME_STARTED)) {
+                for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
+                    if("game_menu" == (*it)->get_id()) return *it;
+                }
+            } else {
+                for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
+                    if("main_menu" == (*it)->get_id()) return *it;
+                }
+            }
+
+            //  Menu still not found - just return the first one in the vector
+            return *menus.begin();
+        }
+
+        //!  Set menu by name
+        /*!
+        * Finds a menu in the menu vector by name and returns it
+        * If not found, return a null pointer
+        */
+        inline const menu_sptr set_menu(const std::string name) {
+            if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
+
+            for(menu_iterator it = menus.begin(); it != menus.end(); it++) {
+                if(name == (*it)->get_id()) return *it;
+            }
+
+            //  Menu not found - return null pointer
+            return nullptr;
+        }
+
+        //!  Reset menu manager
+        /*!
+        * Clear the stack of opened menus
+        */
+        inline void reset(void) {
+            opened_menus = {};
+            engine_flags::unset(GAME_MENU_OPENED);
+        }
+
+        //!  Add a menu to the stack
+        /*!
+        * Takes a menu from the vector container and adds it to the top of the opened stack
+        * Also resets the menu position
+        */
+        inline void open_menu(const std::string menu_id) {
+            opened_menus.push(get_menu(menu_id));
+            engine_flags::set(GAME_MENU_OPENED);
+            menu_position = opened_menus.top()->items_begin();
+
+            //  Set default values for any menu settings objects.
+            for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
+                (*it)->set_default();
+            }
+        }
+
+        //!  Close the current opened menu
+        /*!
+        * Remove the menu from the top of the stack
+        */
+        inline void close_menu(void) {
+            opened_menus.pop();
+            if(opened_menus.empty()) engine_flags::unset(GAME_MENU_OPENED);
+            else menu_position = opened_menus.top()->items_begin();
+        }
 
         void run(message_manager&);
         ALLEGRO_BITMAP* render_menu(void) const;
@@ -105,130 +214,6 @@ class menu_manager final : public manager<menu_manager> {
 };
 
 template <> inline bool menu_manager::manager<menu_manager>::initialized = false;
-
-//!  Ititialize menu manager
-/*!
- * Pass an Allegro font for the menu manager to use
- * Also create the default main menu and in-game menu
- */
-inline void menu_manager::initialize(ALLEGRO_FONT* font, ALLEGRO_COLOR fcolor, ALLEGRO_COLOR bgcolor) {
-    menu_font = font;
-    menu_font_color = fcolor;
-    menu_bg_color = bgcolor;
-
-    //  Create default menus in seperate scopes
-    {
-        //  Create the main menu
-        mnu::menu temp_menu = mnu::menu("main_menu", "Main Menu");
-        if(!new_menu(temp_menu)) throw std::runtime_error("Unable to create main menu!");
-    }
-
-    {
-        //  Create the in-game menu
-        mnu::menu temp_menu = mnu::menu("game_menu", "Game Menu");
-        if(!new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
-    }
-
-    font_size = al_get_font_line_height(menu_font);
-
-    al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
-    cursor_bitmap = al_create_bitmap(font_size, font_size);
-    al_set_target_bitmap(cursor_bitmap);
-    al_clear_to_color(menu_font_color);
-    al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
-}
-
-//!  Add a menu to the menu vector
-/*!
- * Returns false if a menu with a similar ID already exists
- * Returns true on success
- */
-inline const bool menu_manager::new_menu(const mnu::menu new_menu) {
-    for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
-        if(new_menu.get_id() == (*it)->get_id()) return false;
-    }
-    menus.push_back(std::make_shared<mnu::menu>(new_menu));
-    return true;
-}
-
-//!  Get menu by name
-/*!
- * Finds a menu in the menu vector by name and returns it
- * If not found, try returning the main or game menu
- * Return the first menu in the vector if no others found
- */
-inline const menu_csptr menu_manager::get_menu(const std::string name) const {
-    if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
-
-    for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
-        if(name == (*it)->get_id()) return *it;
-    }
-
-    //  Menu not found, return main menu or game menu if the game is running
-    if(engine_flags::is_set(GAME_STARTED)) {
-        for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
-            if("game_menu" == (*it)->get_id()) return *it;
-        }
-    } else {
-        for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
-            if("main_menu" == (*it)->get_id()) return *it;
-        }
-    }
-
-    //  Menu still not found - just return the first one in the vector
-    return *menus.begin();
-}
-
-//!  Set menu by name
-/*!
- * Finds a menu in the menu vector by name and returns it
- * If not found, return a null pointer
- */
-inline const menu_sptr menu_manager::set_menu(const std::string name) {
-    if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
-
-    for(menu_iterator it = menus.begin(); it != menus.end(); it++) {
-        if(name == (*it)->get_id()) return *it;
-    }
-
-    //  Menu not found - return null pointer
-    return nullptr;
-}
-
-//!  Reset menu manager
-/*!
- * Clear the stack of opened menus
- */
-inline void menu_manager::reset(void) {
-    opened_menus = {};
-    engine_flags::unset(GAME_MENU_OPENED);
-}
-
-//!  Add a menu to the stack
-/*!
- * Takes a menu from the vector container and adds it to the top of the opened stack
- * Also resets the menu position
- */
-inline void menu_manager::open_menu(const std::string menu_id) {
-    opened_menus.push(get_menu(menu_id));
-    engine_flags::set(GAME_MENU_OPENED);
-    menu_position = opened_menus.top()->items_begin();
-
-    //  Set default values for any menu settings objects.
-    for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
-        (*it)->set_default();
-    }
-}
-
-//!  Close the current opened menu
-/*!
- * Remove the menu from the top of the stack
- */
-inline void menu_manager::close_menu(void) {
-    opened_menus.pop();
-    if(opened_menus.empty()) engine_flags::unset(GAME_MENU_OPENED);
-    else menu_position = opened_menus.top()->items_begin();
-}
 
 //!  Run the menu manager
 /*!

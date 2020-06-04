@@ -34,7 +34,7 @@ class menu_item_apply final : public menu_item {
          * \param void
          * \return void
          */
-        inline menu_item_apply() : menu_item("applier"), cmd("cancel"), arg("") {};
+        inline menu_item_apply() : menu_item("applier"), cmd("cancel") {};
 
         /*!
          * Description
@@ -48,21 +48,21 @@ class menu_item_apply final : public menu_item {
          * \param void
          * \return void
          */
-        inline void on_left(void) override { if(cmd == "apply") cmd = "cancel"; };
+        inline void on_left(void) override { cmd = "cancel"; };
 
         /*!
          * Description
          * \param void
          * \return void
          */
-        inline void on_right(void) override { if(cmd == "cancel") cmd = "apply"; };
+        inline void on_right(void) override { cmd = "apply"; };
 
         /*!
          * Description
          * \param void
          * \return void
          */
-        inline const message on_select(void) override { return message("menu", cmd, arg); };
+        inline const message on_select(void) override { return message("menu", cmd, ""); };
 
         /*!
          * Description
@@ -74,9 +74,22 @@ class menu_item_apply final : public menu_item {
             return { "< Cancel >", "Apply" };
         };
 
+        /*!
+         * Description
+         * \param void
+         * \return void
+         */
+        inline void reset_to_default(void) override { cmd = "cancel"; };
+
+        /*!
+         * Description
+         * \param void
+         * \return void
+         */
+        inline void set_default(void) override { cmd = "cancel"; };
+
     private:
         std::string cmd;
-        std::string arg;
 };
 
 }  // end namespace mnu

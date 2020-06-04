@@ -165,6 +165,12 @@ class wte_main {
             //  Set default colors for alerts.
             alert::set_font_color(WTE_COLOR_WHITE);
             alert::set_bg_color(WTE_COLOR_RED);
+
+            //  Check to see if FPS drawing should be enabled.
+            if(engine_cfg::is_reg("draw_fps")) {
+                if(engine_cfg::get<bool>("draw_fps")) engine_flags::set(DRAW_FPS);
+                else engine_flags::unset(DRAW_FPS);
+            }
         };
 
         /* These function members are overridden in the derived class */
@@ -249,8 +255,7 @@ inline void wte_main::process_new_game(void) {
     world.clear();
     new_game();
 
-    //  WIP
-    messages.add_message(message("audio", "null", "test"));
+    //messages.add_message(message("audio", "null", "test"));
 
     //  Restart the timer at zero.
     al_stop_timer(main_timer);
@@ -271,10 +276,13 @@ inline void wte_main::process_end_game(void) {
     al_set_timer_count(main_timer, 0);
     mgr::engine_time::set_time(al_get_timer_count(main_timer));
 
-    //  WIP
-    messages.add_message(message("audio", "null", "test"));
+    //  Stop audio manager from playing sounds.
+    messages.add_message(message("audio", "stop_music", ""));
+    messages.add_message(message("audio", "stop_ambiance", ""));
+    messages.add_message(message("audio", "stop_voice", ""));
+    messages.add_message(message("audio", "stop_sample", "all"));
 
-    //  Call end game process
+    //  Call end game process.
     end_game();
     world.clear();
     systems.clear();
@@ -297,10 +305,6 @@ inline void wte_main::do_game(void) {
     engine_flags::set(IS_RUNNING);
     engine_flags::unset(GAME_STARTED);
     engine_flags::set(GAME_MENU_OPENED);
-
-    //  test code.
-    engine_flags::set(DRAW_FPS);
-    //  end test code.
 
     while(engine_flags::is_set(IS_RUNNING)) {
         //  Pause / resume timer depending on if the game menu is opened.
@@ -345,13 +349,13 @@ inline void wte_main::do_game(void) {
         //  Render the screen.
         screen.render(menus, world);
 
-        //  Send audio messages to the audio queue.
-        temp_msgs = messages.get_messages("audio");
-        if(!temp_msgs.empty()) audio_th.transfer_messages(temp_msgs);
-
         //  Get any system messages and pass to handler.
         temp_msgs = messages.get_messages("system");
         if(!temp_msgs.empty()) handle_sys_msg(temp_msgs);
+
+        //  Send audio messages to the audio queue.
+        temp_msgs = messages.get_messages("audio");
+        if(!temp_msgs.empty()) audio_th.transfer_messages(temp_msgs);
 
         //  Ignore message pruning if WTE_NO_PRUNE build flag is defined.
         #ifndef WTE_NO_PRUNE
@@ -462,6 +466,13 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
             case CMD_STR_FPS_COUNTER:
                 if(it->get_arg(0) == "on") engine_flags::set(DRAW_FPS);
                 if(it->get_arg(0) == "off") engine_flags::unset(DRAW_FPS);
+                if(engine_cfg::is_reg("draw_fps")) {
+                    if(it->get_arg(0) == "on") engine_cfg::set("draw_fps=1");
+                    if(it->get_arg(0) == "off") engine_cfg::set("draw_fps=0");
+                } else {
+                    if(it->get_arg(0) == "on") engine_cfg::reg("draw_fps=1");
+                    if(it->get_arg(0) == "off") engine_cfg::reg("draw_fps=0");
+                }
                 it = sys_msgs.erase(it);
                 break;
 

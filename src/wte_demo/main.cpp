@@ -19,20 +19,22 @@ int main(int argc, char **argv) {
     wte_main::add_file_location("data");
     wte_main::add_file_location("data.zip");
 
-    //  Register default engine settings
+    //  Register default engine settings.
     engine_cfg::reg("screen_width=768");
     engine_cfg::reg("screen_height=1024");
+    //engine_cfg::reg("resolution=768x1024");
+    engine_cfg::reg("draw_fps=0");
 
-    //  Load settings
+    //  Load settings.
     engine_cfg_map::load();
 
-    //  Initialize game object
+    //  Initialize game object.
     wte_demo my_game(argc, argv);
-    //  Run the game loop
+    //  Run the game loop.
     my_game.do_game();
 
-    //  Save settings
+    //  Save settings.
     engine_cfg_map::save();
 
-    return 0; //  Exit program
+    return 0; //  Exit program.
 }

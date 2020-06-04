@@ -280,7 +280,7 @@ template <typename T> inline const std::shared_ptr<T> entity_manager::set_compon
  */
 template <typename T> inline const component_container entity_manager::get_components(void) const {
     if(world.empty()) throw std::runtime_error("No components were created!");
-    
+
     component_container temp_components;
 
     for(auto it = world.begin(); it != world.end(); it++) {

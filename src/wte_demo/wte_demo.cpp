@@ -77,7 +77,10 @@ void wte_demo::load_menus(void) {
         mnu::menu temp_menu = mnu::menu("settings", "Settings");
         std::vector<std::string> lives_vec = { "3", "4", "5" };
         temp_menu.add_item(std::make_shared<mnu::menu_item_setting>("Lives:", "max_lives", lives_vec, false));
-        temp_menu.add_item(std::make_shared<mnu::menu_item_toggle>("FPS:", "fps_counter", "on", "fps_counter", "off"));
+        temp_menu.add_item(std::make_shared<mnu::menu_item_toggle>("FPS:", "fps_counter", "on", "fps_counter", "off",
+            [](void){
+                return engine_flags::is_set(DRAW_FPS);
+            }));
         temp_menu.add_item(std::make_shared<mnu::menu_item_apply>());
         temp_menu.add_item(std::make_shared<mnu::menu_item_action>("Return", "close_menu"));
         if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
@@ -229,7 +232,7 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::input_handler>());
     world.add_component(e_id, std::make_shared<cmp::visible>(false));
     world.add_component(e_id, std::make_shared<cmp::enabled>(false));
-    world.add_component(e_id, std::make_shared<cmp::sprite>(64, 64, 0.0, 0.0, 1, 2));
+    world.add_component(e_id, std::make_shared<cmp::sprite>(64, 64, 0.0, 0.0, 6, 2));
     world.set_component<cmp::sprite>(e_id)->load_sprite("shield.bmp", ".bmp");
     world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");
@@ -246,7 +249,7 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::input_handler>());
     world.add_component(e_id, std::make_shared<cmp::visible>(false));
     world.add_component(e_id, std::make_shared<cmp::enabled>(false));
-    world.add_component(e_id, std::make_shared<cmp::sprite>(10, 200, 0.0, 0.0, 1, 2));
+    world.add_component(e_id, std::make_shared<cmp::sprite>(10, 200, 0.0, 0.0, 2, 2));
     world.set_component<cmp::sprite>(e_id)->load_sprite("cannon.bmp", ".bmp");
     world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");

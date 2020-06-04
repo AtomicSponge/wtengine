@@ -244,6 +244,7 @@ inline void audio_manager::run(void) {
                     if(!AL_SAMPLES[pos].sample) break;  //  Failed to load sample, end.
                     //  Set the instance to the loaded sample.
                     al_set_sample(AL_SAMPLE_INSTANCES[pos].instance, AL_SAMPLES[pos].sample);
+                    //al_attach_sample_instance_to_mixer(AL_SAMPLE_INSTANCES[pos].instance, mixer_2);
                     //  Set playmode, once = play once, else = play in loop.
                     if(audio_messages.front().get_arg(2) == "once")
                         al_set_sample_instance_playmode(AL_SAMPLE_INSTANCES[pos].instance, ALLEGRO_PLAYMODE_ONCE);
@@ -277,6 +278,12 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  stop_sample - arg:  sample_num (0 - MAX) - Stop playing loaded sample.
                 case CMD_STR_STOP_SAMPLE:
+                    if(audio_messages.front().get_arg(0) == "all") {
+                        for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) {
+                            al_stop_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
+                        }
+                        break;
+                    }
                     pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     if(!al_get_sample(AL_SAMPLE_INSTANCES[pos].instance)) break;  //  Sample not loaded, end.

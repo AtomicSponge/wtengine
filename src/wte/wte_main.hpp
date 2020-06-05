@@ -132,7 +132,7 @@ class wte_main {
             if(!engine_cfg::is_reg("resolution")) throw std::runtime_error("Screen resolution not defined!");
             const int screen_w = std::stoi(engine_cfg::get("resolution").substr(0, engine_cfg::get("resolution").find("x")));
             const int screen_h = std::stoi(engine_cfg::get("resolution").substr(engine_cfg::get("resolution").find("x") + 1,
-                                                                                   engine_cfg::get("resolution").length()));
+                                                                                engine_cfg::get("resolution").length()));
             display = al_create_display(screen_w, screen_h);
             if(!display) throw std::runtime_error("Failed to configure display!");
             al_set_window_title(display, window_title.c_str());
@@ -229,7 +229,6 @@ class wte_main {
         inline static ALLEGRO_DISPLAY* display = NULL;
         inline static ALLEGRO_TIMER* main_timer = NULL;
         inline static ALLEGRO_EVENT_QUEUE* main_queue = NULL;
-        ALLEGRO_EVENT event;
 
         bool load_called;  //  Flag to make sure wte_load was called.
         std::string window_title;  //  Title for application window.
@@ -251,7 +250,7 @@ inline void wte_main::reload_engine(void) {
     if(!engine_cfg::is_reg("resolution")) throw std::runtime_error("Screen resolution not defined!");
     const int screen_w = std::stoi(engine_cfg::get("resolution").substr(0, engine_cfg::get("resolution").find("x")));
     const int screen_h = std::stoi(engine_cfg::get("resolution").substr(engine_cfg::get("resolution").find("x") + 1,
-                                                                            engine_cfg::get("resolution").length()));
+                                                                        engine_cfg::get("resolution").length()));
     display = al_create_display(screen_w, screen_h);
     if(!display) throw std::runtime_error("Failed to configure display!");
     al_set_window_title(display, window_title.c_str());
@@ -323,6 +322,7 @@ inline void wte_main::process_end_game(void) {
  */
 inline void wte_main::do_game(void) {
     if(load_called == false) wte_load();  //  Auto call load.
+    ALLEGRO_EVENT event;
 
     message_container temp_msgs;
 

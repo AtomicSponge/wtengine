@@ -56,7 +56,7 @@ class render_manager final : public manager<render_manager>, private engine_time
          * render_manager constructor
          * Generates the render_manager object
          */
-        inline render_manager() : fps_counter(0), fps(0) {
+        inline render_manager() : fps_counter(0), fps(0), screen_w(0), screen_h(0) {
             render_tmp_bmp = NULL;
             overlay_font = NULL;
 
@@ -77,7 +77,6 @@ class render_manager final : public manager<render_manager>, private engine_time
         inline ~render_manager() {
             al_destroy_bitmap(render_tmp_bmp);
             al_destroy_font(overlay_font);
-
             al_destroy_event_queue(fps_event_queue);
             al_destroy_timer(fps_timer);
         };
@@ -88,15 +87,14 @@ class render_manager final : public manager<render_manager>, private engine_time
          */
         inline void initialize(ALLEGRO_FONT* font) {
             overlay_font = font;
-
-            set_title_screen("test");
-
             fps_timer = al_create_timer(1);
-
             fps_event_queue = al_create_event_queue();
             al_register_event_source(fps_event_queue, al_get_timer_event_source(fps_timer));
-
             al_start_timer(fps_timer);
+
+            //title_bmp = al_create_bitmap(screen_w, screen_h);
+            //al_set_target_bitmap(title_bmp);
+            //al_clear_to_color(WTE_COLOR_BLACK);
         };
 
         /*!
@@ -104,12 +102,33 @@ class render_manager final : public manager<render_manager>, private engine_time
          */
         inline bool set_title_screen(const std::string fname) {
             ALLEGRO_FILE* file;
-            file = al_fopen("title.bmp", "rb");
+            file = al_fopen(fname.c_str(), "rb");
+            if(!file) {
+                al_fclose(file);
+                return false;
+            }
             title_bmp = al_load_bitmap_f(file, NULL);
             al_fclose(file);
-            if(!title_bmp) return false;
             return true;
         };
+
+        /*!
+         *
+         */
+        inline void update_resolution(const int w, const int h) {
+            screen_w = w;
+            screen_h = h;
+        }
+
+        /*!
+         *
+         */
+        inline const int get_screen_w(void) const { return screen_w; };
+
+        /*!
+         *
+         */
+        inline const int get_screen_h(void) const { return screen_h; };
 
         /*!
          * Render method - Draw the game screen
@@ -128,6 +147,8 @@ class render_manager final : public manager<render_manager>, private engine_time
         render_comparator comparator;
 
         std::size_t fps_counter, fps;
+
+        int screen_w, screen_h;
 };
 
 template <> inline bool render_manager::manager<render_manager>::initialized = false;
@@ -252,8 +273,8 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         render_tmp_bmp = al_clone_bitmap(menus.render_menu());
         al_set_target_backbuffer(al_get_current_display());
         al_draw_bitmap(render_tmp_bmp,
-                       (engine_cfg::get<int>("screen_width") / 2) - (al_get_bitmap_width(render_tmp_bmp) / 2),
-                       (engine_cfg::get<int>("screen_height") / 2) - (al_get_bitmap_height(render_tmp_bmp) / 2),
+                       (screen_w / 2) - (al_get_bitmap_width(render_tmp_bmp) / 2),
+                       (screen_h / 2) - (al_get_bitmap_height(render_tmp_bmp) / 2),
                        0);
         al_destroy_bitmap(render_tmp_bmp);
     }
@@ -273,8 +294,8 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
 
         al_set_target_backbuffer(al_get_current_display());
         al_draw_bitmap(render_tmp_bmp,
-                       (engine_cfg::get<int>("screen_width") / 2) - (al_get_bitmap_width(render_tmp_bmp) / 2),
-                       (engine_cfg::get<int>("screen_height") / 2) - (al_get_bitmap_height(render_tmp_bmp) / 2),
+                       (screen_w / 2) - (al_get_bitmap_width(render_tmp_bmp) / 2),
+                       (screen_h / 2) - (al_get_bitmap_height(render_tmp_bmp) / 2),
                        0);
         al_destroy_bitmap(render_tmp_bmp);
     }
@@ -285,13 +306,13 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
     //  Draw frame rate
     if(engine_flags::is_set(DRAW_FPS)) {
         std::string fps_string = "FPS: " + std::to_string(fps);
-        al_draw_text(overlay_font, WTE_COLOR_YELLOW, engine_cfg::get<int>("screen_width"), 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
+        al_draw_text(overlay_font, WTE_COLOR_YELLOW, screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
 
     //  Draw time if debug mode is enabled
     #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
     std::string timer_string = "Timer: " + std::to_string(check_time());
-    al_draw_text(overlay_font, WTE_COLOR_YELLOW, engine_cfg::get<int>("screen_width"), 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
+    al_draw_text(overlay_font, WTE_COLOR_YELLOW, screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     #endif
 
     /*

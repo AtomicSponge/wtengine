@@ -30,28 +30,29 @@ namespace cmp
 class background final : public animator {
     public:
         /*!
-         * Background
+         * Static background.
          * \param void
          * \return void
          */
-        inline background(std::size_t l) : animator(l, {}) {
-            background_bitmap = al_create_bitmap(engine_cfg::get<int>("screen_width"),
-                                                 engine_cfg::get<int>("screen_height"));
+        inline background(const int w, const int h, const std::size_t l) : animator(l, {}) {
+            background_bitmap = al_create_bitmap(w, h);
         };
 
         /*!
-         * Background with custom animation
+         * Background with custom animation.
          * \param void
          * \return void
          */
-        inline background(std::size_t l, void func(entity, mgr::entity_manager&, int64_t)) :
+        inline background(const int w,
+                          const int h,
+                          const std::size_t l,
+                          void func(entity, mgr::entity_manager&, int64_t)) :
         animator(l, func) {
-            background_bitmap = al_create_bitmap(engine_cfg::get<int>("screen_width"),
-                                                 engine_cfg::get<int>("screen_height"));
+            background_bitmap = al_create_bitmap(w, h);
         };
 
         /*!
-         * Background
+         * Background destructor.
          * \param void
          * \return void
          */

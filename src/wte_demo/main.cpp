@@ -20,9 +20,7 @@ int main(int argc, char **argv) {
     wte_main::add_file_location("data.zip");
 
     //  Register default engine settings.
-    engine_cfg::reg("screen_width=768");
-    engine_cfg::reg("screen_height=1024");
-    //engine_cfg::reg("resolution=768x1024");
+    engine_cfg::reg("resolution=768x1024");
     engine_cfg::reg("draw_fps=0");
 
     //  Load settings.

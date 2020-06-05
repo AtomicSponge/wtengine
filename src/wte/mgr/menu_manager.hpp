@@ -91,11 +91,9 @@ class menu_manager final : public manager<menu_manager> {
 
             font_size = al_get_font_line_height(menu_font);
 
-            al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
             cursor_bitmap = al_create_bitmap(font_size, font_size);
             al_set_target_bitmap(cursor_bitmap);
             al_clear_to_color(menu_font_color);
-            al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
         }
 
         inline void set_width(const float mw) { menu_width = mw; };

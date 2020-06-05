@@ -129,12 +129,14 @@ class wte_main {
             al_set_physfs_file_interface();
 
             //  Configure display.
-            if(!engine_cfg::is_reg("screen_width")) throw std::runtime_error("Screen width not set!");
-            if(!engine_cfg::is_reg("screen_height")) throw std::runtime_error("Screen height not set!");
-            display = al_create_display(engine_cfg::get<int>("screen_width"),
-                                        engine_cfg::get<int>("screen_height"));
+            if(!engine_cfg::is_reg("resolution")) throw std::runtime_error("Screen resolution not defined!");
+            const int screen_w = std::stoi(engine_cfg::get("resolution").substr(0, engine_cfg::get("resolution").find("x")));
+            const int screen_h = std::stoi(engine_cfg::get("resolution").substr(engine_cfg::get("resolution").find("x") + 1,
+                                                                                   engine_cfg::get("resolution").length()));
+            display = al_create_display(screen_w, screen_h);
             if(!display) throw std::runtime_error("Failed to configure display!");
             al_set_window_title(display, window_title.c_str());
+            screen.update_resolution(screen_w, screen_h);
 
             //  Configure main timer.
             main_timer = al_create_timer(1.0 / WTE_TICKS_PER_SECOND);
@@ -182,6 +184,8 @@ class wte_main {
         virtual void new_game(void) = 0;
         //!  Define what happens at the end of a game.
         virtual void end_game(void) = 0;
+        //!  Optional:  Engine reload events.
+        virtual void on_reload(void) {};
         //!  Optional:  On menu open.
         virtual void on_menu_open(void) {};
         //!  Optional:  On menu close.
@@ -201,6 +205,8 @@ class wte_main {
         mgr::system_manager systems;
 
     private:
+        //!  Reload engine.
+        void reload_engine(void);
         //!  Start up a new game.
         void process_new_game(void);
         //!  End the game in progress.
@@ -235,6 +241,28 @@ class wte_main {
 };
 
 /*!
+ * Reload the engine.
+ * \param void
+ * \return void
+ */
+inline void wte_main::reload_engine(void) {
+    al_destroy_display(display);
+
+    if(!engine_cfg::is_reg("resolution")) throw std::runtime_error("Screen resolution not defined!");
+    const int screen_w = std::stoi(engine_cfg::get("resolution").substr(0, engine_cfg::get("resolution").find("x")));
+    const int screen_h = std::stoi(engine_cfg::get("resolution").substr(engine_cfg::get("resolution").find("x") + 1,
+                                                                            engine_cfg::get("resolution").length()));
+    display = al_create_display(screen_w, screen_h);
+    if(!display) throw std::runtime_error("Failed to configure display!");
+    al_set_window_title(display, window_title.c_str());
+    screen.update_resolution(screen_w, screen_h);
+
+    al_convert_memory_bitmaps();
+
+    on_reload();
+}
+
+/*!
  * Call every time a new game is starting.
  * \param void
  * \return void
@@ -254,8 +282,6 @@ inline void wte_main::process_new_game(void) {
     //  Clear world and load starting entities.
     world.clear();
     new_game();
-
-    //messages.add_message(message("audio", "null", "test"));
 
     //  Restart the timer at zero.
     al_stop_timer(main_timer);
@@ -458,7 +484,7 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
 
             //  cmd:  reload_engine - Reload the engine.
             case CMD_STR_RELOAD_ENGINE:
-                //  WIP
+                reload_engine();
                 it = sys_msgs.erase(it);
                 break;
 

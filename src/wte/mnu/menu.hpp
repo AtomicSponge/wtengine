@@ -23,8 +23,11 @@ namespace wte
 namespace mnu
 {
 
+//!  Container for storing menu items.
 typedef std::vector<menu_item_sptr> menu_items;
+//!  Iterator for addressing menu items.
 typedef std::vector<menu_item_sptr>::iterator menu_item_iterator;
+//!  Constant iterator for addressing menu items.
 typedef std::vector<menu_item_sptr>::const_iterator menu_item_citerator;
 
 /*!

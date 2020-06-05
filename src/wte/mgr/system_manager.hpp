@@ -29,7 +29,9 @@ namespace wte
 namespace mgr
 {
 
+//!  Iterator for addressing systems.
 typedef std::vector<sys::system_uptr>::iterator system_iterator;
+//!  Constant iterator for addressing systems.
 typedef std::vector<sys::system_uptr>::const_iterator system_citerator;
 
 //! system_manager class

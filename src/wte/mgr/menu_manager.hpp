@@ -34,10 +34,14 @@
 namespace wte
 {
 
+//! Shared pointer for addressing menu items.
 typedef std::shared_ptr<mnu::menu> menu_sptr;
+//! Constant shared pointer for addressing menu items.
 typedef std::shared_ptr<const mnu::menu> menu_csptr;
 
+//! Menu iterator.
 typedef std::vector<menu_sptr>::iterator menu_iterator;
+//! Constant menu iterator.
 typedef std::vector<menu_sptr>::const_iterator menu_citerator;
 
 namespace mgr

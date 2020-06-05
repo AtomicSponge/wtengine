@@ -27,30 +27,33 @@ namespace wte
 {
 
 /*
- * Define world/entity/component containers and iterators
+ * Define world/entity/component containers and iterators.
  */
-//!  Define entity type
+//!  Container to store an entity reference.
 typedef unsigned int entity;
 
-//!  Define container for multiple entity reference
+//!  Container for storing a group of entitie references.
 typedef std::vector<entity> world_container;
-//!  Iterator for world storage
+//!  Iterator for addressing a group of entities.
 typedef std::vector<entity>::iterator world_iterator;
+//!  Constant iterator for addressing a group of entities.
 typedef std::vector<entity>::const_iterator world_citerator;
 
-//!  Define container for components related to an entity
+//!  Container to store a group of components related to an entity.
 typedef std::vector<cmp::component_sptr> entity_container;
-//!  Iterator for entity storage
+//!  Iterator for addressing a group of components related to an entity.
 typedef std::vector<cmp::component_sptr>::iterator entity_iterator;
+//!  Constant iterator for addressing a group of components related to an entity.
 typedef std::vector<cmp::component_sptr>::const_iterator entity_citerator;
 
-//!  Define container for componets of same type
+//!  Container for storing components of similar type.
 typedef std::map<entity, cmp::component_sptr> component_container;
-//!  Iterator for component storage
+//!  Iterator for component storage.
 typedef std::map<entity, cmp::component_sptr>::iterator component_iterator;
+//!  Constant iterator for component storage.
 typedef std::map<entity, cmp::component_sptr>::const_iterator component_citerator;
 
-//!  Define main container for entity/component reference storage
+//!  Container to store all entites.
 typedef std::unordered_multimap<entity, cmp::component_sptr> world_map;
 
 namespace mgr

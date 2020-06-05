@@ -19,9 +19,7 @@
 namespace wte
 {
 
-/*!
- * \typedef msg_arg_list Argument strings get split by ; then stored in a vector.
- */
+//! Container to store each message argument separately.
 typedef std::vector<std::string> msg_arg_list;
 
 /*!

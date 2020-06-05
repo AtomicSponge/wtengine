@@ -349,7 +349,7 @@ inline void wte_main::do_game(void) {
             al_stop_timer(main_timer);
             engine_flags::set(GAME_MENU_OPENED);
         }
-        //  Game menu is opened, run the menu manager
+        //  Game menu is opened, run the menu manager.
         if(engine_flags::is_set(GAME_MENU_OPENED)) menus.run(messages);
 
         /* *** GAME LOOP ************************************************************ */

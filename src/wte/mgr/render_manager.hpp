@@ -39,11 +39,11 @@ namespace wte
 namespace mgr
 {
 
-//!  Define a container for an entity and component pair
+//!  Container for an entity and component pair.  Used for sorting.
 typedef std::pair<entity, cmp::component_sptr> entity_component_pair;
-//!  Iterator for the entity/component pair
+//!  Constant iterator for the entity/component pair.
 typedef std::set<entity_component_pair>::const_iterator ec_pair_citerator;
-//!  render_comparator for sorting entity/component pairs
+//!  Function wrapper used to define entity sorting.
 typedef std::function<const bool(entity_component_pair, entity_component_pair)> render_comparator;
 
 //! render_manager class
@@ -57,13 +57,14 @@ class render_manager final : public manager<render_manager>, private engine_time
          * Generates the render_manager object
          */
         inline render_manager() : fps_counter(0), fps(0), screen_w(0), screen_h(0) {
+            title_bmp = NULL;
             render_tmp_bmp = NULL;
             overlay_font = NULL;
 
             fps_timer = NULL;
             fps_event_queue = NULL;
 
-            //  Define render_comparator as lambda function that sorts components
+            //  Define render comparator as lambda function that sorts components.
             comparator =
                 [](const entity_component_pair r_element1, const entity_component_pair r_element2) {
                     return r_element1.second < r_element2.second;
@@ -75,6 +76,7 @@ class render_manager final : public manager<render_manager>, private engine_time
          * Cleans up the render_manager object
          */
         inline ~render_manager() {
+            al_destroy_bitmap(title_bmp);
             al_destroy_bitmap(render_tmp_bmp);
             al_destroy_font(overlay_font);
             al_destroy_event_queue(fps_event_queue);
@@ -91,10 +93,6 @@ class render_manager final : public manager<render_manager>, private engine_time
             fps_event_queue = al_create_event_queue();
             al_register_event_source(fps_event_queue, al_get_timer_event_source(fps_timer));
             al_start_timer(fps_timer);
-
-            //title_bmp = al_create_bitmap(screen_w, screen_h);
-            //al_set_target_bitmap(title_bmp);
-            //al_clear_to_color(WTE_COLOR_BLACK);
         };
 
         /*!
@@ -136,8 +134,8 @@ class render_manager final : public manager<render_manager>, private engine_time
         void render(const menu_manager&, const entity_manager&);
 
     private:
-        ALLEGRO_BITMAP* render_tmp_bmp;
         ALLEGRO_BITMAP* title_bmp;
+        ALLEGRO_BITMAP* render_tmp_bmp;
         ALLEGRO_FONT* overlay_font;
 
         ALLEGRO_TIMER* fps_timer;

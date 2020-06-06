@@ -133,16 +133,6 @@ class render_manager final : public manager<render_manager>, private engine_time
         }
 
         /*!
-         *  Get the screen width.
-         */
-        //inline const int get_screen_w(void) const { return screen_w; };
-
-        /*!
-         * Get the screen height.
-         */
-        //inline const int get_screen_h(void) const { return screen_h; };
-
-        /*!
          * Set the arena size.  Once the size has been set it can not be changed.
          * This should be called durring engine initialization.
          */

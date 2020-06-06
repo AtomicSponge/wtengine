@@ -182,9 +182,6 @@ template <> inline bool render_manager::manager<render_manager>::initialized = f
  * Gets passed the entity manager and timer then draws everything to screen
  */
 inline void render_manager::render(const menu_manager& menus, const entity_manager& world) {
-    //  Make sure we're always drawing to the screen
-    al_set_target_backbuffer(al_get_current_display());
-
     /*
      * Calculate fps
      */
@@ -196,11 +193,14 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         fps_counter = 0;
         al_set_timer_count(fps_timer, 0);
     }
-
+    
     /*
      * Render world if the game is running
      */
     if(engine_flags::is_set(GAME_STARTED)) {
+        //  Set drawing to the arena bitmap.
+        al_set_target_bitmap(arena_bmp);
+
         /*
          * Draw the background
          */
@@ -283,10 +283,15 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                                world.get_component<cmp::overlay>(it->first)->pos_x,
                                world.get_component<cmp::overlay>(it->first)->pos_y, 0);
         }
+
+        //  Draw the arena bitmap to the screen.
+        al_set_target_backbuffer(al_get_current_display());
+        al_draw_bitmap(arena_bmp, 0, 0, 0);  //  TODO:  factor in scaling
     } else {
         /*
          * Game is not running - draw the title screen
          */
+        al_set_target_backbuffer(al_get_current_display());
         if(!title_bmp) al_clear_to_color(WTE_COLOR_BLACK);
         else al_draw_bitmap(title_bmp, 0, 0, 0);
     }

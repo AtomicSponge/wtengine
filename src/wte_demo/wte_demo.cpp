@@ -337,14 +337,6 @@ void wte_demo::end_game(void) {
 }
 
 /*
- *
- */
-void wte_demo::on_reload(void) {
-    game_cfg::set("arena_width", std::to_string(screen.get_screen_w()));
-    game_cfg::set("arena_height", std::to_string(screen.get_screen_h()));
-}
-
-/*
  * On menu open.
  */
 void wte_demo::on_menu_open(void) {

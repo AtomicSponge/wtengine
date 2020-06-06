@@ -13,8 +13,8 @@
 #define WTE_GLOBAL_DEFINES_HPP
 
 //  Define true & false for macro use.
-#define TRUE 1
-#define FALSE 0
+#define TRUE (1)
+#define FALSE (0)
 
 //  Set timer rate.
 #ifndef WTE_TICKS_PER_SECOND
@@ -31,7 +31,7 @@
  * 9 - Turn on all logging
  */
 #ifndef WTE_DEBUG_MODE
-#define WTE_DEBUG_MODE 0
+#define WTE_DEBUG_MODE (0)
 #endif
 
 //  Enable message pruning if WTE_NO_PRUNE is not defined.

@@ -35,9 +35,6 @@ wte_demo::wte_demo(int argc, char **argv) : wte_main(argc, argv, "WTE Demo") {
     game_cfg::reg("max_shield=100");
     game_cfg::reg("shield=50");
 
-    game_cfg::reg("arena_width", std::to_string(screen.get_screen_w()));
-    game_cfg::reg("arena_height", std::to_string(screen.get_screen_h()));
-
     game_cfg_map::load();
 
     screen.set_title_screen("title.bmp");
@@ -116,8 +113,8 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::name>("starfield"));
     world.add_component(e_id, std::make_shared<cmp::visible>());
     world.add_component(e_id, std::make_shared<stars>());
-    world.add_component(e_id, std::make_shared<cmp::background>(game_cfg::get<int>("arena_width"),
-                                                                game_cfg::get<int>("arena_height"), 0,
+    world.add_component(e_id, std::make_shared<cmp::background>(mgr::render_manager::get_arena_width(),
+                                                                mgr::render_manager::get_arena_height(), 0,
         [](entity bkg_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define the animation process for the starfield.
             al_set_target_bitmap(world.get_component<cmp::background>(bkg_id)->background_bitmap);
@@ -127,8 +124,8 @@ void wte_demo::new_game(void) {
             for(std::size_t i = 0; i < MAX_STARS; i++) {
                 world.set_component<stars>(bkg_id)->y[i] +=
                     world.get_component<stars>(bkg_id)->speed[i] * world.get_component<stars>(bkg_id)->speed_mult;
-                if(world.get_component<stars>(bkg_id)->y[i] > game_cfg::get<int>("arena_height")) { //  Make a new star
-                    world.set_component<stars>(bkg_id)->x[i] = std::rand() % game_cfg::get<int>("arena_width") + 1;
+                if(world.get_component<stars>(bkg_id)->y[i] > mgr::render_manager::get_arena_height()) { //  Make a new star
+                    world.set_component<stars>(bkg_id)->x[i] = std::rand() % mgr::render_manager::get_arena_width() + 1;
                     world.set_component<stars>(bkg_id)->y[i] = 0;
                     world.set_component<stars>(bkg_id)->speed[i] = (std::rand() % 3 + 1) * 3;
                     world.set_component<stars>(bkg_id)->color[i] = std::rand() % 4 + 1;
@@ -156,8 +153,8 @@ void wte_demo::new_game(void) {
                 world.set_component<stars>(bkg_id)->speed_mult = 1;
 
                 for(std::size_t i = 0; i < MAX_STARS; i++) {
-                    world.set_component<stars>(bkg_id)->x[i] = std::rand() % game_cfg::get<int>("arena_width") + 1;
-                    world.set_component<stars>(bkg_id)->y[i] = std::rand() % game_cfg::get<int>("arena_height") + 1;
+                    world.set_component<stars>(bkg_id)->x[i] = std::rand() % mgr::render_manager::get_arena_width() + 1;
+                    world.set_component<stars>(bkg_id)->y[i] = std::rand() % mgr::render_manager::get_arena_height() + 1;
                     world.set_component<stars>(bkg_id)->speed[i] = (std::rand() % 3 + 1) * 3;
                     world.set_component<stars>(bkg_id)->color[i] = std::rand() % 4 + 1;
                 }
@@ -171,7 +168,7 @@ void wte_demo::new_game(void) {
     e_id = world.new_entity();
     world.add_component(e_id, std::make_shared<cmp::name>("score_overlay"));
     world.add_component(e_id, std::make_shared<cmp::visible>());
-    world.add_component(e_id, std::make_shared<cmp::overlay>(200, 20, 0, game_cfg::get<int>("arena_height") - 20, 0,
+    world.add_component(e_id, std::make_shared<cmp::overlay>(200, 20, 0, mgr::render_manager::get_arena_height() - 20, 0,
         [](entity ovr_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define what gets displayed on the overlay.
             al_set_target_bitmap(world.get_component<cmp::overlay>(ovr_id)->overlay_bitmap);
@@ -190,7 +187,7 @@ void wte_demo::new_game(void) {
     e_id = world.new_entity();
     world.add_component(e_id, std::make_shared<cmp::name>("player_info_overlay"));
     world.add_component(e_id, std::make_shared<cmp::visible>());
-    world.add_component(e_id, std::make_shared<cmp::overlay>(200, 20, game_cfg::get<int>("arena_width") - 200, game_cfg::get<int>("arena_height") - 20, 0,
+    world.add_component(e_id, std::make_shared<cmp::overlay>(200, 20, mgr::render_manager::get_arena_width() - 200, mgr::render_manager::get_arena_height() - 20, 0,
         [](entity ovr_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define what gets displayed on the overlay.
             al_set_target_bitmap(world.get_component<cmp::overlay>(ovr_id)->overlay_bitmap);
@@ -208,8 +205,8 @@ void wte_demo::new_game(void) {
     e_id = world.new_entity();
     world.add_component(e_id, std::make_shared<cmp::name>("player"));
     world.add_component(e_id, std::make_shared<cmp::team>(0));
-    world.add_component(e_id, std::make_shared<cmp::location>((game_cfg::get<int>("arena_width") / 2) - 5,
-                                                               game_cfg::get<int>("arena_height") - 40));
+    world.add_component(e_id, std::make_shared<cmp::location>((mgr::render_manager::get_arena_width() / 2) - 5,
+                                                               mgr::render_manager::get_arena_height() - 40));
     world.add_component(e_id, std::make_shared<cmp::hitbox>(10, 10));
     world.add_component(e_id, std::make_shared<cmp::health>(1));
     world.add_component(e_id, std::make_shared<cmp::input_handler>());
@@ -292,7 +289,7 @@ void wte_demo::new_game(void) {
                         sin(world.get_component<cmp::direction>(ast_id)->angle * (M_PI / 180));
 
                     //  Perform OOB check.
-                    if(world.get_component<cmp::location>(ast_id)->pos_y > game_cfg::get<int>("arena_height") + 100) {
+                    if(world.get_component<cmp::location>(ast_id)->pos_y > mgr::render_manager::get_arena_height() + 100) {
                         messages.add_message(message("spawner", "delete",
                                             world.get_component<cmp::name>(ast_id)->name_str));
                     }

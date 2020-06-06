@@ -32,7 +32,7 @@ void custom_input::custom_run(mgr::entity_manager& world, mgr::message_manager& 
             world.set_component<cmp::location>(player_entity)->pos_y -= 5;
     }
     if(input_flags::is_set(INPUT_DOWN)) {
-        if(world.get_component<cmp::location>(player_entity)->pos_y < game_cfg::get<int>("arena_height") - 32)
+        if(world.get_component<cmp::location>(player_entity)->pos_y < mgr::render_manager::get_arena_height() - 32)
             world.set_component<cmp::location>(player_entity)->pos_y += 5;
     }
     if(input_flags::is_set(INPUT_LEFT)) {
@@ -40,7 +40,7 @@ void custom_input::custom_run(mgr::entity_manager& world, mgr::message_manager& 
             world.set_component<cmp::location>(player_entity)->pos_x -= 5;
     }
     if(input_flags::is_set(INPUT_RIGHT)) {
-        if(world.get_component<cmp::location>(player_entity)->pos_x < game_cfg::get<int>("arena_width") - 22)
+        if(world.get_component<cmp::location>(player_entity)->pos_x < mgr::render_manager::get_arena_width() - 22)
             world.set_component<cmp::location>(player_entity)->pos_x += 5;
     }
 

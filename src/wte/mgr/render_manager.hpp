@@ -119,7 +119,7 @@ class render_manager final : public manager<render_manager>, private engine_time
         };
 
         /*!
-         *
+         * Inform the renderer of the screen resolution.
          */
         inline void update_resolution(const int w, const int h) {
             screen_w = w;
@@ -127,17 +127,17 @@ class render_manager final : public manager<render_manager>, private engine_time
         }
 
         /*!
-         *
+         *  Get the screen width.
          */
-        inline const int get_screen_w(void) const { return screen_w; };
+        //inline const int get_screen_w(void) const { return screen_w; };
 
         /*!
-         *
+         * Get the screen height.
          */
-        inline const int get_screen_h(void) const { return screen_h; };
+        //inline const int get_screen_h(void) const { return screen_h; };
 
         /*!
-         *
+         * Set the arena size.
          */
         inline static void set_arena_size(const int w, const int h) {
             arena_w = w;
@@ -145,12 +145,12 @@ class render_manager final : public manager<render_manager>, private engine_time
         };
 
         /*!
-         *
+         * Get the arnea width.
          */
         inline static const int get_arena_width(void) { return arena_w; };
 
         /*!
-         *
+         * Get the arena height.
          */
         inline static const int get_arena_height(void) { return arena_h; };
 

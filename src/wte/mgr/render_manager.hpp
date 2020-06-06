@@ -92,7 +92,9 @@ class render_manager final : public manager<render_manager>, private engine_time
          */
         inline void initialize(ALLEGRO_FONT* font) {
             if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
+            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             arena_bmp = al_create_bitmap(arena_w, arena_h);
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
 
             overlay_font = font;
             fps_timer = al_create_timer(1);
@@ -286,7 +288,8 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
 
         //  Draw the arena bitmap to the screen.
         al_set_target_backbuffer(al_get_current_display());
-        al_draw_bitmap(arena_bmp, 0, 0, 0);  //  TODO:  factor in scaling
+        al_draw_scaled_bitmap(arena_bmp, 0, 0, arena_w, arena_h,
+                              0, 0, screen_w, screen_h, 0);
     } else {
         /*
          * Game is not running - draw the title screen
@@ -300,7 +303,10 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
      * Render game menu if it's opened
      */
     if(engine_flags::is_set(GAME_MENU_OPENED)) {
+        al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
         render_tmp_bmp = al_clone_bitmap(menus.render_menu());
+        al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+
         al_set_target_backbuffer(al_get_current_display());
         al_draw_bitmap(render_tmp_bmp,
                        (screen_w / 2) - (al_get_bitmap_width(render_tmp_bmp) / 2),
@@ -314,7 +320,11 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
      */
     if(alert::is_set()) {
         int font_size = al_get_font_line_height(overlay_font);
+
+        al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
         render_tmp_bmp = al_create_bitmap((alert::get_alert().length() * font_size) + 20, font_size + 20);
+        al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+
         al_set_target_bitmap(render_tmp_bmp);
         al_clear_to_color(alert::get_bg_color());
 

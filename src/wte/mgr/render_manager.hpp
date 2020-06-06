@@ -57,7 +57,7 @@ class render_manager final : public manager<render_manager>, private engine_time
          * render_manager constructor.
          * Generates the render_manager object.
          */
-        inline render_manager() : fps_counter(0), fps(0), screen_w(0), screen_h(0), scale_factor(0.0) {
+        inline render_manager() : fps_counter(0), fps(0), screen_w(0), screen_h(0), scale_factor(1.0) {
             title_bmp = NULL;
             arena_bmp = NULL;
             render_tmp_bmp = NULL;
@@ -151,6 +151,7 @@ class render_manager final : public manager<render_manager>, private engine_time
                 arena_w = w;
                 arena_h = h;
             }
+            arena_created = true;
         };
 
         /*!
@@ -195,6 +196,9 @@ template <> inline bool render_manager::manager<render_manager>::initialized = f
  * Gets passed the entity manager and timer then draws everything to screen.
  */
 inline void render_manager::render(const menu_manager& menus, const entity_manager& world) {
+    al_set_target_backbuffer(al_get_current_display());
+    al_clear_to_color(WTE_COLOR_BLACK);
+
     /*
      * Calculate fps.
      */
@@ -300,7 +304,9 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         //  Draw the arena bitmap to the screen.
         al_set_target_backbuffer(al_get_current_display());
         al_draw_scaled_bitmap(arena_bmp, 0, 0, arena_w, arena_h,
-                              0, 0, screen_w, screen_h, 0);  //  TODO: proper scaling
+                              (screen_w / 2) - (arena_w * scale_factor / 2),
+                              (screen_h / 2) - (arena_h * scale_factor / 2),
+                              arena_w * scale_factor, arena_h * scale_factor, 0);
     } else {
         /*
          * Game is not running - draw the title screen.

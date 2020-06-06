@@ -56,6 +56,8 @@ class render_manager final : public manager<render_manager>, private engine_time
         /*!
          * render_manager constructor.
          * Generates the render_manager object.
+         * \param void
+         * \return void
          */
         inline render_manager() : fps_counter(0), fps(0), screen_w(0), screen_h(0), scale_factor(1.0) {
             title_bmp = NULL;
@@ -77,6 +79,8 @@ class render_manager final : public manager<render_manager>, private engine_time
         /*!
          * render_manager destructor.
          * Cleans up the render_manager object.
+         * \param void
+         * \return void
          */
         inline ~render_manager() {
             al_destroy_bitmap(title_bmp);
@@ -92,6 +96,8 @@ class render_manager final : public manager<render_manager>, private engine_time
         /*!
          * Initialize the render_manager.
          * Pass an Allegro font for the render_manager to use.
+         * \param void
+         * \return void
          */
         inline void initialize(ALLEGRO_FONT* font) {
             if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
@@ -109,6 +115,8 @@ class render_manager final : public manager<render_manager>, private engine_time
 
         /*!
          * Set the title screen.
+         * \param void
+         * \return void
          */
         inline bool set_title_screen(const std::string fname) {
             ALLEGRO_FILE* file;
@@ -124,6 +132,8 @@ class render_manager final : public manager<render_manager>, private engine_time
 
         /*!
          * Inform the renderer of the screen resolution.
+         * \param void
+         * \return void
          */
         inline void update_resolution(const int w, const int h) {
             screen_w = w;
@@ -134,7 +144,10 @@ class render_manager final : public manager<render_manager>, private engine_time
 
         /*!
          * Set the arena size.  Once the size has been set it can not be changed.
-         * This should be called durring engine initialization.
+         * This should be called during engine initialization.
+         * \param w Arena width.
+         * \param h Arena height.
+         * \return void
          */
         inline static void set_arena_size(const int w, const int h) {
             if(!arena_created) {
@@ -146,16 +159,22 @@ class render_manager final : public manager<render_manager>, private engine_time
 
         /*!
          * Get the arnea width.
+         * \param void
+         * \return void
          */
         inline static const int get_arena_width(void) { return arena_w; };
 
         /*!
          * Get the arena height.
+         * \param void
+         * \return void
          */
         inline static const int get_arena_height(void) { return arena_h; };
 
         /*!
          * Render method - Draw the game screen.
+         * \param void
+         * \return void
          */
         void render(const menu_manager&, const entity_manager&);
 

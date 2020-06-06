@@ -19,6 +19,9 @@ int main(int argc, char **argv) {
     wte_main::add_file_location("data");
     wte_main::add_file_location("data.zip");
 
+    //  Set the size of the play area.
+    mgr::render_manager::set_arena_size(768, 1024);
+
     //  Register default engine settings.
     engine_cfg::reg("resolution=768x1024");
     engine_cfg::reg("draw_fps=0");

@@ -17,6 +17,7 @@
 #include <iterator>
 #include <algorithm>
 #include <functional>
+#include <stdexcept>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
@@ -58,6 +59,7 @@ class render_manager final : public manager<render_manager>, private engine_time
          */
         inline render_manager() : fps_counter(0), fps(0), screen_w(0), screen_h(0) {
             title_bmp = NULL;
+            arena_bmp = NULL;
             render_tmp_bmp = NULL;
             overlay_font = NULL;
 
@@ -77,6 +79,7 @@ class render_manager final : public manager<render_manager>, private engine_time
          */
         inline ~render_manager() {
             al_destroy_bitmap(title_bmp);
+            al_destroy_bitmap(arena_bmp);
             al_destroy_bitmap(render_tmp_bmp);
             al_destroy_font(overlay_font);
             al_destroy_event_queue(fps_event_queue);
@@ -88,6 +91,9 @@ class render_manager final : public manager<render_manager>, private engine_time
          * Pass an Allegro font for the render_manager to use
          */
         inline void initialize(ALLEGRO_FONT* font) {
+            if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
+            arena_bmp = al_create_bitmap(arena_w, arena_h);
+
             overlay_font = font;
             fps_timer = al_create_timer(1);
             fps_event_queue = al_create_event_queue();
@@ -129,12 +135,31 @@ class render_manager final : public manager<render_manager>, private engine_time
         inline const int get_screen_h(void) const { return screen_h; };
 
         /*!
+         *
+         */
+        inline static void set_arena_size(const int w, const int h) {
+            arena_w = w;
+            arena_h = h;
+        };
+
+        /*!
+         *
+         */
+        inline static const int get_arena_width(void) { return arena_w; };
+
+        /*!
+         *
+         */
+        inline static const int get_arena_height(void) { return arena_h; };
+
+        /*!
          * Render method - Draw the game screen
          */
         void render(const menu_manager&, const entity_manager&);
 
     private:
         ALLEGRO_BITMAP* title_bmp;
+        ALLEGRO_BITMAP* arena_bmp;
         ALLEGRO_BITMAP* render_tmp_bmp;
         ALLEGRO_FONT* overlay_font;
 
@@ -147,6 +172,8 @@ class render_manager final : public manager<render_manager>, private engine_time
         std::size_t fps_counter, fps;
 
         int screen_w, screen_h;
+
+        inline static int arena_w = 0, arena_h = 0;
 };
 
 template <> inline bool render_manager::manager<render_manager>::initialized = false;

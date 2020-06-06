@@ -49,18 +49,19 @@ typedef std::function<const bool(entity_component_pair, entity_component_pair)> 
 
 //! render_manager class
 /*!
- * An object that handles drawing the world to the screen
+ * An object that handles drawing the world to the screen.
  */
 class render_manager final : public manager<render_manager>, private engine_time {
     public:
         /*!
-         * render_manager constructor
-         * Generates the render_manager object
+         * render_manager constructor.
+         * Generates the render_manager object.
          */
-        inline render_manager() : fps_counter(0), fps(0), screen_w(0), screen_h(0) {
+        inline render_manager() : fps_counter(0), fps(0), screen_w(0), screen_h(0), scale_factor(0.0) {
             title_bmp = NULL;
             arena_bmp = NULL;
             render_tmp_bmp = NULL;
+
             overlay_font = NULL;
 
             fps_timer = NULL;
@@ -74,21 +75,23 @@ class render_manager final : public manager<render_manager>, private engine_time
         };
 
         /*!
-         * render_manager destructor
-         * Cleans up the render_manager object
+         * render_manager destructor.
+         * Cleans up the render_manager object.
          */
         inline ~render_manager() {
             al_destroy_bitmap(title_bmp);
             al_destroy_bitmap(arena_bmp);
             al_destroy_bitmap(render_tmp_bmp);
+
             al_destroy_font(overlay_font);
+
             al_destroy_event_queue(fps_event_queue);
             al_destroy_timer(fps_timer);
         };
 
         /*!
-         * Initialize the render_manager
-         * Pass an Allegro font for the render_manager to use
+         * Initialize the render_manager.
+         * Pass an Allegro font for the render_manager to use.
          */
         inline void initialize(ALLEGRO_FONT* font) {
             if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
@@ -125,6 +128,8 @@ class render_manager final : public manager<render_manager>, private engine_time
         inline void update_resolution(const int w, const int h) {
             screen_w = w;
             screen_h = h;
+
+            scale_factor = 1.0;
         }
 
         /*!
@@ -159,7 +164,7 @@ class render_manager final : public manager<render_manager>, private engine_time
         inline static const int get_arena_height(void) { return arena_h; };
 
         /*!
-         * Render method - Draw the game screen
+         * Render method - Draw the game screen.
          */
         void render(const menu_manager&, const entity_manager&);
 
@@ -178,6 +183,7 @@ class render_manager final : public manager<render_manager>, private engine_time
         std::size_t fps_counter, fps;
 
         int screen_w, screen_h;
+        float scale_factor;
 
         inline static int arena_w = 0, arena_h = 0;
         inline static bool arena_created = false;
@@ -186,14 +192,14 @@ class render_manager final : public manager<render_manager>, private engine_time
 template <> inline bool render_manager::manager<render_manager>::initialized = false;
 
 /*!
- * Gets passed the entity manager and timer then draws everything to screen
+ * Gets passed the entity manager and timer then draws everything to screen.
  */
 inline void render_manager::render(const menu_manager& menus, const entity_manager& world) {
     /*
-     * Calculate fps
+     * Calculate fps.
      */
     fps_counter++;
-    //  Update fps on unique ticks only
+    //  Update fps on unique ticks only.
     const bool queue_not_empty = al_get_next_event(fps_event_queue, &fps_event);
     if(fps_event.type == ALLEGRO_EVENT_TIMER && queue_not_empty) {
         fps = fps_counter;
@@ -202,37 +208,37 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
     }
     
     /*
-     * Render world if the game is running
+     * Render world if the game is running.
      */
     if(engine_flags::is_set(GAME_STARTED)) {
         //  Set drawing to the arena bitmap.
         al_set_target_bitmap(arena_bmp);
 
         /*
-         * Draw the background
+         * Draw the background.
          */
         const component_container background_components = world.get_components<cmp::background>();
 
-        //  Sort the background layers
+        //  Sort the background layers.
         std::set<entity_component_pair, render_comparator> background_componenet_set(
             background_components.begin(), background_components.end(), comparator);
 
-        //  Draw each background by layer
+        //  Draw each background by layer.
         for(ec_pair_citerator it = background_componenet_set.begin(); it != background_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible)
                 al_draw_bitmap(world.get_component<cmp::background>(it->first)->background_bitmap, 0, 0, 0);
         }
 
         /*
-         * Draw the sprites
+         * Draw the sprites.
          */
         const component_container sprite_components = world.get_components<cmp::sprite>();
 
-        //  Sort the sprite render components
+        //  Sort the sprite render components.
         std::set<entity_component_pair, render_comparator> sprite_componenet_set(
             sprite_components.begin(), sprite_components.end(), comparator);
 
-        //  Draw each sprite in order
+        //  Draw each sprite in order.
         for(ec_pair_citerator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible) {
                 al_draw_bitmap_region(world.get_component<cmp::sprite>(it->first)->sprite_bitmap,
@@ -251,10 +257,10 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
          */
         #if WTE_DEBUG_MODE == 3 || WTE_DEBUG_MODE == 9
         for(ec_pair_citerator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
-            //  Make sure the entity has a hitbox and is enabled
+            //  Make sure the entity has a hitbox and is enabled.
             if((world.has_component<cmp::hitbox>(it->first)) &&
                 (world.get_component<cmp::enabled>(it->first)->is_enabled)) {
-                //  Select color based on team
+                //  Select color based on team.
                 ALLEGRO_COLOR team_color;
                 switch(world.get_component<cmp::team>(it->first)->this_team) {
                     case 0: team_color = WTE_COLOR_GREEN; break;
@@ -262,28 +268,28 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                     case 2: team_color = WTE_COLOR_BLUE; break;
                     default: team_color = WTE_COLOR_YELLOW;
                 }
-                //  Draw the hitbox
+                //  Draw the hitbox.
                 for(int i = 0; i < world.get_component<cmp::hitbox>(it->first)->width; i++) {
                     for(int j = 0; j < world.get_component<cmp::hitbox>(it->first)->height; j++) {
                         al_draw_pixel(world.get_component<cmp::location>(it->first)->pos_x + i,
                                         world.get_component<cmp::location>(it->first)->pos_y + j,
                                         team_color);
                     }
-                }  //  End hitbox drawing
-            }  //  End hitbox/enabled test
-        }  //  End render component loop
-        #endif  //  End draw hitbox check
+                }  //  End hitbox drawing.
+            }  //  End hitbox/enabled test.
+        }  //  End render component loop.
+        #endif  //  End draw hitbox check.
 
         /*
          * Draw the overlay
          */
         const component_container overlay_components = world.get_components<cmp::overlay>();
 
-        //  Sort the overlay layers
+        //  Sort the overlay layers.
         std::set<entity_component_pair, render_comparator> overlay_componenet_set(
             overlay_components.begin(), overlay_components.end(), comparator);
 
-        //  Draw each overlay by layer
+        //  Draw each overlay by layer.
         for(ec_pair_citerator it = overlay_componenet_set.begin(); it != overlay_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible)
                 al_draw_bitmap(world.get_component<cmp::overlay>(it->first)->overlay_bitmap,
@@ -294,18 +300,20 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         //  Draw the arena bitmap to the screen.
         al_set_target_backbuffer(al_get_current_display());
         al_draw_scaled_bitmap(arena_bmp, 0, 0, arena_w, arena_h,
-                              0, 0, screen_w, screen_h, 0);
+                              0, 0, screen_w, screen_h, 0);  //  TODO: proper scaling
     } else {
         /*
-         * Game is not running - draw the title screen
+         * Game is not running - draw the title screen.
          */
         al_set_target_backbuffer(al_get_current_display());
         if(!title_bmp) al_clear_to_color(WTE_COLOR_BLACK);
-        else al_draw_bitmap(title_bmp, 0, 0, 0);
+        else al_draw_scaled_bitmap(title_bmp, 0, 0,
+                                   al_get_bitmap_width(title_bmp), al_get_bitmap_height(title_bmp),
+                                   0, 0, screen_w, screen_h, 0);
     }
 
     /*
-     * Render game menu if it's opened
+     * Render game menu if it's opened.
      */
     if(engine_flags::is_set(GAME_MENU_OPENED)) {
         al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
@@ -321,7 +329,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
     }
 
     /*
-     * Render alerts
+     * Render alerts.
      */
     if(alert::is_set()) {
         int font_size = al_get_font_line_height(overlay_font);
@@ -346,15 +354,15 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
     }
 
     /*
-     * Framerate and timer rendering
+     * Framerate and timer rendering.
      */
-    //  Draw frame rate
+    //  Draw frame rate.
     if(engine_flags::is_set(DRAW_FPS)) {
         std::string fps_string = "FPS: " + std::to_string(fps);
         al_draw_text(overlay_font, WTE_COLOR_YELLOW, screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
 
-    //  Draw time if debug mode is enabled
+    //  Draw time if debug mode is enabled.
     #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
     std::string timer_string = "Timer: " + std::to_string(check_time());
     al_draw_text(overlay_font, WTE_COLOR_YELLOW, screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());

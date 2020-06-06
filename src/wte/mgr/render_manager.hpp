@@ -95,6 +95,7 @@ class render_manager final : public manager<render_manager>, private engine_time
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             arena_bmp = al_create_bitmap(arena_w, arena_h);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+            arena_created = true;
 
             overlay_font = font;
             fps_timer = al_create_timer(1);
@@ -137,11 +138,14 @@ class render_manager final : public manager<render_manager>, private engine_time
         //inline const int get_screen_h(void) const { return screen_h; };
 
         /*!
-         * Set the arena size.
+         * Set the arena size.  Once the size has been set it can not be changed.
+         * This should be called durring engine initialization.
          */
         inline static void set_arena_size(const int w, const int h) {
-            arena_w = w;
-            arena_h = h;
+            if(!arena_created) {
+                arena_w = w;
+                arena_h = h;
+            }
         };
 
         /*!
@@ -176,6 +180,7 @@ class render_manager final : public manager<render_manager>, private engine_time
         int screen_w, screen_h;
 
         inline static int arena_w = 0, arena_h = 0;
+        inline static bool arena_created = false;
 };
 
 template <> inline bool render_manager::manager<render_manager>::initialized = false;

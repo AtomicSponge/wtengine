@@ -96,7 +96,7 @@ class render_manager final : public manager<render_manager>, private engine_time
         /*!
          * Initialize the render_manager.
          * Pass an Allegro font for the render_manager to use.
-         * \param void
+         * \param font Allegro font to use for the renderer.
          * \return void
          */
         inline void initialize(ALLEGRO_FONT* font) {
@@ -115,8 +115,8 @@ class render_manager final : public manager<render_manager>, private engine_time
 
         /*!
          * Set the title screen.
-         * \param void
-         * \return void
+         * \param fname Filename of title screen.
+         * \return True if file found, false if not found.
          */
         inline bool set_title_screen(const std::string fname) {
             ALLEGRO_FILE* file;
@@ -132,7 +132,8 @@ class render_manager final : public manager<render_manager>, private engine_time
 
         /*!
          * Inform the renderer of the screen resolution.
-         * \param void
+         * \param w Resolution width in pixels.
+         * \param h Resolution height in pixels.
          * \return void
          */
         inline void update_resolution(const int w, const int h) {
@@ -146,8 +147,8 @@ class render_manager final : public manager<render_manager>, private engine_time
          * \brief Set the arena size.
          * Once the renderer has been initialized it can not be changed.
          * This should be called during engine initialization before the main object is created.
-         * \param w Arena width.
-         * \param h Arena height.
+         * \param w Arena width in pixels.
+         * \param h Arena height in pixels.
          * \return void
          */
         inline static void set_arena_size(const int w, const int h) {
@@ -160,14 +161,14 @@ class render_manager final : public manager<render_manager>, private engine_time
         /*!
          * Get the arnea width.
          * \param void
-         * \return void
+         * \return The arena width in pixels.
          */
         inline static const int get_arena_width(void) { return arena_w; };
 
         /*!
          * Get the arena height.
          * \param void
-         * \return void
+         * \return The arena height in pixels.
          */
         inline static const int get_arena_height(void) { return arena_h; };
 

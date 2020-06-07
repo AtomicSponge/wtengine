@@ -143,8 +143,9 @@ class render_manager final : public manager<render_manager>, private engine_time
         }
 
         /*!
-         * Set the arena size.  Once the size has been set it can not be changed.
-         * This should be called during engine initialization.
+         * \brief Set the arena size.
+         * Once the renderer has been initialized it can not be changed.
+         * This should be called during engine initialization before the main object is created.
          * \param w Arena width.
          * \param h Arena height.
          * \return void
@@ -154,7 +155,6 @@ class render_manager final : public manager<render_manager>, private engine_time
                 arena_w = w;
                 arena_h = h;
             }
-            arena_created = true;
         };
 
         /*!

@@ -15,6 +15,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 #include <any>
 #include <stdexcept>
 
@@ -99,7 +100,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
         template <typename T> inline static bool add(const std::string var, T val) {
             try {
                 T temp;
-                std::stringstream(_map.at(var)) >> temp;
+                std::stringstream(_map.at(var)) >> std::setprecision(6) >> std::fixed >> temp;
                 _map.at(var) = std::to_string(std::any_cast<T>(temp += val));
                 return true;
             } catch (std::out_of_range& e) {
@@ -118,7 +119,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
         template <typename T> inline static bool subtract(const std::string var, T val) {
             try {
                 T temp;
-                std::stringstream(_map.at(var)) >> temp;
+                std::stringstream(_map.at(var)) >> std::setprecision(6) >> std::fixed >> temp;
                 _map.at(var) = std::to_string(std::any_cast<T>(temp -= val));
                 return true;
             } catch (std::out_of_range& e) {
@@ -137,7 +138,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
         template <typename T> inline static bool multiply(const std::string var, T val) {
             try {
                 T temp;
-                std::stringstream(_map.at(var)) >> temp;
+                std::stringstream(_map.at(var)) >> std::setprecision(6) >> std::fixed >> temp;
                 _map.at(var) = std::to_string(std::any_cast<T>(temp *= val));
                 return true;
             } catch (std::out_of_range& e) {
@@ -156,7 +157,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
         template <typename T> inline static bool divide(const std::string var, T val) {
             try {
                 T temp;
-                std::stringstream(_map.at(var)) >> temp;
+                std::stringstream(_map.at(var)) >> std::setprecision(6) >> std::fixed >> temp;
                 _map.at(var) = std::to_string(std::any_cast<T>(temp /= val));
                 return true;
             } catch (std::out_of_range& e) {

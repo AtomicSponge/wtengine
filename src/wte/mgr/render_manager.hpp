@@ -205,6 +205,7 @@ template <> inline bool render_manager::manager<render_manager>::initialized = f
  * Gets passed the entity manager and timer then draws everything to screen.
  */
 inline void render_manager::render(const menu_manager& menus, const entity_manager& world) {
+    //  Clear screen to black.
     al_set_target_backbuffer(al_get_current_display());
     al_clear_to_color(WTE_COLOR_BLACK);
 
@@ -226,9 +227,10 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
     if(engine_flags::is_set(GAME_STARTED)) {
         //  Set drawing to the arena bitmap.
         al_set_target_bitmap(arena_bmp);
+        al_clear_to_color(WTE_COLOR_BLACK);
 
         /*
-         * Draw the background.
+         * Draw the backgrounds.
          */
         const component_container background_components = world.get_components<cmp::background>();
 
@@ -294,7 +296,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         #endif  //  End draw hitbox check.
 
         /*
-         * Draw the overlay
+         * Draw the overlays.
          */
         const component_container overlay_components = world.get_components<cmp::overlay>();
 

@@ -19,10 +19,10 @@ API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
  - Buildable debug modes
 
 #### TODO:
- - Improve cmake config
+ - Resolution & window settings
  - SFX & input debugging
  - Code review / documentation
- - Engine reloading
+ - Improve cmake config
 
 #### DEMO:
 

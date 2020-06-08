@@ -306,7 +306,7 @@ inline void wte_main::process_end_game(void) {
     messages.add_message(message("audio", "stop_music", ""));
     messages.add_message(message("audio", "stop_ambiance", ""));
     messages.add_message(message("audio", "stop_voice", ""));
-    messages.add_message(message("audio", "stop_sample", "all"));
+    messages.add_message(message("audio", "unload_sample", "all"));
 
     //  Call end game process.
     end_game();

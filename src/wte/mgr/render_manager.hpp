@@ -100,6 +100,9 @@ class render_manager final : public manager<render_manager>, private engine_time
             al_start_timer(fps_timer);
         };
 
+        /*!
+         * de-init
+         */
         inline void de_init(void) {
             al_destroy_bitmap(title_bmp);
             al_destroy_bitmap(arena_bmp);

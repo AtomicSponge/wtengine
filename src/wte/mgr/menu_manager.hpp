@@ -92,6 +92,9 @@ class menu_manager final : public manager<menu_manager> {
             al_clear_to_color(menu_font_color);
         }
 
+        /*!
+         * de-init
+         */
         inline void de_init(void) {
             al_destroy_bitmap(menu_bitmap);
             al_destroy_bitmap(cursor_bitmap);

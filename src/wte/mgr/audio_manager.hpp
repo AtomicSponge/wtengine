@@ -128,6 +128,9 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             al_reserve_samples(WTE_MAX_SAMPLES);
         };
 
+        /*!
+         * de-init
+         */
         inline void de_init(void) {
             //for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++) al_destroy_sample(samples[pos]);
 

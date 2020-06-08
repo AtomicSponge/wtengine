@@ -8,9 +8,6 @@
  *
  * \details Handle playback of audio in its own thread.
  * Waits for messages to be loaded into the audio deck.
- * 
- * \bug Samples currently have a memory leak.
- * Need to investigate loading/unloading.
  */
 
 #ifndef WTE_MGR_AUDIO_MANAGER_HPP
@@ -105,7 +102,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             ambiance_stream = NULL;
             voice_stream = NULL;
 
-            for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++) AL_SAMPLES[pos].sample = NULL;
+            samples[WTE_MAX_SAMPLES] = { NULL };
 
             audio_messages.clear();
         };
@@ -115,10 +112,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
          * Clears the internal audio deck and audio command map.
          */
         inline ~audio_manager() {
-            for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++)
-                al_destroy_sample(AL_SAMPLES[pos].sample);
-            for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++)
-                al_destroy_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
+            for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++) al_destroy_sample(samples[pos]);
 
             al_destroy_audio_stream(music_stream);
             al_destroy_audio_stream(ambiance_stream);
@@ -133,6 +127,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             al_destroy_voice(voice);
             
             al_uninstall_audio();
+
             map_cmd_str_values.clear();
             audio_messages.clear();
         };
@@ -155,11 +150,8 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             al_attach_mixer_to_mixer(mixer_3, mixer_main);
             al_attach_mixer_to_mixer(mixer_4, mixer_main);
 
-            //  Create sample instances and attach to mixer 2.
-            for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++)
-                AL_SAMPLE_INSTANCES[pos].instance = al_create_sample_instance(NULL);
-            for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++)
-                al_attach_sample_instance_to_mixer(AL_SAMPLE_INSTANCES[pos].instance, mixer_2);
+            al_set_default_mixer(mixer_2);
+            al_reserve_samples(WTE_MAX_SAMPLES);
         };
 
         /*!
@@ -213,6 +205,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         std::deque<message> audio_messages;
 
         ALLEGRO_VOICE* voice;
+
         ALLEGRO_MIXER* mixer_main;
         ALLEGRO_MIXER* mixer_1;
         ALLEGRO_MIXER* mixer_2;
@@ -223,13 +216,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         ALLEGRO_AUDIO_STREAM* ambiance_stream;
         ALLEGRO_AUDIO_STREAM* voice_stream;
 
-        struct al_samples {
-            ALLEGRO_SAMPLE* sample;
-        } AL_SAMPLES[WTE_MAX_SAMPLES];
-
-        struct al_sample_instances {
-            ALLEGRO_SAMPLE_INSTANCE* instance;
-        } AL_SAMPLE_INSTANCES[WTE_MAX_SAMPLES];
+        ALLEGRO_SAMPLE* samples[WTE_MAX_SAMPLES];
 };
 
 //  Used to restrict class to a single instance.
@@ -247,8 +234,11 @@ inline void audio_manager::run(void) {
 
     al_set_default_mixer(mixer_main);
 
+    //  Used to reference playing samples.
+    ALLEGRO_SAMPLE_ID sample_id[WTE_MAX_SAMPLES];
+    bool sample_playing[WTE_MAX_SAMPLES] = { false };
+
     while(keep_running() == true) {
-        //  Reset pos & pan
         std::size_t pos = 0;
         float pan = 0.0f;
 
@@ -296,16 +286,7 @@ inline void audio_manager::run(void) {
                     pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     //  Load sample from file
-                    AL_SAMPLES[pos].sample = al_load_sample(audio_messages.front().get_arg(1).c_str());
-                    if(!AL_SAMPLES[pos].sample) break;  //  Failed to load sample, end.
-                    //  Set the instance to the loaded sample.
-                    al_set_sample(AL_SAMPLE_INSTANCES[pos].instance, AL_SAMPLES[pos].sample);
-                    //al_attach_sample_instance_to_mixer(AL_SAMPLE_INSTANCES[pos].instance, mixer_2);
-                    //  Set playmode, once = play once, else = play in loop.
-                    if(audio_messages.front().get_arg(2) == "once")
-                        al_set_sample_instance_playmode(AL_SAMPLE_INSTANCES[pos].instance, ALLEGRO_PLAYMODE_ONCE);
-                    else
-                        al_set_sample_instance_playmode(AL_SAMPLE_INSTANCES[pos].instance, ALLEGRO_PLAYMODE_LOOP);
+                    samples[pos] = al_load_sample(audio_messages.front().get_arg(1).c_str());
                     break;
 
                 //  cmd:  unload_sample - arg:  sample_num (0 - MAX) - Unload sample if one is loaded.
@@ -313,42 +294,45 @@ inline void audio_manager::run(void) {
                 case CMD_STR_UNLOAD_SAMPLE:
                     //  Unload all samples.
                     if(audio_messages.front().get_arg(0) == "all") {
-                        for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) {
-                            al_destroy_sample(AL_SAMPLES[pos].sample);
-                        }
+                        for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) al_destroy_sample(samples[pos]);
                         break;
                     }
                     //  Unload a sample by position.
                     pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
-                    al_destroy_sample(AL_SAMPLES[pos].sample);
+                    al_destroy_sample(samples[pos]);
                     break;
 
-                //  cmd:  play_sample - arg:  sample_num (0 - MAX) - Start playing loaded sample.
+                //  cmd:  play_sample - args:  sample_num (0 - MAX) ; mode (once, loop)
+                //  Start playing loaded sample.
                 case CMD_STR_PLAY_SAMPLE:
                     pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
-                    if(!al_get_sample(AL_SAMPLE_INSTANCES[pos].instance)) break;  //  Sample not loaded, end.
-                    al_play_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
+                    if(!samples[pos]) break;  //  Sample not loaded, end.
+                    if(audio_messages.front().get_arg(1) == "once")
+                        sample_playing[pos] = al_play_sample(samples[pos], 1.0f, 0.0f, 1.0f,
+                                                             ALLEGRO_PLAYMODE_ONCE, &sample_id[pos]);
+                    else
+                        sample_playing[pos] = al_play_sample(samples[pos], 1.0f, 0.0f, 1.0f,
+                                                             ALLEGRO_PLAYMODE_LOOP, &sample_id[pos]);
                     break;
 
                 //  cmd:  stop_sample - arg:  sample_num (0 - MAX) - Stop playing loaded sample.
                 case CMD_STR_STOP_SAMPLE:
                     if(audio_messages.front().get_arg(0) == "all") {
                         for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) {
-                            al_stop_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
+                            if(sample_playing[pos]) al_stop_sample(&sample_id[pos]);
                         }
                         break;
                     }
                     pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
-                    if(!al_get_sample(AL_SAMPLE_INSTANCES[pos].instance)) break;  //  Sample not loaded, end.
-                    al_stop_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
+                    if(sample_playing[pos]) al_stop_sample(&sample_id[pos]);
                     break;
 
                 //  cmd:  pan_sample - arg:  sample_num (0 - MAX) ; pan ([left]-1.0 thru 1.0[right] or none) - Set sample pan.
                 case CMD_STR_PAN_SAMPLE:
-                    if(!al_get_sample(AL_SAMPLE_INSTANCES[pos].instance)) break;  //  Sample not loaded, end.
+                    /*if(!al_get_sample(AL_SAMPLE_INSTANCES[pos].instance)) break;  //  Sample not loaded, end.
                     pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     //  If arg == "none" set no panning
@@ -358,7 +342,7 @@ inline void audio_manager::run(void) {
                     }
                     pan = std::atof(audio_messages.front().get_arg(1).c_str());
                     if(pan < -1.0 || pan > 1.0) break;  //  Out of pan range
-                    al_set_sample_instance_pan(AL_SAMPLE_INSTANCES[pos].instance, pan);
+                    al_set_sample_instance_pan(AL_SAMPLE_INSTANCES[pos].instance, pan);*/
                     break;
 
                 /* ***  Mixer 3 - Voice controls  *** */

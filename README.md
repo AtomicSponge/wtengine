@@ -14,12 +14,14 @@ API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
  - Internal messaging queue 
  - Programmable menu interface
  - Memory manager for in-game objects
+ - Global variable maps for game/engine settings
  - Music & audio playback via messages
  - Some multi-threading of tasks
  - Buildable debug modes
 
 #### TODO:
  - Resolution & window settings
+ - Audio & input settings
  - SFX & input debugging
  - Code review / documentation
  - Improve cmake config

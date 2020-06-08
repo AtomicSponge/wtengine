@@ -95,6 +95,7 @@ class wte_main {
             audio_th.stop();
 
             screen.de_init();
+            menus.de_init();
 
             load_called = false;
         };

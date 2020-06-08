@@ -74,17 +74,6 @@ class render_manager final : public manager<render_manager>, private engine_time
          */
         inline ~render_manager() {};
 
-        inline void de_init(void) {
-            al_destroy_bitmap(title_bmp);
-            al_destroy_bitmap(arena_bmp);
-            al_destroy_bitmap(render_tmp_bmp);
-
-            al_destroy_font(overlay_font);
-
-            al_destroy_event_queue(fps_event_queue);
-            al_destroy_timer(fps_timer);
-        };
-
         /*!
          * Initialize the render_manager.
          * Pass an Allegro font for the render_manager to use.
@@ -109,6 +98,17 @@ class render_manager final : public manager<render_manager>, private engine_time
             fps_event_queue = al_create_event_queue();
             al_register_event_source(fps_event_queue, al_get_timer_event_source(fps_timer));
             al_start_timer(fps_timer);
+        };
+
+        inline void de_init(void) {
+            al_destroy_bitmap(title_bmp);
+            al_destroy_bitmap(arena_bmp);
+            al_destroy_bitmap(render_tmp_bmp);
+
+            al_destroy_font(overlay_font);
+
+            al_destroy_event_queue(fps_event_queue);
+            al_destroy_timer(fps_timer);
         };
 
         /*!

@@ -54,10 +54,6 @@ class menu_manager final : public manager<menu_manager> {
          * Generates the menu manager object
          */
         inline menu_manager() : menu_width(340.0), menu_height(240.0), menu_padding(20.0), font_size(8) {
-            menu_bitmap = NULL;
-            cursor_bitmap = NULL;
-            menu_font = NULL;
-
             menus.clear();
             opened_menus = {};
         }
@@ -69,10 +65,6 @@ class menu_manager final : public manager<menu_manager> {
         inline ~menu_manager() {
             menus.clear();
             opened_menus = {};
-
-            al_destroy_bitmap(menu_bitmap);
-            al_destroy_bitmap(cursor_bitmap);
-            al_destroy_font(menu_font);
         }
 
         //!  Ititialize menu manager
@@ -99,6 +91,12 @@ class menu_manager final : public manager<menu_manager> {
             al_set_target_bitmap(cursor_bitmap);
             al_clear_to_color(menu_font_color);
         }
+
+        inline void de_init(void) {
+            al_destroy_bitmap(menu_bitmap);
+            al_destroy_bitmap(cursor_bitmap);
+            al_destroy_font(menu_font);
+        };
 
         inline void set_width(const float mw) { menu_width = mw; };
         inline void set_height(const float mh) { menu_height = mh; };
@@ -307,9 +305,6 @@ inline void menu_manager::run(message_manager& messages) {
  * Renders the active menu from the top of the stack.
  */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
-    //  Destroy old bitmap if it exists.
-    al_destroy_bitmap(menu_bitmap);
-
     //  Create a new menu bitmap and set drawing to it.
     menu_bitmap = al_create_bitmap(menu_width, menu_height);
     al_set_target_bitmap(menu_bitmap);

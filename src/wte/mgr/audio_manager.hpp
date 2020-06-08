@@ -92,17 +92,6 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             //  General
             map_cmd_str_values["set_volume"] = CMD_STR_SET_VOLUME;
 
-            voice = NULL;
-            mixer_main = NULL;
-            mixer_1 = NULL;
-            mixer_2 = NULL;
-            mixer_3 = NULL;
-            mixer_4 = NULL;
-
-            music_stream = NULL;
-            ambiance_stream = NULL;
-            voice_stream = NULL;
-
             //samples[WTE_MAX_SAMPLES] = { NULL };
 
             audio_messages.clear();
@@ -113,20 +102,6 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
          * Clears the internal audio deck and audio command map.
          */
         inline ~audio_manager() {
-            //for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++) al_destroy_sample(samples[pos]);
-
-            if(al_get_mixer_attached(mixer_1)) al_destroy_audio_stream(music_stream);
-            if(al_get_mixer_attached(mixer_3)) al_destroy_audio_stream(ambiance_stream);
-            if(al_get_mixer_attached(mixer_4)) al_destroy_audio_stream(voice_stream);
-
-            al_destroy_mixer(mixer_1);
-            al_destroy_mixer(mixer_2);
-            al_destroy_mixer(mixer_3);
-            al_destroy_mixer(mixer_4);
-            al_destroy_mixer(mixer_main);
-
-            al_destroy_voice(voice);
-
             map_cmd_str_values.clear();
             audio_messages.clear();
         };
@@ -151,6 +126,22 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
 
             al_set_default_mixer(mixer_2);
             al_reserve_samples(WTE_MAX_SAMPLES);
+        };
+
+        inline void de_init(void) {
+            //for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++) al_destroy_sample(samples[pos]);
+
+            if(al_get_mixer_attached(mixer_1)) al_destroy_audio_stream(music_stream);
+            if(al_get_mixer_attached(mixer_3)) al_destroy_audio_stream(ambiance_stream);
+            if(al_get_mixer_attached(mixer_4)) al_destroy_audio_stream(voice_stream);
+
+            al_destroy_mixer(mixer_1);
+            al_destroy_mixer(mixer_2);
+            al_destroy_mixer(mixer_3);
+            al_destroy_mixer(mixer_4);
+            al_destroy_mixer(mixer_main);
+
+            al_destroy_voice(voice);
         };
 
         /*!

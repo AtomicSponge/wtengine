@@ -22,7 +22,7 @@ API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
 #### TODO:
  - Resolution & window settings
  - Audio & input settings
- - SFX & input debugging
+ - Audio testing
  - Code review / documentation
  - Improve cmake config
 

@@ -220,7 +220,7 @@ void wte_demo::new_game(void) {
             if(msg.get_cmd() == "colision") game_cfg_map::subtract<int>("lives", 1);
         }
     ));
-    world.add_component(e_id, std::make_shared<cmp::sprite>(32, 32, -11.0, 0.0, 1, 1));
+    world.add_component(e_id, std::make_shared<cmp::sprite>(32, 32, -11.0f, 0.0f, 1, 1));
     world.set_component<cmp::sprite>(e_id)->load_sprite("ship.bmp", ".bmp");
     world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");
@@ -237,7 +237,7 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::input_handler>());
     world.add_component(e_id, std::make_shared<cmp::visible>(false));
     world.add_component(e_id, std::make_shared<cmp::enabled>(false));
-    world.add_component(e_id, std::make_shared<cmp::sprite>(64, 64, 0.0, 0.0, 6, 2));
+    world.add_component(e_id, std::make_shared<cmp::sprite>(64, 64, 0.0f, 0.0f, 6, 2));
     world.set_component<cmp::sprite>(e_id)->load_sprite("shield.bmp", ".bmp");
     world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");
@@ -254,7 +254,7 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::input_handler>());
     world.add_component(e_id, std::make_shared<cmp::visible>(false));
     world.add_component(e_id, std::make_shared<cmp::enabled>(false));
-    world.add_component(e_id, std::make_shared<cmp::sprite>(10, 200, 0.0, 0.0, 2, 2));
+    world.add_component(e_id, std::make_shared<cmp::sprite>(10, 200, 0.0f, 0.0f, 2, 2));
     world.set_component<cmp::sprite>(e_id)->load_sprite("cannon.bmp", ".bmp");
     world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");
@@ -314,7 +314,7 @@ void wte_demo::new_game(void) {
                     } //  end colision messages
                 }
             ));
-            world.add_component(e_id, std::make_shared<cmp::sprite>(10, 200, 0.0, 0.0, 10, 0));
+            world.add_component(e_id, std::make_shared<cmp::sprite>(10, 200, 0.0f, 0.0f, 10, 0));
             world.set_component<cmp::sprite>(e_id)->load_sprite("ship.bmp", ".bmp");
             world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
             world.set_component<cmp::sprite>(e_id)->set_cycle("main");

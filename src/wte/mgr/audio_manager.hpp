@@ -171,7 +171,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             if(pos == 2) return al_get_mixer_gain(mixer_2);
             if(pos == 3) return al_get_mixer_gain(mixer_3);
             if(pos == 4) return al_get_mixer_gain(mixer_4);
-            return -1.0;
+            return -1.0f;
         };*/
 
         /*!
@@ -250,7 +250,7 @@ inline void audio_manager::run(void) {
     while(keep_running() == true) {
         //  Reset pos & pan
         std::size_t pos = 0;
-        float pan = 0.0;
+        float pan = 0.0f;
 
         if(!audio_messages.empty()) {
             //  Switch over the audio message and process.
@@ -428,7 +428,7 @@ inline void audio_manager::run(void) {
                 case CMD_STR_SET_VOLUME:
                     pos = std::stoi(audio_messages.front().get_arg(0));
                     float vol = std::atof(audio_messages.front().get_arg(1).c_str());
-                    if(vol >= 0.0 && vol <= 1.0) {
+                    if(vol >= 0.0f && vol <= 1.0f) {
                         if(pos == 0) al_set_mixer_gain(mixer_main, vol);
                         if(pos == 1) al_set_mixer_gain(mixer_1, vol);
                         if(pos == 2) al_set_mixer_gain(mixer_2, vol);

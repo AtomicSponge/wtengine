@@ -94,6 +94,8 @@ class wte_main {
             input_th.stop();
             audio_th.stop();
 
+            screen.de_init();
+
             load_called = false;
         };
 

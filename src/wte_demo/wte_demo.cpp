@@ -38,7 +38,7 @@ wte_demo::wte_demo(int argc, char **argv) : wte_main(argc, argv, "WTE Demo") {
 
     game_cfg_map::load();
 
-    //screen.set_title_screen("title.bmp");
+    screen.set_title_screen("title.bmp");
 }
 
 /*

@@ -60,15 +60,6 @@ class render_manager final : public manager<render_manager>, private engine_time
          * \return void
          */
         inline render_manager() : fps_counter(0), fps(0), screen_w(0), screen_h(0), scale_factor(1.0) {
-            title_bmp = NULL;
-            arena_bmp = NULL;
-            render_tmp_bmp = NULL;
-
-            overlay_font = NULL;
-
-            fps_timer = NULL;
-            fps_event_queue = NULL;
-
             //  Define render comparator as lambda function that sorts components.
             comparator =
                 [](const entity_component_pair r_element1, const entity_component_pair r_element2) {
@@ -78,14 +69,15 @@ class render_manager final : public manager<render_manager>, private engine_time
 
         /*!
          * render_manager destructor.
-         * Cleans up the render_manager object.
          * \param void
          * \return void
          */
-        inline ~render_manager() {
-            //al_destroy_bitmap(title_bmp);
-            //al_destroy_bitmap(arena_bmp);
-            //al_destroy_bitmap(render_tmp_bmp);
+        inline ~render_manager() {};
+
+        inline void de_init(void) {
+            al_destroy_bitmap(title_bmp);
+            al_destroy_bitmap(arena_bmp);
+            al_destroy_bitmap(render_tmp_bmp);
 
             al_destroy_font(overlay_font);
 
@@ -106,9 +98,11 @@ class render_manager final : public manager<render_manager>, private engine_time
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             arena_created = true;
 
-            title_bmp = al_create_bitmap(1, 1);
-            al_set_target_bitmap(title_bmp);
-            al_clear_to_color(WTE_COLOR_BLACK);
+            if(!title_bmp) {
+                title_bmp = al_create_bitmap(1, 1);
+                al_set_target_bitmap(title_bmp);
+                al_clear_to_color(WTE_COLOR_BLACK);
+            }
 
             overlay_font = font;
             fps_timer = al_create_timer(1);
@@ -123,7 +117,6 @@ class render_manager final : public manager<render_manager>, private engine_time
          * \return True if file found, false if not found.
          */
         inline bool set_title_screen(const std::string fname) {
-            al_destroy_bitmap(title_bmp);
             ALLEGRO_FILE* file;
             file = al_fopen(fname.c_str(), "rb");
             if(!file) {
@@ -329,10 +322,9 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
          * Game is not running - draw the title screen.
          */
         al_set_target_backbuffer(al_get_current_display());
-        //if(!title_bmp) al_clear_to_color(WTE_COLOR_BLACK);
-        /*else*/ al_draw_scaled_bitmap(title_bmp, 0, 0,
-                                   al_get_bitmap_width(title_bmp), al_get_bitmap_height(title_bmp),
-                                   0, 0, screen_w, screen_h, 0);
+        al_draw_scaled_bitmap(title_bmp, 0, 0,
+                              al_get_bitmap_width(title_bmp), al_get_bitmap_height(title_bmp),
+                              0, 0, screen_w, screen_h, 0);
     }
 
     /*
@@ -348,7 +340,6 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                        (screen_w / 2) - (al_get_bitmap_width(render_tmp_bmp) / 2),
                        (screen_h / 2) - (al_get_bitmap_height(render_tmp_bmp) / 2),
                        0);
-        al_destroy_bitmap(render_tmp_bmp);
     }
 
     /*
@@ -373,7 +364,6 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                        (screen_w / 2) - (al_get_bitmap_width(render_tmp_bmp) / 2),
                        (screen_h / 2) - (al_get_bitmap_height(render_tmp_bmp) / 2),
                        0);
-        al_destroy_bitmap(render_tmp_bmp);
     }
 
     /*

@@ -34,6 +34,8 @@ A compiled demo can be found in the [releases](https://github.com/wtfsystems/rel
 ### HOW TO USE
 --------------------------
 
+(need to update this section...)
+
 The main loop for the game engine is implemented in wte_main.  The per-new-game functions for this class are completed in a seperate source file.  Certain systems are then extended to implement your game.
 
 #### MESSAGING:

@@ -65,9 +65,6 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
          * Clears the internal audio deck and maps the audio commands.
          */
         inline audio_manager() {
-            if(!al_install_audio()) throw std::runtime_error("Failed to load audio!");
-            if(!al_init_acodec_addon()) throw std::runtime_error("Failed to load Allegro audio addon!");
-
             //  Map the audio commands.
             //  Mixer 1
             map_cmd_str_values["music_loop"] = CMD_STR_MUSIC_LOOP;
@@ -106,7 +103,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             ambiance_stream = NULL;
             voice_stream = NULL;
 
-            samples[WTE_MAX_SAMPLES] = { NULL };
+            //samples[WTE_MAX_SAMPLES] = { NULL };
 
             audio_messages.clear();
         };
@@ -116,11 +113,11 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
          * Clears the internal audio deck and audio command map.
          */
         inline ~audio_manager() {
-            for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++) al_destroy_sample(samples[pos]);
+            //for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++) al_destroy_sample(samples[pos]);
 
-            al_destroy_audio_stream(music_stream);
-            al_destroy_audio_stream(ambiance_stream);
-            al_destroy_audio_stream(voice_stream);
+            if(al_get_mixer_attached(mixer_1)) al_destroy_audio_stream(music_stream);
+            if(al_get_mixer_attached(mixer_3)) al_destroy_audio_stream(ambiance_stream);
+            if(al_get_mixer_attached(mixer_4)) al_destroy_audio_stream(voice_stream);
 
             al_destroy_mixer(mixer_1);
             al_destroy_mixer(mixer_2);
@@ -129,8 +126,6 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             al_destroy_mixer(mixer_main);
 
             al_destroy_voice(voice);
-            
-            al_uninstall_audio();
 
             map_cmd_str_values.clear();
             audio_messages.clear();
@@ -220,7 +215,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         ALLEGRO_AUDIO_STREAM* ambiance_stream;
         ALLEGRO_AUDIO_STREAM* voice_stream;
 
-        ALLEGRO_SAMPLE* samples[WTE_MAX_SAMPLES];
+        //ALLEGRO_SAMPLE* samples[WTE_MAX_SAMPLES];
 };
 
 //  Used to restrict class to a single instance.
@@ -239,9 +234,9 @@ inline void audio_manager::run(void) {
     //al_set_default_mixer(mixer_main);
 
     //  Used to reference playing samples.
-    ALLEGRO_SAMPLE_ID sample_id[WTE_MAX_SAMPLES];
-    bool sample_playing[WTE_MAX_SAMPLES] = { false };
-    ALLEGRO_SAMPLE_INSTANCE* instance = NULL;
+    //ALLEGRO_SAMPLE_ID sample_id[WTE_MAX_SAMPLES];
+    //bool sample_playing[WTE_MAX_SAMPLES] = { false };
+    //ALLEGRO_SAMPLE_INSTANCE* instance = NULL;
 
     while(keep_running() == true) {
         std::size_t pos = 0;
@@ -290,7 +285,7 @@ inline void audio_manager::run(void) {
                 /* ***  Mixer 2 - Sample controls  *** */
                 //  cmd:  load_sample - args:  sample_num (0 - MAX); file ; mode (once, loop) - Load a sample.
                 //  Need to review
-                case CMD_STR_LOAD_SAMPLE:
+                /*case CMD_STR_LOAD_SAMPLE:
                     pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     //  Load sample from file
@@ -371,7 +366,7 @@ inline void audio_manager::run(void) {
                     if(instance) al_set_sample_instance_pan(instance, pan);
                     al_unlock_sample_id(&sample_id[pos]);
                     #endif
-                    break;
+                    break;*/
 
                 /* ***  Mixer 3 - Voice controls  *** */
                 //  cmd:  play_voice - arg:  file.name - Load a file and play in a stream.
@@ -459,7 +454,7 @@ inline void audio_manager::run(void) {
             audio_messages.pop_front();
         }  //  End if(!audio_messages.empty())
     }  //  End while(is_running() == true)
-    al_destroy_sample_instance(instance);
+    //al_destroy_sample_instance(instance);
 }
 
 } //  namespace mgr

@@ -13,7 +13,7 @@
 
 #include <cmath>
 
-#include <allegro5/allegro_primitives.h>
+//#include <allegro5/allegro_primitives.h>
 
 #include "include/wte_demo.hpp"
 #include "include/custom_input.hpp"
@@ -27,7 +27,7 @@ using namespace wte;
  */
 wte_demo::wte_demo(int argc, char **argv) : wte_main(argc, argv, "WTE Demo") {
     //  The engine doesn't use Allegro's primitives addon, so init it here.
-    al_init_primitives_addon();
+    //al_init_primitives_addon();
 
     game_cfg::reg("score=0");
     game_cfg::reg("hiscore=0");
@@ -38,7 +38,7 @@ wte_demo::wte_demo(int argc, char **argv) : wte_main(argc, argv, "WTE Demo") {
 
     game_cfg_map::load();
 
-    screen.set_title_screen("title.bmp");
+    //screen.set_title_screen("title.bmp");
 }
 
 /*
@@ -50,7 +50,7 @@ wte_demo::~wte_demo() {
     game_cfg_map::save("max_lives");
     game_cfg_map::save("hiscore");
 
-    al_shutdown_primitives_addon();
+    //al_shutdown_primitives_addon();
 }
 
 /*
@@ -194,7 +194,7 @@ void wte_demo::new_game(void) {
             //  Define what gets displayed on the overlay.
             al_set_target_bitmap(world.get_component<cmp::overlay>(ovr_id)->overlay_bitmap);
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
-            al_draw_filled_rectangle((float)(120 - game_cfg::get<int>("shield")), 0, 120, 10, WTE_COLOR_YELLOW);
+            //al_draw_filled_rectangle((float)(120 - game_cfg::get<int>("shield")), 0, 120, 10, WTE_COLOR_YELLOW);
             world.set_component<cmp::overlay>(ovr_id)->set_text("Shield", WTE_COLOR_WHITE, 200, 0, ALLEGRO_ALIGN_RIGHT);
             world.set_component<cmp::overlay>(ovr_id)->set_text("Lives:  " + game_cfg::get("lives"), WTE_COLOR_WHITE, 200, 10, ALLEGRO_ALIGN_RIGHT);
         }

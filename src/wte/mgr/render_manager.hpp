@@ -83,9 +83,9 @@ class render_manager final : public manager<render_manager>, private engine_time
          * \return void
          */
         inline ~render_manager() {
-            al_destroy_bitmap(title_bmp);
-            al_destroy_bitmap(arena_bmp);
-            al_destroy_bitmap(render_tmp_bmp);
+            //al_destroy_bitmap(title_bmp);
+            //al_destroy_bitmap(arena_bmp);
+            //al_destroy_bitmap(render_tmp_bmp);
 
             al_destroy_font(overlay_font);
 
@@ -106,6 +106,10 @@ class render_manager final : public manager<render_manager>, private engine_time
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             arena_created = true;
 
+            title_bmp = al_create_bitmap(1, 1);
+            al_set_target_bitmap(title_bmp);
+            al_clear_to_color(WTE_COLOR_BLACK);
+
             overlay_font = font;
             fps_timer = al_create_timer(1);
             fps_event_queue = al_create_event_queue();
@@ -119,13 +123,14 @@ class render_manager final : public manager<render_manager>, private engine_time
          * \return True if file found, false if not found.
          */
         inline bool set_title_screen(const std::string fname) {
+            al_destroy_bitmap(title_bmp);
             ALLEGRO_FILE* file;
             file = al_fopen(fname.c_str(), "rb");
             if(!file) {
                 al_fclose(file);
                 return false;
             }
-            title_bmp = al_load_bitmap_f(file, NULL);
+            title_bmp = al_load_bitmap_f(file, fname.substr(fname.find("."), fname.length()).c_str());
             al_fclose(file);
             return true;
         };
@@ -324,8 +329,8 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
          * Game is not running - draw the title screen.
          */
         al_set_target_backbuffer(al_get_current_display());
-        if(!title_bmp) al_clear_to_color(WTE_COLOR_BLACK);
-        else al_draw_scaled_bitmap(title_bmp, 0, 0,
+        //if(!title_bmp) al_clear_to_color(WTE_COLOR_BLACK);
+        /*else*/ al_draw_scaled_bitmap(title_bmp, 0, 0,
                                    al_get_bitmap_width(title_bmp), al_get_bitmap_height(title_bmp),
                                    0, 0, screen_w, screen_h, 0);
     }

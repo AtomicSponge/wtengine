@@ -15,6 +15,8 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_physfs.h>
 #include <physfs.h>
 
@@ -121,6 +123,8 @@ class wte_main {
             if(!al_install_keyboard()) throw std::runtime_error("Failed to detect keyboard!");
             if(!al_init_image_addon()) throw std::runtime_error("Failed to load Allegro image addon!");
             if(!al_init_font_addon()) throw std::runtime_error("Failed to load Allegro font addon!");
+            if(!al_install_audio()) throw std::runtime_error("Failed to load audio!");
+            if(!al_init_acodec_addon()) throw std::runtime_error("Failed to load Allegro audio addon!");
             al_install_joystick();
 
             //  Configure PhysFS.

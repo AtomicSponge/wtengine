@@ -276,13 +276,13 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  pause_music - Pause music if it is playing.
                 case CMD_STR_PAUSE_MUSIC:
-                    if(!music_stream) break;  //  Music not loaded, end.
+                    //if(!music_stream) break;  //  Music not loaded, end.
                     al_set_audio_stream_playing(music_stream, false);
                     break;
 
                 //  cmd:  unpause_music - Unpause music if it is paused.
                 case CMD_STR_UNPAUSE_MUSIC:
-                    if(!music_stream) break;  //  Music not loaded, end.
+                    //if(!music_stream) break;  //  Music not loaded, end.
                     al_set_audio_stream_playing(music_stream, true);
                     break;
 
@@ -390,13 +390,13 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  pause_voice - Pause voice if it is playing.
                 case CMD_STR_PAUSE_VOICE:
-                    if(!voice_stream) break;  //  Voice not loaded, end.
+                    //if(!voice_stream) break;  //  Voice not loaded, end.
                     al_set_audio_stream_playing(voice_stream, false);
                     break;
 
                 //  cmd:  unpause_voice - Unpause voice if it is paused.
                 case CMD_STR_UNPAUSE_VOICE:
-                    if(!voice_stream) break;  //  Voice not loaded, end.
+                    //if(!voice_stream) break;  //  Voice not loaded, end.
                     al_set_audio_stream_playing(voice_stream, true);
                     break;
 
@@ -424,13 +424,13 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  pause_ambiance - Pause ambiance if it is playing.
                 case CMD_STR_PAUSE_AMBIANCE:
-                    if(!ambiance_stream) break;  //  Ambiance not loaded, end.
+                    //if(!ambiance_stream) break;  //  Ambiance not loaded, end.
                     al_set_audio_stream_playing(ambiance_stream, false);
                     break;
 
                 //  cmd:  unpause_ambiance - Unpause ambiance if it is paused.
                 case CMD_STR_UNPAUSE_AMBIANCE:
-                    if(!ambiance_stream) break;  //  Ambiance not loaded, end.
+                    //if(!ambiance_stream) break;  //  Ambiance not loaded, end.
                     al_set_audio_stream_playing(ambiance_stream, true);
                     break;
 

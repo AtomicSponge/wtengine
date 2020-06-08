@@ -16,7 +16,6 @@ using namespace wte;
 
 int main(int argc, char **argv) {
     //  Set locations to load game data from.
-    wte_main::add_file_location("data");
     wte_main::add_file_location("data.zip");
 
     //  Set the size of the play area.

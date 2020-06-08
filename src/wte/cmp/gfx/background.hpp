@@ -63,14 +63,13 @@ class background final : public animator {
                           std::string fname,
                           const std::size_t l) :
         animator(l, {}) {
-            background_bitmap = al_create_bitmap(w, h);
-
             ALLEGRO_BITMAP* temp_bmp;
             ALLEGRO_FILE* file;
             file = al_fopen(fname.c_str(), "rb");
             temp_bmp = al_load_bitmap_f(file, NULL);
             al_fclose(file);
 
+            background_bitmap = al_create_bitmap(w, h);
             al_set_target_bitmap(background_bitmap);
             al_draw_scaled_bitmap(temp_bmp, 0, 0, al_get_bitmap_width(temp_bmp), al_get_bitmap_height(temp_bmp),
                                   0, 0, al_get_bitmap_width(background_bitmap), al_get_bitmap_height(background_bitmap), 0);

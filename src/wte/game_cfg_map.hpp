@@ -111,7 +111,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
         };
 
         /*!
-         * Subtracta value from a variable in the game config map.
+         * Subtract a value from a variable in the game config map.
          * \param var Variable name.
          * \param val Value to subtract by.
          * \return False on fail, true on success.
@@ -130,7 +130,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
         };
 
         /*!
-         * Multiplya value by a variable in the game config map.
+         * Multiply a value by a variable in the game config map.
          * \param var Variable name.
          * \param val Value to multiply by.
          * \return False on fail, true on success.
@@ -149,7 +149,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
         };
 
         /*!
-         * Dividea value by a variable in the game config map.
+         * Divide a value by a variable in the game config map.
          * \param var Variable name.
          * \param val Value to divide by.
          * \return False on fail, true on success.

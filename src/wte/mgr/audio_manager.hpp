@@ -25,6 +25,7 @@
 #include <map>
 #include <deque>
 #include <stdexcept>
+//#include <mutex>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_audio.h>
@@ -58,8 +59,10 @@ namespace mgr
  */
 class audio_manager final : public manager<audio_manager>, public make_thread {
     public:
-        //!  Configures the Allegro audio addons.
-        //!  Clears the internal audio deck and maps the audio commands.
+        /*!
+         * Configures the Allegro audio addons.
+         * Clears the internal audio deck and maps the audio commands.
+         */
         inline audio_manager() {
             if(!al_install_audio()) throw std::runtime_error("Failed to load audio!");
             if(!al_init_acodec_addon()) throw std::runtime_error("Failed to load Allegro audio addon!");
@@ -91,18 +94,89 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             //  General
             map_cmd_str_values["set_volume"] = CMD_STR_SET_VOLUME;
 
+            voice = NULL;
+            mixer_main = NULL;
+            mixer_1 = NULL;
+            mixer_2 = NULL;
+            mixer_3 = NULL;
+            mixer_4 = NULL;
+
+            music_stream = NULL;
+            ambiance_stream = NULL;
+            voice_stream = NULL;
+
+            for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++) AL_SAMPLES[pos].sample = NULL;
+
             audio_messages.clear();
         };
 
-        //!  Uninstalls Allegro audio addons.
-        //!  Clears the internal audio deck and audio command map.
+        /*!
+         * Uninstalls Allegro audio addons.
+         * Clears the internal audio deck and audio command map.
+         */
         inline ~audio_manager() {
+            for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++)
+                al_destroy_sample(AL_SAMPLES[pos].sample);
+            for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++)
+                al_destroy_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
+
+            al_destroy_audio_stream(music_stream);
+            al_destroy_audio_stream(ambiance_stream);
+            al_destroy_audio_stream(voice_stream);
+
+            al_destroy_mixer(mixer_1);
+            al_destroy_mixer(mixer_2);
+            al_destroy_mixer(mixer_3);
+            al_destroy_mixer(mixer_4);
+            al_destroy_mixer(mixer_main);
+
+            al_destroy_voice(voice);
+            
             al_uninstall_audio();
             map_cmd_str_values.clear();
             audio_messages.clear();
         };
 
-        //!  Take a vector of messages and pass them into the audio messages deck.
+        /*!
+         * Initialize audio manager.
+         */
+        inline void initialize(void) {
+            voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
+            mixer_main = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
+            mixer_1 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
+            mixer_2 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
+            mixer_3 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
+            mixer_4 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
+
+            //  Set up the mixers.
+            al_attach_mixer_to_voice(mixer_main, voice);
+            al_attach_mixer_to_mixer(mixer_1, mixer_main);
+            al_attach_mixer_to_mixer(mixer_2, mixer_main);
+            al_attach_mixer_to_mixer(mixer_3, mixer_main);
+            al_attach_mixer_to_mixer(mixer_4, mixer_main);
+
+            //  Create sample instances and attach to mixer 2.
+            for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++)
+                AL_SAMPLE_INSTANCES[pos].instance = al_create_sample_instance(NULL);
+            for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++)
+                al_attach_sample_instance_to_mixer(AL_SAMPLE_INSTANCES[pos].instance, mixer_2);
+        };
+
+        /*!
+         * Get the volume level of a mixer.
+         */
+        /*inline const float get_volume(const std::size_t pos) {
+            if(pos == 0) return al_get_mixer_gain(mixer_main);
+            if(pos == 1) return al_get_mixer_gain(mixer_1);
+            if(pos == 2) return al_get_mixer_gain(mixer_2);
+            if(pos == 3) return al_get_mixer_gain(mixer_3);
+            if(pos == 4) return al_get_mixer_gain(mixer_4);
+            return -1.0;
+        };*/
+
+        /*!
+         * Take a vector of messages and pass them into the audio messages deck.
+         */
         inline void transfer_messages(const message_container messages) {
             audio_messages.insert(audio_messages.end(),
                                   std::make_move_iterator(messages.begin()),
@@ -137,6 +211,25 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
 
         //  Deck of audio messages to be processed by the manager.
         std::deque<message> audio_messages;
+
+        ALLEGRO_VOICE* voice;
+        ALLEGRO_MIXER* mixer_main;
+        ALLEGRO_MIXER* mixer_1;
+        ALLEGRO_MIXER* mixer_2;
+        ALLEGRO_MIXER* mixer_3;
+        ALLEGRO_MIXER* mixer_4;
+
+        ALLEGRO_AUDIO_STREAM* music_stream;
+        ALLEGRO_AUDIO_STREAM* ambiance_stream;
+        ALLEGRO_AUDIO_STREAM* voice_stream;
+
+        struct al_samples {
+            ALLEGRO_SAMPLE* sample;
+        } AL_SAMPLES[WTE_MAX_SAMPLES];
+
+        struct al_sample_instances {
+            ALLEGRO_SAMPLE_INSTANCE* instance;
+        } AL_SAMPLE_INSTANCES[WTE_MAX_SAMPLES];
 };
 
 //  Used to restrict class to a single instance.
@@ -148,53 +241,16 @@ template <> inline bool audio_manager::manager<audio_manager>::initialized = fal
  * control via messages.
  */
 inline void audio_manager::run(void) {
-    //  Initialize pointers.
-    ALLEGRO_VOICE* voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
-    ALLEGRO_MIXER* mixer_main = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
-    ALLEGRO_MIXER* mixer_1 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
-    ALLEGRO_MIXER* mixer_2 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
-    ALLEGRO_MIXER* mixer_3 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
-    ALLEGRO_MIXER* mixer_4 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
-
-    ALLEGRO_AUDIO_STREAM* music_stream = NULL;
-    ALLEGRO_AUDIO_STREAM* ambiance_stream = NULL;
-    ALLEGRO_AUDIO_STREAM* voice_stream = NULL;
-
-    struct al_samples {
-        ALLEGRO_SAMPLE* sample;
-    } AL_SAMPLES[WTE_MAX_SAMPLES];
-
-    struct al_sample_instances {
-        ALLEGRO_SAMPLE_INSTANCE* instance;
-    } AL_SAMPLE_INSTANCES[WTE_MAX_SAMPLES];
-
-    std::size_t pos = 0;
-    float pan = 0.0;
-
     //  Set PhysFS interface for the thread.
     //  PhysFS is initialized in the wte_main constructor.
     al_set_physfs_file_interface();
-
-    //  Set up the mixers.
-    al_attach_mixer_to_voice(mixer_main, voice);
-    al_attach_mixer_to_mixer(mixer_1, mixer_main);
-    al_attach_mixer_to_mixer(mixer_2, mixer_main);
-    al_attach_mixer_to_mixer(mixer_3, mixer_main);
-    al_attach_mixer_to_mixer(mixer_4, mixer_main);
-
-    //  Create sample instances and attach to mixer 2.
-    for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) AL_SAMPLES[pos].sample = NULL;
-    for(pos = 0; pos < WTE_MAX_SAMPLES; pos++)
-        AL_SAMPLE_INSTANCES[pos].instance = al_create_sample_instance(NULL);
-    for(pos = 0; pos < WTE_MAX_SAMPLES; pos++)
-        al_attach_sample_instance_to_mixer(AL_SAMPLE_INSTANCES[pos].instance, mixer_2);
 
     al_set_default_mixer(mixer_main);
 
     while(keep_running() == true) {
         //  Reset pos & pan
-        pos = 0;
-        pan = 0.0;
+        std::size_t pos = 0;
+        float pan = 0.0;
 
         if(!audio_messages.empty()) {
             //  Switch over the audio message and process.
@@ -390,22 +446,6 @@ inline void audio_manager::run(void) {
             audio_messages.pop_front();
         }  //  End if(!audio_messages.empty())
     }  //  End while(is_running() == true)
-
-    //  Cleanup local data.
-    for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) al_destroy_sample(AL_SAMPLES[pos].sample);
-    for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) al_destroy_sample_instance(AL_SAMPLE_INSTANCES[pos].instance);
-
-    al_destroy_audio_stream(music_stream);
-    al_destroy_audio_stream(ambiance_stream);
-    al_destroy_audio_stream(voice_stream);
-
-    al_destroy_mixer(mixer_1);
-    al_destroy_mixer(mixer_2);
-    al_destroy_mixer(mixer_3);
-    al_destroy_mixer(mixer_4);
-    al_destroy_mixer(mixer_main);
-
-    al_destroy_voice(voice);
 }
 
 } //  namespace mgr

@@ -69,13 +69,14 @@ class wte_main {
          * Call first to load the engine.
          */
         inline void wte_load(void) {
+            //  Initialize managers that require it.
+            screen.initialize(al_create_builtin_font());
+            menus.initialize(al_create_builtin_font(), WTE_COLOR_WHITE, WTE_COLOR_DARKPURPLE);
+            audio_th.initialize();
+
             //  Start the input & audio threads.
             input_th.start();
             audio_th.start();
-
-            //  Initialize renderer and menu manager.
-            screen.initialize(al_create_builtin_font());
-            menus.initialize(al_create_builtin_font(), WTE_COLOR_WHITE, WTE_COLOR_DARKPURPLE);
 
             //  Load user configured menus.
             load_menus();

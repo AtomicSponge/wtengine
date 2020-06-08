@@ -351,6 +351,7 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  pan_sample - arg:  sample_num (0 - MAX) ; pan ([left]-1.0 thru 1.0[right] or none) - Set sample pan.
                 case CMD_STR_PAN_SAMPLE:
+                    #ifdef ALLEGRO_UNSTABLE
                     pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     if(!sample_playing[pos]) break;  //  Sample not loaded, end.
@@ -366,6 +367,7 @@ inline void audio_manager::run(void) {
                     instance = al_lock_sample_id(&sample_id[pos]);
                     if(instance) al_set_sample_instance_pan(instance, pan);
                     al_unlock_sample_id(&sample_id[pos]);
+                    #endif
                     break;
 
                 /* ***  Mixer 3 - Voice controls  *** */

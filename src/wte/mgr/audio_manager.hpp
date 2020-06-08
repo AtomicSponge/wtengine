@@ -236,7 +236,7 @@ inline void audio_manager::run(void) {
     //  PhysFS is initialized in the wte_main constructor.
     al_set_physfs_file_interface();
 
-    al_set_default_mixer(mixer_main);
+    //al_set_default_mixer(mixer_main);
 
     //  Used to reference playing samples.
     ALLEGRO_SAMPLE_ID sample_id[WTE_MAX_SAMPLES];
@@ -271,19 +271,20 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  stop_music - Stop current music from playing.
                 case CMD_STR_STOP_MUSIC:
-                    al_destroy_audio_stream(music_stream);
+                    if(al_get_mixer_attached(mixer_1))
+                        al_destroy_audio_stream(music_stream);
                     break;
 
                 //  cmd:  pause_music - Pause music if it is playing.
                 case CMD_STR_PAUSE_MUSIC:
-                    //if(!music_stream) break;  //  Music not loaded, end.
-                    al_set_audio_stream_playing(music_stream, false);
+                    if(al_get_mixer_attached(mixer_1) && al_get_mixer_playing(mixer_1))
+                        al_set_audio_stream_playing(music_stream, false);
                     break;
 
                 //  cmd:  unpause_music - Unpause music if it is paused.
                 case CMD_STR_UNPAUSE_MUSIC:
-                    //if(!music_stream) break;  //  Music not loaded, end.
-                    al_set_audio_stream_playing(music_stream, true);
+                    if(al_get_mixer_attached(mixer_1))
+                        al_set_audio_stream_playing(music_stream, true);
                     break;
 
                 /* ***  Mixer 2 - Sample controls  *** */
@@ -384,20 +385,20 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  stop_voice - Stop current voice from playing.
                 case CMD_STR_STOP_VOICE:
-                    //if(!voice_stream) break;  //  Voice not loaded, end.
-                    al_destroy_audio_stream(voice_stream);
+                    if(al_get_mixer_attached(mixer_3))
+                        al_destroy_audio_stream(voice_stream);
                     break;
 
                 //  cmd:  pause_voice - Pause voice if it is playing.
                 case CMD_STR_PAUSE_VOICE:
-                    //if(!voice_stream) break;  //  Voice not loaded, end.
-                    al_set_audio_stream_playing(voice_stream, false);
+                    if(al_get_mixer_attached(mixer_3) && al_get_mixer_playing(mixer_3))
+                        al_set_audio_stream_playing(voice_stream, false);
                     break;
 
                 //  cmd:  unpause_voice - Unpause voice if it is paused.
                 case CMD_STR_UNPAUSE_VOICE:
-                    //if(!voice_stream) break;  //  Voice not loaded, end.
-                    al_set_audio_stream_playing(voice_stream, true);
+                    if(al_get_mixer_attached(mixer_3))
+                        al_set_audio_stream_playing(voice_stream, true);
                     break;
 
                 /* ***  Mixer 4 - Ambiance controls  *** */
@@ -419,19 +420,20 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  stop_ambiance - Stop current ambiance from playing.
                 case CMD_STR_STOP_AMBIANCE:
-                    al_destroy_audio_stream(ambiance_stream);
+                    if(al_get_mixer_attached(mixer_4))
+                        al_destroy_audio_stream(ambiance_stream);
                     break;
 
                 //  cmd:  pause_ambiance - Pause ambiance if it is playing.
                 case CMD_STR_PAUSE_AMBIANCE:
-                    //if(!ambiance_stream) break;  //  Ambiance not loaded, end.
-                    al_set_audio_stream_playing(ambiance_stream, false);
+                    if(al_get_mixer_attached(mixer_4) && al_get_mixer_playing(mixer_4))
+                        al_set_audio_stream_playing(ambiance_stream, false);
                     break;
 
                 //  cmd:  unpause_ambiance - Unpause ambiance if it is paused.
                 case CMD_STR_UNPAUSE_AMBIANCE:
-                    //if(!ambiance_stream) break;  //  Ambiance not loaded, end.
-                    al_set_audio_stream_playing(ambiance_stream, true);
+                    if(al_get_mixer_attached(mixer_4))
+                        al_set_audio_stream_playing(ambiance_stream, true);
                     break;
 
                 /* *** General commands *** */

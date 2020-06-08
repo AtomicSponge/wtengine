@@ -8,6 +8,8 @@
  *
  * \details Handle playback of audio in its own thread.
  * Waits for messages to be loaded into the audio deck.
+ * 
+ * \bug debugging
  */
 
 #ifndef WTE_MGR_AUDIO_MANAGER_HPP

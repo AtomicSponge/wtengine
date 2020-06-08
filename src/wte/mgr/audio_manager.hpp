@@ -13,9 +13,9 @@
 #ifndef WTE_MGR_AUDIO_MANAGER_HPP
 #define WTE_MGR_AUDIO_MANAGER_HPP
 
-#define ALLEGRO_UNSTABLE
+#define ALLEGRO_UNSTABLE  //  For sample panning, see Allegro docs.
 
-//  Set max number of samples
+//  Set max number of samples.
 #ifndef WTE_MAX_SAMPLES
 #define WTE_MAX_SAMPLES 8
 #endif
@@ -243,7 +243,9 @@ inline void audio_manager::run(void) {
 
     while(keep_running() == true) {
         std::size_t pos = 0;
+        float gain = 0.0f;
         float pan = 0.0f;
+        float speed = 0.0f;
 
         if(!audio_messages.empty()) {
             //  Switch over the audio message and process.
@@ -306,17 +308,31 @@ inline void audio_manager::run(void) {
                     al_destroy_sample(samples[pos]);
                     break;
 
-                //  cmd:  play_sample - args:  sample_num (0 - MAX) ; mode (once, loop)
+                //  cmd:  play_sample - args:  sample_num (0 - MAX) ; mode (once, loop) ; gain ; pan ; speed
                 //  Start playing loaded sample.
                 case CMD_STR_PLAY_SAMPLE:
                     pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     if(!samples[pos]) break;  //  Sample not loaded, end.
+                    //  Check to see if gain, pan or speed is set.
+                    if(audio_messages.front().get_arg(2) != "") {
+                        gain = std::atof(audio_messages.front().get_arg(2).c_str());
+                        if(gain > 1.0f || gain <= 0.0f) gain = 1.0f;
+                    } else gain = 1.0f;
+                    if(audio_messages.front().get_arg(3) != "") {
+                        pan = std::atof(audio_messages.front().get_arg(3).c_str());
+                        if(pan < -1.0f || pan > 1.0f) pan = 0.0f;
+                    } else pan = 0.0f;
+                    if(audio_messages.front().get_arg(4) != "") {
+                        speed = std::atof(audio_messages.front().get_arg(4).c_str());
+                        if(speed > 1.0f || speed <= 0.0f) speed = 1.0f;
+                    } else speed = 1.0f;
+                    //  Play once or in a loop.
                     if(audio_messages.front().get_arg(1) == "once")
-                        sample_playing[pos] = al_play_sample(samples[pos], 1.0f, 0.0f, 1.0f,
+                        sample_playing[pos] = al_play_sample(samples[pos], gain, pan, speed,
                                                              ALLEGRO_PLAYMODE_ONCE, &sample_id[pos]);
                     else
-                        sample_playing[pos] = al_play_sample(samples[pos], 1.0f, 0.0f, 1.0f,
+                        sample_playing[pos] = al_play_sample(samples[pos], gain, pan, speed,
                                                              ALLEGRO_PLAYMODE_LOOP, &sample_id[pos]);
                     break;
 

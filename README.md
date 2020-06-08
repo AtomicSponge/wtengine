@@ -52,4 +52,4 @@ Entities are in-game objects, and components are the data containers that make t
 
 #### SYSTEMS:
 
-Systems are the logic members that gets processed each step through the game loop.  You can extend these classes to implement your game code.
+Systems are the logic members that gets processed each step through the game loop.

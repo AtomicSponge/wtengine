@@ -13,6 +13,8 @@
 #ifndef WTE_MGR_AUDIO_MANAGER_HPP
 #define WTE_MGR_AUDIO_MANAGER_HPP
 
+#define ALLEGRO_UNSTABLE
+
 //  Set max number of samples
 #ifndef WTE_MAX_SAMPLES
 #define WTE_MAX_SAMPLES 8
@@ -237,6 +239,7 @@ inline void audio_manager::run(void) {
     //  Used to reference playing samples.
     ALLEGRO_SAMPLE_ID sample_id[WTE_MAX_SAMPLES];
     bool sample_playing[WTE_MAX_SAMPLES] = { false };
+    ALLEGRO_SAMPLE_INSTANCE* instance = NULL;
 
     while(keep_running() == true) {
         std::size_t pos = 0;
@@ -332,17 +335,21 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  pan_sample - arg:  sample_num (0 - MAX) ; pan ([left]-1.0 thru 1.0[right] or none) - Set sample pan.
                 case CMD_STR_PAN_SAMPLE:
-                    /*if(!al_get_sample(AL_SAMPLE_INSTANCES[pos].instance)) break;  //  Sample not loaded, end.
                     pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
+                    if(!sample_playing[pos]) break;  //  Sample not loaded, end.
                     //  If arg == "none" set no panning
                     if(audio_messages.front().get_arg(1) == "none") {
-                        al_set_sample_instance_pan(AL_SAMPLE_INSTANCES[pos].instance, ALLEGRO_AUDIO_PAN_NONE);
+                        instance = al_lock_sample_id(&sample_id[pos]);
+                        if(instance) al_set_sample_instance_pan(instance, ALLEGRO_AUDIO_PAN_NONE);
+                        al_unlock_sample_id(&sample_id[pos]);
                         break;
                     }
                     pan = std::atof(audio_messages.front().get_arg(1).c_str());
-                    if(pan < -1.0 || pan > 1.0) break;  //  Out of pan range
-                    al_set_sample_instance_pan(AL_SAMPLE_INSTANCES[pos].instance, pan);*/
+                    if(pan < -1.0f || pan > 1.0f) break;  //  Out of pan range
+                    instance = al_lock_sample_id(&sample_id[pos]);
+                    if(instance) al_set_sample_instance_pan(instance, pan);
+                    al_unlock_sample_id(&sample_id[pos]);
                     break;
 
                 /* ***  Mixer 3 - Voice controls  *** */
@@ -430,6 +437,7 @@ inline void audio_manager::run(void) {
             audio_messages.pop_front();
         }  //  End if(!audio_messages.empty())
     }  //  End while(is_running() == true)
+    al_destroy_sample_instance(instance);
 }
 
 } //  namespace mgr

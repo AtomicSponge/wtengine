@@ -314,9 +314,9 @@ void wte_demo::new_game(void) {
                     } //  end colision messages
                 }
             ));
-            world.add_component(e_id, std::make_shared<cmp::sprite>(10, 200, 0.0f, 0.0f, 10, 0));
-            world.set_component<cmp::sprite>(e_id)->load_sprite("ship.bmp", ".bmp");
-            world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
+            world.add_component(e_id, std::make_shared<cmp::sprite>(16, 16, 0.0f, 0.0f, 10, 0));
+            world.set_component<cmp::sprite>(e_id)->load_sprite("asteroid.bmp", ".bmp");
+            world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 5);
             world.set_component<cmp::sprite>(e_id)->set_cycle("main");
         }
     );

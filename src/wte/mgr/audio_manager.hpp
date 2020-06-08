@@ -126,13 +126,16 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
 
             al_set_default_mixer(mixer_2);
             al_reserve_samples(WTE_MAX_SAMPLES);
+
+            samples[WTE_MAX_SAMPLES] = { NULL };
         };
 
         /*!
          * de-init
          */
         inline void de_init(void) {
-            //for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++) al_destroy_sample(samples[pos]);
+            //for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++)
+                //if(samples[pos] != NULL) al_destroy_sample(samples[pos]);
 
             if(al_get_mixer_attached(mixer_1)) al_destroy_audio_stream(music_stream);
             if(al_get_mixer_attached(mixer_3)) al_destroy_audio_stream(ambiance_stream);
@@ -209,7 +212,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         ALLEGRO_AUDIO_STREAM* ambiance_stream;
         ALLEGRO_AUDIO_STREAM* voice_stream;
 
-        //ALLEGRO_SAMPLE* samples[WTE_MAX_SAMPLES];
+        ALLEGRO_SAMPLE* samples[WTE_MAX_SAMPLES];
 };
 
 //  Used to restrict class to a single instance.
@@ -225,12 +228,10 @@ inline void audio_manager::run(void) {
     //  PhysFS is initialized in the wte_main constructor.
     al_set_physfs_file_interface();
 
-    //al_set_default_mixer(mixer_main);
-
     //  Used to reference playing samples.
-    //ALLEGRO_SAMPLE_ID sample_id[WTE_MAX_SAMPLES];
-    //bool sample_playing[WTE_MAX_SAMPLES] = { false };
-    //ALLEGRO_SAMPLE_INSTANCE* instance = NULL;
+    ALLEGRO_SAMPLE_ID sample_id[WTE_MAX_SAMPLES];
+    bool sample_playing[WTE_MAX_SAMPLES] = { false };
+    ALLEGRO_SAMPLE_INSTANCE* instance = NULL;
 
     while(keep_running() == true) {
         std::size_t pos = 0;
@@ -278,8 +279,7 @@ inline void audio_manager::run(void) {
 
                 /* ***  Mixer 2 - Sample controls  *** */
                 //  cmd:  load_sample - args:  sample_num (0 - MAX); file ; mode (once, loop) - Load a sample.
-                //  Need to review
-                /*case CMD_STR_LOAD_SAMPLE:
+                case CMD_STR_LOAD_SAMPLE:
                     pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     //  Load sample from file
@@ -291,13 +291,15 @@ inline void audio_manager::run(void) {
                 case CMD_STR_UNLOAD_SAMPLE:
                     //  Unload all samples.
                     if(audio_messages.front().get_arg(0) == "all") {
-                        for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) al_destroy_sample(samples[pos]);
+                        for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) {
+                            //al_destroy_sample(samples[pos]);
+                        }
                         break;
                     }
                     //  Unload a sample by position.
                     pos = std::stoi(audio_messages.front().get_arg(0));
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
-                    al_destroy_sample(samples[pos]);
+                    //al_destroy_sample(samples[pos]);
                     break;
 
                 //  cmd:  play_sample - args:  sample_num (0 - MAX) ; mode (once, loop) ; gain ; pan ; speed
@@ -331,9 +333,7 @@ inline void audio_manager::run(void) {
                 //  cmd:  stop_sample - arg:  sample_num (0 - MAX) - Stop playing loaded sample.
                 case CMD_STR_STOP_SAMPLE:
                     if(audio_messages.front().get_arg(0) == "all") {
-                        for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) {
-                            if(sample_playing[pos]) al_stop_sample(&sample_id[pos]);
-                        }
+                        al_stop_samples();
                         break;
                     }
                     pos = std::stoi(audio_messages.front().get_arg(0));
@@ -360,7 +360,7 @@ inline void audio_manager::run(void) {
                     if(instance) al_set_sample_instance_pan(instance, pan);
                     al_unlock_sample_id(&sample_id[pos]);
                     #endif
-                    break;*/
+                    break;
 
                 /* ***  Mixer 3 - Voice controls  *** */
                 //  cmd:  play_voice - arg:  file.name - Load a file and play in a stream.
@@ -448,7 +448,7 @@ inline void audio_manager::run(void) {
             audio_messages.pop_front();
         }  //  End if(!audio_messages.empty())
     }  //  End while(is_running() == true)
-    //al_destroy_sample_instance(instance);
+    al_destroy_sample_instance(instance);
 }
 
 } //  namespace mgr

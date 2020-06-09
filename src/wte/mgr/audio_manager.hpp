@@ -9,7 +9,7 @@
  * \details Handle playback of audio in its own thread.
  * Waits for messages to be loaded into the audio deck.
  * 
- * \bug debugging
+ * \bug Need to finish sample unloading & run tests
  */
 
 #ifndef WTE_MGR_AUDIO_MANAGER_HPP
@@ -108,6 +108,8 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
 
         /*!
          * Initialize audio manager.
+         * \param void
+         * \return void
          */
         inline void initialize(void) {
             voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
@@ -132,6 +134,8 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
 
         /*!
          * de-init
+         * \param void
+         * \return void
          */
         inline void de_init(void) {
             //for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++)
@@ -152,6 +156,8 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
 
         /*!
          * Get the volume level of a mixer.
+         * \param pos Mixer position.
+         * \return Value of the mixer gain.
          */
         /*inline const float get_volume(const std::size_t pos) {
             if(pos == 0) return al_get_mixer_gain(mixer_main);
@@ -164,6 +170,8 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
 
         /*!
          * Take a vector of messages and pass them into the audio messages deck.
+         * \param messages Vector of messages to be passed.
+         * \return void
          */
         inline void transfer_messages(const message_container messages) {
             audio_messages.insert(audio_messages.end(),
@@ -245,7 +253,7 @@ inline void audio_manager::run(void) {
                 /* ***  Mixer 1 - Music controls  *** */
                 //  cmd:  music_loop - arg:  enable/disable - Turn music looping on or off.
                 case CMD_STR_MUSIC_LOOP:
-                    if(!music_stream) break;  //  Music not loaded, end.
+                    if(!al_get_mixer_attached(mixer_1)) break;  //  Music not loaded, end.
                     if(audio_messages.front().get_arg(0) == "enable") al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_LOOP);
                     if(audio_messages.front().get_arg(0) == "disable") al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_ONCE);
                     break;
@@ -393,7 +401,7 @@ inline void audio_manager::run(void) {
                 /* ***  Mixer 4 - Ambiance controls  *** */
                 //  cmd:  ambiance_loop - arg:  enable/disable - Turn music looping on or off.
                 case CMD_STR_AMBIANCE_LOOP:
-                    if(!ambiance_stream) break;  //  Ambiance not loaded, end.
+                    if(!al_get_mixer_attached(mixer_4)) break;  //  Ambiance not loaded, end.
                     if(audio_messages.front().get_arg(0) == "enable") al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
                     if(audio_messages.front().get_arg(0) == "disable") al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_ONCE);
                     break;

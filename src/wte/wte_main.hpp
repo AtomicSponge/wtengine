@@ -102,7 +102,10 @@ class wte_main {
         };
 
         /*!
-         * Add file path to provide to PhysFS.
+         * \brief Add file path to provide to PhysFS.
+         * This should be called during engine initialization before the main object is created.
+         * \param flocation File location to add to PhysFS.
+         * \return void
          */
         inline static void add_file_location(const std::string flocation) {
             file_locations.push_back(flocation);

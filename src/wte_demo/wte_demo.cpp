@@ -80,9 +80,7 @@ void wte_demo::load_menus(void) {
         std::vector<std::string> lives_vec = { "3", "4", "5" };
         temp_menu.add_item(std::make_shared<mnu::menu_item_setting>("Lives:", "max_lives", lives_vec, false));
         temp_menu.add_item(std::make_shared<mnu::menu_item_toggle>("FPS:", "fps_counter", "on", "fps_counter", "off",
-            [](void){
-                return engine_flags::is_set(DRAW_FPS);
-            }));
+            [](void){ return engine_flags::is_set(DRAW_FPS); }));
         temp_menu.add_item(std::make_shared<mnu::menu_item_apply>());
         temp_menu.add_item(std::make_shared<mnu::menu_item_action>("Return", "close_menu"));
         if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
@@ -124,7 +122,8 @@ void wte_demo::new_game(void) {
             for(std::size_t i = 0; i < MAX_STARS; i++) {
                 world.set_component<stars>(bkg_id)->y[i] +=
                     world.get_component<stars>(bkg_id)->speed[i] * world.get_component<stars>(bkg_id)->speed_mult;
-                if(world.get_component<stars>(bkg_id)->y[i] > mgr::render_manager::get_arena_height()) { //  Make a new star
+                if(world.get_component<stars>(bkg_id)->y[i] > mgr::render_manager::get_arena_height()) {
+                    //  Make a new star.
                     world.set_component<stars>(bkg_id)->x[i] = std::rand() % mgr::render_manager::get_arena_width() + 1;
                     world.set_component<stars>(bkg_id)->y[i] = 0;
                     world.set_component<stars>(bkg_id)->speed[i] = (std::rand() % 3 + 1) * 3;

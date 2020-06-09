@@ -169,8 +169,9 @@ class render_manager final : public manager<render_manager>, private engine_time
         inline static const int get_arena_height(void) { return arena_h; };
 
         /*!
-         * Set the title screen.
-         * \param fname Filename of title screen.
+         * \brief Set the title screen.
+         * This should be called during engine initialization before the main object is created.
+         * \param fname Filename of the title screen.
          * \return void
          */
         inline static void set_title_screen(const std::string fname) {

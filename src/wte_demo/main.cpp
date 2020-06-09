@@ -18,6 +18,9 @@ int main(int argc, char **argv) {
     //  Set locations to load game data from.
     wte_main::add_file_location("data.zip");
 
+    //  Set the title screen.
+    mgr::render_manager::set_title_screen("title.bmp");
+
     //  Set the size of the play area.
     mgr::render_manager::set_arena_size(768, 1024);
 

@@ -87,10 +87,22 @@ class render_manager final : public manager<render_manager>, private engine_time
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             arena_created = true;
 
-            if(!title_bmp) {
+            if(title_screen_file.empty()) {
                 title_bmp = al_create_bitmap(1, 1);
                 al_set_target_bitmap(title_bmp);
                 al_clear_to_color(WTE_COLOR_BLACK);
+            } else {
+                ALLEGRO_FILE* file;
+                file = al_fopen(title_screen_file.c_str(), "rb");
+                if(!file) {
+                    title_bmp = al_create_bitmap(1, 1);
+                    al_set_target_bitmap(title_bmp);
+                    al_clear_to_color(WTE_COLOR_BLACK);
+                } else {
+                    title_bmp = al_load_bitmap_f(file, title_screen_file.substr(title_screen_file.find("."),
+                                                 title_screen_file.length()).c_str());
+                }
+                al_fclose(file);
             }
 
             overlay_font = font;
@@ -112,23 +124,6 @@ class render_manager final : public manager<render_manager>, private engine_time
 
             al_destroy_event_queue(fps_event_queue);
             al_destroy_timer(fps_timer);
-        };
-
-        /*!
-         * Set the title screen.
-         * \param fname Filename of title screen.
-         * \return True if file found, false if not found.
-         */
-        inline bool set_title_screen(const std::string fname) {
-            ALLEGRO_FILE* file;
-            file = al_fopen(fname.c_str(), "rb");
-            if(!file) {
-                al_fclose(file);
-                return false;
-            }
-            title_bmp = al_load_bitmap_f(file, fname.substr(fname.find("."), fname.length()).c_str());
-            al_fclose(file);
-            return true;
         };
 
         /*!
@@ -174,6 +169,15 @@ class render_manager final : public manager<render_manager>, private engine_time
         inline static const int get_arena_height(void) { return arena_h; };
 
         /*!
+         * Set the title screen.
+         * \param fname Filename of title screen.
+         * \return void
+         */
+        inline static void set_title_screen(const std::string fname) {
+            title_screen_file = fname;
+        };
+
+        /*!
          * Render method - Draw the game screen.
          * \param void
          * \return void
@@ -199,6 +203,8 @@ class render_manager final : public manager<render_manager>, private engine_time
 
         inline static int arena_w = 0, arena_h = 0;
         inline static bool arena_created = false;
+
+        inline static std::string title_screen_file = "";
 };
 
 template <> inline bool render_manager::manager<render_manager>::initialized = false;

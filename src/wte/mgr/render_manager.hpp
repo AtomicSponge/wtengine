@@ -306,11 +306,13 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         for(ec_pair_citerator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible) {
                 //  Get the current sprite frame.
-                render_tmp_bmp = al_create_sub_bitmap(world.get_component<cmp::sprite>(it->first)->sprite_bitmap,
-                                                      world.get_component<cmp::sprite>(it->first)->sprite_x,
-                                                      world.get_component<cmp::sprite>(it->first)->sprite_y,
-                                                      world.get_component<cmp::sprite>(it->first)->sprite_width,
-                                                      world.get_component<cmp::sprite>(it->first)->sprite_height);
+                render_tmp_bmp = al_create_sub_bitmap(
+                    world.get_component<cmp::sprite>(it->first)->sprite_bitmap,
+                    world.get_component<cmp::sprite>(it->first)->sprite_x,
+                    world.get_component<cmp::sprite>(it->first)->sprite_y,
+                    world.get_component<cmp::sprite>(it->first)->sprite_width,
+                    world.get_component<cmp::sprite>(it->first)->sprite_height
+                );
                 //  Check if the sprite should be rotated.
                 float sprite_angle = 0.0f;
                 if(world.has_component<cmp::direction>(it->first)) {
@@ -319,8 +321,10 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                 //  Draw the sprite.
                 al_draw_scaled_rotated_bitmap(
                     render_tmp_bmp, 0.0f, 0.0f,
-                    world.get_component<cmp::location>(it->first)->pos_x + world.get_component<cmp::sprite>(it->first)->draw_offset_x,
-                    world.get_component<cmp::location>(it->first)->pos_y + world.get_component<cmp::sprite>(it->first)->draw_offset_y,
+                    world.get_component<cmp::location>(it->first)->pos_x +
+                        world.get_component<cmp::sprite>(it->first)->draw_offset_x,
+                    world.get_component<cmp::location>(it->first)->pos_y +
+                        world.get_component<cmp::sprite>(it->first)->draw_offset_y,
                     world.get_component<cmp::sprite>(it->first)->scale_factor_x,
                     world.get_component<cmp::sprite>(it->first)->scale_factor_y,
                     sprite_angle, 0
@@ -401,11 +405,12 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         al_set_target_backbuffer(al_get_current_display());
 
         al_draw_scaled_bitmap(render_tmp_bmp, 0, 0,
-                              al_get_bitmap_width(render_tmp_bmp), al_get_bitmap_height(render_tmp_bmp),
-                              (screen_w / 2) - std::floor((al_get_bitmap_width(render_tmp_bmp) * scale_factor) / 2),
-                              (screen_h / 2) - std::floor((al_get_bitmap_height(render_tmp_bmp) * scale_factor) / 2),
-                              al_get_bitmap_width(render_tmp_bmp) * scale_factor,
-                              al_get_bitmap_height(render_tmp_bmp) * scale_factor, 0);
+            al_get_bitmap_width(render_tmp_bmp), al_get_bitmap_height(render_tmp_bmp),
+            (screen_w / 2) - std::floor((al_get_bitmap_width(render_tmp_bmp) * scale_factor) / 2),
+            (screen_h / 2) - std::floor((al_get_bitmap_height(render_tmp_bmp) * scale_factor) / 2),
+            al_get_bitmap_width(render_tmp_bmp) * scale_factor,
+            al_get_bitmap_height(render_tmp_bmp) * scale_factor, 0
+        );
     }
 
     /*

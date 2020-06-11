@@ -311,11 +311,12 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                                                       world.get_component<cmp::sprite>(it->first)->sprite_y,
                                                       world.get_component<cmp::sprite>(it->first)->sprite_width,
                                                       world.get_component<cmp::sprite>(it->first)->sprite_height);
+                //  Check if the sprite should be rotated.
                 float sprite_angle = 0.0f;
                 if(world.has_component<cmp::direction>(it->first)) {
                     sprite_angle = world.get_component<cmp::direction>(it->first)->angle;
                 }
-                //  Draw the sprite rotated.
+                //  Draw the sprite.
                 al_draw_scaled_rotated_bitmap(
                     render_tmp_bmp, 0.0f, 0.0f,
                     world.get_component<cmp::location>(it->first)->pos_x + world.get_component<cmp::sprite>(it->first)->draw_offset_x,

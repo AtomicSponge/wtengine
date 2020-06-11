@@ -253,7 +253,10 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         fps_counter = 0;
         al_set_timer_count(fps_timer, 0);
     }
-    
+
+    //  Toggle no preserve texture for faster rendering.
+    al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+
     /*
      * Render world if the game is running.
      */
@@ -287,7 +290,6 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
             sprite_components.begin(), sprite_components.end(), comparator);
 
         //  Draw each sprite in order.
-        al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
         for(ec_pair_citerator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible) {
                 //  Get the current sprite frame.
@@ -311,7 +313,6 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                 }
             }
         }
-        al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
 
         /*
          * Draw hitboxes if enabled.
@@ -382,10 +383,9 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
      * Render game menu if it's opened.
      */
     if(engine_flags::is_set(GAME_MENU_OPENED)) {
-        al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
         render_tmp_bmp = al_clone_bitmap(menus.render_menu());
-        al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
         al_set_target_backbuffer(al_get_current_display());
+
         al_draw_scaled_bitmap(render_tmp_bmp, 0, 0,
                               al_get_bitmap_width(render_tmp_bmp), al_get_bitmap_height(render_tmp_bmp),
                               (screen_w / 2) - std::floor((al_get_bitmap_width(render_tmp_bmp) * scale_factor) / 2),
@@ -400,10 +400,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
     if(alert::is_set()) {
         int font_size = al_get_font_line_height(overlay_font);
 
-        al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
         render_tmp_bmp = al_create_bitmap((alert::get_alert().length() * font_size) + 20, font_size + 20);
-        al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-
         al_set_target_bitmap(render_tmp_bmp);
         al_clear_to_color(alert::get_bg_color());
 
@@ -437,6 +434,8 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
      * Update the screen
      */
     al_flip_display();
+    //  Set default bitmap flags.
+    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
 }
 
 } //  namespace mgr

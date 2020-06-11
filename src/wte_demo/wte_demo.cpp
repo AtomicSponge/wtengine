@@ -355,6 +355,8 @@ void wte_demo::new_game(void) {
             world.set_component<cmp::sprite>(e_id)->load_sprite("asteroid.bmp", ".bmp");
             world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 5);
             world.set_component<cmp::sprite>(e_id)->set_cycle("main");
+            world.set_component<cmp::sprite>(e_id)->scale_factor_x = (float)s;
+            world.set_component<cmp::sprite>(e_id)->scale_factor_y = (float)s;
         }
     );
 

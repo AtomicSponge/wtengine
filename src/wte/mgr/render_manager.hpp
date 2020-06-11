@@ -28,10 +28,9 @@
 #include "engine_time.hpp"
 
 #include "../wte_global_defines.hpp"
-#include "../engine_cfg_map.hpp"
 #include "../engine_flags.hpp"
-#include "../cmp/components.hpp"
 #include "../alert.hpp"
+#include "../cmp/components.hpp"
 #include "menu_manager.hpp"
 #include "entity_manager.hpp"
 
@@ -312,19 +311,19 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                                                       world.get_component<cmp::sprite>(it->first)->sprite_y,
                                                       world.get_component<cmp::sprite>(it->first)->sprite_width,
                                                       world.get_component<cmp::sprite>(it->first)->sprite_height);
+                float sprite_angle = 0.0f;
                 if(world.has_component<cmp::direction>(it->first)) {
-                    //  Draw the sprite rotated.
-                    al_draw_rotated_bitmap(render_tmp_bmp, 0.0f, 0.0f,
-                                           world.get_component<cmp::location>(it->first)->pos_x + world.get_component<cmp::sprite>(it->first)->draw_offset_x,
-                                           world.get_component<cmp::location>(it->first)->pos_y + world.get_component<cmp::sprite>(it->first)->draw_offset_y,
-                                           world.get_component<cmp::direction>(it->first)->angle, 0);
-                } else {
-                    //  Draw the sprite non-rotated.
-                    al_draw_bitmap(render_tmp_bmp,
-                                   world.get_component<cmp::location>(it->first)->pos_x + world.get_component<cmp::sprite>(it->first)->draw_offset_x,
-                                   world.get_component<cmp::location>(it->first)->pos_y + world.get_component<cmp::sprite>(it->first)->draw_offset_y,
-                                   0);
+                    sprite_angle = world.get_component<cmp::direction>(it->first)->angle;
                 }
+                //  Draw the sprite rotated.
+                al_draw_scaled_rotated_bitmap(
+                    render_tmp_bmp, 0.0f, 0.0f,
+                    world.get_component<cmp::location>(it->first)->pos_x + world.get_component<cmp::sprite>(it->first)->draw_offset_x,
+                    world.get_component<cmp::location>(it->first)->pos_y + world.get_component<cmp::sprite>(it->first)->draw_offset_y,
+                    world.get_component<cmp::sprite>(it->first)->scale_factor_x,
+                    world.get_component<cmp::sprite>(it->first)->scale_factor_y,
+                    sprite_angle, 0
+                );
             }
         }
 

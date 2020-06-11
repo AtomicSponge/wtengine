@@ -76,9 +76,9 @@ class render_manager final : public manager<render_manager>, private engine_time
         inline ~render_manager() {};
 
         /*!
-         * Initialize the render_manager.
-         * Pass an Allegro font for the render_manager to use.
-         * \param font Allegro font to use for the renderer.
+         * \brief Initialize the render manager.
+         * Configures the internal objects for the render manager to use.
+         * \param void
          * \return void
          */
         inline void initialize(void) {
@@ -120,7 +120,8 @@ class render_manager final : public manager<render_manager>, private engine_time
         };
 
         /*!
-         * de-init
+         * \brief De-initialize the render manager.
+         * Destories the internal objects.
          * \param void
          * \return void
          */
@@ -136,7 +137,8 @@ class render_manager final : public manager<render_manager>, private engine_time
         };
 
         /*!
-         * Inform the renderer of the screen resolution.
+         * \brief Inform the renderer of the screen resolution.
+         * Gets called by the engine when the screen resolution is updated.
          * \param w Resolution width in pixels.
          * \param h Resolution height in pixels.
          * \return void
@@ -147,7 +149,9 @@ class render_manager final : public manager<render_manager>, private engine_time
         }
 
         /*!
-         * Set scale factor
+         * \brief Set scale factor.
+         * This is used to scale the game arena and menus to a larger size.
+         * For support of higher resolution screens.
          * \param f New scale factor value.
          * \return void
          */
@@ -194,6 +198,16 @@ class render_manager final : public manager<render_manager>, private engine_time
             title_screen_file = fname;
         };
 
+        /*!
+         * \brief Set the font to be used by the renderer.
+         * If not called, Allegro's default font will be used.
+         * This should be called during engine initialization before the main object is created.
+         * See the Allegro docs for more information on al_load_font and the parameters used.
+         * \param fname Filename to use.
+         * \param size Font size.
+         * \param flags Font flags.
+         * \return void
+         */
         inline static void set_font_file(const std::string fname, const int size, const int flags) {
             render_font_file = fname;
             render_font_size = size;

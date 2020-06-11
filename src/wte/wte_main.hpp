@@ -327,6 +327,12 @@ inline void wte_main::process_new_game(void) {
     world.clear();
     new_game();
 
+    //  Stop audio manager from playing sounds.
+    messages.add_message(message("audio", "stop_music", ""));
+    messages.add_message(message("audio", "stop_ambiance", ""));
+    messages.add_message(message("audio", "stop_voice", ""));
+    messages.add_message(message("audio", "unload_sample", "all"));
+
     //  Restart the timer at zero.
     al_stop_timer(main_timer);
     al_set_timer_count(main_timer, 0);
@@ -547,7 +553,7 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  scale_factor - Set scale factor
+            //  cmd:  scale_factor - Set scale factor.
             case CMD_STR_SCALE_FACTOR:
                 if(!engine_cfg::is_reg("scale_factor")) engine_cfg::reg("scale_factor=1");
                 if(it->get_arg(0) == "1") {

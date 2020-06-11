@@ -29,8 +29,8 @@ namespace cmp
 class name final : public component {
     public:
         /*!
-         * Name
-         * \param void
+         * Name constructor.
+         * \param n Name of the entity.
          * \return void
          */
         inline name(std::string n) : name_str(n) {};

@@ -17,6 +17,7 @@
 #include <iterator>
 #include <algorithm>
 #include <functional>
+#include <cmath>
 #include <stdexcept>
 
 #include <allegro5/allegro.h>
@@ -80,7 +81,7 @@ class render_manager final : public manager<render_manager>, private engine_time
          * \param font Allegro font to use for the renderer.
          * \return void
          */
-        inline void initialize(ALLEGRO_FONT* font) {
+        inline void initialize(void) {
             if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             arena_bmp = al_create_bitmap(arena_w, arena_h);
@@ -105,7 +106,13 @@ class render_manager final : public manager<render_manager>, private engine_time
                 al_fclose(file);
             }
 
-            overlay_font = font;
+            if(render_font_file.empty()) overlay_font = al_create_builtin_font();
+            else {
+                overlay_font = al_load_font(render_font_file.c_str(), render_font_size, render_font_flags);
+                if(!overlay_font) overlay_font = al_create_builtin_font();
+            }
+            if(!overlay_font) throw std::runtime_error("Unable to set font for renderer!");
+
             fps_timer = al_create_timer(1);
             fps_event_queue = al_create_event_queue();
             al_register_event_source(fps_event_queue, al_get_timer_event_source(fps_timer));
@@ -114,6 +121,8 @@ class render_manager final : public manager<render_manager>, private engine_time
 
         /*!
          * de-init
+         * \param void
+         * \return void
          */
         inline void de_init(void) {
             al_destroy_bitmap(title_bmp);
@@ -135,8 +144,15 @@ class render_manager final : public manager<render_manager>, private engine_time
         inline void update_resolution(const int w, const int h) {
             screen_w = w;
             screen_h = h;
+        }
 
-            scale_factor = 1.0;
+        /*!
+         * Set scale factor
+         * \param f New scale factor value.
+         * \return void
+         */
+        inline void set_scale_factor(const float f) {
+            scale_factor = f;
         }
 
         /*!
@@ -178,11 +194,12 @@ class render_manager final : public manager<render_manager>, private engine_time
             title_screen_file = fname;
         };
 
-        /*!
-         * Render method - Draw the game screen.
-         * \param void
-         * \return void
-         */
+        inline static void set_font_file(const std::string fname, const int size, const int flags) {
+            render_font_file = fname;
+            render_font_size = size;
+            render_font_flags = flags;
+        };
+
         void render(const menu_manager&, const entity_manager&);
 
     private:
@@ -206,12 +223,19 @@ class render_manager final : public manager<render_manager>, private engine_time
         inline static bool arena_created = false;
 
         inline static std::string title_screen_file = "";
+        inline static std::string render_font_file = "";
+        inline static int render_font_size = 0;
+        inline static int render_font_flags = 0;
 };
 
 template <> inline bool render_manager::manager<render_manager>::initialized = false;
 
 /*!
+ * \brief Render method - Draw the game screen.
  * Gets passed the entity manager and timer then draws everything to screen.
+ * \param menus Reference to menu manager.
+ * \param world Reference to entity manager.
+ * \return void
  */
 inline void render_manager::render(const menu_manager& menus, const entity_manager& world) {
     //  Clear screen to black.
@@ -265,12 +289,34 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         //  Draw each sprite in order.
         for(ec_pair_citerator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible) {
+                //  Set drawing to the temp bitmap.
+                al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+                render_tmp_bmp = al_create_bitmap(world.get_component<cmp::sprite>(it->first)->sprite_width,
+                                                  world.get_component<cmp::sprite>(it->first)->sprite_height);
+                al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+                al_set_target_bitmap(render_tmp_bmp);
+
+                //  Draw the current sprite frame to the temp bitmap.
                 al_draw_bitmap_region(world.get_component<cmp::sprite>(it->first)->sprite_bitmap,
                     world.get_component<cmp::sprite>(it->first)->sprite_x, world.get_component<cmp::sprite>(it->first)->sprite_y,
                     world.get_component<cmp::sprite>(it->first)->sprite_width, world.get_component<cmp::sprite>(it->first)->sprite_height,
-                    world.get_component<cmp::location>(it->first)->pos_x + world.get_component<cmp::sprite>(it->first)->draw_offset_x,
-                    world.get_component<cmp::location>(it->first)->pos_y + world.get_component<cmp::sprite>(it->first)->draw_offset_y,
-                    0);
+                    0.0f, 0.0f, 0);
+
+                //  Set drawing back to the arena.
+                al_set_target_bitmap(arena_bmp);
+                if(world.has_component<cmp::direction>(it->first)) {
+                    //  Draw the sprite rotated.
+                    al_draw_rotated_bitmap(render_tmp_bmp, 0.0f, 0.0f,
+                                           world.get_component<cmp::location>(it->first)->pos_x + world.get_component<cmp::sprite>(it->first)->draw_offset_x,
+                                           world.get_component<cmp::location>(it->first)->pos_y + world.get_component<cmp::sprite>(it->first)->draw_offset_y,
+                                           world.get_component<cmp::direction>(it->first)->angle, 0);
+                } else {
+                    //  Draw the sprite non-rotated.
+                    al_draw_bitmap(render_tmp_bmp,
+                                   world.get_component<cmp::location>(it->first)->pos_x + world.get_component<cmp::sprite>(it->first)->draw_offset_x,
+                                   world.get_component<cmp::location>(it->first)->pos_y + world.get_component<cmp::sprite>(it->first)->draw_offset_y,
+                                   0);
+                }
             }
         }
 
@@ -321,7 +367,9 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                                world.get_component<cmp::overlay>(it->first)->pos_y, 0);
         }
 
-        //  Draw the arena bitmap to the screen.
+        /*
+         * Draw the arena bitmap to the screen.
+         */
         al_set_target_backbuffer(al_get_current_display());
         al_draw_scaled_bitmap(arena_bmp, 0, 0, arena_w, arena_h,
                               (screen_w / 2) - (arena_w * scale_factor / 2),
@@ -344,12 +392,13 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
         render_tmp_bmp = al_clone_bitmap(menus.render_menu());
         al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-
         al_set_target_backbuffer(al_get_current_display());
-        al_draw_bitmap(render_tmp_bmp,
-                       (screen_w / 2) - (al_get_bitmap_width(render_tmp_bmp) / 2),
-                       (screen_h / 2) - (al_get_bitmap_height(render_tmp_bmp) / 2),
-                       0);
+        al_draw_scaled_bitmap(render_tmp_bmp, 0, 0,
+                              al_get_bitmap_width(render_tmp_bmp), al_get_bitmap_height(render_tmp_bmp),
+                              (screen_w / 2) - std::floor((al_get_bitmap_width(render_tmp_bmp) * scale_factor) / 2),
+                              (screen_h / 2) - std::floor((al_get_bitmap_height(render_tmp_bmp) * scale_factor) / 2),
+                              al_get_bitmap_width(render_tmp_bmp) * scale_factor,
+                              al_get_bitmap_height(render_tmp_bmp) * scale_factor, 0);
     }
 
     /*

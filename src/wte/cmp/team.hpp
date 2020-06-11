@@ -27,8 +27,9 @@ namespace cmp
 class team final : public component {
     public:
         /*!
-         * Team
-         * \param void
+         * \brief Team constructor.
+         * Team can be 0, 1, 2 or 3.
+         * \param t Team value for the entity.
          * \return void
          */
         inline team(std::size_t t) : this_team(t) {

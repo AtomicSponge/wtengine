@@ -33,51 +33,47 @@ class message {
         inline message() {};
         inline ~message() {};
 
-        //!  Message Constructor
         /*!
-         * Create a non-timed message
-         * 
-         * \param s System
-         * \param c Command
+         * \brief Message Constructor
+         * Create a non-timed message.
+         * \param s System.
+         * \param c Command.
          * \param a Arguments delimited by ;
          */
         inline message(std::string s, std::string c, std::string a) :
             timer(-1), sys(s), to(""), from(""), cmd(c) { split_args(a); };
 
-        //!  Message Constructor
         /*!
-         * Create a timed message
-         * 
-         * \param e Timer value
-         * \param s System
-         * \param c Command
+         * \brief Message Constructor
+         * Create a timed message.
+         * \param e Timer value.
+         * \param s System.
+         * \param c Command.
          * \param a Arguments delimited by ;
          */
         inline message(int64_t e, std::string s, std::string c, std::string a) :
             timer(e), sys(s), to(""), from(""), cmd(c) { split_args(a); };
 
-        //!  Message Constructor
         /*!
-         * Create a non-timed message with a to & from
-         * 
-         * \param s System
-         * \param t To
-         * \param f From
-         * \param c Command
+         * \brief Message Constructor
+         * Create a non-timed message with a to & from.
+         * \param s System.
+         * \param t To.
+         * \param f From.
+         * \param c Command.
          * \param a Arguments delimited by ;
          */
         inline message(std::string s, std::string t, std::string f, std::string c, std::string a) :
             timer(-1), sys(s), to(t), from(f), cmd(c) { split_args(a); };
 
-        //!  Message Constructor
         /*!
-         * Create a timed message with a to & from
-         * 
-         * \param e Timer value
-         * \param s System
-         * \param t To
-         * \param f From
-         * \param c Command
+         * \brief Message Constructor
+         * Create a timed message with a to & from.
+         * \param e Timer value.
+         * \param s System.
+         * \param t To.
+         * \param f From.
+         * \param c Command.
          * \param a Arguments delimited by ;
          */
         inline message(int64_t e, std::string s, std::string t, std::string f, std::string c, std::string a) :
@@ -85,8 +81,8 @@ class message {
 
         /*!
          * Override < operator to sort by timer value.
-         * 
          * \param a Object to compare to.
+         * \return True if less than, false if greater than.
          */
         inline const bool operator<(const message& a) const {
             return timer < a.timer;
@@ -94,8 +90,8 @@ class message {
 
         /*!
          * Split arguments into a vector of strings.
-         * 
          * \param a String of arguments, delimited by ;
+         * \return void
          */
         inline void split_args(const std::string a) {
             if(a == "") arglist.push_back("");
@@ -145,8 +141,7 @@ class message {
         inline const msg_arg_list get_arglist(void) const { return arglist; };
 
         /*!
-         * Returns a single argument by index from the argument list
-         * 
+         * Returns a single argument by index from the argument list.
          * \param pos The position in the argument vector.
          * \return The argument string by position.
          */
@@ -157,7 +152,7 @@ class message {
 
         /*!
          * Check if the event is synced to the timer.
-         * 
+         * \param void
          * \return Returns false if the timer value is -1, else true.
          */
         inline const bool is_timed_event(void) const {

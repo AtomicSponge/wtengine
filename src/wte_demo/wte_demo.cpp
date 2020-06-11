@@ -69,18 +69,58 @@ void wte_demo::load_menus(void) {
         //  Configure in-game menu.
         menus.set_menu("game_menu")->set_title("WTE Demo - Game Paused");
         menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("Resume Game", "close_menu", "all"));
+        menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("Settings", "open_menu", "game_settings"));
         menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("End Game", "end_game"));
         menus.set_menu("game_menu")->add_item(std::make_shared<mnu::menu_item_action>("Exit Game", "exit"));
     }
 
     //  Then define other custom menus.
     {
-        //  Create the settings menu.
+        //  Create the main settings menu.
         mnu::menu temp_menu = mnu::menu("settings", "Settings");
+        temp_menu.add_item(std::make_shared<mnu::menu_item_action>("Demo Settings", "open_menu", "demo_settings"));
+        temp_menu.add_item(std::make_shared<mnu::menu_item_action>("Video Settings", "open_menu", "video_settings"));
+        temp_menu.add_item(std::make_shared<mnu::menu_item_action>("Audio Settings", "open_menu", "audio_settings"));
+        temp_menu.add_item(std::make_shared<mnu::menu_item_action>("Return", "close_menu"));
+        if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
+    }
+
+    {
+        //  Create the in-game settings menu.
+        mnu::menu temp_menu = mnu::menu("game_settings", "Settings");
+        temp_menu.add_item(std::make_shared<mnu::menu_item_action>("Video Settings", "open_menu", "video_settings"));
+        temp_menu.add_item(std::make_shared<mnu::menu_item_action>("Audio Settings", "open_menu", "audio_settings"));
+        temp_menu.add_item(std::make_shared<mnu::menu_item_action>("Return", "close_menu"));
+        if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
+    }
+
+    {
+        //  Create the demo game settings menu.
+        mnu::menu temp_menu = mnu::menu("demo_settings", "Demo Settings");
         std::vector<std::string> lives_vec = { "3", "4", "5" };
         temp_menu.add_item(std::make_shared<mnu::menu_item_setting>("Lives:", "max_lives", lives_vec, false));
+        temp_menu.add_item(std::make_shared<mnu::menu_item_apply>());
+        temp_menu.add_item(std::make_shared<mnu::menu_item_action>("Return", "close_menu"));
+        if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
+    }
+
+    {
+        //  Create the video settings menu.
+        mnu::menu temp_menu = mnu::menu("video_settings", "Video Settings");
+        //
+        std::vector<std::string> scale_vec = { "1", "1.25", "1.5", "1.75", "2" };
+        temp_menu.add_item(std::make_shared<mnu::menu_item_setting>("Scale factor:", "scale_factor", scale_vec, true));
         temp_menu.add_item(std::make_shared<mnu::menu_item_toggle>("FPS:", "fps_counter", "on", "fps_counter", "off",
             [](void){ return engine_flags::is_set(DRAW_FPS); }));
+        temp_menu.add_item(std::make_shared<mnu::menu_item_apply>());
+        temp_menu.add_item(std::make_shared<mnu::menu_item_action>("Return", "close_menu"));
+        if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
+    }
+
+    {
+        //  Create the audio settings menu.
+        mnu::menu temp_menu = mnu::menu("audio_settings", "Audio Settings");
+        //
         temp_menu.add_item(std::make_shared<mnu::menu_item_apply>());
         temp_menu.add_item(std::make_shared<mnu::menu_item_action>("Return", "close_menu"));
         if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");

@@ -6,7 +6,7 @@
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
  *
- * \details A menu item.
+ * \details Menu item interface class.
  */
 
 #ifndef WTE_MENU_MENU_ITEM_HPP
@@ -30,58 +30,58 @@ namespace mnu
 class menu_item {
     public:
         /*!
-         * Description
+         * Menu item destructor.
          * \param void
          * \return void
          */
         inline virtual ~menu_item() {};
 
         /*!
-         * Description
+         * Return display text for the menu item.
          * \param void
          * \return void
          */
         inline virtual const std::vector<std::string> get_text(void) { return {"null"}; };
 
         /*!
-         * Description
+         * Define left click process.
          * \param void
          * \return void
          */
         inline virtual void on_left(void) {};
 
         /*!
-         * Description
+         * Define right click process.
          * \param void
          * \return void
          */
         inline virtual void on_right(void) {};
 
         /*!
-         * Description
+         * Define selection process.
          * \param void
          * \return void
          */
         inline virtual const message on_select(void) { return message("system", "null", "null"); };
 
         /*!
-         * Description
+         * Define reset process.
          * \param void
          * \return void
          */
         inline virtual void reset_to_default(void) {};
 
         /*!
-         * Description
+         * Define default value process.
          * \param void
          * \return void
          */
         inline virtual void set_default(void) {};
 
         /*!
-         * Description
+         * Get the display label.
          * \param void
-         * \return void
+         * \return The label text.
          */
         inline const std::string get_label(void) const { return label; };
 
@@ -90,8 +90,8 @@ class menu_item {
 
     protected:
         /*!
-         * Description
-         * \param void
+         * Menu item constructor.
+         * \param l Label of the menu item.
          * \return void
          */
         inline menu_item(const std::string l) : label(l) {};

@@ -58,7 +58,7 @@ class engine_cfg_map final : public variable_map<engine_cfg_map> {
         /*!
          * Save engine config settings to file.
          * \param void
-         * \return False on fail, true on success
+         * \return False on fail, true on success.
          */
         inline static bool save(void) {
             std::ofstream data_file("settings.cfg");

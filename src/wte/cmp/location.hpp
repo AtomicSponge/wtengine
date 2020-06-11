@@ -27,8 +27,9 @@ namespace cmp
 class location final : public component {
     public:
         /*!
-         * Location
-         * \param void
+         * Location constructor.
+         * \param x Horizontal location of the entity.
+         * \param y Verticle location of the entity.
          * \return void
          */
         inline location(float x, float y) : pos_x(x), pos_y(y) {};

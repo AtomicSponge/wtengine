@@ -30,7 +30,7 @@ namespace cmp
 class animator : public component {
     public:
         /*!
-         * animator
+         * Animator destructor.
          * \param void
          * \return void
          */
@@ -46,8 +46,10 @@ class animator : public component {
         };
 
         /*!
-         * animator
-         * \param void
+         * Run animaton function wrapper.
+         * \param e_id ID of the entity calling the wrapper.
+         * \param world Reference to the entity manager.
+         * \param engine_time Current value of the main timer.
          * \return void
          */
         inline void run(const entity e_id, mgr::entity_manager& world, const int64_t engine_time) {
@@ -56,8 +58,9 @@ class animator : public component {
 
     protected:
         /*!
-         * animator
-         * \param void
+         * Animator constructor.
+         * \param l Layer for sorting.
+         * \param func Animation function.
          * \return void
          */
         inline animator(std::size_t l, void func(const entity, mgr::entity_manager&, const int64_t)) :

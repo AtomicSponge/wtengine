@@ -32,22 +32,25 @@ namespace cmp
 class ai final : public component {
     public:
         /*!
-         * ...
-         * \param void
+         * AI constructor.
+         * \param func Function to define AI process.
          * \return void
          */
         inline ai(void func(entity, mgr::entity_manager&, mgr::message_manager&, int64_t)) : do_ai(func) {};
 
         /*!
-         * ...
+         * AI destructor.
          * \param void
          * \return void
          */
         inline ~ai() {};
 
         /*!
-         * ...
-         * \param void
+         * Run AI function wrapper.
+         * \param eid ID of the entity calling the wrapper.
+         * \param world Reference to the entity manager.
+         * \param messages Reference to the message manager.
+         * \param engine_time Current value of the main timer.
          * \return void
          */
         inline void run(entity eid, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {

@@ -27,15 +27,20 @@ namespace cmp
 class hitbox final : public component {
     public:
         /*!
-         * Hitbox
-         * \param void
+         * \brief Hitbox constructor.
+         * Call this to have the hitbox enabled by default.
+         * \param w Width of the hitbox in pixels.
+         * \param h Height of the hitbox in pixels.
          * \return void
          */
         inline hitbox(float w, float h) : width(w), height(h), solid(true) {};
 
         /*!
-         * Hitbox
-         * \param void
+         * \brief Hitbox constructor.
+         * Call this to set if the hitbox is enabled or not.
+         * \param w Width of the hitbox in pixels.
+         * \param h Height of the hitbox in pixels.
+         * \param s Boolean value for if the hitbox is enabled.
          * \return void
          */
         inline hitbox(float w, float h, bool s) : width(w), height(h), solid(s) {};

@@ -37,8 +37,13 @@ namespace cmp
 class sprite final : public animator {
     public:
         /*!
-         * Sprite
-         * \param void
+         * Sprite constructor.
+         * \param sw Sprite width.
+         * \param sh Sprite height.
+         * \param dox Horizontal draw offset in relation to entity location.
+         * \param doy Verticle draw offset in relation to entity location.
+         * \param rt Rate in engine timer ticks for animation.
+         * \param l Layer for sorting.
          * \return void
          */
         inline sprite(const float sw, const float sh, const float dox, const float doy, const std::size_t rt, const std::size_t l) :
@@ -66,7 +71,7 @@ class sprite final : public animator {
         };
 
         /*!
-         * Sprite
+         * Sprite destructor.
          * \param void
          * \return void
          */
@@ -75,9 +80,9 @@ class sprite final : public animator {
         };
 
         /*!
-         * Sprite
+         * \brief Load a sprite sheet.
          * Let al_load_bitmap_f() determine the file type.
-         * \param void
+         * \param fname Filename of sprite sheet.
          * \return void
          */
         inline void load_sprite(const std::string fname) {
@@ -94,9 +99,10 @@ class sprite final : public animator {
         };
 
         /*!
-         * Sprite
+         * \brief Load a sprite sheet.
          * Provide the file type to al_load_bitmap_f().
-         * \param void
+         * \param fname Filename of sprite sheet.
+         * \param ftype File type of sprite sheet.
          * \return void
          */
         inline void load_sprite(const std::string fname, const std::string ftype) {
@@ -113,8 +119,10 @@ class sprite final : public animator {
         };
 
         /*!
-         * Sprite
-         * \param void
+         * Add animation cycle.
+         * \param name Name of cycle.
+         * \param start Start cell of cycle.
+         * \param stop End cell of cycle.
          * \return void
          */
         inline const bool add_cycle(const std::string name, const std::size_t start, const std::size_t stop) {
@@ -123,8 +131,8 @@ class sprite final : public animator {
         };
 
         /*!
-         * Sprite
-         * \param void
+         * Set the active cycle.
+         * \param name Name of cycle to set.
          * \return void
          */
         inline const bool set_cycle(const std::string name) {

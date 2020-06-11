@@ -27,8 +27,8 @@ namespace cmp
 class velocity final : public component {
     public:
         /*!
-         * Velocity
-         * \param void
+         * Velocity constructor.
+         * \param v Speed value for entity.
          * \return void
          */
         inline velocity(float v) : speed(v) {};

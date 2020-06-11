@@ -56,7 +56,7 @@ class menu_manager final : public manager<menu_manager> {
         inline menu_manager() : menu_width(340.0), menu_height(240.0), menu_padding(20.0), font_size(8) {
             menus.clear();
             opened_menus = {};
-        }
+        };
 
         //!  Menu manager destructor
         /*!
@@ -65,15 +65,21 @@ class menu_manager final : public manager<menu_manager> {
         inline ~menu_manager() {
             menus.clear();
             opened_menus = {};
-        }
+        };
 
         //!  Ititialize menu manager
         /*!
          * Pass an Allegro font for the menu manager to use
          * Also create the default main menu and in-game menu
          */
-        inline void initialize(ALLEGRO_FONT* font, ALLEGRO_COLOR fcolor, ALLEGRO_COLOR bgcolor) {
-            menu_font = font;
+        inline void initialize(ALLEGRO_COLOR fcolor, ALLEGRO_COLOR bgcolor) {
+            if(menu_font_file.empty()) menu_font = al_create_builtin_font();
+            else {
+                menu_font = al_load_font(menu_font_file.c_str(), menu_font_size, menu_font_flags);
+                if(!menu_font) menu_font = al_create_builtin_font();
+            }
+            if(!menu_font) throw std::runtime_error("Unable to set font for menus!");
+
             menu_font_color = fcolor;
             menu_bg_color = bgcolor;
 
@@ -90,7 +96,7 @@ class menu_manager final : public manager<menu_manager> {
             cursor_bitmap = al_create_bitmap(font_size, font_size);
             al_set_target_bitmap(cursor_bitmap);
             al_clear_to_color(menu_font_color);
-        }
+        };
 
         /*!
          * de-init
@@ -116,7 +122,7 @@ class menu_manager final : public manager<menu_manager> {
             }
             menus.push_back(std::make_shared<mnu::menu>(new_menu));
             return true;
-        }
+        };
 
         //!  Get menu by name
         /*!
@@ -144,7 +150,7 @@ class menu_manager final : public manager<menu_manager> {
 
             //  Menu still not found - just return the first one in the vector
             return *menus.begin();
-        }
+        };
 
         //!  Set menu by name
         /*!
@@ -160,7 +166,7 @@ class menu_manager final : public manager<menu_manager> {
 
             //  Menu not found - return null pointer
             return nullptr;
-        }
+        };
 
         //!  Reset menu manager
         /*!
@@ -169,7 +175,7 @@ class menu_manager final : public manager<menu_manager> {
         inline void reset(void) {
             opened_menus = {};
             engine_flags::unset(GAME_MENU_OPENED);
-        }
+        };
 
         //!  Add a menu to the stack
         /*!
@@ -185,7 +191,7 @@ class menu_manager final : public manager<menu_manager> {
             for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
                 (*it)->set_default();
             }
-        }
+        };
 
         //!  Close the current opened menu
         /*!
@@ -195,7 +201,13 @@ class menu_manager final : public manager<menu_manager> {
             opened_menus.pop();
             if(opened_menus.empty()) engine_flags::unset(GAME_MENU_OPENED);
             else menu_position = opened_menus.top()->items_begin();
-        }
+        };
+
+        inline static void set_font_file(const std::string fname, const int size, const int flags) {
+            menu_font_file = fname;
+            menu_font_size = size;
+            menu_font_flags = flags;
+        };
 
         void run(message_manager&);
         ALLEGRO_BITMAP* render_menu(void) const;
@@ -214,6 +226,10 @@ class menu_manager final : public manager<menu_manager> {
 
         float menu_width, menu_height, menu_padding;
         int font_size;
+
+        inline static std::string menu_font_file = "";
+        inline static int menu_font_size = 0;
+        inline static int menu_font_flags = 0;
 };
 
 template <> inline bool menu_manager::manager<menu_manager>::initialized = false;

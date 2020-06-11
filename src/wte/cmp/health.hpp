@@ -27,8 +27,8 @@ namespace cmp
 class health final : public component {
     public:
         /*!
-         * Health
-         * \param void
+         * Health constructor.
+         * \param h Health value.
          * \return void
          */
         inline health(int h) : hp(h) {};

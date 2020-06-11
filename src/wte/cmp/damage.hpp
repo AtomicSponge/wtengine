@@ -27,8 +27,8 @@ namespace cmp
 class damage final : public component {
     public:
         /*!
-         * Damage
-         * \param void
+         * Damage constructor.
+         * \param d Damage amount.
          * \return void
          */
         inline damage(int d) : dmg(d) {};

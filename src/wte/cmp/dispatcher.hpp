@@ -32,22 +32,24 @@ namespace cmp
 class dispatcher final : public component {
     public:
         /*!
-         * ...
-         * \param void
+         * Dispatcher constructor.
+         * \param func Function to define message processing.
          * \return void
          */
         inline dispatcher(void func(entity, mgr::entity_manager&, message)) : handle_msg(func) {};
 
         /*!
-         * ...
+         * Dispatched destructor.
          * \param void
          * \return void
          */
         inline ~dispatcher() {};
 
         /*!
-         * ...
-         * \param void
+         * Run dispatcher function wrapper.
+         * \param e_id ID of the entity calling the wrapper.
+         * \param world Reference to the entity manager.
+         * \param msg Message to process.
          * \return void
          */
         inline void run(entity eid, mgr::entity_manager& world, message msg) {

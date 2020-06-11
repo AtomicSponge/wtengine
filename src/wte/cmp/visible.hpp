@@ -22,20 +22,22 @@ namespace cmp
 
 //! Visible component
 /*!
- * Toggles if an entity will be drawn by the Renderer
+ * Toggles if an entity will be drawn by the renderer
  */
 class visible final : public component {
     public:
         /*!
-         * Visible
+         * \brief Visible constructor.
+         * Call this to be visible by default.
          * \param void
          * \return void
          */
         inline visible() : is_visible(true) {};
 
         /*!
-         * Visible
-         * \param void
+         * \brief Visible constructor.
+         * Call this to set if the entity is visible.
+         * \param v Boolean value for visibility.
          * \return void
          */
         inline visible(bool v) : is_visible(v) {};

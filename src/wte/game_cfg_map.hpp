@@ -45,7 +45,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
         /*!
          * Load game config variables from file.
          * \param void
-         * \return False on fail, true on success
+         * \return False on fail, true on success.
          */
         inline static bool load(void) {
             std::ifstream data_file(data_file_name);

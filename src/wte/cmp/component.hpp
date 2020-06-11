@@ -27,7 +27,7 @@ namespace cmp
 class component {
     public:
         /*!
-         * Component
+         * Component destructor.
          * \param void
          * \return void
          */
@@ -40,7 +40,7 @@ class component {
 
     protected:
         /*!
-         * Component
+         * Component constructor.
          * \param void
          * \return void
          */

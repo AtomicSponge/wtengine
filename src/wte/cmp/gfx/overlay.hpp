@@ -30,8 +30,13 @@ namespace cmp
 class overlay final : public animator {
     public:
         /*!
-         * overlay
-         * \param void
+         * Overlay constructor.
+         * \param w Overlay width in pixels.
+         * \param h Overlay height in pixels.
+         * \param x Horizontal location of the overlay in pixels.
+         * \param y Verticle location of the overlay in pixels.
+         * \param l Layer for sorting.
+         * \param func Function to define what is displayed in the overlay.
          * \return void
          */
         inline overlay(int w, int h, float x, float y, std::size_t l, void func(entity, mgr::entity_manager&, int64_t)) :
@@ -41,7 +46,7 @@ class overlay final : public animator {
         };
 
         /*!
-         * overlay
+         * Overlay destructor.
          * \param void
          * \return void
          */
@@ -51,15 +56,19 @@ class overlay final : public animator {
         };
 
         /*!
-         * overlay
-         * \param void
+         * Set the font used by the overlay.
+         * \param font Allegro font object to be used.
          * \return void
          */
         inline void set_font(ALLEGRO_FONT* font) { overlay_font = font; };
 
         /*!
-         * overlay
-         * \param void
+         * Set text on the overlay.
+         * \param txt Text to be displayed.
+         * \param color Allegro color object.
+         * \param x Horizontal location of the text.
+         * \param y Verticle location of the text.
+         * \param f Text flags for drawing - see Allegro docs on al_draw_text.
          * \return void
          */
         inline void set_text(const std::string txt, const ALLEGRO_COLOR color, const float x, const float y, const int f) {

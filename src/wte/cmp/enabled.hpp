@@ -27,14 +27,16 @@ namespace cmp
 class enabled final : public component {
     public:
         /*!
-         * Enabled
+         * \brief Enabled constructor.
+         * If passed nothing, enabled by default.
          * \param void
          * \return void
          */
         inline enabled() : is_enabled(true) {};
 
         /*!
-         * Enabled
+         * \brief Enabled constructor.
+         * Pass boolean value to the component to set if it is enabled.
          * \param void
          * \return void
          */

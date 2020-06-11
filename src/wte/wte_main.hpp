@@ -69,11 +69,13 @@ class wte_main {
 
         /*!
          * Call first to load the engine.
+         * \param void
+         * \return void
          */
         inline void wte_load(void) {
             //  Initialize managers that require it.
-            screen.initialize(al_create_builtin_font());
-            menus.initialize(al_create_builtin_font(), WTE_COLOR_WHITE, WTE_COLOR_DARKPURPLE);
+            screen.initialize();
+            menus.initialize(WTE_COLOR_WHITE, WTE_COLOR_DARKPURPLE);
             audio_th.initialize();
 
             //  Start the input & audio threads.
@@ -89,6 +91,8 @@ class wte_main {
 
         /*!
          * Call to unload the engine.
+         * \param void
+         * \return void
          */
         inline void wte_unload(void) {
             input_th.stop();
@@ -140,15 +144,7 @@ class wte_main {
             for(auto & it : file_locations) PHYSFS_mount(it.c_str(), NULL, 1);
             al_set_physfs_file_interface();
 
-            //  Configure display.
-            if(!engine_cfg::is_reg("resolution")) throw std::runtime_error("Screen resolution not defined!");
-            const int screen_w = std::stoi(engine_cfg::get("resolution").substr(0, engine_cfg::get("resolution").find("x")));
-            const int screen_h = std::stoi(engine_cfg::get("resolution").substr(engine_cfg::get("resolution").find("x") + 1,
-                                                                                engine_cfg::get("resolution").length()));
-            display = al_create_display(screen_w, screen_h);
-            if(!display) throw std::runtime_error("Failed to configure display!");
-            al_set_window_title(display, window_title.c_str());
-            screen.update_resolution(screen_w, screen_h);
+            set_display();
 
             //  Configure main timer.
             main_timer = al_create_timer(1.0 / WTE_TICKS_PER_SECOND);
@@ -173,8 +169,9 @@ class wte_main {
             map_cmd_str_values["disable_system"] = CMD_STR_DISABLE_SYSTEM;
             map_cmd_str_values["set_engcfg"] = CMD_STR_SET_ENGCFG;
             map_cmd_str_values["set_gamecfg"] = CMD_STR_SET_GAMECFG;
-            map_cmd_str_values["reload_engine"] = CMD_STR_RELOAD_ENGINE;
+            map_cmd_str_values["reconf_display"] = CMD_STR_RECONF_DISPLAY;
             map_cmd_str_values["fps_counter"] = CMD_STR_FPS_COUNTER;
+            map_cmd_str_values["scale_factor"] = CMD_STR_SCALE_FACTOR;
 
             //  Set default colors for alerts.
             alert::set_font_color(WTE_COLOR_WHITE);
@@ -196,8 +193,6 @@ class wte_main {
         virtual void new_game(void) = 0;
         //!  Define what happens at the end of a game.
         virtual void end_game(void) = 0;
-        //!  Optional:  Engine reload events.
-        virtual void on_reload(void) {};
         //!  Optional:  On menu open.
         virtual void on_menu_open(void) {};
         //!  Optional:  On menu close.
@@ -217,13 +212,10 @@ class wte_main {
         mgr::system_manager systems;
 
     private:
-        //!  Reload engine.
-        void reload_engine(void);
-        //!  Start up a new game.
+        void set_display(void);
+        void reconf_display(void);
         void process_new_game(void);
-        //!  End the game in progress.
         void process_end_game(void);
-        //!  Process messages passed to the system.
         void handle_sys_msg(message_container);
 
         //  Used for mapping commands and switching on system messages:
@@ -233,7 +225,8 @@ class wte_main {
             CMD_STR_OPEN_MENU,      CMD_STR_CLOSE_MENU,
             CMD_STR_ENABLE_SYSTEM,  CMD_STR_DISABLE_SYSTEM,
             CMD_STR_SET_ENGCFG,     CMD_STR_SET_GAMECFG,
-            CMD_STR_RELOAD_ENGINE,  CMD_STR_FPS_COUNTER
+            CMD_STR_RECONF_DISPLAY, CMD_STR_FPS_COUNTER,
+            CMD_STR_SCALE_FACTOR
         };
         std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
 
@@ -252,25 +245,64 @@ class wte_main {
 };
 
 /*!
- * Reload the engine.
+ * Configure the display.
  * \param void
  * \return void
  */
-inline void wte_main::reload_engine(void) {
-    al_destroy_display(display);
-
+inline void wte_main::set_display(void) {
+    //  Set screen resolution.
     if(!engine_cfg::is_reg("resolution")) throw std::runtime_error("Screen resolution not defined!");
     const int screen_w = std::stoi(engine_cfg::get("resolution").substr(0, engine_cfg::get("resolution").find("x")));
     const int screen_h = std::stoi(engine_cfg::get("resolution").substr(engine_cfg::get("resolution").find("x") + 1,
                                                                         engine_cfg::get("resolution").length()));
+
+    //  Check if a display mode is set.
+    if(engine_cfg::is_reg("display_mode")) {
+        if(engine_cfg::get("display_mode") == "windowed") al_set_new_display_flags(ALLEGRO_WINDOWED);
+        else if(engine_cfg::get("display_mode") == "windowed_full_screen") al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
+        else if(engine_cfg::get("display_mode") == "full_screen") al_set_new_display_flags(ALLEGRO_FULLSCREEN);
+        else al_set_new_display_flags(ALLEGRO_WINDOWED);
+    } else {
+        engine_cfg::reg("display_mode=windowed");
+        al_set_new_display_flags(ALLEGRO_WINDOWED);
+    }
+
+    //  Set the display.
     display = al_create_display(screen_w, screen_h);
-    if(!display) throw std::runtime_error("Failed to configure display!");
+    if(!display) {
+        al_set_new_display_flags(ALLEGRO_WINDOWED);
+        display = al_create_display(screen_w, screen_h);
+        if(!display) throw std::runtime_error("Failed to configure display!");
+    }
     al_set_window_title(display, window_title.c_str());
     screen.update_resolution(screen_w, screen_h);
 
-    al_convert_memory_bitmaps();
+    //  Set the scale factor.
+    if(engine_cfg::is_reg("scale_factor")) {
+        if(engine_cfg::get("scale_factor") == "1") screen.set_scale_factor(1.0f);
+        else if(engine_cfg::get("scale_factor") == "1.25") screen.set_scale_factor(1.25f);
+        else if(engine_cfg::get("scale_factor") == "1.5") screen.set_scale_factor(1.5f);
+        else if(engine_cfg::get("scale_factor") == "1.75") screen.set_scale_factor(1.75f);
+        else if(engine_cfg::get("scale_factor") == "2") screen.set_scale_factor(2.0f);
+        else {
+            screen.set_scale_factor(1.0f);
+            engine_cfg::set("scale_factor=1");
+        }
+    } else {
+        screen.set_scale_factor(1.0f);
+        engine_cfg::reg("scale_factor=1");
+    }
+}
 
-    on_reload();
+/*!
+ * Reconfigure the display.
+ * \param void
+ * \return void
+ */
+inline void wte_main::reconf_display(void) {
+    al_destroy_display(display);
+    set_display();
+    al_convert_memory_bitmaps();
 }
 
 /*!
@@ -412,7 +444,7 @@ inline void wte_main::do_game(void) {
 /*!
  * Switch over the system messages and process.
  * Remaining messages are passed to the custom handler.
- * \param void
+ * \param sys_msgs  Vector of messages to be processed.
  * \return void
  */
 inline void wte_main::handle_sys_msg(message_container sys_msgs) {
@@ -494,9 +526,9 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  reload_engine - Reload the engine.
-            case CMD_STR_RELOAD_ENGINE:
-                reload_engine();
+            //  cmd:  reconf_display - Reconfigure the display.
+            case CMD_STR_RECONF_DISPLAY:
+                reconf_display();
                 it = sys_msgs.erase(it);
                 break;
 
@@ -510,6 +542,32 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
                 } else {
                     if(it->get_arg(0) == "on") engine_cfg::reg("draw_fps=1");
                     if(it->get_arg(0) == "off") engine_cfg::reg("draw_fps=0");
+                }
+                it = sys_msgs.erase(it);
+                break;
+
+            //  cmd:  scale_factor - Set scale factor
+            case CMD_STR_SCALE_FACTOR:
+                if(!engine_cfg::is_reg("scale_factor")) engine_cfg::reg("scale_factor=1");
+                if(it->get_arg(0) == "1") {
+                    screen.set_scale_factor(1.0f);
+                    engine_cfg::set("scale_factor=1");
+                }
+                if(it->get_arg(0) == "1.25") {
+                    screen.set_scale_factor(1.25f);
+                    engine_cfg::set("scale_factor=1.25");
+                }
+                if(it->get_arg(0) == "1.5") {
+                    screen.set_scale_factor(1.5f);
+                    engine_cfg::set("scale_factor=1.5");
+                }
+                if(it->get_arg(0) == "1.75") {
+                    screen.set_scale_factor(1.75f);
+                    engine_cfg::set("scale_factor=1.75");
+                }
+                if(it->get_arg(0) == "2") {
+                    screen.set_scale_factor(2.0f);
+                    engine_cfg::set("scale_factor=2");
                 }
                 it = sys_msgs.erase(it);
                 break;

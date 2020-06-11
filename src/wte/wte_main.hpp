@@ -271,7 +271,8 @@ inline void wte_main::set_display(void) {
     display = al_create_display(screen_w, screen_h);
     if(!display) {
         al_set_new_display_flags(ALLEGRO_WINDOWED);
-        display = al_create_display(screen_w, screen_h);
+        display = al_create_display(mgr::render_manager::get_arena_width(),
+                                    mgr::render_manager::get_arena_height());
         if(!display) throw std::runtime_error("Failed to configure display!");
     }
     al_set_window_title(display, window_title.c_str());

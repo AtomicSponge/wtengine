@@ -20,8 +20,8 @@ API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
  - Buildable debug modes
 
 #### TODO:
- - Resolution & window settings
- - Audio & input settings
+ - Finish up additional menus
+ - Finish up sprite roataion and add scaling
  - Audio testing
  - Code review / documentation
  - Improve cmake config

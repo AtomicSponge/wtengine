@@ -287,23 +287,15 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
             sprite_components.begin(), sprite_components.end(), comparator);
 
         //  Draw each sprite in order.
+        al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
         for(ec_pair_citerator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible) {
-                //  Set drawing to the temp bitmap.
-                al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-                render_tmp_bmp = al_create_bitmap(world.get_component<cmp::sprite>(it->first)->sprite_width,
-                                                  world.get_component<cmp::sprite>(it->first)->sprite_height);
-                al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-                al_set_target_bitmap(render_tmp_bmp);
-
-                //  Draw the current sprite frame to the temp bitmap.
-                al_draw_bitmap_region(world.get_component<cmp::sprite>(it->first)->sprite_bitmap,
-                    world.get_component<cmp::sprite>(it->first)->sprite_x, world.get_component<cmp::sprite>(it->first)->sprite_y,
-                    world.get_component<cmp::sprite>(it->first)->sprite_width, world.get_component<cmp::sprite>(it->first)->sprite_height,
-                    0.0f, 0.0f, 0);
-
-                //  Set drawing back to the arena.
-                al_set_target_bitmap(arena_bmp);
+                //  Get the current sprite frame.
+                render_tmp_bmp = al_create_sub_bitmap(world.get_component<cmp::sprite>(it->first)->sprite_bitmap,
+                                                      world.get_component<cmp::sprite>(it->first)->sprite_x,
+                                                      world.get_component<cmp::sprite>(it->first)->sprite_y,
+                                                      world.get_component<cmp::sprite>(it->first)->sprite_width,
+                                                      world.get_component<cmp::sprite>(it->first)->sprite_height);
                 if(world.has_component<cmp::direction>(it->first)) {
                     //  Draw the sprite rotated.
                     al_draw_rotated_bitmap(render_tmp_bmp, 0.0f, 0.0f,
@@ -319,6 +311,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                 }
             }
         }
+        al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
 
         /*
          * Draw hitboxes if enabled.

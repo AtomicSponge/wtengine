@@ -31,9 +31,10 @@ class direction final : public component {
          * \param a Angle of direction.
          * \return void
          */
-        inline direction(float a) : angle(a) {};
+        inline direction(float a) : angle(a), draw_rotated(true) {};
 
         float angle;
+        bool draw_rotated;
 };
 
 } //  namespace cmp

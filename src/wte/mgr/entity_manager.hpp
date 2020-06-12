@@ -65,13 +65,13 @@ namespace mgr
  */
 class entity_manager final : public manager<entity_manager> {
     public:
-        inline entity_manager() { clear(); };                           /*!< Entity manager constructor */
+        inline entity_manager() { clear(); };
         inline ~entity_manager() { clear(); };
 
-        //!  Clear the entity manager
         /*!
-        Set the entity counter to zero and clear the entities and componenets
-        */
+         * \brief Clear the entity manager.
+         * Set the entity counter to zero and clear the entities and componenets
+         */
         inline void clear(void) {
             entity_counter = 0;
             entity_vec.clear();
@@ -79,26 +79,28 @@ class entity_manager final : public manager<entity_manager> {
         }
 
         //  Entity members
-        const entity new_entity(void);                          /*!< Create a new entity */
-        const bool delete_entity(const entity);                 /*!< Delete an entity */
-        const bool entity_exists(const entity) const;           /*!< Check if an entity exists */
-        const world_container get_entities(void) const;         /*!< Get all entities */
-        const entity_container get_entity(const entity) const;  /*!< Get all components for an entity */
+        const entity new_entity(void);
+        const bool delete_entity(const entity);
+        const bool entity_exists(const entity) const;
+        const world_container get_entities(void) const;
+        const entity_container get_entity(const entity) const;
 
         //  Component members
-        const bool add_component(const entity, const cmp::component_sptr);                  /*!< Add a component to an entity */
+        const bool add_component(const entity, const cmp::component_sptr);
         template <typename T> const bool delete_component(const entity);
         template <typename T> const bool has_component(const entity) const;
 
-        template <typename T> const std::shared_ptr<const T> get_component(const entity) const;   /*!< Get a single component for an entity */
-        template <typename T> const std::shared_ptr<T> set_component(const entity);   /*!< Set a single component for an entity */
+        template <typename T> const std::shared_ptr<const T> get_component(const entity) const;
+        template <typename T> const std::shared_ptr<T> set_component(const entity);
 
-        template <typename T> const component_container get_components(void) const;         /*!< Get all components for a particulair type */
+        template <typename T> const component_container get_components(void) const;
+
+        //template <typename T> const world_container entities_with_component(void) const;
 
     private:
-        entity entity_counter;          /*!< Store counter for entity creation */
-        world_container entity_vec;     /*!< Store the list of entities */
-        world_map world;                /*!< Store all components for every entity */
+        entity entity_counter;
+        world_container entity_vec;
+        world_map world;
 };
 
 template <> inline bool entity_manager::manager<entity_manager>::initialized = false;

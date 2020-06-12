@@ -96,6 +96,8 @@ class menu_manager final : public manager<menu_manager> {
             cursor_bitmap = al_create_bitmap(font_size, font_size);
             al_set_target_bitmap(cursor_bitmap);
             al_clear_to_color(menu_font_color);
+
+            menu_bitmap = al_create_bitmap(menu_width, menu_height);
         };
 
         /*!
@@ -325,7 +327,6 @@ inline void menu_manager::run(message_manager& messages) {
  */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     //  Create a new menu bitmap and set drawing to it.
-    menu_bitmap = al_create_bitmap(menu_width, menu_height);
     al_set_target_bitmap(menu_bitmap);
     al_clear_to_color(menu_bg_color);
 

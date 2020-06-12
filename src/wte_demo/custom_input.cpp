@@ -35,13 +35,23 @@ void custom_input::custom_run(mgr::entity_manager& world, mgr::message_manager& 
         if(world.get_component<cmp::location>(player_entity)->pos_y < mgr::render_manager::get_arena_height() - 32)
             world.set_component<cmp::location>(player_entity)->pos_y += 5;
     }
-    if(input_flags::is_set(INPUT_LEFT)) {
+    /*if(input_flags::is_set(INPUT_LEFT)) {
         if(world.get_component<cmp::location>(player_entity)->pos_x > 12)
             world.set_component<cmp::location>(player_entity)->pos_x -= 5;
     }
     if(input_flags::is_set(INPUT_RIGHT)) {
         if(world.get_component<cmp::location>(player_entity)->pos_x < mgr::render_manager::get_arena_width() - 22)
             world.set_component<cmp::location>(player_entity)->pos_x += 5;
+    }*/
+    if(input_flags::is_set(INPUT_LEFT)) {
+        if(world.get_component<cmp::direction>(player_entity)->angle < 0)
+            world.set_component<cmp::direction>(player_entity)->angle = 360;
+        world.set_component<cmp::direction>(player_entity)->angle -= 5;
+    }
+    if(input_flags::is_set(INPUT_RIGHT)) {
+        if(world.get_component<cmp::direction>(player_entity)->angle > 360)
+            world.set_component<cmp::direction>(player_entity)->angle = 0;
+        world.set_component<cmp::direction>(player_entity)->angle += 5;
     }
 
     if(input_flags::is_set(INPUT_ACTION_1)) {

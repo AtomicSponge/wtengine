@@ -129,7 +129,6 @@ class render_manager final : public manager<render_manager>, private engine_time
         inline void de_init(void) {
             al_destroy_bitmap(title_bmp);
             al_destroy_bitmap(arena_bmp);
-            al_destroy_bitmap(render_tmp_bmp);
 
             al_destroy_font(overlay_font);
 
@@ -292,7 +291,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         //  Draw each background by layer.
         for(ec_pair_citerator it = background_componenet_set.begin(); it != background_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible)
-                al_draw_bitmap(dynamic_cast<cmp::background*>(it->second.get())->background_bitmap, 0, 0, 0);
+                al_draw_bitmap(world.get_component<cmp::background>(it->first)->background_bitmap, 0, 0, 0);
         }
 
         /*
@@ -309,34 +308,47 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
             if(world.get_component<cmp::visible>(it->first)->is_visible) {
                 //  Get the current sprite frame.
                 render_tmp_bmp = al_create_sub_bitmap(
-                    dynamic_cast<cmp::sprite*>(it->second.get())->sprite_bitmap,
-                    dynamic_cast<cmp::sprite*>(it->second.get())->sprite_x,
-                    dynamic_cast<cmp::sprite*>(it->second.get())->sprite_y,
-                    dynamic_cast<cmp::sprite*>(it->second.get())->sprite_width,
-                    dynamic_cast<cmp::sprite*>(it->second.get())->sprite_height
+                    world.get_component<cmp::sprite>(it->first)->sprite_bitmap,
+                    world.get_component<cmp::sprite>(it->first)->sprite_x,
+                    world.get_component<cmp::sprite>(it->first)->sprite_y,
+                    world.get_component<cmp::sprite>(it->first)->sprite_width,
+                    world.get_component<cmp::sprite>(it->first)->sprite_height
                 );
-                //  Check if the sprite should be rotated.
+
                 float sprite_angle = 0.0f;
                 float center_x = 0.0f, center_y = 0.0f;
                 float destination_x = 0.0f, destination_y = 0.0f;
+
+                //  Check if the sprite should be rotated.
                 if(world.has_component<cmp::direction>(it->first)) {
                     if(world.get_component<cmp::direction>(it->first)->draw_rotated) {
                         sprite_angle = world.get_component<cmp::direction>(it->first)->angle * (M_PI / 180);
-                        center_x = al_get_bitmap_width(render_tmp_bmp) / 2;
-                        center_y = al_get_bitmap_height(render_tmp_bmp) / 2;
+                        center_x = (al_get_bitmap_width(render_tmp_bmp) / 2);// +
+                            //world.get_component<cmp::sprite>(it->first)->draw_offset_x;
+                        center_y = (al_get_bitmap_height(render_tmp_bmp) / 2);// +
+                            //world.get_component<cmp::sprite>(it->first)->draw_offset_y;
+
+                        destination_x = world.get_component<cmp::location>(it->first)->pos_x +
+                            (al_get_bitmap_width(render_tmp_bmp) / 2) +
+                            world.get_component<cmp::sprite>(it->first)->draw_offset_x;
+                        destination_y = world.get_component<cmp::location>(it->first)->pos_y +
+                            (al_get_bitmap_height(render_tmp_bmp) / 2) +
+                            world.get_component<cmp::sprite>(it->first)->draw_offset_y;
                     }
+                } else {
+                    destination_x = world.get_component<cmp::location>(it->first)->pos_x +
+                        world.get_component<cmp::sprite>(it->first)->draw_offset_x;
+                    destination_y = world.get_component<cmp::location>(it->first)->pos_y +
+                        world.get_component<cmp::sprite>(it->first)->draw_offset_y;
                 }
                 //  Draw the sprite.
                 al_draw_scaled_rotated_bitmap(
-                    render_tmp_bmp, center_x, center_y,
-                    world.get_component<cmp::location>(it->first)->pos_x +
-                        dynamic_cast<cmp::sprite*>(it->second.get())->draw_offset_x,
-                    world.get_component<cmp::location>(it->first)->pos_y +
-                        dynamic_cast<cmp::sprite*>(it->second.get())->draw_offset_y,
-                    dynamic_cast<cmp::sprite*>(it->second.get())->scale_factor_x,
-                    dynamic_cast<cmp::sprite*>(it->second.get())->scale_factor_y,
+                    render_tmp_bmp, center_x, center_y, destination_x, destination_y,
+                    world.get_component<cmp::sprite>(it->first)->scale_factor_x,
+                    world.get_component<cmp::sprite>(it->first)->scale_factor_y,
                     sprite_angle, 0
                 );
+                al_destroy_bitmap(render_tmp_bmp);
             }
         }
 
@@ -382,9 +394,9 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         //  Draw each overlay by layer.
         for(ec_pair_citerator it = overlay_componenet_set.begin(); it != overlay_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible)
-                al_draw_bitmap(dynamic_cast<cmp::overlay*>(it->second.get())->overlay_bitmap,
-                               dynamic_cast<cmp::overlay*>(it->second.get())->pos_x,
-                               dynamic_cast<cmp::overlay*>(it->second.get())->pos_y, 0);
+                al_draw_bitmap(world.get_component<cmp::overlay>(it->first)->overlay_bitmap,
+                               world.get_component<cmp::overlay>(it->first)->pos_x,
+                               world.get_component<cmp::overlay>(it->first)->pos_y, 0);
         }
 
         /*
@@ -412,13 +424,15 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         render_tmp_bmp = al_clone_bitmap(menus.render_menu());
         al_set_target_backbuffer(al_get_current_display());
 
-        al_draw_scaled_bitmap(render_tmp_bmp, 0, 0,
+        al_draw_scaled_bitmap(
+            render_tmp_bmp, 0, 0,
             al_get_bitmap_width(render_tmp_bmp), al_get_bitmap_height(render_tmp_bmp),
             (screen_w / 2) - std::floor((al_get_bitmap_width(render_tmp_bmp) * scale_factor) / 2),
             (screen_h / 2) - std::floor((al_get_bitmap_height(render_tmp_bmp) * scale_factor) / 2),
             al_get_bitmap_width(render_tmp_bmp) * scale_factor,
             al_get_bitmap_height(render_tmp_bmp) * scale_factor, 0
         );
+        al_destroy_bitmap(render_tmp_bmp);
     }
 
     /*
@@ -436,10 +450,15 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                      ALLEGRO_ALIGN_CENTER, alert::get_alert().c_str());
 
         al_set_target_backbuffer(al_get_current_display());
-        al_draw_bitmap(render_tmp_bmp,
-                       (screen_w / 2) - (al_get_bitmap_width(render_tmp_bmp) / 2),
-                       (screen_h / 2) - (al_get_bitmap_height(render_tmp_bmp) / 2),
-                       0);
+        al_draw_scaled_bitmap(
+            render_tmp_bmp, 0, 0,
+            al_get_bitmap_width(render_tmp_bmp), al_get_bitmap_height(render_tmp_bmp),
+            (screen_w / 2) - std::floor((al_get_bitmap_width(render_tmp_bmp) * scale_factor) / 2),
+            (screen_h / 2) - std::floor((al_get_bitmap_height(render_tmp_bmp) * scale_factor) / 2),
+            al_get_bitmap_width(render_tmp_bmp) * scale_factor,
+            al_get_bitmap_height(render_tmp_bmp) * scale_factor, 0
+        );
+        al_destroy_bitmap(render_tmp_bmp);
     }
 
     /*

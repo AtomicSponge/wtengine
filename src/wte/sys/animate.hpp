@@ -39,9 +39,8 @@ class animate final : public system {
 
             animation_components = world.get_components<cmp::animator>();
 
-            //for(component_iterator it = animation_components.begin(); it != animation_components.end(); it++) {
             for(auto & it : animation_components) {
-                dynamic_cast<cmp::animator*>(it.second.get())->run(it.first, world, current_time);
+                static_cast<cmp::animator*>(it.second.get())->run(it.first, world, current_time);
             }
         }
 };

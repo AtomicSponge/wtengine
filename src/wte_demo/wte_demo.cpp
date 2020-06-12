@@ -246,6 +246,9 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::team>(0));
     world.add_component(e_id, std::make_shared<cmp::location>((mgr::render_manager::get_arena_width() / 2) - 5,
                                                                mgr::render_manager::get_arena_height() - 40));
+    
+    world.add_component(e_id, std::make_shared<cmp::direction>(0.0f));
+    
     world.add_component(e_id, std::make_shared<cmp::hitbox>(10, 10));
     world.add_component(e_id, std::make_shared<cmp::health>(1));
     world.add_component(e_id, std::make_shared<cmp::input_handler>());
@@ -261,6 +264,9 @@ void wte_demo::new_game(void) {
     world.set_component<cmp::sprite>(e_id)->load_sprite("ship.bmp", ".bmp");
     world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");
+
+    //world.set_component<cmp::sprite>(e_id)->scale_factor_x = 2.0f;
+    //world.set_component<cmp::sprite>(e_id)->scale_factor_y = 2.0f;
 
     /*
      * Shield entity.
@@ -301,15 +307,15 @@ void wte_demo::new_game(void) {
      */
     spawner.add_spawn("asteroid", 5,
         [](entity e_id, mgr::entity_manager& world, msg_arg_list args) {
-            int s = std::stoi(args[5]);
-            if(s < 1) s = 1;
-            if(s > 8) s = 8;
+            int size = std::stoi(args[5]);
+            if(size < 1) size = 1;
+            if(size > 8) size = 8;
 
             world.add_component(e_id, std::make_shared<cmp::name>("asteroid" + std::to_string(e_id)));
             world.add_component(e_id, std::make_shared<cmp::team>(1));
             world.add_component(e_id, std::make_shared<cmp::location>(std::stof(args[1]), std::stof(args[2])));
-            world.add_component(e_id, std::make_shared<cmp::hitbox>((float)(s * 16), (float)(s * 16)));
-            world.add_component(e_id, std::make_shared<cmp::health>(s * 10));
+            world.add_component(e_id, std::make_shared<cmp::hitbox>((float)(size * 16), (float)(size * 16)));
+            world.add_component(e_id, std::make_shared<cmp::health>(size * 10));
             world.add_component(e_id, std::make_shared<cmp::damage>(10));
             world.add_component(e_id, std::make_shared<cmp::direction>(std::stof(args[3])));
             world.add_component(e_id, std::make_shared<cmp::velocity>(std::stof(args[4])));
@@ -355,8 +361,8 @@ void wte_demo::new_game(void) {
             world.set_component<cmp::sprite>(e_id)->load_sprite("asteroid.bmp", ".bmp");
             world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 5);
             world.set_component<cmp::sprite>(e_id)->set_cycle("main");
-            world.set_component<cmp::sprite>(e_id)->scale_factor_x = (float)s;
-            world.set_component<cmp::sprite>(e_id)->scale_factor_y = (float)s;
+            world.set_component<cmp::sprite>(e_id)->scale_factor_x = (float)size;
+            world.set_component<cmp::sprite>(e_id)->scale_factor_y = (float)size;
         }
     );
 

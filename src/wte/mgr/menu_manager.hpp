@@ -49,8 +49,8 @@ namespace mgr
 
 class menu_manager final : public manager<menu_manager> {
     public:
-        //!  Menu manager constructor
         /*!
+         * \brief Menu manager constructor
          * Generates the menu manager object
          */
         inline menu_manager() : menu_width(340.0), menu_height(240.0), menu_padding(20.0), font_size(8) {
@@ -58,8 +58,8 @@ class menu_manager final : public manager<menu_manager> {
             opened_menus = {};
         };
 
-        //!  Menu manager destructor
         /*!
+         * \brief Menu manager destructor
          * Cleans up by deleting the menu bitmaps and font
          */
         inline ~menu_manager() {
@@ -67,10 +67,13 @@ class menu_manager final : public manager<menu_manager> {
             opened_menus = {};
         };
 
-        //!  Ititialize menu manager
         /*!
-         * Pass an Allegro font for the menu manager to use
-         * Also create the default main menu and in-game menu
+         * \brief Ititialize menu manager.
+         * Sets up internal menu objects.
+         * Also create the default main menu and in-game menu.
+         * \param fcolor Allegro color to use for font.
+         * \param bgcolor Allegro color to use for background.
+         * \return void
          */
         inline void initialize(ALLEGRO_COLOR fcolor, ALLEGRO_COLOR bgcolor) {
             if(menu_font_file.empty()) menu_font = al_create_builtin_font();
@@ -113,10 +116,10 @@ class menu_manager final : public manager<menu_manager> {
         inline void set_height(const float mh) { menu_height = mh; };
         inline void set_padding(const float mp) { menu_padding = mp; };
 
-        //!  Add a menu to the menu vector
         /*!
-         * Returns false if a menu with a similar ID already exists
-         * Returns true on success
+         * Add a menu to the menu vector.
+         * \param new_menu A menu object.
+         * \return Returns false if a menu with a similar ID already exists.  Returns true on success.
          */
         inline const bool new_menu(const mnu::menu new_menu) {
             for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
@@ -126,11 +129,13 @@ class menu_manager final : public manager<menu_manager> {
             return true;
         };
 
-        //!  Get menu by name
         /*!
-         * Finds a menu in the menu vector by name and returns it
-         * If not found, try returning the main or game menu
-         * Return the first menu in the vector if no others found
+         * \brief Get menu by name.
+         * Finds a menu in the menu vector by name and returns it.
+         * If not found, try returning the main or game menu.
+         * Return the first menu in the vector if no others found.
+         * \param name Menu name.
+         * \return Shared pointer to menu.
          */
         inline const menu_csptr get_menu(const std::string name) const {
             if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
@@ -154,10 +159,12 @@ class menu_manager final : public manager<menu_manager> {
             return *menus.begin();
         };
 
-        //!  Set menu by name
         /*!
-         * Finds a menu in the menu vector by name and returns it
-         * If not found, return a null pointer
+         * \brief Set menu by name.
+         * Finds a menu in the menu vector by name and returns it.
+         * If not found, return a null pointer.
+         * \param name Menu name.
+         * \return Shared pointer to menu.
          */
         inline const menu_sptr set_menu(const std::string name) {
             if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
@@ -170,19 +177,23 @@ class menu_manager final : public manager<menu_manager> {
             return nullptr;
         };
 
-        //!  Reset menu manager
         /*!
-         * Clear the stack of opened menus
+         * \brief Reset menu manager.
+         * Clear the stack of opened menus.
+         * \param void
+         * \return void
          */
         inline void reset(void) {
             opened_menus = {};
             engine_flags::unset(GAME_MENU_OPENED);
         };
 
-        //!  Add a menu to the stack
         /*!
+         * \brief Add a menu to the opened stack.
          * Takes a menu from the vector container and adds it to the top of the opened stack.
          * Also resets the menu position.
+         * \param menu_id Menu to open.
+         * \return void
          */
         inline void open_menu(const std::string menu_id) {
             opened_menus.push(get_menu(menu_id));
@@ -195,9 +206,11 @@ class menu_manager final : public manager<menu_manager> {
             }
         };
 
-        //!  Close the current opened menu
         /*!
+         * \brief Close the current opened menu.
          * Remove the menu from the top of the stack.
+         * \param void
+         * \return void
          */
         inline void close_menu(void) {
             opened_menus.pop();
@@ -236,9 +249,11 @@ class menu_manager final : public manager<menu_manager> {
 
 template <> inline bool menu_manager::manager<menu_manager>::initialized = false;
 
-//!  Run the menu manager
 /*!
+ * \brief Run the menu manager.
  * Adds a menu to the stack if none are opened, then processes the menus.
+ * \param messages Reference to message manager.
+ * \return void
  */
 inline void menu_manager::run(message_manager& messages) {
     if(opened_menus.empty()) {
@@ -321,9 +336,11 @@ inline void menu_manager::run(message_manager& messages) {
     input_flags::unset_all();
 }
 
-//!  Render the active menu.
 /*!
- * Renders the active menu from the top of the stack.
+ * \brief Renders the active menu from the top of the stack.
+ * This is called from within the renderer.  Drawing target must be reset after calling.
+ * \param void
+ * \return The menu bitmap.
  */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     //  Create a new menu bitmap and set drawing to it.

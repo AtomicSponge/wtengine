@@ -252,7 +252,200 @@ inline void audio_manager::run(void) {
             switch(map_cmd_str_values[audio_messages.front().get_cmd()]) {
                 /* ***  Mixer 1 - Music controls  *** */
                 //  cmd:  music_loop - arg:  enable/disable - Turn music looping on or off.
-                
+                case CMD_STR_MUSIC_LOOP:
+                    if(!al_get_mixer_attached(mixer_1)) break;  //  Music not loaded, end.
+                    if(audio_messages.front().get_arg(0) == "enable") al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_LOOP);
+                    if(audio_messages.front().get_arg(0) == "disable") al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_ONCE);
+                    break;
+
+                //  cmd:  play_music - arg:  file.name - Load a file and play in a stream.
+                case CMD_STR_PLAY_MUSIC:
+                    //  Load stream and play.
+                    music_stream = al_load_audio_stream(audio_messages.front().get_arg(0).c_str(), 4, 2048);
+                    if(!music_stream) break;  //  Didn't load audio, end.
+                    al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_LOOP);
+                    al_attach_audio_stream_to_mixer(music_stream, mixer_1);
+                    break;
+
+                //  cmd:  stop_music - Stop current music from playing.
+                case CMD_STR_STOP_MUSIC:
+                    if(al_get_mixer_attached(mixer_1))
+                        al_destroy_audio_stream(music_stream);
+                    break;
+
+                //  cmd:  pause_music - Pause music if it is playing.
+                case CMD_STR_PAUSE_MUSIC:
+                    if(al_get_mixer_attached(mixer_1) && al_get_mixer_playing(mixer_1))
+                        al_set_audio_stream_playing(music_stream, false);
+                    break;
+
+                //  cmd:  unpause_music - Unpause music if it is paused.
+                case CMD_STR_UNPAUSE_MUSIC:
+                    if(al_get_mixer_attached(mixer_1))
+                        al_set_audio_stream_playing(music_stream, true);
+                    break;
+
+                /* ***  Mixer 2 - Sample controls  *** */
+                //  cmd:  load_sample - args:  sample_num (0 - MAX); file ; mode (once, loop) - Load a sample.
+                case CMD_STR_LOAD_SAMPLE:
+                    pos = std::stoi(audio_messages.front().get_arg(0));
+                    if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
+                    //  Load sample from file
+                    samples[pos] = al_load_sample(audio_messages.front().get_arg(1).c_str());
+                    break;
+
+                //  cmd:  unload_sample - arg:  sample_num (0 - MAX) - Unload sample if one is loaded.
+                //  If arg == "all" unload all samples.
+                case CMD_STR_UNLOAD_SAMPLE:
+                    //  Unload all samples.
+                    if(audio_messages.front().get_arg(0) == "all") {
+                        for(pos = 0; pos < WTE_MAX_SAMPLES; pos++) {
+                            //al_destroy_sample(samples[pos]);
+                        }
+                        break;
+                    }
+                    //  Unload a sample by position.
+                    pos = std::stoi(audio_messages.front().get_arg(0));
+                    if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
+                    //al_destroy_sample(samples[pos]);
+                    break;
+
+                //  cmd:  play_sample - args:  sample_num (0 - MAX) ; mode (once, loop) ; gain ; pan ; speed
+                //  Start playing loaded sample.
+                case CMD_STR_PLAY_SAMPLE:
+                    pos = std::stoi(audio_messages.front().get_arg(0));
+                    if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
+                    if(!samples[pos]) break;  //  Sample not loaded, end.
+                    //  Check to see if gain, pan or speed is set.
+                    if(audio_messages.front().get_arg(2) != "") {
+                        gain = std::atof(audio_messages.front().get_arg(2).c_str());
+                        if(gain > 1.0f || gain <= 0.0f) gain = 1.0f;
+                    } else gain = 1.0f;
+                    if(audio_messages.front().get_arg(3) != "") {
+                        pan = std::atof(audio_messages.front().get_arg(3).c_str());
+                        if(pan < -1.0f || pan > 1.0f) pan = 0.0f;
+                    } else pan = 0.0f;
+                    if(audio_messages.front().get_arg(4) != "") {
+                        speed = std::atof(audio_messages.front().get_arg(4).c_str());
+                        if(speed > 1.0f || speed <= 0.0f) speed = 1.0f;
+                    } else speed = 1.0f;
+                    //  Play once or in a loop.
+                    if(audio_messages.front().get_arg(1) == "once")
+                        sample_playing[pos] = al_play_sample(samples[pos], gain, pan, speed,
+                                                             ALLEGRO_PLAYMODE_ONCE, &sample_id[pos]);
+                    else
+                        sample_playing[pos] = al_play_sample(samples[pos], gain, pan, speed,
+                                                             ALLEGRO_PLAYMODE_LOOP, &sample_id[pos]);
+                    break;
+
+                //  cmd:  stop_sample - arg:  sample_num (0 - MAX) - Stop playing loaded sample.
+                case CMD_STR_STOP_SAMPLE:
+                    if(audio_messages.front().get_arg(0) == "all") {
+                        al_stop_samples();
+                        break;
+                    }
+                    pos = std::stoi(audio_messages.front().get_arg(0));
+                    if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
+                    if(sample_playing[pos]) al_stop_sample(&sample_id[pos]);
+                    break;
+
+                //  cmd:  pan_sample - arg:  sample_num (0 - MAX) ; pan ([left]-1.0 thru 1.0[right] or none) - Set sample pan.
+                case CMD_STR_PAN_SAMPLE:
+                    #ifdef ALLEGRO_UNSTABLE
+                    pos = std::stoi(audio_messages.front().get_arg(0));
+                    if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
+                    if(!sample_playing[pos]) break;  //  Sample not loaded, end.
+                    //  If arg == "none" set no panning
+                    if(audio_messages.front().get_arg(1) == "none") {
+                        instance = al_lock_sample_id(&sample_id[pos]);
+                        if(instance) al_set_sample_instance_pan(instance, ALLEGRO_AUDIO_PAN_NONE);
+                        al_unlock_sample_id(&sample_id[pos]);
+                        break;
+                    }
+                    pan = std::atof(audio_messages.front().get_arg(1).c_str());
+                    if(pan < -1.0f || pan > 1.0f) break;  //  Out of pan range
+                    instance = al_lock_sample_id(&sample_id[pos]);
+                    if(instance) al_set_sample_instance_pan(instance, pan);
+                    al_unlock_sample_id(&sample_id[pos]);
+                    #endif
+                    break;
+
+                /* ***  Mixer 3 - Voice controls  *** */
+                //  cmd:  play_voice - arg:  file.name - Load a file and play in a stream.
+                case CMD_STR_PLAY_VOICE:
+                    //  Load stream and play.
+                    voice_stream = al_load_audio_stream(audio_messages.front().get_arg(0).c_str(), 4, 2048);
+                    if(!voice_stream) break;  //  Didn't load audio, end.
+                    al_set_audio_stream_playmode(voice_stream, ALLEGRO_PLAYMODE_ONCE);
+                    al_attach_audio_stream_to_mixer(voice_stream, mixer_3);
+                    break;
+
+                //  cmd:  stop_voice - Stop current voice from playing.
+                case CMD_STR_STOP_VOICE:
+                    if(al_get_mixer_attached(mixer_3))
+                        al_destroy_audio_stream(voice_stream);
+                    break;
+
+                //  cmd:  pause_voice - Pause voice if it is playing.
+                case CMD_STR_PAUSE_VOICE:
+                    if(al_get_mixer_attached(mixer_3) && al_get_mixer_playing(mixer_3))
+                        al_set_audio_stream_playing(voice_stream, false);
+                    break;
+
+                //  cmd:  unpause_voice - Unpause voice if it is paused.
+                case CMD_STR_UNPAUSE_VOICE:
+                    if(al_get_mixer_attached(mixer_3))
+                        al_set_audio_stream_playing(voice_stream, true);
+                    break;
+
+                /* ***  Mixer 4 - Ambiance controls  *** */
+                //  cmd:  ambiance_loop - arg:  enable/disable - Turn music looping on or off.
+                case CMD_STR_AMBIANCE_LOOP:
+                    if(!al_get_mixer_attached(mixer_4)) break;  //  Ambiance not loaded, end.
+                    if(audio_messages.front().get_arg(0) == "enable") al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
+                    if(audio_messages.front().get_arg(0) == "disable") al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_ONCE);
+                    break;
+
+                //  cmd:  play_ambiance - arg:  file.name - Load a file and play in a stream.
+                case CMD_STR_PLAY_AMBIANCE:
+                    //  Load stream and play.
+                    ambiance_stream = al_load_audio_stream(audio_messages.front().get_arg(0).c_str(), 4, 2048);
+                    if(!ambiance_stream) break;  //  Didn't load audio, end.
+                    al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
+                    al_attach_audio_stream_to_mixer(ambiance_stream, mixer_4);
+                    break;
+
+                //  cmd:  stop_ambiance - Stop current ambiance from playing.
+                case CMD_STR_STOP_AMBIANCE:
+                    if(al_get_mixer_attached(mixer_4))
+                        al_destroy_audio_stream(ambiance_stream);
+                    break;
+
+                //  cmd:  pause_ambiance - Pause ambiance if it is playing.
+                case CMD_STR_PAUSE_AMBIANCE:
+                    if(al_get_mixer_attached(mixer_4) && al_get_mixer_playing(mixer_4))
+                        al_set_audio_stream_playing(ambiance_stream, false);
+                    break;
+
+                //  cmd:  unpause_ambiance - Unpause ambiance if it is paused.
+                case CMD_STR_UNPAUSE_AMBIANCE:
+                    if(al_get_mixer_attached(mixer_4))
+                        al_set_audio_stream_playing(ambiance_stream, true);
+                    break;
+
+                /* *** General commands *** */
+                //  cmd:  set_volume - arg:  mixer # ; volume - Set the volume of a mixer.
+                case CMD_STR_SET_VOLUME:
+                    pos = std::stoi(audio_messages.front().get_arg(0));
+                    float vol = std::atof(audio_messages.front().get_arg(1).c_str());
+                    if(vol >= 0.0f && vol <= 1.0f) {
+                        if(pos == 0) al_set_mixer_gain(mixer_main, vol);
+                        if(pos == 1) al_set_mixer_gain(mixer_1, vol);
+                        if(pos == 2) al_set_mixer_gain(mixer_2, vol);
+                        if(pos == 3) al_set_mixer_gain(mixer_3, vol);
+                        if(pos == 4) al_set_mixer_gain(mixer_4, vol);
+                    }
+                    break;
 
                 //  cmd:  new_cmd - description.
                 //case CMD_STR_X:

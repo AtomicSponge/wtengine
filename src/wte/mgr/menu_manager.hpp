@@ -104,7 +104,10 @@ class menu_manager final : public manager<menu_manager> {
         };
 
         /*!
-         * de-init
+         * \brief De-initialize the menu manager.
+         * Destories the internal objects.
+         * \param void
+         * \return void
          */
         inline void de_init(void) {
             al_destroy_bitmap(menu_bitmap);
@@ -343,7 +346,7 @@ inline void menu_manager::run(message_manager& messages) {
  * \return The menu bitmap.
  */
 inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
-    //  Create a new menu bitmap and set drawing to it.
+    //  Set drawing to the menu bitmap.
     al_set_target_bitmap(menu_bitmap);
     al_clear_to_color(menu_bg_color);
 

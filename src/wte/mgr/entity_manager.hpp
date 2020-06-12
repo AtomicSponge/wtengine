@@ -105,11 +105,11 @@ class entity_manager final : public manager<entity_manager> {
 
 template <> inline bool entity_manager::manager<entity_manager>::initialized = false;
 
-//! Create new entity
 /*!
- * Create a new entity by name, using the next available ID
+ * \brief Create a new entity by name, using the next available ID.
  * Throw error if there is no room for entities.
- * Return entity ID on success.
+ * \param void
+ * \return Return the newly created entity ID.
  */
 inline const entity entity_manager::new_entity(void) {
     entity next_id;
@@ -119,8 +119,9 @@ inline const entity entity_manager::new_entity(void) {
         next_id = 0;
 
         for(world_iterator it = entity_vec.begin(); it != entity_vec.end(); it++) {
-            //  No more room for entities, soft fail.
-            if(next_id == std::numeric_limits<entity>::max()) return 0;
+            //  No more room for entities, fail.
+            if(next_id == std::numeric_limits<entity>::max())
+                throw std::runtime_error("Entity manager has hit max!");
             if(*it == next_id) {          //  Entity ID exists
                 next_id++;                //  Increment next_id by one
                 it = entity_vec.begin();  //  Then start the search over
@@ -135,9 +136,10 @@ inline const entity entity_manager::new_entity(void) {
     return next_id; //  Created entity, return new entity ID
 }
 
-//! Delete entity by ID
 /*!
- * Return true on success, false if entity does not exist
+ * Delete entity by ID.
+ * \param e_id The entity ID to delete.
+ * \return Return true on success, false if entity does not exist.
  */
 inline const bool entity_manager::delete_entity(const entity e_id) {
     for(world_iterator it = entity_vec.begin(); it != entity_vec.end(); it++) {
@@ -150,11 +152,11 @@ inline const bool entity_manager::delete_entity(const entity e_id) {
     return false;
 }
 
-//! Check if an entity exists
 /*!
- * Check the entity vector by ID and return result
- * Return true if found
- * Return false if not found
+ * \breif Check if an entity exists.
+ * Check the entity vector by ID and return result.
+ * \param e_id The entity ID to check.
+ * \return Return true if found, return false if not found.
  */
 inline const bool entity_manager::entity_exists(const entity e_id) const {
     if(entity_vec.empty()) return false;
@@ -166,18 +168,20 @@ inline const bool entity_manager::entity_exists(const entity e_id) const {
     return false;
 }
 
-//! Get the entity reference vector
 /*!
- * Returns a vector of all entity IDs
+ * Get the entity reference vector.
+ * \param void
+ * \return Returns a vector of all entity IDs.
  */
 inline const world_container entity_manager::get_entities(void) const {
     if(entity_vec.empty()) return {};
     return entity_vec;
 }
 
-//! Get all components related to an entity
 /*!
- * Returns a container of components based by entity ID
+ * Get all components related to an entity.
+ * \param e_id Entity ID to get components for.
+ * \return Returns a container of components based by entity ID.
  */
 inline const entity_container entity_manager::get_entity(const entity e_id) const {
     if(!entity_exists(e_id)) return {};
@@ -192,11 +196,13 @@ inline const entity_container entity_manager::get_entity(const entity e_id) cons
     return temp_container;
 }
 
-//! Add a new component to an entity
 /*!
- * Return false if the entity does not exist
- * Return false if the entity already has a component of the same type
- * Return true on success
+ * Add a new component to an entity
+ * \param e_id Entity ID to add a component to.
+ * \param comp Componenet to add.
+ * \return Return false if the entity does not exist.
+ * \return Return false if the entity already has a component of the same type.
+ * \return Return true on success.
  */
 inline const bool entity_manager::add_component(const entity e_id, const cmp::component_sptr comp) {
     if(!entity_exists(e_id)) return false;
@@ -211,10 +217,11 @@ inline const bool entity_manager::add_component(const entity e_id, const cmp::co
     return true;
 }
 
-//!  Delete components by type for an entity
 /*!
- * Return true if a component was deleted
- * Return false if no components were deleted
+ * Delete components by type for an entity.
+ * \param e_id Entity ID to delete component from.
+ * \return Return true if a component was deleted.
+ * \return Return false if no components were deleted.
  */
 template <typename T> inline const bool entity_manager::delete_component(const entity e_id) {
     if(world.empty()) throw std::runtime_error("No components were created!");
@@ -232,10 +239,11 @@ template <typename T> inline const bool entity_manager::delete_component(const e
     return deleted_component;
 }
 
-//!  Check if an entity has a component by type
 /*!
- * Return true if the entity has the component
- * Return false if it does not
+ * Check if an entity has a component by type.
+ * \param e_id The entity ID to check.
+ * \return Return true if the entity has the component.
+ * \return Return false if it does not.
  */
 template <typename T> inline const bool entity_manager::has_component(const entity e_id) const {
     if(world.empty()) throw std::runtime_error("No components were created!");
@@ -249,9 +257,10 @@ template <typename T> inline const bool entity_manager::has_component(const enti
     return false;
 }
 
-//! Read the value of a component by type for an entity
 /*!
- * Return nullptr if not found
+ * Read the value of a component by type for an entity.
+ * \param e_id The entity ID to search.
+ * \return Return the component or nullptr if not found.
  */
 template <typename T> inline const std::shared_ptr<const T> entity_manager::get_component(const entity e_id) const {
     if(world.empty()) throw std::runtime_error("No components were created!");
@@ -264,9 +273,10 @@ template <typename T> inline const std::shared_ptr<const T> entity_manager::get_
     return nullptr;
 }
 
-//! Set the value of a component by type for an entity
 /*!
- * Return nullptr if not found
+ * Set the value of a component by type for an entity.
+ * \param e_id The entity ID to search.
+ * \return Return the component or nullptr if not found.
  */
 template <typename T> inline const std::shared_ptr<T> entity_manager::set_component(const entity e_id) {
     if(world.empty()) throw std::runtime_error("No components were created!");
@@ -279,9 +289,10 @@ template <typename T> inline const std::shared_ptr<T> entity_manager::set_compon
     return nullptr;
 }
 
-//! Get all components for a particulair type
 /*!
- * Returns a container of components of all the same type
+ * Get all components for a particulair type.
+ * \param void
+ * \return Returns a container of components of all the same type
  */
 template <typename T> inline const component_container entity_manager::get_components(void) const {
     if(world.empty()) throw std::runtime_error("No components were created!");

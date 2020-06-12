@@ -70,7 +70,9 @@ class entity_manager final : public manager<entity_manager> {
 
         /*!
          * \brief Clear the entity manager.
-         * Set the entity counter to zero and clear the entities and componenets
+         * Set the entity counter to zero and clear the entities and componenets.
+         * \param void
+         * \return void
          */
         inline void clear(void) {
             entity_counter = 0;
@@ -94,8 +96,7 @@ class entity_manager final : public manager<entity_manager> {
         template <typename T> const std::shared_ptr<T> set_component(const entity);
 
         template <typename T> const component_container get_components(void) const;
-
-        //template <typename T> const world_container entities_with_component(void) const;
+        //template <typename T> const component_container set_components(void) const;
 
     private:
         entity entity_counter;
@@ -307,6 +308,25 @@ template <typename T> inline const component_container entity_manager::get_compo
 
     return temp_components;
 }
+
+/*!
+ * Get all components for a particulair type.
+ * \param void
+ * \return Returns a container of components of all the same type
+ */
+/*template <typename T> inline const component_container entity_manager::set_components(void) const {
+    if(world.empty()) throw std::runtime_error("No components were created!");
+
+    component_container temp_components;
+
+    for(auto it = world.begin(); it != world.end(); it++) {
+        if(dynamic_cast<T*>(it->second.get()) != nullptr) {
+            temp_components.insert(*it);
+        }
+    }
+
+    return temp_components;
+}*/
 
 } //  namespace mgr
 

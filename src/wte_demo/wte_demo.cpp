@@ -247,7 +247,7 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::location>((mgr::render_manager::get_arena_width() / 2) - 5,
                                                                mgr::render_manager::get_arena_height() - 40));
     
-    world.add_component(e_id, std::make_shared<cmp::direction>(0.0f));
+    //world.add_component(e_id, std::make_shared<cmp::direction>(0.0f));
     
     world.add_component(e_id, std::make_shared<cmp::hitbox>(10, 10));
     world.add_component(e_id, std::make_shared<cmp::health>(1));

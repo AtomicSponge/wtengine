@@ -12,6 +12,8 @@
 #ifndef WTE_MGR_RENDER_MANAGER_HPP
 #define WTE_MGR_RENDER_MANAGER_HPP
 
+#define _USE_MATH_DEFINES
+
 #include <string>
 #include <set>
 #include <iterator>
@@ -145,7 +147,7 @@ class render_manager final : public manager<render_manager>, private engine_time
         inline void update_resolution(const int w, const int h) {
             screen_w = w;
             screen_h = h;
-        }
+        };
 
         /*!
          * \brief Set scale factor.
@@ -156,7 +158,7 @@ class render_manager final : public manager<render_manager>, private engine_time
          */
         inline void set_scale_factor(const float f) {
             scale_factor = f;
-        }
+        };
 
         /*!
          * \brief Set the arena size.
@@ -315,12 +317,16 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                 );
                 //  Check if the sprite should be rotated.
                 float sprite_angle = 0.0f;
+                float center_x = 0.0f, center_y = 0.0f;
+                float destination_x = 0.0f, destination_y = 0.0f;
                 if(world.has_component<cmp::direction>(it->first)) {
-                    sprite_angle = world.get_component<cmp::direction>(it->first)->angle;
+                    sprite_angle = world.get_component<cmp::direction>(it->first)->angle * (M_PI / 180);
+                    center_x = al_get_bitmap_width(render_tmp_bmp) / 2;
+                    center_y = al_get_bitmap_height(render_tmp_bmp) / 2;
                 }
                 //  Draw the sprite.
                 al_draw_scaled_rotated_bitmap(
-                    render_tmp_bmp, 0.0f, 0.0f,
+                    render_tmp_bmp, center_x, center_y,
                     world.get_component<cmp::location>(it->first)->pos_x +
                         world.get_component<cmp::sprite>(it->first)->draw_offset_x,
                     world.get_component<cmp::location>(it->first)->pos_y +

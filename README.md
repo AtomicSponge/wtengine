@@ -21,9 +21,9 @@ API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
 
 #### TODO:
  - Finish up additional menus
- - Finish up sprite rotation and add scaling
+ - Finish up sprite rotation
  - Audio testing
- - Code review / documentation
+ - Code review / documentation (ongoing)
  - Improve cmake config
 
 #### DEMO:

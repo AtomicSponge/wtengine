@@ -48,6 +48,8 @@ typedef std::vector<cmp::component_sptr>::const_iterator entity_citerator;
 
 //!  Container for storing components of similar type.
 typedef std::map<entity, cmp::component_sptr> component_container;
+//!  Constant container for storing components of similar type.
+typedef std::map<entity, cmp::component_csptr> const_component_container;
 //!  Iterator for component storage.
 typedef std::map<entity, cmp::component_sptr>::iterator component_iterator;
 //!  Constant iterator for component storage.

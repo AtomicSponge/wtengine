@@ -135,11 +135,7 @@ class entity_manager final : public manager<entity_manager> {
          */
         inline const bool entity_exists(const entity e_id) const {
             if(entity_vec.empty()) return false;
-
-            for(auto it = entity_vec.begin(); it != entity_vec.end(); it++) {
-                if(*it == e_id) return true;
-            }
-
+            for(auto & it : entity_vec) if(it == e_id) return true;
             return false;
         };
 

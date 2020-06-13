@@ -44,9 +44,11 @@ namespace mgr
 {
 
 //!  Container for an entity and component pair.  Used for sorting.
-template <typename T> using entity_component_pair = std::pair<const entity, std::shared_ptr<const T>>;
+template <typename T>
+using entity_component_pair = std::pair<const entity, std::shared_ptr<const T>>;
 //!  Function wrapper used to define entity sorting.
-template <typename T> using render_comparator = std::function<const bool(entity_component_pair<T>, entity_component_pair<T>)>;
+template <typename T>
+using render_comparator = std::function<const bool(entity_component_pair<T>, entity_component_pair<T>)>;
 
 //! render_manager class
 /*!

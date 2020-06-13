@@ -20,7 +20,7 @@ API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
  - Buildable debug modes
 
 #### TODO:
- - !Finish up get_components in entity mgr
+ - !Fix component sorting in renderer.
  - Finish up additional menus
  - Audio testing
  - Code review / documentation (ongoing)

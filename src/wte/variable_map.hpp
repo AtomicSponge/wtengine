@@ -33,10 +33,11 @@ template <class derived> class variable_map {
         void operator=(variable_map const&) = delete;
 
         /*!
-         * Create a new entry in the map.
+         * \brief Create a new entry in the map.
          * Call this first before accessing.
-         * \param void
-         * \return void
+         * \param var Variable name.
+         * \param val Initial value of variable.
+         * \return True if created, false if not created.
          */
         inline static const bool reg(const std::string var, const std::string val) {
             if(var.find('=') != std::string::npos)
@@ -49,10 +50,10 @@ template <class derived> class variable_map {
         };
 
         /*!
-         * Create a new entry in the map.
+         * \brief Create a new entry in the map.
          * Call this first before accessing.
-         * \param void
-         * \return void
+         * \param expr Variable and value expresion (var=val)
+         * \return True if created, false if not created.
          */
         inline static const bool reg(const std::string expr) {
             std::string var = expr.substr(0, expr.find("="));
@@ -63,8 +64,8 @@ template <class derived> class variable_map {
 
         /*!
          * Check if a variable is registered in the map.
-         * \param void
-         * \return void
+         * \param var Variable name to check.
+         * \return True if it exists, false if it does not.
          */
         inline static const bool is_reg(const std::string var) {
             try {
@@ -76,9 +77,10 @@ template <class derived> class variable_map {
         }
 
         /*!
-         * Set key to value
-         * \param void
-         * \return void
+         * Set key to value.
+         * \param var Variable name to set.
+         * \param val Value to set.
+         * \return True if set, false if not set.
          */
         inline static const bool set(const std::string var, const std::string val) {
             try {
@@ -91,8 +93,8 @@ template <class derived> class variable_map {
 
         /*!
          * Set based on string
-         * \param void
-         * \return void
+         * \param expr Variable and value expresion (var=val)
+         * \return True if set, false if not set.
          */
         inline static const bool set(const std::string expr) {
             std::string var = expr.substr(0, expr.find("="));
@@ -102,10 +104,10 @@ template <class derived> class variable_map {
         };
 
         /*!
-         * Get value
-         * Returns by string
-         * \param void
-         * \return void
+         * \brief Get value.
+         * Returns by string.
+         * \param var Variable to get.
+         * \return Value of variable in string form.
          */
         inline static const std::string get(const std::string var) {
             try {
@@ -116,10 +118,11 @@ template <class derived> class variable_map {
         };
 
         /*!
-         * Get value
-         * Returns by type
-         * \param void
-         * \return void
+         * \brief Get value.
+         * Returns by defined type.
+         * \tparam T Data type to cast to.
+         * \param var Variable to get.
+         * \return Value of variable in casted form.
          */
         template <typename T> inline static const T get(const std::string var) {
             try {

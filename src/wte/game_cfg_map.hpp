@@ -16,6 +16,7 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <limits>
 #include <any>
 #include <stdexcept>
 
@@ -93,6 +94,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
 
         /*!
          * Add a value to a variable in the game config map.
+         * \tparam T Data type to cast and perform calculation in.
          * \param var Variable name.
          * \param val Value to add by.
          * \return False on fail, true on success.
@@ -112,6 +114,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
 
         /*!
          * Subtract a value from a variable in the game config map.
+         * \tparam T Data type to cast and perform calculation in.
          * \param var Variable name.
          * \param val Value to subtract by.
          * \return False on fail, true on success.
@@ -131,6 +134,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
 
         /*!
          * Multiply a value by a variable in the game config map.
+         * \tparam T Data type to cast and perform calculation in.
          * \param var Variable name.
          * \param val Value to multiply by.
          * \return False on fail, true on success.
@@ -150,6 +154,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
 
         /*!
          * Divide a value by a variable in the game config map.
+         * \tparam T Data type to cast and perform calculation in.
          * \param var Variable name.
          * \param val Value to divide by.
          * \return False on fail, true on success.

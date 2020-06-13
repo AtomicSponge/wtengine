@@ -30,7 +30,7 @@ namespace wte
 class engine_cfg_map final : public variable_map<engine_cfg_map> {
     public:
         /*!
-         * Load engine config settings from file.
+         * \brief Load engine config settings from file.
          * Will create the config variable if it does not exist.
          * If it does exist, the value is updated from the file.
          * \param void

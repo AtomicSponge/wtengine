@@ -190,6 +190,7 @@ class entity_manager final : public manager<entity_manager> {
 
         /*!
          * Delete components by type for an entity.
+         * \tparam T Component type.
          * \param e_id Entity ID to delete component from.
          * \return Return true if a component was deleted.
          * \return Return false if no components were deleted.
@@ -212,6 +213,7 @@ class entity_manager final : public manager<entity_manager> {
 
         /*!
          * Check if an entity has a component by type.
+         * \tparam T Component type.
          * \param e_id The entity ID to check.
          * \return Return true if the entity has the component.
          * \return Return false if it does not.
@@ -230,6 +232,7 @@ class entity_manager final : public manager<entity_manager> {
 
         /*!
          * Set the value of a component by type for an entity.
+         * \tparam T Component type.
          * \param e_id The entity ID to search.
          * \return Return the component or nullptr if not found.
          */
@@ -247,6 +250,7 @@ class entity_manager final : public manager<entity_manager> {
 
         /*!
          * Read the value of a component by type for an entity.
+         * \tparam T Component type.
          * \param e_id The entity ID to search.
          * \return Return the component or nullptr if not found.
          */
@@ -264,6 +268,7 @@ class entity_manager final : public manager<entity_manager> {
 
         /*!
          * Set all components for a particulair type.
+         * \tparam T Component type.
          * \param void
          * \return Returns a container of components of all the same type.
          */
@@ -282,6 +287,7 @@ class entity_manager final : public manager<entity_manager> {
 
         /*!
          * Get all components for a particulair type.
+         * \tparam T Component type.
          * \param void
          * \return Returns a constant container of components of all the same type.
          */

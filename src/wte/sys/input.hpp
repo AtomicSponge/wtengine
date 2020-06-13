@@ -39,7 +39,7 @@ class input : public system {
                         mgr::message_manager& messages,
                         const int64_t current_time) {
             //  Find the entities with the input handler component
-            input_components = world.get_components<cmp::input_handler>();
+            input_components = world.set_components<cmp::input_handler>();
 
             //  Run custom input handler
             custom_run(world, messages);

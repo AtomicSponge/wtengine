@@ -18,6 +18,7 @@
 #include <memory>
 #include <iterator>
 #include <limits>
+//#include <type_traits>
 #include <stdexcept>
 
 #include "manager.hpp"
@@ -80,7 +81,7 @@ class entity_manager final : public manager<entity_manager> {
             entity_counter = 0;
             entity_vec.clear();
             world.clear();
-        }
+        };
 
         /*!
          * \brief Create a new entity by name, using the next available ID.
@@ -111,7 +112,7 @@ class entity_manager final : public manager<entity_manager> {
 
             entity_vec.push_back(next_id);
             return next_id; //  Created entity, return new entity ID
-        }
+        };
 
         /*!
          * Delete entity by ID.
@@ -127,10 +128,10 @@ class entity_manager final : public manager<entity_manager> {
                 }
             }
             return false;
-        }
+        };
 
         /*!
-         * \breif Check if an entity exists.
+         * \brief Check if an entity exists.
          * Check the entity vector by ID and return result.
          * \param e_id The entity ID to check.
          * \return Return true if found, return false if not found.
@@ -143,7 +144,7 @@ class entity_manager final : public manager<entity_manager> {
             }
 
             return false;
-        }
+        };
 
         /*!
          * Get the entity reference vector.
@@ -153,7 +154,7 @@ class entity_manager final : public manager<entity_manager> {
         inline const world_container get_entities(void) const {
             if(entity_vec.empty()) return {};
             return entity_vec;
-        }
+        };
 
         /*!
          * Get all components related to an entity.
@@ -171,7 +172,7 @@ class entity_manager final : public manager<entity_manager> {
             }
 
             return temp_container;
-        }
+        };
 
         /*!
          * Add a new component to an entity
@@ -192,7 +193,7 @@ class entity_manager final : public manager<entity_manager> {
 
             world.insert(std::make_pair(e_id, comp));
             return true;
-        }
+        };
 
         /*!
          * Delete components by type for an entity.
@@ -207,14 +208,14 @@ class entity_manager final : public manager<entity_manager> {
             auto results = world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second;) {
-                if(dynamic_cast<T*>(it->second.get()) != nullptr) {
+                if(std::dynamic_pointer_cast<T>(it->second)) {
                     it = world.erase(it);
                     deleted_component = true;
                 } else it++;
             }
 
             return deleted_component;
-        }
+        };
 
         /*!
          * Check if an entity has a component by type.
@@ -228,11 +229,11 @@ class entity_manager final : public manager<entity_manager> {
             auto results = world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
-                if(dynamic_cast<T*>(it->second.get()) != nullptr) return true;
+                if(std::dynamic_pointer_cast<T>(it->second)) return true;
             }
 
             return false;
-        }
+        };
 
         /*!
          * Read the value of a component by type for an entity.
@@ -245,10 +246,11 @@ class entity_manager final : public manager<entity_manager> {
             auto results = world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
-                if(dynamic_cast<T*>(it->second.get()) != nullptr) return std::dynamic_pointer_cast<const T>(it->second);
+                if(std::dynamic_pointer_cast<T>(it->second))
+                    return std::static_pointer_cast<const T>(it->second);
             }
             return nullptr;
-        }
+        };
 
         /*!
          * Set the value of a component by type for an entity.
@@ -261,48 +263,47 @@ class entity_manager final : public manager<entity_manager> {
             auto results = world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
-                if(dynamic_cast<T*>(it->second.get()) != nullptr) return std::dynamic_pointer_cast<T>(it->second);
+                if(std::dynamic_pointer_cast<T>(it->second))
+                    return std::static_pointer_cast<T>(it->second);
             }
             return nullptr;
-        }
+        };
 
         /*!
-         * Get all components for a particulair type.
+         * Set all components for a particulair type.
          * \param void
-         * \return Returns a container of components of all the same type
+         * \return Returns a container of components of all the same type.
          */
-        template <typename T> inline const component_container get_components(void) const {
+        template <typename T> inline const component_container set_components(void) {
             if(world.empty()) throw std::runtime_error("No components were created!");
 
             component_container temp_components;
 
             for(auto it = world.begin(); it != world.end(); it++) {
-                if(dynamic_cast<T*>(it->second.get()) != nullptr) {
-                    temp_components.insert(*it);
-                }
+                if(std::dynamic_pointer_cast<T>(it->second)) temp_components.insert(*it);
             }
 
             return temp_components;
-        }
+        };
 
         /*!
          * Get all components for a particulair type.
          * \param void
-         * \return Returns a container of components of all the same type
+         * \return Returns a constant container of components of all the same type.
          */
-        /*template <typename T> inline const const_component_container get_components(void) const {
+        template <typename T> inline const const_component_container get_components(void) const {
             if(world.empty()) throw std::runtime_error("No components were created!");
 
-            component_container temp_components;
+            const_component_container temp_components;
 
             for(auto it = world.begin(); it != world.end(); it++) {
-                if(dynamic_cast<T*>(it->second.get()) != nullptr) {
-                    temp_components.insert(*it);
+                if(std::dynamic_pointer_cast<T>(it->second)) {
+                    temp_components.insert(std::make_pair(it->first, std::static_pointer_cast<T>(it->second)));
                 }
             }
 
             return temp_components;
-        }*/
+        };
 
     private:
         entity entity_counter;

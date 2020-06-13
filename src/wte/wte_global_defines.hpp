@@ -23,7 +23,7 @@
 
 //  Set level of debugging.
 /*
- * 0 - off
+ * 0 - No debugging
  * 1 - Display timer counter
  * 2 - Message logging
  * 3 - Draw hitboxes

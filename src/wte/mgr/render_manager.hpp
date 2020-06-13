@@ -43,7 +43,7 @@ namespace mgr
 {
 
 //!  Container for an entity and component pair.  Used for sorting.
-typedef std::pair<entity, cmp::component_sptr> entity_component_pair;
+typedef std::pair<entity, cmp::component_csptr> entity_component_pair;
 //!  Constant iterator for the entity/component pair.
 typedef std::set<entity_component_pair>::const_iterator ec_pair_citerator;
 //!  Function wrapper used to define entity sorting.
@@ -282,29 +282,29 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         /*
          * Draw the backgrounds.
          */
-        const component_container background_components = world.get_components<cmp::background>();
+        const const_component_container background_components = world.get_components<cmp::background>();
 
         //  Sort the background layers.
         std::set<entity_component_pair, render_comparator> background_componenet_set(
             background_components.begin(), background_components.end(), comparator);
 
         //  Draw each background by layer.
-        for(ec_pair_citerator it = background_componenet_set.begin(); it != background_componenet_set.end(); it++) {
+        /*for(ec_pair_citerator it = background_componenet_set.begin(); it != background_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible)
                 al_draw_bitmap(static_cast<cmp::background*>(it->second.get())->background_bitmap, 0, 0, 0);
-        }
+        }*/
 
         /*
          * Draw the sprites.
          */
-        const component_container sprite_components = world.get_components<cmp::sprite>();
+        const const_component_container sprite_components = world.get_components<cmp::sprite>();
 
-        //  Sort the sprite render components.
+        //  Sort the sprite render components
         std::set<entity_component_pair, render_comparator> sprite_componenet_set(
             sprite_components.begin(), sprite_components.end(), comparator);
 
         //  Draw each sprite in order.
-        for(ec_pair_citerator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
+        /*for(ec_pair_citerator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible) {
                 //  Get the current sprite frame.
                 render_tmp_bmp = al_create_sub_bitmap(
@@ -328,10 +328,12 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
 
                         destination_x = world.get_component<cmp::location>(it->first)->pos_x +
                             (al_get_bitmap_width(render_tmp_bmp) / 2) +
-                            static_cast<cmp::sprite*>(it->second.get())->draw_offset_x;
+                            (static_cast<cmp::sprite*>(it->second.get())->draw_offset_x *
+                            static_cast<cmp::sprite*>(it->second.get())->scale_factor_x);
                         destination_y = world.get_component<cmp::location>(it->first)->pos_y +
                             (al_get_bitmap_height(render_tmp_bmp) / 2) +
-                            static_cast<cmp::sprite*>(it->second.get())->draw_offset_y;
+                            (static_cast<cmp::sprite*>(it->second.get())->draw_offset_y *
+                            static_cast<cmp::sprite*>(it->second.get())->scale_factor_y);
                     }
                 } else {
                     destination_x = world.get_component<cmp::location>(it->first)->pos_x +
@@ -348,7 +350,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                 );
                 al_destroy_bitmap(render_tmp_bmp);
             }
-        }
+        }*/
 
         /*
          * Draw hitboxes if enabled.
@@ -383,19 +385,19 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         /*
          * Draw the overlays.
          */
-        const component_container overlay_components = world.get_components<cmp::overlay>();
+        const const_component_container overlay_components = world.get_components<cmp::overlay>();
 
         //  Sort the overlay layers.
         std::set<entity_component_pair, render_comparator> overlay_componenet_set(
             overlay_components.begin(), overlay_components.end(), comparator);
 
         //  Draw each overlay by layer.
-        for(ec_pair_citerator it = overlay_componenet_set.begin(); it != overlay_componenet_set.end(); it++) {
+        /*for(ec_pair_citerator it = overlay_componenet_set.begin(); it != overlay_componenet_set.end(); it++) {
             if(world.get_component<cmp::visible>(it->first)->is_visible)
                 al_draw_bitmap(static_cast<cmp::overlay*>(it->second.get())->overlay_bitmap,
                                static_cast<cmp::overlay*>(it->second.get())->pos_x,
                                static_cast<cmp::overlay*>(it->second.get())->pos_y, 0);
-        }
+        }*/
 
         /*
          * Draw the arena bitmap to the screen.

@@ -37,10 +37,10 @@ class animate final : public system {
                         const int64_t current_time) {
             component_container animation_components;
 
-            animation_components = world.get_components<cmp::animator>();
+            animation_components = world.set_components<cmp::animator>();
 
             for(auto & it : animation_components) {
-                static_cast<cmp::animator*>(it.second.get())->run(it.first, world, current_time);
+                std::static_pointer_cast<cmp::animator>(it.second)->run(it.first, world, current_time);
             }
         }
 };

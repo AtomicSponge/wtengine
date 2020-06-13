@@ -369,13 +369,15 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                     default: team_color = WTE_COLOR_YELLOW;
                 }
                 //  Draw the hitbox.
-                for(int i = 0; i < world.get_component<cmp::hitbox>(it.first)->width; i++) {
-                    for(int j = 0; j < world.get_component<cmp::hitbox>(it.first)->height; j++) {
-                        al_draw_pixel(world.get_component<cmp::location>(it.first)->pos_x + i,
-                                        world.get_component<cmp::location>(it.first)->pos_y + j,
-                                        team_color);
-                    }
-                }  //  End hitbox drawing.
+                render_tmp_bmp = al_create_bitmap(world.get_component<cmp::hitbox>(it.first)->width,
+                                                  world.get_component<cmp::hitbox>(it.first)->height);
+                al_set_target_bitmap(render_tmp_bmp);
+                al_clear_to_color(team_color);
+                al_set_target_bitmap(arena_bmp);
+                al_draw_bitmap(render_tmp_bmp,
+                               world.get_component<cmp::location>(it.first)->pos_x,
+                               world.get_component<cmp::location>(it.first)->pos_y, 0);
+                al_destroy_bitmap(render_tmp_bmp);
             }  //  End hitbox/enabled test.
         }  //  End render component loop.
         #endif  //  End draw hitbox check.

@@ -35,13 +35,9 @@ class animate final : public system {
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
                         const int64_t current_time) {
-            component_container animation_components;
+            component_container<cmp::animator> animation_components = world.set_components<cmp::animator>();
 
-            animation_components = world.set_components<cmp::animator>();
-
-            for(auto & it : animation_components) {
-                std::static_pointer_cast<cmp::animator>(it.second)->run(it.first, world, current_time);
-            }
+            for(auto & it : animation_components) it.second->run(it.first, world, current_time);
         }
 };
 

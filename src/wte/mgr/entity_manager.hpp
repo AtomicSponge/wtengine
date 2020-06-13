@@ -47,12 +47,12 @@ typedef std::vector<cmp::component_sptr>::iterator entity_iterator;
 typedef std::vector<cmp::component_sptr>::const_iterator entity_citerator;
 
 //!  Container for storing components of similar type.
-typedef std::map<entity, cmp::component_sptr> component_container;
-//template <typename T> using component_container = std::map<const entity, std::shared_ptr<T>>;
+//typedef std::map<entity, cmp::component_sptr> component_container;
+template <typename T> using component_container = std::map<const entity, std::shared_ptr<T>>;
 //!  Constant container for storing components of similar type.
 template <typename T> using const_component_container = std::map<const entity, std::shared_ptr<const T>>;
 //!  Iterator for component storage.
-typedef std::map<entity, cmp::component_sptr>::iterator component_iterator;
+//typedef std::map<entity, cmp::component_sptr>::iterator component_iterator;
 
 //!  Container to store all entites.
 typedef std::unordered_multimap<entity, cmp::component_sptr> world_map;
@@ -272,13 +272,14 @@ class entity_manager final : public manager<entity_manager> {
          * \param void
          * \return Returns a container of components of all the same type.
          */
-        template <typename T> inline const component_container set_components(void) {
+        template <typename T> inline const component_container<T> set_components(void) {
             if(world.empty()) throw std::runtime_error("No components were created!");
 
-            component_container temp_components;
+            component_container<T> temp_components;
 
             for(auto & it : world) {
-                if(std::dynamic_pointer_cast<T>(it.second)) temp_components.insert(it);
+                if(std::dynamic_pointer_cast<T>(it.second))
+                    temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
             }
 
             return temp_components;

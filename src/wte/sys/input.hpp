@@ -46,7 +46,7 @@ class input : public system {
         }
 
     protected:
-        component_container input_components;
+        component_container<cmp::input_handler> input_components;
         //!  Override this to implement input handling
         virtual void custom_run(mgr::entity_manager&, mgr::message_manager&) {};
 };

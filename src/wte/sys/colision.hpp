@@ -41,34 +41,32 @@ class colision final : public system {
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
                         const int64_t current_time) {
-            component_container team_components;
+            component_container<cmp::team> team_components = world.set_components<cmp::team>();
 
-            team_components = world.set_components<cmp::team>();
-
-            for(auto it_a = team_components.begin(); it_a != team_components.end(); it_a++) {
-                for(auto it_b = team_components.begin(); it_b != team_components.end(); it_b++) {
+            for(auto & it_a : team_components) {
+                for(auto & it_b : team_components) {
                     //  Only test different teams, if the entity has a location and a hitbox component, and it is enabled
-                    if((std::static_pointer_cast<cmp::team>(it_a->second)->this_team != std::static_pointer_cast<cmp::team>(it_b->second)->this_team)
+                    if((it_a.second->this_team != it_b.second->this_team)
                     &&
-                    (world.has_component<cmp::location>(it_a->first) && world.has_component<cmp::location>(it_b->first))
+                    (world.has_component<cmp::location>(it_a.first) && world.has_component<cmp::location>(it_b.first))
                     &&
-                    (world.has_component<cmp::hitbox>(it_a->first) && world.has_component<cmp::hitbox>(it_b->first))
+                    (world.has_component<cmp::hitbox>(it_a.first) && world.has_component<cmp::hitbox>(it_b.first))
                     &&
-                    (world.get_component<cmp::enabled>(it_a->first)->is_enabled == true && world.get_component<cmp::enabled>(it_b->first)->is_enabled == true)
+                    (world.get_component<cmp::enabled>(it_a.first)->is_enabled == true && world.get_component<cmp::enabled>(it_b.first)->is_enabled == true)
                     &&
-                    world.get_component<cmp::hitbox>(it_b->first)->solid == true)
+                    world.get_component<cmp::hitbox>(it_b.first)->solid == true)
                     {
                         //  Use AABB to test colision
-                        if((world.get_component<cmp::location>(it_a->first)->pos_x < world.get_component<cmp::location>(it_b->first)->pos_x + world.get_component<cmp::hitbox>(it_b->first)->width && 
-                            world.get_component<cmp::location>(it_a->first)->pos_x + world.get_component<cmp::hitbox>(it_a->first)->width > world.get_component<cmp::location>(it_b->first)->pos_x)
+                        if((world.get_component<cmp::location>(it_a.first)->pos_x < world.get_component<cmp::location>(it_b.first)->pos_x + world.get_component<cmp::hitbox>(it_b.first)->width && 
+                            world.get_component<cmp::location>(it_a.first)->pos_x + world.get_component<cmp::hitbox>(it_a.first)->width > world.get_component<cmp::location>(it_b.first)->pos_x)
                         &&
-                        (world.get_component<cmp::location>(it_a->first)->pos_y < world.get_component<cmp::location>(it_b->first)->pos_y + world.get_component<cmp::hitbox>(it_b->first)->height && 
-                            world.get_component<cmp::location>(it_a->first)->pos_y + world.get_component<cmp::hitbox>(it_a->first)->height > world.get_component<cmp::location>(it_b->first)->pos_y))
+                        (world.get_component<cmp::location>(it_a.first)->pos_y < world.get_component<cmp::location>(it_b.first)->pos_y + world.get_component<cmp::hitbox>(it_b.first)->height && 
+                            world.get_component<cmp::location>(it_a.first)->pos_y + world.get_component<cmp::hitbox>(it_a.first)->height > world.get_component<cmp::location>(it_b.first)->pos_y))
                         {
                             //  Send a message to the logic system that two entities colided
                             messages.add_message(message("logic",
-                                                        world.get_component<cmp::name>(it_b->first)->name_str,
-                                                        world.get_component<cmp::name>(it_a->first)->name_str,
+                                                        world.get_component<cmp::name>(it_b.first)->name_str,
+                                                        world.get_component<cmp::name>(it_a.first)->name_str,
                                                         "colision", ""));
                         }
                     } //  End skip self check

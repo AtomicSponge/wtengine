@@ -44,7 +44,7 @@ class logic final : public system {
                         mgr::message_manager& messages,
                         const int64_t current_time) {
             //  Find the entities with the input handler component
-            component_container ai_components = world.set_components<cmp::ai>();
+            component_container<cmp::ai> ai_components = world.set_components<cmp::ai>();
 
             for(auto & it : ai_components) {
                 std::static_pointer_cast<cmp::ai>(it.second)->run(it.first, world, messages, current_time);
@@ -55,16 +55,16 @@ class logic final : public system {
          * Get logic messages for processing
          */
         inline void dispatch(mgr::entity_manager& world, message_container messages) {
-            component_container dispatch_components = world.set_components<cmp::dispatcher>();
+            component_container<cmp::dispatcher> dispatch_components = world.set_components<cmp::dispatcher>();
 
             for(auto & it : dispatch_components) {
                 for(auto m_it = messages.begin(); m_it != messages.end();) {
                     if(m_it->get_to() == world.get_component<cmp::name>(it.first)->name_str) {
-                        std::static_pointer_cast<cmp::dispatcher>(it.second)->run(it.first, world, *m_it);
+                        it.second->run(it.first, world, *m_it);
                         m_it = messages.erase(m_it);
                     } else m_it++;
+                    if(messages.empty()) break;  //  Out of messages, end early.
                 }
-                if(messages.empty()) break;  //  Out of messages, end early.
             }
         }
 };

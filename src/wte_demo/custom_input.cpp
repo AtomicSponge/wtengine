@@ -21,10 +21,10 @@ void custom_input::custom_run(mgr::entity_manager& world, mgr::message_manager& 
     entity cannon_entity;
     entity shield_entity;
 
-    for(component_iterator it = input_components.begin(); it != input_components.end(); it++) {
-        if(world.get_component<cmp::name>(it->first)->name_str == "player") player_entity = it->first;
-        if(world.get_component<cmp::name>(it->first)->name_str == "main_cannon") cannon_entity = it->first;
-        if(world.get_component<cmp::name>(it->first)->name_str == "shield") shield_entity = it->first;
+    for(auto & it : input_components) {
+        if(world.get_component<cmp::name>(it.first)->name_str == "player") player_entity = it.first;
+        if(world.get_component<cmp::name>(it.first)->name_str == "main_cannon") cannon_entity = it.first;
+        if(world.get_component<cmp::name>(it.first)->name_str == "shield") shield_entity = it.first;
     }
 
     if(input_flags::is_set(INPUT_UP)) {

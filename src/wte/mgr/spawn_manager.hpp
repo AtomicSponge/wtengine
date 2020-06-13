@@ -65,12 +65,11 @@ class spawn_manager final : public manager<spawn_manager> {
                 }
 
                 if(m_it.get_cmd() == "delete") {
-                    component_container name_components = world.set_components<cmp::name>();
+                    component_container<cmp::name> name_components = world.set_components<cmp::name>();
 
                     //  Check all named entities and delete if it exists.
                     for(auto & c_it : name_components) {
-                        if(m_it.get_arg(0) == std::static_pointer_cast<cmp::name>(c_it.second)->name_str)
-                            world.delete_entity(c_it.first);
+                        if(m_it.get_arg(0) == c_it.second->name_str) world.delete_entity(c_it.first);
                     }
                 }
             }  //  End for(m_it)

@@ -184,8 +184,8 @@ class entity_manager final : public manager<entity_manager> {
 
             //  Check derived types of existing components, make sure one does not already exist
             entity_container check_entity = get_entity(e_id);
-            for(entity_iterator it = check_entity.begin(); it != check_entity.end(); it++) {
-                if(typeid(**it).name() == typeid(*comp).name()) return false;
+            for(auto & it : check_entity) {
+                if(typeid(*it).name() == typeid(*comp).name()) return false;
             }
 
             world.insert(std::make_pair(e_id, comp));

@@ -279,8 +279,8 @@ class entity_manager final : public manager<entity_manager> {
 
             component_container temp_components;
 
-            for(auto it = world.begin(); it != world.end(); it++) {
-                if(std::dynamic_pointer_cast<T>(it->second)) temp_components.insert(*it);
+            for(auto & it : world) {
+                if(std::dynamic_pointer_cast<T>(it.second)) temp_components.insert(it);
             }
 
             return temp_components;
@@ -296,9 +296,9 @@ class entity_manager final : public manager<entity_manager> {
 
             const_component_container temp_components;
 
-            for(auto it = world.begin(); it != world.end(); it++) {
-                if(std::dynamic_pointer_cast<T>(it->second)) {
-                    temp_components.insert(std::make_pair(it->first, std::static_pointer_cast<T>(it->second)));
+            for(auto & it : world) {
+                if(std::dynamic_pointer_cast<T>(it.second)) {
+                    temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
                 }
             }
 

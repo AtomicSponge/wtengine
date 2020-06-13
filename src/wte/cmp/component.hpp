@@ -47,10 +47,16 @@ class component {
         inline component() {};
 };
 
-//! Component shared pointer.
+//! \typedef Component shared pointer.
 typedef std::shared_ptr<cmp::component> component_sptr;
-//! Constant component shared pointer.
+//! \typedef Constant component shared pointer.
 typedef std::shared_ptr<const cmp::component> component_csptr;
+
+/*!
+ * \def wte_new_component(new_cmp, ...)
+ * Create a new component.
+ */
+#define wte_new_component(new_cmp, ...) (std::make_shared<new_cmp>(__VA_ARGS__))
 
 } //  namespace cmp
 

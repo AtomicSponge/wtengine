@@ -81,7 +81,7 @@ class menu_item_action final : public menu_item {
  * \def wte_menu_action(...)
  * Create a new menu action item.
  */
-#define wte_menu_action(...) std::make_shared<mnu::menu_item_action>(__VA_ARGS__)
+#define wte_menu_action(...) (std::make_shared<mnu::menu_item_action>(__VA_ARGS__))
 
 }  // end namespace mnu
 

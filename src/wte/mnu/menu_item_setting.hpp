@@ -122,7 +122,7 @@ class menu_item_setting final : public menu_item {
  * \def wte_menu_setting(...)
  * Create a new menu setting item.
  */
-#define wte_menu_setting(...) std::make_shared<mnu::menu_item_setting>(__VA_ARGS__)
+#define wte_menu_setting(...) (std::make_shared<mnu::menu_item_setting>(__VA_ARGS__))
 
 }  // end namespace mnu
 

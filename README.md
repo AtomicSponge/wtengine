@@ -20,6 +20,7 @@ API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
  - Buildable debug modes
 
 #### TODO:
+ - !Finish up get_components in entity mgr
  - Finish up additional menus
  - Finish up sprite rotation
  - Audio testing

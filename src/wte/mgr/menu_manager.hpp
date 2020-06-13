@@ -314,7 +314,7 @@ inline void menu_manager::run(message_manager& messages) {
 
                 //  Apply engine settings if any.
                 if(!eng_settings_string.empty()) {
-                    //messages.add_message(message("system", "reload_engine", ""));
+                    //messages.add_message(message("system", "reconf_display", ""));
                     messages.add_message(message("system", "set_engcfg", eng_settings_string));
                 }
 

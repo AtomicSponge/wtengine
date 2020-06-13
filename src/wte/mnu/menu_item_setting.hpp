@@ -118,6 +118,8 @@ class menu_item_setting final : public menu_item {
         std::vector<std::string>::const_iterator default_val;
 };
 
+#define wte_menu_setting(...) std::make_shared<mnu::menu_item_setting>(__VA_ARGS__)
+
 }  // end namespace mnu
 
 }  // end namespace wte

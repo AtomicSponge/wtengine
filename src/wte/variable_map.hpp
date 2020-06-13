@@ -16,6 +16,7 @@
 #include <map>
 #include <sstream>
 #include <iomanip>
+#include <limits>
 #include <any>
 
 namespace wte
@@ -127,7 +128,8 @@ template <class derived> class variable_map {
         template <typename T> inline static const T get(const std::string var) {
             try {
                 T temp;
-                std::stringstream(_map.at(var)) >> std::setprecision(6) >> std::fixed >> temp;
+                std::stringstream(_map.at(var)) >>
+                    std::setprecision(std::numeric_limits<T>::max_digits10) >> std::fixed >> temp;
                 return std::any_cast<const T>(temp);
             } catch (std::out_of_range& e) {
                 return std::any_cast<const bool>(false);  //  Didn't find

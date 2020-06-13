@@ -290,7 +290,7 @@ inline void menu_manager::run(message_manager& messages) {
 
                 for(auto it = opened_menus.top()->items_cbegin(); it != opened_menus.top()->items_cend(); it++) {
                     //  Process menu setting objects.
-                    if(std::dynamic_pointer_cast<mnu::menu_item_setting>(*it) != nullptr) {
+                    if(std::dynamic_pointer_cast<mnu::menu_item_setting>(*it)) {
                         //  See if the setting is a game or engine setting, add to correct string.
                         if(std::static_pointer_cast<mnu::menu_item_setting>(*it)->is_engine_setting()) {
                             if(!eng_settings_string.empty()) eng_settings_string += ";";
@@ -302,7 +302,7 @@ inline void menu_manager::run(message_manager& messages) {
                     }
 
                     //  Process menu toggle objects.
-                    if(std::dynamic_pointer_cast<mnu::menu_item_toggle>(*it) != nullptr) {
+                    if(std::dynamic_pointer_cast<mnu::menu_item_toggle>(*it)) {
                         messages.add_message(message("system",
                                              std::static_pointer_cast<mnu::menu_item_toggle>(*it)->get_active_cmd(),
                                              std::static_pointer_cast<mnu::menu_item_toggle>(*it)->get_active_args()));

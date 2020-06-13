@@ -18,7 +18,6 @@
 #include <memory>
 #include <iterator>
 #include <limits>
-//#include <type_traits>
 #include <stdexcept>
 
 #include "manager.hpp"
@@ -34,14 +33,14 @@ namespace wte
 typedef unsigned int entity;
 
 //!  Container for storing a group of entitie references.
-typedef std::vector<entity> world_container;
+typedef std::vector<entity> world_container;  //  TODO: clean up
 //!  Iterator for addressing a group of entities.
 typedef std::vector<entity>::iterator world_iterator;
 //!  Constant iterator for addressing a group of entities.
 typedef std::vector<entity>::const_iterator world_citerator;
 
 //!  Container to store a group of components related to an entity.
-typedef std::vector<cmp::component_sptr> entity_container;
+typedef std::vector<cmp::component_sptr> entity_container;  //  TODO: clean these up too
 //!  Iterator for addressing a group of components related to an entity.
 typedef std::vector<cmp::component_sptr>::iterator entity_iterator;
 //!  Constant iterator for addressing a group of components related to an entity.
@@ -49,12 +48,11 @@ typedef std::vector<cmp::component_sptr>::const_iterator entity_citerator;
 
 //!  Container for storing components of similar type.
 typedef std::map<entity, cmp::component_sptr> component_container;
+//template <typename T> using component_container = std::map<const entity, std::shared_ptr<T>>;
 //!  Constant container for storing components of similar type.
-typedef std::map<entity, cmp::component_csptr> const_component_container;
+template <typename T> using const_component_container = std::map<const entity, std::shared_ptr<const T>>;
 //!  Iterator for component storage.
 typedef std::map<entity, cmp::component_sptr>::iterator component_iterator;
-//!  Constant iterator for component storage.
-typedef std::map<entity, cmp::component_sptr>::const_iterator component_citerator;
 
 //!  Container to store all entites.
 typedef std::unordered_multimap<entity, cmp::component_sptr> world_map;
@@ -291,15 +289,14 @@ class entity_manager final : public manager<entity_manager> {
          * \param void
          * \return Returns a constant container of components of all the same type.
          */
-        template <typename T> inline const const_component_container get_components(void) const {
+        template <typename T> inline const const_component_container<T> get_components(void) const {
             if(world.empty()) throw std::runtime_error("No components were created!");
 
-            const_component_container temp_components;
+            const_component_container<T> temp_components;
 
             for(auto & it : world) {
-                if(std::dynamic_pointer_cast<T>(it.second)) {
+                if(std::dynamic_pointer_cast<T>(it.second))
                     temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
-                }
             }
 
             return temp_components;

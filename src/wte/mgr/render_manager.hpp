@@ -19,6 +19,7 @@
 #include <iterator>
 #include <algorithm>
 #include <functional>
+#include <type_traits>
 #include <cmath>
 #include <stdexcept>
 
@@ -43,11 +44,9 @@ namespace mgr
 {
 
 //!  Container for an entity and component pair.  Used for sorting.
-typedef std::pair<entity, cmp::component_csptr> entity_component_pair;
-//!  Constant iterator for the entity/component pair.
-typedef std::set<entity_component_pair>::const_iterator ec_pair_citerator;
+template <typename T> using entity_component_pair = std::pair<const entity, std::shared_ptr<const T>>;
 //!  Function wrapper used to define entity sorting.
-typedef std::function<const bool(entity_component_pair, entity_component_pair)> render_comparator;
+template <typename T> using render_comparator = std::function<const bool(entity_component_pair<T>, entity_component_pair<T>)>;
 
 //! render_manager class
 /*!
@@ -61,13 +60,8 @@ class render_manager final : public manager<render_manager>, private engine_time
          * \param void
          * \return void
          */
-        inline render_manager() : fps_counter(0), fps(0), screen_w(0), screen_h(0), scale_factor(1.0) {
-            //  Define render comparator as lambda function that sorts components.
-            comparator =
-                [](const entity_component_pair r_element1, const entity_component_pair r_element2) {
-                    return r_element1.second < r_element2.second;
-                };
-        };
+        inline render_manager() :
+        fps_counter(0), fps(0), screen_w(0), screen_h(0), scale_factor(1.0) {};
 
         /*!
          * render_manager destructor.
@@ -226,8 +220,6 @@ class render_manager final : public manager<render_manager>, private engine_time
         ALLEGRO_EVENT_QUEUE* fps_event_queue;
         ALLEGRO_EVENT fps_event;
 
-        render_comparator comparator;
-
         std::size_t fps_counter, fps;
 
         int screen_w, screen_h;
@@ -279,40 +271,46 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         al_set_target_bitmap(arena_bmp);
         al_clear_to_color(WTE_COLOR_BLACK);
 
+        auto comparator = [](auto r_element1, auto r_element2) {
+            return r_element1.second < r_element2.second;
+        };
+
         /*
          * Draw the backgrounds.
          */
-        const const_component_container background_components = world.get_components<cmp::background>();
+        const const_component_container<cmp::background> background_components =
+            world.get_components<cmp::background>();
 
         //  Sort the background layers.
-        std::set<entity_component_pair, render_comparator> background_componenet_set(
+        std::set<entity_component_pair<cmp::background>, render_comparator<cmp::background>> background_componenet_set(
             background_components.begin(), background_components.end(), comparator);
 
         //  Draw each background by layer.
-        /*for(ec_pair_citerator it = background_componenet_set.begin(); it != background_componenet_set.end(); it++) {
-            if(world.get_component<cmp::visible>(it->first)->is_visible)
-                al_draw_bitmap(static_cast<cmp::background*>(it->second.get())->background_bitmap, 0, 0, 0);
-        }*/
+        for(auto & it : background_componenet_set) {
+            if(world.get_component<cmp::visible>(it.first)->is_visible)
+                al_draw_bitmap(it.second.get()->background_bitmap, 0, 0, 0);
+        }
 
         /*
          * Draw the sprites.
          */
-        const const_component_container sprite_components = world.get_components<cmp::sprite>();
+        const const_component_container<cmp::sprite> sprite_components =
+            world.get_components<cmp::sprite>();
 
         //  Sort the sprite render components.
-        std::set<entity_component_pair, render_comparator> sprite_componenet_set(
+        std::set<entity_component_pair<cmp::sprite>, render_comparator<cmp::sprite>> sprite_componenet_set(
             sprite_components.begin(), sprite_components.end(), comparator);
 
         //  Draw each sprite in order.
-        /*for(ec_pair_citerator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
-            if(world.get_component<cmp::visible>(it->first)->is_visible) {
+        for(auto & it : sprite_componenet_set) {
+            if(world.get_component<cmp::visible>(it.first)->is_visible) {
                 //  Get the current sprite frame.
                 render_tmp_bmp = al_create_sub_bitmap(
-                    static_cast<cmp::sprite*>(it->second.get())->sprite_bitmap,
-                    static_cast<cmp::sprite*>(it->second.get())->sprite_x,
-                    static_cast<cmp::sprite*>(it->second.get())->sprite_y,
-                    static_cast<cmp::sprite*>(it->second.get())->sprite_width,
-                    static_cast<cmp::sprite*>(it->second.get())->sprite_height
+                    it.second.get()->sprite_bitmap,
+                    it.second.get()->sprite_x,
+                    it.second.get()->sprite_y,
+                    it.second.get()->sprite_width,
+                    it.second.get()->sprite_height
                 );
 
                 float sprite_angle = 0.0f;
@@ -320,37 +318,35 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                 float destination_x = 0.0f, destination_y = 0.0f;
 
                 //  Check if the sprite should be rotated.
-                if(world.has_component<cmp::direction>(it->first)) {
-                    if(world.get_component<cmp::direction>(it->first)->draw_rotated) {
-                        sprite_angle = world.get_component<cmp::direction>(it->first)->angle * (M_PI / 180);
+                if(world.has_component<cmp::direction>(it.first)) {
+                    if(world.get_component<cmp::direction>(it.first)->draw_rotated) {
+                        sprite_angle = world.get_component<cmp::direction>(it.first)->angle * (M_PI / 180);
                         center_x = (al_get_bitmap_width(render_tmp_bmp) / 2);
                         center_y = (al_get_bitmap_height(render_tmp_bmp) / 2);
 
-                        destination_x = world.get_component<cmp::location>(it->first)->pos_x +
+                        destination_x = world.get_component<cmp::location>(it.first)->pos_x +
                             (al_get_bitmap_width(render_tmp_bmp) / 2) +
-                            (static_cast<cmp::sprite*>(it->second.get())->draw_offset_x *
-                            static_cast<cmp::sprite*>(it->second.get())->scale_factor_x);
-                        destination_y = world.get_component<cmp::location>(it->first)->pos_y +
+                            (it.second.get()->draw_offset_x * it.second.get()->scale_factor_x);
+                        destination_y = world.get_component<cmp::location>(it.first)->pos_y +
                             (al_get_bitmap_height(render_tmp_bmp) / 2) +
-                            (static_cast<cmp::sprite*>(it->second.get())->draw_offset_y *
-                            static_cast<cmp::sprite*>(it->second.get())->scale_factor_y);
+                            (it.second.get()->draw_offset_y * it.second.get()->scale_factor_y);
                     }
                 } else {
-                    destination_x = world.get_component<cmp::location>(it->first)->pos_x +
-                        static_cast<cmp::sprite*>(it->second.get())->draw_offset_x;
-                    destination_y = world.get_component<cmp::location>(it->first)->pos_y +
-                        static_cast<cmp::sprite*>(it->second.get())->draw_offset_y;
+                    destination_x = world.get_component<cmp::location>(it.first)->pos_x +
+                        it.second.get()->draw_offset_x;
+                    destination_y = world.get_component<cmp::location>(it.first)->pos_y +
+                        it.second.get()->draw_offset_y;
                 }
                 //  Draw the sprite.
                 al_draw_scaled_rotated_bitmap(
                     render_tmp_bmp, center_x, center_y, destination_x, destination_y,
-                    static_cast<cmp::sprite*>(it->second.get())->scale_factor_x,
-                    static_cast<cmp::sprite*>(it->second.get())->scale_factor_y,
+                    it.second.get()->scale_factor_x,
+                    it.second.get()->scale_factor_y,
                     sprite_angle, 0
                 );
                 al_destroy_bitmap(render_tmp_bmp);
             }
-        }*/
+        }
 
         /*
          * Draw hitboxes if enabled.
@@ -358,23 +354,23 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
          * Note:  Re-uses sprite container for rendering.
          */
         #if WTE_DEBUG_MODE == 3 || WTE_DEBUG_MODE == 9
-        for(ec_pair_citerator it = sprite_componenet_set.begin(); it != sprite_componenet_set.end(); it++) {
+        for(auto & it : sprite_componenet_set) {
             //  Make sure the entity has a hitbox and is enabled.
-            if((world.has_component<cmp::hitbox>(it->first)) &&
-                (world.get_component<cmp::enabled>(it->first)->is_enabled)) {
+            if((world.has_component<cmp::hitbox>(it.first)) &&
+                (world.get_component<cmp::enabled>(it.first)->is_enabled)) {
                 //  Select color based on team.
                 ALLEGRO_COLOR team_color;
-                switch(world.get_component<cmp::team>(it->first)->this_team) {
+                switch(world.get_component<cmp::team>(it.first)->this_team) {
                     case 0: team_color = WTE_COLOR_GREEN; break;
                     case 1: team_color = WTE_COLOR_RED; break;
                     case 2: team_color = WTE_COLOR_BLUE; break;
                     default: team_color = WTE_COLOR_YELLOW;
                 }
                 //  Draw the hitbox.
-                for(int i = 0; i < world.get_component<cmp::hitbox>(it->first)->width; i++) {
-                    for(int j = 0; j < world.get_component<cmp::hitbox>(it->first)->height; j++) {
-                        al_draw_pixel(world.get_component<cmp::location>(it->first)->pos_x + i,
-                                        world.get_component<cmp::location>(it->first)->pos_y + j,
+                for(int i = 0; i < world.get_component<cmp::hitbox>(it.first)->width; i++) {
+                    for(int j = 0; j < world.get_component<cmp::hitbox>(it.first)->height; j++) {
+                        al_draw_pixel(world.get_component<cmp::location>(it.first)->pos_x + i,
+                                        world.get_component<cmp::location>(it.first)->pos_y + j,
                                         team_color);
                     }
                 }  //  End hitbox drawing.
@@ -385,19 +381,19 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         /*
          * Draw the overlays.
          */
-        const const_component_container overlay_components = world.get_components<cmp::overlay>();
+        const const_component_container<cmp::overlay> overlay_components =
+            world.get_components<cmp::overlay>();
 
         //  Sort the overlay layers.
-        std::set<entity_component_pair, render_comparator> overlay_componenet_set(
+        std::set<entity_component_pair<cmp::overlay>, render_comparator<cmp::overlay>> overlay_componenet_set(
             overlay_components.begin(), overlay_components.end(), comparator);
 
         //  Draw each overlay by layer.
-        /*for(ec_pair_citerator it = overlay_componenet_set.begin(); it != overlay_componenet_set.end(); it++) {
-            if(world.get_component<cmp::visible>(it->first)->is_visible)
-                al_draw_bitmap(static_cast<cmp::overlay*>(it->second.get())->overlay_bitmap,
-                               static_cast<cmp::overlay*>(it->second.get())->pos_x,
-                               static_cast<cmp::overlay*>(it->second.get())->pos_y, 0);
-        }*/
+        for(auto & it : overlay_componenet_set) {
+            if(world.get_component<cmp::visible>(it.first)->is_visible)
+                al_draw_bitmap(it.second.get()->overlay_bitmap,
+                               it.second.get()->pos_x, it.second.get()->pos_y, 0);
+        }
 
         /*
          * Draw the arena bitmap to the screen.

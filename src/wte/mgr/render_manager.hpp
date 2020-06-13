@@ -7,6 +7,7 @@
  * \date 2019-2020
  *
  * \details Render manager.
+ * \bug Render sorting not working.
  */
 
 #ifndef WTE_MGR_RENDER_MANAGER_HPP
@@ -19,7 +20,6 @@
 #include <iterator>
 #include <algorithm>
 #include <functional>
-#include <type_traits>
 #include <cmath>
 #include <stdexcept>
 

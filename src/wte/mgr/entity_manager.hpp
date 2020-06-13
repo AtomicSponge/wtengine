@@ -47,12 +47,9 @@ typedef std::vector<cmp::component_sptr>::iterator entity_iterator;
 typedef std::vector<cmp::component_sptr>::const_iterator entity_citerator;
 
 //!  Container for storing components of similar type.
-//typedef std::map<entity, cmp::component_sptr> component_container;
 template <typename T> using component_container = std::map<const entity, std::shared_ptr<T>>;
 //!  Constant container for storing components of similar type.
 template <typename T> using const_component_container = std::map<const entity, std::shared_ptr<const T>>;
-//!  Iterator for component storage.
-//typedef std::map<entity, cmp::component_sptr>::iterator component_iterator;
 
 //!  Container to store all entites.
 typedef std::unordered_multimap<entity, cmp::component_sptr> world_map;

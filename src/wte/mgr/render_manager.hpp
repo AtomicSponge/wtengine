@@ -299,7 +299,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
          */
         const const_component_container sprite_components = world.get_components<cmp::sprite>();
 
-        //  Sort the sprite render components
+        //  Sort the sprite render components.
         std::set<entity_component_pair, render_comparator> sprite_componenet_set(
             sprite_components.begin(), sprite_components.end(), comparator);
 

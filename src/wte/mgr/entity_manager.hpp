@@ -229,23 +229,6 @@ class entity_manager final : public manager<entity_manager> {
         };
 
         /*!
-         * Read the value of a component by type for an entity.
-         * \param e_id The entity ID to search.
-         * \return Return the component or nullptr if not found.
-         */
-        template <typename T> inline const std::shared_ptr<const T> get_component(const entity e_id) const {
-            if(world.empty()) throw std::runtime_error("No components were created!");
-
-            auto results = world.equal_range(e_id);
-
-            for(auto it = results.first; it != results.second; it++) {
-                if(std::dynamic_pointer_cast<T>(it->second))
-                    return std::static_pointer_cast<const T>(it->second);
-            }
-            return nullptr;
-        };
-
-        /*!
          * Set the value of a component by type for an entity.
          * \param e_id The entity ID to search.
          * \return Return the component or nullptr if not found.
@@ -258,6 +241,23 @@ class entity_manager final : public manager<entity_manager> {
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second))
                     return std::static_pointer_cast<T>(it->second);
+            }
+            return nullptr;
+        };
+
+        /*!
+         * Read the value of a component by type for an entity.
+         * \param e_id The entity ID to search.
+         * \return Return the component or nullptr if not found.
+         */
+        template <typename T> inline const std::shared_ptr<const T> get_component(const entity e_id) const {
+            if(world.empty()) throw std::runtime_error("No components were created!");
+
+            auto results = world.equal_range(e_id);
+
+            for(auto it = results.first; it != results.second; it++) {
+                if(std::dynamic_pointer_cast<T>(it->second))
+                    return std::static_pointer_cast<const T>(it->second);
             }
             return nullptr;
         };

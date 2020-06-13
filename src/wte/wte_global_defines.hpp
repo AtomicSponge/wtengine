@@ -13,16 +13,26 @@
 #define WTE_GLOBAL_DEFINES_HPP
 
 //  Define true & false for macro use.
+#ifndef TRUE
 #define TRUE (1)
+#endif
+#ifndef FALSE
 #define FALSE (0)
+#endif
 
-//  Set timer rate.
+/*!
+ * \def WTE_TICKS_PER_SECOND
+ * \brief Set the timer rate.
+ * Number of tics per second as a float.
+ */
 #ifndef WTE_TICKS_PER_SECOND
 #define WTE_TICKS_PER_SECOND (60.0f)
 #endif
 
-//  Set level of debugging.
-/*
+/*!
+ * \def WTE_DEBUG_MODE
+ * \brief Set level of debugging.
+ * 
  * 0 - No debugging
  * 1 - Display timer counter
  * 2 - Message logging
@@ -34,7 +44,10 @@
 #define WTE_DEBUG_MODE (0)
 #endif
 
-//  Enable message pruning if WTE_NO_PRUNE is not defined.
+/*!
+ * \def WTE_NO_PRUNE
+ * Enable message pruning if WTE_NO_PRUNE is not defined.
+ */
 #ifndef WTE_NO_PRUNE
 #define WTE_PRUNE_ENABLED TRUE
 #endif
@@ -52,7 +65,10 @@
 #define WTE_COLOR_WHITE         (al_map_rgb(255,255,255))
 #define WTE_COLOR_TRANSPARENT   (al_map_rgba(0, 0, 0, 0))
 
-//  Enable magic pink for transparency if WTE_NO_MAGIC_PINK is not defined.
+/*!
+ * \def WTE_NO_MAGIC_PINK
+ * Enable magic pink for transparency if WTE_NO_MAGIC_PINK is not defined.
+ */
 #ifndef WTE_NO_MAGIC_PINK
 #define WTE_MAGIC_PINK          (al_map_rgb(255, 0, 255))
 #endif

@@ -47,7 +47,7 @@ class sprite final : public animator {
          * \return void
          */
         inline sprite(const float sw, const float sh, const float dox, const float doy, const std::size_t rt, const std::size_t l) :
-        sprite_width(sw), sprite_height(sh), draw_offset_x(dox - 1.0f), draw_offset_y(doy - 1.0f),
+        sprite_width(sw), sprite_height(sh), draw_offset_x(dox), draw_offset_y(doy),
         sprite_x(0.0f), sprite_y(0.0f), start_frame(0), stop_frame(0), current_frame(0), rate(rt),
         scale_factor_x(1.0f), scale_factor_y(1.0f),
         animator(l,

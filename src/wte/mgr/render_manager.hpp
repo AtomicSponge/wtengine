@@ -327,10 +327,10 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                         center_y = (al_get_bitmap_height(render_tmp_bmp) / 2);
 
                         destination_x = world.get_component<cmp::location>(it.first)->pos_x +
-                            (al_get_bitmap_width(render_tmp_bmp) / 2) +
+                            (al_get_bitmap_width(render_tmp_bmp) * it.second.get()->scale_factor_x / 2) +
                             (it.second.get()->draw_offset_x * it.second.get()->scale_factor_x);
                         destination_y = world.get_component<cmp::location>(it.first)->pos_y +
-                            (al_get_bitmap_height(render_tmp_bmp) / 2) +
+                            (al_get_bitmap_height(render_tmp_bmp) * it.second.get()->scale_factor_y / 2) +
                             (it.second.get()->draw_offset_y * it.second.get()->scale_factor_y);
                     }
                 } else {

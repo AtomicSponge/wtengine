@@ -22,7 +22,6 @@ API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
 #### TODO:
  - !Finish up get_components in entity mgr
  - Finish up additional menus
- - Finish up sprite rotation
  - Audio testing
  - Code review / documentation (ongoing)
  - Improve cmake config

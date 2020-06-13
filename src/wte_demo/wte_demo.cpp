@@ -5,8 +5,8 @@
  *
  * See LICENSE.md for copyright information
  *
- * Remaining members for wte_demo
- * Allows us to set custom behaviour for our game
+ * WTE Demo game code.
+ * This extends the wte_main object to define a custom game.
  */
 
 #define _USE_MATH_DEFINES

@@ -63,7 +63,7 @@ namespace mgr
 {
 
 /*!
- * \brief Entity manager class
+ * \brief Entity manager class.
  * Store a collection of entities and their corresponding components in memory.
  */
 class entity_manager final : public manager<entity_manager> {

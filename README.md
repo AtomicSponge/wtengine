@@ -6,8 +6,6 @@
 WTEngine (What the Engine?) aims to be an object oriented game engine that can be used to make a simple 2D action game.
 The engine is written in C++ and uses the [Allegro Game Library](https://liballeg.org) and [PhysFS](https://www.icculus.org/physfs/).
 
-Built and tested with [MSYS2](https://www.msys2.org/)
-
 API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
 
 For an example of the API in action, see the [demo game code](https://github.com/wtfsystems/wtengine/blob/master/src/wte_demo/wte_demo.cpp).

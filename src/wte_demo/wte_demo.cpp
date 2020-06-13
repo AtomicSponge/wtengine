@@ -246,9 +246,6 @@ void wte_demo::new_game(void) {
     world.add_component(e_id, std::make_shared<cmp::team>(0));
     world.add_component(e_id, std::make_shared<cmp::location>((mgr::render_manager::get_arena_width() / 2) - 5,
                                                                mgr::render_manager::get_arena_height() - 40));
-    
-    //world.add_component(e_id, std::make_shared<cmp::direction>(0.0f));
-    
     world.add_component(e_id, std::make_shared<cmp::hitbox>(10, 10));
     world.add_component(e_id, std::make_shared<cmp::health>(1));
     world.add_component(e_id, std::make_shared<cmp::input_handler>());
@@ -264,9 +261,6 @@ void wte_demo::new_game(void) {
     world.set_component<cmp::sprite>(e_id)->load_sprite("ship.bmp", ".bmp");
     world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");
-
-    //world.set_component<cmp::sprite>(e_id)->scale_factor_x = 2.0f;
-    //world.set_component<cmp::sprite>(e_id)->scale_factor_y = 2.0f;
 
     /*
      * Shield entity.

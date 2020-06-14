@@ -41,7 +41,7 @@ class colision final : public system {
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
                         const int64_t current_time) override {
-            component_container<cmp::team> team_components = world.set_components<cmp::team>();
+            const_component_container<cmp::team> team_components = world.get_components<cmp::team>();
 
             for(auto & it_a : team_components) {
                 for(auto & it_b : team_components) {

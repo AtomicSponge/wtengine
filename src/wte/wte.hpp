@@ -27,7 +27,7 @@
 #include "wte_main.hpp"
 
 #ifdef _WTE_USE_HELPER_MACROS
-#include "helper_macros.hpp"
+#include "wte_helper_macros.hpp"
 #endif
 
 #endif

@@ -13,9 +13,7 @@
 
 #include <wte/wte.hpp>
 
-using namespace wte;
-
-class wte_demo final : public wte_main {
+class wte_demo final : public wte::wte_main {
     public:
         wte_demo(int argc, char **argv);
         ~wte_demo();

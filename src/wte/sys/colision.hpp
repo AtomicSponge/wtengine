@@ -30,7 +30,7 @@ class colision final : public system {
         inline ~colision() {};
 
         //!  Allow the colision system to be disabled
-        inline void disable(void) { enabled = false; };
+        inline void disable(void) override { enabled = false; };
 
         /*!
          * Overrides virtual run member inherited from system object
@@ -40,7 +40,7 @@ class colision final : public system {
          */
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
-                        const int64_t current_time) {
+                        const int64_t current_time) override {
             component_container<cmp::team> team_components = world.set_components<cmp::team>();
 
             for(auto & it_a : team_components) {

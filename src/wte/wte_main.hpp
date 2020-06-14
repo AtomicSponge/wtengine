@@ -123,7 +123,8 @@ class wte_main {
          * Force single instance, set initialized flag to true.
          * Throws a runtime error if another instance is called.
          */
-        inline wte_main(const int argc, char **argv, const std::string title) : window_title(title), load_called(false) {
+        inline wte_main(const int argc, char **argv, const std::string title) :
+        window_title(title), load_called(false) {
             if(initialized == true) throw std::runtime_error(window_title + " already running!");
             initialized = true;
 
@@ -144,6 +145,7 @@ class wte_main {
             for(auto & it : file_locations) PHYSFS_mount(it.c_str(), NULL, 1);
             al_set_physfs_file_interface();
 
+            //  Configure display.
             set_display();
 
             //  Configure main timer.

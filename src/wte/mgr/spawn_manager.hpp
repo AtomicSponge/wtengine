@@ -34,22 +34,26 @@ namespace mgr
 class spawn_manager final : public manager<spawn_manager> {
     public:
         /*!
-         * spawn_manager
+         * \brief Spawn Manager constructor.
+         * Clears the spawner map.
          * \param void
          * \return void
          */
         inline spawn_manager() { spawner.clear(); };
 
         /*!
-         * spawn_manager
+         * \brief Spawn Manager destructor.
+         * Clears the spawner map.
          * \param void
          * \return void
          */
         inline ~spawn_manager() { spawner.clear(); };
 
         /*!
-         * spawn_manager
-         * \param void
+         * \brief Process spawns.
+         * Takes spawner messages and creates or deletes entities.
+         * \param messages Spawner messages from main engine loop.
+         * \param world Reference to the entity manager.
          * \return void
          */
         inline void process(const message_container messages, entity_manager& world) {
@@ -65,7 +69,7 @@ class spawn_manager final : public manager<spawn_manager> {
                 }
 
                 if(m_it.get_cmd() == "delete") {
-                    component_container<cmp::name> name_components = world.set_components<cmp::name>();
+                    const_component_container<cmp::name> name_components = world.get_components<cmp::name>();
 
                     //  Check all named entities and delete if it exists.
                     for(auto & c_it : name_components) {
@@ -76,11 +80,14 @@ class spawn_manager final : public manager<spawn_manager> {
         };
 
         /*!
-         * spawn_manager
-         * \param void
-         * \return void
+         * \brief Add a spawn to the spawner map.
+         * Stores a function in the map for entity creation on demand.
+         * \param name Reference name for the spwaner item.
+         * \param num_args Number of arguments the spawn accepts.
+         * \param func Function for creating the entity.
+         * \return True if inserted into the spawn map, false if not.
          */
-        inline const bool add_spawn(std::string name, std::size_t num_args,
+        inline const bool add_spawn(const std::string name, const std::size_t num_args,
                                     void func(const entity, entity_manager&, const msg_arg_list)) {
             auto ret = spawner.insert(std::make_pair(name, std::make_pair(num_args, func)));
             return ret.second;

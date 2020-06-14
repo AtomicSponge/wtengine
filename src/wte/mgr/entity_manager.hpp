@@ -163,7 +163,6 @@ class entity_manager final : public manager<entity_manager> {
             for(auto it = results.first; it != results.second; it++) {
                 temp_container.emplace_back(cmp::component_sptr((*it).second));
             }
-
             return temp_container;
         };
 
@@ -206,7 +205,6 @@ class entity_manager final : public manager<entity_manager> {
                     return true;
                 } else it++;
             }
-
             return false;
         };
 
@@ -225,7 +223,6 @@ class entity_manager final : public manager<entity_manager> {
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second)) return true;
             }
-
             return false;
         };
 
@@ -280,7 +277,6 @@ class entity_manager final : public manager<entity_manager> {
                 if(std::dynamic_pointer_cast<T>(it.second))
                     temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
             }
-
             return temp_components;
         };
 
@@ -299,7 +295,6 @@ class entity_manager final : public manager<entity_manager> {
                 if(std::dynamic_pointer_cast<T>(it.second))
                     temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
             }
-
             return temp_components;
         };
 

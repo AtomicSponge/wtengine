@@ -29,6 +29,24 @@
 #define wte_add_system(new_sys, ...) (systems.add(std::make_unique<new_sys>(__VA_ARGS__)))
 
 /*!
+ * \def wte_set_component(the_cmp, ent_id)
+ * \brief Set new value for a component.
+ * Pass a component object and entity ID.
+ */
+#define wte_set_component(the_cmp, ent_id) (world.set_component<the_cmp>(ent_id))
+
+/*!
+ * \def wte_get_component(the_cmp, ent_id)
+ * \brief Get current value for a component.
+ * Pass a component object and entity ID.
+ */
+#define wte_get_component(the_cmp, ent_id) (world.get_component<the_cmp>(ent_id))
+
+/*********************************
+ * Menu items                    *
+ *********************************/
+
+/*!
  * \def wte_menu_action(...)
  * Create a new menu action item.
  */

@@ -45,23 +45,40 @@ class colision final : public system {
 
             for(auto & it_a : team_components) {
                 for(auto & it_b : team_components) {
-                    //  Only test different teams, if the entity has a location and a hitbox component, and it is enabled
-                    if((it_a.second->this_team != it_b.second->this_team)
-                      &&
-                       (world.has_component<cmp::location>(it_a.first) && world.has_component<cmp::location>(it_b.first))
-                      &&
-                       (world.has_component<cmp::hitbox>(it_a.first) && world.has_component<cmp::hitbox>(it_b.first))
-                      &&
-                       (world.get_component<cmp::enabled>(it_a.first)->is_enabled && world.get_component<cmp::enabled>(it_b.first)->is_enabled)
-                      &&
+                    /*
+                     * Only test if:  Not the same entity.
+                     *                Entities are on different teams.
+                     *                Both entities have a location.
+                     *                Both entities have a hitbox.
+                     *                Both entities are enabled.
+                     *                The entity being compared against is solid.
+                     */
+                    if((it_a != it_b) &&
+                       (it_a.second->this_team != it_b.second->this_team) &&
+                       world.has_component<cmp::location>(it_a.first) &&
+                       world.has_component<cmp::location>(it_b.first) &&
+                       world.has_component<cmp::hitbox>(it_a.first) &&
+                       world.has_component<cmp::hitbox>(it_b.first) &&
+                       world.get_component<cmp::enabled>(it_a.first)->is_enabled &&
+                       world.get_component<cmp::enabled>(it_b.first)->is_enabled &&
                        world.get_component<cmp::hitbox>(it_b.first)->solid)
                     {
                         //  Use AABB to test colision
-                        if((world.get_component<cmp::location>(it_a.first)->pos_x < world.get_component<cmp::location>(it_b.first)->pos_x + world.get_component<cmp::hitbox>(it_b.first)->width && 
-                            world.get_component<cmp::location>(it_a.first)->pos_x + world.get_component<cmp::hitbox>(it_a.first)->width > world.get_component<cmp::location>(it_b.first)->pos_x)
-                          &&
-                           (world.get_component<cmp::location>(it_a.first)->pos_y < world.get_component<cmp::location>(it_b.first)->pos_y + world.get_component<cmp::hitbox>(it_b.first)->height && 
-                            world.get_component<cmp::location>(it_a.first)->pos_y + world.get_component<cmp::hitbox>(it_a.first)->height > world.get_component<cmp::location>(it_b.first)->pos_y))
+                        if((world.get_component<cmp::location>(it_a.first)->pos_x <
+                            world.get_component<cmp::location>(it_b.first)->pos_x +
+                            world.get_component<cmp::hitbox>(it_b.first)->width
+                            && 
+                            world.get_component<cmp::location>(it_a.first)->pos_x +
+                            world.get_component<cmp::hitbox>(it_a.first)->width >
+                            world.get_component<cmp::location>(it_b.first)->pos_x)
+                           &&
+                           (world.get_component<cmp::location>(it_a.first)->pos_y <
+                            world.get_component<cmp::location>(it_b.first)->pos_y +
+                            world.get_component<cmp::hitbox>(it_b.first)->height
+                            && 
+                            world.get_component<cmp::location>(it_a.first)->pos_y +
+                            world.get_component<cmp::hitbox>(it_a.first)->height >
+                            world.get_component<cmp::location>(it_b.first)->pos_y))
                         {
                             //  Send a message to the logic system that two entities colided
                             messages.add_message(message("logic",

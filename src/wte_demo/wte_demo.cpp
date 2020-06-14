@@ -164,7 +164,8 @@ void wte_demo::new_game(void) {
                     wte_get_component(stars, bkg_id)->speed[i] * wte_get_component(stars, bkg_id)->speed_mult;
                 if(wte_get_component(stars, bkg_id)->y[i] > mgr::render_manager::get_arena_height()) {
                     //  Make a new star.
-                    wte_set_component(stars, bkg_id)->x[i] = std::rand() % mgr::render_manager::get_arena_width() + 1;
+                    wte_set_component(stars, bkg_id)->x[i] =
+                        std::rand() % mgr::render_manager::get_arena_width() + 1;
                     wte_set_component(stars, bkg_id)->y[i] = 0;
                     wte_set_component(stars, bkg_id)->speed[i] = (std::rand() % 3 + 1) * 3;
                     wte_set_component(stars, bkg_id)->color[i] = std::rand() % 4 + 1;
@@ -195,8 +196,10 @@ void wte_demo::new_game(void) {
                 wte_set_component(stars, bkg_id)->speed_mult = 1;
 
                 for(std::size_t i = 0; i < MAX_STARS; i++) {
-                    wte_set_component(stars, bkg_id)->x[i] = std::rand() % mgr::render_manager::get_arena_width() + 1;
-                    wte_set_component(stars, bkg_id)->y[i] = std::rand() % mgr::render_manager::get_arena_height() + 1;
+                    wte_set_component(stars, bkg_id)->x[i] =
+                        std::rand() % mgr::render_manager::get_arena_width() + 1;
+                    wte_set_component(stars, bkg_id)->y[i] =
+                        std::rand() % mgr::render_manager::get_arena_height() + 1;
                     wte_set_component(stars, bkg_id)->speed[i] = (std::rand() % 3 + 1) * 3;
                     wte_set_component(stars, bkg_id)->color[i] = std::rand() % 4 + 1;
                 }

@@ -19,7 +19,7 @@
 #include "include/custom_input.hpp"
 #include "include/stars.hpp"
 
-using namespace wte;  //  Required for macro use.  DEAL WITH IT :)
+using namespace wte;  //  Required for macro use.
 
 /*
  * Game's constructor.

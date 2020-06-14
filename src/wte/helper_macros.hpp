@@ -7,7 +7,8 @@
  * \date 2019-2020
  *
  * \details Helper macros.
- * If using you must declare "using namespace wte" in your source file.
+ * If using you must declare "#define _WTE_USE_HELPER_MACROS" and
+ * "using namespace wte" in your source file.
  */
 
 #ifndef WTE_HELPER_MACROS_HPP

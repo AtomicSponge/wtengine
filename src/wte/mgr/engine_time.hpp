@@ -36,7 +36,7 @@ class engine_time {
          * \return void
          */
         inline static void set_time(const int64_t t) {
-            current_time.store(t, std::memory_order_relaxed);
+            current_time.store(t, std::memory_order_release);
         };
 
     private:
@@ -53,7 +53,7 @@ class engine_time {
          * \return Timer value.
          */
         inline const int64_t check_time(void) const {
-            return current_time.load(std::memory_order_relaxed);
+            return current_time.load(std::memory_order_acquire);
         };
 };
 

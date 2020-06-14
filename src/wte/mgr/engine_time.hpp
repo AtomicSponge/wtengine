@@ -29,9 +29,11 @@ class engine_time {
         inline virtual ~engine_time() {};
 
         /*!
-         * Set the internal timer.
+         * \brief Set the internal timer.
          * This is called once during the game loop in class wte_main
          * and when starting/stopping the game.
+         * \param t Timer value.
+         * \return void
          */
         inline static void set_time(const int64_t t) {
             current_time.store(t, std::memory_order_relaxed);
@@ -44,8 +46,12 @@ class engine_time {
     protected:
         inline engine_time() {};
 
-        //!  Check the internal timer.
-        //!  Classes that extend this object can call this member to check the game timer.
+        /*!
+         * \brief Check the internal timer.
+         * Classes that extend this object can call this member to check the game timer.
+         * \param void
+         * \return Timer value.
+         */
         inline const int64_t check_time(void) const {
             return current_time.load(std::memory_order_relaxed);
         };

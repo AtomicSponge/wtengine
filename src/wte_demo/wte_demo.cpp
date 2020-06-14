@@ -148,12 +148,12 @@ void wte_demo::new_game(void) {
      * Background entity.
      */
     e_id = world.new_entity();
-    //world.add_component(e_id, std::make_shared<cmp::name>("starfield"));
-    world.add_component(e_id, wte_new_component(cmp::name, "starfield"));
-    world.add_component(e_id, wte_new_component(cmp::visible));
-    world.add_component(e_id, wte_new_component(stars));
-    world.add_component(e_id, wte_new_component(cmp::background, mgr::render_manager::get_arena_width(),
-                                                                 mgr::render_manager::get_arena_height(), 0,
+    //std::make_shared<cmp::name>("starfield"));
+    wte_new_component(e_id, cmp::name, "starfield");
+    wte_new_component(e_id, cmp::visible);
+    wte_new_component(e_id, stars);
+    wte_new_component(e_id, cmp::background, mgr::render_manager::get_arena_width(),
+                                             mgr::render_manager::get_arena_height(), 0,
         [](entity bkg_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define the animation process for the starfield.
             al_set_target_bitmap(world.get_component<cmp::background>(bkg_id)->background_bitmap);
@@ -182,8 +182,8 @@ void wte_demo::new_game(void) {
                     al_draw_pixel(world.get_component<stars>(bkg_id)->x[i], world.get_component<stars>(bkg_id)->y[i], WTE_COLOR_RED);
             }
         }
-    ));  //  End background component.
-    world.add_component(e_id, wte_new_component(cmp::dispatcher,
+    );  //  End background component.
+    wte_new_component(e_id, cmp::dispatcher,
         [](entity bkg_id, mgr::entity_manager& world, message msg) {
             //  Define message processing for the starfield.
             if(msg.get_cmd() == "default") world.set_component<stars>(bkg_id)->speed_mult = 1;
@@ -200,15 +200,15 @@ void wte_demo::new_game(void) {
                 }
             }
         }
-    ));  //  End dispatcher component.
+    );  //  End dispatcher component.
 
     /*
      * Score overlay entity.
      */
     e_id = world.new_entity();
-    world.add_component(e_id, wte_new_component(cmp::name, "score_overlay"));
-    world.add_component(e_id, wte_new_component(cmp::visible));
-    world.add_component(e_id, wte_new_component(cmp::overlay, 200, 20, 0, mgr::render_manager::get_arena_height() - 20, 0,
+    wte_new_component(e_id, cmp::name, "score_overlay");
+    wte_new_component(e_id, cmp::visible);
+    wte_new_component(e_id, cmp::overlay, 200, 20, 0, mgr::render_manager::get_arena_height() - 20, 0,
         [](entity ovr_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define what gets displayed on the overlay.
             al_set_target_bitmap(world.get_component<cmp::overlay>(ovr_id)->overlay_bitmap);
@@ -218,17 +218,17 @@ void wte_demo::new_game(void) {
             world.set_component<cmp::overlay>(ovr_id)->set_text("High Score:  ", WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_RIGHT);
             world.set_component<cmp::overlay>(ovr_id)->set_text(game_cfg::get("hiscore"), WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_LEFT);
         }
-    ));
+    );
     world.set_component<cmp::overlay>(e_id)->set_font(al_create_builtin_font());
 
     /*
      * Player Info overlay entity.
      */
     e_id = world.new_entity();
-    world.add_component(e_id, wte_new_component(cmp::name, "player_info_overlay"));
-    world.add_component(e_id, wte_new_component(cmp::visible));
-    world.add_component(e_id, wte_new_component(cmp::overlay, 200, 20, mgr::render_manager::get_arena_width() - 200,
-                                                                       mgr::render_manager::get_arena_height() - 20, 0,
+    wte_new_component(e_id, cmp::name, "player_info_overlay");
+    wte_new_component(e_id, cmp::visible);
+    wte_new_component(e_id, cmp::overlay, 200, 20, mgr::render_manager::get_arena_width() - 200,
+                                                   mgr::render_manager::get_arena_height() - 20, 0,
         [](entity ovr_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define what gets displayed on the overlay.
             al_set_target_bitmap(world.get_component<cmp::overlay>(ovr_id)->overlay_bitmap);
@@ -237,29 +237,29 @@ void wte_demo::new_game(void) {
             world.set_component<cmp::overlay>(ovr_id)->set_text("Shield", WTE_COLOR_WHITE, 200, 0, ALLEGRO_ALIGN_RIGHT);
             world.set_component<cmp::overlay>(ovr_id)->set_text("Lives:  " + game_cfg::get("lives"), WTE_COLOR_WHITE, 200, 10, ALLEGRO_ALIGN_RIGHT);
         }
-    ));
+    );
     world.set_component<cmp::overlay>(e_id)->set_font(al_create_builtin_font());
 
     /*
      * Player entity.
      */
     e_id = world.new_entity();
-    world.add_component(e_id, wte_new_component(cmp::name, "player"));
-    world.add_component(e_id, wte_new_component(cmp::team, 0));
-    world.add_component(e_id, wte_new_component(cmp::location, (mgr::render_manager::get_arena_width() / 2) - 5,
-                                                                mgr::render_manager::get_arena_height() - 40));
-    world.add_component(e_id, wte_new_component(cmp::hitbox, 10, 10));
-    world.add_component(e_id, wte_new_component(cmp::health, 1));
-    world.add_component(e_id, wte_new_component(cmp::input_handler));
-    world.add_component(e_id, wte_new_component(cmp::visible));
-    world.add_component(e_id, wte_new_component(cmp::enabled));
-    world.add_component(e_id, wte_new_component(cmp::dispatcher,
+    wte_new_component(e_id, cmp::name, "player");
+    wte_new_component(e_id, cmp::team, 0);
+    wte_new_component(e_id, cmp::location, (mgr::render_manager::get_arena_width() / 2) - 5,
+                                            mgr::render_manager::get_arena_height() - 40);
+    wte_new_component(e_id, cmp::hitbox, 10, 10);
+    wte_new_component(e_id, cmp::health, 1);
+    wte_new_component(e_id, cmp::input_handler);
+    wte_new_component(e_id, cmp::visible);
+    wte_new_component(e_id, cmp::enabled);
+    wte_new_component(e_id, cmp::dispatcher,
         [](entity plr_id, mgr::entity_manager& world, message msg) {
             //  Define message processing for the player.
             if(msg.get_cmd() == "colision") game_cfg_map::subtract<int>("lives", 1);
         }
-    ));
-    world.add_component(e_id, wte_new_component(cmp::sprite, 32, 32, -11.0f, 0.0f, 1, 1));
+    );
+    wte_new_component(e_id, cmp::sprite, 32, 32, -11.0f, 0.0f, 1, 1);
     world.set_component<cmp::sprite>(e_id)->load_sprite("ship.bmp", ".bmp");
     world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");
@@ -268,15 +268,15 @@ void wte_demo::new_game(void) {
      * Shield entity.
      */
     e_id = world.new_entity();
-    world.add_component(e_id, wte_new_component(cmp::name, "shield"));
-    world.add_component(e_id, wte_new_component(cmp::team, 0));
-    world.add_component(e_id, wte_new_component(cmp::location, 0, 0));
-    world.add_component(e_id, wte_new_component(cmp::hitbox, 64, 64, false));
-    world.add_component(e_id, wte_new_component(cmp::damage, 100));
-    world.add_component(e_id, wte_new_component(cmp::input_handler));
-    world.add_component(e_id, wte_new_component(cmp::visible, false));
-    world.add_component(e_id, wte_new_component(cmp::enabled, false));
-    world.add_component(e_id, wte_new_component(cmp::sprite, 64, 64, 0.0f, 0.0f, 6, 2));
+    wte_new_component(e_id, cmp::name, "shield");
+    wte_new_component(e_id, cmp::team, 0);
+    wte_new_component(e_id, cmp::location, 0, 0);
+    wte_new_component(e_id, cmp::hitbox, 64, 64, false);
+    wte_new_component(e_id, cmp::damage, 100);
+    wte_new_component(e_id, cmp::input_handler);
+    wte_new_component(e_id, cmp::visible, false);
+    wte_new_component(e_id, cmp::enabled, false);
+    wte_new_component(e_id, cmp::sprite, 64, 64, 0.0f, 0.0f, 6, 2);
     world.set_component<cmp::sprite>(e_id)->load_sprite("shield.bmp", ".bmp");
     world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 5);
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");
@@ -285,15 +285,15 @@ void wte_demo::new_game(void) {
      * Main cannon entity.
      */
     e_id = world.new_entity();
-    world.add_component(e_id, wte_new_component(cmp::name, "main_cannon"));
-    world.add_component(e_id, wte_new_component(cmp::team, 0));
-    world.add_component(e_id, wte_new_component(cmp::location, 0, 0));
-    world.add_component(e_id, wte_new_component(cmp::hitbox, 10, 200, false));
-    world.add_component(e_id, wte_new_component(cmp::damage, 5));
-    world.add_component(e_id, wte_new_component(cmp::input_handler));
-    world.add_component(e_id, wte_new_component(cmp::visible, false));
-    world.add_component(e_id, wte_new_component(cmp::enabled, false));
-    world.add_component(e_id, wte_new_component(cmp::sprite, 10, 200, 0.0f, 0.0f, 2, 2));
+    wte_new_component(e_id, cmp::name, "main_cannon");
+    wte_new_component(e_id, cmp::team, 0);
+    wte_new_component(e_id, cmp::location, 0, 0);
+    wte_new_component(e_id, cmp::hitbox, 10, 200, false);
+    wte_new_component(e_id, cmp::damage, 5);
+    wte_new_component(e_id, cmp::input_handler);
+    wte_new_component(e_id, cmp::visible, false);
+    wte_new_component(e_id, cmp::enabled, false);
+    wte_new_component(e_id, cmp::sprite, 10, 200, 0.0f, 0.0f, 2, 2);
     world.set_component<cmp::sprite>(e_id)->load_sprite("cannon.bmp", ".bmp");
     world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
     world.set_component<cmp::sprite>(e_id)->set_cycle("main");
@@ -307,17 +307,17 @@ void wte_demo::new_game(void) {
             if(size < 1) size = 1;
             if(size > 8) size = 8;
 
-            world.add_component(e_id, wte_new_component(cmp::name, "asteroid" + std::to_string(e_id)));
-            world.add_component(e_id, wte_new_component(cmp::team, 1));
-            world.add_component(e_id, wte_new_component(cmp::location, std::stof(args[1]), std::stof(args[2])));
-            world.add_component(e_id, wte_new_component(cmp::hitbox, (float)(size * 16), (float)(size * 16)));
-            world.add_component(e_id, wte_new_component(cmp::health, size * 10));
-            world.add_component(e_id, wte_new_component(cmp::damage, 10));
-            world.add_component(e_id, wte_new_component(cmp::direction, std::stof(args[3])));
-            world.add_component(e_id, wte_new_component(cmp::velocity, std::stof(args[4])));
-            world.add_component(e_id, wte_new_component(cmp::visible));
-            world.add_component(e_id, wte_new_component(cmp::enabled));
-            world.add_component(e_id, wte_new_component(cmp::ai,
+            wte_new_component(e_id, cmp::name, "asteroid" + std::to_string(e_id));
+            wte_new_component(e_id, cmp::team, 1);
+            wte_new_component(e_id, cmp::location, std::stof(args[1]), std::stof(args[2]));
+            wte_new_component(e_id, cmp::hitbox, (float)(size * 16), (float)(size * 16));
+            wte_new_component(e_id, cmp::health, size * 10);
+            wte_new_component(e_id, cmp::damage, 10);
+            wte_new_component(e_id, cmp::direction, std::stof(args[3]));
+            wte_new_component(e_id, cmp::velocity, std::stof(args[4]));
+            wte_new_component(e_id, cmp::visible);
+            wte_new_component(e_id, cmp::enabled);
+            wte_new_component(e_id, cmp::ai,
                 [](entity ast_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
                     //  AI for asteroids defined here.
                     //  Move them at their speed and angle.
@@ -341,8 +341,8 @@ void wte_demo::new_game(void) {
                         game_cfg_map::add<int>("score", 10);
                     }
                 }
-            ));  //  End asteroid AI
-            world.add_component(e_id, wte_new_component(cmp::dispatcher,
+            );  //  End asteroid AI
+            wte_new_component(e_id, cmp::dispatcher,
                 [](entity ast_id, mgr::entity_manager& world, message msg) {
                     //  Process colision messages
                     if(msg.get_cmd() == "colision") {
@@ -352,8 +352,8 @@ void wte_demo::new_game(void) {
                         if(msg.get_from() == "shield") world.set_component<cmp::health>(ast_id)->hp -= 10;
                     } //  end colision messages
                 }
-            ));
-            world.add_component(e_id, wte_new_component(cmp::sprite, 16, 16, 0.0f, 0.0f, 10, 0));
+            );
+            wte_new_component(e_id, cmp::sprite, 16, 16, 0.0f, 0.0f, 10, 0);
             world.set_component<cmp::sprite>(e_id)->load_sprite("asteroid.bmp", ".bmp");
             world.set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 5);
             world.set_component<cmp::sprite>(e_id)->set_cycle("main");

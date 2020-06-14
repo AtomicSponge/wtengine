@@ -57,7 +57,7 @@ typedef std::shared_ptr<const cmp::component> component_csptr;
  * \brief Create a new component.
  * Pass a component object and any parameters to create a new component.
  */
-#define wte_new_component(new_cmp, ...) (std::make_shared<new_cmp>(__VA_ARGS__))
+#define wte_new_component(ent_id, new_cmp, ...) (world.add_component(ent_id, std::make_shared<new_cmp>(__VA_ARGS__)))
 
 } //  namespace cmp
 

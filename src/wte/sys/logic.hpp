@@ -42,7 +42,7 @@ class logic final : public system {
          */
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
-                        const int64_t current_time) {
+                        const int64_t current_time) override {
             //  Find the entities with the input handler component
             component_container<cmp::ai> ai_components = world.set_components<cmp::ai>();
 
@@ -54,7 +54,7 @@ class logic final : public system {
         /*!
          * Get logic messages for processing
          */
-        inline void dispatch(mgr::entity_manager& world, message_container messages) {
+        inline void dispatch(mgr::entity_manager& world, message_container messages) override {
             component_container<cmp::dispatcher> dispatch_components = world.set_components<cmp::dispatcher>();
 
             for(auto & it : dispatch_components) {

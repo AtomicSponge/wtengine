@@ -29,7 +29,7 @@ class input : public system {
         inline input() : system("input") {};
         inline ~input() {};
 
-        inline void disable(void) { enabled = false; };
+        inline void disable(void) override { enabled = false; };
 
         //! Input system run method
         /*!
@@ -37,7 +37,7 @@ class input : public system {
          */
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
-                        const int64_t current_time) {
+                        const int64_t current_time) override {
             //  Find the entities with the input handler component
             input_components = world.set_components<cmp::input_handler>();
 
@@ -48,7 +48,7 @@ class input : public system {
     protected:
         component_container<cmp::input_handler> input_components;
         //!  Override this to implement input handling
-        virtual void custom_run(mgr::entity_manager&, mgr::message_manager&) {};
+        virtual void custom_run(mgr::entity_manager&, mgr::message_manager&) = 0;
 };
 
 } //  namespace sys

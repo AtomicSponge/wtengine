@@ -89,7 +89,7 @@ class entity_manager final : public manager<entity_manager> {
         inline const entity new_entity(void) {
             entity next_id;
 
-            //  If the counter hits max, look for available ID
+            //  If the counter hits max, look for available ID.
             if(entity_counter == std::numeric_limits<entity>::max()) {
                 next_id = 0;
 
@@ -97,18 +97,18 @@ class entity_manager final : public manager<entity_manager> {
                     //  No more room for entities, fail.
                     if(next_id == std::numeric_limits<entity>::max())
                         throw std::runtime_error("Entity manager has hit max!");
-                    if(*it == next_id) {          //  Entity ID exists
-                        next_id++;                //  Increment next_id by one
-                        it = entity_vec.begin();  //  Then start the search over
+                    if(*it == next_id) {          //  Entity ID exists.
+                        next_id++;                //  Increment next_id by one.
+                        it = entity_vec.begin();  //  Then start the search over.
                     }
                 }
-            } else {  //  Counter not max, use the counter for entity ID
+            } else {  //  Counter not max, use the counter for entity ID.
                 next_id = entity_counter;
                 entity_counter++;
             }
 
             entity_vec.push_back(next_id);
-            return next_id;  //  Created entity, return new entity ID
+            return next_id;  //  Created entity, return new entity ID.
         };
 
         /*!
@@ -119,8 +119,8 @@ class entity_manager final : public manager<entity_manager> {
         inline const bool delete_entity(const entity e_id) {
             for(world_iterator it = entity_vec.begin(); it != entity_vec.end(); it++) {
                 if(*it == e_id) {
-                    world.erase(e_id);     //  Remove all associated componenets
-                    entity_vec.erase(it);  //  Delete the entity
+                    world.erase(e_id);     //  Remove all associated componenets.
+                    entity_vec.erase(it);  //  Delete the entity.
                     return true;
                 }
             }
@@ -178,7 +178,7 @@ class entity_manager final : public manager<entity_manager> {
         inline const bool add_component(const entity e_id, const cmp::component_sptr comp) {
             if(!entity_exists(e_id)) return false;
 
-            //  Check derived types of existing components, make sure one does not already exist
+            //  Check derived types of existing components, make sure one does not already exist.
             const entity_container check_entity = get_entity(e_id);
             for(auto & it : check_entity) {
                 if(typeid(*it).name() == typeid(*comp).name()) return false;

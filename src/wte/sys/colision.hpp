@@ -43,24 +43,24 @@ class colision final : public system {
                         const int64_t current_time) {
             component_container<cmp::team> team_components = world.set_components<cmp::team>();
 
-            for(auto & it_a : team_components) { // TODO:  fix looping
+            for(auto & it_a : team_components) {
                 for(auto & it_b : team_components) {
                     //  Only test different teams, if the entity has a location and a hitbox component, and it is enabled
                     if((it_a.second->this_team != it_b.second->this_team)
-                    &&
-                    (world.has_component<cmp::location>(it_a.first) && world.has_component<cmp::location>(it_b.first))
-                    &&
-                    (world.has_component<cmp::hitbox>(it_a.first) && world.has_component<cmp::hitbox>(it_b.first))
-                    &&
-                    (world.get_component<cmp::enabled>(it_a.first)->is_enabled == true && world.get_component<cmp::enabled>(it_b.first)->is_enabled == true)
-                    &&
-                    world.get_component<cmp::hitbox>(it_b.first)->solid == true)
+                      &&
+                       (world.has_component<cmp::location>(it_a.first) && world.has_component<cmp::location>(it_b.first))
+                      &&
+                       (world.has_component<cmp::hitbox>(it_a.first) && world.has_component<cmp::hitbox>(it_b.first))
+                      &&
+                       (world.get_component<cmp::enabled>(it_a.first)->is_enabled && world.get_component<cmp::enabled>(it_b.first)->is_enabled)
+                      &&
+                       world.get_component<cmp::hitbox>(it_b.first)->solid)
                     {
                         //  Use AABB to test colision
                         if((world.get_component<cmp::location>(it_a.first)->pos_x < world.get_component<cmp::location>(it_b.first)->pos_x + world.get_component<cmp::hitbox>(it_b.first)->width && 
                             world.get_component<cmp::location>(it_a.first)->pos_x + world.get_component<cmp::hitbox>(it_a.first)->width > world.get_component<cmp::location>(it_b.first)->pos_x)
-                        &&
-                        (world.get_component<cmp::location>(it_a.first)->pos_y < world.get_component<cmp::location>(it_b.first)->pos_y + world.get_component<cmp::hitbox>(it_b.first)->height && 
+                          &&
+                           (world.get_component<cmp::location>(it_a.first)->pos_y < world.get_component<cmp::location>(it_b.first)->pos_y + world.get_component<cmp::hitbox>(it_b.first)->height && 
                             world.get_component<cmp::location>(it_a.first)->pos_y + world.get_component<cmp::hitbox>(it_a.first)->height > world.get_component<cmp::location>(it_b.first)->pos_y))
                         {
                             //  Send a message to the logic system that two entities colided

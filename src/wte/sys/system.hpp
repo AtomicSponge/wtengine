@@ -65,13 +65,6 @@ class system {
 //! \typedef System unique pointer
 typedef std::unique_ptr<system> system_uptr;
 
-/*!
- * \def wte_add_system(new_sys, ...)
- * \brief Create a new system.
- * Pass a system object and any parameters to create a new system.
- */
-#define wte_add_system(new_sys, ...) (systems.add(std::make_unique<new_sys>(__VA_ARGS__)))
-
 } //  namespace sys
 
 } //  namespace wte

@@ -92,12 +92,6 @@ class menu_item_apply final : public menu_item {
         std::string cmd;
 };
 
-/*!
- * \def wte_menu_apply(...)
- * Create a new menu apply item.
- */
-#define wte_menu_apply(...) (std::make_shared<mnu::menu_item_apply>(__VA_ARGS__))
-
 }  // end namespace mnu
 
 }  // end namespace wte

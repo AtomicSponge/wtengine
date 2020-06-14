@@ -41,7 +41,7 @@ class engine_flags final {
          * \return void
          */
         inline static void set(const std::size_t f) {
-            flags[f].store(true, std::memory_order_relaxed);
+            flags[f].store(true, std::memory_order_release);
         };
 
         /*!
@@ -50,7 +50,7 @@ class engine_flags final {
          * \return void
          */
         inline static void unset(const std::size_t f) {
-            flags[f].store(false, std::memory_order_relaxed);
+            flags[f].store(false, std::memory_order_release);
         };
 
         /*!
@@ -59,7 +59,7 @@ class engine_flags final {
          * \return True if the flag is set, false if not.
          */
         inline static const bool is_set(const std::size_t f) {
-            return flags[f].load(std::memory_order_relaxed);
+            return flags[f].load(std::memory_order_consume);
         };
 
     private:
@@ -73,7 +73,7 @@ class engine_flags final {
          */
         inline static void unset_all(void) {
             for(std::size_t i = 0; i < MAX_SYSTEM_FLAGS; i++)
-                flags[i].store(false, std::memory_order_relaxed);
+                flags[i].store(false, std::memory_order_release);
         }
 
         inline static std::atomic<bool> flags[MAX_SYSTEM_FLAGS] = {};

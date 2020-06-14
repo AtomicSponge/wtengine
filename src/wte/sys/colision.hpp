@@ -53,7 +53,7 @@ class colision final : public system {
                      *                Both entities are enabled.
                      *                The entity being compared against is solid.
                      */
-                    if((it_a != it_b) &&
+                    if((it_a.first != it_b.first) &&
                        (it_a.second->this_team != it_b.second->this_team) &&
                        world.has_component<cmp::location>(it_a.first) &&
                        world.has_component<cmp::location>(it_b.first) &&

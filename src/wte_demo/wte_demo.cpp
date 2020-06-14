@@ -148,7 +148,6 @@ void wte_demo::new_game(void) {
      * Background entity.
      */
     e_id = world.new_entity();
-    //std::make_shared<cmp::name>("starfield"));
     wte_new_component(e_id, cmp::name, "starfield");
     wte_new_component(e_id, cmp::visible);
     wte_new_component(e_id, stars);

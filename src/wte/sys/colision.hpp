@@ -43,7 +43,7 @@ class colision final : public system {
                         const int64_t current_time) {
             component_container<cmp::team> team_components = world.set_components<cmp::team>();
 
-            for(auto & it_a : team_components) {
+            for(auto & it_a : team_components) { // TODO:  fix looping
                 for(auto & it_b : team_components) {
                     //  Only test different teams, if the entity has a location and a hitbox component, and it is enabled
                     if((it_a.second->this_team != it_b.second->this_team)

@@ -80,7 +80,9 @@ class colision final : public system {
                             world.get_component<cmp::hitbox>(it_a.first)->height >
                             world.get_component<cmp::location>(it_b.first)->pos_y))
                         {
-                            //  Send a message to the logic system that two entities colided
+                            //  Send a message to the logic system that two entities colided.
+                            //  Each entity will get a colision message.
+                            //  Ex:  A hit B, B hit A.
                             messages.add_message(message("logic",
                                                         world.get_component<cmp::name>(it_b.first)->name_str,
                                                         world.get_component<cmp::name>(it_a.first)->name_str,

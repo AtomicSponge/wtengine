@@ -40,21 +40,27 @@ class engine_flags final {
          * \param f Index of the flag.
          * \return void
          */
-        inline static void set(const std::size_t f) { flags[f] = true; };
+        inline static void set(const std::size_t f) {
+            flags[f].store(true, std::memory_order_relaxed);
+        };
 
         /*!
          * Set a flag to false.
          * \param f Index of the flag.
          * \return void
          */
-        inline static void unset(const std::size_t f) { flags[f] = false; };
+        inline static void unset(const std::size_t f) {
+            flags[f].store(false, std::memory_order_relaxed);
+        };
 
         /*!
          * Check the state of a flag.
          * \param f Index of the flag.
          * \return True if the flag is set, false if not.
          */
-        inline static const bool is_set(const std::size_t f) { return flags[f]; };
+        inline static const bool is_set(const std::size_t f) {
+            return flags[f].load(std::memory_order_relaxed);
+        };
 
     private:
         inline engine_flags() { unset_all(); };
@@ -66,7 +72,8 @@ class engine_flags final {
          * \return void
          */
         inline static void unset_all(void) {
-            for(std::size_t i = 0; i < MAX_SYSTEM_FLAGS; i++) flags[i] = false;
+            for(std::size_t i = 0; i < MAX_SYSTEM_FLAGS; i++)
+                flags[i].store(false, std::memory_order_relaxed);
         }
 
         inline static std::atomic<bool> flags[MAX_SYSTEM_FLAGS] = {};

@@ -7,8 +7,6 @@
  * \date 2019-2020
  *
  * \details Handle player input in its own thread.
- * 
- * \bug Input is a bit off.
  */
 
 #ifndef WTE_MGR_INPUT_MANAGER_HPP

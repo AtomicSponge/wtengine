@@ -33,7 +33,9 @@ class engine_time {
          * This is called once during the game loop in class wte_main
          * and when starting/stopping the game.
          */
-        inline static void set_time(const int64_t t) { current_time = t; };
+        inline static void set_time(const int64_t t) {
+            current_time.store(t, std::memory_order_relaxed);
+        };
 
     private:
         //  Track game timer
@@ -44,7 +46,9 @@ class engine_time {
 
         //!  Check the internal timer.
         //!  Classes that extend this object can call this member to check the game timer.
-        inline const int64_t check_time(void) const { return current_time; };
+        inline const int64_t check_time(void) const {
+            return current_time.load(std::memory_order_relaxed);
+        };
 };
 
 }  // end namespace mgr

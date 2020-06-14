@@ -32,15 +32,15 @@ namespace wte
 //!  Container to store an entity reference.
 typedef unsigned int entity;
 
-//!  Container for storing a group of entitie references.
-typedef std::vector<entity> world_container;  //  TODO: clean up
+//!  Container for storing a group of entity references.
+typedef std::vector<entity> world_container;
 //!  Iterator for addressing a group of entities.
 typedef std::vector<entity>::iterator world_iterator;
 //!  Constant iterator for addressing a group of entities.
 typedef std::vector<entity>::const_iterator world_citerator;
 
 //!  Container to store a group of components related to an entity.
-typedef std::vector<cmp::component_sptr> entity_container;  //  TODO: clean these up too
+typedef std::vector<cmp::component_sptr> entity_container;
 //!  Iterator for addressing a group of components related to an entity.
 typedef std::vector<cmp::component_sptr>::iterator entity_iterator;
 //!  Constant iterator for addressing a group of components related to an entity.
@@ -53,7 +53,7 @@ using component_container = std::map<const entity, std::shared_ptr<T>>;
 template <typename T>
 using const_component_container = std::map<const entity, std::shared_ptr<const T>>;
 
-//!  Container to store all entites.
+//!  Container to store the entire game world.
 typedef std::unordered_multimap<entity, cmp::component_sptr> world_map;
 
 namespace mgr
@@ -108,7 +108,7 @@ class entity_manager final : public manager<entity_manager> {
             }
 
             entity_vec.push_back(next_id);
-            return next_id; //  Created entity, return new entity ID
+            return next_id;  //  Created entity, return new entity ID
         };
 
         /*!
@@ -119,8 +119,8 @@ class entity_manager final : public manager<entity_manager> {
         inline const bool delete_entity(const entity e_id) {
             for(world_iterator it = entity_vec.begin(); it != entity_vec.end(); it++) {
                 if(*it == e_id) {
-                    world.erase(e_id); //  Remove all associated componenets
-                    entity_vec.erase(it); //  Delete the entity
+                    world.erase(e_id);     //  Remove all associated componenets
+                    entity_vec.erase(it);  //  Delete the entity
                     return true;
                 }
             }
@@ -158,7 +158,7 @@ class entity_manager final : public manager<entity_manager> {
             if(!entity_exists(e_id)) return {};
 
             entity_container temp_container;
-            auto results = world.equal_range(e_id);
+            const auto results = world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
                 temp_container.emplace_back(cmp::component_sptr((*it).second));
@@ -179,7 +179,7 @@ class entity_manager final : public manager<entity_manager> {
             if(!entity_exists(e_id)) return false;
 
             //  Check derived types of existing components, make sure one does not already exist
-            entity_container check_entity = get_entity(e_id);
+            const entity_container check_entity = get_entity(e_id);
             for(auto & it : check_entity) {
                 if(typeid(*it).name() == typeid(*comp).name()) return false;
             }
@@ -189,7 +189,7 @@ class entity_manager final : public manager<entity_manager> {
         };
 
         /*!
-         * Delete components by type for an entity.
+         * Delete a component by type for an entity.
          * \tparam T Component type.
          * \param e_id Entity ID to delete component from.
          * \return Return true if a component was deleted.
@@ -198,17 +198,16 @@ class entity_manager final : public manager<entity_manager> {
         template <typename T> inline const bool delete_component(const entity e_id) {
             if(world.empty()) throw std::runtime_error("No components were created!");
 
-            bool deleted_component = false;
             auto results = world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second;) {
                 if(std::dynamic_pointer_cast<T>(it->second)) {
                     it = world.erase(it);
-                    deleted_component = true;
+                    return true;
                 } else it++;
             }
 
-            return deleted_component;
+            return false;
         };
 
         /*!
@@ -221,7 +220,7 @@ class entity_manager final : public manager<entity_manager> {
         template <typename T> inline const bool has_component(const entity e_id) const {
             if(world.empty()) throw std::runtime_error("No components were created!");
 
-            auto results = world.equal_range(e_id);
+            const auto results = world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second)) return true;
@@ -239,7 +238,7 @@ class entity_manager final : public manager<entity_manager> {
         template <typename T> inline const std::shared_ptr<T> set_component(const entity e_id) {
             if(world.empty()) throw std::runtime_error("No components were created!");
 
-            auto results = world.equal_range(e_id);
+            const auto results = world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second))
@@ -257,7 +256,7 @@ class entity_manager final : public manager<entity_manager> {
         template <typename T> inline const std::shared_ptr<const T> get_component(const entity e_id) const {
             if(world.empty()) throw std::runtime_error("No components were created!");
 
-            auto results = world.equal_range(e_id);
+            const auto results = world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second))

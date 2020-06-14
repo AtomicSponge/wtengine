@@ -174,7 +174,8 @@ void wte_demo::new_game(void) {
 
             //  Draw the stars.
             for(std::size_t i = 0; i < MAX_STARS; i++) {
-                if(wte_get_component(stars, bkg_id)->color[i] == 1 || 4)
+                if(wte_get_component(stars, bkg_id)->color[i] == 1 ||
+                   wte_get_component(stars, bkg_id)->color[i] == 4)
                     al_draw_pixel(wte_get_component(stars, bkg_id)->x[i],
                                   wte_get_component(stars, bkg_id)->y[i], WTE_COLOR_WHITE);
                 if(wte_get_component(stars, bkg_id)->color[i] == 2)

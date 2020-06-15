@@ -37,7 +37,7 @@ class animator : public component {
         inline ~animator() {};
 
         /*!
-         * Override < operator to sort by layer value.
+         * Overload < operator to sort by layer value.
          * 
          * \param a Object to compare to.
          */

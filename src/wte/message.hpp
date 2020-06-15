@@ -80,7 +80,7 @@ class message {
             timer(e), sys(s), to(t), from(f), cmd(c) { split_args(a); };
 
         /*!
-         * Override < operator to sort by timer value.
+         * Overload < operator to sort by timer value.
          * \param a Object to compare to.
          * \return True if less than, false if greater than.
          */

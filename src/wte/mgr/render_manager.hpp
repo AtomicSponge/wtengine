@@ -16,10 +16,10 @@
 #define _USE_MATH_DEFINES
 
 #include <string>
+#include <utility>
+#include <vector>
 #include <set>
 #include <iterator>
-#include <algorithm>
-#include <functional>
 #include <cmath>
 #include <stdexcept>
 
@@ -46,9 +46,6 @@ namespace mgr
 //!  Container for an entity and component pair.  Used for sorting.
 template <typename T>
 using entity_component_pair = std::pair<const entity, std::shared_ptr<const T>>;
-//!  Function wrapper used to define entity sorting.
-template <typename T>
-using render_comparator = std::function<const bool(entity_component_pair<T>, entity_component_pair<T>)>;
 
 //! render_manager class
 /*!
@@ -213,6 +210,12 @@ class render_manager final : public manager<render_manager>, private engine_time
         void render(const menu_manager&, const entity_manager&);
 
     private:
+        template <typename T> struct comparator {
+            const bool operator() (const T& a, const T& b) const {
+                return *a.second < *b.second;
+            }
+        };
+
         ALLEGRO_BITMAP* title_bmp;
         ALLEGRO_BITMAP* arena_bmp;
         ALLEGRO_BITMAP* render_tmp_bmp;
@@ -273,10 +276,6 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         al_set_target_bitmap(arena_bmp);
         al_clear_to_color(WTE_COLOR_BLACK);
 
-        auto comparator = [](auto r_element1, auto r_element2) {
-            return r_element1.second < r_element2.second;
-        };
-
         /*
          * Draw the backgrounds.
          */
@@ -284,8 +283,9 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
             world.get_components<cmp::background>();
 
         //  Sort the background layers.
-        std::set<entity_component_pair<cmp::background>, render_comparator<cmp::background>> background_componenet_set(
-            background_components.begin(), background_components.end(), comparator);
+        std::multiset<entity_component_pair<cmp::background>,
+            comparator<entity_component_pair<cmp::background>>> background_componenet_set(
+            background_components.begin(), background_components.end());
 
         //  Draw each background by layer.
         for(auto & it : background_componenet_set) {
@@ -300,8 +300,9 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
             world.get_components<cmp::sprite>();
 
         //  Sort the sprite render components.
-        std::set<entity_component_pair<cmp::sprite>, render_comparator<cmp::sprite>> sprite_componenet_set(
-            sprite_components.begin(), sprite_components.end(), comparator);
+        std::multiset<entity_component_pair<cmp::sprite>,
+            comparator<entity_component_pair<cmp::sprite>>> sprite_componenet_set(
+            sprite_components.begin(), sprite_components.end());
 
         //  Draw each sprite in order.
         for(auto & it : sprite_componenet_set) {
@@ -389,8 +390,9 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
             world.get_components<cmp::overlay>();
 
         //  Sort the overlay layers.
-        std::set<entity_component_pair<cmp::overlay>, render_comparator<cmp::overlay>> overlay_componenet_set(
-            overlay_components.begin(), overlay_components.end(), comparator);
+        std::multiset<entity_component_pair<cmp::overlay>,
+            comparator<entity_component_pair<cmp::overlay>>> overlay_componenet_set(
+            overlay_components.begin(), overlay_components.end());
 
         //  Draw each overlay by layer.
         for(auto & it : overlay_componenet_set) {

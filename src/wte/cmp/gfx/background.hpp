@@ -41,39 +41,13 @@ class background final : public animator {
          */
         inline background(const int w,
                           const int h,
-                          ALLEGRO_COLOR c,
-                          const std::size_t l) :
-        animator(l, {}) {
+                          const std::size_t l,
+                          ALLEGRO_COLOR c) : color(c),
+        animator(l, [](entity e_id, mgr::entity_manager& world, int64_t engine_time) {
+            al_set_target_bitmap(world.set_component<cmp::background>(e_id)->background_bitmap);
+            al_clear_to_color(world.get_component<cmp::background>(e_id)->color);
+        }) {
             background_bitmap = al_create_bitmap(w, h);
-            al_set_target_bitmap(background_bitmap);
-            al_clear_to_color(c);
-        };
-
-        /*!
-         * Static background, load image from file.
-         * Image is scaled to fit the background bitmap.
-         * \param w Background width.
-         * \param h Background height.
-         * \param fname File name to load.
-         * \param l Background layer.
-         * \return void
-         */
-        inline background(const int w,
-                          const int h,
-                          std::string fname,
-                          const std::size_t l) :
-        animator(l, {}) {
-            ALLEGRO_BITMAP* temp_bmp;
-            ALLEGRO_FILE* file;
-            file = al_fopen(fname.c_str(), "rb");
-            temp_bmp = al_load_bitmap_f(file, NULL);
-            al_fclose(file);
-
-            background_bitmap = al_create_bitmap(w, h);
-            al_set_target_bitmap(background_bitmap);
-            al_draw_scaled_bitmap(temp_bmp, 0, 0, al_get_bitmap_width(temp_bmp), al_get_bitmap_height(temp_bmp),
-                                  0, 0, al_get_bitmap_width(background_bitmap), al_get_bitmap_height(background_bitmap), 0);
-            al_destroy_bitmap(temp_bmp);
         };
 
         /*!
@@ -93,6 +67,19 @@ class background final : public animator {
         };
 
         /*!
+         * WIP - finish file loading
+         */
+        inline bool load_file(std::string fname) {
+            ALLEGRO_BITMAP* temp_bmp;
+            ALLEGRO_FILE* file;
+            file = al_fopen(fname.c_str(), "rb");
+            temp_bmp = al_load_bitmap_f(file, NULL);
+            al_fclose(file);
+            al_destroy_bitmap(temp_bmp);
+            return true;
+        };
+
+        /*!
          * Background destructor.
          * \param void
          * \return void
@@ -102,6 +89,7 @@ class background final : public animator {
         };
 
         ALLEGRO_BITMAP* background_bitmap;
+        ALLEGRO_COLOR color;
 };
 
 } //  namespace cmp

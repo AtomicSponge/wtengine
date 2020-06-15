@@ -17,7 +17,6 @@
 
 #include <string>
 #include <utility>
-#include <vector>
 #include <set>
 #include <iterator>
 #include <cmath>
@@ -299,7 +298,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         const const_component_container<cmp::sprite> sprite_components =
             world.get_components<cmp::sprite>();
 
-        //  Sort the sprite render components.
+        //  Sort the sprite components.
         std::multiset<entity_component_pair<cmp::sprite>,
             comparator<entity_component_pair<cmp::sprite>>> sprite_componenet_set(
             sprite_components.begin(), sprite_components.end());

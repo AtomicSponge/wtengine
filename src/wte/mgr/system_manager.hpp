@@ -73,6 +73,11 @@ class system_manager final : public manager<system_manager> {
          */
         inline void finalize(void) { finalized = true; };
 
+        /*!
+         * Check if the system manager was loaded.
+         * \param void
+         * \return True if empty, false if not.
+         */
         inline bool empty(void) { return systems.empty(); };
 
         /*!

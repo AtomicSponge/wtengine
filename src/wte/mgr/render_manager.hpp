@@ -422,7 +422,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
      * Render game menu if it's opened.
      */
     if(engine_flags::is_set(GAME_MENU_OPENED)) {
-        render_tmp_bmp = al_clone_bitmap(menus.render_menu());
+        render_tmp_bmp = al_clone_bitmap(&menus.render_menu());
         al_set_target_backbuffer(al_get_current_display());
 
         al_draw_scaled_bitmap(

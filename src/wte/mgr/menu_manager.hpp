@@ -53,7 +53,8 @@ class menu_manager final : public manager<menu_manager> {
          * \brief Menu manager constructor
          * Generates the menu manager object
          */
-        inline menu_manager() : font_size(8) {
+        inline menu_manager() :
+        menu_width(500), menu_height(400), menu_padding(32), font_size(8) {
             menus.clear();
             opened_menus = {};
         };
@@ -63,28 +64,24 @@ class menu_manager final : public manager<menu_manager> {
          * Cleans up by deleting the menu bitmaps and font
          */
         inline ~menu_manager() {
-            menus.clear();
             opened_menus = {};
+            menus.clear();
         };
 
         /*!
          * \brief Ititialize menu manager.
-         * Sets up internal menu objects.
-         * Also create the default main menu and in-game menu.
-         * \param fcolor Allegro color to use for font.
-         * \param bgcolor Allegro color to use for background.
+         * Sets up internal menu objects.  Called during engine initialization.
+         * Also creates the default main menu and in-game menu.
+         * \param void
          * \return void
          */
-        inline void initialize(ALLEGRO_COLOR fcolor, ALLEGRO_COLOR bgcolor) {
+        inline void initialize(void) {
             if(menu_font_file.empty()) menu_font = al_create_builtin_font();
             else {
                 menu_font = al_load_font(menu_font_file.c_str(), menu_font_size, menu_font_flags);
                 if(!menu_font) menu_font = al_create_builtin_font();
             }
             if(!menu_font) throw std::runtime_error("Unable to set font for menus!");
-
-            menu_font_color = fcolor;
-            menu_bg_color = bgcolor;
 
             //  Create the main menu
             mnu::menu temp_main_menu = mnu::menu("main_menu", "Main Menu");
@@ -97,10 +94,10 @@ class menu_manager final : public manager<menu_manager> {
             font_size = al_get_font_line_height(menu_font);
 
             cursor_bitmap = al_create_bitmap(font_size, font_size);
-            al_set_target_bitmap(cursor_bitmap);
-            al_clear_to_color(menu_font_color);
 
+            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             menu_bitmap = al_create_bitmap(menu_width, menu_height);
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
         };
 
         /*!
@@ -117,17 +114,36 @@ class menu_manager final : public manager<menu_manager> {
 
         /*!
          * \brief Set menu size.
-         * This should be called during engine initialization before the main object is created.
+         * Call during menu creation.
          * If not called the default size of 500x400 padding 32 is used.
          * \param mw Menu width in pixels.
          * \param mh Menu height in pixels.
          * \param mp Menu padding in pixels.
          * \return void
          */
-        inline static void set_menu_size(const float mw, const float mh, const float mp) {
+        inline void set_menu_size(const float mw, const float mh, const float mp) {
             menu_width = mw;
             menu_height = mh;
             menu_padding = mp;
+
+            al_destroy_bitmap(menu_bitmap);
+            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+            menu_bitmap = al_create_bitmap(menu_width, menu_height);
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+        };
+
+        /*!
+         * \brief Set menu colors.
+         * Call during menu creation.
+         * \param fcolor Allegro color to use for font.
+         * \param bgcolor Allegro color to use for background.
+         */
+        inline void set_menu_color(ALLEGRO_COLOR fcolor, ALLEGRO_COLOR bgcolor) {
+            menu_font_color = fcolor;
+            menu_bg_color = bgcolor;
+
+            al_set_target_bitmap(cursor_bitmap);
+            al_clear_to_color(menu_font_color);
         };
 
         /*!
@@ -249,7 +265,7 @@ class menu_manager final : public manager<menu_manager> {
         };
 
         void run(message_manager&);
-        ALLEGRO_BITMAP* render_menu(void) const;
+        ALLEGRO_BITMAP& render_menu(void) const;
 
     private:
         mnu::menu_item_citerator menu_position;
@@ -264,8 +280,8 @@ class menu_manager final : public manager<menu_manager> {
         std::stack<menu_csptr> opened_menus;
 
         int font_size;
+        float menu_width, menu_height, menu_padding;
 
-        inline static float menu_width = 500, menu_height = 400, menu_padding = 32;
         inline static std::string menu_font_file = "";
         inline static int menu_font_size = 0;
         inline static int menu_font_flags = 0;
@@ -307,6 +323,7 @@ inline void menu_manager::run(message_manager& messages) {
         (*menu_position)->on_right(input_flags::is_set(INPUT_MENU_ALT));
     }
 
+    //  Menu item was selected, process what happens.
     if(input_flags::is_set(INPUT_MENU_SELECT) && menu_position != opened_menus.top()->items_end()) {
         input_flags::unset(INPUT_MENU_SELECT);
         message temp_msg = (*menu_position)->on_select();
@@ -387,14 +404,14 @@ inline void menu_manager::run(message_manager& messages) {
  * \param void
  * \return The menu bitmap.
  */
-inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
+inline ALLEGRO_BITMAP& menu_manager::render_menu(void) const {
     //  Set drawing to the menu bitmap.
     al_set_target_bitmap(menu_bitmap);
     al_clear_to_color(menu_bg_color);
 
     //  If the menu stack is empty then the run member hasn't been called yet.
     //  Return a blank bitmap for now.
-    if(opened_menus.empty()) return menu_bitmap;
+    if(opened_menus.empty()) return *menu_bitmap;
 
     //  Render menu title.
     al_draw_text(menu_font, menu_font_color, menu_width / 2, menu_padding,
@@ -419,7 +436,7 @@ inline ALLEGRO_BITMAP* menu_manager::render_menu(void) const {
     //  Render menu cursor.
     if(opened_menus.top()->num_items() != 0) al_draw_bitmap(cursor_bitmap, menu_padding, cursor_pos, 0);
 
-    return menu_bitmap;
+    return *menu_bitmap;
 }
 
 }  // end namespace mgr

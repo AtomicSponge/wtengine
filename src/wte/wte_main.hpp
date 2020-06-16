@@ -75,7 +75,7 @@ class wte_main {
         inline void wte_load(void) {
             //  Initialize managers that require it.
             screen.initialize();
-            menus.initialize(WTE_COLOR_WHITE, WTE_COLOR_DARKPURPLE);
+            menus.initialize();
             audio_th.initialize();
 
             //  Start the input & audio threads.

@@ -1,16 +1,16 @@
 /*!
- * \brief WTEngine | File:  menu_item_setting.hpp
+ * \brief WTEngine | File:  menu_item_selection.hpp
  * \author Matthew Evans
  *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
  *
- * \details Setting menu item.
+ * \details Selection menu item.
  */
 
-#ifndef WTE_MENU_MENU_ITEM_SETTING_HPP
-#define WTE_MENU_MENU_ITEM_SETTING_HPP
+#ifndef WTE_MENU_MENU_ITEM_SELECTION_HPP
+#define WTE_MENU_MENU_ITEM_SELECTION_HPP
 
 #include <string>
 #include <vector>
@@ -30,17 +30,18 @@ namespace mnu
 //!
 /*!
 */
-class menu_item_setting final : public menu_item {
+class menu_item_selection final : public menu_item {
     public:
         /*!
          * Description
          * \param void
          * \return void
          */
-        inline menu_item_setting(const std::string l,
+        inline menu_item_selection(const std::string l,
                                  const std::string vr,
+                                 const std::vector<std::string> vl,
                                  const bool is_engine_set) :
-        menu_item(l), var(vr), is_eng_setting(is_engine_set) {
+        menu_item(l), var(vr), vals(vl), is_eng_setting(is_engine_set) {
             current_val = vals.begin();
             default_val = current_val;
         };
@@ -50,7 +51,7 @@ class menu_item_setting final : public menu_item {
          * \param void
          * \return void
          */
-        inline ~menu_item_setting() {};
+        inline ~menu_item_selection() {};
 
         /*!
          * Description
@@ -58,7 +59,7 @@ class menu_item_setting final : public menu_item {
          * \return void
          */
         inline void on_left(bool alt_trigger) override {
-            //
+            if(current_val != vals.begin()) current_val--;
         };
 
         /*!
@@ -67,7 +68,8 @@ class menu_item_setting final : public menu_item {
          * \return void
          */
         inline void on_right(bool alt_trigger) override {
-            //
+            if(current_val != vals.end()) current_val++;
+            if(current_val == vals.end()) current_val--;
         };
 
         /*!
@@ -76,7 +78,7 @@ class menu_item_setting final : public menu_item {
          * \return void
          */
         inline const std::vector<std::string> get_text(void) override {
-            return {};
+            return { get_label(), "< " + *current_val + " >" };
         };
 
         /*!
@@ -84,7 +86,7 @@ class menu_item_setting final : public menu_item {
          * \param void
          * \return void
          */
-        inline void reset_to_default(void) override {};
+        inline void reset_to_default(void) override { current_val = default_val; };
 
         /*!
          * Description
@@ -92,7 +94,10 @@ class menu_item_setting final : public menu_item {
          * \return void
          */
         inline void set_default(void) override {
-            //
+            if(is_eng_setting) current_val = std::find(std::begin(vals), std::end(vals), engine_cfg::get(var));
+            else current_val = std::find(std::begin(vals), std::end(vals), game_cfg::get(var));
+            if(current_val == vals.end()) current_val = vals.begin();
+            default_val = current_val;
         };
 
         /*!
@@ -100,7 +105,7 @@ class menu_item_setting final : public menu_item {
          * \param void
          * \return void
          */
-        inline const std::string get_setting(void) { return ""; };
+        inline const std::string get_setting(void) { return var + "=" + *current_val; };
 
         /*!
          * Description
@@ -112,9 +117,9 @@ class menu_item_setting final : public menu_item {
     private:
         bool is_eng_setting;
         std::string var;
-        //std::vector<std::string> vals;
-        //std::vector<std::string>::const_iterator current_val;
-        //std::vector<std::string>::const_iterator default_val;
+        std::vector<std::string> vals;
+        std::vector<std::string>::const_iterator current_val;
+        std::vector<std::string>::const_iterator default_val;
 };
 
 }  // end namespace mnu

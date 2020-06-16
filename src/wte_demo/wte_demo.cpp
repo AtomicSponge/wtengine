@@ -59,7 +59,7 @@ void wte_demo::load_menus(void) {
     //  First set colors used by the menu.
     menus.set_menu_color(WTE_COLOR_WHITE, WTE_COLOR_DARKPURPLE);
     //  You can also set menu size here.  If not the default size is used.
-    //menus.set_menu_size(100, 100, 10);
+    //menus.set_menu_size(200, 200, 10);
 
     //  Configure the root main menu and game menu.
     {

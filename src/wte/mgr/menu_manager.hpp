@@ -53,7 +53,7 @@ class menu_manager final : public manager<menu_manager> {
          * \brief Menu manager constructor
          * Generates the menu manager object
          */
-        inline menu_manager() : menu_width(340.0), menu_height(240.0), menu_padding(20.0), font_size(8) {
+        inline menu_manager() : font_size(8) {
             menus.clear();
             opened_menus = {};
         };
@@ -115,9 +115,20 @@ class menu_manager final : public manager<menu_manager> {
             al_destroy_font(menu_font);
         };
 
-        inline void set_width(const float mw) { menu_width = mw; };
-        inline void set_height(const float mh) { menu_height = mh; };
-        inline void set_padding(const float mp) { menu_padding = mp; };
+        /*!
+         * \brief Set menu size.
+         * This should be called during engine initialization before the main object is created.
+         * If not called the default size of 500x400 padding 32 is used.
+         * \param mw Menu width in pixels.
+         * \param mh Menu height in pixels.
+         * \param mp Menu padding in pixels.
+         * \return void
+         */
+        inline static void set_menu_size(const float mw, const float mh, const float mp) {
+            menu_width = mw;
+            menu_height = mh;
+            menu_padding = mp;
+        };
 
         /*!
          * Add a menu to the menu vector.
@@ -242,9 +253,9 @@ class menu_manager final : public manager<menu_manager> {
         std::vector<menu_sptr> menus;
         std::stack<menu_csptr> opened_menus;
 
-        float menu_width, menu_height, menu_padding;
         int font_size;
 
+        inline static float menu_width = 500, menu_height = 400, menu_padding = 32;
         inline static std::string menu_font_file = "";
         inline static int menu_font_size = 0;
         inline static int menu_font_flags = 0;

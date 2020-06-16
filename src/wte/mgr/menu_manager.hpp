@@ -276,7 +276,7 @@ template <> inline bool menu_manager::manager<menu_manager>::initialized = false
 /*!
  * \brief Run the menu manager.
  * Adds a menu to the stack if none are opened, then processes the menus.
- * \param messages Reference to message manager.
+ * \param messages Reference to the message manager.
  * \return void
  */
 inline void menu_manager::run(message_manager& messages) {

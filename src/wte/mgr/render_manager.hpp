@@ -358,8 +358,8 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         #if WTE_DEBUG_MODE == 3 || WTE_DEBUG_MODE == 9
         for(auto & it : sprite_componenet_set) {
             //  Make sure the entity has a hitbox and is enabled.
-            if((world.has_component<cmp::hitbox>(it.first)) &&
-                (world.get_component<cmp::enabled>(it.first)->is_enabled)) {
+            if(world.has_component<cmp::hitbox>(it.first) &&
+               world.get_component<cmp::enabled>(it.first)->is_enabled) {
                 //  Select color based on team.
                 ALLEGRO_COLOR team_color;
                 switch(world.get_component<cmp::team>(it.first)->this_team) {

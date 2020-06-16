@@ -16,7 +16,6 @@
 #include <vector>
 #include <iterator>
 #include <memory>
-#include <stdexcept>
 
 #include "manager.hpp"
 #include "../sys/system.hpp"
@@ -65,6 +64,8 @@ class system_manager final : public manager<system_manager> {
          */
         inline void finalize(void) { finalized = true; };
 
+        inline bool empty(void) { return systems.empty(); };
+
         /*!
          * \brief Add a new system to the manager.
          * Checks to see if a similar named system is already loaded.
@@ -94,8 +95,6 @@ class system_manager final : public manager<system_manager> {
          * \return void
          */
         inline void run(entity_manager& entities, mgr::message_manager& messages, int64_t current_time) {
-            if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
-
             for(auto & it : systems) {
                 if((it)->is_enabled()) (it)->run(entities, messages, current_time);
             }
@@ -110,8 +109,6 @@ class system_manager final : public manager<system_manager> {
          * \return void
          */
         inline void dispatch(entity_manager& entities, mgr::message_manager& messages) {
-            if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
-
             for(auto & it : systems) {
                 (it)->dispatch(entities, messages.get_messages((it)->get_name()));
             }
@@ -124,8 +121,6 @@ class system_manager final : public manager<system_manager> {
          * \return True if the system was found, false if it was not.
          */
         inline const bool enable_system(std:: string sys) {
-            if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
-
             for(auto & it : systems) {
                 if((it)->get_name() == sys) (it)->enable();
                 return true;
@@ -141,8 +136,6 @@ class system_manager final : public manager<system_manager> {
          * \return True if the system was found, false if it was not
          */
         inline const bool disable_system(std:: string sys) {
-            if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
-
             for(auto & it : systems) {
                 if((it)->get_name() == sys) (it)->disable();
                 return true;

@@ -324,6 +324,7 @@ inline void wte_main::process_new_game(void) {
     //  Load systems and prevent further systems from being loaded.
     load_systems();
     systems.finalize();
+    if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
 
     //  Clear world and load starting entities.
     world.clear();

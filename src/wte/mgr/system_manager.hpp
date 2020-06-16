@@ -66,7 +66,7 @@ class system_manager final : public manager<system_manager> {
         };
 
         /*!
-         * \brief Finalize system manager
+         * \brief Finalize system manager.
          * Set finalized flag to prevent additional systems from being loaded.
          * \param void
          * \return void

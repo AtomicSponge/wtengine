@@ -39,14 +39,14 @@ class input : public system {
                         mgr::message_manager& messages,
                         const int64_t current_time) override {
             //  Find the entities with the input handler component
-            input_components = world.set_components<cmp::input_handler>();
+            input_components = world.get_components<cmp::input_handler>();
 
             //  Run custom input handler
             custom_run(world, messages);
         }
 
     protected:
-        component_container<cmp::input_handler> input_components;
+        const_component_container<cmp::input_handler> input_components;
         //!  Override this to implement input handling
         virtual void custom_run(mgr::entity_manager&, mgr::message_manager&) = 0;
 };

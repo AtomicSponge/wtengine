@@ -28,17 +28,27 @@ namespace sys
 class logic final : public system {
     public:
         /*!
-         * ...
+         * Logic System constructor.
+         * \param void
+         * \return void
          */
         inline logic() : system("logic") {};
 
         /*!
-         * ...
+         * Logic System destructor.
+         * \param void
+         * \return void
          */
         inline ~logic() {};
 
         /*!
-         * Finds all entities with an ai component and processes their logic
+         * \brief Logic system run.
+         * Finds all entities with an ai component and processes their logic.
+         * entities Reference to entity manager.
+         * \param world Reference to the entity manager.
+         * \param messages Reference to the message manager.
+         * \param current_time Current engine time.
+         * \return void
          */
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
@@ -49,13 +59,20 @@ class logic final : public system {
             for(auto & it : ai_components) {
                 it.second->run(it.first, world, messages, current_time);
             }
-        }
+        };
 
         /*!
-         * Get logic messages for processing
+         * \brief Get logic messages for processing.
+         * Sends messages to each entity with a dispatcher component.
+         * \param world Reference to the entity manager.
+         * \param messages Reference to the message manager.
+         * \return void
          */
-        inline void dispatch(mgr::entity_manager& world, message_container messages) override {
-            component_container<cmp::dispatcher> dispatch_components = world.set_components<cmp::dispatcher>();
+        inline void dispatch(mgr::entity_manager& world,
+                             message_container messages) override {
+            //  Get the dispatch componenets.
+            component_container<cmp::dispatcher> dispatch_components =
+                world.set_components<cmp::dispatcher>();
 
             for(auto & it : dispatch_components) {
                 for(auto m_it = messages.begin(); m_it != messages.end();) {

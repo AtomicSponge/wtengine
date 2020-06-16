@@ -29,14 +29,21 @@ class colision final : public system {
         inline colision() : system("colision") {};
         inline ~colision() {};
 
-        //!  Allow the colision system to be disabled
+        /*!
+         * Allow the colision system to be disabled.
+         * \param void
+         * \return void
+         */
         inline void disable(void) override { enabled = false; };
 
         /*!
-         * Overrides virtual run member inherited from system object
-         * Selects components by team, then tests each team to see if there is a colision
-         * Verifies there is a location and hitbox component when testing
-         * Also verifies the entity is enabled and the entity being hit is solid
+         * \brief Colision system run.
+         * Overrides virtual run member inherited from system object.
+         * Selects components by team, then tests each team to see if there is a colision.
+         * \param world Reference to the entity manager.
+         * \param messages Reference to the message manager.
+         * \param current_time Current engine time.
+         * \return void
          */
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,

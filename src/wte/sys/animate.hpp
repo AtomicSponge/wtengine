@@ -30,7 +30,12 @@ class animate final : public system {
         inline ~animate() {};
 
         /*!
-         * Animate system run
+         * \brief Animate system run.
+         * Gets all animation components and processes their run members.
+         * \param world Reference to the entity manager.
+         * \param messages Reference to the message manager.
+         * \param current_time Current engine time.
+         * \return void
          */
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,

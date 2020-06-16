@@ -74,7 +74,7 @@ class system_manager final : public manager<system_manager> {
         inline void finalize(void) { finalized = true; };
 
         /*!
-         * Check if the system manager was loaded.
+         * Check if systems were loaded into the manager.
          * \param void
          * \return True if empty, false if not.
          */
@@ -102,8 +102,8 @@ class system_manager final : public manager<system_manager> {
          * \brief Run all systems.
          * Iterate through the system vector and run each.
          * Throw error if no systems have been loaded.
-         * \param entities Reference to entity manager.
-         * \param messages Reference to message manager.
+         * \param entities Reference to the entity manager.
+         * \param messages Reference to the message manager.
          * \param current_time Current engine time.
          * \return void
          */

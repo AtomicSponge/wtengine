@@ -91,7 +91,8 @@ class system_manager final : public manager<system_manager> {
         inline bool add(sys::system_uptr new_system) {
             if(finalized == true) return false;
 
-            for(auto & it : systems) if((it)->get_name() == new_system->get_name()) return false;
+            for(auto & it : systems)
+                if((it)->get_name() == new_system->get_name()) return false;
 
             systems.push_back(std::move(new_system));
             return true;

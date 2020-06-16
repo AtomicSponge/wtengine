@@ -48,14 +48,14 @@ class menu_item {
          * \param void
          * \return void
          */
-        inline virtual void on_left(void) {};
+        inline virtual void on_left(bool alt_trigger) {};
 
         /*!
          * Define right click process.
          * \param void
          * \return void
          */
-        inline virtual void on_right(void) {};
+        inline virtual void on_right(bool alt_trigger) {};
 
         /*!
          * Define selection process.

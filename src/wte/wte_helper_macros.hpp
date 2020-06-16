@@ -59,10 +59,10 @@
 #define wte_menu_apply(...) (std::make_shared<mnu::menu_item_apply>(__VA_ARGS__))
 
 /*!
- * \def wte_menu_setting(...)
+ * \def wte_menu_selection(...)
  * Create a new menu setting item.
  */
-#define wte_menu_setting(...) (std::make_shared<mnu::menu_item_setting>(__VA_ARGS__))
+#define wte_menu_selection(...) (std::make_shared<mnu::menu_item_selection>(__VA_ARGS__))
 
 /*!
  * \def wte_menu_toggle(...)

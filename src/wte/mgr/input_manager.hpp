@@ -102,6 +102,14 @@ inline void input_manager::run(void) {
                     case ALLEGRO_KEY_D:
                         input_flags::set(INPUT_RIGHT);
                         break;
+                    case ALLEGRO_KEY_LCTRL:
+                    case ALLEGRO_KEY_RCTRL:
+                    case ALLEGRO_KEY_ALT:
+                    case ALLEGRO_KEY_ALTGR:
+                    case ALLEGRO_KEY_LSHIFT:
+                    case ALLEGRO_KEY_RSHIFT:
+                        input_flags::set(INPUT_MENU_ALT);
+                        break;
                     case ALLEGRO_KEY_SPACE:
                     case ALLEGRO_KEY_ENTER:
                         input_flags::set(INPUT_MENU_SELECT);
@@ -113,6 +121,38 @@ inline void input_manager::run(void) {
                         break;
                 } //  End switch(input_event.keyboard.keycode)
             } //  End if(input_event.type == ALLEGRO_EVENT_KEY_DOWN)
+            if(input_event.type == ALLEGRO_EVENT_KEY_UP) {
+                switch(input_event.keyboard.keycode) {
+                    case ALLEGRO_KEY_UP:
+                    case ALLEGRO_KEY_W:
+                        input_flags::unset(INPUT_UP);
+                        break;
+                    case ALLEGRO_KEY_DOWN:
+                    case ALLEGRO_KEY_S:
+                        input_flags::unset(INPUT_DOWN);
+                        break;
+                    case ALLEGRO_KEY_LEFT:
+                    case ALLEGRO_KEY_A:
+                        input_flags::unset(INPUT_LEFT);
+                        break;
+                    case ALLEGRO_KEY_RIGHT:
+                    case ALLEGRO_KEY_D:
+                        input_flags::unset(INPUT_RIGHT);
+                        break;
+                    case ALLEGRO_KEY_LCTRL:
+                    case ALLEGRO_KEY_RCTRL:
+                    case ALLEGRO_KEY_ALT:
+                    case ALLEGRO_KEY_ALTGR:
+                    case ALLEGRO_KEY_LSHIFT:
+                    case ALLEGRO_KEY_RSHIFT:
+                        input_flags::unset(INPUT_MENU_ALT);
+                        break;
+                    case ALLEGRO_KEY_SPACE:
+                    case ALLEGRO_KEY_ENTER:
+                        input_flags::unset(INPUT_MENU_SELECT);
+                        break;
+                } //  End switch(input_event.keyboard.keycode)
+            } //  End if(input_event.type == ALLEGRO_EVENT_KEY_UP)
 
             /* *** Joystick events *** */
             if(input_event.type == ALLEGRO_EVENT_JOYSTICK_AXIS) {

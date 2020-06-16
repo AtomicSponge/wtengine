@@ -1,5 +1,5 @@
 /*!
- * \brief WTEngine | File:  menu_item_setting.hpp
+ * \brief WTEngine | File:  menu_item_selection.hpp
  * \author Matthew Evans
  *
  * \version 0.1a
@@ -9,8 +9,8 @@
  * \details Setting menu item.
  */
 
-#ifndef WTE_MENU_MENU_ITEM_SETTING_HPP
-#define WTE_MENU_MENU_ITEM_SETTING_HPP
+#ifndef WTE_MENU_MENU_ITEM_SELECTION_HPP
+#define WTE_MENU_MENU_ITEM_SELECTION_HPP
 
 #include <string>
 #include <vector>
@@ -30,14 +30,14 @@ namespace mnu
 //!
 /*!
 */
-class menu_item_setting final : public menu_item {
+class menu_item_selection final : public menu_item {
     public:
         /*!
          * Description
          * \param void
          * \return void
          */
-        inline menu_item_setting(const std::string l,
+        inline menu_item_selection(const std::string l,
                                  const std::string vr,
                                  const std::vector<std::string> vl,
                                  const bool is_engine_set) :
@@ -51,21 +51,23 @@ class menu_item_setting final : public menu_item {
          * \param void
          * \return void
          */
-        inline ~menu_item_setting() {};
+        inline ~menu_item_selection() {};
 
         /*!
          * Description
          * \param void
          * \return void
          */
-        inline void on_left(void) override { if(current_val != vals.begin()) current_val--; };
+        inline void on_left(bool alt_trigger) override {
+            if(current_val != vals.begin()) current_val--;
+        };
 
         /*!
          * Description
          * \param void
          * \return void
          */
-        inline void on_right(void) override {
+        inline void on_right(bool alt_trigger) override {
             if(current_val != vals.end()) current_val++;
             if(current_val == vals.end()) current_val--;
         };
@@ -75,7 +77,9 @@ class menu_item_setting final : public menu_item {
          * \param void
          * \return void
          */
-        inline const std::vector<std::string> get_text(void) override { return { get_label(), "< " + *current_val + " >" }; };
+        inline const std::vector<std::string> get_text(void) override {
+            return { get_label(), "< " + *current_val + " >" };
+        };
 
         /*!
          * Description

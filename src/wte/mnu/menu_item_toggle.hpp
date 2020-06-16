@@ -57,14 +57,14 @@ class menu_item_toggle final : public menu_item {
          * \param void
          * \return void
          */
-        inline void on_left(void) override { toggled = true; };
+        inline void on_left(bool alt_trigger) override { toggled = true; };
 
         /*!
          * Description
          * \param void
          * \return void
          */
-        inline void on_right(void) override { toggled = false; };
+        inline void on_right(bool alt_trigger) override { toggled = false; };
 
         /*!
          * Description

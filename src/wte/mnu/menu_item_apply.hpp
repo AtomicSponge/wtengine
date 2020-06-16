@@ -23,49 +23,53 @@ namespace wte
 namespace mnu
 {
 
-//!
+//!  Menu Item Apply class.
 /*!
- *
+ * An apply option for the menus.
  */
 class menu_item_apply final : public menu_item {
     public:
         /*!
-         * Description
+         * Menu Item Apply constructor.
          * \param void
          * \return void
          */
         inline menu_item_apply() : menu_item("applier"), cmd("cancel") {};
 
         /*!
-         * Description
+         * Menu Item Apply destructor.
          * \param void
          * \return void
          */
         inline ~menu_item_apply() {};
 
         /*!
-         * Description
+         * \brief On left trigger.
+         * Set the apply item to cancel.
          * \param void
          * \return void
          */
-        inline void on_left(void) override { cmd = "cancel"; };
+        inline void on_left(bool alt_trigger) override { cmd = "cancel"; };
 
         /*!
-         * Description
+         * \brief On right trigger.
+         * Set the apply item to apply.
          * \param void
          * \return void
          */
-        inline void on_right(void) override { cmd = "apply"; };
+        inline void on_right(bool alt_trigger) override { cmd = "apply"; };
 
         /*!
-         * Description
+         * \brief On select trigger.
+         * Return the status of the apply item.
          * \param void
-         * \return void
+         * \return A message object.
          */
         inline const message on_select(void) override { return message("menu", cmd, ""); };
 
         /*!
-         * Description
+         * \brief Get menu item text.
+         * Return the display status of the apply item.
          * \param void
          * \return void
          */
@@ -75,14 +79,16 @@ class menu_item_apply final : public menu_item {
         };
 
         /*!
-         * Description
+         * \brief Reset to default trigger.
+         * Reset the apply item to the cancel state.
          * \param void
          * \return void
          */
         inline void reset_to_default(void) override { cmd = "cancel"; };
 
         /*!
-         * Description
+         * \brief Set to default trigger.
+         * Reset the apply item to the cancel state.
          * \param void
          * \return void
          */

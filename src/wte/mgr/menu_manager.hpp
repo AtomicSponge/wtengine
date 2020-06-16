@@ -288,37 +288,47 @@ inline void menu_manager::run(message_manager& messages) {
 
     //  Iterate through the menu items depending on key press.
     if(input_flags::is_set(INPUT_UP) && menu_position != opened_menus.top()->items_begin()) {
+        input_flags::unset(INPUT_UP);
         menu_position--;
     }
     if(input_flags::is_set(INPUT_DOWN) && menu_position != opened_menus.top()->items_end()) {
+        input_flags::unset(INPUT_DOWN);
         menu_position++;
         if(menu_position == opened_menus.top()->items_end()) menu_position--;
     }
 
-    if(input_flags::is_set(INPUT_LEFT) && menu_position != opened_menus.top()->items_end())
-        (*menu_position)->on_left();
-    if(input_flags::is_set(INPUT_RIGHT) && menu_position != opened_menus.top()->items_end())
-        (*menu_position)->on_right();
+    //  Switch through the menu item depending on key press.
+    if(input_flags::is_set(INPUT_LEFT) && menu_position != opened_menus.top()->items_end()) {
+        input_flags::unset(INPUT_LEFT);
+        (*menu_position)->on_left(input_flags::is_set(INPUT_MENU_ALT));
+    }
+    if(input_flags::is_set(INPUT_RIGHT) && menu_position != opened_menus.top()->items_end()) {
+        input_flags::unset(INPUT_RIGHT);
+        (*menu_position)->on_right(input_flags::is_set(INPUT_MENU_ALT));
+    }
 
     if(input_flags::is_set(INPUT_MENU_SELECT) && menu_position != opened_menus.top()->items_end()) {
+        input_flags::unset(INPUT_MENU_SELECT);
         message temp_msg = (*menu_position)->on_select();
-        //  Check if the message is for the menu system and process.
+        /* *** Check if the message is for the menu system and process. ********* */
         if(temp_msg.get_sys() == "menu") {
+
+            /* *** MENU APPLY ACTION ********* */
             if(temp_msg.get_cmd() == "apply") {
                 //  Do apply.  Go through menu items, find all actionable menu objects and process.
                 std::string eng_settings_string = "";
                 std::string game_settings_string = "";
 
                 for(auto it = opened_menus.top()->items_cbegin(); it != opened_menus.top()->items_cend(); it++) {
-                    //  Process menu setting objects.
-                    if(std::dynamic_pointer_cast<mnu::menu_item_setting>(*it)) {
-                        //  See if the setting is a game or engine setting, add to correct string.
-                        if(std::static_pointer_cast<mnu::menu_item_setting>(*it)->is_engine_setting()) {
+                    //  Process menu selection objects.
+                    if(std::dynamic_pointer_cast<mnu::menu_item_selection>(*it)) {
+                        //  See if the selection is a game or engine setting, add to correct string.
+                        if(std::static_pointer_cast<mnu::menu_item_selection>(*it)->is_engine_setting()) {
                             if(!eng_settings_string.empty()) eng_settings_string += ";";
-                            eng_settings_string += std::static_pointer_cast<mnu::menu_item_setting>(*it)->get_setting();
+                            eng_settings_string += std::static_pointer_cast<mnu::menu_item_selection>(*it)->get_setting();
                         } else {
                             if(!game_settings_string.empty()) game_settings_string += ";";
-                            game_settings_string += std::static_pointer_cast<mnu::menu_item_setting>(*it)->get_setting();
+                            game_settings_string += std::static_pointer_cast<mnu::menu_item_selection>(*it)->get_setting();
                         }
                     }
 
@@ -343,21 +353,32 @@ inline void menu_manager::run(message_manager& messages) {
                 if(!game_settings_string.empty()) {
                     messages.add_message(message("system", "set_gamecfg", game_settings_string));
                 }
+
+                //  Reset the apply item.
+                for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
+                    if(std::dynamic_pointer_cast<mnu::menu_item_apply>(*it)) (*it)->reset_to_default();
+                }
             }
+            /* *** END MENU APPLY ACTION ********* */
+
+            /* *** MENU CANCEL ACTION ********* */
             if(temp_msg.get_cmd() == "cancel") {
                 //  Do cancel.  Go through menu items, reset menu settings objects to their defaults.
                 for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
                     (*it)->reset_to_default();
                 }
             }
-        }  //  End menu messages.
+            /* *** END MENU CANCEL ACTION ********* */
+        }
+        /* *** End menu messages. ********* */
         //  If not for the menu system, add to the message queue.
         else if(temp_msg.get_cmd() != "null") messages.add_message(temp_msg);
     }
 
-    if(input_flags::is_set(INPUT_MENU_CLOSE)) reset();
-
-    input_flags::unset_all();
+    if(input_flags::is_set(INPUT_MENU_CLOSE)) {
+        input_flags::unset(INPUT_MENU_CLOSE);
+        reset();
+    }
 }
 
 /*!

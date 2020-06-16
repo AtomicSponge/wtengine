@@ -33,17 +33,26 @@ typedef std::vector<sys::system_uptr>::iterator system_iterator;
 //!  Constant iterator for addressing systems.
 typedef std::vector<sys::system_uptr>::const_iterator system_citerator;
 
-//! system_manager class
+//! System Manager class
 /*!
- * Store the configured systems and process their runs and dispatches
+ * Store the configured systems and process their runs and dispatches.
  */
 class system_manager final : public manager<system_manager> {
     public:
-        //!  System Manager constructor
-        //!  Clears the systems vector and sets the finalized flag to false
+        /*!
+         * System Manager constructor.
+         * Clears the systems vector and sets the finalized flag to false.
+         * \param void
+         * \return void
+         */
         inline system_manager() : finalized(false) { systems.clear(); };
-        //!  System Manager destructor
-        //!  Makes sure the systems are cleared
+
+        /*!
+         * System Manager destructor.
+         * Makes sure the systems are cleared.
+         * \param void
+         * \return void
+         */
         inline ~system_manager() { systems.clear(); };
 
         /*!
@@ -68,18 +77,16 @@ class system_manager final : public manager<system_manager> {
 
         /*!
          * \brief Add a new system to the manager.
-         * Checks to see if a similar named system is already loaded.
          * Enters system into the vector of systems if not.
          * Systems run in the order they were added.
+         * Can fail if the system exists or if the game is running.
          * \param new_system System to add.
-         * \return True if added, false if not.  Can fail if the system exists or if the game is running.
+         * \return True if added, false if not.
          */
         inline bool add(sys::system_uptr new_system) {
             if(finalized == true) return false;
 
-            for(auto & it : systems) {
-                if((it)->get_name() == new_system->get_name()) return false;
-            }
+            for(auto & it : systems) if((it)->get_name() == new_system->get_name()) return false;
 
             systems.push_back(std::move(new_system));
             return true;
@@ -94,10 +101,11 @@ class system_manager final : public manager<system_manager> {
          * \param current_time Current engine time.
          * \return void
          */
-        inline void run(entity_manager& entities, mgr::message_manager& messages, int64_t current_time) {
-            for(auto & it : systems) {
+        inline void run(entity_manager& entities,
+                        mgr::message_manager& messages,
+                        int64_t current_time) {
+            for(auto & it : systems)
                 if((it)->is_enabled()) (it)->run(entities, messages, current_time);
-            }
         };
 
         /*!
@@ -108,7 +116,8 @@ class system_manager final : public manager<system_manager> {
          * \param messages Reference to message manager.
          * \return void
          */
-        inline void dispatch(entity_manager& entities, mgr::message_manager& messages) {
+        inline void dispatch(entity_manager& entities,
+                             mgr::message_manager& messages) {
             for(auto & it : systems) {
                 (it)->dispatch(entities, messages.get_messages((it)->get_name()));
             }

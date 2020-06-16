@@ -131,6 +131,22 @@ class menu_manager final : public manager<menu_manager> {
         };
 
         /*!
+         * \brief Set the font to be used by the menus.
+         * If not called, Allegro's default font will be used.
+         * This should be called during engine initialization before the main object is created.
+         * See the Allegro docs for more information on al_load_font and the parameters used.
+         * \param fname Filename to use.
+         * \param size Font size.
+         * \param flags Font flags.
+         * \return void
+         */
+        inline static void set_font_file(const std::string fname, const int size, const int flags) {
+            menu_font_file = fname;
+            menu_font_size = size;
+            menu_font_flags = flags;
+        };
+
+        /*!
          * Add a menu to the menu vector.
          * \param new_menu A menu object.
          * \return Returns false if a menu with a similar ID already exists.  Returns true on success.
@@ -230,12 +246,6 @@ class menu_manager final : public manager<menu_manager> {
             opened_menus.pop();
             if(opened_menus.empty()) engine_flags::unset(GAME_MENU_OPENED);
             else menu_position = opened_menus.top()->items_begin();
-        };
-
-        inline static void set_font_file(const std::string fname, const int size, const int flags) {
-            menu_font_file = fname;
-            menu_font_size = size;
-            menu_font_flags = flags;
         };
 
         void run(message_manager&);

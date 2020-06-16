@@ -47,7 +47,7 @@ class logic final : public system {
             component_container<cmp::ai> ai_components = world.set_components<cmp::ai>();
 
             for(auto & it : ai_components) {
-                std::static_pointer_cast<cmp::ai>(it.second)->run(it.first, world, messages, current_time);
+                it.second->run(it.first, world, messages, current_time);
             }
         }
 

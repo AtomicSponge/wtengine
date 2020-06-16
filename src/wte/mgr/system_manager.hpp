@@ -47,103 +47,116 @@ class system_manager final : public manager<system_manager> {
         //!  Makes sure the systems are cleared
         inline ~system_manager() { systems.clear(); };
 
-        //!  Clear the system manager and allow systems to be loaded again
+        /*!
+         * Clear the system manager and allow systems to be loaded again.
+         * \param void
+         * \return void
+         */
         inline void clear(void) {
             systems.clear();
             finalized = false;
         };
 
-        //!  Finalize system manager
-        //!  Set finalized flag to prevent additional systems from being loaded
+        /*!
+         * \brief Finalize system manager
+         * Set finalized flag to prevent additional systems from being loaded.
+         * \param void
+         * \return void
+         */
         inline void finalize(void) { finalized = true; };
 
-        //!  Add a new system to the manager
-        void add(sys::system_uptr);
-        //!  Run all systems
-        void run(entity_manager&, mgr::message_manager&, int64_t);
-        //!  Process dispatch for all systems
-        void dispatch(entity_manager&, mgr::message_manager&);
+        /*!
+         * \brief Add a new system to the manager.
+         * Checks to see if a similar named system is already loaded.
+         * Enters system into the vector of systems if not.
+         * Systems run in the order they were added.
+         * \param new_system System to add.
+         * \return True if added, false if not.  Can fail if the system exists or if the game is running.
+         */
+        inline bool add(sys::system_uptr new_system) {
+            if(finalized == true) return false;
 
-        //!  Enable a system
-        const bool enable_system(std::string);
-        //!  Disable a system
-        const bool disable_system(std::string);
+            for(auto & it : systems) {
+                if((it)->get_name() == new_system->get_name()) return false;
+            }
+
+            systems.push_back(std::move(new_system));
+            return true;
+        };
+
+        /*!
+         * \brief Run all systems.
+         * Iterate through the system vector and run each.
+         * Throw error if no systems have been loaded.
+         * \param entities Reference to entity manager.
+         * \param messages Reference to message manager.
+         * \param current_time Current engine time.
+         * \return void
+         */
+        inline void run(entity_manager& entities, mgr::message_manager& messages, int64_t current_time) {
+            if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
+
+            for(auto & it : systems) {
+                if((it)->is_enabled()) (it)->run(entities, messages, current_time);
+            }
+        };
+
+        /*!
+         * \brief Process dispatch for all systems.
+         * Checks each system for its name and sends corresponding messages.
+         * Throw error if no systems have been loaded.
+         * \param entities Reference to entity manager.
+         * \param messages Reference to message manager.
+         * \return void
+         */
+        inline void dispatch(entity_manager& entities, mgr::message_manager& messages) {
+            if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
+
+            for(auto & it : systems) {
+                (it)->dispatch(entities, messages.get_messages((it)->get_name()));
+            }
+        };
+
+        /*!
+         * \brief Enable a system.
+         * Toggle a system to enabled so it's run member is processed.
+         * \param sys Name of system to enable.
+         * \return True if the system was found, false if it was not.
+         */
+        inline const bool enable_system(std:: string sys) {
+            if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
+
+            for(auto & it : systems) {
+                if((it)->get_name() == sys) (it)->enable();
+                return true;
+            }
+            return false;
+        };
+
+        /*!
+         * \brief Disable a system.
+         * Toggle a system to disabled so it's run member is skipped.
+         * Dispatching will still be processed.
+         * \param sys Name of system to disable.
+         * \return True if the system was found, false if it was not
+         */
+        inline const bool disable_system(std:: string sys) {
+            if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
+
+            for(auto & it : systems) {
+                if((it)->get_name() == sys) (it)->disable();
+                return true;
+            }
+            return false;
+        };
 
     private:
-        std::vector<sys::system_uptr> systems;  // Store the vector of systems
+        std::vector<sys::system_uptr> systems;  // Store the vector of systems.
         
-        bool finalized; //  Flag to disallow loading of additional systems
+        bool finalized; //  Flag to disallow loading of additional systems.
 };
 
 template <> inline bool system_manager::manager<system_manager>::initialized = false;
-
-/*!
- * Checks to see if a similar named system is already loaded
- * Enters system into the vector of systems if not
- * Systems run in the order they were added
- */
-inline void system_manager::add(sys::system_uptr new_system) {
-    if(finalized == true) throw std::runtime_error("System manager already configured - Can't add additional system!");
-
-    for(auto & it : systems) {
-        if((it)->get_name() == new_system->get_name()) throw std::runtime_error("System already loaded!");
-    }
-
-    systems.push_back(std::move(new_system));
-}
-
-/*!
- * Iterate through the system vector and run each
- * Throw error if no systems have been loaded
- */
-inline void system_manager::run(entity_manager& entities, mgr::message_manager& messages, int64_t current_time) {
-    if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
-
-    for(auto & it : systems) {
-        if((it)->is_enabled()) (it)->run(entities, messages, current_time);
-    }
-}
-
-/*!
- * Checks each system for its name and sends corresponding messages
- * Throw error if no systems have been loaded
- */
-inline void system_manager::dispatch(entity_manager& entities, mgr::message_manager& messages) {
-    if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
-
-    for(auto & it : systems) {
-        (it)->dispatch(entities, messages.get_messages((it)->get_name()));
-    }
-}
-
-/*!
- * Toggle a system to enabled so it's run member is processed
- * Returns true if the system was found, false if it was not
- */
-inline const bool system_manager::enable_system(std:: string sys) {
-    if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
-
-    for(auto & it : systems) {
-        if((it)->get_name() == sys) (it)->enable();
-        return true;
-    }
-    return false;
-}
-
-/*!
- * Toggle a system to disabled so it's run member is skipped
- * Dispatching will still be processed
- * Returns true if the system was found, false if it was not
- */
-inline const bool system_manager::disable_system(std:: string sys) {
-    if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
-
-    for(auto & it : systems) {
-        if((it)->get_name() == sys) (it)->disable();
-        return true;
-    }
-    return false;
-}
 
 } //  namespace mgr
 

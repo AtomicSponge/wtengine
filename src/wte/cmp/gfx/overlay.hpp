@@ -42,7 +42,8 @@ class overlay final : public animator {
          * \param func Function to define what is displayed in the overlay.
          * \return void
          */
-        inline overlay(int w, int h, float x, float y, std::size_t l, void func(entity, mgr::entity_manager&, int64_t)) :
+        inline overlay(int w, int h, float x, float y,
+                       std::size_t l, void func(entity, mgr::entity_manager&, int64_t)) :
         animator(l, func), pos_x(x), pos_y(y) {
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             overlay_bitmap = al_create_bitmap(w, h);
@@ -77,7 +78,8 @@ class overlay final : public animator {
          * \param f Text flags for drawing - see Allegro docs on al_draw_text.
          * \return void
          */
-        inline void set_text(const std::string txt, const ALLEGRO_COLOR color, const float x, const float y, const int f) {
+        inline void set_text(const std::string txt, const ALLEGRO_COLOR color,
+                             const float x, const float y, const int f) {
             al_draw_text(overlay_font, color, x, y, f, txt.c_str());
         };
 

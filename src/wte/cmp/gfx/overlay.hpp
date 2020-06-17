@@ -85,11 +85,11 @@ class overlay final : public animator {
 
         /*!
          * \brief Load a bitmap.
-         * Store in a map for reference to later.
+         * Store in a map for reference to later.  Call this during entity creation.
          * \param fname Filename to load.
          * \param label Label for referencing bitmap.
          */
-        inline bool load_file(std::string fname, std::string label) {
+        inline bool load_file(std::string label, std::string fname) {
             ALLEGRO_FILE* file;
             file = al_fopen(fname.c_str(), "rb");
             if(!file) {

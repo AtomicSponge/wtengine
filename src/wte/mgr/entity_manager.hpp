@@ -263,7 +263,8 @@ class entity_manager final : public manager<entity_manager> {
         };
 
         /*!
-         * Set all components for a particulair type.
+         * \brief Set all components for a particulair type.
+         * This will return a container of modifiable components casted to their type.
          * \tparam T Component type.
          * \param void
          * \return Returns a container of components of all the same type.
@@ -281,7 +282,8 @@ class entity_manager final : public manager<entity_manager> {
         };
 
         /*!
-         * Get all components for a particulair type.
+         * \brief Get all components for a particulair type.
+         * This will return a container of non-modifiable components casted to their type.
          * \tparam T Component type.
          * \param void
          * \return Returns a constant container of components of all the same type.

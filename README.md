@@ -23,6 +23,7 @@ For an example of the API in action, see the [demo game code](https://github.com
  - Finish up additional menus
  - Audio & font loading testing
  - Finish up demo game
+ - Gamepad support
  - Code review / documentation (ongoing)
  - Improve cmake config
 

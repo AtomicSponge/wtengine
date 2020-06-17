@@ -21,7 +21,8 @@ For an example of the API in action, see the [demo game code](https://github.com
 
 #### TODO:
  - Finish up additional menus
- - Audio testing
+ - Audio & font loading testing
+ - Finish up demo game
  - Code review / documentation (ongoing)
  - Improve cmake config
 
@@ -35,11 +36,11 @@ A compiled demo can be found in the [releases](https://github.com/wtfsystems/rel
 
 (need to update this section...)
 
-The main loop for the game engine is implemented in wte_main.  The per-new-game functions for this class are completed in a seperate source file.  Certain systems are then extended to implement your game.
+The main loop for the game engine is implemented in wte_main.  You then extend this class to implement your own custom game.
 
 #### MESSAGING:
 
-All in-engine communication is done with the messaging queue.  Messages can be used to change game settings, control the game menus, or have entities interact with each other.  Messages can also be set with a timer value to be processed later.
+All in-engine communication is done with the messaging queue.  Messages can be used to change game settings, control the game menus, or have entities interact with each other.  Messages can also be set with a timer value to be processed later.  When starting a new game a scriped file of messages is loaded to process the in-game events.
 
 ##### Message format:
 
@@ -53,4 +54,4 @@ Entities are in-game objects, and components are the data containers that make t
 
 #### SYSTEMS:
 
-Systems are the logic members that gets processed each step through the game loop.
+Systems are the logic members that gets processed each step through the game loop.  The engine has a few pre-defined systems for use, but user created ones are  possible as well.  The input system is also extended to implement custom handling.

@@ -9,8 +9,8 @@
  * \details Menu item interface class.
  */
 
-#ifndef WTE_MENU_MENU_ITEM_HPP
-#define WTE_MENU_MENU_ITEM_HPP
+#ifndef WTE_MNU_MENU_ITEM_HPP
+#define WTE_MNU_MENU_ITEM_HPP
 
 #include <string>
 #include <vector>

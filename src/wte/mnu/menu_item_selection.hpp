@@ -9,8 +9,8 @@
  * \details Selection menu item.
  */
 
-#ifndef WTE_MENU_MENU_ITEM_SELECTION_HPP
-#define WTE_MENU_MENU_ITEM_SELECTION_HPP
+#ifndef WTE_MNU_MENU_ITEM_SELECTION_HPP
+#define WTE_MNU_MENU_ITEM_SELECTION_HPP
 
 #include <string>
 #include <vector>

@@ -9,8 +9,8 @@
  * \details Action menu item.
  */
 
-#ifndef WTE_MENU_MENU_ITEM_ACTION_HPP
-#define WTE_MENU_MENU_ITEM_ACTION_HPP
+#ifndef WTE_MNU_MENU_ITEM_ACTION_HPP
+#define WTE_MNU_MENU_ITEM_ACTION_HPP
 
 #include <string>
 #include <vector>

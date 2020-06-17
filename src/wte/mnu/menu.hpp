@@ -9,8 +9,8 @@
  * \details Menu class.
  */
 
-#ifndef WTE_MENU_MENU_HPP
-#define WTE_MENU_MENU_HPP
+#ifndef WTE_MNU_MENU_HPP
+#define WTE_MNU_MENU_HPP
 
 #include <string>
 #include <vector>

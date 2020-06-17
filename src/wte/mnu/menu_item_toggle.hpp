@@ -9,8 +9,8 @@
  * \details Toggle menu item.
  */
 
-#ifndef WTE_MENU_MENU_ITEM_TOGGLE_HPP
-#define WTE_MENU_MENU_ITEM_TOGGLE_HPP
+#ifndef WTE_MNU_MENU_ITEM_TOGGLE_HPP
+#define WTE_MNU_MENU_ITEM_TOGGLE_HPP
 
 #include <string>
 #include <vector>

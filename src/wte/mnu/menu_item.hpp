@@ -101,15 +101,7 @@ class menu_item {
          * \return void
          */
         inline menu_item(const std::string l) :
-        label(l), variable_type(WTE_VAR_TYPE_DEFAULT) {};
-
-        /*!
-         * Menu item constructor.
-         * \param l Label of the menu item.
-         * \return void
-         */
-        inline menu_item(const std::string l, const std::size_t vtype) :
-        label(l), variable_type(vtype) {};
+        label(l) {};
 };
 
 //! Menu Item shared pointer

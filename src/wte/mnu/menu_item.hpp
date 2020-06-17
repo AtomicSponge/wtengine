@@ -24,11 +24,6 @@ namespace wte
 namespace mnu
 {
 
-enum WTE_MENU_VARIABLE_TYPE {
-    WTE_VAR_TYPE_ENGINE, WTE_VAR_TYPE_ENGINE_RELOAD, WTE_VAR_TYPE_GAME,
-    WTE_VAR_TYPE_DEFAULT
-};
-
 /*!
  *
  */

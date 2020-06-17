@@ -12,6 +12,9 @@
 #ifndef WTE_CMP_OVERLAY_HPP
 #define WTE_CMP_OVERLAY_HPP
 
+#include <string>
+#include <map>
+
 #include <allegro5/allegro.h>
 
 #include "../../engine_cfg_map.hpp"
@@ -41,7 +44,9 @@ class overlay final : public animator {
          */
         inline overlay(int w, int h, float x, float y, std::size_t l, void func(entity, mgr::entity_manager&, int64_t)) :
         animator(l, func), pos_x(x), pos_y(y) {
+            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             overlay_bitmap = al_create_bitmap(w, h);
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             overlay_font = NULL;
         };
 
@@ -51,6 +56,7 @@ class overlay final : public animator {
          * \return void
          */
         inline ~overlay() {
+            for(auto & it : bmp_map) al_destroy_bitmap(it.second);
             al_destroy_bitmap(overlay_bitmap);
             al_destroy_font(overlay_font);
         };
@@ -74,6 +80,27 @@ class overlay final : public animator {
         inline void set_text(const std::string txt, const ALLEGRO_COLOR color, const float x, const float y, const int f) {
             al_draw_text(overlay_font, color, x, y, f, txt.c_str());
         };
+
+        /*!
+         * \brief Load a bitmap.
+         * Store in a map for reference to later.
+         * \param fname Filename to load.
+         * \param label Label for referencing bitmap.
+         */
+        inline bool load_file(std::string fname, std::string label) {
+            ALLEGRO_FILE* file;
+            file = al_fopen(fname.c_str(), "rb");
+            if(!file) {
+                al_fclose(file);
+                return false;
+            }
+            bmp_map.insert(std::make_pair(label, al_load_bitmap_f(file, fname.substr(fname.find("."),
+                                                                        fname.length()).c_str())));
+            al_fclose(file);
+            return true;
+        };
+
+        std::map<std::string, ALLEGRO_BITMAP*> bmp_map;
 
         ALLEGRO_BITMAP* overlay_bitmap;
         float pos_x, pos_y;

@@ -13,6 +13,7 @@
 #define WTE_CMP_BACKGROUND_HPP
 
 #include <string>
+#include <map>
 
 #include <allegro5/allegro.h>
 
@@ -47,7 +48,9 @@ class background final : public animator {
             al_set_target_bitmap(world.set_component<cmp::background>(e_id)->background_bitmap);
             al_clear_to_color(world.get_component<cmp::background>(e_id)->color);
         }) {
+            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             background_bitmap = al_create_bitmap(w, h);
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
         };
 
         /*!
@@ -63,20 +66,9 @@ class background final : public animator {
                           const std::size_t l,
                           void func(entity, mgr::entity_manager&, int64_t)) :
         animator(l, func) {
+            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             background_bitmap = al_create_bitmap(w, h);
-        };
-
-        /*!
-         * WIP - finish file loading
-         */
-        inline bool load_file(std::string fname) {
-            ALLEGRO_BITMAP* temp_bmp;
-            ALLEGRO_FILE* file;
-            file = al_fopen(fname.c_str(), "rb");
-            temp_bmp = al_load_bitmap_f(file, NULL);
-            al_fclose(file);
-            al_destroy_bitmap(temp_bmp);
-            return true;
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
         };
 
         /*!
@@ -85,8 +77,30 @@ class background final : public animator {
          * \return void
          */
         inline ~background() {
+            for(auto & it : bmp_map) al_destroy_bitmap(it.second);
             al_destroy_bitmap(background_bitmap);
         };
+
+        /*!
+         * \brief Load a bitmap.
+         * Store in a map for reference to later.
+         * \param fname Filename to load.
+         * \param label Label for referencing bitmap.
+         */
+        inline bool load_file(std::string fname, std::string label) {
+            ALLEGRO_FILE* file;
+            file = al_fopen(fname.c_str(), "rb");
+            if(!file) {
+                al_fclose(file);
+                return false;
+            }
+            bmp_map.insert(std::make_pair(label, al_load_bitmap_f(file, fname.substr(fname.find("."),
+                                                                        fname.length()).c_str())));
+            al_fclose(file);
+            return true;
+        };
+
+        std::map<std::string, ALLEGRO_BITMAP*> bmp_map;
 
         ALLEGRO_BITMAP* background_bitmap;
         ALLEGRO_COLOR color;

@@ -24,6 +24,11 @@ namespace wte
 namespace mnu
 {
 
+enum WTE_MENU_VARIABLE_TYPE {
+    WTE_VAR_TYPE_ENGINE, WTE_VAR_TYPE_ENGINE_RELOAD, WTE_VAR_TYPE_GAME,
+    WTE_VAR_TYPE_DEFAULT
+};
+
 /*!
  *
  */
@@ -37,22 +42,22 @@ class menu_item {
         inline virtual ~menu_item() {};
 
         /*!
-         * Return display text for the menu item.
+         * Return display text for the menu item when rendering.
          * \param void
-         * \return void
+         * \return Vector of display text.
          */
         inline virtual const std::vector<std::string> get_text(void) { return {"null"}; };
 
         /*!
          * Define left click process.
-         * \param void
+         * \param alt_trigger Is menu option key down.
          * \return void
          */
         inline virtual void on_left(bool alt_trigger) {};
 
         /*!
          * Define right click process.
-         * \param void
+         * \param alt_trigger Is menu option key down.
          * \return void
          */
         inline virtual void on_right(bool alt_trigger) {};
@@ -85,8 +90,14 @@ class menu_item {
          */
         inline const std::string get_label(void) const { return label; };
 
+        /*!
+         *
+         */
+        inline const std::size_t get_var_type(void) const { return variable_type; };
+
     private:
         std::string label;
+        std::size_t variable_type;
 
     protected:
         /*!
@@ -94,7 +105,16 @@ class menu_item {
          * \param l Label of the menu item.
          * \return void
          */
-        inline menu_item(const std::string l) : label(l) {};
+        inline menu_item(const std::string l) :
+        label(l), variable_type(WTE_VAR_TYPE_DEFAULT) {};
+
+        /*!
+         * Menu item constructor.
+         * \param l Label of the menu item.
+         * \return void
+         */
+        inline menu_item(const std::string l, const std::size_t vtype) :
+        label(l), variable_type(vtype) {};
 };
 
 //! Menu Item shared pointer

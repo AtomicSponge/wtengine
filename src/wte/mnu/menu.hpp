@@ -6,7 +6,7 @@
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
  *
- * \details Menu object.
+ * \details Menu class.
  */
 
 #ifndef WTE_MENU_MENU_HPP
@@ -25,102 +25,79 @@ namespace mnu
 
 //!  Container for storing menu items.
 typedef std::vector<menu_item_sptr> menu_items;
-//!  Iterator for addressing menu items.
-typedef std::vector<menu_item_sptr>::iterator menu_item_iterator;
 //!  Constant iterator for addressing menu items.
 typedef std::vector<menu_item_sptr>::const_iterator menu_item_citerator;
 
+//!  Menu class.
 /*!
- *
+ * Class for defining a menu.
  */
 class menu {
     public:
         /*!
-         * Description
-         * \param void
+         * Menu constructor.
+         * \param i Menu ID.
+         * \param t Menu display title.
          * \return void
          */
-        inline menu(const std::string i, const std::string t) : id(i), title(t) { items.clear(); };
+        inline menu(const std::string i, const std::string t) :
+        id(i), title(t) { items.clear(); };
 
         /*!
-         * Description
+         * Menu destructor.
          * \param void
          * \return void
          */
         inline ~menu() { items.clear(); };
 
         /*!
-         * Description
+         * Get menu ID.
          * \param void
-         * \return void
+         * \return The menu ID.
          */
         inline const std::string get_id(void) const { return id; };
 
         /*!
-         * Description
+         * Get menu display title.
          * \param void
-         * \return void
+         * \return The menu display title.
          */
         inline const std::string get_title(void) const { return title; };
 
         /*!
-         * Description
+         * Get number of menu items.
          * \param void
-         * \return void
-         */
-        //inline menu_items get_items(void) const { return items; };
-
-        /*!
-         * Description
-         * \param void
-         * \return void
+         * \return Count of items.
          */
         inline std::size_t num_items(void) const { return items.size(); };
 
         /*!
-         * Description
+         * Get menu items start iterator.
          * \param void
-         * \return void
-         */
-        inline menu_item_citerator items_begin() const { return items.begin(); };
-
-        /*!
-         * Description
-         * \param void
-         * \return void
-         */
-        inline menu_item_citerator items_end() const { return items.end(); };
-
-        /*!
-         * Description
-         * \param void
-         * \return void
+         * \return Constant iterator to beginnig of menu items.
          */
         inline menu_item_citerator items_cbegin() const { return items.cbegin(); };
 
         /*!
-         * Description
+         * Get menu items end iterator.
          * \param void
-         * \return void
+         * \return Constant iterator to end of menu items.
          */
         inline menu_item_citerator items_cend() const { return items.cend(); };
 
         /*!
-         * Description
-         * \param void
+         * Set the menu display title.
+         * \param t New display title to set.
          * \return void
          */
         inline void set_title(const std::string t) { title = t; };
 
         /*!
          * Add a menu item to an existing menu
-         * \param void
+         * \param item Shared pointer for the new item.
          * \return void
          */
-        inline const bool add_item(const menu_item_sptr item) {
-            items.push_back(item);
-            return true;
-        };
+        inline void add_item(const menu_item_sptr item) { items.push_back(item); };
 
     private:
         menu_items items;

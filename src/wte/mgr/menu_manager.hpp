@@ -52,6 +52,8 @@ class menu_manager final : public manager<menu_manager> {
         /*!
          * \brief Menu manager constructor
          * Generates the menu manager object
+         * \param void
+         * \return void
          */
         inline menu_manager() :
         menu_width(500), menu_height(400), menu_padding(32), font_size(8) {
@@ -62,6 +64,8 @@ class menu_manager final : public manager<menu_manager> {
         /*!
          * \brief Menu manager destructor
          * Cleans up by deleting the menu bitmaps and font
+         * \param void
+         * \return void
          */
         inline ~menu_manager() {
             opened_menus = {};
@@ -244,10 +248,10 @@ class menu_manager final : public manager<menu_manager> {
         inline void open_menu(const std::string menu_id) {
             opened_menus.push(get_menu(menu_id));
             engine_flags::set(GAME_MENU_OPENED);
-            menu_position = opened_menus.top()->items_begin();
+            menu_position = opened_menus.top()->items_cbegin();
 
             //  Set default values for any menu settings objects.
-            for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
+            for(auto it = opened_menus.top()->items_cbegin(); it != opened_menus.top()->items_cend(); it++) {
                 (*it)->set_default();
             }
         };
@@ -261,7 +265,7 @@ class menu_manager final : public manager<menu_manager> {
         inline void close_menu(void) {
             opened_menus.pop();
             if(opened_menus.empty()) engine_flags::unset(GAME_MENU_OPENED);
-            else menu_position = opened_menus.top()->items_begin();
+            else menu_position = opened_menus.top()->items_cbegin();
         };
 
         void run(message_manager&);
@@ -303,28 +307,28 @@ inline void menu_manager::run(message_manager& messages) {
     }
 
     //  Iterate through the menu items depending on key press.
-    if(input_flags::is_set(INPUT_UP) && menu_position != opened_menus.top()->items_begin()) {
+    if(input_flags::is_set(INPUT_UP) && menu_position != opened_menus.top()->items_cbegin()) {
         input_flags::unset(INPUT_UP);
         menu_position--;
     }
-    if(input_flags::is_set(INPUT_DOWN) && menu_position != opened_menus.top()->items_end()) {
+    if(input_flags::is_set(INPUT_DOWN) && menu_position != opened_menus.top()->items_cend()) {
         input_flags::unset(INPUT_DOWN);
         menu_position++;
-        if(menu_position == opened_menus.top()->items_end()) menu_position--;
+        if(menu_position == opened_menus.top()->items_cend()) menu_position--;
     }
 
     //  Switch through the menu item depending on key press.
-    if(input_flags::is_set(INPUT_LEFT) && menu_position != opened_menus.top()->items_end()) {
+    if(input_flags::is_set(INPUT_LEFT) && menu_position != opened_menus.top()->items_cend()) {
         input_flags::unset(INPUT_LEFT);
         (*menu_position)->on_left(input_flags::is_set(INPUT_MENU_ALT));
     }
-    if(input_flags::is_set(INPUT_RIGHT) && menu_position != opened_menus.top()->items_end()) {
+    if(input_flags::is_set(INPUT_RIGHT) && menu_position != opened_menus.top()->items_cend()) {
         input_flags::unset(INPUT_RIGHT);
         (*menu_position)->on_right(input_flags::is_set(INPUT_MENU_ALT));
     }
 
     //  Menu item was selected, process what happens.
-    if(input_flags::is_set(INPUT_MENU_SELECT) && menu_position != opened_menus.top()->items_end()) {
+    if(input_flags::is_set(INPUT_MENU_SELECT) && menu_position != opened_menus.top()->items_cend()) {
         input_flags::unset(INPUT_MENU_SELECT);
         message temp_msg = (*menu_position)->on_select();
         /* *** Check if the message is for the menu system and process. ********* */
@@ -372,7 +376,7 @@ inline void menu_manager::run(message_manager& messages) {
                 }
 
                 //  Reset the apply item.
-                for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
+                for(auto it = opened_menus.top()->items_cbegin(); it != opened_menus.top()->items_cend(); it++) {
                     if(std::dynamic_pointer_cast<mnu::menu_item_apply>(*it)) (*it)->reset_to_default();
                 }
             }
@@ -381,7 +385,7 @@ inline void menu_manager::run(message_manager& messages) {
             /* *** MENU CANCEL ACTION ********* */
             if(temp_msg.get_cmd() == "cancel") {
                 //  Do cancel.  Go through menu items, reset menu settings objects to their defaults.
-                for(auto it = opened_menus.top()->items_begin(); it != opened_menus.top()->items_end(); it++) {
+                for(auto it = opened_menus.top()->items_cbegin(); it != opened_menus.top()->items_cend(); it++) {
                     (*it)->reset_to_default();
                 }
             }

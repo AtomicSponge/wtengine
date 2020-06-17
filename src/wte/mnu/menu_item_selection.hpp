@@ -33,29 +33,32 @@ namespace mnu
 class menu_item_selection final : public menu_item {
     public:
         /*!
-         * Description
-         * \param void
+         * Menu item selection constructor.
+         * \param l Item display label.
+         * \param vr Variable to adjust.
+         * \param vl Vector of allowed settings.
+         * \param is_engine_set True if an engine setting, false if a game setting.
          * \return void
          */
         inline menu_item_selection(const std::string l,
-                                 const std::string vr,
-                                 const std::vector<std::string> vl,
-                                 const bool is_engine_set) :
+                                   const std::string vr,
+                                   const std::vector<std::string> vl,
+                                   const bool is_engine_set) :
         menu_item(l), var(vr), vals(vl), is_eng_setting(is_engine_set) {
             current_val = vals.begin();
             default_val = current_val;
         };
 
         /*!
-         * Description
+         * Menu item selection destructor.
          * \param void
          * \return void
          */
         inline ~menu_item_selection() {};
 
         /*!
-         * Description
-         * \param void
+         * Define left click process.
+         * \param alt_trigger Is menu option key down.
          * \return void
          */
         inline void on_left(bool alt_trigger) override {
@@ -63,8 +66,8 @@ class menu_item_selection final : public menu_item {
         };
 
         /*!
-         * Description
-         * \param void
+         * Define right click process.
+         * \param alt_trigger Is menu option key down.
          * \return void
          */
         inline void on_right(bool alt_trigger) override {
@@ -73,23 +76,23 @@ class menu_item_selection final : public menu_item {
         };
 
         /*!
-         * Description
+         * Return display text for the menu item when rendering.
          * \param void
-         * \return void
+         * \return Vector of display text.
          */
         inline const std::vector<std::string> get_text(void) override {
             return { get_label(), "< " + *current_val + " >" };
         };
 
         /*!
-         * Description
+         * Reset to the default variable.
          * \param void
          * \return void
          */
         inline void reset_to_default(void) override { current_val = default_val; };
 
         /*!
-         * Description
+         * Set the default variable.
          * \param void
          * \return void
          */
@@ -101,16 +104,16 @@ class menu_item_selection final : public menu_item {
         };
 
         /*!
-         * Description
+         * Get the setting to be applied by the system.
          * \param void
-         * \return void
+         * \return A string in format var=val
          */
         inline const std::string get_setting(void) { return var + "=" + *current_val; };
 
         /*!
-         * Description
+         * Check if it is an engine setting.
          * \param void
-         * \return void
+         * \return True if an engine setting, false if a game setting.
          */
         inline const bool is_engine_setting(void) { return is_eng_setting; }
 

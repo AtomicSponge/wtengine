@@ -44,7 +44,6 @@ class logic final : public system {
         /*!
          * \brief Logic system run.
          * Finds all entities with an ai component and processes their logic.
-         * entities Reference to entity manager.
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.

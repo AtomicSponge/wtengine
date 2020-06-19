@@ -305,7 +305,7 @@ inline void wte_main::set_display(void) {
 inline void wte_main::reconf_display(void) {
     al_destroy_display(display);
     set_display();
-    al_convert_memory_bitmaps();
+    //al_convert_memory_bitmaps();
 }
 
 /*!
@@ -439,7 +439,7 @@ inline void wte_main::do_game(void) {
 
         //  Ignore message pruning if WTE_NO_PRUNE build flag is defined.
         #ifndef WTE_NO_PRUNE
-        //  Delete messages that were not processed.
+        //  Delete timed messages that were not processed.
         messages.prune();
         #endif
 

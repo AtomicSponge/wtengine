@@ -75,12 +75,13 @@ class message_manager final : public manager<message_manager>, private engine_ti
 
         //  Ignore message pruning if WTE_NO_PRUNE build flag is defined
         #ifndef WTE_NO_PRUNE
-        //!  Deletes messages that were not processed.
+        //!  Deletes timed messages that were not processed.
         inline void prune(void) {
             for(auto it = msg_queue.begin(); it != msg_queue.end();) {
                 //  End early if events are in the future.
                 if(it->get_timer() > check_time()) break;
-                else it = msg_queue.erase(it);
+                if(it->is_timed_event()) it = msg_queue.erase(it);
+                else it++;
             }
         };
         #endif

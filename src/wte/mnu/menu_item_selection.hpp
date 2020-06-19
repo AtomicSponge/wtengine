@@ -104,6 +104,17 @@ class menu_item_selection final : public menu_item {
         };
 
         /*!
+         * \brief Setting changed process.
+         * Checks if the current selection is the same as the default.
+         * \param void
+         * \return True if the setting changed, false if it did not.
+         */
+        inline const bool setting_changed(void) const override {
+            if(current_val == default_val) return false;
+            return true;
+        };
+
+        /*!
          * Get the setting to be applied by the system.
          * \param void
          * \return A string in format var=val

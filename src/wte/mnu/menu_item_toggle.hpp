@@ -143,6 +143,17 @@ class menu_item_toggle final : public menu_item {
          */
         inline void set_default(void) override { toggled = default_val = defaulter(); };
 
+        /*!
+         * \brief Setting changed process.
+         * Checks if the current selection is the same as the default.
+         * \param void
+         * \return True if the setting changed, false if it did not.
+         */
+        inline const bool setting_changed(void) const override {
+            if(toggled == default_val) return false;
+            return true;
+        };
+
     private:
         bool toggled, default_val;
         std::string cmd_on;

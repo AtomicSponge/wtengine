@@ -306,6 +306,21 @@ inline void menu_manager::run(message_manager& messages) {
         else open_menu("main_menu"); //  Add the main menu to the stack.
     }
 
+    //  Check for any incoming menu messages and process.
+    message_container temp_messages = messages.get_messages("menu");
+    if(!temp_messages.empty()) {
+        for(auto & m_it : temp_messages) {
+            //  Reload menu, setting new defaults.
+            if(m_it.get_cmd() == "reload") {
+                for(auto it = opened_menus.top()->items_cbegin();
+                    it != opened_menus.top()->items_cend(); it++) {
+                    (*it)->set_default();
+                    (*it)->reset_to_default();
+                }
+            }
+        }
+    }
+
     //  Iterate through the menu items depending on key press.
     if(input_flags::is_set(INPUT_UP) && menu_position != opened_menus.top()->items_cbegin()) {
         input_flags::unset(INPUT_UP);
@@ -359,6 +374,8 @@ inline void menu_manager::run(message_manager& messages) {
                                              std::static_pointer_cast<mnu::menu_item_toggle>(*it)->get_active_cmd(),
                                              std::static_pointer_cast<mnu::menu_item_toggle>(*it)->get_active_args()));
                     }
+
+                    //  Add additional item processing here.
                 }
 
                 //  Send messages in reverse order for system to process correctly.
@@ -366,7 +383,11 @@ inline void menu_manager::run(message_manager& messages) {
 
                 //  Apply engine settings if any.
                 if(!eng_settings_string.empty()) {
-                    //messages.add_message(message("system", "reconf_display", ""));
+                    //  Check to see if the display needs to be reconfigured.
+                    for(auto it = opened_menus.top()->items_cbegin(); it != opened_menus.top()->items_cend(); it++) {
+                        if((*it)->setting_changed() && (*it)->get_setting_type() == mnu::ENGINE_SETTING_RECONF)
+                            messages.add_message(message("system", "reconf_display", ""));
+                    }
                     messages.add_message(message("system", "set_engcfg", eng_settings_string));
                 }
 
@@ -375,10 +396,8 @@ inline void menu_manager::run(message_manager& messages) {
                     messages.add_message(message("system", "set_gamecfg", game_settings_string));
                 }
 
-                //  Reset the apply item.
-                for(auto it = opened_menus.top()->items_cbegin(); it != opened_menus.top()->items_cend(); it++) {
-                    if(std::dynamic_pointer_cast<mnu::menu_item_apply>(*it)) (*it)->reset_to_default();
-                }
+                //  Send a reload command to the menus.
+                messages.add_message(message("menu", "reload", ""));
             }
             /* *** END MENU APPLY ACTION ********* */
 
@@ -391,8 +410,9 @@ inline void menu_manager::run(message_manager& messages) {
             }
             /* *** END MENU CANCEL ACTION ********* */
         }
-        /* *** End menu messages. ********* */
-        //  If not for the menu system, add to the message queue.
+        /* *** END MENU MESSAGE PROCESSING ********* */
+
+        //  If the message is not for the menu system, add to the message queue.
         else if(temp_msg.get_cmd() != "null") messages.add_message(temp_msg);
     }
 

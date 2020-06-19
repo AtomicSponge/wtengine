@@ -29,7 +29,7 @@ enum MENU_SETTING_TYPE {
 };
 
 /*!
- *
+ * Menu item interface class.
  */
 class menu_item {
     public:
@@ -83,6 +83,13 @@ class menu_item {
         inline virtual void set_default(void) {};
 
         /*!
+         * Define setting changed process.
+         * \param void
+         * \return Default return false.
+         */
+        inline virtual const bool setting_changed(void) const { return false; };
+
+        /*!
          * Get the display label.
          * \param void
          * \return The label text.
@@ -90,7 +97,9 @@ class menu_item {
         inline const std::string get_label(void) const { return label; };
 
         /*!
-         *
+         * Get the setting type.
+         * \param void
+         * \return Setting type.
          */
         inline const std::size_t get_setting_type(void) const { return setting_type; };
 

@@ -52,8 +52,6 @@ class system {
         virtual void run(mgr::entity_manager&,
                          mgr::message_manager&,
                          const int64_t) = 0;
-        //!  Override this for message processing.
-        virtual void dispatch(mgr::entity_manager&, message_container) {};
 
     protected:
         inline system(const std::string n) : name(n), enabled(true) {};

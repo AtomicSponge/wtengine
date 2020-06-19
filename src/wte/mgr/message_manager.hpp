@@ -27,10 +27,9 @@
 
 #include "manager.hpp"
 #include "engine_time.hpp"
-
-#include "../wte_global_defines.hpp"
-#include "../engine_flags.hpp"
+#include "../_globals/engine_flags.hpp"
 #include "../message.hpp"
+#include "../wte_global_defines.hpp"
 
 namespace wte
 {

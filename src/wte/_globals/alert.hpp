@@ -12,9 +12,9 @@
 #ifndef WTE_ALERT_HPP
 #define WTE_ALERT_HPP
 
-#include <allegro5/allegro.h>
-
 #include <string>
+
+#include <allegro5/allegro.h>
 
 namespace wte
 {

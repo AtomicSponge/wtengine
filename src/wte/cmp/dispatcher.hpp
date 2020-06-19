@@ -36,7 +36,11 @@ class dispatcher final : public component {
          * \param func Function to define message processing.
          * \return void
          */
-        inline dispatcher(void func(entity, mgr::entity_manager&, message)) : handle_msg(func) {};
+        inline dispatcher(void func(entity,
+                                    mgr::entity_manager&,
+                                    mgr::message_manager&,
+                                    int64_t,
+                                    message)) : handle_msg(func) {};
 
         /*!
          * Dispatched destructor.
@@ -49,15 +53,25 @@ class dispatcher final : public component {
          * Run dispatcher function wrapper.
          * \param e_id ID of the entity calling the wrapper.
          * \param world Reference to the entity manager.
+         * \param messages Reference to the message manager.
+         * \param current_time Current engine time.
          * \param msg Message to process.
          * \return void
          */
-        inline void run(entity eid, mgr::entity_manager& world, message msg) {
-            handle_msg(eid, world, msg);
+        inline void proc_msg(entity eid,
+                             mgr::entity_manager& world,
+                             mgr::message_manager& messages,
+                             int64_t current_time,
+                             message msg) {
+            handle_msg(eid, world, messages, current_time, msg);
         };
 
     private:
-        std::function<void(entity, mgr::entity_manager&, message)> handle_msg;
+        std::function<void(entity,
+                           mgr::entity_manager&,
+                           mgr::message_manager&,
+                           int64_t,
+                           message)> handle_msg;
 };
 
 } //  namespace cmp

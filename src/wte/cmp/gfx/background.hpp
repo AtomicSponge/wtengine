@@ -17,7 +17,6 @@
 
 #include <allegro5/allegro.h>
 
-#include "../../engine_cfg_map.hpp"
 #include "animator.hpp"
 
 namespace wte

@@ -15,13 +15,6 @@
 #define WTE_HELPER_MACROS_HPP
 
 /*!
- * \def wte_new_component(new_cmp, ...)
- * \brief Create a new component.
- * Pass a component object and any parameters to create a new component.
- */
-#define wte_new_component(ent_id, new_cmp, ...) (world.add_component(ent_id, std::make_shared<new_cmp>(__VA_ARGS__)))
-
-/*!
  * \def wte_add_system(new_sys, ...)
  * \brief Create a new system.
  * Pass a system object and any parameters to create a new system.
@@ -29,18 +22,25 @@
 #define wte_add_system(new_sys, ...) (systems.add(std::make_unique<new_sys>(__VA_ARGS__)))
 
 /*!
- * \def wte_set_component(the_cmp, ent_id)
+ * \def wte_new_component(new_cmp, ...)
+ * \brief Create a new component.
+ * Pass a component object and any parameters to create a new component.
+ */
+#define wte_new_component(ent_id, new_cmp, ...) (world.add_component(ent_id, std::make_shared<new_cmp>(__VA_ARGS__)))
+
+/*!
+ * \def wte_set_component(ent_id, the_cmp)
  * \brief Set new value for a component.
  * Pass a component object and entity ID.
  */
-#define wte_set_component(the_cmp, ent_id) (world.set_component<the_cmp>(ent_id))
+#define wte_set_component(ent_id, the_cmp) (world.set_component<the_cmp>(ent_id))
 
 /*!
- * \def wte_get_component(the_cmp, ent_id)
+ * \def wte_get_component(ent_id, the_cmp)
  * \brief Get current value for a component.
  * Pass a component object and entity ID.
  */
-#define wte_get_component(the_cmp, ent_id) (world.get_component<the_cmp>(ent_id))
+#define wte_get_component(ent_id, the_cmp) (world.get_component<the_cmp>(ent_id))
 
 /*********************************
  * Menu items                    *

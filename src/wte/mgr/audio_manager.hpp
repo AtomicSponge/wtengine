@@ -288,7 +288,7 @@ inline void audio_manager::run(void) {
                 /* ***  Mixer 2 - Sample controls  *** */
                 //  cmd:  load_sample - args:  sample_num (0 - MAX); file ; mode (once, loop) - Load a sample.
                 case CMD_STR_LOAD_SAMPLE:
-                    pos = std::stoi(audio_messages.front().get_arg(0));
+                    pos = audio_messages.front().get_arg<std::size_t>(0);
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     //  Load sample from file
                     samples[pos] = al_load_sample(audio_messages.front().get_arg(1).c_str());
@@ -305,7 +305,7 @@ inline void audio_manager::run(void) {
                         break;
                     }
                     //  Unload a sample by position.
-                    pos = std::stoi(audio_messages.front().get_arg(0));
+                    pos = audio_messages.front().get_arg<std::size_t>(0);
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     //al_destroy_sample(samples[pos]);
                     break;
@@ -313,20 +313,20 @@ inline void audio_manager::run(void) {
                 //  cmd:  play_sample - args:  sample_num (0 - MAX) ; mode (once, loop) ; gain ; pan ; speed
                 //  Start playing loaded sample.
                 case CMD_STR_PLAY_SAMPLE:
-                    pos = std::stoi(audio_messages.front().get_arg(0));
+                    pos = audio_messages.front().get_arg<std::size_t>(0);
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     if(!samples[pos]) break;  //  Sample not loaded, end.
                     //  Check to see if gain, pan or speed is set.
                     if(audio_messages.front().get_arg(2) != "") {
-                        gain = std::atof(audio_messages.front().get_arg(2).c_str());
+                        gain = audio_messages.front().get_arg<float>(2);
                         if(gain > 1.0f || gain <= 0.0f) gain = 1.0f;
                     } else gain = 1.0f;
                     if(audio_messages.front().get_arg(3) != "") {
-                        pan = std::atof(audio_messages.front().get_arg(3).c_str());
+                        pan = audio_messages.front().get_arg<float>(3);
                         if(pan < -1.0f || pan > 1.0f) pan = 0.0f;
                     } else pan = 0.0f;
                     if(audio_messages.front().get_arg(4) != "") {
-                        speed = std::atof(audio_messages.front().get_arg(4).c_str());
+                        speed = audio_messages.front().get_arg<float>(4);
                         if(speed > 1.0f || speed <= 0.0f) speed = 1.0f;
                     } else speed = 1.0f;
                     //  Play once or in a loop.
@@ -344,7 +344,7 @@ inline void audio_manager::run(void) {
                         al_stop_samples();
                         break;
                     }
-                    pos = std::stoi(audio_messages.front().get_arg(0));
+                    pos = audio_messages.front().get_arg<std::size_t>(0);
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     if(sample_playing[pos]) al_stop_sample(&sample_id[pos]);
                     break;
@@ -352,7 +352,7 @@ inline void audio_manager::run(void) {
                 //  cmd:  pan_sample - arg:  sample_num (0 - MAX) ; pan ([left]-1.0 thru 1.0[right] or none) - Set sample pan.
                 case CMD_STR_PAN_SAMPLE:
                     #ifdef ALLEGRO_UNSTABLE
-                    pos = std::stoi(audio_messages.front().get_arg(0));
+                    pos = audio_messages.front().get_arg<std::size_t>(0);
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
                     if(!sample_playing[pos]) break;  //  Sample not loaded, end.
                     //  If arg == "none" set no panning
@@ -362,7 +362,7 @@ inline void audio_manager::run(void) {
                         al_unlock_sample_id(&sample_id[pos]);
                         break;
                     }
-                    pan = std::atof(audio_messages.front().get_arg(1).c_str());
+                    pan = audio_messages.front().get_arg<float>(1);
                     if(pan < -1.0f || pan > 1.0f) break;  //  Out of pan range
                     instance = al_lock_sample_id(&sample_id[pos]);
                     if(instance) al_set_sample_instance_pan(instance, pan);
@@ -436,8 +436,8 @@ inline void audio_manager::run(void) {
                 /* *** General commands *** */
                 //  cmd:  set_volume - arg:  mixer # ; volume - Set the volume of a mixer.
                 case CMD_STR_SET_VOLUME:
-                    pos = std::stoi(audio_messages.front().get_arg(0));
-                    float vol = std::atof(audio_messages.front().get_arg(1).c_str());
+                    pos = audio_messages.front().get_arg<std::size_t>(0);
+                    float vol = audio_messages.front().get_arg<float>(1);
                     if(vol >= 0.0f && vol <= 1.0f) {
                         if(pos == 0) al_set_mixer_gain(mixer_main, vol);
                         if(pos == 1) al_set_mixer_gain(mixer_1, vol);

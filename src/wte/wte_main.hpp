@@ -27,10 +27,10 @@
 #include <stdexcept>
 
 #include "wte_global_defines.hpp"
-#include "engine_cfg_map.hpp"
-#include "game_cfg_map.hpp"
-#include "engine_flags.hpp"
-#include "alert.hpp"
+#include "_globals/engine_cfg_map.hpp"
+#include "_globals/game_cfg_map.hpp"
+#include "_globals/engine_flags.hpp"
+#include "_globals/alert.hpp"
 #include "mgr/engine_time.hpp"
 #include "mgr/managers.hpp"
 
@@ -418,7 +418,7 @@ inline void wte_main::do_game(void) {
             //  Run all systems.
             systems.run(world, messages, the_time);
             //  Process messages.
-            systems.dispatch(world, messages);
+            systems.dispatch(world, messages, the_time);
 
             //  Get any spawner messages and pass to handler.
             temp_msgs = messages.get_messages("spawner");

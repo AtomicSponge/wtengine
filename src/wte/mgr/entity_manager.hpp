@@ -227,7 +227,9 @@ class entity_manager final : public manager<entity_manager> {
         };
 
         /*!
-         * Set the value of a component by type for an entity.
+         * \brief Set the value of a component by type for an entity.
+         * Note that calling this for a component that does not exist will cause the
+         * program to fail.  If there is a chance it does not exist, call has_component first.
          * \tparam T Component type.
          * \param e_id The entity ID to search.
          * \return Return the component or nullptr if not found.
@@ -245,7 +247,8 @@ class entity_manager final : public manager<entity_manager> {
         };
 
         /*!
-         * Read the value of a component by type for an entity.
+         * \brief Read the value of a component by type for an entity.
+         * 
          * \tparam T Component type.
          * \param e_id The entity ID to search.
          * \return Return the component or nullptr if not found.

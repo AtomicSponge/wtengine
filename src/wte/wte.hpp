@@ -15,8 +15,8 @@
 
 #include "wte_global_defines.hpp"
 
-#include "engine_cfg_map.hpp"
-#include "game_cfg_map.hpp"
+#include "_globals/engine_cfg_map.hpp"
+#include "_globals/game_cfg_map.hpp"
 
 #include "mnu/menu.hpp"
 #include "mnu/menu_items.hpp"

@@ -101,37 +101,52 @@ class system_manager final : public manager<system_manager> {
         /*!
          * \brief Run all systems.
          * Iterate through the system vector and run each.
-         * Throw error if no systems have been loaded.
-         * \param entities Reference to the entity manager.
+         * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.
          * \return void
          */
-        inline void run(entity_manager& entities,
+        inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
                         int64_t current_time) {
             for(auto & it : systems)
-                if((it)->is_enabled()) (it)->run(entities, messages, current_time);
+                if((it)->is_enabled()) (it)->run(world, messages, current_time);
         };
 
         /*!
-         * \brief Process dispatch for all systems.
-         * Checks each system for its name and sends corresponding messages.
-         * Throw error if no systems have been loaded.
-         * \param entities Reference to entity manager.
+         * \brief Process dispatcher components.
+         * Get messages for the entities and pass to each.
+         * Keeps checking for responces and will process as well.
+         * \param world Reference to entity manager.
          * \param messages Reference to message manager.
+         * \param current_time Current engine time.
          * \return void
          */
-        inline void dispatch(entity_manager& entities,
-                             mgr::message_manager& messages) {
-            for(auto & it : systems) {
-                (it)->dispatch(entities, messages.get_messages((it)->get_name()));
+        inline void dispatch(mgr::entity_manager& world,
+                             mgr::message_manager& messages,
+                             int64_t current_time) {
+            component_container<cmp::dispatcher> dispatch_components =
+                world.set_components<cmp::dispatcher>();
+
+            while(true) {
+                message_container temp_msgs = messages.get_messages("entities");
+                if(temp_msgs.empty()) break;  //  No messages, end while(true) loop.
+
+                for(auto & c_it : dispatch_components) {
+                    for(auto m_it = temp_msgs.begin(); m_it != temp_msgs.end();) {
+                        if(m_it->get_to() == world.get_component<cmp::name>(c_it.first)->name_str) {
+                            c_it.second->proc_msg(c_it.first, world, messages, current_time, *m_it);
+                            m_it = temp_msgs.erase(m_it);
+                        } else m_it++;
+                    }
+                    if(temp_msgs.empty()) break;  //  No messages left, end comp loop.
+                }
             }
         };
 
         /*!
          * \brief Enable a system.
-         * Toggle a system to enabled so it's run member is processed.
+         * Toggle a system to enabled so its run member is processed.
          * \param sys Name of system to enable.
          * \return True if the system was found, false if it was not.
          */
@@ -145,8 +160,7 @@ class system_manager final : public manager<system_manager> {
 
         /*!
          * \brief Disable a system.
-         * Toggle a system to disabled so it's run member is skipped.
-         * Dispatching will still be processed.
+         * Toggle a system to disabled so its run member is skipped.
          * \param sys Name of system to disable.
          * \return True if the system was found, false if it was not
          */

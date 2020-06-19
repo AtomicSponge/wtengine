@@ -13,8 +13,11 @@
 #define WTE_MSG_MESSAGE_HPP
 
 #include <string>
-#include <sstream>
 #include <vector>
+#include <sstream>
+#include <iomanip>
+#include <limits>
+#include <any>
 
 namespace wte
 {
@@ -148,6 +151,25 @@ class message {
         inline const std::string get_arg(const std::size_t pos) const {
             if(pos > arglist.size()-1) return "";  //  Out of range, return empty string.
             else return arglist[pos];
+        };
+
+        /*!
+         * Get a single argument by index from the argument list, casted to a type.
+         * \tparam T Type to cast to.
+         * \param pos The position in the argument vector.
+         * \return The argument by position casted to type.
+         */
+        template <typename T> inline const T get_arg(const std::size_t pos) const {
+            //  Bad position, return false.
+            if(pos > arglist.size()-1) return std::any_cast<const bool>(false);
+            try {
+                T temp;
+                std::stringstream(arglist[pos]) >>
+                    std::setprecision(std::numeric_limits<T>::max_digits10) >> std::fixed >> temp;
+                return std::any_cast<const T>(temp);
+            } catch (std::bad_any_cast& e) {
+                return std::any_cast<const bool>(false);  //  Bad cast, return false.
+            }
         };
 
         /*!

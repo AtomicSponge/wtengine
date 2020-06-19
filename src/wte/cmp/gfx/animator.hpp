@@ -38,8 +38,8 @@ class animator : public component {
 
         /*!
          * Overload < operator to sort by layer value.
-         * 
          * \param a Object to compare to.
+         * \return True if <, false if >
          */
         inline const bool operator<(const animator& a) const {
             return layer < a.layer;

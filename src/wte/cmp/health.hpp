@@ -29,11 +29,13 @@ class health final : public component {
         /*!
          * Health constructor.
          * \param h Health value.
+         * \param hm Max health value.
          * \return void
          */
-        inline health(int h) : hp(h) {};
+        inline health(const int h, const int hm) :
+        hp(h), hp_max(hm) {};
 
-        int hp;
+        int hp, hp_max;
 };
 
 } //  namespace cmp

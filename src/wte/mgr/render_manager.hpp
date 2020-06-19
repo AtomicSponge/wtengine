@@ -30,8 +30,8 @@
 #include "engine_time.hpp"
 
 #include "../wte_global_defines.hpp"
-#include "../engine_flags.hpp"
-#include "../alert.hpp"
+#include "../_globals/engine_flags.hpp"
+#include "../_globals/alert.hpp"
 #include "../cmp/components.hpp"
 #include "menu_manager.hpp"
 #include "entity_manager.hpp"

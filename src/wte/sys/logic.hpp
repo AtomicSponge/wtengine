@@ -60,30 +60,6 @@ class logic final : public system {
                 it.second->run(it.first, world, messages, current_time);
             }
         };
-
-        /*!
-         * \brief Get logic messages for processing.
-         * Sends messages to each entity with a dispatcher component.
-         * \param world Reference to the entity manager.
-         * \param messages Reference to the message manager.
-         * \return void
-         */
-        inline void dispatch(mgr::entity_manager& world,
-                             message_container messages) override {
-            //  Get the dispatch componenets.
-            component_container<cmp::dispatcher> dispatch_components =
-                world.set_components<cmp::dispatcher>();
-
-            for(auto & it : dispatch_components) {
-                for(auto m_it = messages.begin(); m_it != messages.end();) {
-                    if(m_it->get_to() == world.get_component<cmp::name>(it.first)->name_str) {
-                        it.second->run(it.first, world, *m_it);
-                        m_it = messages.erase(m_it);
-                    } else m_it++;
-                    if(messages.empty()) break;  //  Out of messages, end early.
-                }
-            }
-        }
 };
 
 } //  namespace sys

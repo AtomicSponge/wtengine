@@ -18,8 +18,8 @@
 
 #include "menu_item.hpp"
 
-#include "../engine_cfg_map.hpp"
-#include "../game_cfg_map.hpp"
+#include "../_globals/engine_cfg_map.hpp"
+#include "../_globals/game_cfg_map.hpp"
 
 namespace wte
 {

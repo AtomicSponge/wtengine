@@ -12,10 +12,7 @@
 #ifndef WTE_MGR_MANAGERS_HPP
 #define WTE_MGR_MANAGERS_HPP
 
-#ifndef WTE_NO_AUDIO
 #include "audio_manager.hpp"
-#endif
-
 #include "entity_manager.hpp"
 #include "input_manager.hpp"
 #include "menu_manager.hpp"

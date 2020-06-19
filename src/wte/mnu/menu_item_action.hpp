@@ -66,11 +66,12 @@ class menu_item_action final : public menu_item {
         inline const message on_select(void) override { return message("system", cmd, arg); };
 
         /*!
-         * Get the display label.
+         * \brief Return display text for the menu item when rendering.
+         * Displays the action item's label.
          * \param void
-         * \return void
+         * \return Vector of display text strings.
          */
-        inline const std::vector<std::string> get_text(void) override { return {get_label()}; };
+        inline const std::vector<std::string> get_text(void) override { return { get_label() }; };
 
     private:
         std::string cmd;

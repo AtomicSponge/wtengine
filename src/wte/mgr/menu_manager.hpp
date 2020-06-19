@@ -344,7 +344,7 @@ inline void menu_manager::run(message_manager& messages) {
                     //  Process menu selection objects.
                     if(std::dynamic_pointer_cast<mnu::menu_item_selection>(*it)) {
                         //  See if the selection is a game or engine setting, add to correct string.
-                        if(std::static_pointer_cast<mnu::menu_item_selection>(*it)->is_engine_setting()) {
+                        if((*it)->is_engine_setting()) {
                             if(!eng_settings_string.empty()) eng_settings_string += ";";
                             eng_settings_string += std::static_pointer_cast<mnu::menu_item_selection>(*it)->get_setting();
                         } else {

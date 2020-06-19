@@ -46,7 +46,7 @@ class menu_item_apply final : public menu_item {
         /*!
          * \brief On left trigger.
          * Set the apply item to cancel.
-         * \param void
+         * \param alt_trigger Alt trigger flag (unused).
          * \return void
          */
         inline void on_left(bool alt_trigger) override { cmd = "cancel"; };
@@ -54,7 +54,7 @@ class menu_item_apply final : public menu_item {
         /*!
          * \brief On right trigger.
          * Set the apply item to apply.
-         * \param void
+         * \param alt_trigger Alt trigger flag (unused).
          * \return void
          */
         inline void on_right(bool alt_trigger) override { cmd = "apply"; };
@@ -63,15 +63,15 @@ class menu_item_apply final : public menu_item {
          * \brief On select trigger.
          * Return the status of the apply item.
          * \param void
-         * \return A message object.
+         * \return A menu message object that will either run the apply or cancel.
          */
         inline const message on_select(void) override { return message("menu", cmd, ""); };
 
         /*!
-         * \brief Get menu item text.
-         * Return the display status of the apply item.
+         * \brief Return display text for the menu item when rendering.
+         * This is the display status of the apply item.
          * \param void
-         * \return void
+         * \return Vector of display text strings.
          */
         inline const std::vector<std::string> get_text(void) override {
             if(cmd == "apply") return { "Cancel", "< Apply >" };
@@ -88,7 +88,7 @@ class menu_item_apply final : public menu_item {
 
         /*!
          * \brief Set to default trigger.
-         * Reset the apply item to the cancel state.
+         * Set the apply item's default state to cancel.
          * \param void
          * \return void
          */

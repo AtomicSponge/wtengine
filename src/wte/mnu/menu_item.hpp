@@ -24,6 +24,10 @@ namespace wte
 namespace mnu
 {
 
+enum MENU_SETTING_TYPE {
+    GAME_SETTING, ENGINE_SETTING, ENGINE_SETTING_RECONF, DEFAULT_SETTING
+};
+
 /*!
  *
  */
@@ -88,11 +92,22 @@ class menu_item {
         /*!
          *
          */
-        inline const std::size_t get_var_type(void) const { return variable_type; };
+        inline const std::size_t get_setting_type(void) const { return setting_type; };
+
+        /*!
+         * Check if it is an engine setting.
+         * \param void
+         * \return True if an engine setting, false if a game setting.
+         */
+        inline const bool is_engine_setting(void) const { 
+            if(setting_type == ENGINE_SETTING || setting_type == ENGINE_SETTING_RECONF)
+                return true;
+            return false;
+        };
 
     private:
         std::string label;
-        std::size_t variable_type;
+        std::size_t setting_type;
 
     protected:
         /*!
@@ -101,7 +116,15 @@ class menu_item {
          * \return void
          */
         inline menu_item(const std::string l) :
-        label(l) {};
+        label(l), setting_type(DEFAULT_SETTING) {};
+
+        /*!
+         * Menu item constructor.
+         * \param l Label of the menu item.
+         * \return void
+         */
+        inline menu_item(const std::string l, const std::size_t st) :
+        label(l), setting_type(st) {};
 };
 
 //! Menu Item shared pointer

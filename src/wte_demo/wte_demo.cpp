@@ -103,7 +103,7 @@ void wte_demo::load_menus(void) {
         //  Create the demo game settings menu.
         mnu::menu temp_menu = mnu::menu("demo_settings", "Demo Settings");
         std::vector<std::string> lives_vec = { "3", "4", "5" };
-        temp_menu.add_item(wte_menu_selection("Lives:", "max_lives", lives_vec, false));
+        temp_menu.add_item(wte_menu_selection("Lives:", "max_lives", lives_vec, mnu::GAME_SETTING));
         temp_menu.add_item(wte_menu_apply());
         temp_menu.add_item(wte_menu_action("Return", "close_menu"));
         if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
@@ -114,7 +114,7 @@ void wte_demo::load_menus(void) {
         mnu::menu temp_menu = mnu::menu("video_settings", "Video Settings");
         //
         std::vector<std::string> scale_vec = { "1", "1.25", "1.5", "1.75", "2" };
-        temp_menu.add_item(wte_menu_selection("Scale factor:", "scale_factor", scale_vec, true));
+        temp_menu.add_item(wte_menu_selection("Scale factor:", "scale_factor", scale_vec, mnu::ENGINE_SETTING_RECONF));
         temp_menu.add_item(wte_menu_toggle("FPS:", "fps_counter", "on", "fps_counter", "off",
             [](void){ return engine_flags::is_set(DRAW_FPS); }));
         temp_menu.add_item(wte_menu_apply());

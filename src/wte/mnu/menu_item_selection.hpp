@@ -34,17 +34,17 @@ class menu_item_selection final : public menu_item {
     public:
         /*!
          * Menu item selection constructor.
-         * \param l Item display label.
+         * \param label Item display label.
          * \param vr Variable to adjust.
          * \param vl Vector of allowed settings.
-         * \param is_engine_set True if an engine setting, false if a game setting.
+         * \param st Type of setting.
          * \return void
          */
-        inline menu_item_selection(const std::string l,
+        inline menu_item_selection(const std::string label,
                                    const std::string vr,
                                    const std::vector<std::string> vl,
-                                   const bool is_engine_set) :
-        menu_item(l), var(vr), vals(vl), is_eng_setting(is_engine_set) {
+                                   const std::size_t st) :
+        menu_item(label, st), var(vr), vals(vl) {
             current_val = vals.begin();
             default_val = current_val;
         };
@@ -58,7 +58,7 @@ class menu_item_selection final : public menu_item {
 
         /*!
          * Define left click process.
-         * \param alt_trigger Is menu option key down.
+         * \param alt_trigger Alt trigger flag (unused).
          * \return void
          */
         inline void on_left(bool alt_trigger) override {
@@ -67,7 +67,7 @@ class menu_item_selection final : public menu_item {
 
         /*!
          * Define right click process.
-         * \param alt_trigger Is menu option key down.
+         * \param alt_trigger Alt trigger flag (unused).
          * \return void
          */
         inline void on_right(bool alt_trigger) override {
@@ -78,7 +78,7 @@ class menu_item_selection final : public menu_item {
         /*!
          * Return display text for the menu item when rendering.
          * \param void
-         * \return Vector of display text.
+         * \return Vector of display text strings.
          */
         inline const std::vector<std::string> get_text(void) override {
             return { get_label(), "< " + *current_val + " >" };
@@ -97,7 +97,7 @@ class menu_item_selection final : public menu_item {
          * \return void
          */
         inline void set_default(void) override {
-            if(is_eng_setting) current_val = std::find(std::begin(vals), std::end(vals), engine_cfg::get(var));
+            if(is_engine_setting()) current_val = std::find(std::begin(vals), std::end(vals), engine_cfg::get(var));
             else current_val = std::find(std::begin(vals), std::end(vals), game_cfg::get(var));
             if(current_val == vals.end()) current_val = vals.begin();
             default_val = current_val;
@@ -110,15 +110,7 @@ class menu_item_selection final : public menu_item {
          */
         inline const std::string get_setting(void) { return var + "=" + *current_val; };
 
-        /*!
-         * Check if it is an engine setting.
-         * \param void
-         * \return True if an engine setting, false if a game setting.
-         */
-        inline const bool is_engine_setting(void) { return is_eng_setting; }
-
     private:
-        bool is_eng_setting;
         std::string var;
         std::vector<std::string> vals;
         std::vector<std::string>::const_iterator current_val;

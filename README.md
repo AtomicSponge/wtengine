@@ -20,6 +20,7 @@ For an example of the API in action, see the [demo game code](https://github.com
  - Buildable debug modes
 
 #### TODO:
+ - !Display reloading negatively affects performance
  - Finish up additional menus
  - Audio & font loading testing
  - Finish up demo game

@@ -51,8 +51,6 @@ class wte_main : private wte_display {
          * Also makes sure to unload the engine.
          */
         inline ~wte_main() {
-            if(load_called == true) wte_unload();
-
             PHYSFS_deinit();
 
             al_destroy_timer(main_timer);
@@ -254,8 +252,9 @@ class wte_main : private wte_display {
  * \return void
  */
 inline void wte_main::process_new_game(void) {
-    std::srand(std::time(nullptr));  //  Seed random.
+    std::srand(std::time(nullptr));  //  Seed random, using time.
 
+    //  Make sure the menu isn't opened.
     engine_flags::unset(GAME_MENU_OPENED);
 
     //  Load a new message data file.
@@ -280,8 +279,8 @@ inline void wte_main::process_new_game(void) {
     al_stop_timer(main_timer);
     al_set_timer_count(main_timer, 0);
     engine_flags::set(GAME_STARTED);
-    al_start_timer(main_timer);
     mgr::engine_time::set_time(al_get_timer_count(main_timer));
+    al_start_timer(main_timer);
 }
 
 /*!
@@ -303,9 +302,12 @@ inline void wte_main::process_end_game(void) {
 
     //  Call end game process.
     end_game();
+
+    //  Clear world and systems.
     world.clear();
     systems.clear();
 
+    //  Open the menus.
     engine_flags::set(GAME_MENU_OPENED);
 }
 
@@ -388,7 +390,9 @@ inline void wte_main::do_game(void) {
             if(engine_flags::is_set(GAME_STARTED)) process_end_game();
             engine_flags::unset(IS_RUNNING);
         }
-    }
+    }  //  End game loop.
+
+    if(load_called == true) wte_unload();
 }
 
 /*!

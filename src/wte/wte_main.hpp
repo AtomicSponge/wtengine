@@ -147,6 +147,9 @@ class wte_main {
 
             //  Configure display.
             set_display();
+            
+            //  Disable pesky screensavers.
+            al_inhibit_screensaver(true);
 
             //  Configure main timer.
             main_timer = al_create_timer(1.0 / WTE_TICKS_PER_SECOND);
@@ -254,9 +257,9 @@ class wte_main {
 inline void wte_main::set_display(void) {
     //  Set screen resolution.
     if(!engine_cfg::is_reg("resolution")) throw std::runtime_error("Screen resolution not defined!");
-    const int screen_w = std::stoi(engine_cfg::get("resolution").substr(0, engine_cfg::get("resolution").find("x")));
-    const int screen_h = std::stoi(engine_cfg::get("resolution").substr(engine_cfg::get("resolution").find("x") + 1,
-                                                                        engine_cfg::get("resolution").length()));
+    int screen_w = std::stoi(engine_cfg::get("resolution").substr(0, engine_cfg::get("resolution").find("x")));
+    int screen_h = std::stoi(engine_cfg::get("resolution").substr(engine_cfg::get("resolution").find("x") + 1,
+                                                                  engine_cfg::get("resolution").length()));
 
     //  Check if a display mode is set.
     if(engine_cfg::is_reg("display_mode")) {
@@ -276,6 +279,12 @@ inline void wte_main::set_display(void) {
         display = al_create_display(mgr::render_manager::get_arena_width(),
                                     mgr::render_manager::get_arena_height());
         if(!display) throw std::runtime_error("Failed to configure display!");
+        engine_cfg::set("display_mode=windowed");
+        std::string new_res = std::to_string(mgr::render_manager::get_arena_width()) +
+                              "x" + std::to_string(mgr::render_manager::get_arena_height());
+        engine_cfg::set("resolution", new_res);
+        screen_w = mgr::render_manager::get_arena_width();
+        screen_h = mgr::render_manager::get_arena_height();
     }
     al_set_window_title(display, window_title.c_str());
     screen.update_resolution(screen_w, screen_h);
@@ -305,7 +314,7 @@ inline void wte_main::set_display(void) {
 inline void wte_main::reconf_display(void) {
     al_destroy_display(display);
     set_display();
-    //al_convert_memory_bitmaps();
+    al_convert_memory_bitmaps();
 }
 
 /*!

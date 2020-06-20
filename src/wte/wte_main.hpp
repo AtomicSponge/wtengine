@@ -255,6 +255,8 @@ class wte_main {
  * \return void
  */
 inline void wte_main::set_display(void) {
+    al_reset_new_display_options();
+
     //  Set screen resolution.
     if(!engine_cfg::is_reg("resolution")) throw std::runtime_error("Screen resolution not defined!");
     int screen_w = std::stoi(engine_cfg::get("resolution").substr(0, engine_cfg::get("resolution").find("x")));
@@ -274,6 +276,8 @@ inline void wte_main::set_display(void) {
 
     //  Set the display.
     display = al_create_display(screen_w, screen_h);
+
+    //  Display failed to load, try a fallback.
     if(!display) {
         al_set_new_display_flags(ALLEGRO_WINDOWED);
         display = al_create_display(mgr::render_manager::get_arena_width(),
@@ -286,6 +290,7 @@ inline void wte_main::set_display(void) {
         screen_w = mgr::render_manager::get_arena_width();
         screen_h = mgr::render_manager::get_arena_height();
     }
+
     al_set_window_title(display, window_title.c_str());
     screen.update_resolution(screen_w, screen_h);
 
@@ -314,7 +319,7 @@ inline void wte_main::set_display(void) {
 inline void wte_main::reconf_display(void) {
     al_destroy_display(display);
     set_display();
-    al_convert_memory_bitmaps();
+    //al_convert_memory_bitmaps();
 }
 
 /*!

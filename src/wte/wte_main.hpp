@@ -117,13 +117,15 @@ class wte_main : private wte_display {
             file_locations.push_back(flocation);
         };
 
-        //!  Call to start up the main game loop.
         void do_game(void);
 
     protected:
         /*!
          * Force single instance, set initialized flag to true.
          * Throws a runtime error if another instance is called.
+         * \param argc Command line arguments.
+         * \param argv Command line arguments count.
+         * \param title Window title.
          */
         inline wte_main(const int argc, char **argv, const std::string title) :
         wte_display(title), load_called(false) {
@@ -396,6 +398,8 @@ inline void wte_main::do_game(void) {
  * \return void
  */
 inline void wte_main::handle_sys_msg(message_container sys_msgs) {
+    const bool timer_running = al_get_timer_started(main_timer);
+
     for(auto it = sys_msgs.begin(); it != sys_msgs.end();) {
         //  Switch over the system messages, deleting each as they are processed.
         switch(map_cmd_str_values[it->get_cmd()]) {
@@ -476,11 +480,16 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
 
             //  cmd:  reconf_display - Reconfigure the display.
             case CMD_STR_RECONF_DISPLAY:
+                //  Make sure the timer isn't running and unregister the display.
+                if(timer_running) al_stop_timer(main_timer);
                 al_pause_event_queue(main_queue, true);
                 al_unregister_event_source(main_queue, al_get_display_event_source(display));
+                //  Reload the display.
                 reconf_display();
+                //  Register display event source and resume timer if it was running.
                 al_register_event_source(main_queue, al_get_display_event_source(display));
                 al_pause_event_queue(main_queue, false);
+                if(timer_running) al_resume_timer(main_timer);
                 it = sys_msgs.erase(it);
                 break;
 

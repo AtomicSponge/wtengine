@@ -38,9 +38,9 @@
 namespace wte
 {
 
-//! WTEngine Main Class.
 /*!
- * The main engine object.
+ * \class WTEngine Main Class.
+ * \brief The main engine object.
  * Sets up various system objects used by the engine.
  * Contains the main game loop and members for managing the game and engine.
  */

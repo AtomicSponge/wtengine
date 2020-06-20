@@ -73,7 +73,7 @@ class wte_display {
             if(!engine_cfg::is_reg("resolution")) throw std::runtime_error("Screen resolution not defined!");
             int screen_w = std::stoi(engine_cfg::get("resolution").substr(0, engine_cfg::get("resolution").find("x")));
             int screen_h = std::stoi(engine_cfg::get("resolution").substr(engine_cfg::get("resolution").find("x") + 1,
-                                                                        engine_cfg::get("resolution").length()));
+                                                                          engine_cfg::get("resolution").length()));
 
             //  Check if a display mode is set.
             if(engine_cfg::is_reg("display_mode")) {

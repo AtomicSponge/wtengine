@@ -130,6 +130,7 @@ class menu_item {
         /*!
          * Menu item constructor.
          * \param l Label of the menu item.
+         * \param st Setting type.
          * \return void
          */
         inline menu_item(const std::string l, const std::size_t st) :

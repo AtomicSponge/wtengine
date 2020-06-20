@@ -45,7 +45,7 @@ class menu_item {
          * \param void
          * \return Vector of display text.
          */
-        inline virtual const std::vector<std::string> get_text(void) { return {"null"}; };
+        inline virtual const std::vector<std::string> get_text(void) const { return {"null"}; };
 
         /*!
          * Define left click process.

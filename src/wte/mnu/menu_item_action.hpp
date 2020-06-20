@@ -71,7 +71,7 @@ class menu_item_action final : public menu_item {
          * \param void
          * \return Vector of display text strings.
          */
-        inline const std::vector<std::string> get_text(void) override { return { get_label() }; };
+        inline const std::vector<std::string> get_text(void) const override { return { get_label() }; };
 
     private:
         std::string cmd;

@@ -28,9 +28,9 @@ namespace wte
 namespace mnu
 {
 
-//!
 /*!
-*/
+ * Create a new selection menu item.
+ */
 class menu_item_selection final : public menu_item {
     public:
         /*!
@@ -84,7 +84,7 @@ class menu_item_selection final : public menu_item {
          * \param void
          * \return Vector of display text strings.
          */
-        inline const std::vector<std::string> get_text(void) override {
+        inline const std::vector<std::string> get_text(void) const override {
             return {
                 get_label(), "< " + display_vals.at(std::distance(vals.cbegin(), current_val)) + " >"
             };

@@ -73,7 +73,7 @@ class menu_item_apply final : public menu_item {
          * \param void
          * \return Vector of display text strings.
          */
-        inline const std::vector<std::string> get_text(void) override {
+        inline const std::vector<std::string> get_text(void) const override {
             if(cmd == "apply") return { "Cancel", "< Apply >" };
             return { "< Cancel >", "Apply" };
         };

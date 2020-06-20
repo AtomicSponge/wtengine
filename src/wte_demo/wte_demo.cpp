@@ -112,6 +112,9 @@ void wte_demo::load_menus(void) {
     {
         //  Create the video settings menu.
         mnu::menu temp_menu = mnu::menu("video_settings", "Video Settings");
+        std::vector<std::string> mode_dvec = { "Windowed", "Windowed Full Screen", "Full Screen" };
+        std::vector<std::string> mode_vec = { "windowed", "windowed_full_screen", "full_screen" };
+        temp_menu.add_item(wte_menu_selection("Display Mode:", "display_mode", mode_dvec, mode_vec, mnu::ENGINE_SETTING_RECONF));
         //
         std::vector<std::string> scale_vec = { "1", "1.25", "1.5", "1.75", "2" };
         temp_menu.add_item(wte_menu_selection("Scale factor:", "scale_factor", scale_vec, scale_vec, mnu::ENGINE_SETTING_RECONF));

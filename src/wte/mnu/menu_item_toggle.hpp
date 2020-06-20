@@ -100,7 +100,7 @@ class menu_item_toggle final : public menu_item {
          * \param void
          * \return Vector of strings to render.
          */
-        inline const std::vector<std::string> get_text(void) override {
+        inline const std::vector<std::string> get_text(void) const override {
             if(toggled) return { get_label(), "< On >", "Off" };
             return { get_label(), "On", "< Off >" };
         };

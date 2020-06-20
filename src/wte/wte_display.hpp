@@ -97,13 +97,26 @@ class wte_display {
                 if(!display) throw std::runtime_error("Failed to configure display!");
                 engine_cfg::set("display_mode=windowed");
                 std::string new_res = std::to_string(mgr::render_manager::get_arena_width()) +
-                                    "x" + std::to_string(mgr::render_manager::get_arena_height());
+                                      "x" + std::to_string(mgr::render_manager::get_arena_height());
                 engine_cfg::set("resolution", new_res);
                 screen_w = mgr::render_manager::get_arena_width();
                 screen_h = mgr::render_manager::get_arena_height();
             }
 
+            //  Set window title.
             al_set_window_title(display, window_title.c_str());
+
+            //  Set window icon.
+            ALLEGRO_FILE* file;
+            file = al_fopen("icon.bmp", "rb");
+            if(file) {
+                ALLEGRO_BITMAP* icon_bitmap = al_load_bitmap_f(file, ".bmp");
+                al_set_display_icon(display, icon_bitmap);
+                al_destroy_bitmap(icon_bitmap);
+            }
+            al_fclose(file);
+
+            //  Let the render manager know the screen resolution.
             screen.update_resolution(screen_w, screen_h);
 
             //  Set the scale factor.

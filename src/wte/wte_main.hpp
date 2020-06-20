@@ -257,6 +257,16 @@ class wte_main {
 inline void wte_main::set_display(void) {
     al_reset_new_display_options();
 
+    //  Configure vsync options.  Gfx driver may override this.
+    if(!engine_cfg::is_reg("vsync")) engine_cfg::reg("vsync=0");
+    if(engine_cfg::get<int>("vsync") >= 0 || engine_cfg::get<int>("vsync") <= 2) {
+        al_set_new_display_option(ALLEGRO_VSYNC, engine_cfg::get<int>("vsync"), ALLEGRO_SUGGEST);
+    }
+    else {
+        al_set_new_display_option(ALLEGRO_VSYNC, 0, ALLEGRO_SUGGEST);
+        engine_cfg::set("vsync=0");
+    }
+
     //  Set screen resolution.
     if(!engine_cfg::is_reg("resolution")) throw std::runtime_error("Screen resolution not defined!");
     int screen_w = std::stoi(engine_cfg::get("resolution").substr(0, engine_cfg::get("resolution").find("x")));

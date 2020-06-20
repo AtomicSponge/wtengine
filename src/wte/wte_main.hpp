@@ -27,6 +27,7 @@
 #include <stdexcept>
 
 #include "wte_global_defines.hpp"
+#include "wte_display.hpp"
 #include "_globals/engine_cfg_map.hpp"
 #include "_globals/game_cfg_map.hpp"
 #include "_globals/engine_flags.hpp"
@@ -43,7 +44,7 @@ namespace wte
  * Sets up various system objects used by the engine.
  * Contains the main game loop and members for managing the game and engine.
  */
-class wte_main {
+class wte_main : private wte_display {
     public:
         /*!
          * Frees up instance, set initialized flag to false.
@@ -56,7 +57,8 @@ class wte_main {
 
             al_destroy_timer(main_timer);
             al_destroy_event_queue(main_queue);
-            al_destroy_display(display);
+            destroy_display();
+            al_inhibit_screensaver(false);
             al_uninstall_system();
 
             initialized = false;
@@ -124,8 +126,8 @@ class wte_main {
          * Throws a runtime error if another instance is called.
          */
         inline wte_main(const int argc, char **argv, const std::string title) :
-        window_title(title), load_called(false) {
-            if(initialized == true) throw std::runtime_error(window_title + " already running!");
+        wte_display(title), load_called(false) {
+            if(initialized == true) throw std::runtime_error(get_window_title() + " already running!");
             initialized = true;
 
             //  Initialize Allegro.
@@ -145,9 +147,9 @@ class wte_main {
             for(auto & it : file_locations) PHYSFS_mount(it.c_str(), NULL, 1);
             al_set_physfs_file_interface();
 
-            //  Configure display.
-            set_display();
-            
+            //  Configure display.  Called from wte_display class.
+            create_display();
+
             //  Disable pesky screensavers.
             al_inhibit_screensaver(true);
 
@@ -212,13 +214,10 @@ class wte_main {
         mgr::input_manager input_th;
         mgr::menu_manager menus;
         mgr::message_manager messages;
-        mgr::render_manager screen;
         mgr::spawn_manager spawner;
         mgr::system_manager systems;
 
     private:
-        void set_display(void);
-        void reconf_display(void);
         void process_new_game(void);
         void process_end_game(void);
         void handle_sys_msg(message_container);
@@ -236,101 +235,16 @@ class wte_main {
         std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
 
         //  Allegro objects used by the engine.
-        inline static ALLEGRO_DISPLAY* display = NULL;
         inline static ALLEGRO_TIMER* main_timer = NULL;
         inline static ALLEGRO_EVENT_QUEUE* main_queue = NULL;
 
         bool load_called;  //  Flag to make sure wte_load was called.
-        std::string window_title;  //  Title for application window.
 
         //  Vector of file paths to provide to PhysFS.
         inline static std::vector<std::string> file_locations = {};
         //  Restrict to one instance of the engine running.
         inline static bool initialized = false;
 };
-
-/*!
- * Configure the display.
- * \param void
- * \return void
- */
-inline void wte_main::set_display(void) {
-    al_reset_new_display_options();
-
-    //  Configure vsync options.  Gfx driver may override this.
-    if(!engine_cfg::is_reg("vsync")) engine_cfg::reg("vsync=0");
-    if(engine_cfg::get<int>("vsync") >= 0 || engine_cfg::get<int>("vsync") <= 2) {
-        al_set_new_display_option(ALLEGRO_VSYNC, engine_cfg::get<int>("vsync"), ALLEGRO_SUGGEST);
-    }
-    else {
-        al_set_new_display_option(ALLEGRO_VSYNC, 0, ALLEGRO_SUGGEST);
-        engine_cfg::set("vsync=0");
-    }
-
-    //  Set screen resolution.
-    if(!engine_cfg::is_reg("resolution")) throw std::runtime_error("Screen resolution not defined!");
-    int screen_w = std::stoi(engine_cfg::get("resolution").substr(0, engine_cfg::get("resolution").find("x")));
-    int screen_h = std::stoi(engine_cfg::get("resolution").substr(engine_cfg::get("resolution").find("x") + 1,
-                                                                  engine_cfg::get("resolution").length()));
-
-    //  Check if a display mode is set.
-    if(engine_cfg::is_reg("display_mode")) {
-        if(engine_cfg::get("display_mode") == "windowed") al_set_new_display_flags(ALLEGRO_WINDOWED);
-        else if(engine_cfg::get("display_mode") == "windowed_full_screen") al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
-        else if(engine_cfg::get("display_mode") == "full_screen") al_set_new_display_flags(ALLEGRO_FULLSCREEN);
-        else al_set_new_display_flags(ALLEGRO_WINDOWED);
-    } else {
-        engine_cfg::reg("display_mode=windowed");
-        al_set_new_display_flags(ALLEGRO_WINDOWED);
-    }
-
-    //  Set the display.
-    display = al_create_display(screen_w, screen_h);
-
-    //  Display failed to load, try a fallback.
-    if(!display) {
-        al_set_new_display_flags(ALLEGRO_WINDOWED);
-        display = al_create_display(mgr::render_manager::get_arena_width(),
-                                    mgr::render_manager::get_arena_height());
-        if(!display) throw std::runtime_error("Failed to configure display!");
-        engine_cfg::set("display_mode=windowed");
-        std::string new_res = std::to_string(mgr::render_manager::get_arena_width()) +
-                              "x" + std::to_string(mgr::render_manager::get_arena_height());
-        engine_cfg::set("resolution", new_res);
-        screen_w = mgr::render_manager::get_arena_width();
-        screen_h = mgr::render_manager::get_arena_height();
-    }
-
-    al_set_window_title(display, window_title.c_str());
-    screen.update_resolution(screen_w, screen_h);
-
-    //  Set the scale factor.
-    if(engine_cfg::is_reg("scale_factor")) {
-        if(engine_cfg::get("scale_factor") == "1") screen.set_scale_factor(1.0f);
-        else if(engine_cfg::get("scale_factor") == "1.25") screen.set_scale_factor(1.25f);
-        else if(engine_cfg::get("scale_factor") == "1.5") screen.set_scale_factor(1.5f);
-        else if(engine_cfg::get("scale_factor") == "1.75") screen.set_scale_factor(1.75f);
-        else if(engine_cfg::get("scale_factor") == "2") screen.set_scale_factor(2.0f);
-        else {
-            screen.set_scale_factor(1.0f);
-            engine_cfg::set("scale_factor=1");
-        }
-    } else {
-        screen.set_scale_factor(1.0f);
-        engine_cfg::reg("scale_factor=1");
-    }
-}
-
-/*!
- * Reconfigure the display.
- * \param void
- * \return void
- */
-inline void wte_main::reconf_display(void) {
-    al_destroy_display(display);
-    set_display();
-    //al_convert_memory_bitmaps();
-}
 
 /*!
  * Call every time a new game is starting.
@@ -562,7 +476,11 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
 
             //  cmd:  reconf_display - Reconfigure the display.
             case CMD_STR_RECONF_DISPLAY:
+                al_pause_event_queue(main_queue, true);
+                al_unregister_event_source(main_queue, al_get_display_event_source(display));
                 reconf_display();
+                al_register_event_source(main_queue, al_get_display_event_source(display));
+                al_pause_event_queue(main_queue, false);
                 it = sys_msgs.erase(it);
                 break;
 

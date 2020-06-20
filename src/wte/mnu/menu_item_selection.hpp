@@ -15,6 +15,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <stdexcept>
 
 #include "menu_item.hpp"
 
@@ -42,9 +43,12 @@ class menu_item_selection final : public menu_item {
          */
         inline menu_item_selection(const std::string label,
                                    const std::string vr,
+                                   const std::vector<std::string> dvl,
                                    const std::vector<std::string> vl,
                                    const std::size_t st) :
-        menu_item(label, st), var(vr), vals(vl) {
+        menu_item(label, st), var(vr), display_vals(dvl), vals(vl) {
+            if(dvl.size() != vl.size())
+                throw std::runtime_error("Selection item label and value counts must be the same!");
             current_val = vals.begin();
             default_val = current_val;
         };
@@ -81,7 +85,9 @@ class menu_item_selection final : public menu_item {
          * \return Vector of display text strings.
          */
         inline const std::vector<std::string> get_text(void) override {
-            return { get_label(), "< " + *current_val + " >" };
+            return {
+                get_label(), "< " + display_vals.at(std::distance(vals.cbegin(), current_val)) + " >"
+            };
         };
 
         /*!
@@ -123,6 +129,7 @@ class menu_item_selection final : public menu_item {
 
     private:
         std::string var;
+        std::vector<std::string> display_vals;
         std::vector<std::string> vals;
         std::vector<std::string>::const_iterator current_val;
         std::vector<std::string>::const_iterator default_val;

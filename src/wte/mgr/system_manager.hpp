@@ -145,6 +145,29 @@ class system_manager final : public manager<system_manager> {
         };
 
         /*!
+         * \brief Reloads temporary bitmaps.
+         * Any background or overlay drawing bitmaps will be recreated.
+         * Called when the screen is reloaded.
+         * \param world Reference to the entity manager.
+         * \return void
+         */
+        inline void reload_temp_bitmaps(mgr::entity_manager& world) {
+            component_container<cmp::background> background_components =
+                world.set_components<cmp::background>();
+
+            for(auto & it : background_components) {
+                it.second.get()->reload_background_bitmap();
+            }
+
+            component_container<cmp::overlay> overlay_components =
+                world.set_components<cmp::overlay>();
+
+            for(auto & it : overlay_components) {
+                it.second.get()->reload_overlay_bitmap();
+            }
+        };
+
+        /*!
          * \brief Enable a system.
          * Toggle a system to enabled so its run member is processed.
          * \param sys Name of system to enable.

@@ -116,6 +116,7 @@ class wte_display {
             }
             al_fclose(file);
 
+            /* *** Render manager updating *** */
             //  Let the render manager know the screen resolution.
             screen.update_resolution(screen_w, screen_h);
 
@@ -153,7 +154,7 @@ class wte_display {
         inline void reconf_display(void) {
             destroy_display();
             create_display();
-            //al_convert_memory_bitmaps();
+            al_convert_memory_bitmaps();
         };
 
         //  Declare the render manager.

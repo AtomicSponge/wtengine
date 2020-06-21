@@ -489,6 +489,10 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
                 al_unregister_event_source(main_queue, al_get_display_event_source(display));
                 //  Reload the display.
                 reconf_display();
+                //  Reload any temp bitmaps.
+                screen.reload_arena_bitmap();
+                menus.reload_menu_bitmap();
+                if(engine_flags::is_set(GAME_STARTED)) systems.reload_temp_bitmaps(world);
                 //  Register display event source and resume timer if it was running.
                 al_register_event_source(main_queue, al_get_display_event_source(display));
                 al_pause_event_queue(main_queue, false);

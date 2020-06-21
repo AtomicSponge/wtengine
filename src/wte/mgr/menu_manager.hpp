@@ -137,6 +137,19 @@ class menu_manager final : public manager<menu_manager> {
         };
 
         /*!
+         * \brief Reload the menu bitmap.
+         * Called when the screen is updated.
+         * \param void
+         * \return void
+         */
+        inline void reload_menu_bitmap(void) {
+            al_destroy_bitmap(menu_bitmap);
+            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+            menu_bitmap = al_create_bitmap(menu_width, menu_height);
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+        };
+
+        /*!
          * \brief Set menu colors.
          * Call during menu creation.
          * \param fcolor Allegro color to use for font.

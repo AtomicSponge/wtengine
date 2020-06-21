@@ -43,9 +43,9 @@ class overlay final : public animator {
          */
         inline overlay(int w, int h, float x, float y,
                        std::size_t l, void func(entity, mgr::entity_manager&, int64_t)) :
-        animator(l, func), pos_x(x), pos_y(y) {
+        overlay_w(w), overlay_h(h), pos_x(x), pos_y(y), animator(l, func) {
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            overlay_bitmap = al_create_bitmap(w, h);
+            overlay_bitmap = al_create_bitmap(overlay_w, overlay_h);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             overlay_font = NULL;
         };
@@ -59,6 +59,19 @@ class overlay final : public animator {
             for(auto & it : bmp_map) al_destroy_bitmap(it.second);
             al_destroy_bitmap(overlay_bitmap);
             al_destroy_font(overlay_font);
+        };
+
+        /*!
+         * \brief Reload the overlay bitmap.
+         * Called when the screen is updated.
+         * \param void
+         * \return void
+         */
+        inline void reload_overlay_bitmap(void) {
+            al_destroy_bitmap(overlay_bitmap);
+            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+            overlay_bitmap = al_create_bitmap(overlay_w, overlay_h);
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
         };
 
         /*!
@@ -101,13 +114,16 @@ class overlay final : public animator {
             return true;
         };
 
+        ALLEGRO_BITMAP* overlay_bitmap;
+        
         std::map<std::string, ALLEGRO_BITMAP*> bmp_map;
 
-        ALLEGRO_BITMAP* overlay_bitmap;
         float pos_x, pos_y;
 
     private:
         ALLEGRO_FONT* overlay_font;
+
+        int overlay_w, overlay_h;
 };
 
 } //  namespace cmp

@@ -218,7 +218,7 @@ class wte_main : private wte_display {
         mgr::system_manager systems;
 
     private:
-        void process_new_game(void);
+        void process_new_game(const std::string);
         void process_end_game(void);
         void handle_sys_msg(message_container);
 
@@ -248,17 +248,17 @@ class wte_main : private wte_display {
 
 /*!
  * Call every time a new game is starting.
- * \param void
+ * \param game_data Game data file to load.
  * \return void
  */
-inline void wte_main::process_new_game(void) {
+inline void wte_main::process_new_game(const std::string game_data) {
     std::srand(std::time(nullptr));  //  Seed random, using time.
 
     //  Make sure the menu isn't opened.
     engine_flags::unset(GAME_MENU_OPENED);
 
     //  Load a new message data file.
-    messages.new_data_file("game.sdf");  //  Update later to load from settings.
+    messages.load_file(game_data);
 
     //  Load systems and prevent further systems from being loaded.
     load_systems();
@@ -425,7 +425,7 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
                 //  If the game is running, ignore.
                 if(!engine_flags::is_set(GAME_STARTED)) {
                     menus.reset();
-                    process_new_game();
+                    process_new_game(it->get_arg(0));
                 }
                 it = sys_msgs.erase(it);
                 break;

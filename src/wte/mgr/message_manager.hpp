@@ -134,14 +134,19 @@ class message_manager final : public manager<message_manager>, private engine_ti
         /*!
          * \brief Load a new data file into the message queue.
          * Events are placed in order according to the timer value.
+         * \param fname Filename to load.
+         * \return void
          */
-        inline void new_data_file(const std::string fname) {
+        inline void load_file(const std::string fname) {
             msg_queue.clear();
-
             //  Open data file - read binary mode.
             ALLEGRO_FILE* file;
             file = al_fopen(fname.c_str(), "rb");
-            if(!file) throw std::runtime_error("Error reading game data file!");
+            //  File not found, error.
+            if(!file) {
+                al_fclose(file);
+                throw std::runtime_error("Error loading game data!");
+            }
 
             //  Loop through the entire data file loading into the queue.
             while(true) {

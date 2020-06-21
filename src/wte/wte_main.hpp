@@ -247,7 +247,8 @@ class wte_main : private wte_display {
 };
 
 /*!
- * Call every time a new game is starting.
+ * \brief Call to start a new game.
+ * Loads a game data file and user defined systems and starting entities.
  * \param game_data Game data file to load.
  * \return void
  */
@@ -284,7 +285,8 @@ inline void wte_main::process_new_game(const std::string game_data) {
 }
 
 /*!
- * Calls the user defined end game process, then shuts down the game.
+ * \brief Call to end the game.
+ * Clears out the entities and systems and runs user defined end process.
  * \param void
  * \return void
  */

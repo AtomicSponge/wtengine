@@ -144,24 +144,24 @@ class message {
         inline const msg_arg_list get_arglist(void) const { return arglist; };
 
         /*!
-         * Returns a single argument by index from the argument list.
+         * Returns a single argument by pos from the argument list.
          * \param pos The position in the argument vector.
          * \return The argument string by position.
          */
         inline const std::string get_arg(const std::size_t pos) const {
-            if(pos > arglist.size()-1) return "";  //  Out of range, return empty string.
+            if(pos >= arglist.size()) return "";  //  Out of range, return empty string.
             else return arglist[pos];
         };
 
         /*!
-         * Get a single argument by index from the argument list, casted to a type.
+         * Get a single argument by pos from the argument list, casted to a type.
          * \tparam T Type to cast to.
          * \param pos The position in the argument vector.
          * \return The argument by position casted to type.
          */
         template <typename T> inline const T get_arg(const std::size_t pos) const {
             //  Bad position, return false.
-            if(pos > arglist.size()-1) return std::any_cast<const bool>(false);
+            if(pos >= arglist.size()) return std::any_cast<const bool>(false);
             try {
                 T temp;
                 std::stringstream(arglist[pos]) >>

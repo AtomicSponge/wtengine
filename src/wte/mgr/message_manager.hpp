@@ -103,8 +103,8 @@ class message_manager final : public manager<message_manager>, private engine_ti
          * \param void
          * \return void
          */
-        inline void clear_queue(void) { msg_queue.clear(); };
-        
+        inline void clear(void) { msg_queue.clear(); };
+
         /*!
          * \brief Get messages based on their command.
          * Once events in the future are reached, break early.

@@ -178,7 +178,6 @@ class wte_main : private wte_display {
             map_cmd_str_values["set_gamecfg"] = CMD_STR_SET_GAMECFG;
             map_cmd_str_values["reconf_display"] = CMD_STR_RECONF_DISPLAY;
             map_cmd_str_values["fps_counter"] = CMD_STR_FPS_COUNTER;
-            map_cmd_str_values["scale_factor"] = CMD_STR_SCALE_FACTOR;
 
             //  Set default colors for alerts.
             alert::set_font_color(WTE_COLOR_WHITE);
@@ -229,8 +228,7 @@ class wte_main : private wte_display {
             CMD_STR_OPEN_MENU,      CMD_STR_CLOSE_MENU,
             CMD_STR_ENABLE_SYSTEM,  CMD_STR_DISABLE_SYSTEM,
             CMD_STR_SET_ENGCFG,     CMD_STR_SET_GAMECFG,
-            CMD_STR_RECONF_DISPLAY, CMD_STR_FPS_COUNTER,
-            CMD_STR_SCALE_FACTOR
+            CMD_STR_RECONF_DISPLAY, CMD_STR_FPS_COUNTER
         };
         std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
 
@@ -510,32 +508,6 @@ inline void wte_main::handle_sys_msg(message_container sys_msgs) {
                 } else {
                     if(it->get_arg(0) == "on") engine_cfg::reg("draw_fps=1");
                     if(it->get_arg(0) == "off") engine_cfg::reg("draw_fps=0");
-                }
-                it = sys_msgs.erase(it);
-                break;
-
-            //  cmd:  scale_factor - Set scale factor.
-            case CMD_STR_SCALE_FACTOR:
-                if(!engine_cfg::is_reg("scale_factor")) engine_cfg::reg("scale_factor=1");
-                if(it->get_arg(0) == "1") {
-                    screen.set_scale_factor(1.0f);
-                    engine_cfg::set("scale_factor=1");
-                }
-                if(it->get_arg(0) == "1.25") {
-                    screen.set_scale_factor(1.25f);
-                    engine_cfg::set("scale_factor=1.25");
-                }
-                if(it->get_arg(0) == "1.5") {
-                    screen.set_scale_factor(1.5f);
-                    engine_cfg::set("scale_factor=1.5");
-                }
-                if(it->get_arg(0) == "1.75") {
-                    screen.set_scale_factor(1.75f);
-                    engine_cfg::set("scale_factor=1.75");
-                }
-                if(it->get_arg(0) == "2") {
-                    screen.set_scale_factor(2.0f);
-                    engine_cfg::set("scale_factor=2");
                 }
                 it = sys_msgs.erase(it);
                 break;

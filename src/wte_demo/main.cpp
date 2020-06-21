@@ -25,8 +25,8 @@ int main(int argc, char **argv) {
     mgr::render_manager::set_arena_size(768, 1024);
 
     //  Register default engine settings.
-    engine_cfg::reg("resolution=768x1024");
     engine_cfg::reg("draw_fps=0");
+    engine_cfg::reg("display_mode=windowed");
 
     //  Load settings.
     engine_cfg_map::load();

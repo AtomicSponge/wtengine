@@ -15,6 +15,7 @@
 #include <allegro5/allegro.h>
 
 #include <string>
+#include <cmath>
 
 #include "_globals/engine_cfg_map.hpp"
 #include "mgr/render_manager.hpp"
@@ -69,23 +70,40 @@ class wte_display {
                 engine_cfg::set("vsync=0");
             }
 
-            //  Set screen resolution.
-            if(!engine_cfg::is_reg("resolution")) throw std::runtime_error("Screen resolution not defined!");
-            int screen_w = std::stoi(engine_cfg::get("resolution").substr(0, engine_cfg::get("resolution").find("x")));
-            int screen_h = std::stoi(engine_cfg::get("resolution").substr(engine_cfg::get("resolution").find("x") + 1,
-                                                                          engine_cfg::get("resolution").length()));
+            //  Get the scale factor.
+            float scale_factor = 1.0f;
+            if(engine_cfg::is_reg("scale_factor")) {
+                if(engine_cfg::get("scale_factor") == "1") scale_factor = 1.0f;
+                else if(engine_cfg::get("scale_factor") == "1.25") scale_factor = 1.25f;
+                else if(engine_cfg::get("scale_factor") == "1.5") scale_factor = 1.5f;
+                else if(engine_cfg::get("scale_factor") == "1.75") scale_factor = 1.75f;
+                else if(engine_cfg::get("scale_factor") == "2") scale_factor = 2.0f;
+                else {
+                    scale_factor = 1.0f;
+                    engine_cfg::set("scale_factor=1");
+                }
+            } else {
+                scale_factor = 1.0f;
+                engine_cfg::reg("scale_factor=1");
+            }
 
+            int screen_w = mgr::render_manager::get_arena_width();
+            int screen_h = mgr::render_manager::get_arena_height();
             //  Check if a display mode is set.
             if(engine_cfg::is_reg("display_mode")) {
-                if(engine_cfg::get("display_mode") == "windowed") al_set_new_display_flags(ALLEGRO_WINDOWED);
-                else if(engine_cfg::get("display_mode") == "windowed_full_screen") al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
-                else if(engine_cfg::get("display_mode") == "full_screen") al_set_new_display_flags(ALLEGRO_FULLSCREEN);
-                else al_set_new_display_flags(ALLEGRO_WINDOWED);
+                if(engine_cfg::get("display_mode") == "windowed_full_screen") {
+                    al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
+                } else {
+                    al_set_new_display_flags(ALLEGRO_WINDOWED);
+                    screen_w = (int)ceil(mgr::render_manager::get_arena_width() * scale_factor);
+                    screen_h = (int)ceil(mgr::render_manager::get_arena_height() * scale_factor);
+                }
             } else {
                 engine_cfg::reg("display_mode=windowed");
                 al_set_new_display_flags(ALLEGRO_WINDOWED);
+                screen_w = (int)ceil(mgr::render_manager::get_arena_width() * scale_factor);
+                screen_h = (int)ceil(mgr::render_manager::get_arena_height() * scale_factor);
             }
-
             //  Set the display.
             display = al_create_display(screen_w, screen_h);
 
@@ -96,9 +114,8 @@ class wte_display {
                                             mgr::render_manager::get_arena_height());
                 if(!display) throw std::runtime_error("Failed to configure display!");
                 engine_cfg::set("display_mode=windowed");
-                std::string new_res = std::to_string(mgr::render_manager::get_arena_width()) +
-                                      "x" + std::to_string(mgr::render_manager::get_arena_height());
-                engine_cfg::set("resolution", new_res);
+                engine_cfg::set("scale_factor=1");
+                scale_factor = 1.0f;
                 screen_w = mgr::render_manager::get_arena_width();
                 screen_h = mgr::render_manager::get_arena_height();
             }
@@ -117,24 +134,12 @@ class wte_display {
             al_fclose(file);
 
             /* *** Render manager updating *** */
-            //  Let the render manager know the screen resolution.
-            screen.update_resolution(screen_w, screen_h);
-
-            //  Set the scale factor.
-            if(engine_cfg::is_reg("scale_factor")) {
-                if(engine_cfg::get("scale_factor") == "1") screen.set_scale_factor(1.0f);
-                else if(engine_cfg::get("scale_factor") == "1.25") screen.set_scale_factor(1.25f);
-                else if(engine_cfg::get("scale_factor") == "1.5") screen.set_scale_factor(1.5f);
-                else if(engine_cfg::get("scale_factor") == "1.75") screen.set_scale_factor(1.75f);
-                else if(engine_cfg::get("scale_factor") == "2") screen.set_scale_factor(2.0f);
-                else {
-                    screen.set_scale_factor(1.0f);
-                    engine_cfg::set("scale_factor=1");
-                }
-            } else {
-                screen.set_scale_factor(1.0f);
-                engine_cfg::reg("scale_factor=1");
+            if(engine_cfg::get("display_mode") == "windowed_full_screen") {
+                screen_w = al_get_display_width(display);
+                screen_h = al_get_display_height(display);
             }
+            screen.update_resolution(screen_w, screen_h);
+            screen.set_scale_factor(scale_factor);
         };
 
         /*!

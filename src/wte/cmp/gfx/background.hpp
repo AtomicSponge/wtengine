@@ -88,10 +88,15 @@ class background final : public animator {
          * \return void
          */
         inline void reload_background_bitmap(void) {
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+            ALLEGRO_BITMAP* temp_bmp = al_clone_bitmap(background_bitmap);
             al_destroy_bitmap(background_bitmap);
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             background_bitmap = al_create_bitmap(background_w, background_h);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+            al_set_target_bitmap(background_bitmap);
+            al_draw_bitmap(temp_bmp, 0.0f, 0.0f, 0);
+            al_destroy_bitmap(temp_bmp);
         };
 
         /*!

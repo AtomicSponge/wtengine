@@ -106,7 +106,7 @@ class overlay final : public animator {
          * \param fname Filename to load.
          * \param label Label for referencing bitmap.
          */
-        inline bool load_file(std::string label, std::string fname) {
+        inline bool load_file(const std::string label, const std::string fname) {
             ALLEGRO_FILE* file;
             file = al_fopen(fname.c_str(), "rb");
             if(!file) {

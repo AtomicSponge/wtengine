@@ -28,7 +28,7 @@ namespace wte
 {
 
 /*
- * Define world/entity/component containers and iterators.
+ * Define containers for entity/component/world storage.
  */
 //!  Container to store an entity reference.
 typedef unsigned int entity;

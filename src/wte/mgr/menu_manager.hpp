@@ -34,15 +34,10 @@
 namespace wte
 {
 
-//! Shared pointer for addressing menu items.
-typedef std::shared_ptr<mnu::menu> menu_sptr;
-//! Constant shared pointer for addressing menu items.
-typedef std::shared_ptr<const mnu::menu> menu_csptr;
-
 //! Menu iterator.
-typedef std::vector<menu_sptr>::iterator menu_iterator;
+typedef std::vector<mnu::menu_sptr>::iterator menu_iterator;
 //! Constant menu iterator.
-typedef std::vector<menu_sptr>::const_iterator menu_citerator;
+typedef std::vector<mnu::menu_sptr>::const_iterator menu_citerator;
 
 namespace mgr
 {
@@ -204,7 +199,7 @@ class menu_manager final : public manager<menu_manager> {
          * \param name Menu name.
          * \return Shared pointer to menu.
          */
-        inline const menu_csptr get_menu(const std::string name) const {
+        inline const mnu::menu_csptr get_menu(const std::string name) const {
             if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
 
             for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
@@ -233,7 +228,7 @@ class menu_manager final : public manager<menu_manager> {
          * \param name Menu name.
          * \return Shared pointer to menu.
          */
-        inline const menu_sptr set_menu(const std::string name) {
+        inline const mnu::menu_sptr set_menu(const std::string name) {
             if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
 
             for(menu_iterator it = menus.begin(); it != menus.end(); it++) {
@@ -297,8 +292,8 @@ class menu_manager final : public manager<menu_manager> {
         ALLEGRO_COLOR menu_font_color;
         ALLEGRO_COLOR menu_bg_color;
 
-        std::vector<menu_sptr> menus;
-        std::stack<menu_csptr> opened_menus;
+        std::vector<mnu::menu_sptr> menus;
+        std::stack<mnu::menu_csptr> opened_menus;
 
         int font_size;
         float menu_width, menu_height, menu_padding;

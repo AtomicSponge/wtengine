@@ -106,6 +106,11 @@ class menu {
         std::string title;
 };
 
+//! Shared pointer for addressing menu items.
+typedef std::shared_ptr<mnu::menu> menu_sptr;
+//! Constant shared pointer for addressing menu items.
+typedef std::shared_ptr<const mnu::menu> menu_csptr;
+
 }  // end namespace mnu
 
 }  // end namespace wte

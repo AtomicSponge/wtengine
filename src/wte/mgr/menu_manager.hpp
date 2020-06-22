@@ -334,29 +334,29 @@ inline void menu_manager::run(message_manager& messages) {
     }
 
     //  Iterate through the menu items depending on key press.
-    if(input_flags::is_set(INPUT_UP) && menu_position != opened_menus.top()->items_cbegin()) {
-        input_flags::unset(INPUT_UP);
+    if(input_flags::is_set(WTE_INPUT_UP) && menu_position != opened_menus.top()->items_cbegin()) {
+        input_flags::unset(WTE_INPUT_UP);
         menu_position--;
     }
-    if(input_flags::is_set(INPUT_DOWN) && menu_position != opened_menus.top()->items_cend()) {
-        input_flags::unset(INPUT_DOWN);
+    if(input_flags::is_set(WTE_INPUT_DOWN) && menu_position != opened_menus.top()->items_cend()) {
+        input_flags::unset(WTE_INPUT_DOWN);
         menu_position++;
         if(menu_position == opened_menus.top()->items_cend()) menu_position--;
     }
 
     //  Switch through the menu item depending on key press.
-    if(input_flags::is_set(INPUT_LEFT) && menu_position != opened_menus.top()->items_cend()) {
-        input_flags::unset(INPUT_LEFT);
-        (*menu_position)->on_left(input_flags::is_set(INPUT_MENU_ALT));
+    if(input_flags::is_set(WTE_INPUT_LEFT) && menu_position != opened_menus.top()->items_cend()) {
+        input_flags::unset(WTE_INPUT_LEFT);
+        (*menu_position)->on_left(input_flags::is_set(WTE_INPUT_MENU_ALT));
     }
-    if(input_flags::is_set(INPUT_RIGHT) && menu_position != opened_menus.top()->items_cend()) {
-        input_flags::unset(INPUT_RIGHT);
-        (*menu_position)->on_right(input_flags::is_set(INPUT_MENU_ALT));
+    if(input_flags::is_set(WTE_INPUT_RIGHT) && menu_position != opened_menus.top()->items_cend()) {
+        input_flags::unset(WTE_INPUT_RIGHT);
+        (*menu_position)->on_right(input_flags::is_set(WTE_INPUT_MENU_ALT));
     }
 
     //  Menu item was selected, process what happens.
-    if(input_flags::is_set(INPUT_MENU_SELECT) && menu_position != opened_menus.top()->items_cend()) {
-        input_flags::unset(INPUT_MENU_SELECT);
+    if(input_flags::is_set(WTE_INPUT_MENU_SELECT) && menu_position != opened_menus.top()->items_cend()) {
+        input_flags::unset(WTE_INPUT_MENU_SELECT);
         message temp_msg = (*menu_position)->on_select();
         /* *** Check if the message is for the menu system and process. ********* */
         if(temp_msg.get_sys() == "menu") {
@@ -428,8 +428,8 @@ inline void menu_manager::run(message_manager& messages) {
         else if(temp_msg.get_cmd() != "null") messages.add_message(temp_msg);
     }
 
-    if(input_flags::is_set(INPUT_MENU_CLOSE)) {
-        input_flags::unset(INPUT_MENU_CLOSE);
+    if(input_flags::is_set(WTE_INPUT_MENU_CLOSE)) {
+        input_flags::unset(WTE_INPUT_MENU_CLOSE);
         reset();
     }
 }

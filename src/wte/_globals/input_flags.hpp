@@ -18,10 +18,10 @@ namespace wte
 {
 
 enum INPUT_FLAG_ENUM {
-   INPUT_UP, INPUT_DOWN, INPUT_LEFT, INPUT_RIGHT,
-   INPUT_ACTION_1, INPUT_ACTION_2, INPUT_ACTION_3,
-   INPUT_MENU_SELECT, INPUT_MENU_ALT, INPUT_MENU_CLOSE,
-   MAX_INPUT_FLAGS
+   WTE_INPUT_UP, WTE_INPUT_DOWN, WTE_INPUT_LEFT, WTE_INPUT_RIGHT,
+   WTE_INPUT_ACTION_1, WTE_INPUT_ACTION_2, WTE_INPUT_ACTION_3,
+   WTE_INPUT_MENU_SELECT, WTE_INPUT_MENU_ALT, WTE_INPUT_MENU_CLOSE,
+   WTE_MAX_INPUT_FLAGS
 };
 
 //!  Input flags
@@ -41,7 +41,7 @@ class input_flags final {
          * \return void
          */
         inline static void set(const std::size_t f) {
-            flags[f].store(true, std::memory_order_relaxed);
+            flags[f].store(true, std::memory_order_release);
         };
 
         /*!
@@ -50,7 +50,7 @@ class input_flags final {
          * \return void
          */
         inline static void unset(const std::size_t f) {
-            flags[f].store(false, std::memory_order_relaxed);
+            flags[f].store(false, std::memory_order_release);
         };
 
         /*!
@@ -59,7 +59,7 @@ class input_flags final {
          * \return True if set, false if not set.
          */
         inline static const bool is_set(const std::size_t f) {
-            return flags[f].load(std::memory_order_relaxed);
+            return flags[f].load(std::memory_order_consume);
         };
 
         /*!
@@ -68,15 +68,15 @@ class input_flags final {
          * \return void
          */
         inline static void unset_all(void) {
-            for(std::size_t i = 0; i < MAX_INPUT_FLAGS; i++)
-                flags[i].store(false, std::memory_order_relaxed);
+            for(std::size_t i = 0; i < WTE_MAX_INPUT_FLAGS; i++)
+                flags[i].store(false, std::memory_order_release);
         }
 
     private:
         inline input_flags() { unset_all(); };
         inline ~input_flags() { unset_all(); };
 
-        inline static std::atomic<bool> flags[MAX_INPUT_FLAGS] = {};
+        inline static std::atomic<bool> flags[WTE_MAX_INPUT_FLAGS] = {};
 };
 
 } //  end namespace wte

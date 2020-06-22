@@ -19,6 +19,7 @@
 #include <iterator>
 #include <limits>
 #include <stdexcept>
+#include <algorithm>
 
 #include "manager.hpp"
 #include "../cmp/component.hpp"
@@ -32,26 +33,22 @@ namespace wte
 //!  Container to store an entity reference.
 typedef unsigned int entity;
 
-//!  Container for storing a group of entity references.
+//!  \typedef Container for storing a group of entity references.
 typedef std::vector<entity> world_container;
-//!  Iterator for addressing a group of entities.
-typedef std::vector<entity>::iterator world_iterator;
-//!  Constant iterator for addressing a group of entities.
-typedef std::vector<entity>::const_iterator world_citerator;
 
-//!
+//!  \typedef Container to store a group of components related to an entity.
 typedef std::vector<cmp::component_sptr> entity_container;
-//!  Container to store a group of components related to an entity.
+//!  \typedef Constant container to store a group of components related to an entity.
 typedef std::vector<cmp::component_csptr> const_entity_container;
 
-//!  Container for storing components of similar type.
+//!  \typedef Container for storing components of similar type.
 template <typename T>
 using component_container = std::map<const entity, std::shared_ptr<T>>;
-//!  Constant container for storing components of similar type.
+//!  \typedef Constant container for storing components of similar type.
 template <typename T>
 using const_component_container = std::map<const entity, std::shared_ptr<const T>>;
 
-//!  Container to store the entire game world.
+//!  \typedef Container to store the entire game world.
 typedef std::unordered_multimap<entity, cmp::component_sptr> world_map;
 
 namespace mgr
@@ -95,7 +92,7 @@ class entity_manager final : public manager<entity_manager> {
             if(entity_counter == std::numeric_limits<entity>::max()) {
                 next_id = 0;
 
-                for(world_iterator it = entity_vec.begin(); it != entity_vec.end(); it++) {
+                for(auto it = entity_vec.begin(); it != entity_vec.end(); it++) {
                     //  No more room for entities, fail.
                     if(next_id == std::numeric_limits<entity>::max())
                         throw std::runtime_error("Entity manager has hit max!");
@@ -119,12 +116,11 @@ class entity_manager final : public manager<entity_manager> {
          * \return Return true on success, false if entity does not exist.
          */
         inline const bool delete_entity(const entity e_id) {
-            for(world_iterator it = entity_vec.begin(); it != entity_vec.end(); it++) {
-                if(*it == e_id) {
-                    world.erase(e_id);     //  Remove all associated componenets.
-                    entity_vec.erase(it);  //  Delete the entity.
-                    return true;
-                }
+            auto it = std::find(entity_vec.begin(), entity_vec.end(), e_id);
+            if(it != entity_vec.end()) {
+                world.erase(e_id);     //  Remove all associated componenets.
+                entity_vec.erase(it);  //  Delete the entity.
+                return true;
             }
             return false;
         };
@@ -137,7 +133,7 @@ class entity_manager final : public manager<entity_manager> {
          */
         inline const bool entity_exists(const entity e_id) const {
             if(entity_vec.empty()) return false;
-            for(auto & it : entity_vec) if(it == e_id) return true;
+            return (std::find(entity_vec.begin(), entity_vec.end(), e_id) != entity_vec.end());
             return false;
         };
 

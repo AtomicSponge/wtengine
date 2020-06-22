@@ -24,7 +24,8 @@ namespace wte
 {
 
 /*!
- * \class Display class
+ * \class Display class.
+ * Inherited by the main engine class.  Handles control of the display.
  */
 class wte_display {
     public:

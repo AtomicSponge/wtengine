@@ -92,7 +92,26 @@ class message_manager final : public manager<message_manager>, private engine_ti
             for(auto it = msg_queue.begin(); it != msg_queue.end();) {
                 //  End early if events are in the future.
                 if(it->get_timer() > check_time()) break;
-                if(it->is_timed_event()) it = msg_queue.erase(it);
+                if(it->is_timed_event()) {
+                    it = msg_queue.erase(it);
+                    #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
+                    debug_log_file << "MESSAGE DELETED | ";
+                    debug_log_file << "TIMER:  " << it->get_timer() << " | ";
+                    debug_log_file << "SYS:  " << it->get_sys() << " | ";
+                    if((it->get_to() != "") || (it->get_from() != "")) {
+                        debug_log_file << "TO:  " << it->get_to() << " | ";
+                        debug_log_file << "FROM:  " << it->get_from() << " | ";
+                    }
+                    debug_log_file << "CMD:  " << it->get_cmd() << " | ";
+                    debug_log_file << "ARGS:  ";
+                    msg_arg_list arglist = it->get_arglist();
+                    for(auto i = arglist.begin(); i != arglist.end(); i++) {
+                        debug_log_file << *i;
+                        if(std::next(i, 1) != arglist.end()) debug_log_file << ";";
+                    }
+                    debug_log_file << std::endl;
+                    #endif
+                }
                 else it++;
             }
         };

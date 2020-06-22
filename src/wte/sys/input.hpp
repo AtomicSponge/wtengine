@@ -48,19 +48,19 @@ class input final : public system {
             component_container<cmp::input_handler> input_components =
                 world.set_components<cmp::input_handler>();
 
-            for(auto & it : input_components) {
-                for(auto & i_it : it.second->input_map) {
-                    if(input_flags::is_set(i_it.first))
+            for(auto & it : input_components) {  //  Loop all input components
+                for(auto & i_it : it.second->input_map) {  //  Loop the input map for each component
+                    if(input_flags::is_set(i_it.first))  //  Button is down
                         i_it.second.first(it.first, world, messages, current_time);
-                    else
+                    else  //  Button is up
                         i_it.second.second(it.first, world, messages, current_time);
                 }  //  End input map loop
             }  //  End input component loop
         };
 };
 
-} //  namespace sys
+}  //  namespace sys
 
-} //  namespace wte
+}  //  namespace wte
 
 #endif

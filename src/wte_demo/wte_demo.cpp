@@ -249,7 +249,7 @@ void wte_demo::new_game(void) {
             }
             al_set_target_bitmap(wte_get_component(ovr_id, cmp::overlay)->overlay_bitmap);
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
-            al_draw_filled_rectangle((float)(120 - world.get_component<energy>(shd_id)->amt), 0, 120, 10, WTE_COLOR_YELLOW);
+            al_draw_filled_rectangle((float)(120 - wte_get_component(shd_id, energy)->amt), 0, 120, 10, WTE_COLOR_YELLOW);
             wte_set_component(ovr_id, cmp::overlay)->set_text("Shield", WTE_COLOR_WHITE, 200, 0, ALLEGRO_ALIGN_RIGHT);
             wte_set_component(ovr_id, cmp::overlay)->set_text("Lives:  " + game_cfg::get("lives"), WTE_COLOR_WHITE, 200, 10, ALLEGRO_ALIGN_RIGHT);
         }
@@ -271,26 +271,26 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::input_handler);
     wte_set_component(e_id, cmp::input_handler)->add_handle(WTE_INPUT_UP,
         [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(world.get_component<cmp::location>(plr_id)->pos_y > 0)
-                world.set_component<cmp::location>(plr_id)->pos_y -= 5;
+            if(wte_get_component(plr_id, cmp::location)->pos_y > 0)
+                wte_set_component(plr_id, cmp::location)->pos_y -= 5;
         }
     );
     wte_set_component(e_id, cmp::input_handler)->add_handle(WTE_INPUT_DOWN,
         [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(world.get_component<cmp::location>(plr_id)->pos_y < mgr::render_manager::get_arena_height() - 32)
-                world.set_component<cmp::location>(plr_id)->pos_y += 5;
+            if(wte_get_component(plr_id, cmp::location)->pos_y < mgr::render_manager::get_arena_height() - 32)
+                wte_set_component(plr_id, cmp::location)->pos_y += 5;
         }
     );
     wte_set_component(e_id, cmp::input_handler)->add_handle(WTE_INPUT_LEFT,
         [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(world.get_component<cmp::location>(plr_id)->pos_x > 12)
-                world.set_component<cmp::location>(plr_id)->pos_x -= 5;
+            if(wte_get_component(plr_id, cmp::location)->pos_x > 12)
+                wte_set_component(plr_id, cmp::location)->pos_x -= 5;
         }
     );
     wte_set_component(e_id, cmp::input_handler)->add_handle(WTE_INPUT_RIGHT,
         [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(world.get_component<cmp::location>(plr_id)->pos_x < mgr::render_manager::get_arena_width() - 22)
-                world.set_component<cmp::location>(plr_id)->pos_x += 5;
+            if(wte_get_component(plr_id, cmp::location)->pos_x < mgr::render_manager::get_arena_width() - 22)
+                wte_set_component(plr_id, cmp::location)->pos_x += 5;
         }
     );
     wte_new_component(e_id, cmp::ai,
@@ -341,20 +341,20 @@ void wte_demo::new_game(void) {
                 if(it.second->name_str == "player") player_entity = it.first;
             }
             //  Set the cannon's location to match the player
-            world.set_component<cmp::location>(can_id)->pos_x =
-                world.get_component<cmp::location>(player_entity)->pos_x;
-            world.set_component<cmp::location>(can_id)->pos_y =
-                world.get_component<cmp::location>(player_entity)->pos_y -
-                world.get_component<cmp::hitbox>(can_id)->height;
+            wte_set_component(can_id, cmp::location)->pos_x =
+                wte_get_component(player_entity, cmp::location)->pos_x;
+            wte_set_component(can_id, cmp::location)->pos_y =
+                wte_get_component(player_entity, cmp::location)->pos_y -
+                wte_get_component(can_id, cmp::hitbox)->height;
 
-            world.set_component<cmp::visible>(can_id)->is_visible = true;
-            world.set_component<cmp::enabled>(can_id)->is_enabled = true;
+            wte_set_component(can_id, cmp::visible)->is_visible = true;
+            wte_set_component(can_id, cmp::enabled)->is_enabled = true;
         },
         //  Input for when button is not pressed.
         [](entity can_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(world.get_component<cmp::enabled>(can_id)->is_enabled) {
-                world.set_component<cmp::visible>(can_id)->is_visible = false;
-                world.set_component<cmp::enabled>(can_id)->is_enabled = false;
+            if(wte_get_component(can_id, cmp::enabled)->is_enabled) {
+                wte_set_component(can_id, cmp::visible)->is_visible = false;
+                wte_set_component(can_id, cmp::enabled)->is_enabled = false;
             }
         }
     );
@@ -393,21 +393,21 @@ void wte_demo::new_game(void) {
             for(auto & it : name_components) {
                 if(it.second->name_str == "player") player_entity = it.first;
             }
-            if(world.get_component<energy>(shd_id)->amt > 0) {
+            if(wte_get_component(shd_id, energy)->amt > 0) {
                 //  Set the shield's location to match the player
-                world.set_component<cmp::location>(shd_id)->pos_x =
-                    world.get_component<cmp::location>(player_entity)->pos_x - 28;
-                world.set_component<cmp::location>(shd_id)->pos_y =
-                    world.get_component<cmp::location>(player_entity)->pos_y - 16;
+                wte_set_component(shd_id, cmp::location)->pos_x =
+                    wte_get_component(player_entity, cmp::location)->pos_x - 28;
+                wte_set_component(shd_id, cmp::location)->pos_y =
+                    wte_get_component(player_entity, cmp::location)->pos_y - 16;
 
-                world.set_component<cmp::visible>(shd_id)->is_visible = true;
-                world.set_component<cmp::enabled>(shd_id)->is_enabled = true;
-                world.set_component<cmp::hitbox>(player_entity)->solid = false;
-                world.set_component<energy>(shd_id)->amt -= 1;
+                wte_set_component(shd_id, cmp::visible)->is_visible = true;
+                wte_set_component(shd_id, cmp::enabled)->is_enabled = true;
+                wte_set_component(player_entity, cmp::hitbox)->solid = false;
+                wte_set_component(shd_id, energy)->amt -= 1;
             } else {
-                world.set_component<cmp::visible>(shd_id)->is_visible = false;
-                world.set_component<cmp::enabled>(shd_id)->is_enabled = false;
-                world.set_component<cmp::hitbox>(player_entity)->solid = true;
+                wte_set_component(shd_id, cmp::visible)->is_visible = false;
+                wte_set_component(shd_id, cmp::enabled)->is_enabled = false;
+                wte_set_component(player_entity, cmp::hitbox)->solid = true;
             }
         },
         //  Input for when button is not pressed.
@@ -418,12 +418,12 @@ void wte_demo::new_game(void) {
                 for(auto & it : name_components) {
                     if(it.second->name_str == "player") player_entity = it.first;
                 }
-                world.set_component<cmp::visible>(shd_id)->is_visible = false;
-                world.set_component<cmp::enabled>(shd_id)->is_enabled = false;
-                world.set_component<cmp::hitbox>(player_entity)->solid = true;
+                wte_set_component(shd_id, cmp::visible)->is_visible = false;
+                wte_set_component(shd_id, cmp::enabled)->is_enabled = false;
+                wte_set_component(player_entity, cmp::hitbox)->solid = true;
             } else {
-                if(world.get_component<energy>(shd_id)->amt < world.get_component<energy>(shd_id)->amt_max)
-                    world.set_component<energy>(shd_id)->amt += 1;
+                if(wte_get_component(shd_id, energy)->amt < wte_get_component(shd_id, energy)->amt_max)
+                    wte_set_component(shd_id, energy)->amt += 1;
             }
         }
     );

@@ -39,12 +39,10 @@ typedef std::vector<entity>::iterator world_iterator;
 //!  Constant iterator for addressing a group of entities.
 typedef std::vector<entity>::const_iterator world_citerator;
 
-//!  Container to store a group of components related to an entity.
+//!
 typedef std::vector<cmp::component_sptr> entity_container;
-//!  Iterator for addressing a group of components related to an entity.
-typedef std::vector<cmp::component_sptr>::iterator entity_iterator;
-//!  Constant iterator for addressing a group of components related to an entity.
-typedef std::vector<cmp::component_sptr>::const_iterator entity_citerator;
+//!  Container to store a group of components related to an entity.
+typedef std::vector<cmp::component_csptr> const_entity_container;
 
 //!  Container for storing components of similar type.
 template <typename T>
@@ -154,11 +152,11 @@ class entity_manager final : public manager<entity_manager> {
         };
 
         /*!
-         * Get all components related to an entity.
-         * \param e_id Entity ID to get components for.
+         * Set all components related to an entity.
+         * \param e_id Entity ID to set components for.
          * \return Returns a container of components based by entity ID.
          */
-        inline const entity_container get_entity(const entity e_id) const {
+        inline const entity_container set_entity(const entity e_id) {
             if(!entity_exists(e_id)) return {};
 
             entity_container temp_container;
@@ -166,6 +164,23 @@ class entity_manager final : public manager<entity_manager> {
 
             for(auto it = results.first; it != results.second; it++) {
                 temp_container.emplace_back(cmp::component_sptr((*it).second));
+            }
+            return temp_container;
+        };
+
+        /*!
+         * Get all components related to an entity.
+         * \param e_id Entity ID to get components for.
+         * \return Returns a constant container of components based by entity ID.
+         */
+        inline const const_entity_container get_entity(const entity e_id) const {
+            if(!entity_exists(e_id)) return {};
+
+            const_entity_container temp_container;
+            const auto results = world.equal_range(e_id);
+
+            for(auto it = results.first; it != results.second; it++) {
+                temp_container.emplace_back(cmp::component_csptr((*it).second));
             }
             return temp_container;
         };
@@ -182,7 +197,7 @@ class entity_manager final : public manager<entity_manager> {
             if(!entity_exists(e_id)) return false;
 
             //  Check derived types of existing components, make sure one does not already exist.
-            const entity_container check_entity = get_entity(e_id);
+            const const_entity_container check_entity = get_entity(e_id);
             for(auto & it : check_entity) {
                 if(typeid(*it).name() == typeid(*comp).name()) return false;
             }

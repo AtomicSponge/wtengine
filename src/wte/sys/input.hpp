@@ -13,6 +13,8 @@
 #define WTE_SYS_INPUT_HPP
 
 #include "system.hpp"
+#include "../cmp/input_handler.hpp"
+#include "../_globals/input_flags.hpp"
 
 namespace wte
 {
@@ -20,35 +22,41 @@ namespace wte
 namespace sys
 {
 
-//! Input system
 /*!
-  Processes keyboard input
-*/
-class input : public system {
+ * \class Input system
+ * Processes keyboard input
+ */
+class input final : public system {
     public:
         inline input() : system("input") {};
         inline ~input() {};
 
         inline void disable(void) override { enabled = false; };
 
-        //! Input system run method
         /*!
-         * Get all entities tagged with the input_handler component and store for processing
+         * Input system run method
+         * Get all entities tagged with the input_handler component and run
+         * \param world Reference to the entity manager.
+         * \param messages Reference to the message manager.
+         * \param current_time Current value of the main timer.
+         * \return void
          */
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
                         const int64_t current_time) override {
             //  Find the entities with the input handler component
-            input_components = world.get_components<cmp::input_handler>();
+            component_container<cmp::input_handler> input_components =
+                world.set_components<cmp::input_handler>();
 
-            //  Run custom input handler
-            custom_run(world, messages);
-        }
-
-    protected:
-        const_component_container<cmp::input_handler> input_components;
-        //!  Override this to implement input handling
-        virtual void custom_run(mgr::entity_manager&, mgr::message_manager&) = 0;
+            for(auto & it : input_components) {
+                for(auto & i_it : it.second->input_map) {
+                    if(input_flags::is_set(i_it.first))
+                        i_it.second.first(it.first, world, messages, current_time);
+                    else
+                        i_it.second.second(it.first, world, messages, current_time);
+                }  //  End input map loop
+            }  //  End input component loop
+        };
 };
 
 } //  namespace sys

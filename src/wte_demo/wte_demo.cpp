@@ -16,7 +16,6 @@
 #include <allegro5/allegro_primitives.h>
 
 #include "include/wte_demo.hpp"
-#include "include/custom_input.hpp"
 #include "include/my_components.hpp"
 
 using namespace wte;  //  Required for macro use.
@@ -139,7 +138,7 @@ void wte_demo::load_menus(void) {
  * Load the systems in order.
  */
 void wte_demo::load_systems(void) {
-    wte_add_system(custom_input);
+    wte_add_system(sys::input);
     wte_add_system(sys::logic);
     wte_add_system(sys::colision);
     wte_add_system(sys::animate);
@@ -265,6 +264,30 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::hitbox, 10, 10);
     wte_new_component(e_id, health, 1, 1);
     wte_new_component(e_id, cmp::input_handler);
+    wte_set_component(e_id, cmp::input_handler)->add_handle(INPUT_UP,
+        [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            if(world.get_component<cmp::location>(plr_id)->pos_y > 0)
+                world.set_component<cmp::location>(plr_id)->pos_y -= 5;
+        }
+    );
+    wte_set_component(e_id, cmp::input_handler)->add_handle(INPUT_DOWN,
+        [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            if(world.get_component<cmp::location>(plr_id)->pos_y < mgr::render_manager::get_arena_height() - 32)
+                world.set_component<cmp::location>(plr_id)->pos_y += 5;
+        }
+    );
+    wte_set_component(e_id, cmp::input_handler)->add_handle(INPUT_LEFT,
+        [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            if(world.get_component<cmp::location>(plr_id)->pos_x > 12)
+                world.set_component<cmp::location>(plr_id)->pos_x -= 5;
+        }
+    );
+    wte_set_component(e_id, cmp::input_handler)->add_handle(INPUT_RIGHT,
+        [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            if(world.get_component<cmp::location>(plr_id)->pos_x < mgr::render_manager::get_arena_width() - 22)
+                world.set_component<cmp::location>(plr_id)->pos_x += 5;
+        }
+    );
     wte_new_component(e_id, cmp::visible);
     wte_new_component(e_id, cmp::enabled);
     wte_new_component(e_id, cmp::ai,
@@ -297,32 +320,6 @@ void wte_demo::new_game(void) {
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
     /*
-     * Shield entity.
-     */
-    e_id = world.new_entity();
-    wte_new_component(e_id, cmp::name, "shield");
-    wte_new_component(e_id, cmp::team, 0);
-    wte_new_component(e_id, cmp::location, 0, 0);
-    wte_new_component(e_id, cmp::hitbox, 64, 64, false);
-    wte_new_component(e_id, damage, 100);
-    wte_new_component(e_id, cmp::input_handler);
-    wte_new_component(e_id, cmp::visible, false);
-    wte_new_component(e_id, cmp::enabled, false);
-    wte_new_component(e_id, cmp::sprite, 64, 64, 0.0f, 0.0f, 6, 2);
-    wte_set_component(e_id, cmp::sprite)->load_sprite("shield.bmp");
-    wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
-    wte_set_component(e_id, cmp::sprite)->set_cycle("main");
-    wte_new_component(e_id, cmp::dispatcher,
-        [](entity shd_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time, message msg) {
-            if(msg.get_cmd() == "colision") {
-                //  Deal damage
-                messages.add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
-                                             std::to_string(wte_get_component(shd_id, damage)->dmg)));
-            }
-        }
-    );
-
-    /*
      * Main cannon entity.
      */
     e_id = world.new_entity();
@@ -332,6 +329,30 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::hitbox, 10, 200, false);
     wte_new_component(e_id, damage, 5);
     wte_new_component(e_id, cmp::input_handler);
+    wte_set_component(e_id, cmp::input_handler)->add_handle(INPUT_ACTION_1,
+        [](entity can_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            entity player_entity;
+            const_component_container<cmp::name> name_components = world.get_components<cmp::name>();
+            for(auto & it : name_components) {
+                if(it.second->name_str == "player") player_entity = it.first;
+            }
+            //  Set the cannon's location to match the player
+            world.set_component<cmp::location>(can_id)->pos_x =
+                world.get_component<cmp::location>(player_entity)->pos_x;
+            world.set_component<cmp::location>(can_id)->pos_y =
+                world.get_component<cmp::location>(player_entity)->pos_y -
+                world.get_component<cmp::hitbox>(can_id)->height;
+
+            world.set_component<cmp::visible>(can_id)->is_visible = true;
+            world.set_component<cmp::enabled>(can_id)->is_enabled = true;
+        },
+        [](entity can_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            if(world.get_component<cmp::enabled>(can_id)->is_enabled) {
+                world.set_component<cmp::visible>(can_id)->is_visible = false;
+                world.set_component<cmp::enabled>(can_id)->is_enabled = false;
+            }
+        }
+    );
     wte_new_component(e_id, cmp::visible, false);
     wte_new_component(e_id, cmp::enabled, false);
     wte_new_component(e_id, cmp::sprite, 10, 200, 0.0f, 0.0f, 2, 2);
@@ -344,6 +365,72 @@ void wte_demo::new_game(void) {
                 //  Deal damage
                 messages.add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
                                              std::to_string(wte_get_component(can_id, damage)->dmg)));
+            }
+        }
+    );
+
+    /*
+     * Shield entity.
+     */
+    e_id = world.new_entity();
+    wte_new_component(e_id, cmp::name, "shield");
+    wte_new_component(e_id, cmp::team, 0);
+    wte_new_component(e_id, cmp::location, 0, 0);
+    wte_new_component(e_id, cmp::hitbox, 64, 64, false);
+    wte_new_component(e_id, damage, 100);
+    wte_new_component(e_id, cmp::input_handler);
+    wte_set_component(e_id, cmp::input_handler)->add_handle(INPUT_ACTION_2,
+        [](entity shd_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            entity player_entity;
+            const_component_container<cmp::name> name_components = world.get_components<cmp::name>();
+            for(auto & it : name_components) {
+                if(it.second->name_str == "player") player_entity = it.first;
+            }
+            if(game_cfg::get<int>("shield") > 0) {
+                //  Set the shield's location to match the player
+                world.set_component<cmp::location>(shd_id)->pos_x =
+                    world.get_component<cmp::location>(player_entity)->pos_x - 28;
+                world.set_component<cmp::location>(shd_id)->pos_y =
+                    world.get_component<cmp::location>(player_entity)->pos_y - 16;
+
+                world.set_component<cmp::visible>(shd_id)->is_visible = true;
+                world.set_component<cmp::enabled>(shd_id)->is_enabled = true;
+                world.set_component<cmp::hitbox>(player_entity)->solid = false;
+                game_cfg_map::subtract<int>("shield", 1);
+            } else {
+                world.set_component<cmp::visible>(shd_id)->is_visible = false;
+                world.set_component<cmp::enabled>(shd_id)->is_enabled = false;
+                world.set_component<cmp::hitbox>(player_entity)->solid = true;
+            }
+        },
+        [](entity shd_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            if(world.get_component<cmp::enabled>(shd_id)->is_enabled) {
+                entity player_entity;
+                const_component_container<cmp::name> name_components = world.get_components<cmp::name>();
+                for(auto & it : name_components) {
+                    if(it.second->name_str == "player") player_entity = it.first;
+                }
+                world.set_component<cmp::visible>(shd_id)->is_visible = false;
+                world.set_component<cmp::enabled>(shd_id)->is_enabled = false;
+                world.set_component<cmp::hitbox>(player_entity)->solid = true;
+            } else {
+                if(game_cfg::get<int>("shield") < game_cfg::get<int>("max_shield"))
+                    game_cfg_map::add<int>("shield", 1);
+            }
+        }
+    );
+    wte_new_component(e_id, cmp::visible, false);
+    wte_new_component(e_id, cmp::enabled, false);
+    wte_new_component(e_id, cmp::sprite, 64, 64, 0.0f, 0.0f, 6, 2);
+    wte_set_component(e_id, cmp::sprite)->load_sprite("shield.bmp");
+    wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
+    wte_set_component(e_id, cmp::sprite)->set_cycle("main");
+    wte_new_component(e_id, cmp::dispatcher,
+        [](entity shd_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time, message msg) {
+            if(msg.get_cmd() == "colision") {
+                //  Deal damage
+                messages.add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
+                                             std::to_string(wte_get_component(shd_id, damage)->dmg)));
             }
         }
     );

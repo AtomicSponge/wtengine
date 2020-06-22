@@ -266,6 +266,8 @@ void wte_demo::new_game(void) {
                                             mgr::render_manager::get_arena_height() - 40);
     wte_new_component(e_id, cmp::hitbox, 10, 10);
     wte_new_component(e_id, health, 1, 1);
+    wte_new_component(e_id, cmp::visible);
+    wte_new_component(e_id, cmp::enabled);
     wte_new_component(e_id, cmp::input_handler);
     wte_set_component(e_id, cmp::input_handler)->add_handle(WTE_INPUT_UP,
         [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
@@ -291,8 +293,6 @@ void wte_demo::new_game(void) {
                 world.set_component<cmp::location>(plr_id)->pos_x += 5;
         }
     );
-    wte_new_component(e_id, cmp::visible);
-    wte_new_component(e_id, cmp::enabled);
     wte_new_component(e_id, cmp::ai,
         [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             if(wte_get_component(plr_id, health)->hp <= 0) {

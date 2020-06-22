@@ -1,15 +1,15 @@
 /*
-  WTEngine Demo
-  By:  Matthew Evans
-  File:  stars.hpp
+ * WTEngine Demo
+ * By:  Matthew Evans
+ * File:  stars.hpp
+ *
+ * See LICENSE.txt for copyright information
+ *
+ * Header file for the stars component
+ */
 
-  See LICENSE.txt for copyright information
-
-  Header file for the stars component
-*/
-
-#ifndef WTEDEMO_COMPONENT_STARS_HPP
-#define WTEDEMO_COMPONENT_STARS_HPP
+#ifndef WTEDEMO_CMP_STARS_HPP
+#define WTEDEMO_CMP_STARS_HPP
 
 #include <wte/wte.hpp>
 

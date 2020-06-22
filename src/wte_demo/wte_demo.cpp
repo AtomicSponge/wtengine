@@ -17,7 +17,7 @@
 
 #include "include/wte_demo.hpp"
 #include "include/custom_input.hpp"
-#include "include/stars.hpp"
+#include "include/my_components.hpp"
 
 using namespace wte;  //  Required for macro use.
 
@@ -263,13 +263,13 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::location, (mgr::render_manager::get_arena_width() / 2) - 5,
                                             mgr::render_manager::get_arena_height() - 40);
     wte_new_component(e_id, cmp::hitbox, 10, 10);
-    wte_new_component(e_id, cmp::health, 1, 1);
+    wte_new_component(e_id, health, 1, 1);
     wte_new_component(e_id, cmp::input_handler);
     wte_new_component(e_id, cmp::visible);
     wte_new_component(e_id, cmp::enabled);
     wte_new_component(e_id, cmp::ai,
         [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(wte_get_component(plr_id, cmp::health)->hp <= 0) {
+            if(wte_get_component(plr_id, health)->hp <= 0) {
                 //  Process player death.
                 game_cfg_map::subtract<int>("lives", 1);
 
@@ -280,14 +280,14 @@ void wte_demo::new_game(void) {
 
                 wte_set_component(plr_id, cmp::location)->pos_x = (mgr::render_manager::get_arena_width() / 2) - 5;
                 wte_set_component(plr_id, cmp::location)->pos_y = mgr::render_manager::get_arena_height() - 40;
-                wte_set_component(plr_id, cmp::health)->hp = wte_get_component(plr_id, cmp::health)->hp_max;
+                wte_set_component(plr_id, health)->hp = wte_get_component(plr_id, health)->hp_max;
             }
         }
     );  //  End player logic
     wte_new_component(e_id, cmp::dispatcher,
         [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time, message msg) {
             if(msg.get_cmd() == "damage") {
-                wte_set_component(plr_id, cmp::health)->hp -= msg.get_arg<int>(0);
+                wte_set_component(plr_id, health)->hp -= msg.get_arg<int>(0);
             }
         }
     );
@@ -304,7 +304,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::team, 0);
     wte_new_component(e_id, cmp::location, 0, 0);
     wte_new_component(e_id, cmp::hitbox, 64, 64, false);
-    wte_new_component(e_id, cmp::damage, 100);
+    wte_new_component(e_id, damage, 100);
     wte_new_component(e_id, cmp::input_handler);
     wte_new_component(e_id, cmp::visible, false);
     wte_new_component(e_id, cmp::enabled, false);
@@ -317,7 +317,7 @@ void wte_demo::new_game(void) {
             if(msg.get_cmd() == "colision") {
                 //  Deal damage
                 messages.add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
-                                             std::to_string(wte_get_component(shd_id, cmp::damage)->dmg)));
+                                             std::to_string(wte_get_component(shd_id, damage)->dmg)));
             }
         }
     );
@@ -330,7 +330,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::team, 0);
     wte_new_component(e_id, cmp::location, 0, 0);
     wte_new_component(e_id, cmp::hitbox, 10, 200, false);
-    wte_new_component(e_id, cmp::damage, 5);
+    wte_new_component(e_id, damage, 5);
     wte_new_component(e_id, cmp::input_handler);
     wte_new_component(e_id, cmp::visible, false);
     wte_new_component(e_id, cmp::enabled, false);
@@ -343,7 +343,7 @@ void wte_demo::new_game(void) {
             if(msg.get_cmd() == "colision") {
                 //  Deal damage
                 messages.add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
-                                             std::to_string(wte_get_component(can_id, cmp::damage)->dmg)));
+                                             std::to_string(wte_get_component(can_id, damage)->dmg)));
             }
         }
     );
@@ -361,10 +361,10 @@ void wte_demo::new_game(void) {
             wte_new_component(e_id, cmp::team, 1);
             wte_new_component(e_id, cmp::location, std::stof(args[1]), std::stof(args[2]));
             wte_new_component(e_id, cmp::hitbox, (float)(size * 16), (float)(size * 16));
-            wte_new_component(e_id, cmp::health, size * 10, size * 10);
-            wte_new_component(e_id, cmp::damage, 10);
+            wte_new_component(e_id, health, size * 10, size * 10);
+            wte_new_component(e_id, damage, 10);
             wte_new_component(e_id, cmp::direction, std::stof(args[3]));
-            wte_new_component(e_id, cmp::velocity, std::stof(args[4]));
+            wte_new_component(e_id, velocity, std::stof(args[4]));
             wte_new_component(e_id, cmp::visible);
             wte_new_component(e_id, cmp::enabled);
             wte_new_component(e_id, cmp::ai,
@@ -372,11 +372,11 @@ void wte_demo::new_game(void) {
                     //  AI for asteroids defined here.
                     //  Move them at their speed and angle.
                     wte_set_component(ast_id, cmp::location)->pos_x +=
-                        wte_get_component(ast_id, cmp::velocity)->speed *
+                        wte_get_component(ast_id, velocity)->speed *
                         cos(wte_get_component(ast_id, cmp::direction)->angle * (M_PI / 180));
 
                     wte_set_component(ast_id, cmp::location)->pos_y +=
-                        wte_get_component(ast_id, cmp::velocity)->speed *
+                        wte_get_component(ast_id, velocity)->speed *
                         sin(wte_get_component(ast_id, cmp::direction)->angle * (M_PI / 180));
 
                     //  Perform OOB check.
@@ -386,7 +386,7 @@ void wte_demo::new_game(void) {
                     }
 
                     //  Health check.  If asteroid's HP is <= 0, reward player with points and delete the entity.
-                    if(wte_get_component(ast_id, cmp::health)->hp <= 0) {
+                    if(wte_get_component(ast_id, health)->hp <= 0) {
                         messages.add_message(message("spawner", "delete", wte_get_component(ast_id, cmp::name)->name_str));
                         game_cfg_map::add<int>("score", 10);
                     }
@@ -397,11 +397,11 @@ void wte_demo::new_game(void) {
                     if(msg.get_cmd() == "colision") {
                         //  Deal damage
                         messages.add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
-                                                     std::to_string(wte_get_component(ast_id, cmp::damage)->dmg)));
+                                                     std::to_string(wte_get_component(ast_id, damage)->dmg)));
                     }
 
                     if(msg.get_cmd() == "damage") {
-                        wte_set_component(ast_id, cmp::health)->hp -= msg.get_arg<int>(0);
+                        wte_set_component(ast_id, health)->hp -= msg.get_arg<int>(0);
                     }
                 }
             );  //  End asteroid  message dispatching.

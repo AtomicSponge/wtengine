@@ -1,12 +1,12 @@
 /*
-  WTEngine Demo
-  By:  Matthew Evans
-  File:  wte_demo.hpp
-
-  See LICENSE.txt for copyright information
-
-  Header file for the wte_demo object
-*/
+ * WTEngine Demo
+ * By:  Matthew Evans
+ * File:  wte_demo.hpp
+ *
+ * See LICENSE.txt for copyright information
+ *
+ * Header file for the wte_demo object
+ */
 
 #ifndef WTEDEMO_WTE_DEMO_HPP
 #define WTEDEMO_WTE_DEMO_HPP

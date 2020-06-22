@@ -22,13 +22,14 @@ namespace wte
 namespace mgr
 {
 
-//!  Makes object a thread
 /*!
-  Extend this to create a threaded object.  Has a virtual run member that is defined
-  in the inheriting class.  Calling start runs the "run" member in a detached thread.
-  Inside the run member, is_running can be called to see if the thread is considered
-  active.  Call the stop member to end the thread.
-*/
+ * \class Makes object a thread
+ * \brief Extend this to create a threaded object.
+ * Has a virtual run member that is defined
+ * in the inheriting class.  Calling start runs the "run" member in a detached thread.
+ * Inside the run member, is_running can be called to see if the thread is considered
+ * active.  Call the stop member to end the thread.
+ */
 class make_thread {
     public:
         /*!
@@ -36,7 +37,9 @@ class make_thread {
          * \param void
          * \return void
          */
-        inline virtual ~make_thread() { if(started) stop(); };
+        inline virtual ~make_thread() {
+            if(started) stop();
+        };
 
         //!  Remove copy constructor
         make_thread(const make_thread&) = delete;
@@ -72,7 +75,9 @@ class make_thread {
          * \param void
          * \return void
          */
-        inline const bool is_running(void) const { return started; };
+        inline const bool is_running(void) const {
+            return started;
+        };
 
     private:
         //  Call to trigger exit

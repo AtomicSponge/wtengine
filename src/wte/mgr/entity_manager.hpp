@@ -60,13 +60,17 @@ namespace mgr
 {
 
 /*!
- * \brief Entity manager class.
+ * \class Entity manager class.
  * Store a collection of entities and their corresponding components in memory.
  */
 class entity_manager final : public manager<entity_manager> {
     public:
-        inline entity_manager() { clear(); };
-        inline ~entity_manager() { clear(); };
+        inline entity_manager() {
+            clear();
+        };
+        inline ~entity_manager() {
+            clear();
+        };
 
         /*!
          * \brief Clear the entity manager.

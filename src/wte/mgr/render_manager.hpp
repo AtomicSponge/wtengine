@@ -46,8 +46,8 @@ namespace mgr
 template <typename T>
 using entity_component_pair = std::pair<const entity, std::shared_ptr<const T>>;
 
-//! render_manager class
 /*!
+ * \class Render manager class
  * An object that handles drawing the world to the screen.
  */
 class render_manager final : public manager<render_manager>, private engine_time {
@@ -234,14 +234,18 @@ class render_manager final : public manager<render_manager>, private engine_time
          * \param void
          * \return The arena width in pixels.
          */
-        inline static const int get_arena_width(void) { return arena_w; };
+        inline static const int get_arena_width(void) {
+            return arena_w;
+        };
 
         /*!
          * Get the arena height.
          * \param void
          * \return The arena height in pixels.
          */
-        inline static const int get_arena_height(void) { return arena_h; };
+        inline static const int get_arena_height(void) {
+            return arena_h;
+        };
 
         /*!
          * \brief Set the title screen.

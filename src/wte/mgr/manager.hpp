@@ -21,15 +21,17 @@ namespace wte
 namespace mgr
 {
 
-//!  Manager base class
 /*!
+ * \class Manager base class
  * Extend this to create a manager class.  These are restricted to a single instance.
  */
 template <class derived> class manager {
     public:
         //!  Free up single instance,
         //!  sets the initialized flag to false.
-        inline virtual ~manager() { initialized = false; };
+        inline virtual ~manager() {
+            initialized = false;
+        };
 
         //!  Remove copy constructor
         manager(const manager&) = delete;

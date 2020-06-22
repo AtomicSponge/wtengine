@@ -37,8 +37,8 @@ namespace wte
 namespace mgr
 {
 
-//! Message Manager class
 /*!
+ * \class Message Manager class
  * Store a collection of message objects in a vector for processing.
  */
 class message_manager final : public manager<message_manager>, private engine_time {

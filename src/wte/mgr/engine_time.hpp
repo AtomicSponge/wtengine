@@ -20,8 +20,8 @@ namespace wte
 namespace mgr
 {
 
-//!  Engine Time class
 /*!
+ * \class Engine Time class
  * Have a manager extend this to track the game timer.
  */
 class engine_time {

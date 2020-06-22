@@ -27,8 +27,8 @@ namespace wte
 namespace mgr
 {
 
-//! spawn_manager class
 /*!
+ * \class spawn_manager class
  * Spawn stuff
  */
 class spawn_manager final : public manager<spawn_manager> {
@@ -39,7 +39,9 @@ class spawn_manager final : public manager<spawn_manager> {
          * \param void
          * \return void
          */
-        inline spawn_manager() { spawner.clear(); };
+        inline spawn_manager() {
+            spawner.clear();
+        };
 
         /*!
          * \brief Spawn Manager destructor.
@@ -47,7 +49,9 @@ class spawn_manager final : public manager<spawn_manager> {
          * \param void
          * \return void
          */
-        inline ~spawn_manager() { spawner.clear(); };
+        inline ~spawn_manager() {
+            spawner.clear();
+        };
 
         /*!
          * \brief Process spawns.

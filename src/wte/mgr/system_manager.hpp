@@ -28,13 +28,8 @@ namespace wte
 namespace mgr
 {
 
-//!  Iterator for addressing systems.
-typedef std::vector<sys::system_uptr>::iterator system_iterator;
-//!  Constant iterator for addressing systems.
-typedef std::vector<sys::system_uptr>::const_iterator system_citerator;
-
-//! System Manager class
 /*!
+ * \class System Manager class
  * Store the configured systems and process their runs and dispatches.
  */
 class system_manager final : public manager<system_manager> {
@@ -45,7 +40,9 @@ class system_manager final : public manager<system_manager> {
          * \param void
          * \return void
          */
-        inline system_manager() : finalized(false) { systems.clear(); };
+        inline system_manager() :finalized(false) {
+            systems.clear();
+        };
 
         /*!
          * System Manager destructor.
@@ -53,7 +50,9 @@ class system_manager final : public manager<system_manager> {
          * \param void
          * \return void
          */
-        inline ~system_manager() { systems.clear(); };
+        inline ~system_manager() {
+            systems.clear();
+        };
 
         /*!
          * Clear the system manager and allow systems to be loaded again.
@@ -71,14 +70,18 @@ class system_manager final : public manager<system_manager> {
          * \param void
          * \return void
          */
-        inline void finalize(void) { finalized = true; };
+        inline void finalize(void) {
+            finalized = true;
+        };
 
         /*!
          * Check if systems were loaded into the manager.
          * \param void
          * \return True if empty, false if not.
          */
-        inline bool empty(void) { return systems.empty(); };
+        inline bool empty(void) {
+            return systems.empty();
+        };
 
         /*!
          * \brief Add a new system to the manager.

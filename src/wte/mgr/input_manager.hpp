@@ -29,8 +29,8 @@ namespace wte
 namespace mgr
 {
 
-//!  Input manager class
 /*!
+ * \class Input manager class
  * Handles input in a thread
  */
 class input_manager final : public manager<input_manager>, public make_thread {
@@ -39,7 +39,6 @@ class input_manager final : public manager<input_manager>, public make_thread {
         inline ~input_manager() {};
 
     private:
-        //!  Run the input manager
         void run(void) override;
 };
 
@@ -47,6 +46,8 @@ template <> inline bool input_manager::manager<input_manager>::initialized = fal
 
 /*!
  * Run input manager thread
+ * \param void
+ * \return void
  */
 inline void input_manager::run(void) {
     ALLEGRO_EVENT_QUEUE* input_queue;

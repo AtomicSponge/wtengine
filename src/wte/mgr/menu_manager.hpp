@@ -47,6 +47,10 @@ typedef std::vector<menu_sptr>::const_iterator menu_citerator;
 namespace mgr
 {
 
+/*!
+ * \class Menu Manager class.
+ * Runs menus.
+ */
 class menu_manager final : public manager<menu_manager> {
     public:
         /*!

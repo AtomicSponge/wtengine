@@ -65,7 +65,8 @@ void wte_demo::load_menus(void) {
     {
         //  Configure main menu.
         menus.set_menu("main_menu")->set_title("WTE Demo");
-        menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
+        //menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
+        menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
         menus.set_menu("main_menu")->add_item(wte_menu_action("Settings", "open_menu", "settings"));
         menus.set_menu("main_menu")->add_item(wte_menu_action("Exit Game", "exit"));
     }
@@ -115,8 +116,7 @@ void wte_demo::load_menus(void) {
         std::vector<std::string> mode_dvec = { "Windowed", "Windowed Full Screen" };
         std::vector<std::string> mode_vec = { "windowed", "windowed_full_screen" };
         temp_menu.add_item(wte_menu_selection("Display Mode:", "display_mode", mode_dvec, mode_vec, mnu::ENGINE_SETTING_RECONF));
-        //
-        std::vector<std::string> scale_vec = { "1", "1.25", "1.5", "1.75", "2" };
+        std::vector<std::string> scale_vec = { "0.5", "1", "1.25", "1.5", "1.75", "2" };
         temp_menu.add_item(wte_menu_selection("Scale factor:", "scale_factor", scale_vec, scale_vec, mnu::ENGINE_SETTING_RECONF));
         temp_menu.add_item(wte_menu_toggle("FPS:", "fps_counter", "on", "fps_counter", "off",
             [](void){ return engine_flags::is_set(DRAW_FPS); }));

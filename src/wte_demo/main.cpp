@@ -20,9 +20,11 @@ int main(int argc, char **argv) {
 
     //  Set the title screen.
     mgr::render_manager::set_title_screen("title.bmp");
+    //mgr::render_manager::set_background_screen("title.bmp");
 
     //  Set the size of the play area.
     mgr::render_manager::set_arena_size(768, 1024);
+    //mgr::render_manager::set_arena_size(1920, 1080);
 
     //  Register default engine settings.
     engine_cfg::reg("draw_fps=0");

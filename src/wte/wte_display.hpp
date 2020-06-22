@@ -73,7 +73,8 @@ class wte_display {
             //  Get the scale factor.
             float scale_factor = 1.0f;
             if(engine_cfg::is_reg("scale_factor")) {
-                if(engine_cfg::get("scale_factor") == "1") scale_factor = 1.0f;
+                if(engine_cfg::get("scale_factor") == "0.5") scale_factor = 0.5f;
+                else if(engine_cfg::get("scale_factor") == "1") scale_factor = 1.0f;
                 else if(engine_cfg::get("scale_factor") == "1.25") scale_factor = 1.25f;
                 else if(engine_cfg::get("scale_factor") == "1.5") scale_factor = 1.5f;
                 else if(engine_cfg::get("scale_factor") == "1.75") scale_factor = 1.75f;
@@ -166,7 +167,7 @@ class wte_display {
         mgr::render_manager screen;
 
         //  Allegro object for the display.
-        inline static ALLEGRO_DISPLAY* display = NULL;
+        ALLEGRO_DISPLAY* display;
 
     private:
         std::string window_title;  //  Title for application window.

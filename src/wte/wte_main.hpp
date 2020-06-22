@@ -233,8 +233,8 @@ class wte_main : private wte_display {
         std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
 
         //  Allegro objects used by the engine.
-        inline static ALLEGRO_TIMER* main_timer = NULL;
-        inline static ALLEGRO_EVENT_QUEUE* main_queue = NULL;
+        ALLEGRO_TIMER* main_timer;
+        ALLEGRO_EVENT_QUEUE* main_queue;
 
         bool load_called;  //  Flag to make sure wte_load was called.
 
@@ -257,7 +257,7 @@ inline void wte_main::process_new_game(const std::string game_data) {
     engine_flags::unset(GAME_MENU_OPENED);
 
     //  Load a new message data file.
-    messages.load_file(game_data);
+    if(!game_data.empty()) messages.load_file(game_data);
 
     //  Load systems and prevent further systems from being loaded.
     load_systems();

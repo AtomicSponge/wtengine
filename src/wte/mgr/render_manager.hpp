@@ -59,7 +59,7 @@ class render_manager final : public manager<render_manager>, private engine_time
          * \return void
          */
         inline render_manager() :
-        fps_counter(0), fps(0), screen_w(0), screen_h(0), scale_factor(1.0) {};
+        fps_counter(0), fps(0) {};
 
         /*!
          * render_manager destructor.
@@ -75,12 +75,14 @@ class render_manager final : public manager<render_manager>, private engine_time
          * \return void
          */
         inline void initialize(void) {
+            //  Create the arena bitmap.
             if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             arena_bmp = al_create_bitmap(arena_w, arena_h);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             arena_created = true;
 
+            //  Load the title screen bitmap.
             if(title_screen_file.empty()) {
                 title_bmp = al_create_bitmap(1, 1);
                 al_set_target_bitmap(title_bmp);
@@ -99,6 +101,26 @@ class render_manager final : public manager<render_manager>, private engine_time
                 al_fclose(file);
             }
 
+            //  Load the background bitmap.
+            if(background_file.empty()) {
+                background_bmp = al_create_bitmap(1, 1);
+                al_set_target_bitmap(background_bmp);
+                al_clear_to_color(WTE_COLOR_BLACK);
+            } else {
+                ALLEGRO_FILE* file;
+                file = al_fopen(background_file.c_str(), "rb");
+                if(!file) {
+                    background_bmp = al_create_bitmap(1, 1);
+                    al_set_target_bitmap(background_bmp);
+                    al_clear_to_color(WTE_COLOR_BLACK);
+                } else {
+                    background_bmp = al_load_bitmap_f(file, background_file.substr(background_file.find("."),
+                                                      background_file.length()).c_str());
+                }
+                al_fclose(file);
+            }
+
+            //  Load font used in renderer.
             if(render_font_file.empty()) overlay_font = al_create_builtin_font();
             else {
                 overlay_font = al_load_font(render_font_file.c_str(), render_font_size, render_font_flags);
@@ -154,6 +176,24 @@ class render_manager final : public manager<render_manager>, private engine_time
         };
 
         /*!
+         * Get screen width.
+         * \param void
+         * \return Screen width in pixels.
+         */
+        inline static const int get_screen_width(void) {
+            return screen_w;
+        };
+
+        /*!
+         * Get screen height.
+         * \param void
+         * \return Screen height in pixels.
+         */
+        inline static const int get_screen_height(void) {
+            return screen_h;
+        };
+
+        /*!
          * \brief Set scale factor.
          * This is used to scale the game arena and menus to a larger size.
          * For support of higher resolution screens.
@@ -162,6 +202,15 @@ class render_manager final : public manager<render_manager>, private engine_time
          */
         inline void set_scale_factor(const float f) {
             scale_factor = f;
+        };
+
+        /*!
+         * Get scale factor.
+         * \param void
+         * \return Scale factor multiplier.
+         */
+        inline static const int get_scale_factor() {
+            return scale_factor;
         };
 
         /*!
@@ -204,6 +253,16 @@ class render_manager final : public manager<render_manager>, private engine_time
         };
 
         /*!
+         * \brief Set the title screen.
+         * This should be called during engine initialization before the main object is created.
+         * \param fname Filename of the title screen.
+         * \return void
+         */
+        inline static void set_background_screen(const std::string fname) {
+            background_file = fname;
+        };
+
+        /*!
          * \brief Set the font to be used by the renderer.
          * If not called, Allegro's default font will be used.
          * This should be called during engine initialization before the main object is created.
@@ -229,6 +288,7 @@ class render_manager final : public manager<render_manager>, private engine_time
         };
 
         ALLEGRO_BITMAP* title_bmp;
+        ALLEGRO_BITMAP* background_bmp;
         ALLEGRO_BITMAP* arena_bmp;
         ALLEGRO_BITMAP* render_tmp_bmp;
         ALLEGRO_FONT* overlay_font;
@@ -239,13 +299,14 @@ class render_manager final : public manager<render_manager>, private engine_time
 
         std::size_t fps_counter, fps;
 
-        int screen_w, screen_h;
-        float scale_factor;
+        inline static int screen_w = 0, screen_h = 0;
+        inline static float scale_factor = 1.0;
 
         inline static int arena_w = 0, arena_h = 0;
         inline static bool arena_created = false;
 
         inline static std::string title_screen_file = "";
+        inline static std::string background_file = "";
         inline static std::string render_font_file = "";
         inline static int render_font_size = 0;
         inline static int render_font_flags = 0;
@@ -255,16 +316,13 @@ template <> inline bool render_manager::manager<render_manager>::initialized = f
 
 /*!
  * \brief Render method - Draw the game screen.
- * Gets passed the entity manager and timer then draws everything to screen.
+ * Gets passed the entity manager and menu manager by
+ * reference then draws everything to screen.
  * \param menus Reference to menu manager.
  * \param world Reference to entity manager.
  * \return void
  */
 inline void render_manager::render(const menu_manager& menus, const entity_manager& world) {
-    //  Clear screen to black.
-    al_set_target_backbuffer(al_get_current_display());
-    al_clear_to_color(WTE_COLOR_BLACK);
-
     /*
      * Calculate fps.
      */
@@ -280,10 +338,21 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
     //  Toggle no preserve texture for faster rendering.
     al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
 
+    //  Set drawing to the screen.
+    al_set_target_backbuffer(al_get_current_display());
+
     /*
      * Render world if the game is running.
      */
     if(engine_flags::is_set(GAME_STARTED)) {
+        /*
+         * Draw the background.
+         */
+        al_draw_scaled_bitmap(background_bmp, 0, 0,
+                              al_get_bitmap_width(background_bmp),
+                              al_get_bitmap_height(background_bmp),
+                              0, 0, screen_w, screen_h, 0);
+
         //  Set drawing to the arena bitmap.
         al_set_target_bitmap(arena_bmp);
         al_clear_to_color(WTE_COLOR_BLACK);
@@ -425,7 +494,6 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         /*
          * Game is not running - draw the title screen.
          */
-        al_set_target_backbuffer(al_get_current_display());
         al_draw_scaled_bitmap(title_bmp, 0, 0,
                               al_get_bitmap_width(title_bmp), al_get_bitmap_height(title_bmp),
                               0, 0, screen_w, screen_h, 0);

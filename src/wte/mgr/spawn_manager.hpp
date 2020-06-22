@@ -66,6 +66,7 @@ class spawn_manager final : public manager<spawn_manager> {
                     auto s_it = spawner.find(m_it.get_arg(0));
                     if(s_it != spawner.end())
                         //  Make sure the number of arguments match what's expected.
+                        //  Note that we do not count the first argument.
                         if(m_it.num_args() == s_it->second.first + 1) {
                             entity e_id = world.new_entity();
                             s_it->second.second(e_id, world, m_it.get_arglist());

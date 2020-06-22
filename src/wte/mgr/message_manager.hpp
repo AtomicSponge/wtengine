@@ -202,7 +202,7 @@ class message_manager final : public manager<message_manager>, private engine_ti
 
             //  Sort the queue so timed events are in order first to last.
             std::sort(msg_queue.begin(), msg_queue.end());
-        }
+        };
 
     private:
         //  Vector of all messages to be processed

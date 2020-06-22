@@ -135,19 +135,6 @@ class render_manager final : public manager<render_manager>, private engine_time
         };
 
         /*!
-         * \brief Reload the arena bitmap.
-         * Called when the screen is updated.
-         * \param void
-         * \return void
-         */
-        inline void reload_arena_bitmap(void) {
-            al_destroy_bitmap(arena_bmp);
-            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            arena_bmp = al_create_bitmap(arena_w, arena_h);
-            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-        };
-
-        /*!
          * \brief De-initialize the render manager.
          * Destories the internal objects.
          * \param void
@@ -212,6 +199,19 @@ class render_manager final : public manager<render_manager>, private engine_time
          */
         inline static const int get_scale_factor() {
             return scale_factor;
+        };
+
+        /*!
+         * \brief Reload the arena bitmap.
+         * Called when the screen is updated.
+         * \param void
+         * \return void
+         */
+        inline void reload_arena_bitmap(void) {
+            al_destroy_bitmap(arena_bmp);
+            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+            arena_bmp = al_create_bitmap(arena_w, arena_h);
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
         };
 
         /*!

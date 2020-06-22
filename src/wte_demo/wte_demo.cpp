@@ -32,8 +32,6 @@ wte_demo::wte_demo(int argc, char **argv) : wte_main(argc, argv, "WTE Demo") {
     game_cfg::reg("hiscore=0");
     game_cfg::reg("max_lives=3");
     game_cfg::reg("lives=3");
-    game_cfg::reg("max_shield=100");
-    game_cfg::reg("shield=50");
 
     game_cfg_map::load();
 }
@@ -244,9 +242,14 @@ void wte_demo::new_game(void) {
                                                    mgr::render_manager::get_arena_height() - 20, 0,
         [](entity ovr_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define what gets displayed on the overlay.
+            entity shd_id;
+            const_component_container<cmp::name> name_components = world.get_components<cmp::name>();
+            for(auto & it : name_components) {
+                if(it.second->name_str == "shield") shd_id = it.first;
+            }
             al_set_target_bitmap(wte_get_component(ovr_id, cmp::overlay)->overlay_bitmap);
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
-            al_draw_filled_rectangle((float)(120 - game_cfg::get<int>("shield")), 0, 120, 10, WTE_COLOR_YELLOW);
+            al_draw_filled_rectangle((float)(120 - world.get_component<energy>(shd_id)->amt), 0, 120, 10, WTE_COLOR_YELLOW);
             wte_set_component(ovr_id, cmp::overlay)->set_text("Shield", WTE_COLOR_WHITE, 200, 0, ALLEGRO_ALIGN_RIGHT);
             wte_set_component(ovr_id, cmp::overlay)->set_text("Lives:  " + game_cfg::get("lives"), WTE_COLOR_WHITE, 200, 10, ALLEGRO_ALIGN_RIGHT);
         }
@@ -379,6 +382,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::team, 0);
     wte_new_component(e_id, cmp::location, 0, 0);
     wte_new_component(e_id, cmp::hitbox, 64, 64, false);
+    wte_new_component(e_id, energy, 50, 100);
     wte_new_component(e_id, damage, 100);
     wte_new_component(e_id, cmp::input_handler);
     wte_set_component(e_id, cmp::input_handler)->add_handle(WTE_INPUT_ACTION_2,
@@ -389,7 +393,7 @@ void wte_demo::new_game(void) {
             for(auto & it : name_components) {
                 if(it.second->name_str == "player") player_entity = it.first;
             }
-            if(game_cfg::get<int>("shield") > 0) {
+            if(world.get_component<energy>(shd_id)->amt > 0) {
                 //  Set the shield's location to match the player
                 world.set_component<cmp::location>(shd_id)->pos_x =
                     world.get_component<cmp::location>(player_entity)->pos_x - 28;
@@ -399,7 +403,7 @@ void wte_demo::new_game(void) {
                 world.set_component<cmp::visible>(shd_id)->is_visible = true;
                 world.set_component<cmp::enabled>(shd_id)->is_enabled = true;
                 world.set_component<cmp::hitbox>(player_entity)->solid = false;
-                game_cfg_map::subtract<int>("shield", 1);
+                world.set_component<energy>(shd_id)->amt -= 1;
             } else {
                 world.set_component<cmp::visible>(shd_id)->is_visible = false;
                 world.set_component<cmp::enabled>(shd_id)->is_enabled = false;
@@ -418,8 +422,8 @@ void wte_demo::new_game(void) {
                 world.set_component<cmp::enabled>(shd_id)->is_enabled = false;
                 world.set_component<cmp::hitbox>(player_entity)->solid = true;
             } else {
-                if(game_cfg::get<int>("shield") < game_cfg::get<int>("max_shield"))
-                    game_cfg_map::add<int>("shield", 1);
+                if(world.get_component<energy>(shd_id)->amt < world.get_component<energy>(shd_id)->amt_max)
+                    world.set_component<energy>(shd_id)->amt += 1;
             }
         }
     );

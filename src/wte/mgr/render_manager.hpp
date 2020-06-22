@@ -155,6 +155,7 @@ class render_manager final : public manager<render_manager>, private engine_time
          */
         inline void de_init(void) {
             al_destroy_bitmap(title_bmp);
+            al_destroy_bitmap(background_bmp);
             al_destroy_bitmap(arena_bmp);
 
             al_destroy_font(overlay_font);

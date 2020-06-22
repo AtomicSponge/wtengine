@@ -186,7 +186,8 @@ class entity_manager final : public manager<entity_manager> {
         };
 
         /*!
-         * Add a new component to an entity
+         * \brief Add a new component to an entity.
+         * Entities can only have a single compoenent of each type.
          * \param e_id Entity ID to add a component to.
          * \param comp Componenet to add.
          * \return Return false if the entity does not exist.

@@ -15,7 +15,6 @@
 #include <thread>
 #include <future>
 #include <chrono>
-#include <pthread.h>
 
 namespace wte
 {

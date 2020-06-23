@@ -11,7 +11,7 @@ API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
 For an example of the API in action, see the [demo game code](https://github.com/wtfsystems/wtengine/blob/master/src/wte_demo/wte_demo.cpp).
 
 #### FEATURES:
- - Internal messaging queue 
+ - Internal messaging queue
  - Programmable menu interface
  - Memory manager for in-game objects
  - Global variable maps for game/engine settings
@@ -20,11 +20,12 @@ For an example of the API in action, see the [demo game code](https://github.com
  - Buildable debug modes
 
 #### TODO:
- - Finish up additional menus
- - Audio & font loading testing
- - Finish up demo game
+ - Finish up audio samples
+ - Finish up input interface
+ - Create menus for audio & input config
+ - Loading in additional scripts
  - Gamepad support
- - Code review / documentation (ongoing)
+ - Code review / testing / documentation (ongoing)
  - Improve cmake config
 
 #### DEMO:

@@ -324,8 +324,6 @@ inline void wte_main::do_game(void) {
     engine_flags::set(GAME_MENU_OPENED);
 
     while(engine_flags::is_set(IS_RUNNING)) {
-        ALLEGRO_EVENT event;
-        message_container temp_msgs;
         //  Pause / resume timer depending on if the game menu is opened.
         //  Also process the on_menu events.
         if(engine_flags::is_set(GAME_MENU_OPENED) && al_get_timer_started(main_timer)) {
@@ -346,6 +344,8 @@ inline void wte_main::do_game(void) {
         if(engine_flags::is_set(GAME_MENU_OPENED)) menus.run(messages);
 
         /* *** GAME LOOP ************************************************************ */
+        ALLEGRO_EVENT event;
+        message_container temp_msgs;
         //  Capture event from queue.
         const bool queue_not_empty = al_get_next_event(main_queue, &event);
         //  Call our game logic update on timer events.  Timer is only running when the game is running.

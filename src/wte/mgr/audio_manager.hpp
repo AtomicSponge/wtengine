@@ -302,7 +302,7 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  unpause_music - Unpause music if it is paused.
                 case CMD_STR_UNPAUSE_MUSIC:
-                    if(al_get_mixer_attached(mixer_1) && !al_get_mixer_playing(mixer_1))
+                    if(al_get_mixer_attached(mixer_1))
                         al_set_audio_stream_playing(music_stream, true);
                     break;
 
@@ -420,7 +420,7 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  unpause_voice - Unpause voice if it is paused.
                 case CMD_STR_UNPAUSE_VOICE:
-                    if(al_get_mixer_attached(mixer_3) && !al_get_mixer_playing(mixer_3))
+                    if(al_get_mixer_attached(mixer_3))
                         al_set_audio_stream_playing(voice_stream, true);
                     break;
 
@@ -462,7 +462,7 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  unpause_ambiance - Unpause ambiance if it is paused.
                 case CMD_STR_UNPAUSE_AMBIANCE:
-                    if(al_get_mixer_attached(mixer_4) && !al_get_mixer_playing(mixer_4))
+                    if(al_get_mixer_attached(mixer_4))
                         al_set_audio_stream_playing(ambiance_stream, true);
                     break;
 

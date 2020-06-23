@@ -46,7 +46,7 @@ namespace mgr
 /*!
  * \class Audio Manager
  * \brief Handles audio messages in a thread.
- * Initializes the Allegro audio and Allegro codec addons durring construction.
+ * 
  * Messages get passed from the main engine loop via transfer_messages().
  * The Audio Manager is then implemented as a thread, creating local Allegro objects.
  * As messages are placed in the deck, take them from the top and process.

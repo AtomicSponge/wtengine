@@ -254,8 +254,10 @@ inline void audio_manager::run(void) {
                 //  cmd:  music_loop - arg:  enable/disable - Turn music looping on or off.
                 case CMD_STR_MUSIC_LOOP:
                     if(!al_get_mixer_attached(mixer_1)) break;  //  Music not loaded, end.
-                    if(audio_messages.front().get_arg(0) == "enable") al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_LOOP);
-                    if(audio_messages.front().get_arg(0) == "disable") al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_ONCE);
+                    if(audio_messages.front().get_arg(0) == "enable")
+                        al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_LOOP);
+                    if(audio_messages.front().get_arg(0) == "disable")
+                        al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_ONCE);
                     break;
 
                 //  cmd:  play_music - arg:  file.name - Load a file and play in a stream.
@@ -281,7 +283,7 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  unpause_music - Unpause music if it is paused.
                 case CMD_STR_UNPAUSE_MUSIC:
-                    if(al_get_mixer_attached(mixer_1))
+                    if(al_get_mixer_attached(mixer_1) && !al_get_mixer_playing(mixer_1))
                         al_set_audio_stream_playing(music_stream, true);
                     break;
 
@@ -394,7 +396,7 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  unpause_voice - Unpause voice if it is paused.
                 case CMD_STR_UNPAUSE_VOICE:
-                    if(al_get_mixer_attached(mixer_3))
+                    if(al_get_mixer_attached(mixer_3) && !al_get_mixer_playing(mixer_3))
                         al_set_audio_stream_playing(voice_stream, true);
                     break;
 
@@ -402,8 +404,10 @@ inline void audio_manager::run(void) {
                 //  cmd:  ambiance_loop - arg:  enable/disable - Turn music looping on or off.
                 case CMD_STR_AMBIANCE_LOOP:
                     if(!al_get_mixer_attached(mixer_4)) break;  //  Ambiance not loaded, end.
-                    if(audio_messages.front().get_arg(0) == "enable") al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
-                    if(audio_messages.front().get_arg(0) == "disable") al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_ONCE);
+                    if(audio_messages.front().get_arg(0) == "enable")
+                        al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
+                    if(audio_messages.front().get_arg(0) == "disable")
+                        al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_ONCE);
                     break;
 
                 //  cmd:  play_ambiance - arg:  file.name - Load a file and play in a stream.
@@ -429,7 +433,7 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  unpause_ambiance - Unpause ambiance if it is paused.
                 case CMD_STR_UNPAUSE_AMBIANCE:
-                    if(al_get_mixer_attached(mixer_4))
+                    if(al_get_mixer_attached(mixer_4) && !al_get_mixer_playing(mixer_4))
                         al_set_audio_stream_playing(ambiance_stream, true);
                     break;
 

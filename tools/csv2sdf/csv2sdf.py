@@ -35,7 +35,7 @@ import csv
 import os.path
 import struct
 
-print("Convert CSV file to SDF file for use with wip engine")
+print("Convert CSV file to SDF file for use with WTEngine")
 
 #  Set variables to store the filename of the input & output files
 if len(sys.argv) > 1:

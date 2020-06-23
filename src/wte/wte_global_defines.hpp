@@ -48,7 +48,9 @@
  * \def WTE_NO_PRUNE
  * Enable message pruning if WTE_NO_PRUNE is not defined.
  */
-#ifndef WTE_NO_PRUNE
+#ifdef WTE_NO_PRUNE
+#define WTE_PRUNE_ENABLED FALSE
+#else
 #define WTE_PRUNE_ENABLED TRUE
 #endif
 

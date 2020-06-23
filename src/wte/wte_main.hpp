@@ -377,7 +377,7 @@ inline void wte_main::do_game(void) {
         if(!temp_msgs.empty()) audio_th.transfer_messages(temp_msgs);
 
         //  Ignore message pruning if WTE_NO_PRUNE build flag is defined.
-        #ifndef WTE_NO_PRUNE
+        #if WTE_PRUNE_ENABLED
         //  Delete timed messages that were not processed.
         messages.prune();
         #endif

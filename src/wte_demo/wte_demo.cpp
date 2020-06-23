@@ -269,25 +269,25 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::visible);
     wte_new_component(e_id, cmp::enabled);
     wte_new_component(e_id, cmp::input_handler);
-    wte_set_component(e_id, cmp::input_handler)->add_handle(WTE_INPUT_UP,
+    wte_set_component(e_id, cmp::input_handler)->add_handle_on(WTE_INPUT_UP,
         [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             if(wte_get_component(plr_id, cmp::location)->pos_y > 0)
                 wte_set_component(plr_id, cmp::location)->pos_y -= 5;
         }
     );
-    wte_set_component(e_id, cmp::input_handler)->add_handle(WTE_INPUT_DOWN,
+    wte_set_component(e_id, cmp::input_handler)->add_handle_on(WTE_INPUT_DOWN,
         [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             if(wte_get_component(plr_id, cmp::location)->pos_y < mgr::render_manager::get_arena_height() - 32)
                 wte_set_component(plr_id, cmp::location)->pos_y += 5;
         }
     );
-    wte_set_component(e_id, cmp::input_handler)->add_handle(WTE_INPUT_LEFT,
+    wte_set_component(e_id, cmp::input_handler)->add_handle_on(WTE_INPUT_LEFT,
         [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             if(wte_get_component(plr_id, cmp::location)->pos_x > 12)
                 wte_set_component(plr_id, cmp::location)->pos_x -= 5;
         }
     );
-    wte_set_component(e_id, cmp::input_handler)->add_handle(WTE_INPUT_RIGHT,
+    wte_set_component(e_id, cmp::input_handler)->add_handle_on(WTE_INPUT_RIGHT,
         [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             if(wte_get_component(plr_id, cmp::location)->pos_x < mgr::render_manager::get_arena_width() - 22)
                 wte_set_component(plr_id, cmp::location)->pos_x += 5;
@@ -332,7 +332,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::hitbox, 10, 200, false);
     wte_new_component(e_id, damage, 5);
     wte_new_component(e_id, cmp::input_handler);
-    wte_set_component(e_id, cmp::input_handler)->add_handle(WTE_INPUT_ACTION_1,
+    wte_set_component(e_id, cmp::input_handler)->add_handle_on_off(WTE_INPUT_ACTION_1,
         //  Input for when button is being pressed.
         [](entity can_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             entity player_entity;
@@ -385,7 +385,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, energy, 50, 100);
     wte_new_component(e_id, damage, 100);
     wte_new_component(e_id, cmp::input_handler);
-    wte_set_component(e_id, cmp::input_handler)->add_handle(WTE_INPUT_ACTION_2,
+    wte_set_component(e_id, cmp::input_handler)->add_handle_on_off(WTE_INPUT_ACTION_2,
         //  Input for when button is being pressed.
         [](entity shd_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             entity player_entity;
@@ -412,7 +412,7 @@ void wte_demo::new_game(void) {
         },
         //  Input for when button is not pressed.
         [](entity shd_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(world.get_component<cmp::enabled>(shd_id)->is_enabled) {
+            if(wte_get_component(shd_id, cmp::enabled)->is_enabled) {
                 entity player_entity;
                 const_component_container<cmp::name> name_components = world.get_components<cmp::name>();
                 for(auto & it : name_components) {

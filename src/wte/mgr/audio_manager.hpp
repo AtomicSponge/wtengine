@@ -19,7 +19,7 @@
 
 //  Set max number of samples.
 #ifndef WTE_MAX_SAMPLES
-#define WTE_MAX_SAMPLES 8
+#define WTE_MAX_SAMPLES (8)
 #endif
 
 #include <string>
@@ -61,7 +61,7 @@ namespace mgr
 class audio_manager final : public manager<audio_manager>, public make_thread {
     public:
         /*!
-         * Configures the Allegro audio addons.
+         * \brief Audio Manager constructor.
          * Clears the internal audio deck and maps the audio commands.
          */
         inline audio_manager() {
@@ -98,7 +98,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         };
 
         /*!
-         * Uninstalls Allegro audio addons.
+         * \brief Audio Manager destructor.
          * Clears the internal audio deck and audio command map.
          */
         inline ~audio_manager() {
@@ -107,7 +107,8 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         };
 
         /*!
-         * Initialize audio manager.
+         * \brief Initialize audio manager.
+         * Sets up the various Allegro objects for the audio manager to use.
          * \param void
          * \return void
          */
@@ -133,7 +134,8 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         };
 
         /*!
-         * de-init
+         * \brief De-initialize the audio manager.
+         * Destroies the Allegro objects used by the manager.
          * \param void
          * \return void
          */
@@ -194,7 +196,6 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         };
 
     private:
-        //!  Run the audio manager in a thread.
         void run(void) override;
 
         //  Used for switching on audio messages:
@@ -241,9 +242,13 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
 template <> inline bool audio_manager::manager<audio_manager>::initialized = false;
 
 /*!
+ * \brief Run the audio manager.
  * Waits for messages to be loaded into the internal queue then processes.
  * On startup, creates multiple mixer objects to play sound through, then allows playback
  * control via messages.
+ * This overrides run from the make_thread class.
+ * \param void
+ * \return void
  */
 inline void audio_manager::run(void) {
     //  Set PhysFS interface for the thread.
@@ -276,6 +281,7 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  play_music - arg:  file.name - Load a file and play in a stream.
                 case CMD_STR_PLAY_MUSIC:
+                    //  Unload audio stream if one is already attached.
                     if(al_get_mixer_attached(mixer_1)) {
                         al_drain_audio_stream(music_stream);
                         al_detach_audio_stream(music_stream);
@@ -394,6 +400,7 @@ inline void audio_manager::run(void) {
                 /* ***  Mixer 3 - Voice controls  *** */
                 //  cmd:  play_voice - arg:  file.name - Load a file and play in a stream.
                 case CMD_STR_PLAY_VOICE:
+                    //  Unload audio stream if one is already attached.
                     if(al_get_mixer_attached(mixer_3)) {
                         al_drain_audio_stream(voice_stream);
                         al_detach_audio_stream(voice_stream);
@@ -436,6 +443,7 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  play_ambiance - arg:  file.name - Load a file and play in a stream.
                 case CMD_STR_PLAY_AMBIANCE:
+                    //  Unload audio stream if one is already attached.
                     if(al_get_mixer_attached(mixer_4)) {
                         al_drain_audio_stream(ambiance_stream);
                         al_detach_audio_stream(ambiance_stream);

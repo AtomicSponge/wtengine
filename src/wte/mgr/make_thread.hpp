@@ -15,6 +15,7 @@
 #include <thread>
 #include <future>
 #include <chrono>
+#include <pthread.h>
 
 namespace wte
 {
@@ -79,15 +80,6 @@ class make_thread {
             return started;
         };
 
-    private:
-        //  Call to trigger exit
-        std::promise<void> exit_signal;
-        //  Track exit signal state
-        std::future<void> exit_state;
-
-        //  Flag to track status of thread
-        bool started;
-
     protected:
         /*!
          * Set started flag to false
@@ -113,6 +105,15 @@ class make_thread {
          * \return void
          */
         virtual void run(void) = 0;
+
+    private:
+        //  Call to trigger exit
+        std::promise<void> exit_signal;
+        //  Track exit signal state
+        std::future<void> exit_state;
+
+        //  Flag to track status of thread
+        bool started;
 };
 
 } //  end namespace mgr

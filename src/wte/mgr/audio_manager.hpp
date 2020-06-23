@@ -141,9 +141,23 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             //for(std::size_t pos = 0; pos < WTE_MAX_SAMPLES; pos++)
                 //if(samples[pos] != NULL) al_destroy_sample(samples[pos]);
 
-            if(al_get_mixer_attached(mixer_1)) al_destroy_audio_stream(music_stream);
-            if(al_get_mixer_attached(mixer_3)) al_destroy_audio_stream(ambiance_stream);
-            if(al_get_mixer_attached(mixer_4)) al_destroy_audio_stream(voice_stream);
+            if(al_get_mixer_attached(mixer_1)) {
+                al_drain_audio_stream(music_stream);
+                al_detach_audio_stream(music_stream);
+                al_destroy_audio_stream(music_stream);
+            }
+
+            if(al_get_mixer_attached(mixer_3)) {
+                al_drain_audio_stream(voice_stream);
+                al_detach_audio_stream(voice_stream);
+                al_destroy_audio_stream(voice_stream);
+            }
+
+            if(al_get_mixer_attached(mixer_4)) {
+                al_drain_audio_stream(ambiance_stream);
+                al_detach_audio_stream(ambiance_stream);
+                al_destroy_audio_stream(ambiance_stream);
+            }
 
             al_destroy_mixer(mixer_1);
             al_destroy_mixer(mixer_2);
@@ -262,6 +276,11 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  play_music - arg:  file.name - Load a file and play in a stream.
                 case CMD_STR_PLAY_MUSIC:
+                    if(al_get_mixer_attached(mixer_1)) {
+                        al_drain_audio_stream(music_stream);
+                        al_detach_audio_stream(music_stream);
+                        al_destroy_audio_stream(music_stream);
+                    }
                     //  Load stream and play.
                     music_stream = al_load_audio_stream(audio_messages.front().get_arg(0).c_str(), 4, 2048);
                     if(!music_stream) break;  //  Didn't load audio, end.
@@ -272,7 +291,7 @@ inline void audio_manager::run(void) {
                 //  cmd:  stop_music - Stop current music from playing.
                 case CMD_STR_STOP_MUSIC:
                     if(al_get_mixer_attached(mixer_1))
-                        al_destroy_audio_stream(music_stream);
+                        al_set_audio_stream_playing(music_stream, false);
                     break;
 
                 //  cmd:  pause_music - Pause music if it is playing.
@@ -375,6 +394,11 @@ inline void audio_manager::run(void) {
                 /* ***  Mixer 3 - Voice controls  *** */
                 //  cmd:  play_voice - arg:  file.name - Load a file and play in a stream.
                 case CMD_STR_PLAY_VOICE:
+                    if(al_get_mixer_attached(mixer_3)) {
+                        al_drain_audio_stream(voice_stream);
+                        al_detach_audio_stream(voice_stream);
+                        al_destroy_audio_stream(voice_stream);
+                    }
                     //  Load stream and play.
                     voice_stream = al_load_audio_stream(audio_messages.front().get_arg(0).c_str(), 4, 2048);
                     if(!voice_stream) break;  //  Didn't load audio, end.
@@ -385,7 +409,7 @@ inline void audio_manager::run(void) {
                 //  cmd:  stop_voice - Stop current voice from playing.
                 case CMD_STR_STOP_VOICE:
                     if(al_get_mixer_attached(mixer_3))
-                        al_destroy_audio_stream(voice_stream);
+                        al_set_audio_stream_playing(voice_stream, false);
                     break;
 
                 //  cmd:  pause_voice - Pause voice if it is playing.
@@ -412,6 +436,11 @@ inline void audio_manager::run(void) {
 
                 //  cmd:  play_ambiance - arg:  file.name - Load a file and play in a stream.
                 case CMD_STR_PLAY_AMBIANCE:
+                    if(al_get_mixer_attached(mixer_4)) {
+                        al_drain_audio_stream(ambiance_stream);
+                        al_detach_audio_stream(ambiance_stream);
+                        al_destroy_audio_stream(ambiance_stream);
+                    }
                     //  Load stream and play.
                     ambiance_stream = al_load_audio_stream(audio_messages.front().get_arg(0).c_str(), 4, 2048);
                     if(!ambiance_stream) break;  //  Didn't load audio, end.
@@ -422,7 +451,7 @@ inline void audio_manager::run(void) {
                 //  cmd:  stop_ambiance - Stop current ambiance from playing.
                 case CMD_STR_STOP_AMBIANCE:
                     if(al_get_mixer_attached(mixer_4))
-                        al_destroy_audio_stream(ambiance_stream);
+                        al_set_audio_stream_playing(ambiance_stream, false);
                     break;
 
                 //  cmd:  pause_ambiance - Pause ambiance if it is playing.

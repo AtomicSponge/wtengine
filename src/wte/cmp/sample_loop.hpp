@@ -1,16 +1,16 @@
 /*!
- * \brief WTEngine | File:  sample.hpp
+ * \brief WTEngine | File:  sample_loop.hpp
  * \author Matthew Evans
  *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
  *
- * \details Sample component.
+ * \details Sample loop component.
  */
 
-#ifndef WTE_CMP_SAMPLE_HPP
-#define WTE_CMP_SAMPLE_HPP
+#ifndef WTE_CMP_SAMPLE_LOOP_HPP
+#define WTE_CMP_SAMPLE_LOOP_HPP
 
 #include <string>
 
@@ -23,11 +23,11 @@ namespace wte
 namespace cmp
 {
 
-//! Sample component
+//! Sample loop component
 /*!
  * Handle sample looping.
  */
-class sample final : public component {
+class sample_loop final : public component {
     public:
         /*!
          * Sample constructor.
@@ -35,7 +35,7 @@ class sample final : public component {
          * \param si Sample instance name to use.
          * \return void
          */
-        inline sample(const std::string sn, const std::string si) :
+        inline sample_loop(const std::string sn, const std::string si) :
         instance_name(si), playing(false) {
             if(sn.find(".") == std::string::npos) sample_name = sn;
             else sample_name = sn.substr(0, sn.find("."));
@@ -44,6 +44,7 @@ class sample final : public component {
         /*!
          * Start sample loop.
          * \param messages Reference to message manager.
+         * \return void
          */
         inline void start(mgr::message_manager& messages) {
             if(playing == false) {
@@ -55,6 +56,7 @@ class sample final : public component {
         /*!
          * Stop sample loop.
          * \param messages Reference to message manager.
+         * \return void
          */
         inline void stop(mgr::message_manager& messages) {
             if(playing == true) {

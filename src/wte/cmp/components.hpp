@@ -20,7 +20,7 @@
 #include "input_handler.hpp"
 #include "location.hpp"
 #include "name.hpp"
-#include "sample.hpp"
+#include "sample_loop.hpp"
 #include "team.hpp"
 #include "visible.hpp"
 

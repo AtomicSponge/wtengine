@@ -303,6 +303,8 @@ inline void audio_manager::run(void) {
         float pan = 0.0f;
         float speed = 0.0f;
 
+        bool test = true;
+
         std::map<std::string, ALLEGRO_SAMPLE*>::iterator sample_iterator;
         std::map<std::string, ALLEGRO_SAMPLE_ID>::iterator sample_instance;
 
@@ -432,12 +434,11 @@ inline void audio_manager::run(void) {
                                        gain, pan, speed, ALLEGRO_PLAYMODE_ONCE, NULL);
                     } else {
                         //  Store playing reference
-                        al_play_sample((sample_map.find(audio_messages.front().get_arg(0)))->second,
-                                       gain, pan, speed, ALLEGRO_PLAYMODE_LOOP, &temp_sample_id);
-                        sample_instances.insert(
-                            std::make_pair(audio_messages.front().get_arg(1),
-                                           temp_sample_id)
-                        );
+                        test = al_play_sample((sample_map.find(audio_messages.front().get_arg(0)))->second,
+                                              gain, pan, speed, ALLEGRO_PLAYMODE_LOOP, &temp_sample_id);
+                        if(test)
+                            sample_instances.insert(
+                                std::make_pair(audio_messages.front().get_arg(1), temp_sample_id));
                     }
                     break;
                 /////////////////////////////////////////////

@@ -418,7 +418,7 @@ inline void audio_manager::run(void) {
                     if(audio_messages.front().get_arg(1) == "") break;
                     if(audio_messages.front().get_arg(2) != "") {
                         gain = audio_messages.front().get_arg<float>(2);
-                        gain = 1.0f;
+                        gain = 1.0f;  //  TODO: Check min/max and update
                     } else gain = 1.0f;
                     if(audio_messages.front().get_arg(3) != "") {
                         pan = audio_messages.front().get_arg<float>(3);
@@ -426,7 +426,7 @@ inline void audio_manager::run(void) {
                     } else pan = ALLEGRO_AUDIO_PAN_NONE;
                     if(audio_messages.front().get_arg(4) != "") {
                         speed = audio_messages.front().get_arg<float>(4);
-                        speed = 1.0f;
+                        speed = 1.0f;  //  TODO: Check min/max and update
                     } else speed = 1.0f;
                     if(audio_messages.front().get_arg(1) == "once") {
                         // Play the sample once.

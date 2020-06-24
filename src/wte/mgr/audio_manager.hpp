@@ -95,8 +95,6 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             //  General
             map_cmd_str_values["set_volume"] = CMD_STR_SET_VOLUME;
 
-            //samples[WTE_MAX_SAMPLES] = { NULL };
-
             audio_messages.clear();
             sample_map.clear();
             sample_instances.clear();

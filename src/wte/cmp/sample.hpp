@@ -25,7 +25,7 @@ namespace cmp
 
 //! Sample component
 /*!
- * Store the direction of travel for an entity
+ * Handle sample looping.
  */
 class sample final : public component {
     public:

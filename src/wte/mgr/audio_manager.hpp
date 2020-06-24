@@ -433,6 +433,8 @@ inline void audio_manager::run(void) {
                         al_play_sample((sample_map.find(audio_messages.front().get_arg(0)))->second,
                                        gain, pan, speed, ALLEGRO_PLAYMODE_ONCE, NULL);
                     } else {
+                        //  If the reference is already playing, end.
+                        if(sample_instances.find(audio_messages.front().get_arg(1)) != sample_instances.end()) break;
                         //  Store playing reference
                         test = al_play_sample((sample_map.find(audio_messages.front().get_arg(0)))->second,
                                               gain, pan, speed, ALLEGRO_PLAYMODE_LOOP, &temp_sample_id);

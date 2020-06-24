@@ -349,6 +349,8 @@ void wte_demo::new_game(void) {
 
             wte_set_component(can_id, cmp::visible)->is_visible = true;
             wte_set_component(can_id, cmp::enabled)->is_enabled = true;
+
+            //messages.add_message(message("audio", "play_sample", "fx1;cannon_fire"));
         },
         //  Input for when button is not pressed.
         [](entity can_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
@@ -356,6 +358,8 @@ void wte_demo::new_game(void) {
                 wte_set_component(can_id, cmp::visible)->is_visible = false;
                 wte_set_component(can_id, cmp::enabled)->is_enabled = false;
             }
+
+            //messages.add_message(message("audio", "stop_sample", "cannon_fire"));
         }
     );
     wte_new_component(e_id, cmp::visible, false);
@@ -370,6 +374,8 @@ void wte_demo::new_game(void) {
                 //  Deal damage
                 messages.add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
                                              std::to_string(wte_get_component(can_id, damage)->dmg)));
+                //  Play the hit effect.
+                //messages.add_message(message("audio", "play_sample", "fx3;once"));
             }
         }
     );
@@ -516,6 +522,11 @@ void wte_demo::new_game(void) {
     if(game_cfg::get<int>("max_lives") > 5 || game_cfg::get<int>("max_lives") < 3)
         game_cfg::set("max_lives=3");
     game_cfg::set("lives", game_cfg::get("max_lives"));
+
+    //  Load some samples in the audio manager.
+    messages.add_message(message("audio", "load_sample", "sfx/fx1.wav"));
+    messages.add_message(message("audio", "load_sample", "sfx/fx2.wav"));
+    messages.add_message(message("audio", "load_sample", "sfx/fx3.wav"));
 }
 
 /*

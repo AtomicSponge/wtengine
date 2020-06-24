@@ -191,7 +191,7 @@ void wte_demo::new_game(void) {
                                   wte_get_component(bkg_id, stars)->y[i], WTE_COLOR_RED);
             }
         }
-    );  //  End background component.
+    );  //  End background rendering.
     wte_new_component(e_id, cmp::dispatcher,
         [](entity bkg_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time, message msg) {
             //  Define message processing for the starfield.
@@ -210,7 +210,7 @@ void wte_demo::new_game(void) {
                     wte_set_component(bkg_id, stars)->color[i] = std::rand() % 4 + 1;
                 }
             }
-        }
+        }  //  End starfield message processing.
     );  //  End dispatcher component.
 
     /*
@@ -229,7 +229,7 @@ void wte_demo::new_game(void) {
             wte_set_component(ovr_id, cmp::overlay)->set_text("High Score:  ", WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_RIGHT);
             wte_set_component(ovr_id, cmp::overlay)->set_text(game_cfg::get("hiscore"), WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_LEFT);
         }
-    );
+    );  //  End score overlay drawing.
     wte_set_component(e_id, cmp::overlay)->set_font(al_create_builtin_font());
 
     /*
@@ -253,7 +253,7 @@ void wte_demo::new_game(void) {
             wte_set_component(ovr_id, cmp::overlay)->set_text("Shield", WTE_COLOR_WHITE, 200, 0, ALLEGRO_ALIGN_RIGHT);
             wte_set_component(ovr_id, cmp::overlay)->set_text("Lives:  " + game_cfg::get("lives"), WTE_COLOR_WHITE, 200, 10, ALLEGRO_ALIGN_RIGHT);
         }
-    );
+    );  //  End info overlay drawing.
     wte_set_component(e_id, cmp::overlay)->set_font(al_create_builtin_font());
 
     /*
@@ -292,7 +292,7 @@ void wte_demo::new_game(void) {
             if(wte_get_component(plr_id, cmp::location)->pos_x < mgr::render_manager::get_arena_width() - 22)
                 wte_set_component(plr_id, cmp::location)->pos_x += 5;
         }
-    );
+    );  //  End player input handler.
     wte_new_component(e_id, cmp::ai,
         [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             if(wte_get_component(plr_id, health)->hp <= 0) {
@@ -309,14 +309,14 @@ void wte_demo::new_game(void) {
                 wte_set_component(plr_id, health)->hp = wte_get_component(plr_id, health)->hp_max;
             }
         }
-    );  //  End player logic
+    );  //  End player logic.
     wte_new_component(e_id, cmp::dispatcher,
         [](entity plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time, message msg) {
             if(msg.get_cmd() == "damage") {
                 wte_set_component(plr_id, health)->hp -= msg.get_arg<int>(0);
             }
         }
-    );
+    );  //  End player message processing.
     wte_new_component(e_id, cmp::sprite, 32, 32, -11.0f, 0.0f, 1, 1);
     wte_set_component(e_id, cmp::sprite)->load_sprite("ship.bmp");
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 3);
@@ -361,7 +361,7 @@ void wte_demo::new_game(void) {
 
             //messages.add_message(message("audio", "stop_sample", "cannon_fire"));
         }
-    );
+    );  //  End cannon input handler.
     wte_new_component(e_id, cmp::visible, false);
     wte_new_component(e_id, cmp::enabled, false);
     wte_new_component(e_id, cmp::sprite, 10, 200, 0.0f, 0.0f, 2, 2);
@@ -378,7 +378,7 @@ void wte_demo::new_game(void) {
                 //messages.add_message(message("audio", "play_sample", "fx3;once"));
             }
         }
-    );
+    );  //  End cannon message processing.
 
     /*
      * Shield entity.
@@ -432,7 +432,7 @@ void wte_demo::new_game(void) {
                     wte_set_component(shd_id, energy)->amt += 1;
             }
         }
-    );
+    );  //  End shield input handler.
     wte_new_component(e_id, cmp::visible, false);
     wte_new_component(e_id, cmp::enabled, false);
     wte_new_component(e_id, cmp::sprite, 64, 64, 0.0f, 0.0f, 6, 2);
@@ -447,7 +447,7 @@ void wte_demo::new_game(void) {
                                              std::to_string(wte_get_component(shd_id, damage)->dmg)));
             }
         }
-    );
+    );  //  End shield message processing.
 
     /*
      * Add the asteroid entity to the spawner.
@@ -505,7 +505,7 @@ void wte_demo::new_game(void) {
                         wte_set_component(ast_id, health)->hp -= msg.get_arg<int>(0);
                     }
                 }
-            );  //  End asteroid  message dispatching.
+            );  //  End asteroid message dispatching.
             wte_new_component(e_id, cmp::sprite, 16, 16, 0.0f, 0.0f, 10, 0);
             wte_set_component(e_id, cmp::sprite)->load_sprite("asteroid.bmp");
             wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);

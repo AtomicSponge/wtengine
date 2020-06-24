@@ -286,8 +286,8 @@ template <> inline bool audio_manager::manager<audio_manager>::initialized = fal
 /*!
  * \brief Run the audio manager.
  * Waits for messages to be loaded into the internal queue then processes.
- * On startup, creates multiple mixer objects to play sound through, then allows playback
- * control via messages.
+ * On startup, creates multiple mixer objects to play sound through, then
+ * allows playback control via messages.
  * This overrides run from the make_thread class.
  * \param void
  * \return void

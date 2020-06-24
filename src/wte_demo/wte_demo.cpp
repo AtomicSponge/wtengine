@@ -331,6 +331,8 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::location, 0, 0);
     wte_new_component(e_id, cmp::hitbox, 10, 200, false);
     wte_new_component(e_id, damage, 5);
+    wte_new_component(e_id, cmp::sample_loop);
+    wte_set_component(e_id, cmp::sample_loop)->add_handle("fx1", "cannon_fire");
     wte_new_component(e_id, cmp::input_handler);
     wte_set_component(e_id, cmp::input_handler)->add_handle_on_off(WTE_INPUT_ACTION_1,
         //  Input for when button is being pressed.
@@ -340,7 +342,7 @@ void wte_demo::new_game(void) {
             for(auto & it : name_components) {
                 if(it.second->name_str == "player") player_entity = it.first;
             }
-            //  Set the cannon's location to match the player
+            //  Set the cannon's location to match the player.
             wte_set_component(can_id, cmp::location)->pos_x =
                 wte_get_component(player_entity, cmp::location)->pos_x;
             wte_set_component(can_id, cmp::location)->pos_y =
@@ -350,7 +352,8 @@ void wte_demo::new_game(void) {
             wte_set_component(can_id, cmp::visible)->is_visible = true;
             wte_set_component(can_id, cmp::enabled)->is_enabled = true;
 
-            //messages.add_message(message("audio", "play_sample", "fx1;cannon_fire"));
+            //  Play sound effect.
+            wte_set_component(can_id, cmp::sample_loop)->start(messages, "cannon_fire");
         },
         //  Input for when button is not pressed.
         [](entity can_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
@@ -359,7 +362,8 @@ void wte_demo::new_game(void) {
                 wte_set_component(can_id, cmp::enabled)->is_enabled = false;
             }
 
-            //messages.add_message(message("audio", "stop_sample", "cannon_fire"));
+            //  Stop sound effect.
+            wte_set_component(can_id, cmp::sample_loop)->stop(messages, "cannon_fire");
         }
     );  //  End cannon input handler.
     wte_new_component(e_id, cmp::visible, false);

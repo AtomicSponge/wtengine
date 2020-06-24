@@ -13,6 +13,8 @@
 #define WTE_CMP_SAMPLE_LOOP_HPP
 
 #include <string>
+#include <map>
+#include <utility>
 
 #include "component.hpp"
 #include "../mgr/message_manager.hpp"
@@ -30,45 +32,69 @@ namespace cmp
 class sample_loop final : public component {
     public:
         /*!
-         * Sample constructor.
-         * \param sn Sample name to play.
-         * \param si Sample instance name to use.
+         * Sample loop constructor.
+         * \param void
          * \return void
          */
-        inline sample_loop(const std::string sn, const std::string si) :
-        instance_name(si), playing(false) {
+        inline sample_loop() {
+            instance_map.clear();
+        };
+
+        /*!
+         * Sample loop destructor.
+         * \param void
+         * \return void
+         */
+        inline ~sample_loop() {
+            instance_map.clear();
+        };
+
+        /*!
+         * Add handle.
+         * \param sn Sample name reference.
+         * \param si Sample instance reference.
+         * \return True if added, false if not.
+         */
+        inline const bool add_handle(const std::string sn, const std::string si) {
+            std::string sample_name;
             if(sn.find(".") == std::string::npos) sample_name = sn;
             else sample_name = sn.substr(0, sn.find("."));
+            auto ret = instance_map.insert(std::make_pair(si, std::make_pair(sample_name, false)));
+            return ret.second;
         };
 
         /*!
          * Start sample loop.
          * \param messages Reference to message manager.
+         * \param si Sample instance reference.
          * \return void
          */
-        inline void start(mgr::message_manager& messages) {
-            if(playing == false) {
-                playing = true;
-                messages.add_message(message("audio", "play_sample", sample_name + ";" + instance_name));
+        inline void start(mgr::message_manager& messages, const std::string si) {
+            if(instance_map.find(si) != instance_map.end()) {
+                if(instance_map.find(si)->second.second == false) {
+                    instance_map.find(si)->second.second = true;
+                    messages.add_message(message("audio", "play_sample", instance_map.find(si)->second.first + ";" + si));
+                }
             }
         };
 
         /*!
          * Stop sample loop.
          * \param messages Reference to message manager.
+         * \param si Sample instance reference.
          * \return void
          */
-        inline void stop(mgr::message_manager& messages) {
-            if(playing == true) {
-                playing = false;
-                messages.add_message(message("audio", "stop_sample", instance_name));
+        inline void stop(mgr::message_manager& messages, const std::string si) {
+            if(instance_map.find(si) != instance_map.end()) {
+                if(instance_map.find(si)->second.second == true) {
+                    instance_map.find(si)->second.second = false;
+                    messages.add_message(message("audio", "stop_sample", si));
+                }
             }
         };
 
     private:
-        std::string sample_name;
-        std::string instance_name;
-        bool playing;
+        std::map<std::string, std::pair<std::string, bool>> instance_map;
 };
 
 } //  namespace cmp

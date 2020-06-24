@@ -269,10 +269,12 @@ inline void wte_main::process_new_game(const std::string game_data) {
     new_game();
 
     //  Stop audio manager from playing sounds.
+    //  Messages run in reverse order.
     messages.add_message(message("audio", "stop_music", ""));
     messages.add_message(message("audio", "stop_ambiance", ""));
     messages.add_message(message("audio", "stop_voice", ""));
     messages.add_message(message("audio", "unload_sample", "all"));
+    messages.add_message(message("audio", "clear_instances", ""));
 
     //  Restart the timer at zero.
     al_stop_timer(main_timer);
@@ -295,10 +297,12 @@ inline void wte_main::process_end_game(void) {
     mgr::engine_time::set_time(al_get_timer_count(main_timer));
 
     //  Stop audio manager from playing sounds.
+    //  Messages run in reverse order.
     messages.add_message(message("audio", "stop_music", ""));
     messages.add_message(message("audio", "stop_ambiance", ""));
     messages.add_message(message("audio", "stop_voice", ""));
     messages.add_message(message("audio", "unload_sample", "all"));
+    messages.add_message(message("audio", "clear_instances", ""));
 
     //  Call end game process.
     end_game();

@@ -15,7 +15,7 @@
 #ifndef WTE_MGR_AUDIO_MANAGER_HPP
 #define WTE_MGR_AUDIO_MANAGER_HPP
 
-#define ALLEGRO_UNSTABLE  //  For sample panning, see Allegro docs.
+//#define ALLEGRO_UNSTABLE  //  For sample panning, see Allegro docs.
 
 //  Set max number of samples.
 #ifndef WTE_MAX_PLAYING_SAMPLES
@@ -80,6 +80,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             map_cmd_str_values["play_sample"] = CMD_STR_PLAY_SAMPLE;
             map_cmd_str_values["stop_sample"] = CMD_STR_STOP_SAMPLE;
             map_cmd_str_values["pan_sample"] = CMD_STR_PAN_SAMPLE;
+            map_cmd_str_values["clear_instances"] = CMD_STR_CLEAR_INSTANCES;
             //  Mixer 3
             map_cmd_str_values["play_voice"] = CMD_STR_PLAY_VOICE;
             map_cmd_str_values["stop_voice"] = CMD_STR_STOP_VOICE;
@@ -97,6 +98,8 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             //samples[WTE_MAX_SAMPLES] = { NULL };
 
             audio_messages.clear();
+            sample_map.clear();
+            sample_instances.clear();
         };
 
         /*!
@@ -106,6 +109,8 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         inline ~audio_manager() {
             map_cmd_str_values.clear();
             audio_messages.clear();
+            sample_map.clear();
+            sample_instances.clear();
         };
 
         /*!
@@ -129,10 +134,9 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             al_attach_mixer_to_mixer(mixer_3, mixer_main);
             al_attach_mixer_to_mixer(mixer_4, mixer_main);
 
+            //  Set number of samples.
             al_set_default_mixer(mixer_2);
             al_reserve_samples(WTE_MAX_PLAYING_SAMPLES);
-
-            //samples[WTE_MAX_SAMPLES] = { NULL };
         };
 
         /*!
@@ -142,6 +146,13 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
          * \return void
          */
         inline void de_init(void) {
+            //  Clear any left over instances.
+            for(auto sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
+                al_stop_sample(&sample_instance->second);
+                sample_instances.erase(sample_instance);
+                sample_instance = sample_instances.begin();
+            }
+
             //  Check for and destroy all samples loaded in the map.
             for(auto sample_iterator = sample_map.begin(); sample_iterator != sample_map.end();) {
                 al_destroy_sample(sample_iterator->second);
@@ -231,7 +242,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             //  Mixer 2
             CMD_STR_LOAD_SAMPLE,     CMD_STR_UNLOAD_SAMPLE,
             CMD_STR_PLAY_SAMPLE,     CMD_STR_STOP_SAMPLE,
-            CMD_STR_PAN_SAMPLE,
+            CMD_STR_PAN_SAMPLE,      CMD_STR_CLEAR_INSTANCES,
             //  Mixer 3
             CMD_STR_PLAY_VOICE,      CMD_STR_STOP_VOICE,
             CMD_STR_PAUSE_VOICE,     CMD_STR_UNPAUSE_VOICE,
@@ -266,7 +277,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         //  Store a reference of loaded samples.
         std::map<std::string, ALLEGRO_SAMPLE*> sample_map;
         //  Store a reference of playing samples.
-        std::vector<std::pair<std::string, ALLEGRO_SAMPLE_ID*>> playing_samples;
+        std::map<std::string, ALLEGRO_SAMPLE_ID> sample_instances;
 };
 
 //  Used to restrict class to a single instance.
@@ -293,6 +304,9 @@ inline void audio_manager::run(void) {
         float speed = 0.0f;
 
         std::map<std::string, ALLEGRO_SAMPLE*>::iterator sample_iterator;
+        std::map<std::string, ALLEGRO_SAMPLE_ID>::iterator sample_instance;
+
+        ALLEGRO_SAMPLE_ID temp_sample_id;
 
         if(!audio_messages.empty()) {
             //  Switch over the audio message and process.
@@ -396,30 +410,51 @@ inline void audio_manager::run(void) {
                 //  If passed "once" no reference will be stored and the sample will be played once.
                 //  Any other argument for the mode will be used for the reference storage.
                 case CMD_STR_PLAY_SAMPLE:
-                    //  If no sample name provided, end.
-                    if(audio_messages.front().get_arg(0) == "") break;
                     //  If sample name not found in map, end.
                     if(sample_map.find(audio_messages.front().get_arg(0)) == sample_map.end()) break;
+                    //  If no second argument, end.
+                    if(audio_messages.front().get_arg(1) == "") break;
+                    if(audio_messages.front().get_arg(2) != "") {
+                        gain = audio_messages.front().get_arg<float>(2);
+                        gain = 1.0f;
+                    } else gain = 1.0f;
+                    if(audio_messages.front().get_arg(3) != "") {
+                        pan = audio_messages.front().get_arg<float>(3);
+                        if(pan < -1.0f || pan > 1.0f) pan = ALLEGRO_AUDIO_PAN_NONE;
+                    } else pan = ALLEGRO_AUDIO_PAN_NONE;
+                    if(audio_messages.front().get_arg(4) != "") {
+                        speed = audio_messages.front().get_arg<float>(4);
+                        speed = 1.0f;
+                    } else speed = 1.0f;
                     if(audio_messages.front().get_arg(1) == "once") {
                         // Play the sample once.
                         al_play_sample((sample_map.find(audio_messages.front().get_arg(0)))->second,
-                                       1.0f, 0.0f, 1.0f, ALLEGRO_PLAYMODE_ONCE, NULL);
+                                       gain, pan, speed, ALLEGRO_PLAYMODE_ONCE, NULL);
                     } else {
-                        // store playing reference
+                        //  Store playing reference
+                        al_play_sample((sample_map.find(audio_messages.front().get_arg(0)))->second,
+                                       gain, pan, speed, ALLEGRO_PLAYMODE_LOOP, &temp_sample_id);
+                        sample_instances.insert(
+                            std::make_pair(audio_messages.front().get_arg(1),
+                                           temp_sample_id)
+                        );
                     }
                     break;
                 /////////////////////////////////////////////
 
                 /////////////////////////////////////////////
-                //  cmd:  stop_sample - arg:  sample_num (0 - MAX) - Stop playing loaded sample.
+                //  cmd:  stop_sample - arg:  sample_num (0 - MAX) - Stop looping sample instance.
                 case CMD_STR_STOP_SAMPLE:
-                    
+                        //  If instance does not exist, end.
+                        if(sample_instances.find(audio_messages.front().get_arg(0)) == sample_instances.end()) break;
+                        al_stop_sample(&sample_instances.find(audio_messages.front().get_arg(0))->second);
+                        sample_instances.erase(sample_instances.find(audio_messages.front().get_arg(0)));
                     break;
                 /////////////////////////////////////////////
 
                 /////////////////////////////////////////////
                 //  cmd:  pan_sample - arg:  sample_num (0 - MAX) ; pan ([left]-1.0 thru 1.0[right] or none) - Set sample pan.
-                /*case CMD_STR_PAN_SAMPLE:
+                case CMD_STR_PAN_SAMPLE:
                     #ifdef ALLEGRO_UNSTABLE
                     pos = audio_messages.front().get_arg<std::size_t>(0);
                     if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
@@ -437,7 +472,18 @@ inline void audio_manager::run(void) {
                     if(instance) al_set_sample_instance_pan(instance, pan);
                     al_unlock_sample_id(&sample_id[pos]);
                     #endif
-                    break;*/
+                    break;
+                /////////////////////////////////////////////
+
+                /////////////////////////////////////////////
+                //  cmd:  clear_instances - Stop all looping sample instances.
+                case CMD_STR_CLEAR_INSTANCES:
+                    for(sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
+                        al_stop_sample(&sample_instance->second);
+                        sample_instances.erase(sample_instance);
+                        sample_instance = sample_instances.begin();
+                    }
+                    break;
                 /////////////////////////////////////////////
 
                 /* ********************************** */

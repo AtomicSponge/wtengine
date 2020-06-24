@@ -70,10 +70,11 @@ class sample_loop final : public component {
          * \return void
          */
         inline void start(mgr::message_manager& messages, const std::string si) {
-            if(instance_map.find(si) != instance_map.end()) {
-                if(instance_map.find(si)->second.second == false) {
-                    instance_map.find(si)->second.second = true;
-                    messages.add_message(message("audio", "play_sample", instance_map.find(si)->second.first + ";" + si));
+            auto ref = instance_map.find(si);
+            if(ref != instance_map.end()) {
+                if(ref->second.second == false) {
+                    ref->second.second = true;
+                    messages.add_message(message("audio", "play_sample", ref->second.first + ";" + si));
                 }
             }
         };
@@ -85,9 +86,10 @@ class sample_loop final : public component {
          * \return void
          */
         inline void stop(mgr::message_manager& messages, const std::string si) {
-            if(instance_map.find(si) != instance_map.end()) {
-                if(instance_map.find(si)->second.second == true) {
-                    instance_map.find(si)->second.second = false;
+            auto ref = instance_map.find(si);
+            if(ref != instance_map.end()) {
+                if(ref->second.second == true) {
+                    ref->second.second = false;
                     messages.add_message(message("audio", "stop_sample", si));
                 }
             }

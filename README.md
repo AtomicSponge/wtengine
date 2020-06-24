@@ -20,6 +20,7 @@ For an example of the API in action, see the [demo game code](https://github.com
  - Buildable debug modes
 
 #### TODO:
+ - !Stop music/voice/ambiance commands needs fixing
  - Create a component to handle sample playing (to prevent message spam)
  - Finish up input interface
  - Create menus for audio & input config

@@ -109,17 +109,15 @@ class entity_manager final : public manager<entity_manager> {
         inline const entity_id new_entity(void) {
             entity_id next_id;
 
-            //  If the counter hits max, look for available ID.
-            if(entity_counter == WTE_ENTITY_MAX) {
-                next_id = WTE_ENTITY_START;
-
-                for(auto it = entity_vec.begin(); it != entity_vec.end(); it++) {
-                    //  No more room for entities, fail.
-                    if(next_id == WTE_ENTITY_MAX) return WTE_ENTITY_ERROR;
-                    if(it->first == next_id) {    //  Entity ID exists.
-                        next_id++;                //  Increment next_id by one.
-                        it = entity_vec.begin();  //  Then start the search over.
-                    }
+            if(entity_counter == WTE_ENTITY_MAX) {  //  Counter hit max.
+                bool test = false;
+                //  Look for the first available ID.
+                for(next_id = WTE_ENTITY_START; !test; next_id++) {
+                    if(next_id == WTE_ENTITY_MAX) return WTE_ENTITY_ERROR;  //  No available ID, error.
+                    //  See if the ID exists.
+                    test = (std::find_if(entity_vec.begin(), entity_vec.end(),
+                                         [&next_id](const entity& e){ return e.first == next_id; })
+                            == entity_vec.end());
                 }
             } else {  //  Counter not max, use the counter for entity ID.
                 next_id = entity_counter;

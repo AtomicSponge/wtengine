@@ -104,7 +104,7 @@ class entity_manager final : public manager<entity_manager> {
          * \brief Create a new entity by name, using the next available ID.
          * Throw error if there is no room for entities.
          * \param void
-         * \return Return the newly created entity ID.
+         * \return The newly created entity ID.  WTE_ENTITY_ERROR on fail.
          */
         inline const entity_id new_entity(void) {
             entity_id next_id;
@@ -136,8 +136,10 @@ class entity_manager final : public manager<entity_manager> {
                 //  If it does, append the temp number and try that.
                 if(!test) entity_name = "Entity" + std::to_string(next_id) + std::to_string(temp_id);
             }
+
+            //  Tests complete, insert new entity.
             entity_vec.push_back(std::make_pair(next_id, entity_name));
-            return next_id;  //  Created entity, return new entity ID.
+            return next_id;  //  Return new entity ID.
         };
 
         /*!

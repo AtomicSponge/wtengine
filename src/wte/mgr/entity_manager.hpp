@@ -129,12 +129,14 @@ class entity_manager final : public manager<entity_manager> {
             //  Set a new name.  Make sure name doesn't exist.
             std::string entity_name = "Entity" + std::to_string(next_id);
             bool test = false;
-            for(std::size_t i = 0; !test; i++) {
-                if(i == WTE_ENTITY_MAX) return WTE_ENTITY_ERROR;  //  Couldn't name entity, error.
+            for(entity_id temp_id = 0; !test; temp_id++) {
+                if(temp_id == WTE_ENTITY_MAX) return WTE_ENTITY_ERROR;  //  Couldn't name entity, error.
+                //  See if the name exists.
                 test = (std::find_if(entity_vec.begin(), entity_vec.end(),
                                      [&entity_name](const entity& e){ return e.second == entity_name; })
                         == entity_vec.end());
-                if(!test) entity_name = "Entity" + std::to_string(next_id) + std::to_string(i);
+                //  If it does, append the temp number and try that.
+                if(!test) entity_name = "Entity" + std::to_string(next_id) + std::to_string(temp_id);
             }
             entity_vec.push_back(std::make_pair(next_id, entity_name));
             return next_id;  //  Created entity, return new entity ID.

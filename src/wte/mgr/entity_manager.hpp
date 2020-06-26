@@ -127,7 +127,7 @@ class entity_manager final : public manager<entity_manager> {
             //  Set a new name.  Make sure name doesn't exist.
             std::string entity_name = "Entity" + std::to_string(next_id);
             bool test = false;
-            for(entity_id temp_id = 0; !test; temp_id++) {
+            for(entity_id temp_id = WTE_ENTITY_START; !test; temp_id++) {
                 if(temp_id == WTE_ENTITY_MAX) return WTE_ENTITY_ERROR;  //  Couldn't name entity, error.
                 //  See if the name exists.
                 test = (std::find_if(entity_vec.begin(), entity_vec.end(),
@@ -171,7 +171,7 @@ class entity_manager final : public manager<entity_manager> {
         /*!
          * Get entity name.
          * \param e_id Entity ID to get name for.
-         * \return Entity name string.
+         * \return Entity name string.  Empty string if not found.
          */
         inline const std::string get_name(const entity_id& e_id) const {
             auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),

@@ -80,7 +80,7 @@ class message_manager final : public manager<message_manager>, private engine_ti
          * \param msg Message to add.
          * \return void
          */
-        inline void add_message(const message msg) {
+        inline void add_message(const message& msg) {
             msg_queue.insert(msg_queue.begin(), msg);
             if(msg.is_timed_event()) std::sort(msg_queue.begin(), msg_queue.end());
         };
@@ -134,7 +134,7 @@ class message_manager final : public manager<message_manager>, private engine_ti
          * \param sys Manager/system to get messages for.
          * \return Vector of messages.
          */
-        inline const message_container get_messages(const std::string sys) {
+        inline const message_container get_messages(const std::string& sys) {
             message_container temp_messages;
 
             for(auto it = msg_queue.begin(); it != msg_queue.end();) {
@@ -160,7 +160,7 @@ class message_manager final : public manager<message_manager>, private engine_ti
          * \param fname Filename to load.
          * \return void
          */
-        inline void load_file(const std::string fname) {
+        inline void load_file(const std::string& fname) {
             msg_queue.clear();
             //  Open data file - read binary mode.
             ALLEGRO_FILE* file;
@@ -235,7 +235,7 @@ class message_manager final : public manager<message_manager>, private engine_ti
         std::ofstream debug_log_file;
         //!  Log processed messages to a file
         //!  Write a message to the debug log file if debugging is enabled
-        inline void debug_log_message(const message msg) {
+        inline void debug_log_message(const message& msg) {
             debug_log_file << "PROC AT:  " << check_time() << " | ";
             debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
             debug_log_file << "SYS:  " << msg.get_sys() << " | ";

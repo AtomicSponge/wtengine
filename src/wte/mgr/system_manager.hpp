@@ -137,8 +137,8 @@ class system_manager final : public manager<system_manager> {
 
                 for(auto & c_it : dispatch_components) {
                     for(auto m_it = temp_msgs.begin(); m_it != temp_msgs.end();) {
-                        if(m_it->get_to() == world.get_component<cmp::name>(c_it.first)->name_str) {
-                            c_it.second->proc_msg(c_it.first, world, messages, current_time, *m_it);
+                        if(m_it->get_to() == world.get_name(c_it.first)) {
+                            c_it.second->proc_msg(c_it.first, *m_it, world, messages, current_time);
                             m_it = temp_msgs.erase(m_it);
                         } else m_it++;
                     }

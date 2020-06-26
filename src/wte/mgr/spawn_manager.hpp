@@ -68,17 +68,15 @@ class spawn_manager final : public manager<spawn_manager> {
                         //  Make sure the number of arguments match what's expected.
                         //  Note that we do not count the first argument.
                         if(m_it.num_args() == s_it->second.first + 1) {
-                            entity e_id = world.new_entity();
+                            entity_id e_id = world.new_entity();
                             s_it->second.second(e_id, world, m_it.get_arglist());
                         }
                 }
 
                 if(m_it.get_cmd() == "delete") {
-                    const_component_container<cmp::name> name_components = world.get_components<cmp::name>();
-
-                    //  Check all named entities and delete if it exists.
-                    for(auto & c_it : name_components) {
-                        if(m_it.get_arg(0) == c_it.second->name_str) world.delete_entity(c_it.first);
+                    entity_id delete_entity_id = world.get_id(m_it.get_arg(0));
+                    if(delete_entity_id != WTE_ENTITY_ERROR) {
+                        world.delete_entity(delete_entity_id);
                     }
                 }
             }  //  End for(m_it)
@@ -93,14 +91,14 @@ class spawn_manager final : public manager<spawn_manager> {
          * \return True if inserted into the spawn map, false if not.
          */
         inline const bool add_spawn(const std::string name, const std::size_t num_args,
-                                    void func(const entity, entity_manager&, const msg_arg_list)) {
+                                    void func(const entity_id, entity_manager&, const msg_arg_list)) {
             auto ret = spawner.insert(std::make_pair(name, std::make_pair(num_args, func)));
             return ret.second;
         };
 
     private:
         std::map<std::string, std::pair<std::size_t,
-            std::function<void(const entity, entity_manager&, const msg_arg_list)>>> spawner;
+            std::function<void(const entity_id, entity_manager&, const msg_arg_list)>>> spawner;
 };
 
 template <> inline bool spawn_manager::manager<spawn_manager>::initialized = false;

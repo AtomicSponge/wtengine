@@ -30,7 +30,7 @@ class alert {
          * \param a Alert to display.
          * \return void
          */
-        inline static void set_alert(const std::string a) {
+        inline static void set_alert(const std::string& a) {
             alert_text = a;
             alert_set = true;
         };

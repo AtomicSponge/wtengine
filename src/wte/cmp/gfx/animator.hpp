@@ -52,7 +52,7 @@ class animator : public component {
          * \param engine_time Current value of the main timer.
          * \return void
          */
-        inline void run(const entity e_id, mgr::entity_manager& world, const int64_t engine_time) {
+        inline void run(const entity_id e_id, mgr::entity_manager& world, const int64_t engine_time) {
             animate(e_id, world, engine_time);
         };
 
@@ -63,11 +63,11 @@ class animator : public component {
          * \param func Animation function.
          * \return void
          */
-        inline animator(std::size_t l, void func(const entity, mgr::entity_manager&, const int64_t)) :
+        inline animator(std::size_t l, void func(const entity_id, mgr::entity_manager&, const int64_t)) :
         layer(l), animate(func) {};
 
         std::size_t layer;
-        std::function<void(const entity, mgr::entity_manager&, const int64_t)> animate;
+        std::function<void(const entity_id, mgr::entity_manager&, const int64_t)> animate;
 };
 
 } //  namespace cmp

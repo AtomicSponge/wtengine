@@ -44,7 +44,7 @@ class background final : public animator {
                           const std::size_t l,
                           ALLEGRO_COLOR c) :
         background_w(w), background_h(h), color(c),
-        animator(l, [](entity e_id, mgr::entity_manager& world, int64_t engine_time) {
+        animator(l, [](entity_id e_id, mgr::entity_manager& world, int64_t engine_time) {
             al_set_target_bitmap(world.set_component<cmp::background>(e_id)->background_bitmap);
             al_clear_to_color(world.get_component<cmp::background>(e_id)->color);
         }) {
@@ -64,7 +64,7 @@ class background final : public animator {
         inline background(const int w,
                           const int h,
                           const std::size_t l,
-                          void func(entity, mgr::entity_manager&, int64_t)) :
+                          void func(entity_id, mgr::entity_manager&, int64_t)) :
         background_w(w), background_h(h), animator(l, func) {
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             background_bitmap = al_create_bitmap(background_w, background_h);

@@ -40,7 +40,7 @@ class engine_flags final {
          * \param f Index of the flag.
          * \return void
          */
-        inline static void set(const std::size_t f) {
+        inline static void set(const std::size_t& f) {
             flags[f].store(true, std::memory_order_release);
         };
 
@@ -49,7 +49,7 @@ class engine_flags final {
          * \param f Index of the flag.
          * \return void
          */
-        inline static void unset(const std::size_t f) {
+        inline static void unset(const std::size_t& f) {
             flags[f].store(false, std::memory_order_release);
         };
 
@@ -58,7 +58,7 @@ class engine_flags final {
          * \param f Index of the flag.
          * \return True if the flag is set, false if not.
          */
-        inline static const bool is_set(const std::size_t f) {
+        inline static const bool is_set(const std::size_t& f) {
             return flags[f].load(std::memory_order_consume);
         };
 

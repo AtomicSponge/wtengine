@@ -35,7 +35,7 @@ class engine_time {
          * \param t Timer value.
          * \return void
          */
-        inline static void set_time(const int64_t t) {
+        inline static void set_time(const int64_t& t) {
             current_time.store(t, std::memory_order_release);
         };
 

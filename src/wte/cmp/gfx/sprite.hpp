@@ -51,7 +51,7 @@ class sprite final : public animator {
         sprite_x(0.0f), sprite_y(0.0f), start_frame(0), stop_frame(0), current_frame(0), rate(rt),
         scale_factor_x(1.0f), scale_factor_y(1.0f),
         animator(l,
-            [](entity e_id, mgr::entity_manager& world, int64_t engine_time) {
+            [](entity_id e_id, mgr::entity_manager& world, int64_t engine_time) {
                 //  Define sprite animation process.
                 if(engine_time % world.get_component<sprite>(e_id)->rate == 0) {
                     world.set_component<sprite>(e_id)->current_frame++;

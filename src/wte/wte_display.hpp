@@ -51,7 +51,7 @@ class wte_display {
          * \param title Window title.
          * \return void
          */
-        inline wte_display(const std::string title) : window_title(title) {};
+        inline wte_display(const std::string& title) : window_title(title) {};
 
         /*!
          * Configure the display.

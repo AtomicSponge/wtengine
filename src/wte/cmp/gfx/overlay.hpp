@@ -42,7 +42,7 @@ class overlay final : public animator {
          * \return void
          */
         inline overlay(int w, int h, float x, float y,
-                       std::size_t l, void func(entity, mgr::entity_manager&, int64_t)) :
+                       std::size_t l, void func(entity_id, mgr::entity_manager&, int64_t)) :
         overlay_w(w), overlay_h(h), pos_x(x), pos_y(y), animator(l, func) {
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             overlay_bitmap = al_create_bitmap(overlay_w, overlay_h);

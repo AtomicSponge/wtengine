@@ -111,7 +111,7 @@ class wte_main : private wte_display {
          * \param flocation File location to add to PhysFS.
          * \return void
          */
-        inline static void add_file_location(const std::string flocation) {
+        inline static void add_file_location(const std::string& flocation) {
             file_locations.push_back(flocation);
         };
 
@@ -125,7 +125,7 @@ class wte_main : private wte_display {
          * \param argv Command line arguments count.
          * \param title Window title.
          */
-        inline wte_main(const int argc, char **argv, const std::string title) :
+        inline wte_main(const int argc, char **argv, const std::string& title) :
         wte_display(title), load_called(false) {
             if(initialized == true) throw std::runtime_error(get_window_title() + " already running!");
             initialized = true;
@@ -204,22 +204,24 @@ class wte_main : private wte_display {
         //!  Optional:  On menu close.
         virtual void on_menu_close(void) {};
         //!  Optional:  Define custom system message handling.
-        virtual void handle_custom_sys_msg(const message) {};
+        virtual void handle_custom_sys_msg(const message&) {};
         /* *** End overridden function members *** */
 
-        //  Managers used by the engine declared here.
-        mgr::audio_manager audio_th;
+        //  Managers available to game object declared here.
         mgr::entity_manager world;
-        mgr::input_manager input_th;
         mgr::menu_manager menus;
         mgr::message_manager messages;
         mgr::spawn_manager spawner;
         mgr::system_manager systems;
 
     private:
-        void process_new_game(const std::string);
+        void process_new_game(const std::string&);
         void process_end_game(void);
-        void handle_sys_msg(message_container);
+        void handle_sys_msg(message_container&);
+
+        //  Managers only available internally declared here.
+        mgr::audio_manager audio_th;
+        mgr::input_manager input_th;
 
         //  Used for mapping commands and switching on system messages:
         enum CMD_STR_VALUE {
@@ -250,7 +252,7 @@ class wte_main : private wte_display {
  * \param game_data Game data file to load.
  * \return void
  */
-inline void wte_main::process_new_game(const std::string game_data) {
+inline void wte_main::process_new_game(const std::string& game_data) {
     std::srand(std::time(nullptr));  //  Seed random, using time.
 
     //  Make sure the menu isn't opened.
@@ -402,7 +404,7 @@ inline void wte_main::do_game(void) {
  * \param sys_msgs  Vector of messages to be processed.
  * \return void
  */
-inline void wte_main::handle_sys_msg(message_container sys_msgs) {
+inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
     const bool timer_running = al_get_timer_started(main_timer);
 
     for(auto it = sys_msgs.begin(); it != sys_msgs.end();) {

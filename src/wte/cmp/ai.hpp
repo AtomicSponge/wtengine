@@ -36,7 +36,7 @@ class ai final : public component {
          * \param func Function to define AI process.
          * \return void
          */
-        inline ai(void func(entity, mgr::entity_manager&, mgr::message_manager&, int64_t)) : do_ai(func) {};
+        inline ai(void func(entity_id, mgr::entity_manager&, mgr::message_manager&, int64_t)) : do_ai(func) {};
 
         /*!
          * AI destructor.
@@ -53,12 +53,12 @@ class ai final : public component {
          * \param engine_time Current value of the main timer.
          * \return void
          */
-        inline void run(entity eid, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+        inline void run(entity_id eid, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             do_ai(eid, world, messages, engine_time);
         };
 
     private:
-        std::function<void(entity, mgr::entity_manager&, mgr::message_manager&, int64_t)> do_ai;
+        std::function<void(entity_id, mgr::entity_manager&, mgr::message_manager&, int64_t)> do_ai;
 };
 
 } //  namespace cmp

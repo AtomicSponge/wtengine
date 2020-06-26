@@ -39,7 +39,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
          * \param fname Filename to set saving to.
          * \return void
          */
-        inline static void set_game_cfg_file(const std::string fname) {
+        inline static void set_game_cfg_file(const std::string& fname) {
             data_file_name = fname;
         }
 
@@ -77,7 +77,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
          * \param var Variable name.
          * \return False on fail, true on success.
          */
-        inline static bool save(const std::string var) {
+        inline static bool save(const std::string& var) {
             std::ofstream data_file(data_file_name, std::ofstream::app);
             if(!data_file.good()) return false;
 
@@ -99,7 +99,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
          * \param val Value to add by.
          * \return False on fail, true on success.
          */
-        template <typename T> inline static bool add(const std::string var, T val) {
+        template <typename T> inline static bool add(const std::string& var, T val) {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >>
@@ -120,7 +120,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
          * \param val Value to subtract by.
          * \return False on fail, true on success.
          */
-        template <typename T> inline static bool subtract(const std::string var, T val) {
+        template <typename T> inline static bool subtract(const std::string& var, T val) {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >>
@@ -141,7 +141,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
          * \param val Value to multiply by.
          * \return False on fail, true on success.
          */
-        template <typename T> inline static bool multiply(const std::string var, T val) {
+        template <typename T> inline static bool multiply(const std::string& var, T val) {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >>
@@ -162,7 +162,7 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
          * \param val Value to divide by.
          * \return False on fail, true on success.
          */
-        template <typename T> inline static bool divide(const std::string var, T val) {
+        template <typename T> inline static bool divide(const std::string& var, T val) {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >>

@@ -44,7 +44,7 @@ namespace mgr
 
 //!  Container for an entity and component pair.  Used for sorting.
 template <typename T>
-using entity_component_pair = std::pair<const entity, std::shared_ptr<const T>>;
+using entity_component_pair = std::pair<const entity_id, std::shared_ptr<const T>>;
 
 /*!
  * \class Render manager class

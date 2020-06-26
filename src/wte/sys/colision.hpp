@@ -47,7 +47,7 @@ class colision final : public system {
          */
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
-                        const int64_t current_time) override {
+                        const int64_t& current_time) override {
             const_component_container<cmp::team> team_components = world.get_components<cmp::team>();
 
             for(auto & it_a : team_components) {
@@ -91,9 +91,9 @@ class colision final : public system {
                             //  Each entity will get a colision message.
                             //  Ex:  A hit B, B hit A.
                             messages.add_message(message("entities",
-                                                        world.get_component<cmp::name>(it_a.first)->name_str,
-                                                        world.get_component<cmp::name>(it_b.first)->name_str,
-                                                        "colision", ""));
+                                                         world.get_name(it_a.first),
+                                                         world.get_name(it_b.first),
+                                                         "colision", ""));
                         }
                     } //  End skip self check
                 } //  End it_b loop

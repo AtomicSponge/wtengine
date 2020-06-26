@@ -58,14 +58,14 @@ class input_handler final : public component {
          * \return True if added, false if not.
          */
         inline const bool add_handle_on(
-            const std::size_t button,
-            void func_on(const entity,
+            const std::size_t& button,
+            void func_on(const entity_id,
                          mgr::entity_manager&,
                          mgr::message_manager&,
                          const int64_t)
         ) {
             auto func_off =
-                [](const entity plr_id,
+                [](const entity_id plr_id,
                    mgr::entity_manager& world,
                    mgr::message_manager& messages,
                    const int64_t engine_time) {};
@@ -83,14 +83,14 @@ class input_handler final : public component {
          * \return True if added, false if not.
          */
         inline const bool add_handle_off(
-            const std::size_t button,
-            void func_off(const entity,
+            const std::size_t& button,
+            void func_off(const entity_id,
                           mgr::entity_manager&,
                           mgr::message_manager&,
                           const int64_t)
         ) {
             auto func_on =
-                [](const entity plr_id,
+                [](const entity_id plr_id,
                    mgr::entity_manager& world,
                    mgr::message_manager& messages,
                    const int64_t engine_time) {};
@@ -109,12 +109,12 @@ class input_handler final : public component {
          * \return True if added, false if not.
          */
         inline const bool add_handle_on_off(
-            const std::size_t button,
-            void func_on(const entity,
+            const std::size_t& button,
+            void func_on(const entity_id,
                          mgr::entity_manager&,
                          mgr::message_manager&,
                          const int64_t),
-            void func_off(const entity,
+            void func_off(const entity_id,
                           mgr::entity_manager&,
                           mgr::message_manager&,
                           const int64_t)
@@ -127,14 +127,14 @@ class input_handler final : public component {
 
         //! Store the input map.
         std::map<const std::size_t, std::pair<
-            std::function<void(const entity,
+            std::function<void(const entity_id&,
                                mgr::entity_manager&,
                                mgr::message_manager&,
-                               const int64_t)>,
-            std::function<void(const entity,
+                               const int64_t&)>,
+            std::function<void(const entity_id&,
                                mgr::entity_manager&,
                                mgr::message_manager&,
-                               const int64_t)>
+                               const int64_t&)>
         >> input_map;
 };
 

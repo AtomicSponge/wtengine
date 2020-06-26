@@ -124,7 +124,7 @@ class menu_manager final : public manager<menu_manager> {
          * \param mp Menu padding in pixels.
          * \return void
          */
-        inline void set_menu_size(const float mw, const float mh, const float mp) {
+        inline void set_menu_size(const float& mw, const float& mh, const float& mp) {
             menu_width = mw;
             menu_height = mh;
             menu_padding = mp;
@@ -172,7 +172,7 @@ class menu_manager final : public manager<menu_manager> {
          * \param flags Font flags.
          * \return void
          */
-        inline static void set_font_file(const std::string fname, const int size, const int flags) {
+        inline static void set_font_file(const std::string& fname, const int& size, const int& flags) {
             menu_font_file = fname;
             menu_font_size = size;
             menu_font_flags = flags;
@@ -183,7 +183,7 @@ class menu_manager final : public manager<menu_manager> {
          * \param new_menu A menu object.
          * \return Returns false if a menu with a similar ID already exists.  Returns true on success.
          */
-        inline const bool new_menu(const mnu::menu new_menu) {
+        inline const bool new_menu(const mnu::menu& new_menu) {
             for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
                 if(new_menu.get_id() == (*it)->get_id()) return false;
             }
@@ -199,7 +199,7 @@ class menu_manager final : public manager<menu_manager> {
          * \param name Menu name.
          * \return Shared pointer to menu.
          */
-        inline const mnu::menu_csptr get_menu(const std::string name) const {
+        inline const mnu::menu_csptr get_menu(const std::string& name) const {
             if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
 
             for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
@@ -228,7 +228,7 @@ class menu_manager final : public manager<menu_manager> {
          * \param name Menu name.
          * \return Shared pointer to menu.
          */
-        inline const mnu::menu_sptr set_menu(const std::string name) {
+        inline const mnu::menu_sptr set_menu(const std::string& name) {
             if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
 
             for(menu_iterator it = menus.begin(); it != menus.end(); it++) {
@@ -257,7 +257,7 @@ class menu_manager final : public manager<menu_manager> {
          * \param menu_id Menu to open.
          * \return void
          */
-        inline void open_menu(const std::string menu_id) {
+        inline void open_menu(const std::string& menu_id) {
             opened_menus.push(get_menu(menu_id));
             engine_flags::set(GAME_MENU_OPENED);
             menu_position = opened_menus.top()->items_cbegin();

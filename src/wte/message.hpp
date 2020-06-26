@@ -96,7 +96,7 @@ class message {
          * \param a String of arguments, delimited by ;
          * \return void
          */
-        inline void split_args(const std::string a) {
+        inline void split_args(const std::string& a) {
             if(a == "") arglist.push_back("");
             else {
                 std::stringstream arg_stream(a);
@@ -148,7 +148,7 @@ class message {
          * \param pos The position in the argument vector.
          * \return The argument string by position.
          */
-        inline const std::string get_arg(const std::size_t pos) const {
+        inline const std::string get_arg(const std::size_t& pos) const {
             if(pos >= arglist.size()) return "";  //  Out of range, return empty string.
             else return arglist[pos];
         };
@@ -159,7 +159,7 @@ class message {
          * \param pos The position in the argument vector.
          * \return The argument by position casted to type.
          */
-        template <typename T> inline const T get_arg(const std::size_t pos) const {
+        template <typename T> inline const T get_arg(const std::size_t& pos) const {
             //  Bad position, return false.
             if(pos >= arglist.size()) return std::any_cast<const bool>(false);
             try {

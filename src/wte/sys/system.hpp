@@ -51,10 +51,10 @@ class system {
         //!  Override this to create custom run method
         virtual void run(mgr::entity_manager&,
                          mgr::message_manager&,
-                         const int64_t) = 0;
+                         const int64_t&) = 0;
 
     protected:
-        inline system(const std::string n) : name(n), enabled(true) {};
+        inline system(const std::string& n) : name(n), enabled(true) {};
 
         bool enabled;
         std::string name;

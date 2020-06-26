@@ -114,7 +114,7 @@ class entity_manager final : public manager<entity_manager> {
                 //  Look for the first available ID.
                 for(next_id = WTE_ENTITY_START; !test; next_id++) {
                     if(next_id == WTE_ENTITY_MAX) return WTE_ENTITY_ERROR;  //  No available ID, error.
-                    //  See if the ID exists.
+                    //  See if the new ID does not exist.
                     test = (std::find_if(entity_vec.begin(), entity_vec.end(),
                                          [&next_id](const entity& e){ return e.first == next_id; })
                             == entity_vec.end());
@@ -129,7 +129,7 @@ class entity_manager final : public manager<entity_manager> {
             bool test = false;
             for(entity_id temp_id = WTE_ENTITY_START; !test; temp_id++) {
                 if(temp_id == WTE_ENTITY_MAX) return WTE_ENTITY_ERROR;  //  Couldn't name entity, error.
-                //  See if the name exists.
+                //  See if the new name does not exist.
                 test = (std::find_if(entity_vec.begin(), entity_vec.end(),
                                      [&entity_name](const entity& e){ return e.second == entity_name; })
                         == entity_vec.end());

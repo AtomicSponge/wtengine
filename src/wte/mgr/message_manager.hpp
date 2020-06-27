@@ -250,10 +250,14 @@ class message_manager final : public manager<message_manager>, private engine_ti
             }
         };
 
+        /*!
+         * \brief Log processed messages to a file.
+         * Write a message to the debug log file if debugging is enabled.
+         * \param msg Message to write.
+         * \return void
+         */
         #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
         std::ofstream debug_log_file;
-        //!  Log processed messages to a file
-        //!  Write a message to the debug log file if debugging is enabled
         inline void debug_log_message(const message& msg) {
             debug_log_file << "PROC AT:  " << check_time() << " | ";
             debug_log_file << "TIMER:  " << msg.get_timer() << " | ";

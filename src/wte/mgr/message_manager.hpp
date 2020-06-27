@@ -153,7 +153,7 @@ class message_manager final : public manager<message_manager>, private engine_ti
 
             return temp_messages;
         }
-        
+
         /*!
          * \brief Load a new data file into the message queue.
          * Events are placed in order according to the timer value.

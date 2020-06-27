@@ -244,7 +244,6 @@ class message_manager final : public manager<message_manager>, private engine_ti
          * \return void
          */
         #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-        std::ofstream debug_log_file;
         inline void debug_log_message(const message& msg) {
             debug_log_file << "PROC AT:  " << check_time() << " | ";
             debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
@@ -262,6 +261,8 @@ class message_manager final : public manager<message_manager>, private engine_ti
             }
             debug_log_file << std::endl;
         }
+
+        std::ofstream debug_log_file;
         #endif
 
         //  Vector of all messages to be processed

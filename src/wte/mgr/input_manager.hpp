@@ -120,9 +120,7 @@ inline void input_manager::run(void) {
                         input_flags::set(WTE_INPUT_MENU_SELECT);
                         break;
                     case ALLEGRO_KEY_ESCAPE:
-                        //  Can only exit menus if the game is running
-                        if(engine_flags::is_set(GAME_STARTED))
-                            input_flags::set(WTE_INPUT_MENU_CLOSE);
+                        input_flags::set(WTE_INPUT_MENU_CLOSE);
                         break;
                 } //  End switch(input_event.keyboard.keycode)
             } //  End if(input_event.type == ALLEGRO_EVENT_KEY_DOWN)

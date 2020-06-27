@@ -430,7 +430,7 @@ inline void menu_manager::run(message_manager& messages) {
 
     if(input_flags::is_set(WTE_INPUT_MENU_CLOSE)) {
         input_flags::unset(WTE_INPUT_MENU_CLOSE);
-        reset();
+        close_menu();
     }
 }
 

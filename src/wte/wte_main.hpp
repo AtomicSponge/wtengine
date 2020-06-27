@@ -154,7 +154,7 @@ class wte_main : private wte_display {
             al_inhibit_screensaver(true);
 
             //  Configure main timer.
-            main_timer = al_create_timer(1.0 / WTE_TICKS_PER_SECOND);
+            main_timer = al_create_timer(1.0f / WTE_TICKS_PER_SECOND);
             if(!main_timer) throw std::runtime_error("Failed to create timer!");
 
             //  Configure main event queue.
@@ -318,18 +318,24 @@ inline void wte_main::process_end_game(void) {
 }
 
 /*!
- * The main game loop.
+ * The main engine loop.
  * \param void
  * \return void
  */
 inline void wte_main::do_game(void) {
     if(load_called == false) wte_load();  //  Auto call load.
 
+    //  Set default states.
     engine_flags::set(IS_RUNNING);
     engine_flags::unset(GAME_STARTED);
     engine_flags::set(GAME_MENU_OPENED);
 
     while(engine_flags::is_set(IS_RUNNING)) {
+        if(!engine_flags::is_set(GAME_STARTED)) {  //  Game not running.
+            al_stop_timer(main_timer);             //  Make sure the timer isn't.
+            engine_flags::set(GAME_MENU_OPENED);   //  And force the menu manager.
+        }
+
         //  Pause / resume timer depending on if the game menu is opened.
         //  Also process the on_menu events.
         if(engine_flags::is_set(GAME_MENU_OPENED) && al_get_timer_started(main_timer)) {
@@ -341,11 +347,6 @@ inline void wte_main::do_game(void) {
             al_resume_timer(main_timer);
         }
 
-        //  Game not running, make sure the timer isn't and force the menu manager.
-        if(!engine_flags::is_set(GAME_STARTED)) {
-            al_stop_timer(main_timer);
-            engine_flags::set(GAME_MENU_OPENED);
-        }
         //  Game menu is opened, run the menu manager.
         if(engine_flags::is_set(GAME_MENU_OPENED)) menus.run(messages);
 

@@ -94,7 +94,7 @@ class sprite final : public animator {
                                                    fname.length()).c_str());
             al_fclose(file);
             if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
-            #ifndef WTE_NO_MAGIC_PINK
+            #if WTE_USE_MAGIC_PINK
             al_convert_mask_to_alpha(sprite_bitmap, WTE_MAGIC_PINK);
             #endif
             sheet_width = al_get_bitmap_width(sprite_bitmap);

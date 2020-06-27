@@ -71,7 +71,13 @@
  * \def WTE_NO_MAGIC_PINK
  * Enable magic pink for transparency if WTE_NO_MAGIC_PINK is not defined.
  */
-#ifndef WTE_NO_MAGIC_PINK
+#ifdef WTE_NO_MAGIC_PINK
+#define WTE_USE_MAGIC_PINK FALSE
+#else
+#define WTE_USE_MAGIC_PINK TRUE
+#endif
+
+#if WTE_USE_MAGIC_PINK
 #define WTE_MAGIC_PINK          (al_map_rgb(255, 0, 255))
 #endif
 

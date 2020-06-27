@@ -28,8 +28,8 @@
 
 #include "wte_global_defines.hpp"
 #include "wte_display.hpp"
-#include "_globals/engine_cfg_map.hpp"
-#include "_globals/game_cfg_map.hpp"
+#include "_globals/engine_cfg.hpp"
+#include "_globals/game_cfg.hpp"
 #include "_globals/engine_flags.hpp"
 #include "_globals/alert.hpp"
 #include "mgr/engine_time.hpp"

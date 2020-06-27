@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
     engine_cfg::reg("draw_fps=0");
 
     //  Load settings.
-    engine_cfg_map::load();
+    engine_cfg::load();
 
     //  Initialize game object.
     wte_demo my_game(argc, argv);
@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
     my_game.do_game();
 
     //  Save settings.
-    engine_cfg_map::save();
+    engine_cfg::save();
 
     return 0; //  Exit program.
 }

@@ -1,16 +1,16 @@
 /*!
- * \brief WTEngine | File:  game_cfg_map.hpp
+ * \brief WTEngine | File:  game_cfg.hpp
  * \author Matthew Evans
  *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
  *
- * \details Engine config.
+ * \details Game config.
  */
 
-#ifndef WTE_GAME_CFG_MAP_HPP
-#define WTE_GAME_CFG_MAP_HPP
+#ifndef WTE_GAME_CFG_HPP
+#define WTE_GAME_CFG_HPP
 
 #include <string>
 #include <fstream>
@@ -32,7 +32,7 @@ namespace wte
  * This class provides load/save functions.
  * Also provides math functions to manipulate the values.
  */
-class game_cfg_map final : public variable_map<game_cfg_map> {
+class game_cfg final : public variable_map<game_cfg> {
     public:
         /*!
          * Set the file the game config variables will be written to.
@@ -176,13 +176,81 @@ class game_cfg_map final : public variable_map<game_cfg_map> {
             }
         };
 
+        /*!
+         * \brief Create a new entry in the map.
+         * Call this first before accessing.
+         * \param var Variable name.
+         * \param val Initial value of variable.
+         * \return True if created, false if not created.
+         */
+        inline static const bool reg(const std::string& var, const std::string& val) {
+            return variable_map<game_cfg>::reg(var, val);
+        };
+
+        /*!
+         * \brief Create a new entry in the map.
+         * Call this first before accessing.
+         * \param expr Variable and value expresion (var=val)
+         * \return True if created, false if not created.
+         */
+        inline static const bool reg(const std::string& expr) {
+            return variable_map<game_cfg>::reg(expr);
+        };
+
+        /*!
+         * Check if a variable is registered in the map.
+         * \param var Variable name to check.
+         * \return True if it exists, false if it does not.
+         */
+        inline static const bool is_reg(const std::string& var) {
+            return variable_map<game_cfg>::is_reg(var);
+        }
+
+        /*!
+         * Set key to value.
+         * \param var Variable name to set.
+         * \param val Value to set.
+         * \return True if set, false if not set.
+         */
+        inline static const bool set(const std::string& var, const std::string& val) {
+            return variable_map<game_cfg>::set(var, val);
+        };
+
+        /*!
+         * Set based on string
+         * \param expr Variable and value expresion (var=val)
+         * \return True if set, false if not set.
+         */
+        inline static const bool set(const std::string& expr) {
+            return variable_map<game_cfg>::set(expr);
+        };
+
+        /*!
+         * \brief Get value.
+         * Returns by string.
+         * \param var Variable to get.
+         * \return Value of variable in string form.
+         */
+        inline static const std::string get(const std::string& var) {
+            return variable_map<game_cfg>::get(var);
+        };
+
+        /*!
+         * \brief Get value.
+         * Returns by defined type.
+         * \tparam T Data type to cast to.
+         * \param var Variable to get.
+         * \return Value of variable in casted form.
+         */
+        template <typename T> inline static const T get(const std::string& var) {
+            return variable_map<game_cfg>::get<T>(var);
+        };
+
     private:
         inline static std::string data_file_name = "game.cfg";
 };
 
-typedef game_cfg_map::variable_map<game_cfg_map> game_cfg;
-
-template <> inline std::map<std::string, std::string> game_cfg::_map = {};
+template <> inline std::map<std::string, std::string> variable_map<game_cfg>::_map = {};
 
 } //  end namespace wte
 

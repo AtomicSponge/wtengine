@@ -19,8 +19,8 @@
 
 #include "menu_item.hpp"
 
-#include "../_globals/engine_cfg_map.hpp"
-#include "../_globals/game_cfg_map.hpp"
+#include "../_globals/engine_cfg.hpp"
+#include "../_globals/game_cfg.hpp"
 
 namespace wte
 {

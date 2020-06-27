@@ -33,7 +33,7 @@ wte_demo::wte_demo(int argc, char **argv) : wte_main(argc, argv, "WTE Demo") {
     game_cfg::reg("max_lives=3");
     game_cfg::reg("lives=3");
 
-    game_cfg_map::load();
+    game_cfg::load();
 }
 
 /*
@@ -41,9 +41,9 @@ wte_demo::wte_demo(int argc, char **argv) : wte_main(argc, argv, "WTE Demo") {
  * Save game variables here.
  */
 wte_demo::~wte_demo() {
-    game_cfg_map::clear_save();
-    game_cfg_map::save("max_lives");
-    game_cfg_map::save("hiscore");
+    game_cfg::clear_save();
+    game_cfg::save("max_lives");
+    game_cfg::save("hiscore");
 
     al_shutdown_primitives_addon();
 }
@@ -304,7 +304,7 @@ void wte_demo::new_game(void) {
         [](entity_id plr_id, message& msg, mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
             //  Process player death.
             if(msg.get_cmd() == "death") {
-                game_cfg_map::subtract<int>("lives", 1);
+                game_cfg::subtract<int>("lives", 1);
                 wte_set_component(plr_id, cmp::sprite)->set_cycle("death");
                 if(game_cfg::get<int>("lives") == 0) {
                     //  Game over!
@@ -498,7 +498,7 @@ void wte_demo::new_game(void) {
                     //  Health check.  If asteroid's HP is <= 0, reward player with points and delete the entity.
                     if(wte_get_component(ast_id, health)->hp <= 0) {
                         messages.add_message(message("spawner", "delete", world.get_name(ast_id)));
-                        game_cfg_map::add<int>("score", 10);
+                        game_cfg::add<int>("score", 10);
                     }
                 }
             );  //  End asteroid AI

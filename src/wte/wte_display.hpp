@@ -17,7 +17,7 @@
 #include <string>
 #include <cmath>
 
-#include "_globals/engine_cfg_map.hpp"
+#include "_globals/engine_cfg.hpp"
 #include "mgr/render_manager.hpp"
 
 namespace wte

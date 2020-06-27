@@ -295,7 +295,8 @@ void wte_demo::new_game(void) {
                 wte_set_component(plr_id, health)->hp = wte_get_component(plr_id, health)->hp_max;
                 wte_set_component(plr_id, cmp::enabled)->is_enabled = false;
                 //  Process player death.
-                messages.add_message(message("entities", world.get_name(plr_id), "", "death", ""));
+                std::string player_name = world.get_name(plr_id);
+                messages.add_message(message("entities", player_name, player_name, "death", ""));
             }
         }
     );  //  End player logic.
@@ -310,8 +311,9 @@ void wte_demo::new_game(void) {
                     messages.add_message(message(current_time + 180, "system", "end_game", ""));
                 } else {
                     messages.add_message(message("system", "disable_system", "input"));
+                    std::string player_name = world.get_name(plr_id);
                     messages.add_message(
-                        message(current_time + 120, "entities", world.get_name(plr_id), "", "reset", "")
+                        message(current_time + 120, "entities", player_name, player_name, "reset", "")
                     );
                 }
             }

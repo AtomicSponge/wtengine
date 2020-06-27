@@ -108,6 +108,7 @@ class wte_display {
                 if(!display) throw std::runtime_error("Failed to configure display!");
                 engine_cfg::set("display_mode=windowed");
                 engine_cfg::set("scale_factor=1");
+                scale_factor = 1.0f;
                 screen_w = mgr::render_manager::get_arena_width();
                 screen_h = mgr::render_manager::get_arena_height();
             }

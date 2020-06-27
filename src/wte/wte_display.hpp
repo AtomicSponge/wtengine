@@ -65,47 +65,38 @@ class wte_display {
             if(!engine_cfg::is_reg("vsync")) engine_cfg::reg("vsync=0");
             if(engine_cfg::get<int>("vsync") >= 0 || engine_cfg::get<int>("vsync") <= 2) {
                 al_set_new_display_option(ALLEGRO_VSYNC, engine_cfg::get<int>("vsync"), ALLEGRO_SUGGEST);
-            }
-            else {
+            } else {
                 al_set_new_display_option(ALLEGRO_VSYNC, 0, ALLEGRO_SUGGEST);
                 engine_cfg::set("vsync=0");
             }
 
             //  Get the scale factor.
             float scale_factor = 1.0f;
-            if(engine_cfg::is_reg("scale_factor")) {
-                if(engine_cfg::get("scale_factor") == "0.5") scale_factor = 0.5f;
-                else if(engine_cfg::get("scale_factor") == "1") scale_factor = 1.0f;
-                else if(engine_cfg::get("scale_factor") == "1.25") scale_factor = 1.25f;
-                else if(engine_cfg::get("scale_factor") == "1.5") scale_factor = 1.5f;
-                else if(engine_cfg::get("scale_factor") == "1.75") scale_factor = 1.75f;
-                else if(engine_cfg::get("scale_factor") == "2") scale_factor = 2.0f;
-                else {
-                    scale_factor = 1.0f;
-                    engine_cfg::set("scale_factor=1");
-                }
-            } else {
+            if(!engine_cfg::is_reg("scale_factor")) engine_cfg::reg("scale_factor=1");
+            if(engine_cfg::get("scale_factor") == "0.5") scale_factor = 0.5f;
+            else if(engine_cfg::get("scale_factor") == "1") scale_factor = 1.0f;
+            else if(engine_cfg::get("scale_factor") == "1.25") scale_factor = 1.25f;
+            else if(engine_cfg::get("scale_factor") == "1.5") scale_factor = 1.5f;
+            else if(engine_cfg::get("scale_factor") == "1.75") scale_factor = 1.75f;
+            else if(engine_cfg::get("scale_factor") == "2") scale_factor = 2.0f;
+            else {
                 scale_factor = 1.0f;
-                engine_cfg::reg("scale_factor=1");
+                engine_cfg::set("scale_factor=1");
             }
 
             int screen_w = mgr::render_manager::get_arena_width();
             int screen_h = mgr::render_manager::get_arena_height();
+
             //  Check if a display mode is set.
-            if(engine_cfg::is_reg("display_mode")) {
-                if(engine_cfg::get("display_mode") == "windowed_full_screen") {
-                    al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
-                } else {
-                    al_set_new_display_flags(ALLEGRO_WINDOWED);
-                    screen_w = (int)ceil(mgr::render_manager::get_arena_width() * scale_factor);
-                    screen_h = (int)ceil(mgr::render_manager::get_arena_height() * scale_factor);
-                }
+            if(!engine_cfg::is_reg("display_mode")) engine_cfg::reg("display_mode=windowed");
+            if(engine_cfg::get("display_mode") == "windowed_full_screen") {
+                al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
             } else {
-                engine_cfg::reg("display_mode=windowed");
                 al_set_new_display_flags(ALLEGRO_WINDOWED);
                 screen_w = (int)ceil(mgr::render_manager::get_arena_width() * scale_factor);
                 screen_h = (int)ceil(mgr::render_manager::get_arena_height() * scale_factor);
             }
+
             //  Set the display.
             display = al_create_display(screen_w, screen_h);
 

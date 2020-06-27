@@ -81,10 +81,14 @@ inline void input_manager::run(void) {
             alert::clear();
         }
 
-        /* *** PROCESS EVENTS WHILE MENU IS OPENED *** */
+        /* ************************************************************* */
+        /* *** PROCESS EVENTS WHILE MENU IS OPENED ********************* */
+        /* ************************************************************* */
         //  Menu input events are cleared in the menu manager
         if(engine_flags::is_set(GAME_MENU_OPENED)) {
+            /* *********************** */
             /* *** Keyboard events *** */
+            /* *********************** */
             if(input_event.type == ALLEGRO_EVENT_KEY_DOWN) {
                 switch(input_event.keyboard.keycode) {
                     case ALLEGRO_KEY_UP:
@@ -135,7 +139,9 @@ inline void input_manager::run(void) {
                 } //  End switch(input_event.keyboard.keycode)
             } //  End if(input_event.type == ALLEGRO_EVENT_KEY_UP)
 
+            /* *********************** */
             /* *** Joystick events *** */
+            /* *********************** */
             if(input_event.type == ALLEGRO_EVENT_JOYSTICK_AXIS) {
                 //std::cout << input_event.joystick.stick << std::endl;
                 switch(input_event.joystick.axis) {
@@ -162,9 +168,13 @@ inline void input_manager::run(void) {
             } //  End if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)
         } //  End menu event processing
 
-        /* *** PROCESS EVENTS WHILE GAME IS RUNNING *** */
+        /* ************************************************************* */
+        /* *** PROCESS EVENTS WHILE GAME IS RUNNING ******************** */
+        /* ************************************************************* */
         else {
+            /* *********************** */
             /* *** Keyboard events *** */
+            /* *********************** */
             if(input_event.type == ALLEGRO_EVENT_KEY_DOWN) {
                 switch(input_event.keyboard.keycode) {
                     case ALLEGRO_KEY_UP:
@@ -234,7 +244,9 @@ inline void input_manager::run(void) {
                 } //  End switch(input_event.keyboard.keycode)
             } //  End if(input_event.type == ALLEGRO_EVENT_KEY_UP)
 
+            /* *********************** */
             /* *** Joystick events *** */
+            /* *********************** */
             if(input_event.type == ALLEGRO_EVENT_JOYSTICK_AXIS) {
                 //std::cout << input_event.joystick.stick << std::endl;
                 switch(input_event.joystick.axis) {

@@ -292,22 +292,41 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::ai,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             if(wte_get_component(plr_id, health)->hp <= 0) {
-                //  Process player death.
-                wte_set_component(plr_id, cmp::location)->pos_x = (mgr::render_manager::get_arena_width() / 2) - 5;
-                wte_set_component(plr_id, cmp::location)->pos_y = mgr::render_manager::get_arena_height() - 40;
                 wte_set_component(plr_id, health)->hp = wte_get_component(plr_id, health)->hp_max;
-
-                game_cfg_map::subtract<int>("lives", 1);
-
-                if(game_cfg::get<int>("lives") == 0) {
-                    //  Game over!
-                    messages.add_message(message("system", "end_game", ""));
-                }
+                wte_set_component(plr_id, cmp::enabled)->is_enabled = false;
+                //  Process player death.
+                messages.add_message(message("entities", world.get_name(plr_id), "", "death", ""));
             }
         }
     );  //  End player logic.
     wte_new_component(e_id, cmp::dispatcher,
         [](entity_id plr_id, message& msg, mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
+            //  Process player death.
+            if(msg.get_cmd() == "death") {
+                game_cfg_map::subtract<int>("lives", 1);
+                wte_set_component(plr_id, cmp::sprite)->set_cycle("death");
+                if(game_cfg::get<int>("lives") == 0) {
+                    //  Game over!
+                    messages.add_message(message(current_time + 180, "system", "end_game", ""));
+                } else {
+                    messages.add_message(message("system", "disable_system", "input"));
+                    messages.add_message(
+                        message(current_time + 120, "entities", world.get_name(plr_id), "", "reset", "")
+                    );
+                }
+            }
+
+            //  Reset player.
+            if(msg.get_cmd() == "reset") {
+                messages.add_message(message("system", "enable_system", "input"));
+                wte_set_component(plr_id, cmp::location)->pos_x = (mgr::render_manager::get_arena_width() / 2) - 5;
+                wte_set_component(plr_id, cmp::location)->pos_y = mgr::render_manager::get_arena_height() - 40;
+                wte_set_component(plr_id, health)->hp = wte_get_component(plr_id, health)->hp_max;
+                wte_set_component(plr_id, cmp::enabled)->is_enabled = true;
+                wte_set_component(plr_id, cmp::sprite)->set_cycle("main");
+            }
+
+            //  Take damage.
             if(msg.get_cmd() == "damage") {
                 wte_set_component(plr_id, health)->hp -= msg.get_arg<int>(0);
             }
@@ -316,6 +335,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::sprite, 32, 32, -11.0f, 0.0f, 1, 1);
     wte_set_component(e_id, cmp::sprite)->load_sprite("ship.bmp");
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 3);
+    wte_set_component(e_id, cmp::sprite)->add_cycle("death", 4, 7);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
     /*

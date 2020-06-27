@@ -149,9 +149,9 @@ void wte_demo::load_systems(void) {
 void wte_demo::new_game(void) {
     entity_id e_id;
 
-    /*
-     * Background entity.
-     */
+    /* ********************************* */
+    /* *** Background entity *********** */
+    /* ********************************* */
     e_id = world.new_entity();
     world.set_name(e_id, "starfield");
     wte_new_component(e_id, cmp::visible);
@@ -213,9 +213,9 @@ void wte_demo::new_game(void) {
         }  //  End starfield message processing.
     );  //  End dispatcher component.
 
-    /*
-     * Score overlay entity.
-     */
+    /* ********************************* */
+    /* *** Score overlay entity ******** */
+    /* ********************************* */
     e_id = world.new_entity();
     world.set_name(e_id, "score_overlay");
     wte_new_component(e_id, cmp::visible);
@@ -232,9 +232,9 @@ void wte_demo::new_game(void) {
     );  //  End score overlay drawing.
     wte_set_component(e_id, cmp::overlay)->set_font(al_create_builtin_font());
 
-    /*
-     * Player Info overlay entity.
-     */
+    /* ********************************* */
+    /* *** Player Info overlay entity ** */
+    /* ********************************* */
     e_id = world.new_entity();
     world.set_name(e_id, "player_info_overlay");
     wte_new_component(e_id, cmp::visible);
@@ -252,9 +252,9 @@ void wte_demo::new_game(void) {
     );  //  End info overlay drawing.
     wte_set_component(e_id, cmp::overlay)->set_font(al_create_builtin_font());
 
-    /*
-     * Player entity.
-     */
+    /* ********************************* */
+    /* *** Player entity *************** */
+    /* ********************************* */
     e_id = world.new_entity();
     world.set_name(e_id, "player");
     wte_new_component(e_id, cmp::team, 0);
@@ -340,9 +340,9 @@ void wte_demo::new_game(void) {
     wte_set_component(e_id, cmp::sprite)->add_cycle("death", 4, 7);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
-    /*
-     * Main cannon entity.
-     */
+    /* ********************************* */
+    /* *** Main cannon entity ********** */
+    /* ********************************* */
     e_id = world.new_entity();
     world.set_name(e_id, "main_cannon");
     wte_new_component(e_id, cmp::team, 0);
@@ -398,9 +398,9 @@ void wte_demo::new_game(void) {
         }
     );  //  End cannon message processing.
 
-    /*
-     * Shield entity.
-     */
+    /* ********************************* */
+    /* *** Shield entity *************** */
+    /* ********************************* */
     e_id = world.new_entity();
     world.set_name(e_id, "shield");
     wte_new_component(e_id, cmp::team, 0);
@@ -459,9 +459,9 @@ void wte_demo::new_game(void) {
         }
     );  //  End shield message processing.
 
-    /*
-     * Add the asteroid entity to the spawner.
-     */
+    /* ************************************** */
+    /* Add the asteroid entity to the spawner */
+    /* ************************************** */
     spawner.add_spawn("asteroid", 5,
         [](entity_id e_id, mgr::entity_manager& world, msg_arg_list args) {
             int size = std::stoi(args[5]);

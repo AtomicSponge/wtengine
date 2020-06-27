@@ -13,12 +13,8 @@
 #define WTE_GLOBAL_DEFINES_HPP
 
 //  Define true & false for macro use.
-#ifndef TRUE
 #define TRUE (1)
-#endif
-#ifndef FALSE
 #define FALSE (0)
-#endif
 
 /*!
  * \def WTE_TICKS_PER_SECOND

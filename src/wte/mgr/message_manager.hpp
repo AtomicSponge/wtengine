@@ -182,41 +182,8 @@ class message_manager final : public manager<message_manager>, private engine_ti
                 std::string cmd = "";
                 std::string args = "";
 
-                //  Read in timer value.
-                al_fread(file, &timer, sizeof(int64_t));
-
-                //  For each of the strings above, loop through and read
-                //  each charecter, ending if we reach null termed or eof.
-                while(true) {
-                    const char ch = al_fgetc(file);
-                    if(ch == EOF) break;  //  End loop if eof.
-                    if(ch == '\0') break;  //  End loop if null terminated.
-                    sys += ch;
-                }
-                while(true) {
-                    const char ch = al_fgetc(file);
-                    if(ch == EOF) break;  //  End loop if eof.
-                    if(ch == '\0') break;  //  End loop if null terminated.
-                    to += ch;
-                }
-                while(true) {
-                    const char ch = al_fgetc(file);
-                    if(ch == EOF) break;  //  End loop if eof.
-                    if(ch == '\0') break;  //  End loop if null terminated.
-                    from += ch;
-                }
-                while(true) {
-                    const char ch = al_fgetc(file);
-                    if(ch == EOF) break;  //  End loop if eof.
-                    if(ch == '\0') break;  //  End loop if null terminated.
-                    cmd += ch;
-                }
-                while(true) {
-                    const char ch = al_fgetc(file);
-                    if(ch == EOF) break;  //  End loop if eof.
-                    if(ch == '\0') break;  //  End loop if null terminated.
-                    args += ch;
-                }
+                //  Read the message from file.
+                read_message(*file, timer, sys, to, from, cmd, args);
 
                 //  Add message to queue.  Ignore incomplete messages.
                 if(sys != "" && cmd != "") msg_queue.push_back(message(timer, sys, to, from, cmd, args));
@@ -228,8 +195,60 @@ class message_manager final : public manager<message_manager>, private engine_ti
         };
 
     private:
-        //  Vector of all messages to be processed
-        message_container msg_queue;
+        /*!
+         * Read a message from file.
+         * \param file Allegro file to read from.
+         * \param timer Timer value to write to.
+         * \param sys System value to write to.
+         * \param to Entity To value to write to.
+         * \param from Entity From value to write to.
+         * \param cmd Command value to write to.
+         * \param args Argument value to write to.
+         * \return void
+         */
+        inline void read_message(ALLEGRO_FILE& file,
+                                 int64_t& timer,
+                                 std::string& sys,
+                                 std::string& to,
+                                 std::string& from,
+                                 std::string& cmd,
+                                 std::string& args) {
+            //  Read in timer value.
+            al_fread(&file, &timer, sizeof(int64_t));
+
+            //  For each of the strings above, loop through and read
+            //  each charecter, ending if we reach null termed or eof.
+            while(true) {
+                const char ch = al_fgetc(&file);
+                if(ch == EOF) break;  //  End loop if eof.
+                if(ch == '\0') break;  //  End loop if null terminated.
+                sys += ch;
+            }
+            while(true) {
+                const char ch = al_fgetc(&file);
+                if(ch == EOF) break;  //  End loop if eof.
+                if(ch == '\0') break;  //  End loop if null terminated.
+                to += ch;
+            }
+            while(true) {
+                const char ch = al_fgetc(&file);
+                if(ch == EOF) break;  //  End loop if eof.
+                if(ch == '\0') break;  //  End loop if null terminated.
+                from += ch;
+            }
+            while(true) {
+                const char ch = al_fgetc(&file);
+                if(ch == EOF) break;  //  End loop if eof.
+                if(ch == '\0') break;  //  End loop if null terminated.
+                cmd += ch;
+            }
+            while(true) {
+                const char ch = al_fgetc(&file);
+                if(ch == EOF) break;  //  End loop if eof.
+                if(ch == '\0') break;  //  End loop if null terminated.
+                args += ch;
+            }
+        };
 
         #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
         std::ofstream debug_log_file;
@@ -253,6 +272,9 @@ class message_manager final : public manager<message_manager>, private engine_ti
             debug_log_file << std::endl;
         }
         #endif
+
+        //  Vector of all messages to be processed
+        message_container msg_queue;
 };
 
 template <> inline bool message_manager::manager<message_manager>::initialized = false;

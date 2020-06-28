@@ -224,10 +224,10 @@ void wte_demo::new_game(void) {
             //  Define what gets displayed on the overlay.
             al_set_target_bitmap(wte_get_component(ovr_id, cmp::overlay)->overlay_bitmap);
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
-            wte_set_component(ovr_id, cmp::overlay)->set_text("Score:  ", WTE_COLOR_WHITE, 110, 0, ALLEGRO_ALIGN_RIGHT);
-            wte_set_component(ovr_id, cmp::overlay)->set_text(game_cfg::get("score"), WTE_COLOR_WHITE, 110, 0, ALLEGRO_ALIGN_LEFT);
-            wte_set_component(ovr_id, cmp::overlay)->set_text("High Score:  ", WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_RIGHT);
-            wte_set_component(ovr_id, cmp::overlay)->set_text(game_cfg::get("hiscore"), WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_LEFT);
+            wte_set_component(ovr_id, cmp::overlay)->draw_text("Score:  ", WTE_COLOR_WHITE, 110, 0, ALLEGRO_ALIGN_RIGHT);
+            wte_set_component(ovr_id, cmp::overlay)->draw_text(game_cfg::get("score"), WTE_COLOR_WHITE, 110, 0, ALLEGRO_ALIGN_LEFT);
+            wte_set_component(ovr_id, cmp::overlay)->draw_text("High Score:  ", WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_RIGHT);
+            wte_set_component(ovr_id, cmp::overlay)->draw_text(game_cfg::get("hiscore"), WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_LEFT);
         }
     );  //  End score overlay drawing.
     wte_set_component(e_id, cmp::overlay)->set_font(al_create_builtin_font());
@@ -246,11 +246,30 @@ void wte_demo::new_game(void) {
             al_set_target_bitmap(wte_get_component(ovr_id, cmp::overlay)->overlay_bitmap);
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
             al_draw_filled_rectangle((float)(120 - wte_get_component(shd_id, energy)->amt), 0, 120, 10, WTE_COLOR_YELLOW);
-            wte_set_component(ovr_id, cmp::overlay)->set_text("Shield", WTE_COLOR_WHITE, 200, 0, ALLEGRO_ALIGN_RIGHT);
-            wte_set_component(ovr_id, cmp::overlay)->set_text("Lives:  " + game_cfg::get("lives"), WTE_COLOR_WHITE, 200, 10, ALLEGRO_ALIGN_RIGHT);
+            wte_set_component(ovr_id, cmp::overlay)->draw_text("Shield", WTE_COLOR_WHITE, 200, 0, ALLEGRO_ALIGN_RIGHT);
+            wte_set_component(ovr_id, cmp::overlay)->draw_text("Lives:  " + game_cfg::get("lives"), WTE_COLOR_WHITE, 200, 10, ALLEGRO_ALIGN_RIGHT);
         }
     );  //  End info overlay drawing.
     wte_set_component(e_id, cmp::overlay)->set_font(al_create_builtin_font());
+
+    /* ********************************* */
+    /* *** Game Over overlay entity **** */
+    /* ********************************* */
+    e_id = world.new_entity();
+    world.set_name(e_id, "game_over_overlay");
+    wte_new_component(e_id, cmp::visible);
+    wte_set_component(e_id, cmp::visible)->is_visible = false;
+    wte_new_component(e_id, cmp::overlay, 480, 132, (mgr::render_manager::get_arena_width() / 2) - 240,
+                                                    (mgr::render_manager::get_arena_height() / 2) - 66, 1,
+        [](entity_id ovr_id, mgr::entity_manager& world, int64_t engine_time) {
+            //  Define what gets displayed on the overlay.
+            entity_id shd_id = world.get_id("shield");
+            al_set_target_bitmap(wte_get_component(ovr_id, cmp::overlay)->overlay_bitmap);
+            al_clear_to_color(WTE_COLOR_TRANSPARENT);
+            wte_set_component(ovr_id, cmp::overlay)->draw_bitmap("game_over", 0.0f, 0.0f, 0);
+        }
+    );  //  End info overlay drawing.
+    wte_set_component(e_id, cmp::overlay)->load_file("game_over", "game_over.bmp");
 
     /* ********************************* */
     /* *** Player entity *************** */
@@ -292,6 +311,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::ai,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             if(wte_get_component(plr_id, health)->hp <= 0) {  //  Check player health.
+                wte_set_component(plr_id, cmp::enabled)->is_enabled = false;
                 wte_set_component(plr_id, health)->hp = wte_get_component(plr_id, health)->hp_max;
                 std::string player_name = world.get_name(plr_id);
                 messages.add_message(message("entities", player_name, player_name, "death", ""));
@@ -302,14 +322,15 @@ void wte_demo::new_game(void) {
         [](entity_id plr_id, message& msg, mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
             //  Process player death.
             if(msg.get_cmd() == "death") {
-                wte_set_component(plr_id, cmp::enabled)->is_enabled = false;
                 game_cfg::subtract<int>("lives", 1);
                 wte_set_component(plr_id, cmp::sprite)->set_cycle("death");
+                messages.add_message(message("system", "disable_system", "input"));
                 if(game_cfg::get<int>("lives") == 0) {
                     //  Game over!
                     messages.add_message(message(current_time + 180, "system", "end_game", ""));
+                    entity_id go_id = world.get_id("game_over_overlay");
+                    wte_set_component(go_id, cmp::visible)->is_visible = true;
                 } else {
-                    messages.add_message(message("system", "disable_system", "input"));
                     std::string player_name = world.get_name(plr_id);
                     messages.add_message(
                         message(current_time + 120, "entities", player_name, player_name, "reset", "")

@@ -484,7 +484,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         for(auto & it : overlay_componenet_set) {
             if(world.get_component<cmp::visible>(it.first)->is_visible)
                 al_draw_bitmap(it.second.get()->overlay_bitmap,
-                               it.second.get()->pos_x, it.second.get()->pos_y, 0);
+                               it.second.get()->get_pos_x(), it.second.get()->get_pos_y(), 0);
         }
 
         /*

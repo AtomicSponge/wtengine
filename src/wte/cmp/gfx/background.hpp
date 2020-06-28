@@ -105,25 +105,48 @@ class background final : public animator {
          * \param fname Filename to load.
          * \param label Label for referencing bitmap.
          */
-        inline bool load_file(const std::string label, const std::string fname) {
+        inline bool load_file(const std::string& label, const std::string& fname) {
             ALLEGRO_FILE* file;
             file = al_fopen(fname.c_str(), "rb");
             if(!file) {
                 al_fclose(file);
                 return false;
             }
-            bmp_map.insert(std::make_pair(label, al_load_bitmap_f(file, fname.substr(fname.find("."),
-                                                                        fname.length()).c_str())));
+            ALLEGRO_BITMAP* temp_bitmap =
+                al_load_bitmap_f(file, fname.substr(fname.find("."), fname.length()).c_str());
             al_fclose(file);
+
+            if(!temp_bitmap) return false;
+
+            #if WTE_USE_MAGIC_PINK
+            al_convert_mask_to_alpha(temp_bitmap, WTE_MAGIC_PINK);
+            #endif
+
+            bmp_map.insert(std::make_pair(label, al_clone_bitmap(temp_bitmap)));
+
+            al_destroy_bitmap(temp_bitmap);
             return true;
+        };
+
+        /*!
+         * \brief Draw a loaded bitmap.
+         * Draws a bitmap from the reference map.  Call during animation.
+         * \param labal Label of saved bitmap.
+         * \param x X location of the overlay in pixels.
+         * \param y Y location of the overlay in pixels.
+         * \param flags Allegro Bitmap flags.
+         */
+        inline void draw_bitmap(const std::string& label, const float& x, const float& y, const int& flags) {
+            auto it = bmp_map.find(label);
+            if(it != bmp_map.end()) al_draw_bitmap(it->second, x, y, flags);
         };
 
         ALLEGRO_BITMAP* background_bitmap;
         ALLEGRO_COLOR color;
 
+    private:
         std::map<std::string, ALLEGRO_BITMAP*> bmp_map;
 
-    private:
         int background_w, background_h;
 };
 

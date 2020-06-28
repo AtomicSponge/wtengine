@@ -25,9 +25,9 @@ namespace wte
 namespace cmp
 {
 
-//! Overlay component
 /*!
- * Store the overlay bitmap
+ * \class Overlay component
+ * Store the overlay bitmap.
  */
 class overlay final : public animator {
     public:

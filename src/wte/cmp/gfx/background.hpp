@@ -25,9 +25,9 @@ namespace wte
 namespace cmp
 {
 
-//! Background component
 /*!
- * Store the background bitmap
+ * \class Background component
+ * Store the background bitmap.
  */
 class background final : public animator {
     public:

@@ -443,7 +443,7 @@ inline void audio_manager::run(void) {
                 /////////////////////////////////////////////
 
                 /////////////////////////////////////////////
-                //  cmd:  stop_sample - arg:  sample_num (0 - MAX) - Stop looping sample instance.
+                //  cmd:  stop_sample - arg:  loop_ref - Stop looping sample instance.
                 case CMD_STR_STOP_SAMPLE:
                         //  If instance does not exist, end.
                         if(sample_instances.find(audio_messages.front().get_arg(0)) == sample_instances.end()) break;

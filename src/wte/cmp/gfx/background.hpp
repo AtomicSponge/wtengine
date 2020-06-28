@@ -132,8 +132,8 @@ class background final : public animator {
          * \brief Draw a loaded bitmap.
          * Draws a bitmap from the reference map.  Call during animation.
          * \param labal Label of saved bitmap.
-         * \param x X location of the overlay in pixels.
-         * \param y Y location of the overlay in pixels.
+         * \param x X location of the background in pixels.
+         * \param y Y location of the background in pixels.
          * \param flags Allegro Bitmap flags.
          */
         inline void draw_bitmap(const std::string& label, const float& x, const float& y, const int& flags) {

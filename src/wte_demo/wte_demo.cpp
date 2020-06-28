@@ -263,7 +263,6 @@ void wte_demo::new_game(void) {
                                                     (mgr::render_manager::get_arena_height() / 2) - 66, 1,
         [](entity_id ovr_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define what gets displayed on the overlay.
-            entity_id shd_id = world.get_id("shield");
             al_set_target_bitmap(wte_get_component(ovr_id, cmp::overlay)->overlay_bitmap);
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
             wte_set_component(ovr_id, cmp::overlay)->draw_bitmap("game_over", 0.0f, 0.0f, 0);

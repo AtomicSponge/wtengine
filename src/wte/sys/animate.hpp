@@ -32,6 +32,7 @@ class animate final : public system {
         /*!
          * \brief Animate system run.
          * Gets all animation components and processes their run members.
+         * The entity must also have the visible component and is set visible to be drawn.
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.

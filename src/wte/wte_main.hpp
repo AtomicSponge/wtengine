@@ -178,6 +178,7 @@ class wte_main : private wte_display {
             map_cmd_str_values["set_gamecfg"] = CMD_STR_SET_GAMECFG;
             map_cmd_str_values["reconf_display"] = CMD_STR_RECONF_DISPLAY;
             map_cmd_str_values["fps_counter"] = CMD_STR_FPS_COUNTER;
+            map_cmd_str_values["load_script"] = CMD_STR_LOAD_SCRIPT;
 
             //  Set default colors for alerts.
             alert::set_font_color(WTE_COLOR_WHITE);
@@ -225,12 +226,13 @@ class wte_main : private wte_display {
 
         //  Used for mapping commands and switching on system messages:
         enum CMD_STR_VALUE {
-            CMD_STR_EXIT,           CMD_STR_ALERT,
-            CMD_STR_NEW_GAME,       CMD_STR_END_GAME,
-            CMD_STR_OPEN_MENU,      CMD_STR_CLOSE_MENU,
-            CMD_STR_ENABLE_SYSTEM,  CMD_STR_DISABLE_SYSTEM,
-            CMD_STR_SET_ENGCFG,     CMD_STR_SET_GAMECFG,
-            CMD_STR_RECONF_DISPLAY, CMD_STR_FPS_COUNTER
+            CMD_STR_EXIT,               CMD_STR_ALERT,
+            CMD_STR_NEW_GAME,           CMD_STR_END_GAME,
+            CMD_STR_OPEN_MENU,          CMD_STR_CLOSE_MENU,
+            CMD_STR_ENABLE_SYSTEM,      CMD_STR_DISABLE_SYSTEM,
+            CMD_STR_SET_ENGCFG,         CMD_STR_SET_GAMECFG,
+            CMD_STR_RECONF_DISPLAY,     CMD_STR_FPS_COUNTER,
+            CMD_STR_LOAD_SCRIPT
         };
         std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
 
@@ -413,20 +415,20 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
     for(auto it = sys_msgs.begin(); it != sys_msgs.end();) {
         //  Switch over the system messages, deleting each as they are processed.
         switch(map_cmd_str_values[it->get_cmd()]) {
-            //  cmd:  exit - Shut down engine.
+            //  CMD:  exit - Shut down engine.
             case CMD_STR_EXIT:
                 if(engine_flags::is_set(GAME_STARTED)) process_end_game();
                 engine_flags::unset(IS_RUNNING);
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  alert - Display an alert.
+            //  CMD:  alert - Display an alert.
             case CMD_STR_ALERT:
                 alert::set_alert(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  new_game - start up a new game.
+            //  CMD:  new_game - Start up a new game.
             case CMD_STR_NEW_GAME:
                 //  If the game is running, ignore.
                 if(!engine_flags::is_set(GAME_STARTED)) {
@@ -436,7 +438,7 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  end_game - end current game.
+            //  CMD:  end_game - End current game.
             case CMD_STR_END_GAME:
                 //  If the game not is running, ignore.
                 if(engine_flags::is_set(GAME_STARTED)) {
@@ -446,14 +448,14 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  open_menu argstring - open a menu, passing a string as an argument.
+            //  CMD:  open_menu argstring - Open a menu, passing a string as an argument.
             //  If the menu doesn't exist, the default will be opened.
             case CMD_STR_OPEN_MENU:
                 menus.open_menu(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  close_menu argstring - close the opened menu.
+            //  CMD:  close_menu argstring - Close the opened menu.
             //  If argstring = "all", close all opened menus.
             case CMD_STR_CLOSE_MENU:
                 if(it->get_arg(0) == "all") menus.reset();
@@ -461,34 +463,36 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  enable_system - Turn a system on for processing.
+            //  CMD:  enable_system - Turn a system on for processing.
             case CMD_STR_ENABLE_SYSTEM:
                 systems.enable_system(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  disable_system - Turn a system off so it's run member is skipped.
+            //  CMD:  disable_system - Turn a system off so it's run member is skipped.
             //  Message dispatching is still processed.
             case CMD_STR_DISABLE_SYSTEM:
                 systems.disable_system(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  set_engcfg - Set engine cfg variable.
+            //  CMD:  set_engcfg - Set engine cfg variables.
+            //  Arguments:  var=val
             case CMD_STR_SET_ENGCFG:
                 for(std::size_t i = 0; i < it->num_args(); i++)
                     engine_cfg::set(it->get_arg(i));
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  set_gamecfg - Set game cfg variable.
+            //  CMD:  set_gamecfg - Set game cfg variables.
+            //  Arguments:  var=val
             case CMD_STR_SET_GAMECFG:
                 for(std::size_t i = 0; i < it->num_args(); i++)
                     game_cfg::set(it->get_arg(i));
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  reconf_display - Reconfigure the display.
+            //  CMD:  reconf_display - Reconfigure the display.
             case CMD_STR_RECONF_DISPLAY:
                 //  Make sure the timer isn't running and unregister the display.
                 if(timer_running) al_stop_timer(main_timer);
@@ -507,7 +511,7 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  fps_counter - Enable/disable on-screen fps counter.
+            //  CMD:  fps_counter - Enable/disable on-screen fps counter.
             case CMD_STR_FPS_COUNTER:
                 if(it->get_arg(0) == "on") engine_flags::set(DRAW_FPS);
                 if(it->get_arg(0) == "off") engine_flags::unset(DRAW_FPS);
@@ -521,7 +525,16 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
                 it = sys_msgs.erase(it);
                 break;
 
-            //  cmd:  new_cmd - description
+            //  CMD:  load_script - Load a script into the message queue.
+            case CMD_STR_LOAD_SCRIPT:
+                if(it->get_arg(0) != "") {
+                    if(!messages.load_script(it->get_arg(0)))
+                        alert::set_alert("Error loading script:  " + it->get_arg(0));
+                }
+                it = sys_msgs.erase(it);
+                break;
+
+            //  CMD:  new_cmd - description
             //case CMD_STR_X:
                 //
                 //it = sys_msgs.erase(it);

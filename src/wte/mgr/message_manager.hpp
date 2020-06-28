@@ -60,7 +60,7 @@ class message_manager final : public manager<message_manager>, private engine_ti
         };
 
         /*!
-         * Message queue destructor
+         * \brief Message queue destructor
          * Delete message queue object and close log file if debugging is enabled.
          * \param void
          * \return void
@@ -72,6 +72,15 @@ class message_manager final : public manager<message_manager>, private engine_ti
             //  Close log file if debugging is enabled
             debug_log_file.close();
             #endif
+        };
+
+        /*!
+         * Clear the message queue.
+         * \param void
+         * \return void
+         */
+        inline void clear(void) {
+            msg_queue.clear();
         };
 
         /*!
@@ -109,13 +118,6 @@ class message_manager final : public manager<message_manager>, private engine_ti
         #endif
 
         /*!
-         * Clear the message queue.
-         * \param void
-         * \return void
-         */
-        inline void clear(void) { msg_queue.clear(); };
-
-        /*!
          * \brief Get messages based on their command.
          * Once events in the future are reached, break early.
          * \param sys Manager/system to get messages for.
@@ -143,6 +145,7 @@ class message_manager final : public manager<message_manager>, private engine_ti
 
         /*!
          * \brief Load a new data file into the message queue.
+         * This is called when a new game is created.
          * Events are placed in order according to the timer value.
          * \param fname Filename to load.
          * \return void
@@ -179,6 +182,47 @@ class message_manager final : public manager<message_manager>, private engine_ti
 
             //  Sort the queue so timed events are in order first to last.
             std::sort(msg_queue.begin(), msg_queue.end());
+        };
+
+        /*!
+         * \brief Load additional data into the message queue.
+         * This is called by a system message to load additional game data.
+         * Note the timer value used for scripts is adjusted by the game timer.
+         * \param fname Filename to load.
+         * \return True if loaded, false if not.
+         */
+        inline const bool load_script(const std::string& fname) {
+            //  Open data file - read binary mode.
+            ALLEGRO_FILE* file;
+            file = al_fopen(fname.c_str(), "rb");
+            //  File not found, error.
+            if(!file) {
+                al_fclose(file);
+                return false;
+            }
+
+            //  Loop through the entire data file loading into the queue.
+            while(true) {
+                if(al_feof(file)) break;  //  End loop if eof.
+
+                int64_t timer = 0;
+                std::string sys = "";
+                std::string to = "";
+                std::string from = "";
+                std::string cmd = "";
+                std::string args = "";
+
+                //  Read the message from file.
+                read_message(*file, timer, sys, to, from, cmd, args);
+
+                //  Add the current time to the timer value.
+                if(timer != -1) timer += check_time();
+
+                //  Add message to queue.  Ignore incomplete messages.  Sort while adding.
+                if(sys != "" && cmd != "") add_message(message(timer, sys, to, from, cmd, args));
+            }
+            al_fclose(file);
+            return true;
         };
 
     private:

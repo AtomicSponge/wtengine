@@ -415,7 +415,7 @@ inline void audio_manager::run(void) {
                     if(audio_messages.front().get_arg(1) == "") break;
                     if(audio_messages.front().get_arg(2) != "") {
                         gain = audio_messages.front().get_arg<float>(2);
-                        gain = 1.0f;  //  TODO: Check min/max and update
+                        if(gain < 0.0f || gain > 1.0f) gain = 1.0f;
                     } else gain = 1.0f;
                     if(audio_messages.front().get_arg(3) != "") {
                         pan = audio_messages.front().get_arg<float>(3);
@@ -423,7 +423,7 @@ inline void audio_manager::run(void) {
                     } else pan = ALLEGRO_AUDIO_PAN_NONE;
                     if(audio_messages.front().get_arg(4) != "") {
                         speed = audio_messages.front().get_arg<float>(4);
-                        speed = 1.0f;  //  TODO: Check min/max and update
+                        if(speed <= 0.0f || speed > 2.0f) speed = 1.0f;
                     } else speed = 1.0f;
                     if(audio_messages.front().get_arg(1) == "once") {
                         // Play the sample once.
@@ -454,6 +454,7 @@ inline void audio_manager::run(void) {
 
                 /////////////////////////////////////////////
                 //  cmd:  pan_sample - arg:  sample_num (0 - MAX) ; pan ([left]-1.0 thru 1.0[right] or none) - Set sample pan.
+                //  Note:  disabled for now.
                 case CMD_STR_PAN_SAMPLE:
                     #ifdef ALLEGRO_UNSTABLE
                     pos = audio_messages.front().get_arg<std::size_t>(0);

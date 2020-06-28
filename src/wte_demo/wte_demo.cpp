@@ -160,7 +160,7 @@ void wte_demo::new_game(void) {
                                              mgr::render_manager::get_arena_height(), 0,
         [](entity_id bkg_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define the animation process for the starfield.
-            al_set_target_bitmap(wte_get_component(bkg_id, cmp::background)->background_bitmap);
+            wte_set_component(bkg_id, cmp::background)->set_drawing();
             al_clear_to_color(WTE_COLOR_BLACK);
 
             //  Move the stars.
@@ -222,7 +222,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::overlay, 200, 20, 0, mgr::render_manager::get_arena_height() - 20, 0,
         [](entity_id ovr_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define what gets displayed on the overlay.
-            al_set_target_bitmap(wte_get_component(ovr_id, cmp::overlay)->overlay_bitmap);
+            wte_set_component(ovr_id, cmp::overlay)->set_drawing();
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
             wte_set_component(ovr_id, cmp::overlay)->draw_text("Score:  ", WTE_COLOR_WHITE, 110, 0, ALLEGRO_ALIGN_RIGHT);
             wte_set_component(ovr_id, cmp::overlay)->draw_text(game_cfg::get("score"), WTE_COLOR_WHITE, 110, 0, ALLEGRO_ALIGN_LEFT);
@@ -243,7 +243,7 @@ void wte_demo::new_game(void) {
         [](entity_id ovr_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define what gets displayed on the overlay.
             entity_id shd_id = world.get_id("shield");
-            al_set_target_bitmap(wte_get_component(ovr_id, cmp::overlay)->overlay_bitmap);
+            wte_set_component(ovr_id, cmp::overlay)->set_drawing();
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
             al_draw_filled_rectangle((float)(120 - wte_get_component(shd_id, energy)->amt), 0, 120, 10, WTE_COLOR_YELLOW);
             wte_set_component(ovr_id, cmp::overlay)->draw_text("Shield", WTE_COLOR_WHITE, 200, 0, ALLEGRO_ALIGN_RIGHT);
@@ -263,7 +263,7 @@ void wte_demo::new_game(void) {
                                                     (mgr::render_manager::get_arena_height() / 2) - 66, 1,
         [](entity_id ovr_id, mgr::entity_manager& world, int64_t engine_time) {
             //  Define what gets displayed on the overlay.
-            al_set_target_bitmap(wte_get_component(ovr_id, cmp::overlay)->overlay_bitmap);
+            wte_set_component(ovr_id, cmp::overlay)->set_drawing();
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
             wte_set_component(ovr_id, cmp::overlay)->draw_bitmap("game_over", 0.0f, 0.0f, 0);
         }

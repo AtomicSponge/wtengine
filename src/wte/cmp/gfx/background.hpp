@@ -100,6 +100,15 @@ class background final : public animator {
         };
 
         /*!
+         * Set drawing to the internal bitmap.
+         * \param void
+         * \return void
+         */
+        inline void set_drawing(void) {
+            al_set_target_bitmap(background_bitmap);
+        };
+
+        /*!
          * \brief Load a bitmap.
          * Store in a map for reference to later.  Call this during entity creation.
          * \param fname Filename to load.

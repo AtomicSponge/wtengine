@@ -301,6 +301,7 @@ inline void wte_main::process_end_game(void) {
 
     //  Stop audio manager from playing sounds.
     //  Messages run in reverse order.
+    //  Messages from end_game() will run BEFORE these.
     messages.add_message(message("audio", "stop_music", ""));
     messages.add_message(message("audio", "stop_ambiance", ""));
     messages.add_message(message("audio", "stop_voice", ""));

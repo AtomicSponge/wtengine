@@ -143,7 +143,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
          * \return void
          */
         inline void de_init(void) {
-            //  Clear any left over instances.
+            //  Clear any left over sample instances.
             for(auto sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
                 al_stop_sample(&sample_instance->second);
                 sample_instances.erase(sample_instance);

@@ -22,7 +22,6 @@ For an example of the API in action, see the [demo game code](https://github.com
 #### TODO:
  - Finish up input interface
  - Create menus for audio & input config
- - Loading in additional scripts
  - Gamepad support
  - Code review / testing / documentation (ongoing)
  - Improve cmake config

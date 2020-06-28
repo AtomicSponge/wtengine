@@ -42,7 +42,12 @@ class animate final : public system {
                         const int64_t& current_time) override {
             component_container<cmp::animator> animation_components = world.set_components<cmp::animator>();
 
-            for(auto & it : animation_components) it.second->run(it.first, world, current_time);
+            for(auto & it : animation_components) {
+                if(world.has_component<cmp::visible>(it.first)) {
+                    if(world.get_component<cmp::visible>(it.first)->is_visible)
+                        it.second->run(it.first, world, current_time);
+                }
+            }
         }
 };
 

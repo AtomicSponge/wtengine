@@ -269,7 +269,7 @@ void wte_demo::new_game(void) {
             wte_set_component(ovr_id, cmp::overlay)->draw_bitmap("game_over", 0.0f, 0.0f, 0);
         }
     );  //  End info overlay drawing.
-    wte_set_component(e_id, cmp::overlay)->load_file("game_over", "game_over.bmp");
+    wte_set_component(e_id, cmp::overlay)->load_bitmap("game_over", "game_over.bmp");
 
     /* ********************************* */
     /* *** Player entity *************** */

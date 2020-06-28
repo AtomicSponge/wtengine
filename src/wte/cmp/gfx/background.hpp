@@ -46,7 +46,7 @@ class background final : public animator {
         background_w(w), background_h(h), color(c),
         animator(l, [](entity_id e_id, mgr::entity_manager& world, int64_t engine_time) {
             world.set_component<cmp::background>(e_id)->set_drawing();
-            al_clear_to_color(world.get_component<cmp::background>(e_id)->color);
+            al_clear_to_color(world.get_component<cmp::background>(e_id)->get_color());
         }) {
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             background_bitmap = al_create_bitmap(background_w, background_h);
@@ -88,6 +88,15 @@ class background final : public animator {
          */
         inline ALLEGRO_BITMAP& get_bitmap(void) const {
             return *background_bitmap;
+        };
+
+        /*!
+         * Get the saved color.
+         * \param void
+         * \return Allegro color object.
+         */
+        inline ALLEGRO_COLOR get_color(void) const {
+            return color;
         };
 
         /*!
@@ -159,10 +168,9 @@ class background final : public animator {
             if(it != bmp_map.end()) al_draw_bitmap(it->second, x, y, flags);
         };
 
-        ALLEGRO_COLOR color;
-
     private:
         ALLEGRO_BITMAP* background_bitmap;
+        ALLEGRO_COLOR color;
 
         std::map<std::string, ALLEGRO_BITMAP*> bmp_map;
 

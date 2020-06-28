@@ -82,6 +82,15 @@ class background final : public animator {
         };
 
         /*!
+         * Return the internal bitmap.
+         * \param void
+         * \return The internal bitmap.
+         */
+        inline ALLEGRO_BITMAP& get_bitmap(void) const {
+            return *background_bitmap;
+        };
+
+        /*!
          * \brief Reload the background bitmap.
          * Called when the screen is updated.
          * \param void
@@ -150,10 +159,11 @@ class background final : public animator {
             if(it != bmp_map.end()) al_draw_bitmap(it->second, x, y, flags);
         };
 
-        ALLEGRO_BITMAP* background_bitmap;
         ALLEGRO_COLOR color;
 
     private:
+        ALLEGRO_BITMAP* background_bitmap;
+
         std::map<std::string, ALLEGRO_BITMAP*> bmp_map;
 
         int background_w, background_h;

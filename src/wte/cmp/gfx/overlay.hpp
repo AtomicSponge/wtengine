@@ -80,6 +80,15 @@ class overlay final : public animator {
         };
 
         /*!
+         * Return the internal bitmap.
+         * \param void
+         * \return The internal bitmap.
+         */
+        inline ALLEGRO_BITMAP& get_bitmap(void) const {
+            return *overlay_bitmap;
+        };
+
+        /*!
          * \brief Reload the overlay bitmap.
          * Called when the screen is updated.
          * \param void
@@ -171,9 +180,8 @@ class overlay final : public animator {
             if(it != bmp_map.end()) al_draw_bitmap(it->second, x, y, flags);
         };
 
-        ALLEGRO_BITMAP* overlay_bitmap;
-
     private:
+        ALLEGRO_BITMAP* overlay_bitmap;
         ALLEGRO_FONT* overlay_font;
 
         std::map<std::string, ALLEGRO_BITMAP*> bmp_map;

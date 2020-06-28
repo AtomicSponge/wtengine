@@ -376,7 +376,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         //  Draw each background by layer.
         for(auto & it : background_componenet_set) {
             if(world.get_component<cmp::visible>(it.first)->is_visible)
-                al_draw_bitmap(it.second.get()->background_bitmap, 0, 0, 0);
+                al_draw_bitmap(&it.second->get_bitmap(), 0, 0, 0);
         }
 
         /*
@@ -483,8 +483,8 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         //  Draw each overlay by layer.
         for(auto & it : overlay_componenet_set) {
             if(world.get_component<cmp::visible>(it.first)->is_visible)
-                al_draw_bitmap(it.second.get()->overlay_bitmap,
-                               it.second.get()->get_pos_x(), it.second.get()->get_pos_y(), 0);
+                al_draw_bitmap(&it.second->get_bitmap(),
+                               it.second->get_pos_x(), it.second->get_pos_y(), 0);
         }
 
         /*

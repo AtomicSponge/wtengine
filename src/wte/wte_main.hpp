@@ -272,6 +272,7 @@ inline void wte_main::process_new_game(const std::string& game_data) {
 
     //  Stop audio manager from playing sounds.
     //  Messages run in reverse order.
+    //  Messages from new_game() will run AFTER these.
     messages.add_message(message("audio", "stop_music", ""));
     messages.add_message(message("audio", "stop_ambiance", ""));
     messages.add_message(message("audio", "stop_voice", ""));

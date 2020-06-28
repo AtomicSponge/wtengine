@@ -291,10 +291,8 @@ void wte_demo::new_game(void) {
     );  //  End player input handler.
     wte_new_component(e_id, cmp::ai,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(wte_get_component(plr_id, health)->hp <= 0) {
+            if(wte_get_component(plr_id, health)->hp <= 0) {  //  Check player health.
                 wte_set_component(plr_id, health)->hp = wte_get_component(plr_id, health)->hp_max;
-                wte_set_component(plr_id, cmp::enabled)->is_enabled = false;
-                //  Process player death.
                 std::string player_name = world.get_name(plr_id);
                 messages.add_message(message("entities", player_name, player_name, "death", ""));
             }
@@ -304,6 +302,7 @@ void wte_demo::new_game(void) {
         [](entity_id plr_id, message& msg, mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
             //  Process player death.
             if(msg.get_cmd() == "death") {
+                wte_set_component(plr_id, cmp::enabled)->is_enabled = false;
                 game_cfg::subtract<int>("lives", 1);
                 wte_set_component(plr_id, cmp::sprite)->set_cycle("death");
                 if(game_cfg::get<int>("lives") == 0) {

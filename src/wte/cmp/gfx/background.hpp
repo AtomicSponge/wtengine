@@ -45,7 +45,7 @@ class background final : public animator {
                           ALLEGRO_COLOR c) :
         background_w(w), background_h(h), color(c),
         animator(l, [](entity_id e_id, mgr::entity_manager& world, int64_t engine_time) {
-            al_set_target_bitmap(world.set_component<cmp::background>(e_id)->background_bitmap);
+            world.set_component<cmp::background>(e_id)->set_drawing();
             al_clear_to_color(world.get_component<cmp::background>(e_id)->color);
         }) {
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);

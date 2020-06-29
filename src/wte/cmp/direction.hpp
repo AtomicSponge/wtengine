@@ -42,35 +42,47 @@ class direction final : public component {
         inline direction(const float a, const bool r) : angle(a), draw_rotated(r) {};
 
         /*!
-         *
+         * Get angle of direction.
+         * \param void
+         * \return Angle in degrees.
          */
         inline const float get_angle(void) const {
             return angle;
         };
 
         /*!
-         *
+         * Set angle of direction.
+         * \param a Angle in degrees.
+         * \return void
          */
         inline void set_angle(const float& a) {
             angle = a;
         };
 
         /*!
-         *
+         * Check if the entity should be drawn rotated.
+         * \param void
+         * \return True if rotated, false if not.
          */
         inline const bool show_rotated(void) const {
             return draw_rotated;
         };
 
         /*!
-         *
+         * \brief Set drawing rotated.
+         * Sets internal flag to true.
+         * \param void
+         * \return void
          */
         inline void set_rotated(void) {
             draw_rotated = true;
         };
 
         /*!
-         *
+         * \brief Unset drawing rotated.
+         * Sets internal flag to false.
+         * \param void
+         * \return void
          */
         inline void unset_rotated(void) {
             draw_rotated = false;

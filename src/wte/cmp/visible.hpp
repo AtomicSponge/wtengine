@@ -43,21 +43,29 @@ class visible final : public component {
         inline visible(const bool v) : is_visible(v) {};
 
         /*!
-         *
+         * Check if visible.
+         * \param void
+         * \return True if visible, false if not.
          */
         inline const bool check(void) const {
             return is_visible;
         };
 
         /*!
-         *
+         * \brief Show the entity.
+         * Sets internal flag to true.
+         * \param void
+         * \return void
          */
         inline void show(void) {
             is_visible = true;
         };
 
         /*!
-         *
+         * \brief Hide the entity.
+         * Sets internal flag to false.
+         * \param void
+         * \return void
          */
         inline void hide(void) {
             is_visible = false;

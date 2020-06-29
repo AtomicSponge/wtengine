@@ -46,49 +46,65 @@ class hitbox final : public component {
         inline hitbox(float w, float h, bool s) : width(w), height(h), solid(s) {};
 
         /*!
-         *
+         * Get hitbox width.
+         * \param void
+         * \return Width of hitbox.
          */
         inline const float get_width(void) const {
             return width;
         };
 
         /*!
-         *
+         * Get hitbox height.
+         * \param void
+         * \return Height of hitbox.
          */
         inline const float get_height(void) const {
             return height;
         };
 
         /*!
-         *
+         * Set width of hitbox.
+         * \param w New width.
+         * \return void
          */
         inline void set_width(const float& w) {
             width = w;
         };
 
         /*!
-         *
+         * Set height of hitbox.
+         * \param h New height.
+         * \return void
          */
         inline void set_height(const float& h) {
             height = h;
         };
 
         /*!
-         *
+         * Check if solid.
+         * \param void
+         * \return True if solid, false if not.
          */
         inline const bool is_solid(void) const {
             return solid;
         };
 
         /*!
-         *
+         * \brief Make entity solid.
+         * Sets internal flag to true.
+         * \param void
+         * \return void
          */
         inline void make_solid(void) {
             solid = true;
         };
 
         /*!
-         *
+         * \brief Make entity not solid.
+         * Sets internal flag to false.
+         * \param void
+         * \return void
          */
         inline void make_fluid(void) {
             solid = false;

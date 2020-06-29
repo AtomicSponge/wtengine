@@ -35,42 +35,54 @@ class location final : public component {
         inline location(float x, float y) : pos_x(x), pos_y(y) {};
 
         /*!
-         *
+         * Get X location.
+         * \param void
+         * \return X location of entity.
          */
         inline const float get_x(void) const {
             return pos_x;
         };
 
         /*!
-         *
+         * Get Y location.
+         * \param void
+         * \return Y location of entity.
          */
         inline const float get_y(void) const {
             return pos_y;
         };
 
         /*!
-         *
+         * Set X location.
+         * \param x New X location for entity.
+         * \return void
          */
         inline void set_x(const float& x) {
             pos_x = x;
         };
 
         /*!
-         *
+         * Set Y location.
+         * \param y New Y location for entity.
+         * \return void
          */
         inline void set_y(const float& y) {
             pos_y = y;
         };
 
         /*!
-         *
+         * Adjust X location.
+         * \param x X offset for entity.
+         * \return void
          */
         inline void adjust_x(const float& x) {
             pos_x += x;
         };
 
         /*!
-         *
+         * Adjust Y location.
+         * \param y Y offset for entity.
+         * \return void
          */
         inline void adjust_y(const float& y) {
             pos_y += y;

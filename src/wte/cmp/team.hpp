@@ -37,14 +37,18 @@ class team final : public component {
         };
 
         /*!
-         *
+         * Get team.
+         * \param void
+         * \return Team the entity is on.
          */
         inline const std::size_t get_team(void) const {
             return this_team;
         };
 
         /*!
-         *
+         * Set team
+         * \param t New team for the entity.
+         * \return void
          */
         inline void set_team(const std::size_t& t) {
             this_team = t;

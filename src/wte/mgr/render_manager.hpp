@@ -158,7 +158,7 @@ class render_manager final : public manager<render_manager>, private engine_time
          * \param h Resolution height in pixels.
          * \return void
          */
-        inline void update_resolution(const int w, const int h) {
+        inline void update_resolution(const int& w, const int& h) {
             screen_w = w;
             screen_h = h;
         };
@@ -188,7 +188,7 @@ class render_manager final : public manager<render_manager>, private engine_time
          * \param f New scale factor value.
          * \return void
          */
-        inline void set_scale_factor(const float f) {
+        inline void set_scale_factor(const float& f) {
             scale_factor = f;
         };
 
@@ -222,7 +222,7 @@ class render_manager final : public manager<render_manager>, private engine_time
          * \param h Arena height in pixels.
          * \return void
          */
-        inline static void set_arena_size(const int w, const int h) {
+        inline static void set_arena_size(const int& w, const int& h) {
             if(!arena_created) {
                 arena_w = w;
                 arena_h = h;
@@ -253,7 +253,7 @@ class render_manager final : public manager<render_manager>, private engine_time
          * \param fname Filename of the title screen.
          * \return void
          */
-        inline static void set_title_screen(const std::string fname) {
+        inline static void set_title_screen(const std::string& fname) {
             title_screen_file = fname;
         };
 
@@ -263,7 +263,7 @@ class render_manager final : public manager<render_manager>, private engine_time
          * \param fname Filename of the title screen.
          * \return void
          */
-        inline static void set_background_screen(const std::string fname) {
+        inline static void set_background_screen(const std::string& fname) {
             background_file = fname;
         };
 
@@ -277,7 +277,7 @@ class render_manager final : public manager<render_manager>, private engine_time
          * \param flags Font flags.
          * \return void
          */
-        inline static void set_font_file(const std::string fname, const int size, const int flags) {
+        inline static void set_font_file(const std::string& fname, const int& size, const int& flags) {
             render_font_file = fname;
             render_font_size = size;
             render_font_flags = flags;

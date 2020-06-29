@@ -43,21 +43,29 @@ class enabled final : public component {
         inline enabled(const bool e) : is_enabled(e) {};
 
         /*!
-         *
+         * Check if the entity is enabled.
+         * \param void
+         * \return True if enabled, false if not.
          */
         inline const bool check(void) const {
             return is_enabled;
         };
 
         /*!
-         *
+         * \brief Set enabled.
+         * Sets internal flag to true.
+         * \param void
+         * \return void
          */
         inline void enable(void) {
             is_enabled = true;
         };
 
         /*!
-         *
+         * \brief Set disabled.
+         * Sets internal flag to false.
+         * \param void
+         * \return void
          */
         inline void disable(void) {
             is_enabled = false;

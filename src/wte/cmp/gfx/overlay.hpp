@@ -45,7 +45,7 @@ class overlay final : public animator {
                        std::size_t l, void func(entity_id, mgr::entity_manager&, int64_t)) :
         overlay_w(w), overlay_h(h), pos_x(x), pos_y(y), animator(l, func) {
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            overlay_bitmap = al_create_bitmap(overlay_w, overlay_h);
+            internal_bitmap = al_create_bitmap(overlay_w, overlay_h);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             overlay_font = NULL;
         };
@@ -57,35 +57,8 @@ class overlay final : public animator {
          */
         inline ~overlay() {
             for(auto & it : bmp_map) al_destroy_bitmap(it.second);
-            al_destroy_bitmap(overlay_bitmap);
+            al_destroy_bitmap(internal_bitmap);
             al_destroy_font(overlay_font);
-        };
-
-        /*!
-         * Get X position.
-         * \param void
-         * \return X position.
-         */
-        inline const float get_pos_x(void) const {
-            return pos_x;
-        };
-
-        /*!
-         * Get Y position.
-         * \param void
-         * \return Y position.
-         */
-        inline const float get_pos_y(void) const {
-            return pos_y;
-        };
-
-        /*!
-         * Return the internal bitmap.
-         * \param void
-         * \return The internal bitmap.
-         */
-        inline ALLEGRO_BITMAP& get_bitmap(void) const {
-            return *overlay_bitmap;
         };
 
         /*!
@@ -96,23 +69,14 @@ class overlay final : public animator {
          */
         inline void reload_overlay_bitmap(void) {
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            ALLEGRO_BITMAP* temp_bmp = al_clone_bitmap(overlay_bitmap);
-            al_destroy_bitmap(overlay_bitmap);
+            ALLEGRO_BITMAP* temp_bmp = al_clone_bitmap(internal_bitmap);
+            al_destroy_bitmap(internal_bitmap);
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            overlay_bitmap = al_create_bitmap(overlay_w, overlay_h);
+            internal_bitmap = al_create_bitmap(overlay_w, overlay_h);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            al_set_target_bitmap(overlay_bitmap);
+            al_set_target_bitmap(internal_bitmap);
             al_draw_bitmap(temp_bmp, 0.0f, 0.0f, 0);
             al_destroy_bitmap(temp_bmp);
-        };
-
-        /*!
-         * Set the font used by the overlay.
-         * \param font Allegro font object to be used.
-         * \return void
-         */
-        inline void set_font(ALLEGRO_FONT* font) {
-            overlay_font = font;
         };
 
         /*!
@@ -127,15 +91,6 @@ class overlay final : public animator {
         inline void draw_text(const std::string& txt, const ALLEGRO_COLOR& color,
                               const float& x, const float& y, const int& f) {
             al_draw_text(overlay_font, color, x, y, f, txt.c_str());
-        };
-
-        /*!
-         * Set drawing to the internal bitmap.
-         * \param void
-         * \return void
-         */
-        inline void set_drawing(void) {
-            al_set_target_bitmap(overlay_bitmap);
         };
 
         /*!
@@ -180,8 +135,34 @@ class overlay final : public animator {
             if(it != bmp_map.end()) al_draw_bitmap(it->second, x, y, flags);
         };
 
+        /*!
+         * Get X position.
+         * \param void
+         * \return X position.
+         */
+        inline const float get_pos_x(void) const {
+            return pos_x;
+        };
+
+        /*!
+         * Get Y position.
+         * \param void
+         * \return Y position.
+         */
+        inline const float get_pos_y(void) const {
+            return pos_y;
+        };
+
+        /*!
+         * Set the font used by the overlay.
+         * \param font Allegro font object to be used.
+         * \return void
+         */
+        inline void set_font(ALLEGRO_FONT* font) {
+            overlay_font = font;
+        };
+
     private:
-        ALLEGRO_BITMAP* overlay_bitmap;
         ALLEGRO_FONT* overlay_font;
 
         std::map<std::string, ALLEGRO_BITMAP*> bmp_map;

@@ -12,6 +12,8 @@
 #ifndef WTE_CMP_ANIMATOR_HPP
 #define WTE_CMP_ANIMATOR_HPP
 
+#include <allegro5/allegro.h>
+
 #include <functional>
 
 #include "../component.hpp"
@@ -56,6 +58,24 @@ class animator : public component {
             animate(e_id, world, engine_time);
         };
 
+        /*!
+         * Set drawing to the internal bitmap.
+         * \param void
+         * \return void
+         */
+        inline void set_drawing(void) {
+            al_set_target_bitmap(internal_bitmap);
+        };
+
+        /*!
+         * Return the internal bitmap.
+         * \param void
+         * \return The internal bitmap.
+         */
+        inline ALLEGRO_BITMAP& get_bitmap(void) const {
+            return *internal_bitmap;
+        };
+
     protected:
         /*!
          * Animator constructor.
@@ -66,8 +86,11 @@ class animator : public component {
         inline animator(std::size_t l, void func(const entity_id, mgr::entity_manager&, const int64_t)) :
         layer(l), animate(func) {};
 
-        std::size_t layer;
+        ALLEGRO_BITMAP* internal_bitmap;
+
         std::function<void(const entity_id, mgr::entity_manager&, const int64_t)> animate;
+
+        std::size_t layer;
 };
 
 } //  namespace cmp

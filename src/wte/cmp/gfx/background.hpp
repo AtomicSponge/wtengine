@@ -49,7 +49,7 @@ class background final : public animator {
             al_clear_to_color(world.get_component<cmp::background>(e_id)->get_color());
         }) {
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            background_bitmap = al_create_bitmap(background_w, background_h);
+            internal_bitmap = al_create_bitmap(background_w, background_h);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
         };
 
@@ -67,7 +67,7 @@ class background final : public animator {
                           void func(entity_id, mgr::entity_manager&, int64_t)) :
         background_w(w), background_h(h), animator(l, func) {
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            background_bitmap = al_create_bitmap(background_w, background_h);
+            internal_bitmap = al_create_bitmap(background_w, background_h);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
         };
 
@@ -78,25 +78,7 @@ class background final : public animator {
          */
         inline ~background() {
             for(auto & it : bmp_map) al_destroy_bitmap(it.second);
-            al_destroy_bitmap(background_bitmap);
-        };
-
-        /*!
-         * Return the internal bitmap.
-         * \param void
-         * \return The internal bitmap.
-         */
-        inline ALLEGRO_BITMAP& get_bitmap(void) const {
-            return *background_bitmap;
-        };
-
-        /*!
-         * Get the saved color.
-         * \param void
-         * \return Allegro color object.
-         */
-        inline ALLEGRO_COLOR get_color(void) const {
-            return color;
+            al_destroy_bitmap(internal_bitmap);
         };
 
         /*!
@@ -107,23 +89,14 @@ class background final : public animator {
          */
         inline void reload_background_bitmap(void) {
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            ALLEGRO_BITMAP* temp_bmp = al_clone_bitmap(background_bitmap);
-            al_destroy_bitmap(background_bitmap);
+            ALLEGRO_BITMAP* temp_bmp = al_clone_bitmap(internal_bitmap);
+            al_destroy_bitmap(internal_bitmap);
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            background_bitmap = al_create_bitmap(background_w, background_h);
+            internal_bitmap = al_create_bitmap(background_w, background_h);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            al_set_target_bitmap(background_bitmap);
+            al_set_target_bitmap(internal_bitmap);
             al_draw_bitmap(temp_bmp, 0.0f, 0.0f, 0);
             al_destroy_bitmap(temp_bmp);
-        };
-
-        /*!
-         * Set drawing to the internal bitmap.
-         * \param void
-         * \return void
-         */
-        inline void set_drawing(void) {
-            al_set_target_bitmap(background_bitmap);
         };
 
         /*!
@@ -168,8 +141,16 @@ class background final : public animator {
             if(it != bmp_map.end()) al_draw_bitmap(it->second, x, y, flags);
         };
 
+        /*!
+         * Get the saved color.
+         * \param void
+         * \return Allegro color object.
+         */
+        inline ALLEGRO_COLOR get_color(void) const {
+            return color;
+        };
+
     private:
-        ALLEGRO_BITMAP* background_bitmap;
         ALLEGRO_COLOR color;
 
         std::map<std::string, ALLEGRO_BITMAP*> bmp_map;

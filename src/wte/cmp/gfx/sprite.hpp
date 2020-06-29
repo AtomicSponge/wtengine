@@ -67,7 +67,7 @@ class sprite final : public animator {
                 }
             }
         ) {
-            sprite_bitmap = NULL;
+            internal_bitmap = NULL;
             if(rate == 0) rate = 1;
         };
 
@@ -77,7 +77,7 @@ class sprite final : public animator {
          * \return void
          */
         inline ~sprite() {
-            al_destroy_bitmap(sprite_bitmap);
+            al_destroy_bitmap(internal_bitmap);
         };
 
         /*!
@@ -90,15 +90,17 @@ class sprite final : public animator {
         inline void load_sprite(const std::string fname) {
             ALLEGRO_FILE* file;
             file = al_fopen(fname.c_str(), "rb");
-            sprite_bitmap = al_load_bitmap_f(file, fname.substr(fname.find("."),
-                                                   fname.length()).c_str());
+            internal_bitmap = al_load_bitmap_f(file, fname.substr(fname.find("."),
+                                                     fname.length()).c_str());
             al_fclose(file);
-            if(!sprite_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
+            if(!internal_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
+
             #if WTE_USE_MAGIC_PINK
-            al_convert_mask_to_alpha(sprite_bitmap, WTE_MAGIC_PINK);
+            al_convert_mask_to_alpha(internal_bitmap, WTE_MAGIC_PINK);
             #endif
-            sheet_width = al_get_bitmap_width(sprite_bitmap);
-            sheet_height = al_get_bitmap_height(sprite_bitmap);
+
+            sheet_width = al_get_bitmap_width(internal_bitmap);
+            sheet_height = al_get_bitmap_height(internal_bitmap);
         };
 
         /*!
@@ -106,7 +108,7 @@ class sprite final : public animator {
          * \param name Name of cycle.
          * \param start Start cell of cycle.
          * \param stop End cell of cycle.
-         * \return void
+         * \return True if created, false if not.
          */
         inline const bool add_cycle(const std::string name, const std::size_t start, const std::size_t stop) {
             auto ret = cycles.insert(std::make_pair(name, std::make_pair(start, stop)));
@@ -116,7 +118,7 @@ class sprite final : public animator {
         /*!
          * Set the active cycle.
          * \param name Name of cycle to set.
-         * \return void
+         * \return True if set, false if not.
          */
         inline const bool set_cycle(const std::string name) {
             auto it = cycles.find(name);
@@ -125,15 +127,6 @@ class sprite final : public animator {
                 stop_frame = it->second.second;
                 return true;
             } else return false;
-        };
-
-        /*!
-         * Return the internal bitmap.
-         * \param void
-         * \return The internal bitmap.
-         */
-        inline ALLEGRO_BITMAP& get_bitmap(void) const {
-            return *sprite_bitmap;
         };
 
         /*!
@@ -217,8 +210,6 @@ class sprite final : public animator {
         };
 
     private:
-        ALLEGRO_BITMAP* sprite_bitmap;
-
         std::map<std::string, std::pair<std::size_t, std::size_t>> cycles;
 
         float sprite_width, sprite_height;

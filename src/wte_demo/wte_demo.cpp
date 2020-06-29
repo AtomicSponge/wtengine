@@ -257,8 +257,7 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     e_id = world.new_entity();
     world.set_name(e_id, "game_over_overlay");
-    wte_new_component(e_id, cmp::visible);
-    wte_set_component(e_id, cmp::visible)->is_visible = false;
+    wte_new_component(e_id, cmp::visible, false);
     wte_new_component(e_id, cmp::overlay, 480, 132, (mgr::render_manager::get_arena_width() / 2) - 240,
                                                     (mgr::render_manager::get_arena_height() / 2) - 66, 1,
         [](entity_id ovr_id, mgr::entity_manager& world, int64_t engine_time) {
@@ -310,7 +309,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::ai,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             if(wte_get_component(plr_id, health)->hp <= 0) {  //  Check player health.
-                wte_set_component(plr_id, cmp::enabled)->is_enabled = false;
+                wte_set_component(plr_id, cmp::enabled)->disable();
                 wte_set_component(plr_id, health)->hp = wte_get_component(plr_id, health)->hp_max;
                 std::string player_name = world.get_name(plr_id);
                 messages.add_message(message("entities", player_name, player_name, "death", ""));
@@ -328,7 +327,7 @@ void wte_demo::new_game(void) {
                     //  Game over!
                     messages.add_message(message(current_time + 180, "system", "end_game", ""));
                     entity_id go_id = world.get_id("game_over_overlay");
-                    wte_set_component(go_id, cmp::visible)->is_visible = true;
+                    wte_set_component(go_id, cmp::visible)->show();
                 } else {
                     std::string player_name = world.get_name(plr_id);
                     messages.add_message(
@@ -343,7 +342,7 @@ void wte_demo::new_game(void) {
                 wte_set_component(plr_id, cmp::location)->pos_x = (mgr::render_manager::get_arena_width() / 2) - 5;
                 wte_set_component(plr_id, cmp::location)->pos_y = mgr::render_manager::get_arena_height() - 40;
                 wte_set_component(plr_id, health)->hp = wte_get_component(plr_id, health)->hp_max;
-                wte_set_component(plr_id, cmp::enabled)->is_enabled = true;
+                wte_set_component(plr_id, cmp::enabled)->enable();
                 wte_set_component(plr_id, cmp::sprite)->set_cycle("main");
             }
 
@@ -367,6 +366,8 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::team, 0);
     wte_new_component(e_id, cmp::location, 0, 0);
     wte_new_component(e_id, cmp::hitbox, 10, 200, false);
+    wte_new_component(e_id, cmp::visible, false);
+    wte_new_component(e_id, cmp::enabled, false);
     wte_new_component(e_id, damage, 5);
     wte_new_component(e_id, cmp::sample_loop);
     wte_set_component(e_id, cmp::sample_loop)->add_handle("fx1", "cannon_fire");
@@ -382,25 +383,23 @@ void wte_demo::new_game(void) {
                 wte_get_component(player_entity, cmp::location)->pos_y -
                 wte_get_component(can_id, cmp::hitbox)->height;
 
-            wte_set_component(can_id, cmp::visible)->is_visible = true;
-            wte_set_component(can_id, cmp::enabled)->is_enabled = true;
+            wte_set_component(can_id, cmp::visible)->show();
+            wte_set_component(can_id, cmp::enabled)->enable();
 
             //  Play sound effect.
             wte_set_component(can_id, cmp::sample_loop)->start(messages, "cannon_fire");
         },
         //  Input for when button is not pressed.
         [](entity_id can_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(wte_get_component(can_id, cmp::enabled)->is_enabled) {
-                wte_set_component(can_id, cmp::visible)->is_visible = false;
-                wte_set_component(can_id, cmp::enabled)->is_enabled = false;
+            if(wte_get_component(can_id, cmp::enabled)) {
+                wte_set_component(can_id, cmp::visible)->hide();
+                wte_set_component(can_id, cmp::enabled)->disable();
             }
 
             //  Stop sound effect.
             wte_set_component(can_id, cmp::sample_loop)->stop(messages, "cannon_fire");
         }
     );  //  End cannon input handler.
-    wte_new_component(e_id, cmp::visible, false);
-    wte_new_component(e_id, cmp::enabled, false);
     wte_new_component(e_id, cmp::sprite, 10, 200, 0.0f, 0.0f, 2, 2);
     wte_set_component(e_id, cmp::sprite)->load_sprite("cannon.bmp");
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 3);
@@ -425,6 +424,8 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::team, 0);
     wte_new_component(e_id, cmp::location, 0, 0);
     wte_new_component(e_id, cmp::hitbox, 64, 64, false);
+    wte_new_component(e_id, cmp::visible, false);
+    wte_new_component(e_id, cmp::enabled, false);
     wte_new_component(e_id, energy, 50, 100);
     wte_new_component(e_id, damage, 100);
     wte_new_component(e_id, cmp::input_handler);
@@ -439,22 +440,22 @@ void wte_demo::new_game(void) {
                 wte_set_component(shd_id, cmp::location)->pos_y =
                     wte_get_component(player_entity, cmp::location)->pos_y - 16;
 
-                wte_set_component(shd_id, cmp::visible)->is_visible = true;
-                wte_set_component(shd_id, cmp::enabled)->is_enabled = true;
+                wte_set_component(shd_id, cmp::visible)->show();
+                wte_set_component(shd_id, cmp::enabled)->enable();
                 wte_set_component(player_entity, cmp::hitbox)->solid = false;
                 wte_set_component(shd_id, energy)->amt -= 1;
             } else {
-                wte_set_component(shd_id, cmp::visible)->is_visible = false;
-                wte_set_component(shd_id, cmp::enabled)->is_enabled = false;
+                wte_set_component(shd_id, cmp::visible)->hide();
+                wte_set_component(shd_id, cmp::enabled)->disable();
                 wte_set_component(player_entity, cmp::hitbox)->solid = true;
             }
         },
         //  Input for when button is not pressed.
         [](entity_id shd_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(wte_get_component(shd_id, cmp::enabled)->is_enabled) {
+            if(wte_get_component(shd_id, cmp::enabled)->check()) {
+                wte_set_component(shd_id, cmp::visible)->hide();
+                wte_set_component(shd_id, cmp::enabled)->disable();
                 entity_id player_entity = world.get_id("player");
-                wte_set_component(shd_id, cmp::visible)->is_visible = false;
-                wte_set_component(shd_id, cmp::enabled)->is_enabled = false;
                 wte_set_component(player_entity, cmp::hitbox)->solid = true;
             } else {
                 if(wte_get_component(shd_id, energy)->amt < wte_get_component(shd_id, energy)->amt_max)
@@ -462,8 +463,6 @@ void wte_demo::new_game(void) {
             }
         }
     );  //  End shield input handler.
-    wte_new_component(e_id, cmp::visible, false);
-    wte_new_component(e_id, cmp::enabled, false);
     wte_new_component(e_id, cmp::sprite, 64, 64, 0.0f, 0.0f, 6, 2);
     wte_set_component(e_id, cmp::sprite)->load_sprite("shield.bmp");
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);

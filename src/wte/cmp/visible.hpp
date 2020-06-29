@@ -20,8 +20,8 @@ namespace wte
 namespace cmp
 {
 
-//! Visible component
 /*!
+ * \class Visible component
  * Toggles if an entity will be drawn by the renderer
  */
 class visible final : public component {
@@ -40,8 +40,30 @@ class visible final : public component {
          * \param v Boolean value for visibility.
          * \return void
          */
-        inline visible(bool v) : is_visible(v) {};
+        inline visible(const bool v) : is_visible(v) {};
 
+        /*!
+         *
+         */
+        inline const bool check(void) const {
+            return is_visible;
+        };
+
+        /*!
+         *
+         */
+        inline void show(void) {
+            is_visible = true;
+        };
+
+        /*!
+         *
+         */
+        inline void hide(void) {
+            is_visible = false;
+        };
+
+    private:
         bool is_visible;
 };
 

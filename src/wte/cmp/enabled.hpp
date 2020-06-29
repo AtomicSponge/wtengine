@@ -20,8 +20,8 @@ namespace wte
 namespace cmp
 {
 
-//! Enabled component
 /*!
+ * \class Enabled component
  * Toggle an entity to enabled or disabled state
  */
 class enabled final : public component {
@@ -40,8 +40,30 @@ class enabled final : public component {
          * \param void
          * \return void
          */
-        inline enabled(bool e) : is_enabled(e) {};
+        inline enabled(const bool e) : is_enabled(e) {};
 
+        /*!
+         *
+         */
+        inline const bool check(void) const {
+            return is_enabled;
+        };
+
+        /*!
+         *
+         */
+        inline void enable(void) {
+            is_enabled = true;
+        };
+
+        /*!
+         *
+         */
+        inline void disable(void) {
+            is_enabled = false;
+        };
+
+    private:
         bool is_enabled;
 };
 

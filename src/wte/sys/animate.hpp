@@ -45,7 +45,7 @@ class animate final : public system {
 
             for(auto & it : animation_components) {
                 if(world.has_component<cmp::visible>(it.first)) {
-                    if(world.get_component<cmp::visible>(it.first)->is_visible)
+                    if(world.get_component<cmp::visible>(it.first)->check())
                         it.second->run(it.first, world, current_time);
                 }
             }

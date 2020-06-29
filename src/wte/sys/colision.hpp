@@ -66,8 +66,8 @@ class colision final : public system {
                        world.has_component<cmp::location>(it_b.first) &&
                        world.has_component<cmp::hitbox>(it_a.first) &&
                        world.has_component<cmp::hitbox>(it_b.first) &&
-                       world.get_component<cmp::enabled>(it_a.first)->is_enabled &&
-                       world.get_component<cmp::enabled>(it_b.first)->is_enabled &&
+                       world.get_component<cmp::enabled>(it_a.first)->check() &&
+                       world.get_component<cmp::enabled>(it_b.first)->check() &&
                        world.get_component<cmp::hitbox>(it_b.first)->solid)
                     {
                         //  Use AABB to test colision

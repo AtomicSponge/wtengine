@@ -375,7 +375,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
 
         //  Draw each background by layer.
         for(auto & it : background_componenet_set) {
-            if(world.get_component<cmp::visible>(it.first)->is_visible)
+            if(world.get_component<cmp::visible>(it.first)->check())
                 al_draw_bitmap(&it.second->get_bitmap(), 0, 0, 0);
         }
 
@@ -392,7 +392,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
 
         //  Draw each sprite in order.
         for(auto & it : sprite_componenet_set) {
-            if(world.get_component<cmp::visible>(it.first)->is_visible) {
+            if(world.get_component<cmp::visible>(it.first)->check()) {
                 //  Get the current sprite frame.
                 render_tmp_bmp = al_create_sub_bitmap(
                     &it.second->get_bitmap(),
@@ -446,7 +446,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         for(auto & it : sprite_componenet_set) {
             //  Make sure the entity has a hitbox and is enabled.
             if(world.has_component<cmp::hitbox>(it.first) &&
-               world.get_component<cmp::enabled>(it.first)->is_enabled) {
+               world.get_component<cmp::enabled>(it.first)->check()) {
                 //  Select color based on team.
                 ALLEGRO_COLOR team_color;
                 switch(world.get_component<cmp::team>(it.first)->this_team) {
@@ -482,7 +482,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
 
         //  Draw each overlay by layer.
         for(auto & it : overlay_componenet_set) {
-            if(world.get_component<cmp::visible>(it.first)->is_visible)
+            if(world.get_component<cmp::visible>(it.first)->check())
                 al_draw_bitmap(&it.second->get_bitmap(),
                                it.second->get_pos_x(), it.second->get_pos_y(), 0);
         }

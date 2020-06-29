@@ -31,7 +31,7 @@ class velocity final : public component {
          * \param v Speed value for entity.
          * \return void
          */
-        inline velocity(float v) : speed(v) {};
+        inline velocity(const float v) : speed(v) {};
 
         /*!
          * Get entity speed.

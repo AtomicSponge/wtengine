@@ -8,6 +8,7 @@
  * WTE Demo game code.
  * This extends the wte_main object to define a custom game.
  */
+
 #define _WTE_USE_HELPER_MACROS  //  Use engine helper macros.
 
 #include <allegro5/allegro_primitives.h>

@@ -494,7 +494,7 @@ void wte_demo::new_game(void) {
             wte_new_component(e_id, health, size * 10, size * 10);
             wte_new_component(e_id, damage, 10);
             wte_new_component(e_id, cmp::direction, std::stof(args[3]));
-            wte_new_component(e_id, velocity, std::stof(args[4]));
+            wte_new_component(e_id, cmp::velocity, std::stof(args[4]));
             wte_new_component(e_id, cmp::visible);
             wte_new_component(e_id, cmp::enabled);
             wte_new_component(e_id, cmp::ai,
@@ -502,12 +502,12 @@ void wte_demo::new_game(void) {
                     //  AI for asteroids defined here.
                     //  Move them at their speed and angle.
                     wte_set_component(ast_id, cmp::location)->adjust_x(
-                        wte_get_component(ast_id, velocity)->speed *
+                        wte_get_component(ast_id, cmp::velocity)->get_speed() *
                         cos(wte_get_component(ast_id, cmp::direction)->get_radian())
                     );
 
                     wte_set_component(ast_id, cmp::location)->adjust_y(
-                        wte_get_component(ast_id, velocity)->speed *
+                        wte_get_component(ast_id, cmp::velocity)->get_speed() *
                         sin(wte_get_component(ast_id, cmp::direction)->get_radian())
                     );
 

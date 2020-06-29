@@ -15,6 +15,5 @@
 #include "energy.hpp"
 #include "health.hpp"
 #include "stars.hpp"
-#include "velocity.hpp"
 
 #endif

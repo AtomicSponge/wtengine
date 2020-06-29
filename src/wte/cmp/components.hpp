@@ -21,6 +21,7 @@
 #include "location.hpp"
 #include "sample_loop.hpp"
 #include "team.hpp"
+#include "velocity.hpp"
 #include "visible.hpp"
 
 //  Graphics components

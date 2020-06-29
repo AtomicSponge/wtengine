@@ -351,7 +351,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
      */
     if(engine_flags::is_set(GAME_STARTED)) {
         /*
-         * Draw the background.
+         * Draw the full screen background.
          */
         al_draw_scaled_bitmap(background_bmp, 0, 0,
                               al_get_bitmap_width(background_bmp),
@@ -395,11 +395,11 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
             if(world.get_component<cmp::visible>(it.first)->is_visible) {
                 //  Get the current sprite frame.
                 render_tmp_bmp = al_create_sub_bitmap(
-                    it.second.get()->sprite_bitmap,
-                    it.second.get()->sprite_x,
-                    it.second.get()->sprite_y,
-                    it.second.get()->sprite_width,
-                    it.second.get()->sprite_height
+                    &it.second->get_bitmap(),
+                    it.second->get_sprite_x(),
+                    it.second->get_sprite_y(),
+                    it.second->get_sprite_width(),
+                    it.second->get_sprite_height()
                 );
 
                 float sprite_angle = 0.0f;
@@ -414,23 +414,23 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                         center_y = (al_get_bitmap_height(render_tmp_bmp) / 2);
 
                         destination_x = world.get_component<cmp::location>(it.first)->pos_x +
-                            (al_get_bitmap_width(render_tmp_bmp) * it.second.get()->scale_factor_x / 2) +
-                            (it.second.get()->draw_offset_x * it.second.get()->scale_factor_x);
+                            (al_get_bitmap_width(render_tmp_bmp) * it.second->get_scale_factor_x() / 2) +
+                            (it.second->get_draw_offset_x() * it.second->get_scale_factor_x());
                         destination_y = world.get_component<cmp::location>(it.first)->pos_y +
-                            (al_get_bitmap_height(render_tmp_bmp) * it.second.get()->scale_factor_y / 2) +
-                            (it.second.get()->draw_offset_y * it.second.get()->scale_factor_y);
+                            (al_get_bitmap_height(render_tmp_bmp) * it.second->get_scale_factor_y() / 2) +
+                            (it.second->get_draw_offset_y() * it.second->get_scale_factor_y());
                     }
                 } else {
                     destination_x = world.get_component<cmp::location>(it.first)->pos_x +
-                        it.second.get()->draw_offset_x;
+                        it.second->get_draw_offset_x();
                     destination_y = world.get_component<cmp::location>(it.first)->pos_y +
-                        it.second.get()->draw_offset_y;
+                        it.second->get_draw_offset_y();
                 }
                 //  Draw the sprite.
                 al_draw_scaled_rotated_bitmap(
                     render_tmp_bmp, center_x, center_y, destination_x, destination_y,
-                    it.second.get()->scale_factor_x,
-                    it.second.get()->scale_factor_y,
+                    it.second->get_scale_factor_x(),
+                    it.second->get_scale_factor_y(),
                     sprite_angle, 0
                 );
                 al_destroy_bitmap(render_tmp_bmp);

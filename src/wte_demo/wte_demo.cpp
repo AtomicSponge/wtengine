@@ -538,8 +538,8 @@ void wte_demo::new_game(void) {
             wte_set_component(e_id, cmp::sprite)->load_sprite("asteroid.bmp");
             wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
             wte_set_component(e_id, cmp::sprite)->set_cycle("main");
-            wte_set_component(e_id, cmp::sprite)->scale_factor_x = (float)size;
-            wte_set_component(e_id, cmp::sprite)->scale_factor_y = (float)size;
+            wte_set_component(e_id, cmp::sprite)->set_scale_factor_x((float)size);
+            wte_set_component(e_id, cmp::sprite)->set_scale_factor_y((float)size);
         }
     );
 

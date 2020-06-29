@@ -30,9 +30,9 @@ namespace wte
 namespace cmp
 {
 
-//! Sprite component
 /*!
- * Sprite
+ * \class Sprite component
+ * Stores a sprite sheet and its animation process.
  */
 class sprite final : public animator {
     public:
@@ -127,7 +127,99 @@ class sprite final : public animator {
             } else return false;
         };
 
+        /*!
+         * Return the internal bitmap.
+         * \param void
+         * \return The internal bitmap.
+         */
+        inline ALLEGRO_BITMAP& get_bitmap(void) const {
+            return *sprite_bitmap;
+        };
+
+        /*!
+         * Get the sprite width.
+         * \return Sprite width.
+         */
+        inline const float get_sprite_width(void) const {
+            return sprite_width;
+        };
+
+        /*!
+         * Get the sprite height.
+         * \return Sprite height.
+         */
+        inline const float get_sprite_height(void) const {
+            return sprite_height;
+        };
+
+        /*!
+         * Get the X draw offset.
+         * \return draw_offset_x
+         */
+        inline const float get_draw_offset_x(void) const {
+            return draw_offset_x;
+        };
+
+        /*!
+         * Get the Y draw offset.
+         * \return draw_offset_y
+         */
+        inline const float get_draw_offset_y(void) const {
+            return draw_offset_y;
+        };
+
+        /*!
+         * Get the X location for sprite drawing.
+         * \return sprite_x
+         */
+        inline const float get_sprite_x(void) const {
+            return sprite_x;
+        };
+
+        /*!
+         * Get the Y location for sprite drawing.
+         * \return sprite_y
+         */
+        inline const float get_sprite_y(void) const {
+            return sprite_y;
+        };
+
+        /*!
+         * Set the X scale factor.
+         * \param sx New scale factor X value.
+         */
+        inline void set_scale_factor_x(const float& sx) {
+            scale_factor_x = sx;
+        };
+
+        /*!
+         * Set the Y scale factor.
+         * \param sy New scale factor Y value.
+         */
+        inline void set_scale_factor_y(const float& sy) {
+            scale_factor_y = sy;
+        };
+
+        /*!
+         * Get the X scale factor.
+         * \return scale_factor_x
+         */
+        inline const float get_scale_factor_x(void) const {
+            return scale_factor_x;
+        };
+
+        /*!
+         * Get the Y scale factor.
+         * \return scale_factor_y
+         */
+        inline const float get_scale_factor_y(void) const {
+            return scale_factor_y;
+        };
+
+    private:
         ALLEGRO_BITMAP* sprite_bitmap;
+
+        std::map<std::string, std::pair<std::size_t, std::size_t>> cycles;
 
         float sprite_width, sprite_height;
         float draw_offset_x, draw_offset_y;
@@ -136,9 +228,6 @@ class sprite final : public animator {
         int sheet_width, sheet_height;
         std::size_t current_frame, rate;
         std::size_t start_frame, stop_frame;
-
-    private:
-        std::map<std::string, std::pair<std::size_t, std::size_t>> cycles;
 };
 
 } //  namespace cmp

@@ -55,7 +55,9 @@ class direction final : public component {
         };
 
         /*!
-         *
+         * Get angle of direction in radians.
+         * \param void
+         * \return Angle in radians.
          */
         inline const float get_radian(void) const {
             return (angle * M_PI / 180.0f);

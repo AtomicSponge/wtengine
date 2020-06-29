@@ -9,9 +9,6 @@
  * This extends the wte_main object to define a custom game.
  */
 #define _WTE_USE_HELPER_MACROS  //  Use engine helper macros.
-#define _USE_MATH_DEFINES
-
-#include <cmath>
 
 #include <allegro5/allegro_primitives.h>
 
@@ -506,12 +503,12 @@ void wte_demo::new_game(void) {
                     //  Move them at their speed and angle.
                     wte_set_component(ast_id, cmp::location)->adjust_x(
                         wte_get_component(ast_id, velocity)->speed *
-                        cos(wte_get_component(ast_id, cmp::direction)->get_angle() * (M_PI / 180))
+                        cos(wte_get_component(ast_id, cmp::direction)->get_radian())
                     );
 
                     wte_set_component(ast_id, cmp::location)->adjust_y(
                         wte_get_component(ast_id, velocity)->speed *
-                        sin(wte_get_component(ast_id, cmp::direction)->get_angle() * (M_PI / 180))
+                        sin(wte_get_component(ast_id, cmp::direction)->get_radian())
                     );
 
                     //  Perform OOB check.

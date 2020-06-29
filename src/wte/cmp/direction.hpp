@@ -12,6 +12,10 @@
 #ifndef WTE_CMP_DIRECTION_HPP
 #define WTE_CMP_DIRECTION_HPP
 
+#define _USE_MATH_DEFINES
+
+#include <cmath>
+
 #include "component.hpp"
 
 namespace wte
@@ -48,6 +52,13 @@ class direction final : public component {
          */
         inline const float get_angle(void) const {
             return angle;
+        };
+
+        /*!
+         *
+         */
+        inline const float get_radian(void) const {
+            return (angle * M_PI / 180.0f);
         };
 
         /*!

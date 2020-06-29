@@ -13,13 +13,10 @@
 #ifndef WTE_MGR_RENDER_MANAGER_HPP
 #define WTE_MGR_RENDER_MANAGER_HPP
 
-#define _USE_MATH_DEFINES
-
 #include <string>
 #include <utility>
 #include <set>
 #include <iterator>
-#include <cmath>
 #include <stdexcept>
 
 #include <allegro5/allegro.h>
@@ -409,7 +406,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                 //  Check if the sprite should be rotated.
                 if(world.has_component<cmp::direction>(it.first)) {
                     if(world.get_component<cmp::direction>(it.first)->show_rotated()) {
-                        sprite_angle = world.get_component<cmp::direction>(it.first)->get_angle() * (M_PI / 180);
+                        sprite_angle = world.get_component<cmp::direction>(it.first)->get_radian();
                         center_x = (al_get_bitmap_width(render_tmp_bmp) / 2);
                         center_y = (al_get_bitmap_height(render_tmp_bmp) / 2);
 

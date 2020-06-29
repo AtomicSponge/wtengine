@@ -552,9 +552,9 @@ void wte_demo::new_game(void) {
     game_cfg::set("lives", game_cfg::get("max_lives"));
 
     //  Load some samples in the audio manager.
-    messages.add_message(message("audio", "load_sample", "sfx/fx1.wav"));
-    messages.add_message(message("audio", "load_sample", "sfx/fx2.wav"));
-    messages.add_message(message("audio", "load_sample", "sfx/fx3.wav"));
+    wte_load_sample("sfx/fx1.wav");
+    wte_load_sample("sfx/fx2.wav");
+    wte_load_sample("sfx/fx3.wav");
 }
 
 /*

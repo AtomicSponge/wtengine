@@ -14,12 +14,9 @@
 #ifndef WTE_HELPER_MACROS_HPP
 #define WTE_HELPER_MACROS_HPP
 
-/*!
- * \def wte_add_system(new_sys, ...)
- * \brief Create a new system.
- * Pass a system object and any parameters to create a new system.
- */
-#define wte_add_system(new_sys, ...) (systems.add(std::make_unique<new_sys>(__VA_ARGS__)))
+/*********************************
+ * Entity items                  *
+ *********************************/
 
 /*!
  * \def wte_new_component(new_cmp, ...)
@@ -69,5 +66,22 @@
  * Create a new menu toggle item.
  */
 #define wte_menu_toggle(...) (std::make_shared<mnu::menu_item_toggle>(__VA_ARGS__))
+
+/*********************************
+ * Other items                   *
+ *********************************/
+
+/*!
+ * \def wte_load_sample(samp_str)
+ * Load a sample into the audio manager.
+ */
+#define wte_load_sample(samp_str) (messages.add_message(message("audio", "load_sample", samp_str)))
+
+/*!
+ * \def wte_add_system(new_sys, ...)
+ * \brief Create a new system.
+ * Pass a system object and any parameters to create a new system.
+ */
+#define wte_add_system(new_sys, ...) (systems.add(std::make_unique<new_sys>(__VA_ARGS__)))
 
 #endif

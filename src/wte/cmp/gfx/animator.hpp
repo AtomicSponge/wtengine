@@ -25,9 +25,9 @@ namespace wte
 namespace cmp
 {
 
-//! Animator component
 /*!
- * Animator
+ * \class Animator component
+ * Interface class for components with an animation process.
  */
 class animator : public component {
     public:

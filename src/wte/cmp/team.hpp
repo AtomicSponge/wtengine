@@ -20,8 +20,8 @@ namespace wte
 namespace cmp
 {
 
-//! Team component
 /*!
+ * \class Team component
  * Store the team for an entity
  */
 class team final : public component {
@@ -36,6 +36,21 @@ class team final : public component {
             if(this_team > 3) this_team = 3;
         };
 
+        /*!
+         *
+         */
+        inline const std::size_t get_team(void) const {
+            return this_team;
+        };
+
+        /*!
+         *
+         */
+        inline void set_team(const std::size_t& t) {
+            this_team = t;
+        };
+
+    private:
         std::size_t this_team;
 };
 

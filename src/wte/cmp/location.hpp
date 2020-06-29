@@ -20,8 +20,8 @@ namespace wte
 namespace cmp
 {
 
-//! Location component
 /*!
+ * \class Location component
  * Store the x/y location of an entity
  */
 class location final : public component {
@@ -34,6 +34,49 @@ class location final : public component {
          */
         inline location(float x, float y) : pos_x(x), pos_y(y) {};
 
+        /*!
+         *
+         */
+        inline const float get_x(void) const {
+            return pos_x;
+        };
+
+        /*!
+         *
+         */
+        inline const float get_y(void) const {
+            return pos_y;
+        };
+
+        /*!
+         *
+         */
+        inline void set_x(const float& x) {
+            pos_x = x;
+        };
+
+        /*!
+         *
+         */
+        inline void set_y(const float& y) {
+            pos_y = y;
+        };
+
+        /*!
+         *
+         */
+        inline void adjust_x(const float& x) {
+            pos_x += x;
+        };
+
+        /*!
+         *
+         */
+        inline void adjust_y(const float& y) {
+            pos_y += y;
+        };
+
+    private:
         float pos_x, pos_y;
 };
 

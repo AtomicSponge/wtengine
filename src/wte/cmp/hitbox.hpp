@@ -20,8 +20,8 @@ namespace wte
 namespace cmp
 {
 
-//! Hitbox component
 /*!
+ * \class Hitbox component
  * Store the width and height for an entity's hitbox
  */
 class hitbox final : public component {
@@ -45,6 +45,56 @@ class hitbox final : public component {
          */
         inline hitbox(float w, float h, bool s) : width(w), height(h), solid(s) {};
 
+        /*!
+         *
+         */
+        inline const float get_width(void) const {
+            return width;
+        };
+
+        /*!
+         *
+         */
+        inline const float get_height(void) const {
+            return height;
+        };
+
+        /*!
+         *
+         */
+        inline void set_width(const float& w) {
+            width = w;
+        };
+
+        /*!
+         *
+         */
+        inline void set_height(const float& h) {
+            height = h;
+        };
+
+        /*!
+         *
+         */
+        inline const bool is_solid(void) const {
+            return solid;
+        };
+
+        /*!
+         *
+         */
+        inline void make_solid(void) {
+            solid = true;
+        };
+
+        /*!
+         *
+         */
+        inline void make_fluid(void) {
+            solid = false;
+        };
+
+    private:
         float width, height;
         bool solid;
 };

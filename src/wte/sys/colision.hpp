@@ -61,31 +61,31 @@ class colision final : public system {
                      *                The entity being compared against is solid.
                      */
                     if((it_a.first != it_b.first) &&
-                       (it_a.second->this_team != it_b.second->this_team) &&
+                       (it_a.second->get_team() != it_b.second->get_team()) &&
                        world.has_component<cmp::location>(it_a.first) &&
                        world.has_component<cmp::location>(it_b.first) &&
                        world.has_component<cmp::hitbox>(it_a.first) &&
                        world.has_component<cmp::hitbox>(it_b.first) &&
                        world.get_component<cmp::enabled>(it_a.first)->check() &&
                        world.get_component<cmp::enabled>(it_b.first)->check() &&
-                       world.get_component<cmp::hitbox>(it_b.first)->solid)
+                       world.get_component<cmp::hitbox>(it_b.first)->is_solid())
                     {
                         //  Use AABB to test colision
-                        if((world.get_component<cmp::location>(it_a.first)->pos_x <
-                            world.get_component<cmp::location>(it_b.first)->pos_x +
-                            world.get_component<cmp::hitbox>(it_b.first)->width
+                        if((world.get_component<cmp::location>(it_a.first)->get_x() <
+                            world.get_component<cmp::location>(it_b.first)->get_x() +
+                            world.get_component<cmp::hitbox>(it_b.first)->get_width()
                             && 
-                            world.get_component<cmp::location>(it_a.first)->pos_x +
-                            world.get_component<cmp::hitbox>(it_a.first)->width >
-                            world.get_component<cmp::location>(it_b.first)->pos_x)
+                            world.get_component<cmp::location>(it_a.first)->get_x() +
+                            world.get_component<cmp::hitbox>(it_a.first)->get_width() >
+                            world.get_component<cmp::location>(it_b.first)->get_x())
                            &&
-                           (world.get_component<cmp::location>(it_a.first)->pos_y <
-                            world.get_component<cmp::location>(it_b.first)->pos_y +
-                            world.get_component<cmp::hitbox>(it_b.first)->height
+                           (world.get_component<cmp::location>(it_a.first)->get_y() <
+                            world.get_component<cmp::location>(it_b.first)->get_y() +
+                            world.get_component<cmp::hitbox>(it_b.first)->get_height()
                             && 
-                            world.get_component<cmp::location>(it_a.first)->pos_y +
-                            world.get_component<cmp::hitbox>(it_a.first)->height >
-                            world.get_component<cmp::location>(it_b.first)->pos_y))
+                            world.get_component<cmp::location>(it_a.first)->get_y() +
+                            world.get_component<cmp::hitbox>(it_a.first)->get_height() >
+                            world.get_component<cmp::location>(it_b.first)->get_y()))
                         {
                             //  Send a message that two entities colided.
                             //  Each entity will get a colision message.

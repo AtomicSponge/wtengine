@@ -284,26 +284,26 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::input_handler);
     wte_set_component(e_id, cmp::input_handler)->add_handle_on(WTE_INPUT_UP,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(wte_get_component(plr_id, cmp::location)->pos_y > 0)
-                wte_set_component(plr_id, cmp::location)->pos_y -= 5;
+            if(wte_get_component(plr_id, cmp::location)->get_y() > 0)
+                wte_set_component(plr_id, cmp::location)->adjust_y(-5.0f);
         }
     );
     wte_set_component(e_id, cmp::input_handler)->add_handle_on(WTE_INPUT_DOWN,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(wte_get_component(plr_id, cmp::location)->pos_y < mgr::render_manager::get_arena_height() - 32)
-                wte_set_component(plr_id, cmp::location)->pos_y += 5;
+            if(wte_get_component(plr_id, cmp::location)->get_y() < mgr::render_manager::get_arena_height() - 32)
+                wte_set_component(plr_id, cmp::location)->adjust_y(5.0f);
         }
     );
     wte_set_component(e_id, cmp::input_handler)->add_handle_on(WTE_INPUT_LEFT,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(wte_get_component(plr_id, cmp::location)->pos_x > 12)
-                wte_set_component(plr_id, cmp::location)->pos_x -= 5;
+            if(wte_get_component(plr_id, cmp::location)->get_x() > 12)
+                wte_set_component(plr_id, cmp::location)->adjust_x(-5.0f);
         }
     );
     wte_set_component(e_id, cmp::input_handler)->add_handle_on(WTE_INPUT_RIGHT,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(wte_get_component(plr_id, cmp::location)->pos_x < mgr::render_manager::get_arena_width() - 22)
-                wte_set_component(plr_id, cmp::location)->pos_x += 5;
+            if(wte_get_component(plr_id, cmp::location)->get_x() < mgr::render_manager::get_arena_width() - 22)
+                wte_set_component(plr_id, cmp::location)->adjust_x(5.0f);
         }
     );  //  End player input handler.
     wte_new_component(e_id, cmp::ai,
@@ -339,8 +339,8 @@ void wte_demo::new_game(void) {
             //  Reset player.
             if(msg.get_cmd() == "reset") {
                 messages.add_message(message("system", "enable_system", "input"));
-                wte_set_component(plr_id, cmp::location)->pos_x = (mgr::render_manager::get_arena_width() / 2) - 5;
-                wte_set_component(plr_id, cmp::location)->pos_y = mgr::render_manager::get_arena_height() - 40;
+                wte_set_component(plr_id, cmp::location)->set_x((float)((mgr::render_manager::get_arena_width() / 2) - 5));
+                wte_set_component(plr_id, cmp::location)->set_y((float)(mgr::render_manager::get_arena_height() - 40));
                 wte_set_component(plr_id, health)->hp = wte_get_component(plr_id, health)->hp_max;
                 wte_set_component(plr_id, cmp::enabled)->enable();
                 wte_set_component(plr_id, cmp::sprite)->set_cycle("main");
@@ -377,11 +377,13 @@ void wte_demo::new_game(void) {
         [](entity_id can_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             entity_id player_entity = world.get_id("player");
             //  Set the cannon's location to match the player.
-            wte_set_component(can_id, cmp::location)->pos_x =
-                wte_get_component(player_entity, cmp::location)->pos_x;
-            wte_set_component(can_id, cmp::location)->pos_y =
-                wte_get_component(player_entity, cmp::location)->pos_y -
-                wte_get_component(can_id, cmp::hitbox)->height;
+            wte_set_component(can_id, cmp::location)->set_x(
+                wte_get_component(player_entity, cmp::location)->get_x()
+            );
+            wte_set_component(can_id, cmp::location)->set_y(
+                wte_get_component(player_entity, cmp::location)->get_y() -
+                wte_get_component(can_id, cmp::hitbox)->get_height()
+            );
 
             wte_set_component(can_id, cmp::visible)->show();
             wte_set_component(can_id, cmp::enabled)->enable();
@@ -435,19 +437,21 @@ void wte_demo::new_game(void) {
             entity_id player_entity = world.get_id("player");
             if(wte_get_component(shd_id, energy)->amt > 0) {
                 //  Set the shield's location to match the player
-                wte_set_component(shd_id, cmp::location)->pos_x =
-                    wte_get_component(player_entity, cmp::location)->pos_x - 28;
-                wte_set_component(shd_id, cmp::location)->pos_y =
-                    wte_get_component(player_entity, cmp::location)->pos_y - 16;
+                wte_set_component(shd_id, cmp::location)->set_x(
+                    wte_get_component(player_entity, cmp::location)->get_x() - 28.0f
+                );
+                wte_set_component(shd_id, cmp::location)->set_y(
+                    wte_get_component(player_entity, cmp::location)->get_y() - 16.0f
+                );
 
                 wte_set_component(shd_id, cmp::visible)->show();
                 wte_set_component(shd_id, cmp::enabled)->enable();
-                wte_set_component(player_entity, cmp::hitbox)->solid = false;
+                wte_set_component(player_entity, cmp::hitbox)->make_fluid();
                 wte_set_component(shd_id, energy)->amt -= 1;
             } else {
                 wte_set_component(shd_id, cmp::visible)->hide();
                 wte_set_component(shd_id, cmp::enabled)->disable();
-                wte_set_component(player_entity, cmp::hitbox)->solid = true;
+                wte_set_component(player_entity, cmp::hitbox)->make_solid();
             }
         },
         //  Input for when button is not pressed.
@@ -456,7 +460,7 @@ void wte_demo::new_game(void) {
                 wte_set_component(shd_id, cmp::visible)->hide();
                 wte_set_component(shd_id, cmp::enabled)->disable();
                 entity_id player_entity = world.get_id("player");
-                wte_set_component(player_entity, cmp::hitbox)->solid = true;
+                wte_set_component(player_entity, cmp::hitbox)->make_solid();
             } else {
                 if(wte_get_component(shd_id, energy)->amt < wte_get_component(shd_id, energy)->amt_max)
                     wte_set_component(shd_id, energy)->amt += 1;
@@ -500,16 +504,18 @@ void wte_demo::new_game(void) {
                 [](entity_id ast_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
                     //  AI for asteroids defined here.
                     //  Move them at their speed and angle.
-                    wte_set_component(ast_id, cmp::location)->pos_x +=
+                    wte_set_component(ast_id, cmp::location)->adjust_x(
                         wte_get_component(ast_id, velocity)->speed *
-                        cos(wte_get_component(ast_id, cmp::direction)->angle * (M_PI / 180));
+                        cos(wte_get_component(ast_id, cmp::direction)->get_angle() * (M_PI / 180))
+                    );
 
-                    wte_set_component(ast_id, cmp::location)->pos_y +=
+                    wte_set_component(ast_id, cmp::location)->adjust_y(
                         wte_get_component(ast_id, velocity)->speed *
-                        sin(wte_get_component(ast_id, cmp::direction)->angle * (M_PI / 180));
+                        sin(wte_get_component(ast_id, cmp::direction)->get_angle() * (M_PI / 180))
+                    );
 
                     //  Perform OOB check.
-                    if(wte_get_component(ast_id, cmp::location)->pos_y > mgr::render_manager::get_arena_height() + 100) {
+                    if(wte_get_component(ast_id, cmp::location)->get_y() > (float)(mgr::render_manager::get_arena_height() + 100)) {
                         messages.add_message(message("spawner", "delete", world.get_name(ast_id)));
                     }
 

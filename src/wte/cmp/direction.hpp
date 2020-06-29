@@ -20,8 +20,8 @@ namespace wte
 namespace cmp
 {
 
-//! Direction component
 /*!
+ * \class Direction component
  * Store the direction of travel for an entity
  */
 class direction final : public component {
@@ -31,8 +31,52 @@ class direction final : public component {
          * \param a Angle of direction.
          * \return void
          */
-        inline direction(float a) : angle(a), draw_rotated(true) {};
+        inline direction(const float a) : angle(a), draw_rotated(true) {};
 
+        /*!
+         * Direction constructor.
+         * \param a Angle of direction.
+         * \param r Draw rotated flag.
+         * \return void
+         */
+        inline direction(const float a, const bool r) : angle(a), draw_rotated(r) {};
+
+        /*!
+         *
+         */
+        inline const float get_angle(void) const {
+            return angle;
+        };
+
+        /*!
+         *
+         */
+        inline void set_angle(const float& a) {
+            angle = a;
+        };
+
+        /*!
+         *
+         */
+        inline const bool show_rotated(void) const {
+            return draw_rotated;
+        };
+
+        /*!
+         *
+         */
+        inline void set_rotated(void) {
+            draw_rotated = true;
+        };
+
+        /*!
+         *
+         */
+        inline void unset_rotated(void) {
+            draw_rotated = false;
+        };
+
+    private:
         float angle;
         bool draw_rotated;
 };

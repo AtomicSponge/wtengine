@@ -54,4 +54,4 @@ Entities are in-game objects, and components are the data containers that make t
 
 #### SYSTEMS:
 
-Systems are the logic members that gets processed each step through the game loop.  The engine has a few pre-defined systems for use, but user created ones are  possible as well.  The input system is also extended to implement custom handling.
+Systems are the logic members that gets processed each step through the game loop.  The engine has a few pre-defined systems for use, but user created ones are  possible as well.

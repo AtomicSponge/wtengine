@@ -81,7 +81,7 @@ class animator : public component {
          * \param c Allegro color.
          * \return void
          */
-        inline void set_tint(ALLEGRO_COLOR& c) {
+        inline void set_tint(const ALLEGRO_COLOR& c) {
             tint_color = c;
             tint_set = true;
         };

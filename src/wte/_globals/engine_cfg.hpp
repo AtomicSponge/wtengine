@@ -20,8 +20,8 @@
 namespace wte
 {
 
-//!  Engine config map
 /*!
+ * \class Engine config map
  * Statics to store engine config variables.
  * Inherits map functionality from the variable_map class.
  * This class provides load/save functions.

@@ -25,10 +25,10 @@ namespace wte
 namespace sys
 {
 
-//! System interface class
 /*!
-  Extend this to create a new system
-*/
+ * \class System interface class
+ * Extend this to create a new system
+ */
 class system {
     public:
         inline virtual ~system() {};

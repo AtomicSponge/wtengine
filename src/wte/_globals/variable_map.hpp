@@ -22,8 +22,8 @@
 namespace wte
 {
 
-//!  Variable map
 /*!
+ * \class Variable map
  * Create a map of variables
  */
 template <class derived> class variable_map {

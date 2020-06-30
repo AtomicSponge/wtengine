@@ -25,8 +25,8 @@ namespace wte
 namespace cmp
 {
 
-//! Sample loop component
 /*!
+ * \class Sample loop component
  * Handle sample looping.
  */
 class sample_loop final : public component {

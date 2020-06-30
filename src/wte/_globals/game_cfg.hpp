@@ -25,8 +25,8 @@
 namespace wte
 {
 
-//!  Game config map
 /*!
+ * \class Game config map
  * Statics to store game config variables.
  * Inherits map functionality from the variable_map class.
  * This class provides load/save functions.

@@ -24,8 +24,8 @@ enum ENGINE_FLAG_ENUM {
     MAX_SYSTEM_FLAGS
 };
 
-//!  Engine flags
 /*!
+ * \class Engine flags
  * Collection of flags to store engine state
  */
 class engine_flags final {

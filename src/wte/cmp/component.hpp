@@ -20,8 +20,8 @@ namespace wte
 namespace cmp
 {
 
-//! Component interface class
 /*!
+ * \class Component interface class
  * Extend this to create a component
  */
 class component {

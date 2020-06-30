@@ -20,10 +20,10 @@ namespace wte
 namespace sys
 {
 
-//!  Colision system
 /*!
-  Will select components by team and test for a colision
-*/
+ * \class Colision system
+ * Will select components by team and test for a colision
+ */
 class colision final : public system {
     public:
         inline colision() : system("colision") {};

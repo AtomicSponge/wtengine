@@ -20,9 +20,9 @@ namespace wte
 namespace sys
 {
 
-//! Animate system
 /*!
- * Animate
+ * \class Animate system
+ * Find the animate components and process them.
  */
 class animate final : public system {
     public:

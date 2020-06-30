@@ -35,8 +35,8 @@ enum WTE_INPUT_FLAG_ENUM {
     WTE_MAX_INPUT_FLAGS
 };
 
-//!  Input flags
 /*!
+ * \class Input flags
  * Colletion of flags to store input state.
  */
 class input_flags final {

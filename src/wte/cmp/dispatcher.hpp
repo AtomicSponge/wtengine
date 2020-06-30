@@ -24,8 +24,8 @@ namespace wte
 namespace cmp
 {
 
-//! Dispatcher component
 /*!
+ * \class Dispatcher component
  * Tag components to be processed by the Logic system.
  * Define message processing in handle_msg lambda.
  */

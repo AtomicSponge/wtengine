@@ -35,7 +35,7 @@ class input final : public system {
 
         /*!
          * Input system run method
-         * Get all entities tagged with the input_handler component and run
+         * Get all entities tagged with the input_handler component and run.
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
          * \param current_time Current value of the main timer.

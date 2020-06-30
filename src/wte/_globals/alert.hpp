@@ -20,6 +20,7 @@ namespace wte
 {
 
 /*!
+ * \class Engine alerts
  * Allows the engine to set an alert to be displayed to the screen.
  * Alerts are cleared after the player presses a button.
  */

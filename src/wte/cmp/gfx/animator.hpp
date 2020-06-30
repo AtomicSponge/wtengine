@@ -76,6 +76,43 @@ class animator : public component {
             return *internal_bitmap;
         };
 
+        /*!
+         * Set a tint color.
+         * \param c Allegro color.
+         * \return void
+         */
+        inline void set_tint(ALLEGRO_COLOR& c) {
+            tint_color = c;
+            tint_set = true;
+        };
+
+        /*!
+         * Get the tint color.
+         * \param void
+         * \return Allegro color.
+         */
+        inline const ALLEGRO_COLOR get_tint(void) const {
+            return tint_color;
+        };
+
+        /*!
+         * Clear tint color.
+         * \param void
+         * \return void
+         */
+        inline void clear_tint(void) {
+            tint_set = false;
+        };
+
+        /*!
+         * Check if the bitmap should be drawn tinted.
+         * \param void
+         * \return True if tint set, false if tint cleared.
+         */
+        inline const bool draw_tinted(void) const {
+            return tint_set;
+        };
+
     protected:
         /*!
          * Animator constructor.
@@ -84,9 +121,13 @@ class animator : public component {
          * \return void
          */
         inline animator(std::size_t l, void func(const entity_id, mgr::entity_manager&, const int64_t)) :
-        layer(l), animate(func) {};
+        layer(l), tint_set(false), animate(func) {};
 
         ALLEGRO_BITMAP* internal_bitmap;
+
+    private:
+        ALLEGRO_COLOR tint_color;
+        bool tint_set;
 
         std::function<void(const entity_id, mgr::entity_manager&, const int64_t)> animate;
 

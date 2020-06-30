@@ -18,6 +18,7 @@
 #include <allegro5/allegro.h>
 
 #include "animator.hpp"
+#include "bitmap_map.hpp"
 
 namespace wte
 {
@@ -29,7 +30,7 @@ namespace cmp
  * \class Overlay component
  * Store the overlay bitmap.
  */
-class overlay final : public animator {
+class overlay final : public animator, public bitmap_map {
     public:
         /*!
          * Overlay constructor.
@@ -56,7 +57,6 @@ class overlay final : public animator {
          * \return void
          */
         inline ~overlay() {
-            for(auto & it : bmp_map) al_destroy_bitmap(it.second);
             al_destroy_bitmap(internal_bitmap);
             al_destroy_font(overlay_font);
         };
@@ -94,48 +94,6 @@ class overlay final : public animator {
         };
 
         /*!
-         * \brief Load a bitmap.
-         * Store in a map for reference to later.  Call this during entity creation.
-         * \param fname Filename to load.
-         * \param label Label for referencing bitmap.
-         */
-        inline bool load_bitmap(const std::string& label, const std::string& fname) {
-            ALLEGRO_FILE* file;
-            file = al_fopen(fname.c_str(), "rb");
-            if(!file) {
-                al_fclose(file);
-                return false;
-            }
-            ALLEGRO_BITMAP* temp_bitmap =
-                al_load_bitmap_f(file, fname.substr(fname.find("."), fname.length()).c_str());
-            al_fclose(file);
-
-            if(!temp_bitmap) return false;
-
-            #if WTE_USE_MAGIC_PINK
-            al_convert_mask_to_alpha(temp_bitmap, WTE_MAGIC_PINK);
-            #endif
-
-            bmp_map.insert(std::make_pair(label, al_clone_bitmap(temp_bitmap)));
-
-            al_destroy_bitmap(temp_bitmap);
-            return true;
-        };
-
-        /*!
-         * \brief Draw a loaded bitmap.
-         * Draws a bitmap from the reference map.  Call during animation.
-         * \param labal Label of saved bitmap.
-         * \param x X location of the overlay in pixels.
-         * \param y Y location of the overlay in pixels.
-         * \param flags Allegro Bitmap flags.
-         */
-        inline void draw_bitmap(const std::string& label, const float& x, const float& y, const int& flags) {
-            auto it = bmp_map.find(label);
-            if(it != bmp_map.end()) al_draw_bitmap(it->second, x, y, flags);
-        };
-
-        /*!
          * Get X position.
          * \param void
          * \return X position.
@@ -165,7 +123,7 @@ class overlay final : public animator {
     private:
         ALLEGRO_FONT* overlay_font;
 
-        std::map<std::string, ALLEGRO_BITMAP*> bmp_map;
+        //std::map<std::string, ALLEGRO_BITMAP*> bmp_map;
 
         int overlay_w, overlay_h;
         float pos_x, pos_y;

@@ -60,8 +60,8 @@ void wte_demo::load_menus(void) {
     {
         //  Configure main menu.
         menus.set_menu("main_menu")->set_title("WTE Demo");
-        //menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
-        menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
+        menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
+        //menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
         menus.set_menu("main_menu")->add_item(wte_menu_action("Settings", "open_menu", "settings"));
         menus.set_menu("main_menu")->add_item(wte_menu_action("Exit Game", "exit"));
     }
@@ -337,7 +337,7 @@ void wte_demo::new_game(void) {
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             wte_set_component(plr_id, cmp::velocity)->set_speed(0.0f);
         }
-    );  //  End player input handler.
+    );  //  End player input handling.
 
     wte_new_component(e_id, cmp::ai,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
@@ -355,6 +355,7 @@ void wte_demo::new_game(void) {
             //  Process player death.
             if(msg.get_cmd() == "death") {
                 game_cfg::subtract<int>("lives", 1);
+                wte_set_component(plr_id, cmp::velocity)->set_speed(0.0f);
                 wte_set_component(plr_id, cmp::sprite)->set_cycle("death");
                 messages.add_message(message("system", "disable_system", "input"));
                 if(game_cfg::get<int>("lives") == 0) {

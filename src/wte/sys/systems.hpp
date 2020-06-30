@@ -16,5 +16,6 @@
 #include "animate.hpp"
 #include "colision.hpp"
 #include "logic.hpp"
+#include "movement.hpp"
 
 #endif

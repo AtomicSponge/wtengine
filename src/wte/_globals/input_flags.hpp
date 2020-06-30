@@ -18,15 +18,21 @@ namespace wte
 {
 
 enum WTE_INPUT_FLAG_ENUM {
-   WTE_INPUT_UP, WTE_INPUT_DOWN, WTE_INPUT_LEFT, WTE_INPUT_RIGHT,
+    WTE_INPUT_UP_ON_DOWN,           WTE_INPUT_UP_ON_UP,
+    WTE_INPUT_DOWN_ON_DOWN,         WTE_INPUT_DOWN_ON_UP,
+    WTE_INPUT_LEFT_ON_DOWN,         WTE_INPUT_LEFT_ON_UP,
+    WTE_INPUT_RIGHT_ON_DOWN,        WTE_INPUT_RIGHT_ON_UP,
 
-   WTE_INPUT_ACTION_1, WTE_INPUT_ACTION_2, WTE_INPUT_ACTION_3,
-   WTE_INPUT_ACTION_4, WTE_INPUT_ACTION_5, WTE_INPUT_ACTION_6,
-   WTE_INPUT_ACTION_7, WTE_INPUT_ACTION_8, WTE_INPUT_ACTION_9,
+    WTE_INPUT_ACTION_1_ON_DOWN,     WTE_INPUT_ACTION_1_ON_UP,
+    WTE_INPUT_ACTION_2_ON_DOWN,     WTE_INPUT_ACTION_2_ON_UP,
+    WTE_INPUT_ACTION_3_ON_DOWN,     WTE_INPUT_ACTION_3_ON_UP,
+    WTE_INPUT_ACTION_4_ON_DOWN,     WTE_INPUT_ACTION_4_ON_UP,
 
-   WTE_INPUT_MENU_SELECT, WTE_INPUT_MENU_ALT, WTE_INPUT_MENU_CLOSE,
+    WTE_INPUT_MENU_ALT,
+    WTE_INPUT_MENU_SELECT,
+    WTE_INPUT_MENU_CLOSE,
 
-   WTE_MAX_INPUT_FLAGS
+    WTE_MAX_INPUT_FLAGS
 };
 
 //!  Input flags
@@ -41,30 +47,24 @@ class input_flags final {
         void operator=(input_flags const&) = delete;
 
         /*!
-         * Set a flag to true.
-         * \param f Index of the flag.
+         * Toggle flag to set.
+         * \param f Flag to set.
          * \return void
          */
-        inline static void set(const std::size_t& f) {
+        inline static void toggle(const std::size_t& f) {
             flags[f].store(true, std::memory_order_release);
         };
 
         /*!
-         * Set a flag to false.
-         * \param f Index of the flag.
-         * \return void
+         * \brief Check if a flag is set.
+         * Unsets the flag if it is.
+         * \param f Flag to check.
+         * \return True if set, false if not.
          */
-        inline static void unset(const std::size_t& f) {
-            flags[f].store(false, std::memory_order_release);
-        };
-
-        /*!
-         * Check the state of a flag.
-         * \param f Index of the flag.
-         * \return True if set, false if not set.
-         */
-        inline static const bool is_set(const std::size_t& f) {
-            return flags[f].load(std::memory_order_consume);
+        inline static const bool check(const std::size_t& f) {
+            const bool consume = flags[f].load(std::memory_order_consume);
+            if(consume) flags[f].store(false, std::memory_order_release);
+            return consume;
         };
 
         /*!

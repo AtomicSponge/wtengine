@@ -60,8 +60,8 @@ void wte_demo::load_menus(void) {
     {
         //  Configure main menu.
         menus.set_menu("main_menu")->set_title("WTE Demo");
-        menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
-        //menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
+        //menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
+        menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
         menus.set_menu("main_menu")->add_item(wte_menu_action("Settings", "open_menu", "settings"));
         menus.set_menu("main_menu")->add_item(wte_menu_action("Exit Game", "exit"));
     }
@@ -135,8 +135,9 @@ void wte_demo::load_menus(void) {
  */
 void wte_demo::load_systems(void) {
     wte_add_system(sys::input);
-    wte_add_system(sys::logic);
+    wte_add_system(sys::movement);
     wte_add_system(sys::colision);
+    wte_add_system(sys::logic);
     wte_add_system(sys::animate);
 }
 
@@ -276,34 +277,68 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::location, (mgr::render_manager::get_arena_width() / 2) - 5,
                                             mgr::render_manager::get_arena_height() - 40);
     wte_new_component(e_id, cmp::hitbox, 10, 10);
+    wte_new_component(e_id, cmp::bounding_box, 12.0f, 0.0f,
+                                               (float)(mgr::render_manager::get_arena_width() - 21),
+                                               (float)(mgr::render_manager::get_arena_height() - 32));
     wte_new_component(e_id, health, 1, 1);
     wte_new_component(e_id, cmp::visible);
     wte_new_component(e_id, cmp::enabled);
+    wte_new_component(e_id, cmp::direction, 0.0f, false);
+    wte_new_component(e_id, cmp::velocity, 0.0f);
+
+    wte_new_component(e_id, cmp::sprite, 32, 32, -11.0f, 0.0f, 1, 1);
+    wte_set_component(e_id, cmp::sprite)->load_sprite("ship.bmp");
+    wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 3);
+    wte_set_component(e_id, cmp::sprite)->add_cycle("death", 4, 7);
+    wte_set_component(e_id, cmp::sprite)->set_cycle("main");
+
+    //  TODO:  better directional handling!
     wte_new_component(e_id, cmp::input_handler);
-    wte_set_component(e_id, cmp::input_handler)->add_handle_on(WTE_INPUT_UP,
+    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_UP_ON_DOWN,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(wte_get_component(plr_id, cmp::location)->get_y() > 0)
-                wte_set_component(plr_id, cmp::location)->adjust_y(-5.0f);
+            wte_set_component(plr_id, cmp::direction)->set_angle(270.0f);
+            wte_set_component(plr_id, cmp::velocity)->set_speed(5.0f);
         }
     );
-    wte_set_component(e_id, cmp::input_handler)->add_handle_on(WTE_INPUT_DOWN,
+    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_UP_ON_UP,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(wte_get_component(plr_id, cmp::location)->get_y() < mgr::render_manager::get_arena_height() - 32)
-                wte_set_component(plr_id, cmp::location)->adjust_y(5.0f);
+            wte_set_component(plr_id, cmp::velocity)->set_speed(0.0f);
         }
     );
-    wte_set_component(e_id, cmp::input_handler)->add_handle_on(WTE_INPUT_LEFT,
+    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_DOWN_ON_DOWN,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(wte_get_component(plr_id, cmp::location)->get_x() > 12)
-                wte_set_component(plr_id, cmp::location)->adjust_x(-5.0f);
+            wte_set_component(plr_id, cmp::direction)->set_angle(90.0f);
+            wte_set_component(plr_id, cmp::velocity)->set_speed(5.0f);
         }
     );
-    wte_set_component(e_id, cmp::input_handler)->add_handle_on(WTE_INPUT_RIGHT,
+    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_DOWN_ON_UP,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(wte_get_component(plr_id, cmp::location)->get_x() < mgr::render_manager::get_arena_width() - 22)
-                wte_set_component(plr_id, cmp::location)->adjust_x(5.0f);
+            wte_set_component(plr_id, cmp::velocity)->set_speed(0.0f);
+        }
+    );
+    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_LEFT_ON_DOWN,
+        [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            wte_set_component(plr_id, cmp::direction)->set_angle(180.0f);
+            wte_set_component(plr_id, cmp::velocity)->set_speed(5.0f);
+        }
+    );
+    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_LEFT_ON_UP,
+        [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            wte_set_component(plr_id, cmp::velocity)->set_speed(0.0f);
+        }
+    );
+    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_RIGHT_ON_DOWN,
+        [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            wte_set_component(plr_id, cmp::direction)->set_angle(0.0f);
+            wte_set_component(plr_id, cmp::velocity)->set_speed(5.0f);
+        }
+    );
+    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_RIGHT_ON_UP,
+        [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            wte_set_component(plr_id, cmp::velocity)->set_speed(0.0f);
         }
     );  //  End player input handler.
+
     wte_new_component(e_id, cmp::ai,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             if(wte_get_component(plr_id, health)->hp <= 0) {  //  Check player health.
@@ -314,6 +349,7 @@ void wte_demo::new_game(void) {
             }
         }
     );  //  End player logic.
+
     wte_new_component(e_id, cmp::dispatcher,
         [](entity_id plr_id, message& msg, mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
             //  Process player death.
@@ -350,11 +386,6 @@ void wte_demo::new_game(void) {
             }
         }
     );  //  End player message processing.
-    wte_new_component(e_id, cmp::sprite, 32, 32, -11.0f, 0.0f, 1, 1);
-    wte_set_component(e_id, cmp::sprite)->load_sprite("ship.bmp");
-    wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 3);
-    wte_set_component(e_id, cmp::sprite)->add_cycle("death", 4, 7);
-    wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
     /* ********************************* */
     /* *** Main cannon entity ********** */
@@ -369,9 +400,14 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, damage, 5);
     wte_new_component(e_id, cmp::sample_loop);
     wte_set_component(e_id, cmp::sample_loop)->add_handle("fx1", "cannon_fire");
+
+    wte_new_component(e_id, cmp::sprite, 10, 200, 0.0f, 0.0f, 2, 2);
+    wte_set_component(e_id, cmp::sprite)->load_sprite("cannon.bmp");
+    wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 3);
+    wte_set_component(e_id, cmp::sprite)->set_cycle("main");
+
     wte_new_component(e_id, cmp::input_handler);
-    wte_set_component(e_id, cmp::input_handler)->add_handle_on_off(WTE_INPUT_ACTION_1,
-        //  Input for when button is being pressed.
+    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_ACTION_1_ON_DOWN,
         [](entity_id can_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             entity_id player_entity = world.get_id("player");
             //  Set the cannon's location to match the player.
@@ -383,27 +419,40 @@ void wte_demo::new_game(void) {
                 wte_get_component(can_id, cmp::hitbox)->get_height()
             );
 
+            //  Turn the cannon on.
             wte_set_component(can_id, cmp::visible)->show();
             wte_set_component(can_id, cmp::enabled)->enable();
 
             //  Play sound effect.
             wte_set_component(can_id, cmp::sample_loop)->start(messages, "cannon_fire");
-        },
-        //  Input for when button is not pressed.
+        }
+    );
+
+    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_ACTION_1_ON_UP,
         [](entity_id can_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(wte_get_component(can_id, cmp::enabled)) {
-                wte_set_component(can_id, cmp::visible)->hide();
-                wte_set_component(can_id, cmp::enabled)->disable();
-            }
+            //  Turn the cannon off.
+            wte_set_component(can_id, cmp::visible)->hide();
+            wte_set_component(can_id, cmp::enabled)->disable();
 
             //  Stop sound effect.
             wte_set_component(can_id, cmp::sample_loop)->stop(messages, "cannon_fire");
         }
     );  //  End cannon input handler.
-    wte_new_component(e_id, cmp::sprite, 10, 200, 0.0f, 0.0f, 2, 2);
-    wte_set_component(e_id, cmp::sprite)->load_sprite("cannon.bmp");
-    wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 3);
-    wte_set_component(e_id, cmp::sprite)->set_cycle("main");
+
+    wte_new_component(e_id, cmp::ai,
+        [](entity_id can_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            entity_id player_entity = world.get_id("player");
+            //  Set the cannon's location to match the player.
+            wte_set_component(can_id, cmp::location)->set_x(
+                wte_get_component(player_entity, cmp::location)->get_x()
+            );
+            wte_set_component(can_id, cmp::location)->set_y(
+                wte_get_component(player_entity, cmp::location)->get_y() -
+                wte_get_component(can_id, cmp::hitbox)->get_height()
+            );
+        }
+    );  //  End cannon logic.
+
     wte_new_component(e_id, cmp::dispatcher,
         [](entity_id can_id, message& msg, mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
             if(msg.get_cmd() == "colision") {
@@ -424,51 +473,87 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::team, 0);
     wte_new_component(e_id, cmp::location, 0, 0);
     wte_new_component(e_id, cmp::hitbox, 64, 64, false);
+    wte_set_component(e_id, cmp::hitbox)->make_fluid();
     wte_new_component(e_id, cmp::visible, false);
     wte_new_component(e_id, cmp::enabled, false);
     wte_new_component(e_id, energy, 50, 100);
     wte_new_component(e_id, damage, 100);
-    wte_new_component(e_id, cmp::input_handler);
-    wte_set_component(e_id, cmp::input_handler)->add_handle_on_off(WTE_INPUT_ACTION_2,
-        //  Input for when button is being pressed.
-        [](entity_id shd_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            entity_id player_entity = world.get_id("player");
-            if(wte_get_component(shd_id, energy)->amt > 0) {
-                //  Set the shield's location to match the player
-                wte_set_component(shd_id, cmp::location)->set_x(
-                    wte_get_component(player_entity, cmp::location)->get_x() - 28.0f
-                );
-                wte_set_component(shd_id, cmp::location)->set_y(
-                    wte_get_component(player_entity, cmp::location)->get_y() - 16.0f
-                );
+    wte_new_component(e_id, cmp::sample_loop);
+    wte_set_component(e_id, cmp::sample_loop)->add_handle("fx2", "shield_sound");
 
-                wte_set_component(shd_id, cmp::visible)->show();
-                wte_set_component(shd_id, cmp::enabled)->enable();
-                wte_set_component(player_entity, cmp::hitbox)->make_fluid();
-                wte_set_component(shd_id, energy)->amt -= 1;
-            } else {
-                wte_set_component(shd_id, cmp::visible)->hide();
-                wte_set_component(shd_id, cmp::enabled)->disable();
-                wte_set_component(player_entity, cmp::hitbox)->make_solid();
-            }
-        },
-        //  Input for when button is not pressed.
-        [](entity_id shd_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            if(wte_get_component(shd_id, cmp::enabled)->check()) {
-                wte_set_component(shd_id, cmp::visible)->hide();
-                wte_set_component(shd_id, cmp::enabled)->disable();
-                entity_id player_entity = world.get_id("player");
-                wte_set_component(player_entity, cmp::hitbox)->make_solid();
-            } else {
-                if(wte_get_component(shd_id, energy)->amt < wte_get_component(shd_id, energy)->amt_max)
-                    wte_set_component(shd_id, energy)->amt += 1;
-            }
-        }
-    );  //  End shield input handler.
     wte_new_component(e_id, cmp::sprite, 64, 64, 0.0f, 0.0f, 6, 2);
     wte_set_component(e_id, cmp::sprite)->load_sprite("shield.bmp");
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
+
+    wte_new_component(e_id, cmp::input_handler);
+    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_ACTION_2_ON_DOWN,
+        [](entity_id shd_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            entity_id player_entity = world.get_id("player");
+            //  Set the shield's location to match the player
+            wte_set_component(shd_id, cmp::location)->set_x(
+                wte_get_component(player_entity, cmp::location)->get_x() - 28.0f
+            );
+            wte_set_component(shd_id, cmp::location)->set_y(
+                wte_get_component(player_entity, cmp::location)->get_y() - 16.0f
+            );
+
+            if(wte_set_component(shd_id, energy)->amt > 0) {
+                //  Enable the shield.
+                wte_set_component(shd_id, cmp::visible)->show();
+                wte_set_component(shd_id, cmp::enabled)->enable();
+                wte_set_component(player_entity, cmp::hitbox)->make_fluid();
+
+                //  Play sound effect.
+                wte_set_component(shd_id, cmp::sample_loop)->start(messages, "shield_sound");
+            }
+        }
+    );
+    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_ACTION_2_ON_UP,
+        [](entity_id shd_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            //  Disable shield.
+            wte_set_component(shd_id, cmp::visible)->hide();
+            wte_set_component(shd_id, cmp::enabled)->disable();
+            entity_id player_entity = world.get_id("player");
+            wte_set_component(player_entity, cmp::hitbox)->make_solid();
+            //  Stop sound effect.
+            wte_set_component(shd_id, cmp::sample_loop)->stop(messages, "shield_sound");
+        }
+    );  //  End shield input handler.
+
+    wte_new_component(e_id, cmp::ai,
+        //  Enabeled AI.
+        [](entity_id shd_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            entity_id player_entity = world.get_id("player");
+            //  Set the shield's location to match the player.
+            wte_set_component(shd_id, cmp::location)->set_x(
+                wte_get_component(player_entity, cmp::location)->get_x() - 28.0f
+            );
+            wte_set_component(shd_id, cmp::location)->set_y(
+                wte_get_component(player_entity, cmp::location)->get_y() - 16.0f
+            );
+
+            //  Drain the shield.
+            if(wte_set_component(shd_id, energy)->amt > 0)
+                wte_set_component(shd_id, energy)->amt -= 1;
+
+            if(wte_get_component(shd_id, energy)->amt <= 0) {
+                //  Disable shield.
+                wte_set_component(shd_id, cmp::visible)->hide();
+                wte_set_component(shd_id, cmp::enabled)->disable();
+                wte_set_component(player_entity, cmp::hitbox)->make_solid();
+                //  Stop sound effect.
+                wte_set_component(shd_id, cmp::sample_loop)->stop(messages, "shield_sound");
+            }
+        },
+        //  Disabeled AI.
+        [](entity_id shd_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            //  Recharge the shield.
+            if(wte_set_component(shd_id, energy)->amt < wte_set_component(shd_id, energy)->amt_max)
+                wte_set_component(shd_id, energy)->amt += 1;
+        }
+    );  //  End shield logic.
+
     wte_new_component(e_id, cmp::dispatcher,
         [](entity_id shd_id, message& msg, mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
             if(msg.get_cmd() == "colision") {
@@ -498,20 +583,17 @@ void wte_demo::new_game(void) {
             wte_new_component(e_id, cmp::velocity, std::stof(args[4]));
             wte_new_component(e_id, cmp::visible);
             wte_new_component(e_id, cmp::enabled);
+
+            wte_new_component(e_id, cmp::sprite, 16, 16, 0.0f, 0.0f, 10, 0);
+            wte_set_component(e_id, cmp::sprite)->load_sprite("asteroid.bmp");
+            wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
+            wte_set_component(e_id, cmp::sprite)->set_cycle("main");
+            wte_set_component(e_id, cmp::sprite)->set_scale_factor_x((float)size);
+            wte_set_component(e_id, cmp::sprite)->set_scale_factor_y((float)size);
+
             wte_new_component(e_id, cmp::ai,
                 [](entity_id ast_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
                     //  AI for asteroids defined here.
-                    //  Move them at their speed and angle.
-                    wte_set_component(ast_id, cmp::location)->adjust_x(
-                        wte_get_component(ast_id, cmp::velocity)->get_speed() *
-                        cos(wte_get_component(ast_id, cmp::direction)->get_radian())
-                    );
-
-                    wte_set_component(ast_id, cmp::location)->adjust_y(
-                        wte_get_component(ast_id, cmp::velocity)->get_speed() *
-                        sin(wte_get_component(ast_id, cmp::direction)->get_radian())
-                    );
-
                     //  Perform OOB check.
                     if(wte_get_component(ast_id, cmp::location)->get_y() > (float)(mgr::render_manager::get_arena_height() + 100)) {
                         messages.add_message(message("spawner", "delete", world.get_name(ast_id)));
@@ -524,6 +606,7 @@ void wte_demo::new_game(void) {
                     }
                 }
             );  //  End asteroid AI
+
             wte_new_component(e_id, cmp::dispatcher,
                 [](entity_id ast_id, message& msg, mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
                     if(msg.get_cmd() == "colision") {
@@ -537,13 +620,7 @@ void wte_demo::new_game(void) {
                     }
                 }
             );  //  End asteroid message dispatching.
-            wte_new_component(e_id, cmp::sprite, 16, 16, 0.0f, 0.0f, 10, 0);
-            wte_set_component(e_id, cmp::sprite)->load_sprite("asteroid.bmp");
-            wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
-            wte_set_component(e_id, cmp::sprite)->set_cycle("main");
-            wte_set_component(e_id, cmp::sprite)->set_scale_factor_x((float)size);
-            wte_set_component(e_id, cmp::sprite)->set_scale_factor_y((float)size);
-        }
+        }  //  End asteroid spawner function.
     );
 
     //  Reset score.

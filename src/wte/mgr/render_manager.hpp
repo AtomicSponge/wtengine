@@ -416,13 +416,19 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                         destination_y = world.get_component<cmp::location>(it.first)->get_y() +
                             (al_get_bitmap_height(render_tmp_bmp) * it.second->get_scale_factor_y() / 2) +
                             (it.second->get_draw_offset_y() * it.second->get_scale_factor_y());
+                    } else {
+                        destination_x = world.get_component<cmp::location>(it.first)->get_x() +
+                            it.second->get_draw_offset_x();
+                        destination_y = world.get_component<cmp::location>(it.first)->get_y() +
+                            it.second->get_draw_offset_y();
                     }
                 } else {
-                    destination_x = world.get_component<cmp::location>(it.first)->get_x() +
-                        it.second->get_draw_offset_x();
-                    destination_y = world.get_component<cmp::location>(it.first)->get_y() +
-                        it.second->get_draw_offset_y();
+                        destination_x = world.get_component<cmp::location>(it.first)->get_x() +
+                            it.second->get_draw_offset_x();
+                        destination_y = world.get_component<cmp::location>(it.first)->get_y() +
+                            it.second->get_draw_offset_y();
                 }
+
                 //  Draw the sprite.
                 al_draw_scaled_rotated_bitmap(
                     render_tmp_bmp, center_x, center_y, destination_x, destination_y,

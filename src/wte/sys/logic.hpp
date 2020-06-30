@@ -20,8 +20,8 @@ namespace wte
 namespace sys
 {
 
-//! Logic system
 /*!
+ * \class Logic system
  * Processes entities that have ai components.
  * Also sends messages to entities with dispatch components.
  */
@@ -56,7 +56,12 @@ class logic final : public system {
             component_container<cmp::ai> ai_components = world.set_components<cmp::ai>();
 
             for(auto & it : ai_components) {
-                it.second->run(it.first, world, messages, current_time);
+                if(world.has_component<cmp::enabled>(it.first)) {
+                    if(world.get_component<cmp::enabled>(it.first)->check())
+                        it.second->run_enabled(it.first, world, messages, current_time);
+                    else
+                        it.second->run_disabled(it.first, world, messages, current_time);
+                }
             }
         };
 };

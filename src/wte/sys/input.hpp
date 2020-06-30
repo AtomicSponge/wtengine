@@ -49,12 +49,10 @@ class input final : public system {
                 world.set_components<cmp::input_handler>();
 
             for(auto & c_it : input_components) {  //  Loop all input components
-                for(auto & i_it : c_it.second->input_map) {  //  Loop the input map for each component
-                    if(input_flags::is_set(i_it.first))  //  Button is down
-                        i_it.second.first(c_it.first, world, messages, current_time);
-                    else  //  Button is up
-                        i_it.second.second(c_it.first, world, messages, current_time);
-                }  //  End input map loop
+                for(auto & i_it : c_it.second->get_map()) {  //  Loop the input map
+                    if(input_flags::check(i_it.first))  //  Check if there is an event to consume.
+                        i_it.second(c_it.first, world, messages, current_time);
+                }
             }  //  End input component loop
         };
 };

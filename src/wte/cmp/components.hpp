@@ -13,6 +13,7 @@
 #define WTE_COMPONENTS_HPP
 
 #include "ai.hpp"
+#include "bounding_box.hpp"
 #include "direction.hpp"
 #include "dispatcher.hpp"
 #include "enabled.hpp"

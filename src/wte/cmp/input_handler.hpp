@@ -31,6 +31,14 @@ namespace cmp
  * Tag an entity to be processed by the Input system
  */
 class input_handler final : public component {
+    //! \typedef Container for the action map.
+    typedef std::map<const std::size_t,
+                     std::function<void(const entity_id&,
+                                        mgr::entity_manager&,
+                                        mgr::message_manager&,
+                                        const int64_t&)>
+            > action_map;
+
     public:
         /*!
          * Input handler constructor.
@@ -38,7 +46,7 @@ class input_handler final : public component {
          * \return void
          */
         inline input_handler() {
-            input_map.clear();
+            input_action_map.clear();
         };
 
         /*!
@@ -47,95 +55,38 @@ class input_handler final : public component {
          * \return void
          */
         inline ~input_handler() {
-            input_map.clear();
+            input_action_map.clear();
         };
 
         /*!
-         * \brief Add input handler.
-         * Adds a handler with input down only handling.
-         * \param button WTE_INPUT enum item.
-         * \param func_on Function to run when the button is pressed.
-         * \return True if added, false if not.
+         * Get the input map.
+         * \param void
+         * \return Map of input events.
          */
-        inline const bool add_handle_on(
-            const std::size_t& button,
-            void func_on(const entity_id,
-                         mgr::entity_manager&,
-                         mgr::message_manager&,
-                         const int64_t)
-        ) {
-            auto func_off =
-                [](const entity_id plr_id,
-                   mgr::entity_manager& world,
-                   mgr::message_manager& messages,
-                   const int64_t engine_time) {};
-            auto ret = input_map.insert(
-                std::make_pair(button, std::make_pair(func_on, func_off))
-            );
-            return ret.second;
+        inline const action_map get_map(void) const {
+            return input_action_map;
         };
 
         /*!
-         * \brief Add input handler.
-         * Adds a handler with input up only handling.
-         * \param button WTE_INPUT enum item.
-         * \param func_off Function to run when the button is not pressed.
-         * \return True if added, false if not.
+         * Add event handler.
+         * \param button Button event.
+         * \param func Action to take on event.
+         * \return True if created, false if not.
          */
-        inline const bool add_handle_off(
+        inline const bool add_event(
             const std::size_t& button,
-            void func_off(const entity_id,
-                          mgr::entity_manager&,
-                          mgr::message_manager&,
-                          const int64_t)
+            void func(const entity_id,
+                      mgr::entity_manager&,
+                      mgr::message_manager&,
+                      const int64_t)
         ) {
-            auto func_on =
-                [](const entity_id plr_id,
-                   mgr::entity_manager& world,
-                   mgr::message_manager& messages,
-                   const int64_t engine_time) {};
-            auto ret = input_map.insert(
-                std::make_pair(button, std::make_pair(func_on, func_off))
-            );
+            auto ret = input_action_map.insert(std::make_pair(button, func));
             return ret.second;
         };
 
-        /*!
-         * \brief Add input handler.
-         * Adds a handler with input up and down handling.
-         * \param button WTE_INPUT enum item.
-         * \param func_on Function to run when the button is pressed.
-         * \param func_off Function to run when the button is not pressed.
-         * \return True if added, false if not.
-         */
-        inline const bool add_handle_on_off(
-            const std::size_t& button,
-            void func_on(const entity_id,
-                         mgr::entity_manager&,
-                         mgr::message_manager&,
-                         const int64_t),
-            void func_off(const entity_id,
-                          mgr::entity_manager&,
-                          mgr::message_manager&,
-                          const int64_t)
-        ) {
-            auto ret = input_map.insert(
-                std::make_pair(button, std::make_pair(func_on, func_off))
-            );
-            return ret.second;
-        };
-
+    private:
         //! Store the input map.
-        std::map<const std::size_t, std::pair<
-            std::function<void(const entity_id&,
-                               mgr::entity_manager&,
-                               mgr::message_manager&,
-                               const int64_t&)>,
-            std::function<void(const entity_id&,
-                               mgr::entity_manager&,
-                               mgr::message_manager&,
-                               const int64_t&)>
-        >> input_map;
+        action_map input_action_map;
 };
 
 } //  namespace cmp

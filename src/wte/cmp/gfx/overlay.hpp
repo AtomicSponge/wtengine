@@ -42,9 +42,10 @@ class overlay final : public animator, public bitmap_map {
          * \param func Function to define what is displayed in the overlay.
          * \return void
          */
-        inline overlay(int w, int h, float x, float y,
-                       std::size_t l, void func(entity_id, mgr::entity_manager&, int64_t)) :
-        overlay_w(w), overlay_h(h), pos_x(x), pos_y(y), animator(l, func) {
+        inline overlay(const int w, const int h, const float x, const float y,
+                       const std::size_t l, void func(entity_id, mgr::entity_manager&, int64_t)) :
+        overlay_w(w), overlay_h(h), pos_x(x), pos_y(y), animator(l, func)
+        {
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             internal_bitmap = al_create_bitmap(overlay_w, overlay_h);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);

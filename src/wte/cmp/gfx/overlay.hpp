@@ -28,7 +28,7 @@ namespace cmp
 
 /*!
  * \class Overlay component
- * Store the overlay bitmap.
+ * Store an overlay bitmap and define drawing to it.
  */
 class overlay final : public animator, public bitmap_map {
     public:
@@ -122,8 +122,6 @@ class overlay final : public animator, public bitmap_map {
 
     private:
         ALLEGRO_FONT* overlay_font;
-
-        //std::map<std::string, ALLEGRO_BITMAP*> bmp_map;
 
         int overlay_w, overlay_h;
         float pos_x, pos_y;

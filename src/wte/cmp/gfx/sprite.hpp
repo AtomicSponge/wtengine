@@ -90,10 +90,13 @@ class sprite final : public animator {
         inline void load_sprite(const std::string fname) {
             ALLEGRO_FILE* file;
             file = al_fopen(fname.c_str(), "rb");
+            if(!file) throw std::runtime_error("Couldn't find sprite file:  " + fname);
+
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             internal_bitmap = al_load_bitmap_f(file, fname.substr(fname.find("."),
                                                      fname.length()).c_str());
             al_fclose(file);
-            if(!internal_bitmap) throw std::runtime_error("Error loading sprite file:  " + fname);
+            if(!internal_bitmap) throw std::runtime_error("Couldn't load sprite:  " + fname);
 
             #if WTE_USE_MAGIC_PINK
             al_convert_mask_to_alpha(internal_bitmap, WTE_MAGIC_PINK);

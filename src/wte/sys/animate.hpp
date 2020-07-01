@@ -44,10 +44,9 @@ class animate final : public system {
             component_container<cmp::animator> animation_components = world.set_components<cmp::animator>();
 
             for(auto & it : animation_components) {
-                if(world.has_component<cmp::visible>(it.first)) {
-                    if(world.get_component<cmp::visible>(it.first)->check())
+                if(world.has_component<cmp::visible>(it.first) &&
+                   world.get_component<cmp::visible>(it.first)->check())
                         it.second->run(it.first, world, current_time);
-                }
             }
         }
 };

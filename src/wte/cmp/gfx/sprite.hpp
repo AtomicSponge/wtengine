@@ -87,7 +87,7 @@ class sprite final : public animator {
          * \param fname Filename of sprite sheet.
          * \return void
          */
-        inline void load_sprite(const std::string fname) {
+        inline void load_sprite(const std::string& fname) {
             ALLEGRO_FILE* file;
             file = al_fopen(fname.c_str(), "rb");
             if(!file) throw std::runtime_error("Couldn't find sprite file:  " + fname);
@@ -113,7 +113,9 @@ class sprite final : public animator {
          * \param stop End cell of cycle.
          * \return True if created, false if not.
          */
-        inline const bool add_cycle(const std::string name, const std::size_t start, const std::size_t stop) {
+        inline const bool add_cycle(const std::string& name,
+                                    const std::size_t& start,
+                                    const std::size_t& stop) {
             auto ret = cycles.insert(std::make_pair(name, std::make_pair(start, stop)));
             return ret.second;
         };
@@ -123,7 +125,7 @@ class sprite final : public animator {
          * \param name Name of cycle to set.
          * \return True if set, false if not.
          */
-        inline const bool set_cycle(const std::string name) {
+        inline const bool set_cycle(const std::string& name) {
             auto it = cycles.find(name);
             if(it != cycles.end()) {
                 start_frame = it->second.first;

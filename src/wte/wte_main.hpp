@@ -465,14 +465,16 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
 
             //  CMD:  enable_system - Turn a system on for processing.
             case CMD_STR_ENABLE_SYSTEM:
-                systems.enable_system(it->get_arg(0));
+                if(engine_flags::is_set(GAME_STARTED))
+                    systems.enable_system(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 
             //  CMD:  disable_system - Turn a system off so it's run member is skipped.
             //  Message dispatching is still processed.
             case CMD_STR_DISABLE_SYSTEM:
-                systems.disable_system(it->get_arg(0));
+                if(engine_flags::is_set(GAME_STARTED))
+                    systems.disable_system(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 
@@ -527,7 +529,7 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
 
             //  CMD:  load_script - Load a script into the message queue.
             case CMD_STR_LOAD_SCRIPT:
-                if(it->get_arg(0) != "") {
+                if(engine_flags::is_set(GAME_STARTED) && it->get_arg(0) != "") {
                     if(!messages.load_script(it->get_arg(0)))
                         alert::set_alert("Error loading script:  " + it->get_arg(0));
                 }

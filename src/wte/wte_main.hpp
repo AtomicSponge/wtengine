@@ -397,10 +397,12 @@ inline void wte_main::do_game(void) {
         messages.prune();
         #endif
 
+        //  Check if display looses focus.
         if(event.type == ALLEGRO_EVENT_DISPLAY_SWITCH_OUT) {
             out_of_focus();
         }
 
+        //  Check if display returns to focus.
         if(event.type == ALLEGRO_EVENT_DISPLAY_SWITCH_IN) {
             back_in_focus();
         }

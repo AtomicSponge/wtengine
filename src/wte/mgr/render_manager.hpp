@@ -374,7 +374,12 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         for(auto & it : background_componenet_set) {
             if(world.has_component<cmp::visible>(it.first) &&
                world.get_component<cmp::visible>(it.first)->check())
+            {
+                if(it.second->draw_tinted())
+                    al_draw_tinted_bitmap(&it.second->get_bitmap(), it.second->get_tint(), 0, 0, 0);
+                else
                     al_draw_bitmap(&it.second->get_bitmap(), 0, 0, 0);
+            }
         }
 
         /*
@@ -392,7 +397,8 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         for(auto & it : sprite_componenet_set) {
             if(world.has_component<cmp::location>(it.first) &&
                world.has_component<cmp::visible>(it.first) &&
-               world.get_component<cmp::visible>(it.first)->check()) {
+               world.get_component<cmp::visible>(it.first)->check())
+            {
                 //  Get the current sprite frame.
                 render_tmp_bmp = al_create_sub_bitmap(
                     &it.second->get_bitmap(),
@@ -427,12 +433,21 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                 }
 
                 //  Draw the sprite.
-                al_draw_scaled_rotated_bitmap(
-                    render_tmp_bmp, center_x, center_y, destination_x, destination_y,
-                    it.second->get_scale_factor_x(),
-                    it.second->get_scale_factor_y(),
-                    sprite_angle, 0
-                );
+                if(it.second->draw_tinted())
+                    al_draw_tinted_scaled_rotated_bitmap(
+                        render_tmp_bmp, it.second->get_tint(),
+                        center_x, center_y, destination_x, destination_y,
+                        it.second->get_scale_factor_x(),
+                        it.second->get_scale_factor_y(),
+                        sprite_angle, 0
+                    );
+                else
+                    al_draw_scaled_rotated_bitmap(
+                        render_tmp_bmp, center_x, center_y, destination_x, destination_y,
+                        it.second->get_scale_factor_x(),
+                        it.second->get_scale_factor_y(),
+                        sprite_angle, 0
+                    );
                 al_destroy_bitmap(render_tmp_bmp);
             }
         }
@@ -448,7 +463,8 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
             if(world.has_component<cmp::hitbox>(it.first) &&
                world.has_component<cmp::location>(it.first) &&
                world.has_component<cmp::enabled>(it.first) &&
-               world.get_component<cmp::enabled>(it.first)->check()) {
+               world.get_component<cmp::enabled>(it.first)->check())
+            {
                 //  Select color based on team.
                 ALLEGRO_COLOR team_color;
                 switch(world.get_component<cmp::team>(it.first)->get_team()) {
@@ -486,8 +502,14 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         for(auto & it : overlay_componenet_set) {
             if(world.has_component<cmp::visible>(it.first) &&
                world.get_component<cmp::visible>(it.first)->check())
+            {
+                if(it.second->draw_tinted())
+                    al_draw_tinted_bitmap(&it.second->get_bitmap(), it.second->get_tint(),
+                                           it.second->get_pos_x(), it.second->get_pos_y(), 0);
+                else
                     al_draw_bitmap(&it.second->get_bitmap(),
                                     it.second->get_pos_x(), it.second->get_pos_y(), 0);
+            }
         }
 
         /*

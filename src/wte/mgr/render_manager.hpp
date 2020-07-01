@@ -372,8 +372,9 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
 
         //  Draw each background by layer.
         for(auto & it : background_componenet_set) {
-            if(world.get_component<cmp::visible>(it.first)->check())
-                al_draw_bitmap(&it.second->get_bitmap(), 0, 0, 0);
+            if(world.has_component<cmp::visible>(it.first) &&
+               world.get_component<cmp::visible>(it.first)->check())
+                    al_draw_bitmap(&it.second->get_bitmap(), 0, 0, 0);
         }
 
         /*
@@ -389,7 +390,9 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
 
         //  Draw each sprite in order.
         for(auto & it : sprite_componenet_set) {
-            if(world.get_component<cmp::visible>(it.first)->check()) {
+            if(world.has_component<cmp::location>(it.first) &&
+               world.has_component<cmp::visible>(it.first) &&
+               world.get_component<cmp::visible>(it.first)->check()) {
                 //  Get the current sprite frame.
                 render_tmp_bmp = al_create_sub_bitmap(
                     &it.second->get_bitmap(),
@@ -404,24 +407,18 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                 float destination_x = 0.0f, destination_y = 0.0f;
 
                 //  Check if the sprite should be rotated.
-                if(world.has_component<cmp::direction>(it.first)) {
-                    if(world.get_component<cmp::direction>(it.first)->show_rotated()) {
-                        sprite_angle = world.get_component<cmp::direction>(it.first)->get_radian();
-                        center_x = (al_get_bitmap_width(render_tmp_bmp) / 2);
-                        center_y = (al_get_bitmap_height(render_tmp_bmp) / 2);
+                if(world.has_component<cmp::direction>(it.first) &&
+                   world.get_component<cmp::direction>(it.first)->show_rotated()) {
+                    sprite_angle = world.get_component<cmp::direction>(it.first)->get_radian();
+                    center_x = (al_get_bitmap_width(render_tmp_bmp) / 2);
+                    center_y = (al_get_bitmap_height(render_tmp_bmp) / 2);
 
-                        destination_x = world.get_component<cmp::location>(it.first)->get_x() +
-                            (al_get_bitmap_width(render_tmp_bmp) * it.second->get_scale_factor_x() / 2) +
-                            (it.second->get_draw_offset_x() * it.second->get_scale_factor_x());
-                        destination_y = world.get_component<cmp::location>(it.first)->get_y() +
-                            (al_get_bitmap_height(render_tmp_bmp) * it.second->get_scale_factor_y() / 2) +
-                            (it.second->get_draw_offset_y() * it.second->get_scale_factor_y());
-                    } else {
-                        destination_x = world.get_component<cmp::location>(it.first)->get_x() +
-                            it.second->get_draw_offset_x();
-                        destination_y = world.get_component<cmp::location>(it.first)->get_y() +
-                            it.second->get_draw_offset_y();
-                    }
+                    destination_x = world.get_component<cmp::location>(it.first)->get_x() +
+                        (al_get_bitmap_width(render_tmp_bmp) * it.second->get_scale_factor_x() / 2) +
+                        (it.second->get_draw_offset_x() * it.second->get_scale_factor_x());
+                    destination_y = world.get_component<cmp::location>(it.first)->get_y() +
+                        (al_get_bitmap_height(render_tmp_bmp) * it.second->get_scale_factor_y() / 2) +
+                        (it.second->get_draw_offset_y() * it.second->get_scale_factor_y());
                 } else {
                         destination_x = world.get_component<cmp::location>(it.first)->get_x() +
                             it.second->get_draw_offset_x();
@@ -449,6 +446,8 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         for(auto & it : sprite_componenet_set) {
             //  Make sure the entity has a hitbox and is enabled.
             if(world.has_component<cmp::hitbox>(it.first) &&
+               world.has_component<cmp::location>(it.first) &&
+               world.has_component<cmp::enabled>(it.first) &&
                world.get_component<cmp::enabled>(it.first)->check()) {
                 //  Select color based on team.
                 ALLEGRO_COLOR team_color;
@@ -485,9 +484,10 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
 
         //  Draw each overlay by layer.
         for(auto & it : overlay_componenet_set) {
-            if(world.get_component<cmp::visible>(it.first)->check())
-                al_draw_bitmap(&it.second->get_bitmap(),
-                               it.second->get_pos_x(), it.second->get_pos_y(), 0);
+            if(world.has_component<cmp::visible>(it.first) &&
+               world.get_component<cmp::visible>(it.first)->check())
+                    al_draw_bitmap(&it.second->get_bitmap(),
+                                    it.second->get_pos_x(), it.second->get_pos_y(), 0);
         }
 
         /*

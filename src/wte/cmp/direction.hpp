@@ -35,6 +35,20 @@ class direction final : public component {
          * \param a Angle of direction.
          * \return void
          */
+        inline direction(void) : angle(0.0f), draw_rotated(true) {};
+
+        /*!
+         * Direction constructor.
+         * \param a Angle of direction.
+         * \return void
+         */
+        inline direction(const bool r) : angle(0.0f), draw_rotated(r) {};
+
+        /*!
+         * Direction constructor.
+         * \param a Angle of direction.
+         * \return void
+         */
         inline direction(const float a) : angle(a), draw_rotated(true) {};
 
         /*!
@@ -46,21 +60,21 @@ class direction final : public component {
         inline direction(const float a, const bool r) : angle(a), draw_rotated(r) {};
 
         /*!
+         * Set angle of direction.
+         * \param a Angle in degrees.
+         * \return void
+         */
+        inline void set_degrees(const float& a) {
+            angle = a * M_PI / 180.0f;
+        };
+
+        /*!
          * Get angle of direction.
          * \param void
          * \return Angle in degrees.
          */
-        inline const float get_angle(void) const {
-            return angle;
-        };
-
-        /*!
-         * Get angle of direction in radians.
-         * \param void
-         * \return Angle in radians.
-         */
-        inline const float get_radian(void) const {
-            return (angle * M_PI / 180.0f);
+        inline const float get_degrees(void) const {
+            return (angle * 180.0f / M_PI);
         };
 
         /*!
@@ -68,8 +82,17 @@ class direction final : public component {
          * \param a Angle in degrees.
          * \return void
          */
-        inline void set_angle(const float& a) {
+        inline void set_radians(const float& a) {
             angle = a;
+        };
+
+        /*!
+         * Get angle of direction in radians.
+         * \param void
+         * \return Angle in radians.
+         */
+        inline const float get_radians(void) const {
+            return angle;
         };
 
         /*!

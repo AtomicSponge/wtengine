@@ -415,7 +415,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
                 //  Check if the sprite should be rotated.
                 if(world.has_component<cmp::direction>(it.first) &&
                    world.get_component<cmp::direction>(it.first)->show_rotated()) {
-                    sprite_angle = world.get_component<cmp::direction>(it.first)->get_radian();
+                    sprite_angle = world.get_component<cmp::direction>(it.first)->get_radians();
                     center_x = (al_get_bitmap_width(render_tmp_bmp) / 2);
                     center_y = (al_get_bitmap_height(render_tmp_bmp) / 2);
 

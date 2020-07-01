@@ -60,8 +60,8 @@ void wte_demo::load_menus(void) {
     {
         //  Configure main menu.
         menus.set_menu("main_menu")->set_title("WTE Demo");
-        //menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
-        menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
+        menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
+        //menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
         menus.set_menu("main_menu")->add_item(wte_menu_action("Settings", "open_menu", "settings"));
         menus.set_menu("main_menu")->add_item(wte_menu_action("Exit Game", "exit"));
     }
@@ -297,7 +297,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::input_handler);
     wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_UP_ON_DOWN,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            wte_set_component(plr_id, cmp::direction)->set_angle(270.0f);
+            wte_set_component(plr_id, cmp::direction)->set_degrees(270.0f);
             wte_set_component(plr_id, cmp::velocity)->set_speed(5.0f);
         }
     );
@@ -308,7 +308,7 @@ void wte_demo::new_game(void) {
     );
     wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_DOWN_ON_DOWN,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            wte_set_component(plr_id, cmp::direction)->set_angle(90.0f);
+            wte_set_component(plr_id, cmp::direction)->set_degrees(90.0f);
             wte_set_component(plr_id, cmp::velocity)->set_speed(5.0f);
         }
     );
@@ -319,7 +319,7 @@ void wte_demo::new_game(void) {
     );
     wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_LEFT_ON_DOWN,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            wte_set_component(plr_id, cmp::direction)->set_angle(180.0f);
+            wte_set_component(plr_id, cmp::direction)->set_degrees(180.0f);
             wte_set_component(plr_id, cmp::velocity)->set_speed(5.0f);
         }
     );
@@ -330,7 +330,7 @@ void wte_demo::new_game(void) {
     );
     wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_RIGHT_ON_DOWN,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            wte_set_component(plr_id, cmp::direction)->set_angle(0.0f);
+            wte_set_component(plr_id, cmp::direction)->set_degrees(0.0f);
             wte_set_component(plr_id, cmp::velocity)->set_speed(5.0f);
         }
     );
@@ -581,7 +581,8 @@ void wte_demo::new_game(void) {
             wte_new_component(e_id, cmp::hitbox, (float)(size * 16), (float)(size * 16));
             wte_new_component(e_id, health, size * 10, size * 10);
             wte_new_component(e_id, damage, 10);
-            wte_new_component(e_id, cmp::direction, std::stof(args[3]));
+            wte_new_component(e_id, cmp::direction);
+            wte_set_component(e_id, cmp::direction)->set_degrees(std::stof(args[3]));
             wte_new_component(e_id, cmp::velocity, std::stof(args[4]));
             wte_new_component(e_id, cmp::visible);
             wte_new_component(e_id, cmp::enabled);

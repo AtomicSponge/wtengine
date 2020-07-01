@@ -58,12 +58,12 @@ class movement final : public system {
                 if(world.has_component<cmp::location>(it.first) && world.has_component<cmp::direction>(it.first)) {
                     world.set_component<cmp::location>(it.first)->adjust_x(
                         it.second->get_speed() *
-                        cos(world.get_component<cmp::direction>(it.first)->get_radian())
+                        cos(world.get_component<cmp::direction>(it.first)->get_radians())
                     );
 
                     world.set_component<cmp::location>(it.first)->adjust_y(
                         it.second->get_speed() *
-                        sin(world.get_component<cmp::direction>(it.first)->get_radian())
+                        sin(world.get_component<cmp::direction>(it.first)->get_radians())
                     );
                 }
             }

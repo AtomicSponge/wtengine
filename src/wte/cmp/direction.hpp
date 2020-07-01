@@ -26,41 +26,42 @@ namespace cmp
 
 /*!
  * \class Direction component
- * Store the direction of travel for an entity
+ * Store the direction of travel for an entity in radians.
+ * Can also convert to degrees.
  */
 class direction final : public component {
     public:
         /*!
          * Direction constructor.
-         * \param a Angle of direction.
+         * \param void
          * \return void
          */
         inline direction(void) : angle(0.0f), draw_rotated(true) {};
 
         /*!
          * Direction constructor.
-         * \param a Angle of direction.
+         * \param r Draw rotated flag.
          * \return void
          */
         inline direction(const bool r) : angle(0.0f), draw_rotated(r) {};
 
         /*!
          * Direction constructor.
-         * \param a Angle of direction.
+         * \param a Angle of direction in radians.
          * \return void
          */
         inline direction(const float a) : angle(a), draw_rotated(true) {};
 
         /*!
          * Direction constructor.
-         * \param a Angle of direction.
+         * \param a Angle of direction in radians.
          * \param r Draw rotated flag.
          * \return void
          */
         inline direction(const float a, const bool r) : angle(a), draw_rotated(r) {};
 
         /*!
-         * Set angle of direction.
+         * Set angle of direction using degrees.
          * \param a Angle in degrees.
          * \return void
          */
@@ -69,7 +70,7 @@ class direction final : public component {
         };
 
         /*!
-         * Get angle of direction.
+         * Get angle of direction in degrees.
          * \param void
          * \return Angle in degrees.
          */
@@ -78,8 +79,8 @@ class direction final : public component {
         };
 
         /*!
-         * Set angle of direction.
-         * \param a Angle in degrees.
+         * Set angle of direction in radians.
+         * \param a Angle in radians.
          * \return void
          */
         inline void set_radians(const float& a) {

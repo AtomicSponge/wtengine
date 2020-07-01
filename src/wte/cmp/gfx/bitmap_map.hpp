@@ -81,6 +81,21 @@ class bitmap_map {
         };
 
         /*!
+         * Delete a bitmap from the map.
+         * \param labal Label of saved bitmap.
+         * \return True if removed, false if not.
+         */
+        inline const bool delete_bitmap(const std::string& label) {
+            auto it = bmp_map.find(label);
+            if(it != bmp_map.end()) {
+                al_destroy_bitmap(it->second);
+                bmp_map.erase(it);
+                return true;
+            }
+            return false;
+        };
+
+        /*!
          * Draw a bitmap from the map.
          * \param labal Label of saved bitmap.
          * \param dx X location of the background to draw to.

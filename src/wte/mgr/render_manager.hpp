@@ -453,7 +453,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         }
 
         /*
-         * Draw hitboxes if enabled.
+         * Draw sprite hitboxes if enabled.
          * Use different colors for each team.
          * Note:  Re-uses sprite container for rendering.
          */
@@ -461,6 +461,7 @@ inline void render_manager::render(const menu_manager& menus, const entity_manag
         for(auto & it : sprite_componenet_set) {
             //  Make sure the entity has a hitbox and is enabled.
             if(world.has_component<cmp::hitbox>(it.first) &&
+               world.has_component<cmp::team>(it.first) &&
                world.has_component<cmp::location>(it.first) &&
                world.has_component<cmp::enabled>(it.first) &&
                world.get_component<cmp::enabled>(it.first)->check())

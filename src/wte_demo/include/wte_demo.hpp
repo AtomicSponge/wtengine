@@ -19,17 +19,17 @@ class wte_demo final : public wte::wte_main {
         ~wte_demo();
 
     private:
-        //!  Define this to implement custom menu layout
+        //  Define this to implement custom menu layout
         void load_menus(void) override;
-        //!  Define this to load all systems to be used by the game
+        //  Define this to load all systems to be used by the game
         void load_systems(void) override;
-        //!  Define what gets loaded when a game starts
+        //  Define what gets loaded when a game starts
         void new_game(void) override;
-        //!  Define what happens at the end of a game
+        //  Define what happens at the end of a game
         void end_game(void) override;
-        //!  On menu open
+        //  On menu open
         void on_menu_open(void) override;
-        //!  On menu close
+        //  On menu close
         void on_menu_close(void) override;
 };
 

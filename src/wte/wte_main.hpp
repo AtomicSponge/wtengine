@@ -204,6 +204,10 @@ class wte_main : private wte_display {
         virtual void on_menu_open(void) {};
         //!  Optional:  On menu close.
         virtual void on_menu_close(void) {};
+        //!  Optional:  Out of focus handler
+        virtual void out_of_focus(void) {};
+        //!  Optional:  In focus handler
+        virtual void back_in_focus(void) {};
         //!  Optional:  Define custom system message handling.
         virtual void handle_custom_sys_msg(const message&) {};
         /* *** End overridden function members *** */
@@ -392,6 +396,14 @@ inline void wte_main::do_game(void) {
         //  Delete timed messages that were not processed.
         messages.prune();
         #endif
+
+        if(event.type == ALLEGRO_EVENT_DISPLAY_SWITCH_OUT) {
+            out_of_focus();
+        }
+
+        if(event.type == ALLEGRO_EVENT_DISPLAY_SWITCH_IN) {
+            back_in_focus();
+        }
 
         //  Force quit if the game window is closed.
         if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {

@@ -60,8 +60,8 @@ void wte_demo::load_menus(void) {
     {
         //  Configure main menu.
         menus.set_menu("main_menu")->set_title("WTE Demo");
-        //menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
-        menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
+        menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
+        //menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
         menus.set_menu("main_menu")->add_item(wte_menu_action("Settings", "open_menu", "settings"));
         menus.set_menu("main_menu")->add_item(wte_menu_action("Exit Game", "exit"));
     }
@@ -191,6 +191,7 @@ void wte_demo::new_game(void) {
             }
         }
     );  //  End background rendering.
+
     wte_new_component(e_id, cmp::dispatcher,
         [](entity_id bkg_id, message& msg, mgr::entity_manager& world, mgr::message_manager& messages, int64_t current_time) {
             //  Define message processing for the starfield.

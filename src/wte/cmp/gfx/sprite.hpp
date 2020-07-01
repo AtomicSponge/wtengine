@@ -56,13 +56,17 @@ class sprite final : public animator {
             [](entity_id e_id, mgr::entity_manager& world, int64_t engine_time) {
                 //  Define sprite animation process.
                 if(engine_time % world.get_component<sprite>(e_id)->rate == 0) {
+                    //  Increment frame.
                     world.set_component<sprite>(e_id)->current_frame++;
+                    //  Loop frame.
                     if(world.get_component<sprite>(e_id)->current_frame > world.get_component<sprite>(e_id)->stop_frame) {
                         world.set_component<sprite>(e_id)->current_frame = world.get_component<sprite>(e_id)->start_frame;
                     }
+                    //  Calculate the X position in the sprite sheet.
                     world.set_component<sprite>(e_id)->sprite_x = (float)
                         ((int)(world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width +
                         world.get_component<sprite>(e_id)->sheet_width) % world.get_component<sprite>(e_id)->sheet_width);
+                    //  Calculate the Y position in the sprite sheet.
                     world.set_component<sprite>(e_id)->sprite_y = (float)
                         ((int)((world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width) /
                         world.get_component<sprite>(e_id)->sheet_width) * world.get_component<sprite>(e_id)->sprite_height);

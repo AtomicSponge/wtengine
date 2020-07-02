@@ -178,28 +178,28 @@ inline void input_manager::run(void) {
                         y_axis = -1.0f;
                         input_flags::set_radians(std::atan2(y_axis, x_axis));
                         input_flags::toggle(WTE_INPUT_UP_ON_DOWN);
-                        input_flags::toggle(WTE_INPUT_DIRECTIONAL_EVENT_ON);
+                        input_flags::toggle(WTE_INPUT_DIRECTON_SET);
                         break;
                     case ALLEGRO_KEY_DOWN:
                     case ALLEGRO_KEY_S:
                         y_axis = 1.0f;
                         input_flags::set_radians(std::atan2(y_axis, x_axis));
                         input_flags::toggle(WTE_INPUT_DOWN_ON_DOWN);
-                        input_flags::toggle(WTE_INPUT_DIRECTIONAL_EVENT_ON);
+                        input_flags::toggle(WTE_INPUT_DIRECTON_SET);
                         break;
                     case ALLEGRO_KEY_LEFT:
                     case ALLEGRO_KEY_A:
                         x_axis = -1.0f;
                         input_flags::set_radians(std::atan2(y_axis, x_axis));
                         input_flags::toggle(WTE_INPUT_LEFT_ON_DOWN);
-                        input_flags::toggle(WTE_INPUT_DIRECTIONAL_EVENT_ON);
+                        input_flags::toggle(WTE_INPUT_DIRECTON_SET);
                         break;
                     case ALLEGRO_KEY_RIGHT:
                     case ALLEGRO_KEY_D:
                         x_axis = 1.0f;
                         input_flags::set_radians(std::atan2(y_axis, x_axis));
                         input_flags::toggle(WTE_INPUT_RIGHT_ON_DOWN);
-                        input_flags::toggle(WTE_INPUT_DIRECTIONAL_EVENT_ON);
+                        input_flags::toggle(WTE_INPUT_DIRECTON_SET);
                         break;
                     case ALLEGRO_KEY_LCTRL:
                     case ALLEGRO_KEY_RCTRL:
@@ -227,7 +227,7 @@ inline void input_manager::run(void) {
                             y_axis = 0.0f;
                             input_flags::set_radians(std::atan2(y_axis, x_axis));
                             if(x_axis == 0.0f && y_axis == 0.0f)
-                                input_flags::toggle(WTE_INPUT_DIRECTIONAL_EVENT_OFF);
+                                input_flags::toggle(WTE_INPUT_DIRECTION_UNSET);
                         }
                         input_flags::toggle(WTE_INPUT_UP_ON_UP);
                         break;
@@ -237,7 +237,7 @@ inline void input_manager::run(void) {
                             y_axis = 0.0f;
                             input_flags::set_radians(std::atan2(y_axis, x_axis));
                             if(x_axis == 0.0f && y_axis == 0.0f)
-                                input_flags::toggle(WTE_INPUT_DIRECTIONAL_EVENT_OFF);
+                                input_flags::toggle(WTE_INPUT_DIRECTION_UNSET);
                         }
                         input_flags::toggle(WTE_INPUT_DOWN_ON_UP);
                         break;
@@ -247,7 +247,7 @@ inline void input_manager::run(void) {
                             x_axis = 0.0f;
                             input_flags::set_radians(std::atan2(y_axis, x_axis));
                             if(x_axis == 0.0f && y_axis == 0.0f)
-                                input_flags::toggle(WTE_INPUT_DIRECTIONAL_EVENT_OFF);
+                                input_flags::toggle(WTE_INPUT_DIRECTION_UNSET);
                         }
                         input_flags::toggle(WTE_INPUT_LEFT_ON_UP);
                         break;
@@ -257,7 +257,7 @@ inline void input_manager::run(void) {
                             x_axis = 0.0f;
                             input_flags::set_radians(std::atan2(y_axis, x_axis));
                             if(x_axis == 0.0f && y_axis == 0.0f)
-                                input_flags::toggle(WTE_INPUT_DIRECTIONAL_EVENT_OFF);
+                                input_flags::toggle(WTE_INPUT_DIRECTION_UNSET);
                         }
                         input_flags::toggle(WTE_INPUT_RIGHT_ON_UP);
                         break;

@@ -51,11 +51,11 @@ class input final : public system {
             for(auto & c_it : input_components) {  //  Loop all input components
                 if(c_it.second->is_binded() && world.has_component<cmp::direction>(c_it.first)) {
                     if(world.has_component<cmp::velocity>(c_it.first))
-                        if(input_flags::check(WTE_INPUT_DIRECTIONAL_EVENT_ON)) {
+                        if(input_flags::check(WTE_INPUT_DIRECTON_SET)) {
                             world.set_component<cmp::direction>(c_it.first)->set_radians(input_flags::get_radians());
                             world.set_component<cmp::velocity>(c_it.first)->set_velocity(5.0f);
                         }
-                        if(input_flags::check(WTE_INPUT_DIRECTIONAL_EVENT_OFF)) {
+                        if(input_flags::check(WTE_INPUT_DIRECTION_UNSET)) {
                             world.set_component<cmp::velocity>(c_it.first)->set_velocity(0.0f);
                         }
                 }

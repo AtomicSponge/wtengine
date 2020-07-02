@@ -42,6 +42,42 @@ class bounding_box final : public component {
                min_x(lx), min_y(ly), max_x(rx), max_y(ry) {};
 
         /*!
+         * Set left X of the bounding box.
+         * \param mx Left X
+         * \return void
+         */
+        inline void set_min_x(const float& mx) {
+            min_x = mx;
+        };
+
+        /*!
+         * Set left Y of the bounding box.
+         * \param mx Left Y
+         * \return void
+         */
+        inline void set_min_y(const float& my) {
+            min_y = my;
+        };
+
+        /*!
+         * Set right X of the bounding box.
+         * \param mx Right X
+         * \return void
+         */
+        inline void set_max_x(const float& mx) {
+            max_x = mx;
+        };
+
+        /*!
+         * Set right Y of the bounding box.
+         * \param mx right Y
+         * \return void
+         */
+        inline void set_max_y(const float& my) {
+            max_y = my;
+        };
+
+        /*!
          * Get the left X of the bounding box.
          * \param void
          * \return Left X

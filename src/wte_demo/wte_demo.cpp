@@ -277,7 +277,6 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::team, 0);
     wte_new_component(e_id, cmp::location, (mgr::render_manager::get_arena_width() / 2) - 5,
                                             mgr::render_manager::get_arena_height() - 40);
-
     wte_new_component(e_id, cmp::hitbox, 10, 10);
     wte_new_component(e_id, cmp::bounding_box, 12.0f, 0.0f,
                                                (float)(mgr::render_manager::get_arena_width() - 21),

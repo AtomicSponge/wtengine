@@ -60,8 +60,8 @@ void wte_demo::load_menus(void) {
     {
         //  Configure main menu.
         menus.set_menu("main_menu")->set_title("WTE Demo");
-        //menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
-        menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
+        menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
+        //menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
         menus.set_menu("main_menu")->add_item(wte_menu_action("Settings", "open_menu", "settings"));
         menus.set_menu("main_menu")->add_item(wte_menu_action("Exit Game", "exit"));
     }
@@ -275,10 +275,8 @@ void wte_demo::new_game(void) {
     e_id = world.new_entity();
     world.set_name(e_id, "player");
     wte_new_component(e_id, cmp::team, 0);
-    //wte_new_component(e_id, cmp::location, (mgr::render_manager::get_arena_width() / 2) - 5,
-                                            //mgr::render_manager::get_arena_height() - 40);
-    wte_new_component(e_id, cmp::location, mgr::render_manager::get_arena_width() / 2,
-                                           mgr::render_manager::get_arena_height() / 2);
+    wte_new_component(e_id, cmp::location, (mgr::render_manager::get_arena_width() / 2) - 5,
+                                            mgr::render_manager::get_arena_height() - 40);
 
     wte_new_component(e_id, cmp::hitbox, 10, 10);
     wte_new_component(e_id, cmp::bounding_box, 12.0f, 0.0f,

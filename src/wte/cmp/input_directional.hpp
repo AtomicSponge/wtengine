@@ -37,14 +37,15 @@ class input_directional final : public component {
          */
         inline input_directional(
             const std::size_t ib,
-            void func_a(const entity_id,
+            void func_a(const entity_id&,
+                        const float&,
                         mgr::entity_manager&,
                         mgr::message_manager&,
-                        const int64_t),
-            void func_b(const entity_id,
+                        const int64_t&),
+            void func_b(const entity_id&,
                         mgr::entity_manager&,
                         mgr::message_manager&,
-                        const int64_t)
+                        const int64_t&)
         ) : input_bind(ib), direction_set(func_a), direction_unset(func_b) {};
 
         /*!
@@ -59,10 +60,11 @@ class input_directional final : public component {
         }
 
         inline void on_set(const entity_id& e_id,
+                           const float& dir,
                            mgr::entity_manager& world,
                            mgr::message_manager& messages,
                            const int64_t& current_time) {
-            direction_set(e_id, world, messages, current_time);
+            direction_set(e_id, dir, world, messages, current_time);
         };
 
         inline void on_unset(const entity_id& e_id,
@@ -76,6 +78,7 @@ class input_directional final : public component {
         std::size_t input_bind;
 
         std::function<void(const entity_id&,
+                           const float&,
                            mgr::entity_manager&,
                            mgr::message_manager&,
                            const int64_t&)> direction_set;

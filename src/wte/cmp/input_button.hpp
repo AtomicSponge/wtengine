@@ -75,10 +75,10 @@ class input_button final : public component {
          */
         inline const bool add_event(
             const std::size_t& button,
-            void func(const entity_id,
+            void func(const entity_id&,
                       mgr::entity_manager&,
                       mgr::message_manager&,
-                      const int64_t)
+                      const int64_t&)
         ) {
             auto ret = input_action_map.insert(std::make_pair(button, func));
             return ret.second;

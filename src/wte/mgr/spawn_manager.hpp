@@ -60,7 +60,7 @@ class spawn_manager final : public manager<spawn_manager> {
          * \param world Reference to the entity manager.
          * \return void
          */
-        inline void process(const message_container messages, entity_manager& world) {
+        inline void process(const message_container& messages, entity_manager& world) {
             for(auto & m_it : messages) {
                 if(m_it.get_cmd() == "new") {
                     auto s_it = spawner.find(m_it.get_arg(0));
@@ -90,15 +90,15 @@ class spawn_manager final : public manager<spawn_manager> {
          * \param func Function for creating the entity.
          * \return True if inserted into the spawn map, false if not.
          */
-        inline const bool add_spawn(const std::string name, const std::size_t num_args,
-                                    void func(const entity_id, entity_manager&, const msg_arg_list)) {
+        inline const bool add_spawn(const std::string& name, const std::size_t& num_args,
+                                    void func(const entity_id&, entity_manager&, const msg_arg_list&)) {
             auto ret = spawner.insert(std::make_pair(name, std::make_pair(num_args, func)));
             return ret.second;
         };
 
     private:
         std::map<std::string, std::pair<std::size_t,
-            std::function<void(const entity_id, entity_manager&, const msg_arg_list)>>> spawner;
+            std::function<void(const entity_id&, entity_manager&, const msg_arg_list&)>>> spawner;
 };
 
 template <> inline bool spawn_manager::manager<spawn_manager>::initialized = false;

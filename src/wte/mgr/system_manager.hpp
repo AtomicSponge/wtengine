@@ -40,7 +40,7 @@ class system_manager final : public manager<system_manager> {
          * \param void
          * \return void
          */
-        inline system_manager() :finalized(false) {
+        inline system_manager() : finalized(false) {
             systems.clear();
         };
 
@@ -111,7 +111,7 @@ class system_manager final : public manager<system_manager> {
          */
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
-                        int64_t current_time) {
+                        const int64_t& current_time) {
             for(auto & it : systems)
                 if((it)->is_enabled()) (it)->run(world, messages, current_time);
         };
@@ -127,7 +127,7 @@ class system_manager final : public manager<system_manager> {
          */
         inline void dispatch(mgr::entity_manager& world,
                              mgr::message_manager& messages,
-                             int64_t current_time) {
+                             const int64_t& current_time) {
             component_container<cmp::dispatcher> dispatch_components =
                 world.set_components<cmp::dispatcher>();
 
@@ -176,7 +176,7 @@ class system_manager final : public manager<system_manager> {
          * \param sys Name of system to enable.
          * \return True if the system was found, false if it was not.
          */
-        inline const bool enable_system(std:: string sys) {
+        inline const bool enable_system(const std::string& sys) {
             for(auto & it : systems) {
                 if((it)->get_name() == sys) (it)->enable();
                 return true;
@@ -190,7 +190,7 @@ class system_manager final : public manager<system_manager> {
          * \param sys Name of system to disable.
          * \return True if the system was found, false if it was not
          */
-        inline const bool disable_system(std:: string sys) {
+        inline const bool disable_system(const std::string& sys) {
             for(auto & it : systems) {
                 if((it)->get_name() == sys) (it)->disable();
                 return true;

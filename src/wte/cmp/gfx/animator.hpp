@@ -120,7 +120,7 @@ class animator : public component {
          * \param func Animation function.
          * \return void
          */
-        inline animator(std::size_t l, void func(const entity_id, mgr::entity_manager&, const int64_t)) :
+        inline animator(std::size_t l, void func(const entity_id&, mgr::entity_manager&, const int64_t&)) :
         layer(l), tint_set(false), animate(func) {};
 
         ALLEGRO_BITMAP* internal_bitmap;
@@ -129,7 +129,7 @@ class animator : public component {
         ALLEGRO_COLOR tint_color;
         bool tint_set;
 
-        std::function<void(const entity_id, mgr::entity_manager&, const int64_t)> animate;
+        std::function<void(const entity_id&, mgr::entity_manager&, const int64_t&)> animate;
 
         std::size_t layer;
 };

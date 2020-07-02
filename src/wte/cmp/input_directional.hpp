@@ -55,10 +55,16 @@ class input_directional final : public component {
          */
         inline ~input_directional() {};
 
+        /*!
+         *
+         */
         inline const std::size_t get_bind(void) const {
             return input_bind;
-        }
+        };
 
+        /*!
+         *
+         */
         inline void on_set(const entity_id& e_id,
                            const float& rad,
                            mgr::entity_manager& world,
@@ -67,6 +73,9 @@ class input_directional final : public component {
             direction_set(e_id, rad, world, messages, current_time);
         };
 
+        /*!
+         *
+         */
         inline void on_unset(const entity_id& e_id,
                              mgr::entity_manager& world,
                              mgr::message_manager& messages,

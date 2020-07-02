@@ -288,7 +288,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::direction, false);
     wte_new_component(e_id, cmp::velocity);
 
-    wte_new_component(e_id, cmp::sprite, 32, 32, -11.0f, 0.0f, 1, 1);
+    wte_new_component(e_id, cmp::sprite, 32.0f, 32.0f, -11.0f, 0.0f, 1, 1);
     wte_set_component(e_id, cmp::sprite)->load_sprite("ship.bmp");
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 3);
     wte_set_component(e_id, cmp::sprite)->add_cycle("death", 4, 7);
@@ -367,7 +367,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::sample_loop);
     wte_set_component(e_id, cmp::sample_loop)->add_handle("fx1", "cannon_fire");
 
-    wte_new_component(e_id, cmp::sprite, 10, 200, 0.0f, 0.0f, 2, 2);
+    wte_new_component(e_id, cmp::sprite, 10.0f, 200.0f, 0.0f, 0.0f, 2, 2);
     wte_set_component(e_id, cmp::sprite)->load_sprite("cannon.bmp");
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 3);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
@@ -447,7 +447,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::sample_loop);
     wte_set_component(e_id, cmp::sample_loop)->add_handle("fx2", "shield_sound");
 
-    wte_new_component(e_id, cmp::sprite, 64, 64, 0.0f, 0.0f, 6, 2);
+    wte_new_component(e_id, cmp::sprite, 64.0f, 64.0f, 0.0f, 0.0f, 6, 2);
     wte_set_component(e_id, cmp::sprite)->load_sprite("shield.bmp");
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
@@ -551,7 +551,7 @@ void wte_demo::new_game(void) {
             wte_new_component(e_id, cmp::visible);
             wte_new_component(e_id, cmp::enabled);
 
-            wte_new_component(e_id, cmp::sprite, 16, 16, 0.0f, 0.0f, 10, 0);
+            wte_new_component(e_id, cmp::sprite, 16.0f, 16.0f, 0.0f, 0.0f, 10, 0);
             wte_set_component(e_id, cmp::sprite)->load_sprite("asteroid.bmp");
             wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
             wte_set_component(e_id, cmp::sprite)->set_cycle("main");

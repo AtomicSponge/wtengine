@@ -12,6 +12,11 @@
 #ifndef WTE_GLOBAL_DEFINES_HPP
 #define WTE_GLOBAL_DEFINES_HPP
 
+//  Enable math defines for entire engine.
+#ifndef _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
+#endif
+
 //  Define true & false for macro use.
 #define TRUE (1)
 #define FALSE (0)

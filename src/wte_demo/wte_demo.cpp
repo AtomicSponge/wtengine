@@ -60,8 +60,8 @@ void wte_demo::load_menus(void) {
     {
         //  Configure main menu.
         menus.set_menu("main_menu")->set_title("WTE Demo");
-        menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
-        //menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
+        //menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
+        menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
         menus.set_menu("main_menu")->add_item(wte_menu_action("Settings", "open_menu", "settings"));
         menus.set_menu("main_menu")->add_item(wte_menu_action("Exit Game", "exit"));
     }
@@ -275,8 +275,11 @@ void wte_demo::new_game(void) {
     e_id = world.new_entity();
     world.set_name(e_id, "player");
     wte_new_component(e_id, cmp::team, 0);
-    wte_new_component(e_id, cmp::location, (mgr::render_manager::get_arena_width() / 2) - 5,
-                                            mgr::render_manager::get_arena_height() - 40);
+    //wte_new_component(e_id, cmp::location, (mgr::render_manager::get_arena_width() / 2) - 5,
+                                            //mgr::render_manager::get_arena_height() - 40);
+    wte_new_component(e_id, cmp::location, mgr::render_manager::get_arena_width() / 2,
+                                           mgr::render_manager::get_arena_height() / 2);
+
     wte_new_component(e_id, cmp::hitbox, 10, 10);
     wte_new_component(e_id, cmp::bounding_box, 12.0f, 0.0f,
                                                (float)(mgr::render_manager::get_arena_width() - 21),
@@ -284,8 +287,8 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, health, 1, 1);
     wte_new_component(e_id, cmp::visible);
     wte_new_component(e_id, cmp::enabled);
-    wte_new_component(e_id, cmp::direction, 0.0f, false);
-    wte_new_component(e_id, cmp::velocity, 0.0f);
+    wte_new_component(e_id, cmp::direction, false);
+    wte_new_component(e_id, cmp::velocity, 1.0f);
 
     wte_new_component(e_id, cmp::sprite, 32, 32, -11.0f, 0.0f, 1, 1);
     wte_set_component(e_id, cmp::sprite)->load_sprite("ship.bmp");
@@ -293,52 +296,8 @@ void wte_demo::new_game(void) {
     wte_set_component(e_id, cmp::sprite)->add_cycle("death", 4, 7);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
-    //  TODO:  better directional handling!
     wte_new_component(e_id, cmp::input_handler);
-    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_UP_ON_DOWN,
-        [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            wte_set_component(plr_id, cmp::direction)->set_degrees(270.0f);
-            wte_set_component(plr_id, cmp::velocity)->set_speed(5.0f);
-        }
-    );
-    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_UP_ON_UP,
-        [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            wte_set_component(plr_id, cmp::velocity)->set_speed(0.0f);
-        }
-    );
-    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_DOWN_ON_DOWN,
-        [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            wte_set_component(plr_id, cmp::direction)->set_degrees(90.0f);
-            wte_set_component(plr_id, cmp::velocity)->set_speed(5.0f);
-        }
-    );
-    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_DOWN_ON_UP,
-        [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            wte_set_component(plr_id, cmp::velocity)->set_speed(0.0f);
-        }
-    );
-    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_LEFT_ON_DOWN,
-        [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            wte_set_component(plr_id, cmp::direction)->set_degrees(180.0f);
-            wte_set_component(plr_id, cmp::velocity)->set_speed(5.0f);
-        }
-    );
-    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_LEFT_ON_UP,
-        [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            wte_set_component(plr_id, cmp::velocity)->set_speed(0.0f);
-        }
-    );
-    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_RIGHT_ON_DOWN,
-        [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            wte_set_component(plr_id, cmp::direction)->set_degrees(0.0f);
-            wte_set_component(plr_id, cmp::velocity)->set_speed(5.0f);
-        }
-    );
-    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_RIGHT_ON_UP,
-        [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            wte_set_component(plr_id, cmp::velocity)->set_speed(0.0f);
-        }
-    );  //  End player input handling.
+    wte_set_component(e_id, cmp::input_handler)->bind_directions();
 
     wte_new_component(e_id, cmp::ai,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
@@ -356,7 +315,7 @@ void wte_demo::new_game(void) {
             //  Process player death.
             if(msg.get_cmd() == "death") {
                 game_cfg::subtract<int>("lives", 1);
-                wte_set_component(plr_id, cmp::velocity)->set_speed(0.0f);
+                wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
                 wte_set_component(plr_id, cmp::sprite)->set_cycle("death");
                 messages.add_message(message("system", "disable_system", "input"));
                 if(game_cfg::get<int>("lives") == 0) {

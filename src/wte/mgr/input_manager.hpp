@@ -12,7 +12,7 @@
 #ifndef WTE_MGR_INPUT_MANAGER_HPP
 #define WTE_MGR_INPUT_MANAGER_HPP
 
-#include <iostream>
+#include <cmath>
 
 #include <allegro5/allegro.h>
 
@@ -68,6 +68,9 @@ inline void input_manager::run(void) {
     input_queue = al_create_event_queue();
     al_register_event_source(input_queue, al_get_keyboard_event_source());
     if(al_is_joystick_installed()) al_register_event_source(input_queue, al_get_joystick_event_source());
+
+    float x_axis = 0.0f;
+    float y_axis = 0.0f;
 
     while(keep_running() == true) {
         if(al_reconfigure_joysticks()) {}
@@ -178,18 +181,30 @@ inline void input_manager::run(void) {
                     case ALLEGRO_KEY_UP:
                     case ALLEGRO_KEY_W:
                         input_flags::toggle(WTE_INPUT_UP_ON_DOWN);
+                        y_axis = -1.0f;
+                        input_flags::set_radians(std::atan2(y_axis, x_axis));
+                        input_flags::axis_set();
                         break;
                     case ALLEGRO_KEY_DOWN:
                     case ALLEGRO_KEY_S:
                         input_flags::toggle(WTE_INPUT_DOWN_ON_DOWN);
+                        y_axis = 1.0f;
+                        input_flags::set_radians(std::atan2(y_axis, x_axis));
+                        input_flags::axis_set();
                         break;
                     case ALLEGRO_KEY_LEFT:
                     case ALLEGRO_KEY_A:
                         input_flags::toggle(WTE_INPUT_LEFT_ON_DOWN);
+                        x_axis = -1.0f;
+                        input_flags::set_radians(std::atan2(y_axis, x_axis));
+                        input_flags::axis_set();
                         break;
                     case ALLEGRO_KEY_RIGHT:
                     case ALLEGRO_KEY_D:
                         input_flags::toggle(WTE_INPUT_RIGHT_ON_DOWN);
+                        x_axis = 1.0f;
+                        input_flags::set_radians(std::atan2(y_axis, x_axis));
+                        input_flags::axis_set();
                         break;
                     case ALLEGRO_KEY_LCTRL:
                     case ALLEGRO_KEY_RCTRL:
@@ -214,18 +229,38 @@ inline void input_manager::run(void) {
                     case ALLEGRO_KEY_UP:
                     case ALLEGRO_KEY_W:
                         input_flags::toggle(WTE_INPUT_UP_ON_UP);
+                        if(y_axis < 0.0f) {
+                            y_axis = 0.0f;
+                            input_flags::set_radians(std::atan2(y_axis, x_axis));
+                            if(x_axis == 0.0f && y_axis == 0.0f) input_flags::axis_unset();
+                        }
                         break;
                     case ALLEGRO_KEY_DOWN:
                     case ALLEGRO_KEY_S:
                         input_flags::toggle(WTE_INPUT_DOWN_ON_UP);
+                        if(y_axis > 0.0f) {
+                            y_axis = 0.0f;
+                            input_flags::set_radians(std::atan2(y_axis, x_axis));
+                            if(x_axis == 0.0f && y_axis == 0.0f) input_flags::axis_unset();
+                        }
                         break;
                     case ALLEGRO_KEY_LEFT:
                     case ALLEGRO_KEY_A:
                         input_flags::toggle(WTE_INPUT_LEFT_ON_UP);
+                        if(x_axis < 0.0f) {
+                            x_axis = 0.0f;
+                            input_flags::set_radians(std::atan2(y_axis, x_axis));
+                            if(x_axis == 0.0f && y_axis == 0.0f) input_flags::axis_unset();
+                        }
                         break;
                     case ALLEGRO_KEY_RIGHT:
                     case ALLEGRO_KEY_D:
                         input_flags::toggle(WTE_INPUT_RIGHT_ON_UP);
+                        if(x_axis > 0.0f) {
+                            x_axis = 0.0f;
+                            input_flags::set_radians(std::atan2(y_axis, x_axis));
+                            if(x_axis == 0.0f && y_axis == 0.0f) input_flags::axis_unset();
+                        }
                         break;
                     case ALLEGRO_KEY_LCTRL:
                     case ALLEGRO_KEY_RCTRL:

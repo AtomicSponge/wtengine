@@ -28,31 +28,67 @@ class velocity final : public component {
     public:
         /*!
          * Velocity constructor.
-         * \param v Speed value for entity.
+         * \param v Velocity for X and Y.
          * \return void
          */
-        inline velocity(const float v) : speed(v) {};
+        inline velocity(const float v) : x_vel(v), y_vel(v) {};
 
         /*!
-         * Get entity speed.
-         * \param void
-         * \return Speed value.
+         * Velocity constructor.
+         * \param xv X velocity.
+         * \param yv Y velocity.
+         * \return void
          */
-        inline const float get_speed(void) const {
-            return speed;
+        inline velocity(const float xv, const float yv) : x_vel(xv), y_vel(yv) {};
+
+        /*!
+         * Set X velocity.
+         * \param xv X velocity.
+         * \return void
+         */
+        inline void set_x_vel(const float& xv) {
+            x_vel = xv;
         };
 
         /*!
-         * Set entity speed.
-         * \param s New speed value.
+         * Set Y velocity.
+         * \param yv Y velocity.
          * \return void
          */
-        inline void set_speed(const float& s) {
-            speed = s;
+        inline void set_y_vel(const float& yv) {
+            y_vel = yv;
+        };
+
+        /*!
+         * Set velocity for X and Y.
+         * \param v Velocity
+         * \return void
+         */
+        inline void set_velocity(const float& v) {
+            x_vel = v;
+            y_vel = v;
+        };
+
+        /*!
+         * Get X velocity.
+         * \param void
+         * \return X velocity.
+         */
+        inline const float get_x_vel(void) const {
+            return x_vel;
+        };
+
+        /*!
+         * Get X velocity.
+         * \param void
+         * \return Y velocity.
+         */
+        inline const float get_y_vel(void) const {
+            return y_vel;
         };
 
     private:
-        float speed;
+        float x_vel, y_vel;
 };
 
 } //  namespace cmp

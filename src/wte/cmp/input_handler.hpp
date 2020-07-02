@@ -45,7 +45,7 @@ class input_handler final : public component {
          * \param void
          * \return void
          */
-        inline input_handler() {
+        inline input_handler() : direction_binded(false) {
             input_action_map.clear();
         };
 
@@ -67,6 +67,14 @@ class input_handler final : public component {
             return input_action_map;
         };
 
+        inline void bind_directions(void) {
+            direction_binded = true;
+        };
+
+        inline const bool is_binded(void) const {
+            return direction_binded;
+        };
+
         /*!
          * Add event handler.
          * \param button Button event.
@@ -85,8 +93,9 @@ class input_handler final : public component {
         };
 
     private:
-        //! Store the input map.
         action_map input_action_map;
+
+        bool direction_binded;
 };
 
 } //  namespace cmp

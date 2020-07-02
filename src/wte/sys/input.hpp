@@ -49,6 +49,15 @@ class input final : public system {
                 world.set_components<cmp::input_handler>();
 
             for(auto & c_it : input_components) {  //  Loop all input components
+                if(c_it.second->is_binded() && world.has_component<cmp::direction>(c_it.first)) {
+                    world.set_component<cmp::direction>(c_it.first)->set_radians(input_flags::get_radians());
+                    if(world.has_component<cmp::velocity>(c_it.first))
+                        if(input_flags::axis_isset())
+                            world.set_component<cmp::velocity>(c_it.first)->set_velocity(5.0f);
+                        else
+                            world.set_component<cmp::velocity>(c_it.first)->set_velocity(0.0f);
+                }
+
                 for(auto & i_it : c_it.second->get_map()) {  //  Loop the input map
                     if(input_flags::check(i_it.first))  //  Check if there is an event to consume.
                         i_it.second(c_it.first, world, messages, current_time);

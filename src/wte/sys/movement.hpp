@@ -12,6 +12,8 @@
 #ifndef WTE_SYS_MOVEMENT_HPP
 #define WTE_SYS_MOVEMENT_HPP
 
+#include <cmath>
+
 #include "system.hpp"
 
 namespace wte
@@ -55,15 +57,17 @@ class movement final : public system {
             //  Find the entities with a velocity component.
             const_component_container<cmp::velocity> vel_components = world.get_components<cmp::velocity>();
             for(auto & it : vel_components) {
-                if(world.has_component<cmp::location>(it.first) && world.has_component<cmp::direction>(it.first)) {
+                if(world.has_component<cmp::location>(it.first) &&
+                   world.has_component<cmp::direction>(it.first))
+                {
                     world.set_component<cmp::location>(it.first)->adjust_x(
-                        it.second->get_speed() *
-                        cos(world.get_component<cmp::direction>(it.first)->get_radians())
+                        it.second->get_x_vel() *
+                        std::cos(world.get_component<cmp::direction>(it.first)->get_radians())
                     );
 
                     world.set_component<cmp::location>(it.first)->adjust_y(
-                        it.second->get_speed() *
-                        sin(world.get_component<cmp::direction>(it.first)->get_radians())
+                        it.second->get_y_vel() *
+                        std::sin(world.get_component<cmp::direction>(it.first)->get_radians())
                     );
                 }
             }

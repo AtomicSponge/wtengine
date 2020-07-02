@@ -77,11 +77,34 @@ class input_flags final {
         inline static void unset_all(void) {
             for(std::size_t i = 0; i < WTE_MAX_INPUT_FLAGS; i++)
                 flags[i].store(false, std::memory_order_release);
-        }
+        };
+
+        inline static void set_radians(const float& a) {
+            angle = a;
+        };
+
+        inline static const float get_radians(void) {
+            return angle;
+        };
+
+        inline static void axis_set(void) {
+            set = true;
+        };
+
+        inline static void axis_unset(void) {
+            set = false;
+        };
+
+        inline static const bool axis_isset(void) {
+            return set;
+        };
 
     private:
         inline input_flags() { unset_all(); };
         inline ~input_flags() { unset_all(); };
+
+        inline static std::atomic<float> angle = 0.0f;
+        inline static std::atomic<bool> set = false;
 
         inline static std::atomic<bool> flags[WTE_MAX_INPUT_FLAGS] = {};
 };

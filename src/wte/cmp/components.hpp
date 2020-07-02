@@ -18,6 +18,7 @@
 #include "dispatcher.hpp"
 #include "enabled.hpp"
 #include "hitbox.hpp"
+#include "input_directional.hpp"
 #include "input_handler.hpp"
 #include "location.hpp"
 #include "sample_loop.hpp"

@@ -296,8 +296,15 @@ void wte_demo::new_game(void) {
     wte_set_component(e_id, cmp::sprite)->add_cycle("death", 4, 7);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
-    wte_new_component(e_id, cmp::input_handler);
-    wte_set_component(e_id, cmp::input_handler)->bind_directions();
+    wte_new_component(e_id, cmp::input_directional, 0,
+        [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            world.set_component<cmp::direction>(plr_id)->set_radians(input_flags::get_radians());
+            world.set_component<cmp::velocity>(plr_id)->set_velocity(5.0f);
+        },
+        [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
+            world.set_component<cmp::velocity>(plr_id)->set_velocity(0.0f);
+        }
+    );
 
     wte_new_component(e_id, cmp::ai,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {

@@ -44,25 +44,27 @@ class input final : public system {
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
                         const int64_t& current_time) override {
+            //  First check all directional components.
+            component_container<cmp::input_directional> directional_components =
+                world.set_components<cmp::input_directional>();
+
+            for(auto & d_it : directional_components) {
+                if(input_flags::check(WTE_INPUT_DIRECTON_SET)) {
+                    d_it.second->on_set(d_it.first, world, messages, current_time);
+                }
+                if(input_flags::check(WTE_INPUT_DIRECTION_UNSET)) {
+                    d_it.second->on_unset(d_it.first, world, messages, current_time);
+                }
+            }
+
             //  Find the entities with the input handler component
             component_container<cmp::input_handler> input_components =
                 world.set_components<cmp::input_handler>();
 
-            for(auto & c_it : input_components) {  //  Loop all input components
-                if(c_it.second->is_binded() && world.has_component<cmp::direction>(c_it.first)) {
-                    if(world.has_component<cmp::velocity>(c_it.first))
-                        if(input_flags::check(WTE_INPUT_DIRECTON_SET)) {
-                            world.set_component<cmp::direction>(c_it.first)->set_radians(input_flags::get_radians());
-                            world.set_component<cmp::velocity>(c_it.first)->set_velocity(5.0f);
-                        }
-                        if(input_flags::check(WTE_INPUT_DIRECTION_UNSET)) {
-                            world.set_component<cmp::velocity>(c_it.first)->set_velocity(0.0f);
-                        }
-                }
-
-                for(auto & i_it : c_it.second->get_map()) {  //  Loop the input map
+            for(auto & b_it : input_components) {  //  Loop all input components
+                for(auto & i_it : b_it.second->get_map()) {  //  Loop the input map
                     if(input_flags::check(i_it.first))  //  Check if there is an event to consume.
-                        i_it.second(c_it.first, world, messages, current_time);
+                        i_it.second(b_it.first, world, messages, current_time);
                 }
             }  //  End input component loop
         };

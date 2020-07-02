@@ -7,6 +7,8 @@
  * \date 2019-2020
  *
  * \details Handle player input in its own thread.
+ * 
+ * \bug WIP
  */
 
 #ifndef WTE_MGR_INPUT_MANAGER_HPP
@@ -75,14 +77,7 @@ inline void input_manager::run(void) {
     while(keep_running() == true) {
         if(al_reconfigure_joysticks()) {}
 
-        al_get_next_event(input_queue, &input_event);
-
-        //  Clear any active alerts on input event
-        if(alert::is_set() &&
-           (input_event.type == ALLEGRO_EVENT_KEY_DOWN ||
-            input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)) {
-            alert::clear();
-        }
+        al_wait_for_event(input_queue, &input_event);
 
         /* ************************************************************* */
         /* *** PROCESS EVENTS WHILE MENU IS OPENED ********************* */
@@ -312,6 +307,13 @@ inline void input_manager::run(void) {
                 if(input_event.joystick.button == joy.fire_3_button) input_flags::unset(WTE_INPUT_ACTION_3);
             } //  End if(input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_UP)*/
         } //  End game event processing
+
+        //  Clear any active alerts on input event
+        if(alert::is_set() &&
+           (input_event.type == ALLEGRO_EVENT_KEY_DOWN ||
+            input_event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)) {
+            alert::clear();
+        }
     } //  End while(is_running == true)
 
     al_destroy_event_queue(input_queue);

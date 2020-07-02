@@ -12,7 +12,9 @@
 #ifndef WTE_INPUT_FLAGS_HPP
 #define WTE_INPUT_FLAGS_HPP
 
+#include <bitset>
 #include <atomic>
+#include <cassert>
 
 namespace wte
 {
@@ -50,22 +52,24 @@ class input_flags final {
 
         /*!
          * Toggle flag to set.
-         * \param f Flag to set.
+         * \param i Index of flag to set.
          * \return void
          */
-        inline static void toggle(const std::size_t& f) {
-            flags[f].store(true, std::memory_order_release);
+        inline static void toggle(const std::size_t& i) {
+            assert(i < WTE_MAX_INPUT_FLAGS);
+            flags[i].store(true, std::memory_order_release);
         };
 
         /*!
          * \brief Check if a flag is set.
          * Unsets the flag if it is.
-         * \param f Flag to check.
+         * \param i Index of flag to check.
          * \return True if set, false if not.
          */
-        inline static const bool check(const std::size_t& f) {
-            const bool consume = flags[f].load(std::memory_order_consume);
-            if(consume) flags[f].store(false, std::memory_order_release);
+        inline static const bool check(const std::size_t& i) {
+            assert(i < WTE_MAX_INPUT_FLAGS);
+            const bool consume = flags[i].load(std::memory_order_consume);
+            if(consume) flags[i].store(false, std::memory_order_release);
             return consume;
         };
 

@@ -13,6 +13,7 @@
 #define WTE_ENGINE_FLAGS_HPP
 
 #include <atomic>
+#include <cassert>
 
 namespace wte
 {
@@ -37,29 +38,32 @@ class engine_flags final {
 
         /*!
          * Set a flag to true.
-         * \param f Index of the flag.
+         * \param i Index of the flag.
          * \return void
          */
-        inline static void set(const std::size_t& f) {
-            flags[f].store(true, std::memory_order_release);
+        inline static void set(const std::size_t& i) {
+            assert(i < MAX_SYSTEM_FLAGS);
+            flags[i].store(true, std::memory_order_release);
         };
 
         /*!
          * Set a flag to false.
-         * \param f Index of the flag.
+         * \param i Index of the flag.
          * \return void
          */
-        inline static void unset(const std::size_t& f) {
-            flags[f].store(false, std::memory_order_release);
+        inline static void unset(const std::size_t& i) {
+            assert(i < MAX_SYSTEM_FLAGS);
+            flags[i].store(false, std::memory_order_release);
         };
 
         /*!
          * Check the state of a flag.
-         * \param f Index of the flag.
+         * \param i Index of the flag.
          * \return True if the flag is set, false if not.
          */
-        inline static const bool is_set(const std::size_t& f) {
-            return flags[f].load(std::memory_order_consume);
+        inline static const bool is_set(const std::size_t& i) {
+            assert(i < MAX_SYSTEM_FLAGS);
+            return flags[i].load(std::memory_order_consume);
         };
 
     private:

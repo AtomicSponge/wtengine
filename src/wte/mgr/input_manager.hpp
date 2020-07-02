@@ -175,31 +175,31 @@ inline void input_manager::run(void) {
                 switch(input_event.keyboard.keycode) {
                     case ALLEGRO_KEY_UP:
                     case ALLEGRO_KEY_W:
-                        input_flags::toggle(WTE_INPUT_UP_ON_DOWN);
                         y_axis = -1.0f;
                         input_flags::set_radians(std::atan2(y_axis, x_axis));
-                        input_flags::axis_set();
+                        input_flags::toggle(WTE_INPUT_UP_ON_DOWN);
+                        input_flags::toggle(WTE_INPUT_DIRECTIONAL_EVENT_ON);
                         break;
                     case ALLEGRO_KEY_DOWN:
                     case ALLEGRO_KEY_S:
-                        input_flags::toggle(WTE_INPUT_DOWN_ON_DOWN);
                         y_axis = 1.0f;
                         input_flags::set_radians(std::atan2(y_axis, x_axis));
-                        input_flags::axis_set();
+                        input_flags::toggle(WTE_INPUT_DOWN_ON_DOWN);
+                        input_flags::toggle(WTE_INPUT_DIRECTIONAL_EVENT_ON);
                         break;
                     case ALLEGRO_KEY_LEFT:
                     case ALLEGRO_KEY_A:
-                        input_flags::toggle(WTE_INPUT_LEFT_ON_DOWN);
                         x_axis = -1.0f;
                         input_flags::set_radians(std::atan2(y_axis, x_axis));
-                        input_flags::axis_set();
+                        input_flags::toggle(WTE_INPUT_LEFT_ON_DOWN);
+                        input_flags::toggle(WTE_INPUT_DIRECTIONAL_EVENT_ON);
                         break;
                     case ALLEGRO_KEY_RIGHT:
                     case ALLEGRO_KEY_D:
-                        input_flags::toggle(WTE_INPUT_RIGHT_ON_DOWN);
                         x_axis = 1.0f;
                         input_flags::set_radians(std::atan2(y_axis, x_axis));
-                        input_flags::axis_set();
+                        input_flags::toggle(WTE_INPUT_RIGHT_ON_DOWN);
+                        input_flags::toggle(WTE_INPUT_DIRECTIONAL_EVENT_ON);
                         break;
                     case ALLEGRO_KEY_LCTRL:
                     case ALLEGRO_KEY_RCTRL:
@@ -223,39 +223,43 @@ inline void input_manager::run(void) {
                 switch(input_event.keyboard.keycode) {
                     case ALLEGRO_KEY_UP:
                     case ALLEGRO_KEY_W:
-                        input_flags::toggle(WTE_INPUT_UP_ON_UP);
                         if(y_axis < 0.0f) {
                             y_axis = 0.0f;
                             input_flags::set_radians(std::atan2(y_axis, x_axis));
-                            if(x_axis == 0.0f && y_axis == 0.0f) input_flags::axis_unset();
+                            if(x_axis == 0.0f && y_axis == 0.0f)
+                                input_flags::toggle(WTE_INPUT_DIRECTIONAL_EVENT_OFF);
                         }
+                        input_flags::toggle(WTE_INPUT_UP_ON_UP);
                         break;
                     case ALLEGRO_KEY_DOWN:
                     case ALLEGRO_KEY_S:
-                        input_flags::toggle(WTE_INPUT_DOWN_ON_UP);
                         if(y_axis > 0.0f) {
                             y_axis = 0.0f;
                             input_flags::set_radians(std::atan2(y_axis, x_axis));
-                            if(x_axis == 0.0f && y_axis == 0.0f) input_flags::axis_unset();
+                            if(x_axis == 0.0f && y_axis == 0.0f)
+                                input_flags::toggle(WTE_INPUT_DIRECTIONAL_EVENT_OFF);
                         }
+                        input_flags::toggle(WTE_INPUT_DOWN_ON_UP);
                         break;
                     case ALLEGRO_KEY_LEFT:
                     case ALLEGRO_KEY_A:
-                        input_flags::toggle(WTE_INPUT_LEFT_ON_UP);
                         if(x_axis < 0.0f) {
                             x_axis = 0.0f;
                             input_flags::set_radians(std::atan2(y_axis, x_axis));
-                            if(x_axis == 0.0f && y_axis == 0.0f) input_flags::axis_unset();
+                            if(x_axis == 0.0f && y_axis == 0.0f)
+                                input_flags::toggle(WTE_INPUT_DIRECTIONAL_EVENT_OFF);
                         }
+                        input_flags::toggle(WTE_INPUT_LEFT_ON_UP);
                         break;
                     case ALLEGRO_KEY_RIGHT:
                     case ALLEGRO_KEY_D:
-                        input_flags::toggle(WTE_INPUT_RIGHT_ON_UP);
                         if(x_axis > 0.0f) {
                             x_axis = 0.0f;
                             input_flags::set_radians(std::atan2(y_axis, x_axis));
-                            if(x_axis == 0.0f && y_axis == 0.0f) input_flags::axis_unset();
+                            if(x_axis == 0.0f && y_axis == 0.0f)
+                                input_flags::toggle(WTE_INPUT_DIRECTIONAL_EVENT_OFF);
                         }
+                        input_flags::toggle(WTE_INPUT_RIGHT_ON_UP);
                         break;
                     case ALLEGRO_KEY_LCTRL:
                     case ALLEGRO_KEY_RCTRL:

@@ -288,7 +288,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::visible);
     wte_new_component(e_id, cmp::enabled);
     wte_new_component(e_id, cmp::direction, false);
-    wte_new_component(e_id, cmp::velocity, 1.0f);
+    wte_new_component(e_id, cmp::velocity, 0.0f);
 
     wte_new_component(e_id, cmp::sprite, 32, 32, -11.0f, 0.0f, 1, 1);
     wte_set_component(e_id, cmp::sprite)->load_sprite("ship.bmp");

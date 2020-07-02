@@ -20,7 +20,7 @@ namespace wte
 {
 
 enum WTE_INPUT_FLAG_ENUM {
-    WTE_INPUT_DIRECTIONAL_DOWN,     WTE_INPUT_DIRECTIONAL_UP,
+    WTE_INPUT_DIRECTIONAL_EVENT_ON,     WTE_INPUT_DIRECTIONAL_EVENT_OFF,
 
     WTE_INPUT_UP_ON_DOWN,           WTE_INPUT_UP_ON_UP,
     WTE_INPUT_DOWN_ON_DOWN,         WTE_INPUT_DOWN_ON_UP,
@@ -89,24 +89,11 @@ class input_flags final {
             return angle;
         };
 
-        inline static void axis_set(void) {
-            set.store(true, std::memory_order_relaxed);
-        };
-
-        inline static void axis_unset(void) {
-            set.store(false, std::memory_order_relaxed);
-        };
-
-        inline static const bool axis_isset(void) {
-            return set.load(std::memory_order_relaxed);
-        };
-
     private:
         inline input_flags() { unset_all(); };
         inline ~input_flags() { unset_all(); };
 
         inline static std::atomic<float> angle = 0.0f;
-        inline static std::atomic<bool> set = false;
 
         inline static std::atomic<bool> flags[WTE_MAX_INPUT_FLAGS] = {};
 };

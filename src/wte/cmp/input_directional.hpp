@@ -60,11 +60,11 @@ class input_directional final : public component {
         }
 
         inline void on_set(const entity_id& e_id,
-                           const float& dir,
+                           const float& rad,
                            mgr::entity_manager& world,
                            mgr::message_manager& messages,
                            const int64_t& current_time) {
-            direction_set(e_id, dir, world, messages, current_time);
+            direction_set(e_id, rad, world, messages, current_time);
         };
 
         inline void on_unset(const entity_id& e_id,

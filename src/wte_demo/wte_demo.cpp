@@ -295,8 +295,8 @@ void wte_demo::new_game(void) {
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
     wte_new_component(e_id, cmp::input_directional, 0,
-        [](const entity_id& plr_id, const float& dir, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
-            wte_set_component(plr_id, cmp::direction)->set_radians(dir);
+        [](const entity_id& plr_id, const float& rad, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
+            wte_set_component(plr_id, cmp::direction)->set_radians(rad);
             wte_set_component(plr_id, cmp::velocity)->set_velocity(5.0f);
         },
         [](const entity_id& plr_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {

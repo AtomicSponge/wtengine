@@ -56,7 +56,7 @@ class input final : public system {
                 }
             }
 
-            //  Find the entities with the input handler component
+            //  Now check all button components.
             component_container<cmp::input_button> button_components =
                 world.set_components<cmp::input_button>();
 

@@ -68,9 +68,7 @@ class input_flags final {
          */
         inline static const bool check(const std::size_t& i) {
             assert(i < WTE_MAX_INPUT_FLAGS);
-            const bool consume = flags[i].load(std::memory_order_consume);
-            if(consume) flags[i].store(false, std::memory_order_release);
-            return consume;
+            return flags[i].exchange(false, std::memory_order_consume);
         };
 
         /*!
@@ -92,15 +90,15 @@ class input_flags final {
         };
 
         inline static void axis_set(void) {
-            set = true;
+            set.store(true, std::memory_order_relaxed);
         };
 
         inline static void axis_unset(void) {
-            set = false;
+            set.store(false, std::memory_order_relaxed);
         };
 
         inline static const bool axis_isset(void) {
-            return set;
+            return set.load(std::memory_order_relaxed);
         };
 
     private:

@@ -50,10 +50,11 @@ class input final : public system {
 
             for(auto & c_it : input_components) {  //  Loop all input components
                 if(c_it.second->is_binded() && world.has_component<cmp::direction>(c_it.first)) {
-                    world.set_component<cmp::direction>(c_it.first)->set_radians(input_flags::get_radians());
                     if(world.has_component<cmp::velocity>(c_it.first))
-                        if(input_flags::axis_isset())
+                        if(input_flags::axis_isset()) {
+                            world.set_component<cmp::direction>(c_it.first)->set_radians(input_flags::get_radians());
                             world.set_component<cmp::velocity>(c_it.first)->set_velocity(5.0f);
+                        }
                         else
                             world.set_component<cmp::velocity>(c_it.first)->set_velocity(0.0f);
                 }

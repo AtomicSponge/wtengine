@@ -13,7 +13,6 @@
 #define WTE_SYS_INPUT_HPP
 
 #include "system.hpp"
-#include "../cmp/input_handler.hpp"
 #include "../_globals/input_flags.hpp"
 
 namespace wte
@@ -58,10 +57,10 @@ class input final : public system {
             }
 
             //  Find the entities with the input handler component
-            component_container<cmp::input_handler> input_components =
-                world.set_components<cmp::input_handler>();
+            component_container<cmp::input_button> button_components =
+                world.set_components<cmp::input_button>();
 
-            for(auto & b_it : input_components) {  //  Loop all input components
+            for(auto & b_it : button_components) {  //  Loop all input components
                 for(auto & i_it : b_it.second->get_map()) {  //  Loop the input map
                     if(input_flags::check(i_it.first))  //  Check if there is an event to consume.
                         i_it.second(b_it.first, world, messages, current_time);

@@ -28,6 +28,13 @@ class velocity final : public component {
     public:
         /*!
          * Velocity constructor.
+         * \param void
+         * \return void
+         */
+        inline velocity(void) : x_vel(0.0f), y_vel(0.0f) {};
+
+        /*!
+         * Velocity constructor.
          * \param v Velocity for X and Y.
          * \return void
          */

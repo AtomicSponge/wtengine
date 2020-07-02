@@ -1,16 +1,16 @@
 /*!
- * \brief WTEngine | File:  input_handler.hpp
+ * \brief WTEngine | File:  input_button.hpp
  * \author Matthew Evans
  *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
  *
- * \details Input handler component.  Tag to be processed by input system.
+ * \details Input button component.  Tag to be processed by input system.
  */
 
-#ifndef WTE_CMP_INPUT_HANDLER_HPP
-#define WTE_CMP_INPUT_HANDLER_HPP
+#ifndef WTE_CMP_INPUT_BUTTON_HPP
+#define WTE_CMP_INPUT_BUTTON_HPP
 
 #include <map>
 #include <utility>
@@ -27,10 +27,10 @@ namespace cmp
 {
 
 /*!
- * \class Input Handler component
+ * \class Input button component
  * Tag an entity to be processed by the Input system
  */
-class input_handler final : public component {
+class input_button final : public component {
     //! \typedef Container for the action map.
     typedef std::map<const std::size_t,
                      std::function<void(const entity_id&,
@@ -41,20 +41,20 @@ class input_handler final : public component {
 
     public:
         /*!
-         * Input handler constructor.
+         * Input button constructor.
          * \param void
          * \return void
          */
-        inline input_handler() {
+        inline input_button() {
             input_action_map.clear();
         };
 
         /*!
-         * Input handler destructor.
+         * Input button destructor.
          * \param void
          * \return void
          */
-        inline ~input_handler() {
+        inline ~input_button() {
             input_action_map.clear();
         };
 
@@ -68,7 +68,7 @@ class input_handler final : public component {
         };
 
         /*!
-         * Add event handler.
+         * Add event button.
          * \param button Button event.
          * \param func Action to take on event.
          * \return True if created, false if not.

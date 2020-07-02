@@ -288,7 +288,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::visible);
     wte_new_component(e_id, cmp::enabled);
     wte_new_component(e_id, cmp::direction, false);
-    wte_new_component(e_id, cmp::velocity, 0.0f);
+    wte_new_component(e_id, cmp::velocity);
 
     wte_new_component(e_id, cmp::sprite, 32, 32, -11.0f, 0.0f, 1, 1);
     wte_set_component(e_id, cmp::sprite)->load_sprite("ship.bmp");
@@ -298,13 +298,13 @@ void wte_demo::new_game(void) {
 
     wte_new_component(e_id, cmp::input_directional, 0,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            world.set_component<cmp::direction>(plr_id)->set_radians(input_flags::get_radians());
-            world.set_component<cmp::velocity>(plr_id)->set_velocity(5.0f);
+            wte_set_component(plr_id, cmp::direction)->set_radians(input_flags::get_radians());
+            wte_set_component(plr_id, cmp::velocity)->set_velocity(5.0f);
         },
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
-            world.set_component<cmp::velocity>(plr_id)->set_velocity(0.0f);
+            wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
         }
-    );
+    );  //  End player directional handling.
 
     wte_new_component(e_id, cmp::ai,
         [](entity_id plr_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
@@ -374,8 +374,8 @@ void wte_demo::new_game(void) {
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 3);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
-    wte_new_component(e_id, cmp::input_handler);
-    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_ACTION_1_ON_DOWN,
+    wte_new_component(e_id, cmp::input_button);
+    wte_set_component(e_id, cmp::input_button)->add_event(WTE_INPUT_ACTION_1_ON_DOWN,
         [](entity_id can_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             entity_id player_entity = world.get_id("player");
             //  Set the cannon's location to match the player.
@@ -396,7 +396,7 @@ void wte_demo::new_game(void) {
         }
     );
 
-    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_ACTION_1_ON_UP,
+    wte_set_component(e_id, cmp::input_button)->add_event(WTE_INPUT_ACTION_1_ON_UP,
         [](entity_id can_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             //  Turn the cannon off.
             wte_set_component(can_id, cmp::visible)->hide();
@@ -454,8 +454,8 @@ void wte_demo::new_game(void) {
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
-    wte_new_component(e_id, cmp::input_handler);
-    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_ACTION_2_ON_DOWN,
+    wte_new_component(e_id, cmp::input_button);
+    wte_set_component(e_id, cmp::input_button)->add_event(WTE_INPUT_ACTION_2_ON_DOWN,
         [](entity_id shd_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             entity_id player_entity = world.get_id("player");
             //  Set the shield's location to match the player
@@ -477,7 +477,7 @@ void wte_demo::new_game(void) {
             }
         }
     );
-    wte_set_component(e_id, cmp::input_handler)->add_event(WTE_INPUT_ACTION_2_ON_UP,
+    wte_set_component(e_id, cmp::input_button)->add_event(WTE_INPUT_ACTION_2_ON_UP,
         [](entity_id shd_id, mgr::entity_manager& world, mgr::message_manager& messages, int64_t engine_time) {
             //  Disable shield.
             wte_set_component(shd_id, cmp::visible)->hide();

@@ -12,7 +12,6 @@
 #ifndef WTE_INPUT_FLAGS_HPP
 #define WTE_INPUT_FLAGS_HPP
 
-#include <bitset>
 #include <atomic>
 #include <cassert>
 
@@ -27,16 +26,27 @@ enum WTE_INPUT_FLAG_ENUM {
     WTE_INPUT_LEFT_ON_DOWN,         WTE_INPUT_LEFT_ON_UP,
     WTE_INPUT_RIGHT_ON_DOWN,        WTE_INPUT_RIGHT_ON_UP,
 
-    WTE_INPUT_ACTION_1_ON_DOWN,     WTE_INPUT_ACTION_1_ON_UP,
-    WTE_INPUT_ACTION_2_ON_DOWN,     WTE_INPUT_ACTION_2_ON_UP,
-    WTE_INPUT_ACTION_3_ON_DOWN,     WTE_INPUT_ACTION_3_ON_UP,
-    WTE_INPUT_ACTION_4_ON_DOWN,     WTE_INPUT_ACTION_4_ON_UP,
-
     WTE_INPUT_MENU_ALT,
     WTE_INPUT_MENU_SELECT,
     WTE_INPUT_MENU_CLOSE,
 
     WTE_MAX_INPUT_FLAGS
+};
+
+enum WTE_INPUT_BUTTON_FLAG_ENUM {
+    WTE_INPUT_BUTTON_UP,        WTE_INPUT_BUTTON_DOWN,
+    WTE_INPUT_BUTTON_LEFT,      WTE_INPUT_BUTTON_RIGHT,
+
+    WTE_INPUT_BUTTON_1,         WTE_INPUT_BUTTON_3,
+    WTE_INPUT_BUTTON_2,         WTE_INPUT_BUTTON_4,
+
+    WTE_MAX_INPUT_BUTTON_FLAGS
+};
+
+enum WTE_BUTTON_EVENT_FLAGS {
+    BUTTON_EVENT_DOWN,
+    BUTTON_EVENT_UP,
+    WTE_MAX_BUTTON_EVENT_FLAGS
 };
 
 /*!
@@ -79,6 +89,10 @@ class input_flags final {
         inline static void unset_all(void) {
             for(std::size_t i = 0; i < WTE_MAX_INPUT_FLAGS; i++)
                 flags[i].store(false, std::memory_order_release);
+
+            for(std::size_t i = 0; i < WTE_MAX_INPUT_BUTTON_FLAGS; i++)
+                for(std::size_t e = 0; e < WTE_MAX_BUTTON_EVENT_FLAGS; e++)
+                    buttons[i][e].store(false, std::memory_order_release);
         };
 
         inline static void set_radians(const float& a) {
@@ -89,6 +103,30 @@ class input_flags final {
             return angle;
         };
 
+        /*!
+         * Check if a button event is set.
+         * \param b Button to check.
+         * \param e Event to check.
+         */
+        inline static const bool check_button_event(const std::size_t& b, const std::size_t& e) {
+            assert(b < WTE_MAX_INPUT_BUTTON_FLAGS);
+            assert(e < WTE_MAX_BUTTON_EVENT_FLAGS);
+
+            return buttons[b][e].exchange(false, std::memory_order_consume);
+        };
+
+        /*!
+         * Set a button event.
+         * \param b Button to set.
+         * \param e Event to set.
+         */
+        inline static void set_button_event(const std::size_t& b, const std::size_t& e) {
+            assert(b < WTE_MAX_INPUT_BUTTON_FLAGS);
+            assert(e < WTE_MAX_BUTTON_EVENT_FLAGS);
+
+            buttons[b][e].store(true, std::memory_order_release);
+        };
+
     private:
         inline input_flags() { unset_all(); };
         inline ~input_flags() { unset_all(); };
@@ -96,6 +134,8 @@ class input_flags final {
         inline static std::atomic<float> angle = 0.0f;
 
         inline static std::atomic<bool> flags[WTE_MAX_INPUT_FLAGS] = {};
+
+        inline static std::atomic<bool> buttons[WTE_MAX_INPUT_BUTTON_FLAGS][WTE_MAX_BUTTON_EVENT_FLAGS];
 };
 
 } //  end namespace wte

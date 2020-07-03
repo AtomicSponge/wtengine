@@ -177,41 +177,37 @@ inline void input_manager::run(void) {
                     case ALLEGRO_KEY_W:
                         y_axis = -1.0f;
                         input_flags::set_radians(std::atan2(y_axis, x_axis));
-                        input_flags::toggle(WTE_INPUT_UP_ON_DOWN);
                         input_flags::toggle(WTE_INPUT_DIRECTON_SET);
                         break;
                     case ALLEGRO_KEY_DOWN:
                     case ALLEGRO_KEY_S:
                         y_axis = 1.0f;
                         input_flags::set_radians(std::atan2(y_axis, x_axis));
-                        input_flags::toggle(WTE_INPUT_DOWN_ON_DOWN);
                         input_flags::toggle(WTE_INPUT_DIRECTON_SET);
                         break;
                     case ALLEGRO_KEY_LEFT:
                     case ALLEGRO_KEY_A:
                         x_axis = -1.0f;
                         input_flags::set_radians(std::atan2(y_axis, x_axis));
-                        input_flags::toggle(WTE_INPUT_LEFT_ON_DOWN);
                         input_flags::toggle(WTE_INPUT_DIRECTON_SET);
                         break;
                     case ALLEGRO_KEY_RIGHT:
                     case ALLEGRO_KEY_D:
                         x_axis = 1.0f;
                         input_flags::set_radians(std::atan2(y_axis, x_axis));
-                        input_flags::toggle(WTE_INPUT_RIGHT_ON_DOWN);
                         input_flags::toggle(WTE_INPUT_DIRECTON_SET);
                         break;
                     case ALLEGRO_KEY_LCTRL:
                     case ALLEGRO_KEY_RCTRL:
-                        input_flags::toggle(WTE_INPUT_ACTION_1_ON_DOWN);
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_1, BUTTON_EVENT_DOWN);
                         break;
                     case ALLEGRO_KEY_ALT:
                     case ALLEGRO_KEY_ALTGR:
-                        input_flags::toggle(WTE_INPUT_ACTION_2_ON_DOWN);
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_2, BUTTON_EVENT_DOWN);
                         break;
                     case ALLEGRO_KEY_LSHIFT:
                     case ALLEGRO_KEY_RSHIFT:
-                        input_flags::toggle(WTE_INPUT_ACTION_3_ON_DOWN);
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_3, BUTTON_EVENT_DOWN);
                         break;
                     case ALLEGRO_KEY_ESCAPE:
                         engine_flags::set(GAME_MENU_OPENED);
@@ -229,7 +225,6 @@ inline void input_manager::run(void) {
                             if(x_axis == 0.0f && y_axis == 0.0f)
                                 input_flags::toggle(WTE_INPUT_DIRECTION_UNSET);
                         }
-                        input_flags::toggle(WTE_INPUT_UP_ON_UP);
                         break;
                     case ALLEGRO_KEY_DOWN:
                     case ALLEGRO_KEY_S:
@@ -239,7 +234,6 @@ inline void input_manager::run(void) {
                             if(x_axis == 0.0f && y_axis == 0.0f)
                                 input_flags::toggle(WTE_INPUT_DIRECTION_UNSET);
                         }
-                        input_flags::toggle(WTE_INPUT_DOWN_ON_UP);
                         break;
                     case ALLEGRO_KEY_LEFT:
                     case ALLEGRO_KEY_A:
@@ -249,7 +243,6 @@ inline void input_manager::run(void) {
                             if(x_axis == 0.0f && y_axis == 0.0f)
                                 input_flags::toggle(WTE_INPUT_DIRECTION_UNSET);
                         }
-                        input_flags::toggle(WTE_INPUT_LEFT_ON_UP);
                         break;
                     case ALLEGRO_KEY_RIGHT:
                     case ALLEGRO_KEY_D:
@@ -259,19 +252,18 @@ inline void input_manager::run(void) {
                             if(x_axis == 0.0f && y_axis == 0.0f)
                                 input_flags::toggle(WTE_INPUT_DIRECTION_UNSET);
                         }
-                        input_flags::toggle(WTE_INPUT_RIGHT_ON_UP);
                         break;
                     case ALLEGRO_KEY_LCTRL:
                     case ALLEGRO_KEY_RCTRL:
-                        input_flags::toggle(WTE_INPUT_ACTION_1_ON_UP);
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_1, BUTTON_EVENT_UP);
                         break;
                     case ALLEGRO_KEY_ALT:
                     case ALLEGRO_KEY_ALTGR:
-                        input_flags::toggle(WTE_INPUT_ACTION_2_ON_UP);
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_2, BUTTON_EVENT_UP);
                         break;
                     case ALLEGRO_KEY_LSHIFT:
                     case ALLEGRO_KEY_RSHIFT:
-                        input_flags::toggle(WTE_INPUT_ACTION_3_ON_UP);
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_3, BUTTON_EVENT_UP);
                         break;
                 } //  End switch(input_event.keyboard.keycode)
             } //  End if(input_event.type == ALLEGRO_EVENT_KEY_UP)

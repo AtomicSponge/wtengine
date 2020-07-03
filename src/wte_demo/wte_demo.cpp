@@ -371,8 +371,7 @@ void wte_demo::new_game(void) {
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 3);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
-    wte_new_component(e_id, cmp::input_button);
-    wte_set_component(e_id, cmp::input_button)->add_event(WTE_INPUT_ACTION_1_ON_DOWN,
+    wte_new_component(e_id, cmp::input_button, WTE_INPUT_BUTTON_1,
         [](const entity_id& can_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
             entity_id player_entity = world.get_id("player");
             //  Set the cannon's location to match the player.
@@ -390,10 +389,7 @@ void wte_demo::new_game(void) {
 
             //  Play sound effect.
             wte_set_component(can_id, cmp::sample_loop)->start(messages, "cannon_fire");
-        }
-    );
-
-    wte_set_component(e_id, cmp::input_button)->add_event(WTE_INPUT_ACTION_1_ON_UP,
+        },
         [](const entity_id& can_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
             //  Turn the cannon off.
             wte_set_component(can_id, cmp::visible)->hide();
@@ -451,8 +447,7 @@ void wte_demo::new_game(void) {
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
-    wte_new_component(e_id, cmp::input_button);
-    wte_set_component(e_id, cmp::input_button)->add_event(WTE_INPUT_ACTION_2_ON_DOWN,
+    wte_new_component(e_id, cmp::input_button, WTE_INPUT_BUTTON_2,
         [](const entity_id& shd_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
             entity_id player_entity = world.get_id("player");
             //  Set the shield's location to match the player
@@ -472,9 +467,7 @@ void wte_demo::new_game(void) {
                 //  Play sound effect.
                 wte_set_component(shd_id, cmp::sample_loop)->start(messages, "shield_sound");
             }
-        }
-    );
-    wte_set_component(e_id, cmp::input_button)->add_event(WTE_INPUT_ACTION_2_ON_UP,
+        },
         [](const entity_id& shd_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
             //  Disable shield.
             wte_set_component(shd_id, cmp::visible)->hide();

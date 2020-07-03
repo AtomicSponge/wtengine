@@ -34,7 +34,7 @@ class input final : public system {
 
         /*!
          * Input system run method
-         * Get all entities tagged with the input_handler component and run.
+         * Get all entities tagged with an input handler component and run.
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
          * \param current_time Current value of the main timer.
@@ -60,11 +60,12 @@ class input final : public system {
             component_container<cmp::input_button> button_components =
                 world.set_components<cmp::input_button>();
 
-            for(auto & b_it : button_components) {  //  Loop all input components
-                for(auto & i_it : b_it.second->get_map()) {  //  Loop the input map
-                    if(input_flags::check(i_it.first))  //  Check if there is an event to consume.
-                        i_it.second(b_it.first, world, messages, current_time);
-                }
+            for(auto & b_it : button_components) {
+                if(input_flags::check_button_event(b_it.second->get_flag(), BUTTON_EVENT_DOWN))
+                    b_it.second->on_down(b_it.first, world, messages, current_time);
+                if(input_flags::check_button_event(b_it.second->get_flag(), BUTTON_EVENT_UP))
+                    b_it.second->on_up(b_it.first, world, messages, current_time);
+
             }  //  End input component loop
         };
 };

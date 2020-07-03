@@ -13,6 +13,7 @@
 #define WTE_CMP_INPUT_DIRECTIONAL_HPP
 
 #include <functional>
+#include <cassert>
 
 #include "component.hpp"
 #include "../mgr/entity_manager.hpp"

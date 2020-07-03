@@ -19,14 +19,6 @@ namespace wte
 {
 
 /*!
- * \enum Input direction flags.
- */
-enum WTE_DIRECTION_FLAG_ENUM {
-    WTE_INPUT_DIRECTON_SET,     WTE_INPUT_DIRECTION_UNSET,
-    WTE_MAX_DIRECTON_FLAGS
-};
-
-/*!
  * \enum Joysticks.
  */
 enum WTE_JOYSTICK_FLAGS {
@@ -34,6 +26,14 @@ enum WTE_JOYSTICK_FLAGS {
     //WTE_JOYSTICK_B,
     //WTE_JOYSTICK_C,
     WTE_MAX_JOYSTICK_FLAGS
+};
+
+/*!
+ * \enum Input direction flags.
+ */
+enum WTE_DIRECTION_FLAG_ENUM {
+    WTE_INPUT_DIRECTON_SET,     WTE_INPUT_DIRECTION_UNSET,
+    WTE_MAX_DIRECTON_FLAGS
 };
 
 /*!

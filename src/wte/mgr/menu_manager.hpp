@@ -334,25 +334,35 @@ inline void menu_manager::run(message_manager& messages) {
     }
 
     //  Iterate through the menu items depending on key press.
-    if(input_flags::check(WTE_INPUT_UP_ON_DOWN) && menu_position != opened_menus.top()->items_cbegin()) {
+    if(input_flags::check_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_DOWN) &&
+       menu_position != opened_menus.top()->items_cbegin())
+    {
         menu_position--;
     }
-    if(input_flags::check(WTE_INPUT_DOWN_ON_DOWN) && menu_position != opened_menus.top()->items_cend()) {
+    if(input_flags::check_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_DOWN) &&
+       menu_position != opened_menus.top()->items_cend())
+    {
         menu_position++;
         if(menu_position == opened_menus.top()->items_cend()) menu_position--;
     }
 
     //  Switch through the menu item depending on key press.
     //  TODO:  Need to update ALT handling
-    if(input_flags::check(WTE_INPUT_LEFT_ON_DOWN) && menu_position != opened_menus.top()->items_cend()) {
-        (*menu_position)->on_left(input_flags::check(WTE_INPUT_MENU_ALT));
+    if(input_flags::check_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_DOWN) &&
+       menu_position != opened_menus.top()->items_cend())
+    {
+        (*menu_position)->on_left(input_flags::check_button_event(WTE_INPUT_MENU_ALT, WTE_BUTTON_EVENT_DOWN));
     }
-    if(input_flags::check(WTE_INPUT_RIGHT_ON_DOWN) && menu_position != opened_menus.top()->items_cend()) {
-        (*menu_position)->on_right(input_flags::check(WTE_INPUT_MENU_ALT));
+    if(input_flags::check_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_DOWN) &&
+       menu_position != opened_menus.top()->items_cend())
+    {
+        (*menu_position)->on_right(input_flags::check_button_event(WTE_INPUT_MENU_ALT, WTE_BUTTON_EVENT_DOWN));
     }
 
     //  Menu item was selected, process what happens.
-    if(input_flags::check(WTE_INPUT_MENU_SELECT) && menu_position != opened_menus.top()->items_cend()) {
+    if(input_flags::check_button_event(WTE_INPUT_MENU_SELECT, WTE_BUTTON_EVENT_DOWN) &&
+       menu_position != opened_menus.top()->items_cend())
+    {
         message temp_msg = (*menu_position)->on_select();
         /* *** Check if the message is for the menu system and process. ********* */
         if(temp_msg.get_sys() == "menu") {
@@ -424,7 +434,7 @@ inline void menu_manager::run(message_manager& messages) {
         else if(temp_msg.get_cmd() != "null") messages.add_message(temp_msg);
     }
 
-    if(input_flags::check(WTE_INPUT_MENU_CLOSE)) close_menu();
+    if(input_flags::check_button_event(WTE_INPUT_MENU_CLOSE, WTE_BUTTON_EVENT_DOWN)) close_menu();
 }
 
 /*!

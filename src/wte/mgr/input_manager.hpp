@@ -173,42 +173,53 @@ inline void input_manager::run(void) {
             /* *********************** */
             if(input_event.type == ALLEGRO_EVENT_KEY_DOWN) {
                 switch(input_event.keyboard.keycode) {
+                    /////////////////////////////////////////////////////////////
                     case ALLEGRO_KEY_UP:
                     case ALLEGRO_KEY_W:
                         y_axis[WTE_JOYSTICK_A] = -1.0f;
                         input_flags::set_joystick_radians(WTE_JOYSTICK_A,
                                     std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
                         input_flags::toggle(WTE_INPUT_DIRECTON_SET);
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_DOWN);
                         break;
+                    /////////////////////////////////////////////////////////////
                     case ALLEGRO_KEY_DOWN:
                     case ALLEGRO_KEY_S:
                         y_axis[WTE_JOYSTICK_A] = 1.0f;
                         input_flags::set_joystick_radians(WTE_JOYSTICK_A,
                                     std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
                         input_flags::toggle(WTE_INPUT_DIRECTON_SET);
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_DOWN);
                         break;
+                    /////////////////////////////////////////////////////////////
                     case ALLEGRO_KEY_LEFT:
                     case ALLEGRO_KEY_A:
                         x_axis[WTE_JOYSTICK_A] = -1.0f;
                         input_flags::set_joystick_radians(WTE_JOYSTICK_A,
                                     std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
                         input_flags::toggle(WTE_INPUT_DIRECTON_SET);
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_DOWN);
                         break;
+                    /////////////////////////////////////////////////////////////
                     case ALLEGRO_KEY_RIGHT:
                     case ALLEGRO_KEY_D:
                         x_axis[WTE_JOYSTICK_A] = 1.0f;
                         input_flags::set_joystick_radians(WTE_JOYSTICK_A,
                                     std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
                         input_flags::toggle(WTE_INPUT_DIRECTON_SET);
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_DOWN);
                         break;
+                    /////////////////////////////////////////////////////////////
                     case ALLEGRO_KEY_LCTRL:
                     case ALLEGRO_KEY_RCTRL:
                         input_flags::set_button_event(WTE_INPUT_BUTTON_1, WTE_BUTTON_EVENT_DOWN);
                         break;
+                    /////////////////////////////////////////////////////////////
                     case ALLEGRO_KEY_ALT:
                     case ALLEGRO_KEY_ALTGR:
                         input_flags::set_button_event(WTE_INPUT_BUTTON_2, WTE_BUTTON_EVENT_DOWN);
                         break;
+                    /////////////////////////////////////////////////////////////
                     case ALLEGRO_KEY_LSHIFT:
                     case ALLEGRO_KEY_RSHIFT:
                         input_flags::set_button_event(WTE_INPUT_BUTTON_3, WTE_BUTTON_EVENT_DOWN);
@@ -221,6 +232,7 @@ inline void input_manager::run(void) {
             } //  End if(input_event.type == ALLEGRO_EVENT_KEY_DOWN)
             if(input_event.type == ALLEGRO_EVENT_KEY_UP) {
                 switch(input_event.keyboard.keycode) {
+                    /////////////////////////////////////////////////////////////
                     case ALLEGRO_KEY_UP:
                     case ALLEGRO_KEY_W:
                         if(y_axis[WTE_JOYSTICK_A] < 0.0f) {
@@ -232,7 +244,9 @@ inline void input_manager::run(void) {
                             else
                                 input_flags::toggle(WTE_INPUT_DIRECTON_SET);
                         }
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_UP);
                         break;
+                    /////////////////////////////////////////////////////////////
                     case ALLEGRO_KEY_DOWN:
                     case ALLEGRO_KEY_S:
                         if(y_axis[WTE_JOYSTICK_A] > 0.0f) {
@@ -244,7 +258,9 @@ inline void input_manager::run(void) {
                             else
                                 input_flags::toggle(WTE_INPUT_DIRECTON_SET);
                         }
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_UP);
                         break;
+                    /////////////////////////////////////////////////////////////
                     case ALLEGRO_KEY_LEFT:
                     case ALLEGRO_KEY_A:
                         if(x_axis[WTE_JOYSTICK_A] < 0.0f) {
@@ -256,7 +272,9 @@ inline void input_manager::run(void) {
                             else
                                 input_flags::toggle(WTE_INPUT_DIRECTON_SET);
                         }
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_UP);
                         break;
+                    /////////////////////////////////////////////////////////////
                     case ALLEGRO_KEY_RIGHT:
                     case ALLEGRO_KEY_D:
                         if(x_axis[WTE_JOYSTICK_A] > 0.0f) {
@@ -268,15 +286,19 @@ inline void input_manager::run(void) {
                             else
                                 input_flags::toggle(WTE_INPUT_DIRECTON_SET);
                         }
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_UP);
                         break;
+                    /////////////////////////////////////////////////////////////
                     case ALLEGRO_KEY_LCTRL:
                     case ALLEGRO_KEY_RCTRL:
                         input_flags::set_button_event(WTE_INPUT_BUTTON_1, WTE_BUTTON_EVENT_UP);
                         break;
+                    /////////////////////////////////////////////////////////////
                     case ALLEGRO_KEY_ALT:
                     case ALLEGRO_KEY_ALTGR:
                         input_flags::set_button_event(WTE_INPUT_BUTTON_2, WTE_BUTTON_EVENT_UP);
                         break;
+                    /////////////////////////////////////////////////////////////
                     case ALLEGRO_KEY_LSHIFT:
                     case ALLEGRO_KEY_RSHIFT:
                         input_flags::set_button_event(WTE_INPUT_BUTTON_3, WTE_BUTTON_EVENT_UP);

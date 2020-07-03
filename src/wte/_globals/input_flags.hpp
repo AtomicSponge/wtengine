@@ -49,6 +49,13 @@ enum WTE_BUTTON_EVENT_FLAGS {
     WTE_MAX_BUTTON_EVENT_FLAGS
 };
 
+enum WTE_JOYSTICK_FLAGS {
+    JOYSTICK_A,
+    //JOYSTICK_B,
+    //JOYSTICK_C,
+    WTE_MAX_JOYSTICK_FLAGS
+};
+
 /*!
  * \class Input flags
  * Colletion of flags to store input state.
@@ -95,12 +102,20 @@ class input_flags final {
                     buttons[i][e].store(false, std::memory_order_release);
         };
 
-        inline static void set_radians(const float& a) {
-            angle = a;
+        /*!
+         *
+         */
+        inline static void set_radians(const std::size_t& i, const float& a) {
+            assert(i < WTE_MAX_JOYSTICK_FLAGS);
+            angle[i].store(a, std::memory_order_release);
         };
 
-        inline static const float get_radians(void) {
-            return angle;
+        /*!
+         *
+         */
+        inline static const float get_radians(const std::size_t& i) {
+            assert(i < WTE_MAX_JOYSTICK_FLAGS);
+            return angle[i].load(std::memory_order_consume);
         };
 
         /*!
@@ -133,7 +148,7 @@ class input_flags final {
 
         inline static std::atomic<bool> flags[WTE_MAX_INPUT_FLAGS] = {};
 
-        inline static std::atomic<float> angle = 0.0f;
+        inline static std::atomic<float> angle[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
 
         inline static std::atomic<bool> buttons[WTE_MAX_INPUT_BUTTON_FLAGS][WTE_MAX_BUTTON_EVENT_FLAGS];
 };

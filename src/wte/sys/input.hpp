@@ -48,12 +48,12 @@ class input final : public system {
                 world.set_components<cmp::input_directional>();
 
             for(auto & d_it : directional_components) {
-                if(input_flags::check(WTE_INPUT_DIRECTON_SET)) {
+                if(input_flags::joystick_check(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET)) {
                     d_it.second->on_set(d_it.first,
                                 input_flags::get_joystick_radians(d_it.second->get_bind()),
                                 world, messages, current_time);
                 }
-                if(input_flags::check(WTE_INPUT_DIRECTION_UNSET)) {
+                if(input_flags::joystick_check(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_UNSET)) {
                     d_it.second->on_unset(d_it.first, world, messages, current_time);
                 }
             }

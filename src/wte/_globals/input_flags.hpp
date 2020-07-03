@@ -19,11 +19,21 @@ namespace wte
 {
 
 /*!
- * \enum Input directions.
+ * \enum Input direction flags.
  */
-enum WTE_INPUT_FLAG_ENUM {
+enum WTE_DIRECTION_FLAG_ENUM {
     WTE_INPUT_DIRECTON_SET,     WTE_INPUT_DIRECTION_UNSET,
-    WTE_MAX_INPUT_FLAGS
+    WTE_MAX_DIRECTON_FLAGS
+};
+
+/*!
+ * \enum Joysticks.
+ */
+enum WTE_JOYSTICK_FLAGS {
+    WTE_JOYSTICK_A,
+    //WTE_JOYSTICK_B,
+    //WTE_JOYSTICK_C,
+    WTE_MAX_JOYSTICK_FLAGS
 };
 
 /*!
@@ -53,16 +63,6 @@ enum WTE_BUTTON_EVENT_FLAGS {
 };
 
 /*!
- * \enum Joysticks.
- */
-enum WTE_JOYSTICK_FLAGS {
-    WTE_JOYSTICK_A,
-    //WTE_JOYSTICK_B,
-    //WTE_JOYSTICK_C,
-    WTE_MAX_JOYSTICK_FLAGS
-};
-
-/*!
  * \class Input flags
  * Colletion of flags to store input state.
  */
@@ -79,96 +79,101 @@ class input_flags final {
          * \return void
          */
         inline static void unset_all(void) {
-            for(std::size_t i = 0; i < WTE_MAX_INPUT_FLAGS; i++)
-                flags[i].store(false, std::memory_order_release);
+            for(std::size_t j = 0; j < WTE_MAX_JOYSTICK_FLAGS; j++)
+                for(std::size_t d = 0; d < WTE_MAX_DIRECTON_FLAGS; d++)
+                    dflags[j][d].store(false, std::memory_order_release);
 
-            for(std::size_t i = 0; i < WTE_MAX_JOYSTICK_FLAGS; i++)
-                angle[i].store(0.0f, std::memory_order_release);
+            for(std::size_t j = 0; j < WTE_MAX_JOYSTICK_FLAGS; j++)
+                angle[j].store(0.0f, std::memory_order_release);
 
-            for(std::size_t i = 0; i < WTE_MAX_INPUT_BUTTON_FLAGS; i++)
+            for(std::size_t b = 0; b < WTE_MAX_INPUT_BUTTON_FLAGS; b++)
                 for(std::size_t e = 0; e < WTE_MAX_BUTTON_EVENT_FLAGS; e++)
-                    buttons[i][e].store(false, std::memory_order_release);
+                    buttons[b][e].store(false, std::memory_order_release);
         };
 
         /*!
          * Toggle flag to set.
-         * \param i Index of flag to set.
+         * \param j Joystick to set flag for.
+         * \param d Direction flag to set.
          * \return void
          */
-        inline static void toggle(const std::size_t& i) {
-            assert(i < WTE_MAX_INPUT_FLAGS);
-            flags[i].store(true, std::memory_order_release);
+        inline static void joystick_toggle(const std::size_t& j, const std::size_t& d) {
+            assert(j < WTE_MAX_JOYSTICK_FLAGS);
+            assert(d < WTE_MAX_DIRECTON_FLAGS);
+            dflags[j][d].store(true, std::memory_order_release);
         };
 
         /*!
          * \brief Check if a flag is set.
          * Unsets the flag if it is.
-         * \param i Index of flag to check.
+         * \param j Joystick to check.
+         * \param d Direction flag to check.
          * \return True if set, false if not.
          */
-        inline static const bool check(const std::size_t& i) {
-            assert(i < WTE_MAX_INPUT_FLAGS);
-            return flags[i].exchange(false, std::memory_order_consume);
+        inline static const bool joystick_check(const std::size_t& j, const std::size_t& d) {
+            assert(j < WTE_MAX_JOYSTICK_FLAGS);
+            assert(d < WTE_MAX_DIRECTON_FLAGS);
+            return dflags[j][d].exchange(false, std::memory_order_consume);
         };
 
         /*!
          * Set radians for a joystick.
-         * \param i Joystick to set for.
+         * \param j Joystick to set for.
          * \param a Angle in radians.
          */
-        inline static void set_joystick_radians(const std::size_t& i, const float& a) {
-            assert(i < WTE_MAX_JOYSTICK_FLAGS);
-            angle[i].store(a, std::memory_order_release);
+        inline static void set_joystick_radians(const std::size_t& j, const float& a) {
+            assert(j < WTE_MAX_JOYSTICK_FLAGS);
+            angle[j].store(a, std::memory_order_release);
         };
 
         /*!
          * Set the direction of a joystick.
-         * \param i Joystick to check.
+         * \param j Joystick to check.
          * \return Angle in radians.
          */
-        inline static const float get_joystick_radians(const std::size_t& i) {
-            assert(i < WTE_MAX_JOYSTICK_FLAGS);
-            return angle[i].load(std::memory_order_consume);
+        inline static const float get_joystick_radians(const std::size_t& j) {
+            assert(j < WTE_MAX_JOYSTICK_FLAGS);
+            return angle[j].load(std::memory_order_consume);
         };
 
         /*!
          * Set X pole of a joystick.
-         * \param i Joystick to set.
+         * \param j Joystick to set.
          * \param d Direction to set.
          */
-        inline static void set_joystick_pol_x(const std::size_t& i, const float& d) {
-            assert(i < WTE_MAX_JOYSTICK_FLAGS);
-            pol_x[i].store(d, std::memory_order_release);
+        inline static void set_joystick_pol_x(const std::size_t& j, const float& d) {
+            assert(j < WTE_MAX_JOYSTICK_FLAGS);
+            pol_x[j].store(d, std::memory_order_release);
         };
 
         /*!
          * Set Y pole of a joystick.
-         * \param i Joystick to set.
+         * \param j Joystick to set.
          * \param d Direction to set.
          */
-        inline static void set_joystick_pol_y(const std::size_t& i, const float& d) {
-            assert(i < WTE_MAX_JOYSTICK_FLAGS);
-            pol_y[i].store(d, std::memory_order_release);
+        inline static void set_joystick_pol_y(const std::size_t& j, const float& d) {
+            assert(j < WTE_MAX_JOYSTICK_FLAGS);
+            pol_y[j].store(d, std::memory_order_release);
         };
 
         /*!
          * Get X pole for a joystick.
-         * \param i Joystick to set.
+         * \param j Joystick to set.
          * \return Joystick X direction.
          */
-        inline static const float get_joystick_pol_x(const std::size_t& i) {
-            assert(i < WTE_MAX_JOYSTICK_FLAGS);
-            return pol_x[i].load(std::memory_order_consume);
+        inline static const float get_joystick_pol_x(const std::size_t& j) {
+            assert(j < WTE_MAX_JOYSTICK_FLAGS);
+            return pol_x[j].load(std::memory_order_consume);
         };
 
         /*!
          * Get Y pole for a joystick.
-         * \param i Joystick to set.
+         * \param j Joystick to set.
          * \return Joystick Y direction.
          */
-        inline static const float get_joystick_pol_y(const std::size_t& i) {
-            assert(i < WTE_MAX_JOYSTICK_FLAGS);
-            return pol_y[i].load(std::memory_order_consume);
+        inline static const float get_joystick_pol_y(const std::size_t& j) {
+            assert(j < WTE_MAX_JOYSTICK_FLAGS);
+            return pol_y[j].load(std::memory_order_consume);
         };
 
         /*!
@@ -199,7 +204,7 @@ class input_flags final {
         inline input_flags() { unset_all(); };
         inline ~input_flags() { unset_all(); };
 
-        inline static std::atomic<bool> flags[WTE_MAX_INPUT_FLAGS] = {};
+        inline static std::atomic<bool> dflags[WTE_MAX_JOYSTICK_FLAGS][WTE_MAX_DIRECTON_FLAGS];
 
         inline static std::atomic<float> angle[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
         inline static std::atomic<float> pol_x[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };

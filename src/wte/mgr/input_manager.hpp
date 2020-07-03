@@ -181,7 +181,7 @@ inline void input_manager::run(void) {
                                     std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
                         input_flags::set_joystick_pol_x(WTE_JOYSTICK_A, x_axis[WTE_JOYSTICK_A]);
                         input_flags::set_joystick_pol_y(WTE_JOYSTICK_A, y_axis[WTE_JOYSTICK_A]);
-                        input_flags::toggle(WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
                         input_flags::set_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_DOWN);
                         break;
                     /////////////////////////////////////////////////////////////
@@ -192,7 +192,7 @@ inline void input_manager::run(void) {
                                     std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
                         input_flags::set_joystick_pol_x(WTE_JOYSTICK_A, x_axis[WTE_JOYSTICK_A]);
                         input_flags::set_joystick_pol_y(WTE_JOYSTICK_A, y_axis[WTE_JOYSTICK_A]);
-                        input_flags::toggle(WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
                         input_flags::set_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_DOWN);
                         break;
                     /////////////////////////////////////////////////////////////
@@ -203,7 +203,7 @@ inline void input_manager::run(void) {
                                     std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
                         input_flags::set_joystick_pol_x(WTE_JOYSTICK_A, x_axis[WTE_JOYSTICK_A]);
                         input_flags::set_joystick_pol_y(WTE_JOYSTICK_A, y_axis[WTE_JOYSTICK_A]);
-                        input_flags::toggle(WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
                         input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_DOWN);
                         break;
                     /////////////////////////////////////////////////////////////
@@ -214,7 +214,7 @@ inline void input_manager::run(void) {
                                     std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
                         input_flags::set_joystick_pol_x(WTE_JOYSTICK_A, x_axis[WTE_JOYSTICK_A]);
                         input_flags::set_joystick_pol_y(WTE_JOYSTICK_A, y_axis[WTE_JOYSTICK_A]);
-                        input_flags::toggle(WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
                         input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_DOWN);
                         break;
                     /////////////////////////////////////////////////////////////
@@ -250,9 +250,9 @@ inline void input_manager::run(void) {
                             input_flags::set_joystick_pol_x(WTE_JOYSTICK_A, x_axis[WTE_JOYSTICK_A]);
                             input_flags::set_joystick_pol_y(WTE_JOYSTICK_A, y_axis[WTE_JOYSTICK_A]);
                             if(x_axis[WTE_JOYSTICK_A] == 0.0f && y_axis[WTE_JOYSTICK_A] == 0.0f)
-                                input_flags::toggle(WTE_INPUT_DIRECTION_UNSET);
+                                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_UNSET);
                             else
-                                input_flags::toggle(WTE_INPUT_DIRECTON_SET);
+                                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
                         }
                         input_flags::set_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_UP);
                         break;
@@ -266,9 +266,9 @@ inline void input_manager::run(void) {
                             input_flags::set_joystick_pol_x(WTE_JOYSTICK_A, x_axis[WTE_JOYSTICK_A]);
                             input_flags::set_joystick_pol_y(WTE_JOYSTICK_A, y_axis[WTE_JOYSTICK_A]);
                             if(x_axis[WTE_JOYSTICK_A] == 0.0f && y_axis[WTE_JOYSTICK_A] == 0.0f)
-                                input_flags::toggle(WTE_INPUT_DIRECTION_UNSET);
+                                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_UNSET);
                             else
-                                input_flags::toggle(WTE_INPUT_DIRECTON_SET);
+                                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
                         }
                         input_flags::set_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_UP);
                         break;
@@ -282,9 +282,9 @@ inline void input_manager::run(void) {
                             input_flags::set_joystick_pol_x(WTE_JOYSTICK_A, x_axis[WTE_JOYSTICK_A]);
                             input_flags::set_joystick_pol_y(WTE_JOYSTICK_A, y_axis[WTE_JOYSTICK_A]);
                             if(x_axis[WTE_JOYSTICK_A] == 0.0f && y_axis[WTE_JOYSTICK_A] == 0.0f)
-                                input_flags::toggle(WTE_INPUT_DIRECTION_UNSET);
+                                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_UNSET);
                             else
-                                input_flags::toggle(WTE_INPUT_DIRECTON_SET);
+                                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
                         }
                         input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_UP);
                         break;
@@ -298,9 +298,9 @@ inline void input_manager::run(void) {
                             input_flags::set_joystick_pol_x(WTE_JOYSTICK_A, x_axis[WTE_JOYSTICK_A]);
                             input_flags::set_joystick_pol_y(WTE_JOYSTICK_A, y_axis[WTE_JOYSTICK_A]);
                             if(x_axis[WTE_JOYSTICK_A] == 0.0f && y_axis[WTE_JOYSTICK_A] == 0.0f)
-                                input_flags::toggle(WTE_INPUT_DIRECTION_UNSET);
+                                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_UNSET);
                             else
-                                input_flags::toggle(WTE_INPUT_DIRECTON_SET);
+                                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
                         }
                         input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_UP);
                         break;

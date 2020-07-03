@@ -76,6 +76,23 @@ class input_flags final {
         void operator=(input_flags const&) = delete;
 
         /*!
+         * Set all input flags to false.
+         * \param void
+         * \return void
+         */
+        inline static void unset_all(void) {
+            for(std::size_t i = 0; i < WTE_MAX_INPUT_FLAGS; i++)
+                flags[i].store(false, std::memory_order_release);
+
+            for(std::size_t i = 0; i < WTE_MAX_JOYSTICK_FLAGS; i++)
+                angle[i].store(0.0f, std::memory_order_release);
+
+            for(std::size_t i = 0; i < WTE_MAX_INPUT_BUTTON_FLAGS; i++)
+                for(std::size_t e = 0; e < WTE_MAX_BUTTON_EVENT_FLAGS; e++)
+                    buttons[i][e].store(false, std::memory_order_release);
+        };
+
+        /*!
          * Toggle flag to set.
          * \param i Index of flag to set.
          * \return void
@@ -94,23 +111,6 @@ class input_flags final {
         inline static const bool check(const std::size_t& i) {
             assert(i < WTE_MAX_INPUT_FLAGS);
             return flags[i].exchange(false, std::memory_order_consume);
-        };
-
-        /*!
-         * Set all input flags to false.
-         * \param void
-         * \return void
-         */
-        inline static void unset_all(void) {
-            for(std::size_t i = 0; i < WTE_MAX_INPUT_FLAGS; i++)
-                flags[i].store(false, std::memory_order_release);
-
-            for(std::size_t i = 0; i < WTE_MAX_JOYSTICK_FLAGS; i++)
-                angle[i].store(0.0f, std::memory_order_release);
-
-            for(std::size_t i = 0; i < WTE_MAX_INPUT_BUTTON_FLAGS; i++)
-                for(std::size_t e = 0; e < WTE_MAX_BUTTON_EVENT_FLAGS; e++)
-                    buttons[i][e].store(false, std::memory_order_release);
         };
 
         /*!

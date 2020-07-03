@@ -26,8 +26,8 @@ namespace cmp
 {
 
 /*!
- * \class ...
- * ...
+ * \class Input Directional class
+ * Creates an input bind to a directional joystick.
  */
 class input_directional final : public component {
     public:
@@ -57,14 +57,21 @@ class input_directional final : public component {
         inline ~input_directional() {};
 
         /*!
-         *
+         * Get the joystick bounded to this component.
+         * \param void
+         * \return The joystick enum value.
          */
         inline const std::size_t get_bind(void) const {
             return input_bind;
         };
 
         /*!
-         *
+         * Run the joystick direction set function.
+         * \param e_id Entity ID
+         * \param rad Direction of input in radians.
+         * \param world Reference to the entity manager.
+         * \param messages Reference to the message manager.
+         * \param current_time Current engine time.
          */
         inline void on_set(const entity_id& e_id,
                            const float& rad,
@@ -75,7 +82,11 @@ class input_directional final : public component {
         };
 
         /*!
-         *
+         * Run the joystick direction unset function.
+         * \param e_id Entity ID
+         * \param world Reference to the entity manager.
+         * \param messages Reference to the message manager.
+         * \param current_time Current engine time.
          */
         inline void on_unset(const entity_id& e_id,
                              mgr::entity_manager& world,

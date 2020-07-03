@@ -103,7 +103,9 @@ class input_flags final {
         };
 
         /*!
-         *
+         * Set radians for a joystick.
+         * \param i Joystick to set for.
+         * \param a Angle in radians.
          */
         inline static void set_radians(const std::size_t& i, const float& a) {
             assert(i < WTE_MAX_JOYSTICK_FLAGS);
@@ -111,7 +113,9 @@ class input_flags final {
         };
 
         /*!
-         *
+         * Set the direction of a joystick.
+         * \param i Joystick to check.
+         * \return Angle in radians.
          */
         inline static const float get_radians(const std::size_t& i) {
             assert(i < WTE_MAX_JOYSTICK_FLAGS);

@@ -12,6 +12,8 @@
 #ifndef WTE_INPUT_FLAGS_HPP
 #define WTE_INPUT_FLAGS_HPP
 
+#include <cmath>
+
 #include <atomic>
 #include <cassert>
 
@@ -19,7 +21,7 @@ namespace wte
 {
 
 /*!
- * \enum ...
+ * \enum Input directions.
  */
 enum WTE_INPUT_FLAG_ENUM {
     WTE_INPUT_DIRECTON_SET,     WTE_INPUT_DIRECTION_UNSET,
@@ -27,7 +29,7 @@ enum WTE_INPUT_FLAG_ENUM {
 };
 
 /*!
- * \enum ...
+ * \enum List of buttons.
  */
 enum WTE_INPUT_BUTTON_FLAG_ENUM {
     WTE_INPUT_BUTTON_UP,        WTE_INPUT_BUTTON_DOWN,
@@ -44,7 +46,7 @@ enum WTE_INPUT_BUTTON_FLAG_ENUM {
 };
 
 /*!
- * \enum ...
+ * \enum Button events.
  */
 enum WTE_BUTTON_EVENT_FLAGS {
     WTE_BUTTON_EVENT_DOWN,
@@ -53,7 +55,7 @@ enum WTE_BUTTON_EVENT_FLAGS {
 };
 
 /*!
- * \enum ...
+ * \enum Joysticks.
  */
 enum WTE_JOYSTICK_FLAGS {
     WTE_JOYSTICK_A,
@@ -132,6 +134,46 @@ class input_flags final {
         };
 
         /*!
+         * Set X pole of a joystick.
+         * \param i Joystick to set.
+         * \param d Direction to set.
+         */
+        inline static void set_joystick_pol_x(const std::size_t& i, const float& d) {
+            assert(i < WTE_MAX_JOYSTICK_FLAGS);
+            pol_x[i].store(d, std::memory_order_release);
+        };
+
+        /*!
+         * Set Y pole of a joystick.
+         * \param i Joystick to set.
+         * \param d Direction to set.
+         */
+        inline static void set_joystick_pol_y(const std::size_t& i, const float& d) {
+            assert(i < WTE_MAX_JOYSTICK_FLAGS);
+            pol_y[i].store(d, std::memory_order_release);
+        };
+
+        /*!
+         * Get X pole for a joystick.
+         * \param i Joystick to set.
+         * \return Joystick X direction.
+         */
+        inline static const float get_joystick_pol_x(const std::size_t& i) {
+            assert(i < WTE_MAX_JOYSTICK_FLAGS);
+            return pol_x[i].load(std::memory_order_consume);
+        };
+
+        /*!
+         * Get Y pole for a joystick.
+         * \param i Joystick to set.
+         * \return Joystick Y direction.
+         */
+        inline static const float get_joystick_pol_y(const std::size_t& i) {
+            assert(i < WTE_MAX_JOYSTICK_FLAGS);
+            return pol_y[i].load(std::memory_order_consume);
+        };
+
+        /*!
          * Check if a button event is set.
          * \param b Button to check.
          * \param e Event to check.
@@ -162,6 +204,8 @@ class input_flags final {
         inline static std::atomic<bool> flags[WTE_MAX_INPUT_FLAGS] = {};
 
         inline static std::atomic<float> angle[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
+        inline static std::atomic<float> pol_x[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
+        inline static std::atomic<float> pol_y[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
 
         inline static std::atomic<bool> buttons[WTE_MAX_INPUT_BUTTON_FLAGS][WTE_MAX_BUTTON_EVENT_FLAGS];
 };

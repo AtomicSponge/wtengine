@@ -131,9 +131,9 @@ class input_flags final {
         inline input_flags() { unset_all(); };
         inline ~input_flags() { unset_all(); };
 
-        inline static std::atomic<float> angle = 0.0f;
-
         inline static std::atomic<bool> flags[WTE_MAX_INPUT_FLAGS] = {};
+
+        inline static std::atomic<float> angle = 0.0f;
 
         inline static std::atomic<bool> buttons[WTE_MAX_INPUT_BUTTON_FLAGS][WTE_MAX_BUTTON_EVENT_FLAGS];
 };

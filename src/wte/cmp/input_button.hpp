@@ -50,7 +50,7 @@ class input_button final : public component {
                         mgr::message_manager&,
                         const int64_t&)
         ) : button_flag(button), button_down(func_a), button_up(func_b) {
-            assert(button < WTE_MAX_INPUT_BUTTON_FLAGS);
+            assert(button_flag < WTE_MAX_INPUT_BUTTON_FLAGS);
         };
 
         /*!

@@ -18,6 +18,9 @@
 namespace wte
 {
 
+/*!
+ * \enum ...
+ */
 enum WTE_INPUT_FLAG_ENUM {
     WTE_INPUT_DIRECTON_SET,     WTE_INPUT_DIRECTION_UNSET,
 
@@ -33,6 +36,9 @@ enum WTE_INPUT_FLAG_ENUM {
     WTE_MAX_INPUT_FLAGS
 };
 
+/*!
+ * \enum ...
+ */
 enum WTE_INPUT_BUTTON_FLAG_ENUM {
     WTE_INPUT_BUTTON_UP,        WTE_INPUT_BUTTON_DOWN,
     WTE_INPUT_BUTTON_LEFT,      WTE_INPUT_BUTTON_RIGHT,
@@ -43,12 +49,18 @@ enum WTE_INPUT_BUTTON_FLAG_ENUM {
     WTE_MAX_INPUT_BUTTON_FLAGS
 };
 
+/*!
+ * \enum ...
+ */
 enum WTE_BUTTON_EVENT_FLAGS {
     BUTTON_EVENT_DOWN,
     BUTTON_EVENT_UP,
     WTE_MAX_BUTTON_EVENT_FLAGS
 };
 
+/*!
+ * \enum ...
+ */
 enum WTE_JOYSTICK_FLAGS {
     JOYSTICK_A,
     //JOYSTICK_B,

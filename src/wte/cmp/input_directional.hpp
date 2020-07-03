@@ -47,7 +47,9 @@ class input_directional final : public component {
                         mgr::entity_manager&,
                         mgr::message_manager&,
                         const int64_t&)
-        ) : input_bind(ib), direction_set(func_a), direction_unset(func_b) {};
+        ) : input_bind(ib), direction_set(func_a), direction_unset(func_b) {
+            assert(input_bind < WTE_MAX_JOYSTICK_FLAGS);
+        };
 
         /*!
          * Input Directional destructor.

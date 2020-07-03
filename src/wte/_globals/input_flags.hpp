@@ -12,8 +12,6 @@
 #ifndef WTE_INPUT_FLAGS_HPP
 #define WTE_INPUT_FLAGS_HPP
 
-#include <cmath>
-
 #include <atomic>
 #include <cassert>
 

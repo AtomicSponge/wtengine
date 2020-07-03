@@ -49,7 +49,9 @@ class input final : public system {
 
             for(auto & d_it : directional_components) {
                 if(input_flags::check(WTE_INPUT_DIRECTON_SET)) {
-                    d_it.second->on_set(d_it.first, input_flags::get_radians(d_it.second->get_bind()), world, messages, current_time);
+                    d_it.second->on_set(d_it.first,
+                                input_flags::get_joystick_radians(d_it.second->get_bind()),
+                                world, messages, current_time);
                 }
                 if(input_flags::check(WTE_INPUT_DIRECTION_UNSET)) {
                     d_it.second->on_unset(d_it.first, world, messages, current_time);
@@ -61,9 +63,9 @@ class input final : public system {
                 world.set_components<cmp::input_button>();
 
             for(auto & b_it : button_components) {
-                if(input_flags::check_button_event(b_it.second->get_flag(), BUTTON_EVENT_DOWN))
+                if(input_flags::check_button_event(b_it.second->get_flag(), WTE_BUTTON_EVENT_DOWN))
                     b_it.second->on_down(b_it.first, world, messages, current_time);
-                if(input_flags::check_button_event(b_it.second->get_flag(), BUTTON_EVENT_UP))
+                if(input_flags::check_button_event(b_it.second->get_flag(), WTE_BUTTON_EVENT_UP))
                     b_it.second->on_up(b_it.first, world, messages, current_time);
 
             }  //  End input component loop

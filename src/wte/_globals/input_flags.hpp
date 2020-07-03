@@ -53,8 +53,8 @@ enum WTE_INPUT_BUTTON_FLAG_ENUM {
  * \enum ...
  */
 enum WTE_BUTTON_EVENT_FLAGS {
-    BUTTON_EVENT_DOWN,
-    BUTTON_EVENT_UP,
+    WTE_BUTTON_EVENT_DOWN,
+    WTE_BUTTON_EVENT_UP,
     WTE_MAX_BUTTON_EVENT_FLAGS
 };
 
@@ -62,9 +62,9 @@ enum WTE_BUTTON_EVENT_FLAGS {
  * \enum ...
  */
 enum WTE_JOYSTICK_FLAGS {
-    JOYSTICK_A,
-    //JOYSTICK_B,
-    //JOYSTICK_C,
+    WTE_JOYSTICK_A,
+    //WTE_JOYSTICK_B,
+    //WTE_JOYSTICK_C,
     WTE_MAX_JOYSTICK_FLAGS
 };
 
@@ -119,7 +119,7 @@ class input_flags final {
          * \param i Joystick to set for.
          * \param a Angle in radians.
          */
-        inline static void set_radians(const std::size_t& i, const float& a) {
+        inline static void set_joystick_radians(const std::size_t& i, const float& a) {
             assert(i < WTE_MAX_JOYSTICK_FLAGS);
             angle[i].store(a, std::memory_order_release);
         };
@@ -129,7 +129,7 @@ class input_flags final {
          * \param i Joystick to check.
          * \return Angle in radians.
          */
-        inline static const float get_radians(const std::size_t& i) {
+        inline static const float get_joystick_radians(const std::size_t& i) {
             assert(i < WTE_MAX_JOYSTICK_FLAGS);
             return angle[i].load(std::memory_order_consume);
         };
@@ -165,6 +165,8 @@ class input_flags final {
         inline static std::atomic<bool> flags[WTE_MAX_INPUT_FLAGS] = {};
 
         inline static std::atomic<float> angle[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
+        inline static std::atomic<float> pol_x[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
+        inline static std::atomic<float> pol_y[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
 
         inline static std::atomic<bool> buttons[WTE_MAX_INPUT_BUTTON_FLAGS][WTE_MAX_BUTTON_EVENT_FLAGS];
 };

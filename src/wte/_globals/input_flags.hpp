@@ -109,6 +109,9 @@ class input_flags final {
             for(std::size_t i = 0; i < WTE_MAX_INPUT_FLAGS; i++)
                 flags[i].store(false, std::memory_order_release);
 
+            for(std::size_t i = 0; i < WTE_MAX_JOYSTICK_FLAGS; i++)
+                angle[i].store(0.0f, std::memory_order_release);
+
             for(std::size_t i = 0; i < WTE_MAX_INPUT_BUTTON_FLAGS; i++)
                 for(std::size_t e = 0; e < WTE_MAX_BUTTON_EVENT_FLAGS; e++)
                     buttons[i][e].store(false, std::memory_order_release);
@@ -165,8 +168,6 @@ class input_flags final {
         inline static std::atomic<bool> flags[WTE_MAX_INPUT_FLAGS] = {};
 
         inline static std::atomic<float> angle[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
-        inline static std::atomic<float> pol_x[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
-        inline static std::atomic<float> pol_y[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
 
         inline static std::atomic<bool> buttons[WTE_MAX_INPUT_BUTTON_FLAGS][WTE_MAX_BUTTON_EVENT_FLAGS];
 };

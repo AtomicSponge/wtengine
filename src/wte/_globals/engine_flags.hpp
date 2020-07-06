@@ -12,7 +12,6 @@
 #ifndef WTE_ENGINE_FLAGS_HPP
 #define WTE_ENGINE_FLAGS_HPP
 
-#include <atomic>
 #include <cassert>
 
 namespace wte
@@ -43,7 +42,7 @@ class engine_flags final {
          */
         inline static void set(const std::size_t& i) {
             assert(i < MAX_SYSTEM_FLAGS);
-            flags[i].store(true, std::memory_order_release);
+            flags[i] = true;
         };
 
         /*!
@@ -53,7 +52,7 @@ class engine_flags final {
          */
         inline static void unset(const std::size_t& i) {
             assert(i < MAX_SYSTEM_FLAGS);
-            flags[i].store(false, std::memory_order_release);
+            flags[i] = false;
         };
 
         /*!
@@ -63,7 +62,7 @@ class engine_flags final {
          */
         inline static const bool is_set(const std::size_t& i) {
             assert(i < MAX_SYSTEM_FLAGS);
-            return flags[i].load(std::memory_order_consume);
+            return flags[i];
         };
 
     private:
@@ -77,10 +76,10 @@ class engine_flags final {
          */
         inline static void unset_all(void) {
             for(std::size_t i = 0; i < MAX_SYSTEM_FLAGS; i++)
-                flags[i].store(false, std::memory_order_release);
+                flags[i] = false;
         }
 
-        inline static std::atomic<bool> flags[MAX_SYSTEM_FLAGS] = {};
+        inline static bool flags[MAX_SYSTEM_FLAGS];
 };
 
 } //  end namespace wte

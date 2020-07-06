@@ -15,6 +15,7 @@
 #include <allegro5/allegro.h>
 
 #include <string>
+#include <stdexcept>
 #include <cmath>
 
 #include "_globals/engine_cfg.hpp"

@@ -28,6 +28,7 @@
 
 #include "wte_global_defines.hpp"
 #include "wte_display.hpp"
+#include "wte_input.hpp"
 #include "_globals/engine_cfg.hpp"
 #include "_globals/game_cfg.hpp"
 #include "_globals/engine_flags.hpp"
@@ -44,7 +45,7 @@ namespace wte
  * Sets up various system objects used by the engine.
  * Contains the main game loop and members for managing the game and engine.
  */
-class wte_main : private wte_display {
+class wte_main : private wte_display, private wte_input {
     public:
         /*!
          * Frees up instance, set initialized flag to false.
@@ -55,6 +56,7 @@ class wte_main : private wte_display {
 
             al_destroy_timer(main_timer);
             al_destroy_event_queue(main_queue);
+            destroy_input_queue();
             destroy_display();
             al_inhibit_screensaver(false);
             al_uninstall_system();
@@ -78,8 +80,7 @@ class wte_main : private wte_display {
             menus.initialize();
             audio_th.initialize();
 
-            //  Start the input & audio threads.
-            input_th.start();
+            //  Start the audio thread.
             audio_th.start();
 
             //  Load user configured menus.
@@ -95,7 +96,6 @@ class wte_main : private wte_display {
          * \return void
          */
         inline void wte_unload(void) {
-            input_th.stop();
             audio_th.stop();
 
             screen.de_init();
@@ -159,11 +159,13 @@ class wte_main : private wte_display {
 
             //  Configure main event queue.
             main_queue = al_create_event_queue();
-            if(!main_queue) throw std::runtime_error("Failed to create event queue!");
+            if(!main_queue) throw std::runtime_error("Failed to create main event queue!");
 
             //  Register event sources.
             al_register_event_source(main_queue, al_get_display_event_source(display));
             al_register_event_source(main_queue, al_get_timer_event_source(main_timer));
+
+            create_input_queue();
 
             //  Map commands to enums for switching over in the system msg handler.
             map_cmd_str_values["exit"] = CMD_STR_EXIT;
@@ -226,7 +228,6 @@ class wte_main : private wte_display {
 
         //  Managers only available internally declared here.
         mgr::audio_manager audio_th;
-        mgr::input_manager input_th;
 
         //  Used for mapping commands and switching on system messages:
         enum CMD_STR_VALUE {
@@ -338,6 +339,8 @@ inline void wte_main::do_game(void) {
     engine_flags::unset(GAME_STARTED);
     engine_flags::set(GAME_MENU_OPENED);
 
+    input_flags::unset_all();
+
     while(engine_flags::is_set(IS_RUNNING)) {
         if(!engine_flags::is_set(GAME_STARTED)) {  //  Game not running.
             al_stop_timer(main_timer);             //  Make sure the timer isn't.
@@ -355,16 +358,19 @@ inline void wte_main::do_game(void) {
             al_resume_timer(main_timer);
         }
 
+        //  Check for input.
+        check_input_events();
+
         //  Game menu is opened, run the menu manager.
         if(engine_flags::is_set(GAME_MENU_OPENED)) menus.run(messages);
 
+        message_container temp_msgs;
+
         /* *** GAME LOOP ************************************************************ */
         ALLEGRO_EVENT event;
-        message_container temp_msgs;
-        //  Capture event from queue.
         const bool queue_not_empty = al_get_next_event(main_queue, &event);
         //  Call our game logic update on timer events.  Timer is only running when the game is running.
-        if(event.type == ALLEGRO_EVENT_TIMER && queue_not_empty) {
+        if(queue_not_empty && event.type == ALLEGRO_EVENT_TIMER) {
             const int64_t the_time = al_get_timer_count(main_timer);
             //  Set the engine_time object to the current time.
             mgr::engine_time::set_time(the_time);

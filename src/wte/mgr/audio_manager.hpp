@@ -8,8 +8,6 @@
  *
  * \details Handle playback of audio in its own thread.
  * Waits for messages to be loaded into the audio deck.
- * 
- * \bug Need to finish sample unloading & run tests
  */
 
 #ifndef WTE_MGR_AUDIO_MANAGER_HPP
@@ -23,11 +21,10 @@
 #endif
 
 #include <string>
-#include <vector>
 #include <map>
 #include <deque>
+#include <mutex>
 #include <stdexcept>
-//#include <mutex>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_audio.h>
@@ -134,6 +131,16 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
             //  Set number of samples.
             al_set_default_mixer(mixer_2);
             al_reserve_samples(WTE_MAX_PLAYING_SAMPLES);
+
+            //  Verify audio levels are registered in engine cfg.
+            if(!engine_cfg::is_reg("main_vol")) engine_cfg::reg("main_vol=1.0");
+            if(!engine_cfg::is_reg("mix1_vol")) engine_cfg::reg("mix1_vol=1.0");
+            if(!engine_cfg::is_reg("mix2_vol")) engine_cfg::reg("mix2_vol=1.0");
+            if(!engine_cfg::is_reg("mix3_vol")) engine_cfg::reg("mix3_vol=1.0");
+            if(!engine_cfg::is_reg("mix4_vol")) engine_cfg::reg("mix4_vol=1.0");
+
+            //  Set volume levels.
+            set_volume();
         };
 
         /*!
@@ -190,28 +197,29 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
         };
 
         /*!
-         * Get the volume level of a mixer.
-         * \param pos Mixer position.
-         * \return Value of the mixer gain.
+         * Update engine cfg with the current volume levels.
+         * \param void
+         * \return void
          */
-        /*inline const float get_volume(const std::size_t pos) {
-            if(pos == 0) return al_get_mixer_gain(mixer_main);
-            if(pos == 1) return al_get_mixer_gain(mixer_1);
-            if(pos == 2) return al_get_mixer_gain(mixer_2);
-            if(pos == 3) return al_get_mixer_gain(mixer_3);
-            if(pos == 4) return al_get_mixer_gain(mixer_4);
-            return -1.0f;
-        };*/
+        inline void get_volume(void) const {
+            engine_cfg::set("main_vol", std::to_string(al_get_mixer_gain(mixer_main)));
+            engine_cfg::set("mix1_vol", std::to_string(al_get_mixer_gain(mixer_1)));
+            engine_cfg::set("mix2_vol", std::to_string(al_get_mixer_gain(mixer_2)));
+            engine_cfg::set("mix3_vol", std::to_string(al_get_mixer_gain(mixer_3)));
+            engine_cfg::set("mix4_vol", std::to_string(al_get_mixer_gain(mixer_4)));
+        };
 
         /*!
          * Take a vector of messages and pass them into the audio messages deck.
          * \param messages Vector of messages to be passed.
          * \return void
          */
-        inline void transfer_messages(const message_container messages) {
+        inline void transfer_messages(const message_container& messages) {
+            deque_mtx.lock();
             audio_messages.insert(audio_messages.end(),
                                   std::make_move_iterator(messages.begin()),
                                   std::make_move_iterator(messages.end()));
+            deque_mtx.unlock();
         };
 
     private:
@@ -226,6 +234,24 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
                 return full_path.substr(0, full_path.find("."));
             return full_path.substr(full_path.find_last_of("/") + 1,
                 full_path.find(".") - (full_path.find_last_of("/") + 1));
+        };
+
+        /*!
+         * Set volume levels based on engine cfg settings.
+         * \param void
+         * \return void
+         */
+        inline void set_volume(void) {
+            float vol = engine_cfg::get<float>("main_vol");
+            if(vol >= 0.0f && vol <= 1.0f) al_set_mixer_gain(mixer_main, vol);
+            vol = engine_cfg::get<float>("mix1_vol");
+            if(vol >= 0.0f && vol <= 1.0f) al_set_mixer_gain(mixer_1, vol);
+            vol = engine_cfg::get<float>("mix2_vol");
+            if(vol >= 0.0f && vol <= 1.0f) al_set_mixer_gain(mixer_2, vol);
+            vol = engine_cfg::get<float>("mix3_vol");
+            if(vol >= 0.0f && vol <= 1.0f) al_set_mixer_gain(mixer_3, vol);
+            vol = engine_cfg::get<float>("mix4_vol");
+            if(vol >= 0.0f && vol <= 1.0f) al_set_mixer_gain(mixer_4, vol);
         };
 
         void run(void) override;
@@ -254,6 +280,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
 
         //  Deck of audio messages to be processed by the manager.
         std::deque<message> audio_messages;
+        std::mutex deque_mtx;
 
         /* Allegro objects used by audio manager */
         //  Main audio output
@@ -295,16 +322,18 @@ inline void audio_manager::run(void) {
     al_set_physfs_file_interface();
 
     while(keep_running() == true) {
+        //  Initialize variables for local use.
         std::size_t pos = 0;
         float gain = 0.0f;
         float pan = 0.0f;
         float speed = 0.0f;
+        bool test = false;
 
-        bool test = true;
-
+        //  Iterators for referencing saved & playing samples.
         std::map<std::string, ALLEGRO_SAMPLE*>::iterator sample_iterator;
         std::map<std::string, ALLEGRO_SAMPLE_ID>::iterator sample_instance;
 
+        //  Temp sample ID for storing playing sample references.
         ALLEGRO_SAMPLE_ID temp_sample_id;
 
         if(!audio_messages.empty()) {
@@ -387,6 +416,13 @@ inline void audio_manager::run(void) {
                 case CMD_STR_UNLOAD_SAMPLE:
                     //  Unload all samples.
                     if(audio_messages.front().get_arg(0) == "all") {
+                        //  First clear out the sample instances.
+                        for(sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
+                            al_stop_sample(&sample_instance->second);
+                            sample_instances.erase(sample_instance);
+                            sample_instance = sample_instances.begin();
+                        }
+                        //  Then unload all samples.
                         for(sample_iterator = sample_map.begin(); sample_iterator != sample_map.end();) {
                             al_destroy_sample(sample_iterator->second);
                             sample_map.erase(sample_iterator);
@@ -453,25 +489,18 @@ inline void audio_manager::run(void) {
                 /////////////////////////////////////////////
 
                 /////////////////////////////////////////////
-                //  cmd:  pan_sample - arg:  sample_num (0 - MAX) ; pan ([left]-1.0 thru 1.0[right] or none) - Set sample pan.
-                //  Note:  disabled for now.
+                //  cmd:  pan_sample - arg:  loop_ref ; pan ([left]-1.0 thru 1.0[right] or none) - Set sample pan.
+                //  Note:  Disabled for now.  Needs testing.
                 case CMD_STR_PAN_SAMPLE:
                     #ifdef ALLEGRO_UNSTABLE
-                    pos = audio_messages.front().get_arg<std::size_t>(0);
-                    if(pos >= WTE_MAX_SAMPLES) break;  //  Out of sample range, end.
-                    if(!sample_playing[pos]) break;  //  Sample not loaded, end.
-                    //  If arg == "none" set no panning
+                    if(sample_instances.find(audio_messages.front().get_arg(0)) == sample_instances.end()) break;
                     if(audio_messages.front().get_arg(1) == "none") {
-                        instance = al_lock_sample_id(&sample_id[pos]);
-                        if(instance) al_set_sample_instance_pan(instance, ALLEGRO_AUDIO_PAN_NONE);
-                        al_unlock_sample_id(&sample_id[pos]);
-                        break;
+                        pan = ALLEGRO_AUDIO_PAN_NONE;
+                    } else {
+                        pan = audio_messages.front().get_arg<float>(1);
+                        if(pan < -1.0f || pan > 1.0f) pan = ALLEGRO_AUDIO_PAN_NONE;
                     }
-                    pan = audio_messages.front().get_arg<float>(1);
-                    if(pan < -1.0f || pan > 1.0f) break;  //  Out of pan range
-                    instance = al_lock_sample_id(&sample_id[pos]);
-                    if(instance) al_set_sample_instance_pan(instance, pan);
-                    al_unlock_sample_id(&sample_id[pos]);
+                    al_set_sample_instance_pan(&sample_instances.find(audio_messages.front().get_arg(0))->second, pan);
                     #endif
                     break;
                 /////////////////////////////////////////////
@@ -590,17 +619,9 @@ inline void audio_manager::run(void) {
                 /* *** General commands *** */
                 /* ************************ */
                 /////////////////////////////////////////////
-                //  cmd:  set_volume - arg:  mixer # ; volume - Set the volume of a mixer.
+                //  cmd:  set_volume - Get audio levels from engine cfg and set.
                 case CMD_STR_SET_VOLUME:
-                    pos = audio_messages.front().get_arg<std::size_t>(0);
-                    float vol = audio_messages.front().get_arg<float>(1);
-                    if(vol >= 0.0f && vol <= 1.0f) {
-                        if(pos == 0) al_set_mixer_gain(mixer_main, vol);
-                        if(pos == 1) al_set_mixer_gain(mixer_1, vol);
-                        if(pos == 2) al_set_mixer_gain(mixer_2, vol);
-                        if(pos == 3) al_set_mixer_gain(mixer_3, vol);
-                        if(pos == 4) al_set_mixer_gain(mixer_4, vol);
-                    }
+                    set_volume();
                     break;
                 /////////////////////////////////////////////
 
@@ -612,7 +633,9 @@ inline void audio_manager::run(void) {
                 /////////////////////////////////////////////
             }
             //  Remove processed message from the deck.
+            deque_mtx.lock();
             audio_messages.pop_front();
+            deque_mtx.unlock();
         }  //  End if(!audio_messages.empty())
     }  //  End while(is_running() == true)
 }  //  End run member

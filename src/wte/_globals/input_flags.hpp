@@ -12,7 +12,6 @@
 #ifndef WTE_INPUT_FLAGS_HPP
 #define WTE_INPUT_FLAGS_HPP
 
-#include <atomic>
 #include <cassert>
 
 namespace wte
@@ -81,14 +80,18 @@ class input_flags final {
         inline static void unset_all(void) {
             for(std::size_t j = 0; j < WTE_MAX_JOYSTICK_FLAGS; j++)
                 for(std::size_t d = 0; d < WTE_MAX_DIRECTON_FLAGS; d++)
-                    dflags[j][d].store(false, std::memory_order_release);
+                    dflags[j][d] = false;
 
             for(std::size_t j = 0; j < WTE_MAX_JOYSTICK_FLAGS; j++)
-                angle[j].store(0.0f, std::memory_order_release);
+                angle[j] = 0.0f;
+            for(std::size_t j = 0; j < WTE_MAX_JOYSTICK_FLAGS; j++)
+                pol_x[j] = 0.0f;
+            for(std::size_t j = 0; j < WTE_MAX_JOYSTICK_FLAGS; j++)
+                pol_y[j] = 0.0f;
 
             for(std::size_t b = 0; b < WTE_MAX_INPUT_BUTTON_FLAGS; b++)
                 for(std::size_t e = 0; e < WTE_MAX_BUTTON_EVENT_FLAGS; e++)
-                    buttons[b][e].store(false, std::memory_order_release);
+                    buttons[b][e] = false;
         };
 
         /*!
@@ -100,7 +103,7 @@ class input_flags final {
         inline static void joystick_toggle(const std::size_t& j, const std::size_t& d) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
             assert(d < WTE_MAX_DIRECTON_FLAGS);
-            dflags[j][d].store(true, std::memory_order_release);
+            dflags[j][d] = true;
         };
 
         /*!
@@ -113,7 +116,10 @@ class input_flags final {
         inline static const bool joystick_check(const std::size_t& j, const std::size_t& d) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
             assert(d < WTE_MAX_DIRECTON_FLAGS);
-            return dflags[j][d].exchange(false, std::memory_order_consume);
+            
+            const bool consume = dflags[j][d];
+            if(consume) dflags[j][d] = false;
+            return consume;
         };
 
         /*!
@@ -123,7 +129,7 @@ class input_flags final {
          */
         inline static void set_joystick_radians(const std::size_t& j, const float& a) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
-            angle[j].store(a, std::memory_order_release);
+            angle[j] = a;
         };
 
         /*!
@@ -133,7 +139,7 @@ class input_flags final {
          */
         inline static const float get_joystick_radians(const std::size_t& j) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
-            return angle[j].load(std::memory_order_consume);
+            return angle[j];
         };
 
         /*!
@@ -143,7 +149,7 @@ class input_flags final {
          */
         inline static void set_joystick_pol_x(const std::size_t& j, const float& d) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
-            pol_x[j].store(d, std::memory_order_release);
+            pol_x[j] = d;
         };
 
         /*!
@@ -153,7 +159,7 @@ class input_flags final {
          */
         inline static void set_joystick_pol_y(const std::size_t& j, const float& d) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
-            pol_y[j].store(d, std::memory_order_release);
+            pol_y[j] = d;
         };
 
         /*!
@@ -163,7 +169,7 @@ class input_flags final {
          */
         inline static const float get_joystick_pol_x(const std::size_t& j) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
-            return pol_x[j].load(std::memory_order_consume);
+            return pol_x[j];
         };
 
         /*!
@@ -173,7 +179,7 @@ class input_flags final {
          */
         inline static const float get_joystick_pol_y(const std::size_t& j) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
-            return pol_y[j].load(std::memory_order_consume);
+            return pol_y[j];
         };
 
         /*!
@@ -185,7 +191,9 @@ class input_flags final {
             assert(b < WTE_MAX_INPUT_BUTTON_FLAGS);
             assert(e < WTE_MAX_BUTTON_EVENT_FLAGS);
 
-            return buttons[b][e].exchange(false, std::memory_order_consume);
+            const bool consume = buttons[b][e];
+            if(consume) buttons[b][e] = false;
+            return consume;
         };
 
         /*!
@@ -197,20 +205,40 @@ class input_flags final {
             assert(b < WTE_MAX_INPUT_BUTTON_FLAGS);
             assert(e < WTE_MAX_BUTTON_EVENT_FLAGS);
 
-            buttons[b][e].store(true, std::memory_order_release);
+            buttons[b][e] = true;
+        };
+
+        /*!
+         * Get the last key that was pressed.
+         * \param void
+         * \return Allegro key code.
+         */
+        inline static const std::size_t get_last_keypress(void) {
+            return last_keypress;
+        };
+
+        /*!
+         * Set the last key pressed.
+         * \param lk Key code of last key pressed.
+         * \return void
+         */
+        inline static void set_last_keypress(const std::size_t& lk) {
+            last_keypress = lk;
         };
 
     private:
         inline input_flags() { unset_all(); };
         inline ~input_flags() { unset_all(); };
 
-        inline static std::atomic<bool> dflags[WTE_MAX_JOYSTICK_FLAGS][WTE_MAX_DIRECTON_FLAGS];
+        inline static std::size_t last_keypress = 0;
 
-        inline static std::atomic<float> angle[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
-        inline static std::atomic<float> pol_x[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
-        inline static std::atomic<float> pol_y[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
+        inline static bool dflags[WTE_MAX_JOYSTICK_FLAGS][WTE_MAX_DIRECTON_FLAGS];
 
-        inline static std::atomic<bool> buttons[WTE_MAX_INPUT_BUTTON_FLAGS][WTE_MAX_BUTTON_EVENT_FLAGS];
+        inline static float angle[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
+        inline static float pol_x[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
+        inline static float pol_y[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
+
+        inline static bool buttons[WTE_MAX_INPUT_BUTTON_FLAGS][WTE_MAX_BUTTON_EVENT_FLAGS];
 };
 
 } //  end namespace wte

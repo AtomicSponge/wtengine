@@ -15,14 +15,12 @@ For an example of the API in action, see the [demo game code](https://github.com
  - Programmable menu interface
  - Memory manager for in-game objects
  - Global variable maps for game/engine settings
- - Music & audio playback via messages
- - Some multi-threading of tasks
+ - Threaded music & audio playback via messages
  - Buildable debug modes
 
 #### TODO:
- - Finish up input interface
+ - Finish up input interface & gamepad support
  - Create menus for audio & input config
- - Gamepad support
  - Code review / testing / documentation (ongoing)
  - Improve cmake config
 

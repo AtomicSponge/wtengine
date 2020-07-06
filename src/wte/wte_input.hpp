@@ -53,7 +53,8 @@ class wte_input {
         };
 
         /*!
-         * Create the input queue for capturing events.
+         * \brief Create the input queue for capturing events.
+         * Called during engine initialization.
          * \param void
          * \return void
          */
@@ -66,7 +67,8 @@ class wte_input {
         };
 
         /*!
-         * Destroy the input queue.
+         * \brief Destroy the input queue.
+         * Called during engine de-initialization.
          * \param void
          * \return void
          */
@@ -76,7 +78,7 @@ class wte_input {
 
         /*!
          * \brief Check the input queue for events.
-         * Pass any events to the input handler.
+         * Called during the main engine loop.  Pass any events to the input handler.
          * \param void
          * \return void
          */

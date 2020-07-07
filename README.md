@@ -20,7 +20,7 @@ For an example of the API in action, see the [demo game code](https://github.com
 
 #### TODO:
  - Finish up input interface & gamepad support
- - Create menus for audio & input config
+ - Create menu for input config
  - Code review / testing / documentation (ongoing)
  - Improve cmake config
 

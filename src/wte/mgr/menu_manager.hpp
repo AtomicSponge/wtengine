@@ -400,10 +400,14 @@ inline void menu_manager::run(message_manager& messages) {
 
                 //  Apply engine settings if any.
                 if(!eng_settings_string.empty()) {
-                    //  Check to see if the display needs to be reconfigured.
+                    //  Check various apply events.
                     for(auto it = opened_menus.top()->items_cbegin(); it != opened_menus.top()->items_cend(); it++) {
+                        //  Check to see if the display needs to be reconfigured.
                         if((*it)->setting_changed() && (*it)->get_setting_type() == mnu::ENGINE_SETTING_RECONF)
                             messages.add_message(message("system", "reconf_display", ""));
+                        //  Check to see if the audio levels need to be set.
+                        if((*it)->setting_changed() && (*it)->get_setting_type() == mnu::AUDIO_SETTING)
+                            messages.add_message(message("audio", "set_volume", ""));
                     }
                     messages.add_message(message("system", "set_engcfg", eng_settings_string));
                 }

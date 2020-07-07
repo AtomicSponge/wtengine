@@ -11,6 +11,8 @@
 
 #define _WTE_USE_HELPER_MACROS  //  Use engine helper macros.
 
+#include <numeric>
+
 #include <allegro5/allegro_primitives.h>
 
 #include "include/wte_demo.hpp"
@@ -122,8 +124,25 @@ void wte_demo::load_menus(void) {
 
     {
         //  Create the audio settings menu.
+
+        //  Create a vector filled with 0 through 100.
+        std::vector<int> vol_values(101);
+        std::iota(std::begin(vol_values), std::end(vol_values), 0);
+
+        //  Create the volume display and levels vecctors.
+        std::vector<std::string> vol_dvec;
+        std::vector<std::string> vol_vec;
+        for(auto & vol_it : vol_values) {
+            vol_dvec.push_back(std::to_string(vol_it));
+            vol_vec.push_back(std::to_string((float)vol_it / 100.0f));
+        }
+
         mnu::menu temp_menu = mnu::menu("audio_settings", "Audio Settings");
-        //
+        temp_menu.add_item(wte_menu_selection("Main Volume:", "main_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING));
+        temp_menu.add_item(wte_menu_selection("Music Volume:", "mix1_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING));
+        temp_menu.add_item(wte_menu_selection("Effects Volume:", "mix2_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING));
+        temp_menu.add_item(wte_menu_selection("Voice Volume:", "mix3_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING));
+        temp_menu.add_item(wte_menu_selection("Ambiance Volume:", "mix4_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING));
         temp_menu.add_item(wte_menu_apply());
         temp_menu.add_item(wte_menu_action("Return", "close_menu"));
         if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");

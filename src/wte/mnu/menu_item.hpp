@@ -25,7 +25,7 @@ namespace mnu
 {
 
 enum MENU_SETTING_TYPE {
-    GAME_SETTING, ENGINE_SETTING, ENGINE_SETTING_RECONF, DEFAULT_SETTING
+    GAME_SETTING, AUDIO_SETTING, ENGINE_SETTING, ENGINE_SETTING_RECONF, DEFAULT_SETTING
 };
 
 /*!
@@ -109,7 +109,9 @@ class menu_item {
          * \return True if an engine setting, false if a game setting.
          */
         inline const bool is_engine_setting(void) const { 
-            if(setting_type == ENGINE_SETTING || setting_type == ENGINE_SETTING_RECONF)
+            if(setting_type == ENGINE_SETTING ||
+               setting_type == ENGINE_SETTING_RECONF ||
+               setting_type == AUDIO_SETTING)
                 return true;
             return false;
         };

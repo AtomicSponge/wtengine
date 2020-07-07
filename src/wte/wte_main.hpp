@@ -341,6 +341,9 @@ inline void wte_main::do_game(void) {
 
     input_flags::unset_all();
 
+    //  Make sure engine cfg matches audio manager.
+    audio_th.get_volume();
+
     while(engine_flags::is_set(IS_RUNNING)) {
         if(!engine_flags::is_set(GAME_STARTED)) {  //  Game not running.
             al_stop_timer(main_timer);             //  Make sure the timer isn't.
@@ -351,6 +354,7 @@ inline void wte_main::do_game(void) {
         //  Also process the on_menu events.
         if(engine_flags::is_set(GAME_MENU_OPENED) && al_get_timer_started(main_timer)) {
             al_stop_timer(main_timer);
+            audio_th.get_volume();
             on_menu_open();
         }
         if(!engine_flags::is_set(GAME_MENU_OPENED) && !al_get_timer_started(main_timer)) {

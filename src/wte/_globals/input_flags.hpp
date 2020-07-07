@@ -103,6 +103,7 @@ class input_flags final {
         inline static void joystick_toggle(const std::size_t& j, const std::size_t& d) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
             assert(d < WTE_MAX_DIRECTON_FLAGS);
+
             dflags[j][d] = true;
         };
 
@@ -129,6 +130,7 @@ class input_flags final {
          */
         inline static void set_joystick_radians(const std::size_t& j, const float& a) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
+
             angle[j] = a;
         };
 
@@ -139,6 +141,7 @@ class input_flags final {
          */
         inline static const float get_joystick_radians(const std::size_t& j) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
+
             return angle[j];
         };
 
@@ -149,6 +152,7 @@ class input_flags final {
          */
         inline static void set_joystick_pol_x(const std::size_t& j, const float& d) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
+
             pol_x[j] = d;
         };
 
@@ -159,6 +163,7 @@ class input_flags final {
          */
         inline static void set_joystick_pol_y(const std::size_t& j, const float& d) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
+
             pol_y[j] = d;
         };
 
@@ -169,6 +174,7 @@ class input_flags final {
          */
         inline static const float get_joystick_pol_x(const std::size_t& j) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
+
             return pol_x[j];
         };
 
@@ -179,6 +185,7 @@ class input_flags final {
          */
         inline static const float get_joystick_pol_y(const std::size_t& j) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
+
             return pol_y[j];
         };
 

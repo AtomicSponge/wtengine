@@ -136,14 +136,6 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                 case ALLEGRO_KEY_D:
                     input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_DOWN);
                     break;
-                case ALLEGRO_KEY_LCTRL:
-                case ALLEGRO_KEY_RCTRL:
-                case ALLEGRO_KEY_ALT:
-                case ALLEGRO_KEY_ALTGR:
-                case ALLEGRO_KEY_LSHIFT:
-                case ALLEGRO_KEY_RSHIFT:
-                    input_flags::set_button_event(WTE_INPUT_MENU_ALT, WTE_BUTTON_EVENT_DOWN);
-                    break;
                 case ALLEGRO_KEY_SPACE:
                 case ALLEGRO_KEY_ENTER:
                     input_flags::set_button_event(WTE_INPUT_MENU_SELECT, WTE_BUTTON_EVENT_DOWN);
@@ -155,14 +147,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
         } //  End if(event.type == ALLEGRO_EVENT_KEY_DOWN)
         if(event.type == ALLEGRO_EVENT_KEY_UP) {
             switch(event.keyboard.keycode) {
-                case ALLEGRO_KEY_LCTRL:
-                case ALLEGRO_KEY_RCTRL:
-                case ALLEGRO_KEY_ALT:
-                case ALLEGRO_KEY_ALTGR:
-                case ALLEGRO_KEY_LSHIFT:
-                case ALLEGRO_KEY_RSHIFT:
-                    input_flags::set_button_event(WTE_INPUT_MENU_ALT, WTE_BUTTON_EVENT_UP);
-                    break;
+                //
             } //  End switch(event.keyboard.keycode)
         } //  End if(event.type == ALLEGRO_EVENT_KEY_UP)
 
@@ -193,7 +178,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                 }
             }
         } //  End if(event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)*/
-    } //  End menu event processing
+    } //  End menu event processing*/
 
     /* ************************************************************* */
     /* *** PROCESS EVENTS WHILE GAME IS RUNNING ******************** */

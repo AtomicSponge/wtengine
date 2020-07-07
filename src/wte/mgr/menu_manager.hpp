@@ -347,16 +347,15 @@ inline void menu_manager::run(message_manager& messages) {
     }
 
     //  Switch through the menu item depending on key press.
-    //  TODO:  Need to update ALT handling
     if(input_flags::check_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_DOWN) &&
        menu_position != opened_menus.top()->items_cend())
     {
-        (*menu_position)->on_left(input_flags::check_button_event(WTE_INPUT_MENU_ALT, WTE_BUTTON_EVENT_DOWN));
+        (*menu_position)->on_left();
     }
     if(input_flags::check_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_DOWN) &&
        menu_position != opened_menus.top()->items_cend())
     {
-        (*menu_position)->on_right(input_flags::check_button_event(WTE_INPUT_MENU_ALT, WTE_BUTTON_EVENT_DOWN));
+        (*menu_position)->on_right();
     }
 
     //  Menu item was selected, process what happens.

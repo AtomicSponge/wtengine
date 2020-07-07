@@ -65,7 +65,7 @@ class menu_item_selection final : public menu_item {
          * \param alt_trigger Alt trigger flag (unused).
          * \return void
          */
-        inline void on_left(bool alt_trigger) override {
+        inline void on_left(void) override {
             if(current_val != vals.begin()) current_val--;
         };
 
@@ -74,7 +74,7 @@ class menu_item_selection final : public menu_item {
          * \param alt_trigger Alt trigger flag (unused).
          * \return void
          */
-        inline void on_right(bool alt_trigger) override {
+        inline void on_right(void) override {
             if(current_val != vals.end()) current_val++;
             if(current_val == vals.end()) current_val--;
         };

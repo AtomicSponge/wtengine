@@ -49,17 +49,17 @@ class menu_item {
 
         /*!
          * Define left click process.
-         * \param alt_trigger Is menu option key down.
+         * \param void
          * \return void
          */
-        inline virtual void on_left(bool alt_trigger) {};
+        inline virtual void on_left(void) {};
 
         /*!
          * Define right click process.
-         * \param alt_trigger Is menu option key down.
+         * \param void
          * \return void
          */
-        inline virtual void on_right(bool alt_trigger) {};
+        inline virtual void on_right(void) {};
 
         /*!
          * Define selection process.

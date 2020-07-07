@@ -85,7 +85,7 @@ class menu_item_toggle final : public menu_item {
          * \param alt_trigger Alt trigger flag (unused).
          * \return void
          */
-        inline void on_left(bool alt_trigger) override { toggled = true; };
+        inline void on_left(void) override { toggled = true; };
 
         /*!
          * \brief On right process.
@@ -93,7 +93,7 @@ class menu_item_toggle final : public menu_item {
          * \param alt_trigger Alt trigger flag (unused).
          * \return void
          */
-        inline void on_right(bool alt_trigger) override { toggled = false; };
+        inline void on_right(void) override { toggled = false; };
 
         /*!
          * Get display text

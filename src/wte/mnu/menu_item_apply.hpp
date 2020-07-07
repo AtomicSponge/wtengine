@@ -49,7 +49,7 @@ class menu_item_apply final : public menu_item {
          * \param alt_trigger Alt trigger flag (unused).
          * \return void
          */
-        inline void on_left(bool alt_trigger) override { cmd = "cancel"; };
+        inline void on_left(void) override { cmd = "cancel"; };
 
         /*!
          * \brief On right trigger.
@@ -57,7 +57,7 @@ class menu_item_apply final : public menu_item {
          * \param alt_trigger Alt trigger flag (unused).
          * \return void
          */
-        inline void on_right(bool alt_trigger) override { cmd = "apply"; };
+        inline void on_right(void) override { cmd = "apply"; };
 
         /*!
          * \brief On select trigger.

@@ -57,7 +57,7 @@ class menu_item_setting final : public menu_item {
          * \param void
          * \return void
          */
-        inline void on_left(bool alt_trigger) override {
+        inline void on_left(void) override {
             //
         };
 
@@ -66,7 +66,7 @@ class menu_item_setting final : public menu_item {
          * \param void
          * \return void
          */
-        inline void on_right(bool alt_trigger) override {
+        inline void on_right(void) override {
             //
         };
 

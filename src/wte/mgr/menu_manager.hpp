@@ -379,18 +379,18 @@ inline void menu_manager::run(message_manager& messages) {
         al_set_timer_count(menu_timer, 0);
     }
 
-    bool toggle_menu = false;
+    bool toggle_menu_item = false;
     ALLEGRO_EVENT event;
     const bool queue_not_empty = al_get_next_event(menu_event_queue, &event);
     if(queue_not_empty && event.type == ALLEGRO_EVENT_TIMER) {
-        if(al_get_timer_count(menu_timer) == 1) toggle_menu = true;
+        if(al_get_timer_count(menu_timer) == 1) toggle_menu_item = true;
         if(al_get_timer_count(menu_timer) >= 30) {
-            if(al_get_timer_count(menu_timer) >= 70) toggle_menu = true;
-            else if(al_get_timer_count(menu_timer) % 5 == 0) toggle_menu = true;
+            if(al_get_timer_count(menu_timer) >= 70) toggle_menu_item = true;
+            else if(al_get_timer_count(menu_timer) % 5 == 0) toggle_menu_item = true;
         }
     }
 
-    if(toggle_menu) {
+    if(toggle_menu_item) {
         if(is_button_left) (*menu_position)->on_left();
         else (*menu_position)->on_right();
     }

@@ -63,6 +63,7 @@ class wte_display {
             al_reset_new_display_options();
 
             //  Configure vsync options.  Gfx driver may override this.
+            //  0 - System decides | 1 - VSync on | 2 - VSync off
             if(!engine_cfg::is_reg("vsync")) engine_cfg::reg("vsync=0");
             if(engine_cfg::get<int>("vsync") >= 0 || engine_cfg::get<int>("vsync") <= 2) {
                 al_set_new_display_option(ALLEGRO_VSYNC, engine_cfg::get<int>("vsync"), ALLEGRO_SUGGEST);
@@ -71,7 +72,7 @@ class wte_display {
                 engine_cfg::set("vsync=0");
             }
 
-            //  Get the scale factor.
+            //  Set the scale factor.
             float scale_factor = 1.0f;
             if(!engine_cfg::is_reg("scale_factor")) engine_cfg::reg("scale_factor=1");
             if(engine_cfg::get("scale_factor") == "0.5") scale_factor = 0.5f;
@@ -98,7 +99,7 @@ class wte_display {
                 screen_h = (int)ceil(mgr::render_manager::get_arena_height() * scale_factor);
             }
 
-            //  Set the display.
+            //  Create the display.  Full screen windowed defaults to the display resolution.
             display = al_create_display(screen_w, screen_h);
 
             //  Display failed to load, try a fallback.

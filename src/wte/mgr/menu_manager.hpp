@@ -335,6 +335,7 @@ inline void menu_manager::run(message_manager& messages) {
         else open_menu("main_menu"); //  Add the main menu to the stack.
     }
 
+    /* ************************************************************ */
     //  Check for any incoming menu messages and process.
     message_container temp_messages = messages.get_messages("menu");
     if(!temp_messages.empty()) {
@@ -349,12 +350,15 @@ inline void menu_manager::run(message_manager& messages) {
             }
         }
     }
+    /* ************************************************************ */
 
+    /* ************************************************************ */
     //  Iterate through the menu items depending on key press.
     if(input_flags::check_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_DOWN) &&
        menu_position != opened_menus.top()->items_cbegin()) menu_position--;
     if(input_flags::check_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_DOWN) &&
        menu_position != --opened_menus.top()->items_cend()) menu_position++;
+    /* ************************************************************ */
 
     /* ************************************************************ */
     //  Switch through a menu item's options depending on key press.
@@ -399,6 +403,7 @@ inline void menu_manager::run(message_manager& messages) {
     //  End left/right input.
     /* ************************************************************ */
 
+    /* ************************************************************ */
     //  Menu item was selected, process what happens.
     if(input_flags::check_button_event(WTE_INPUT_MENU_SELECT, WTE_BUTTON_EVENT_DOWN) &&
        menu_position != opened_menus.top()->items_cend())
@@ -477,7 +482,10 @@ inline void menu_manager::run(message_manager& messages) {
         //  If the message is not for the menu system, add to the message queue.
         else if(temp_msg.get_cmd() != "null") messages.add_message(temp_msg);
     }
+    //  End menu item processing.
+    /* ************************************************************ */
 
+    //  Check for close menu input.
     if(input_flags::check_button_event(WTE_INPUT_MENU_CLOSE, WTE_BUTTON_EVENT_DOWN)) close_menu();
 }
 
@@ -485,7 +493,7 @@ inline void menu_manager::run(message_manager& messages) {
  * \brief Renders the active menu from the top of the stack.
  * This is called from within the renderer.  Drawing target must be reset after calling.
  * \param void
- * \return The menu bitmap.
+ * \return The rendered menu bitmap.
  */
 inline ALLEGRO_BITMAP& menu_manager::render_menu(void) const {
     //  Set drawing to the menu bitmap.

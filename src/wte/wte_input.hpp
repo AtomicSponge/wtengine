@@ -58,12 +58,12 @@ class wte_input {
          * \param void
          * \return void
          */
-        inline void create_input_queue(void) {
-            input_queue = al_create_event_queue();
-            if(!input_queue) throw std::runtime_error("Failed to create input event queue!");
+        inline void create_input_event_queue(void) {
+            input_event_queue = al_create_event_queue();
+            if(!input_event_queue) throw std::runtime_error("Failed to create input event queue!");
 
-            al_register_event_source(input_queue, al_get_keyboard_event_source());
-            if(al_is_joystick_installed()) al_register_event_source(input_queue, al_get_joystick_event_source());
+            al_register_event_source(input_event_queue, al_get_keyboard_event_source());
+            if(al_is_joystick_installed()) al_register_event_source(input_event_queue, al_get_joystick_event_source());
         };
 
         /*!
@@ -72,8 +72,8 @@ class wte_input {
          * \param void
          * \return void
          */
-        inline void destroy_input_queue(void) {
-            al_destroy_event_queue(input_queue);
+        inline void destroy_input_event_queue(void) {
+            al_destroy_event_queue(input_event_queue);
         };
 
         /*!
@@ -84,14 +84,14 @@ class wte_input {
          */
         inline void check_input_events(void) {
             ALLEGRO_EVENT event;
-            const bool queue_not_empty = al_get_next_event(input_queue, &event);
+            const bool queue_not_empty = al_get_next_event(input_event_queue, &event);
             if(queue_not_empty) handle_input_event(event);
         };
 
     private:
         void handle_input_event(const ALLEGRO_EVENT&);
 
-        ALLEGRO_EVENT_QUEUE* input_queue;
+        ALLEGRO_EVENT_QUEUE* input_event_queue;
 
         float x_axis[WTE_MAX_JOYSTICK_FLAGS];
         float y_axis[WTE_MAX_JOYSTICK_FLAGS];
@@ -147,7 +147,14 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
         } //  End if(event.type == ALLEGRO_EVENT_KEY_DOWN)
         if(event.type == ALLEGRO_EVENT_KEY_UP) {
             switch(event.keyboard.keycode) {
-                //
+                case ALLEGRO_KEY_LEFT:
+                case ALLEGRO_KEY_A:
+                    input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_UP);
+                    break;
+                case ALLEGRO_KEY_RIGHT:
+                case ALLEGRO_KEY_D:
+                    input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_UP);
+                    break;
             } //  End switch(event.keyboard.keycode)
         } //  End if(event.type == ALLEGRO_EVENT_KEY_UP)
 

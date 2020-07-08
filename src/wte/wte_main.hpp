@@ -55,8 +55,8 @@ class wte_main : private wte_display, private wte_input {
             PHYSFS_deinit();
 
             al_destroy_timer(main_timer);
-            al_destroy_event_queue(main_queue);
-            destroy_input_queue();
+            al_destroy_event_queue(main_event_queue);
+            destroy_input_event_queue();
             destroy_display();
             al_inhibit_screensaver(false);
             al_uninstall_system();
@@ -158,14 +158,14 @@ class wte_main : private wte_display, private wte_input {
             if(!main_timer) throw std::runtime_error("Failed to create timer!");
 
             //  Configure main event queue.
-            main_queue = al_create_event_queue();
-            if(!main_queue) throw std::runtime_error("Failed to create main event queue!");
+            main_event_queue = al_create_event_queue();
+            if(!main_event_queue) throw std::runtime_error("Failed to create main event queue!");
 
             //  Register event sources.
-            al_register_event_source(main_queue, al_get_display_event_source(display));
-            al_register_event_source(main_queue, al_get_timer_event_source(main_timer));
+            al_register_event_source(main_event_queue, al_get_display_event_source(display));
+            al_register_event_source(main_event_queue, al_get_timer_event_source(main_timer));
 
-            create_input_queue();
+            create_input_event_queue();
 
             //  Map commands to enums for switching over in the system msg handler.
             map_cmd_str_values["exit"] = CMD_STR_EXIT;
@@ -243,7 +243,7 @@ class wte_main : private wte_display, private wte_input {
 
         //  Allegro objects used by the engine.
         ALLEGRO_TIMER* main_timer;
-        ALLEGRO_EVENT_QUEUE* main_queue;
+        ALLEGRO_EVENT_QUEUE* main_event_queue;
 
         bool load_called;  //  Flag to make sure wte_load was called.
 
@@ -341,9 +341,6 @@ inline void wte_main::do_game(void) {
 
     input_flags::unset_all();
 
-    //  Make sure engine cfg matches audio manager.
-    audio_th.get_volume();
-
     while(engine_flags::is_set(IS_RUNNING)) {
         if(!engine_flags::is_set(GAME_STARTED)) {  //  Game not running.
             al_stop_timer(main_timer);             //  Make sure the timer isn't.
@@ -354,7 +351,7 @@ inline void wte_main::do_game(void) {
         //  Also process the on_menu events.
         if(engine_flags::is_set(GAME_MENU_OPENED) && al_get_timer_started(main_timer)) {
             al_stop_timer(main_timer);
-            audio_th.get_volume();
+            audio_th.get_volume();  //  Make sure engine cfg matches audio manager.
             on_menu_open();
         }
         if(!engine_flags::is_set(GAME_MENU_OPENED) && !al_get_timer_started(main_timer)) {
@@ -372,7 +369,7 @@ inline void wte_main::do_game(void) {
 
         /* *** GAME LOOP ************************************************************ */
         ALLEGRO_EVENT event;
-        const bool queue_not_empty = al_get_next_event(main_queue, &event);
+        const bool queue_not_empty = al_get_next_event(main_event_queue, &event);
         //  Call our game logic update on timer events.  Timer is only running when the game is running.
         if(queue_not_empty && event.type == ALLEGRO_EVENT_TIMER) {
             const int64_t the_time = al_get_timer_count(main_timer);
@@ -522,8 +519,8 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
             case CMD_STR_RECONF_DISPLAY:
                 //  Make sure the timer isn't running and unregister the display.
                 if(timer_running) al_stop_timer(main_timer);
-                al_pause_event_queue(main_queue, true);
-                al_unregister_event_source(main_queue, al_get_display_event_source(display));
+                al_pause_event_queue(main_event_queue, true);
+                al_unregister_event_source(main_event_queue, al_get_display_event_source(display));
                 //  Reload the display.
                 reconf_display();
                 //  Reload any temp bitmaps.
@@ -531,8 +528,8 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
                 menus.reload_menu_bitmap();
                 if(engine_flags::is_set(GAME_STARTED)) systems.reload_temp_bitmaps(world);
                 //  Register display event source and resume timer if it was running.
-                al_register_event_source(main_queue, al_get_display_event_source(display));
-                al_pause_event_queue(main_queue, false);
+                al_register_event_source(main_event_queue, al_get_display_event_source(display));
+                al_pause_event_queue(main_event_queue, false);
                 if(timer_running) al_resume_timer(main_timer);
                 it = sys_msgs.erase(it);
                 break;

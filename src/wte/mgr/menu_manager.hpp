@@ -55,7 +55,7 @@ class menu_manager final : public manager<menu_manager> {
          * \return void
          */
         inline menu_manager() :
-        menu_width(500), menu_height(400), menu_padding(32), font_size(8) {
+        menu_width(500), menu_height(400), menu_padding(32), font_size(8), is_button_left(true) {
             menus.clear();
             opened_menus = {};
         };
@@ -86,21 +86,31 @@ class menu_manager final : public manager<menu_manager> {
             }
             if(!menu_font) throw std::runtime_error("Unable to set font for menus!");
 
-            //  Create the main menu
+            //  Create the main menu.
             mnu::menu temp_main_menu = mnu::menu("main_menu", "Main Menu");
             if(!new_menu(temp_main_menu)) throw std::runtime_error("Unable to create main menu!");
 
-            //  Create the in-game menu
+            //  Create the in-game menu.
             mnu::menu temp_game_menu = mnu::menu("game_menu", "Game Menu");
             if(!new_menu(temp_game_menu)) throw std::runtime_error("Unable to create game menu!");
 
+            //  Set font size.
             font_size = al_get_font_line_height(menu_font);
 
+            //  Create the menu cursor.
             cursor_bitmap = al_create_bitmap(font_size, font_size);
 
+            //  Create the the menu bitmap for rendering.
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             menu_bitmap = al_create_bitmap(menu_width, menu_height);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+
+            //  Create timer & its queue.
+            menu_timer = al_create_timer(1.0f / 30.0f);
+            if(!menu_timer) throw std::runtime_error("Failed to create menu timer!");
+            menu_event_queue = al_create_event_queue();
+            if(!menu_event_queue) throw std::runtime_error("Failed to create menu event queue!");
+            al_register_event_source(menu_event_queue, al_get_timer_event_source(menu_timer));
         };
 
         /*!
@@ -292,11 +302,16 @@ class menu_manager final : public manager<menu_manager> {
         ALLEGRO_COLOR menu_font_color;
         ALLEGRO_COLOR menu_bg_color;
 
+        ALLEGRO_TIMER* menu_timer;
+        ALLEGRO_EVENT_QUEUE* menu_event_queue;
+
         std::vector<mnu::menu_sptr> menus;
         std::stack<mnu::menu_csptr> opened_menus;
 
         int font_size;
         float menu_width, menu_height, menu_padding;
+
+        bool is_button_left;
 
         inline static std::string menu_font_file = "";
         inline static int menu_font_size = 0;
@@ -335,28 +350,52 @@ inline void menu_manager::run(message_manager& messages) {
 
     //  Iterate through the menu items depending on key press.
     if(input_flags::check_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_DOWN) &&
-       menu_position != opened_menus.top()->items_cbegin())
-    {
-        menu_position--;
-    }
+       menu_position != opened_menus.top()->items_cbegin()) menu_position--;
     if(input_flags::check_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_DOWN) &&
-       menu_position != opened_menus.top()->items_cend())
-    {
-        menu_position++;
-        if(menu_position == opened_menus.top()->items_cend()) menu_position--;
-    }
+       menu_position != --opened_menus.top()->items_cend()) menu_position++;
 
-    //  Switch through the menu item depending on key press.
+    /* ************************************************************ */
+    //  Switch through a menu item's options depending on key press.
+    //  The longer the button is held down, the faster it will scroll through options.
     if(input_flags::check_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_DOWN) &&
        menu_position != opened_menus.top()->items_cend())
     {
-        (*menu_position)->on_left();
+        al_start_timer(menu_timer);
+        is_button_left = true;
     }
     if(input_flags::check_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_DOWN) &&
        menu_position != opened_menus.top()->items_cend())
     {
-        (*menu_position)->on_right();
+        al_start_timer(menu_timer);
+        is_button_left = false;
     }
+
+    if(input_flags::check_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_UP)) {
+        al_stop_timer(menu_timer);
+        al_set_timer_count(menu_timer, 0);
+    }
+    if(input_flags::check_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_UP)) {
+        al_stop_timer(menu_timer);
+        al_set_timer_count(menu_timer, 0);
+    }
+
+    bool toggle_menu = false;
+    ALLEGRO_EVENT event;
+    const bool queue_not_empty = al_get_next_event(menu_event_queue, &event);
+    if(queue_not_empty && event.type == ALLEGRO_EVENT_TIMER) {
+        if(al_get_timer_count(menu_timer) == 1) toggle_menu = true;
+        if(al_get_timer_count(menu_timer) >= 30) {
+            if(al_get_timer_count(menu_timer) >= 70) toggle_menu = true;
+            else if(al_get_timer_count(menu_timer) % 5 == 0) toggle_menu = true;
+        }
+    }
+
+    if(toggle_menu) {
+        if(is_button_left) (*menu_position)->on_left();
+        else (*menu_position)->on_right();
+    }
+    //  End left/right input.
+    /* ************************************************************ */
 
     //  Menu item was selected, process what happens.
     if(input_flags::check_button_event(WTE_INPUT_MENU_SELECT, WTE_BUTTON_EVENT_DOWN) &&

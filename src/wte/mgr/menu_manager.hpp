@@ -384,7 +384,7 @@ inline void menu_manager::run(message_manager& messages) {
     const bool queue_not_empty = al_get_next_event(menu_event_queue, &event);
     if(queue_not_empty && event.type == ALLEGRO_EVENT_TIMER) {
         if(al_get_timer_count(menu_timer) == 1) toggle_menu_item = true;
-        if(al_get_timer_count(menu_timer) >= 30) {
+        if(al_get_timer_count(menu_timer) >= 20) {
             if(al_get_timer_count(menu_timer) >= 70) toggle_menu_item = true;
             else if(al_get_timer_count(menu_timer) % 5 == 0) toggle_menu_item = true;
         }

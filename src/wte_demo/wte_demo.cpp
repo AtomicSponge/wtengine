@@ -129,7 +129,7 @@ void wte_demo::load_menus(void) {
         std::vector<int> vol_values(101);
         std::iota(std::begin(vol_values), std::end(vol_values), 0);
 
-        //  Create the volume display and levels vecctors.
+        //  Create the volume display and levels vectors.
         std::vector<std::string> vol_dvec;
         std::vector<std::string> vol_vec;
         for(auto & vol_it : vol_values) {

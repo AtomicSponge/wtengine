@@ -123,6 +123,8 @@ class menu_manager final : public manager<menu_manager> {
             al_destroy_bitmap(menu_bitmap);
             al_destroy_bitmap(cursor_bitmap);
             al_destroy_font(menu_font);
+            al_destroy_event_queue(menu_event_queue);
+            al_destroy_timer(menu_timer);
         };
 
         /*!

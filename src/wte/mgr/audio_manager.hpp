@@ -56,7 +56,7 @@ namespace mgr
  * Mixer 3 - Play voice - Load a file and play once.
  * Mixer 4 - Play ambiance - Load a file and play in a loop.  Looping can be disabled.
  */
-class audio_manager final : public manager<audio_manager>, public make_thread {
+class audio_manager final : private manager<audio_manager>, public make_thread {
     public:
         /*!
          * \brief Audio Manager constructor.
@@ -229,7 +229,7 @@ class audio_manager final : public manager<audio_manager>, public make_thread {
          * \param full_path Full filename including path.
          * \return Filename stripped of folder path and extension.
          */
-        inline const std::string get_sample_name(const std::string full_path) {
+        inline const std::string get_sample_name(const std::string& full_path) {
             if(full_path.find("/") == std::string::npos)
                 return full_path.substr(0, full_path.find("."));
             return full_path.substr(full_path.find_last_of("/") + 1,

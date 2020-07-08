@@ -31,7 +31,7 @@ namespace mgr
  * \class spawn_manager class
  * Spawn stuff
  */
-class spawn_manager final : public manager<spawn_manager> {
+class spawn_manager final : private manager<spawn_manager> {
     public:
         /*!
          * \brief Spawn Manager constructor.

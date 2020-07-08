@@ -46,7 +46,7 @@ namespace mgr
  * \class Menu Manager class.
  * Runs menus.
  */
-class menu_manager final : public manager<menu_manager> {
+class menu_manager final : private manager<menu_manager> {
     public:
         /*!
          * \brief Menu manager constructor

@@ -41,7 +41,7 @@ namespace mgr
  * \class Message Manager class
  * Store a collection of message objects in a vector for processing.
  */
-class message_manager final : public manager<message_manager>, private engine_time {
+class message_manager final : private manager<message_manager>, private engine_time {
     public:
         /*!
          * \brief Message queue constructor

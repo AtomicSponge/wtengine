@@ -32,7 +32,7 @@ namespace mgr
  * \class System Manager class
  * Store the configured systems and process their runs and dispatches.
  */
-class system_manager final : public manager<system_manager> {
+class system_manager final : private manager<system_manager> {
     public:
         /*!
          * System Manager constructor.

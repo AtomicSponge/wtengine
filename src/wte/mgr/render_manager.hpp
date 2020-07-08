@@ -47,7 +47,7 @@ using entity_component_pair = std::pair<const entity_id, std::shared_ptr<const T
  * \class Render manager class
  * An object that handles drawing the world to the screen.
  */
-class render_manager final : public manager<render_manager>, private engine_time {
+class render_manager final : private manager<render_manager>, private engine_time {
     public:
         /*!
          * render_manager constructor.

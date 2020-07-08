@@ -65,7 +65,7 @@ namespace mgr
  * \class Entity manager class.
  * Store a collection of entities and their corresponding components in memory.
  */
-class entity_manager final : public manager<entity_manager> {
+class entity_manager final : private manager<entity_manager> {
     public:
         /*!
          * Entity manager constructor.

@@ -28,8 +28,8 @@ typedef std::vector<menu_item_sptr> menu_items;
 //!  Constant iterator for addressing menu items.
 typedef std::vector<menu_item_sptr>::const_iterator menu_item_citerator;
 
-//!  Menu class.
 /*!
+ * \class Menu class.
  * Class for defining a menu.
  */
 class menu {
@@ -86,7 +86,7 @@ class menu {
          * \param void
          * \return Constant iterator to beginnig of menu items.
          */
-        inline menu_item_citerator items_cbegin() const {
+        inline menu_item_citerator items_cbegin(void) const {
             return items.cbegin();
         };
 
@@ -95,7 +95,7 @@ class menu {
          * \param void
          * \return Constant iterator to end of menu items.
          */
-        inline menu_item_citerator items_cend() const {
+        inline menu_item_citerator items_cend(void) const {
             return items.cend();
         };
 
@@ -104,7 +104,7 @@ class menu {
          * \param t New display title to set.
          * \return void
          */
-        inline void set_title(const std::string t) {
+        inline void set_title(const std::string& t) {
             title = t;
         };
 
@@ -113,7 +113,7 @@ class menu {
          * \param item Shared pointer for the new item.
          * \return void
          */
-        inline void add_item(const menu_item_sptr item) {
+        inline void add_item(const menu_item_sptr& item) {
             items.push_back(item);
         };
 

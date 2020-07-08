@@ -25,10 +25,13 @@ namespace mnu
 {
 
 enum MENU_SETTING_TYPE {
-    GAME_SETTING, AUDIO_SETTING, ENGINE_SETTING, ENGINE_SETTING_RECONF, DEFAULT_SETTING
+    GAME_SETTING,       AUDIO_SETTING,
+    ENGINE_SETTING,     ENGINE_SETTING_RECONF,
+    DEFAULT_SETTING
 };
 
 /*!
+ * \class Menu Item
  * Menu item interface class.
  */
 class menu_item {
@@ -116,10 +119,6 @@ class menu_item {
             return false;
         };
 
-    private:
-        std::string label;
-        std::size_t setting_type;
-
     protected:
         /*!
          * Menu item constructor.
@@ -137,6 +136,10 @@ class menu_item {
          */
         inline menu_item(const std::string l, const std::size_t st) :
         label(l), setting_type(st) {};
+
+    private:
+        std::string label;
+        std::size_t setting_type;
 };
 
 //! Menu Item shared pointer

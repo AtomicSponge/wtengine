@@ -338,15 +338,13 @@ inline void menu_manager::run(message_manager& messages) {
     /* ************************************************************ */
     //  Check for any incoming menu messages and process.
     message_container temp_messages = messages.get_messages("menu");
-    if(!temp_messages.empty()) {
-        for(auto & m_it : temp_messages) {
-            //  Reload menu, setting new defaults.
-            if(m_it.get_cmd() == "reload") {
-                for(auto it = opened_menus.top()->items_cbegin();
-                    it != opened_menus.top()->items_cend(); it++) {
-                    (*it)->set_default();
-                    (*it)->reset_to_default();
-                }
+    for(auto & m_it : temp_messages) {
+        //  Reload menu, setting new defaults.
+        if(m_it.get_cmd() == "reload") {
+            for(auto it = opened_menus.top()->items_cbegin();
+                it != opened_menus.top()->items_cend(); it++) {
+                (*it)->set_default();
+                (*it)->reset_to_default();
             }
         }
     }

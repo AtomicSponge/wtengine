@@ -34,6 +34,7 @@
 #include "manager.hpp"
 #include "make_thread.hpp"
 #include "../message.hpp"
+#include "../_globals/engine_cfg.hpp"
 
 namespace wte
 {

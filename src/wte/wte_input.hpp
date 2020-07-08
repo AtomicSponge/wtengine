@@ -113,7 +113,6 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
     /* ************************************************************* */
     /* *** PROCESS EVENTS WHILE MENU IS OPENED ********************* */
     /* ************************************************************* */
-    //  Menu input events are cleared in the menu manager
     if(engine_flags::is_set(GAME_MENU_OPENED)) {
         /* *********************** */
         /* *** Keyboard events *** */

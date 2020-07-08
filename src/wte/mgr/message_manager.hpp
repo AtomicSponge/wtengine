@@ -13,10 +13,6 @@
 #ifndef WTE_MGR_MESSAGE_MANAGER_HPP
 #define WTE_MGR_MESSAGE_MANAGER_HPP
 
-#if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-#include <fstream>
-#endif
-
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -27,9 +23,12 @@
 
 #include "manager.hpp"
 #include "engine_time.hpp"
-#include "../_globals/engine_flags.hpp"
 #include "../message.hpp"
 #include "../wte_global_defines.hpp"
+
+#if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
+#include <fstream>
+#endif
 
 namespace wte
 {

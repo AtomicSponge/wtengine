@@ -117,45 +117,47 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
         /* *********************** */
         /* *** Keyboard events *** */
         /* *********************** */
-        if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
-            switch(event.keyboard.keycode) {
-                case ALLEGRO_KEY_UP:
-                case ALLEGRO_KEY_W:
-                    input_flags::set_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_DOWN);
-                    break;
-                case ALLEGRO_KEY_DOWN:
-                case ALLEGRO_KEY_S:
-                    input_flags::set_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_DOWN);
-                    break;
-                case ALLEGRO_KEY_LEFT:
-                case ALLEGRO_KEY_A:
-                    input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_DOWN);
-                    break;
-                case ALLEGRO_KEY_RIGHT:
-                case ALLEGRO_KEY_D:
-                    input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_DOWN);
-                    break;
-                case ALLEGRO_KEY_SPACE:
-                case ALLEGRO_KEY_ENTER:
-                    input_flags::set_button_event(WTE_INPUT_MENU_SELECT, WTE_BUTTON_EVENT_DOWN);
-                    break;
-                case ALLEGRO_KEY_ESCAPE:
-                    input_flags::set_button_event(WTE_INPUT_MENU_CLOSE, WTE_BUTTON_EVENT_DOWN);
-                    break;
-            } //  End switch(event.keyboard.keycode)
-        } //  End if(event.type == ALLEGRO_EVENT_KEY_DOWN)
-        if(event.type == ALLEGRO_EVENT_KEY_UP) {
-            switch(event.keyboard.keycode) {
-                case ALLEGRO_KEY_LEFT:
-                case ALLEGRO_KEY_A:
-                    input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_UP);
-                    break;
-                case ALLEGRO_KEY_RIGHT:
-                case ALLEGRO_KEY_D:
-                    input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_UP);
-                    break;
-            } //  End switch(event.keyboard.keycode)
-        } //  End if(event.type == ALLEGRO_EVENT_KEY_UP)
+        switch(event.type) {
+            case ALLEGRO_EVENT_KEY_DOWN:
+                switch(event.keyboard.keycode) {
+                    case ALLEGRO_KEY_UP:
+                    case ALLEGRO_KEY_W:
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_DOWN);
+                        break;
+                    case ALLEGRO_KEY_DOWN:
+                    case ALLEGRO_KEY_S:
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_DOWN);
+                        break;
+                    case ALLEGRO_KEY_LEFT:
+                    case ALLEGRO_KEY_A:
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_DOWN);
+                        break;
+                    case ALLEGRO_KEY_RIGHT:
+                    case ALLEGRO_KEY_D:
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_DOWN);
+                        break;
+                    case ALLEGRO_KEY_SPACE:
+                    case ALLEGRO_KEY_ENTER:
+                        input_flags::set_button_event(WTE_INPUT_MENU_SELECT, WTE_BUTTON_EVENT_DOWN);
+                        break;
+                    case ALLEGRO_KEY_ESCAPE:
+                        input_flags::set_button_event(WTE_INPUT_MENU_CLOSE, WTE_BUTTON_EVENT_DOWN);
+                        break;
+                } //  End switch(event.keyboard.keycode)
+                break;
+            case ALLEGRO_EVENT_KEY_UP:
+                switch(event.keyboard.keycode) {
+                    case ALLEGRO_KEY_LEFT:
+                    case ALLEGRO_KEY_A:
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_UP);
+                        break;
+                    case ALLEGRO_KEY_RIGHT:
+                    case ALLEGRO_KEY_D:
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_UP);
+                        break;
+                } //  End switch(event.keyboard.keycode)
+                break;
+        }
 
         /* *********************** */
         /* *** Joystick events *** */
@@ -190,10 +192,11 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
     /* *** PROCESS EVENTS WHILE GAME IS RUNNING ******************** */
     /* ************************************************************* */
     else {
+        switch(event.type) {
         /* *********************** */
         /* *** Keyboard events *** */
         /* *********************** */
-        if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
+        case ALLEGRO_EVENT_KEY_DOWN:
             switch(event.keyboard.keycode) {
                 /////////////////////////////////////////////////////////////
                 case ALLEGRO_KEY_UP:
@@ -259,8 +262,8 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     input_flags::unset_all();
                     break;
             } //  End switch(event.keyboard.keycode)
-        } //  End if(event.type == ALLEGRO_EVENT_KEY_DOWN)
-        if(event.type == ALLEGRO_EVENT_KEY_UP) {
+            break;
+        case ALLEGRO_EVENT_KEY_UP:
             switch(event.keyboard.keycode) {
                 /////////////////////////////////////////////////////////////
                 case ALLEGRO_KEY_UP:
@@ -342,12 +345,12 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     input_flags::set_button_event(WTE_INPUT_BUTTON_3, WTE_BUTTON_EVENT_UP);
                     break;
             } //  End switch(event.keyboard.keycode)
-        } //  End if(event.type == ALLEGRO_EVENT_KEY_UP)
+            break;
 
         /* *********************** */
         /* *** Joystick events *** */
         /* *********************** */
-        if(event.type == ALLEGRO_EVENT_JOYSTICK_AXIS) {
+        case ALLEGRO_EVENT_JOYSTICK_AXIS:
             //std::cout << event.joystick.stick << std::endl;
             /*switch(event.joystick.axis) {
                 case 0: //  X axis
@@ -363,8 +366,8 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     else input_flags::unset(WTE_INPUT_DOWN);
                     break;
             }*/ //  End switch(event.joystick.axis)
-        } //  End if(event.type == ALLEGRO_EVENT_JOYSTICK_AXIS)
-        if(event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN) {
+            break;
+        case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
             switch(event.joystick.button) {
                 /////////////////////////////////////////////////////////////
                 case 13:
@@ -424,8 +427,8 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     input_flags::unset_all();
                     break;
             }
-        } //  End if(event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)
-        if(event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_UP) {
+            break;
+        case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
             switch(event.joystick.button) {
                 /////////////////////////////////////////////////////////////
                 case 13:
@@ -500,7 +503,8 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     input_flags::set_button_event(WTE_INPUT_BUTTON_3, WTE_BUTTON_EVENT_UP);
                     break;
             }
-        } //  End if(event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_UP)
+            break;
+        }
     } //  End game event processing
 }
 

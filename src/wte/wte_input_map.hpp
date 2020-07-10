@@ -80,7 +80,7 @@ class wte_input_map {
         };
 
         /*!
-         * \enum List of buttons.
+         * \enum List of key sets.
          */
         enum WTE_KEY_SET_ENUM {
             KEY_SET_A, KEY_SET_B, MAX_KEY_SETS

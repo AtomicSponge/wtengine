@@ -42,8 +42,8 @@ class wte_input_map {
         /*!
          *
          */
-        inline void set_binding(void) {
-            check_reg();  //  Make sure all settings are registered.
+        inline void set_binding(const bool& joy_installed) {
+            check_reg(joy_installed);  //  Make sure all settings are registered.
 
             //  Keyboard Set A
             keyboard_bind[WTE_INPUT_BUTTON_UP][KEY_SET_A] = engine_cfg::get<std::size_t>("set_a_key_up");
@@ -65,15 +65,18 @@ class wte_input_map {
             keyboard_bind[WTE_INPUT_BUTTON_3][KEY_SET_B] = engine_cfg::get<std::size_t>("set_b_key_action_3");
             keyboard_bind[WTE_INPUT_BUTTON_4][KEY_SET_B] = engine_cfg::get<std::size_t>("set_b_key_action_4");
 
-            //  Joystick buttons
-            button_bind[WTE_INPUT_BUTTON_UP] = 13;
-            button_bind[WTE_INPUT_BUTTON_DOWN] = 12;
-            button_bind[WTE_INPUT_BUTTON_LEFT] = 11;
-            button_bind[WTE_INPUT_BUTTON_RIGHT] = 10;
-            button_bind[WTE_INPUT_BUTTON_1] = 0;
-            button_bind[WTE_INPUT_BUTTON_2] = 1;
-            button_bind[WTE_INPUT_BUTTON_3] = 2;
-            button_bind[WTE_INPUT_BUTTON_4] = 3;
+            if(joy_installed) {
+                //  Joystick buttons
+                button_bind[WTE_INPUT_BUTTON_UP] = engine_cfg::get<std::size_t>("joy_up");
+                button_bind[WTE_INPUT_BUTTON_DOWN] = engine_cfg::get<std::size_t>("joy_down");
+                button_bind[WTE_INPUT_BUTTON_LEFT] = engine_cfg::get<std::size_t>("joy_left");
+                button_bind[WTE_INPUT_BUTTON_RIGHT] = engine_cfg::get<std::size_t>("joy_right");
+                button_bind[WTE_INPUT_BUTTON_1] = engine_cfg::get<std::size_t>("joy_action_1");
+                button_bind[WTE_INPUT_BUTTON_2] = engine_cfg::get<std::size_t>("joy_action_2");
+                button_bind[WTE_INPUT_BUTTON_3] = engine_cfg::get<std::size_t>("joy_action_3");
+                button_bind[WTE_INPUT_BUTTON_4] = engine_cfg::get<std::size_t>("joy_action_4");
+                button_bind[WTE_INPUT_MENU_CLOSE] = engine_cfg::get<std::size_t>("joy_menu");
+            }
         };
 
         /*!
@@ -90,7 +93,7 @@ class wte_input_map {
         /*!
          *
          */
-        inline void check_reg(void) {
+        inline void check_reg(const bool& joy_installed) {
             //  Keyboard Set A
             if(!engine_cfg::is_reg("set_a_key_up")) engine_cfg::reg("set_a_key_up", std::to_string(ALLEGRO_KEY_UP));
             if(!engine_cfg::is_reg("set_a_key_down")) engine_cfg::reg("set_a_key_down", std::to_string(ALLEGRO_KEY_DOWN));
@@ -111,15 +114,18 @@ class wte_input_map {
             if(!engine_cfg::is_reg("set_b_key_action_3")) engine_cfg::reg("set_b_key_action_3", std::to_string(ALLEGRO_KEY_RSHIFT));
             if(!engine_cfg::is_reg("set_b_key_action_4")) engine_cfg::reg("set_b_key_action_4", std::to_string(ALLEGRO_KEY_SPACE));
 
-            //  Joystick buttons
-            if(!engine_cfg::is_reg("joy_up")) {}
-            if(!engine_cfg::is_reg("joy_down")) {}
-            if(!engine_cfg::is_reg("joy_left")) {}
-            if(!engine_cfg::is_reg("joy_right")) {}
-            if(!engine_cfg::is_reg("joy_action_1")) {}
-            if(!engine_cfg::is_reg("joy_action_2")) {}
-            if(!engine_cfg::is_reg("joy_action_3")) {}
-            if(!engine_cfg::is_reg("joy_action_4")) {}
+            if(joy_installed) {
+                //  Joystick buttons
+                if(!engine_cfg::is_reg("joy_up")) engine_cfg::reg("joy_up", std::to_string(13));
+                if(!engine_cfg::is_reg("joy_down")) engine_cfg::reg("joy_down", std::to_string(12));
+                if(!engine_cfg::is_reg("joy_left")) engine_cfg::reg("joy_left", std::to_string(11));
+                if(!engine_cfg::is_reg("joy_right")) engine_cfg::reg("joy_right", std::to_string(10));
+                if(!engine_cfg::is_reg("joy_action_1")) engine_cfg::reg("joy_action_1", std::to_string(0));
+                if(!engine_cfg::is_reg("joy_action_2")) engine_cfg::reg("joy_action_2", std::to_string(1));
+                if(!engine_cfg::is_reg("joy_action_3")) engine_cfg::reg("joy_action_3", std::to_string(2));
+                if(!engine_cfg::is_reg("joy_action_4")) engine_cfg::reg("joy_action_4", std::to_string(3));
+                if(!engine_cfg::is_reg("joy_menu")) engine_cfg::reg("joy_menu", std::to_string(9));
+            }
         };
 };
 

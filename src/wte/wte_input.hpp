@@ -53,6 +53,8 @@ class wte_input : private wte_input_map {
                 last_x_axis[i] = 0.0f;
                 last_y_axis[i] = 0.0f;
             }
+
+            set_binding(false);
         };
 
         /*!
@@ -68,7 +70,7 @@ class wte_input : private wte_input_map {
             al_register_event_source(input_event_queue, al_get_keyboard_event_source());
             if(al_is_joystick_installed()) al_register_event_source(input_event_queue, al_get_joystick_event_source());
 
-            set_binding();  //  Called from wte_input_map
+            set_binding(al_is_joystick_installed());  //  Called from wte_input_map
         };
 
         /*!
@@ -470,7 +472,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                 input_flags::set_button_event(WTE_INPUT_BUTTON_3, WTE_BUTTON_EVENT_DOWN);
             }
             /////////////////////////////////////////////////////////////
-            if(event.joystick.button == 9) {
+            if(event.joystick.button == button_bind[WTE_INPUT_MENU_CLOSE]) {
                 engine_flags::set(GAME_MENU_OPENED);
                 input_flags::unset_all();
             }

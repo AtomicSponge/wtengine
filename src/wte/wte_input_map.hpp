@@ -64,6 +64,16 @@ class wte_input_map {
             keyboard_bind[WTE_INPUT_BUTTON_2][KEY_SET_B] = engine_cfg::get<std::size_t>("set_b_key_action_2");
             keyboard_bind[WTE_INPUT_BUTTON_3][KEY_SET_B] = engine_cfg::get<std::size_t>("set_b_key_action_3");
             keyboard_bind[WTE_INPUT_BUTTON_4][KEY_SET_B] = engine_cfg::get<std::size_t>("set_b_key_action_4");
+
+            //  Joystick buttons
+            button_bind[WTE_INPUT_BUTTON_UP] = 13;
+            button_bind[WTE_INPUT_BUTTON_DOWN] = 12;
+            button_bind[WTE_INPUT_BUTTON_LEFT] = 11;
+            button_bind[WTE_INPUT_BUTTON_RIGHT] = 10;
+            button_bind[WTE_INPUT_BUTTON_1] = 0;
+            button_bind[WTE_INPUT_BUTTON_2] = 1;
+            button_bind[WTE_INPUT_BUTTON_3] = 2;
+            button_bind[WTE_INPUT_BUTTON_4] = 3;
         };
 
         /*!
@@ -100,6 +110,16 @@ class wte_input_map {
             if(!engine_cfg::is_reg("set_b_key_action_2")) engine_cfg::reg("set_b_key_action_2", std::to_string(ALLEGRO_KEY_ALTGR));
             if(!engine_cfg::is_reg("set_b_key_action_3")) engine_cfg::reg("set_b_key_action_3", std::to_string(ALLEGRO_KEY_RSHIFT));
             if(!engine_cfg::is_reg("set_b_key_action_4")) engine_cfg::reg("set_b_key_action_4", std::to_string(ALLEGRO_KEY_SPACE));
+
+            //  Joystick buttons
+            if(!engine_cfg::is_reg("joy_up")) {}
+            if(!engine_cfg::is_reg("joy_down")) {}
+            if(!engine_cfg::is_reg("joy_left")) {}
+            if(!engine_cfg::is_reg("joy_right")) {}
+            if(!engine_cfg::is_reg("joy_action_1")) {}
+            if(!engine_cfg::is_reg("joy_action_2")) {}
+            if(!engine_cfg::is_reg("joy_action_3")) {}
+            if(!engine_cfg::is_reg("joy_action_4")) {}
         };
 };
 

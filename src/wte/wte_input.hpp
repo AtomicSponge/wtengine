@@ -191,7 +191,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     input_flags::set_button_event(WTE_INPUT_MENU_SELECT, WTE_BUTTON_EVENT_DOWN);
                 }
                 if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_2] ||
-                    event.joystick.button == button_bind[WTE_INPUT_MENU_CLOSE])
+                    event.joystick.button == button_bind[WTE_INPUT_BUTTON_START])
                 {
                     input_flags::set_button_event(WTE_INPUT_MENU_CLOSE, WTE_BUTTON_EVENT_DOWN);
                 }
@@ -282,27 +282,19 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
             /////////////////////////////////////////////////////////////
             if(event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_1][KEY_SET_A] ||
                event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_1][KEY_SET_B])
-            {
                 input_flags::set_button_event(WTE_INPUT_BUTTON_1, WTE_BUTTON_EVENT_DOWN);
-            }
             /////////////////////////////////////////////////////////////
             if(event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_2][KEY_SET_A] ||
                event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_2][KEY_SET_B])
-            {
                 input_flags::set_button_event(WTE_INPUT_BUTTON_2, WTE_BUTTON_EVENT_DOWN);
-            }
             /////////////////////////////////////////////////////////////
             if(event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_3][KEY_SET_A] ||
                event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_3][KEY_SET_B])
-            {
                 input_flags::set_button_event(WTE_INPUT_BUTTON_3, WTE_BUTTON_EVENT_DOWN);
-            }
             /////////////////////////////////////////////////////////////
             if(event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_4][KEY_SET_A] ||
                event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_4][KEY_SET_B])
-            {
                 input_flags::set_button_event(WTE_INPUT_BUTTON_4, WTE_BUTTON_EVENT_DOWN);
-            }
             /////////////////////////////////////////////////////////////
             if(event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
                 engine_flags::set(GAME_MENU_OPENED);
@@ -382,27 +374,19 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
             /////////////////////////////////////////////////////////////
             if(event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_1][KEY_SET_A] ||
                event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_1][KEY_SET_B])
-            {
                 input_flags::set_button_event(WTE_INPUT_BUTTON_1, WTE_BUTTON_EVENT_UP);
-            }
             /////////////////////////////////////////////////////////////
             if(event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_2][KEY_SET_A] ||
                event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_2][KEY_SET_B])
-            {
                 input_flags::set_button_event(WTE_INPUT_BUTTON_2, WTE_BUTTON_EVENT_UP);
-            }
             /////////////////////////////////////////////////////////////
             if(event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_3][KEY_SET_A] ||
                event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_3][KEY_SET_B])
-            {
                 input_flags::set_button_event(WTE_INPUT_BUTTON_3, WTE_BUTTON_EVENT_UP);
-            }
             /////////////////////////////////////////////////////////////
             if(event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_4][KEY_SET_A] ||
                event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_4][KEY_SET_B])
-            {
                 input_flags::set_button_event(WTE_INPUT_BUTTON_4, WTE_BUTTON_EVENT_UP);
-            }
         break;  //  End case ALLEGRO_EVENT_KEY_UP
 
         /* *********************** */
@@ -469,23 +453,31 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                 input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_DOWN);
             }
             /////////////////////////////////////////////////////////////
-            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_1]) {
+            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_1])
                 input_flags::set_button_event(WTE_INPUT_BUTTON_1, WTE_BUTTON_EVENT_DOWN);
-            }
             /////////////////////////////////////////////////////////////
-            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_2]) {
+            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_2])
                 input_flags::set_button_event(WTE_INPUT_BUTTON_2, WTE_BUTTON_EVENT_DOWN);
-            }
             /////////////////////////////////////////////////////////////
-            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_3]) {
+            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_3])
                 input_flags::set_button_event(WTE_INPUT_BUTTON_3, WTE_BUTTON_EVENT_DOWN);
-            }
             /////////////////////////////////////////////////////////////
-            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_4]) {
+            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_4])
                 input_flags::set_button_event(WTE_INPUT_BUTTON_4, WTE_BUTTON_EVENT_DOWN);
-            }
             /////////////////////////////////////////////////////////////
-            if(event.joystick.button == button_bind[WTE_INPUT_MENU_CLOSE]) {
+            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_5])
+                input_flags::set_button_event(WTE_INPUT_BUTTON_5, WTE_BUTTON_EVENT_DOWN);
+            /////////////////////////////////////////////////////////////
+            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_6])
+                input_flags::set_button_event(WTE_INPUT_BUTTON_6, WTE_BUTTON_EVENT_DOWN);
+            /////////////////////////////////////////////////////////////
+            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_7])
+                input_flags::set_button_event(WTE_INPUT_BUTTON_7, WTE_BUTTON_EVENT_DOWN);
+            /////////////////////////////////////////////////////////////
+            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_8])
+                input_flags::set_button_event(WTE_INPUT_BUTTON_8, WTE_BUTTON_EVENT_DOWN);
+            /////////////////////////////////////////////////////////////
+            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_START]) {
                 engine_flags::set(GAME_MENU_OPENED);
                 input_flags::unset_all();
             }
@@ -554,21 +546,29 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                 input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_UP);
             }
             /////////////////////////////////////////////////////////////
-            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_1]) {
+            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_1])
                 input_flags::set_button_event(WTE_INPUT_BUTTON_1, WTE_BUTTON_EVENT_UP);
-            }
             /////////////////////////////////////////////////////////////
-            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_2]) {
+            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_2])
                 input_flags::set_button_event(WTE_INPUT_BUTTON_2, WTE_BUTTON_EVENT_UP);
-            }
             /////////////////////////////////////////////////////////////
-            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_3]) {
+            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_3])
                 input_flags::set_button_event(WTE_INPUT_BUTTON_3, WTE_BUTTON_EVENT_UP);
-            }
             /////////////////////////////////////////////////////////////
-            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_4]) {
+            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_4])
                 input_flags::set_button_event(WTE_INPUT_BUTTON_4, WTE_BUTTON_EVENT_UP);
-            }
+            /////////////////////////////////////////////////////////////
+            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_5])
+                input_flags::set_button_event(WTE_INPUT_BUTTON_5, WTE_BUTTON_EVENT_UP);
+            /////////////////////////////////////////////////////////////
+            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_6])
+                input_flags::set_button_event(WTE_INPUT_BUTTON_6, WTE_BUTTON_EVENT_UP);
+            /////////////////////////////////////////////////////////////
+            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_7])
+                input_flags::set_button_event(WTE_INPUT_BUTTON_7, WTE_BUTTON_EVENT_UP);
+            /////////////////////////////////////////////////////////////
+            if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_8])
+                input_flags::set_button_event(WTE_INPUT_BUTTON_8, WTE_BUTTON_EVENT_UP);
         break;  //  End case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP
         }  //  End switch(event.type)
     } //  End game event processing

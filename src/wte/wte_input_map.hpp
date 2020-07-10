@@ -75,7 +75,12 @@ class wte_input_map {
                 button_bind[WTE_INPUT_BUTTON_2] = engine_cfg::get<std::size_t>("joy_action_2");
                 button_bind[WTE_INPUT_BUTTON_3] = engine_cfg::get<std::size_t>("joy_action_3");
                 button_bind[WTE_INPUT_BUTTON_4] = engine_cfg::get<std::size_t>("joy_action_4");
-                button_bind[WTE_INPUT_MENU_CLOSE] = engine_cfg::get<std::size_t>("joy_menu");
+                button_bind[WTE_INPUT_BUTTON_5] = engine_cfg::get<std::size_t>("joy_action_5");
+                button_bind[WTE_INPUT_BUTTON_6] = engine_cfg::get<std::size_t>("joy_action_6");
+                button_bind[WTE_INPUT_BUTTON_7] = engine_cfg::get<std::size_t>("joy_action_7");
+                button_bind[WTE_INPUT_BUTTON_8] = engine_cfg::get<std::size_t>("joy_action_8");
+                button_bind[WTE_INPUT_BUTTON_START] = engine_cfg::get<std::size_t>("joy_start");
+                button_bind[WTE_INPUT_BUTTON_SELECT] = engine_cfg::get<std::size_t>("joy_select");
             }
         };
 
@@ -124,7 +129,12 @@ class wte_input_map {
                 if(!engine_cfg::is_reg("joy_action_2")) engine_cfg::reg("joy_action_2", std::to_string(0));
                 if(!engine_cfg::is_reg("joy_action_3")) engine_cfg::reg("joy_action_3", std::to_string(3));
                 if(!engine_cfg::is_reg("joy_action_4")) engine_cfg::reg("joy_action_4", std::to_string(2));
-                if(!engine_cfg::is_reg("joy_menu")) engine_cfg::reg("joy_menu", std::to_string(9));
+                if(!engine_cfg::is_reg("joy_action_5")) engine_cfg::reg("joy_action_5", std::to_string(4));
+                if(!engine_cfg::is_reg("joy_action_6")) engine_cfg::reg("joy_action_6", std::to_string(5));
+                if(!engine_cfg::is_reg("joy_action_7")) engine_cfg::reg("joy_action_7", std::to_string(6));
+                if(!engine_cfg::is_reg("joy_action_8")) engine_cfg::reg("joy_action_8", std::to_string(7));
+                if(!engine_cfg::is_reg("joy_start")) engine_cfg::reg("joy_start", std::to_string(9));
+                if(!engine_cfg::is_reg("joy_select")) engine_cfg::reg("joy_select", std::to_string(8));
             }
         };
 };

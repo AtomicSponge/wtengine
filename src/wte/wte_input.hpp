@@ -187,10 +187,10 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                 if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_RIGHT]) {
                     input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_DOWN);
                 }
-                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_2]) {
+                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_1]) {
                     input_flags::set_button_event(WTE_INPUT_MENU_SELECT, WTE_BUTTON_EVENT_DOWN);
                 }
-                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_1] ||
+                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_2] ||
                     event.joystick.button == button_bind[WTE_INPUT_MENU_CLOSE])
                 {
                     input_flags::set_button_event(WTE_INPUT_MENU_CLOSE, WTE_BUTTON_EVENT_DOWN);

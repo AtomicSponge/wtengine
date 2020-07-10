@@ -120,10 +120,10 @@ class wte_input_map {
                 if(!engine_cfg::is_reg("joy_down")) engine_cfg::reg("joy_down", std::to_string(12));
                 if(!engine_cfg::is_reg("joy_left")) engine_cfg::reg("joy_left", std::to_string(11));
                 if(!engine_cfg::is_reg("joy_right")) engine_cfg::reg("joy_right", std::to_string(10));
-                if(!engine_cfg::is_reg("joy_action_1")) engine_cfg::reg("joy_action_1", std::to_string(0));
-                if(!engine_cfg::is_reg("joy_action_2")) engine_cfg::reg("joy_action_2", std::to_string(1));
-                if(!engine_cfg::is_reg("joy_action_3")) engine_cfg::reg("joy_action_3", std::to_string(2));
-                if(!engine_cfg::is_reg("joy_action_4")) engine_cfg::reg("joy_action_4", std::to_string(3));
+                if(!engine_cfg::is_reg("joy_action_1")) engine_cfg::reg("joy_action_1", std::to_string(1));
+                if(!engine_cfg::is_reg("joy_action_2")) engine_cfg::reg("joy_action_2", std::to_string(0));
+                if(!engine_cfg::is_reg("joy_action_3")) engine_cfg::reg("joy_action_3", std::to_string(3));
+                if(!engine_cfg::is_reg("joy_action_4")) engine_cfg::reg("joy_action_4", std::to_string(2));
                 if(!engine_cfg::is_reg("joy_menu")) engine_cfg::reg("joy_menu", std::to_string(9));
             }
         };

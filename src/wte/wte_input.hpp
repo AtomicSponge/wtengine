@@ -175,35 +175,26 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
             /* *********************** */
             /////////////////////////////////////////////////////////////
             case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_UP]) {
+                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_UP])
                     input_flags::set_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_DOWN);
-                }
-                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_DOWN]) {
+                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_DOWN])
                     input_flags::set_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_DOWN);
-                }
-                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_LEFT]) {
+                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_LEFT])
                     input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_DOWN);
-                }
-                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_RIGHT]) {
+                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_RIGHT])
                     input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_DOWN);
-                }
-                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_1]) {
+                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_1])
                     input_flags::set_button_event(WTE_INPUT_MENU_SELECT, WTE_BUTTON_EVENT_DOWN);
-                }
                 if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_2] ||
-                    event.joystick.button == button_bind[WTE_INPUT_BUTTON_START])
-                {
+                   event.joystick.button == button_bind[WTE_INPUT_BUTTON_START])
                     input_flags::set_button_event(WTE_INPUT_MENU_CLOSE, WTE_BUTTON_EVENT_DOWN);
-                }
                 break;
             /////////////////////////////////////////////////////////////
             case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_LEFT]) {
+                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_LEFT])
                     input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_UP);
-                }
-                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_RIGHT]) {
+                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_RIGHT])
                     input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_UP);
-                }
                 break;
             /////////////////////////////////////////////////////////////
             case ALLEGRO_EVENT_JOYSTICK_AXIS:

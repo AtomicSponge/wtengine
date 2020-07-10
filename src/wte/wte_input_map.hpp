@@ -37,7 +37,14 @@ class wte_input_map {
         /*!
          *
          */
-        inline wte_input_map() {};
+        inline wte_input_map() {
+            for(std::size_t i = 0; i < WTE_MAX_INPUT_BUTTON_FLAGS; i++) {
+                for(std::size_t j = 0; j < MAX_KEY_SETS; j++) {
+                    keyboard_bind[i][j] = 0;
+                }
+                button_bind[i] = 0;
+            }
+        };
 
         /*!
          *

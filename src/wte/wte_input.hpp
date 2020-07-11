@@ -198,7 +198,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                 break;
             /////////////////////////////////////////////////////////////
             case ALLEGRO_EVENT_JOYSTICK_AXIS:
-                /*switch(event.joystick.axis) {
+                switch(event.joystick.axis) {
                     case 1:
                         if(event.joystick.pos < -0.75f)
                             input_flags::set_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_DOWN);
@@ -207,7 +207,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                         break;
                     case 0:
                         break;
-                }*/
+                }
                 break;
         }  //  End switch(event.type)
     }  //  End menu event processing

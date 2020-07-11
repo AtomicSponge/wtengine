@@ -70,42 +70,6 @@ class wte_main : private wte_display, private wte_input {
         void operator=(wte_main const&) = delete;
 
         /*!
-         * Call first to load the engine.
-         * \param void
-         * \return void
-         */
-        inline void wte_load(void) {
-            //  Initialize managers that require it.
-            screen.initialize();
-            menus.initialize();
-            audio_th.initialize();
-
-            //  Start the audio thread.
-            audio_th.start();
-
-            //  Load user configured menus.
-            load_menus();
-
-            //  Init done, set flag to true.
-            load_called = true;
-        };
-
-        /*!
-         * Call to unload the engine.
-         * \param void
-         * \return void
-         */
-        inline void wte_unload(void) {
-            audio_th.stop();
-
-            screen.de_init();
-            menus.de_init();
-            audio_th.de_init();
-
-            load_called = false;
-        };
-
-        /*!
          * \brief Add file path to provide to PhysFS.
          * This should be called during engine initialization before the main object is created.
          * \param flocation File location to add to PhysFS.
@@ -126,7 +90,7 @@ class wte_main : private wte_display, private wte_input {
          * \param title Window title.
          */
         inline wte_main(const int argc, char **argv, const std::string& title) :
-        wte_display(title), load_called(false) {
+        wte_display(title) {
             if(initialized == true) throw std::runtime_error(get_window_title() + " already running!");
             initialized = true;
 
@@ -222,6 +186,39 @@ class wte_main : private wte_display, private wte_input {
         mgr::system_manager systems;
 
     private:
+        /*!
+         * \brief Load the engine's managers.
+         * Called before the main loop starts.
+         * \param void
+         * \return void
+         */
+        inline void wte_load(void) {
+            //  Initialize managers that require it.
+            screen.initialize();
+            menus.initialize();
+            audio_th.initialize();
+
+            //  Start the audio thread.
+            audio_th.start();
+
+            //  Load user configured menus.
+            load_menus();
+        };
+
+        /*!
+         * \brief Unload the engine's managers.
+         * Called after the main loop ends running.
+         * \param void
+         * \return void
+         */
+        inline void wte_unload(void) {
+            audio_th.stop();
+
+            screen.de_init();
+            menus.de_init();
+            audio_th.de_init();
+        };
+
         void process_new_game(const std::string&);
         void process_end_game(void);
         void handle_sys_msg(message_container&);
@@ -244,8 +241,6 @@ class wte_main : private wte_display, private wte_input {
         //  Allegro objects used by the engine.
         ALLEGRO_TIMER* main_timer;
         ALLEGRO_EVENT_QUEUE* main_event_queue;
-
-        bool load_called;  //  Flag to make sure wte_load was called.
 
         //  Vector of file paths to provide to PhysFS.
         inline static std::vector<std::string> file_locations = {};
@@ -332,7 +327,7 @@ inline void wte_main::process_end_game(void) {
  * \return void
  */
 inline void wte_main::do_game(void) {
-    if(load_called == false) wte_load();  //  Auto call load.
+    wte_load();
 
     //  Set default states.
     engine_flags::set(IS_RUNNING);
@@ -421,7 +416,7 @@ inline void wte_main::do_game(void) {
         }
     }  //  End game loop.
 
-    if(load_called == true) wte_unload();
+    wte_unload();
 }
 
 /*!

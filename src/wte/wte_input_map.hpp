@@ -37,7 +37,7 @@ class wte_input_map {
         /*!
          *
          */
-        inline wte_input_map() {
+        inline wte_input_map() : digital_mode(true) {
             for(std::size_t i = 0; i < WTE_MAX_INPUT_BUTTON_FLAGS; i++) {
                 for(std::size_t j = 0; j < MAX_KEY_SETS; j++) {
                     keyboard_bind[i][j] = 0;
@@ -100,6 +100,8 @@ class wte_input_map {
 
         std::size_t keyboard_bind[WTE_MAX_INPUT_BUTTON_FLAGS][MAX_KEY_SETS];
         std::size_t button_bind[WTE_MAX_INPUT_BUTTON_FLAGS];
+
+        bool digital_mode;
 
     private:
         /*!

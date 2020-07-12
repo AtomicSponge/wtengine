@@ -22,7 +22,7 @@ namespace wte
  */
 enum WTE_JOYSTICK_FLAGS {
     WTE_JOYSTICK_A,
-    //WTE_JOYSTICK_B,
+    WTE_JOYSTICK_B,
     //WTE_JOYSTICK_C,
     WTE_MAX_JOYSTICK_FLAGS
 };

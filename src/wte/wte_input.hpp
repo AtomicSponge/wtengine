@@ -406,20 +406,118 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
         /* *********************** */
         /*******************************************************************/
         case ALLEGRO_EVENT_JOYSTICK_AXIS:
-            /*switch(event.joystick.axis) {
-                case 0: //  X axis
-                    if(event.joystick.pos < 0) input_flags::set(WTE_INPUT_LEFT);
-                    else input_flags::unset(WTE_INPUT_LEFT);
-                    if(event.joystick.pos > 0) input_flags::set(WTE_INPUT_RIGHT);
-                    else input_flags::unset(WTE_INPUT_RIGHT);
-                    break;
-                case 1: //  Y axis
-                    if(event.joystick.pos < 0) input_flags::set(WTE_INPUT_UP);
-                    else input_flags::unset(WTE_INPUT_UP);
-                    if(event.joystick.pos > 0) input_flags::set(WTE_INPUT_DOWN);
-                    else input_flags::unset(WTE_INPUT_DOWN);
-                    break;
-            }*/ //  End switch(event.joystick.axis)
+            std::size_t THE_STICK;
+            if(event.joystick.stick == 0) THE_STICK = WTE_JOYSTICK_A;
+            if(event.joystick.stick == 1) THE_STICK = WTE_JOYSTICK_B;
+            if(digital_mode && (THE_STICK == WTE_JOYSTICK_A || THE_STICK == WTE_JOYSTICK_B))
+                switch(event.joystick.axis) {
+                    case 0:  //  X axis
+                        if(event.joystick.pos < -0.6f && last_x_axis[THE_STICK] > -0.6f) {
+                            x_axis[THE_STICK] = -1.0f;
+                            input_flags::set_joystick_radians(THE_STICK,
+                                std::atan2(y_axis[THE_STICK], x_axis[THE_STICK]));
+                            input_flags::set_joystick_pol_x(THE_STICK, x_axis[THE_STICK]);
+                            input_flags::set_joystick_pol_y(THE_STICK, y_axis[THE_STICK]);
+                            input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                            last_x_axis[THE_STICK] = event.joystick.pos;
+                            break;
+                        }
+                        if(event.joystick.pos > 0.6f && last_x_axis[THE_STICK] < 0.6f) {
+                            x_axis[THE_STICK] = 1.0f;
+                            input_flags::set_joystick_radians(THE_STICK,
+                                std::atan2(y_axis[THE_STICK], x_axis[THE_STICK]));
+                            input_flags::set_joystick_pol_x(THE_STICK, x_axis[THE_STICK]);
+                            input_flags::set_joystick_pol_y(THE_STICK, y_axis[THE_STICK]);
+                            input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                            last_x_axis[THE_STICK] = event.joystick.pos;
+                            break;
+                        }
+                        if(event.joystick.pos > -0.6f && last_x_axis[THE_STICK] < -0.6f) {
+                            x_axis[THE_STICK] = 0.0f;
+                            input_flags::set_joystick_radians(THE_STICK,
+                                std::atan2(y_axis[THE_STICK], x_axis[THE_STICK]));
+                            input_flags::set_joystick_pol_x(THE_STICK, x_axis[THE_STICK]);
+                            input_flags::set_joystick_pol_y(THE_STICK, y_axis[THE_STICK]);
+                            if(x_axis[THE_STICK] == 0.0f && y_axis[THE_STICK] == 0.0f)
+                                input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_UNSET);
+                            else
+                                input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                            last_x_axis[THE_STICK] = event.joystick.pos;
+                            break;
+                        }
+                        if(event.joystick.pos < 0.6f && last_x_axis[THE_STICK] > 0.6f) {
+                            x_axis[THE_STICK] = 0.0f;
+                            input_flags::set_joystick_radians(THE_STICK,
+                                std::atan2(y_axis[THE_STICK], x_axis[THE_STICK]));
+                            input_flags::set_joystick_pol_x(THE_STICK, x_axis[THE_STICK]);
+                            input_flags::set_joystick_pol_y(THE_STICK, y_axis[THE_STICK]);
+                            if(x_axis[THE_STICK] == 0.0f && y_axis[THE_STICK] == 0.0f)
+                                input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_UNSET);
+                            else
+                                input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                            last_x_axis[THE_STICK] = event.joystick.pos;
+                            break;
+                        }
+                        break;
+                    case 1:  //  Y axis
+                        if(event.joystick.pos < -0.6f && last_y_axis[THE_STICK] > -0.6f) {
+                            y_axis[THE_STICK] = -1.0f;
+                            input_flags::set_joystick_radians(THE_STICK,
+                                std::atan2(y_axis[THE_STICK], x_axis[WTE_JOYSTICK_A]));
+                            input_flags::set_joystick_pol_x(THE_STICK, x_axis[THE_STICK]);
+                            input_flags::set_joystick_pol_y(THE_STICK, y_axis[THE_STICK]);
+                            input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                            last_y_axis[THE_STICK] = event.joystick.pos;
+                            break;
+                        }
+                        if(event.joystick.pos > 0.6f && last_y_axis[THE_STICK] < 0.6f) {
+                            y_axis[THE_STICK] = 1.0f;
+                            input_flags::set_joystick_radians(THE_STICK,
+                                std::atan2(y_axis[THE_STICK], x_axis[THE_STICK]));
+                            input_flags::set_joystick_pol_x(THE_STICK, x_axis[THE_STICK]);
+                            input_flags::set_joystick_pol_y(THE_STICK, y_axis[THE_STICK]);
+                            input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                            last_y_axis[THE_STICK] = event.joystick.pos;
+                            break;
+                        }
+                        if(event.joystick.pos > -0.6f && last_y_axis[THE_STICK] < -0.6f) {
+                            y_axis[THE_STICK] = 0.0f;
+                            input_flags::set_joystick_radians(THE_STICK,
+                                std::atan2(y_axis[THE_STICK], x_axis[THE_STICK]));
+                            input_flags::set_joystick_pol_x(THE_STICK, x_axis[THE_STICK]);
+                            input_flags::set_joystick_pol_y(THE_STICK, y_axis[THE_STICK]);
+                            if(x_axis[THE_STICK] == 0.0f && y_axis[THE_STICK] == 0.0f)
+                                input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_UNSET);
+                            else
+                                input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                            last_y_axis[THE_STICK] = event.joystick.pos;
+                            break;
+                        }
+                        if(event.joystick.pos < 0.6f && last_y_axis[THE_STICK] > 0.6f) {
+                            y_axis[THE_STICK] = 0.0f;
+                            input_flags::set_joystick_radians(THE_STICK,
+                                std::atan2(y_axis[THE_STICK], x_axis[THE_STICK]));
+                            input_flags::set_joystick_pol_x(THE_STICK, x_axis[THE_STICK]);
+                            input_flags::set_joystick_pol_y(THE_STICK, y_axis[THE_STICK]);
+                            if(x_axis[THE_STICK] == 0.0f && y_axis[THE_STICK] == 0.0f)
+                                input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_UNSET);
+                            else
+                                input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                            last_y_axis[THE_STICK] = event.joystick.pos;
+                            break;
+                        }
+                        break;
+                }  //  End switch(event.joystick.axis)
+            else {
+                switch(event.joystick.axis) {
+                    case 0:  //  X axis
+                        //
+                        break;
+                    case 1:  //  Y axis
+                        //
+                        break;
+                }  //  End switch(event.joystick.axis)
+            }
         break;  //  End case ALLEGRO_EVENT_JOYSTICK_AXIS
 
         /*******************************************************************/

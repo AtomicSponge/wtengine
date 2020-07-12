@@ -221,7 +221,7 @@ class input_flags final {
         /*!
          * Get the last key that was pressed.
          * \param void
-         * \return Allegro key code.
+         * \return Key code.
          */
         inline static const std::size_t get_last_keypress(void) {
             return last_keypress;
@@ -236,11 +236,30 @@ class input_flags final {
             last_keypress = lk;
         };
 
+        /*!
+         * Get the last button that was pressed.
+         * \param void
+         * \return Button code.
+         */
+        inline static const std::size_t get_last_buttonpress(void) {
+            return last_keypress;
+        };
+
+        /*!
+         * Set the last button pressed.
+         * \param lk Code of last button pressed.
+         * \return void
+         */
+        inline static void set_last_buttonpress(const std::size_t& lk) {
+            last_buttonpress = lk;
+        };
+
     private:
         inline input_flags() { unset_all(); };
         inline ~input_flags() { unset_all(); };
 
         inline static std::size_t last_keypress = 0;
+        inline static std::size_t last_buttonpress = 0;
 
         inline static bool dflags[WTE_MAX_JOYSTICK_FLAGS][WTE_MAX_DIRECTON_FLAGS];
 

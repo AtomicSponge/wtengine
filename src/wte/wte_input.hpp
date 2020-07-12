@@ -120,6 +120,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
         event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)) alert::clear();
 
     if(event.type == ALLEGRO_EVENT_KEY_DOWN) input_flags::set_last_keypress(event.keyboard.keycode);
+    if(event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN) input_flags::set_last_buttonpress(event.joystick.button);
 
     /* ************************************************************* */
     /* *** PROCESS EVENTS WHILE MENU IS OPENED ********************* */
@@ -409,7 +410,8 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
         case ALLEGRO_EVENT_JOYSTICK_AXIS:
             std::size_t THE_STICK;
             if(event.joystick.stick == 0) THE_STICK = WTE_JOYSTICK_A;
-            if(event.joystick.stick == 1) THE_STICK = WTE_JOYSTICK_B;
+            else if(event.joystick.stick == 1) THE_STICK = WTE_JOYSTICK_B;
+            else break;
             //  Build digital or analogue input, depending on global define.
             #if WTE_INPUT_MODE == 0
             /* ********* INPUT DIGITAL MODE ********* */
@@ -515,10 +517,26 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
             /* ********* INPUT ANALOGUE MODE ********* */
             switch(event.joystick.axis) {
                 case 0:  //  X axis
-                    //
+                    x_axis[THE_STICK] = event.joystick.pos;
+                    input_flags::set_joystick_radians(THE_STICK,
+                        std::atan2(y_axis[THE_STICK], x_axis[THE_STICK]));
+                    input_flags::set_joystick_pol_x(THE_STICK, x_axis[THE_STICK]);
+                    input_flags::set_joystick_pol_y(THE_STICK, y_axis[THE_STICK]);
+                    if(x_axis[THE_STICK] == 0.0f && y_axis[THE_STICK] == 0.0f)
+                        input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_UNSET);
+                    else
+                        input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
                     break;
                 case 1:  //  Y axis
-                    //
+                    y_axis[THE_STICK] = event.joystick.pos;
+                    input_flags::set_joystick_radians(THE_STICK,
+                        std::atan2(y_axis[THE_STICK], x_axis[THE_STICK]));
+                    input_flags::set_joystick_pol_x(THE_STICK, x_axis[THE_STICK]);
+                    input_flags::set_joystick_pol_y(THE_STICK, y_axis[THE_STICK]);
+                    if(x_axis[THE_STICK] == 0.0f && y_axis[THE_STICK] == 0.0f)
+                        input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_UNSET);
+                    else
+                        input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
                     break;
             }  //  End switch(event.joystick.axis)
             #endif

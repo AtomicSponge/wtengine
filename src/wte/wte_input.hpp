@@ -199,13 +199,34 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
             /////////////////////////////////////////////////////////////
             case ALLEGRO_EVENT_JOYSTICK_AXIS:
                 switch(event.joystick.axis) {
-                    case 1:
-                        if(event.joystick.pos < -0.75f)
-                            input_flags::set_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_DOWN);
-                        if(event.joystick.pos > 0.75f)
-                            input_flags::set_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_DOWN);
+                    case 0:  //  X axis
+                        if(event.joystick.pos < -0.6f && last_x_axis[WTE_JOYSTICK_A] > -0.6f) {
+                            input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_DOWN);
+                            last_x_axis[WTE_JOYSTICK_A] = event.joystick.pos;
+                            break;
+                        }
+                        if(event.joystick.pos > 0.6f && last_x_axis[WTE_JOYSTICK_A] < 0.6f) {
+                            input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_DOWN);
+                            last_x_axis[WTE_JOYSTICK_A] = event.joystick.pos;
+                            break;
+                        }
+                        if(event.joystick.pos > -0.6f && last_x_axis[WTE_JOYSTICK_A] < -0.6f) {
+                            input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_UP);
+                            last_x_axis[WTE_JOYSTICK_A] = event.joystick.pos;
+                            break;
+                        }
+                        if(event.joystick.pos < 0.6f && last_x_axis[WTE_JOYSTICK_A] > 0.6f) {
+                            input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_UP);
+                            last_x_axis[WTE_JOYSTICK_A] = event.joystick.pos;
+                            break;
+                        }
                         break;
-                    case 0:
+                    case 1:  //  Y axis
+                        if(event.joystick.pos < -0.6f && last_y_axis[WTE_JOYSTICK_A] > -0.6f)
+                            input_flags::set_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_DOWN);
+                        if(event.joystick.pos > 0.6f && last_y_axis[WTE_JOYSTICK_A] < 0.6f)
+                            input_flags::set_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_DOWN);
+                        last_y_axis[WTE_JOYSTICK_A] = event.joystick.pos;
                         break;
                 }
                 break;

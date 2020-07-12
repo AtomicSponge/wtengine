@@ -8,9 +8,6 @@
  * Main file for WTEngine demo
  */
 
-//  Set gamepad input mode to digital.
-#define WTE_INPUT_MODE (0)
-
 #include <wte/wte.hpp>
 
 #include "include/wte_demo.hpp"

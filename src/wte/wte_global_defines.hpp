@@ -46,6 +46,18 @@
 #endif
 
 /*!
+ * \def WTE_INPUT_MODE
+ * \brief Set the input mode.
+ * Configures how the engine reads sticks on a gamepad.
+ * 
+ * 0 - Digital
+ * 1 - Analogue
+ */
+#ifndef WTE_INPUT_MODE
+#define WTE_INPUT_MODE (0)
+#endif
+
+/*!
  * \def WTE_NO_PRUNE
  * Enable message pruning if WTE_NO_PRUNE is not defined.
  */

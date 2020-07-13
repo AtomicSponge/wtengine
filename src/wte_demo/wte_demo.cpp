@@ -595,7 +595,7 @@ void wte_demo::new_game(void) {
                     if(wte_get_component(ast_id, health)->hp <= 0) {
                         messages.add_message(message("spawner", "delete", world.get_name(ast_id)));
                         messages.add_message(message("audio", "play_sample", "megumin;once"));
-                        game_cfg::add<int>("score", 10);
+                        game_cfg::add<int>("score", (10 * wte_get_component(ast_id, size)->the_size));
 
                         //  If the asteroid was size >= 4, split into two.
                         if(wte_get_component(ast_id, size)->the_size >= 4) {

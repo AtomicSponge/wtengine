@@ -553,16 +553,17 @@ void wte_demo::new_game(void) {
     /* ************************************** */
     spawner.add_spawn("asteroid", 5,
         [](const entity_id& e_id, mgr::entity_manager& world, const msg_arg_list& args) {
-            int size = std::stoi(args[5]);
-            if(size < 1) size = 1;
-            if(size > 8) size = 8;
+            int temp_size = std::stoi(args[5]);
+            if(temp_size < 1) temp_size = 1;
+            if(temp_size > 8) temp_size = 8;
 
             world.set_name(e_id, "asteroid" + std::to_string(e_id));
             wte_new_component(e_id, cmp::team, 1);
             wte_new_component(e_id, cmp::location, std::stof(args[1]), std::stof(args[2]));
-            wte_new_component(e_id, cmp::hitbox, (float)(size * 16), (float)(size * 16));
-            wte_new_component(e_id, health, size * 10, size * 10);
+            wte_new_component(e_id, cmp::hitbox, (float)(temp_size * 16), (float)(temp_size * 16));
+            wte_new_component(e_id, health, temp_size * 10, temp_size * 10);
             wte_new_component(e_id, damage, 10);
+            wte_new_component(e_id, size, temp_size);
             wte_new_component(e_id, cmp::direction);
             wte_set_component(e_id, cmp::direction)->set_degrees(std::stof(args[3]));
             wte_new_component(e_id, cmp::velocity, std::stof(args[4]));
@@ -573,8 +574,8 @@ void wte_demo::new_game(void) {
             wte_set_component(e_id, cmp::sprite)->load_sprite("asteroid.bmp");
             wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
             wte_set_component(e_id, cmp::sprite)->set_cycle("main");
-            wte_set_component(e_id, cmp::sprite)->set_scale_factor_x((float)size);
-            wte_set_component(e_id, cmp::sprite)->set_scale_factor_y((float)size);
+            wte_set_component(e_id, cmp::sprite)->set_scale_factor_x((float)temp_size);
+            wte_set_component(e_id, cmp::sprite)->set_scale_factor_y((float)temp_size);
 
             wte_new_component(e_id, cmp::ai,
                 [](const entity_id& ast_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {

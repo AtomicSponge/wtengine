@@ -14,6 +14,7 @@
 #include "damage.hpp"
 #include "energy.hpp"
 #include "health.hpp"
+#include "size.hpp"
 #include "stars.hpp"
 
 #endif

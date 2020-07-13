@@ -343,6 +343,13 @@ void wte_demo::new_game(void) {
                 wte_set_component(cannon_id, cmp::enabled)->disable();
                 wte_set_component(cannon_id, cmp::sample_loop)->stop(messages, "cannon_fire");
 
+                //  Just to make sure... turn shield off
+                entity_id shield_id = world.get_id("shield");
+                wte_set_component(shield_id, cmp::visible)->hide();
+                wte_set_component(shield_id, cmp::enabled)->disable();
+                wte_set_component(plr_id, cmp::hitbox)->make_solid();
+                wte_set_component(shield_id, cmp::sample_loop)->stop(messages, "shield_sound");
+
                 messages.add_message(message("audio", "play_sample", "megumin;once"));
                 game_cfg::subtract<int>("lives", 1);
                 wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);

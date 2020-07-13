@@ -607,8 +607,12 @@ void wte_demo::new_game(void) {
                             const float new_x = wte_get_component(ast_id, cmp::location)->get_x();
                             const float new_y = wte_get_component(ast_id, cmp::location)->get_y();
                             const float new_vel = wte_get_component(ast_id, cmp::velocity)->get_x_vel() / 2;
-                            std::string new_spawner_a = "asteroid;" + std::to_string(new_x) + ";" + std::to_string(new_y) + ";" + std::to_string(dir_a) + ";" + std::to_string(new_vel) + ";" + std::to_string(new_size);
-                            std::string new_spawner_b = "asteroid;" + std::to_string(new_x) + ";" + std::to_string(new_y) + ";" + std::to_string(dir_b) + ";" + std::to_string(new_vel) + ";" + std::to_string(new_size);
+                            std::string new_spawner_a = "asteroid;" + std::to_string(new_x) + ";" +
+                                std::to_string(new_y) + ";" + std::to_string(dir_a) + ";" +
+                                std::to_string(new_vel) + ";" + std::to_string(new_size);
+                            std::string new_spawner_b = "asteroid;" + std::to_string(new_x) + ";" +
+                                std::to_string(new_y) + ";" + std::to_string(dir_b) + ";" +
+                                std::to_string(new_vel) + ";" + std::to_string(new_size);
                             messages.add_message(message("spawner", "new", new_spawner_a));
                             messages.add_message(message("spawner", "new", new_spawner_b));
                         }

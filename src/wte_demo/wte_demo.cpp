@@ -62,8 +62,8 @@ void wte_demo::load_menus(void) {
     {
         //  Configure main menu.
         menus.set_menu("main_menu")->set_title("WTE Demo");
-        //menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
-        menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
+        menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
+        //menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
         menus.set_menu("main_menu")->add_item(wte_menu_action("Settings", "open_menu", "settings"));
         menus.set_menu("main_menu")->add_item(wte_menu_action("Exit Game", "exit"));
     }
@@ -337,6 +337,7 @@ void wte_demo::new_game(void) {
         [](const entity_id& plr_id, const message& msg, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& current_time) {
             //  Process player death.
             if(msg.get_cmd() == "death") {
+                messages.add_message(message("audio", "play_sample", "megumin;once"));
                 game_cfg::subtract<int>("lives", 1);
                 wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
                 wte_set_component(plr_id, cmp::sprite)->set_cycle("death");
@@ -383,7 +384,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::enabled, false);
     wte_new_component(e_id, damage, 5);
     wte_new_component(e_id, cmp::sample_loop);
-    wte_set_component(e_id, cmp::sample_loop)->add_handle("fx1", "cannon_fire");
+    wte_set_component(e_id, cmp::sample_loop)->add_handle("laser", "cannon_fire");
 
     wte_new_component(e_id, cmp::sprite, 10.0f, 200.0f, 0.0f, 0.0f, 2, 2);
     wte_set_component(e_id, cmp::sprite)->load_sprite("cannon.bmp");
@@ -459,7 +460,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, energy, 50, 100);
     wte_new_component(e_id, damage, 100);
     wte_new_component(e_id, cmp::sample_loop);
-    wte_set_component(e_id, cmp::sample_loop)->add_handle("fx2", "shield_sound");
+    wte_set_component(e_id, cmp::sample_loop)->add_handle("shield", "shield_sound");
 
     wte_new_component(e_id, cmp::sprite, 64.0f, 64.0f, 0.0f, 0.0f, 6, 2);
     wte_set_component(e_id, cmp::sprite)->load_sprite("shield.bmp");
@@ -580,6 +581,7 @@ void wte_demo::new_game(void) {
                     //  Health check.  If asteroid's HP is <= 0, reward player with points and delete the entity.
                     if(wte_get_component(ast_id, health)->hp <= 0) {
                         messages.add_message(message("spawner", "delete", world.get_name(ast_id)));
+                        messages.add_message(message("audio", "play_sample", "megumin;once"));
                         game_cfg::add<int>("score", 10);
                     }
                 }
@@ -610,9 +612,9 @@ void wte_demo::new_game(void) {
     game_cfg::set("lives", game_cfg::get("max_lives"));
 
     //  Load some samples in the audio manager.
-    wte_load_sample("sfx/fx1.wav");
-    wte_load_sample("sfx/fx2.wav");
-    wte_load_sample("sfx/fx3.wav");
+    wte_load_sample("sfx/laser.wav");
+    wte_load_sample("sfx/shield.wav");
+    wte_load_sample("sfx/megumin.wav");
 }
 
 /*

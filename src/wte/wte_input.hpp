@@ -9,6 +9,10 @@
  * \details Handle player input.
  * 
  * \bug WIP
+ * 
+ * Gamepads tested:
+ *  - 8bitdo SN30 pro+
+ *  - 8bitdo SN30 pro
  */
 
 #ifndef WTE_INPUT_HPP
@@ -40,9 +44,6 @@ namespace wte
  * (1) Analogue mode:
  *      - D-pad only registers button presses, read full data from sticks.
  *      - Analogue triggers have their data stored.
- * 
- * Gamepads tested:
- *  - 8bitdo SN30 pro+
  */
 class wte_input : private wte_input_map {
     public:

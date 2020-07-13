@@ -550,6 +550,12 @@ void wte_demo::new_game(void) {
 
     /* ************************************** */
     /* Add the asteroid entity to the spawner */
+    /* Arguments:                             */
+    /*  (1) X location                        */
+    /*  (2) Y location                        */
+    /*  (3) Direction in degrees              */
+    /*  (4) Velocity                          */
+    /*  (5) Size                              */
     /* ************************************** */
     spawner.add_spawn("asteroid", 5,
         [](const entity_id& e_id, mgr::entity_manager& world, const msg_arg_list& args) {
@@ -590,6 +596,22 @@ void wte_demo::new_game(void) {
                         messages.add_message(message("spawner", "delete", world.get_name(ast_id)));
                         messages.add_message(message("audio", "play_sample", "megumin;once"));
                         game_cfg::add<int>("score", 10);
+
+                        //  If the asteroid was size >= 4, split into two.
+                        if(wte_get_component(ast_id, size)->the_size >= 4) {
+                            const int new_size = wte_get_component(ast_id, size)->the_size / 2;
+                            float dir_a = wte_get_component(ast_id, cmp::direction)->get_degrees() - 90.0f;
+                            if(dir_a < 0.0f) dir_a = 0.0f;
+                            float dir_b = wte_get_component(ast_id, cmp::direction)->get_degrees() + 90.0f;
+                            if(dir_b > 360.0f) dir_b = 360.0f;
+                            const float new_x = wte_get_component(ast_id, cmp::location)->get_x();
+                            const float new_y = wte_get_component(ast_id, cmp::location)->get_y();
+                            const float new_vel = wte_get_component(ast_id, cmp::velocity)->get_x_vel() / 2;
+                            std::string new_spawner_a = "asteroid;" + std::to_string(new_x) + ";" + std::to_string(new_y) + ";" + std::to_string(dir_a) + ";" + std::to_string(new_vel) + ";" + std::to_string(new_size);
+                            std::string new_spawner_b = "asteroid;" + std::to_string(new_x) + ";" + std::to_string(new_y) + ";" + std::to_string(dir_b) + ";" + std::to_string(new_vel) + ";" + std::to_string(new_size);
+                            messages.add_message(message("spawner", "new", new_spawner_a));
+                            messages.add_message(message("spawner", "new", new_spawner_b));
+                        }
                     }
                 }
             );  //  End asteroid AI

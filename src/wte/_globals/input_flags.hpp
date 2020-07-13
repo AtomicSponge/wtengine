@@ -14,6 +14,8 @@
 
 #include <cassert>
 
+#include "../wte_global_defines.hpp"
+
 namespace wte
 {
 
@@ -21,9 +23,8 @@ namespace wte
  * \enum Joysticks.
  */
 enum WTE_JOYSTICK_FLAGS {
-    WTE_JOYSTICK_A,
-    WTE_JOYSTICK_B,
-    //WTE_JOYSTICK_C,
+    WTE_JOYSTICK_A, WTE_JOYSTICK_B,
+    LEFT_TRIGGER, RIGHT_TRIGGER,
     WTE_MAX_JOYSTICK_FLAGS
 };
 
@@ -31,7 +32,7 @@ enum WTE_JOYSTICK_FLAGS {
  * \enum Input direction flags.
  */
 enum WTE_DIRECTION_FLAG_ENUM {
-    WTE_INPUT_DIRECTON_SET,     WTE_INPUT_DIRECTION_UNSET,
+    WTE_INPUT_DIRECTION_SET,     WTE_INPUT_DIRECTION_UNSET,
     WTE_MAX_DIRECTON_FLAGS
 };
 
@@ -42,10 +43,16 @@ enum WTE_INPUT_BUTTON_FLAG_ENUM {
     WTE_INPUT_BUTTON_UP,        WTE_INPUT_BUTTON_DOWN,
     WTE_INPUT_BUTTON_LEFT,      WTE_INPUT_BUTTON_RIGHT,
 
-    WTE_INPUT_BUTTON_1,         WTE_INPUT_BUTTON_3,
-    WTE_INPUT_BUTTON_2,         WTE_INPUT_BUTTON_4,
+    WTE_INPUT_BUTTON_1,         WTE_INPUT_BUTTON_2,
+    WTE_INPUT_BUTTON_3,         WTE_INPUT_BUTTON_4,
     WTE_INPUT_BUTTON_5,         WTE_INPUT_BUTTON_6,
     WTE_INPUT_BUTTON_7,         WTE_INPUT_BUTTON_8,
+
+    #if WTE_INPUT_MODE == 0
+    //  Add the trigger buttons if in digital gamepad mode.
+    WTE_INPUT_BUTTON_LEFT_TRIGGER,
+    WTE_INPUT_BUTTON_RIGHT_TRIGGER,
+    #endif
 
     WTE_INPUT_BUTTON_START,     WTE_INPUT_BUTTON_SELECT,
 
@@ -242,7 +249,7 @@ class input_flags final {
          * \return Button code.
          */
         inline static const std::size_t get_last_buttonpress(void) {
-            return last_keypress;
+            return last_buttonpress;
         };
 
         /*!

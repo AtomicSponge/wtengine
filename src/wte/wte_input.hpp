@@ -254,7 +254,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                             std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
                 input_flags::set_joystick_pol_x(WTE_JOYSTICK_A, x_axis[WTE_JOYSTICK_A]);
                 input_flags::set_joystick_pol_y(WTE_JOYSTICK_A, y_axis[WTE_JOYSTICK_A]);
-                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
+                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_SET);
                 input_flags::set_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_DOWN);
             }
             /////////////////////////////////////////////////////////////
@@ -266,7 +266,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                             std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
                 input_flags::set_joystick_pol_x(WTE_JOYSTICK_A, x_axis[WTE_JOYSTICK_A]);
                 input_flags::set_joystick_pol_y(WTE_JOYSTICK_A, y_axis[WTE_JOYSTICK_A]);
-                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
+                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_SET);
                 input_flags::set_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_DOWN);
             }
             /////////////////////////////////////////////////////////////
@@ -278,7 +278,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                             std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
                 input_flags::set_joystick_pol_x(WTE_JOYSTICK_A, x_axis[WTE_JOYSTICK_A]);
                 input_flags::set_joystick_pol_y(WTE_JOYSTICK_A, y_axis[WTE_JOYSTICK_A]);
-                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
+                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_SET);
                 input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_DOWN);
             }
             /////////////////////////////////////////////////////////////
@@ -290,7 +290,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                             std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
                 input_flags::set_joystick_pol_x(WTE_JOYSTICK_A, x_axis[WTE_JOYSTICK_A]);
                 input_flags::set_joystick_pol_y(WTE_JOYSTICK_A, y_axis[WTE_JOYSTICK_A]);
-                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
+                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_SET);
                 input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_DOWN);
             }
             /////////////////////////////////////////////////////////////
@@ -330,7 +330,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     if(x_axis[WTE_JOYSTICK_A] == 0.0f && y_axis[WTE_JOYSTICK_A] == 0.0f)
                         input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_UNSET);
                     else
-                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_SET);
                 }
                 input_flags::set_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_UP);
             }
@@ -347,7 +347,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     if(x_axis[WTE_JOYSTICK_A] == 0.0f && y_axis[WTE_JOYSTICK_A] == 0.0f)
                         input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_UNSET);
                     else
-                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_SET);
                 }
                 input_flags::set_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_UP);
             }
@@ -364,7 +364,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     if(x_axis[WTE_JOYSTICK_A] == 0.0f && y_axis[WTE_JOYSTICK_A] == 0.0f)
                         input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_UNSET);
                     else
-                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_SET);
                 }
                 input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_UP);
             }
@@ -381,7 +381,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     if(x_axis[WTE_JOYSTICK_A] == 0.0f && y_axis[WTE_JOYSTICK_A] == 0.0f)
                         input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_UNSET);
                     else
-                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_SET);
                 }
                 input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_UP);
             }
@@ -411,6 +411,49 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
             std::size_t THE_STICK;
             if(event.joystick.stick == 0) THE_STICK = WTE_JOYSTICK_A;
             else if(event.joystick.stick == 1) THE_STICK = WTE_JOYSTICK_B;
+            //  Process triggers
+            else if(event.joystick.stick == 2) {
+                //  Build digital or analogue input, depending on global define.
+                #if WTE_INPUT_MODE == 0
+                if(event.joystick.pos > 0.5f && last_x_axis[LEFT_TRIGGER] < 0.5f) {
+                    //  set button
+                    input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT_TRIGGER, WTE_BUTTON_EVENT_DOWN);
+                    last_x_axis[LEFT_TRIGGER] = event.joystick.pos;
+                }
+                if(event.joystick.pos < 0.5f && last_x_axis[LEFT_TRIGGER] > 0.5f) {
+                    //  unset button
+                    input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT_TRIGGER, WTE_BUTTON_EVENT_UP);
+                    last_x_axis[LEFT_TRIGGER] = event.joystick.pos;
+                }
+                #else
+                x_axis[LEFT_TRIGGER] = event.joystick.pos;
+                if(x_axis[LEFT_TRIGGER] > 0.0f)
+                    input_flags::joystick_toggle(LEFT_TRIGGER, WTE_INPUT_DIRECTION_SET);
+                else
+                    input_flags::joystick_toggle(LEFT_TRIGGER, WTE_INPUT_DIRECTION_UNSET);
+                #endif
+                break;
+            }
+            else if(event.joystick.stick == 3) {
+                //  Build digital or analogue input, depending on global define.
+                #if WTE_INPUT_MODE == 0
+                if(event.joystick.pos > 0.5f && last_x_axis[RIGHT_TRIGGER] < 0.5f) {
+                    input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT_TRIGGER, WTE_BUTTON_EVENT_DOWN);
+                    last_x_axis[RIGHT_TRIGGER] = event.joystick.pos;
+                }
+                if(event.joystick.pos < 0.5f && last_x_axis[RIGHT_TRIGGER] > 0.5f) {
+                    input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT_TRIGGER, WTE_BUTTON_EVENT_UP);
+                    last_x_axis[RIGHT_TRIGGER] = event.joystick.pos;
+                }
+                #else
+                x_axis[RIGHT_TRIGGER] = event.joystick.pos;
+                if(x_axis[RIGHT_TRIGGER] > 0.0f)
+                    input_flags::joystick_toggle(RIGHT_TRIGGER, WTE_INPUT_DIRECTION_SET);
+                else
+                    input_flags::joystick_toggle(RIGHT_TRIGGER, WTE_INPUT_DIRECTION_UNSET);
+                #endif
+                break;
+            }
             else break;
             //  Build digital or analogue input, depending on global define.
             #if WTE_INPUT_MODE == 0
@@ -423,7 +466,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                             std::atan2(y_axis[THE_STICK], x_axis[THE_STICK]));
                         input_flags::set_joystick_pol_x(THE_STICK, x_axis[THE_STICK]);
                         input_flags::set_joystick_pol_y(THE_STICK, y_axis[THE_STICK]);
-                        input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_SET);
                         last_x_axis[THE_STICK] = event.joystick.pos;
                         break;
                     }
@@ -433,7 +476,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                             std::atan2(y_axis[THE_STICK], x_axis[THE_STICK]));
                         input_flags::set_joystick_pol_x(THE_STICK, x_axis[THE_STICK]);
                         input_flags::set_joystick_pol_y(THE_STICK, y_axis[THE_STICK]);
-                        input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_SET);
                         last_x_axis[THE_STICK] = event.joystick.pos;
                         break;
                     }
@@ -446,7 +489,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                         if(x_axis[THE_STICK] == 0.0f && y_axis[THE_STICK] == 0.0f)
                             input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_UNSET);
                         else
-                            input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                            input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_SET);
                         last_x_axis[THE_STICK] = event.joystick.pos;
                         break;
                     }
@@ -459,7 +502,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                         if(x_axis[THE_STICK] == 0.0f && y_axis[THE_STICK] == 0.0f)
                             input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_UNSET);
                         else
-                            input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                            input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_SET);
                         last_x_axis[THE_STICK] = event.joystick.pos;
                         break;
                     }
@@ -471,7 +514,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                             std::atan2(y_axis[THE_STICK], x_axis[WTE_JOYSTICK_A]));
                         input_flags::set_joystick_pol_x(THE_STICK, x_axis[THE_STICK]);
                         input_flags::set_joystick_pol_y(THE_STICK, y_axis[THE_STICK]);
-                        input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_SET);
                         last_y_axis[THE_STICK] = event.joystick.pos;
                         break;
                     }
@@ -481,7 +524,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                             std::atan2(y_axis[THE_STICK], x_axis[THE_STICK]));
                         input_flags::set_joystick_pol_x(THE_STICK, x_axis[THE_STICK]);
                         input_flags::set_joystick_pol_y(THE_STICK, y_axis[THE_STICK]);
-                        input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_SET);
                         last_y_axis[THE_STICK] = event.joystick.pos;
                         break;
                     }
@@ -494,7 +537,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                         if(x_axis[THE_STICK] == 0.0f && y_axis[THE_STICK] == 0.0f)
                             input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_UNSET);
                         else
-                            input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                            input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_SET);
                         last_y_axis[THE_STICK] = event.joystick.pos;
                         break;
                     }
@@ -507,7 +550,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                         if(x_axis[THE_STICK] == 0.0f && y_axis[THE_STICK] == 0.0f)
                             input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_UNSET);
                         else
-                            input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                            input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_SET);
                         last_y_axis[THE_STICK] = event.joystick.pos;
                         break;
                     }
@@ -525,7 +568,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     if(x_axis[THE_STICK] == 0.0f && y_axis[THE_STICK] == 0.0f)
                         input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_UNSET);
                     else
-                        input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_SET);
                     break;
                 case 1:  //  Y axis
                     y_axis[THE_STICK] = event.joystick.pos;
@@ -536,7 +579,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     if(x_axis[THE_STICK] == 0.0f && y_axis[THE_STICK] == 0.0f)
                         input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_UNSET);
                     else
-                        input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(THE_STICK, WTE_INPUT_DIRECTION_SET);
                     break;
             }  //  End switch(event.joystick.axis)
             #endif
@@ -551,7 +594,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                             std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
                 input_flags::set_joystick_pol_x(WTE_JOYSTICK_A, x_axis[WTE_JOYSTICK_A]);
                 input_flags::set_joystick_pol_y(WTE_JOYSTICK_A, y_axis[WTE_JOYSTICK_A]);
-                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
+                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_SET);
                 input_flags::set_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_DOWN);
             }
             /////////////////////////////////////////////////////////////
@@ -561,7 +604,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                             std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
                 input_flags::set_joystick_pol_x(WTE_JOYSTICK_A, x_axis[WTE_JOYSTICK_A]);
                 input_flags::set_joystick_pol_y(WTE_JOYSTICK_A, y_axis[WTE_JOYSTICK_A]);
-                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
+                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_SET);
                 input_flags::set_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_DOWN);
             }
             /////////////////////////////////////////////////////////////
@@ -571,7 +614,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                             std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
                 input_flags::set_joystick_pol_x(WTE_JOYSTICK_A, x_axis[WTE_JOYSTICK_A]);
                 input_flags::set_joystick_pol_y(WTE_JOYSTICK_A, y_axis[WTE_JOYSTICK_A]);
-                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
+                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_SET);
                 input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_DOWN);
             }
             /////////////////////////////////////////////////////////////
@@ -581,7 +624,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                             std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
                 input_flags::set_joystick_pol_x(WTE_JOYSTICK_A, x_axis[WTE_JOYSTICK_A]);
                 input_flags::set_joystick_pol_y(WTE_JOYSTICK_A, y_axis[WTE_JOYSTICK_A]);
-                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
+                input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_SET);
                 input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_DOWN);
             }
             /////////////////////////////////////////////////////////////
@@ -628,7 +671,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     if(x_axis[WTE_JOYSTICK_A] == 0.0f && y_axis[WTE_JOYSTICK_A] == 0.0f)
                         input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_UNSET);
                     else
-                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_SET);
                 }
                 input_flags::set_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_UP);
             }
@@ -643,7 +686,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     if(x_axis[WTE_JOYSTICK_A] == 0.0f && y_axis[WTE_JOYSTICK_A] == 0.0f)
                         input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_UNSET);
                     else
-                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_SET);
                 }
                 input_flags::set_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_UP);
             }
@@ -658,7 +701,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     if(x_axis[WTE_JOYSTICK_A] == 0.0f && y_axis[WTE_JOYSTICK_A] == 0.0f)
                         input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_UNSET);
                     else
-                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_SET);
                 }
                 input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_UP);
             }
@@ -673,7 +716,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     if(x_axis[WTE_JOYSTICK_A] == 0.0f && y_axis[WTE_JOYSTICK_A] == 0.0f)
                         input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_UNSET);
                     else
-                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTON_SET);
+                        input_flags::joystick_toggle(WTE_JOYSTICK_A, WTE_INPUT_DIRECTION_SET);
                 }
                 input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_UP);
             }

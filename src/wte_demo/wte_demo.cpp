@@ -337,6 +337,12 @@ void wte_demo::new_game(void) {
         [](const entity_id& plr_id, const message& msg, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& current_time) {
             //  Process player death.
             if(msg.get_cmd() == "death") {
+                //  Make sure cannon stops firing
+                entity_id cannon_id = world.get_id("main_cannon");
+                wte_set_component(cannon_id, cmp::visible)->hide();
+                wte_set_component(cannon_id, cmp::enabled)->disable();
+                wte_set_component(cannon_id, cmp::sample_loop)->stop(messages, "cannon_fire");
+
                 messages.add_message(message("audio", "play_sample", "megumin;once"));
                 game_cfg::subtract<int>("lives", 1);
                 wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
@@ -382,7 +388,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::hitbox, 10, 200, false);
     wte_new_component(e_id, cmp::visible, false);
     wte_new_component(e_id, cmp::enabled, false);
-    wte_new_component(e_id, damage, 5);
+    wte_new_component(e_id, damage, 3);
     wte_new_component(e_id, cmp::sample_loop);
     wte_set_component(e_id, cmp::sample_loop)->add_handle("laser", "cannon_fire");
 
@@ -563,7 +569,7 @@ void wte_demo::new_game(void) {
             wte_new_component(e_id, cmp::visible);
             wte_new_component(e_id, cmp::enabled);
 
-            wte_new_component(e_id, cmp::sprite, 16.0f, 16.0f, 0.0f, 0.0f, 10, 0);
+            wte_new_component(e_id, cmp::sprite, 16.0f, 16.0f, 0.0f, 0.0f, (int)(30 / std::stof(args[4])), 0);
             wte_set_component(e_id, cmp::sprite)->load_sprite("asteroid.bmp");
             wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
             wte_set_component(e_id, cmp::sprite)->set_cycle("main");

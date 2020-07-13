@@ -419,7 +419,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT_TRIGGER, WTE_BUTTON_EVENT_DOWN);
                     last_x_axis[LEFT_TRIGGER] = event.joystick.pos;
                 }
-                if(event.joystick.pos < 0.5f && last_x_axis[LEFT_TRIGGER] > 0.5f) {
+                if(event.joystick.pos < 0.25f && last_x_axis[LEFT_TRIGGER] > 0.5f) {
                     //  unset button
                     input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT_TRIGGER, WTE_BUTTON_EVENT_UP);
                     last_x_axis[LEFT_TRIGGER] = event.joystick.pos;
@@ -440,7 +440,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                     input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT_TRIGGER, WTE_BUTTON_EVENT_DOWN);
                     last_x_axis[RIGHT_TRIGGER] = event.joystick.pos;
                 }
-                if(event.joystick.pos < 0.5f && last_x_axis[RIGHT_TRIGGER] > 0.5f) {
+                if(event.joystick.pos < 0.25f && last_x_axis[RIGHT_TRIGGER] > 0.5f) {
                     input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT_TRIGGER, WTE_BUTTON_EVENT_UP);
                     last_x_axis[RIGHT_TRIGGER] = event.joystick.pos;
                 }

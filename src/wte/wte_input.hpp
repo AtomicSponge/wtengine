@@ -411,8 +411,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
             std::size_t THE_STICK;
             if(event.joystick.stick == 0) THE_STICK = WTE_JOYSTICK_A;
             else if(event.joystick.stick == 1) THE_STICK = WTE_JOYSTICK_B;
-            //  Process triggers
-            else if(event.joystick.stick == 2) {
+            else if(event.joystick.stick == 2) {  //  Process left trigger.
                 //  Build digital or analogue input, depending on global define.
                 #if WTE_INPUT_MODE == 0
                 if(event.joystick.pos > 0.5f && last_x_axis[LEFT_TRIGGER] < 0.5f) {
@@ -434,7 +433,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                 #endif
                 break;
             }
-            else if(event.joystick.stick == 3) {
+            else if(event.joystick.stick == 3) {  //  Process right trigger.
                 //  Build digital or analogue input, depending on global define.
                 #if WTE_INPUT_MODE == 0
                 if(event.joystick.pos > 0.5f && last_x_axis[RIGHT_TRIGGER] < 0.5f) {
@@ -454,7 +453,7 @@ inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                 #endif
                 break;
             }
-            else break;
+            else break;  //  Not a known joystick axis, end.
             //  Build digital or analogue input, depending on global define.
             #if WTE_INPUT_MODE == 0
             /* ********* INPUT DIGITAL MODE ********* */

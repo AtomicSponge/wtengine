@@ -105,7 +105,8 @@ class wte_input_map {
 
     private:
         /*!
-         * Verify all necessary engine cfg settings are registered.
+         * \brief Verify all necessary engine cfg settings are registered.
+         * If a binding setting isn't registered, create it and set a default value.
          * \param joy_installed Is a gamepad installed.
          * \return void
          */

@@ -50,7 +50,7 @@ class bounding_box final : public component {
 
         /*!
          * Set left Y of the bounding box.
-         * \param mx Left Y
+         * \param my Left Y
          */
         inline void set_min_y(const float& my) {
             min_y = my;
@@ -66,7 +66,7 @@ class bounding_box final : public component {
 
         /*!
          * Set right Y of the bounding box.
-         * \param mx right Y
+         * \param my right Y
          */
         inline void set_max_y(const float& my) {
             max_y = my;

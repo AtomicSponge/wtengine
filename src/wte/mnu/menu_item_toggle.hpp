@@ -78,14 +78,12 @@ class menu_item_toggle final : public menu_item {
         /*!
          * \brief On left process.
          * Toggles on.
-         * \param alt_trigger Alt trigger flag (unused).
          */
         inline void on_left(void) override { toggled = true; };
 
         /*!
          * \brief On right process.
          * Toggles off.
-         * \param alt_trigger Alt trigger flag (unused).
          */
         inline void on_right(void) override { toggled = false; };
 

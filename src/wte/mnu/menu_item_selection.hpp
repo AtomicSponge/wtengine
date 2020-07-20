@@ -38,6 +38,7 @@ class menu_item_selection final : public menu_item {
          * Menu item selection constructor.
          * \param label Item display label.
          * \param vr Variable to adjust.
+         * \param dvl Vector of display items.
          * \param vl Vector of allowed settings.
          * \param st Type of setting.
          */
@@ -60,7 +61,6 @@ class menu_item_selection final : public menu_item {
 
         /*!
          * Define left click process.
-         * \param alt_trigger Alt trigger flag (unused).
          */
         inline void on_left(void) override {
             if(current_val != vals.begin()) current_val--;
@@ -68,7 +68,6 @@ class menu_item_selection final : public menu_item {
 
         /*!
          * Define right click process.
-         * \param alt_trigger Alt trigger flag (unused).
          */
         inline void on_right(void) override {
             if(current_val != vals.end()) current_val++;

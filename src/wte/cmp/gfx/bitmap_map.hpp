@@ -261,8 +261,7 @@ class bitmap_map {
          * \param dy Y location of the background to draw to.
          * \param xscale X scale factor.
          * \param yscale Y scale factor.
-         * \param dx X location of the background to draw to.
-         * \param dy Y location of the background to draw to.
+         * \param angle Angle of rotation in radians.
          * \param flags Allegro Bitmap flags.
          */
         inline void draw_tinted_scaled_rotated_bitmap(
@@ -293,8 +292,7 @@ class bitmap_map {
          * \param dy Y location of the background to draw to.
          * \param xscale X scale factor.
          * \param yscale Y scale factor.
-         * \param dx X location of the background to draw to.
-         * \param dy Y location of the background to draw to.
+         * \param angle Angle of rotation in radians.
          * \param flags Allegro Bitmap flags.
          */
         inline void draw_tinted_scaled_rotated_bitmap_region(

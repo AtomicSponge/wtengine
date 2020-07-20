@@ -111,6 +111,7 @@ class animator : public component {
         inline animator(std::size_t l, void func(const entity_id&, mgr::entity_manager&, const int64_t&)) :
         layer(l), tint_set(false), animate(func) {};
 
+        //!  Stores the bitmap used by the animator.
         ALLEGRO_BITMAP* internal_bitmap;
 
     private:

@@ -42,14 +42,12 @@ class menu_item_apply final : public menu_item {
         /*!
          * \brief On left trigger.
          * Set the apply item to cancel.
-         * \param alt_trigger Alt trigger flag (unused).
          */
         inline void on_left(void) override { cmd = "cancel"; };
 
         /*!
          * \brief On right trigger.
          * Set the apply item to apply.
-         * \param alt_trigger Alt trigger flag (unused).
          */
         inline void on_right(void) override { cmd = "apply"; };
 

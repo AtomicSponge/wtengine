@@ -303,7 +303,6 @@ template <> inline bool render_manager::manager<render_manager>::initialized = f
  * reference then draws everything to screen.
  * \param menus Reference to menu manager.
  * \param world Reference to entity manager.
- * \return void
  */
 inline void render_manager::render(const menu_manager& menus, const entity_manager& world) {
     /*

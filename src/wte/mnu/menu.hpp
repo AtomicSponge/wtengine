@@ -38,7 +38,6 @@ class menu {
          * Menu constructor.
          * \param i Menu ID.
          * \param t Menu display title.
-         * \return void
          */
         inline menu(const std::string i, const std::string t) :
         id(i), title(t) {
@@ -47,8 +46,6 @@ class menu {
 
         /*!
          * Menu destructor.
-         * \param void
-         * \return void
          */
         inline ~menu() {
             items.clear();
@@ -56,7 +53,6 @@ class menu {
 
         /*!
          * Get menu ID.
-         * \param void
          * \return The menu ID.
          */
         inline const std::string get_id(void) const {
@@ -65,7 +61,6 @@ class menu {
 
         /*!
          * Get menu display title.
-         * \param void
          * \return The menu display title.
          */
         inline const std::string get_title(void) const {
@@ -74,7 +69,6 @@ class menu {
 
         /*!
          * Get number of menu items.
-         * \param void
          * \return Count of items.
          */
         inline std::size_t num_items(void) const {
@@ -83,7 +77,6 @@ class menu {
 
         /*!
          * Get menu items start iterator.
-         * \param void
          * \return Constant iterator to beginnig of menu items.
          */
         inline menu_item_citerator items_cbegin(void) const {
@@ -92,7 +85,6 @@ class menu {
 
         /*!
          * Get menu items end iterator.
-         * \param void
          * \return Constant iterator to end of menu items.
          */
         inline menu_item_citerator items_cend(void) const {
@@ -102,7 +94,6 @@ class menu {
         /*!
          * Set the menu display title.
          * \param t New display title to set.
-         * \return void
          */
         inline void set_title(const std::string& t) {
             title = t;
@@ -111,7 +102,6 @@ class menu {
         /*!
          * Add a menu item to an existing menu
          * \param item Shared pointer for the new item.
-         * \return void
          */
         inline void add_item(const menu_item_sptr& item) {
             items.push_back(item);

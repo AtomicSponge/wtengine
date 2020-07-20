@@ -37,7 +37,6 @@ class input_button final : public component {
          * \param button Button flag enum to bind to.
          * \param func_a Button on down function.
          * \param func_b Button on up function.
-         * \return void
          */
         inline input_button(
             const std::size_t button,
@@ -55,14 +54,11 @@ class input_button final : public component {
 
         /*!
          * Input button destructor.
-         * \param void
-         * \return void
          */
         inline ~input_button() {};
 
         /*!
          * Get the button flag bounded to this component.
-         * \param void
          * \return The button flag enum value.
          */
         inline const std::size_t get_flag(void) const {

@@ -92,7 +92,6 @@ class message {
         /*!
          * Split arguments into a vector of strings.
          * \param a String of arguments, delimited by ;
-         * \return void
          */
         inline void split_args(const std::string& a) {
             if(a == "") arglist.push_back("");
@@ -172,7 +171,6 @@ class message {
 
         /*!
          * Check if the event is synced to the timer.
-         * \param void
          * \return Returns false if the timer value is -1, else true.
          */
         inline const bool is_timed_event(void) const {

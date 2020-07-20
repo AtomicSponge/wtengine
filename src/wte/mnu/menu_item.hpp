@@ -38,77 +38,60 @@ class menu_item {
     public:
         /*!
          * Menu item destructor.
-         * \param void
-         * \return void
          */
         inline virtual ~menu_item() {};
 
         /*!
          * Return display text for the menu item when rendering.
-         * \param void
          * \return Vector of display text.
          */
         inline virtual const std::vector<std::string> get_text(void) const { return {"null"}; };
 
         /*!
          * Define left click process.
-         * \param void
-         * \return void
          */
         inline virtual void on_left(void) {};
 
         /*!
          * Define right click process.
-         * \param void
-         * \return void
          */
         inline virtual void on_right(void) {};
 
         /*!
          * Define selection process.
-         * \param void
-         * \return void
          */
         inline virtual const message on_select(void) { return message("system", "null", "null"); };
 
         /*!
          * Define reset process.
-         * \param void
-         * \return void
          */
         inline virtual void reset_to_default(void) {};
 
         /*!
          * Define default value process.
-         * \param void
-         * \return void
          */
         inline virtual void set_default(void) {};
 
         /*!
          * Define setting changed process.
-         * \param void
          * \return Default return false.
          */
         inline virtual const bool setting_changed(void) const { return false; };
 
         /*!
          * Get the display label.
-         * \param void
          * \return The label text.
          */
         inline const std::string get_label(void) const { return label; };
 
         /*!
          * Get the setting type.
-         * \param void
          * \return Setting type.
          */
         inline const std::size_t get_setting_type(void) const { return setting_type; };
 
         /*!
          * Check if it is an engine setting.
-         * \param void
          * \return True if an engine setting, false if a game setting.
          */
         inline const bool is_engine_setting(void) const { 
@@ -123,7 +106,6 @@ class menu_item {
         /*!
          * Menu item constructor.
          * \param l Label of the menu item.
-         * \return void
          */
         inline menu_item(const std::string l) :
         label(l), setting_type(DEFAULT_SETTING) {};
@@ -132,7 +114,6 @@ class menu_item {
          * Menu item constructor.
          * \param l Label of the menu item.
          * \param st Setting type.
-         * \return void
          */
         inline menu_item(const std::string l, const std::size_t st) :
         label(l), setting_type(st) {};

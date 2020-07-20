@@ -73,7 +73,6 @@ class wte_main : private wte_display, private wte_input {
          * \brief Add file path to provide to PhysFS.
          * This should be called during engine initialization before the main object is created.
          * \param flocation File location to add to PhysFS.
-         * \return void
          */
         inline static void add_file_location(const std::string& flocation) {
             file_locations.push_back(flocation);
@@ -189,8 +188,6 @@ class wte_main : private wte_display, private wte_input {
         /*!
          * \brief Load the engine's managers.
          * Called before the main loop starts.
-         * \param void
-         * \return void
          */
         inline void wte_load(void) {
             //  Initialize managers that require it.
@@ -208,8 +205,6 @@ class wte_main : private wte_display, private wte_input {
         /*!
          * \brief Unload the engine's managers.
          * Called after the main loop ends running.
-         * \param void
-         * \return void
          */
         inline void wte_unload(void) {
             audio_th.stop();
@@ -252,7 +247,6 @@ class wte_main : private wte_display, private wte_input {
  * \brief Call to start a new game.
  * Loads a game data file and user defined systems and starting entities.
  * \param game_data Game data file to load.
- * \return void
  */
 inline void wte_main::process_new_game(const std::string& game_data) {
     std::srand(std::time(nullptr));  //  Seed random, using time.
@@ -292,8 +286,6 @@ inline void wte_main::process_new_game(const std::string& game_data) {
 /*!
  * \brief Call to end the game.
  * Clears out the entities and systems and runs user defined end process.
- * \param void
- * \return void
  */
 inline void wte_main::process_end_game(void) {
     al_stop_timer(main_timer);
@@ -323,8 +315,6 @@ inline void wte_main::process_end_game(void) {
 
 /*!
  * The main engine loop.
- * \param void
- * \return void
  */
 inline void wte_main::do_game(void) {
     wte_load();
@@ -423,7 +413,6 @@ inline void wte_main::do_game(void) {
  * Switch over the system messages and process.
  * Remaining messages are passed to the custom handler.
  * \param sys_msgs  Vector of messages to be processed.
- * \return void
  */
 inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
     const bool timer_running = al_get_timer_started(main_timer);

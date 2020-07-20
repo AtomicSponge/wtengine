@@ -30,15 +30,11 @@ class movement final : public system {
     public:
         /*!
          * Movement System constructor.
-         * \param void
-         * \return void
          */
         inline movement() : system("movement") {};
 
         /*!
          * Movement System destructor.
-         * \param void
-         * \return void
          */
         inline ~movement() {};
 
@@ -49,7 +45,6 @@ class movement final : public system {
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.
-         * \return void
          */
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,

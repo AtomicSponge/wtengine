@@ -37,7 +37,6 @@ class game_cfg final : public variable_map<game_cfg> {
         /*!
          * Set the file the game config variables will be written to.
          * \param fname Filename to set saving to.
-         * \return void
          */
         inline static void set_game_cfg_file(const std::string& fname) {
             data_file_name = fname;
@@ -45,7 +44,6 @@ class game_cfg final : public variable_map<game_cfg> {
 
         /*!
          * Load game config variables from file.
-         * \param void
          * \return False on fail, true on success.
          */
         inline static bool load(void) {
@@ -64,8 +62,6 @@ class game_cfg final : public variable_map<game_cfg> {
 
         /*!
          * Clear the current game config save.
-         * \param void
-         * \return void
          */
         inline static void clear_save(void) {
             std::ofstream data_file(data_file_name, std::ofstream::trunc);

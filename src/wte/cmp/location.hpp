@@ -30,13 +30,11 @@ class location final : public component {
          * Location constructor.
          * \param x Horizontal location of the entity.
          * \param y Verticle location of the entity.
-         * \return void
          */
         inline location(float x, float y) : pos_x(x), pos_y(y) {};
 
         /*!
          * Get X location.
-         * \param void
          * \return X location of entity.
          */
         inline const float get_x(void) const {
@@ -45,7 +43,6 @@ class location final : public component {
 
         /*!
          * Get Y location.
-         * \param void
          * \return Y location of entity.
          */
         inline const float get_y(void) const {
@@ -55,7 +52,6 @@ class location final : public component {
         /*!
          * Set X location.
          * \param x New X location for entity.
-         * \return void
          */
         inline void set_x(const float& x) {
             pos_x = x;
@@ -64,7 +60,6 @@ class location final : public component {
         /*!
          * Set Y location.
          * \param y New Y location for entity.
-         * \return void
          */
         inline void set_y(const float& y) {
             pos_y = y;
@@ -73,7 +68,6 @@ class location final : public component {
         /*!
          * Adjust X location.
          * \param x X offset for entity.
-         * \return void
          */
         inline void adjust_x(const float& x) {
             pos_x += x;
@@ -82,7 +76,6 @@ class location final : public component {
         /*!
          * Adjust Y location.
          * \param y Y offset for entity.
-         * \return void
          */
         inline void adjust_y(const float& y) {
             pos_y += y;

@@ -31,8 +31,6 @@ class colision final : public system {
 
         /*!
          * Allow the colision system to be disabled.
-         * \param void
-         * \return void
          */
         inline void disable(void) override { enabled = false; };
 
@@ -43,7 +41,6 @@ class colision final : public system {
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.
-         * \return void
          */
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,

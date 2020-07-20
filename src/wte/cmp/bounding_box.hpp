@@ -33,7 +33,6 @@ class bounding_box final : public component {
          * \param ly Left Y
          * \param rx Right X
          * \param ry Right Y
-         * \return void
          */
         inline bounding_box(const float lx,
                             const float ly,
@@ -44,7 +43,6 @@ class bounding_box final : public component {
         /*!
          * Set left X of the bounding box.
          * \param mx Left X
-         * \return void
          */
         inline void set_min_x(const float& mx) {
             min_x = mx;
@@ -53,7 +51,6 @@ class bounding_box final : public component {
         /*!
          * Set left Y of the bounding box.
          * \param mx Left Y
-         * \return void
          */
         inline void set_min_y(const float& my) {
             min_y = my;
@@ -62,7 +59,6 @@ class bounding_box final : public component {
         /*!
          * Set right X of the bounding box.
          * \param mx Right X
-         * \return void
          */
         inline void set_max_x(const float& mx) {
             max_x = mx;
@@ -71,7 +67,6 @@ class bounding_box final : public component {
         /*!
          * Set right Y of the bounding box.
          * \param mx right Y
-         * \return void
          */
         inline void set_max_y(const float& my) {
             max_y = my;
@@ -79,7 +74,6 @@ class bounding_box final : public component {
 
         /*!
          * Get the left X of the bounding box.
-         * \param void
          * \return Left X
          */
         inline const float get_min_x(void) const {
@@ -88,7 +82,6 @@ class bounding_box final : public component {
 
         /*!
          * Get the left Y of the bounding box.
-         * \param void
          * \return Left Y
          */
         inline const float get_min_y(void) const {
@@ -97,7 +90,6 @@ class bounding_box final : public component {
 
         /*!
          * Get the right X of the bounding box.
-         * \param void
          * \return Right X
          */
         inline const float get_max_x(void) const {
@@ -106,7 +98,6 @@ class bounding_box final : public component {
 
         /*!
          * Get the right Y of the bounding box.
-         * \param void
          * \return Right Y
          */
         inline const float get_max_y(void) const {

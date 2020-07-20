@@ -40,7 +40,6 @@ class menu_item_selection final : public menu_item {
          * \param vr Variable to adjust.
          * \param vl Vector of allowed settings.
          * \param st Type of setting.
-         * \return void
          */
         inline menu_item_selection(const std::string label,
                                    const std::string vr,
@@ -56,15 +55,12 @@ class menu_item_selection final : public menu_item {
 
         /*!
          * Menu item selection destructor.
-         * \param void
-         * \return void
          */
         inline ~menu_item_selection() {};
 
         /*!
          * Define left click process.
          * \param alt_trigger Alt trigger flag (unused).
-         * \return void
          */
         inline void on_left(void) override {
             if(current_val != vals.begin()) current_val--;
@@ -73,7 +69,6 @@ class menu_item_selection final : public menu_item {
         /*!
          * Define right click process.
          * \param alt_trigger Alt trigger flag (unused).
-         * \return void
          */
         inline void on_right(void) override {
             if(current_val != vals.end()) current_val++;
@@ -82,7 +77,6 @@ class menu_item_selection final : public menu_item {
 
         /*!
          * Return display text for the menu item when rendering.
-         * \param void
          * \return Vector of display text strings.
          */
         inline const std::vector<std::string> get_text(void) const override {
@@ -93,15 +87,11 @@ class menu_item_selection final : public menu_item {
 
         /*!
          * Reset to the default variable.
-         * \param void
-         * \return void
          */
         inline void reset_to_default(void) override { current_val = default_val; };
 
         /*!
          * Set the default variable.
-         * \param void
-         * \return void
          */
         inline void set_default(void) override {
             if(is_engine_setting()) current_val = std::find(std::begin(vals), std::end(vals), engine_cfg::get(var));
@@ -113,7 +103,6 @@ class menu_item_selection final : public menu_item {
         /*!
          * \brief Setting changed process.
          * Checks if the current selection is the same as the default.
-         * \param void
          * \return True if the setting changed, false if it did not.
          */
         inline const bool setting_changed(void) const override {
@@ -123,7 +112,6 @@ class menu_item_selection final : public menu_item {
 
         /*!
          * Get the setting to be applied by the system.
-         * \param void
          * \return A string in format var=val
          */
         inline const std::string get_setting(void) { return var + "=" + *current_val; };

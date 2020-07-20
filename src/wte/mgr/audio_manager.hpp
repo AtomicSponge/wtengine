@@ -111,8 +111,6 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
         /*!
          * \brief Initialize audio manager.
          * Sets up the various Allegro objects for the audio manager to use.
-         * \param void
-         * \return void
          */
         inline void initialize(void) {
             voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
@@ -147,8 +145,6 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
         /*!
          * \brief De-initialize the audio manager.
          * Destroies the Allegro objects used by the manager.
-         * \param void
-         * \return void
          */
         inline void de_init(void) {
             //  Clear any left over sample instances.
@@ -199,8 +195,6 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
 
         /*!
          * Update engine cfg with the current volume levels.
-         * \param void
-         * \return void
          */
         inline void get_volume(void) const {
             engine_cfg::set("main_vol", std::to_string(al_get_mixer_gain(mixer_main)));
@@ -213,7 +207,6 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
         /*!
          * Take a vector of messages and pass them into the audio messages deck.
          * \param messages Vector of messages to be passed.
-         * \return void
          */
         inline void transfer_messages(const message_container& messages) {
             deque_mtx.lock();
@@ -239,8 +232,6 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
 
         /*!
          * Set volume levels based on engine cfg settings.
-         * \param void
-         * \return void
          */
         inline void set_volume(void) {
             float vol = engine_cfg::get<float>("main_vol");
@@ -314,8 +305,6 @@ template <> inline bool audio_manager::manager<audio_manager>::initialized = fal
  * On startup, creates multiple mixer objects to play sound through, then
  * allows playback control via messages.
  * This overrides run from the make_thread class.
- * \param void
- * \return void
  */
 inline void audio_manager::run(void) {
     //  Set PhysFS interface for the thread.

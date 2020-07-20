@@ -33,14 +33,11 @@ class wte_display {
     public:
         /*!
          * Display destructor.
-         * \param void
-         * \return void
          */
         inline virtual ~wte_display() {};
 
         /*!
          * Get the window title.
-         * \param void
          * \return Window title as string.
          */
         inline const std::string get_window_title(void) const {
@@ -51,14 +48,11 @@ class wte_display {
         /*!
          * Display constructor.
          * \param title Window title.
-         * \return void
          */
         inline wte_display(const std::string& title) : window_title(title) {};
 
         /*!
          * Configure the display.
-         * \param void
-         * \return void
          */
         inline void create_display(void) {
             al_reset_new_display_options();
@@ -140,8 +134,6 @@ class wte_display {
 
         /*!
          * Destroy the display.
-         * \param void
-         * \return void
          */
         inline void destroy_display(void) {
             al_destroy_display(display);
@@ -149,8 +141,6 @@ class wte_display {
 
         /*!
          * Reconfigure the display.
-         * \param void
-         * \return void
          */
         inline void reconf_display(void) {
             destroy_display();

@@ -28,15 +28,12 @@ class velocity final : public component {
     public:
         /*!
          * Velocity constructor.
-         * \param void
-         * \return void
          */
         inline velocity(void) : x_vel(0.0f), y_vel(0.0f) {};
 
         /*!
          * Velocity constructor.
          * \param v Velocity for X and Y.
-         * \return void
          */
         inline velocity(const float v) : x_vel(v), y_vel(v) {};
 
@@ -44,14 +41,12 @@ class velocity final : public component {
          * Velocity constructor.
          * \param xv X velocity.
          * \param yv Y velocity.
-         * \return void
          */
         inline velocity(const float xv, const float yv) : x_vel(xv), y_vel(yv) {};
 
         /*!
          * Set X velocity.
          * \param xv X velocity.
-         * \return void
          */
         inline void set_x_vel(const float& xv) {
             x_vel = xv;
@@ -60,7 +55,6 @@ class velocity final : public component {
         /*!
          * Set Y velocity.
          * \param yv Y velocity.
-         * \return void
          */
         inline void set_y_vel(const float& yv) {
             y_vel = yv;
@@ -69,7 +63,6 @@ class velocity final : public component {
         /*!
          * Set velocity for X and Y.
          * \param v Velocity
-         * \return void
          */
         inline void set_velocity(const float& v) {
             x_vel = v;
@@ -78,7 +71,6 @@ class velocity final : public component {
 
         /*!
          * Get X velocity.
-         * \param void
          * \return X velocity.
          */
         inline const float get_x_vel(void) const {
@@ -87,7 +79,6 @@ class velocity final : public component {
 
         /*!
          * Get X velocity.
-         * \param void
          * \return Y velocity.
          */
         inline const float get_y_vel(void) const {

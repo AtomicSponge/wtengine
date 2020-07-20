@@ -34,7 +34,6 @@ class dispatcher final : public component {
         /*!
          * Dispatcher constructor.
          * \param func Function to define message processing.
-         * \return void
          */
         inline dispatcher(void func(const entity_id&,
                                     const message&,
@@ -44,8 +43,6 @@ class dispatcher final : public component {
 
         /*!
          * Dispatched destructor.
-         * \param void
-         * \return void
          */
         inline ~dispatcher() {};
 
@@ -56,7 +53,6 @@ class dispatcher final : public component {
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.
          * \param msg Message to process.
-         * \return void
          */
         inline void proc_msg(const entity_id& eid,
                              const message& msg,

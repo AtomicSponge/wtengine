@@ -70,8 +70,6 @@ class entity_manager final : private manager<entity_manager> {
         /*!
          * Entity manager constructor.
          * Start entity counter at 1
-         * \param void
-         * \return none
          */
         inline entity_manager() : entity_counter(WTE_ENTITY_START) {
             entity_vec.clear();
@@ -80,8 +78,6 @@ class entity_manager final : private manager<entity_manager> {
 
         /*!
          * Entity manager destructor.
-         * \param void
-         * \return none
          */
         inline ~entity_manager() {
             entity_vec.clear();
@@ -91,8 +87,6 @@ class entity_manager final : private manager<entity_manager> {
         /*!
          * \brief Clear the entity manager.
          * Set the entity counter to zero and clear the entities and componenets.
-         * \param void
-         * \return void
          */
         inline void clear(void) {
             entity_counter = WTE_ENTITY_START;
@@ -103,7 +97,6 @@ class entity_manager final : private manager<entity_manager> {
         /*!
          * \brief Create a new entity by name, using the next available ID.
          * Throw error if there is no room for entities.
-         * \param void
          * \return The newly created entity ID.  WTE_ENTITY_ERROR on fail.
          */
         inline const entity_id new_entity(void) {
@@ -217,7 +210,6 @@ class entity_manager final : private manager<entity_manager> {
 
         /*!
          * Get the entity reference vector.
-         * \param void
          * \return Returns a vector of all entity IDs and names.
          */
         inline const world_container get_entities(void) const {
@@ -355,7 +347,6 @@ class entity_manager final : private manager<entity_manager> {
          * \brief Set all components for a particulair type.
          * This will return a container of modifiable components casted to their type.
          * \tparam T Component type.
-         * \param void
          * \return Returns a container of components of all the same type.
          */
         template <typename T> inline const component_container<T> set_components(void) {
@@ -372,7 +363,6 @@ class entity_manager final : private manager<entity_manager> {
          * \brief Get all components for a particulair type.
          * This will return a container of non-modifiable components casted to their type.
          * \tparam T Component type.
-         * \param void
          * \return Returns a constant container of components of all the same type.
          */
         template <typename T> inline const const_component_container<T> get_components(void) const {

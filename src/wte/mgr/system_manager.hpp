@@ -37,8 +37,6 @@ class system_manager final : private manager<system_manager> {
         /*!
          * System Manager constructor.
          * Clears the systems vector and sets the finalized flag to false.
-         * \param void
-         * \return void
          */
         inline system_manager() : finalized(false) {
             systems.clear();
@@ -47,8 +45,6 @@ class system_manager final : private manager<system_manager> {
         /*!
          * System Manager destructor.
          * Makes sure the systems are cleared.
-         * \param void
-         * \return void
          */
         inline ~system_manager() {
             systems.clear();
@@ -56,8 +52,6 @@ class system_manager final : private manager<system_manager> {
 
         /*!
          * Clear the system manager and allow systems to be loaded again.
-         * \param void
-         * \return void
          */
         inline void clear(void) {
             systems.clear();
@@ -67,8 +61,6 @@ class system_manager final : private manager<system_manager> {
         /*!
          * \brief Finalize system manager.
          * Set finalized flag to prevent additional systems from being loaded.
-         * \param void
-         * \return void
          */
         inline void finalize(void) {
             finalized = true;
@@ -76,7 +68,6 @@ class system_manager final : private manager<system_manager> {
 
         /*!
          * Check if systems were loaded into the manager.
-         * \param void
          * \return True if empty, false if not.
          */
         inline bool empty(void) {
@@ -107,7 +98,6 @@ class system_manager final : private manager<system_manager> {
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.
-         * \return void
          */
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
@@ -123,7 +113,6 @@ class system_manager final : private manager<system_manager> {
          * \param world Reference to entity manager.
          * \param messages Reference to message manager.
          * \param current_time Current engine time.
-         * \return void
          */
         inline void dispatch(mgr::entity_manager& world,
                              mgr::message_manager& messages,
@@ -152,7 +141,6 @@ class system_manager final : private manager<system_manager> {
          * Any background or overlay drawing bitmaps will be recreated.
          * Called when the screen is reloaded.
          * \param world Reference to the entity manager.
-         * \return void
          */
         inline void reload_temp_bitmaps(mgr::entity_manager& world) {
             component_container<cmp::background> background_components =

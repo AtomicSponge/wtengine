@@ -31,7 +31,6 @@ class hitbox final : public component {
          * Call this to have the hitbox enabled by default.
          * \param w Width of the hitbox in pixels.
          * \param h Height of the hitbox in pixels.
-         * \return void
          */
         inline hitbox(float w, float h) : width(w), height(h), solid(true) {};
 
@@ -41,13 +40,11 @@ class hitbox final : public component {
          * \param w Width of the hitbox in pixels.
          * \param h Height of the hitbox in pixels.
          * \param s Boolean value for if the hitbox is enabled.
-         * \return void
          */
         inline hitbox(float w, float h, bool s) : width(w), height(h), solid(s) {};
 
         /*!
          * Get hitbox width.
-         * \param void
          * \return Width of hitbox.
          */
         inline const float get_width(void) const {
@@ -56,7 +53,6 @@ class hitbox final : public component {
 
         /*!
          * Get hitbox height.
-         * \param void
          * \return Height of hitbox.
          */
         inline const float get_height(void) const {
@@ -66,7 +62,6 @@ class hitbox final : public component {
         /*!
          * Set width of hitbox.
          * \param w New width.
-         * \return void
          */
         inline void set_width(const float& w) {
             width = w;
@@ -75,7 +70,6 @@ class hitbox final : public component {
         /*!
          * Set height of hitbox.
          * \param h New height.
-         * \return void
          */
         inline void set_height(const float& h) {
             height = h;
@@ -83,7 +77,6 @@ class hitbox final : public component {
 
         /*!
          * Check if solid.
-         * \param void
          * \return True if solid, false if not.
          */
         inline const bool is_solid(void) const {
@@ -93,8 +86,6 @@ class hitbox final : public component {
         /*!
          * \brief Make entity solid.
          * Sets internal flag to true.
-         * \param void
-         * \return void
          */
         inline void make_solid(void) {
             solid = true;
@@ -103,8 +94,6 @@ class hitbox final : public component {
         /*!
          * \brief Make entity not solid.
          * Sets internal flag to false.
-         * \param void
-         * \return void
          */
         inline void make_fluid(void) {
             solid = false;

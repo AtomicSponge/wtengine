@@ -45,8 +45,6 @@ class message_manager final : private manager<message_manager>, private engine_t
         /*!
          * \brief Message queue constructor
          * Clear any existing queue and start logging if debugging is enabled.
-         * \param void
-         * \return void
          */
         inline message_manager() {
             msg_queue.clear();
@@ -61,8 +59,6 @@ class message_manager final : private manager<message_manager>, private engine_t
         /*!
          * \brief Message queue destructor
          * Delete message queue object and close log file if debugging is enabled.
-         * \param void
-         * \return void
          */
         inline ~message_manager() {
             msg_queue.clear();
@@ -75,8 +71,6 @@ class message_manager final : private manager<message_manager>, private engine_t
 
         /*!
          * Clear the message queue.
-         * \param void
-         * \return void
          */
         inline void clear(void) {
             msg_queue.clear();
@@ -86,7 +80,6 @@ class message_manager final : private manager<message_manager>, private engine_t
          * Adds a message object to the start of the msg_queue vector
          * Then sorts if it's a timed event
          * \param msg Message to add.
-         * \return void
          */
         inline void add_message(const message& msg) {
             msg_queue.insert(msg_queue.begin(), msg);
@@ -97,8 +90,6 @@ class message_manager final : private manager<message_manager>, private engine_t
         #ifndef WTE_NO_PRUNE
         /*!
          * Deletes timed messages that were not processed.
-         * \param void
-         * \return void
          */
         inline void prune(void) {
             for(auto it = msg_queue.begin(); it != msg_queue.end();) {
@@ -147,7 +138,6 @@ class message_manager final : private manager<message_manager>, private engine_t
          * This is called when a new game is created.
          * Events are placed in order according to the timer value.
          * \param fname Filename to load.
-         * \return void
          */
         inline void load_file(const std::string& fname) {
             msg_queue.clear();
@@ -234,7 +224,6 @@ class message_manager final : private manager<message_manager>, private engine_t
          * \param from Entity From value to write to.
          * \param cmd Command value to write to.
          * \param args Argument value to write to.
-         * \return void
          */
         inline void read_message(ALLEGRO_FILE& file,
                                  int64_t& timer,
@@ -284,7 +273,6 @@ class message_manager final : private manager<message_manager>, private engine_t
          * \brief Log processed messages to a file.
          * Write a message to the debug log file if debugging is enabled.
          * \param msg Message to write.
-         * \return void
          */
         #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
         inline void debug_log_message(const message& msg) {

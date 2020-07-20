@@ -29,15 +29,11 @@ class logic final : public system {
     public:
         /*!
          * Logic System constructor.
-         * \param void
-         * \return void
          */
         inline logic() : system("logic") {};
 
         /*!
          * Logic System destructor.
-         * \param void
-         * \return void
          */
         inline ~logic() {};
 
@@ -47,7 +43,6 @@ class logic final : public system {
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.
-         * \return void
          */
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,

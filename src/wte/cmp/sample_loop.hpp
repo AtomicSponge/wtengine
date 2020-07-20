@@ -33,8 +33,6 @@ class sample_loop final : public component {
     public:
         /*!
          * Sample loop constructor.
-         * \param void
-         * \return void
          */
         inline sample_loop() {
             instance_map.clear();
@@ -42,8 +40,6 @@ class sample_loop final : public component {
 
         /*!
          * Sample loop destructor.
-         * \param void
-         * \return void
          */
         inline ~sample_loop() {
             instance_map.clear();
@@ -69,7 +65,6 @@ class sample_loop final : public component {
          * Start sample loop.
          * \param messages Reference to message manager.
          * \param si Sample instance reference.
-         * \return void
          */
         inline void start(mgr::message_manager& messages, const std::string& si) {
             auto ref = instance_map.find(si);
@@ -85,7 +80,6 @@ class sample_loop final : public component {
          * Stop sample loop.
          * \param messages Reference to message manager.
          * \param si Sample instance reference.
-         * \return void
          */
         inline void stop(mgr::message_manager& messages, const std::string& si) {
             auto ref = instance_map.find(si);

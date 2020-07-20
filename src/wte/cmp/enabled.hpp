@@ -29,22 +29,17 @@ class enabled final : public component {
         /*!
          * \brief Enabled constructor.
          * If passed nothing, enabled by default.
-         * \param void
-         * \return void
          */
         inline enabled() : is_enabled(true) {};
 
         /*!
          * \brief Enabled constructor.
          * Pass boolean value to the component to set if it is enabled.
-         * \param void
-         * \return void
          */
         inline enabled(const bool e) : is_enabled(e) {};
 
         /*!
          * Check if the entity is enabled.
-         * \param void
          * \return True if enabled, false if not.
          */
         inline const bool check(void) const {
@@ -54,8 +49,6 @@ class enabled final : public component {
         /*!
          * \brief Set enabled.
          * Sets internal flag to true.
-         * \param void
-         * \return void
          */
         inline void enable(void) {
             is_enabled = true;
@@ -64,8 +57,6 @@ class enabled final : public component {
         /*!
          * \brief Set disabled.
          * Sets internal flag to false.
-         * \param void
-         * \return void
          */
         inline void disable(void) {
             is_enabled = false;

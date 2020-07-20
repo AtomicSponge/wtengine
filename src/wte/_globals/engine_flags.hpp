@@ -38,7 +38,6 @@ class engine_flags final {
         /*!
          * Set a flag to true.
          * \param i Index of the flag.
-         * \return void
          */
         inline static void set(const std::size_t& i) {
             assert(i < MAX_SYSTEM_FLAGS);
@@ -48,7 +47,6 @@ class engine_flags final {
         /*!
          * Set a flag to false.
          * \param i Index of the flag.
-         * \return void
          */
         inline static void unset(const std::size_t& i) {
             assert(i < MAX_SYSTEM_FLAGS);
@@ -71,8 +69,6 @@ class engine_flags final {
 
         /*!
          * Set all engine flags to false.
-         * \param void
-         * \return void
          */
         inline static void unset_all(void) {
             for(std::size_t i = 0; i < MAX_SYSTEM_FLAGS; i++)

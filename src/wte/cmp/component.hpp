@@ -28,8 +28,6 @@ class component {
     public:
         /*!
          * Component destructor.
-         * \param void
-         * \return void
          */
         inline virtual ~component() {};
 
@@ -41,8 +39,6 @@ class component {
     protected:
         /*!
          * Component constructor.
-         * \param void
-         * \return void
          */
         inline component() {};
 };

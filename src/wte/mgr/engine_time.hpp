@@ -33,7 +33,6 @@ class engine_time {
          * This is called once during the game loop in class wte_main
          * and when starting/stopping the game.
          * \param t Timer value.
-         * \return void
          */
         inline static void set_time(const int64_t& t) {
             current_time.store(t, std::memory_order_release);
@@ -49,7 +48,6 @@ class engine_time {
         /*!
          * \brief Check the internal timer.
          * Classes that extend this object can call this member to check the game timer.
-         * \param void
          * \return Timer value.
          */
         inline const int64_t check_time(void) const {

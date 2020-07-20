@@ -49,16 +49,12 @@ class wte_input : private wte_input_map {
     public:
         /*!
          * WTE Input destructor.
-         * \param void
-         * \return void
          */
         inline virtual ~wte_input() {};
 
     protected:
         /*!
          * WTE Input constructor.
-         * \param void
-         * \return void
          */
         inline wte_input() {
             for(std::size_t i = 0; i < WTE_MAX_JOYSTICK_FLAGS; i++) {
@@ -74,8 +70,6 @@ class wte_input : private wte_input_map {
         /*!
          * \brief Create the input queue for capturing events.
          * Called during engine initialization.
-         * \param void
-         * \return void
          */
         inline void create_input_event_queue(void) {
             input_event_queue = al_create_event_queue();
@@ -90,8 +84,6 @@ class wte_input : private wte_input_map {
         /*!
          * \brief Destroy the input queue.
          * Called during engine de-initialization.
-         * \param void
-         * \return void
          */
         inline void destroy_input_event_queue(void) {
             al_destroy_event_queue(input_event_queue);
@@ -100,8 +92,6 @@ class wte_input : private wte_input_map {
         /*!
          * \brief Check the input queue for events.
          * Called during the main engine loop.  Pass any events to the input handler.
-         * \param void
-         * \return void
          */
         inline void check_input_events(void) {
             ALLEGRO_EVENT event;
@@ -124,7 +114,6 @@ class wte_input : private wte_input_map {
 /*!
  * Process input events.
  * \param event Event ID.
- * \return void
  */
 inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) { 
     //  Clear any active alerts on input event

@@ -33,8 +33,6 @@ class input_directional final : public component {
     public:
         /*!
          * Input Directional constructor.
-         * \param void
-         * \return void
          */
         inline input_directional(
             const std::size_t ib,
@@ -53,14 +51,11 @@ class input_directional final : public component {
 
         /*!
          * Input Directional destructor.
-         * \param void
-         * \return void
          */
         inline ~input_directional() {};
 
         /*!
          * Get the joystick bounded to this component.
-         * \param void
          * \return The joystick enum value.
          */
         inline const std::size_t get_bind(void) const {

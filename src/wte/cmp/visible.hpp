@@ -29,8 +29,6 @@ class visible final : public component {
         /*!
          * \brief Visible constructor.
          * Call this to be visible by default.
-         * \param void
-         * \return void
          */
         inline visible() : is_visible(true) {};
 
@@ -38,13 +36,11 @@ class visible final : public component {
          * \brief Visible constructor.
          * Call this to set if the entity is visible.
          * \param v Boolean value for visibility.
-         * \return void
          */
         inline visible(const bool v) : is_visible(v) {};
 
         /*!
          * Check if visible.
-         * \param void
          * \return True if visible, false if not.
          */
         inline const bool check(void) const {
@@ -54,8 +50,6 @@ class visible final : public component {
         /*!
          * \brief Show the entity.
          * Sets internal flag to true.
-         * \param void
-         * \return void
          */
         inline void show(void) {
             is_visible = true;
@@ -64,8 +58,6 @@ class visible final : public component {
         /*!
          * \brief Hide the entity.
          * Sets internal flag to false.
-         * \param void
-         * \return void
          */
         inline void hide(void) {
             is_visible = false;

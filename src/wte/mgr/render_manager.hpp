@@ -52,24 +52,18 @@ class render_manager final : private manager<render_manager>, private engine_tim
         /*!
          * render_manager constructor.
          * Generates the render_manager object.
-         * \param void
-         * \return void
          */
         inline render_manager() :
         fps_counter(0), fps(0) {};
 
         /*!
          * render_manager destructor.
-         * \param void
-         * \return void
          */
         inline ~render_manager() {};
 
         /*!
          * \brief Initialize the render manager.
          * Configures the internal objects for the render manager to use.
-         * \param void
-         * \return void
          */
         inline void initialize(void) {
             //  Create the arena bitmap.
@@ -134,8 +128,6 @@ class render_manager final : private manager<render_manager>, private engine_tim
         /*!
          * \brief De-initialize the render manager.
          * Destories the internal objects.
-         * \param void
-         * \return void
          */
         inline void de_init(void) {
             al_destroy_bitmap(title_bmp);
@@ -153,7 +145,6 @@ class render_manager final : private manager<render_manager>, private engine_tim
          * Gets called by the engine when the screen resolution is updated.
          * \param w Resolution width in pixels.
          * \param h Resolution height in pixels.
-         * \return void
          */
         inline void update_resolution(const int& w, const int& h) {
             screen_w = w;
@@ -162,7 +153,6 @@ class render_manager final : private manager<render_manager>, private engine_tim
 
         /*!
          * Get screen width.
-         * \param void
          * \return Screen width in pixels.
          */
         inline static const int get_screen_width(void) {
@@ -171,7 +161,6 @@ class render_manager final : private manager<render_manager>, private engine_tim
 
         /*!
          * Get screen height.
-         * \param void
          * \return Screen height in pixels.
          */
         inline static const int get_screen_height(void) {
@@ -183,7 +172,6 @@ class render_manager final : private manager<render_manager>, private engine_tim
          * This is used to scale the game arena and menus to a larger size.
          * For support of higher resolution screens.
          * \param f New scale factor value.
-         * \return void
          */
         inline void set_scale_factor(const float& f) {
             scale_factor = f;
@@ -191,7 +179,6 @@ class render_manager final : private manager<render_manager>, private engine_tim
 
         /*!
          * Get scale factor.
-         * \param void
          * \return Scale factor multiplier.
          */
         inline static const int get_scale_factor() {
@@ -201,8 +188,6 @@ class render_manager final : private manager<render_manager>, private engine_tim
         /*!
          * \brief Reload the arena bitmap.
          * Called when the screen is updated.
-         * \param void
-         * \return void
          */
         inline void reload_arena_bitmap(void) {
             al_destroy_bitmap(arena_bmp);
@@ -217,7 +202,6 @@ class render_manager final : private manager<render_manager>, private engine_tim
          * This should be called during engine initialization before the main object is created.
          * \param w Arena width in pixels.
          * \param h Arena height in pixels.
-         * \return void
          */
         inline static void set_arena_size(const int& w, const int& h) {
             if(!arena_created) {
@@ -228,7 +212,6 @@ class render_manager final : private manager<render_manager>, private engine_tim
 
         /*!
          * Get the arnea width.
-         * \param void
          * \return The arena width in pixels.
          */
         inline static const int get_arena_width(void) {
@@ -237,7 +220,6 @@ class render_manager final : private manager<render_manager>, private engine_tim
 
         /*!
          * Get the arena height.
-         * \param void
          * \return The arena height in pixels.
          */
         inline static const int get_arena_height(void) {
@@ -248,7 +230,6 @@ class render_manager final : private manager<render_manager>, private engine_tim
          * \brief Set the title screen.
          * This should be called during engine initialization before the main object is created.
          * \param fname Filename of the title screen.
-         * \return void
          */
         inline static void set_title_screen(const std::string& fname) {
             title_screen_file = fname;
@@ -258,7 +239,6 @@ class render_manager final : private manager<render_manager>, private engine_tim
          * \brief Set the title screen.
          * This should be called during engine initialization before the main object is created.
          * \param fname Filename of the title screen.
-         * \return void
          */
         inline static void set_background_screen(const std::string& fname) {
             background_file = fname;
@@ -272,7 +252,6 @@ class render_manager final : private manager<render_manager>, private engine_tim
          * \param fname Filename to use.
          * \param size Font size.
          * \param flags Font flags.
-         * \return void
          */
         inline static void set_font_file(const std::string& fname, const int& size, const int& flags) {
             render_font_file = fname;

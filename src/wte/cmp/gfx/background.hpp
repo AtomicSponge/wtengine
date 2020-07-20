@@ -38,7 +38,6 @@ class background final : public animator, public bitmap_map {
          * \param h Background height.
          * \param c Allegro color.
          * \param l Background layer.
-         * \return void
          */
         inline background(const int w, const int h,
                           const std::size_t l, ALLEGRO_COLOR c) :
@@ -59,7 +58,6 @@ class background final : public animator, public bitmap_map {
          * \param h Background height.
          * \param l Background layer.
          * \param func Animcation function.
-         * \return void
          */
         inline background(const int w, const int h, const std::size_t l,
                           void func(const entity_id&, mgr::entity_manager&, const int64_t&)) :
@@ -72,8 +70,6 @@ class background final : public animator, public bitmap_map {
 
         /*!
          * Background destructor.
-         * \param void
-         * \return void
          */
         inline ~background() {
             al_destroy_bitmap(internal_bitmap);
@@ -82,8 +78,6 @@ class background final : public animator, public bitmap_map {
         /*!
          * \brief Reload the background bitmap.
          * Called when the screen is updated.
-         * \param void
-         * \return void
          */
         inline void reload_background_bitmap(void) {
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
@@ -99,7 +93,6 @@ class background final : public animator, public bitmap_map {
 
         /*!
          * Get the saved color.
-         * \param void
          * \return Allegro color object.
          */
         inline ALLEGRO_COLOR get_color(void) const {

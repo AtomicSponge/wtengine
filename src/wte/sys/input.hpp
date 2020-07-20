@@ -38,7 +38,6 @@ class input final : public system {
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
          * \param current_time Current value of the main timer.
-         * \return void
          */
         inline void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,

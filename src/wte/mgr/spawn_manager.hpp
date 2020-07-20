@@ -36,8 +36,6 @@ class spawn_manager final : private manager<spawn_manager> {
         /*!
          * \brief Spawn Manager constructor.
          * Clears the spawner map.
-         * \param void
-         * \return void
          */
         inline spawn_manager() {
             spawner.clear();
@@ -46,8 +44,6 @@ class spawn_manager final : private manager<spawn_manager> {
         /*!
          * \brief Spawn Manager destructor.
          * Clears the spawner map.
-         * \param void
-         * \return void
          */
         inline ~spawn_manager() {
             spawner.clear();
@@ -58,7 +54,6 @@ class spawn_manager final : private manager<spawn_manager> {
          * Takes spawner messages and creates or deletes entities.
          * \param messages Spawner messages from main engine loop.
          * \param world Reference to the entity manager.
-         * \return void
          */
         inline void process(const message_container& messages, entity_manager& world) {
             for(auto & m_it : messages) {

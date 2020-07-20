@@ -51,8 +51,6 @@ class menu_manager final : private manager<menu_manager> {
         /*!
          * \brief Menu manager constructor
          * Generates the menu manager object
-         * \param void
-         * \return void
          */
         inline menu_manager() :
         menu_width(500), menu_height(400), menu_padding(32), font_size(8), is_button_left(true) {
@@ -63,8 +61,6 @@ class menu_manager final : private manager<menu_manager> {
         /*!
          * \brief Menu manager destructor
          * Cleans up by deleting the menu bitmaps and font
-         * \param void
-         * \return void
          */
         inline ~menu_manager() {
             opened_menus = {};
@@ -75,8 +71,6 @@ class menu_manager final : private manager<menu_manager> {
          * \brief Ititialize menu manager.
          * Sets up internal menu objects.  Called during engine initialization.
          * Also creates the default main menu and in-game menu.
-         * \param void
-         * \return void
          */
         inline void initialize(void) {
             if(menu_font_file.empty()) menu_font = al_create_builtin_font();
@@ -116,8 +110,6 @@ class menu_manager final : private manager<menu_manager> {
         /*!
          * \brief De-initialize the menu manager.
          * Destories the internal objects.
-         * \param void
-         * \return void
          */
         inline void de_init(void) {
             al_destroy_bitmap(menu_bitmap);
@@ -134,7 +126,6 @@ class menu_manager final : private manager<menu_manager> {
          * \param mw Menu width in pixels.
          * \param mh Menu height in pixels.
          * \param mp Menu padding in pixels.
-         * \return void
          */
         inline void set_menu_size(const float& mw, const float& mh, const float& mp) {
             menu_width = mw;
@@ -150,8 +141,6 @@ class menu_manager final : private manager<menu_manager> {
         /*!
          * \brief Reload the menu bitmap.
          * Called when the screen is updated.
-         * \param void
-         * \return void
          */
         inline void reload_menu_bitmap(void) {
             al_destroy_bitmap(menu_bitmap);
@@ -182,7 +171,6 @@ class menu_manager final : private manager<menu_manager> {
          * \param fname Filename to use.
          * \param size Font size.
          * \param flags Font flags.
-         * \return void
          */
         inline static void set_font_file(const std::string& fname, const int& size, const int& flags) {
             menu_font_file = fname;
@@ -254,8 +242,6 @@ class menu_manager final : private manager<menu_manager> {
         /*!
          * \brief Reset menu manager.
          * Clear the stack of opened menus.
-         * \param void
-         * \return void
          */
         inline void reset(void) {
             opened_menus = {};
@@ -267,7 +253,6 @@ class menu_manager final : private manager<menu_manager> {
          * Takes a menu from the vector container and adds it to the top of the opened stack.
          * Also resets the menu position.
          * \param menu_id Menu to open.
-         * \return void
          */
         inline void open_menu(const std::string& menu_id) {
             opened_menus.push(get_menu(menu_id));
@@ -283,8 +268,6 @@ class menu_manager final : private manager<menu_manager> {
         /*!
          * \brief Close the current opened menu.
          * Remove the menu from the top of the stack.
-         * \param void
-         * \return void
          */
         inline void close_menu(void) {
             opened_menus.pop();
@@ -326,7 +309,6 @@ template <> inline bool menu_manager::manager<menu_manager>::initialized = false
  * \brief Run the menu manager.
  * Adds a menu to the stack if none are opened, then processes the menus.
  * \param messages Reference to the message manager.
- * \return void
  */
 inline void menu_manager::run(message_manager& messages) {
     if(opened_menus.empty()) {

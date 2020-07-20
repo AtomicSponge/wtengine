@@ -32,7 +32,6 @@ class engine_cfg final : public variable_map<engine_cfg> {
          * \brief Load engine config settings from file.
          * Will create the config variable if it does not exist.
          * If it does exist, the value is updated from the file.
-         * \param void
          * \return False on fail, true on success.
          */
         inline static bool load(void) {
@@ -56,7 +55,6 @@ class engine_cfg final : public variable_map<engine_cfg> {
 
         /*!
          * Save engine config settings to file.
-         * \param void
          * \return False on fail, true on success.
          */
         inline static bool save(void) {

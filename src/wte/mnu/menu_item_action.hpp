@@ -35,7 +35,6 @@ class menu_item_action final : public menu_item {
          * \param l Label for item.
          * \param c Command to run for item.
          * \param a Arguments for command.
-         * \return void
          */
         inline menu_item_action(const std::string l, const std::string c, const std::string a) :
             menu_item(l), cmd(c), arg(a) {};
@@ -45,30 +44,24 @@ class menu_item_action final : public menu_item {
          * Call this to define a message with no arguments.
          * \param l Label for item.
          * \param c Command to run for item.
-         * \return void
          */
         inline menu_item_action(const std::string l, const std::string c) :
             menu_item(l), cmd(c), arg("") {};
 
         /*!
          * Menu item action destructor.
-         * \param void
-         * \return void
          */
         inline ~menu_item_action() {};
 
         /*!
          * \brief Menu item action on selection.
          * Return the stored command when selected.
-         * \param void
-         * \return void
          */
         inline const message on_select(void) override { return message("system", cmd, arg); };
 
         /*!
          * \brief Return display text for the menu item when rendering.
          * Displays the action item's label.
-         * \param void
          * \return Vector of display text strings.
          */
         inline const std::vector<std::string> get_text(void) const override { return { get_label() }; };

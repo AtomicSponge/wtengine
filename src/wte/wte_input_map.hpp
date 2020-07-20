@@ -49,7 +49,6 @@ class wte_input_map {
         /*!
          * Set the keyboard and gamepad button binding arrays from the engine cfg settings.
          * \param joy_installed Is a gamepad installed.
-         * \return void
          */
         inline void set_binding(const bool& joy_installed) {
             check_reg(joy_installed);  //  Make sure all settings are registered.
@@ -108,7 +107,6 @@ class wte_input_map {
          * \brief Verify all necessary engine cfg settings are registered.
          * If a binding setting isn't registered, create it and set a default value.
          * \param joy_installed Is a gamepad installed.
-         * \return void
          */
         inline void check_reg(const bool& joy_installed) {
             //  Keyboard Set A

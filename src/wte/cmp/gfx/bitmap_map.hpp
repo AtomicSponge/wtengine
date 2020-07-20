@@ -35,8 +35,6 @@ class bitmap_map {
     public:
         /*!
          * Bitmap map destructor.
-         * \param void
-         * \return void
          */
         inline virtual ~bitmap_map() {
             for(auto & it : bmp_map) al_destroy_bitmap(it.second);
@@ -102,7 +100,6 @@ class bitmap_map {
          * \param dx X location of the background to draw to.
          * \param dy Y location of the background to draw to.
          * \param flags Allegro Bitmap flags.
-         * \return void
          */
         inline void draw_bitmap(
             const std::string& label,
@@ -120,7 +117,6 @@ class bitmap_map {
          * \param dx X location of the background to draw to.
          * \param dy Y location of the background to draw to.
          * \param flags Allegro Bitmap flags.
-         * \return void
          */
         inline void draw_tinted_bitmap(
             const std::string& label,
@@ -144,7 +140,6 @@ class bitmap_map {
          * \param dx X location of the background to draw to.
          * \param dy Y location of the background to draw to.
          * \param flags Allegro Bitmap flags.
-         * \return void
          */
         inline void draw_bitmap_region(
             const std::string& label,
@@ -170,7 +165,6 @@ class bitmap_map {
          * \param dx X location of the background to draw to.
          * \param dy Y location of the background to draw to.
          * \param flags Allegro Bitmap flags.
-         * \return void
          */
         inline void draw_tinted_bitmap_region(
             const std::string& label,
@@ -218,7 +212,6 @@ class bitmap_map {
          * \param dy Y location of the background to draw to.
          * \param angle Angle of rotation in radians.
          * \param flags Allegro Bitmap flags.
-         * \return void
          */
         inline void draw_tinted_rotated_bitmap(
             const std::string& label,
@@ -244,7 +237,6 @@ class bitmap_map {
          * \param yscale Y scale factor.
          * \param angle Angle of rotation in radians.
          * \param flags Allegro Bitmap flags.
-         * \return void
          */
         inline void draw_scaled_rotated_bitmap(
             const std::string& label,
@@ -272,7 +264,6 @@ class bitmap_map {
          * \param dx X location of the background to draw to.
          * \param dy Y location of the background to draw to.
          * \param flags Allegro Bitmap flags.
-         * \return void
          */
         inline void draw_tinted_scaled_rotated_bitmap(
             const std::string& label,
@@ -305,7 +296,6 @@ class bitmap_map {
          * \param dx X location of the background to draw to.
          * \param dy Y location of the background to draw to.
          * \param flags Allegro Bitmap flags.
-         * \return void
          */
         inline void draw_tinted_scaled_rotated_bitmap_region(
             const std::string& label,
@@ -335,7 +325,6 @@ class bitmap_map {
          * \param dw Destination width.
          * \param dh Destination height.
          * \param flags Allegro Bitmap flags.
-         * \return void
          */
         inline void draw_scaled_bitmap(
             const std::string& label,
@@ -364,7 +353,6 @@ class bitmap_map {
          * \param dw Destination width.
          * \param dh Destination height.
          * \param flags Allegro Bitmap flags.
-         * \return void
          */
         inline void draw_tinted_scaled_bitmap(
             const std::string& label,
@@ -384,8 +372,6 @@ class bitmap_map {
     protected:
         /*!
          * Bitmap map constructor.
-         * \param void
-         * \return void
          */
         inline bitmap_map() {
             bmp_map.clear();

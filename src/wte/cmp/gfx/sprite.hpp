@@ -44,7 +44,6 @@ class sprite final : public animator {
          * \param doy Verticle draw offset in relation to entity location.
          * \param rt Rate in engine timer ticks for animation.
          * \param l Layer for sorting.
-         * \return void
          */
         inline sprite(const float sw, const float sh,
                       const float dox, const float doy,
@@ -79,8 +78,6 @@ class sprite final : public animator {
 
         /*!
          * Sprite destructor.
-         * \param void
-         * \return void
          */
         inline ~sprite() {
             al_destroy_bitmap(internal_bitmap);
@@ -91,7 +88,6 @@ class sprite final : public animator {
          * Will use magic pink (rgb 255,0,255) for transparency if WTE_NO_MAGIC_PINK
          * is not defined.
          * \param fname Filename of sprite sheet.
-         * \return void
          */
         inline void load_sprite(const std::string& fname) {
             ALLEGRO_FILE* file;

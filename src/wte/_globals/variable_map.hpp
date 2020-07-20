@@ -139,6 +139,7 @@ template <class derived> class variable_map {
         };
 
     protected:
+        //!  Store the variable map.
         static std::map<std::string, std::string> _map;
 
     private:

@@ -43,9 +43,16 @@ class component {
         inline component() {};
 };
 
-//!  \typedef Component shared pointer.
+/*!
+ * \typedef std::shared_ptr<cmp::component> component_sptr
+ * Component shared pointer.
+ */
+
 typedef std::shared_ptr<cmp::component> component_sptr;
-//!  \typedef Constant component shared pointer.
+/*!
+ * \typedef std::shared_ptr<const cmp::component> component_csptr
+ * Constant component shared pointer.
+ */
 typedef std::shared_ptr<const cmp::component> component_csptr;
 
 } //  namespace cmp

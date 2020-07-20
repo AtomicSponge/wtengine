@@ -246,6 +246,7 @@ class game_cfg final : public variable_map<game_cfg> {
         inline static std::string data_file_name = "game.cfg";
 };
 
+//!  Declare a copy of the variable map for game_cfg.
 template <> inline std::map<std::string, std::string> variable_map<game_cfg>::_map = {};
 
 } //  end namespace wte

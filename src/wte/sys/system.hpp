@@ -66,7 +66,10 @@ class system {
         std::string name;
 };
 
-//! \typedef System unique pointer
+/*!
+ * \typedef std::unique_ptr<system> system_uptr
+ * System unique pointer.
+ */
 typedef std::unique_ptr<system> system_uptr;
 
 } //  namespace sys

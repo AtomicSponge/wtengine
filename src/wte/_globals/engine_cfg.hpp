@@ -141,6 +141,7 @@ class engine_cfg final : public variable_map<engine_cfg> {
         };
 };
 
+//!  Declare a copy of the variable map for engine_cfg.
 template <> inline std::map<std::string, std::string> variable_map<engine_cfg>::_map = {};
 
 } //  end namespace wte

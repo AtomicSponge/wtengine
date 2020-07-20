@@ -22,7 +22,10 @@
 namespace wte
 {
 
-//! \typedef Container to store each message argument separately.
+/*!
+ * \typedef std::vector<std::string> msg_arg_list
+ * Container to store each message argument separately.
+ */
 typedef std::vector<std::string> msg_arg_list;
 
 /*!
@@ -187,7 +190,10 @@ class message {
         msg_arg_list arglist;  //  Message arguments
 };
 
-//! \typedef Container to store a collection of messages.
+/*!
+ * \typedef std::vector<message> message_container
+ * Container to store a collection of messages.
+ */
 typedef std::vector<message> message_container;
 
 } //  namespace wte

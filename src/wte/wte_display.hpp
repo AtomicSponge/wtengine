@@ -148,10 +148,10 @@ class wte_display {
             al_convert_memory_bitmaps();
         };
 
-        //  Declare the render manager.
+        //!  Declare the render manager.
         mgr::render_manager screen;
 
-        //  Allegro object for the display.
+        //!  Allegro object for the display.
         ALLEGRO_DISPLAY* display;
 
     private:

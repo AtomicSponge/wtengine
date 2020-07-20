@@ -35,27 +35,54 @@ namespace wte
 /*
  * Define containers for entity/component/world storage.
  */
-//!  \typedef Container to store an entity id.
+/*!
+ * \typedef std::size_t entity_id
+ * Container to store an entity id.
+ */
 typedef std::size_t entity_id;
-//!  \typedef Container to store an entity reference.
+
+/*!
+ * \typedef std::pair<entity_id, std::string> entity
+ * Container to store an entity reference.
+ */
 typedef std::pair<entity_id, std::string> entity;
 
-//!  \typedef Container for storing a group of entity references.
+/*!
+ * \typedef std::vector<entity> world_container
+ * Container for storing a group of entity references.
+ */
 typedef std::vector<entity> world_container;
 
-//!  \typedef Container to store a group of components related to an entity.
+/*!
+ * \typedef std::vector<cmp::component_sptr> entity_container
+ * Container to store a group of components related to an entity.
+ */
 typedef std::vector<cmp::component_sptr> entity_container;
-//!  \typedef Constant container to store a group of components related to an entity.
+
+/*!
+ * \typedef std::vector<cmp::component_csptr> const_entity_container
+ * Constant container to store a group of components related to an entity.
+ */
 typedef std::vector<cmp::component_csptr> const_entity_container;
 
-//!  \typedef Container for storing components of similar type.
+/*!
+ * \typedef component_container std::map<const entity_id, std::shared_ptr<T>>
+ * Container for storing components of similar type.
+ */
 template <typename T>
 using component_container = std::map<const entity_id, std::shared_ptr<T>>;
-//!  \typedef Constant container for storing components of similar type.
+
+/*!
+ * \typedef const_component_container std::map<const entity_id, std::shared_ptr<const T>>
+ * Constant container for storing components of similar type.
+ */
 template <typename T>
 using const_component_container = std::map<const entity_id, std::shared_ptr<const T>>;
 
-//!  \typedef Container to store the entire game world.
+/*!
+ * \typedef std::unordered_multimap<entity_id, cmp::component_sptr> world_map
+ * Container to store the entire game world.
+ */
 typedef std::unordered_multimap<entity_id, cmp::component_sptr> world_map;
 
 namespace mgr

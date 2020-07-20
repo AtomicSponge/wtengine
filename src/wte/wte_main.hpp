@@ -178,10 +178,15 @@ class wte_main : private wte_display, private wte_input {
         /* *** End overridden function members *** */
 
         //  Managers available to game object declared here.
+        //!  World manager
         mgr::entity_manager world;
+        //!  Menu manager
         mgr::menu_manager menus;
+        //!  Message manager
         mgr::message_manager messages;
+        //!  Spawn manager
         mgr::spawn_manager spawner;
+        //!  System manager
         mgr::system_manager systems;
 
     private:

@@ -37,7 +37,7 @@ namespace mgr
 {
 
 /*!
- * \class Message Manager class
+ * \class message_manager
  * Store a collection of message objects in a vector for processing.
  */
 class message_manager final : private manager<message_manager>, private engine_time {

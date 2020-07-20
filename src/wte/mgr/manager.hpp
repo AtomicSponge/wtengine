@@ -22,7 +22,7 @@ namespace mgr
 {
 
 /*!
- * \class Manager base class
+ * \class manager
  * Extend this to create a manager class.  These are restricted to a single instance.
  */
 template <class derived> class manager {

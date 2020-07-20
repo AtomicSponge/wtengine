@@ -39,13 +39,13 @@ namespace wte
 namespace mgr
 {
 
-//!  Container for an entity and component pair.  Used for sorting.
+//!  \typedef Container for an entity and component pair.  Used for sorting.
 template <typename T>
 using entity_component_pair = std::pair<const entity_id, std::shared_ptr<const T>>;
 
 /*!
- * \class Render manager class
- * An object that handles drawing the world to the screen.
+ * \class render_manager
+ * \brief An object that handles drawing the world to the screen.
  */
 class render_manager final : private manager<render_manager>, private engine_time {
     public:

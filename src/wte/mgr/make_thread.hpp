@@ -23,7 +23,7 @@ namespace mgr
 {
 
 /*!
- * \class Makes object a thread
+ * \class make_thread
  * \brief Extend this to create a threaded object.
  * Has a virtual run member that is defined
  * in the inheriting class.  Calling start runs the "run" member in a detached thread.

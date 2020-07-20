@@ -62,7 +62,7 @@ namespace mgr
 {
 
 /*!
- * \class Entity manager class.
+ * \class entity_manager
  * Store a collection of entities and their corresponding components in memory.
  */
 class entity_manager final : private manager<entity_manager> {

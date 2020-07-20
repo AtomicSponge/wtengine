@@ -43,7 +43,7 @@ namespace mgr
 {
 
 /*!
- * \class Menu Manager class.
+ * \class menu_manager
  * Runs menus.
  */
 class menu_manager final : private manager<menu_manager> {

@@ -43,7 +43,7 @@ namespace mgr
 {
 
 /*!
- * \class Audio Manager
+ * \class audio_manager
  * \brief Handles audio messages in a thread.
  * 
  * Messages get passed from the main engine loop via transfer_messages().

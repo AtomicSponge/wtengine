@@ -33,7 +33,7 @@ namespace wte
 {
 
 /*!
- * \class wte_input class
+ * \class wte_input
  * \brief Manage the input queue and process events.
  * 
  * The engine has two input modes that can be set with the WTE_INPUT_MODE build flag.

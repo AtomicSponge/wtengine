@@ -21,7 +21,7 @@ namespace mgr
 {
 
 /*!
- * \class Engine Time class
+ * \class engine_time
  * Have a manager extend this to track the game timer.
  */
 class engine_time {

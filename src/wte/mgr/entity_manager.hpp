@@ -66,15 +66,15 @@ typedef std::vector<cmp::component_sptr> entity_container;
 typedef std::vector<cmp::component_csptr> const_entity_container;
 
 /*!
- * \typedef component_container std::map<const entity_id, std::shared_ptr<T>>
  * Container for storing components of similar type.
+ * \tparam Component type
  */
 template <typename T>
 using component_container = std::map<const entity_id, std::shared_ptr<T>>;
 
 /*!
- * \typedef const_component_container std::map<const entity_id, std::shared_ptr<const T>>
  * Constant container for storing components of similar type.
+ * \tparam Component type
  */
 template <typename T>
 using const_component_container = std::map<const entity_id, std::shared_ptr<const T>>;

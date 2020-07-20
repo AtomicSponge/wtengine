@@ -39,7 +39,10 @@ namespace wte
 namespace mgr
 {
 
-//!  \typedef Container for an entity and component pair.  Used for sorting.
+/*!
+ * Container for an entity and component pair.  Used for sorting.
+ * \tparam Component type
+ */
 template <typename T>
 using entity_component_pair = std::pair<const entity_id, std::shared_ptr<const T>>;
 

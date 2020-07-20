@@ -44,7 +44,7 @@ namespace mgr
 
 /*!
  * \class menu_manager
- * Runs menus.
+ * \brief Runs menus.
  */
 class menu_manager final : private manager<menu_manager> {
     public:

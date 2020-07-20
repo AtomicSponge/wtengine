@@ -23,9 +23,9 @@ namespace wte
 namespace mnu
 {
 
-//!  Menu Item Apply class.
 /*!
- * An apply option for the menus.
+ * \class menu_item_apply
+ * \brief An apply option for the menus.
  */
 class menu_item_apply final : public menu_item {
     public:

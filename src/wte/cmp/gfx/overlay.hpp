@@ -27,8 +27,8 @@ namespace cmp
 {
 
 /*!
- * \class Overlay component
- * Store an overlay bitmap and define drawing to it.
+ * \class overlay
+ * \brief Store an overlay bitmap and define drawing to it.
  */
 class overlay final : public animator, public bitmap_map {
     public:

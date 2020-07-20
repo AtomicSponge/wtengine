@@ -21,8 +21,8 @@ namespace cmp
 {
 
 /*!
- * \class Team component
- * Store the team for an entity
+ * \class team
+ * \brief Store the team for an entity
  */
 class team final : public component {
     public:

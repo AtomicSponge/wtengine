@@ -26,8 +26,8 @@ namespace wte
 typedef std::vector<std::string> msg_arg_list;
 
 /*!
- * \class Message class
- * Define individual message objects
+ * \class message
+ * \brief Define individual message objects
  */
 class message {
     public:

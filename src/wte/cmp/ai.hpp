@@ -25,8 +25,8 @@ namespace cmp
 {
 
 /*!
- * \class AI component
- * Tag components to be processed by the Logic system.
+ * \class ai
+ * \brief Tag components to be processed by the Logic system.
  * Define logic in do_ai lambda.
  */
 class ai final : public component {

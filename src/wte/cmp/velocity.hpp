@@ -21,8 +21,8 @@ namespace cmp
 {
 
 /*!
- * \class Velocity component.
- * Store the movement velocity of an entity.
+ * \class velocity
+ * \brief Store the movement velocity of an entity.
  */
 class velocity final : public component {
     public:

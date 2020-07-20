@@ -30,7 +30,7 @@ namespace mgr
 
 /*!
  * \class system_manager
- * Store the configured systems and process their runs and dispatches.
+ * \brief Store the configured systems and process their runs and dispatches.
  */
 class system_manager final : private manager<system_manager> {
     public:

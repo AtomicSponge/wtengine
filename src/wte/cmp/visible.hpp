@@ -21,8 +21,8 @@ namespace cmp
 {
 
 /*!
- * \class Visible component
- * Toggles if an entity will be drawn by the renderer
+ * \class visible
+ * \brief Toggles if an entity will be drawn by the renderer
  */
 class visible final : public component {
     public:

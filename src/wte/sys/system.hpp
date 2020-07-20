@@ -26,8 +26,8 @@ namespace sys
 {
 
 /*!
- * \class System interface class
- * Extend this to create a new system
+ * \class system
+ * \brief Interface class for creating systems.
  */
 class system {
     public:

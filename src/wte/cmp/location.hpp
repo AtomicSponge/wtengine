@@ -21,8 +21,8 @@ namespace cmp
 {
 
 /*!
- * \class Location component
- * Store the x/y location of an entity
+ * \class location
+ * \brief Store the x/y location of an entity
  */
 class location final : public component {
     public:

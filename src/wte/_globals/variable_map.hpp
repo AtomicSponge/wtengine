@@ -23,8 +23,8 @@ namespace wte
 {
 
 /*!
- * \class Variable map
- * Create a map of variables
+ * \class variable_map
+ * \brief Interface class to create a map of variables
  */
 template <class derived> class variable_map {
     public:

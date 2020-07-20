@@ -29,7 +29,8 @@ namespace mnu
 {
 
 /*!
- * Create a new selection menu item.
+ * \class menu_item_selection
+ * \brief Create a new selection menu item.
  */
 class menu_item_selection final : public menu_item {
     public:

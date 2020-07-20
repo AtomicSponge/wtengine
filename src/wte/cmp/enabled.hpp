@@ -21,8 +21,8 @@ namespace cmp
 {
 
 /*!
- * \class Enabled component
- * Toggle an entity to enabled or disabled state
+ * \class enabled
+ * \brief Toggle an entity to enabled or disabled state
  */
 class enabled final : public component {
     public:

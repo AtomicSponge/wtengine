@@ -21,8 +21,8 @@ namespace sys
 {
 
 /*!
- * \class Animate system
- * Find the animate components and process them.
+ * \class animate
+ * \brief Find the animate components and process them.
  */
 class animate final : public system {
     public:

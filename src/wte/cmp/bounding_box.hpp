@@ -21,8 +21,8 @@ namespace cmp
 {
 
 /*!
- * \class Bounding Box component
- * Set a bounding box for an entity.
+ * \class bounding_box
+ * \brief Set a bounding box for an entity.
  * Entities can not move out of this box.
  */
 class bounding_box final : public component {

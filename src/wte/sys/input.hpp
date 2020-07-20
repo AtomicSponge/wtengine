@@ -22,8 +22,8 @@ namespace sys
 {
 
 /*!
- * \class Input system
- * Processes keyboard input
+ * \class input
+ * \brief Processes keyboard input
  */
 class input final : public system {
     public:

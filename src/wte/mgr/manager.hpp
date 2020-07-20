@@ -23,7 +23,8 @@ namespace mgr
 
 /*!
  * \class manager
- * Extend this to create a manager class.  These are restricted to a single instance.
+ * \brief Extend this to create a manager class.
+ * These are restricted to a single instance.
  */
 template <class derived> class manager {
     public:

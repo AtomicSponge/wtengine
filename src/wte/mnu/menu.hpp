@@ -29,8 +29,8 @@ typedef std::vector<menu_item_sptr> menu_items;
 typedef std::vector<menu_item_sptr>::const_iterator menu_item_citerator;
 
 /*!
- * \class Menu class.
- * Class for defining a menu.
+ * \class menu
+ * \brief Class for defining a menu.
  */
 class menu {
     public:

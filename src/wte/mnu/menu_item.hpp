@@ -31,8 +31,8 @@ enum MENU_SETTING_TYPE {
 };
 
 /*!
- * \class Menu Item
- * Menu item interface class.
+ * \class menu_item
+ * \brief Menu item interface class.
  */
 class menu_item {
     public:

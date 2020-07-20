@@ -21,8 +21,8 @@ namespace cmp
 {
 
 /*!
- * \class Hitbox component
- * Store the width and height for an entity's hitbox
+ * \class hitbox
+ * \brief Store the width and height for an entity's hitbox
  */
 class hitbox final : public component {
     public:

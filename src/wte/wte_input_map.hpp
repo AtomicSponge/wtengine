@@ -24,7 +24,7 @@ namespace wte
 
 /*!
  * \class wte_input_map class
- * Map buttons and keyboard
+ * \brief Map buttons and keyboard
  */
 class wte_input_map {
     public:

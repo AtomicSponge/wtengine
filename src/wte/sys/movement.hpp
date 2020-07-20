@@ -23,8 +23,8 @@ namespace sys
 {
 
 /*!
- * \class Movement system
- * Moves entities.
+ * \class movement
+ * \brief Moves entities.
  */
 class movement final : public system {
     public:

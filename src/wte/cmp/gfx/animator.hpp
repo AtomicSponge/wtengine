@@ -26,8 +26,8 @@ namespace cmp
 {
 
 /*!
- * \class Animator component
- * Interface class for components with an animation process.
+ * \class animator
+ * \brief Interface class for components with an animation process.
  */
 class animator : public component {
     public:

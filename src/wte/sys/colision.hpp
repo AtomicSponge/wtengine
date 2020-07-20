@@ -21,8 +21,8 @@ namespace sys
 {
 
 /*!
- * \class Colision system
- * Will select components by team and test for a colision
+ * \class colision
+ * \brief Will select components by team and test for a colision
  */
 class colision final : public system {
     public:

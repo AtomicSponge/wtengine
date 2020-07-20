@@ -24,9 +24,9 @@ namespace wte
 namespace mnu
 {
 
-//!
 /*!
- *
+ * \class menu_item_toggle
+ * \brief Toggle menu item
  */
 class menu_item_toggle final : public menu_item {
     public:

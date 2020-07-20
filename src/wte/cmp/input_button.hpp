@@ -26,8 +26,8 @@ namespace cmp
 {
 
 /*!
- * \class Input button component
- * Tag an entity to be processed by the Input system.
+ * \class input_button
+ * \brief Tag an entity to be processed by the Input system.
  * Binds a button to the entity.
  */
 class input_button final : public component {

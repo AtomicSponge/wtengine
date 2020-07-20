@@ -23,10 +23,10 @@ namespace wte
 namespace mnu
 {
 
-//!  Menu item action.
 /*!
- * Menu item that runs a message
-*/
+ * \class menu_item_action
+ * \brief Menu item that runs a message
+ */
 class menu_item_action final : public menu_item {
     public:
         /*!

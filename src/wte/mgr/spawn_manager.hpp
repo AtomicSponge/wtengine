@@ -29,7 +29,7 @@ namespace mgr
 
 /*!
  * \class spawn_manager
- * Spawn stuff
+ * \brief Spawn stuff
  */
 class spawn_manager final : private manager<spawn_manager> {
     public:

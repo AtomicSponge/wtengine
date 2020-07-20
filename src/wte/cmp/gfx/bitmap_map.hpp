@@ -26,8 +26,9 @@ namespace cmp
 {
 
 /*!
- * \class Bitmap Map interface.
- * Stores a map of bitmaps.  Extend this to add functionality to a component.
+ * \class bitmap_map
+ * \brief Stores a map of bitmaps.
+ * Extend this to add functionality to a component.
  * Also includes wrappers to the Allegro bitmap drawing functions.
  */
 class bitmap_map {

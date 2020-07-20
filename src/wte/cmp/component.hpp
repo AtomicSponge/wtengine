@@ -21,8 +21,8 @@ namespace cmp
 {
 
 /*!
- * \class Component interface class
- * Extend this to create a component
+ * \class component
+ * \brief Interface class for creating a component
  */
 class component {
     public:

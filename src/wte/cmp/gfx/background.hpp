@@ -27,8 +27,8 @@ namespace cmp
 {
 
 /*!
- * \class Background component
- * Store the background bitmap.
+ * \class background
+ * \brief Store the background bitmap.
  */
 class background final : public animator, public bitmap_map {
     public:

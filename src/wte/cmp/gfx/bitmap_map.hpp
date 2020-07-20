@@ -81,7 +81,7 @@ class bitmap_map {
 
         /*!
          * Delete a bitmap from the map.
-         * \param labal Label of saved bitmap.
+         * \param label Label of saved bitmap.
          * \return True if removed, false if not.
          */
         inline const bool delete_bitmap(const std::string& label) {
@@ -96,7 +96,7 @@ class bitmap_map {
 
         /*!
          * Draw a bitmap from the map.
-         * \param labal Label of saved bitmap.
+         * \param label Label of saved bitmap.
          * \param dx X location of the background to draw to.
          * \param dy Y location of the background to draw to.
          * \param flags Allegro Bitmap flags.
@@ -112,7 +112,7 @@ class bitmap_map {
 
         /*!
          * Draw a tinted bitmap from the map.
-         * \param labal Label of saved bitmap.
+         * \param label Label of saved bitmap.
          * \param tint Allegro Color of tint.
          * \param dx X location of the background to draw to.
          * \param dy Y location of the background to draw to.
@@ -132,7 +132,7 @@ class bitmap_map {
 
         /*!
          * Draw a region of a bitmap from the map.
-         * \param labal Label of saved bitmap.
+         * \param label Label of saved bitmap.
          * \param sx Source X.
          * \param sy Source Y.
          * \param sw Source width.
@@ -156,7 +156,7 @@ class bitmap_map {
 
         /*!
          * Draw a tinted region of a bitmap from the map.
-         * \param labal Label of saved bitmap.
+         * \param label Label of saved bitmap.
          * \param tint Allegro Color of tint.
          * \param sx Source X.
          * \param sy Source Y.
@@ -204,7 +204,7 @@ class bitmap_map {
 
         /*!
          * Draw a tinted rotated bitmap from the map.
-         * \param labal Label of saved bitmap.
+         * \param label Label of saved bitmap.
          * \param tint Allegro Color of tint.
          * \param cx Center X of bitmap for rotation.
          * \param cy Center Y of bitmap for rotation.
@@ -228,7 +228,7 @@ class bitmap_map {
 
         /*!
          * Draw a scaled rotated bitmap from the map.
-         * \param labal Label of saved bitmap.
+         * \param label Label of saved bitmap.
          * \param cx Center X of bitmap for rotation.
          * \param cy Center Y of bitmap for rotation.
          * \param dx X location of the background to draw to.
@@ -253,7 +253,7 @@ class bitmap_map {
 
         /*!
          * Draw a tinted scaled rotated bitmap from the map.
-         * \param labal Label of saved bitmap.
+         * \param label Label of saved bitmap.
          * \param tint Allegro Color of tint.
          * \param cx Center X of bitmap for rotation.
          * \param cy Center Y of bitmap for rotation.
@@ -281,7 +281,7 @@ class bitmap_map {
 
         /*!
          * Draw a tinted scaled rotated bitmap from the map.
-         * \param labal Label of saved bitmap.
+         * \param label Label of saved bitmap.
          * \param sx Source X.
          * \param sy Source Y.
          * \param sw Source width.
@@ -315,7 +315,7 @@ class bitmap_map {
 
         /*!
          * Draw a scaled bitmap from the map.
-         * \param labal Label of saved bitmap.
+         * \param label Label of saved bitmap.
          * \param sx Source X.
          * \param sy Source Y.
          * \param sw Source width.
@@ -342,7 +342,7 @@ class bitmap_map {
 
         /*!
          * Draw a tinted scaled bitmap from the map.
-         * \param labal Label of saved bitmap.
+         * \param label Label of saved bitmap.
          * \param tint Allegro Color of tint.
          * \param sx Source X.
          * \param sy Source Y.

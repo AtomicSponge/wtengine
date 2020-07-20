@@ -58,7 +58,7 @@
 #endif
 
 /*!
- * \def WTE_NO_PRUNE
+ * \def WTE_PRUNE_ENABLED
  * Enable message pruning if WTE_NO_PRUNE is not defined.
  */
 #ifdef WTE_NO_PRUNE
@@ -81,7 +81,7 @@
 #define WTE_COLOR_TRANSPARENT   (al_map_rgba(0, 0, 0, 0))
 
 /*!
- * \def WTE_NO_MAGIC_PINK
+ * \def WTE_USE_MAGIC_PINK
  * Enable magic pink for transparency if WTE_NO_MAGIC_PINK is not defined.
  */
 #ifdef WTE_NO_MAGIC_PINK

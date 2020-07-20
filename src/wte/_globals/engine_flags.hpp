@@ -17,6 +17,10 @@
 namespace wte
 {
 
+/*!
+ * \enum ENGINE_FLAG_ENUM
+ * \brief List of engine flags.
+ */
 enum ENGINE_FLAG_ENUM {
     IS_RUNNING,
     GAME_STARTED, GAME_MENU_OPENED,

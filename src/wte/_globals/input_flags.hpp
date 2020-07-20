@@ -20,7 +20,8 @@ namespace wte
 {
 
 /*!
- * \enum Joysticks.
+ * \enum WTE_JOYSTICK_FLAGS
+ * Joystick flags.
  */
 enum WTE_JOYSTICK_FLAGS {
     WTE_JOYSTICK_A, WTE_JOYSTICK_B,
@@ -29,7 +30,8 @@ enum WTE_JOYSTICK_FLAGS {
 };
 
 /*!
- * \enum Input direction flags.
+ * \enum WTE_DIRECTION_FLAG_ENUM
+ * Directional flags.
  */
 enum WTE_DIRECTION_FLAG_ENUM {
     WTE_INPUT_DIRECTION_SET,     WTE_INPUT_DIRECTION_UNSET,
@@ -37,7 +39,8 @@ enum WTE_DIRECTION_FLAG_ENUM {
 };
 
 /*!
- * \enum List of buttons.
+ * \enum WTE_INPUT_BUTTON_FLAG_ENUM
+ * Input button flags.
  */
 enum WTE_INPUT_BUTTON_FLAG_ENUM {
     WTE_INPUT_BUTTON_UP,        WTE_INPUT_BUTTON_DOWN,
@@ -63,7 +66,8 @@ enum WTE_INPUT_BUTTON_FLAG_ENUM {
 };
 
 /*!
- * \enum Button events.
+ * \enum WTE_BUTTON_EVENT_FLAGS
+ * Button event flags.
  */
 enum WTE_BUTTON_EVENT_FLAGS {
     WTE_BUTTON_EVENT_DOWN,
@@ -72,8 +76,8 @@ enum WTE_BUTTON_EVENT_FLAGS {
 };
 
 /*!
- * \class Input flags
- * Colletion of flags to store input state.
+ * \class input_flags
+ * \brief Colletion of flags to store input state.
  */
 class input_flags final {
     public:
@@ -84,8 +88,6 @@ class input_flags final {
 
         /*!
          * Set all input flags to false.
-         * \param void
-         * \return void
          */
         inline static void unset_all(void) {
             for(std::size_t j = 0; j < WTE_MAX_JOYSTICK_FLAGS; j++)
@@ -108,7 +110,6 @@ class input_flags final {
          * Toggle flag to set.
          * \param j Joystick to set flag for.
          * \param d Direction flag to set.
-         * \return void
          */
         inline static void joystick_toggle(const std::size_t& j, const std::size_t& d) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
@@ -227,7 +228,6 @@ class input_flags final {
 
         /*!
          * Get the last key that was pressed.
-         * \param void
          * \return Key code.
          */
         inline static const std::size_t get_last_keypress(void) {
@@ -237,7 +237,6 @@ class input_flags final {
         /*!
          * Set the last key pressed.
          * \param lk Key code of last key pressed.
-         * \return void
          */
         inline static void set_last_keypress(const std::size_t& lk) {
             last_keypress = lk;
@@ -245,7 +244,6 @@ class input_flags final {
 
         /*!
          * Get the last button that was pressed.
-         * \param void
          * \return Button code.
          */
         inline static const std::size_t get_last_buttonpress(void) {
@@ -255,7 +253,6 @@ class input_flags final {
         /*!
          * Set the last button pressed.
          * \param lk Code of last button pressed.
-         * \return void
          */
         inline static void set_last_buttonpress(const std::size_t& lk) {
             last_buttonpress = lk;

@@ -23,7 +23,7 @@ namespace wte
 {
 
 /*!
- * \class wte_input_map class
+ * \class wte_input_map
  * \brief Map buttons and keyboard
  */
 class wte_input_map {
@@ -93,7 +93,8 @@ class wte_input_map {
         };
 
         /*!
-         * \enum List of key sets.
+         * \enum WTE_KEY_SET_ENUM
+         * List of key sets.
          */
         enum WTE_KEY_SET_ENUM {
             KEY_SET_A, KEY_SET_B, MAX_KEY_SETS

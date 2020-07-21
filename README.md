@@ -3,7 +3,7 @@
 ### INTRODUCTION
 --------------------------
 
-WTEngine (What the Engine?) is an object oriented game engine based on [ESC](https://en.wikipedia.org/wiki/Entity_component_system) that can be used to make a simple 2D action game.
+WTEngine (What the Engine?) is an object oriented game engine based on [ESC](https://en.wikipedia.org/wiki/Entity_component_system) design that can be used to make a simple 2D action game.
 The engine is written in C++17 and uses the [Allegro Game Library](https://liballeg.org) and [PhysicsFS](https://www.icculus.org/physfs/).
 
 API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
@@ -13,16 +13,10 @@ For an example of the API in action, see the [demo game code](https://github.com
 #### FEATURES:
  - Internal messaging queue
  - Programmable menu interface
- - Memory manager for in-game objects
+ - Entity memory manager for in-game objects
  - Global variable maps for game/engine settings
  - Threaded music & audio playback via messages
  - Buildable debug modes
-
-#### TODO:
- - Finish up input interface & gamepad support
- - Create menu for input config
- - Revise documentation
- - Improve cmake config
 
 #### DEMO:
 

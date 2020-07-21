@@ -1,13 +1,10 @@
 /*!
- * \brief WTEngine | File:  wte.hpp
+ * WTEngine | File:  wte.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Main WTE Engine include.
- * Non-engine source files include this.
  */
 
 #ifndef WTE_MAIN_INCLUDE_HPP

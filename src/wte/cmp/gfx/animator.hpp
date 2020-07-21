@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  animator.hpp
+ * WTEngine | File:  animator.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Animator component.
  */
 
 #ifndef WTE_CMP_ANIMATOR_HPP

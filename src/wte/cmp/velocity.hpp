@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  velocity.hpp
+ * WTEngine | File:  velocity.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Velocity component.
  */
 
 #ifndef WTE_CMP_VELOCITY_HPP

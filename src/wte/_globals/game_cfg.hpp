@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  game_cfg.hpp
+ * WTEngine | File:  game_cfg.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Game config.
  */
 
 #ifndef WTE_GAME_CFG_HPP

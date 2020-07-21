@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  menu_item_toggle.hpp
+ * WTEngine | File:  menu_item_toggle.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Toggle menu item.
  */
 
 #ifndef WTE_MNU_MENU_ITEM_TOGGLE_HPP

@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  make_thread.hpp
+ * WTEngine | File:  make_thread.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Wrapper class for creating a threaded object.
  */
 
 #ifndef WTE_MAKE_THREAD_HPP

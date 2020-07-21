@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  logic.hpp
+ * WTEngine | File:  logic.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Logic system.
  */
 
 #ifndef WTE_SYS_LOGIC_HPP

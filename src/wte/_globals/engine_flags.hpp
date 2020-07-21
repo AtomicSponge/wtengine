@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  engine_flags.hpp
+ * WTEngine | File:  engine_flags.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Engine flags.
  */
 
 #ifndef WTE_ENGINE_FLAGS_HPP

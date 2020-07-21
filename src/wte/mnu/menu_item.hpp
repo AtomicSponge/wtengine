@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  menu_item.hpp
+ * WTEngine | File:  menu_item.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Menu item interface class.
  */
 
 #ifndef WTE_MNU_MENU_ITEM_HPP

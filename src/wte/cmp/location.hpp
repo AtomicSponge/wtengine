@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  location.hpp
+ * WTEngine | File:  location.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Location component.
  */
 
 #ifndef WTE_CMP_LOCATION_HPP

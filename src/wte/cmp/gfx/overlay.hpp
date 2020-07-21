@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  overlay.hpp
+ * WTEngine | File:  overlay.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Overlay component.
  */
 
 #ifndef WTE_CMP_OVERLAY_HPP

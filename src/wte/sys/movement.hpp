@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  movement.hpp
+ * WTEngine | File:  movement.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Movement.
  */
 
 #ifndef WTE_SYS_MOVEMENT_HPP

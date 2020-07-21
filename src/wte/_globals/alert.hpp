@@ -1,7 +1,5 @@
 /*!
- * WTEngine
- * \file alert.hpp
- * \brief Display alerts to the screen.
+ * WTEngine | File:  alert.hpp
  * 
  * \author Matthew Evans
  * \version 0.1a

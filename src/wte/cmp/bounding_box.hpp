@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  bounding_box.hpp
+ * WTEngine | File:  bounding_box.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Bounding box component.
  */
 
 #ifndef WTE_CMP_BOUNDING_BOX_HPP

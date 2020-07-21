@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  sample_loop.hpp
+ * WTEngine | File:  sample_loop.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Sample loop component.
  */
 
 #ifndef WTE_CMP_SAMPLE_LOOP_HPP

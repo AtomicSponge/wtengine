@@ -1,13 +1,10 @@
 /*!
- * \brief WTEngine | File:  menu_manager.hpp
+ * WTEngine | File:  menu_manager.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Menu manager.
- * 
  */
 
 #ifndef WTE_MGR_MENU_MANAGER_HPP

@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  variable_map.hpp
+ * WTEngine | File:  variable_map.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Variable map.
  */
 
 #ifndef WTE_VARIABLE_MAP_HPP

@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  bitmap_map.hpp
+ * WTEngine | File:  bitmap_map.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Bitmap map interface.
  */
 
 #ifndef WTE_CMP_BITMAP_MAP_HPP

@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  wte_display.hpp
+ * WTEngine | File:  wte_display.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Display
  */
 
 #ifndef WTE_DISPLAY_HPP

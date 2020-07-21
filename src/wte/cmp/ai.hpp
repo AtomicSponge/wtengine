@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  ai.hpp
+ * WTEngine | File:  ai.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details AI component - tag to be processed by logic system.
  */
 
 #ifndef WTE_CMP_AI_HPP

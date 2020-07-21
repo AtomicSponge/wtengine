@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  engine_cfg.hpp
+ * WTEngine | File:  engine_cfg.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Engine config.
  */
 
 #ifndef WTE_ENGINE_CFG_HPP

@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  menu_item_selection.hpp
+ * WTEngine | File:  menu_item_selection.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Selection menu item.
  */
 
 #ifndef WTE_MNU_MENU_ITEM_SELECTION_HPP

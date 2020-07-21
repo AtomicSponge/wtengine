@@ -1,13 +1,10 @@
 /*!
- * \brief WTEngine | File:  audio_manager.hpp
+ * WTEngine | File:  audio_manager.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Handle playback of audio in its own thread.
- * Waits for messages to be loaded into the audio deck.
  */
 
 #ifndef WTE_MGR_AUDIO_MANAGER_HPP

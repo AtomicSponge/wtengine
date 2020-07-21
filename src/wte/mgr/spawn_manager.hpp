@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  spawn_manager.hpp
+ * WTEngine | File:  spawn_manager.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Spawn manager.
  */
 
 #ifndef WTE_MGR_SPAWN_MANAGER_HPP

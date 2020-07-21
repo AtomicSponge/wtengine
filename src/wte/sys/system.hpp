@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  system.hpp
+ * WTEngine | File:  system.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details System Inferface Class.  Extend this to create a new system.
  */
 
 #ifndef WTE_SYS_SYSTEM_HPP

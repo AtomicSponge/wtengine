@@ -1,18 +1,10 @@
 /*!
- * \brief WTEngine | File:  wte_input.hpp
+ * WTEngine | File:  wte_input.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Handle player input.
- * 
- * \bug WIP
- * 
- * Gamepads tested:
- *  - 8bitdo SN30 pro+
- *  - 8bitdo SN30 pro
  */
 
 #ifndef WTE_INPUT_HPP

@@ -1,14 +1,10 @@
 /*!
- * \brief WTEngine | File:  wte_input_map.hpp
+ * WTEngine | File:  wte_input_map.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Map input.
- * 
- * \bug WIP
  */
 
 #ifndef WTE_INPUT_MAP_HPP

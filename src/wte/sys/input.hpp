@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  input.hpp
+ * WTEngine | File:  input.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Input system.  Override this to create a custom input system.
  */
 
 #ifndef WTE_SYS_INPUT_HPP

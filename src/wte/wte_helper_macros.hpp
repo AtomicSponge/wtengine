@@ -1,12 +1,11 @@
 /*!
- * \brief WTEngine | File:  helper_macros.hpp
+ * WTEngine | File:  wte_helper_macros.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Helper macros.
+ * 
  * If using you must declare "#define _WTE_USE_HELPER_MACROS" and
  * "using namespace wte" in your source file.
  */

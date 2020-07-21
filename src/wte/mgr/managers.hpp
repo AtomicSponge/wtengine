@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  managers.hpp
+ * WTEngine | File:  managers.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Inlcude all engine managers.
  */
 
 #ifndef WTE_MGR_MANAGERS_HPP

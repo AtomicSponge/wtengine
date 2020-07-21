@@ -1,12 +1,10 @@
 /*!
- * \brief WTEngine | File:  message.hpp
+ * WTEngine | File:  message.hpp
+ * 
  * \author Matthew Evans
- *
  * \version 0.1a
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2020
- *
- * \details Class for defining the message object.
  */
 
 #ifndef WTE_MSG_MESSAGE_HPP

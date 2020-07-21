@@ -13,7 +13,7 @@ For an example of the API in action, see the [demo game code](https://github.com
 #### FEATURES:
  - Internal messaging queue
  - Programmable menu interface
- - Entity memory manager for in-game objects
+ - Memory manager for in-game objects
  - Global variable maps for game/engine settings
  - Threaded music & audio playback via messages
  - Buildable debug modes
@@ -26,9 +26,9 @@ A compiled demo can be found in the [releases](https://github.com/wtfsystems/rel
 ### HOW TO USE
 --------------------------
 
-(need to update this section...)
+#### IMPLEMENTATION:
 
-The main loop for the game engine is implemented in wte_main.  You then extend this class to implement your own custom game.
+...
 
 #### MESSAGING:
 

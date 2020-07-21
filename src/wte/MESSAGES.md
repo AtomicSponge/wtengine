@@ -23,7 +23,7 @@ Arguments are split with ";"
 | Unpause music | audio | unpause_music | none |
 | Load a sample | audio | load_sample | (1) Filename of sample |
 | Unload a sample | audio | unload_sample | (1) Sample name or "all" to unload all |
-| Play a sample | audio | play_sample | (1) Sample name (2) Mode "once" or "reference name" for looping (3 - optional) Gain (4 - optional) Pan (5 - optional) Speed ** |
+| Play a sample | audio | play_sample | (1) Sample name (2) Mode "once" or "reference name" for looping (3 - optional) Gain 0.0 - 1.0 (4 - optional) Pan -1.0 - 1.0 (5 - optional) Speed 0.00001 - 2.0 ** |
 | Stop playing a sample | audio | stop_sample | none |
 | Clear sample instances | audio | clear_instances | none |
 | Play voice | audio | play_voice | (1) Filename to play |

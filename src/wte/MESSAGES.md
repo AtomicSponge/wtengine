@@ -15,25 +15,25 @@
 | Reconfigure the display | system | reconf_display | none |
 | Enable/disable FPS Counter | system | fps_counter | (1) "on/off" |
 | Load a script from file | system | load_script | (1) Filename of script |
-| Control music looping | audio | music_loop | ... |
-| Play music | audio | play_music | ... |
-| Stop music | audio | stop_music | ... |
-| Pause music | audio | pause_music | ... |
-| Unpause music | audio | unpause_music | ... |
-| Load a sample | audio | load_sample | ... |
-| Unload a sample | audio | unload_sample | ... |
-| Play a sample | audio | play_sample | ... |
-| Stop playing a sample | audio | stop_sample | ... |
+| Control music looping | audio | music_loop | (1) "enable/disable" |
+| Play music | audio | play_music | (1) Filename to play |
+| Stop music | audio | stop_music | none |
+| Pause music | audio | pause_music | none |
+| Unpause music | audio | unpause_music | none |
+| Load a sample | audio | load_sample | (1) Filename of sample |
+| Unload a sample | audio | unload_sample | (1) Sample name or "all" to unload all |
+| Play a sample | audio | play_sample | (1) Sample name (2) Mode (3 - optional) Gain (4 - optional) Pan (5 - optional) Speed |
+| Stop playing a sample | audio | stop_sample | none |
 | Clear sample instances | audio | clear_instances | ... |
-| Play voice | audio | play_voice | ... |
-| Stop voice | audio | stop_voice | ... |
-| Pause voice | audio | pause_voice | ... |
+| Play voice | audio | play_voice | (1) Filename to play |
+| Stop voice | audio | stop_voice | none |
+| Pause voice | audio | pause_voice | none |
 | Unpause voice | audio | unpause_voice | ... |
 | Control ambiance loop | audio | ambiance_loop | ... |
-| Play ambiance | audio | play_ambiance | ... |
-| Stop ambiance | audio | stop_ambiance | ... |
-| Pause ambiance | audio | pause_ambiance | ... |
-| Unpause ambiance | audio | unpause_ambiance | ... |
+| Play ambiance | audio | play_ambiance | (1) Filename to play |
+| Stop ambiance | audio | stop_ambiance | none |
+| Pause ambiance | audio | pause_ambiance | none |
+| Unpause ambiance | audio | unpause_ambiance | none |
 | Set volume levels | audio | set_volume | ... |
 | Create a new entity | spawner | new | ... |
 | Delete an entity | spawner | delete | ... |

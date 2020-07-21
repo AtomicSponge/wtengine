@@ -2,19 +2,19 @@
 
 | Description | System | Commmand | Arguments |
 | ----------- | ------ | -------- | --------- |
-| Exit engine | system | exit | ... |
-| Display an alert | system | alert | ... |
-| Start new game | system | new_game | ... |
-| End current game | system | end_game | ... |
-| Open menu | system | open_menu | ... |
-| Close menu | system | close_menu | ... |
-| Enable a system | system | enable_system | ... |
-| Disable a system | system | disable_system | ... |
-| Set Engine Config Variable | system | set_engcfg | ... |
-| Set Game Config Variable | system | set_gamecfg | ... |
-| Reconfigure the display | system | reconf_display | ... |
-| Enable/disable FPS Counter | system | fps_counter | ... |
-| Load a script from file | system | load_script | ... |
+| Exit engine | system | exit | none |
+| Display an alert | system | alert | (1) String of alert to display |
+| Start new game | system | new_game | (1 - optional) Filename of game data |
+| End current game | system | end_game | none |
+| Open menu | system | open_menu | (1) Name of menu to open |
+| Close menu | system | close_menu | (1 - optional) "all" to close all opened menus |
+| Enable a system | system | enable_system | (1) Name of system |
+| Disable a system | system | disable_system | (1) Name of system |
+| Set Engine Config Variable | system | set_engcfg | (1) "var=val" Variable to set and the value |
+| Set Game Config Variable | system | set_gamecfg | (1) "var=val" Variable to set and the value |
+| Reconfigure the display | system | reconf_display | none |
+| Enable/disable FPS Counter | system | fps_counter | (1) "on/off" |
+| Load a script from file | system | load_script | (1) Filename of script |
 | Control music looping | audio | music_loop | ... |
 | Play music | audio | play_music | ... |
 | Stop music | audio | stop_music | ... |

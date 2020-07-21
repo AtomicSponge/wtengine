@@ -30,6 +30,14 @@ A compiled demo can be found in the [releases](https://github.com/wtfsystems/rel
 
 ...
 
+#### MENUS:
+
+...
+
+#### CONFIGURATION VARIABLES:
+
+...
+
 #### MESSAGING:
 
 All in-engine communication is done with the messaging queue.  Messages can be used to change game settings, control the game menus, or have entities interact with each other.  Messages can also be set with a timer value to be processed later.  When starting a new game a scriped file of messages is loaded to process the in-game events.

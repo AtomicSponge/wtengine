@@ -3,7 +3,7 @@
 ### INTRODUCTION
 --------------------------
 
-WTEngine (What the Engine?) is a cross-platform game engine based on [ESC](https://en.wikipedia.org/wiki/Entity_component_system) design that can be used to make a simple 2D action game.
+WTEngine (What the Engine?) is a cross-platform game engine based on [ECS](https://en.wikipedia.org/wiki/Entity_component_system) design that can be used to make a simple 2D action game.
 The engine is written in C++17 and uses the [Allegro Game Library](https://liballeg.org) and [PhysicsFS](https://www.icculus.org/physfs/).
 
 API Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html

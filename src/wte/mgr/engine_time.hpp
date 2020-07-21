@@ -28,8 +28,10 @@ class engine_time {
 
         /*!
          * \brief Set the internal timer.
+         * 
          * This is called once during the game loop in class wte_main
          * and when starting/stopping the game.
+         * 
          * \param t Timer value.
          */
         inline static void set_time(const int64_t& t) {
@@ -45,7 +47,9 @@ class engine_time {
 
         /*!
          * \brief Check the internal timer.
+         * 
          * Classes that extend this object can call this member to check the game timer.
+         * 
          * \return Timer value.
          */
         inline const int64_t check_time(void) const {

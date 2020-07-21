@@ -33,7 +33,8 @@ namespace mgr
 class system_manager final : private manager<system_manager> {
     public:
         /*!
-         * System Manager constructor.
+         * \brief System Manager constructor.
+         * 
          * Clears the systems vector and sets the finalized flag to false.
          */
         inline system_manager() : finalized(false) {
@@ -41,7 +42,8 @@ class system_manager final : private manager<system_manager> {
         };
 
         /*!
-         * System Manager destructor.
+         * \brief System Manager destructor.
+         * 
          * Makes sure the systems are cleared.
          */
         inline ~system_manager() {
@@ -49,7 +51,7 @@ class system_manager final : private manager<system_manager> {
         };
 
         /*!
-         * Clear the system manager and allow systems to be loaded again.
+         * \brief Clear the system manager and allow systems to be loaded again.
          */
         inline void clear(void) {
             systems.clear();
@@ -58,6 +60,7 @@ class system_manager final : private manager<system_manager> {
 
         /*!
          * \brief Finalize system manager.
+         * 
          * Set finalized flag to prevent additional systems from being loaded.
          */
         inline void finalize(void) {
@@ -65,7 +68,8 @@ class system_manager final : private manager<system_manager> {
         };
 
         /*!
-         * Check if systems were loaded into the manager.
+         * \brief Check if systems were loaded into the manager.
+         * 
          * \return True if empty, false if not.
          */
         inline bool empty(void) {
@@ -74,9 +78,11 @@ class system_manager final : private manager<system_manager> {
 
         /*!
          * \brief Add a new system to the manager.
+         * 
          * Enters system into the vector of systems if not.
          * Systems run in the order they were added.
          * Can fail if the system exists or if the game is running.
+         * 
          * \param new_system System to add.
          * \return True if added, false if not.
          */
@@ -92,7 +98,9 @@ class system_manager final : private manager<system_manager> {
 
         /*!
          * \brief Run all systems.
+         * 
          * Iterate through the system vector and run each.
+         * 
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.
@@ -106,8 +114,10 @@ class system_manager final : private manager<system_manager> {
 
         /*!
          * \brief Process dispatcher components.
+         * 
          * Get messages for the entities and pass to each.
          * Keeps checking for responces and will process as well.
+         * 
          * \param world Reference to entity manager.
          * \param messages Reference to message manager.
          * \param current_time Current engine time.
@@ -136,8 +146,10 @@ class system_manager final : private manager<system_manager> {
 
         /*!
          * \brief Reloads temporary bitmaps.
+         * 
          * Any background or overlay drawing bitmaps will be recreated.
          * Called when the screen is reloaded.
+         * 
          * \param world Reference to the entity manager.
          */
         inline void reload_temp_bitmaps(mgr::entity_manager& world) {
@@ -158,7 +170,9 @@ class system_manager final : private manager<system_manager> {
 
         /*!
          * \brief Enable a system.
+         * 
          * Toggle a system to enabled so its run member is processed.
+         * 
          * \param sys Name of system to enable.
          * \return True if the system was found, false if it was not.
          */
@@ -172,7 +186,9 @@ class system_manager final : private manager<system_manager> {
 
         /*!
          * \brief Disable a system.
+         * 
          * Toggle a system to disabled so its run member is skipped.
+         * 
          * \param sys Name of system to disable.
          * \return True if the system was found, false if it was not
          */

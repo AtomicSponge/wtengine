@@ -31,7 +31,8 @@ namespace cmp
 class dispatcher final : public component {
     public:
         /*!
-         * Dispatcher constructor.
+         * \brief Dispatcher constructor.
+         * 
          * \param func Function to define message processing.
          */
         inline dispatcher(void func(const entity_id&,
@@ -41,12 +42,13 @@ class dispatcher final : public component {
                                     const int64_t&)) : handle_msg(func) {};
 
         /*!
-         * Dispatched destructor.
+         * \brief Dispatched destructor.
          */
         inline ~dispatcher() {};
 
         /*!
-         * Run dispatcher function wrapper.
+         * \brief Run dispatcher function wrapper.
+         * 
          * \param e_id ID of the entity calling the wrapper.
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.

@@ -93,7 +93,8 @@ namespace mgr
 class entity_manager final : private manager<entity_manager> {
     public:
         /*!
-         * Entity manager constructor.
+         * \brief Entity manager constructor.
+         * 
          * Start entity counter at 1
          */
         inline entity_manager() : entity_counter(WTE_ENTITY_START) {
@@ -102,7 +103,7 @@ class entity_manager final : private manager<entity_manager> {
         };
 
         /*!
-         * Entity manager destructor.
+         * \brief Entity manager destructor.
          */
         inline ~entity_manager() {
             entity_vec.clear();
@@ -111,6 +112,7 @@ class entity_manager final : private manager<entity_manager> {
 
         /*!
          * \brief Clear the entity manager.
+         * 
          * Set the entity counter to zero and clear the entities and componenets.
          */
         inline void clear(void) {
@@ -121,7 +123,9 @@ class entity_manager final : private manager<entity_manager> {
 
         /*!
          * \brief Create a new entity by name, using the next available ID.
+         * 
          * Throw error if there is no room for entities.
+         * 
          * \return The newly created entity ID.  WTE_ENTITY_ERROR on fail.
          */
         inline const entity_id new_entity(void) {
@@ -161,7 +165,8 @@ class entity_manager final : private manager<entity_manager> {
         };
 
         /*!
-         * Delete entity by ID.
+         * \brief Delete entity by ID.
+         * 
          * \param e_id The entity ID to delete.
          * \return Return true on success, false if entity does not exist.
          */
@@ -178,7 +183,9 @@ class entity_manager final : private manager<entity_manager> {
 
         /*!
          * \brief Check if an entity exists.
+         * 
          * Check the entity vector by ID and return result.
+         * 
          * \param e_id The entity ID to check.
          * \return Return true if found, return false if not found.
          */
@@ -189,7 +196,8 @@ class entity_manager final : private manager<entity_manager> {
         };
 
         /*!
-         * Get entity name.
+         * \brief Get entity name.
+         * 
          * \param e_id Entity ID to get name for.
          * \return Entity name string.  Empty string if not found.
          */
@@ -201,7 +209,8 @@ class entity_manager final : private manager<entity_manager> {
         };
 
         /*!
-         * Set the entity name.
+         * \brief Set the entity name.
+         * 
          * \param e_id Entity ID to set.
          * \param name Entity name to set.
          * \return True if set, false on error.
@@ -221,7 +230,8 @@ class entity_manager final : private manager<entity_manager> {
         };
 
         /*!
-         * Get entity ID by name.
+         * \brief Get entity ID by name.
+         * 
          * \param name Name to search.
          * \return Entity ID, WTE_ENTITY_ERROR if not found.
          */
@@ -234,7 +244,8 @@ class entity_manager final : private manager<entity_manager> {
         };
 
         /*!
-         * Get the entity reference vector.
+         * \brief Get the entity reference vector.
+         * 
          * \return Returns a vector of all entity IDs and names.
          */
         inline const world_container get_entities(void) const {
@@ -242,7 +253,8 @@ class entity_manager final : private manager<entity_manager> {
         };
 
         /*!
-         * Set all components related to an entity.
+         * \brief Set all components related to an entity.
+         * 
          * \param e_id Entity ID to set components for.
          * \return Returns a container of components based by entity ID.
          */
@@ -259,7 +271,8 @@ class entity_manager final : private manager<entity_manager> {
         };
 
         /*!
-         * Get all components related to an entity.
+         * \brief Get all components related to an entity.
+         * 
          * \param e_id Entity ID to get components for.
          * \return Returns a constant container of components based by entity ID.
          */
@@ -277,7 +290,9 @@ class entity_manager final : private manager<entity_manager> {
 
         /*!
          * \brief Add a new component to an entity.
+         * 
          * Entities can only have a single compoenent of each type.
+         * 
          * \param e_id Entity ID to add a component to.
          * \param comp Componenet to add.
          * \return Return false if the entity does not exist.
@@ -298,7 +313,8 @@ class entity_manager final : private manager<entity_manager> {
         };
 
         /*!
-         * Delete a component by type for an entity.
+         * \brief Delete a component by type for an entity.
+         * 
          * \tparam T Component type.
          * \param e_id Entity ID to delete component from.
          * \return Return true if a component was deleted.
@@ -317,7 +333,8 @@ class entity_manager final : private manager<entity_manager> {
         };
 
         /*!
-         * Check if an entity has a component by type.
+         * \brief Check if an entity has a component by type.
+         * 
          * \tparam T Component type.
          * \param e_id The entity ID to check.
          * \return Return true if the entity has the component.
@@ -334,8 +351,10 @@ class entity_manager final : private manager<entity_manager> {
 
         /*!
          * \brief Set the value of a component by type for an entity.
+         * 
          * Note that calling this for a component that does not exist will cause the
          * program to fail.  If there is a chance it does not exist, call has_component() first.
+         * 
          * \tparam T Component type.
          * \param e_id The entity ID to search.
          * \return Return the component or nullptr if not found.
@@ -352,8 +371,10 @@ class entity_manager final : private manager<entity_manager> {
 
         /*!
          * \brief Read the value of a component by type for an entity.
+         * 
          * Note that calling this for a component that does not exist will cause the
          * program to fail.  If there is a chance it does not exist, call has_component() first.
+         * 
          * \tparam T Component type.
          * \param e_id The entity ID to search.
          * \return Return the component or nullptr if not found.
@@ -370,7 +391,9 @@ class entity_manager final : private manager<entity_manager> {
 
         /*!
          * \brief Set all components for a particulair type.
+         * 
          * This will return a container of modifiable components casted to their type.
+         * 
          * \tparam T Component type.
          * \return Returns a container of components of all the same type.
          */
@@ -386,7 +409,9 @@ class entity_manager final : private manager<entity_manager> {
 
         /*!
          * \brief Get all components for a particulair type.
+         * 
          * This will return a container of non-modifiable components casted to their type.
+         * 
          * \tparam T Component type.
          * \return Returns a constant container of components of all the same type.
          */

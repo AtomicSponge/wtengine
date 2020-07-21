@@ -26,7 +26,9 @@ class team final : public component {
     public:
         /*!
          * \brief Team constructor.
+         * 
          * Team can be 0, 1, 2 or 3.
+         * 
          * \param t Team value for the entity.
          */
         inline team(std::size_t t) : this_team(t) {
@@ -34,7 +36,8 @@ class team final : public component {
         };
 
         /*!
-         * Get team.
+         * \brief Get team.
+         * 
          * \return Team the entity is on.
          */
         inline const std::size_t get_team(void) const {
@@ -42,7 +45,8 @@ class team final : public component {
         };
 
         /*!
-         * Set team
+         * \brief Set team
+         * 
          * \param t New team for the entity.
          */
         inline void set_team(const std::size_t& t) {

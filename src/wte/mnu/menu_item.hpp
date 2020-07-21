@@ -35,61 +35,66 @@ enum MENU_SETTING_TYPE {
 class menu_item {
     public:
         /*!
-         * Menu item destructor.
+         * \brief Menu item destructor.
          */
         inline virtual ~menu_item() {};
 
         /*!
-         * Return display text for the menu item when rendering.
+         * \brief Return display text for the menu item when rendering.
+         * 
          * \return Vector of display text.
          */
         inline virtual const std::vector<std::string> get_text(void) const { return {"null"}; };
 
         /*!
-         * Define left click process.
+         * \brief Define left click process.
          */
         inline virtual void on_left(void) {};
 
         /*!
-         * Define right click process.
+         * \brief Define right click process.
          */
         inline virtual void on_right(void) {};
 
         /*!
-         * Define selection process.
+         * \brief Define selection process.
          */
         inline virtual const message on_select(void) { return message("system", "null", "null"); };
 
         /*!
-         * Define reset process.
+         * \brief Define reset process.
          */
         inline virtual void reset_to_default(void) {};
 
         /*!
-         * Define default value process.
+         * \brief Define default value process.
          */
         inline virtual void set_default(void) {};
 
         /*!
-         * Define setting changed process.
+         * \brief Define setting changed process.
+         * 
          * \return Default return false.
          */
         inline virtual const bool setting_changed(void) const { return false; };
 
         /*!
-         * Get the display label.
+         * \brief Get the display label.
+         * 
          * \return The label text.
          */
         inline const std::string get_label(void) const { return label; };
 
         /*!
-         * Get the setting type.
+         * \brief Get the setting type.
+         * 
          * \return Setting type.
          */
         inline const std::size_t get_setting_type(void) const { return setting_type; };
 
         /*!
-         * Check if it is an engine setting.
+         * \brief Check if it is an engine setting.
+         * 
          * \return True if an engine setting, false if a game setting.
          */
         inline const bool is_engine_setting(void) const { 
@@ -102,14 +107,16 @@ class menu_item {
 
     protected:
         /*!
-         * Menu item constructor.
+         * \brief Menu item constructor.
+         * 
          * \param l Label of the menu item.
          */
         inline menu_item(const std::string l) :
         label(l), setting_type(DEFAULT_SETTING) {};
 
         /*!
-         * Menu item constructor.
+         * \brief Menu item constructor.
+         * 
          * \param l Label of the menu item.
          * \param st Setting type.
          */

@@ -53,7 +53,8 @@ class system {
 
     protected:
         /*!
-         * System constructor.
+         * \brief System constructor.
+         * 
          * \param n System name.
          */
         inline system(const std::string& n) : name(n), enabled(true) {};

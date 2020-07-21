@@ -34,31 +34,35 @@ namespace cmp
 class direction final : public component {
     public:
         /*!
-         * Direction constructor.
+         * \brief Direction constructor.
          */
         inline direction(void) : angle(0.0f), draw_rotated(true) {};
 
         /*!
-         * Direction constructor.
+         * \brief Direction constructor.
+         * 
          * \param r Draw rotated flag.
          */
         inline direction(const bool r) : angle(0.0f), draw_rotated(r) {};
 
         /*!
-         * Direction constructor.
+         * \brief Direction constructor.
+         * 
          * \param a Angle of direction in radians.
          */
         inline direction(const float a) : angle(a), draw_rotated(true) {};
 
         /*!
-         * Direction constructor.
+         * \brief Direction constructor.
+         * 
          * \param a Angle of direction in radians.
          * \param r Draw rotated flag.
          */
         inline direction(const float a, const bool r) : angle(a), draw_rotated(r) {};
 
         /*!
-         * Set angle of direction using degrees.
+         * \brief Set angle of direction using degrees.
+         * 
          * \param a Angle in degrees.
          */
         inline void set_degrees(const float& a) {
@@ -66,7 +70,8 @@ class direction final : public component {
         };
 
         /*!
-         * Get angle of direction in degrees.
+         * \brief Get angle of direction in degrees.
+         * 
          * \return Angle in degrees.
          */
         inline const float get_degrees(void) const {
@@ -74,7 +79,8 @@ class direction final : public component {
         };
 
         /*!
-         * Set angle of direction in radians.
+         * \brief Set angle of direction in radians.
+         * 
          * \param a Angle in radians.
          */
         inline void set_radians(const float& a) {
@@ -82,7 +88,8 @@ class direction final : public component {
         };
 
         /*!
-         * Get angle of direction in radians.
+         * \brief Get angle of direction in radians.
+         * 
          * \return Angle in radians.
          */
         inline const float get_radians(void) const {
@@ -90,7 +97,8 @@ class direction final : public component {
         };
 
         /*!
-         * Check if the entity should be drawn rotated.
+         * \brief Check if the entity should be drawn rotated.
+         * 
          * \return True if rotated, false if not.
          */
         inline const bool show_rotated(void) const {
@@ -99,6 +107,7 @@ class direction final : public component {
 
         /*!
          * \brief Set drawing rotated.
+         * 
          * Sets internal flag to true.
          */
         inline void set_rotated(void) {
@@ -107,6 +116,7 @@ class direction final : public component {
 
         /*!
          * \brief Unset drawing rotated.
+         * 
          * Sets internal flag to false.
          */
         inline void unset_rotated(void) {

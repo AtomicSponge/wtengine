@@ -25,25 +25,28 @@ namespace cmp
 class velocity final : public component {
     public:
         /*!
-         * Velocity constructor.
+         * \brief Velocity constructor.
          */
         inline velocity(void) : x_vel(0.0f), y_vel(0.0f) {};
 
         /*!
-         * Velocity constructor.
+         * \brief Velocity constructor.
+         * 
          * \param v Velocity for X and Y.
          */
         inline velocity(const float v) : x_vel(v), y_vel(v) {};
 
         /*!
-         * Velocity constructor.
+         * \brief Velocity constructor.
+         * 
          * \param xv X velocity.
          * \param yv Y velocity.
          */
         inline velocity(const float xv, const float yv) : x_vel(xv), y_vel(yv) {};
 
         /*!
-         * Set X velocity.
+         * \brief Set X velocity.
+         * 
          * \param xv X velocity.
          */
         inline void set_x_vel(const float& xv) {
@@ -51,7 +54,8 @@ class velocity final : public component {
         };
 
         /*!
-         * Set Y velocity.
+         * \brief Set Y velocity.
+         * 
          * \param yv Y velocity.
          */
         inline void set_y_vel(const float& yv) {
@@ -59,7 +63,8 @@ class velocity final : public component {
         };
 
         /*!
-         * Set velocity for X and Y.
+         * \brief Set velocity for X and Y.
+         * 
          * \param v Velocity
          */
         inline void set_velocity(const float& v) {
@@ -68,7 +73,8 @@ class velocity final : public component {
         };
 
         /*!
-         * Get X velocity.
+         * \brief Get X velocity.
+         * 
          * \return X velocity.
          */
         inline const float get_x_vel(void) const {
@@ -76,7 +82,8 @@ class velocity final : public component {
         };
 
         /*!
-         * Get X velocity.
+         * \brief Get Y velocity.
+         * 
          * \return Y velocity.
          */
         inline const float get_y_vel(void) const {

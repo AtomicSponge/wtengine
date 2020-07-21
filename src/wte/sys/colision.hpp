@@ -28,14 +28,16 @@ class colision final : public system {
         inline ~colision() {};
 
         /*!
-         * Allow the colision system to be disabled.
+         * \brief Allow the colision system to be disabled.
          */
         inline void disable(void) override { enabled = false; };
 
         /*!
          * \brief Colision system run.
+         * 
          * Overrides virtual run member inherited from system object.
          * Selects components by team, then tests each team to see if there is a colision.
+         * 
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.

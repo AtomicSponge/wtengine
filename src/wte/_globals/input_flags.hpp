@@ -85,7 +85,7 @@ class input_flags final {
         void operator=(input_flags const&) = delete;
 
         /*!
-         * Set all input flags to false.
+         * \brief Set all input flags to false.
          */
         inline static void unset_all(void) {
             for(std::size_t j = 0; j < WTE_MAX_JOYSTICK_FLAGS; j++)
@@ -105,7 +105,8 @@ class input_flags final {
         };
 
         /*!
-         * Toggle flag to set.
+         * \brief Toggle flag to set.
+         * 
          * \param j Joystick to set flag for.
          * \param d Direction flag to set.
          */
@@ -118,7 +119,9 @@ class input_flags final {
 
         /*!
          * \brief Check if a flag is set.
+         * 
          * Unsets the flag if it is.
+         * 
          * \param j Joystick to check.
          * \param d Direction flag to check.
          * \return True if set, false if not.
@@ -133,7 +136,8 @@ class input_flags final {
         };
 
         /*!
-         * Set radians for a joystick.
+         * \brief Set radians for a joystick.
+         * 
          * \param j Joystick to set for.
          * \param a Angle in radians.
          */
@@ -144,7 +148,8 @@ class input_flags final {
         };
 
         /*!
-         * Set the direction of a joystick.
+         * \brief Set the direction of a joystick.
+         * 
          * \param j Joystick to check.
          * \return Angle in radians.
          */
@@ -155,7 +160,8 @@ class input_flags final {
         };
 
         /*!
-         * Set X pole of a joystick.
+         * \brief Set X pole of a joystick.
+         * 
          * \param j Joystick to set.
          * \param d Direction to set.
          */
@@ -166,7 +172,8 @@ class input_flags final {
         };
 
         /*!
-         * Set Y pole of a joystick.
+         * \brief Set Y pole of a joystick.
+         * 
          * \param j Joystick to set.
          * \param d Direction to set.
          */
@@ -177,7 +184,8 @@ class input_flags final {
         };
 
         /*!
-         * Get X pole for a joystick.
+         * \brief Get X pole for a joystick.
+         * 
          * \param j Joystick to set.
          * \return Joystick X direction.
          */
@@ -188,7 +196,8 @@ class input_flags final {
         };
 
         /*!
-         * Get Y pole for a joystick.
+         * \brief Get Y pole for a joystick.
+         * 
          * \param j Joystick to set.
          * \return Joystick Y direction.
          */
@@ -199,7 +208,8 @@ class input_flags final {
         };
 
         /*!
-         * Check if a button event is set.
+         * \brief Check if a button event is set.
+         * 
          * \param b Button to check.
          * \param e Event to check.
          */
@@ -213,7 +223,8 @@ class input_flags final {
         };
 
         /*!
-         * Set a button event.
+         * \brief Set a button event.
+         * 
          * \param b Button to set.
          * \param e Event to set.
          */
@@ -225,7 +236,8 @@ class input_flags final {
         };
 
         /*!
-         * Get the last key that was pressed.
+         * \brief Get the last key that was pressed.
+         * 
          * \return Key code.
          */
         inline static const std::size_t get_last_keypress(void) {
@@ -233,7 +245,8 @@ class input_flags final {
         };
 
         /*!
-         * Set the last key pressed.
+         * \brief Set the last key pressed.
+         * 
          * \param lk Key code of last key pressed.
          */
         inline static void set_last_keypress(const std::size_t& lk) {
@@ -241,7 +254,8 @@ class input_flags final {
         };
 
         /*!
-         * Get the last button that was pressed.
+         * \brief Get the last button that was pressed.
+         * 
          * \return Button code.
          */
         inline static const std::size_t get_last_buttonpress(void) {
@@ -249,7 +263,8 @@ class input_flags final {
         };
 
         /*!
-         * Set the last button pressed.
+         * \brief Set the last button pressed.
+         * 
          * \param lk Code of last button pressed.
          */
         inline static void set_last_buttonpress(const std::size_t& lk) {

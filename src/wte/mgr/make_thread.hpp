@@ -32,7 +32,7 @@ namespace mgr
 class make_thread {
     public:
         /*!
-         * Calls stop member if started flag is true.
+         * \brief Calls stop member if started flag is true.
          */
         inline virtual ~make_thread() {
             if(started) stop();
@@ -44,7 +44,7 @@ class make_thread {
         void operator=(make_thread const&) = delete;
 
         /*!
-         * Call to start execution of thread.
+         * \brief Call to start execution of thread.
          */
         inline void start(void) {
             if(started == true) return;
@@ -55,7 +55,7 @@ class make_thread {
         };
 
         /*!
-         * Call to end thread.
+         * \brief Call to end thread.
          */
         inline void stop(void) {
             exit_signal.set_value();
@@ -64,7 +64,7 @@ class make_thread {
         };
 
         /*!
-         * Check if thread is running.
+         * \brief Check if thread is running.
          */
         inline const bool is_running(void) const {
             return started;
@@ -72,12 +72,12 @@ class make_thread {
 
     protected:
         /*!
-         * Set started flag to false.
+         * \brief Set started flag to false.
          */
         inline make_thread() : started(false) {};
 
         /*!
-         * Call this within run() to check if the thread is running.
+         * \brief Call this within run() to check if the thread is running.
          */
         inline bool keep_running(void) {
             if(exit_state.wait_for(std::chrono::milliseconds(0)) == std::future_status::timeout)
@@ -86,7 +86,7 @@ class make_thread {
         };
 
         /*!
-         * Override this in extended class to implement a thread.
+         * \brief Override this in extended class to implement a thread.
          */
         virtual void run(void) = 0;
 

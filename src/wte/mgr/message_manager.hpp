@@ -40,7 +40,8 @@ namespace mgr
 class message_manager final : private manager<message_manager>, private engine_time {
     public:
         /*!
-         * \brief Message queue constructor
+         * \brief Message queue constructor.
+         * 
          * Clear any existing queue and start logging if debugging is enabled.
          */
         inline message_manager() {
@@ -54,7 +55,8 @@ class message_manager final : private manager<message_manager>, private engine_t
         };
 
         /*!
-         * \brief Message queue destructor
+         * \brief Message queue destructor.
+         * 
          * Delete message queue object and close log file if debugging is enabled.
          */
         inline ~message_manager() {
@@ -67,15 +69,17 @@ class message_manager final : private manager<message_manager>, private engine_t
         };
 
         /*!
-         * Clear the message queue.
+         * \brief Clear the message queue.
          */
         inline void clear(void) {
             msg_queue.clear();
         };
 
         /*!
-         * Adds a message object to the start of the msg_queue vector
-         * Then sorts if it's a timed event
+         * \brief Adds a message object to the start of the msg_queue vector.
+         * 
+         * Then sorts if it's a timed event.
+         * 
          * \param msg Message to add.
          */
         inline void add_message(const message& msg) {
@@ -106,7 +110,9 @@ class message_manager final : private manager<message_manager>, private engine_t
 
         /*!
          * \brief Get messages based on their command.
+         * 
          * Once events in the future are reached, break early.
+         * 
          * \param sys Manager/system to get messages for.
          * \return Vector of messages.
          */
@@ -132,8 +138,10 @@ class message_manager final : private manager<message_manager>, private engine_t
 
         /*!
          * \brief Load a new data file into the message queue.
+         * 
          * This is called when a new game is created.
          * Events are placed in order according to the timer value.
+         * 
          * \param fname Filename to load.
          */
         inline void load_file(const std::string& fname) {
@@ -172,8 +180,10 @@ class message_manager final : private manager<message_manager>, private engine_t
 
         /*!
          * \brief Load additional data into the message queue.
+         * 
          * This is called by a system message to load additional game data.
          * Note the timer value used for scripts is adjusted by the game timer.
+         * 
          * \param fname Filename to load.
          * \return True if loaded, false if not.
          */
@@ -213,7 +223,8 @@ class message_manager final : private manager<message_manager>, private engine_t
 
     private:
         /*!
-         * Read a message from file.
+         * \brief Read a message from file.
+         * 
          * \param file Allegro file to read from.
          * \param timer Timer value to write to.
          * \param sys System value to write to.
@@ -268,7 +279,9 @@ class message_manager final : private manager<message_manager>, private engine_t
 
         /*!
          * \brief Log processed messages to a file.
+         * 
          * Write a message to the debug log file if debugging is enabled.
+         * 
          * \param msg Message to write.
          */
         #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9

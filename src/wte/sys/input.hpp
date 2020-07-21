@@ -31,8 +31,10 @@ class input final : public system {
         inline void disable(void) override { enabled = false; };
 
         /*!
-         * Input system run method
+         * \brief Input system run method
+         * 
          * Get all entities tagged with an input handler component and run.
+         * 
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
          * \param current_time Current value of the main timer.

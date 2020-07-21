@@ -33,7 +33,9 @@ template <class derived> class variable_map {
 
         /*!
          * \brief Create a new entry in the map.
+         * 
          * Call this first before accessing.
+         * 
          * \param var Variable name.
          * \param val Initial value of variable.
          * \return True if created, false if not created.
@@ -50,7 +52,9 @@ template <class derived> class variable_map {
 
         /*!
          * \brief Create a new entry in the map.
+         * 
          * Call this first before accessing.
+         * 
          * \param expr Variable and value expresion (var=val)
          * \return True if created, false if not created.
          */
@@ -62,7 +66,8 @@ template <class derived> class variable_map {
         };
 
         /*!
-         * Check if a variable is registered in the map.
+         * \brief Check if a variable is registered in the map.
+         * 
          * \param var Variable name to check.
          * \return True if it exists, false if it does not.
          */
@@ -76,7 +81,8 @@ template <class derived> class variable_map {
         }
 
         /*!
-         * Set key to value.
+         * \brief Set key to value.
+         * 
          * \param var Variable name to set.
          * \param val Value to set.
          * \return True if set, false if not set.
@@ -91,7 +97,8 @@ template <class derived> class variable_map {
         };
 
         /*!
-         * Set based on string
+         * \brief Set based on string.
+         * 
          * \param expr Variable and value expresion (var=val)
          * \return True if set, false if not set.
          */
@@ -104,7 +111,9 @@ template <class derived> class variable_map {
 
         /*!
          * \brief Get value.
+         * 
          * Returns by string.
+         * 
          * \param var Variable to get.
          * \return Value of variable in string form.
          */
@@ -118,7 +127,9 @@ template <class derived> class variable_map {
 
         /*!
          * \brief Get value.
+         * 
          * Returns by defined type.
+         * 
          * \tparam T Data type to cast to.
          * \param var Variable to get.
          * \return Value of variable in casted form.

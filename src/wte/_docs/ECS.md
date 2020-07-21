@@ -1,6 +1,6 @@
 ## Entities / Components / Systems
 
-WTEngine uses an [ECS](https://en.wikipedia.org/wiki/Entity_component_system) design for it's memory management.  
+WTEngine uses an [ECS](https://en.wikipedia.org/wiki/Entity_component_system) design for its memory management.  
 
 -----
 

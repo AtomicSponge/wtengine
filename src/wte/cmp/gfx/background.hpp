@@ -31,7 +31,8 @@ namespace cmp
 class background final : public animator, public bitmap_map {
     public:
         /*!
-         * Static background, solid color.
+         * \brief Static background, solid color.
+         * 
          * \param w Background width.
          * \param h Background height.
          * \param c Allegro color.
@@ -51,7 +52,8 @@ class background final : public animator, public bitmap_map {
         };
 
         /*!
-         * Background with custom animation.
+         * \brief Background with custom animation.
+         * 
          * \param w Background width.
          * \param h Background height.
          * \param l Background layer.
@@ -67,7 +69,7 @@ class background final : public animator, public bitmap_map {
         };
 
         /*!
-         * Background destructor.
+         * \brief Background destructor.
          */
         inline ~background() {
             al_destroy_bitmap(internal_bitmap);
@@ -75,6 +77,7 @@ class background final : public animator, public bitmap_map {
 
         /*!
          * \brief Reload the background bitmap.
+         * 
          * Called when the screen is updated.
          */
         inline void reload_background_bitmap(void) {
@@ -90,7 +93,8 @@ class background final : public animator, public bitmap_map {
         };
 
         /*!
-         * Get the saved color.
+         * \brief Get the saved color.
+         * 
          * \return Allegro color object.
          */
         inline ALLEGRO_COLOR get_color(void) const {

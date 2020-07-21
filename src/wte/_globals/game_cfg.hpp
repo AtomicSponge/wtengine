@@ -34,7 +34,8 @@ namespace wte
 class game_cfg final : public variable_map<game_cfg> {
     public:
         /*!
-         * Set the file the game config variables will be written to.
+         * \brief Set the file the game config variables will be written to.
+         * 
          * \param fname Filename to set saving to.
          */
         inline static void set_game_cfg_file(const std::string& fname) {
@@ -42,7 +43,8 @@ class game_cfg final : public variable_map<game_cfg> {
         }
 
         /*!
-         * Load game config variables from file.
+         * \brief Load game config variables from file.
+         * 
          * \return False on fail, true on success.
          */
         inline static bool load(void) {
@@ -60,7 +62,7 @@ class game_cfg final : public variable_map<game_cfg> {
         };
 
         /*!
-         * Clear the current game config save.
+         * \brief Clear the current game config save.
          */
         inline static void clear_save(void) {
             std::ofstream data_file(data_file_name, std::ofstream::trunc);
@@ -68,7 +70,8 @@ class game_cfg final : public variable_map<game_cfg> {
         };
 
         /*!
-         * Save a game config variable to file.
+         * \brief Save a game config variable to file.
+         * 
          * \param var Variable name.
          * \return False on fail, true on success.
          */
@@ -88,7 +91,8 @@ class game_cfg final : public variable_map<game_cfg> {
         };
 
         /*!
-         * Add a value to a variable in the game config map.
+         * \brief Add a value to a variable in the game config map.
+         * 
          * \tparam T Data type to cast and perform calculation in.
          * \param var Variable name.
          * \param val Value to add by.
@@ -109,7 +113,8 @@ class game_cfg final : public variable_map<game_cfg> {
         };
 
         /*!
-         * Subtract a value from a variable in the game config map.
+         * \brief Subtract a value from a variable in the game config map.
+         * 
          * \tparam T Data type to cast and perform calculation in.
          * \param var Variable name.
          * \param val Value to subtract by.
@@ -130,7 +135,8 @@ class game_cfg final : public variable_map<game_cfg> {
         };
 
         /*!
-         * Multiply a value by a variable in the game config map.
+         * \brief Multiply a value by a variable in the game config map.
+         * 
          * \tparam T Data type to cast and perform calculation in.
          * \param var Variable name.
          * \param val Value to multiply by.
@@ -151,7 +157,8 @@ class game_cfg final : public variable_map<game_cfg> {
         };
 
         /*!
-         * Divide a value by a variable in the game config map.
+         * \brief Divide a value by a variable in the game config map.
+         * 
          * \tparam T Data type to cast and perform calculation in.
          * \param var Variable name.
          * \param val Value to divide by.
@@ -173,7 +180,9 @@ class game_cfg final : public variable_map<game_cfg> {
 
         /*!
          * \brief Create a new entry in the map.
+         * 
          * Call this first before accessing.
+         * 
          * \param var Variable name.
          * \param val Initial value of variable.
          * \return True if created, false if not created.
@@ -184,7 +193,9 @@ class game_cfg final : public variable_map<game_cfg> {
 
         /*!
          * \brief Create a new entry in the map.
+         * 
          * Call this first before accessing.
+         * 
          * \param expr Variable and value expresion (var=val)
          * \return True if created, false if not created.
          */
@@ -193,7 +204,8 @@ class game_cfg final : public variable_map<game_cfg> {
         };
 
         /*!
-         * Check if a variable is registered in the map.
+         * \brief Check if a variable is registered in the map.
+         * 
          * \param var Variable name to check.
          * \return True if it exists, false if it does not.
          */
@@ -202,7 +214,8 @@ class game_cfg final : public variable_map<game_cfg> {
         }
 
         /*!
-         * Set key to value.
+         * \brief Set key to value.
+         * 
          * \param var Variable name to set.
          * \param val Value to set.
          * \return True if set, false if not set.
@@ -212,7 +225,8 @@ class game_cfg final : public variable_map<game_cfg> {
         };
 
         /*!
-         * Set based on string
+         * \brief Set based on string.
+         * 
          * \param expr Variable and value expresion (var=val)
          * \return True if set, false if not set.
          */
@@ -222,7 +236,9 @@ class game_cfg final : public variable_map<game_cfg> {
 
         /*!
          * \brief Get value.
+         * 
          * Returns by string.
+         * 
          * \param var Variable to get.
          * \return Value of variable in string form.
          */
@@ -232,7 +248,9 @@ class game_cfg final : public variable_map<game_cfg> {
 
         /*!
          * \brief Get value.
+         * 
          * Returns by defined type.
+         * 
          * \tparam T Data type to cast to.
          * \param var Variable to get.
          * \return Value of variable in casted form.

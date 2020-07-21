@@ -32,7 +32,8 @@ namespace cmp
 class input_button final : public component {
     public:
         /*!
-         * Input button constructor.
+         * \brief Input button constructor.
+         * 
          * \param button Button flag enum to bind to.
          * \param func_a Button on down function.
          * \param func_b Button on up function.
@@ -52,12 +53,13 @@ class input_button final : public component {
         };
 
         /*!
-         * Input button destructor.
+         * \brief Input button destructor.
          */
         inline ~input_button() {};
 
         /*!
-         * Get the button flag bounded to this component.
+         * \brief Get the button flag bounded to this component.
+         * 
          * \return The button flag enum value.
          */
         inline const std::size_t get_flag(void) const {
@@ -65,7 +67,8 @@ class input_button final : public component {
         };
 
         /*!
-         * Run button on down event.
+         * \brief Run button on down event.
+         * 
          * \param e_id Entity ID
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
@@ -79,7 +82,8 @@ class input_button final : public component {
         };
 
         /*!
-         * Run button on up event.
+         * \brief Run button on up event.
+         * 
          * \param e_id Entity ID
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.

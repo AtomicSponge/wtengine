@@ -27,18 +27,20 @@ namespace sys
 class logic final : public system {
     public:
         /*!
-         * Logic System constructor.
+         * \brief Logic System constructor.
          */
         inline logic() : system("logic") {};
 
         /*!
-         * Logic System destructor.
+         * \brief Logic System destructor.
          */
         inline ~logic() {};
 
         /*!
          * \brief Logic system run.
+         * 
          * Finds all entities with an ai component and processes their logic.
+         * 
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.

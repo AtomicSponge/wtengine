@@ -25,7 +25,7 @@ namespace cmp
 class component {
     public:
         /*!
-         * Component destructor.
+         * \brief Component destructor.
          */
         inline virtual ~component() {};
 
@@ -36,7 +36,7 @@ class component {
 
     protected:
         /*!
-         * Component constructor.
+         * \brief Component constructor.
          */
         inline component() {};
 };

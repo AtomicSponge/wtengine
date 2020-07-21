@@ -32,7 +32,9 @@ class ai final : public component {
     public:
         /*!
          * \brief AI constructor.
+         * 
          * Create an AI component with enabled only AI.
+         * 
          * \param func Function to define AI process.
          */
         inline ai(void func(const entity_id&,
@@ -46,7 +48,9 @@ class ai final : public component {
 
         /*!
          * \brief AI constructor.
+         * 
          * Create an AI component with enabled and disabled AI.
+         * 
          * \param func_a Function to define enabled AI process.
          * \param func_b Function to define disabled AI process.
          */
@@ -61,12 +65,13 @@ class ai final : public component {
         enabled_ai(func_a), disabled_ai(func_b) {};
 
         /*!
-         * AI destructor.
+         * \brief AI destructor.
          */
         inline ~ai() {};
 
         /*!
-         * Run enabled AI function wrapper.
+         * \brief Run enabled AI function wrapper.
+         * 
          * \param eid ID of the entity calling the wrapper.
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
@@ -80,7 +85,8 @@ class ai final : public component {
         };
 
         /*!
-         * Run disabled AI function wrapper.
+         * \brief Run disabled AI function wrapper.
+         * 
          * \param eid ID of the entity calling the wrapper.
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.

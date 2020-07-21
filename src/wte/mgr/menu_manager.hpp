@@ -46,8 +46,9 @@ namespace mgr
 class menu_manager final : private manager<menu_manager> {
     public:
         /*!
-         * \brief Menu manager constructor
-         * Generates the menu manager object
+         * \brief Menu manager constructor.
+         * 
+         * Generates the menu manager object.
          */
         inline menu_manager() :
         menu_width(500), menu_height(400), menu_padding(32), font_size(8), is_button_left(true) {
@@ -56,8 +57,9 @@ class menu_manager final : private manager<menu_manager> {
         };
 
         /*!
-         * \brief Menu manager destructor
-         * Cleans up by deleting the menu bitmaps and font
+         * \brief Menu manager destructor.
+         * 
+         * Cleans up by deleting the menu bitmaps and font.
          */
         inline ~menu_manager() {
             opened_menus = {};
@@ -66,6 +68,7 @@ class menu_manager final : private manager<menu_manager> {
 
         /*!
          * \brief Ititialize menu manager.
+         * 
          * Sets up internal menu objects.  Called during engine initialization.
          * Also creates the default main menu and in-game menu.
          */
@@ -106,6 +109,7 @@ class menu_manager final : private manager<menu_manager> {
 
         /*!
          * \brief De-initialize the menu manager.
+         * 
          * Destories the internal objects.
          */
         inline void de_init(void) {
@@ -118,8 +122,10 @@ class menu_manager final : private manager<menu_manager> {
 
         /*!
          * \brief Set menu size.
+         * 
          * Call during menu creation.
          * If not called the default size of 500x400 padding 32 is used.
+         * 
          * \param mw Menu width in pixels.
          * \param mh Menu height in pixels.
          * \param mp Menu padding in pixels.
@@ -137,6 +143,7 @@ class menu_manager final : private manager<menu_manager> {
 
         /*!
          * \brief Reload the menu bitmap.
+         * 
          * Called when the screen is updated.
          */
         inline void reload_menu_bitmap(void) {
@@ -148,7 +155,9 @@ class menu_manager final : private manager<menu_manager> {
 
         /*!
          * \brief Set menu colors.
+         * 
          * Call during menu creation.
+         * 
          * \param fcolor Allegro color to use for font.
          * \param bgcolor Allegro color to use for background.
          */
@@ -162,9 +171,11 @@ class menu_manager final : private manager<menu_manager> {
 
         /*!
          * \brief Set the font to be used by the menus.
+         * 
          * If not called, Allegro's default font will be used.
          * This should be called during engine initialization before the main object is created.
          * See the Allegro docs for more information on al_load_font and the parameters used.
+         * 
          * \param fname Filename to use.
          * \param size Font size.
          * \param flags Font flags.
@@ -176,7 +187,8 @@ class menu_manager final : private manager<menu_manager> {
         };
 
         /*!
-         * Add a menu to the menu vector.
+         * \brief Add a menu to the menu vector.
+         * 
          * \param new_menu A menu object.
          * \return Returns false if a menu with a similar ID already exists.  Returns true on success.
          */
@@ -190,9 +202,11 @@ class menu_manager final : private manager<menu_manager> {
 
         /*!
          * \brief Get menu by name.
+         * 
          * Finds a menu in the menu vector by name and returns it.
          * If not found, try returning the main or game menu.
          * Return the first menu in the vector if no others found.
+         * 
          * \param name Menu name.
          * \return Shared pointer to menu.
          */
@@ -220,8 +234,10 @@ class menu_manager final : private manager<menu_manager> {
 
         /*!
          * \brief Set menu by name.
+         * 
          * Finds a menu in the menu vector by name and returns it.
          * If not found, return a null pointer.
+         * 
          * \param name Menu name.
          * \return Shared pointer to menu.
          */
@@ -238,6 +254,7 @@ class menu_manager final : private manager<menu_manager> {
 
         /*!
          * \brief Reset menu manager.
+         * 
          * Clear the stack of opened menus.
          */
         inline void reset(void) {
@@ -247,8 +264,10 @@ class menu_manager final : private manager<menu_manager> {
 
         /*!
          * \brief Add a menu to the opened stack.
+         * 
          * Takes a menu from the vector container and adds it to the top of the opened stack.
          * Also resets the menu position.
+         * 
          * \param menu_id Menu to open.
          */
         inline void open_menu(const std::string& menu_id) {
@@ -264,6 +283,7 @@ class menu_manager final : private manager<menu_manager> {
 
         /*!
          * \brief Close the current opened menu.
+         * 
          * Remove the menu from the top of the stack.
          */
         inline void close_menu(void) {

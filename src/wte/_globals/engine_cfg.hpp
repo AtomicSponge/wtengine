@@ -29,8 +29,10 @@ class engine_cfg final : public variable_map<engine_cfg> {
     public:
         /*!
          * \brief Load engine config settings from file.
+         * 
          * Will create the config variable if it does not exist.
          * If it does exist, the value is updated from the file.
+         * 
          * \return False on fail, true on success.
          */
         inline static bool load(void) {
@@ -53,7 +55,8 @@ class engine_cfg final : public variable_map<engine_cfg> {
         };
 
         /*!
-         * Save engine config settings to file.
+         * \brief Save engine config settings to file.
+         * 
          * \return False on fail, true on success.
          */
         inline static bool save(void) {
@@ -71,7 +74,9 @@ class engine_cfg final : public variable_map<engine_cfg> {
         
         /*!
          * \brief Create a new entry in the map.
+         * 
          * Call this first before accessing.
+         * 
          * \param var Variable name.
          * \param val Initial value of variable.
          * \return True if created, false if not created.
@@ -82,7 +87,9 @@ class engine_cfg final : public variable_map<engine_cfg> {
 
         /*!
          * \brief Create a new entry in the map.
+         * 
          * Call this first before accessing.
+         * 
          * \param expr Variable and value expresion (var=val)
          * \return True if created, false if not created.
          */
@@ -91,7 +98,8 @@ class engine_cfg final : public variable_map<engine_cfg> {
         };
 
         /*!
-         * Check if a variable is registered in the map.
+         * \brief Check if a variable is registered in the map.
+         * 
          * \param var Variable name to check.
          * \return True if it exists, false if it does not.
          */
@@ -100,7 +108,8 @@ class engine_cfg final : public variable_map<engine_cfg> {
         }
 
         /*!
-         * Set key to value.
+         * \brief Set key to value.
+         * 
          * \param var Variable name to set.
          * \param val Value to set.
          * \return True if set, false if not set.
@@ -110,7 +119,8 @@ class engine_cfg final : public variable_map<engine_cfg> {
         };
 
         /*!
-         * Set based on string
+         * \brief Set based on string.
+         * 
          * \param expr Variable and value expresion (var=val)
          * \return True if set, false if not set.
          */
@@ -120,7 +130,9 @@ class engine_cfg final : public variable_map<engine_cfg> {
 
         /*!
          * \brief Get value.
+         * 
          * Returns by string.
+         * 
          * \param var Variable to get.
          * \return Value of variable in string form.
          */
@@ -130,7 +142,9 @@ class engine_cfg final : public variable_map<engine_cfg> {
 
         /*!
          * \brief Get value.
+         * 
          * Returns by defined type.
+         * 
          * \tparam T Data type to cast to.
          * \param var Variable to get.
          * \return Value of variable in casted form.

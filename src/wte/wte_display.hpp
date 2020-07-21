@@ -31,12 +31,13 @@ namespace wte
 class wte_display {
     public:
         /*!
-         * Display destructor.
+         * \brief Display destructor.
          */
         inline virtual ~wte_display() {};
 
         /*!
-         * Get the window title.
+         * \brief Get the window title.
+         * 
          * \return Window title as string.
          */
         inline const std::string get_window_title(void) const {
@@ -45,13 +46,14 @@ class wte_display {
 
     protected:
         /*!
-         * Display constructor.
+         * \brief Display constructor.
+         * 
          * \param title Window title.
          */
         inline wte_display(const std::string& title) : window_title(title) {};
 
         /*!
-         * Configure the display.
+         * \brief Configure the display.
          */
         inline void create_display(void) {
             al_reset_new_display_options();
@@ -132,14 +134,14 @@ class wte_display {
         };
 
         /*!
-         * Destroy the display.
+         * \brief Destroy the display.
          */
         inline void destroy_display(void) {
             al_destroy_display(display);
         };
 
         /*!
-         * Reconfigure the display.
+         * \brief Reconfigure the display.
          */
         inline void reconf_display(void) {
             destroy_display();

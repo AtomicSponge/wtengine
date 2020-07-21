@@ -47,6 +47,8 @@ namespace wte
 class wte_main : private wte_display, private wte_input {
     public:
         /*!
+         * \brief Engine destructor.
+         * 
          * Frees up instance, set initialized flag to false.
          * Also makes sure to unload the engine.
          */
@@ -70,7 +72,9 @@ class wte_main : private wte_display, private wte_input {
 
         /*!
          * \brief Add file path to provide to PhysFS.
+         * 
          * This should be called during engine initialization before the main object is created.
+         * 
          * \param flocation File location to add to PhysFS.
          */
         inline static void add_file_location(const std::string& flocation) {
@@ -81,8 +85,11 @@ class wte_main : private wte_display, private wte_input {
 
     protected:
         /*!
+         * \brief Engine constructor.
+         * 
          * Force single instance, set initialized flag to true.
          * Throws a runtime error if another instance is called.
+         * 
          * \param argc Command line arguments.
          * \param argv Command line arguments count.
          * \param title Window title.
@@ -191,6 +198,7 @@ class wte_main : private wte_display, private wte_input {
     private:
         /*!
          * \brief Load the engine's managers.
+         * 
          * Called before the main loop starts.
          */
         inline void wte_load(void) {
@@ -208,6 +216,7 @@ class wte_main : private wte_display, private wte_input {
 
         /*!
          * \brief Unload the engine's managers.
+         * 
          * Called after the main loop ends running.
          */
         inline void wte_unload(void) {
@@ -249,7 +258,9 @@ class wte_main : private wte_display, private wte_input {
 
 /*!
  * \brief Call to start a new game.
+ * 
  * Loads a game data file and user defined systems and starting entities.
+ * 
  * \param game_data Game data file to load.
  */
 inline void wte_main::process_new_game(const std::string& game_data) {
@@ -289,6 +300,7 @@ inline void wte_main::process_new_game(const std::string& game_data) {
 
 /*!
  * \brief Call to end the game.
+ * 
  * Clears out the entities and systems and runs user defined end process.
  */
 inline void wte_main::process_end_game(void) {
@@ -318,7 +330,7 @@ inline void wte_main::process_end_game(void) {
 }
 
 /*!
- * The main engine loop.
+ * \brief The main engine loop.
  */
 inline void wte_main::do_game(void) {
     wte_load();
@@ -414,8 +426,11 @@ inline void wte_main::do_game(void) {
 }
 
 /*!
+ * \brief System message processing.
+ * 
  * Switch over the system messages and process.
  * Remaining messages are passed to the custom handler.
+ * 
  * \param sys_msgs  Vector of messages to be processed.
  */
 inline void wte_main::handle_sys_msg(message_container& sys_msgs) {

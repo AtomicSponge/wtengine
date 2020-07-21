@@ -1,6 +1,6 @@
 ## Build Flags
 
-All build flags are defined in \wte_global_defines.hpp
+All build flags are defined in wte_global_defines.hpp
 
 -----
 

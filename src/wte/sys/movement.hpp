@@ -27,19 +27,21 @@ namespace sys
 class movement final : public system {
     public:
         /*!
-         * Movement System constructor.
+         * \brief Movement System constructor.
          */
         inline movement() : system("movement") {};
 
         /*!
-         * Movement System destructor.
+         * \brief Movement System destructor.
          */
         inline ~movement() {};
 
         /*!
          * \brief Movement system run.
+         * 
          * All entities with a velocity component will be moved.
          * Also checks entities are within their bounding boxes.
+         * 
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.

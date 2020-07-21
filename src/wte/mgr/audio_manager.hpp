@@ -58,6 +58,7 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
     public:
         /*!
          * \brief Audio Manager constructor.
+         * 
          * Clears the internal audio deck and maps the audio commands.
          */
         inline audio_manager() {
@@ -96,6 +97,7 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
 
         /*!
          * \brief Audio Manager destructor.
+         * 
          * Clears the internal audio deck and audio command map.
          */
         inline ~audio_manager() {
@@ -107,6 +109,7 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
 
         /*!
          * \brief Initialize audio manager.
+         * 
          * Sets up the various Allegro objects for the audio manager to use.
          */
         inline void initialize(void) {
@@ -141,6 +144,7 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
 
         /*!
          * \brief De-initialize the audio manager.
+         * 
          * Destroies the Allegro objects used by the manager.
          */
         inline void de_init(void) {
@@ -191,7 +195,8 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
         };
 
         /*!
-         * Update engine cfg with the current volume levels.
+         * \brief Update engine cfg with the current volume levels.
+         * 
          */
         inline void get_volume(void) const {
             engine_cfg::set("main_vol", std::to_string(al_get_mixer_gain(mixer_main)));
@@ -202,7 +207,8 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
         };
 
         /*!
-         * Take a vector of messages and pass them into the audio messages deck.
+         * \brief Take a vector of messages and pass them into the audio messages deck.
+         * 
          * \param messages Vector of messages to be passed.
          */
         inline void transfer_messages(const message_container& messages) {
@@ -216,7 +222,9 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
     private:
         /*!
          * \brief Get sample name.
+         * 
          * Pass the full file path and return just the name, no extension.
+         * 
          * \param full_path Full filename including path.
          * \return Filename stripped of folder path and extension.
          */
@@ -228,7 +236,7 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
         };
 
         /*!
-         * Set volume levels based on engine cfg settings.
+         * \brief Set volume levels based on engine cfg settings.
          */
         inline void set_volume(void) {
             float vol = engine_cfg::get<float>("main_vol");
@@ -298,6 +306,7 @@ template <> inline bool audio_manager::manager<audio_manager>::initialized = fal
 
 /*!
  * \brief Run the audio manager.
+ * 
  * Waits for messages to be loaded into the internal queue then processes.
  * On startup, creates multiple mixer objects to play sound through, then
  * allows playback control via messages.

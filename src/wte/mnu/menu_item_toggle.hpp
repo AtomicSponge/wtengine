@@ -29,7 +29,8 @@ namespace mnu
 class menu_item_toggle final : public menu_item {
     public:
         /*!
-         * Create a menu toggle item.  Uses default setting type.
+         * \brief Create a menu toggle item.  Uses default setting type.
+         * 
          * \param label Item display label.
          * \param con Command to run when toggled on.
          * \param aon Arguments to use when toggled on.
@@ -48,7 +49,8 @@ class menu_item_toggle final : public menu_item {
         };
 
         /*!
-         * Create a menu toggle item.
+         * \brief Create a menu toggle item.
+         * 
          * \param label Item display label.
          * \param con Command to run when toggled on.
          * \param aon Arguments to use when toggled on.
@@ -69,24 +71,27 @@ class menu_item_toggle final : public menu_item {
         };
 
         /*!
-         * Menu toggle item destructor.
+         * \brief Menu toggle item destructor.
          */
         inline ~menu_item_toggle() {};
 
         /*!
          * \brief On left process.
+         * 
          * Toggles on.
          */
         inline void on_left(void) override { toggled = true; };
 
         /*!
          * \brief On right process.
+         * 
          * Toggles off.
          */
         inline void on_right(void) override { toggled = false; };
 
         /*!
-         * Get display text
+         * \brief Get display text
+         * 
          * \return Vector of strings to render.
          */
         inline const std::vector<std::string> get_text(void) const override {
@@ -96,7 +101,9 @@ class menu_item_toggle final : public menu_item {
 
         /*!
          * \brief Get the active command.
+         * 
          * Return the command depending if the setting is toggled on or off.
+         * 
          * \return Active command string.
          */
         inline const std::string get_active_cmd(void) {
@@ -106,7 +113,9 @@ class menu_item_toggle final : public menu_item {
 
         /*!
          * \brief Get the active arguments.
+         * 
          * Return arguments depending if the setting is toggled on or off.
+         * 
          * \return Active arguments string.
          */
         inline const std::string get_active_args(void) {
@@ -116,19 +125,23 @@ class menu_item_toggle final : public menu_item {
 
         /*!
          * \brief Reset to default value.
+         * 
          * If the menu is canceled, return to proper setting.
          */
         inline void reset_to_default(void) override { toggled = default_val; };
 
         /*!
          * \brief Set default value.
+         * 
          * Determine and set the default value for the menu toggle item.
          */
         inline void set_default(void) override { toggled = default_val = defaulter(); };
 
         /*!
          * \brief Setting changed process.
+         * 
          * Checks if the current selection is the same as the default.
+         * 
          * \return True if the setting changed, false if it did not.
          */
         inline const bool setting_changed(void) const override {

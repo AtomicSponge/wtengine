@@ -37,7 +37,9 @@ class message {
 
         /*!
          * \brief Message Constructor
+         * 
          * Create a non-timed message.
+         * 
          * \param s System.
          * \param c Command.
          * \param a Arguments delimited by ;
@@ -47,7 +49,9 @@ class message {
 
         /*!
          * \brief Message Constructor
+         * 
          * Create a timed message.
+         * 
          * \param e Timer value.
          * \param s System.
          * \param c Command.
@@ -58,7 +62,9 @@ class message {
 
         /*!
          * \brief Message Constructor
+         * 
          * Create a non-timed message with a to & from.
+         * 
          * \param s System.
          * \param t To.
          * \param f From.
@@ -70,7 +76,9 @@ class message {
 
         /*!
          * \brief Message Constructor
+         * 
          * Create a timed message with a to & from.
+         * 
          * \param e Timer value.
          * \param s System.
          * \param t To.
@@ -82,7 +90,8 @@ class message {
             timer(e), sys(s), to(t), from(f), cmd(c) { split_args(a); };
 
         /*!
-         * Overload < operator to sort by timer value.
+         * \brief Overload < operator to sort by timer value.
+         * 
          * \param a Object to compare to.
          * \return True if less than, false if greater than.
          */
@@ -91,7 +100,8 @@ class message {
         };
 
         /*!
-         * Split arguments into a vector of strings.
+         * \brief Split arguments into a vector of strings.
+         * 
          * \param a String of arguments, delimited by ;
          */
         inline void split_args(const std::string& a) {
@@ -107,42 +117,57 @@ class message {
         };
 
         /*!
+         * \brief Get timer value.
+         * 
          * \return The value of timer.
          */
         inline const int64_t get_timer(void) const { return timer; };
 
         /*!
+         * \brief Get system value.
+         * 
          * \return The value of sys.
          */
         inline const std::string get_sys(void) const { return sys; };
 
         /*!
+         * \brief Get to value.
+         * 
          * \return The value of to.
          */
         inline const std::string get_to(void) const { return to; };
 
         /*!
+         * \brief Get from value.
+         * 
          * \return The value of from.
          */
         inline const std::string get_from(void) const { return from; };
 
         /*!
+         * \brief Get command value.
+         * 
          * \return The value of cmd.
          */
         inline const std::string get_cmd(void) const { return cmd; };
 
         /*!
+         * \brief Get number of arguments.
+         * 
          * \return The number of arguments.
          */
         inline const std::size_t num_args(void) const { return arglist.size(); };
 
         /*!
+         * \brief Get the arguments split into a vector.
+         * 
          * \return The vector of the arguments.
          */
         inline const msg_arg_list get_arglist(void) const { return arglist; };
 
         /*!
-         * Returns a single argument by pos from the argument list.
+         * \brief Returns a single argument by pos from the argument list.
+         * 
          * \param pos The position in the argument vector.
          * \return The argument string by position.
          */
@@ -152,7 +177,8 @@ class message {
         };
 
         /*!
-         * Get a single argument by pos from the argument list, casted to a type.
+         * \brief Get a single argument by pos from the argument list, casted to a type.
+         * 
          * \tparam T Type to cast to.
          * \param pos The position in the argument vector.
          * \return The argument by position casted to type.
@@ -171,7 +197,8 @@ class message {
         };
 
         /*!
-         * Check if the event is synced to the timer.
+         * \brief Check if the event is synced to the timer.
+         * 
          * \return Returns false if the timer value is -1, else true.
          */
         inline const bool is_timed_event(void) const {

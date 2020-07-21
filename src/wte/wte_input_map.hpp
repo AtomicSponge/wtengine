@@ -25,13 +25,13 @@ namespace wte
 class wte_input_map {
     public:
         /*!
-         * Input Map destructor.
+         * \brief Input Map destructor.
          */
         inline virtual ~wte_input_map() {};
 
     protected:
         /*!
-         * Input Map constructor.
+         * \brief Input Map constructor.
          */
         inline wte_input_map() {
             for(std::size_t i = 0; i < WTE_MAX_INPUT_BUTTON_FLAGS; i++) {
@@ -43,7 +43,8 @@ class wte_input_map {
         };
 
         /*!
-         * Set the keyboard and gamepad button binding arrays from the engine cfg settings.
+         * \brief Set the keyboard and gamepad button binding arrays from the engine cfg settings.
+         * 
          * \param joy_installed Is a gamepad installed.
          */
         inline void set_binding(const bool& joy_installed) {
@@ -104,7 +105,9 @@ class wte_input_map {
     private:
         /*!
          * \brief Verify all necessary engine cfg settings are registered.
+         * 
          * If a binding setting isn't registered, create it and set a default value.
+         * 
          * \param joy_installed Is a gamepad installed.
          */
         inline void check_reg(const bool& joy_installed) {

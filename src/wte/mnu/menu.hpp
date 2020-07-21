@@ -33,7 +33,8 @@ typedef std::vector<menu_item_sptr>::const_iterator menu_item_citerator;
 class menu {
     public:
         /*!
-         * Menu constructor.
+         * \brief Menu constructor.
+         * 
          * \param i Menu ID.
          * \param t Menu display title.
          */
@@ -43,14 +44,15 @@ class menu {
         };
 
         /*!
-         * Menu destructor.
+         * \brief Menu destructor.
          */
         inline ~menu() {
             items.clear();
         };
 
         /*!
-         * Get menu ID.
+         * \brief Get menu ID.
+         * 
          * \return The menu ID.
          */
         inline const std::string get_id(void) const {
@@ -58,7 +60,8 @@ class menu {
         };
 
         /*!
-         * Get menu display title.
+         * \brief Get menu display title.
+         * 
          * \return The menu display title.
          */
         inline const std::string get_title(void) const {
@@ -66,7 +69,8 @@ class menu {
         };
 
         /*!
-         * Get number of menu items.
+         * \brief Get number of menu items.
+         * 
          * \return Count of items.
          */
         inline std::size_t num_items(void) const {
@@ -74,7 +78,8 @@ class menu {
         };
 
         /*!
-         * Get menu items start iterator.
+         * \brief Get menu items start iterator.
+         * 
          * \return Constant iterator to beginnig of menu items.
          */
         inline menu_item_citerator items_cbegin(void) const {
@@ -82,7 +87,8 @@ class menu {
         };
 
         /*!
-         * Get menu items end iterator.
+         * \brief Get menu items end iterator.
+         * 
          * \return Constant iterator to end of menu items.
          */
         inline menu_item_citerator items_cend(void) const {
@@ -90,7 +96,8 @@ class menu {
         };
 
         /*!
-         * Set the menu display title.
+         * \brief Set the menu display title.
+         * 
          * \param t New display title to set.
          */
         inline void set_title(const std::string& t) {
@@ -98,7 +105,8 @@ class menu {
         };
 
         /*!
-         * Add a menu item to an existing menu
+         * \brief Add a menu item to an existing menu.
+         * 
          * \param item Shared pointer for the new item.
          */
         inline void add_item(const menu_item_sptr& item) {

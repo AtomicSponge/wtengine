@@ -30,21 +30,22 @@ namespace cmp
 class sample_loop final : public component {
     public:
         /*!
-         * Sample loop constructor.
+         * \brief Sample loop constructor.
          */
         inline sample_loop() {
             instance_map.clear();
         };
 
         /*!
-         * Sample loop destructor.
+         * \brief Sample loop destructor.
          */
         inline ~sample_loop() {
             instance_map.clear();
         };
 
         /*!
-         * Add handle.
+         * \brief Add handle.
+         * 
          * \param sn Sample name reference.
          * \param si Sample instance reference.
          * \return True if added, false if not.
@@ -60,7 +61,8 @@ class sample_loop final : public component {
         };
 
         /*!
-         * Start sample loop.
+         * \brief Start sample loop.
+         * 
          * \param messages Reference to message manager.
          * \param si Sample instance reference.
          */
@@ -75,7 +77,8 @@ class sample_loop final : public component {
         };
 
         /*!
-         * Stop sample loop.
+         * \brief Stop sample loop.
+         * 
          * \param messages Reference to message manager.
          * \param si Sample instance reference.
          */

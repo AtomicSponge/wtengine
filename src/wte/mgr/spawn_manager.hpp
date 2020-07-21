@@ -33,6 +33,7 @@ class spawn_manager final : private manager<spawn_manager> {
     public:
         /*!
          * \brief Spawn Manager constructor.
+         * 
          * Clears the spawner map.
          */
         inline spawn_manager() {
@@ -41,6 +42,7 @@ class spawn_manager final : private manager<spawn_manager> {
 
         /*!
          * \brief Spawn Manager destructor.
+         * 
          * Clears the spawner map.
          */
         inline ~spawn_manager() {
@@ -49,7 +51,9 @@ class spawn_manager final : private manager<spawn_manager> {
 
         /*!
          * \brief Process spawns.
+         * 
          * Takes spawner messages and creates or deletes entities.
+         * 
          * \param messages Spawner messages from main engine loop.
          * \param world Reference to the entity manager.
          */
@@ -77,7 +81,9 @@ class spawn_manager final : private manager<spawn_manager> {
 
         /*!
          * \brief Add a spawn to the spawner map.
+         * 
          * Stores a function in the map for entity creation on demand.
+         * 
          * \param name Reference name for the spwaner item.
          * \param num_args Number of arguments the spawn accepts.
          * \param func Function for creating the entity.

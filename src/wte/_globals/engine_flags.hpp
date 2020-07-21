@@ -38,7 +38,8 @@ class engine_flags final {
         void operator=(engine_flags const&) = delete;
 
         /*!
-         * Set a flag to true.
+         * \brief Set a flag to true.
+         * 
          * \param i Index of the flag.
          */
         inline static void set(const std::size_t& i) {
@@ -47,7 +48,8 @@ class engine_flags final {
         };
 
         /*!
-         * Set a flag to false.
+         * \brief Set a flag to false.
+         * 
          * \param i Index of the flag.
          */
         inline static void unset(const std::size_t& i) {
@@ -56,7 +58,8 @@ class engine_flags final {
         };
 
         /*!
-         * Check the state of a flag.
+         * \brief Check the state of a flag.
+         * 
          * \param i Index of the flag.
          * \return True if the flag is set, false if not.
          */
@@ -70,7 +73,7 @@ class engine_flags final {
         inline ~engine_flags() { unset_all(); };
 
         /*!
-         * Set all engine flags to false.
+         * \brief Set all engine flags to false.
          */
         inline static void unset_all(void) {
             for(std::size_t i = 0; i < MAX_SYSTEM_FLAGS; i++)

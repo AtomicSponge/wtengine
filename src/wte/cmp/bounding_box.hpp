@@ -28,6 +28,7 @@ class bounding_box final : public component {
     public:
         /*!
          * \brief Bounding box constructor.
+         * 
          * \param lx Left X
          * \param ly Left Y
          * \param rx Right X
@@ -40,7 +41,8 @@ class bounding_box final : public component {
                min_x(lx), min_y(ly), max_x(rx), max_y(ry) {};
 
         /*!
-         * Set left X of the bounding box.
+         * \brief Set left X of the bounding box.
+         * 
          * \param mx Left X
          */
         inline void set_min_x(const float& mx) {
@@ -48,7 +50,8 @@ class bounding_box final : public component {
         };
 
         /*!
-         * Set left Y of the bounding box.
+         * \brief Set left Y of the bounding box.
+         * 
          * \param my Left Y
          */
         inline void set_min_y(const float& my) {
@@ -56,7 +59,8 @@ class bounding_box final : public component {
         };
 
         /*!
-         * Set right X of the bounding box.
+         * \brief Set right X of the bounding box.
+         * 
          * \param mx Right X
          */
         inline void set_max_x(const float& mx) {
@@ -64,7 +68,8 @@ class bounding_box final : public component {
         };
 
         /*!
-         * Set right Y of the bounding box.
+         * \brief Set right Y of the bounding box.
+         * 
          * \param my right Y
          */
         inline void set_max_y(const float& my) {
@@ -72,7 +77,8 @@ class bounding_box final : public component {
         };
 
         /*!
-         * Get the left X of the bounding box.
+         * \brief Get the left X of the bounding box.
+         * 
          * \return Left X
          */
         inline const float get_min_x(void) const {
@@ -80,7 +86,8 @@ class bounding_box final : public component {
         };
 
         /*!
-         * Get the left Y of the bounding box.
+         * \brief Get the left Y of the bounding box.
+         * 
          * \return Left Y
          */
         inline const float get_min_y(void) const {
@@ -88,7 +95,8 @@ class bounding_box final : public component {
         };
 
         /*!
-         * Get the right X of the bounding box.
+         * \brief Get the right X of the bounding box.
+         * 
          * \return Right X
          */
         inline const float get_max_x(void) const {
@@ -96,7 +104,8 @@ class bounding_box final : public component {
         };
 
         /*!
-         * Get the right Y of the bounding box.
+         * \brief Get the right Y of the bounding box.
+         * 
          * \return Right Y
          */
         inline const float get_max_y(void) const {

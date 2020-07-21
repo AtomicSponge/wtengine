@@ -31,7 +31,8 @@ namespace cmp
 class overlay final : public animator, public bitmap_map {
     public:
         /*!
-         * Overlay constructor.
+         * \brief Overlay constructor.
+         * 
          * \param w Overlay width in pixels.
          * \param h Overlay height in pixels.
          * \param x Horizontal location of the overlay in pixels.
@@ -50,7 +51,7 @@ class overlay final : public animator, public bitmap_map {
         };
 
         /*!
-         * Overlay destructor.
+         * \brief Overlay destructor.
          */
         inline ~overlay() {
             al_destroy_bitmap(internal_bitmap);
@@ -59,6 +60,7 @@ class overlay final : public animator, public bitmap_map {
 
         /*!
          * \brief Reload the overlay bitmap.
+         * 
          * Called when the screen is updated.
          */
         inline void reload_overlay_bitmap(void) {
@@ -74,7 +76,8 @@ class overlay final : public animator, public bitmap_map {
         };
 
         /*!
-         * Draw text on the overlay.
+         * \brief Draw text on the overlay.
+         * 
          * \param txt Text to be displayed.
          * \param color Allegro color object.
          * \param x Horizontal location of the text.
@@ -87,7 +90,8 @@ class overlay final : public animator, public bitmap_map {
         };
 
         /*!
-         * Get X position.
+         * \brief Get X position.
+         * 
          * \return X position.
          */
         inline const float get_pos_x(void) const {
@@ -95,7 +99,8 @@ class overlay final : public animator, public bitmap_map {
         };
 
         /*!
-         * Get Y position.
+         * \brief Get Y position.
+         * 
          * \return Y position.
          */
         inline const float get_pos_y(void) const {
@@ -103,7 +108,8 @@ class overlay final : public animator, public bitmap_map {
         };
 
         /*!
-         * Set the font used by the overlay.
+         * \brief Set the font used by the overlay.
+         * 
          * \param font Allegro font object to be used.
          */
         inline void set_font(ALLEGRO_FONT* font) {

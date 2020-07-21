@@ -35,7 +35,8 @@ namespace cmp
 class sprite final : public animator {
     public:
         /*!
-         * Sprite constructor.
+         * \brief Sprite constructor.
+         * 
          * \param sw Sprite width.
          * \param sh Sprite height.
          * \param dox Horizontal draw offset in relation to entity location.
@@ -75,7 +76,7 @@ class sprite final : public animator {
         };
 
         /*!
-         * Sprite destructor.
+         * \brief Sprite destructor.
          */
         inline ~sprite() {
             al_destroy_bitmap(internal_bitmap);
@@ -83,8 +84,10 @@ class sprite final : public animator {
 
         /*!
          * \brief Load a sprite sheet.
+         * 
          * Will use magic pink (rgb 255,0,255) for transparency if WTE_NO_MAGIC_PINK
          * is not defined.
+         * 
          * \param fname Filename of sprite sheet.
          */
         inline void load_sprite(const std::string& fname) {
@@ -107,7 +110,8 @@ class sprite final : public animator {
         };
 
         /*!
-         * Add animation cycle.
+         * \brief Add animation cycle.
+         * 
          * \param name Name of cycle.
          * \param start Start cell of cycle.
          * \param stop End cell of cycle.
@@ -121,7 +125,8 @@ class sprite final : public animator {
         };
 
         /*!
-         * Set the active cycle.
+         * \brief Set the active cycle.
+         * 
          * \param name Name of cycle to set.
          * \return True if set, false if not.
          */
@@ -135,7 +140,8 @@ class sprite final : public animator {
         };
 
         /*!
-         * Get the sprite width.
+         * \brief Get the sprite width.
+         * 
          * \return Sprite width.
          */
         inline const float get_sprite_width(void) const {
@@ -143,7 +149,8 @@ class sprite final : public animator {
         };
 
         /*!
-         * Get the sprite height.
+         * \brief Get the sprite height.
+         * 
          * \return Sprite height.
          */
         inline const float get_sprite_height(void) const {
@@ -151,7 +158,8 @@ class sprite final : public animator {
         };
 
         /*!
-         * Get the X draw offset.
+         * \brief Get the X draw offset.
+         * 
          * \return draw_offset_x
          */
         inline const float get_draw_offset_x(void) const {
@@ -159,7 +167,8 @@ class sprite final : public animator {
         };
 
         /*!
-         * Get the Y draw offset.
+         * \brief Get the Y draw offset.
+         * 
          * \return draw_offset_y
          */
         inline const float get_draw_offset_y(void) const {
@@ -167,7 +176,8 @@ class sprite final : public animator {
         };
 
         /*!
-         * Get the X location for sprite drawing.
+         * \brief Get the X location for sprite drawing.
+         * 
          * \return sprite_x
          */
         inline const float get_sprite_x(void) const {
@@ -175,7 +185,8 @@ class sprite final : public animator {
         };
 
         /*!
-         * Get the Y location for sprite drawing.
+         * \brief Get the Y location for sprite drawing.
+         * 
          * \return sprite_y
          */
         inline const float get_sprite_y(void) const {
@@ -183,7 +194,8 @@ class sprite final : public animator {
         };
 
         /*!
-         * Set the X scale factor.
+         * \brief Set the X scale factor.
+         * 
          * \param sx New scale factor X value.
          */
         inline void set_scale_factor_x(const float& sx) {
@@ -191,7 +203,8 @@ class sprite final : public animator {
         };
 
         /*!
-         * Set the Y scale factor.
+         * \brief Set the Y scale factor.
+         * 
          * \param sy New scale factor Y value.
          */
         inline void set_scale_factor_y(const float& sy) {
@@ -199,7 +212,8 @@ class sprite final : public animator {
         };
 
         /*!
-         * Get the X scale factor.
+         * \brief Get the X scale factor.
+         * 
          * \return scale_factor_x
          */
         inline const float get_scale_factor_x(void) const {
@@ -207,7 +221,8 @@ class sprite final : public animator {
         };
 
         /*!
-         * Get the Y scale factor.
+         * \brief Get the Y scale factor.
+         * 
          * \return scale_factor_y
          */
         inline const float get_scale_factor_y(void) const {

@@ -22,7 +22,7 @@
 /*!
  * \def WTE_TICKS_PER_SECOND
  * \brief Set the timer rate.
- * Number of tics per second as a float.
+ * Number of ticks per second as a float.
  */
 #ifndef WTE_TICKS_PER_SECOND
 #define WTE_TICKS_PER_SECOND (60.0f)

@@ -2,9 +2,11 @@
 
 All in-engine communication is done with the messaging queue.  Messages can be used to change game settings, control the game menus, or have entities interact with each other.  Messages can also be set with a timer value to be processed later.  The message manager stores messages and keeps track of when they should be processed.
 
-When starting a new game, a file containing messages in binary format can be passed for processing.  The engine also has a command (see below) that can be used to load additional messages.  These messages have their timer values added to the current engine time when loaded.
+When starting a new game, a file containing messages in binary format can be passed for processing.  The engine also has a command (see list below) that can be used to load additional messages.  These messages have their timer values added to the current engine time when loaded.
 
 A tool named *csv2sdf* is included to convert files in CSV format to be readable by the engine.
+
+-----
 
 #### Message format:
 
@@ -13,6 +15,8 @@ A tool named *csv2sdf* is included to convert files in CSV format to be readable
 | Timer value to run at (-1 for instant) | The system to process the message | To entity | From entity | Command to exectute | Arguments for command |
 
 Arguments are split with a semicolon ;
+
+-----
 
 #### Examples:
 Send an instant message to pause music:
@@ -27,6 +31,8 @@ Communication between entities:
 ```
 messages.add_message(message("entities", "first_entity", "second_entity", "command", "arguments"));
 ```
+
+-----
 
 #### Built-In Messages
 

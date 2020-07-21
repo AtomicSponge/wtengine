@@ -17,7 +17,7 @@ Arguments are split with a semicolon ;
 | Start new game | system | new_game | (1 - optional) Filename of game data |
 | End current game | system | end_game | none |
 | Open menu | system | open_menu | (1) Name of menu to open |
-| Close menu | system | close_menu | (1 - optional) "all" to close all opened menus |
+| Close menu | system | close_menu | Close current menu (1 - optional) "all" to close all opened menus |
 | Enable a system | system | enable_system | (1) Name of system |
 | Disable a system | system | disable_system | (1) Name of system |
 | Set engine config variable | system | set_engcfg | (1) "var=val" Variable to set and the value |

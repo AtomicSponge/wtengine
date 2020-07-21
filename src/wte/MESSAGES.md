@@ -22,18 +22,18 @@
 | Unpause music | audio | unpause_music | none |
 | Load a sample | audio | load_sample | (1) Filename of sample |
 | Unload a sample | audio | unload_sample | (1) Sample name or "all" to unload all |
-| Play a sample | audio | play_sample | (1) Sample name (2) Mode (3 - optional) Gain (4 - optional) Pan (5 - optional) Speed |
+| Play a sample | audio | play_sample | (1) Sample name (2) Mode "once" or "reference name" for looping (3 - optional) Gain (4 - optional) Pan (5 - optional) Speed |
 | Stop playing a sample | audio | stop_sample | none |
-| Clear sample instances | audio | clear_instances | ... |
+| Clear sample instances | audio | clear_instances | none |
 | Play voice | audio | play_voice | (1) Filename to play |
 | Stop voice | audio | stop_voice | none |
 | Pause voice | audio | pause_voice | none |
-| Unpause voice | audio | unpause_voice | ... |
-| Control ambiance loop | audio | ambiance_loop | ... |
+| Unpause voice | audio | unpause_voice | none |
+| Control ambiance loop | audio | ambiance_loop | (1) "enable/disable" |
 | Play ambiance | audio | play_ambiance | (1) Filename to play |
 | Stop ambiance | audio | stop_ambiance | none |
 | Pause ambiance | audio | pause_ambiance | none |
 | Unpause ambiance | audio | unpause_ambiance | none |
-| Set volume levels | audio | set_volume | ... |
-| Create a new entity | spawner | new | ... |
-| Delete an entity | spawner | delete | ... |
+| Set volume levels (from engine cfg variables) | audio | set_volume | none |
+| Create a new entity | spawner | new | (1) Name of entity spawn template (2 or more) Additional arguments for spawning entity |
+| Delete an entity | spawner | delete | Name of entity to delete |

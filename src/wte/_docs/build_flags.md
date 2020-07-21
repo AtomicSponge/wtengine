@@ -5,7 +5,7 @@ All build flags are defined in \wte_global_defines.hpp
 -----
 
 #### WTE_TICKS_PER_SECOND
-By default the engine will tick at 60 iterations a second.  You can change this using this build flag.
+By default the engine will tick at 60 iterations a second.  You can change this using this build flag.  The value is a float.
 
 -----
 
@@ -20,7 +20,7 @@ Set level of debugging.
 -----
 
 #### WTE_INPUT_MODE
-Set the input mode.
+Set the input mode.  Configures how the engine reads sticks on a gamepad.
 - 0 - Digital
   - D-pad and sticks record 8-way directions.
   - D-pad and left stick are the same.

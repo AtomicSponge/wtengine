@@ -20,17 +20,15 @@
 #define FALSE (0)
 
 /*!
- * \def WTE_TICKS_PER_SECOND
- * \brief Set the timer rate.
+ * Set the timer rate.
  * Number of ticks per second as a float.
  */
 #ifndef WTE_TICKS_PER_SECOND
 #define WTE_TICKS_PER_SECOND (60.0f)
 #endif
 
-/*!
- * \def WTE_DEBUG_MODE
- * \brief Set level of debugging.
+/*
+ * Set level of debugging.
  * 
  * 0 - No debugging
  * 1 - Display timer counter
@@ -43,9 +41,8 @@
 #define WTE_DEBUG_MODE (0)
 #endif
 
-/*!
- * \def WTE_INPUT_MODE
- * \brief Set the input mode.
+/*
+ * Set the input mode.
  * Configures how the engine reads sticks on a gamepad.
  * 
  * 0 - Digital
@@ -55,14 +52,26 @@
 #define WTE_INPUT_MODE (0)
 #endif
 
-/*!
- * \def WTE_PRUNE_ENABLED
+/*
  * Enable message pruning if WTE_NO_PRUNE is not defined.
  */
 #ifdef WTE_NO_PRUNE
 #define WTE_PRUNE_ENABLED FALSE
 #else
 #define WTE_PRUNE_ENABLED TRUE
+#endif
+
+/*
+ * Enable magic pink for transparency if WTE_NO_MAGIC_PINK is not defined.
+ */
+#ifdef WTE_NO_MAGIC_PINK
+#define WTE_USE_MAGIC_PINK FALSE
+#else
+#define WTE_USE_MAGIC_PINK TRUE
+#endif
+
+#if WTE_USE_MAGIC_PINK
+#define WTE_MAGIC_PINK          (al_map_rgb(255, 0, 255))
 #endif
 
 //  Define some colors for use in the engine.
@@ -77,19 +86,5 @@
 #define WTE_COLOR_DARKPURPLE    (al_map_rgb(48, 25, 52))
 #define WTE_COLOR_WHITE         (al_map_rgb(255,255,255))
 #define WTE_COLOR_TRANSPARENT   (al_map_rgba(0, 0, 0, 0))
-
-/*!
- * \def WTE_USE_MAGIC_PINK
- * Enable magic pink for transparency if WTE_NO_MAGIC_PINK is not defined.
- */
-#ifdef WTE_NO_MAGIC_PINK
-#define WTE_USE_MAGIC_PINK FALSE
-#else
-#define WTE_USE_MAGIC_PINK TRUE
-#endif
-
-#if WTE_USE_MAGIC_PINK
-#define WTE_MAGIC_PINK          (al_map_rgb(255, 0, 255))
-#endif
 
 #endif

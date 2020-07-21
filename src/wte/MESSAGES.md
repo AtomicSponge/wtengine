@@ -11,10 +11,10 @@ Arguments are split with a semicolon ;
 | Close menu | system | close_menu | (1 - optional) "all" to close all opened menus |
 | Enable a system | system | enable_system | (1) Name of system |
 | Disable a system | system | disable_system | (1) Name of system |
-| Set Engine Config Variable | system | set_engcfg | (1) "var=val" Variable to set and the value |
-| Set Game Config Variable | system | set_gamecfg | (1) "var=val" Variable to set and the value |
+| Set engine config variable | system | set_engcfg | (1) "var=val" Variable to set and the value |
+| Set game config variable | system | set_gamecfg | (1) "var=val" Variable to set and the value |
 | Reconfigure the display | system | reconf_display | none |
-| Enable/disable FPS Counter | system | fps_counter | (1) "on/off" |
+| Enable/disable FPS counter | system | fps_counter | (1) "on/off" |
 | Load a script from file | system | load_script | (1) Filename of script |
 | Control music looping | audio | music_loop | (1) "enable/disable" |
 | Play music | audio | play_music | (1) Filename to play |

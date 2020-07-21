@@ -1,5 +1,5 @@
 ## List of built-in messages
-Arguments are split with ";"
+Arguments are split with a semicolon ;
 
 | Description | System | Commmand | Arguments |
 | ----------- | ------ | -------- | --------- |

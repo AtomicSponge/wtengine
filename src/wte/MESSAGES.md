@@ -40,5 +40,7 @@ Arguments are split with ";"
 | Delete an entity | spawner | delete | Name of entity to delete |
 
 ** NOTE:  When playing a sample to set the gain, pan, or speed you must include all arguments in order, even if you are not passing data.
+
 Example:  some_sample;loop_ref;;0.4;
+
 This loads a looping sample with a pan value, but no gain or speed.

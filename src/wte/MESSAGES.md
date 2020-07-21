@@ -1,4 +1,5 @@
 ## List of built-in messages
+Arguments are split with ";"
 
 | Description | System | Commmand | Arguments |
 | ----------- | ------ | -------- | --------- |
@@ -22,7 +23,7 @@
 | Unpause music | audio | unpause_music | none |
 | Load a sample | audio | load_sample | (1) Filename of sample |
 | Unload a sample | audio | unload_sample | (1) Sample name or "all" to unload all |
-| Play a sample | audio | play_sample | (1) Sample name (2) Mode "once" or "reference name" for looping (3 - optional) Gain (4 - optional) Pan (5 - optional) Speed |
+| Play a sample | audio | play_sample | (1) Sample name (2) Mode "once" or "reference name" for looping (3 - optional) Gain (4 - optional) Pan (5 - optional) Speed ** |
 | Stop playing a sample | audio | stop_sample | none |
 | Clear sample instances | audio | clear_instances | none |
 | Play voice | audio | play_voice | (1) Filename to play |
@@ -37,3 +38,7 @@
 | Set volume levels (from engine cfg variables) | audio | set_volume | none |
 | Create a new entity | spawner | new | (1) Name of entity spawn template (2 or more) Additional arguments for spawning entity |
 | Delete an entity | spawner | delete | Name of entity to delete |
+
+** NOTE:  When playing a sample to set the gain, pan, or speed you must include all arguments in order, even if you are not passing data.
+Example:  some_sample;loop_ref;;0.4;
+This loads a looping sample with a pan value, but no gain or speed.

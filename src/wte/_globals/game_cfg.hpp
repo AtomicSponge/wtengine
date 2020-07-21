@@ -26,6 +26,7 @@ namespace wte
 /*!
  * \class game_cfg
  * \brief Statics to store game config variables.
+ * 
  * Inherits map functionality from the variable_map class.
  * This class provides load/save functions.
  * Also provides math functions to manipulate the values.

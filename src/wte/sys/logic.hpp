@@ -21,6 +21,7 @@ namespace sys
 /*!
  * \class logic
  * \brief Processes entities that have ai components.
+ * 
  * Also sends messages to entities with dispatch components.
  */
 class logic final : public system {

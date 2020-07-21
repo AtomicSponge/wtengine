@@ -25,6 +25,7 @@ namespace cmp
 /*!
  * \class dispatcher
  * \brief Tag components to be processed by the Logic system.
+ * 
  * Define message processing in handle_msg lambda.
  */
 class dispatcher final : public component {

@@ -40,6 +40,7 @@ namespace wte
 /*!
  * \class wte_main
  * \brief The main engine object.
+ * 
  * Sets up various system objects used by the engine.
  * Contains the main game loop and members for managing the game and engine.
  */

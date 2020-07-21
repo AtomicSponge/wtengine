@@ -25,6 +25,7 @@ namespace wte
 /*!
  * \class wte_display
  * \brief Handles control of the display.
+ * 
  * Inherited by the main engine class.
  */
 class wte_display {

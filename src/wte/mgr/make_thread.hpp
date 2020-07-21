@@ -23,10 +23,11 @@ namespace mgr
 /*!
  * \class make_thread
  * \brief Extend this to create a threaded object.
- * Has a virtual run member that is defined
- * in the inheriting class.  Calling start runs the "run" member in a detached thread.
- * Inside the run member, is_running can be called to see if the thread is considered
- * active.  Call the stop member to end the thread.
+ * 
+ * Has a virtual run member that is defined in the inheriting class.
+ * Calling start runs the "run" member in a detached thread.
+ * Inside the run member, is_running can be called to see if the thread is
+ * considered active.  Call the stop member to end the thread.
  */
 class make_thread {
     public:

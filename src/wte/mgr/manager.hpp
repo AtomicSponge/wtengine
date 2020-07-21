@@ -22,6 +22,7 @@ namespace mgr
 /*!
  * \class manager
  * \brief Extend this to create a manager class.
+ * 
  * These are restricted to a single instance.
  */
 template <class derived> class manager {

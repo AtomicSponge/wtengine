@@ -28,6 +28,7 @@ namespace cmp
 /*!
  * \class direction
  * \brief Store the direction of travel for an entity in radians.
+ * 
  * Can also convert to degrees.
  */
 class direction final : public component {

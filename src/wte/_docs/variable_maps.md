@@ -14,6 +14,11 @@ engine_cfg::reg("display_mode=windowed")
 engine_cfg::reg("display_mode", "windowed")
 ```
 
+*Setting a registered variable:*
+```
+engine_cfg::set("draw_fps=1")
+```
+
 *Retrieving data as a string:*
 ```
 game_cfg::get("score")

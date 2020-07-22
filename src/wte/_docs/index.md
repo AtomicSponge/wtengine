@@ -1,9 +1,10 @@
 \mainpage
 
-### WTEngine
+__WTEngine__ is a cross platform C++ game engine utilizing an ESC design and a focus on gamepad input and 2D graphics.
 
-### More Information
-See the "Related Pages" section for more information on the individual parts.
+See the *Related Pages* section for more information on implementing it for your own custom game.
+
+Full API documentation is available from the *Classes* dropdown.
 
 ### Relative Links
 - [WTEngine at GitHub](https://github.com/wtfsystems/wtengine)

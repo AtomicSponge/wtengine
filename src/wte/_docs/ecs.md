@@ -4,7 +4,7 @@ WTEngine stores game objects in the __entity_manager__ class.
 
 #### Entities:
 
-Entities are any and all in-game objects, such as the player, background, enemies, even the text showing the score.  When creating a new entity, then engine will assign a unique ID number and unique name.  You can then change the name of the entity if desired as long as it remains unique.
+Entities are any and all in-game objects, such as the player, background, enemies, even the text showing the score.  When creating a new entity the engine will assign a unique ID number and unique name.  If the engine is unable to create an entity the error code __WTE_ENTITY_ERROR__ is returned.  You can then change the name of the entity if desired.  When setting the name the engine will verify it does not already exist.
 
 *Creating an entity:*
 ```
@@ -19,6 +19,11 @@ world.set_name(e_id, "some_unique_name");
 *Get entity name by ID:*
 ```
 std::string player_name = world.get_name(plr_id);
+```
+
+*Get entity ID by name:*
+```
+entity_id e_id = world.get_id("some_entity");
 ```
 
 -----
@@ -46,6 +51,17 @@ wte_get_component(e_id, cmp::location)->get_x()
 
 #### Systems:
 
-Systems are functions that run each iteration when the game is running.  These are designed to obtain all components of a certain type and process them.  For example, the movement system will look for all entities with a velocity component, verify they have a location component, and update their posistion.  You can also create your own systems by extending the base __system__ object.  You then load all systems in order they will be processed.
+Systems are functions that are processed each iteration when the game is running.  These are designed to obtain all components of a certain type and process them.  For example, the movement system will look for all entities with a velocity component, verify they have a location component, and update their posistion based on the velocity value.  You can also create your own systems by extending the base __system__ object.  You then load all systems into the __system_manager__ in order they will be processed.
 
-The entity manager has members for retreving all components of a type, see it's documentation for more information.
+*Example:*
+```
+void wte_demo::load_systems(void) {
+    wte_add_system(sys::input);
+    wte_add_system(sys::movement);
+    wte_add_system(sys::colision);
+    wte_add_system(sys::logic);
+    wte_add_system(sys::animate);
+}
+```
+
+The __entity_manager__ has members for reading or setting all components of a type, see it's documentation for more information.

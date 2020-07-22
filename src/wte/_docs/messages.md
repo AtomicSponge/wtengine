@@ -1,4 +1,4 @@
-## Messaging and List of Built-In Messages
+## Messaging and List of Built-In Commands
 
 All in-engine communication is done with the messaging queue.  Messages can be used to change game settings, control the game menus, or have entities interact with each other.  Messages can also be set with a timer value to be processed later.  The __message_manager__ stores messages and keeps track of when they should be processed.
 

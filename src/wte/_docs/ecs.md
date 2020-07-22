@@ -64,4 +64,4 @@ void wte_demo::load_systems(void) {
 }
 ```
 
-The __entity_manager__ has members for reading or setting all components of a type, see it's documentation for more information.
+The __entity_manager__ has members for reading or setting all components of a type, see its documentation for more information.

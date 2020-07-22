@@ -1,6 +1,6 @@
 ## Messaging and List of Built-In Messages
 
-All in-engine communication is done with the messaging queue.  Messages can be used to change game settings, control the game menus, or have entities interact with each other.  Messages can also be set with a timer value to be processed later.  The message manager stores messages and keeps track of when they should be processed.
+All in-engine communication is done with the messaging queue.  Messages can be used to change game settings, control the game menus, or have entities interact with each other.  Messages can also be set with a timer value to be processed later.  The __message_manager__ stores messages and keeps track of when they should be processed.
 
 When starting a new game, a file containing messages in binary format can be passed for processing.  The engine also has a command (see list below) that can be used to load additional messages.  These messages have their timer values added to the current engine time when loaded.
 
@@ -19,15 +19,15 @@ Arguments are split with a semicolon ;
 -----
 
 #### Examples:
-Send an instant message to pause music:
+*Send an instant message to pause music:*
 ```
 messages.add_message(message("audio", "pause_music", ""));
 ```
-Delete my_entity at timer value 100:
+*Delete my_entity at timer value 100:*
 ```
 messages.add_message(message(100, "spawner", "delete", "my_entity"));
 ```
-Communication between entities:
+*Communication between entities:*
 ```
 messages.add_message(message("entities", "first_entity", "second_entity", "command", "arguments"));
 ```
@@ -74,8 +74,11 @@ messages.add_message(message("entities", "first_entity", "second_entity", "comma
 | Create a new entity | spawner | new | (1) Name of entity spawn template (2 or more) Additional arguments for spawning entity |
 | Delete an entity | spawner | delete | Name of entity to delete |
 
-** NOTE:  When playing a sample to set the gain, pan, or speed you must include all arguments in order, even if you are not passing data.
+** NOTE:  When playing a sample to set the gain, pan, or speed you must list all previous arguments in order, even if you are not passing data.
 
-Example:  some_sample;loop_ref;;0.4;
+*Example:*
+```
+some_sample;loop_ref;;0.4
+```
 
 This loads a looping sample with a pan value, but no gain or speed.

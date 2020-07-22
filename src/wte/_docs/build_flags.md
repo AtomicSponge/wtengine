@@ -1,11 +1,11 @@
 ## Build Flags
 
-All build flags are defined in wte_global_defines.hpp
+All build flags are defined in __wte_global_defines.hpp__
 
 -----
 
 #### WTE_TICKS_PER_SECOND
-By default the engine will tick at 60 iterations a second.  You can change this using this build flag.  The value is a float.
+By default the engine will tick at 60 iterations a second.  You can change the rate using this build flag.  The value is a float.
 
 -----
 

@@ -31,6 +31,11 @@ Set the input mode.  Configures how the engine reads sticks on a gamepad.
 
 -----
 
+#### WTE_MAX_PLAYING_SAMPLES
+Sets the maximum number of simultaneous playing samples.  Default is eight.
+
+-----
+
 #### WTE_NO_PRUNE
 By default the engine will delete timed messages that were not processed.  Define this to disable the feature.
 

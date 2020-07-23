@@ -12,11 +12,6 @@
 
 //#define ALLEGRO_UNSTABLE  //  For sample panning, see Allegro docs.
 
-//  Set max number of playing samples.
-#ifndef WTE_MAX_PLAYING_SAMPLES
-#define WTE_MAX_PLAYING_SAMPLES (8)
-#endif
-
 #include <string>
 #include <map>
 #include <deque>
@@ -30,8 +25,9 @@
 
 #include "manager.hpp"
 #include "make_thread.hpp"
-#include "../message.hpp"
 #include "../_globals/engine_cfg.hpp"
+#include "../wte_global_defines.hpp"
+#include "../message.hpp"
 
 namespace wte
 {

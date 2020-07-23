@@ -53,6 +53,13 @@
 #endif
 
 /*
+ * Set max number of playing samples.
+ */
+#ifndef WTE_MAX_PLAYING_SAMPLES
+#define WTE_MAX_PLAYING_SAMPLES (8)
+#endif
+
+/*
  * Enable message pruning if WTE_NO_PRUNE is not defined.
  */
 #ifdef WTE_NO_PRUNE

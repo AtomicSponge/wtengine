@@ -20,7 +20,7 @@ Set level of debugging.
 -----
 
 #### WTE_INPUT_MODE
-Set the input mode.  Configures how the engine reads sticks on a gamepad.
+Set the input mode.  Configures how the engine reads sticks on a gamepad.  Default is digital mode.
 - 0 - Digital
   - D-pad and sticks record 8-way directions.
   - D-pad and left stick are the same.

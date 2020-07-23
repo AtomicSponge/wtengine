@@ -42,7 +42,7 @@
 #endif
 
 /*
- * Set the input mode.
+ * Set the input mode.  Default is digital.
  * Configures how the engine reads sticks on a gamepad.
  * 
  * 0 - Digital

@@ -16,3 +16,15 @@ menus.set_menu("main_menu")->add_item(wte_menu_action("Settings", "open_menu", "
 ```
 my_menu.add_item(wte_menu_action("Return", "close_menu"));
 ```
+
+You can also set the background and font color of the menus as such:
+```
+menus.set_menu_color(ALLEGRO_COLOR font, ALLEGRO_COLOR background);
+```
+See the documentation on Allegro's color structures for information on the passing values.
+
+A custom menu size can be also be set:
+```
+menus.set_menu_size(200, 200, 10);
+```
+The values are width, height and padding in order.  The engine will default to 500x400x32 if not called.

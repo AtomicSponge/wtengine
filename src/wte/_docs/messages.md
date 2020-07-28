@@ -29,7 +29,7 @@ messages.add_message(message(100, "spawner", "delete", "my_entity"));
 ```
 *Communication between entities:*
 ```
-messages.add_message(message("entities", "first_entity", "second_entity", "command", "arguments"));
+messages.add_message(message("entities", "first_entity", "second_entity", "command", "argument;another"));
 ```
 
 -----

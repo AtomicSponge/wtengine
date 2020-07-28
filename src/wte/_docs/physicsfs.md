@@ -5,3 +5,5 @@ To set up [PhysicsFS](https://www.icculus.org/physfs/) and configure the engine 
 ```
 wte_main::add_file_location("data.zip");
 ```
+
+You can make multiple calls to load from more than one location.  That's all there is to it!

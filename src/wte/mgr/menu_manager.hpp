@@ -324,7 +324,9 @@ template <> inline bool menu_manager::manager<menu_manager>::initialized = false
 
 /*!
  * \brief Run the menu manager.
+ * 
  * Adds a menu to the stack if none are opened, then processes the menus.
+ * 
  * \param messages Reference to the message manager.
  */
 inline void menu_manager::run(message_manager& messages) {
@@ -488,7 +490,9 @@ inline void menu_manager::run(message_manager& messages) {
 
 /*!
  * \brief Renders the active menu from the top of the stack.
+ * 
  * This is called from within the renderer.  Drawing target must be reset after calling.
+ * 
  * \return The rendered menu bitmap.
  */
 inline ALLEGRO_BITMAP& menu_manager::render_menu(void) const {

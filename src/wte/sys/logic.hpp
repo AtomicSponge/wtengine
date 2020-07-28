@@ -52,7 +52,9 @@ class logic final : public system {
             component_container<cmp::ai> ai_components = world.set_components<cmp::ai>();
 
             for(auto & it : ai_components) {
+                //  Make sure there's an enabled component
                 if(world.has_component<cmp::enabled>(it.first)) {
+                    //  Process enabled or disabled ai
                     if(world.get_component<cmp::enabled>(it.first)->check())
                         it.second->run_enabled(it.first, world, messages, current_time);
                     else

@@ -34,9 +34,11 @@ game_cfg::get<int>("lives")
 game_cfg::subtract<int>("lives", 1);
 ```
 
+The messaging system can also be used to set these variables.  See the documentation page on messaging for more information.
+
 -----
 
-####Saving data:
+#### Saving data:
 Both variable maps can save their data, but the functionality is different for each.
 
 The __engine_cfg__ map saves all registered data in __settings.cfg__ and is saved/loaded with the following commands:
@@ -70,4 +72,16 @@ game_cfg::save("hiscore");
 
 -----
 
-The messaging system can also be used to set these variables.  See the documentation page on messaging for more information.
+#### Engine Config Variables Created by the Engine:
+
+| Name | Defined In | Description |
+| ---- | ---------- | ----------- |
+| draw_fps | wte_main.hpp | 0 = don't draw FPS, 1 = draw FPS |
+| display_mode | wte_display.hpp | windowed or windowed_full_screen  |
+| scale_factor | wte_display.hpp | Scale factor for drawing the arena |
+| vsync | wte_display.hpp | 0 (default) = Use gfx driver settings, 1 = on, 2 = off |
+| main_vol | audio_manager.hpp | The main volume level (0.0f - 1.0f) |
+| mixN_vol | audio_manager.hpp | The volume level of individual mixers (N = 1 - 4) (0.0f - 1.0f) |
+| set_a_key_KEY | wte_input_map.hpp | Set A key bind (KEY = key to bind) |
+| set_b_key_KEY | wte_input_map.hpp | Set B key bind (KEY = key to bind) |
+| joy_ACTION | wte_input_map.hpp | Joystick input binding (ACTION = joystick action to bind) |

@@ -20,7 +20,7 @@ namespace cmp
 
 /*!
  * \class team
- * \brief Store the team for an entity
+ * \brief Store the team for an entity.
  */
 class team final : public component {
     public:

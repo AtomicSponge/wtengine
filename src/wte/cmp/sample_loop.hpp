@@ -25,7 +25,7 @@ namespace cmp
 
 /*!
  * \class sample_loop
- * \brief Handle sample looping.
+ * \brief Handle playback sample looping.
  */
 class sample_loop final : public component {
     public:

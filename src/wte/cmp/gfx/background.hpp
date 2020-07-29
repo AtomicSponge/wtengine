@@ -26,7 +26,7 @@ namespace cmp
 
 /*!
  * \class background
- * \brief Store the background bitmap.
+ * \brief Component for storing a background image and defining its animation process.
  */
 class background final : public animator, public bitmap_map {
     public:
@@ -78,7 +78,7 @@ class background final : public animator, public bitmap_map {
         /*!
          * \brief Reload the background bitmap.
          * 
-         * Called when the screen is updated.
+         * Called when the display is recreated.
          */
         inline void reload_background_bitmap(void) {
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);

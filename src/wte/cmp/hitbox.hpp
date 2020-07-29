@@ -20,7 +20,7 @@ namespace cmp
 
 /*!
  * \class hitbox
- * \brief Store the width and height for an entity's hitbox
+ * \brief Component to add a hitbox for performing colisions on.
  */
 class hitbox final : public component {
     public:

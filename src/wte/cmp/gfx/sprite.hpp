@@ -30,7 +30,7 @@ namespace cmp
 
 /*!
  * \class sprite
- * \brief Stores a sprite sheet and its animation process.
+ * \brief Component for loading a sprite sheet and storing its animation frames.
  */
 class sprite final : public animator {
     public:

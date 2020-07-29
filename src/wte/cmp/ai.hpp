@@ -26,7 +26,7 @@ namespace cmp
  * \class ai
  * \brief Tag components to be processed by the Logic system.
  * 
- * Define logic in do_ai lambda.
+ * Allows functions to be created to define the enabled or disabled logic.
  */
 class ai final : public component {
     public:

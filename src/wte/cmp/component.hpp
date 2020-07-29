@@ -20,7 +20,9 @@ namespace cmp
 
 /*!
  * \class component
- * \brief Interface class for creating a component
+ * \brief Interface class for creating a component.
+ * 
+ * Extend this to creata a component that can be loaded into the Entity Manager.
  */
 class component {
     public:

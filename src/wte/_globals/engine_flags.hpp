@@ -28,7 +28,7 @@ enum ENGINE_FLAG_ENUM {
 
 /*!
  * \class engine_flags
- * \brief Collection of flags to store engine state
+ * \brief Collection of flags to store engine state.
  */
 class engine_flags final {
     public:

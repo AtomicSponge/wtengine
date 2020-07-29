@@ -26,6 +26,8 @@ namespace cmp
 /*!
  * \class input_directional
  * \brief Creates an input bind to a directional joystick.
+ * 
+ * Tag an entity to be processed by the Input system.
  */
 class input_directional final : public component {
     public:

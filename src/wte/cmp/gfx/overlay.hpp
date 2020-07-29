@@ -26,7 +26,7 @@ namespace cmp
 
 /*!
  * \class overlay
- * \brief Store an overlay bitmap and define drawing to it.
+ * \brief Component for storing an overlay image and defining its animation process.
  */
 class overlay final : public animator, public bitmap_map {
     public:

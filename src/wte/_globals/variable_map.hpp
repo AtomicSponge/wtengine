@@ -22,7 +22,7 @@ namespace wte
 
 /*!
  * \class variable_map
- * \brief Interface class to create a map of variables
+ * \brief Interface class to create a map of variables.
  */
 template <class derived> class variable_map {
     public:
@@ -34,7 +34,7 @@ template <class derived> class variable_map {
         /*!
          * \brief Create a new entry in the map.
          * 
-         * Call this first before accessing.
+         * Call this first before accessing the variable.
          * 
          * \param var Variable name.
          * \param val Initial value of variable.
@@ -53,7 +53,7 @@ template <class derived> class variable_map {
         /*!
          * \brief Create a new entry in the map.
          * 
-         * Call this first before accessing.
+         * Call this first before accessing the variable.
          * 
          * \param expr Variable and value expresion (var=val)
          * \return True if created, false if not created.
@@ -81,7 +81,9 @@ template <class derived> class variable_map {
         }
 
         /*!
-         * \brief Set key to value.
+         * \brief Set a variable to a value.
+         * 
+         * Passes seperate strings for the variable name and value.
          * 
          * \param var Variable name to set.
          * \param val Value to set.
@@ -97,9 +99,11 @@ template <class derived> class variable_map {
         };
 
         /*!
-         * \brief Set based on string.
+         * \brief Set a variable to a value.
          * 
-         * \param expr Variable and value expresion (var=val)
+         * Passes a single string as an expression var=val.
+         * 
+         * \param expr Variable and value expresion.
          * \return True if set, false if not set.
          */
         inline static const bool set(const std::string& expr) {
@@ -110,7 +114,7 @@ template <class derived> class variable_map {
         };
 
         /*!
-         * \brief Get value.
+         * \brief Get a variable's value.
          * 
          * Returns by string.
          * 
@@ -126,9 +130,9 @@ template <class derived> class variable_map {
         };
 
         /*!
-         * \brief Get value.
+         * \brief Get a variable's value.
          * 
-         * Returns by defined type.
+         * Returns by casted type.
          * 
          * \tparam T Data type to cast to.
          * \param var Variable to get.

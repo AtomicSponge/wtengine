@@ -20,7 +20,7 @@ namespace cmp
 
 /*!
  * \class location
- * \brief Store the x/y location of an entity
+ * \brief Store the x/y location of an entity in the arena.
  */
 class location final : public component {
     public:

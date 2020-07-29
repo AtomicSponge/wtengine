@@ -85,7 +85,7 @@ class input_flags final {
         void operator=(input_flags const&) = delete;
 
         /*!
-         * \brief Set all input flags to false.
+         * \brief Set all input flags to false or zero.
          */
         inline static void unset_all(void) {
             for(std::size_t j = 0; j < WTE_MAX_JOYSTICK_FLAGS; j++)

@@ -20,10 +20,10 @@ namespace wte
 
 /*!
  * \class engine_cfg
- * \brief Statics to store engine config variables.
+ * \brief Store engine config variables in a globally accessible class.
  * 
  * Inherits map functionality from the variable_map class.
- * This class provides load/save functions.
+ * This class provides specific load/save functions.
  */
 class engine_cfg final : public variable_map<engine_cfg> {
     public:

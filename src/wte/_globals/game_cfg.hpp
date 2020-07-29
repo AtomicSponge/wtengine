@@ -25,10 +25,10 @@ namespace wte
 
 /*!
  * \class game_cfg
- * \brief Statics to store game config variables.
+ * \brief Store game config variables in a globally accessible class.
  * 
  * Inherits map functionality from the variable_map class.
- * This class provides load/save functions.
+ * This class provides specific load/save functions.
  * Also provides math functions to manipulate the values.
  */
 class game_cfg final : public variable_map<game_cfg> {
@@ -225,7 +225,7 @@ class game_cfg final : public variable_map<game_cfg> {
         };
 
         /*!
-         * \brief Set based on string.
+         * \brief Set a value based on string.
          * 
          * \param expr Variable and value expresion (var=val)
          * \return True if set, false if not set.
@@ -235,7 +235,7 @@ class game_cfg final : public variable_map<game_cfg> {
         };
 
         /*!
-         * \brief Get value.
+         * \brief Get a value.
          * 
          * Returns by string.
          * 
@@ -247,7 +247,7 @@ class game_cfg final : public variable_map<game_cfg> {
         };
 
         /*!
-         * \brief Get value.
+         * \brief Get a value.
          * 
          * Returns by defined type.
          * 

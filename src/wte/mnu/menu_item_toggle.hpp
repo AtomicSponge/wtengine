@@ -24,7 +24,7 @@ namespace mnu
 
 /*!
  * \class menu_item_toggle
- * \brief Toggle menu item
+ * \brief On/off menu item.
  */
 class menu_item_toggle final : public menu_item {
     public:

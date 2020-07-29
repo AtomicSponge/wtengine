@@ -22,7 +22,7 @@ namespace sys
 
 /*!
  * \class movement
- * \brief Moves entities.
+ * \brief Moves entities based on their velocity.
  */
 class movement final : public system {
     public:

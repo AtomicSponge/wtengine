@@ -27,7 +27,7 @@ namespace mgr
 
 /*!
  * \class spawn_manager
- * \brief Spawn stuff
+ * \brief Create or delete entities while the engine is running.
  */
 class spawn_manager final : private manager<spawn_manager> {
     public:

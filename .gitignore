@@ -19,7 +19,7 @@ build/
 wte_update_dlls.bat
 
 # Ignore documentation
-documentation/
+docs/
 
 # Ignore test scripts
 tools/csv2sdf/*.sdf

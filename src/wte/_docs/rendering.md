@@ -1,4 +1,4 @@
-## Rendering
+## Setting up the Renderer
 
 The __render_manager__ requires some parameters to be set up in your __main.cpp__ file before calling the main engine object.
 

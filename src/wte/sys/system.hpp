@@ -59,10 +59,10 @@ class system {
          */
         inline system(const std::string& n) : name(n), enabled(true) {};
 
-        //!  Flag to enable/disable system.
-        bool enabled;
         //!  Name of system.
         std::string name;
+        //!  Flag to enable/disable system.
+        bool enabled;
 };
 
 /*!

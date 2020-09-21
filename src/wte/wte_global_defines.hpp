@@ -16,8 +16,12 @@
 #endif
 
 //  Define true & false for macro use.
+#ifndef TRUE
 #define TRUE (1)
+#endif
+#ifndef FALSE
 #define FALSE (0)
+#endif
 
 /*!
  * Set the timer rate.

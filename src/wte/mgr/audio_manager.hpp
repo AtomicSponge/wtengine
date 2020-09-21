@@ -315,7 +315,6 @@ inline void audio_manager::run(void) {
 
     while(keep_running() == true) {
         //  Initialize variables for local use.
-        std::size_t pos = 0;
         float gain = 0.0f;
         float pan = 0.0f;
         float speed = 0.0f;

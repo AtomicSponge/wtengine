@@ -40,12 +40,12 @@ class background final : public animator, public bitmap_map {
          */
         inline background(const int w, const int h,
                           const std::size_t l, ALLEGRO_COLOR c) :
-        background_w(w), background_h(h), color(c),
         animator(l, [](const entity_id& e_id, mgr::entity_manager& world, const int64_t& engine_time)
         {
             world.set_component<cmp::background>(e_id)->set_drawing();
             al_clear_to_color(world.get_component<cmp::background>(e_id)->get_color());
-        }) {
+        }), background_w(w), background_h(h), color(c)
+        {
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             internal_bitmap = al_create_bitmap(background_w, background_h);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
@@ -61,7 +61,7 @@ class background final : public animator, public bitmap_map {
          */
         inline background(const int w, const int h, const std::size_t l,
                           void func(const entity_id&, mgr::entity_manager&, const int64_t&)) :
-        background_w(w), background_h(h), animator(l, func)
+        animator(l, func), background_w(w), background_h(h)
         {
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             internal_bitmap = al_create_bitmap(background_w, background_h);
@@ -102,9 +102,8 @@ class background final : public animator, public bitmap_map {
         };
 
     private:
-        ALLEGRO_COLOR color;
-
         int background_w, background_h;
+        ALLEGRO_COLOR color;
 };
 
 } //  namespace cmp

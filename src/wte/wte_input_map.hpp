@@ -98,9 +98,9 @@ class wte_input_map {
         };
 
         //!  Store the keyboard binding.
-        std::size_t keyboard_bind[WTE_MAX_INPUT_BUTTON_FLAGS][MAX_KEY_SETS];
+        int keyboard_bind[WTE_MAX_INPUT_BUTTON_FLAGS][MAX_KEY_SETS];
         //!  Store the button binding.
-        std::size_t button_bind[WTE_MAX_INPUT_BUTTON_FLAGS];
+        int button_bind[WTE_MAX_INPUT_BUTTON_FLAGS];
 
     private:
         /*!

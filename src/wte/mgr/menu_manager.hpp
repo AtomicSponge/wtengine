@@ -310,8 +310,8 @@ class menu_manager final : private manager<menu_manager> {
         std::vector<mnu::menu_sptr> menus;
         std::stack<mnu::menu_csptr> opened_menus;
 
-        int font_size;
         float menu_width, menu_height, menu_padding;
+        int font_size;
 
         bool is_button_left;
 

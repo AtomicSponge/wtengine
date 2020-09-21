@@ -44,7 +44,7 @@ class menu_item_toggle final : public menu_item {
                                 const std::string coff,
                                 const std::string aoff,
                                 bool func(void)) :
-        menu_item(label), cmd_on(con), arg_on(aon), cmd_off(coff), arg_off(aoff), defaulter(func) {
+        menu_item(label), cmd_on(con), cmd_off(coff), arg_on(aon), arg_off(aoff), defaulter(func) {
             toggled = default_val = defaulter();
         };
 
@@ -66,7 +66,7 @@ class menu_item_toggle final : public menu_item {
                                 const std::string aoff,
                                 const std::size_t st,
                                 bool func(void)) :
-        menu_item(label, st), cmd_on(con), arg_on(aon), cmd_off(coff), arg_off(aoff), defaulter(func) {
+        menu_item(label, st), cmd_on(con), cmd_off(coff), arg_on(aon), arg_off(aoff), defaulter(func) {
             toggled = default_val = defaulter();
         };
 

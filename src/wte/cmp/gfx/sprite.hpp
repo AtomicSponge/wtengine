@@ -47,9 +47,6 @@ class sprite final : public animator {
         inline sprite(const float sw, const float sh,
                       const float dox, const float doy,
                       const std::size_t rt, const std::size_t l) :
-        sprite_width(sw), sprite_height(sh), draw_offset_x(dox), draw_offset_y(doy),
-        sprite_x(0.0f), sprite_y(0.0f), start_frame(0), stop_frame(0), current_frame(0), rate(rt),
-        scale_factor_x(1.0f), scale_factor_y(1.0f),
         animator(l,
             [](const entity_id& e_id, mgr::entity_manager& world, const int64_t& engine_time) {
                 //  Define sprite animation process.
@@ -70,7 +67,11 @@ class sprite final : public animator {
                         world.get_component<sprite>(e_id)->sheet_width) * world.get_component<sprite>(e_id)->sprite_height);
                 }
             }
-        ) {
+        ),
+        sprite_width(sw), sprite_height(sh), draw_offset_x(dox), draw_offset_y(doy),
+        sprite_x(0.0f), sprite_y(0.0f), scale_factor_x(1.0f), scale_factor_y(1.0f),
+        start_frame(0), stop_frame(0), current_frame(0), rate(rt)
+        {
             internal_bitmap = NULL;
             if(rate == 0) rate = 1;
         };
@@ -237,8 +238,8 @@ class sprite final : public animator {
         float sprite_x, sprite_y;
         float scale_factor_x, scale_factor_y;
         int sheet_width, sheet_height;
-        std::size_t current_frame, rate;
         std::size_t start_frame, stop_frame;
+        std::size_t current_frame, rate;
 };
 
 } //  namespace cmp

@@ -120,12 +120,11 @@ class animator : public component {
         ALLEGRO_BITMAP* internal_bitmap;
 
     private:
-        ALLEGRO_COLOR tint_color;
+        std::size_t layer;
         bool tint_set;
+        ALLEGRO_COLOR tint_color;
 
         std::function<void(const entity_id&, mgr::entity_manager&, const int64_t&)> animate;
-
-        std::size_t layer;
 };
 
 } //  namespace cmp

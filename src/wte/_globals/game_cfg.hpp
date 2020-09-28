@@ -40,7 +40,16 @@ class game_cfg final : public variable_map<game_cfg> {
          */
         inline static void set_game_cfg_file(const std::string& fname) {
             data_file_name = fname;
-        }
+        };
+
+        /*!
+         * \brief Allows a different encryption key to be set.
+         * 
+         * \param key New key.
+         */
+        inline static void set_enc_key(const char& key) {
+            NOT_THE_ENCRYPTION_KEY = key;
+        };
 
         /*!
          * \brief Load game config variables from file.
@@ -54,6 +63,7 @@ class game_cfg final : public variable_map<game_cfg> {
             std::string it;
             //  Read each line, try to register or set
             while(std::getline(data_file, it)) {
+                it = decrypt(it);
                 if(!reg(it)) set(it);
             }
 
@@ -80,7 +90,7 @@ class game_cfg final : public variable_map<game_cfg> {
             if(!data_file.good()) return false;
 
             try {
-                data_file << var << "=" << _map.at(var) << std::endl;
+                data_file << encrypt(var + "=" + _map.at(var)) << std::endl;
             } catch (std::out_of_range& e) {
                 data_file.close();
                 return false;  //  Didn't find var
@@ -98,7 +108,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param val Value to add by.
          * \return False on fail, true on success.
          */
-        template <typename T> inline static bool add(const std::string& var, T val) {
+        template <typename T> inline static bool add(const std::string& var, const T& val) {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >>
@@ -120,7 +130,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param val Value to subtract by.
          * \return False on fail, true on success.
          */
-        template <typename T> inline static bool subtract(const std::string& var, T val) {
+        template <typename T> inline static bool subtract(const std::string& var, const T& val) {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >>
@@ -142,7 +152,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param val Value to multiply by.
          * \return False on fail, true on success.
          */
-        template <typename T> inline static bool multiply(const std::string& var, T val) {
+        template <typename T> inline static bool multiply(const std::string& var, const T& val) {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >>
@@ -164,7 +174,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param val Value to divide by.
          * \return False on fail, true on success.
          */
-        template <typename T> inline static bool divide(const std::string& var, T val) {
+        template <typename T> inline static bool divide(const std::string& var, const T& val) {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >>
@@ -260,7 +270,36 @@ class game_cfg final : public variable_map<game_cfg> {
         };
 
     private:
+        /*!
+         * \brief Encrypt string.
+         * 
+         * \param input String to encrypt.
+         * \return Encrypted string.
+         */
+        inline static const std::string encrypt(std::string input) {
+            for(std::size_t i = 0; i < input.length(); i++) {
+                input[i] = input[i] - NOT_THE_ENCRYPTION_KEY;
+            }
+
+            return input;
+        };
+
+        /*!
+         * \brief Decrypt string.
+         * 
+         * \param input String to decrypt.
+         * \return Decrypted string.
+         */
+        inline static const std::string decrypt(std::string input) {
+            for(std::size_t i = 0; i < input.length(); i++) {
+                input[i] = input[i] + NOT_THE_ENCRYPTION_KEY;
+            }
+
+            return input;
+        };
+
         inline static std::string data_file_name = "game.cfg";
+        inline static char NOT_THE_ENCRYPTION_KEY = '@';
 };
 
 //!  Declare a copy of the variable map for game_cfg.

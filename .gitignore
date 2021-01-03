@@ -1,5 +1,5 @@
 # Ignore vs code stuffs
-.vscode/
+.code/
 wtengine.code-workspace
 
 # Ignore cmake stuffs

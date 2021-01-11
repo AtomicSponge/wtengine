@@ -11,8 +11,8 @@ compile_commands.json
 Makefile
 
 # Ignore local backup
+.bakignore
 bak/
-wte_backup.bat
 
 # Ignore build stuffs
 build/

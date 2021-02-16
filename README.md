@@ -5,7 +5,7 @@ The engine is written in C++17 and uses the [Allegro Game Library](https://libal
 
 Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
 
-For an example of the engine in action, see the [demo game code](https://github.com/wtfsystems/wtengine/blob/master/src/wte_demo/wte_demo.cpp).
+For an example of the engine in action, see the [demo game code](https://github.com/wtfsystems/wtengine/blob/master/example/src/wte_demo.cpp).
 
 #### FEATURES:
  - Internal messaging queue

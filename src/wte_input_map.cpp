@@ -14,9 +14,9 @@
 namespace wte
 {
 
-inline virtual wte_input_map::~wte_input_map() {};
+virtual wte_input_map::~wte_input_map() {};
 
-inline wte_input_map::wte_input_map() {
+wte_input_map::wte_input_map() {
     for(std::size_t i = 0; i < WTE_MAX_INPUT_BUTTON_FLAGS; i++) {
         for(std::size_t j = 0; j < MAX_KEY_SETS; j++) {
             keyboard_bind[i][j] = 0;
@@ -25,7 +25,7 @@ inline wte_input_map::wte_input_map() {
     }
 };
 
-inline void wte_input_map::set_binding(const bool& joy_installed) {
+void wte_input_map::set_binding(const bool& joy_installed) {
     check_reg(joy_installed);  //  Make sure all settings are registered.
 
     //  Keyboard Set A
@@ -67,7 +67,7 @@ inline void wte_input_map::set_binding(const bool& joy_installed) {
     }
 };
 
-inline void wte_input_map::check_reg(const bool& joy_installed) {
+void wte_input_map::check_reg(const bool& joy_installed) {
     //  Keyboard Set A
     if(!engine_cfg::is_reg("set_a_key_up")) engine_cfg::reg("set_a_key_up", std::to_string(ALLEGRO_KEY_UP));
     if(!engine_cfg::is_reg("set_a_key_down")) engine_cfg::reg("set_a_key_down", std::to_string(ALLEGRO_KEY_DOWN));

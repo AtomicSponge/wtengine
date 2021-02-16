@@ -31,7 +31,7 @@ class team final : public component {
          * 
          * \param t Team value for the entity.
          */
-        inline team(std::size_t t) : this_team(t) {
+        team(std::size_t t) : this_team(t) {
             if(this_team > 3) this_team = 3;
         };
 
@@ -40,7 +40,7 @@ class team final : public component {
          * 
          * \return Team the entity is on.
          */
-        inline const std::size_t get_team(void) const {
+        const std::size_t get_team(void) const {
             return this_team;
         };
 
@@ -49,7 +49,7 @@ class team final : public component {
          * 
          * \param t New team for the entity.
          */
-        inline void set_team(const std::size_t& t) {
+        void set_team(const std::size_t& t) {
             this_team = t;
         };
 

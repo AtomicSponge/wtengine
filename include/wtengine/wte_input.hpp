@@ -37,34 +37,34 @@ class wte_input : private wte_input_map {
         /*!
          * \brief WTE Input destructor.
          */
-        inline virtual ~wte_input();
+        virtual ~wte_input();
 
     protected:
         /*!
          * \brief WTE Input constructor.
          */
-        inline wte_input();
+        wte_input();
 
         /*!
          * \brief Create the input queue for capturing events.
          * 
          * Called during engine initialization.
          */
-        inline void create_input_event_queue(void);
+        void create_input_event_queue(void);
 
         /*!
          * \brief Destroy the input queue.
          * 
          * Called during engine de-initialization.
          */
-        inline void destroy_input_event_queue(void);
+        void destroy_input_event_queue(void);
 
         /*!
          * \brief Check the input queue for events.
          * 
          * Called during the main engine loop.  Pass any events to the input handler.
          */
-        inline void check_input_events(void);
+        void check_input_events(void);
 
     private:
         void handle_input_event(const ALLEGRO_EVENT&);

@@ -38,7 +38,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * 
          * \param fname Filename to set saving to.
          */
-        inline static void set_game_cfg_file(const std::string& fname) {
+        static void set_game_cfg_file(const std::string& fname) {
             data_file_name = fname;
         };
 
@@ -47,7 +47,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * 
          * \param key New key.
          */
-        inline static void set_enc_key(const char& key) {
+        static void set_enc_key(const char& key) {
             NOT_THE_ENCRYPTION_KEY = key;
         };
 
@@ -56,7 +56,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * 
          * \return False on fail, true on success.
          */
-        inline static bool load(void) {
+        static bool load(void) {
             std::ifstream data_file(data_file_name);
             if(!data_file.good()) return false;
 
@@ -74,7 +74,7 @@ class game_cfg final : public variable_map<game_cfg> {
         /*!
          * \brief Clear the current game config save.
          */
-        inline static void clear_save(void) {
+        static void clear_save(void) {
             std::ofstream data_file(data_file_name, std::ofstream::trunc);
             data_file.close();
         };
@@ -85,7 +85,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param var Variable name.
          * \return False on fail, true on success.
          */
-        inline static bool save(const std::string& var) {
+        static bool save(const std::string& var) {
             std::ofstream data_file(data_file_name, std::ofstream::app);
             if(!data_file.good()) return false;
 
@@ -108,7 +108,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param val Value to add by.
          * \return False on fail, true on success.
          */
-        template <typename T> inline static bool add(const std::string& var, const T& val) {
+        template <typename T> static bool add(const std::string& var, const T& val) {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >>
@@ -130,7 +130,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param val Value to subtract by.
          * \return False on fail, true on success.
          */
-        template <typename T> inline static bool subtract(const std::string& var, const T& val) {
+        template <typename T> static bool subtract(const std::string& var, const T& val) {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >>
@@ -152,7 +152,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param val Value to multiply by.
          * \return False on fail, true on success.
          */
-        template <typename T> inline static bool multiply(const std::string& var, const T& val) {
+        template <typename T> static bool multiply(const std::string& var, const T& val) {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >>
@@ -174,7 +174,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param val Value to divide by.
          * \return False on fail, true on success.
          */
-        template <typename T> inline static bool divide(const std::string& var, const T& val) {
+        template <typename T> static bool divide(const std::string& var, const T& val) {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >>
@@ -197,7 +197,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param val Initial value of variable.
          * \return True if created, false if not created.
          */
-        inline static const bool reg(const std::string& var, const std::string& val) {
+        static const bool reg(const std::string& var, const std::string& val) {
             return variable_map<game_cfg>::reg(var, val);
         };
 
@@ -209,7 +209,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param expr Variable and value expresion (var=val)
          * \return True if created, false if not created.
          */
-        inline static const bool reg(const std::string& expr) {
+        static const bool reg(const std::string& expr) {
             return variable_map<game_cfg>::reg(expr);
         };
 
@@ -219,7 +219,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param var Variable name to check.
          * \return True if it exists, false if it does not.
          */
-        inline static const bool is_reg(const std::string& var) {
+        static const bool is_reg(const std::string& var) {
             return variable_map<game_cfg>::is_reg(var);
         }
 
@@ -230,7 +230,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param val Value to set.
          * \return True if set, false if not set.
          */
-        inline static const bool set(const std::string& var, const std::string& val) {
+        static const bool set(const std::string& var, const std::string& val) {
             return variable_map<game_cfg>::set(var, val);
         };
 
@@ -240,7 +240,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param expr Variable and value expresion (var=val)
          * \return True if set, false if not set.
          */
-        inline static const bool set(const std::string& expr) {
+        static const bool set(const std::string& expr) {
             return variable_map<game_cfg>::set(expr);
         };
 
@@ -252,7 +252,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param var Variable to get.
          * \return Value of variable in string form.
          */
-        inline static const std::string get(const std::string& var) {
+        static const std::string get(const std::string& var) {
             return variable_map<game_cfg>::get(var);
         };
 
@@ -265,7 +265,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param var Variable to get.
          * \return Value of variable in casted form.
          */
-        template <typename T> inline static const T get(const std::string& var) {
+        template <typename T> static const T get(const std::string& var) {
             return variable_map<game_cfg>::get<T>(var);
         };
 
@@ -276,7 +276,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param input String to encrypt.
          * \return Encrypted string.
          */
-        inline static const std::string encrypt(std::string input) {
+        static const std::string encrypt(std::string input) {
             for(std::size_t i = 0; i < input.length(); i++) {
                 input[i] = input[i] - NOT_THE_ENCRYPTION_KEY;
             }
@@ -290,7 +290,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param input String to decrypt.
          * \return Decrypted string.
          */
-        inline static const std::string decrypt(std::string input) {
+        static const std::string decrypt(std::string input) {
             for(std::size_t i = 0; i < input.length(); i++) {
                 input[i] = input[i] + NOT_THE_ENCRYPTION_KEY;
             }
@@ -298,12 +298,12 @@ class game_cfg final : public variable_map<game_cfg> {
             return input;
         };
 
-        inline static std::string data_file_name = "game.cfg";
-        inline static char NOT_THE_ENCRYPTION_KEY = '@';
+        static std::string data_file_name = "game.cfg";
+        static char NOT_THE_ENCRYPTION_KEY = '@';
 };
 
 //!  Declare a copy of the variable map for game_cfg.
-template <> inline std::map<std::string, std::string> variable_map<game_cfg>::_map = {};
+template <> std::map<std::string, std::string> variable_map<game_cfg>::_map = {};
 
 } //  end namespace wte
 

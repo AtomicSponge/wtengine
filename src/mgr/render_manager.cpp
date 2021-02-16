@@ -25,7 +25,7 @@ namespace wte
 namespace mgr
 {
 
-inline void render_manager::initialize(void) {
+void render_manager::initialize(void) {
     //  Create the arena bitmap.
     if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
     al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
@@ -85,7 +85,7 @@ inline void render_manager::initialize(void) {
     al_start_timer(fps_timer);
 }
 
-inline void render_manager::de_init(void) {
+void render_manager::de_init(void) {
     al_destroy_bitmap(title_bmp);
     al_destroy_bitmap(background_bmp);
     al_destroy_bitmap(arena_bmp);
@@ -96,64 +96,64 @@ inline void render_manager::de_init(void) {
     al_destroy_timer(fps_timer);
 }
 
-inline void render_manager::update_resolution(const int& w, const int& h) {
+void render_manager::update_resolution(const int& w, const int& h) {
     screen_w = w;
     screen_h = h;
 }
 
-inline static const int render_manager::get_screen_width(void) {
+static const int render_manager::get_screen_width(void) {
     return screen_w;
 }
 
-inline static const int render_manager::get_screen_height(void) {
+static const int render_manager::get_screen_height(void) {
     return screen_h;
 }
 
-inline void render_manager::set_scale_factor(const float& f) {
+void render_manager::set_scale_factor(const float& f) {
     scale_factor = f;
 }
 
-inline static const int render_manager::get_scale_factor() {
+static const int render_manager::get_scale_factor() {
     return scale_factor;
 }
 
-inline void render_manager::reload_arena_bitmap(void) {
+void render_manager::reload_arena_bitmap(void) {
     al_destroy_bitmap(arena_bmp);
     al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
     arena_bmp = al_create_bitmap(arena_w, arena_h);
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
 }
 
-inline static void render_manager::set_arena_size(const int& w, const int& h) {
+static void render_manager::set_arena_size(const int& w, const int& h) {
     if(!arena_created) {
         arena_w = w;
         arena_h = h;
     }
 }
 
-inline static const int render_manager::get_arena_width(void) {
+static const int render_manager::get_arena_width(void) {
     return arena_w;
 }
 
-inline static const int render_manager::get_arena_height(void) {
+static const int render_manager::get_arena_height(void) {
     return arena_h;
 }
 
-inline static void render_manager::set_title_screen(const std::string& fname) {
+static void render_manager::set_title_screen(const std::string& fname) {
     title_screen_file = fname;
 }
 
-inline static void render_manager::set_background_screen(const std::string& fname) {
+static void render_manager::set_background_screen(const std::string& fname) {
     background_file = fname;
 }
 
-inline static void render_manager::set_font_file(const std::string& fname, const int& size, const int& flags) {
+static void render_manager::set_font_file(const std::string& fname, const int& size, const int& flags) {
     render_font_file = fname;
     render_font_size = size;
     render_font_flags = flags;
 }
 
-inline void render_manager::render(const menu_manager& menus, const entity_manager& world) {
+void render_manager::render(const menu_manager& menus, const entity_manager& world) {
     /*
      * Calculate fps.
      */

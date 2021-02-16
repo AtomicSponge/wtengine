@@ -34,7 +34,7 @@ class input_directional final : public component {
         /*!
          * \brief Input Directional constructor.
          */
-        inline input_directional(
+        input_directional(
             const std::size_t ib,
             void func_a(const entity_id&,
                         const float&,
@@ -52,14 +52,14 @@ class input_directional final : public component {
         /*!
          * \brief Input Directional destructor.
          */
-        inline ~input_directional() {};
+        ~input_directional() {};
 
         /*!
          * \brief Get the joystick bounded to this component.
          * 
          * \return The joystick enum value.
          */
-        inline const std::size_t get_bind(void) const {
+        const std::size_t get_bind(void) const {
             return input_bind;
         };
 
@@ -72,7 +72,7 @@ class input_directional final : public component {
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.
          */
-        inline void on_set(const entity_id& e_id,
+        void on_set(const entity_id& e_id,
                            const float& rad,
                            mgr::entity_manager& world,
                            mgr::message_manager& messages,
@@ -88,7 +88,7 @@ class input_directional final : public component {
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.
          */
-        inline void on_unset(const entity_id& e_id,
+        void on_unset(const entity_id& e_id,
                              mgr::entity_manager& world,
                              mgr::message_manager& messages,
                              const int64_t& current_time) {

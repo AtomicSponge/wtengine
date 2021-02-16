@@ -32,14 +32,14 @@ class sample_loop final : public component {
         /*!
          * \brief Sample loop constructor.
          */
-        inline sample_loop() {
+        sample_loop() {
             instance_map.clear();
         };
 
         /*!
          * \brief Sample loop destructor.
          */
-        inline ~sample_loop() {
+        ~sample_loop() {
             instance_map.clear();
         };
 
@@ -50,7 +50,7 @@ class sample_loop final : public component {
          * \param si Sample instance reference.
          * \return True if added, false if not.
          */
-        inline const bool add_handle(const std::string& sn, const std::string& si) {
+        const bool add_handle(const std::string& sn, const std::string& si) {
             if(sn == "all") return false;
             if(si == "once") return false;
             std::string sample_name;
@@ -66,7 +66,7 @@ class sample_loop final : public component {
          * \param messages Reference to message manager.
          * \param si Sample instance reference.
          */
-        inline void start(mgr::message_manager& messages, const std::string& si) {
+        void start(mgr::message_manager& messages, const std::string& si) {
             auto ref = instance_map.find(si);
             if(ref != instance_map.end()) {
                 if(ref->second.second == false) {  //  If not playing.
@@ -82,7 +82,7 @@ class sample_loop final : public component {
          * \param messages Reference to message manager.
          * \param si Sample instance reference.
          */
-        inline void stop(mgr::message_manager& messages, const std::string& si) {
+        void stop(mgr::message_manager& messages, const std::string& si) {
             auto ref = instance_map.find(si);
             if(ref != instance_map.end()) {
                 if(ref->second.second == true) {  //  If is playing.

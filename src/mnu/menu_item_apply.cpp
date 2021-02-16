@@ -30,26 +30,26 @@ class menu_item_apply final : public menu_item {
         /*!
          * \brief Menu Item Apply constructor.
          */
-        inline menu_item_apply() : menu_item("applier"), cmd("cancel") {};
+        menu_item_apply() : menu_item("applier"), cmd("cancel") {};
 
         /*!
          * \brief Menu Item Apply destructor.
          */
-        inline ~menu_item_apply() {};
+        ~menu_item_apply() {};
 
         /*!
          * \brief On left trigger.
          * 
          * Set the apply item to cancel.
          */
-        inline void on_left(void) override { cmd = "cancel"; };
+        void on_left(void) override { cmd = "cancel"; };
 
         /*!
          * \brief On right trigger.
          * 
          * Set the apply item to apply.
          */
-        inline void on_right(void) override { cmd = "apply"; };
+        void on_right(void) override { cmd = "apply"; };
 
         /*!
          * \brief On select trigger.
@@ -58,7 +58,7 @@ class menu_item_apply final : public menu_item {
          * 
          * \return A menu message object that will either run the apply or cancel.
          */
-        inline const message on_select(void) override { return message("menu", cmd, ""); };
+        const message on_select(void) override { return message("menu", cmd, ""); };
 
         /*!
          * \brief Return display text for the menu item when rendering.
@@ -67,7 +67,7 @@ class menu_item_apply final : public menu_item {
          * 
          * \return Vector of display text strings.
          */
-        inline const std::vector<std::string> get_text(void) const override {
+        const std::vector<std::string> get_text(void) const override {
             if(cmd == "apply") return { "Cancel", "< Apply >" };
             return { "< Cancel >", "Apply" };
         };
@@ -77,14 +77,14 @@ class menu_item_apply final : public menu_item {
          * 
          * Reset the apply item to the cancel state.
          */
-        inline void reset_to_default(void) override { cmd = "cancel"; };
+        void reset_to_default(void) override { cmd = "cancel"; };
 
         /*!
          * \brief Set to default trigger.
          * 
          * Set the apply item's default state to cancel.
          */
-        inline void set_default(void) override { cmd = "cancel"; };
+        void set_default(void) override { cmd = "cancel"; };
 
     private:
         std::string cmd;

@@ -97,19 +97,19 @@ class entity_manager final : private manager<entity_manager> {
          * 
          * Start entity counter at 1
          */
-        inline entity_manager() : entity_counter(WTE_ENTITY_START);
+        entity_manager() : entity_counter(WTE_ENTITY_START);
 
         /*!
          * \brief Entity manager destructor.
          */
-        inline ~entity_manager() {};
+        ~entity_manager() {};
 
         /*!
          * \brief Clear the entity manager.
          * 
          * Set the entity counter to zero and clear the entities and componenets.
          */
-        inline void clear(void);
+        void clear(void);
 
         /*!
          * \brief Create a new entity by name, using the next available ID.
@@ -118,7 +118,7 @@ class entity_manager final : private manager<entity_manager> {
          * 
          * \return The newly created entity ID.  WTE_ENTITY_ERROR on fail.
          */
-        inline const entity_id new_entity(void);
+        const entity_id new_entity(void);
 
         /*!
          * \brief Delete entity by ID.
@@ -126,7 +126,7 @@ class entity_manager final : private manager<entity_manager> {
          * \param e_id The entity ID to delete.
          * \return Return true on success, false if entity does not exist.
          */
-        inline const bool delete_entity(const entity_id& e_id);
+        const bool delete_entity(const entity_id& e_id);
 
         /*!
          * \brief Check if an entity exists.
@@ -136,7 +136,7 @@ class entity_manager final : private manager<entity_manager> {
          * \param e_id The entity ID to check.
          * \return Return true if found, return false if not found.
          */
-        inline const bool entity_exists(const entity_id& e_id) const;
+        const bool entity_exists(const entity_id& e_id) const;
 
         /*!
          * \brief Get entity name.
@@ -144,7 +144,7 @@ class entity_manager final : private manager<entity_manager> {
          * \param e_id Entity ID to get name for.
          * \return Entity name string.  Empty string if not found.
          */
-        inline const std::string get_name(const entity_id& e_id) const;
+        const std::string get_name(const entity_id& e_id) const;
 
         /*!
          * \brief Set the entity name.
@@ -153,7 +153,7 @@ class entity_manager final : private manager<entity_manager> {
          * \param name Entity name to set.
          * \return True if set, false on error.
          */
-        inline const bool set_name(const entity_id& e_id, const std::string& name);
+        const bool set_name(const entity_id& e_id, const std::string& name);
 
         /*!
          * \brief Get entity ID by name.
@@ -161,14 +161,14 @@ class entity_manager final : private manager<entity_manager> {
          * \param name Name to search.
          * \return Entity ID, WTE_ENTITY_ERROR if not found.
          */
-        inline const entity_id get_id(const std::string& name) const;
+        const entity_id get_id(const std::string& name) const;
 
         /*!
          * \brief Get the entity reference vector.
          * 
          * \return Returns a vector of all entity IDs and names.
          */
-        inline const world_container get_entities(void) const;
+        const world_container get_entities(void) const;
 
         /*!
          * \brief Set all components related to an entity.
@@ -176,7 +176,7 @@ class entity_manager final : private manager<entity_manager> {
          * \param e_id Entity ID to set components for.
          * \return Returns a container of components based by entity ID.
          */
-        inline const entity_container set_entity(const entity_id& e_id);
+        const entity_container set_entity(const entity_id& e_id);
 
         /*!
          * \brief Get all components related to an entity.
@@ -184,7 +184,7 @@ class entity_manager final : private manager<entity_manager> {
          * \param e_id Entity ID to get components for.
          * \return Returns a constant container of components based by entity ID.
          */
-        inline const const_entity_container get_entity(const entity_id& e_id) const;
+        const const_entity_container get_entity(const entity_id& e_id) const;
 
         /*!
          * \brief Add a new component to an entity.
@@ -197,7 +197,7 @@ class entity_manager final : private manager<entity_manager> {
          * \return Return false if the entity already has a component of the same type.
          * \return Return true on success.
          */
-        inline const bool add_component(const entity_id& e_id, const cmp::component_sptr& comp);
+        const bool add_component(const entity_id& e_id, const cmp::component_sptr& comp);
 
         /*!
          * \brief Delete a component by type for an entity.
@@ -207,7 +207,7 @@ class entity_manager final : private manager<entity_manager> {
          * \return Return true if a component was deleted.
          * \return Return false if no components were deleted.
          */
-        template <typename T> inline const bool delete_component(const entity_id& e_id);
+        template <typename T> const bool delete_component(const entity_id& e_id);
 
         /*!
          * \brief Check if an entity has a component by type.
@@ -217,7 +217,7 @@ class entity_manager final : private manager<entity_manager> {
          * \return Return true if the entity has the component.
          * \return Return false if it does not.
          */
-        template <typename T> inline const bool has_component(const entity_id& e_id) const;
+        template <typename T> const bool has_component(const entity_id& e_id) const;
 
         /*!
          * \brief Set the value of a component by type for an entity.
@@ -229,7 +229,7 @@ class entity_manager final : private manager<entity_manager> {
          * \param e_id The entity ID to search.
          * \return Return the component or nullptr if not found.
          */
-        template <typename T> inline const std::shared_ptr<T> set_component(const entity_id& e_id);
+        template <typename T> const std::shared_ptr<T> set_component(const entity_id& e_id);
 
         /*!
          * \brief Read the value of a component by type for an entity.
@@ -241,7 +241,7 @@ class entity_manager final : private manager<entity_manager> {
          * \param e_id The entity ID to search.
          * \return Return the component or nullptr if not found.
          */
-        template <typename T> inline const std::shared_ptr<const T> get_component(const entity_id& e_id) const;
+        template <typename T> const std::shared_ptr<const T> get_component(const entity_id& e_id) const;
 
         /*!
          * \brief Set all components for a particulair type.
@@ -251,7 +251,7 @@ class entity_manager final : private manager<entity_manager> {
          * \tparam T Component type.
          * \return Returns a container of components of all the same type.
          */
-        template <typename T> inline const component_container<T> set_components(void);
+        template <typename T> const component_container<T> set_components(void);
 
         /*!
          * \brief Get all components for a particulair type.
@@ -261,7 +261,7 @@ class entity_manager final : private manager<entity_manager> {
          * \tparam T Component type.
          * \return Returns a constant container of components of all the same type.
          */
-        template <typename T> inline const const_component_container<T> get_components(void) const;
+        template <typename T> const const_component_container<T> get_components(void) const;
 
     private:
         entity_id entity_counter;
@@ -269,7 +269,7 @@ class entity_manager final : private manager<entity_manager> {
         world_map world;
 };
 
-template <> inline bool manager<entity_manager>::initialized = false;
+template <> bool manager<entity_manager>::initialized = false;
 
 } //  namespace mgr
 

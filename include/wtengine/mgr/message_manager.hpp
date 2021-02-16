@@ -44,19 +44,19 @@ class message_manager final : private manager<message_manager>, private engine_t
          * 
          * Clear any existing queue and start logging if debugging is enabled.
          */
-        inline message_manager();
+        message_manager();
 
         /*!
          * \brief Message queue destructor.
          * 
          * Delete message queue object and close log file if debugging is enabled.
          */
-        inline ~message_manager();
+        ~message_manager();
 
         /*!
          * \brief Clear the message queue.
          */
-        inline void clear(void);
+        void clear(void);
 
         /*!
          * \brief Adds a message object to the start of the msg_queue vector.
@@ -65,14 +65,14 @@ class message_manager final : private manager<message_manager>, private engine_t
          * 
          * \param msg Message to add.
          */
-        inline void add_message(const message& msg);
+        void add_message(const message& msg);
 
         //  Ignore message pruning if WTE_NO_PRUNE build flag is defined
         #ifndef WTE_NO_PRUNE
         /*!
          * Deletes timed messages that were not processed.
          */
-        inline void prune(void);
+        void prune(void);
         #endif
 
         /*!
@@ -83,7 +83,7 @@ class message_manager final : private manager<message_manager>, private engine_t
          * \param sys Manager/system to get messages for.
          * \return Vector of messages.
          */
-        inline const message_container get_messages(const std::string& sys);
+        const message_container get_messages(const std::string& sys);
 
         /*!
          * \brief Load a new data file into the message queue.
@@ -93,7 +93,7 @@ class message_manager final : private manager<message_manager>, private engine_t
          * 
          * \param fname Filename to load.
          */
-        inline void load_file(const std::string& fname);
+        void load_file(const std::string& fname);
 
         /*!
          * \brief Load additional data into the message queue.
@@ -104,7 +104,7 @@ class message_manager final : private manager<message_manager>, private engine_t
          * \param fname Filename to load.
          * \return True if loaded, false if not.
          */
-        inline const bool load_script(const std::string& fname);
+        const bool load_script(const std::string& fname);
 
     private:
         /*!
@@ -118,7 +118,7 @@ class message_manager final : private manager<message_manager>, private engine_t
          * \param cmd Command value to write to.
          * \param args Argument value to write to.
          */
-        inline void read_message(ALLEGRO_FILE& file,
+        void read_message(ALLEGRO_FILE& file,
                                  int64_t& timer,
                                  std::string& sys,
                                  std::string& to,
@@ -134,7 +134,7 @@ class message_manager final : private manager<message_manager>, private engine_t
          * \param msg Message to write.
          */
         #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-        inline void debug_log_message(const message& msg);
+        void debug_log_message(const message& msg);
 
         std::ofstream debug_log_file;
         #endif
@@ -143,7 +143,7 @@ class message_manager final : private manager<message_manager>, private engine_t
         message_container msg_queue;
 };
 
-template <> inline bool message_manager::manager<message_manager>::initialized = false;
+template <> bool message_manager::manager<message_manager>::initialized = false;
 
 } //  namespace mgr
 

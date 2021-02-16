@@ -57,41 +57,41 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
          * 
          * Clears the internal audio deck and maps the audio commands.
          */
-        inline audio_manager();
+        audio_manager();
 
         /*!
          * \brief Audio Manager destructor.
          * 
          * Clears the internal audio deck and audio command map.
          */
-        inline ~audio_manager();
+        ~audio_manager();
 
         /*!
          * \brief Initialize audio manager.
          * 
          * Sets up the various Allegro objects for the audio manager to use.
          */
-        inline void initialize(void);
+        void initialize(void);
 
         /*!
          * \brief De-initialize the audio manager.
          * 
          * Destroies the Allegro objects used by the manager.
          */
-        inline void de_init(void);
+        void de_init(void);
 
         /*!
          * \brief Update engine cfg with the current volume levels.
          * 
          */
-        inline void get_volume(void) const;
+        void get_volume(void) const;
 
         /*!
          * \brief Take a vector of messages and pass them into the audio messages deck.
          * 
          * \param messages Vector of messages to be passed.
          */
-        inline void transfer_messages(const message_container& messages);
+        void transfer_messages(const message_container& messages);
 
     private:
         /*!
@@ -102,12 +102,12 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
          * \param full_path Full filename including path.
          * \return Filename stripped of folder path and extension.
          */
-        inline const std::string get_sample_name(const std::string& full_path);
+        const std::string get_sample_name(const std::string& full_path);
 
         /*!
          * \brief Set volume levels based on engine cfg settings.
          */
-        inline void set_volume(void);
+        void set_volume(void);
 
         void run(void) override;
 
@@ -160,7 +160,7 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
 };
 
 //  Used to restrict class to a single instance.
-template <> inline bool audio_manager::manager<audio_manager>::initialized = false;
+template <> bool audio_manager::manager<audio_manager>::initialized = false;
 
 } //  namespace mgr
 

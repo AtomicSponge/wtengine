@@ -20,28 +20,28 @@ namespace wte
 namespace mgr
 {
 
-inline system_manager::system_manager() : finalized(false) {
+system_manager::system_manager() : finalized(false) {
     systems.clear();
 }
 
-inline system_manager::~system_manager() {
+system_manager::~system_manager() {
     systems.clear();
 }
 
-inline void system_manager::clear(void) {
+void system_manager::clear(void) {
     systems.clear();
     finalized = false;
 }
 
-inline void system_manager::finalize(void) {
+void system_manager::finalize(void) {
     finalized = true;
 }
 
-inline bool system_manager::empty(void) {
+bool system_manager::empty(void) {
     return systems.empty();
 }
 
-inline bool system_manager::add(sys::system_uptr new_system) {
+bool system_manager::add(sys::system_uptr new_system) {
     if(finalized == true) return false;
 
     for(auto & it : systems)
@@ -51,14 +51,14 @@ inline bool system_manager::add(sys::system_uptr new_system) {
     return true;
 }
 
-inline void system_manager::run(mgr::entity_manager& world,
+void system_manager::run(mgr::entity_manager& world,
                 mgr::message_manager& messages,
                 const int64_t& current_time) {
     for(auto & it : systems)
         if((it)->is_enabled()) (it)->run(world, messages, current_time);
 }
 
-inline void system_manager::dispatch(mgr::entity_manager& world,
+void system_manager::dispatch(mgr::entity_manager& world,
                         mgr::message_manager& messages,
                         const int64_t& current_time) {
     component_container<cmp::dispatcher> dispatch_components =
@@ -96,7 +96,7 @@ void system_manager::reload_temp_bitmaps(mgr::entity_manager& world) {
     }
 }
 
-inline const bool system_manager::enable_system(const std::string& sys) {
+const bool system_manager::enable_system(const std::string& sys) {
     for(auto & it : systems) {
         if((it)->get_name() == sys) (it)->enable();
         return true;
@@ -104,7 +104,7 @@ inline const bool system_manager::enable_system(const std::string& sys) {
     return false;
 }
 
-inline const bool system_manager::disable_system(const std::string& sys) {
+const bool system_manager::disable_system(const std::string& sys) {
     for(auto & it : systems) {
         if((it)->get_name() == sys) (it)->disable();
         return true;

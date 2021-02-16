@@ -33,14 +33,14 @@ class wte_display {
         /*!
          * \brief Display destructor.
          */
-        inline virtual ~wte_display() {};
+        virtual ~wte_display() {};
 
         /*!
          * \brief Get the window title.
          * 
          * \return Window title as string.
          */
-        inline const std::string get_window_title(void) const;
+        const std::string get_window_title(void) const;
 
     protected:
         /*!
@@ -48,22 +48,22 @@ class wte_display {
          * 
          * \param title Window title.
          */
-        inline wte_display(const std::string& title) : window_title(title);
+        wte_display(const std::string& title) : window_title(title);
 
         /*!
          * \brief Configure the display.
          */
-        inline void create_display(void);
+        void create_display(void);
 
         /*!
          * \brief Destroy the display.
          */
-        inline void destroy_display(void);
+        void destroy_display(void);
 
         /*!
          * \brief Reconfigure the display.
          */
-        inline void reconf_display(void);
+        void reconf_display(void);
 
         //!  Declare the render manager.
         mgr::render_manager screen;

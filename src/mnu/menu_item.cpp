@@ -37,67 +37,67 @@ class menu_item {
         /*!
          * \brief Menu item destructor.
          */
-        inline virtual ~menu_item() {};
+        virtual ~menu_item() {};
 
         /*!
          * \brief Return display text for the menu item when rendering.
          * 
          * \return Vector of display text.
          */
-        inline virtual const std::vector<std::string> get_text(void) const { return {"null"}; };
+        virtual const std::vector<std::string> get_text(void) const { return {"null"}; };
 
         /*!
          * \brief Define left click process.
          */
-        inline virtual void on_left(void) {};
+        virtual void on_left(void) {};
 
         /*!
          * \brief Define right click process.
          */
-        inline virtual void on_right(void) {};
+        virtual void on_right(void) {};
 
         /*!
          * \brief Define selection process.
          */
-        inline virtual const message on_select(void) { return message("system", "null", "null"); };
+        virtual const message on_select(void) { return message("system", "null", "null"); };
 
         /*!
          * \brief Define reset process.
          */
-        inline virtual void reset_to_default(void) {};
+        virtual void reset_to_default(void) {};
 
         /*!
          * \brief Define default value process.
          */
-        inline virtual void set_default(void) {};
+        virtual void set_default(void) {};
 
         /*!
          * \brief Define setting changed process.
          * 
          * \return Default return false.
          */
-        inline virtual const bool setting_changed(void) const { return false; };
+        virtual const bool setting_changed(void) const { return false; };
 
         /*!
          * \brief Get the display label.
          * 
          * \return The label text.
          */
-        inline const std::string get_label(void) const { return label; };
+        const std::string get_label(void) const { return label; };
 
         /*!
          * \brief Get the setting type.
          * 
          * \return Setting type.
          */
-        inline const std::size_t get_setting_type(void) const { return setting_type; };
+        const std::size_t get_setting_type(void) const { return setting_type; };
 
         /*!
          * \brief Check if it is an engine setting.
          * 
          * \return True if an engine setting, false if a game setting.
          */
-        inline const bool is_engine_setting(void) const { 
+        const bool is_engine_setting(void) const { 
             if(setting_type == ENGINE_SETTING ||
                setting_type == ENGINE_SETTING_RECONF ||
                setting_type == AUDIO_SETTING)
@@ -111,7 +111,7 @@ class menu_item {
          * 
          * \param l Label of the menu item.
          */
-        inline menu_item(const std::string l) :
+        menu_item(const std::string l) :
         label(l), setting_type(DEFAULT_SETTING) {};
 
         /*!
@@ -120,7 +120,7 @@ class menu_item {
          * \param l Label of the menu item.
          * \param st Setting type.
          */
-        inline menu_item(const std::string l, const std::size_t st) :
+        menu_item(const std::string l, const std::size_t st) :
         label(l), setting_type(st) {};
 
     private:

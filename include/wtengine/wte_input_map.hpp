@@ -27,20 +27,20 @@ class wte_input_map {
         /*!
          * \brief Input Map destructor.
          */
-        inline virtual ~wte_input_map();
+        virtual ~wte_input_map();
 
     protected:
         /*!
          * \brief Input Map constructor.
          */
-        inline wte_input_map();
+        wte_input_map();
 
         /*!
          * \brief Set the keyboard and gamepad button binding arrays from the engine cfg settings.
          * 
          * \param joy_installed Is a gamepad installed.
          */
-        inline void set_binding(const bool& joy_installed);
+        void set_binding(const bool& joy_installed);
 
         /*!
          * \enum WTE_KEY_SET_ENUM
@@ -63,7 +63,7 @@ class wte_input_map {
          * 
          * \param joy_installed Is a gamepad installed.
          */
-        inline void check_reg(const bool& joy_installed);
+        void check_reg(const bool& joy_installed);
 };
 
 } //  end namespace wte

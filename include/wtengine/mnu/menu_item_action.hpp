@@ -36,7 +36,7 @@ class menu_item_action final : public menu_item {
          * \param c Command to run for item.
          * \param a Arguments for command.
          */
-        inline menu_item_action(const std::string l, const std::string c, const std::string a) :
+        menu_item_action(const std::string l, const std::string c, const std::string a) :
             menu_item(l), cmd(c), arg(a) {};
 
         /*!
@@ -47,20 +47,20 @@ class menu_item_action final : public menu_item {
          * \param l Label for item.
          * \param c Command to run for item.
          */
-        inline menu_item_action(const std::string l, const std::string c) :
+        menu_item_action(const std::string l, const std::string c) :
             menu_item(l), cmd(c), arg("") {};
 
         /*!
          * \brief Menu item action destructor.
          */
-        inline ~menu_item_action() {};
+        ~menu_item_action() {};
 
         /*!
          * \brief Menu item action on selection.
          * 
          * Return the stored command when selected.
          */
-        inline const message on_select(void) override { return message("system", cmd, arg); };
+        const message on_select(void) override { return message("system", cmd, arg); };
 
         /*!
          * \brief Return display text for the menu item when rendering.
@@ -69,7 +69,7 @@ class menu_item_action final : public menu_item {
          * 
          * \return Vector of display text strings.
          */
-        inline const std::vector<std::string> get_text(void) const override { return { get_label() }; };
+        const std::vector<std::string> get_text(void) const override { return { get_label() }; };
 
     private:
         std::string cmd;

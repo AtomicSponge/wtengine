@@ -54,27 +54,27 @@ class render_manager final : private manager<render_manager>, private engine_tim
          * 
          * Generates the render_manager object.
          */
-        inline render_manager() :
+        render_manager() :
         fps_counter(0), fps(0) {};
 
         /*!
          * \brief render_manager destructor.
          */
-        inline ~render_manager() {};
+        ~render_manager() {};
 
         /*!
          * \brief Initialize the render manager.
          * 
          * Configures the internal objects for the render manager to use.
          */
-        inline void initialize(void);
+        void initialize(void);
 
         /*!
          * \brief De-initialize the render manager.
          * 
          * Destories the internal objects.
          */
-        inline void de_init(void);
+        void de_init(void);
 
         /*!
          * \brief Inform the renderer of the screen resolution.
@@ -84,21 +84,21 @@ class render_manager final : private manager<render_manager>, private engine_tim
          * \param w Resolution width in pixels.
          * \param h Resolution height in pixels.
          */
-        inline void update_resolution(const int& w, const int& h);
+        void update_resolution(const int& w, const int& h);
 
         /*!
          * \brief Get screen width.
          * 
          * \return Screen width in pixels.
          */
-        inline static const int get_screen_width(void);
+        static const int get_screen_width(void);
 
         /*!
          * \brief Get screen height.
          * 
          * \return Screen height in pixels.
          */
-        inline static const int get_screen_height(void);
+        static const int get_screen_height(void);
 
         /*!
          * \brief Set scale factor.
@@ -108,21 +108,21 @@ class render_manager final : private manager<render_manager>, private engine_tim
          * 
          * \param f New scale factor value.
          */
-        inline void set_scale_factor(const float& f);
+        void set_scale_factor(const float& f);
 
         /*!
          * \brief Get scale factor.
          * 
          * \return Scale factor multiplier.
          */
-        inline static const int get_scale_factor();
+        static const int get_scale_factor();
 
         /*!
          * \brief Reload the arena bitmap.
          * 
          * Called when the screen is updated.
          */
-        inline void reload_arena_bitmap(void);
+        void reload_arena_bitmap(void);
 
         /*!
          * \brief Set the arena size.
@@ -133,21 +133,21 @@ class render_manager final : private manager<render_manager>, private engine_tim
          * \param w Arena width in pixels.
          * \param h Arena height in pixels.
          */
-        inline static void set_arena_size(const int& w, const int& h);
+        static void set_arena_size(const int& w, const int& h);
 
         /*!
          * \brief Get the arnea width.
          * 
          * \return The arena width in pixels.
          */
-        inline static const int get_arena_width(void);
+        static const int get_arena_width(void);
 
         /*!
          * \brief Get the arena height.
          * 
          * \return The arena height in pixels.
          */
-        inline static const int get_arena_height(void);
+        static const int get_arena_height(void);
 
         /*!
          * \brief Set the title screen.
@@ -156,7 +156,7 @@ class render_manager final : private manager<render_manager>, private engine_tim
          * 
          * \param fname Filename of the title screen.
          */
-        inline static void set_title_screen(const std::string& fname);
+        static void set_title_screen(const std::string& fname);
 
         /*!
          * \brief Set the title screen.
@@ -165,7 +165,7 @@ class render_manager final : private manager<render_manager>, private engine_tim
          * 
          * \param fname Filename of the title screen.
          */
-        inline static void set_background_screen(const std::string& fname);
+        static void set_background_screen(const std::string& fname);
 
         /*!
          * \brief Set the font to be used by the renderer.
@@ -178,7 +178,7 @@ class render_manager final : private manager<render_manager>, private engine_tim
          * \param size Font size.
          * \param flags Font flags.
          */
-        inline static void set_font_file(const std::string& fname, const int& size, const int& flags);
+        static void set_font_file(const std::string& fname, const int& size, const int& flags);
 
         /*!
          * \brief Render method - Draw the game screen.
@@ -208,20 +208,20 @@ class render_manager final : private manager<render_manager>, private engine_tim
 
         std::size_t fps_counter, fps;
 
-        inline static int screen_w = 0, screen_h = 0;
-        inline static float scale_factor = 1.0;
+        static int screen_w = 0, screen_h = 0;
+        static float scale_factor = 1.0;
 
-        inline static int arena_w = 0, arena_h = 0;
-        inline static bool arena_created = false;
+        static int arena_w = 0, arena_h = 0;
+        static bool arena_created = false;
 
-        inline static std::string title_screen_file = "";
-        inline static std::string background_file = "";
-        inline static std::string render_font_file = "";
-        inline static int render_font_size = 0;
-        inline static int render_font_flags = 0;
+        static std::string title_screen_file = "";
+        static std::string background_file = "";
+        static std::string render_font_file = "";
+        static int render_font_size = 0;
+        static int render_font_flags = 0;
 };
 
-template <> inline bool render_manager::manager<render_manager>::initialized = false;
+template <> bool render_manager::manager<render_manager>::initialized = false;
 
 } //  namespace mgr
 

@@ -42,7 +42,7 @@ class engine_flags final {
          * 
          * \param i Index of the flag.
          */
-        inline static void set(const std::size_t& i) {
+        static void set(const std::size_t& i) {
             assert(i < MAX_SYSTEM_FLAGS);
             flags[i] = true;
         };
@@ -52,7 +52,7 @@ class engine_flags final {
          * 
          * \param i Index of the flag.
          */
-        inline static void unset(const std::size_t& i) {
+        static void unset(const std::size_t& i) {
             assert(i < MAX_SYSTEM_FLAGS);
             flags[i] = false;
         };
@@ -63,24 +63,24 @@ class engine_flags final {
          * \param i Index of the flag.
          * \return True if the flag is set, false if not.
          */
-        inline static const bool is_set(const std::size_t& i) {
+        static const bool is_set(const std::size_t& i) {
             assert(i < MAX_SYSTEM_FLAGS);
             return flags[i];
         };
 
     private:
-        inline engine_flags() { unset_all(); };
-        inline ~engine_flags() { unset_all(); };
+        engine_flags() { unset_all(); };
+        ~engine_flags() { unset_all(); };
 
         /*!
          * \brief Set all engine flags to false.
          */
-        inline static void unset_all(void) {
+        static void unset_all(void) {
             for(std::size_t i = 0; i < MAX_SYSTEM_FLAGS; i++)
                 flags[i] = false;
         }
 
-        inline static bool flags[MAX_SYSTEM_FLAGS];
+        static bool flags[MAX_SYSTEM_FLAGS];
 };
 
 } //  end namespace wte

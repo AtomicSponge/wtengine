@@ -37,7 +37,7 @@ class ai final : public component {
          * 
          * \param func Function to define AI process.
          */
-        inline ai(void func(const entity_id&,
+        ai(void func(const entity_id&,
                             mgr::entity_manager&,
                             mgr::message_manager&,
                             const int64_t&)) :
@@ -54,7 +54,7 @@ class ai final : public component {
          * \param func_a Function to define enabled AI process.
          * \param func_b Function to define disabled AI process.
          */
-        inline ai(void func_a(const entity_id&,
+        ai(void func_a(const entity_id&,
                               mgr::entity_manager&,
                               mgr::message_manager&,
                               const int64_t&),
@@ -67,7 +67,7 @@ class ai final : public component {
         /*!
          * \brief AI destructor.
          */
-        inline ~ai() {};
+        ~ai() {};
 
         /*!
          * \brief Run enabled AI function wrapper.
@@ -77,7 +77,7 @@ class ai final : public component {
          * \param messages Reference to the message manager.
          * \param engine_time Current value of the main timer.
          */
-        inline void run_enabled(const entity_id& eid,
+        void run_enabled(const entity_id& eid,
                                 mgr::entity_manager& world,
                                 mgr::message_manager& messages,
                                 const int64_t& engine_time) {
@@ -92,7 +92,7 @@ class ai final : public component {
          * \param messages Reference to the message manager.
          * \param engine_time Current value of the main timer.
          */
-        inline void run_disabled(const entity_id& eid,
+        void run_disabled(const entity_id& eid,
                                  mgr::entity_manager& world,
                                  mgr::message_manager& messages,
                                  const int64_t& engine_time) {

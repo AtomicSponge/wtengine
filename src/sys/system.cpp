@@ -19,12 +19,12 @@ namespace sys
 {
 
 //!  Enable the system
-inline void system::enable(void) { enabled = true; };
+void system::enable(void) { enabled = true; };
 //!  Check if the system is enabled
-inline const bool system::is_enabled(void) const { return enabled; };
+const bool system::is_enabled(void) const { return enabled; };
 
 //!  Get the system name
-inline const std::string system::get_name(void) const { return name; };
+const std::string system::get_name(void) const { return name; };
 
 //!  Override this to create custom run method
 virtual void run(mgr::entity_manager&,

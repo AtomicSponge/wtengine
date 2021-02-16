@@ -38,7 +38,7 @@ class input_button final : public component {
          * \param func_a Button on down function.
          * \param func_b Button on up function.
          */
-        inline input_button(
+        input_button(
             const std::size_t button,
             void func_a(const entity_id&,
                         mgr::entity_manager&,
@@ -55,14 +55,14 @@ class input_button final : public component {
         /*!
          * \brief Input button destructor.
          */
-        inline ~input_button() {};
+        ~input_button() {};
 
         /*!
          * \brief Get the button flag bounded to this component.
          * 
          * \return The button flag enum value.
          */
-        inline const std::size_t get_flag(void) const {
+        const std::size_t get_flag(void) const {
             return button_flag;
         };
 
@@ -74,7 +74,7 @@ class input_button final : public component {
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.
          */
-        inline void on_down(const entity_id& e_id,
+        void on_down(const entity_id& e_id,
                             mgr::entity_manager& world,
                             mgr::message_manager& messages,
                             const int64_t& current_time) {
@@ -89,7 +89,7 @@ class input_button final : public component {
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.
          */
-        inline void on_up(const entity_id& e_id,
+        void on_up(const entity_id& e_id,
                           mgr::entity_manager& world,
                           mgr::message_manager& messages,
                           const int64_t& current_time) {

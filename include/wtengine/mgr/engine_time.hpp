@@ -24,7 +24,7 @@ namespace mgr
  */
 class engine_time {
     public:
-        inline virtual ~engine_time() {};
+        virtual ~engine_time() {};
 
         /*!
          * \brief Set the internal timer.
@@ -34,16 +34,16 @@ class engine_time {
          * 
          * \param t Timer value.
          */
-        inline static void set_time(const int64_t& t) {
+        static void set_time(const int64_t& t) {
             current_time.store(t, std::memory_order_release);
         };
 
     private:
         //  Track game timer
-        inline static std::atomic<int64_t> current_time = 0;
+        static std::atomic<int64_t> current_time = 0;
 
     protected:
-        inline engine_time() {};
+        engine_time() {};
 
         /*!
          * \brief Check the internal timer.
@@ -52,7 +52,7 @@ class engine_time {
          * 
          * \return Timer value.
          */
-        inline const int64_t check_time(void) const {
+        const int64_t check_time(void) const {
             return current_time.load(std::memory_order_acquire);
         };
 };

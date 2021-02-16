@@ -25,10 +25,10 @@ namespace sys
  */
 class input final : public system {
     public:
-        inline input() : system("input") {};
-        inline ~input() {};
+        input() : system("input") {};
+        ~input() {};
 
-        inline void disable(void) override { enabled = false; };
+        void disable(void) override { enabled = false; };
 
         /*!
          * \brief Input system run method
@@ -39,7 +39,7 @@ class input final : public system {
          * \param messages Reference to the message manager.
          * \param current_time Current value of the main timer.
          */
-        inline void run(mgr::entity_manager& world,
+        void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
                         const int64_t& current_time) override {
             //  First check all directional components.

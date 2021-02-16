@@ -26,7 +26,7 @@
 namespace wte
 {
 
-inline wte_main::~wte_main() {
+wte_main::~wte_main() {
     PHYSFS_deinit();
 
     al_destroy_timer(main_timer);
@@ -39,11 +39,11 @@ inline wte_main::~wte_main() {
     initialized = false;
 };
 
-inline static void wte_main::add_file_location(const std::string& flocation) {
+static void wte_main::add_file_location(const std::string& flocation) {
     file_locations.push_back(flocation);
 };
 
-inline wte_main::wte_main(const int argc, char **argv, const std::string& title) :
+wte_main::wte_main(const int argc, char **argv, const std::string& title) :
 wte_display(title) {
     if(initialized == true) throw std::runtime_error(get_window_title() + " already running!");
     initialized = true;
@@ -111,7 +111,7 @@ wte_display(title) {
     }
 };
 
-inline void wte_main::wte_load(void) {
+void wte_main::wte_load(void) {
     //  Initialize managers that require it.
     screen.initialize();
     menus.initialize();
@@ -124,7 +124,7 @@ inline void wte_main::wte_load(void) {
     load_menus();
 };
 
-inline void wte_main::wte_unload(void) {
+void wte_main::wte_unload(void) {
     audio_th.stop();
 
     screen.de_init();
@@ -132,7 +132,7 @@ inline void wte_main::wte_unload(void) {
     audio_th.de_init();
 };
 
-inline void wte_main::process_new_game(const std::string& game_data) {
+void wte_main::process_new_game(const std::string& game_data) {
     std::srand(std::time(nullptr));  //  Seed random, using time.
 
     //  Make sure the menu isn't opened.
@@ -167,7 +167,7 @@ inline void wte_main::process_new_game(const std::string& game_data) {
     al_start_timer(main_timer);
 }
 
-inline void wte_main::process_end_game(void) {
+void wte_main::process_end_game(void) {
     al_stop_timer(main_timer);
     engine_flags::unset(GAME_STARTED);
     al_set_timer_count(main_timer, 0);
@@ -193,7 +193,7 @@ inline void wte_main::process_end_game(void) {
     engine_flags::set(GAME_MENU_OPENED);
 }
 
-inline void wte_main::do_game(void) {
+void wte_main::do_game(void) {
     wte_load();
 
     //  Set default states.
@@ -286,7 +286,7 @@ inline void wte_main::do_game(void) {
     wte_unload();
 }
 
-inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
+void wte_main::handle_sys_msg(message_container& sys_msgs) {
     const bool timer_running = al_get_timer_started(main_timer);
 
     for(auto it = sys_msgs.begin(); it != sys_msgs.end();) {

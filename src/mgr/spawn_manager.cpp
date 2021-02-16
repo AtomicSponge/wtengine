@@ -20,15 +20,15 @@ namespace wte
 namespace mgr
 {
 
-inline spawn_manager::spawn_manager() {
+spawn_manager::spawn_manager() {
     spawner.clear();
 }
 
-inline spawn_manager::~spawn_manager() {
+spawn_manager::~spawn_manager() {
     spawner.clear();
 }
 
-inline void spawn_manager::process(const message_container& messages, entity_manager& world) {
+void spawn_manager::process(const message_container& messages, entity_manager& world) {
     for(auto & m_it : messages) {
         if(m_it.get_cmd() == "new") {
             auto s_it = spawner.find(m_it.get_arg(0));
@@ -50,7 +50,7 @@ inline void spawn_manager::process(const message_container& messages, entity_man
     }  //  End for(m_it)
 }
 
-inline const bool spawn_manager::add_spawn(const std::string& name, const std::size_t& num_args,
+const bool spawn_manager::add_spawn(const std::string& name, const std::size_t& num_args,
                             void func(const entity_id&, entity_manager&, const msg_arg_list&)) {
     auto ret = spawner.insert(std::make_pair(name, std::make_pair(num_args, func)));
     return ret.second;

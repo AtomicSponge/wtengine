@@ -87,7 +87,7 @@ class input_flags final {
         /*!
          * \brief Set all input flags to false or zero.
          */
-        inline static void unset_all(void) {
+        static void unset_all(void) {
             for(std::size_t j = 0; j < WTE_MAX_JOYSTICK_FLAGS; j++)
                 for(std::size_t d = 0; d < WTE_MAX_DIRECTON_FLAGS; d++)
                     dflags[j][d] = false;
@@ -110,7 +110,7 @@ class input_flags final {
          * \param j Joystick to set flag for.
          * \param d Direction flag to set.
          */
-        inline static void joystick_toggle(const std::size_t& j, const std::size_t& d) {
+        static void joystick_toggle(const std::size_t& j, const std::size_t& d) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
             assert(d < WTE_MAX_DIRECTON_FLAGS);
 
@@ -126,7 +126,7 @@ class input_flags final {
          * \param d Direction flag to check.
          * \return True if set, false if not.
          */
-        inline static const bool joystick_check(const std::size_t& j, const std::size_t& d) {
+        static const bool joystick_check(const std::size_t& j, const std::size_t& d) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
             assert(d < WTE_MAX_DIRECTON_FLAGS);
             
@@ -141,7 +141,7 @@ class input_flags final {
          * \param j Joystick to set for.
          * \param a Angle in radians.
          */
-        inline static void set_joystick_radians(const std::size_t& j, const float& a) {
+        static void set_joystick_radians(const std::size_t& j, const float& a) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
 
             angle[j] = a;
@@ -153,7 +153,7 @@ class input_flags final {
          * \param j Joystick to check.
          * \return Angle in radians.
          */
-        inline static const float get_joystick_radians(const std::size_t& j) {
+        static const float get_joystick_radians(const std::size_t& j) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
 
             return angle[j];
@@ -165,7 +165,7 @@ class input_flags final {
          * \param j Joystick to set.
          * \param d Direction to set.
          */
-        inline static void set_joystick_pol_x(const std::size_t& j, const float& d) {
+        static void set_joystick_pol_x(const std::size_t& j, const float& d) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
 
             pol_x[j] = d;
@@ -177,7 +177,7 @@ class input_flags final {
          * \param j Joystick to set.
          * \param d Direction to set.
          */
-        inline static void set_joystick_pol_y(const std::size_t& j, const float& d) {
+        static void set_joystick_pol_y(const std::size_t& j, const float& d) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
 
             pol_y[j] = d;
@@ -189,7 +189,7 @@ class input_flags final {
          * \param j Joystick to set.
          * \return Joystick X direction.
          */
-        inline static const float get_joystick_pol_x(const std::size_t& j) {
+        static const float get_joystick_pol_x(const std::size_t& j) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
 
             return pol_x[j];
@@ -201,7 +201,7 @@ class input_flags final {
          * \param j Joystick to set.
          * \return Joystick Y direction.
          */
-        inline static const float get_joystick_pol_y(const std::size_t& j) {
+        static const float get_joystick_pol_y(const std::size_t& j) {
             assert(j < WTE_MAX_JOYSTICK_FLAGS);
 
             return pol_y[j];
@@ -213,7 +213,7 @@ class input_flags final {
          * \param b Button to check.
          * \param e Event to check.
          */
-        inline static const bool check_button_event(const std::size_t& b, const std::size_t& e) {
+        static const bool check_button_event(const std::size_t& b, const std::size_t& e) {
             assert(b < WTE_MAX_INPUT_BUTTON_FLAGS);
             assert(e < WTE_MAX_BUTTON_EVENT_FLAGS);
 
@@ -228,7 +228,7 @@ class input_flags final {
          * \param b Button to set.
          * \param e Event to set.
          */
-        inline static void set_button_event(const std::size_t& b, const std::size_t& e) {
+        static void set_button_event(const std::size_t& b, const std::size_t& e) {
             assert(b < WTE_MAX_INPUT_BUTTON_FLAGS);
             assert(e < WTE_MAX_BUTTON_EVENT_FLAGS);
 
@@ -240,7 +240,7 @@ class input_flags final {
          * 
          * \return Key code.
          */
-        inline static const std::size_t get_last_keypress(void) {
+        static const std::size_t get_last_keypress(void) {
             return last_keypress;
         };
 
@@ -249,7 +249,7 @@ class input_flags final {
          * 
          * \param lk Key code of last key pressed.
          */
-        inline static void set_last_keypress(const std::size_t& lk) {
+        static void set_last_keypress(const std::size_t& lk) {
             last_keypress = lk;
         };
 
@@ -258,7 +258,7 @@ class input_flags final {
          * 
          * \return Button code.
          */
-        inline static const std::size_t get_last_buttonpress(void) {
+        static const std::size_t get_last_buttonpress(void) {
             return last_buttonpress;
         };
 
@@ -267,24 +267,24 @@ class input_flags final {
          * 
          * \param lk Code of last button pressed.
          */
-        inline static void set_last_buttonpress(const std::size_t& lk) {
+        static void set_last_buttonpress(const std::size_t& lk) {
             last_buttonpress = lk;
         };
 
     private:
-        inline input_flags() { unset_all(); };
-        inline ~input_flags() { unset_all(); };
+        input_flags() { unset_all(); };
+        ~input_flags() { unset_all(); };
 
-        inline static std::size_t last_keypress = 0;
-        inline static std::size_t last_buttonpress = 0;
+        static std::size_t last_keypress = 0;
+        static std::size_t last_buttonpress = 0;
 
-        inline static bool dflags[WTE_MAX_JOYSTICK_FLAGS][WTE_MAX_DIRECTON_FLAGS];
+        static bool dflags[WTE_MAX_JOYSTICK_FLAGS][WTE_MAX_DIRECTON_FLAGS];
 
-        inline static float angle[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
-        inline static float pol_x[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
-        inline static float pol_y[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
+        static float angle[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
+        static float pol_x[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
+        static float pol_y[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
 
-        inline static bool buttons[WTE_MAX_INPUT_BUTTON_FLAGS][WTE_MAX_BUTTON_EVENT_FLAGS];
+        static bool buttons[WTE_MAX_INPUT_BUTTON_FLAGS][WTE_MAX_BUTTON_EVENT_FLAGS];
 };
 
 } //  end namespace wte

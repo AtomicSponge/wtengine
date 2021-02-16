@@ -25,18 +25,18 @@ namespace wte
 namespace mgr
 {
 
-inline menu_manager::menu_manager() :
+menu_manager::menu_manager() :
 menu_width(500), menu_height(400), menu_padding(32), font_size(8), is_button_left(true) {
     menus.clear();
     opened_menus = {};
 };
 
-inline menu_manager::~menu_manager() {
+menu_manager::~menu_manager() {
     opened_menus = {};
     menus.clear();
 };
 
-inline void menu_manager::initialize(void) {
+void menu_manager::initialize(void) {
     if(menu_font_file.empty()) menu_font = al_create_builtin_font();
     else {
         menu_font = al_load_font(menu_font_file.c_str(), menu_font_size, menu_font_flags);
@@ -71,7 +71,7 @@ inline void menu_manager::initialize(void) {
     al_register_event_source(menu_event_queue, al_get_timer_event_source(menu_timer));
 };
 
-inline void menu_manager::de_init(void) {
+void menu_manager::de_init(void) {
     al_destroy_bitmap(menu_bitmap);
     al_destroy_bitmap(cursor_bitmap);
     al_destroy_font(menu_font);
@@ -79,7 +79,7 @@ inline void menu_manager::de_init(void) {
     al_destroy_timer(menu_timer);
 };
 
-inline void menu_manager::set_menu_size(const float& mw, const float& mh, const float& mp) {
+void menu_manager::set_menu_size(const float& mw, const float& mh, const float& mp) {
     menu_width = mw;
     menu_height = mh;
     menu_padding = mp;
@@ -90,14 +90,14 @@ inline void menu_manager::set_menu_size(const float& mw, const float& mh, const 
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
 };
 
-inline void menu_manager::reload_menu_bitmap(void) {
+void menu_manager::reload_menu_bitmap(void) {
     al_destroy_bitmap(menu_bitmap);
     al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
     menu_bitmap = al_create_bitmap(menu_width, menu_height);
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
 };
 
-inline void menu_manager::set_menu_color(ALLEGRO_COLOR fcolor, ALLEGRO_COLOR bgcolor) {
+void menu_manager::set_menu_color(ALLEGRO_COLOR fcolor, ALLEGRO_COLOR bgcolor) {
     menu_font_color = fcolor;
     menu_bg_color = bgcolor;
 
@@ -105,13 +105,13 @@ inline void menu_manager::set_menu_color(ALLEGRO_COLOR fcolor, ALLEGRO_COLOR bgc
     al_clear_to_color(menu_font_color);
 };
 
-inline static void menu_manager::set_font_file(const std::string& fname, const int& size, const int& flags) {
+static void menu_manager::set_font_file(const std::string& fname, const int& size, const int& flags) {
     menu_font_file = fname;
     menu_font_size = size;
     menu_font_flags = flags;
 };
 
-inline const bool menu_manager::new_menu(const mnu::menu& new_menu) {
+const bool menu_manager::new_menu(const mnu::menu& new_menu) {
     for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
         if(new_menu.get_id() == (*it)->get_id()) return false;
     }
@@ -119,7 +119,7 @@ inline const bool menu_manager::new_menu(const mnu::menu& new_menu) {
     return true;
 };
 
-inline const mnu::menu_csptr menu_manager::get_menu(const std::string& name) const {
+const mnu::menu_csptr menu_manager::get_menu(const std::string& name) const {
     if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
 
     for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
@@ -141,7 +141,7 @@ inline const mnu::menu_csptr menu_manager::get_menu(const std::string& name) con
     return *menus.begin();
 };
 
-inline const mnu::menu_sptr menu_manager::set_menu(const std::string& name) {
+const mnu::menu_sptr menu_manager::set_menu(const std::string& name) {
     if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
 
     for(menu_iterator it = menus.begin(); it != menus.end(); it++) {
@@ -152,12 +152,12 @@ inline const mnu::menu_sptr menu_manager::set_menu(const std::string& name) {
     return nullptr;
 };
 
-inline void menu_manager::reset(void) {
+void menu_manager::reset(void) {
     opened_menus = {};
     engine_flags::unset(GAME_MENU_OPENED);
 };
 
-inline void menu_manager::open_menu(const std::string& menu_id) {
+void menu_manager::open_menu(const std::string& menu_id) {
     opened_menus.push(get_menu(menu_id));
     engine_flags::set(GAME_MENU_OPENED);
     menu_position = opened_menus.top()->items_cbegin();
@@ -168,13 +168,13 @@ inline void menu_manager::open_menu(const std::string& menu_id) {
     }
 };
 
-inline void menu_manager::close_menu(void) {
+void menu_manager::close_menu(void) {
     opened_menus.pop();
     if(opened_menus.empty()) engine_flags::unset(GAME_MENU_OPENED);
     else menu_position = opened_menus.top()->items_cbegin();
 };
 
-inline void menu_manager::run(message_manager& messages) {
+void menu_manager::run(message_manager& messages) {
     if(opened_menus.empty()) {
         //  No menus currently opened, add one to the stack
         if(engine_flags::is_set(GAME_STARTED)) open_menu("game_menu"); //  Add the in-game menu to the stack.
@@ -333,7 +333,7 @@ inline void menu_manager::run(message_manager& messages) {
     if(input_flags::check_button_event(WTE_INPUT_MENU_CLOSE, WTE_BUTTON_EVENT_DOWN)) close_menu();
 }
 
-inline ALLEGRO_BITMAP& menu_manager::render_menu(void) const {
+ALLEGRO_BITMAP& menu_manager::render_menu(void) const {
     //  Set drawing to the menu bitmap.
     al_set_target_bitmap(menu_bitmap);
     al_clear_to_color(menu_bg_color);

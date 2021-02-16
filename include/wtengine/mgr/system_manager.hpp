@@ -37,33 +37,33 @@ class system_manager final : private manager<system_manager> {
          * 
          * Clears the systems vector and sets the finalized flag to false.
          */
-        inline system_manager() : finalized(false);
+        system_manager() : finalized(false);
 
         /*!
          * \brief System Manager destructor.
          * 
          * Makes sure the systems are cleared.
          */
-        inline ~system_manager() {};
+        ~system_manager() {};
 
         /*!
          * \brief Clear the system manager and allow systems to be loaded again.
          */
-        inline void clear(void);
+        void clear(void);
 
         /*!
          * \brief Finalize system manager.
          * 
          * Set finalized flag to prevent additional systems from being loaded.
          */
-        inline void finalize(void);
+        void finalize(void);
 
         /*!
          * \brief Check if systems were loaded into the manager.
          * 
          * \return True if empty, false if not.
          */
-        inline bool empty(void);
+        bool empty(void);
 
         /*!
          * \brief Add a new system to the manager.
@@ -75,7 +75,7 @@ class system_manager final : private manager<system_manager> {
          * \param new_system System to add.
          * \return True if added, false if not.
          */
-        inline bool add(sys::system_uptr new_system);
+        bool add(sys::system_uptr new_system);
 
         /*!
          * \brief Run all systems.
@@ -86,7 +86,7 @@ class system_manager final : private manager<system_manager> {
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.
          */
-        inline void run(mgr::entity_manager& world,
+        void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
                         const int64_t& current_time);
 
@@ -100,7 +100,7 @@ class system_manager final : private manager<system_manager> {
          * \param messages Reference to message manager.
          * \param current_time Current engine time.
          */
-        inline void dispatch(mgr::entity_manager& world,
+        void dispatch(mgr::entity_manager& world,
                              mgr::message_manager& messages,
                              const int64_t& current_time);
 
@@ -122,7 +122,7 @@ class system_manager final : private manager<system_manager> {
          * \param sys Name of system to enable.
          * \return True if the system was found, false if it was not.
          */
-        inline const bool enable_system(const std::string& sys);
+        const bool enable_system(const std::string& sys);
 
         /*!
          * \brief Disable a system.
@@ -132,7 +132,7 @@ class system_manager final : private manager<system_manager> {
          * \param sys Name of system to disable.
          * \return True if the system was found, false if it was not
          */
-        inline const bool disable_system(const std::string& sys);
+        const bool disable_system(const std::string& sys);
 
     private:
         std::vector<sys::system_uptr> systems;  // Store the vector of systems.
@@ -140,7 +140,7 @@ class system_manager final : private manager<system_manager> {
         bool finalized; //  Flag to disallow loading of additional systems.
 };
 
-template <> inline bool system_manager::manager<system_manager>::initialized = false;
+template <> bool system_manager::manager<system_manager>::initialized = false;
 
 } //  namespace mgr
 

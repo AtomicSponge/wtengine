@@ -35,7 +35,7 @@ class bitmap_map {
         /*!
          * \brief Bitmap map destructor.
          */
-        inline virtual ~bitmap_map() {
+        virtual ~bitmap_map() {
             for(auto & it : bmp_map) al_destroy_bitmap(it.second);
             bmp_map.clear();
         };
@@ -49,7 +49,7 @@ class bitmap_map {
          * \param label Label for referencing bitmap.
          * \return True if loaded, false if not.
          */
-        inline const bool load_bitmap(const std::string& label,
+        const bool load_bitmap(const std::string& label,
                                       const std::string& fname) {
             //  Load the file.
             ALLEGRO_FILE* file;
@@ -86,7 +86,7 @@ class bitmap_map {
          * \param label Label of saved bitmap.
          * \return True if removed, false if not.
          */
-        inline const bool delete_bitmap(const std::string& label) {
+        const bool delete_bitmap(const std::string& label) {
             auto it = bmp_map.find(label);
             if(it != bmp_map.end()) {
                 al_destroy_bitmap(it->second);
@@ -104,7 +104,7 @@ class bitmap_map {
          * \param dy Y location of the background to draw to.
          * \param flags Allegro Bitmap flags.
          */
-        inline void draw_bitmap(
+        void draw_bitmap(
             const std::string& label,
             const float& dx, const float& dy,
             const int& flags
@@ -122,7 +122,7 @@ class bitmap_map {
          * \param dy Y location of the background to draw to.
          * \param flags Allegro Bitmap flags.
          */
-        inline void draw_tinted_bitmap(
+        void draw_tinted_bitmap(
             const std::string& label,
             const ALLEGRO_COLOR& tint,
             const float& dx, const float& dy,
@@ -146,7 +146,7 @@ class bitmap_map {
          * \param dy Y location of the background to draw to.
          * \param flags Allegro Bitmap flags.
          */
-        inline void draw_bitmap_region(
+        void draw_bitmap_region(
             const std::string& label,
             const float& sx, const float& sy,
             const float& sw, const float& sh,
@@ -172,7 +172,7 @@ class bitmap_map {
          * \param dy Y location of the background to draw to.
          * \param flags Allegro Bitmap flags.
          */
-        inline void draw_tinted_bitmap_region(
+        void draw_tinted_bitmap_region(
             const std::string& label,
             const ALLEGRO_COLOR& tint,
             const float& sx, const float& sy,
@@ -197,7 +197,7 @@ class bitmap_map {
          * \param angle Angle of rotation in radians.
          * \param flags Allegro Bitmap flags.
          */
-        inline void draw_rotated_bitmap(
+        void draw_rotated_bitmap(
             const std::string& label,
             const float& cx, const float& cy,
             const float& dx, const float& dy,
@@ -221,7 +221,7 @@ class bitmap_map {
          * \param angle Angle of rotation in radians.
          * \param flags Allegro Bitmap flags.
          */
-        inline void draw_tinted_rotated_bitmap(
+        void draw_tinted_rotated_bitmap(
             const std::string& label,
             const ALLEGRO_COLOR& tint,
             const float& cx, const float& cy,
@@ -247,7 +247,7 @@ class bitmap_map {
          * \param angle Angle of rotation in radians.
          * \param flags Allegro Bitmap flags.
          */
-        inline void draw_scaled_rotated_bitmap(
+        void draw_scaled_rotated_bitmap(
             const std::string& label,
             const float& cx, const float& cy,
             const float& dx, const float& dy,
@@ -274,7 +274,7 @@ class bitmap_map {
          * \param angle Angle of rotation in radians.
          * \param flags Allegro Bitmap flags.
          */
-        inline void draw_tinted_scaled_rotated_bitmap(
+        void draw_tinted_scaled_rotated_bitmap(
             const std::string& label,
             const ALLEGRO_COLOR& tint,
             const float& cx, const float& cy,
@@ -306,7 +306,7 @@ class bitmap_map {
          * \param angle Angle of rotation in radians.
          * \param flags Allegro Bitmap flags.
          */
-        inline void draw_tinted_scaled_rotated_bitmap_region(
+        void draw_tinted_scaled_rotated_bitmap_region(
             const std::string& label,
             const float& sx, const float& sy,
             const float& sw, const float& sh,
@@ -336,7 +336,7 @@ class bitmap_map {
          * \param dh Destination height.
          * \param flags Allegro Bitmap flags.
          */
-        inline void draw_scaled_bitmap(
+        void draw_scaled_bitmap(
             const std::string& label,
             const float& sx, const float& sy,
             const float& sw, const float& sh,
@@ -365,7 +365,7 @@ class bitmap_map {
          * \param dh Destination height.
          * \param flags Allegro Bitmap flags.
          */
-        inline void draw_tinted_scaled_bitmap(
+        void draw_tinted_scaled_bitmap(
             const std::string& label,
             const ALLEGRO_COLOR& tint,
             const float& sx, const float& sy,
@@ -384,7 +384,7 @@ class bitmap_map {
         /*!
          * \brief Bitmap map constructor.
          */
-        inline bitmap_map() {
+        bitmap_map() {
             bmp_map.clear();
         };
 

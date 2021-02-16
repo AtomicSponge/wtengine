@@ -50,7 +50,7 @@ class menu_manager final : private manager<menu_manager> {
          * 
          * Generates the menu manager object.
          */
-        inline menu_manager() :
+        menu_manager() :
         menu_width(500), menu_height(400), menu_padding(32), font_size(8), is_button_left(true);
 
         /*!
@@ -58,7 +58,7 @@ class menu_manager final : private manager<menu_manager> {
          * 
          * Cleans up by deleting the menu bitmaps and font.
          */
-        inline ~menu_manager() {};
+        ~menu_manager() {};
 
         /*!
          * \brief Ititialize menu manager.
@@ -66,14 +66,14 @@ class menu_manager final : private manager<menu_manager> {
          * Sets up internal menu objects.  Called during engine initialization.
          * Also creates the default main menu and in-game menu.
          */
-        inline void initialize(void);
+        void initialize(void);
 
         /*!
          * \brief De-initialize the menu manager.
          * 
          * Destories the internal objects.
          */
-        inline void de_init(void);
+        void de_init(void);
 
         /*!
          * \brief Set menu size.
@@ -85,14 +85,14 @@ class menu_manager final : private manager<menu_manager> {
          * \param mh Menu height in pixels.
          * \param mp Menu padding in pixels.
          */
-        inline void set_menu_size(const float& mw, const float& mh, const float& mp);
+        void set_menu_size(const float& mw, const float& mh, const float& mp);
 
         /*!
          * \brief Reload the menu bitmap.
          * 
          * Called when the screen is updated.
          */
-        inline void reload_menu_bitmap(void);
+        void reload_menu_bitmap(void);
 
         /*!
          * \brief Set menu colors.
@@ -102,7 +102,7 @@ class menu_manager final : private manager<menu_manager> {
          * \param fcolor Allegro color to use for font.
          * \param bgcolor Allegro color to use for background.
          */
-        inline void set_menu_color(ALLEGRO_COLOR fcolor, ALLEGRO_COLOR bgcolor);
+        void set_menu_color(ALLEGRO_COLOR fcolor, ALLEGRO_COLOR bgcolor);
 
         /*!
          * \brief Set the font to be used by the menus.
@@ -115,7 +115,7 @@ class menu_manager final : private manager<menu_manager> {
          * \param size Font size.
          * \param flags Font flags.
          */
-        inline static void set_font_file(const std::string& fname, const int& size, const int& flags);
+        static void set_font_file(const std::string& fname, const int& size, const int& flags);
 
         /*!
          * \brief Add a menu to the menu vector.
@@ -123,7 +123,7 @@ class menu_manager final : private manager<menu_manager> {
          * \param new_menu A menu object.
          * \return Returns false if a menu with a similar ID already exists.  Returns true on success.
          */
-        inline const bool new_menu(const mnu::menu& new_menu);
+        const bool new_menu(const mnu::menu& new_menu);
 
         /*!
          * \brief Get menu by name.
@@ -135,7 +135,7 @@ class menu_manager final : private manager<menu_manager> {
          * \param name Menu name.
          * \return Shared pointer to menu.
          */
-        inline const mnu::menu_csptr get_menu(const std::string& name) const;
+        const mnu::menu_csptr get_menu(const std::string& name) const;
 
         /*!
          * \brief Set menu by name.
@@ -146,14 +146,14 @@ class menu_manager final : private manager<menu_manager> {
          * \param name Menu name.
          * \return Shared pointer to menu.
          */
-        inline const mnu::menu_sptr set_menu(const std::string& name);
+        const mnu::menu_sptr set_menu(const std::string& name);
 
         /*!
          * \brief Reset menu manager.
          * 
          * Clear the stack of opened menus.
          */
-        inline void reset(void);
+        void reset(void);
 
         /*!
          * \brief Add a menu to the opened stack.
@@ -163,14 +163,14 @@ class menu_manager final : private manager<menu_manager> {
          * 
          * \param menu_id Menu to open.
          */
-        inline void open_menu(const std::string& menu_id);
+        void open_menu(const std::string& menu_id);
 
         /*!
          * \brief Close the current opened menu.
          * 
          * Remove the menu from the top of the stack.
          */
-        inline void close_menu(void);
+        void close_menu(void);
 
         /*!
          * \brief Run the menu manager.
@@ -210,12 +210,12 @@ class menu_manager final : private manager<menu_manager> {
 
         bool is_button_left;
 
-        inline static std::string menu_font_file = "";
-        inline static int menu_font_size = 0;
-        inline static int menu_font_flags = 0;
+        static std::string menu_font_file = "";
+        static int menu_font_size = 0;
+        static int menu_font_flags = 0;
 };
 
-template <> inline bool menu_manager::manager<menu_manager>::initialized = false;
+template <> bool menu_manager::manager<menu_manager>::initialized = false;
 
 }  // end namespace mgr
 

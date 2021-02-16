@@ -38,7 +38,7 @@ class wte_main : private wte_display, private wte_input {
          * Frees up instance, set initialized flag to false.
          * Also makes sure to unload the engine.
          */
-        inline ~wte_main();
+        ~wte_main();
 
         //  Remove copy constructor.
         wte_main(const wte_main&) = delete;
@@ -52,7 +52,7 @@ class wte_main : private wte_display, private wte_input {
          * 
          * \param flocation File location to add to PhysFS.
          */
-        inline static void add_file_location(const std::string& flocation);
+        static void add_file_location(const std::string& flocation);
 
         void do_game(void);
 
@@ -67,7 +67,7 @@ class wte_main : private wte_display, private wte_input {
          * \param argv Command line arguments count.
          * \param title Window title.
          */
-        inline wte_main(const int argc, char **argv, const std::string& title) :
+        wte_main(const int argc, char **argv, const std::string& title) :
             wte_display(title);
 
         /* These function members are overridden in the derived class */
@@ -109,14 +109,14 @@ class wte_main : private wte_display, private wte_input {
          * 
          * Called before the main loop starts.
          */
-        inline void wte_load(void);
+        void wte_load(void);
 
         /*!
          * \brief Unload the engine's managers.
          * 
          * Called after the main loop ends running.
          */
-        inline void wte_unload(void);
+        void wte_unload(void);
 
         void process_new_game(const std::string&);
         void process_end_game(void);
@@ -142,9 +142,9 @@ class wte_main : private wte_display, private wte_input {
         ALLEGRO_EVENT_QUEUE* main_event_queue;
 
         //  Vector of file paths to provide to PhysFS.
-        inline static std::vector<std::string> file_locations = {};
+        static std::vector<std::string> file_locations = {};
         //  Restrict to one instance of the engine running.
-        inline static bool initialized = false;
+        static bool initialized = false;
 };
 
 } //  end namespace wte

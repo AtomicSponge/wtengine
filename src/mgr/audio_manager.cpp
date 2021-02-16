@@ -26,7 +26,7 @@ namespace wte
 namespace mgr
 {
 
-inline audio_manager::audio_manager() {
+audio_manager::audio_manager() {
     //  Map the audio commands.
     //  Mixer 1
     map_cmd_str_values["music_loop"] = CMD_STR_MUSIC_LOOP;
@@ -60,14 +60,14 @@ inline audio_manager::audio_manager() {
     sample_instances.clear();
 };
 
-inline audio_manager::~audio_manager() {
+audio_manager::~audio_manager() {
     map_cmd_str_values.clear();
     audio_messages.clear();
     sample_map.clear();
     sample_instances.clear();
 };
 
-inline void audio_manager::initialize(void) {
+void audio_manager::initialize(void) {
     voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
     mixer_main = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
     mixer_1 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
@@ -97,7 +97,7 @@ inline void audio_manager::initialize(void) {
     set_volume();
 };
 
-inline void audio_manager::de_init(void) {
+void audio_manager::de_init(void) {
     //  Clear any left over sample instances.
     for(auto sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
         al_stop_sample(&sample_instance->second);
@@ -144,7 +144,7 @@ inline void audio_manager::de_init(void) {
     al_destroy_voice(voice);
 };
 
-inline void audio_manager::get_volume(void) const {
+void audio_manager::get_volume(void) const {
     engine_cfg::set("main_vol", std::to_string(al_get_mixer_gain(mixer_main)));
     engine_cfg::set("mix1_vol", std::to_string(al_get_mixer_gain(mixer_1)));
     engine_cfg::set("mix2_vol", std::to_string(al_get_mixer_gain(mixer_2)));
@@ -152,7 +152,7 @@ inline void audio_manager::get_volume(void) const {
     engine_cfg::set("mix4_vol", std::to_string(al_get_mixer_gain(mixer_4)));
 };
 
-inline void audio_manager::transfer_messages(const message_container& messages) {
+void audio_manager::transfer_messages(const message_container& messages) {
     deque_mtx.lock();
     audio_messages.insert(audio_messages.end(),
                             std::make_move_iterator(messages.begin()),
@@ -160,14 +160,14 @@ inline void audio_manager::transfer_messages(const message_container& messages) 
     deque_mtx.unlock();
 };
 
-inline const std::string audio_manager::get_sample_name(const std::string& full_path) {
+const std::string audio_manager::get_sample_name(const std::string& full_path) {
     if(full_path.find("/") == std::string::npos)
         return full_path.substr(0, full_path.find("."));
     return full_path.substr(full_path.find_last_of("/") + 1,
         full_path.find(".") - (full_path.find_last_of("/") + 1));
 };
 
-inline void audio_manager::set_volume(void) {
+void audio_manager::set_volume(void) {
     float vol = engine_cfg::get<float>("main_vol");
     if(vol >= 0.0f && vol <= 1.0f) al_set_mixer_gain(mixer_main, vol);
     vol = engine_cfg::get<float>("mix1_vol");
@@ -181,9 +181,9 @@ inline void audio_manager::set_volume(void) {
 };
 
 //  Used to restrict class to a single instance.
-template <> inline bool audio_manager::manager<audio_manager>::initialized = false;
+template <> bool audio_manager::manager<audio_manager>::initialized = false;
 
-inline void audio_manager::run(void) {
+void audio_manager::run(void) {
     //  Set PhysFS interface for the thread.
     //  PhysFS is initialized in the wte_main constructor.
     al_set_physfs_file_interface();

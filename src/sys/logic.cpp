@@ -29,12 +29,12 @@ class logic final : public system {
         /*!
          * \brief Logic System constructor.
          */
-        inline logic() : system("logic") {};
+        logic() : system("logic") {};
 
         /*!
          * \brief Logic System destructor.
          */
-        inline ~logic() {};
+        ~logic() {};
 
         /*!
          * \brief Logic system run.
@@ -45,7 +45,7 @@ class logic final : public system {
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.
          */
-        inline void run(mgr::entity_manager& world,
+        void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
                         const int64_t& current_time) override {
             //  Find the entities with the input handler component

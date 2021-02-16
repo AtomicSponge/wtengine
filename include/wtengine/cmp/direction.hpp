@@ -36,21 +36,21 @@ class direction final : public component {
         /*!
          * \brief Direction constructor.
          */
-        inline direction(void) : angle(0.0f), draw_rotated(true) {};
+        direction(void) : angle(0.0f), draw_rotated(true) {};
 
         /*!
          * \brief Direction constructor.
          * 
          * \param r Draw rotated flag.
          */
-        inline direction(const bool r) : angle(0.0f), draw_rotated(r) {};
+        direction(const bool r) : angle(0.0f), draw_rotated(r) {};
 
         /*!
          * \brief Direction constructor.
          * 
          * \param a Angle of direction in radians.
          */
-        inline direction(const float a) : angle(a), draw_rotated(true) {};
+        direction(const float a) : angle(a), draw_rotated(true) {};
 
         /*!
          * \brief Direction constructor.
@@ -58,14 +58,14 @@ class direction final : public component {
          * \param a Angle of direction in radians.
          * \param r Draw rotated flag.
          */
-        inline direction(const float a, const bool r) : angle(a), draw_rotated(r) {};
+        direction(const float a, const bool r) : angle(a), draw_rotated(r) {};
 
         /*!
          * \brief Set angle of direction using degrees.
          * 
          * \param a Angle in degrees.
          */
-        inline void set_degrees(const float& a) {
+        void set_degrees(const float& a) {
             angle = a * M_PI / 180.0f;
         };
 
@@ -74,7 +74,7 @@ class direction final : public component {
          * 
          * \return Angle in degrees.
          */
-        inline const float get_degrees(void) const {
+        const float get_degrees(void) const {
             return (angle * 180.0f / M_PI);
         };
 
@@ -83,7 +83,7 @@ class direction final : public component {
          * 
          * \param a Angle in radians.
          */
-        inline void set_radians(const float& a) {
+        void set_radians(const float& a) {
             angle = a;
         };
 
@@ -92,7 +92,7 @@ class direction final : public component {
          * 
          * \return Angle in radians.
          */
-        inline const float get_radians(void) const {
+        const float get_radians(void) const {
             return angle;
         };
 
@@ -101,7 +101,7 @@ class direction final : public component {
          * 
          * \return True if rotated, false if not.
          */
-        inline const bool show_rotated(void) const {
+        const bool show_rotated(void) const {
             return draw_rotated;
         };
 
@@ -110,7 +110,7 @@ class direction final : public component {
          * 
          * Sets internal flag to true.
          */
-        inline void set_rotated(void) {
+        void set_rotated(void) {
             draw_rotated = true;
         };
 
@@ -119,7 +119,7 @@ class direction final : public component {
          * 
          * Sets internal flag to false.
          */
-        inline void unset_rotated(void) {
+        void unset_rotated(void) {
             draw_rotated = false;
         };
 

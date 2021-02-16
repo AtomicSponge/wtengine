@@ -18,15 +18,15 @@
 namespace wte
 {
 
-inline virtual wte_display::~wte_display() {};
+virtual wte_display::~wte_display() {};
 
-inline const std::string wte_display::get_window_title(void) const {
+const std::string wte_display::get_window_title(void) const {
     return window_title;
 }
 
-inline wte_display::wte_display(const std::string& title) : window_title(title) {};
+wte_display::wte_display(const std::string& title) : window_title(title) {};
 
-inline void wte_display::create_display(void) {
+void wte_display::create_display(void) {
     al_reset_new_display_options();
 
     //  Configure vsync options.  Gfx driver may override this.
@@ -104,11 +104,11 @@ inline void wte_display::create_display(void) {
     screen.set_scale_factor(scale_factor);
 }
 
-inline void wte_display::destroy_display(void) {
+void wte_display::destroy_display(void) {
     al_destroy_display(display);
 }
 
-inline void wte_display::reconf_display(void) {
+void wte_display::reconf_display(void) {
     destroy_display();
     create_display();
     al_convert_memory_bitmaps();

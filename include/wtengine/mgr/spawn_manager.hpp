@@ -36,14 +36,14 @@ class spawn_manager final : private manager<spawn_manager> {
          * 
          * Clears the spawner map.
          */
-        inline spawn_manager();
+        spawn_manager();
 
         /*!
          * \brief Spawn Manager destructor.
          * 
          * Clears the spawner map.
          */
-        inline ~spawn_manager();
+        ~spawn_manager();
 
         /*!
          * \brief Process spawns.
@@ -53,7 +53,7 @@ class spawn_manager final : private manager<spawn_manager> {
          * \param messages Spawner messages from main engine loop.
          * \param world Reference to the entity manager.
          */
-        inline void process(const message_container& messages, entity_manager& world);
+        void process(const message_container& messages, entity_manager& world);
 
         /*!
          * \brief Add a spawn to the spawner map.
@@ -65,7 +65,7 @@ class spawn_manager final : private manager<spawn_manager> {
          * \param func Function for creating the entity.
          * \return True if inserted into the spawn map, false if not.
          */
-        inline const bool add_spawn(const std::string& name, const std::size_t& num_args,
+        const bool add_spawn(const std::string& name, const std::size_t& num_args,
                                     void func(const entity_id&, entity_manager&, const msg_arg_list&));
 
     private:
@@ -73,7 +73,7 @@ class spawn_manager final : private manager<spawn_manager> {
             std::function<void(const entity_id&, entity_manager&, const msg_arg_list&)>>> spawner;
 };
 
-template <> inline bool spawn_manager::manager<spawn_manager>::initialized = false;
+template <> bool spawn_manager::manager<spawn_manager>::initialized = false;
 
 } //  namespace mgr
 

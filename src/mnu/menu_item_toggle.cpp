@@ -38,7 +38,7 @@ class menu_item_toggle final : public menu_item {
          * \param aoff Arguments to use when toggled off.
          * \param func Fuction to determine defaut setting.
          */
-        inline menu_item_toggle(const std::string label,
+        menu_item_toggle(const std::string label,
                                 const std::string con,
                                 const std::string aon,
                                 const std::string coff,
@@ -59,7 +59,7 @@ class menu_item_toggle final : public menu_item {
          * \param st Setting type.
          * \param func Fuction to determine defaut setting.
          */
-        inline menu_item_toggle(const std::string label,
+        menu_item_toggle(const std::string label,
                                 const std::string con,
                                 const std::string aon,
                                 const std::string coff,
@@ -73,28 +73,28 @@ class menu_item_toggle final : public menu_item {
         /*!
          * \brief Menu toggle item destructor.
          */
-        inline ~menu_item_toggle() {};
+        ~menu_item_toggle() {};
 
         /*!
          * \brief On left process.
          * 
          * Toggles on.
          */
-        inline void on_left(void) override { toggled = true; };
+        void on_left(void) override { toggled = true; };
 
         /*!
          * \brief On right process.
          * 
          * Toggles off.
          */
-        inline void on_right(void) override { toggled = false; };
+        void on_right(void) override { toggled = false; };
 
         /*!
          * \brief Get display text
          * 
          * \return Vector of strings to render.
          */
-        inline const std::vector<std::string> get_text(void) const override {
+        const std::vector<std::string> get_text(void) const override {
             if(toggled) return { get_label(), "< On >", "Off" };
             return { get_label(), "On", "< Off >" };
         };
@@ -106,7 +106,7 @@ class menu_item_toggle final : public menu_item {
          * 
          * \return Active command string.
          */
-        inline const std::string get_active_cmd(void) {
+        const std::string get_active_cmd(void) {
             if(toggled) return cmd_on;
             return cmd_off;
         };
@@ -118,7 +118,7 @@ class menu_item_toggle final : public menu_item {
          * 
          * \return Active arguments string.
          */
-        inline const std::string get_active_args(void) {
+        const std::string get_active_args(void) {
             if(toggled) return arg_on;
             return arg_off;
         };
@@ -128,14 +128,14 @@ class menu_item_toggle final : public menu_item {
          * 
          * If the menu is canceled, return to proper setting.
          */
-        inline void reset_to_default(void) override { toggled = default_val; };
+        void reset_to_default(void) override { toggled = default_val; };
 
         /*!
          * \brief Set default value.
          * 
          * Determine and set the default value for the menu toggle item.
          */
-        inline void set_default(void) override { toggled = default_val = defaulter(); };
+        void set_default(void) override { toggled = default_val = defaulter(); };
 
         /*!
          * \brief Setting changed process.
@@ -144,7 +144,7 @@ class menu_item_toggle final : public menu_item {
          * 
          * \return True if the setting changed, false if it did not.
          */
-        inline const bool setting_changed(void) const override {
+        const bool setting_changed(void) const override {
             if(toggled == default_val) return false;
             return true;
         };

@@ -24,8 +24,8 @@ namespace sys
  */
 class animate final : public system {
     public:
-        inline animate() : system("animate") {};
-        inline ~animate() {};
+        animate() : system("animate") {};
+        ~animate() {};
 
         /*!
          * \brief Animate system run.
@@ -37,7 +37,7 @@ class animate final : public system {
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.
          */
-        inline void run(mgr::entity_manager& world,
+        void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
                         const int64_t& current_time) override {
             component_container<cmp::animator> animation_components = world.set_components<cmp::animator>();

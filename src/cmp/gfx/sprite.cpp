@@ -44,7 +44,7 @@ class sprite final : public animator {
          * \param rt Rate in engine timer ticks for animation.
          * \param l Layer for sorting.
          */
-        inline sprite(const float sw, const float sh,
+        sprite(const float sw, const float sh,
                       const float dox, const float doy,
                       const std::size_t rt, const std::size_t l) :
         animator(l,
@@ -79,7 +79,7 @@ class sprite final : public animator {
         /*!
          * \brief Sprite destructor.
          */
-        inline ~sprite() {
+        ~sprite() {
             al_destroy_bitmap(internal_bitmap);
         };
 
@@ -91,7 +91,7 @@ class sprite final : public animator {
          * 
          * \param fname Filename of sprite sheet.
          */
-        inline void load_sprite(const std::string& fname) {
+        void load_sprite(const std::string& fname) {
             ALLEGRO_FILE* file;
             file = al_fopen(fname.c_str(), "rb");
             if(!file) throw std::runtime_error("Couldn't find sprite file:  " + fname);
@@ -118,7 +118,7 @@ class sprite final : public animator {
          * \param stop End cell of cycle.
          * \return True if created, false if not.
          */
-        inline const bool add_cycle(const std::string& name,
+        const bool add_cycle(const std::string& name,
                                     const std::size_t& start,
                                     const std::size_t& stop) {
             auto ret = cycles.insert(std::make_pair(name, std::make_pair(start, stop)));
@@ -131,7 +131,7 @@ class sprite final : public animator {
          * \param name Name of cycle to set.
          * \return True if set, false if not.
          */
-        inline const bool set_cycle(const std::string& name) {
+        const bool set_cycle(const std::string& name) {
             auto it = cycles.find(name);
             if(it != cycles.end()) {
                 start_frame = it->second.first;
@@ -145,7 +145,7 @@ class sprite final : public animator {
          * 
          * \return Sprite width.
          */
-        inline const float get_sprite_width(void) const {
+        const float get_sprite_width(void) const {
             return sprite_width;
         };
 
@@ -154,7 +154,7 @@ class sprite final : public animator {
          * 
          * \return Sprite height.
          */
-        inline const float get_sprite_height(void) const {
+        const float get_sprite_height(void) const {
             return sprite_height;
         };
 
@@ -163,7 +163,7 @@ class sprite final : public animator {
          * 
          * \return draw_offset_x
          */
-        inline const float get_draw_offset_x(void) const {
+        const float get_draw_offset_x(void) const {
             return draw_offset_x;
         };
 
@@ -172,7 +172,7 @@ class sprite final : public animator {
          * 
          * \return draw_offset_y
          */
-        inline const float get_draw_offset_y(void) const {
+        const float get_draw_offset_y(void) const {
             return draw_offset_y;
         };
 
@@ -181,7 +181,7 @@ class sprite final : public animator {
          * 
          * \return sprite_x
          */
-        inline const float get_sprite_x(void) const {
+        const float get_sprite_x(void) const {
             return sprite_x;
         };
 
@@ -190,7 +190,7 @@ class sprite final : public animator {
          * 
          * \return sprite_y
          */
-        inline const float get_sprite_y(void) const {
+        const float get_sprite_y(void) const {
             return sprite_y;
         };
 
@@ -199,7 +199,7 @@ class sprite final : public animator {
          * 
          * \param sx New scale factor X value.
          */
-        inline void set_scale_factor_x(const float& sx) {
+        void set_scale_factor_x(const float& sx) {
             scale_factor_x = sx;
         };
 
@@ -208,7 +208,7 @@ class sprite final : public animator {
          * 
          * \param sy New scale factor Y value.
          */
-        inline void set_scale_factor_y(const float& sy) {
+        void set_scale_factor_y(const float& sy) {
             scale_factor_y = sy;
         };
 
@@ -217,7 +217,7 @@ class sprite final : public animator {
          * 
          * \return scale_factor_x
          */
-        inline const float get_scale_factor_x(void) const {
+        const float get_scale_factor_x(void) const {
             return scale_factor_x;
         };
 
@@ -226,7 +226,7 @@ class sprite final : public animator {
          * 
          * \return scale_factor_y
          */
-        inline const float get_scale_factor_y(void) const {
+        const float get_scale_factor_y(void) const {
             return scale_factor_y;
         };
 

@@ -24,13 +24,13 @@ namespace sys
  */
 class colision final : public system {
     public:
-        inline colision() : system("colision") {};
-        inline ~colision() {};
+        colision() : system("colision") {};
+        ~colision() {};
 
         /*!
          * \brief Allow the colision system to be disabled.
          */
-        inline void disable(void) override { enabled = false; };
+        void disable(void) override { enabled = false; };
 
         /*!
          * \brief Colision system run.
@@ -42,7 +42,7 @@ class colision final : public system {
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.
          */
-        inline void run(mgr::entity_manager& world,
+        void run(mgr::entity_manager& world,
                         mgr::message_manager& messages,
                         const int64_t& current_time) override {
             const_component_container<cmp::team> team_components = world.get_components<cmp::team>();

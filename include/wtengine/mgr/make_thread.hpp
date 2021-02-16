@@ -34,7 +34,7 @@ class make_thread {
         /*!
          * \brief Calls stop member if started flag is true.
          */
-        inline virtual ~make_thread() {
+        virtual ~make_thread() {
             if(started) stop();
         };
 
@@ -46,7 +46,7 @@ class make_thread {
         /*!
          * \brief Call to start execution of thread.
          */
-        inline void start(void) {
+        void start(void) {
             if(started == true) return;
             exit_state = exit_signal.get_future();
             std::thread th([&]() { run(); });
@@ -57,7 +57,7 @@ class make_thread {
         /*!
          * \brief Call to end thread.
          */
-        inline void stop(void) {
+        void stop(void) {
             exit_signal.set_value();
             started = false;
             exit_signal = std::promise<void>();
@@ -66,7 +66,7 @@ class make_thread {
         /*!
          * \brief Check if thread is running.
          */
-        inline const bool is_running(void) const {
+        const bool is_running(void) const {
             return started;
         };
 
@@ -74,12 +74,12 @@ class make_thread {
         /*!
          * \brief Set started flag to false.
          */
-        inline make_thread() : started(false) {};
+        make_thread() : started(false) {};
 
         /*!
          * \brief Call this within run() to check if the thread is running.
          */
-        inline bool keep_running(void) {
+        bool keep_running(void) {
             if(exit_state.wait_for(std::chrono::milliseconds(0)) == std::future_status::timeout)
                 return true;
             return false;

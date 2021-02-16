@@ -40,7 +40,7 @@ template <class derived> class variable_map {
          * \param val Initial value of variable.
          * \return True if created, false if not created.
          */
-        inline static const bool reg(const std::string& var, const std::string& val) {
+        static const bool reg(const std::string& var, const std::string& val) {
             if(var.find('=') != std::string::npos)
                 return false;
             if(val.find('=') != std::string::npos)
@@ -58,7 +58,7 @@ template <class derived> class variable_map {
          * \param expr Variable and value expresion (var=val)
          * \return True if created, false if not created.
          */
-        inline static const bool reg(const std::string& expr) {
+        static const bool reg(const std::string& expr) {
             std::string var = expr.substr(0, expr.find("="));
             std::string val = expr.substr(expr.find("=") + 1, expr.length());
 
@@ -71,7 +71,7 @@ template <class derived> class variable_map {
          * \param var Variable name to check.
          * \return True if it exists, false if it does not.
          */
-        inline static const bool is_reg(const std::string& var) {
+        static const bool is_reg(const std::string& var) {
             try {
                 _map.at(var);
                 return true;
@@ -89,7 +89,7 @@ template <class derived> class variable_map {
          * \param val Value to set.
          * \return True if set, false if not set.
          */
-        inline static const bool set(const std::string& var, const std::string& val) {
+        static const bool set(const std::string& var, const std::string& val) {
             try {
                 _map.at(var) = val;
                 return true;
@@ -106,7 +106,7 @@ template <class derived> class variable_map {
          * \param expr Variable and value expresion.
          * \return True if set, false if not set.
          */
-        inline static const bool set(const std::string& expr) {
+        static const bool set(const std::string& expr) {
             std::string var = expr.substr(0, expr.find("="));
             std::string val = expr.substr(expr.find("=") + 1, expr.length());
 
@@ -121,7 +121,7 @@ template <class derived> class variable_map {
          * \param var Variable to get.
          * \return Value of variable in string form.
          */
-        inline static const std::string get(const std::string& var) {
+        static const std::string get(const std::string& var) {
             try {
                 return _map.at(var);
             } catch (std::out_of_range& e) {
@@ -138,7 +138,7 @@ template <class derived> class variable_map {
          * \param var Variable to get.
          * \return Value of variable in casted form.
          */
-        template <typename T> inline static const T get(const std::string& var) {
+        template <typename T> static const T get(const std::string& var) {
             try {
                 T temp;
                 std::stringstream(_map.at(var)) >>
@@ -156,8 +156,8 @@ template <class derived> class variable_map {
         static std::map<std::string, std::string> _map;
 
     private:
-        inline variable_map() { _map.clear(); };
-        inline ~variable_map() { _map.clear(); };
+        variable_map() { _map.clear(); };
+        ~variable_map() { _map.clear(); };
 };
 
 } //  end namespace wte

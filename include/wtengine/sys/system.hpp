@@ -29,7 +29,7 @@ namespace sys
  */
 class system {
     public:
-        inline virtual ~system() {};
+        virtual ~system() {};
 
         //!  Remove copy constructor
         system(const system&) = delete;
@@ -37,14 +37,14 @@ class system {
         void operator=(system const&) = delete;
 
         //!  Enable the system
-        inline void enable(void);
+        void enable(void);
         //!  Disable the system - Must override and define to be used
-        inline virtual void disable(void) {};
+        virtual void disable(void) {};
         //!  Check if the system is enabled
-        inline const bool is_enabled(void) const;
+        const bool is_enabled(void) const;
 
         //!  Get the system name
-        inline const std::string get_name(void) const;
+        const std::string get_name(void) const;
 
         //!  Override this to create custom run method
         virtual void run(mgr::entity_manager&,
@@ -57,7 +57,7 @@ class system {
          * 
          * \param n System name.
          */
-        inline system(const std::string& n) : name(n), enabled(true) {};
+        system(const std::string& n) : name(n), enabled(true) {};
 
         //!  Name of system.
         std::string name;

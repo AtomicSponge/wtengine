@@ -17,9 +17,9 @@
 namespace wte
 {
 
-inline virtual wte_input::~wte_input() {};
+virtual wte_input::~wte_input() {};
 
-inline wte_input::wte_input() {
+wte_input::wte_input() {
     for(std::size_t i = 0; i < WTE_MAX_JOYSTICK_FLAGS; i++) {
         x_axis[i] = 0.0f;
         y_axis[i] = 0.0f;
@@ -30,7 +30,7 @@ inline wte_input::wte_input() {
     set_binding(false);
 };
 
-inline void wte_input::create_input_event_queue(void) {
+void wte_input::create_input_event_queue(void) {
     input_event_queue = al_create_event_queue();
     if(!input_event_queue) throw std::runtime_error("Failed to create input event queue!");
 
@@ -41,17 +41,17 @@ inline void wte_input::create_input_event_queue(void) {
 };
 
 
-inline void wte_input::destroy_input_event_queue(void) {
+void wte_input::destroy_input_event_queue(void) {
     al_destroy_event_queue(input_event_queue);
 };
 
-inline void wte_input::check_input_events(void) {
+void wte_input::check_input_events(void) {
     ALLEGRO_EVENT event;
     const bool queue_not_empty = al_get_next_event(input_event_queue, &event);
     if(queue_not_empty) handle_input_event(event);
 };
 
-inline void wte_input::handle_input_event(const ALLEGRO_EVENT& event) { 
+void wte_input::handle_input_event(const ALLEGRO_EVENT& event) { 
     //  Clear any active alerts on input event
     if(alert::is_set() &&
        (event.type == ALLEGRO_EVENT_KEY_DOWN ||

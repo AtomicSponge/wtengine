@@ -40,7 +40,7 @@ class overlay final : public animator, public bitmap_map {
          * \param l Layer for sorting.
          * \param func Function to define what is displayed in the overlay.
          */
-        inline overlay(const int w, const int h, const float x, const float y,
+        overlay(const int w, const int h, const float x, const float y,
                        const std::size_t l, void func(const entity_id&, mgr::entity_manager&, const int64_t&)) :
         animator(l, func), overlay_w(w), overlay_h(h), pos_x(x), pos_y(y)
         {
@@ -53,7 +53,7 @@ class overlay final : public animator, public bitmap_map {
         /*!
          * \brief Overlay destructor.
          */
-        inline ~overlay() {
+        ~overlay() {
             al_destroy_bitmap(internal_bitmap);
             al_destroy_font(overlay_font);
         };
@@ -63,7 +63,7 @@ class overlay final : public animator, public bitmap_map {
          * 
          * Called when the screen is updated.
          */
-        inline void reload_overlay_bitmap(void) {
+        void reload_overlay_bitmap(void) {
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             ALLEGRO_BITMAP* temp_bmp = al_clone_bitmap(internal_bitmap);
             al_destroy_bitmap(internal_bitmap);
@@ -84,7 +84,7 @@ class overlay final : public animator, public bitmap_map {
          * \param y Verticle location of the text.
          * \param f Text flags for drawing - see Allegro docs on al_draw_text.
          */
-        inline void draw_text(const std::string& txt, const ALLEGRO_COLOR& color,
+        void draw_text(const std::string& txt, const ALLEGRO_COLOR& color,
                               const float& x, const float& y, const int& f) {
             al_draw_text(overlay_font, color, x, y, f, txt.c_str());
         };
@@ -94,7 +94,7 @@ class overlay final : public animator, public bitmap_map {
          * 
          * \return X position.
          */
-        inline const float get_pos_x(void) const {
+        const float get_pos_x(void) const {
             return pos_x;
         };
 
@@ -103,7 +103,7 @@ class overlay final : public animator, public bitmap_map {
          * 
          * \return Y position.
          */
-        inline const float get_pos_y(void) const {
+        const float get_pos_y(void) const {
             return pos_y;
         };
 
@@ -112,7 +112,7 @@ class overlay final : public animator, public bitmap_map {
          * 
          * \param font Allegro font object to be used.
          */
-        inline void set_font(ALLEGRO_FONT* font) {
+        void set_font(ALLEGRO_FONT* font) {
             overlay_font = font;
         };
 

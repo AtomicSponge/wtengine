@@ -38,7 +38,7 @@ class menu {
          * \param i Menu ID.
          * \param t Menu display title.
          */
-        inline menu(const std::string i, const std::string t) :
+        menu(const std::string i, const std::string t) :
         id(i), title(t) {
             items.clear();
         };
@@ -46,7 +46,7 @@ class menu {
         /*!
          * \brief Menu destructor.
          */
-        inline ~menu() {
+        ~menu() {
             items.clear();
         };
 
@@ -55,7 +55,7 @@ class menu {
          * 
          * \return The menu ID.
          */
-        inline const std::string get_id(void) const {
+        const std::string get_id(void) const {
             return id;
         };
 
@@ -64,7 +64,7 @@ class menu {
          * 
          * \return The menu display title.
          */
-        inline const std::string get_title(void) const {
+        const std::string get_title(void) const {
             return title;
         };
 
@@ -73,7 +73,7 @@ class menu {
          * 
          * \return Count of items.
          */
-        inline std::size_t num_items(void) const {
+        std::size_t num_items(void) const {
             return items.size();
         };
 
@@ -82,7 +82,7 @@ class menu {
          * 
          * \return Constant iterator to beginnig of menu items.
          */
-        inline menu_item_citerator items_cbegin(void) const {
+        menu_item_citerator items_cbegin(void) const {
             return items.cbegin();
         };
 
@@ -91,7 +91,7 @@ class menu {
          * 
          * \return Constant iterator to end of menu items.
          */
-        inline menu_item_citerator items_cend(void) const {
+        menu_item_citerator items_cend(void) const {
             return items.cend();
         };
 
@@ -100,7 +100,7 @@ class menu {
          * 
          * \param t New display title to set.
          */
-        inline void set_title(const std::string& t) {
+        void set_title(const std::string& t) {
             title = t;
         };
 
@@ -109,7 +109,7 @@ class menu {
          * 
          * \param item Shared pointer for the new item.
          */
-        inline void add_item(const menu_item_sptr& item) {
+        void add_item(const menu_item_sptr& item) {
             items.push_back(item);
         };
 

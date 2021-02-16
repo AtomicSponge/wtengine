@@ -32,7 +32,7 @@ class hitbox final : public component {
          * \param w Width of the hitbox in pixels.
          * \param h Height of the hitbox in pixels.
          */
-        inline hitbox(float w, float h) : width(w), height(h), solid(true) {};
+        hitbox(float w, float h) : width(w), height(h), solid(true) {};
 
         /*!
          * \brief Hitbox constructor.
@@ -43,14 +43,14 @@ class hitbox final : public component {
          * \param h Height of the hitbox in pixels.
          * \param s Boolean value for if the hitbox is enabled.
          */
-        inline hitbox(float w, float h, bool s) : width(w), height(h), solid(s) {};
+        hitbox(float w, float h, bool s) : width(w), height(h), solid(s) {};
 
         /*!
          * \brief Get hitbox width.
          * 
          * \return Width of hitbox.
          */
-        inline const float get_width(void) const {
+        const float get_width(void) const {
             return width;
         };
 
@@ -59,7 +59,7 @@ class hitbox final : public component {
          * 
          * \return Height of hitbox.
          */
-        inline const float get_height(void) const {
+        const float get_height(void) const {
             return height;
         };
 
@@ -68,7 +68,7 @@ class hitbox final : public component {
          * 
          * \param w New width.
          */
-        inline void set_width(const float& w) {
+        void set_width(const float& w) {
             width = w;
         };
 
@@ -77,7 +77,7 @@ class hitbox final : public component {
          * 
          * \param h New height.
          */
-        inline void set_height(const float& h) {
+        void set_height(const float& h) {
             height = h;
         };
 
@@ -86,7 +86,7 @@ class hitbox final : public component {
          * 
          * \return True if solid, false if not.
          */
-        inline const bool is_solid(void) const {
+        const bool is_solid(void) const {
             return solid;
         };
 
@@ -95,7 +95,7 @@ class hitbox final : public component {
          * 
          * Sets internal flag to true.
          */
-        inline void make_solid(void) {
+        void make_solid(void) {
             solid = true;
         };
 
@@ -104,7 +104,7 @@ class hitbox final : public component {
          * 
          * Sets internal flag to false.
          */
-        inline void make_fluid(void) {
+        void make_fluid(void) {
             solid = false;
         };
 

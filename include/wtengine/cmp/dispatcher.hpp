@@ -35,7 +35,7 @@ class dispatcher final : public component {
          * 
          * \param func Function to define message processing.
          */
-        inline dispatcher(void func(const entity_id&,
+        dispatcher(void func(const entity_id&,
                                     const message&,
                                     mgr::entity_manager&,
                                     mgr::message_manager&,
@@ -44,7 +44,7 @@ class dispatcher final : public component {
         /*!
          * \brief Dispatched destructor.
          */
-        inline ~dispatcher() {};
+        ~dispatcher() {};
 
         /*!
          * \brief Run dispatcher function wrapper.
@@ -55,7 +55,7 @@ class dispatcher final : public component {
          * \param current_time Current engine time.
          * \param msg Message to process.
          */
-        inline void proc_msg(const entity_id& e_id,
+        void proc_msg(const entity_id& e_id,
                              const message& msg,
                              mgr::entity_manager& world,
                              mgr::message_manager& messages,

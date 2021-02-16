@@ -16,9 +16,8 @@ bak/
 
 # Ignore build stuffs
 build/
-wte_update_dlls.bat
 
-# Ignore documentation
+# Ignore generated documentation
 docs/
 
 # Ignore test scripts

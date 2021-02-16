@@ -44,7 +44,7 @@ class system_manager final : private manager<system_manager> {
          * 
          * Makes sure the systems are cleared.
          */
-        inline ~system_manager();
+        inline ~system_manager() {};
 
         /*!
          * \brief Clear the system manager and allow systems to be loaded again.
@@ -112,7 +112,7 @@ class system_manager final : private manager<system_manager> {
          * 
          * \param world Reference to the entity manager.
          */
-        inline void reload_temp_bitmaps(mgr::entity_manager& world);
+        void reload_temp_bitmaps(mgr::entity_manager& world);
 
         /*!
          * \brief Enable a system.

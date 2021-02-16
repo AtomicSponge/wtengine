@@ -33,7 +33,7 @@ class wte_display {
         /*!
          * \brief Display destructor.
          */
-        inline virtual ~wte_display();
+        inline virtual ~wte_display() {};
 
         /*!
          * \brief Get the window title.

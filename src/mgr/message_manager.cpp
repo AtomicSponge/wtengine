@@ -31,7 +31,7 @@ inline message_manager::message_manager() {
     debug_log_file.open("wte_debug//wte_debug_message_manager.txt", std::ios::trunc);
     debug_log_file << "Logging messages..." << std::endl << std::endl;
     #endif
-};
+}
 
 inline message_manager::~message_manager() {
     msg_queue.clear();
@@ -40,16 +40,16 @@ inline message_manager::~message_manager() {
     //  Close log file if debugging is enabled
     debug_log_file.close();
     #endif
-};
+}
 
 inline void message_manager::clear(void) {
     msg_queue.clear();
-};
+}
 
 inline void message_manager::add_message(const message& msg) {
     msg_queue.insert(msg_queue.begin(), msg);
     if(msg.is_timed_event()) std::sort(msg_queue.begin(), msg_queue.end());
-};
+}
 
 //  Ignore message pruning if WTE_NO_PRUNE build flag is defined
 #ifndef WTE_NO_PRUNE
@@ -66,7 +66,7 @@ inline void message_manager::prune(void) {
         }
         else it++;
     }
-};
+}
 #endif
 
 inline const message_container message_manager::get_messages(const std::string& sys) {
@@ -121,7 +121,7 @@ inline void message_manager::load_file(const std::string& fname) {
 
     //  Sort the queue so timed events are in order first to last.
     std::sort(msg_queue.begin(), msg_queue.end());
-};
+}
 
 inline const bool message_manager::load_script(const std::string& fname) {
     //  Open data file - read binary mode.
@@ -155,7 +155,7 @@ inline const bool message_manager::load_script(const std::string& fname) {
     }
     al_fclose(file);
     return true;
-};
+}
 
 inline void message_manager::read_message(ALLEGRO_FILE& file,
                             int64_t& timer,
@@ -199,7 +199,7 @@ inline void message_manager::read_message(ALLEGRO_FILE& file,
         if(ch == '\0') break;  //  End loop if null terminated.
         args += ch;
     }
-};
+}
 
 #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
 inline void message_manager::debug_log_message(const message& msg) {

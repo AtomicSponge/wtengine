@@ -80,7 +80,7 @@ inline void system_manager::dispatch(mgr::entity_manager& world,
     }
 }
 
-inline void system_manager::reload_temp_bitmaps(mgr::entity_manager& world) {
+void system_manager::reload_temp_bitmaps(mgr::entity_manager& world) {
     component_container<cmp::background> background_components =
         world.set_components<cmp::background>();
 

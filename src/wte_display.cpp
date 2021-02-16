@@ -22,7 +22,7 @@ inline virtual wte_display::~wte_display() {};
 
 inline const std::string wte_display::get_window_title(void) const {
     return window_title;
-};
+}
 
 inline wte_display::wte_display(const std::string& title) : window_title(title) {};
 
@@ -102,16 +102,16 @@ inline void wte_display::create_display(void) {
     }
     screen.update_resolution(screen_w, screen_h);
     screen.set_scale_factor(scale_factor);
-};
+}
 
 inline void wte_display::destroy_display(void) {
     al_destroy_display(display);
-};
+}
 
 inline void wte_display::reconf_display(void) {
     destroy_display();
     create_display();
     al_convert_memory_bitmaps();
-};
+}
 
 } //  end namespace wte

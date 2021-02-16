@@ -37,11 +37,11 @@ wte_main::~wte_main() {
     al_uninstall_system();
 
     initialized = false;
-};
+}
 
-static void wte_main::add_file_location(const std::string& flocation) {
+void wte_main::add_file_location(const std::string& flocation) {
     file_locations.push_back(flocation);
-};
+}
 
 wte_main::wte_main(const int argc, char **argv, const std::string& title) :
 wte_display(title) {
@@ -109,7 +109,7 @@ wte_display(title) {
         if(engine_cfg::get<bool>("draw_fps")) engine_flags::set(DRAW_FPS);
         else engine_flags::unset(DRAW_FPS);
     }
-};
+}
 
 void wte_main::wte_load(void) {
     //  Initialize managers that require it.
@@ -122,7 +122,7 @@ void wte_main::wte_load(void) {
 
     //  Load user configured menus.
     load_menus();
-};
+}
 
 void wte_main::wte_unload(void) {
     audio_th.stop();
@@ -130,7 +130,7 @@ void wte_main::wte_unload(void) {
     screen.de_init();
     menus.de_init();
     audio_th.de_init();
-};
+}
 
 void wte_main::process_new_game(const std::string& game_data) {
     std::srand(std::time(nullptr));  //  Seed random, using time.

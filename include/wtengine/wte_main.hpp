@@ -67,8 +67,7 @@ class wte_main : private wte_display, private wte_input {
          * \param argv Command line arguments count.
          * \param title Window title.
          */
-        wte_main(const int argc, char **argv, const std::string& title) :
-            wte_display(title);
+        wte_main(const int argc, char **argv, const std::string& title);
 
         /* These function members are overridden in the derived class */
         //!  Define this to implement custom menu layout.
@@ -142,9 +141,9 @@ class wte_main : private wte_display, private wte_input {
         ALLEGRO_EVENT_QUEUE* main_event_queue;
 
         //  Vector of file paths to provide to PhysFS.
-        static std::vector<std::string> file_locations = {};
+        inline static std::vector<std::string> file_locations = {};
         //  Restrict to one instance of the engine running.
-        static bool initialized = false;
+        inline static bool initialized = false;
 };
 
 } //  end namespace wte

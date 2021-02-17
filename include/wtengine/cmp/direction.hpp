@@ -17,7 +17,7 @@
 #include <cmath>
 #include <limits>
 
-#include "wtenginemponent.hpp"
+#include "wtengine/cmp/component.hpp"
 
 namespace wte
 {

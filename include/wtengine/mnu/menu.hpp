@@ -13,7 +13,7 @@
 #include <string>
 #include <vector>
 
-#include "wtengine/menu_item.hpp"
+#include "wtengine/mnu/menu_item.hpp"
 
 namespace wte
 {

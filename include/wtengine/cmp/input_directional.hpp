@@ -13,7 +13,7 @@
 #include <functional>
 #include <cassert>
 
-#include "wtenginemponent.hpp"
+#include "wtengine/cmp/component.hpp"
 #include "wtengine/mgr/entity_manager.hpp"
 #include "wtengine/mgr/message_manager.hpp"
 #include "wtengine/_globals/input_flags.hpp"

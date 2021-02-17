@@ -29,7 +29,7 @@ class component {
         /*!
          * \brief Component destructor.
          */
-        virtual ~component() {};
+        inline virtual ~component() {};
 
         //!  Remove copy constructor
         component(const component&) = delete;
@@ -40,7 +40,7 @@ class component {
         /*!
          * \brief Component constructor.
          */
-        component() {};
+        inline component() {};
 };
 
 /*!

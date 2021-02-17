@@ -29,7 +29,7 @@ template <class derived> class manager {
     public:
         //!  Free up single instance,
         //!  sets the initialized flag to false.
-        virtual ~manager() {
+        inline virtual ~manager() {
             initialized = false;
         };
 
@@ -45,7 +45,7 @@ template <class derived> class manager {
     protected:
         //!  Force single instance, sets the initialized flag to true.
         //!  Throws a runtime error if more than one instance of this class is running
-        manager() {
+        inline manager() {
             if(initialized == true) throw std::runtime_error("An instance of this manager is already running!");
             initialized = true;
         };

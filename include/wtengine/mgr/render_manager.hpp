@@ -54,13 +54,12 @@ class render_manager final : private manager<render_manager>, private engine_tim
          * 
          * Generates the render_manager object.
          */
-        render_manager() :
-        fps_counter(0), fps(0) {};
+        inline render_manager() : fps_counter(0), fps(0) {};
 
         /*!
          * \brief render_manager destructor.
          */
-        ~render_manager() {};
+        inline ~render_manager() {};
 
         /*!
          * \brief Initialize the render manager.

@@ -14,6 +14,7 @@
 #include <allegro5/allegro.h>
 
 #include "wtengine/wte_display.hpp"
+#include "wtengine/_globals/engine_cfg.hpp"
 
 namespace wte
 {

@@ -42,20 +42,14 @@ class engine_flags final {
          * 
          * \param i Index of the flag.
          */
-        static void set(const std::size_t& i) {
-            assert(i < MAX_SYSTEM_FLAGS);
-            flags[i] = true;
-        };
+        static void set(const std::size_t& i);
 
         /*!
          * \brief Set a flag to false.
          * 
          * \param i Index of the flag.
          */
-        static void unset(const std::size_t& i) {
-            assert(i < MAX_SYSTEM_FLAGS);
-            flags[i] = false;
-        };
+        static void unset(const std::size_t& i);
 
         /*!
          * \brief Check the state of a flag.
@@ -63,22 +57,16 @@ class engine_flags final {
          * \param i Index of the flag.
          * \return True if the flag is set, false if not.
          */
-        static const bool is_set(const std::size_t& i) {
-            assert(i < MAX_SYSTEM_FLAGS);
-            return flags[i];
-        };
+        static const bool is_set(const std::size_t& i);
 
     private:
-        engine_flags() { unset_all(); };
-        ~engine_flags() { unset_all(); };
+        inline engine_flags() { unset_all(); };
+        inline ~engine_flags() { unset_all(); };
 
         /*!
          * \brief Set all engine flags to false.
          */
-        static void unset_all(void) {
-            for(std::size_t i = 0; i < MAX_SYSTEM_FLAGS; i++)
-                flags[i] = false;
-        }
+        static void unset_all(void);
 
         static bool flags[MAX_SYSTEM_FLAGS];
 };

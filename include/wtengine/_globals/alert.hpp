@@ -30,7 +30,7 @@ class alert {
          * 
          * \param a Alert to display.
          */
-        static void set_alert(const std::string& a) {
+        inline static void set_alert(const std::string& a) {
             alert_text = a;
             alert_set = true;
         };
@@ -40,51 +40,51 @@ class alert {
          * 
          * \return The alert message itself.
          */
-        static const std::string get_alert(void) { return alert_text; };
+        inline static const std::string get_alert(void) { return alert_text; };
 
         /*!
          * \brief Check to see if an alert is set.
          * 
          * \return True if set, false if not set.
          */
-        static const bool is_set(void) { return alert_set; };
+        inline static const bool is_set(void) { return alert_set; };
 
         /*!
          * \brief Get the font color for alerts.
          * 
          * \return A struct representing an Allegro Color object for the alert font.
          */
-        static const ALLEGRO_COLOR get_font_color(void) { return font_color; };
+        inline static const ALLEGRO_COLOR get_font_color(void) { return font_color; };
 
         /*!
          * \brief Get the background color for alerts.
          * 
          * \return A struct representing an Allegro Color object for the alert background.
          */
-        static const ALLEGRO_COLOR get_bg_color(void) { return bg_color; };
+        inline static const ALLEGRO_COLOR get_bg_color(void) { return bg_color; };
 
         /*!
          * \brief Set the font color for alerts.
          * 
          * \param c A struct representing an Allegro Color object for the alert font.
          */
-        static void set_font_color(const ALLEGRO_COLOR c) { font_color = c; };
+        inline static void set_font_color(const ALLEGRO_COLOR c) { font_color = c; };
 
         /*!
          * \brief Set the background color for alerts.
          * 
          * \param c A struct representing an Allegro Color object for the alert background.
          */
-        static void set_bg_color(const ALLEGRO_COLOR c) { bg_color = c; };
+        inline static void set_bg_color(const ALLEGRO_COLOR c) { bg_color = c; };
 
         /*!
          * \brief Clear the alert.
          */
-        static void clear(void) { alert_set = false; };
+        inline static void clear(void) { alert_set = false; };
 
     private:
-        alert() {};
-        ~alert() {};
+        inline alert() {};
+        inline ~alert() {};
 
         inline static ALLEGRO_COLOR font_color = {};
         inline static ALLEGRO_COLOR bg_color = {};

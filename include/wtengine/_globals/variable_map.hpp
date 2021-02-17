@@ -40,15 +40,7 @@ template <class derived> class variable_map {
          * \param val Initial value of variable.
          * \return True if created, false if not created.
          */
-        static const bool reg(const std::string& var, const std::string& val) {
-            if(var.find('=') != std::string::npos)
-                return false;
-            if(val.find('=') != std::string::npos)
-                return false;
-            auto ret = _map.insert(std::make_pair(var, val));
-            if(ret.second == false) return false;  //  Key exists already
-            else return true;  //  Inserted new key/pair
-        };
+        static const bool reg(const std::string& var, const std::string& val);
 
         /*!
          * \brief Create a new entry in the map.
@@ -58,12 +50,7 @@ template <class derived> class variable_map {
          * \param expr Variable and value expresion (var=val)
          * \return True if created, false if not created.
          */
-        static const bool reg(const std::string& expr) {
-            std::string var = expr.substr(0, expr.find("="));
-            std::string val = expr.substr(expr.find("=") + 1, expr.length());
-
-            return reg(var, val);
-        };
+        static const bool reg(const std::string& expr);
 
         /*!
          * \brief Check if a variable is registered in the map.
@@ -71,14 +58,7 @@ template <class derived> class variable_map {
          * \param var Variable name to check.
          * \return True if it exists, false if it does not.
          */
-        static const bool is_reg(const std::string& var) {
-            try {
-                _map.at(var);
-                return true;
-            } catch (std::out_of_range& e) {
-                return false;  //  Didn't find var
-            }
-        }
+        static const bool is_reg(const std::string& var);
 
         /*!
          * \brief Set a variable to a value.
@@ -89,14 +69,7 @@ template <class derived> class variable_map {
          * \param val Value to set.
          * \return True if set, false if not set.
          */
-        static const bool set(const std::string& var, const std::string& val) {
-            try {
-                _map.at(var) = val;
-                return true;
-            } catch (std::out_of_range& e) {
-                return false;  //  Didn't find var
-            }
-        };
+        static const bool set(const std::string& var, const std::string& val);
 
         /*!
          * \brief Set a variable to a value.
@@ -106,12 +79,7 @@ template <class derived> class variable_map {
          * \param expr Variable and value expresion.
          * \return True if set, false if not set.
          */
-        static const bool set(const std::string& expr) {
-            std::string var = expr.substr(0, expr.find("="));
-            std::string val = expr.substr(expr.find("=") + 1, expr.length());
-
-            return set(var, val);
-        };
+        static const bool set(const std::string& expr);
 
         /*!
          * \brief Get a variable's value.
@@ -121,13 +89,7 @@ template <class derived> class variable_map {
          * \param var Variable to get.
          * \return Value of variable in string form.
          */
-        static const std::string get(const std::string& var) {
-            try {
-                return _map.at(var);
-            } catch (std::out_of_range& e) {
-                return nullptr;  //  Didn't find
-            }
-        };
+        static const std::string get(const std::string& var);
 
         /*!
          * \brief Get a variable's value.
@@ -138,26 +100,15 @@ template <class derived> class variable_map {
          * \param var Variable to get.
          * \return Value of variable in casted form.
          */
-        template <typename T> static const T get(const std::string& var) {
-            try {
-                T temp;
-                std::stringstream(_map.at(var)) >>
-                    std::setprecision(std::numeric_limits<T>::max_digits10) >> std::fixed >> temp;
-                return std::any_cast<const T>(temp);
-            } catch (std::out_of_range& e) {
-                return std::any_cast<const bool>(false);  //  Didn't find
-            } catch (std::bad_any_cast& e) {
-                return std::any_cast<const bool>(false);  //  Bad cast
-            }
-        };
+        template <typename T> static const T get(const std::string& var);
 
     protected:
         //!  Store the variable map.
         static std::map<std::string, std::string> _map;
 
     private:
-        variable_map() { _map.clear(); };
-        ~variable_map() { _map.clear(); };
+        inline variable_map() { _map.clear(); };
+        inline ~variable_map() { _map.clear(); };
 };
 
 } //  end namespace wte

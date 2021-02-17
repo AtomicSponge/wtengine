@@ -38,46 +38,26 @@ class game_cfg final : public variable_map<game_cfg> {
          * 
          * \param fname Filename to set saving to.
          */
-        static void set_game_cfg_file(const std::string& fname) {
-            data_file_name = fname;
-        };
+        static void set_game_cfg_file(const std::string& fname);
 
         /*!
          * \brief Allows a different encryption key to be set.
          * 
          * \param key New key.
          */
-        static void set_enc_key(const char& key) {
-            NOT_THE_ENCRYPTION_KEY = key;
-        };
+        static void set_enc_key(const char& key);
 
         /*!
          * \brief Load game config variables from file.
          * 
          * \return False on fail, true on success.
          */
-        static bool load(void) {
-            std::ifstream data_file(data_file_name);
-            if(!data_file.good()) return false;
-
-            std::string it;
-            //  Read each line, try to register or set
-            while(std::getline(data_file, it)) {
-                it = decrypt(it);
-                if(!reg(it)) set(it);
-            }
-
-            data_file.close();
-            return true;
-        };
+        static bool load(void);
 
         /*!
          * \brief Clear the current game config save.
          */
-        static void clear_save(void) {
-            std::ofstream data_file(data_file_name, std::ofstream::trunc);
-            data_file.close();
-        };
+        static void clear_save(void);
 
         /*!
          * \brief Save a game config variable to file.
@@ -85,20 +65,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param var Variable name.
          * \return False on fail, true on success.
          */
-        static bool save(const std::string& var) {
-            std::ofstream data_file(data_file_name, std::ofstream::app);
-            if(!data_file.good()) return false;
-
-            try {
-                data_file << encrypt(var + "=" + _map.at(var)) << std::endl;
-            } catch (std::out_of_range& e) {
-                data_file.close();
-                return false;  //  Didn't find var
-            }
-
-            data_file.close();
-            return true;
-        };
+        static bool save(const std::string& var);
 
         /*!
          * \brief Add a value to a variable in the game config map.
@@ -108,19 +75,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param val Value to add by.
          * \return False on fail, true on success.
          */
-        template <typename T> static bool add(const std::string& var, const T& val) {
-            try {
-                T temp;
-                std::stringstream(_map.at(var)) >>
-                    std::setprecision(std::numeric_limits<T>::max_digits10) >> std::fixed >> temp;
-                _map.at(var) = std::to_string(std::any_cast<T>(temp += val));
-                return true;
-            } catch (std::out_of_range& e) {
-                return false;  //  Didn't find
-            } catch (std::bad_any_cast& e) {
-                return false;  //  Bad cast
-            }
-        };
+        template <typename T> static bool add(const std::string& var, const T& val);
 
         /*!
          * \brief Subtract a value from a variable in the game config map.
@@ -130,19 +85,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param val Value to subtract by.
          * \return False on fail, true on success.
          */
-        template <typename T> static bool subtract(const std::string& var, const T& val) {
-            try {
-                T temp;
-                std::stringstream(_map.at(var)) >>
-                    std::setprecision(std::numeric_limits<T>::max_digits10) >> std::fixed >> temp;
-                _map.at(var) = std::to_string(std::any_cast<T>(temp -= val));
-                return true;
-            } catch (std::out_of_range& e) {
-                return false;  //  Didn't find
-            } catch (std::bad_any_cast& e) {
-                return false;  //  Bad cast
-            }
-        };
+        template <typename T> static bool subtract(const std::string& var, const T& val);
 
         /*!
          * \brief Multiply a value by a variable in the game config map.
@@ -152,19 +95,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param val Value to multiply by.
          * \return False on fail, true on success.
          */
-        template <typename T> static bool multiply(const std::string& var, const T& val) {
-            try {
-                T temp;
-                std::stringstream(_map.at(var)) >>
-                    std::setprecision(std::numeric_limits<T>::max_digits10) >> std::fixed >> temp;
-                _map.at(var) = std::to_string(std::any_cast<T>(temp *= val));
-                return true;
-            } catch (std::out_of_range& e) {
-                return false;  //  Didn't find
-            } catch (std::bad_any_cast& e) {
-                return false;  //  Bad cast
-            }
-        };
+        template <typename T> static bool multiply(const std::string& var, const T& val);
 
         /*!
          * \brief Divide a value by a variable in the game config map.
@@ -174,19 +105,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param val Value to divide by.
          * \return False on fail, true on success.
          */
-        template <typename T> static bool divide(const std::string& var, const T& val) {
-            try {
-                T temp;
-                std::stringstream(_map.at(var)) >>
-                    std::setprecision(std::numeric_limits<T>::max_digits10) >> std::fixed >> temp;
-                _map.at(var) = std::to_string(std::any_cast<T>(temp /= val));
-                return true;
-            } catch (std::out_of_range& e) {
-                return false;  //  Didn't find
-            } catch (std::bad_any_cast& e) {
-                return false;  //  Bad cast
-            }
-        };
+        template <typename T> static bool divide(const std::string& var, const T& val);
 
         /*!
          * \brief Create a new entry in the map.
@@ -197,9 +116,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param val Initial value of variable.
          * \return True if created, false if not created.
          */
-        static const bool reg(const std::string& var, const std::string& val) {
-            return variable_map<game_cfg>::reg(var, val);
-        };
+        static const bool reg(const std::string& var, const std::string& val);
 
         /*!
          * \brief Create a new entry in the map.
@@ -209,9 +126,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param expr Variable and value expresion (var=val)
          * \return True if created, false if not created.
          */
-        static const bool reg(const std::string& expr) {
-            return variable_map<game_cfg>::reg(expr);
-        };
+        static const bool reg(const std::string& expr);
 
         /*!
          * \brief Check if a variable is registered in the map.
@@ -219,9 +134,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param var Variable name to check.
          * \return True if it exists, false if it does not.
          */
-        static const bool is_reg(const std::string& var) {
-            return variable_map<game_cfg>::is_reg(var);
-        }
+        static const bool is_reg(const std::string& var);
 
         /*!
          * \brief Set key to value.
@@ -230,9 +143,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param val Value to set.
          * \return True if set, false if not set.
          */
-        static const bool set(const std::string& var, const std::string& val) {
-            return variable_map<game_cfg>::set(var, val);
-        };
+        static const bool set(const std::string& var, const std::string& val);
 
         /*!
          * \brief Set a value based on string.
@@ -240,9 +151,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param expr Variable and value expresion (var=val)
          * \return True if set, false if not set.
          */
-        static const bool set(const std::string& expr) {
-            return variable_map<game_cfg>::set(expr);
-        };
+        static const bool set(const std::string& expr);
 
         /*!
          * \brief Get a value.
@@ -252,9 +161,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param var Variable to get.
          * \return Value of variable in string form.
          */
-        static const std::string get(const std::string& var) {
-            return variable_map<game_cfg>::get(var);
-        };
+        static const std::string get(const std::string& var);
 
         /*!
          * \brief Get a value.
@@ -265,9 +172,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param var Variable to get.
          * \return Value of variable in casted form.
          */
-        template <typename T> static const T get(const std::string& var) {
-            return variable_map<game_cfg>::get<T>(var);
-        };
+        template <typename T> static const T get(const std::string& var);
 
     private:
         /*!
@@ -276,13 +181,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param input String to encrypt.
          * \return Encrypted string.
          */
-        static const std::string encrypt(std::string input) {
-            for(std::size_t i = 0; i < input.length(); i++) {
-                input[i] = input[i] - NOT_THE_ENCRYPTION_KEY;
-            }
-
-            return input;
-        };
+        static const std::string encrypt(std::string input);
 
         /*!
          * \brief Decrypt string.
@@ -290,13 +189,7 @@ class game_cfg final : public variable_map<game_cfg> {
          * \param input String to decrypt.
          * \return Decrypted string.
          */
-        static const std::string decrypt(std::string input) {
-            for(std::size_t i = 0; i < input.length(); i++) {
-                input[i] = input[i] + NOT_THE_ENCRYPTION_KEY;
-            }
-
-            return input;
-        };
+        static const std::string decrypt(std::string input);
 
         inline static std::string data_file_name = "game.cfg";
         inline static char NOT_THE_ENCRYPTION_KEY = '@';

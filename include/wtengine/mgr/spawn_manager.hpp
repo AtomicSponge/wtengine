@@ -15,9 +15,9 @@
 #include <map>
 #include <functional>
 
-#include "wtengine/manager.hpp"
-#include "wtengine/entity_manager.hpp"
-#include "wtengine/../message.hpp"
+#include "wtenginenager.hpp"
+#include "wtenginetity_manager.hpp"
+#include "wtengine/message.hpp"
 
 namespace wte
 {

@@ -15,10 +15,10 @@
 #include <iterator>
 #include <memory>
 
-#include "wtengine/manager.hpp"
-#include "wtengine/../sys/system.hpp"
-#include "wtengine/message_manager.hpp"
-#include "wtengine/entity_manager.hpp"
+#include "wtenginenager.hpp"
+#include "wtengine/sys/system.hpp"
+#include "wtenginessage_manager.hpp"
+#include "wtenginetity_manager.hpp"
 
 namespace wte
 {

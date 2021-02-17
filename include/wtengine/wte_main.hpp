@@ -10,15 +10,15 @@
 #ifndef WTE_MAIN_HPP
 #define WTE_MAIN_HPP
 
-#include "wtengine/wte_global_defines.hpp"
-#include "wtengine/wte_display.hpp"
-#include "wtengine/wte_input.hpp"
-#include "wtengine/_globals/engine_cfg.hpp"
-#include "wtengine/_globals/game_cfg.hpp"
-#include "wtengine/_globals/engine_flags.hpp"
-#include "wtengine/_globals/alert.hpp"
-#include "wtengine/mgr/engine_time.hpp"
-#include "wtengine/mgr/managers.hpp"
+#include "wtenginee_global_defines.hpp"
+#include "wtenginee_display.hpp"
+#include "wtenginee_input.hpp"
+#include "wtenginelobals/engine_cfg.hpp"
+#include "wtenginelobals/game_cfg.hpp"
+#include "wtenginelobals/engine_flags.hpp"
+#include "wtenginelobals/alert.hpp"
+#include "wtenginer/engine_time.hpp"
+#include "wtenginer/managers.hpp"
 
 namespace wte
 {

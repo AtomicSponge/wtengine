@@ -12,9 +12,9 @@
 
 #include <functional>
 
-#include "wtengine/component.hpp"
-#include "wtengine/../mgr/entity_manager.hpp"
-#include "wtengine/../mgr/message_manager.hpp"
+#include "wtenginemponent.hpp"
+#include "wtengine/mgr/entity_manager.hpp"
+#include "wtengine/mgr/message_manager.hpp"
 
 namespace wte
 {

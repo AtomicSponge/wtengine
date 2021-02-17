@@ -13,7 +13,7 @@
 #include <string>
 #include <fstream>
 
-#include "wtengine/_globals/variable_map.hpp"
+#include "wtenginelobals/variable_map.hpp"
 
 namespace wte
 {

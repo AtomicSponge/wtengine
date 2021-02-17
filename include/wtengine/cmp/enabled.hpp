@@ -10,7 +10,7 @@
 #ifndef WTE_CMP_ENABLED_HPP
 #define WTE_CMP_ENABLED_HPP
 
-#include "wtengine/component.hpp"
+#include "wtenginemponent.hpp"
 
 namespace wte
 {

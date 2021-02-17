@@ -20,13 +20,13 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 
-#include "wtengine/manager.hpp"
-#include "wtengine/message_manager.hpp"
-#include "wtengine/../mnu/menu_items.hpp"
-#include "wtengine/../_globals/engine_flags.hpp"
-#include "wtengine/../_globals/input_flags.hpp"
-#include "wtengine/../mnu/menu.hpp"
-#include "wtengine/../wte_global_defines.hpp"
+#include "wtenginenager.hpp"
+#include "wtenginessage_manager.hpp"
+#include "wtengine/mnu/menu_items.hpp"
+#include "wtengine/_globals/engine_flags.hpp"
+#include "wtengine/_globals/input_flags.hpp"
+#include "wtengine/mnu/menu.hpp"
+#include "wtengine/wte_global_defines.hpp"
 
 namespace wte
 {

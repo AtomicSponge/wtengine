@@ -15,10 +15,10 @@
 #include <algorithm>
 #include <stdexcept>
 
-#include "wtengine/menu_item.hpp"
+#include "wtenginenu_item.hpp"
 
-#include "wtengine/../_globals/engine_cfg.hpp"
-#include "wtengine/../_globals/game_cfg.hpp"
+#include "wtengine/_globals/engine_cfg.hpp"
+#include "wtengine/_globals/game_cfg.hpp"
 
 namespace wte
 {

@@ -10,7 +10,7 @@
 #ifndef WTE_CMP_BOUNDING_BOX_HPP
 #define WTE_CMP_BOUNDING_BOX_HPP
 
-#include "wtengine/component.hpp"
+#include "wtenginemponent.hpp"
 
 namespace wte
 {

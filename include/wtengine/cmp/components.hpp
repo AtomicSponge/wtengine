@@ -10,23 +10,23 @@
 #ifndef WTE_COMPONENTS_HPP
 #define WTE_COMPONENTS_HPP
 
-#include "wtengine/ai.hpp"
-#include "wtengine/bounding_box.hpp"
-#include "wtengine/direction.hpp"
-#include "wtengine/dispatcher.hpp"
-#include "wtengine/enabled.hpp"
-#include "wtengine/hitbox.hpp"
-#include "wtengine/input_button.hpp"
-#include "wtengine/input_directional.hpp"
-#include "wtengine/location.hpp"
-#include "wtengine/sample_loop.hpp"
-#include "wtengine/team.hpp"
-#include "wtengine/velocity.hpp"
-#include "wtengine/visible.hpp"
+#include "wtengine.hpp"
+#include "wtengineunding_box.hpp"
+#include "wtenginerection.hpp"
+#include "wtenginespatcher.hpp"
+#include "wtengineabled.hpp"
+#include "wtenginetbox.hpp"
+#include "wtengineput_button.hpp"
+#include "wtengineput_directional.hpp"
+#include "wtenginecation.hpp"
+#include "wtenginemple_loop.hpp"
+#include "wtengineam.hpp"
+#include "wtenginelocity.hpp"
+#include "wtenginesible.hpp"
 
 //  Graphics components
-#include "wtengine/gfx/background.hpp"
-#include "wtengine/gfx/overlay.hpp"
-#include "wtengine/gfx/sprite.hpp"
+#include "wtenginex/background.hpp"
+#include "wtenginex/overlay.hpp"
+#include "wtenginex/sprite.hpp"
 
 #endif

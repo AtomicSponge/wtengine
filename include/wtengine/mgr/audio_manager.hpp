@@ -23,11 +23,11 @@
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_physfs.h>
 
-#include "wtengine/manager.hpp"
-#include "wtengine/make_thread.hpp"
-#include "wtengine/../_globals/engine_cfg.hpp"
-#include "wtengine/../wte_global_defines.hpp"
-#include "wtengine/../message.hpp"
+#include "wtenginenager.hpp"
+#include "wtengineke_thread.hpp"
+#include "wtengine/_globals/engine_cfg.hpp"
+#include "wtengine/wte_global_defines.hpp"
+#include "wtengine/message.hpp"
 
 namespace wte
 {

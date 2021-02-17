@@ -10,7 +10,7 @@
 #ifndef WTE_CMP_HITBOX_HPP
 #define WTE_CMP_HITBOX_HPP
 
-#include "wtengine/component.hpp"
+#include "wtenginemponent.hpp"
 
 namespace wte
 {

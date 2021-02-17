@@ -13,9 +13,9 @@
 #include <string>
 #include <memory>
 
-#include "wtengine/../mgr/message_manager.hpp"
-#include "wtengine/../mgr/entity_manager.hpp"
-#include "wtengine/../cmp/components.hpp"
+#include "wtengine/mgr/message_manager.hpp"
+#include "wtengine/mgr/entity_manager.hpp"
+#include "wtengine/cmp/components.hpp"
 
 namespace wte
 {

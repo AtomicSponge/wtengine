@@ -86,11 +86,11 @@ class alert {
         alert() {};
         ~alert() {};
 
-        static ALLEGRO_COLOR font_color = {};
-        static ALLEGRO_COLOR bg_color = {};
+        inline static ALLEGRO_COLOR font_color = {};
+        inline static ALLEGRO_COLOR bg_color = {};
 
-        static std::string alert_text = "";
-        static bool alert_set = false;
+        inline static std::string alert_text = "";
+        inline static bool alert_set = false;
 };
 
 } //  end namespace wte

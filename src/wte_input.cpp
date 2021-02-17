@@ -17,8 +17,6 @@
 namespace wte
 {
 
-virtual wte_input::~wte_input() {};
-
 wte_input::wte_input() {
     for(std::size_t i = 0; i < WTE_MAX_JOYSTICK_FLAGS; i++) {
         x_axis[i] = 0.0f;

@@ -97,7 +97,7 @@ class entity_manager final : private manager<entity_manager> {
          * 
          * Start entity counter at 1
          */
-        entity_manager() : entity_counter(WTE_ENTITY_START);
+        entity_manager();
 
         /*!
          * \brief Entity manager destructor.

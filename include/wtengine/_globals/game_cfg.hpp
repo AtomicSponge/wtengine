@@ -298,8 +298,8 @@ class game_cfg final : public variable_map<game_cfg> {
             return input;
         };
 
-        static std::string data_file_name = "game.cfg";
-        static char NOT_THE_ENCRYPTION_KEY = '@';
+        inline static std::string data_file_name = "game.cfg";
+        inline static char NOT_THE_ENCRYPTION_KEY = '@';
 };
 
 //!  Declare a copy of the variable map for game_cfg.

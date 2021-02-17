@@ -275,16 +275,16 @@ class input_flags final {
         input_flags() { unset_all(); };
         ~input_flags() { unset_all(); };
 
-        static std::size_t last_keypress = 0;
-        static std::size_t last_buttonpress = 0;
+        inline static std::size_t last_keypress = 0;
+        inline static std::size_t last_buttonpress = 0;
 
         static bool dflags[WTE_MAX_JOYSTICK_FLAGS][WTE_MAX_DIRECTON_FLAGS];
 
-        static float angle[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
-        static float pol_x[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
-        static float pol_y[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
+        inline static float angle[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
+        inline static float pol_x[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
+        inline static float pol_y[WTE_MAX_JOYSTICK_FLAGS] = { 0.0f };
 
-        static bool buttons[WTE_MAX_INPUT_BUTTON_FLAGS][WTE_MAX_BUTTON_EVENT_FLAGS];
+        inline static bool buttons[WTE_MAX_INPUT_BUTTON_FLAGS][WTE_MAX_BUTTON_EVENT_FLAGS];
 };
 
 } //  end namespace wte

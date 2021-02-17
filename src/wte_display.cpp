@@ -18,8 +18,6 @@
 namespace wte
 {
 
-virtual wte_display::~wte_display() {};
-
 const std::string wte_display::get_window_title(void) const {
     return window_title;
 }

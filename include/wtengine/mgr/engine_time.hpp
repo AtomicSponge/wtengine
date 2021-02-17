@@ -40,7 +40,7 @@ class engine_time {
 
     private:
         //  Track game timer
-        static std::atomic<int64_t> current_time = 0;
+        inline static std::atomic<int64_t> current_time = 0;
 
     protected:
         engine_time() {};

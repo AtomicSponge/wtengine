@@ -16,6 +16,7 @@
 #include "component.hpp"
 #include "../mgr/entity_manager.hpp"
 #include "../mgr/message_manager.hpp"
+#include "../_globals/input_flags.hpp"
 
 namespace wte
 {

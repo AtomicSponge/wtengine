@@ -37,7 +37,7 @@ class system_manager final : private manager<system_manager> {
          * 
          * Clears the systems vector and sets the finalized flag to false.
          */
-        system_manager() : finalized(false);
+        system_manager();
 
         /*!
          * \brief System Manager destructor.

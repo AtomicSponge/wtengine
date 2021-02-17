@@ -48,7 +48,7 @@ class wte_display {
          * 
          * \param title Window title.
          */
-        wte_display(const std::string& title) : window_title(title);
+        wte_display(const std::string& title);
 
         /*!
          * \brief Configure the display.

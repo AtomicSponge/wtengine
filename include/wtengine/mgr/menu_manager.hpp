@@ -50,8 +50,7 @@ class menu_manager final : private manager<menu_manager> {
          * 
          * Generates the menu manager object.
          */
-        menu_manager() :
-        menu_width(500), menu_height(400), menu_padding(32), font_size(8), is_button_left(true);
+        menu_manager();
 
         /*!
          * \brief Menu manager destructor.
@@ -210,9 +209,9 @@ class menu_manager final : private manager<menu_manager> {
 
         bool is_button_left;
 
-        static std::string menu_font_file = "";
-        static int menu_font_size = 0;
-        static int menu_font_flags = 0;
+        inline static std::string menu_font_file = "";
+        inline static int menu_font_size = 0;
+        inline static int menu_font_flags = 0;
 };
 
 template <> bool menu_manager::manager<menu_manager>::initialized = false;

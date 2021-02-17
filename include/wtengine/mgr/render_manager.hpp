@@ -208,17 +208,17 @@ class render_manager final : private manager<render_manager>, private engine_tim
 
         std::size_t fps_counter, fps;
 
-        static int screen_w = 0, screen_h = 0;
-        static float scale_factor = 1.0;
+        inline static int screen_w = 0, screen_h = 0;
+        inline static float scale_factor = 1.0;
 
-        static int arena_w = 0, arena_h = 0;
-        static bool arena_created = false;
+        inline static int arena_w = 0, arena_h = 0;
+        inline static bool arena_created = false;
 
-        static std::string title_screen_file = "";
-        static std::string background_file = "";
-        static std::string render_font_file = "";
-        static int render_font_size = 0;
-        static int render_font_flags = 0;
+        inline static std::string title_screen_file = "";
+        inline static std::string background_file = "";
+        inline static std::string render_font_file = "";
+        inline static int render_font_size = 0;
+        inline static int render_font_flags = 0;
 };
 
 template <> bool render_manager::manager<render_manager>::initialized = false;

@@ -18,8 +18,8 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_physfs.h>
 
-#include "wtenginenager.hpp"
-#include "wtenginegine_time.hpp"
+#include "wtengine/mgr/manager.hpp"
+#include "wtengine/mgr/engine_time.hpp"
 #include "wtengine/message.hpp"
 #include "wtengine/wte_global_defines.hpp"
 

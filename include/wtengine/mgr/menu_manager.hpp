@@ -20,8 +20,8 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 
-#include "wtenginenager.hpp"
-#include "wtenginessage_manager.hpp"
+#include "wtengine/mgr/manager.hpp"
+#include "wtengine/mgr/message_manager.hpp"
 #include "wtengine/mnu/menu_items.hpp"
 #include "wtengine/_globals/engine_flags.hpp"
 #include "wtengine/_globals/input_flags.hpp"

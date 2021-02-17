@@ -24,7 +24,7 @@
 #include <memory>
 #include <stdexcept>
 
-#include "wtenginenager.hpp"
+#include "wtengine/mgr/manager.hpp"
 #include "wtengine/cmp/component.hpp"
 
 namespace wte

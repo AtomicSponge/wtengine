@@ -18,7 +18,7 @@
 #include <any>
 #include <stdexcept>
 
-#include "wtengineriable_map.hpp"
+#include "wtengine/_globals/varriable_map.hpp"
 
 namespace wte
 {

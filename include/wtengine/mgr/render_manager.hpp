@@ -20,15 +20,15 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 
-#include "wtenginenager.hpp"
-#include "wtenginegine_time.hpp"
+#include "wtengine/mgr/manager.hpp"
+#include "wtengine/mgr/engine_time.hpp"
 
 #include "wtengine/wte_global_defines.hpp"
 #include "wtengine/_globals/engine_flags.hpp"
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/cmp/components.hpp"
-#include "wtenginenu_manager.hpp"
-#include "wtenginetity_manager.hpp"
+#include "wtengine/mgr/menu_manager.hpp"
+#include "wtengine/mgr/entity_manager.hpp"
 
 namespace wte
 {

@@ -12,8 +12,8 @@
 
 #include <allegro5/allegro.h>
 
-#include "_globals/engine_cfg.hpp"
-#include "_globals/input_flags.hpp"
+#include "wtengine/_globals/engine_cfg.hpp"
+#include "wtengine/_globals/input_flags.hpp"
 
 namespace wte
 {

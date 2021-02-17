@@ -10,7 +10,7 @@
 #ifndef WTE_SYS_LOGIC_HPP
 #define WTE_SYS_LOGIC_HPP
 
-#include "system.hpp"
+#include "wtengine/system.hpp"
 
 namespace wte
 {

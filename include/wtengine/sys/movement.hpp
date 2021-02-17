@@ -12,7 +12,7 @@
 
 #include <cmath>
 
-#include "system.hpp"
+#include "wtengine/system.hpp"
 
 namespace wte
 {

@@ -10,12 +10,12 @@
 #ifndef WTE_MGR_MANAGERS_HPP
 #define WTE_MGR_MANAGERS_HPP
 
-#include "audio_manager.hpp"
-#include "entity_manager.hpp"
-#include "menu_manager.hpp"
-#include "message_manager.hpp"
-#include "render_manager.hpp"
-#include "spawn_manager.hpp"
-#include "system_manager.hpp"
+#include "wtengine/audio_manager.hpp"
+#include "wtengine/entity_manager.hpp"
+#include "wtengine/menu_manager.hpp"
+#include "wtengine/message_manager.hpp"
+#include "wtengine/render_manager.hpp"
+#include "wtengine/spawn_manager.hpp"
+#include "wtengine/system_manager.hpp"
 
 #endif

@@ -18,10 +18,10 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_physfs.h>
 
-#include "manager.hpp"
-#include "engine_time.hpp"
-#include "../message.hpp"
-#include "../wte_global_defines.hpp"
+#include "wtengine/manager.hpp"
+#include "wtengine/engine_time.hpp"
+#include "wtengine/../message.hpp"
+#include "wtengine/../wte_global_defines.hpp"
 
 #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
 #include <fstream>

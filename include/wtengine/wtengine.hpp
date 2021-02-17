@@ -10,21 +10,21 @@
 #ifndef WTE_MAIN_INCLUDE_HPP
 #define WTE_MAIN_INCLUDE_HPP
 
-#include "wte_global_defines.hpp"
+#include "wtengine/wte_global_defines.hpp"
 
-#include "_globals/engine_cfg.hpp"
-#include "_globals/game_cfg.hpp"
+#include "wtengine/_globals/engine_cfg.hpp"
+#include "wtengine/_globals/game_cfg.hpp"
 
-#include "mnu/menu.hpp"
-#include "mnu/menu_items.hpp"
-#include "mgr/managers.hpp"
-#include "cmp/components.hpp"
-#include "sys/systems.hpp"
+#include "wtengine/mnu/menu.hpp"
+#include "wtengine/mnu/menu_items.hpp"
+#include "wtengine/mgr/managers.hpp"
+#include "wtengine/cmp/components.hpp"
+#include "wtengine/sys/systems.hpp"
 
-#include "wte_main.hpp"
+#include "wtengine/wte_main.hpp"
 
 #ifdef _WTE_USE_HELPER_MACROS
-#include "wte_helper_macros.hpp"
+#include "wtengine/wte_helper_macros.hpp"
 #endif
 
 #endif

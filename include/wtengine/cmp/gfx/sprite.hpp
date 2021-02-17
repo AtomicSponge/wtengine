@@ -18,9 +18,9 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
-#include "animator.hpp"
-#include "../../mgr/entity_manager.hpp"
-#include "../../wte_global_defines.hpp"
+#include "wtengine/animator.hpp"
+#include "wtengine/../../mgr/entity_manager.hpp"
+#include "wtengine/../../wte_global_defines.hpp"
 
 namespace wte
 {

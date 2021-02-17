@@ -10,7 +10,7 @@
 #ifndef WTE_CMP_LOCATION_HPP
 #define WTE_CMP_LOCATION_HPP
 
-#include "component.hpp"
+#include "wtengine/component.hpp"
 
 namespace wte
 {

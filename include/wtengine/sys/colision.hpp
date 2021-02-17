@@ -24,13 +24,13 @@ namespace sys
  */
 class colision final : public system {
     public:
-        colision() : system("colision") {};
-        ~colision() {};
+        colision();
+        ~colision();
 
         /*!
          * \brief Allow the colision system to be disabled.
          */
-        void disable(void) override { enabled = false; };
+        void disable(void) override;
 
         /*!
          * \brief Colision system run.
@@ -43,59 +43,8 @@ class colision final : public system {
          * \param current_time Current engine time.
          */
         void run(mgr::entity_manager& world,
-                        mgr::message_manager& messages,
-                        const int64_t& current_time) override {
-            const_component_container<cmp::team> team_components = world.get_components<cmp::team>();
-
-            for(auto & it_a : team_components) {
-                for(auto & it_b : team_components) {
-                    /*
-                     * Only test if:  Not the same entity.
-                     *                Entities are on different teams.
-                     *                Both entities have a location.
-                     *                Both entities have a hitbox.
-                     *                Both entities are enabled.
-                     *                The entity being compared against is solid.
-                     */
-                    if((it_a.first != it_b.first) &&
-                       (it_a.second->get_team() != it_b.second->get_team()) &&
-                       world.has_component<cmp::location>(it_a.first) &&
-                       world.has_component<cmp::location>(it_b.first) &&
-                       world.has_component<cmp::hitbox>(it_a.first) &&
-                       world.has_component<cmp::hitbox>(it_b.first) &&
-                       world.get_component<cmp::enabled>(it_a.first)->check() &&
-                       world.get_component<cmp::enabled>(it_b.first)->check() &&
-                       world.get_component<cmp::hitbox>(it_b.first)->is_solid())
-                    {
-                        //  Use AABB to test colision
-                        if((world.get_component<cmp::location>(it_a.first)->get_x() <
-                            world.get_component<cmp::location>(it_b.first)->get_x() +
-                            world.get_component<cmp::hitbox>(it_b.first)->get_width()
-                            && 
-                            world.get_component<cmp::location>(it_a.first)->get_x() +
-                            world.get_component<cmp::hitbox>(it_a.first)->get_width() >
-                            world.get_component<cmp::location>(it_b.first)->get_x())
-                           &&
-                           (world.get_component<cmp::location>(it_a.first)->get_y() <
-                            world.get_component<cmp::location>(it_b.first)->get_y() +
-                            world.get_component<cmp::hitbox>(it_b.first)->get_height()
-                            && 
-                            world.get_component<cmp::location>(it_a.first)->get_y() +
-                            world.get_component<cmp::hitbox>(it_a.first)->get_height() >
-                            world.get_component<cmp::location>(it_b.first)->get_y()))
-                        {
-                            //  Send a message that two entities colided.
-                            //  Each entity will get a colision message.
-                            //  Ex:  A hit B, B hit A.
-                            messages.add_message(message("entities",
-                                                         world.get_name(it_a.first),
-                                                         world.get_name(it_b.first),
-                                                         "colision", ""));
-                        }
-                    } //  End skip self check
-                } //  End it_b loop
-            } //  End it_a loop
-        }
+                 mgr::message_manager& messages,
+                 const int64_t& current_time) override;
 };
 
 } //  namespace sys

@@ -24,8 +24,8 @@ namespace sys
  */
 class animate final : public system {
     public:
-        animate() : system("animate") {};
-        ~animate() {};
+        animate();
+        ~animate();
 
         /*!
          * \brief Animate system run.
@@ -38,16 +38,8 @@ class animate final : public system {
          * \param current_time Current engine time.
          */
         void run(mgr::entity_manager& world,
-                        mgr::message_manager& messages,
-                        const int64_t& current_time) override {
-            component_container<cmp::animator> animation_components = world.set_components<cmp::animator>();
-
-            for(auto & it : animation_components) {
-                if(world.has_component<cmp::visible>(it.first) &&
-                   world.get_component<cmp::visible>(it.first)->check())
-                        it.second->run(it.first, world, current_time);
-            }
-        }
+                 mgr::message_manager& messages,
+                 const int64_t& current_time) override;
 };
 
 } //  namespace sys

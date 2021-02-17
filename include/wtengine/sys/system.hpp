@@ -37,14 +37,14 @@ class system {
         void operator=(system const&) = delete;
 
         //!  Enable the system
-        void enable(void);
+        inline void enable(void) { enabled = true; };
         //!  Disable the system - Must override and define to be used
         virtual void disable(void) {};
         //!  Check if the system is enabled
-        const bool is_enabled(void) const;
+        inline const bool is_enabled(void) const { return enabled; };
 
         //!  Get the system name
-        const std::string get_name(void) const;
+        inline const std::string get_name(void) const { return name; };
 
         //!  Override this to create custom run method
         virtual void run(mgr::entity_manager&,

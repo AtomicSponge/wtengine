@@ -16,8 +16,8 @@
 #include <stdexcept>
 #include <cmath>
 
-#include "wtenginelobals/engine_cfg.hpp"
-#include "wtenginer/render_manager.hpp"
+#include "wtengine/_globals/engine_cfg.hpp"
+#include "wtengine/mgr/render_manager.hpp"
 
 namespace wte
 {

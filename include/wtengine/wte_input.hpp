@@ -10,11 +10,11 @@
 #ifndef WTE_INPUT_HPP
 #define WTE_INPUT_HPP
 
-#include "wtenginee_input_map.hpp"
-#include "wtenginee_global_defines.hpp"
-#include "wtenginelobals/engine_flags.hpp"
-#include "wtenginelobals/input_flags.hpp"
-#include "wtenginelobals/alert.hpp"
+#include "wtengine/wte_input_map.hpp"
+#include "wtengine/wte_global_defines.hpp"
+#include "wtengine/_globals/engine_flags.hpp"
+#include "wtengine/_globals/input_flags.hpp"
+#include "wtengine/_globals/alert.hpp"
 
 namespace wte
 {

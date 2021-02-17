@@ -15,7 +15,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-#include "wtenginenu_item.hpp"
+#include "wtengine/mnu/menu_item.hpp"
 
 #include "wtengine/_globals/engine_cfg.hpp"
 #include "wtengine/_globals/game_cfg.hpp"

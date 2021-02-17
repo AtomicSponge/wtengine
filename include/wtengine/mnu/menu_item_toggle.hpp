@@ -14,7 +14,7 @@
 #include <vector>
 #include <functional>
 
-#include "wtenginenu_item.hpp"
+#include "wtengine/mnu/menu_item.hpp"
 
 namespace wte
 {

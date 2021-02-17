@@ -10,7 +10,7 @@
 #ifndef WTE_SYS_COLISION_HPP
 #define WTE_SYS_COLISION_HPP
 
-#include "wtenginestem.hpp"
+#include "wtengine/system.hpp"
 
 namespace wte
 {

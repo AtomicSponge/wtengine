@@ -10,10 +10,10 @@
 #ifndef WTE_SYSTEMS_HPP
 #define WTE_SYSTEMS_HPP
 
-#include "wtengineput.hpp"
-#include "wtengineimate.hpp"
-#include "wtenginelision.hpp"
-#include "wtenginegic.hpp"
-#include "wtenginevement.hpp"
+#include "wtengine/input.hpp"
+#include "wtengine/animate.hpp"
+#include "wtengine/colision.hpp"
+#include "wtengine/logic.hpp"
+#include "wtengine/movement.hpp"
 
 #endif

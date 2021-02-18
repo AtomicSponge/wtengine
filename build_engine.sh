@@ -1,8 +1,9 @@
 #!/bin/sh
 
 START_DIR="$( cd "$( dirname "$0" )" && pwd )"
-SOURCE_DIR="/src"
-LIBRARY_DIR="/lib"
+SOURCE_DIR="src"
+LIBRARY_DIR="lib"
+BUILD_DIR="build"
 
 ##################################################
 #  Function
@@ -27,7 +28,7 @@ build_items()
 }
 
 echo "Building wtengine..."
-build_items "$START_DIR$SOURCE_DIR"
+build_items "$START_DIR/$SOURCE_DIR"
 
 echo ""
 echo -n "Creating library archive... "
@@ -35,7 +36,7 @@ LIBRARY_FILE_ARRAY=()
 for i in "$START_DIR$LIBRARY_DIR"/*; do
     LIBRARY_FILE_ARRAY+=("$(basename "$i")")
 done
-ar rcs build/libwtengine.a $(printf "lib/%s " "${LIBRARY_FILE_ARRAY[@]}")
+ar rcs "$BUILD_DIR"/libwtengine.a $(printf "$LIBRARY_DIR/%s " "${LIBRARY_FILE_ARRAY[@]}")
 echo "Done"
 
 echo ""

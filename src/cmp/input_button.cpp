@@ -20,7 +20,7 @@ namespace wte
 namespace cmp
 {
 
-input_button(
+input_button::input_button(
     const std::size_t button,
     void func_a(const entity_id&,
                 mgr::entity_manager&,
@@ -34,18 +34,18 @@ input_button(
     assert(button_flag < WTE_MAX_INPUT_BUTTON_FLAGS);
 }
 
-const std::size_t get_flag(void) const {
+const std::size_t input_button::get_flag(void) const {
     return button_flag;
 }
 
-void on_down(const entity_id& e_id,
+void input_button::on_down(const entity_id& e_id,
              mgr::entity_manager& world,
              mgr::message_manager& messages,
              const int64_t& current_time) {
     button_down(e_id, world, messages, current_time);
 }
 
-void on_up(const entity_id& e_id,
+void input_button::on_up(const entity_id& e_id,
            mgr::entity_manager& world,
            mgr::message_manager& messages,
            const int64_t& current_time) {

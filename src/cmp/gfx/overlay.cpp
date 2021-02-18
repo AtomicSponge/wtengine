@@ -21,7 +21,7 @@ namespace wte
 namespace cmp
 {
 
-overlay(const int w, const int h, const float x, const float y,
+overlay::overlay(const int w, const int h, const float x, const float y,
         const std::size_t l, void func(const entity_id&, mgr::entity_manager&, const int64_t&)) :
     animator(l, func), overlay_w(w), overlay_h(h), pos_x(x), pos_y(y)
 {
@@ -31,12 +31,12 @@ overlay(const int w, const int h, const float x, const float y,
     overlay_font = NULL;
 }
 
-~overlay() {
+overlay::~overlay() {
     al_destroy_bitmap(internal_bitmap);
     al_destroy_font(overlay_font);
 }
 
-void reload_overlay_bitmap(void) {
+void overlay::reload_overlay_bitmap(void) {
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
     ALLEGRO_BITMAP* temp_bmp = al_clone_bitmap(internal_bitmap);
     al_destroy_bitmap(internal_bitmap);
@@ -48,20 +48,20 @@ void reload_overlay_bitmap(void) {
     al_destroy_bitmap(temp_bmp);
 }
 
-void draw_text(const std::string& txt, const ALLEGRO_COLOR& color,
+void overlay::draw_text(const std::string& txt, const ALLEGRO_COLOR& color,
                         const float& x, const float& y, const int& f) {
     al_draw_text(overlay_font, color, x, y, f, txt.c_str());
 }
 
-const float get_pos_x(void) const {
+const float overlay::get_pos_x(void) const {
     return pos_x;
 }
 
-const float get_pos_y(void) const {
+const float overlay::get_pos_y(void) const {
     return pos_y;
 }
 
-void set_font(ALLEGRO_FONT* font) {
+void overlay::set_font(ALLEGRO_FONT* font) {
     overlay_font = font;
 }
 

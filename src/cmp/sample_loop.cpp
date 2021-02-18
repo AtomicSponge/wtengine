@@ -20,15 +20,15 @@ namespace wte
 namespace cmp
 {
 
-sample_loop() {
+sample_loop::sample_loop() {
     instance_map.clear();
 }
 
-~sample_loop() {
+sample_loop::~sample_loop() {
     instance_map.clear();
 }
 
-const bool add_handle(const std::string& sn, const std::string& si) {
+const bool sample_loop::add_handle(const std::string& sn, const std::string& si) {
     if(sn == "all") return false;
     if(si == "once") return false;
     std::string sample_name;
@@ -38,7 +38,7 @@ const bool add_handle(const std::string& sn, const std::string& si) {
     return ret.second;
 }
 
-void start(mgr::message_manager& messages, const std::string& si) {
+void sample_loop::start(mgr::message_manager& messages, const std::string& si) {
     auto ref = instance_map.find(si);
     if(ref != instance_map.end()) {
         if(ref->second.second == false) {  //  If not playing.
@@ -48,7 +48,7 @@ void start(mgr::message_manager& messages, const std::string& si) {
     }
 }
 
-void stop(mgr::message_manager& messages, const std::string& si) {
+void sample_loop::stop(mgr::message_manager& messages, const std::string& si) {
     auto ref = instance_map.find(si);
     if(ref != instance_map.end()) {
         if(ref->second.second == true) {  //  If is playing.

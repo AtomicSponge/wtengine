@@ -20,6 +20,9 @@ build/
 # Ignore generated documentation
 docs/
 
+# Ignore build library files
+lib/
+
 # Ignore test scripts
 tools/csv2sdf/*.sdf
 tools/csv2sdf/*.csv

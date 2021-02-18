@@ -22,39 +22,39 @@ namespace wte
 namespace cmp
 {
 
-direction(void) : angle(0.0f), draw_rotated(true) {}
+direction::direction(void) : angle(0.0f), draw_rotated(true) {}
 
-direction(const bool r) : angle(0.0f), draw_rotated(r) {}
+direction::direction(const bool r) : angle(0.0f), draw_rotated(r) {}
 
-direction(const float a) : angle(a), draw_rotated(true) {}
+direction::direction(const float a) : angle(a), draw_rotated(true) {}
 
-direction(const float a, const bool r) : angle(a), draw_rotated(r) {}
+direction::direction(const float a, const bool r) : angle(a), draw_rotated(r) {}
 
-void set_degrees(const float& a) {
+void direction::set_degrees(const float& a) {
     angle = a * M_PI / 180.0f;
 }
 
-const float get_degrees(void) const {
+const float direction::get_degrees(void) const {
     return (angle * 180.0f / M_PI);
 }
 
-void set_radians(const float& a) {
+void direction::set_radians(const float& a) {
     angle = a;
 }
 
-const float get_radians(void) const {
+const float direction::get_radians(void) const {
     return angle;
 }
 
-const bool show_rotated(void) const {
+const bool direction::show_rotated(void) const {
     return draw_rotated;
 }
 
-void set_rotated(void) {
+void direction::set_rotated(void) {
     draw_rotated = true;
 }
 
-void unset_rotated(void) {
+void direction::unset_rotated(void) {
     draw_rotated = false;
 }
 

@@ -15,29 +15,29 @@ namespace wte
 namespace cmp
 {
 
-location(float x, float y) : pos_x(x), pos_y(y) {};
+location::location(float x, float y) : pos_x(x), pos_y(y) {};
 
-const float get_x(void) const {
+const float location::get_x(void) const {
     return pos_x;
 }
 
-const float get_y(void) const {
+const float location::get_y(void) const {
     return pos_y;
 }
 
-void set_x(const float& x) {
+void location::set_x(const float& x) {
     pos_x = x;
 }
 
-void set_y(const float& y) {
+void location::set_y(const float& y) {
     pos_y = y;
 }
 
-void adjust_x(const float& x) {
+void location::adjust_x(const float& x) {
     pos_x += x;
 }
 
-void adjust_y(const float& y) {
+void location::adjust_y(const float& y) {
     pos_y += y;
 }
 

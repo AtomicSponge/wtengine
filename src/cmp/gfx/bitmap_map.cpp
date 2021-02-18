@@ -20,12 +20,12 @@ namespace wte
 namespace cmp
 {
 
-virtual ~bitmap_map() {
+virtual bitmap_map::~bitmap_map() {
     for(auto & it : bmp_map) al_destroy_bitmap(it.second);
     bmp_map.clear();
 }
 
-const bool load_bitmap(const std::string& label,
+const bool bitmap_map::load_bitmap(const std::string& label,
                                 const std::string& fname) {
     //  Load the file.
     ALLEGRO_FILE* file;
@@ -56,7 +56,7 @@ const bool load_bitmap(const std::string& label,
     return ret.second;
 }
 
-const bool delete_bitmap(const std::string& label) {
+const bool bitmap_map::delete_bitmap(const std::string& label) {
     auto it = bmp_map.find(label);
     if(it != bmp_map.end()) {
         al_destroy_bitmap(it->second);
@@ -66,7 +66,7 @@ const bool delete_bitmap(const std::string& label) {
     return false;
 }
 
-void draw_bitmap(
+void bitmap_map::draw_bitmap(
     const std::string& label,
     const float& dx, const float& dy,
     const int& flags
@@ -75,7 +75,7 @@ void draw_bitmap(
     if(it != bmp_map.end()) al_draw_bitmap(it->second, dx, dy, flags);
 }
 
-void draw_tinted_bitmap(
+void bitmap_map::draw_tinted_bitmap(
     const std::string& label,
     const ALLEGRO_COLOR& tint,
     const float& dx, const float& dy,
@@ -87,7 +87,7 @@ void draw_tinted_bitmap(
     );
 }
 
-void draw_bitmap_region(
+void bitmap_map::draw_bitmap_region(
     const std::string& label,
     const float& sx, const float& sy,
     const float& sw, const float& sh,
@@ -100,7 +100,7 @@ void draw_bitmap_region(
     );
 }
 
-void draw_tinted_bitmap_region(
+void bitmap_map::draw_tinted_bitmap_region(
     const std::string& label,
     const ALLEGRO_COLOR& tint,
     const float& sx, const float& sy,
@@ -114,7 +114,7 @@ void draw_tinted_bitmap_region(
     );
 }
 
-void draw_rotated_bitmap(
+void bitmap_map::draw_rotated_bitmap(
     const std::string& label,
     const float& cx, const float& cy,
     const float& dx, const float& dy,
@@ -126,7 +126,7 @@ void draw_rotated_bitmap(
     );
 }
 
-void draw_tinted_rotated_bitmap(
+void bitmap_map::draw_tinted_rotated_bitmap(
     const std::string& label,
     const ALLEGRO_COLOR& tint,
     const float& cx, const float& cy,
@@ -139,7 +139,7 @@ void draw_tinted_rotated_bitmap(
     );
 }
 
-void draw_scaled_rotated_bitmap(
+void bitmap_map::draw_scaled_rotated_bitmap(
     const std::string& label,
     const float& cx, const float& cy,
     const float& dx, const float& dy,
@@ -152,7 +152,7 @@ void draw_scaled_rotated_bitmap(
     );
 }
 
-void draw_tinted_scaled_rotated_bitmap(
+void bitmap_map::draw_tinted_scaled_rotated_bitmap(
     const std::string& label,
     const ALLEGRO_COLOR& tint,
     const float& cx, const float& cy,
@@ -166,7 +166,7 @@ void draw_tinted_scaled_rotated_bitmap(
     );
 }
 
-void draw_tinted_scaled_rotated_bitmap_region(
+void bitmap_map::draw_tinted_scaled_rotated_bitmap_region(
     const std::string& label,
     const float& sx, const float& sy,
     const float& sw, const float& sh,
@@ -182,7 +182,7 @@ void draw_tinted_scaled_rotated_bitmap_region(
     );
 }
 
-void draw_scaled_bitmap(
+void bitmap_map::draw_scaled_bitmap(
     const std::string& label,
     const float& sx, const float& sy,
     const float& sw, const float& sh,
@@ -196,7 +196,7 @@ void draw_scaled_bitmap(
     );
 }
 
-void draw_tinted_scaled_bitmap(
+void bitmap_map::draw_tinted_scaled_bitmap(
     const std::string& label,
     const ALLEGRO_COLOR& tint,
     const float& sx, const float& sy,
@@ -211,7 +211,7 @@ void draw_tinted_scaled_bitmap(
     );
 }
 
-bitmap_map() {
+bitmap_map::bitmap_map() {
     bmp_map.clear();
 }
 

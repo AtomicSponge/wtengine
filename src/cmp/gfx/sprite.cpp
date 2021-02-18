@@ -25,7 +25,7 @@ namespace wte
 namespace cmp
 {
 
-sprite(const float sw, const float sh,
+sprite::sprite(const float sw, const float sh,
                 const float dox, const float doy,
                 const std::size_t rt, const std::size_t l) :
     animator(l,
@@ -57,11 +57,11 @@ sprite(const float sw, const float sh,
     if(rate == 0) rate = 1;
 }
 
-~sprite() {
+sprite::~sprite() {
     al_destroy_bitmap(internal_bitmap);
 }
 
-void load_sprite(const std::string& fname) {
+void sprite::load_sprite(const std::string& fname) {
     ALLEGRO_FILE* file;
     file = al_fopen(fname.c_str(), "rb");
     if(!file) throw std::runtime_error("Couldn't find sprite file:  " + fname);
@@ -80,14 +80,14 @@ void load_sprite(const std::string& fname) {
     sheet_height = al_get_bitmap_height(internal_bitmap);
 }
 
-const bool add_cycle(const std::string& name,
+const bool sprite::add_cycle(const std::string& name,
                      const std::size_t& start,
                      const std::size_t& stop) {
     auto ret = cycles.insert(std::make_pair(name, std::make_pair(start, stop)));
     return ret.second;
 }
 
-const bool set_cycle(const std::string& name) {
+const bool sprite::set_cycle(const std::string& name) {
     auto it = cycles.find(name);
     if(it != cycles.end()) {
         start_frame = it->second.first;
@@ -96,43 +96,43 @@ const bool set_cycle(const std::string& name) {
     } else return false;
 }
 
-const float get_sprite_width(void) const {
+const float sprite::get_sprite_width(void) const {
     return sprite_width;
 }
 
-const float get_sprite_height(void) const {
+const float sprite::get_sprite_height(void) const {
     return sprite_height;
 }
 
-const float get_draw_offset_x(void) const {
+const float sprite::get_draw_offset_x(void) const {
     return draw_offset_x;
 }
 
-const float get_draw_offset_y(void) const {
+const float sprite::get_draw_offset_y(void) const {
     return draw_offset_y;
 }
 
-const float get_sprite_x(void) const {
+const float sprite::get_sprite_x(void) const {
     return sprite_x;
 }
 
-const float get_sprite_y(void) const {
+const float sprite::get_sprite_y(void) const {
     return sprite_y;
 }
 
-void set_scale_factor_x(const float& sx) {
+void sprite::set_scale_factor_x(const float& sx) {
     scale_factor_x = sx;
 }
 
-void set_scale_factor_y(const float& sy) {
+void sprite::set_scale_factor_y(const float& sy) {
     scale_factor_y = sy;
 }
 
-const float get_scale_factor_x(void) const {
+const float sprite::get_scale_factor_x(void) const {
     return scale_factor_x;
 }
 
-const float get_scale_factor_y(void) const {
+const float sprite::get_scale_factor_y(void) const {
     return scale_factor_y;
 }
 

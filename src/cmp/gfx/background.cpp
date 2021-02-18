@@ -21,7 +21,7 @@ namespace wte
 namespace cmp
 {
 
-background(const int w, const int h,
+background::background(const int w, const int h,
                     const std::size_t l, ALLEGRO_COLOR c) :
     animator(l, [](const entity_id& e_id, mgr::entity_manager& world, const int64_t& engine_time)
     {
@@ -34,7 +34,7 @@ background(const int w, const int h,
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
 };
 
-background(const int w, const int h, const std::size_t l,
+background::background(const int w, const int h, const std::size_t l,
                     void func(const entity_id&, mgr::entity_manager&, const int64_t&)) :
     animator(l, func), background_w(w), background_h(h)
 {
@@ -43,11 +43,11 @@ background(const int w, const int h, const std::size_t l,
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
 };
 
-~background() {
+background::~background() {
     al_destroy_bitmap(internal_bitmap);
 };
 
-void reload_background_bitmap(void) {
+void background::reload_background_bitmap(void) {
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
     ALLEGRO_BITMAP* temp_bmp = al_clone_bitmap(internal_bitmap);
     al_destroy_bitmap(internal_bitmap);
@@ -59,7 +59,7 @@ void reload_background_bitmap(void) {
     al_destroy_bitmap(temp_bmp);
 };
 
-ALLEGRO_COLOR get_color(void) const {
+ALLEGRO_COLOR background::get_color(void) const {
     return color;
 };
 

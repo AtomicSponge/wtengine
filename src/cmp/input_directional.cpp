@@ -20,7 +20,7 @@ namespace wte
 namespace cmp
 {
 
-input_directional(
+input_directional::input_directional(
     const std::size_t ib,
     void func_a(const entity_id&,
                 const float&,
@@ -35,11 +35,11 @@ input_directional(
     assert(input_bind < WTE_MAX_JOYSTICK_FLAGS);
 }
 
-const std::size_t get_bind(void) const {
+const std::size_t input_directional::get_bind(void) const {
     return input_bind;
 }
 
-void on_set(const entity_id& e_id,
+void input_directional::on_set(const entity_id& e_id,
             const float& rad,
             mgr::entity_manager& world,
             mgr::message_manager& messages,
@@ -47,7 +47,7 @@ void on_set(const entity_id& e_id,
     direction_set(e_id, rad, world, messages, current_time);
 }
 
-void on_unset(const entity_id& e_id,
+void input_directional::on_unset(const entity_id& e_id,
               mgr::entity_manager& world,
               mgr::message_manager& messages,
               const int64_t& current_time) {

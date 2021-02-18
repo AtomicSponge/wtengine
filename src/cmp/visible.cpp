@@ -15,19 +15,19 @@ namespace wte
 namespace cmp
 {
 
-visible() : is_visible(true) {}
+visible::visible() : is_visible(true) {}
 
-visible(const bool v) : is_visible(v) {}
+visible::visible(const bool v) : is_visible(v) {}
 
-const bool check(void) const {
+const bool visible::check(void) const {
     return is_visible;
 }
 
-void show(void) {
+void visible::show(void) {
     is_visible = true;
 }
 
-void hide(void) {
+void visible::hide(void) {
     is_visible = false;
 }
 

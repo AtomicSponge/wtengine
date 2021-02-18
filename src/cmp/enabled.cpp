@@ -15,19 +15,19 @@ namespace wte
 namespace cmp
 {
 
-enabled() : is_enabled(true) {}
+enabled::enabled() : is_enabled(true) {}
 
-enabled(const bool e) : is_enabled(e) {}
+enabled::enabled(const bool e) : is_enabled(e) {}
 
-const bool check(void) const {
+const bool enabled::check(void) const {
     return is_enabled;
 }
 
-void enable(void) {
+void enabled::enable(void) {
     is_enabled = true;
 }
 
-void disable(void) {
+void enabled::disable(void) {
     is_enabled = false;
 }
 

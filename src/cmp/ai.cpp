@@ -7,9 +7,6 @@
  * \date 2019-2020
  */
 
-#ifndef WTE_CMP_AI_HPP
-#define WTE_CMP_AI_HPP
-
 #include <functional>
 
 #include "wtengine/cmp/ai.hpp"
@@ -27,7 +24,7 @@ ai::ai(void func(const entity_id&,
     enabled_ai(func), disabled_ai([](const entity_id& e_id,
                                      mgr::entity_manager& world,
                                      mgr::message_manager& messages,
-                                     const int64_t& engine_time){}) {};
+                                     const int64_t& engine_time){}) {}
 
 ai::ai(void func_a(const entity_id&,
                    mgr::entity_manager&,
@@ -37,7 +34,7 @@ ai::ai(void func_a(const entity_id&,
                    mgr::entity_manager&,
                    mgr::message_manager&,
                    const int64_t&)) :
-    enabled_ai(func_a), disabled_ai(func_b) {};
+    enabled_ai(func_a), disabled_ai(func_b) {}
 
 void ai::run_enabled(const entity_id& eid,
                      mgr::entity_manager& world,
@@ -56,5 +53,3 @@ void ai::run_disabled(const entity_id& eid,
 } //  namespace cmp
 
 } //  namespace wte
-
-#endif

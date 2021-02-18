@@ -7,9 +7,6 @@
  * \date 2019-2020
  */
 
-#ifndef WTE_CMP_OVERLAY_HPP
-#define WTE_CMP_OVERLAY_HPP
-
 #include <string>
 #include <map>
 
@@ -24,107 +21,50 @@ namespace wte
 namespace cmp
 {
 
-/*!
- * \class overlay
- * \brief Component for storing an overlay image and defining its animation process.
- */
-class overlay final : public animator, public bitmap_map {
-    public:
-        /*!
-         * \brief Overlay constructor.
-         * 
-         * \param w Overlay width in pixels.
-         * \param h Overlay height in pixels.
-         * \param x Horizontal location of the overlay in pixels.
-         * \param y Verticle location of the overlay in pixels.
-         * \param l Layer for sorting.
-         * \param func Function to define what is displayed in the overlay.
-         */
-        overlay(const int w, const int h, const float x, const float y,
-                       const std::size_t l, void func(const entity_id&, mgr::entity_manager&, const int64_t&)) :
-        animator(l, func), overlay_w(w), overlay_h(h), pos_x(x), pos_y(y)
-        {
-            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            internal_bitmap = al_create_bitmap(overlay_w, overlay_h);
-            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            overlay_font = NULL;
-        };
+overlay(const int w, const int h, const float x, const float y,
+        const std::size_t l, void func(const entity_id&, mgr::entity_manager&, const int64_t&)) :
+    animator(l, func), overlay_w(w), overlay_h(h), pos_x(x), pos_y(y)
+{
+    al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+    internal_bitmap = al_create_bitmap(overlay_w, overlay_h);
+    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+    overlay_font = NULL;
+}
 
-        /*!
-         * \brief Overlay destructor.
-         */
-        ~overlay() {
-            al_destroy_bitmap(internal_bitmap);
-            al_destroy_font(overlay_font);
-        };
+~overlay() {
+    al_destroy_bitmap(internal_bitmap);
+    al_destroy_font(overlay_font);
+}
 
-        /*!
-         * \brief Reload the overlay bitmap.
-         * 
-         * Called when the screen is updated.
-         */
-        void reload_overlay_bitmap(void) {
-            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            ALLEGRO_BITMAP* temp_bmp = al_clone_bitmap(internal_bitmap);
-            al_destroy_bitmap(internal_bitmap);
-            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            internal_bitmap = al_create_bitmap(overlay_w, overlay_h);
-            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            al_set_target_bitmap(internal_bitmap);
-            al_draw_bitmap(temp_bmp, 0.0f, 0.0f, 0);
-            al_destroy_bitmap(temp_bmp);
-        };
+void reload_overlay_bitmap(void) {
+    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+    ALLEGRO_BITMAP* temp_bmp = al_clone_bitmap(internal_bitmap);
+    al_destroy_bitmap(internal_bitmap);
+    al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+    internal_bitmap = al_create_bitmap(overlay_w, overlay_h);
+    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+    al_set_target_bitmap(internal_bitmap);
+    al_draw_bitmap(temp_bmp, 0.0f, 0.0f, 0);
+    al_destroy_bitmap(temp_bmp);
+}
 
-        /*!
-         * \brief Draw text on the overlay.
-         * 
-         * \param txt Text to be displayed.
-         * \param color Allegro color object.
-         * \param x Horizontal location of the text.
-         * \param y Verticle location of the text.
-         * \param f Text flags for drawing - see Allegro docs on al_draw_text.
-         */
-        void draw_text(const std::string& txt, const ALLEGRO_COLOR& color,
-                              const float& x, const float& y, const int& f) {
-            al_draw_text(overlay_font, color, x, y, f, txt.c_str());
-        };
+void draw_text(const std::string& txt, const ALLEGRO_COLOR& color,
+                        const float& x, const float& y, const int& f) {
+    al_draw_text(overlay_font, color, x, y, f, txt.c_str());
+}
 
-        /*!
-         * \brief Get X position.
-         * 
-         * \return X position.
-         */
-        const float get_pos_x(void) const {
-            return pos_x;
-        };
+const float get_pos_x(void) const {
+    return pos_x;
+}
 
-        /*!
-         * \brief Get Y position.
-         * 
-         * \return Y position.
-         */
-        const float get_pos_y(void) const {
-            return pos_y;
-        };
+const float get_pos_y(void) const {
+    return pos_y;
+}
 
-        /*!
-         * \brief Set the font used by the overlay.
-         * 
-         * \param font Allegro font object to be used.
-         */
-        void set_font(ALLEGRO_FONT* font) {
-            overlay_font = font;
-        };
-
-    private:
-        ALLEGRO_FONT* overlay_font;
-
-        int overlay_w, overlay_h;
-        float pos_x, pos_y;
-};
+void set_font(ALLEGRO_FONT* font) {
+    overlay_font = font;
+}
 
 } //  namespace cmp
 
 } //  namespace wte
-
-#endif

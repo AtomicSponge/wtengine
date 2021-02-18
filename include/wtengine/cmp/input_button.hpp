@@ -49,23 +49,19 @@ class input_button final : public component {
                         mgr::entity_manager&,
                         mgr::message_manager&,
                         const int64_t&)
-        ) : button_flag(button), button_down(func_a), button_up(func_b) {
-            assert(button_flag < WTE_MAX_INPUT_BUTTON_FLAGS);
-        };
+        );
 
         /*!
          * \brief Input button destructor.
          */
-        ~input_button() {};
+        inline ~input_button() {};
 
         /*!
          * \brief Get the button flag bounded to this component.
          * 
          * \return The button flag enum value.
          */
-        const std::size_t get_flag(void) const {
-            return button_flag;
-        };
+        const std::size_t get_flag(void) const;
 
         /*!
          * \brief Run button on down event.
@@ -76,11 +72,9 @@ class input_button final : public component {
          * \param current_time Current engine time.
          */
         void on_down(const entity_id& e_id,
-                            mgr::entity_manager& world,
-                            mgr::message_manager& messages,
-                            const int64_t& current_time) {
-            button_down(e_id, world, messages, current_time);
-        };
+                     mgr::entity_manager& world,
+                     mgr::message_manager& messages,
+                     const int64_t& current_time);
 
         /*!
          * \brief Run button on up event.
@@ -91,11 +85,9 @@ class input_button final : public component {
          * \param current_time Current engine time.
          */
         void on_up(const entity_id& e_id,
-                          mgr::entity_manager& world,
-                          mgr::message_manager& messages,
-                          const int64_t& current_time) {
-            button_up(e_id, world, messages, current_time);
-        };
+                   mgr::entity_manager& world,
+                   mgr::message_manager& messages,
+                   const int64_t& current_time);
 
     private:
         std::size_t button_flag;

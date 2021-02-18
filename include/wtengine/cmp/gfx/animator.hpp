@@ -32,7 +32,7 @@ class animator : public component {
         /*!
          * \brief Animator destructor.
          */
-        ~animator() {};
+        inline ~animator() {};
 
         /*!
          * \brief Overload < operator to sort by layer value.
@@ -51,60 +51,45 @@ class animator : public component {
          * \param world Reference to the entity manager.
          * \param engine_time Current value of the main timer.
          */
-        void run(const entity_id& e_id, mgr::entity_manager& world, const int64_t& engine_time) {
-            animate(e_id, world, engine_time);
-        };
+        void run(const entity_id& e_id, mgr::entity_manager& world, const int64_t& engine_time);
 
         /*!
          * \brief Set drawing to the internal bitmap.
          */
-        void set_drawing(void) {
-            al_set_target_bitmap(internal_bitmap);
-        };
+        void set_drawing(void);
 
         /*!
          * \brief Return the internal bitmap.
          * 
          * \return The internal bitmap.
          */
-        ALLEGRO_BITMAP& get_bitmap(void) const {
-            return *internal_bitmap;
-        };
+        ALLEGRO_BITMAP& get_bitmap(void) const;
 
         /*!
          * \brief Set a tint color.
          * 
          * \param c Allegro color.
          */
-        void set_tint(const ALLEGRO_COLOR& c) {
-            tint_color = c;
-            tint_set = true;
-        };
+        void set_tint(const ALLEGRO_COLOR& c);
 
         /*!
          * \brief Get the tint color.
          * 
          * \return Allegro color.
          */
-        const ALLEGRO_COLOR get_tint(void) const {
-            return tint_color;
-        };
+        const ALLEGRO_COLOR get_tint(void) const;
 
         /*!
          * \brief Clear tint color.
          */
-        void clear_tint(void) {
-            tint_set = false;
-        };
+        void clear_tint(void);
 
         /*!
          * \brief Check if the bitmap should be drawn tinted.
          * 
          * \return True if tint set, false if tint cleared.
          */
-        const bool draw_tinted(void) const {
-            return tint_set;
-        };
+        const bool draw_tinted(void) const;
 
     protected:
         /*!
@@ -113,7 +98,7 @@ class animator : public component {
          * \param l Layer for sorting.
          * \param func Animation function.
          */
-        animator(std::size_t l, void func(const entity_id&, mgr::entity_manager&, const int64_t&)) :
+        inline animator(std::size_t l, void func(const entity_id&, mgr::entity_manager&, const int64_t&)) :
         layer(l), tint_set(false), animate(func) {};
 
         //!  Stores the bitmap used by the animator.

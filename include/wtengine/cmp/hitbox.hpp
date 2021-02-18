@@ -32,7 +32,7 @@ class hitbox final : public component {
          * \param w Width of the hitbox in pixels.
          * \param h Height of the hitbox in pixels.
          */
-        hitbox(float w, float h) : width(w), height(h), solid(true) {};
+        hitbox(float w, float h);
 
         /*!
          * \brief Hitbox constructor.
@@ -43,70 +43,56 @@ class hitbox final : public component {
          * \param h Height of the hitbox in pixels.
          * \param s Boolean value for if the hitbox is enabled.
          */
-        hitbox(float w, float h, bool s) : width(w), height(h), solid(s) {};
+        hitbox(float w, float h, bool s);
 
         /*!
          * \brief Get hitbox width.
          * 
          * \return Width of hitbox.
          */
-        const float get_width(void) const {
-            return width;
-        };
+        const float get_width(void) const;
 
         /*!
          * \brief Get hitbox height.
          * 
          * \return Height of hitbox.
          */
-        const float get_height(void) const {
-            return height;
-        };
+        const float get_height(void) const;
 
         /*!
          * \brief Set width of hitbox.
          * 
          * \param w New width.
          */
-        void set_width(const float& w) {
-            width = w;
-        };
+        void set_width(const float& w);
 
         /*!
          * \brief Set height of hitbox.
          * 
          * \param h New height.
          */
-        void set_height(const float& h) {
-            height = h;
-        };
+        void set_height(const float& h);
 
         /*!
          * \brief Check if solid.
          * 
          * \return True if solid, false if not.
          */
-        const bool is_solid(void) const {
-            return solid;
-        };
+        const bool is_solid(void) const;
 
         /*!
          * \brief Make entity solid.
          * 
          * Sets internal flag to true.
          */
-        void make_solid(void) {
-            solid = true;
-        };
+        void make_solid(void);
 
         /*!
          * \brief Make entity not solid.
          * 
          * Sets internal flag to false.
          */
-        void make_fluid(void) {
-            solid = false;
-        };
+        void make_fluid(void);
 
     private:
         float width, height;

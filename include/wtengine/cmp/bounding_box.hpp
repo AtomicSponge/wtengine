@@ -34,83 +34,64 @@ class bounding_box final : public component {
          * \param rx Right X
          * \param ry Right Y
          */
-        bounding_box(const float lx,
-                            const float ly,
-                            const float rx,
-                            const float ry) :
-               min_x(lx), min_y(ly), max_x(rx), max_y(ry) {};
+        bounding_box(const float lx, const float ly,
+                     const float rx, const float ry);
 
         /*!
          * \brief Set left X of the bounding box.
          * 
          * \param mx Left X
          */
-        void set_min_x(const float& mx) {
-            min_x = mx;
-        };
+        void set_min_x(const float& mx);
 
         /*!
          * \brief Set left Y of the bounding box.
          * 
          * \param my Left Y
          */
-        void set_min_y(const float& my) {
-            min_y = my;
-        };
+        void set_min_y(const float& my);
 
         /*!
          * \brief Set right X of the bounding box.
          * 
          * \param mx Right X
          */
-        void set_max_x(const float& mx) {
-            max_x = mx;
-        };
+        void set_max_x(const float& mx);
 
         /*!
          * \brief Set right Y of the bounding box.
          * 
          * \param my right Y
          */
-        void set_max_y(const float& my) {
-            max_y = my;
-        };
+        void set_max_y(const float& my);
 
         /*!
          * \brief Get the left X of the bounding box.
          * 
          * \return Left X
          */
-        const float get_min_x(void) const {
-            return min_x;
-        };
+        const float get_min_x(void) const;
 
         /*!
          * \brief Get the left Y of the bounding box.
          * 
          * \return Left Y
          */
-        const float get_min_y(void) const {
-            return min_y;
-        };
+        const float get_min_y(void) const;
 
         /*!
          * \brief Get the right X of the bounding box.
          * 
          * \return Right X
          */
-        const float get_max_x(void) const {
-            return max_x;
-        };
+        const float get_max_x(void) const;
 
         /*!
          * \brief Get the right Y of the bounding box.
          * 
          * \return Right Y
          */
-        const float get_max_y(void) const {
-            return max_y;
-        };
+        const float get_max_y(void) const;
 
     private:
         float min_x, min_y;

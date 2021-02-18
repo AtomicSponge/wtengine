@@ -42,38 +42,19 @@ class overlay final : public animator, public bitmap_map {
          */
         overlay(const int w, const int h, const float x, const float y,
                        const std::size_t l, void func(const entity_id&, mgr::entity_manager&, const int64_t&)) :
-        animator(l, func), overlay_w(w), overlay_h(h), pos_x(x), pos_y(y)
-        {
-            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            internal_bitmap = al_create_bitmap(overlay_w, overlay_h);
-            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            overlay_font = NULL;
-        };
+        animator(l, func), overlay_w(w), overlay_h(h), pos_x(x), pos_y(y);
 
         /*!
          * \brief Overlay destructor.
          */
-        ~overlay() {
-            al_destroy_bitmap(internal_bitmap);
-            al_destroy_font(overlay_font);
-        };
+        ~overlay();
 
         /*!
          * \brief Reload the overlay bitmap.
          * 
          * Called when the screen is updated.
          */
-        void reload_overlay_bitmap(void) {
-            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            ALLEGRO_BITMAP* temp_bmp = al_clone_bitmap(internal_bitmap);
-            al_destroy_bitmap(internal_bitmap);
-            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            internal_bitmap = al_create_bitmap(overlay_w, overlay_h);
-            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            al_set_target_bitmap(internal_bitmap);
-            al_draw_bitmap(temp_bmp, 0.0f, 0.0f, 0);
-            al_destroy_bitmap(temp_bmp);
-        };
+        void reload_overlay_bitmap(void);
 
         /*!
          * \brief Draw text on the overlay.
@@ -85,36 +66,28 @@ class overlay final : public animator, public bitmap_map {
          * \param f Text flags for drawing - see Allegro docs on al_draw_text.
          */
         void draw_text(const std::string& txt, const ALLEGRO_COLOR& color,
-                              const float& x, const float& y, const int& f) {
-            al_draw_text(overlay_font, color, x, y, f, txt.c_str());
-        };
+                              const float& x, const float& y, const int& f);
 
         /*!
          * \brief Get X position.
          * 
          * \return X position.
          */
-        const float get_pos_x(void) const {
-            return pos_x;
-        };
+        const float get_pos_x(void) const;
 
         /*!
          * \brief Get Y position.
          * 
          * \return Y position.
          */
-        const float get_pos_y(void) const {
-            return pos_y;
-        };
+        const float get_pos_y(void) const;
 
         /*!
          * \brief Set the font used by the overlay.
          * 
          * \param font Allegro font object to be used.
          */
-        void set_font(ALLEGRO_FONT* font) {
-            overlay_font = font;
-        };
+        void set_font(ALLEGRO_FONT* font);
 
     private:
         ALLEGRO_FONT* overlay_font;

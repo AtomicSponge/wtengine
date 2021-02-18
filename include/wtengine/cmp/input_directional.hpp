@@ -46,23 +46,19 @@ class input_directional final : public component {
                         mgr::entity_manager&,
                         mgr::message_manager&,
                         const int64_t&)
-        ) : input_bind(ib), direction_set(func_a), direction_unset(func_b) {
-            assert(input_bind < WTE_MAX_JOYSTICK_FLAGS);
-        };
+        );
 
         /*!
          * \brief Input Directional destructor.
          */
-        ~input_directional() {};
+        inline ~input_directional() {};
 
         /*!
          * \brief Get the joystick bounded to this component.
          * 
          * \return The joystick enum value.
          */
-        const std::size_t get_bind(void) const {
-            return input_bind;
-        };
+        const std::size_t get_bind(void) const;
 
         /*!
          * \brief Run the joystick direction set function.
@@ -74,12 +70,10 @@ class input_directional final : public component {
          * \param current_time Current engine time.
          */
         void on_set(const entity_id& e_id,
-                           const float& rad,
-                           mgr::entity_manager& world,
-                           mgr::message_manager& messages,
-                           const int64_t& current_time) {
-            direction_set(e_id, rad, world, messages, current_time);
-        };
+                    const float& rad,
+                    mgr::entity_manager& world,
+                    mgr::message_manager& messages,
+                    const int64_t& current_time);
 
         /*!
          * \brief Run the joystick direction unset function.
@@ -90,11 +84,9 @@ class input_directional final : public component {
          * \param current_time Current engine time.
          */
         void on_unset(const entity_id& e_id,
-                             mgr::entity_manager& world,
-                             mgr::message_manager& messages,
-                             const int64_t& current_time) {
-            direction_unset(e_id, world, messages, current_time);
-        };
+                      mgr::entity_manager& world,
+                      mgr::message_manager& messages,
+                      const int64_t& current_time);
 
     private:
         std::size_t input_bind;

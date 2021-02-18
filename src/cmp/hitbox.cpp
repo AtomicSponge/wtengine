@@ -7,7 +7,13 @@
  * \date 2019-2020
  */
 
-#include "wtengine/component.hpp"
+#include "wtengine/cmp/hitbox.hpp"
+
+namespace wte
+{
+
+namespace cmp
+{
 
 hitbox::hitbox(float w, float h) : width(w), height(h), solid(true) {}
 

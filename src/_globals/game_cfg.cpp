@@ -15,20 +15,20 @@
 #include <any>
 #include <stdexcept>
 
-#include "wtengine/game_cfg.hpp"
+#include "wtengine/_globals/game_cfg.hpp"
 
 namespace wte
 {
 
-static void game_cfg::set_game_cfg_file(const std::string& fname) {
+void game_cfg::set_game_cfg_file(const std::string& fname) {
     data_file_name = fname;
 }
 
-static void game_cfg::set_enc_key(const char& key) {
+void game_cfg::set_enc_key(const char& key) {
     NOT_THE_ENCRYPTION_KEY = key;
 }
 
-static bool game_cfg::load(void) {
+bool game_cfg::load(void) {
     std::ifstream data_file(data_file_name);
     if(!data_file.good()) return false;
 
@@ -43,12 +43,12 @@ static bool game_cfg::load(void) {
     return true;
 }
 
-static void game_cfg::clear_save(void) {
+void game_cfg::clear_save(void) {
     std::ofstream data_file(data_file_name, std::ofstream::trunc);
     data_file.close();
 }
 
-static bool game_cfg::save(const std::string& var) {
+bool game_cfg::save(const std::string& var) {
     std::ofstream data_file(data_file_name, std::ofstream::app);
     if(!data_file.good()) return false;
 
@@ -63,7 +63,7 @@ static bool game_cfg::save(const std::string& var) {
     return true;
 }
 
-template <typename T> static bool game_cfg::add(const std::string& var, const T& val) {
+template <typename T> bool game_cfg::add(const std::string& var, const T& val) {
     try {
         T temp;
         std::stringstream(_map.at(var)) >>
@@ -77,7 +77,7 @@ template <typename T> static bool game_cfg::add(const std::string& var, const T&
     }
 }
 
-template <typename T> static bool game_cfg::subtract(const std::string& var, const T& val) {
+template <typename T> bool game_cfg::subtract(const std::string& var, const T& val) {
     try {
         T temp;
         std::stringstream(_map.at(var)) >>
@@ -91,7 +91,7 @@ template <typename T> static bool game_cfg::subtract(const std::string& var, con
     }
 }
 
-template <typename T> static bool game_cfg::multiply(const std::string& var, const T& val) {
+template <typename T> bool game_cfg::multiply(const std::string& var, const T& val) {
     try {
         T temp;
         std::stringstream(_map.at(var)) >>
@@ -105,7 +105,7 @@ template <typename T> static bool game_cfg::multiply(const std::string& var, con
     }
 }
 
-template <typename T> static bool game_cfg::divide(const std::string& var, const T& val) {
+template <typename T> bool game_cfg::divide(const std::string& var, const T& val) {
     try {
         T temp;
         std::stringstream(_map.at(var)) >>
@@ -119,35 +119,35 @@ template <typename T> static bool game_cfg::divide(const std::string& var, const
     }
 }
 
-static const bool game_cfg::reg(const std::string& var, const std::string& val) {
+const bool game_cfg::reg(const std::string& var, const std::string& val) {
     return variable_map<game_cfg>::reg(var, val);
 }
 
-static const bool game_cfg::reg(const std::string& expr) {
+const bool game_cfg::reg(const std::string& expr) {
     return variable_map<game_cfg>::reg(expr);
 }
 
-static const bool game_cfg::is_reg(const std::string& var) {
+const bool game_cfg::is_reg(const std::string& var) {
     return variable_map<game_cfg>::is_reg(var);
 }
 
-static const bool game_cfg::set(const std::string& var, const std::string& val) {
+const bool game_cfg::set(const std::string& var, const std::string& val) {
     return variable_map<game_cfg>::set(var, val);
 }
 
-static const bool game_cfg::set(const std::string& expr) {
+const bool game_cfg::set(const std::string& expr) {
     return variable_map<game_cfg>::set(expr);
 }
 
-static const std::string game_cfg::get(const std::string& var) {
+const std::string game_cfg::get(const std::string& var) {
     return variable_map<game_cfg>::get(var);
 }
 
-template <typename T> static const T game_cfg::get(const std::string& var) {
+template <typename T> const T game_cfg::get(const std::string& var) {
     return variable_map<game_cfg>::get<T>(var);
 }
 
-static const std::string game_cfg::encrypt(std::string input) {
+const std::string game_cfg::encrypt(std::string input) {
     for(std::size_t i = 0; i < input.length(); i++) {
         input[i] = input[i] - NOT_THE_ENCRYPTION_KEY;
     }
@@ -155,7 +155,7 @@ static const std::string game_cfg::encrypt(std::string input) {
     return input;
 }
 
-static const std::string game_cfg::decrypt(std::string input) {
+const std::string game_cfg::decrypt(std::string input) {
     for(std::size_t i = 0; i < input.length(); i++) {
         input[i] = input[i] + NOT_THE_ENCRYPTION_KEY;
     }

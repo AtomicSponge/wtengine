@@ -14,7 +14,7 @@
 #include <cmath>
 #include <limits>
 
-#include "wtengine/component.hpp"
+#include "wtengine/cmp/direction.hpp"
 
 namespace wte
 {

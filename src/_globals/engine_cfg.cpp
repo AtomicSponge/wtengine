@@ -10,12 +10,12 @@
 #include <string>
 #include <fstream>
 
-#include "wtengine/engine_cfg.hpp"
+#include "wtengine/_globals/engine_cfg.hpp"
 
 namespace wte
 {
 
-static bool engine_cfg::load(void) {
+bool engine_cfg::load(void) {
     std::ifstream data_file("settings.cfg");
     //  Data file doesn't exist, create one
     if(!data_file.good()) {
@@ -34,7 +34,7 @@ static bool engine_cfg::load(void) {
     return true;
 }
 
-static bool engine_cfg::save(void) {
+bool engine_cfg::save(void) {
     std::ofstream data_file("settings.cfg");
     if(!data_file.good()) return false;
 
@@ -47,31 +47,31 @@ static bool engine_cfg::save(void) {
     return true;
 }
 
-static const bool engine_cfg::reg(const std::string& var, const std::string& val) {
+const bool engine_cfg::reg(const std::string& var, const std::string& val) {
     return variable_map<engine_cfg>::reg(var, val);
 }
 
-static const bool engine_cfg::reg(const std::string& expr) {
+const bool engine_cfg::reg(const std::string& expr) {
     return variable_map<engine_cfg>::reg(expr);
 }
 
-static const bool engine_cfg::is_reg(const std::string& var) {
+const bool engine_cfg::is_reg(const std::string& var) {
     return variable_map<engine_cfg>::is_reg(var);
 }
 
-static const bool engine_cfg::set(const std::string& var, const std::string& val) {
+const bool engine_cfg::set(const std::string& var, const std::string& val) {
     return variable_map<engine_cfg>::set(var, val);
 }
 
-static const bool engine_cfg::set(const std::string& expr) {
+const bool engine_cfg::set(const std::string& expr) {
     return variable_map<engine_cfg>::set(expr);
 }
 
-static const std::string engine_cfg::get(const std::string& var) {
+const std::string engine_cfg::get(const std::string& var) {
     return variable_map<engine_cfg>::get(var);
 }
 
-template <typename T> static const T engine_cfg::get(const std::string& var) {
+template <typename T> const T engine_cfg::get(const std::string& var) {
     return variable_map<engine_cfg>::get<T>(var);
 }
 

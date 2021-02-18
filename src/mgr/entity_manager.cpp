@@ -228,5 +228,3 @@ template <typename T> const const_component_container<T> entity_manager::get_com
 } //  namespace mgr
 
 } //  namespace wte
-
-#endif

@@ -102,7 +102,7 @@ class entity_manager final : private manager<entity_manager> {
         /*!
          * \brief Entity manager destructor.
          */
-        ~entity_manager() {};
+        ~entity_manager();
 
         /*!
          * \brief Clear the entity manager.

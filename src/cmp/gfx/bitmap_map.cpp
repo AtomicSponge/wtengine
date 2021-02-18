@@ -12,6 +12,7 @@
 
 #include <allegro5/allegro.h>
 
+#include "wtengine/cmp/gfx/bitmap_map.hpp"
 #include "wtengine/wte_global_defines.hpp"
 
 namespace wte
@@ -20,7 +21,7 @@ namespace wte
 namespace cmp
 {
 
-virtual bitmap_map::~bitmap_map() {
+bitmap_map::~bitmap_map() {
     for(auto & it : bmp_map) al_destroy_bitmap(it.second);
     bmp_map.clear();
 }

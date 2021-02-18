@@ -105,7 +105,7 @@ void menu_manager::set_menu_color(ALLEGRO_COLOR fcolor, ALLEGRO_COLOR bgcolor) {
     al_clear_to_color(menu_font_color);
 };
 
-static void menu_manager::set_font_file(const std::string& fname, const int& size, const int& flags) {
+void menu_manager::set_font_file(const std::string& fname, const int& size, const int& flags) {
     menu_font_file = fname;
     menu_font_size = size;
     menu_font_flags = flags;

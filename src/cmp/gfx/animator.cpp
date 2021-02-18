@@ -11,7 +11,8 @@
 
 #include <functional>
 
-#include "wtengine/component.hpp"
+#include "wtengine/cmp/gfx/animator.hpp"
+#include "wtengine/cmp/component.hpp"
 #include "wtengine/mgr/entity_manager.hpp"
 
 namespace wte

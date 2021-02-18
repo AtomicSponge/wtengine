@@ -10,7 +10,7 @@
 #include <functional>
 #include <cassert>
 
-#include "wtengine/component.hpp"
+#include "wtengine/cmp/input_button.hpp"
 #include "wtengine/mgr/entity_manager.hpp"
 #include "wtengine/mgr/message_manager.hpp"
 
@@ -55,5 +55,3 @@ void input_button::on_up(const entity_id& e_id,
 } //  namespace cmp
 
 } //  namespace wte
-
-#endif

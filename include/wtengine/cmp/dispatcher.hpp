@@ -13,6 +13,7 @@
 #include <functional>
 
 #include "wtengine/cmp/component.hpp"
+#include "wtengine/mgr/message_manager.hpp"
 #include "wtengine/mgr/entity_manager.hpp"
 #include "wtengine/message.hpp"
 

@@ -57,7 +57,7 @@ class menu_manager final : private manager<menu_manager> {
          * 
          * Cleans up by deleting the menu bitmaps and font.
          */
-        ~menu_manager() {};
+        ~menu_manager();
 
         /*!
          * \brief Ititialize menu manager.

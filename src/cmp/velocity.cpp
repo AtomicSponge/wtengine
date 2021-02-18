@@ -7,7 +7,7 @@
  * \date 2019-2020
  */
 
-#include "wtengine/component.hpp"
+#include "wtengine/cmp/velocity.hpp"
 
 namespace wte
 {
@@ -45,5 +45,3 @@ const float velocity::get_y_vel(void) const {
 } //  namespace cmp
 
 } //  namespace wte
-
-#endif

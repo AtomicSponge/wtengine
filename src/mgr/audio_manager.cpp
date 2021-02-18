@@ -180,9 +180,6 @@ void audio_manager::set_volume(void) {
     if(vol >= 0.0f && vol <= 1.0f) al_set_mixer_gain(mixer_4, vol);
 };
 
-//  Used to restrict class to a single instance.
-template <> bool audio_manager::manager<audio_manager>::initialized = false;
-
 void audio_manager::run(void) {
     //  Set PhysFS interface for the thread.
     //  PhysFS is initialized in the wte_main constructor.

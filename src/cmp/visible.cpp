@@ -7,7 +7,7 @@
  * \date 2019-2020
  */
 
-#include "wtengine/component.hpp"
+#include "wtengine/cmp/visible.hpp"
 
 namespace wte
 {
@@ -34,5 +34,3 @@ void visible::hide(void) {
 } //  namespace cmp
 
 } //  namespace wte
-
-#endif

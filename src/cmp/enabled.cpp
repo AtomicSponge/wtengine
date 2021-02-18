@@ -7,7 +7,7 @@
  * \date 2019-2020
  */
 
-#include "wtengine/component.hpp"
+#include "wtengine/cmp/enabled.hpp"
 
 namespace wte
 {

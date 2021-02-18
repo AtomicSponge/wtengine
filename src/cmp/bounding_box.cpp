@@ -7,7 +7,7 @@
  * \date 2019-2020
  */
 
-#include "wtengine/component.hpp"
+#include "wtengine/cmp/bounding_box.hpp"
 
 namespace wte
 {
@@ -56,5 +56,3 @@ const float bounding_box::get_max_y(void) const {
 } //  namespace cmp
 
 } //  namespace wte
-
-#endif

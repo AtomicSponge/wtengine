@@ -11,7 +11,7 @@
 #include <map>
 #include <utility>
 
-#include "wtengine/component.hpp"
+#include "wtengine/cmp/sample_loop.hpp"
 #include "wtengine/mgr/message_manager.hpp"
 
 namespace wte

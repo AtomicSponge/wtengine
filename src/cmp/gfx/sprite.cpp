@@ -15,6 +15,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
+#include "wtengine/cmp/gfx/sprite.hpp"
 #include "wtengine/cmp/gfx/animator.hpp"
 #include "wtengine/mgr/entity_manager.hpp"
 #include "wtengine/wte_global_defines.hpp"

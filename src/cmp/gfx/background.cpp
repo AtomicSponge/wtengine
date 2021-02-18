@@ -15,8 +15,8 @@
 
 #include <allegro5/allegro.h>
 
-#include "animator.hpp"
-#include "bitmap_map.hpp"
+#include "wtengine/animator.hpp"
+#include "wtengine/bitmap_map.hpp"
 
 namespace wte
 {

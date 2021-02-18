@@ -14,7 +14,7 @@ build_items()
     for i in "$1"/*; do
         if [ -f "$i" ] && [[ "$i" =~ \.cpp$ ]]; then
             INNAME="${i#$START_DIR/}"
-            OUTNAME=$(basename "$i")
+            OUTNAME="$(basename "$i")"
             OUTNAME="lib/${OUTNAME%.cpp}.o"
             echo ""
             echo "Building $INNAME..."

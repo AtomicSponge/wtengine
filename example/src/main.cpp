@@ -8,7 +8,7 @@
  * Main file for WTEngine demo
  */
 
-#include <wte/wte.hpp>
+#include <wtengine/wtengine.hpp>
 
 #include "include/wte_demo.hpp"
 

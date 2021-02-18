@@ -10,7 +10,7 @@
 #ifndef WTE_MAIN_INCLUDE_HPP
 #define WTE_MAIN_INCLUDE_HPP
 
-#include "wtenginee_global_defines.hpp"
+#include "wtengine/wte_global_defines.hpp"
 
 #include "wtengine/_globals/engine_cfg.hpp"
 #include "wtengine/_globals/game_cfg.hpp"

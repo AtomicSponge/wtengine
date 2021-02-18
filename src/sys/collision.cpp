@@ -7,7 +7,7 @@
  * \date 2019-2020
  */
 
-#include "wtengine/collision.hpp"
+#include "wtengine/sys/collision.hpp"
 
 namespace wte
 {
@@ -18,11 +18,11 @@ namespace sys
 colision::colision() : system("colision") {}
 colision::~colision() {}
 
-void colision::disable(void) override { enabled = false; };
+void colision::disable(void) { enabled = false; };
 
 void colision::run(mgr::entity_manager& world,
                 mgr::message_manager& messages,
-                const int64_t& current_time) override {
+                const int64_t& current_time) {
     const_component_container<cmp::team> team_components = world.get_components<cmp::team>();
 
     for(auto & it_a : team_components) {

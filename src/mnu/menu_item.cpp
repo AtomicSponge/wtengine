@@ -14,7 +14,7 @@
 #include <vector>
 #include <memory>
 
-#include "../message.hpp"
+#include "wtengine/message.hpp"
 
 namespace wte
 {

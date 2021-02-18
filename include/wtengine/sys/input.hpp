@@ -10,7 +10,7 @@
 #ifndef WTE_SYS_INPUT_HPP
 #define WTE_SYS_INPUT_HPP
 
-#include "wtengine/system.hpp"
+#include "wtengine/sys/system.hpp"
 #include "wtengine/_globals/input_flags.hpp"
 
 namespace wte

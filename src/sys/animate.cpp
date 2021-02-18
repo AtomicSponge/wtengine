@@ -7,7 +7,7 @@
  * \date 2019-2020
  */
 
-#include "wtengine/animate.hpp"
+#include "wtengine/sys/animate.hpp"
 
 namespace wte
 {
@@ -20,7 +20,7 @@ animate::~animate() {}
 
 void animate::run(mgr::entity_manager& world,
                 mgr::message_manager& messages,
-                const int64_t& current_time) override {
+                const int64_t& current_time) {
     component_container<cmp::animator> animation_components = world.set_components<cmp::animator>();
 
     for(auto & it : animation_components) {

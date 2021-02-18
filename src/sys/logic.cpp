@@ -7,7 +7,7 @@
  * \date 2019-2020
  */
 
-#include "wtengine/logic.hpp"
+#include "wtengine/sys/logic.hpp"
 
 namespace wte
 {
@@ -20,7 +20,7 @@ logic::~logic() {};
 
 void logic::run(mgr::entity_manager& world,
                 mgr::message_manager& messages,
-                const int64_t& current_time) override {
+                const int64_t& current_time) {
     //  Find the entities with the input handler component
     component_container<cmp::ai> ai_components = world.set_components<cmp::ai>();
 

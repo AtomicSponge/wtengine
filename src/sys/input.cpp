@@ -7,7 +7,7 @@
  * \date 2019-2020
  */
 
-#include "wtengine/input.hpp"
+#include "wtengine/sys/input.hpp"
 
 namespace wte
 {
@@ -18,11 +18,11 @@ namespace sys
 input::input() : system("input") {}
 input::~input() {}
 
-void input::disable(void) override { enabled = false; }
+void input::disable(void) { enabled = false; }
 
 void input::run(mgr::entity_manager& world,
                 mgr::message_manager& messages,
-                const int64_t& current_time) override {
+                const int64_t& current_time) {
     //  First check all directional components.
     component_container<cmp::input_directional> directional_components =
         world.set_components<cmp::input_directional>();

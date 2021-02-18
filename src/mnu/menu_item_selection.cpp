@@ -15,10 +15,10 @@
 #include <algorithm>
 #include <stdexcept>
 
-#include "menu_item.hpp"
+#include "wtengine/mnu/menu_item.hpp"
 
-#include "../_globals/engine_cfg.hpp"
-#include "../_globals/game_cfg.hpp"
+#include "wtengine/_globals/engine_cfg.hpp"
+#include "wtengine/_globals/game_cfg.hpp"
 
 namespace wte
 {
@@ -61,14 +61,14 @@ class menu_item_selection final : public menu_item {
         /*!
          * \brief Define left click process.
          */
-        void on_left(void) override {
+        void on_left(void) {
             if(current_val != vals.begin()) current_val--;
         };
 
         /*!
          * \brief Define right click process.
          */
-        void on_right(void) override {
+        void on_right(void) {
             if(current_val != vals.end()) current_val++;
             if(current_val == vals.end()) current_val--;
         };
@@ -78,7 +78,7 @@ class menu_item_selection final : public menu_item {
          * 
          * \return Vector of display text strings.
          */
-        const std::vector<std::string> get_text(void) const override {
+        const std::vector<std::string> get_text(void) const {
             return {
                 get_label(), "< " + display_vals.at(std::distance(vals.cbegin(), current_val)) + " >"
             };
@@ -87,12 +87,12 @@ class menu_item_selection final : public menu_item {
         /*!
          * \brief Reset to the default variable.
          */
-        void reset_to_default(void) override { current_val = default_val; };
+        void reset_to_default(void) { current_val = default_val; };
 
         /*!
          * \brief Set the default variable.
          */
-        void set_default(void) override {
+        void set_default(void) {
             if(is_engine_setting()) current_val = std::find(std::begin(vals), std::end(vals), engine_cfg::get(var));
             else current_val = std::find(std::begin(vals), std::end(vals), game_cfg::get(var));
             if(current_val == vals.end()) current_val = vals.begin();
@@ -106,7 +106,7 @@ class menu_item_selection final : public menu_item {
          * 
          * \return True if the setting changed, false if it did not.
          */
-        const bool setting_changed(void) const override {
+        const bool setting_changed(void) const {
             if(current_val == default_val) return false;
             return true;
         };

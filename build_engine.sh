@@ -3,6 +3,7 @@
 #set -x
 START_DIR="$( cd "$( dirname "$0" )" && pwd )"
 SOURCE_DIR="/src"
+LIBRARY_DIR="/lib"
 
 ##################################################
 #  Function
@@ -28,12 +29,15 @@ build_items()
 
 echo "Building wtengine..."
 
-build_items "$START_DIR$SOURCE_DIR"
+#build_items "$START_DIR$SOURCE_DIR"
 
 echo ""
 echo -n "Creating library archive... "
 
-#ar rcs build/libtest.a libs/test_main.o libs/testa1.o libs/testa2.o libs/testb1.o libs/testb2.o
+for i in "$START_DIR$LIBRARY_DIR"/*; do
+    echo "$i"
+    #ar rcs build/libtest.a libs/test_main.o libs/testa1.o libs/testa2.o libs/testb1.o libs/testb2.o
+done
 
 echo "Done"
 

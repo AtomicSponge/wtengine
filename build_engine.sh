@@ -1,12 +1,15 @@
 #!/bin/sh
 
+##################################################
+#  Script variables
+##################################################
 START_DIR="$( cd "$( dirname "$0" )" && pwd )"
 SOURCE_DIR="src"
 LIBRARY_DIR="lib"
 BUILD_DIR="build"
 
 ##################################################
-#  Function
+#  Function to build all source files
 ##################################################
 build_items()
 {
@@ -27,6 +30,9 @@ build_items()
     done
 }
 
+##################################################
+#  Start script
+##################################################
 echo "Building wtengine..."
 build_items "$START_DIR/$SOURCE_DIR"
 

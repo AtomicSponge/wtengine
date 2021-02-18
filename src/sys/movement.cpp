@@ -9,7 +9,7 @@
 
 #include <cmath>
 
-#include "wtengine/movement.hpp"
+#include "wtengine/sys/movement.hpp"
 
 namespace wte
 {
@@ -22,7 +22,7 @@ movement::~movement() {}
 
 void movement::run(mgr::entity_manager& world,
                    mgr::message_manager& messages,
-                   const int64_t& current_time) override {
+                   const int64_t& current_time) {
     //  Find the entities with a velocity component.
     const_component_container<cmp::velocity> vel_components = world.get_components<cmp::velocity>();
     for(auto & it : vel_components) {

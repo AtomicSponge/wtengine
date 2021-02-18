@@ -14,6 +14,7 @@
 #include <map>
 
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_font.h>
 
 #include "wtengine/cmp/gfx/animator.hpp"
 #include "wtengine/cmp/gfx/bitmap_map.hpp"
@@ -41,8 +42,7 @@ class overlay final : public animator, public bitmap_map {
          * \param func Function to define what is displayed in the overlay.
          */
         overlay(const int w, const int h, const float x, const float y,
-                       const std::size_t l, void func(const entity_id&, mgr::entity_manager&, const int64_t&)) :
-        animator(l, func), overlay_w(w), overlay_h(h), pos_x(x), pos_y(y);
+                       const std::size_t l, void func(const entity_id&, mgr::entity_manager&, const int64_t&));
 
         /*!
          * \brief Overlay destructor.

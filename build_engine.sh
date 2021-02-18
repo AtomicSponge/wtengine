@@ -39,7 +39,7 @@ build_items "$START_DIR/$SOURCE_DIR"
 echo ""
 echo -n "Creating library archive... "
 LIBRARY_FILE_ARRAY=()
-for i in "$START_DIR$LIBRARY_DIR"/*; do
+for i in "$START_DIR$LIBRARY_DIR"/*.o; do
     LIBRARY_FILE_ARRAY+=("$(basename "$i")")
 done
 ar rcs "$BUILD_DIR"/libwtengine.a $(printf "$LIBRARY_DIR/%s " "${LIBRARY_FILE_ARRAY[@]}")

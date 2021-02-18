@@ -9,6 +9,8 @@
 
 #include <cassert>
 
+#include "wtengine/_globals/engine_flags.hpp"
+
 namespace wte
 {
 

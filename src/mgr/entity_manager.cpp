@@ -17,7 +17,7 @@
 #include <memory>
 #include <stdexcept>
 
-#include "wtengine/entity_manager.hpp"
+#include "wtengine/mgr/entity_manager.hpp"
 
 namespace wte
 {

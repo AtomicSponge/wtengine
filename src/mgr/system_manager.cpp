@@ -12,7 +12,7 @@
 #include <iterator>
 #include <memory>
 
-#include "wtengine/system_manager.hpp"
+#include "wtengine/mgr/system_manager.hpp"
 
 namespace wte
 {

@@ -15,7 +15,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_physfs.h>
 
-#include "wtengine/message_manager.hpp"
+#include "wtengine/mgr/message_manager.hpp"
 
 namespace wte
 {

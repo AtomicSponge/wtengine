@@ -44,7 +44,7 @@ class system_manager final : private manager<system_manager> {
          * 
          * Makes sure the systems are cleared.
          */
-        ~system_manager() {};
+        ~system_manager();
 
         /*!
          * \brief Clear the system manager and allow systems to be loaded again.

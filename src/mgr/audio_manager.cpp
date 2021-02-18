@@ -18,7 +18,7 @@
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_physfs.h>
 
-#include "wtengine/audio_manager.hpp"
+#include "wtengine/mgr/audio_manager.hpp"
 
 namespace wte
 {

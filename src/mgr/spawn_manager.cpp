@@ -12,7 +12,7 @@
 #include <map>
 #include <functional>
 
-#include "wtengine/spawn_manager.hpp"
+#include "wtengine/mgr/spawn_manager.hpp"
 
 namespace wte
 {

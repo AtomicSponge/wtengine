@@ -17,7 +17,7 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 
-#include "wtengine/render_manager.hpp"
+#include "wtengine/mgr/render_manager.hpp"
 
 namespace wte
 {
@@ -101,11 +101,11 @@ void render_manager::update_resolution(const int& w, const int& h) {
     screen_h = h;
 }
 
-static const int render_manager::get_screen_width(void) {
+const int render_manager::get_screen_width(void) {
     return screen_w;
 }
 
-static const int render_manager::get_screen_height(void) {
+const int render_manager::get_screen_height(void) {
     return screen_h;
 }
 
@@ -113,7 +113,7 @@ void render_manager::set_scale_factor(const float& f) {
     scale_factor = f;
 }
 
-static const int render_manager::get_scale_factor() {
+const int render_manager::get_scale_factor() {
     return scale_factor;
 }
 
@@ -124,30 +124,30 @@ void render_manager::reload_arena_bitmap(void) {
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
 }
 
-static void render_manager::set_arena_size(const int& w, const int& h) {
+void render_manager::set_arena_size(const int& w, const int& h) {
     if(!arena_created) {
         arena_w = w;
         arena_h = h;
     }
 }
 
-static const int render_manager::get_arena_width(void) {
+const int render_manager::get_arena_width(void) {
     return arena_w;
 }
 
-static const int render_manager::get_arena_height(void) {
+const int render_manager::get_arena_height(void) {
     return arena_h;
 }
 
-static void render_manager::set_title_screen(const std::string& fname) {
+void render_manager::set_title_screen(const std::string& fname) {
     title_screen_file = fname;
 }
 
-static void render_manager::set_background_screen(const std::string& fname) {
+void render_manager::set_background_screen(const std::string& fname) {
     background_file = fname;
 }
 
-static void render_manager::set_font_file(const std::string& fname, const int& size, const int& flags) {
+void render_manager::set_font_file(const std::string& fname, const int& size, const int& flags) {
     render_font_file = fname;
     render_font_size = size;
     render_font_flags = flags;

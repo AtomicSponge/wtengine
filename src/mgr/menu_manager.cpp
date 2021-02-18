@@ -17,7 +17,7 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 
-#include "wtengine/menu_manager.hpp"
+#include "wtengine/mgr/menu_manager.hpp"
 
 namespace wte
 {

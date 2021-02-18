@@ -16,7 +16,6 @@ build_items()
             INNAME="${i#$START_DIR/}"
             OUTNAME="$(basename "$i")"
             OUTNAME="lib/${OUTNAME%.cpp}.o"
-            echo ""
             echo "Building $INNAME..."
             #echo "$INNAME"
             #echo "$OUTNAME"

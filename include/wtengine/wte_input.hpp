@@ -37,7 +37,7 @@ class wte_input : private wte_input_map {
         /*!
          * \brief WTE Input destructor.
          */
-        virtual ~wte_input();
+        virtual ~wte_input() {};
 
     protected:
         /*!

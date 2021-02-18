@@ -27,7 +27,7 @@ class wte_input_map {
         /*!
          * \brief Input Map destructor.
          */
-        virtual ~wte_input_map();
+        virtual ~wte_input_map() {};
 
     protected:
         /*!

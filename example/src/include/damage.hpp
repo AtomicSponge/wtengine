@@ -11,7 +11,7 @@
 #ifndef WTEDEMO_CMP_DAMAGE_HPP
 #define WTEDEMO_CMP_DAMAGE_HPP
 
-#include <wtengine/wtengine.hpp>
+#include "wtengine/wtengine.hpp"
 
 /*
  * Store the amount of damage an entity can do

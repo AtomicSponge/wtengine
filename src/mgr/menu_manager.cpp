@@ -25,6 +25,8 @@ namespace wte
 namespace mgr
 {
 
+template <> bool menu_manager::manager<menu_manager>::initialized = false;
+
 menu_manager::menu_manager() :
 menu_width(500), menu_height(400), menu_padding(32), font_size(8), is_button_left(true) {
     menus.clear();

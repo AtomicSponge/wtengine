@@ -214,8 +214,6 @@ class menu_manager final : private manager<menu_manager> {
         inline static int menu_font_flags = 0;
 };
 
-template <> bool menu_manager::manager<menu_manager>::initialized = false;
-
 }  // end namespace mgr
 
 }  // end namespace wte

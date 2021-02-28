@@ -140,8 +140,6 @@ class system_manager final : private manager<system_manager> {
         bool finalized; //  Flag to disallow loading of additional systems.
 };
 
-template <> bool system_manager::manager<system_manager>::initialized = false;
-
 } //  namespace mgr
 
 } //  namespace wte

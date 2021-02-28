@@ -269,8 +269,6 @@ class entity_manager final : private manager<entity_manager> {
         world_map world;
 };
 
-template <> bool manager<entity_manager>::initialized = false;
-
 } //  namespace mgr
 
 } //  namespace wte

@@ -73,8 +73,6 @@ class spawn_manager final : private manager<spawn_manager> {
             std::function<void(const entity_id&, entity_manager&, const msg_arg_list&)>>> spawner;
 };
 
-template <> bool spawn_manager::manager<spawn_manager>::initialized = false;
-
 } //  namespace mgr
 
 } //  namespace wte

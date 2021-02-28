@@ -23,6 +23,8 @@ namespace wte
 namespace mgr
 {
 
+template <> bool message_manager::manager<message_manager>::initialized = false;
+
 message_manager::message_manager() {
     msg_queue.clear();
 

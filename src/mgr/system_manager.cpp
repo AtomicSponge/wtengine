@@ -20,6 +20,8 @@ namespace wte
 namespace mgr
 {
 
+template <> bool system_manager::manager<system_manager>::initialized = false;
+
 system_manager::system_manager() : finalized(false) {
     systems.clear();
 }

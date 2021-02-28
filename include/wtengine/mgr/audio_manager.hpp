@@ -159,9 +159,6 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
         std::map<std::string, ALLEGRO_SAMPLE_ID> sample_instances;
 };
 
-//  Used to restrict class to a single instance.
-template <> bool audio_manager::manager<audio_manager>::initialized = false;
-
 } //  namespace mgr
 
 } //  end namespace wte

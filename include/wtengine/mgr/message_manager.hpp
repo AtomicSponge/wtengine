@@ -143,8 +143,6 @@ class message_manager final : private manager<message_manager>, private engine_t
         message_container msg_queue;
 };
 
-template <> bool message_manager::manager<message_manager>::initialized = false;
-
 } //  namespace mgr
 
 } //  namespace wte

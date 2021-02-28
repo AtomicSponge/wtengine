@@ -220,8 +220,6 @@ class render_manager final : private manager<render_manager>, private engine_tim
         inline static int render_font_flags = 0;
 };
 
-template <> bool render_manager::manager<render_manager>::initialized = false;
-
 } //  namespace mgr
 
 } //  namespace wte

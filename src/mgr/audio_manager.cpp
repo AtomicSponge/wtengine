@@ -26,6 +26,8 @@ namespace wte
 namespace mgr
 {
 
+template <> bool audio_manager::manager<audio_manager>::initialized = false;
+
 audio_manager::audio_manager() {
     //  Map the audio commands.
     //  Mixer 1

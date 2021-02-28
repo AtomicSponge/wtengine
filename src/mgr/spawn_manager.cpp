@@ -20,6 +20,8 @@ namespace wte
 namespace mgr
 {
 
+template <> bool spawn_manager::manager<spawn_manager>::initialized = false;
+
 spawn_manager::spawn_manager() {
     spawner.clear();
 }

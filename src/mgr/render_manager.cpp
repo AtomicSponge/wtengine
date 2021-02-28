@@ -25,6 +25,8 @@ namespace wte
 namespace mgr
 {
 
+template <> bool render_manager::manager<render_manager>::initialized = false;
+
 void render_manager::initialize(void) {
     //  Create the arena bitmap.
     if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");

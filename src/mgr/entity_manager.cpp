@@ -25,6 +25,8 @@ namespace wte
 namespace mgr
 {
 
+template <> bool manager<entity_manager>::initialized = false;
+
 entity_manager::entity_manager() : entity_counter(WTE_ENTITY_START) {
     entity_vec.clear();
     world.clear();

@@ -36,6 +36,7 @@ build_items()
 echo "Building wtengine..."
 build_items "$START_DIR/$SOURCE_DIR"
 
+rm "$BUILD_DIR"/libwtengine.a
 echo ""
 echo -n "Creating library archive... "
 LIBRARY_FILE_ARRAY=()

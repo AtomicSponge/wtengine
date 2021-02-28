@@ -1,6 +1,8 @@
 __*NOTE:*__  Working on refactoring to build proper library
 
 *%$@!ing templates* hmmmmm
+https://www.parashift.com/c++-faq-lite/separate-template-class-defn-from-decl.html
+wip
 
 The old version (*everything in headers*) can be found [here](https://github.com/wtfsystems/the_dump/blob/master/wtengine_pre_lib.zip)
 

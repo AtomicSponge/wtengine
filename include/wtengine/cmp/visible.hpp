@@ -29,7 +29,7 @@ class visible final : public component {
          * 
          * Call this to be visible by default.
          */
-        visible();
+        inline visible() : is_visible(true) {};
 
         /*!
          * \brief Visible constructor.
@@ -38,28 +38,34 @@ class visible final : public component {
          * 
          * \param v Boolean value for visibility.
          */
-        visible(const bool v);
+        inline visible(const bool v) : is_visible(v) {};
 
         /*!
          * \brief Check if visible.
          * 
          * \return True if visible, false if not.
          */
-        const bool check(void) const;
+        inline const bool check(void) const {
+            return is_visible;
+        };
 
         /*!
          * \brief Show the entity.
          * 
          * Sets internal flag to true.
          */
-        void show(void);
+        inline void show(void) {
+            is_visible = true;
+        };
 
         /*!
          * \brief Hide the entity.
          * 
          * Sets internal flag to false.
          */
-        void hide(void);
+        inline void hide(void) {
+            is_visible = false;
+        };
 
     private:
         bool is_visible;

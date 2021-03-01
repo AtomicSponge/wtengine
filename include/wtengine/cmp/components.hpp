@@ -25,6 +25,8 @@
 #include "wtengine/cmp/visible.hpp"
 
 //  Graphics components
+#include "wtengine/cmp/gfx/bitmap_map.hpp"
+#include "wtengine/cmp/gfx/animator.hpp"
 #include "wtengine/cmp/gfx/background.hpp"
 #include "wtengine/cmp/gfx/overlay.hpp"
 #include "wtengine/cmp/gfx/sprite.hpp"

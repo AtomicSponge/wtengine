@@ -35,7 +35,10 @@ class bitmap_map {
         /*!
          * \brief Bitmap map destructor.
          */
-        virtual ~bitmap_map();
+        inline virtual ~bitmap_map() {
+            for(auto & it : bmp_map) al_destroy_bitmap(it.second);
+            bmp_map.clear();
+        };
 
         /*!
          * \brief Load a bitmap.
@@ -46,7 +49,36 @@ class bitmap_map {
          * \param label Label for referencing bitmap.
          * \return True if loaded, false if not.
          */
-        const bool load_bitmap(const std::string& label, const std::string& fname);
+        inline const bool load_bitmap(const std::string& label,
+                                      const std::string& fname) {
+            //  Load the file.
+            ALLEGRO_FILE* file;
+            file = al_fopen(fname.c_str(), "rb");
+            if(!file) {  //  File not found, fail.
+                al_fclose(file);
+                return false;
+            }
+
+            //  Load bitmap into a temp pointer.
+            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+            ALLEGRO_BITMAP* temp_bitmap =
+                al_load_bitmap_f(file, fname.substr(fname.find("."), fname.length()).c_str());
+            al_fclose(file);
+
+            if(!temp_bitmap) return false;  //  Bitmap not loaded, fail.
+
+            #if WTE_USE_MAGIC_PINK
+            //  Apply transparency if magic pink is enabled.
+            al_convert_mask_to_alpha(temp_bitmap, WTE_MAGIC_PINK);
+            #endif
+
+            //  Store the bitmap.
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+            auto ret = bmp_map.insert(std::make_pair(label, al_clone_bitmap(temp_bitmap)));
+            al_destroy_bitmap(temp_bitmap);
+
+            return ret.second;
+        };
 
         /*!
          * \brief Delete a bitmap from the map.
@@ -54,7 +86,15 @@ class bitmap_map {
          * \param label Label of saved bitmap.
          * \return True if removed, false if not.
          */
-        const bool delete_bitmap(const std::string& label);
+        inline const bool delete_bitmap(const std::string& label) {
+            auto it = bmp_map.find(label);
+            if(it != bmp_map.end()) {
+                al_destroy_bitmap(it->second);
+                bmp_map.erase(it);
+                return true;
+            }
+            return false;
+        };
 
         /*!
          * \brief Draw a bitmap from the map.
@@ -64,11 +104,14 @@ class bitmap_map {
          * \param dy Y location of the background to draw to.
          * \param flags Allegro Bitmap flags.
          */
-        void draw_bitmap(
+        inline void draw_bitmap(
             const std::string& label,
             const float& dx, const float& dy,
             const int& flags
-        );
+        ) {
+            auto it = bmp_map.find(label);
+            if(it != bmp_map.end()) al_draw_bitmap(it->second, dx, dy, flags);
+        };
 
         /*!
          * \brief Draw a tinted bitmap from the map.
@@ -79,12 +122,17 @@ class bitmap_map {
          * \param dy Y location of the background to draw to.
          * \param flags Allegro Bitmap flags.
          */
-        void draw_tinted_bitmap(
+        inline void draw_tinted_bitmap(
             const std::string& label,
             const ALLEGRO_COLOR& tint,
             const float& dx, const float& dy,
             const int& flags
-        );
+        ) {
+            auto it = bmp_map.find(label);
+            if(it != bmp_map.end()) al_draw_tinted_bitmap(
+                it->second, tint, dx, dy, flags
+            );
+        };
 
         /*!
          * \brief Draw a region of a bitmap from the map.
@@ -98,13 +146,18 @@ class bitmap_map {
          * \param dy Y location of the background to draw to.
          * \param flags Allegro Bitmap flags.
          */
-        void draw_bitmap_region(
+        inline void draw_bitmap_region(
             const std::string& label,
             const float& sx, const float& sy,
             const float& sw, const float& sh,
             const float& dx, const float& dy,
             const int& flags
-        );
+        ) {
+            auto it = bmp_map.find(label);
+            if(it != bmp_map.end()) al_draw_bitmap_region(
+                it->second, sx, sy, sw, sh, dx, dy, flags
+            );
+        };
 
         /*!
          * \brief Draw a tinted region of a bitmap from the map.
@@ -119,14 +172,19 @@ class bitmap_map {
          * \param dy Y location of the background to draw to.
          * \param flags Allegro Bitmap flags.
          */
-        void draw_tinted_bitmap_region(
+        inline void draw_tinted_bitmap_region(
             const std::string& label,
             const ALLEGRO_COLOR& tint,
             const float& sx, const float& sy,
             const float& sw, const float& sh,
             const float& dx, const float& dy,
             const int& flags
-        );
+        ) {
+            auto it = bmp_map.find(label);
+            if(it != bmp_map.end()) al_draw_tinted_bitmap_region(
+                it->second, tint, sx, sy, sw, sh, dx, dy, flags
+            );
+        };
 
         /*!
          * \brief Draw a rotated bitmap from the map.
@@ -139,12 +197,17 @@ class bitmap_map {
          * \param angle Angle of rotation in radians.
          * \param flags Allegro Bitmap flags.
          */
-        void draw_rotated_bitmap(
+        inline void draw_rotated_bitmap(
             const std::string& label,
             const float& cx, const float& cy,
             const float& dx, const float& dy,
             const float& angle, const int& flags
-        );
+        ) {
+            auto it = bmp_map.find(label);
+            if(it != bmp_map.end()) al_draw_rotated_bitmap(
+                it->second, cx, cy, dx, dy, angle, flags
+            );
+        };
 
         /*!
          * \brief Draw a tinted rotated bitmap from the map.
@@ -158,13 +221,18 @@ class bitmap_map {
          * \param angle Angle of rotation in radians.
          * \param flags Allegro Bitmap flags.
          */
-        void draw_tinted_rotated_bitmap(
+        inline void draw_tinted_rotated_bitmap(
             const std::string& label,
             const ALLEGRO_COLOR& tint,
             const float& cx, const float& cy,
             const float& dx, const float& dy,
             const float& angle, const int& flags
-        );
+        ) {
+            auto it = bmp_map.find(label);
+            if(it != bmp_map.end()) al_draw_tinted_rotated_bitmap(
+                it->second, tint, cx, cy, dx, dy, angle, flags
+            );
+        };
 
         /*!
          * \brief Draw a scaled rotated bitmap from the map.
@@ -179,13 +247,18 @@ class bitmap_map {
          * \param angle Angle of rotation in radians.
          * \param flags Allegro Bitmap flags.
          */
-        void draw_scaled_rotated_bitmap(
+        inline void draw_scaled_rotated_bitmap(
             const std::string& label,
             const float& cx, const float& cy,
             const float& dx, const float& dy,
             const float& xscale, const float& yscale,
             const float& angle, const int& flags
-        );
+        ) {
+            auto it = bmp_map.find(label);
+            if(it != bmp_map.end()) al_draw_scaled_rotated_bitmap(
+                it->second, cx, cy, dx, dy, xscale, yscale, angle, flags
+            );
+        };
 
         /*!
          * \brief Draw a tinted scaled rotated bitmap from the map.
@@ -201,14 +274,19 @@ class bitmap_map {
          * \param angle Angle of rotation in radians.
          * \param flags Allegro Bitmap flags.
          */
-        void draw_tinted_scaled_rotated_bitmap(
+        inline void draw_tinted_scaled_rotated_bitmap(
             const std::string& label,
             const ALLEGRO_COLOR& tint,
             const float& cx, const float& cy,
             const float& dx, const float& dy,
             const float& xscale, const float& yscale,
             const float& angle, const int& flags
-        );
+        ) {
+            auto it = bmp_map.find(label);
+            if(it != bmp_map.end()) al_draw_tinted_scaled_rotated_bitmap(
+                it->second, tint, cx, cy, dx, dy, xscale, yscale, angle, flags
+            );
+        };
 
         /*!
          * \brief Draw a tinted scaled rotated bitmap from the map.
@@ -228,7 +306,7 @@ class bitmap_map {
          * \param angle Angle of rotation in radians.
          * \param flags Allegro Bitmap flags.
          */
-        void draw_tinted_scaled_rotated_bitmap_region(
+        inline void draw_tinted_scaled_rotated_bitmap_region(
             const std::string& label,
             const float& sx, const float& sy,
             const float& sw, const float& sh,
@@ -237,7 +315,12 @@ class bitmap_map {
             const float& dx, const float& dy,
             const float& xscale, const float& yscale,
             const float& angle, const int& flags
-        );
+        ) {
+            auto it = bmp_map.find(label);
+            if(it != bmp_map.end()) al_draw_tinted_scaled_rotated_bitmap_region(
+                it->second, sx, sy, sw, sh, tint, cx, cy, dx, dy, xscale, yscale, angle, flags
+            );
+        };
 
         /*!
          * \brief Draw a scaled bitmap from the map.
@@ -253,14 +336,19 @@ class bitmap_map {
          * \param dh Destination height.
          * \param flags Allegro Bitmap flags.
          */
-        void draw_scaled_bitmap(
+        inline void draw_scaled_bitmap(
             const std::string& label,
             const float& sx, const float& sy,
             const float& sw, const float& sh,
             const float& dx, const float& dy,
             const float& dw, const float& dh,
             const int& flags
-        );
+        ) {
+            auto it = bmp_map.find(label);
+            if(it != bmp_map.end()) al_draw_scaled_bitmap(
+                it->second, sx, sy, sw, sh, dx, dy, dw, dh, flags
+            );
+        };
 
         /*!
          * \brief Draw a tinted scaled bitmap from the map.
@@ -277,7 +365,7 @@ class bitmap_map {
          * \param dh Destination height.
          * \param flags Allegro Bitmap flags.
          */
-        void draw_tinted_scaled_bitmap(
+        inline void draw_tinted_scaled_bitmap(
             const std::string& label,
             const ALLEGRO_COLOR& tint,
             const float& sx, const float& sy,
@@ -285,13 +373,20 @@ class bitmap_map {
             const float& dx, const float& dy,
             const float& dw, const float& dh,
             const int& flags
-        );
+        ) {
+            auto it = bmp_map.find(label);
+            if(it != bmp_map.end()) al_draw_tinted_scaled_bitmap(
+                it->second, tint, sx, sy, sw, sh, dx, dy, dw, dh, flags
+            );
+        };
 
     protected:
         /*!
          * \brief Bitmap map constructor.
          */
-        bitmap_map();
+        inline bitmap_map() {
+            bmp_map.clear();
+        };
 
     private:
         std::map<std::string, ALLEGRO_BITMAP*> bmp_map;

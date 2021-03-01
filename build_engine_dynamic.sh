@@ -21,7 +21,7 @@ build_items()
             OUTNAME="$(basename "$i")"
             OUTNAME="lib/${OUTNAME%.cpp}.o"
             echo -n "Building $INNAME... "
-            g++ -c "$INNAME" -std=c++17 -O3 -Wall -lphysfs -lpthread -Iinclude -DWTE_DEBUG_MODE=0 -o "$OUTNAME" `pkg-config --libs allegro-5 allegro_main-5 allegro_physfs-5 allegro_audio-5 allegro_acodec-5 allegro_font-5 allegro_image-5`
+            g++ -c -fPIC "$INNAME" -std=c++17 -O3 -Wall -lphysfs -lpthread -Iinclude -DWTE_DEBUG_MODE=0 -o "$OUTNAME" `pkg-config --libs allegro-5 allegro_main-5 allegro_physfs-5 allegro_audio-5 allegro_acodec-5 allegro_font-5 allegro_image-5`
             echo "Done"
         fi
         if [ -d "$i" ]; then
@@ -36,14 +36,14 @@ build_items()
 echo "Building wtengine..."
 build_items "$START_DIR/$SOURCE_DIR"
 
+rm "$BUILD_DIR"/libwtengine.so
 echo ""
-rm "$BUILD_DIR"/libwtengine.a
 echo -n "Creating library archive... "
 LIBRARY_FILE_ARRAY=()
 for i in "$START_DIR$LIBRARY_DIR"/*.o; do
     LIBRARY_FILE_ARRAY+=("$(basename "$i")")
 done
-ar rcs "$BUILD_DIR"/libwtengine.a $(printf "$LIBRARY_DIR/%s " "${LIBRARY_FILE_ARRAY[@]}")
+g++ -shared $(printf "$LIBRARY_DIR/%s " "${LIBRARY_FILE_ARRAY[@]}") -o "$BUILD_DIR"/libwtengine.so
 echo "Done"
 
 echo ""

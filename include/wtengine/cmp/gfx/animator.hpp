@@ -40,7 +40,7 @@ class animator : public component {
          * \param a Object to compare to.
          * \return True if <, false if >
          */
-        const bool operator<(const animator& a) const {
+        inline const bool operator<(const animator& a) const {
             return layer < a.layer;
         };
 
@@ -51,45 +51,60 @@ class animator : public component {
          * \param world Reference to the entity manager.
          * \param engine_time Current value of the main timer.
          */
-        void run(const entity_id& e_id, mgr::entity_manager& world, const int64_t& engine_time);
+        inline void run(const entity_id& e_id, mgr::entity_manager& world, const int64_t& engine_time) {
+            animate(e_id, world, engine_time);
+        };
 
         /*!
          * \brief Set drawing to the internal bitmap.
          */
-        void set_drawing(void);
+        inline void set_drawing(void) {
+            al_set_target_bitmap(internal_bitmap);
+        };
 
         /*!
          * \brief Return the internal bitmap.
          * 
          * \return The internal bitmap.
          */
-        ALLEGRO_BITMAP& get_bitmap(void) const;
+        inline ALLEGRO_BITMAP& get_bitmap(void) const {
+            return *internal_bitmap;
+        };
 
         /*!
          * \brief Set a tint color.
          * 
          * \param c Allegro color.
          */
-        void set_tint(const ALLEGRO_COLOR& c);
+        inline void set_tint(const ALLEGRO_COLOR& c) {
+            tint_color = c;
+            tint_set = true;
+        };
 
         /*!
          * \brief Get the tint color.
          * 
          * \return Allegro color.
          */
-        const ALLEGRO_COLOR get_tint(void) const;
+        inline const ALLEGRO_COLOR get_tint(void) const {
+            return tint_color;
+        };
 
         /*!
          * \brief Clear tint color.
          */
-        void clear_tint(void);
+        inline void clear_tint(void) {
+            tint_set = false;
+        };
 
         /*!
          * \brief Check if the bitmap should be drawn tinted.
          * 
          * \return True if tint set, false if tint cleared.
          */
-        const bool draw_tinted(void) const;
+        inline const bool draw_tinted(void) const {
+            return tint_set;
+        };
 
     protected:
         /*!

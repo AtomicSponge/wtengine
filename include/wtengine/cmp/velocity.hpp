@@ -27,14 +27,14 @@ class velocity final : public component {
         /*!
          * \brief Velocity constructor.
          */
-        velocity(void);
+        inline velocity(void) : x_vel(0.0f), y_vel(0.0f) {};
 
         /*!
          * \brief Velocity constructor.
          * 
          * \param v Velocity for X and Y.
          */
-        velocity(const float v);
+        inline velocity(const float v) : x_vel(v), y_vel(v) {};
 
         /*!
          * \brief Velocity constructor.
@@ -42,42 +42,53 @@ class velocity final : public component {
          * \param xv X velocity.
          * \param yv Y velocity.
          */
-        velocity(const float xv, const float yv);
+        inline velocity(const float xv, const float yv) : x_vel(xv), y_vel(yv) {};
 
         /*!
          * \brief Set X velocity.
          * 
          * \param xv X velocity.
          */
-        void set_x_vel(const float& xv);
+        inline void set_x_vel(const float& xv) {
+            x_vel = xv;
+        };
 
         /*!
          * \brief Set Y velocity.
          * 
          * \param yv Y velocity.
          */
-        void set_y_vel(const float& yv);
+        inline void set_y_vel(const float& yv) {
+            y_vel = yv;
+        };
 
         /*!
          * \brief Set velocity for X and Y.
          * 
          * \param v Velocity
          */
-        void set_velocity(const float& v);
+        inline void set_velocity(const float& v) {
+            x_vel = v;
+            y_vel = v;
+        };
 
         /*!
          * \brief Get X velocity.
          * 
          * \return X velocity.
          */
-        const float get_x_vel(void) const;
+        inline const float get_x_vel(void) const {
+            return x_vel;
+        };
 
         /*!
          * \brief Get Y velocity.
          * 
          * \return Y velocity.
          */
-        const float get_y_vel(void) const;
+        inline const float get_y_vel(void) const {
+            return y_vel;
+        };
 
     private:
         float x_vel, y_vel;

@@ -29,35 +29,41 @@ class enabled final : public component {
          * 
          * If passed nothing, enabled by default.
          */
-        enabled();
+        inline enabled() : is_enabled(true) {};
 
         /*!
          * \brief Enabled constructor.
          * 
          * Pass boolean value to the component to set if it is enabled.
          */
-        enabled(const bool e);
+        inline enabled(const bool e) : is_enabled(e) {};
 
         /*!
          * \brief Check if the entity is enabled.
          * 
          * \return True if enabled, false if not.
          */
-        const bool check(void) const;
+        inline const bool check(void) const {
+            return is_enabled;
+        };
 
         /*!
          * \brief Set enabled.
          * 
          * Sets internal flag to true.
          */
-        void enable(void);
+        inline void enable(void) {
+            is_enabled = true;
+        };
 
         /*!
          * \brief Set disabled.
          * 
          * Sets internal flag to false.
          */
-        void disable(void);
+        inline void disable(void) {
+            is_enabled = false;
+        };
 
     private:
         bool is_enabled;

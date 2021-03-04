@@ -12,7 +12,7 @@ Makefile
 
 # Ignore local backup
 .bakignore
-bak/
+*_bak/
 
 # Ignore build stuffs
 build/

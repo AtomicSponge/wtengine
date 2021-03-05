@@ -71,16 +71,6 @@ class dispatcher final : public component {
                            const int64_t&)> handle_msg;
 };
 
-//typedef std::shared_ptr<cmp::component> component_sptr;
-//typedef std::shared_ptr<const cmp::component> component_csptr;
-//std::shared_ptr<wte::cmp::dispatcher> const
-
-//template <typename C>
-//using component_sptr = std::shared_ptr<cmp::dispatcher>;
-
-//template <typename C>
-//using component_csptr = std::shared_ptr<const cmp::dispatcher>;
-
 } //  namespace cmp
 
 } //  namespace wte

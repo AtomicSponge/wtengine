@@ -48,16 +48,12 @@ class component {
  * Component shared pointer.
  */
 typedef std::shared_ptr<cmp::component> component_sptr;
-//extern template <typename C>
-//using component_sptr = std::shared_ptr<C>;
 
 /*!
  * \typedef std::shared_ptr<const cmp::component> component_csptr
  * Constant component shared pointer.
  */
 typedef std::shared_ptr<const cmp::component> component_csptr;
-//extern template <typename C>
-//using component_csptr = std::shared_ptr<const C>;
 
 } //  namespace cmp
 

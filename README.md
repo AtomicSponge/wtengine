@@ -1,6 +1,6 @@
 __*NOTE:*__  Working on refactoring to build proper library
 
-Seems main the build issue is with the entity mgr get/set templates.
+Seems the main build issue is with the entity mgr get/set templates.
 Working on a test app to get the correct instantiation.
 
 The old version (*everything in headers*) can be found [here](https://github.com/wtfsystems/the_dump/blob/master/wtengine_pre_lib.zip)

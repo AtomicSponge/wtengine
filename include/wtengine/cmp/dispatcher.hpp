@@ -75,11 +75,11 @@ class dispatcher final : public component {
 //typedef std::shared_ptr<const cmp::component> component_csptr;
 //std::shared_ptr<wte::cmp::dispatcher> const
 
-template <typename C>
-using component_sptr = std::shared_ptr<cmp::dispatcher>;
+//template <typename C>
+//using component_sptr = std::shared_ptr<cmp::dispatcher>;
 
-template <typename C>
-using component_csptr = std::shared_ptr<const cmp::dispatcher>;
+//template <typename C>
+//using component_csptr = std::shared_ptr<const cmp::dispatcher>;
 
 } //  namespace cmp
 

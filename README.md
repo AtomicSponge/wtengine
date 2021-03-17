@@ -1,6 +1,8 @@
 __*NOTE:*__  Working on refactoring to build proper library
 
-Now building using a static lib!  Easy fix by just leaving the entity manager as a pure header.  Now to create some makefiles...
+Now building using a static lib!  Easy fix by just leaving the entity manager as a pure header.  Also made the cfg/flags header-only for now.
+
+Next up:  testing debugging and makefiles
 
 ----
 

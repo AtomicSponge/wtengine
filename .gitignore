@@ -16,6 +16,7 @@ Makefile
 
 # Ignore build stuffs
 build/
+*.o
 
 # Ignore generated documentation
 docs/

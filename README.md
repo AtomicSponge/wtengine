@@ -1,7 +1,6 @@
 __*NOTE:*__  Working on refactoring to build proper library
 
-Seems the main build issue is with the entity mgr get/set templates.
-Working on a test app to get the correct instantiation.
+Now building using a static lib!  Easy fix by just leaving the entity manager as a pure header.  Now to create some makefiles...
 
 The old version (*everything in headers*) can be found [here](https://github.com/wtfsystems/the_dump/blob/master/wtengine_pre_lib.zip)
 

@@ -2,8 +2,6 @@ __*NOTE:*__  Working on refactoring to build proper library
 
 Now building using a static lib!  Easy fix by just leaving the entity manager as a pure header.  Now to create some makefiles...
 
-The old version (*everything in headers*) can be found [here](https://github.com/wtfsystems/the_dump/blob/master/wtengine_pre_lib.zip)
-
 ----
 
 WTEngine (What the Engine?) is a cross-platform game engine based on [ECS](https://en.wikipedia.org/wiki/Entity_component_system) design that can be used to make a 2D action game.

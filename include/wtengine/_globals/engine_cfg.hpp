@@ -13,7 +13,7 @@
 #include <string>
 #include <fstream>
 
-#include "wtengine/_globals/variable_map.hpp"
+#include "variable_map.hpp"
 
 namespace wte
 {
@@ -35,14 +35,42 @@ class engine_cfg final : public variable_map<engine_cfg> {
          * 
          * \return False on fail, true on success.
          */
-        static bool load(void);
+        inline static bool load(void) {
+            std::ifstream data_file("settings.cfg");
+            //  Data file doesn't exist, create one
+            if(!data_file.good()) {
+                save();
+                data_file.open("settings.cfg");
+            }
+            if(!data_file.good()) return false;
+
+            std::string it;
+            //  Read each line, try to register or set
+            while(std::getline(data_file, it)) {
+                if(!reg(it)) set(it);
+            }
+
+            data_file.close();
+            return true;
+        };
 
         /*!
          * \brief Save engine config settings to file.
          * 
          * \return False on fail, true on success.
          */
-        static bool save(void);
+        inline static bool save(void) {
+            std::ofstream data_file("settings.cfg");
+            if(!data_file.good()) return false;
+
+            //  Write each pair to file
+            for(auto it = _map.cbegin(); it != _map.cend(); it++) {
+                data_file << it->first << "=" << it->second << std::endl;
+            }
+
+            data_file.close();
+            return true;
+        };
         
         /*!
          * \brief Create a new entry in the map.
@@ -53,7 +81,9 @@ class engine_cfg final : public variable_map<engine_cfg> {
          * \param val Initial value of variable.
          * \return True if created, false if not created.
          */
-        static const bool reg(const std::string& var, const std::string& val);
+        inline static const bool reg(const std::string& var, const std::string& val) {
+            return variable_map<engine_cfg>::reg(var, val);
+        };
 
         /*!
          * \brief Create a new entry in the map.
@@ -63,7 +93,9 @@ class engine_cfg final : public variable_map<engine_cfg> {
          * \param expr Variable and value expresion (var=val)
          * \return True if created, false if not created.
          */
-        static const bool reg(const std::string& expr);
+        inline static const bool reg(const std::string& expr) {
+            return variable_map<engine_cfg>::reg(expr);
+        };
 
         /*!
          * \brief Check if a variable is registered in the map.
@@ -71,7 +103,9 @@ class engine_cfg final : public variable_map<engine_cfg> {
          * \param var Variable name to check.
          * \return True if it exists, false if it does not.
          */
-        static const bool is_reg(const std::string& var);
+        inline static const bool is_reg(const std::string& var) {
+            return variable_map<engine_cfg>::is_reg(var);
+        }
 
         /*!
          * \brief Set key to value.
@@ -80,7 +114,9 @@ class engine_cfg final : public variable_map<engine_cfg> {
          * \param val Value to set.
          * \return True if set, false if not set.
          */
-        static const bool set(const std::string& var, const std::string& val);
+        inline static const bool set(const std::string& var, const std::string& val) {
+            return variable_map<engine_cfg>::set(var, val);
+        };
 
         /*!
          * \brief Set based on string.
@@ -88,7 +124,9 @@ class engine_cfg final : public variable_map<engine_cfg> {
          * \param expr Variable and value expresion (var=val)
          * \return True if set, false if not set.
          */
-        static const bool set(const std::string& expr);
+        inline static const bool set(const std::string& expr) {
+            return variable_map<engine_cfg>::set(expr);
+        };
 
         /*!
          * \brief Get value.
@@ -98,7 +136,9 @@ class engine_cfg final : public variable_map<engine_cfg> {
          * \param var Variable to get.
          * \return Value of variable in string form.
          */
-        static const std::string get(const std::string& var);
+        inline static const std::string get(const std::string& var) {
+            return variable_map<engine_cfg>::get(var);
+        };
 
         /*!
          * \brief Get value.
@@ -109,11 +149,13 @@ class engine_cfg final : public variable_map<engine_cfg> {
          * \param var Variable to get.
          * \return Value of variable in casted form.
          */
-        template <typename T> static const T get(const std::string& var);
+        template <typename T> inline static const T get(const std::string& var) {
+            return variable_map<engine_cfg>::get<T>(var);
+        };
 };
 
 //!  Declare a copy of the variable map for engine_cfg.
-template <> std::map<std::string, std::string> variable_map<engine_cfg>::_map = {};
+template <> inline std::map<std::string, std::string> variable_map<engine_cfg>::_map = {};
 
 } //  end namespace wte
 

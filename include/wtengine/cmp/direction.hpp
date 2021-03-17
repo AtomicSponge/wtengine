@@ -36,21 +36,21 @@ class direction final : public component {
         /*!
          * \brief Direction constructor.
          */
-        inline direction(void) : angle(0.0f), draw_rotated(true) {};
+        direction(void);
 
         /*!
          * \brief Direction constructor.
          * 
          * \param r Draw rotated flag.
          */
-        inline direction(const bool r) : angle(0.0f), draw_rotated(r) {};
+        direction(const bool r);
 
         /*!
          * \brief Direction constructor.
          * 
          * \param a Angle of direction in radians.
          */
-        inline direction(const float a) : angle(a), draw_rotated(true) {};
+        direction(const float a);
 
         /*!
          * \brief Direction constructor.
@@ -58,70 +58,56 @@ class direction final : public component {
          * \param a Angle of direction in radians.
          * \param r Draw rotated flag.
          */
-        inline direction(const float a, const bool r) : angle(a), draw_rotated(r) {};
+        direction(const float a, const bool r);
 
         /*!
          * \brief Set angle of direction using degrees.
          * 
          * \param a Angle in degrees.
          */
-        inline void set_degrees(const float& a) {
-            angle = a * M_PI / 180.0f;
-        };
+        void set_degrees(const float& a);
 
         /*!
          * \brief Get angle of direction in degrees.
          * 
          * \return Angle in degrees.
          */
-        inline const float get_degrees(void) const {
-            return (angle * 180.0f / M_PI);
-        };
+        const float get_degrees(void) const;
 
         /*!
          * \brief Set angle of direction in radians.
          * 
          * \param a Angle in radians.
          */
-        inline void set_radians(const float& a) {
-            angle = a;
-        };
+        void set_radians(const float& a);
 
         /*!
          * \brief Get angle of direction in radians.
          * 
          * \return Angle in radians.
          */
-        inline const float get_radians(void) const {
-            return angle;
-        };
+        const float get_radians(void) const;
 
         /*!
          * \brief Check if the entity should be drawn rotated.
          * 
          * \return True if rotated, false if not.
          */
-        inline const bool show_rotated(void) const {
-            return draw_rotated;
-        };
+        const bool show_rotated(void) const;
 
         /*!
          * \brief Set drawing rotated.
          * 
          * Sets internal flag to true.
          */
-        inline void set_rotated(void) {
-            draw_rotated = true;
-        };
+        void set_rotated(void);
 
         /*!
          * \brief Unset drawing rotated.
          * 
          * Sets internal flag to false.
          */
-        inline void unset_rotated(void) {
-            draw_rotated = false;
-        };
+        void unset_rotated(void);
 
     private:
         float angle;

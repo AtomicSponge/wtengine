@@ -30,61 +30,49 @@ class location final : public component {
          * \param x Horizontal location of the entity.
          * \param y Verticle location of the entity.
          */
-        inline location(float x, float y) : pos_x(x), pos_y(y) {};
+        location(float x, float y);
 
         /*!
          * \brief Get X location.
          * 
          * \return X location of entity.
          */
-        inline const float get_x(void) const {
-            return pos_x;
-        };
+        const float get_x(void) const;
 
         /*!
          * \brief Get Y location.
          * 
          * \return Y location of entity.
          */
-        inline const float get_y(void) const {
-            return pos_y;
-        };
+        const float get_y(void) const;
 
         /*!
          * \brief Set X location.
          * 
          * \param x New X location for entity.
          */
-        inline void set_x(const float& x) {
-            pos_x = x;
-        };
+        void set_x(const float& x);
 
         /*!
          * \brief Set Y location.
          * 
          * \param y New Y location for entity.
          */
-        inline void set_y(const float& y) {
-            pos_y = y;
-        };
+        void set_y(const float& y);
 
         /*!
          * \brief Adjust X location.
          * 
          * \param x X offset for entity.
          */
-        inline void adjust_x(const float& x) {
-            pos_x += x;
-        };
+        void adjust_x(const float& x);
 
         /*!
          * \brief Adjust Y location.
          * 
          * \param y Y offset for entity.
          */
-        inline void adjust_y(const float& y) {
-            pos_y += y;
-        };
+        void adjust_y(const float& y);
 
     private:
         float pos_x, pos_y;

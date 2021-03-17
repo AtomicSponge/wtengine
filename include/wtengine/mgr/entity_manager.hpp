@@ -24,8 +24,8 @@
 #include <memory>
 #include <stdexcept>
 
-#include "wtengine/mgr/manager.hpp"
-#include "wtengine/cmp/component.hpp"
+#include "manager.hpp"
+#include "../cmp/component.hpp"
 
 namespace wte
 {
@@ -97,19 +97,29 @@ class entity_manager final : private manager<entity_manager> {
          * 
          * Start entity counter at 1
          */
-        entity_manager();
+        inline entity_manager() : entity_counter(WTE_ENTITY_START) {
+            entity_vec.clear();
+            world.clear();
+        };
 
         /*!
          * \brief Entity manager destructor.
          */
-        ~entity_manager();
+        inline ~entity_manager() {
+            entity_vec.clear();
+            world.clear();
+        };
 
         /*!
          * \brief Clear the entity manager.
          * 
          * Set the entity counter to zero and clear the entities and componenets.
          */
-        void clear(void);
+        inline void clear(void) {
+            entity_counter = WTE_ENTITY_START;
+            entity_vec.clear();
+            world.clear();
+        };
 
         /*!
          * \brief Create a new entity by name, using the next available ID.
@@ -118,7 +128,41 @@ class entity_manager final : private manager<entity_manager> {
          * 
          * \return The newly created entity ID.  WTE_ENTITY_ERROR on fail.
          */
-        const entity_id new_entity(void);
+        inline const entity_id new_entity(void) {
+            entity_id next_id;
+
+            if(entity_counter == WTE_ENTITY_MAX) {  //  Counter hit max.
+                bool test = false;
+                //  Look for the first available ID.
+                for(next_id = WTE_ENTITY_START; !test; next_id++) {
+                    if(next_id == WTE_ENTITY_MAX) return WTE_ENTITY_ERROR;  //  No available ID, error.
+                    //  See if the new ID does not exist.
+                    test = (std::find_if(entity_vec.begin(), entity_vec.end(),
+                                         [&next_id](const entity& e){ return e.first == next_id; })
+                            == entity_vec.end());
+                }
+            } else {  //  Counter not max, use the counter for entity ID.
+                next_id = entity_counter;
+                entity_counter++;
+            }
+
+            //  Set a new name.  Make sure name doesn't exist.
+            std::string entity_name = "Entity" + std::to_string(next_id);
+            bool test = false;
+            for(entity_id temp_id = WTE_ENTITY_START; !test; temp_id++) {
+                if(temp_id == WTE_ENTITY_MAX) return WTE_ENTITY_ERROR;  //  Couldn't name entity, error.
+                //  See if the new name does not exist.
+                test = (std::find_if(entity_vec.begin(), entity_vec.end(),
+                                     [&entity_name](const entity& e){ return e.second == entity_name; })
+                        == entity_vec.end());
+                //  If it does, append the temp number and try that.
+                if(!test) entity_name = "Entity" + std::to_string(next_id) + std::to_string(temp_id);
+            }
+
+            //  Tests complete, insert new entity.
+            entity_vec.push_back(std::make_pair(next_id, entity_name));
+            return next_id;  //  Return new entity ID.
+        };
 
         /*!
          * \brief Delete entity by ID.
@@ -126,7 +170,16 @@ class entity_manager final : private manager<entity_manager> {
          * \param e_id The entity ID to delete.
          * \return Return true on success, false if entity does not exist.
          */
-        const bool delete_entity(const entity_id& e_id);
+        inline const bool delete_entity(const entity_id& e_id) {
+            auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),
+                                     [&e_id](const entity& e){ return e.first == e_id; });
+            if(e_it != entity_vec.end()) {
+                world.erase(e_id);     //  Remove all associated componenets.
+                entity_vec.erase(e_it);  //  Delete the entity.
+                return true;
+            }
+            return false;
+        };
 
         /*!
          * \brief Check if an entity exists.
@@ -136,7 +189,11 @@ class entity_manager final : private manager<entity_manager> {
          * \param e_id The entity ID to check.
          * \return Return true if found, return false if not found.
          */
-        const bool entity_exists(const entity_id& e_id) const;
+        inline const bool entity_exists(const entity_id& e_id) const {
+            return (std::find_if(entity_vec.begin(), entity_vec.end(),
+                                 [&e_id](const entity& e){ return e.first == e_id; })
+                    != entity_vec.end());
+        };
 
         /*!
          * \brief Get entity name.
@@ -144,7 +201,12 @@ class entity_manager final : private manager<entity_manager> {
          * \param e_id Entity ID to get name for.
          * \return Entity name string.  Empty string if not found.
          */
-        const std::string get_name(const entity_id& e_id) const;
+        inline const std::string get_name(const entity_id& e_id) const {
+            auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),
+                                     [&e_id](const entity& e){ return e.first == e_id; });
+            if(e_it != entity_vec.end()) return e_it->second;
+            return "";
+        };
 
         /*!
          * \brief Set the entity name.
@@ -153,7 +215,19 @@ class entity_manager final : private manager<entity_manager> {
          * \param name Entity name to set.
          * \return True if set, false on error.
          */
-        const bool set_name(const entity_id& e_id, const std::string& name);
+        inline const bool set_name(const entity_id& e_id, const std::string& name) {
+            auto n_it = std::find_if(entity_vec.begin(), entity_vec.end(),
+                                     [&name](const entity& e){ return e.second == name; });
+            if(n_it != entity_vec.end())
+                return false;  //  Entity with the new name exists, error.
+            auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),
+                                     [&e_id](const entity& e){ return e.first == e_id; });
+            if(e_it != entity_vec.end()) {
+                e_it->second = name;
+                return true;  //  New name set.
+            }
+            return false;  //  Didn't find entity_id, error.
+        };
 
         /*!
          * \brief Get entity ID by name.
@@ -161,14 +235,22 @@ class entity_manager final : private manager<entity_manager> {
          * \param name Name to search.
          * \return Entity ID, WTE_ENTITY_ERROR if not found.
          */
-        const entity_id get_id(const std::string& name) const;
+        inline const entity_id get_id(const std::string& name) const {
+            auto n_it = std::find_if(entity_vec.begin(), entity_vec.end(),
+                                     [&name](const entity& e){ return e.second == name; });
+            if(n_it != entity_vec.end())
+                return n_it->first;
+            return WTE_ENTITY_ERROR;
+        };
 
         /*!
          * \brief Get the entity reference vector.
          * 
          * \return Returns a vector of all entity IDs and names.
          */
-        const world_container get_entities(void) const;
+        inline const world_container get_entities(void) const {
+            return entity_vec;
+        };
 
         /*!
          * \brief Set all components related to an entity.
@@ -176,7 +258,17 @@ class entity_manager final : private manager<entity_manager> {
          * \param e_id Entity ID to set components for.
          * \return Returns a container of components based by entity ID.
          */
-        const entity_container set_entity(const entity_id& e_id);
+        inline const entity_container set_entity(const entity_id& e_id) {
+            if(!entity_exists(e_id)) return {};
+
+            entity_container temp_container;
+            const auto results = world.equal_range(e_id);
+
+            for(auto it = results.first; it != results.second; it++) {
+                temp_container.emplace_back(cmp::component_sptr((*it).second));
+            }
+            return temp_container;
+        };
 
         /*!
          * \brief Get all components related to an entity.
@@ -184,7 +276,17 @@ class entity_manager final : private manager<entity_manager> {
          * \param e_id Entity ID to get components for.
          * \return Returns a constant container of components based by entity ID.
          */
-        const const_entity_container get_entity(const entity_id& e_id) const;
+        inline const const_entity_container get_entity(const entity_id& e_id) const {
+            if(!entity_exists(e_id)) return {};
+
+            const_entity_container temp_container;
+            const auto results = world.equal_range(e_id);
+
+            for(auto it = results.first; it != results.second; it++) {
+                temp_container.emplace_back(cmp::component_csptr((*it).second));
+            }
+            return temp_container;
+        };
 
         /*!
          * \brief Add a new component to an entity.
@@ -197,7 +299,18 @@ class entity_manager final : private manager<entity_manager> {
          * \return Return false if the entity already has a component of the same type.
          * \return Return true on success.
          */
-        const bool add_component(const entity_id& e_id, const cmp::component_sptr& comp);
+        inline const bool add_component(const entity_id& e_id, const cmp::component_sptr& comp) {
+            if(!entity_exists(e_id)) return false;
+
+            //  Check derived types of existing components, make sure one does not already exist.
+            const const_entity_container check_entity = get_entity(e_id);
+            for(auto & it : check_entity) {
+                if(typeid(*it).name() == typeid(*comp).name()) return false;
+            }
+
+            world.insert(std::make_pair(e_id, comp));
+            return true;
+        };
 
         /*!
          * \brief Delete a component by type for an entity.
@@ -207,7 +320,17 @@ class entity_manager final : private manager<entity_manager> {
          * \return Return true if a component was deleted.
          * \return Return false if no components were deleted.
          */
-        template <typename T> const bool delete_component(const entity_id& e_id);
+        template <typename T> inline const bool delete_component(const entity_id& e_id) {
+            auto results = world.equal_range(e_id);
+
+            for(auto it = results.first; it != results.second; it++) {
+                if(std::dynamic_pointer_cast<T>(it->second)) {
+                    it = world.erase(it);
+                    return true;
+                }
+            }
+            return false;
+        };
 
         /*!
          * \brief Check if an entity has a component by type.
@@ -217,7 +340,14 @@ class entity_manager final : private manager<entity_manager> {
          * \return Return true if the entity has the component.
          * \return Return false if it does not.
          */
-        template <typename T> const bool has_component(const entity_id& e_id) const;
+        template <typename T> inline const bool has_component(const entity_id& e_id) const {
+            const auto results = world.equal_range(e_id);
+
+            for(auto it = results.first; it != results.second; it++) {
+                if(std::dynamic_pointer_cast<T>(it->second)) return true;
+            }
+            return false;
+        };
 
         /*!
          * \brief Set the value of a component by type for an entity.
@@ -229,7 +359,15 @@ class entity_manager final : private manager<entity_manager> {
          * \param e_id The entity ID to search.
          * \return Return the component or nullptr if not found.
          */
-        template <typename T> const std::shared_ptr<T> set_component(const entity_id& e_id);
+        template <typename T> inline const std::shared_ptr<T> set_component(const entity_id& e_id) {
+            const auto results = world.equal_range(e_id);
+
+            for(auto it = results.first; it != results.second; it++) {
+                if(std::dynamic_pointer_cast<T>(it->second))
+                    return std::static_pointer_cast<T>(it->second);
+            }
+            return nullptr;
+        };
 
         /*!
          * \brief Read the value of a component by type for an entity.
@@ -241,7 +379,15 @@ class entity_manager final : private manager<entity_manager> {
          * \param e_id The entity ID to search.
          * \return Return the component or nullptr if not found.
          */
-        template <typename T> const std::shared_ptr<const T> get_component(const entity_id& e_id) const;
+        template <typename T> inline const std::shared_ptr<const T> get_component(const entity_id& e_id) const {
+            const auto results = world.equal_range(e_id);
+
+            for(auto it = results.first; it != results.second; it++) {
+                if(std::dynamic_pointer_cast<T>(it->second))
+                    return std::static_pointer_cast<const T>(it->second);
+            }
+            return nullptr;
+        };
 
         /*!
          * \brief Set all components for a particulair type.
@@ -251,7 +397,15 @@ class entity_manager final : private manager<entity_manager> {
          * \tparam T Component type.
          * \return Returns a container of components of all the same type.
          */
-        template <typename T> const component_container<T> set_components(void);
+        template <typename T> inline const component_container<T> set_components(void) {
+            component_container<T> temp_components;
+
+            for(auto & it : world) {
+                if(std::dynamic_pointer_cast<T>(it.second))
+                    temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
+            }
+            return temp_components;
+        };
 
         /*!
          * \brief Get all components for a particulair type.
@@ -261,13 +415,23 @@ class entity_manager final : private manager<entity_manager> {
          * \tparam T Component type.
          * \return Returns a constant container of components of all the same type.
          */
-        template <typename T> const const_component_container<T> get_components(void) const;
+        template <typename T> inline const const_component_container<T> get_components(void) const {
+            const_component_container<T> temp_components;
+
+            for(auto & it : world) {
+                if(std::dynamic_pointer_cast<T>(it.second))
+                    temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
+            }
+            return temp_components;
+        };
 
     private:
         entity_id entity_counter;
         world_container entity_vec;
         world_map world;
 };
+
+template <> inline bool manager<entity_manager>::initialized = false;
 
 } //  namespace mgr
 

@@ -31,27 +31,21 @@ class team final : public component {
          * 
          * \param t Team value for the entity.
          */
-        inline team(std::size_t t) : this_team(t) {
-            if(this_team > 3) this_team = 3;
-        };
+        team(std::size_t t);
 
         /*!
          * \brief Get team.
          * 
          * \return Team the entity is on.
          */
-        inline const std::size_t get_team(void) const {
-            return this_team;
-        };
+        const std::size_t get_team(void) const;
 
         /*!
          * \brief Set team
          * 
          * \param t New team for the entity.
          */
-        inline void set_team(const std::size_t& t) {
-            this_team = t;
-        };
+        void set_team(const std::size_t& t);
 
     private:
         std::size_t this_team;

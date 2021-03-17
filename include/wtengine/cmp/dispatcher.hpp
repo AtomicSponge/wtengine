@@ -13,6 +13,7 @@
 #include <functional>
 
 #include "wtengine/cmp/component.hpp"
+#include "wtengine/mgr/message_manager.hpp"
 #include "wtengine/mgr/entity_manager.hpp"
 #include "wtengine/message.hpp"
 
@@ -35,11 +36,11 @@ class dispatcher final : public component {
          * 
          * \param func Function to define message processing.
          */
-        inline dispatcher(void func(const entity_id&,
-                                    const message&,
-                                    mgr::entity_manager&,
-                                    mgr::message_manager&,
-                                    const int64_t&)) : handle_msg(func) {};
+        dispatcher(void func(const entity_id&,
+                             const message&,
+                             mgr::entity_manager&,
+                             mgr::message_manager&,
+                             const int64_t&));
 
         /*!
          * \brief Dispatched destructor.
@@ -55,13 +56,11 @@ class dispatcher final : public component {
          * \param current_time Current engine time.
          * \param msg Message to process.
          */
-        inline void proc_msg(const entity_id& e_id,
-                             const message& msg,
-                             mgr::entity_manager& world,
-                             mgr::message_manager& messages,
-                             const int64_t& current_time) {
-            handle_msg(e_id, msg, world, messages, current_time);
-        };
+        void proc_msg(const entity_id& e_id,
+                      const message& msg,
+                      mgr::entity_manager& world,
+                      mgr::message_manager& messages,
+                      const int64_t& current_time);
 
     private:
         std::function<void(const entity_id&,

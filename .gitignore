@@ -21,9 +21,12 @@ build/
 # Ignore generated documentation
 docs/
 
-# Ignore build library files
+# Ignore library files
 lib/
 
 # Ignore test scripts
 tools/csv2sdf/*.sdf
 tools/csv2sdf/*.csv
+
+# Ignore comment_updater.config
+comment_updater.config

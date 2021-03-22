@@ -2,12 +2,9 @@
  * WTEngine | File:  wte_helper_macros.hpp
  * 
  * \author Matthew Evans
- * \version 0.1a
+ * \version 0.2a
  * \copyright See LICENSE.md for copyright information.
- * \date 2019-2020
- * 
- * If using you must declare "#define _WTE_USE_HELPER_MACROS" and
- * "using namespace wte" in your source file.
+ * \date 2019-2021
  */
 
 #ifndef WTE_HELPER_MACROS_HPP

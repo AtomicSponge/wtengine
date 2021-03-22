@@ -2,9 +2,9 @@
  * WTEngine | File:  component.hpp
  * 
  * \author Matthew Evans
- * \version 0.1a
+ * \version 0.2a
  * \copyright See LICENSE.md for copyright information.
- * \date 2019-2020
+ * \date 2019-2021
  */
 
 #ifndef WTE_CMP_COMPONENT_HPP

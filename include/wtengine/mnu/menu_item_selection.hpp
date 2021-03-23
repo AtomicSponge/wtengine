@@ -45,59 +45,39 @@ class menu_item_selection final : public menu_item {
                                    const std::string vr,
                                    const std::vector<std::string> dvl,
                                    const std::vector<std::string> vl,
-                                   const std::size_t st) :
-        menu_item(label, st), var(vr), display_vals(dvl), vals(vl) {
-            if(dvl.size() != vl.size())
-                throw std::runtime_error("Selection item label and value counts must be the same!");
-            current_val = vals.begin();
-            default_val = current_val;
-        };
+                                   const std::size_t st);
 
         /*!
          * \brief Menu item selection destructor.
          */
-        ~menu_item_selection() {};
+        ~menu_item_selection();
 
         /*!
          * \brief Define left click process.
          */
-        void on_left(void) override {
-            if(current_val != vals.begin()) current_val--;
-        };
+        void on_left(void) override;
 
         /*!
          * \brief Define right click process.
          */
-        void on_right(void) override {
-            if(current_val != vals.end()) current_val++;
-            if(current_val == vals.end()) current_val--;
-        };
+        void on_right(void) override;
 
         /*!
          * \brief Return display text for the menu item when rendering.
          * 
          * \return Vector of display text strings.
          */
-        const std::vector<std::string> get_text(void) const override {
-            return {
-                get_label(), "< " + display_vals.at(std::distance(vals.cbegin(), current_val)) + " >"
-            };
-        };
+        const std::vector<std::string> get_text(void) const override;
 
         /*!
          * \brief Reset to the default variable.
          */
-        void reset_to_default(void) override { current_val = default_val; };
+        void reset_to_default(void) override;
 
         /*!
          * \brief Set the default variable.
          */
-        void set_default(void) override {
-            if(is_engine_setting()) current_val = std::find(std::begin(vals), std::end(vals), engine_cfg::get(var));
-            else current_val = std::find(std::begin(vals), std::end(vals), game_cfg::get(var));
-            if(current_val == vals.end()) current_val = vals.begin();
-            default_val = current_val;
-        };
+        void set_default(void) override;
 
         /*!
          * \brief Setting changed process.
@@ -106,17 +86,14 @@ class menu_item_selection final : public menu_item {
          * 
          * \return True if the setting changed, false if it did not.
          */
-        const bool setting_changed(void) const override {
-            if(current_val == default_val) return false;
-            return true;
-        };
+        const bool setting_changed(void) const override;
 
         /*!
          * \brief Get the setting to be applied by the system.
          * 
          * \return A string in format var=val
          */
-        const std::string get_setting(void) { return var + "=" + *current_val; };
+        const std::string get_setting(void);
 
     private:
         std::string var;

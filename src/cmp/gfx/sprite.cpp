@@ -26,11 +26,15 @@ namespace wte
 namespace cmp
 {
 
-sprite::sprite(const float sw, const float sh,
-                const float dox, const float doy,
-                const std::size_t rt, const std::size_t l) :
-    animator(l,
-        [](const entity_id& e_id, mgr::entity_manager& world, const int64_t& engine_time) {
+sprite::sprite(
+    const float sw, const float sh,
+    const float dox, const float doy,
+    const std::size_t rt, const std::size_t l) :
+    animator(l, [](
+        const entity_id& e_id,
+        mgr::entity_manager& world,
+        const int64_t& engine_time
+    ) {
             //  Define sprite animation process.
             if(engine_time % world.get_component<sprite>(e_id)->rate == 0) {
                 //  Increment frame.
@@ -81,9 +85,11 @@ void sprite::load_sprite(const std::string& fname) {
     sheet_height = al_get_bitmap_height(internal_bitmap);
 }
 
-const bool sprite::add_cycle(const std::string& name,
-                     const std::size_t& start,
-                     const std::size_t& stop) {
+const bool sprite::add_cycle(
+    const std::string& name,
+    const std::size_t& start,
+    const std::size_t& stop
+) {
     auto ret = cycles.insert(std::make_pair(name, std::make_pair(start, stop)));
     return ret.second;
 }

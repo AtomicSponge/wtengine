@@ -26,8 +26,10 @@ bitmap_map::~bitmap_map() {
     bmp_map.clear();
 }
 
-const bool bitmap_map::load_bitmap(const std::string& label,
-                                const std::string& fname) {
+const bool bitmap_map::load_bitmap(
+    const std::string& label,
+    const std::string& fname
+) {
     //  Load the file.
     ALLEGRO_FILE* file;
     file = al_fopen(fname.c_str(), "rb");

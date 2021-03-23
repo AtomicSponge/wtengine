@@ -22,9 +22,15 @@ namespace wte
 namespace cmp
 {
 
-overlay::overlay(const int w, const int h, const float x, const float y,
-        const std::size_t l, void func(const entity_id&, mgr::entity_manager&, const int64_t&)) :
-    animator(l, func), overlay_w(w), overlay_h(h), pos_x(x), pos_y(y)
+overlay::overlay(
+    const int w, const int h,
+    const float x, const float y,
+    const std::size_t l,
+    void func(
+        const entity_id&,
+        mgr::entity_manager&,
+        const int64_t&
+    )) : animator(l, func), overlay_w(w), overlay_h(h), pos_x(x), pos_y(y)
 {
     al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
     internal_bitmap = al_create_bitmap(overlay_w, overlay_h);
@@ -49,8 +55,12 @@ void overlay::reload_overlay_bitmap(void) {
     al_destroy_bitmap(temp_bmp);
 }
 
-void overlay::draw_text(const std::string& txt, const ALLEGRO_COLOR& color,
-                        const float& x, const float& y, const int& f) {
+void overlay::draw_text(
+    const std::string& txt,
+    const ALLEGRO_COLOR& color,
+    const float& x, const float& y,
+    const int& f
+) {
     al_draw_text(overlay_font, color, x, y, f, txt.c_str());
 }
 

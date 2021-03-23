@@ -7,12 +7,7 @@
  * \date 2019-2021
  */
 
-#include <string>
-#include <map>
-#include <utility>
-
 #include "wtengine/cmp/sample_loop.hpp"
-#include "wtengine/mgr/message_manager.hpp"
 
 namespace wte
 {

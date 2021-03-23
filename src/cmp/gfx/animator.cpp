@@ -7,13 +7,7 @@
  * \date 2019-2021
  */
 
-#include <allegro5/allegro.h>
-
-#include <functional>
-
 #include "wtengine/cmp/gfx/animator.hpp"
-#include "wtengine/cmp/component.hpp"
-#include "wtengine/mgr/entity_manager.hpp"
 
 namespace wte
 {

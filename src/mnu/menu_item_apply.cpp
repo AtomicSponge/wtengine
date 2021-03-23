@@ -7,9 +7,6 @@
  * \date 2019-2021
  */
 
-#include <string>
-#include <vector>
-
 #include "wtengine/mnu/menu_item_apply.hpp"
 
 namespace wte

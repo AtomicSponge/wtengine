@@ -7,12 +7,7 @@
  * \date 2019-2021
  */
 
-#include <functional>
-#include <cassert>
-
 #include "wtengine/cmp/input_directional.hpp"
-#include "wtengine/mgr/entity_manager.hpp"
-#include "wtengine/mgr/message_manager.hpp"
 
 namespace wte
 {

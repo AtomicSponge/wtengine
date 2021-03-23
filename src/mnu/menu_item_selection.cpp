@@ -7,15 +7,7 @@
  * \date 2019-2021
  */
 
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <stdexcept>
-
 #include "wtengine/mnu/menu_item_selection.hpp"
-
-#include "wtengine/_globals/engine_cfg.hpp"
-#include "wtengine/_globals/game_cfg.hpp"
 
 namespace wte
 {

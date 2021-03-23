@@ -7,14 +7,6 @@
  * \date 2019-2021
  */
 
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <stdexcept>
-
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_physfs.h>
-
 #include "wtengine/mgr/message_manager.hpp"
 
 namespace wte

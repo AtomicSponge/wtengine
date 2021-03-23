@@ -7,16 +7,6 @@
  * \date 2019-2021
  */
 
-#include <string>
-#include <utility>
-#include <set>
-#include <iterator>
-#include <stdexcept>
-
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
-#include <allegro5/allegro_font.h>
-
 #include "wtengine/mgr/render_manager.hpp"
 
 namespace wte

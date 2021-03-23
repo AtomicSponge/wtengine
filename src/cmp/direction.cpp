@@ -11,9 +11,6 @@
 #define _USE_MATH_DEFINES
 #endif
 
-#include <cmath>
-#include <limits>
-
 #include "wtengine/cmp/direction.hpp"
 
 namespace wte

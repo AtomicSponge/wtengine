@@ -30,6 +30,7 @@ class wte_exception : public exception {
          * \brief .
          * 
          * \param .
+         * \return Thrown exception
          */
         virtual const char* what() const throw() {
             return exception_desc;

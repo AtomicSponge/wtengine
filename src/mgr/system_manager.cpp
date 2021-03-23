@@ -7,11 +7,6 @@
  * \date 2019-2021
  */
 
-#include <string>
-#include <vector>
-#include <iterator>
-#include <memory>
-
 #include "wtengine/mgr/system_manager.hpp"
 
 namespace wte

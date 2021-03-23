@@ -7,13 +7,7 @@
  * \date 2019-2021
  */
 
-#include <string>
-#include <map>
-
-#include <allegro5/allegro.h>
-
 #include "wtengine/cmp/gfx/bitmap_map.hpp"
-#include "wtengine/wte_global_defines.hpp"
 
 namespace wte
 {

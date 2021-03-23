@@ -7,8 +7,6 @@
  * \date 2019-2021
  */
 
-#include <cmath>
-
 #include "wtengine/sys/movement.hpp"
 
 namespace wte

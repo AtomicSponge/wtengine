@@ -7,11 +7,6 @@
  * \date 2019-2021
  */
 
-#include <string>
-#include <utility>
-#include <map>
-#include <functional>
-
 #include "wtengine/mgr/spawn_manager.hpp"
 
 namespace wte

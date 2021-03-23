@@ -7,8 +7,6 @@
  * \date 2019-2021
  */
 
-#include <functional>
-
 #include "wtengine/cmp/ai.hpp"
 
 namespace wte

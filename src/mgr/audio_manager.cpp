@@ -7,17 +7,6 @@
  * \date 2019-2021
  */
 
-#include <string>
-#include <map>
-#include <deque>
-#include <mutex>
-#include <stdexcept>
-
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_audio.h>
-#include <allegro5/allegro_acodec.h>
-#include <allegro5/allegro_physfs.h>
-
 #include "wtengine/mgr/audio_manager.hpp"
 
 namespace wte

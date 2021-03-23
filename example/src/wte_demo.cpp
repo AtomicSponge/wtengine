@@ -285,7 +285,7 @@ void wte_demo::new_game(void) {
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
             wte_set_component(ovr_id, cmp::overlay)->draw_bitmap("game_over", 0.0f, 0.0f, 0);
         }
-    );  //  End info overlay drawing.
+    );  //  End game over overlay drawing.
     wte_set_component(e_id, cmp::overlay)->load_bitmap("game_over", "game_over.bmp");
 
     /* ********************************* */
@@ -312,6 +312,7 @@ void wte_demo::new_game(void) {
     wte_set_component(e_id, cmp::sprite)->add_cycle("death", 4, 7);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
+    //  Player input handling.
     wte_new_component(e_id, cmp::input_directional, WTE_JOYSTICK_A,
         [](const entity_id& plr_id, const float& rad, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
             wte_set_component(plr_id, cmp::direction)->set_radians(rad);
@@ -322,6 +323,7 @@ void wte_demo::new_game(void) {
         }
     );  //  End player directional handling.
 
+    //  Player logic.
     wte_new_component(e_id, cmp::ai,
         [](const entity_id& plr_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
             if(wte_get_component(plr_id, health)->hp <= 0) {  //  Check player health.
@@ -333,6 +335,7 @@ void wte_demo::new_game(void) {
         }
     );  //  End player logic.
 
+    //  Player message handling.
     wte_new_component(e_id, cmp::dispatcher,
         [](const entity_id& plr_id, const message& msg, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& current_time) {
             //  Process player death.
@@ -404,6 +407,7 @@ void wte_demo::new_game(void) {
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 3);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
+    //  Cannon input handling.
     wte_new_component(e_id, cmp::input_button, WTE_INPUT_BUTTON_1,
         [](const entity_id& can_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
             entity_id player_entity = world.get_id("player");
@@ -433,6 +437,7 @@ void wte_demo::new_game(void) {
         }
     );  //  End cannon input handler.
 
+    //  Cannon logic.
     wte_new_component(e_id, cmp::ai,
         [](const entity_id& can_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
             entity_id player_entity = world.get_id("player");
@@ -447,6 +452,7 @@ void wte_demo::new_game(void) {
         }
     );  //  End cannon logic.
 
+    //  Cannon message processing.
     wte_new_component(e_id, cmp::dispatcher,
         [](const entity_id& can_id, const message& msg, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& current_time) {
             if(msg.get_cmd() == "colision") {
@@ -480,6 +486,7 @@ void wte_demo::new_game(void) {
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
+    //  Shield input handling.
     wte_new_component(e_id, cmp::input_button, WTE_INPUT_BUTTON_2,
         [](const entity_id& shd_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
             entity_id player_entity = world.get_id("player");
@@ -512,6 +519,7 @@ void wte_demo::new_game(void) {
         }
     );  //  End shield input handler.
 
+    //  Shield logic.
     wte_new_component(e_id, cmp::ai,
         //  Enabeled AI.
         [](const entity_id& shd_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
@@ -545,6 +553,7 @@ void wte_demo::new_game(void) {
         }
     );  //  End shield logic.
 
+    //  Shield message processing.
     wte_new_component(e_id, cmp::dispatcher,
         [](const entity_id& shd_id, const message& msg, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& current_time) {
             if(msg.get_cmd() == "colision") {
@@ -590,6 +599,7 @@ void wte_demo::new_game(void) {
             wte_set_component(e_id, cmp::sprite)->set_scale_factor_x((float)temp_size);
             wte_set_component(e_id, cmp::sprite)->set_scale_factor_y((float)temp_size);
 
+            //  Asteroid logic.
             wte_new_component(e_id, cmp::ai,
                 [](const entity_id& ast_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
                     //  AI for asteroids defined here.
@@ -627,6 +637,7 @@ void wte_demo::new_game(void) {
                 }
             );  //  End asteroid AI
 
+            //  Asteroid message processing.
             wte_new_component(e_id, cmp::dispatcher,
                 [](const entity_id& ast_id, const message& msg, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& current_time) {
                     if(msg.get_cmd() == "colision") {

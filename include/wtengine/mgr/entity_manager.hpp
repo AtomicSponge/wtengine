@@ -24,7 +24,7 @@
 #include <memory>
 #include <stdexcept>
 
-#include "manager.hpp"
+#include "wtengine/mgr/manager.hpp"
 #include "wtengine/cmp/component.hpp"
 
 namespace wte
@@ -94,8 +94,8 @@ class entity_manager final : private manager<entity_manager> {
     public:
         /*!
          * \brief Entity manager constructor.
-         * 
-         * Start entity counter at 1
+         *
+         * Starts entity counter at 1 and makes sure the world is clear.
          */
         inline entity_manager() : entity_counter(WTE_ENTITY_START) {
             entity_vec.clear();
@@ -104,10 +104,11 @@ class entity_manager final : private manager<entity_manager> {
 
         /*!
          * \brief Entity manager destructor.
+         *
+         * Clears the entity manager.
          */
         inline ~entity_manager() {
-            entity_vec.clear();
-            world.clear();
+            clear();
         };
 
         /*!

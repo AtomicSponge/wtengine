@@ -3,9 +3,10 @@
  * By:  Matthew Evans
  * File:  main.cpp
  *
- * See LICENSE.txt for copyright information
+ * See LICENSE.md for copyright information
  *
  * Main file for WTEngine demo
+ * Initializes engine and starts the game loop.
  */
 
 #include "wtengine/wtengine.hpp"

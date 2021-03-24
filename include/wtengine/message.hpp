@@ -32,8 +32,8 @@ typedef std::vector<std::string> msg_arg_list;
  */
 class message {
     public:
-        message() {};
-        ~message() {};
+        inline message() {};
+        inline ~message() {};
 
         /*!
          * \brief Message Constructor
@@ -44,7 +44,7 @@ class message {
          * \param c Command.
          * \param a Arguments delimited by ;
          */
-        message(std::string s, std::string c, std::string a) :
+        inline message(std::string s, std::string c, std::string a) :
             timer(-1), sys(s), to(""), from(""), cmd(c) { split_args(a); };
 
         /*!
@@ -57,7 +57,7 @@ class message {
          * \param c Command.
          * \param a Arguments delimited by ;
          */
-        message(int64_t e, std::string s, std::string c, std::string a) :
+        inline message(int64_t e, std::string s, std::string c, std::string a) :
             timer(e), sys(s), to(""), from(""), cmd(c) { split_args(a); };
 
         /*!
@@ -71,7 +71,7 @@ class message {
          * \param c Command.
          * \param a Arguments delimited by ;
          */
-        message(std::string s, std::string t, std::string f, std::string c, std::string a) :
+        inline message(std::string s, std::string t, std::string f, std::string c, std::string a) :
             timer(-1), sys(s), to(t), from(f), cmd(c) { split_args(a); };
 
         /*!
@@ -86,7 +86,7 @@ class message {
          * \param c Command.
          * \param a Arguments delimited by ;
          */
-        message(int64_t e, std::string s, std::string t, std::string f, std::string c, std::string a) :
+        inline message(int64_t e, std::string s, std::string t, std::string f, std::string c, std::string a) :
             timer(e), sys(s), to(t), from(f), cmd(c) { split_args(a); };
 
         /*!
@@ -95,7 +95,7 @@ class message {
          * \param a Object to compare to.
          * \return True if less than, false if greater than.
          */
-        const bool operator<(const message& a) const {
+        inline const bool operator<(const message& a) const {
             return timer < a.timer;
         };
 
@@ -104,7 +104,7 @@ class message {
          * 
          * \param a String of arguments, delimited by ;
          */
-        void split_args(const std::string& a) {
+        inline void split_args(const std::string& a) {
             if(a == "") arglist.push_back("");
             else {
                 std::stringstream arg_stream(a);
@@ -121,49 +121,49 @@ class message {
          * 
          * \return The value of timer.
          */
-        const int64_t get_timer(void) const { return timer; };
+        inline const int64_t get_timer(void) const { return timer; };
 
         /*!
          * \brief Get system value.
          * 
          * \return The value of sys.
          */
-        const std::string get_sys(void) const { return sys; };
+        inline const std::string get_sys(void) const { return sys; };
 
         /*!
          * \brief Get to value.
          * 
          * \return The value of to.
          */
-        const std::string get_to(void) const { return to; };
+        inline const std::string get_to(void) const { return to; };
 
         /*!
          * \brief Get from value.
          * 
          * \return The value of from.
          */
-        const std::string get_from(void) const { return from; };
+        inline const std::string get_from(void) const { return from; };
 
         /*!
          * \brief Get command value.
          * 
          * \return The value of cmd.
          */
-        const std::string get_cmd(void) const { return cmd; };
+        inline const std::string get_cmd(void) const { return cmd; };
 
         /*!
          * \brief Get number of arguments.
          * 
          * \return The number of arguments.
          */
-        const std::size_t num_args(void) const { return arglist.size(); };
+        inline const std::size_t num_args(void) const { return arglist.size(); };
 
         /*!
          * \brief Get the arguments split into a vector.
          * 
          * \return The vector of the arguments.
          */
-        const msg_arg_list get_arglist(void) const { return arglist; };
+        inline const msg_arg_list get_arglist(void) const { return arglist; };
 
         /*!
          * \brief Returns a single argument by pos from the argument list.
@@ -171,7 +171,7 @@ class message {
          * \param pos The position in the argument vector.
          * \return The argument string by position.
          */
-        const std::string get_arg(const std::size_t& pos) const {
+        inline const std::string get_arg(const std::size_t& pos) const {
             if(pos >= arglist.size()) return "";  //  Out of range, return empty string.
             else return arglist[pos];
         };
@@ -183,7 +183,8 @@ class message {
          * \param pos The position in the argument vector.
          * \return The argument by position casted to type.
          */
-        template <typename T> const T get_arg(const std::size_t& pos) const {
+        template <typename T>
+        inline const T get_arg(const std::size_t& pos) const {
             //  Bad position, return false.
             if(pos >= arglist.size()) return std::any_cast<const bool>(false);
             try {
@@ -201,7 +202,7 @@ class message {
          * 
          * \return Returns false if the timer value is -1, else true.
          */
-        const bool is_timed_event(void) const {
+        inline const bool is_timed_event(void) const {
             if(timer == -1) return false;
             else return true;
         };

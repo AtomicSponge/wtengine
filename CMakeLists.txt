@@ -10,6 +10,7 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
+#  Set compiler flags
 set(CMAKE_CXX_FLAGS "-Wall")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_DEBUG_MODE=9")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DWTE_DEBUG_MODE=0")
@@ -31,6 +32,7 @@ find_package(PkgConfig REQUIRED)
 
 #include(GNUInstallDirs)
 
+#  Add cpp sources
 add_library(wtengine STATIC
     src/wte_display.cpp
     src/wte_input.cpp
@@ -67,7 +69,11 @@ add_library(wtengine STATIC
     src/sys/logic.cpp
     src/sys/movement.cpp )
 
-target_link_libraries(wtengine PRIVATE Threads::Threads physfs ${ALLEGRO_LIBRARIES})
+#  Link libraries
+target_link_libraries(wtengine PRIVATE
+    Threads::Threads
+    physfs
+    ${ALLEGRO_LIBRARIES} )
 
 #target_link_libraries(wtengine ${ALLEGRO_LIBRARIES})
 #target_link_libraries(wtengine Threads::Threads)

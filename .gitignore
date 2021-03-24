@@ -1,14 +1,7 @@
 # Ignore vs code stuffs
+.cmake/
 .vscode/
 wtengine.code-workspace
-
-# Ignore cmake stuffs
-.cmake/
-CMakeFiles/
-CMakeCache.txt
-cmake_install.cmake
-compile_commands.json
-Makefile
 
 # Ignore local backup
 .bakignore
@@ -16,13 +9,9 @@ Makefile
 
 # Ignore build stuffs
 build/
-*.o
 
 # Ignore generated documentation
 docs/
-
-# Ignore library files
-lib/
 
 # Ignore test scripts
 tools/csv2sdf/*.sdf

@@ -1,21 +1,11 @@
-# Ignore vs code stuffs
 .cmake/
-.vscode/
-wtengine.code-workspace
-
-# Ignore local backup
-.bakignore
 *_bak/
-
-# Ignore build stuffs
 build/
-
-# Ignore generated documentation
 docs/
 
-# Ignore test scripts
+.bakignore
+wtengine.code-workspace
+comment_updater.config
+
 tools/csv2sdf/*.sdf
 tools/csv2sdf/*.csv
-
-# Ignore comment_updater.config
-comment_updater.config

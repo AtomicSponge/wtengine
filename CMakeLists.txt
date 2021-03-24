@@ -75,10 +75,6 @@ target_link_libraries(wtengine PRIVATE
     #physfs
     ${ALLEGRO_LIBRARIES} )
 
-#target_link_libraries(wtengine ${ALLEGRO_LIBRARIES})
-#target_link_libraries(wtengine Threads::Threads)
-#target_link_libraries(wtengine physfs)
-
 target_include_directories(wtengine PRIVATE include)
 
 set_target_properties(wtengine PROPERTIES

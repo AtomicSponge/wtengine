@@ -14,6 +14,11 @@ set(CMAKE_CXX_FLAGS "-Wall")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_DEBUG_MODE=9")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DWTE_DEBUG_MODE=0")
 
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+
+#find_package(physfs REQUIRED)
+
 #  Check for Allegro
 find_package(PkgConfig REQUIRED)
     pkg_check_modules(ALLEGRO REQUIRED allegro-5)
@@ -62,9 +67,11 @@ add_library(wtengine STATIC
     src/sys/logic.cpp
     src/sys/movement.cpp )
 
-target_link_libraries(wtengine ${ALLEGRO_LIBRARIES})
-target_link_libraries(wtengine pthread)
-target_link_libraries(wtengine physfs)
+target_link_libraries(wtengine PRIVATE Threads::Threads physfs ${ALLEGRO_LIBRARIES})
+
+#target_link_libraries(wtengine ${ALLEGRO_LIBRARIES})
+#target_link_libraries(wtengine Threads::Threads)
+#target_link_libraries(wtengine physfs)
 
 target_include_directories(wtengine PRIVATE include)
 

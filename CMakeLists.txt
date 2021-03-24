@@ -12,8 +12,8 @@ endif()
 
 #  Set compiler flags
 set(CMAKE_CXX_FLAGS "-Wall")
-set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_DEBUG_MODE=9")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DWTE_DEBUG_MODE=0")
+#set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_DEBUG_MODE=9")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DWTE_DEBUG_MODE=0 -lphysfs")
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
@@ -72,7 +72,7 @@ add_library(wtengine STATIC
 #  Link libraries
 target_link_libraries(wtengine PRIVATE
     Threads::Threads
-    physfs
+    #physfs
     ${ALLEGRO_LIBRARIES} )
 
 #target_link_libraries(wtengine ${ALLEGRO_LIBRARIES})

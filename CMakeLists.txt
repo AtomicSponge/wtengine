@@ -1,11 +1,19 @@
+############################################################
 #
 #  WTEngine CMake
+#
 #  Ver:  032521
 #  See LICENSE.md for copyright information.
 #
 #  This generates Makefiles for building the engine library.
 #
+############################################################
 
+########################################
+#
+#  Project Configuration
+#
+########################################
 #  Configure build project
 cmake_minimum_required(VERSION 3.11)
 project(wtengine VERSION 0.2 DESCRIPTION "WTEngine Game Engine")
@@ -21,6 +29,11 @@ set(CMAKE_CXX_FLAGS "-Wall")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_DEBUG_MODE=9")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DWTE_DEBUG_MODE=0")
 
+########################################
+#
+#  Library Detection
+#
+########################################
 #  Set pthreading
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
@@ -38,7 +51,11 @@ find_package(PkgConfig REQUIRED)
     pkg_check_modules(ALLEGRO REQUIRED allegro_font-5)      #  Font add-on
     pkg_check_modules(ALLEGRO REQUIRED allegro_image-5)     #  Image add-on
 
-#  Add cpp sources to project
+########################################
+#
+#  Configure Sources
+#
+########################################
 add_library(wtengine STATIC
     src/wte_display.cpp
     src/wte_input.cpp
@@ -75,6 +92,11 @@ add_library(wtengine STATIC
     src/sys/logic.cpp
     src/sys/movement.cpp)
 
+########################################
+#
+#  Build Process
+#
+########################################
 #  Set include folder for building
 target_include_directories(wtengine PRIVATE include)
 
@@ -89,6 +111,11 @@ set_target_properties(wtengine PROPERTIES
     VERSION ${PROJECT_VERSION}
     CXX_STANDARD 17)
 
+########################################
+#
+#  Install Process
+#
+########################################
 #  Get GNUInstallDirs
 include(GNUInstallDirs)
 
@@ -105,3 +132,5 @@ install(DIRECTORY include
 configure_file(wtengine.pc.in wtengine.pc @ONLY)
 install(FILES ${CMAKE_BINARY_DIR}/wtengine.pc
     DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+
+#  Done!

@@ -97,7 +97,7 @@ install(TARGETS wtengine LIBRARY
     DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 #  Now install the headers, preserving subfolders
-install(DIRECTORY include/
+install(DIRECTORY include
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     FILES_MATCHING PATTERN "*.hpp")
 

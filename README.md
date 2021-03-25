@@ -7,7 +7,7 @@ Documentation:  https://www.wtfsystems.net/docs/wtengine/index.html
 
 For an example of the engine in action, see the [demo game code](https://github.com/wtfsystems/wtengine/blob/master/example/src/wte_demo.cpp).
 
-### FEATURES:
+#### Features:
  - Internal messaging queue
  - Programmable menu interface
  - Memory manager for in-game objects

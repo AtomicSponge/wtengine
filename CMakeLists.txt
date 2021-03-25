@@ -5,20 +5,21 @@
 cmake_minimum_required(VERSION 3.11)
 
 project(wtengine VERSION 0.2 DESCRIPTION "WTEngine")
+enable_language(CXX)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
 #  Set compiler flags
-set(CMAKE_CXX_FLAGS "-Wall -lphysfs")
+set(CMAKE_CXX_FLAGS "-Wall")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_DEBUG_MODE=9")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DWTE_DEBUG_MODE=0")
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
-#find_package(physfs REQUIRED)
+find_package(PhysFS REQUIRED)
 
 #  Check for Allegro
 find_package(PkgConfig REQUIRED)
@@ -72,7 +73,7 @@ add_library(wtengine STATIC
 #  Link libraries
 target_link_libraries(wtengine PRIVATE
     Threads::Threads
-    #physfs
+    PhysFS
     ${ALLEGRO_LIBRARIES} )
 
 target_include_directories(wtengine PRIVATE include)

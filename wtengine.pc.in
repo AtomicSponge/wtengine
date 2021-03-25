@@ -8,5 +8,5 @@ Description: @PROJECT_DESCRIPTION@
 Version: @PROJECT_VERSION@
 
 Requires:
-Libs: -L${libdir} -llibwtengine
+Libs: -L${libdir} -lwtengine
 Cflags: -I${includedir}

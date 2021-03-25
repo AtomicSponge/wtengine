@@ -6,9 +6,9 @@
 #  This generates Makefiles for building the engine library.
 #
 
+#  Configure build project
 cmake_minimum_required(VERSION 3.11)
-
-project(wtengine VERSION 0.2 DESCRIPTION "WTEngine")
+project(wtengine VERSION 0.2 DESCRIPTION "WTEngine Game Engine")
 enable_language(CXX)
 
 #  If a build type is not set, set it to Release
@@ -75,8 +75,8 @@ add_library(wtengine STATIC
     src/sys/logic.cpp
     src/sys/movement.cpp)
 
-#  Get a listing of all header files in the include folder
-file(GLOB_RECURSE _INCLUDE_FILES "include/*.hpp*")
+#  Set include folder for building
+target_include_directories(wtengine PRIVATE include)
 
 #  Link libraries
 target_link_libraries(wtengine PRIVATE
@@ -84,19 +84,24 @@ target_link_libraries(wtengine PRIVATE
     PhysFS
     ${ALLEGRO_LIBRARIES})
 
-#  Set include folder for building
-target_include_directories(wtengine PRIVATE include)
-
+#  Set the build target
 set_target_properties(wtengine PROPERTIES
     VERSION ${PROJECT_VERSION}
-    CXX_STANDARD 17
-    PUBLIC_HEADER "${_INCLUDE_FILES}")
+    CXX_STANDARD 17)
 
-#include(GNUInstallDirs)
+#  Get GNUInstallDirs
+include(GNUInstallDirs)
 
-#install(TARGETS wtengine
-    #LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    #PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+#  Install the built library
+install(TARGETS wtengine LIBRARY
+    DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
-#configure_file(wtengine.pc.in wtengine.pc @ONLY)
-#install(FILES ${CMAKE_BINARY_DIR}/wtengine.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+#  Now install the headers, preserving subfolders
+install(DIRECTORY include/
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    FILES_MATCHING PATTERN "*.hpp")
+
+#  Create pkg-config and install
+configure_file(wtengine.pc.in wtengine.pc @ONLY)
+install(FILES ${CMAKE_BINARY_DIR}/wtengine.pc
+    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)

@@ -16,3 +16,20 @@ For an example of the engine in action, see the [demo game code](https://github.
 #### DEMO:
 
 A compiled demo can be found in the [releases](https://github.com/wtfsystems/releases) repository.
+
+-----
+
+### Library Installation
+
+To build just the library follow these commands:
+```
+git clone https://github.com/wtfsystems/wtengine.git
+cd wtengine
+cmake .
+make
+```
+
+Then to install the library run:
+```
+sudo make install
+```

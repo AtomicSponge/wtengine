@@ -19,7 +19,7 @@ For an example of the engine in action, see the [demo game code](https://github.
 
 ## Library Installation
 
-To build just the library follow these commands:
+Installation is handled by [CMake](https://cmake.org/).  To build just the library follow these commands:
 ```
 git clone https://github.com/wtfsystems/wtengine.git
 cd wtengine

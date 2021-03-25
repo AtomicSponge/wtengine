@@ -1,5 +1,9 @@
 #
 #  WTEngine CMake
+#  Ver:  032521
+#  See LICENSE.md for copyright information.
+#
+#  This generates Makefiles for building the engine library.
 #
 
 cmake_minimum_required(VERSION 3.11)
@@ -7,6 +11,7 @@ cmake_minimum_required(VERSION 3.11)
 project(wtengine VERSION 0.2 DESCRIPTION "WTEngine")
 enable_language(CXX)
 
+#  If a build type is not set, set it to Release
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
@@ -16,24 +21,24 @@ set(CMAKE_CXX_FLAGS "-Wall")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_DEBUG_MODE=9")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DWTE_DEBUG_MODE=0")
 
+#  Set pthreading
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
+#  Check for PhysFS
 find_package(PhysFS REQUIRED)
 
-#  Check for Allegro
+#  Check for Allegro and its required modules
 find_package(PkgConfig REQUIRED)
-    pkg_check_modules(ALLEGRO REQUIRED allegro-5)
-    pkg_check_modules(ALLEGRO REQUIRED allegro_main-5)
-    pkg_check_modules(ALLEGRO REQUIRED allegro_physfs-5)
-    pkg_check_modules(ALLEGRO REQUIRED allegro_audio-5)
-    pkg_check_modules(ALLEGRO REQUIRED allegro_acodec-5)
-    pkg_check_modules(ALLEGRO REQUIRED allegro_font-5)
-    pkg_check_modules(ALLEGRO REQUIRED allegro_image-5)
+    pkg_check_modules(ALLEGRO REQUIRED allegro-5)           #  Allegro base
+    pkg_check_modules(ALLEGRO REQUIRED allegro_main-5)      #  Allegro main
+    pkg_check_modules(ALLEGRO REQUIRED allegro_physfs-5)    #  PhysFS add-on
+    pkg_check_modules(ALLEGRO REQUIRED allegro_audio-5)     #  Audio add-on
+    pkg_check_modules(ALLEGRO REQUIRED allegro_acodec-5)    #  Audio codec add-on
+    pkg_check_modules(ALLEGRO REQUIRED allegro_font-5)      #  Font add-on
+    pkg_check_modules(ALLEGRO REQUIRED allegro_image-5)     #  Image add-on
 
-#include(GNUInstallDirs)
-
-#  Add cpp sources
+#  Add cpp sources to project
 add_library(wtengine STATIC
     src/wte_display.cpp
     src/wte_input.cpp
@@ -68,7 +73,10 @@ add_library(wtengine STATIC
     src/sys/collision.cpp
     src/sys/input.cpp
     src/sys/logic.cpp
-    src/sys/movement.cpp )
+    src/sys/movement.cpp)
+
+#  Get a listing of all header files in the include folder
+file(GLOB_RECURSE _INCLUDE_FILES "include/*.hpp*")
 
 #  Link libraries
 target_link_libraries(wtengine PRIVATE
@@ -76,12 +84,15 @@ target_link_libraries(wtengine PRIVATE
     PhysFS
     ${ALLEGRO_LIBRARIES})
 
+#  Set include folder for building
 target_include_directories(wtengine PRIVATE include)
 
 set_target_properties(wtengine PROPERTIES
     VERSION ${PROJECT_VERSION}
     CXX_STANDARD 17
-    PUBLIC_HEADER include/wtengine.hpp)
+    PUBLIC_HEADER "${_INCLUDE_FILES}")
+
+#include(GNUInstallDirs)
 
 #install(TARGETS wtengine
     #LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

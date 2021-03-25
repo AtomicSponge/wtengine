@@ -9,7 +9,7 @@
  * Initializes engine and starts the game loop.
  */
 
-#include "wtengine/wtengine.hpp"
+#include <wtengine/wtengine.hpp>
 
 #include "include/wte_demo.hpp"
 

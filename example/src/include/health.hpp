@@ -11,7 +11,7 @@
 #ifndef WTEDEMO_CMP_HEALTH_HPP
 #define WTEDEMO_CMP_HEALTH_HPP
 
-#include "wtengine/wtengine.hpp"
+#include <wtengine/wtengine.hpp>
 
 /*
  * Store the amount of health an entity has

@@ -11,7 +11,7 @@
 #ifndef WTEDEMO_CMP_STARS_HPP
 #define WTEDEMO_CMP_STARS_HPP
 
-#include "wtengine/wtengine.hpp"
+#include <wtengine/wtengine.hpp>
 
 #define MAX_STARS 64
 

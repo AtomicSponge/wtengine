@@ -11,7 +11,7 @@
 #ifndef WTEDEMO_WTE_DEMO_HPP
 #define WTEDEMO_WTE_DEMO_HPP
 
-#include "wtengine/wtengine.hpp"
+#include <wtengine/wtengine.hpp>
 
 class wte_demo final : public wte::wte_main {
     public:

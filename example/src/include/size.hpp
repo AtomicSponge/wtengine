@@ -11,7 +11,7 @@
 #ifndef WTEDEMO_CMP_SIZE_HPP
 #define WTEDEMO_CMP_SIZE_HPP
 
-#include "wtengine/wtengine.hpp"
+#include <wtengine/wtengine.hpp>
 
 /*
  * Save the asteroid size

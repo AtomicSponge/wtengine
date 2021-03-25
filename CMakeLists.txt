@@ -74,7 +74,7 @@ add_library(wtengine STATIC
 target_link_libraries(wtengine PRIVATE
     Threads::Threads
     PhysFS
-    ${ALLEGRO_LIBRARIES} )
+    ${ALLEGRO_LIBRARIES})
 
 target_include_directories(wtengine PRIVATE include)
 

@@ -57,7 +57,7 @@ Make sure the install location used for pkg-config is in PKG_CONFIG_PATH, exampl
 export PKG_CONFIG_PATH=/usr/local/share/pkgconfig
 ```
 
-Check *install_manifest.txt* to see where *wtengine.pc* was placed.
+Check __install_manifest.txt__ to see where __wtengine.pc__ was placed.
 
 You can verify pkg-config can locate the engine by:
 ```

@@ -36,7 +36,14 @@ sudo make install
 
 ## Example
 
-A compiled demo can be found in the [releases](https://github.com/wtfsystems/releases) repository.
+Requires the library to be installed to build.  Working on CMake!
+
+For now you can build with:
+```
+sh build_example.sh
+```
+
+A compiled demo for Windows can be found in the [releases](https://github.com/wtfsystems/releases) repository.
 
 -----
 

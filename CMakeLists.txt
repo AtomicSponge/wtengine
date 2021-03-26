@@ -109,7 +109,8 @@ target_link_libraries(wtengine PRIVATE
 #  Set the build target
 set_target_properties(wtengine PROPERTIES
     VERSION ${PROJECT_VERSION}
-    CXX_STANDARD 17)
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED True)
 
 ########################################
 #

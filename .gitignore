@@ -5,7 +5,7 @@ docs/
 
 .bakignore
 .comment_updater.config
-wtengine.code-workspace
+*.code-workspace
 
 tools/csv2sdf/*.sdf
 tools/csv2sdf/*.csv

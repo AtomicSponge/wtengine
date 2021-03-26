@@ -40,6 +40,7 @@ Requires the library to be installed to build.  Working on CMake!
 
 For now you can build with:
 ```
+cd example
 sh build_example.sh
 ```
 

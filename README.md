@@ -38,7 +38,7 @@ sudo make install
 
 Requires the library to be installed to build.  Working on CMake!
 
-For now you can build with:
+For now you can try building with:
 ```
 cd example
 sh build_example.sh

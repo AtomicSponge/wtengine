@@ -13,7 +13,7 @@ echo "Building wtengine demo..."
 g++ -c src/wte_demo.cpp -std=c++17 -O3 -Wall -lphysfs -lpthread `pkg-config --libs wtengine allegro-5 allegro_main-5 allegro_physfs-5 allegro_audio-5 allegro_acodec-5 allegro_font-5 allegro_image-5 allegro_primitives-5`
 g++ -c src/main.cpp -std=c++17 -O3 -Wall -lphysfs -lpthread `pkg-config --libs wtengine allegro-5 allegro_main-5 allegro_physfs-5 allegro_audio-5 allegro_acodec-5 allegro_font-5 allegro_image-5 allegro_primitives-5`
 
-g++ -o build/wte_demo main.o wte_demo.o -lphysfs -lpthread `pkg-config --libs wtengine allegro-5 allegro_main-5 allegro_physfs-5 allegro_audio-5 allegro_acodec-5 allegro_font-5 allegro_image-5 allegro_primitives-5`
+g++ -o build/wte_demo main.o wte_demo.o -O3 -Wall -lphysfs -lpthread `pkg-config --libs wtengine allegro-5 allegro_main-5 allegro_physfs-5 allegro_audio-5 allegro_acodec-5 allegro_font-5 allegro_image-5 allegro_primitives-5`
 
 echo -n "Cleaning object files..."
 rm *.o

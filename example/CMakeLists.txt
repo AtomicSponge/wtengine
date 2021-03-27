@@ -44,16 +44,19 @@ find_package(PhysFS REQUIRED)
 
 #  pkg-config checks
 find_package(PkgConfig REQUIRED)
-    pkg_check_modules(_PKGCONFIG REQUIRED wtengine)             #  Check for WTEngine
     #  Check for Allegro and its required modules
-    pkg_check_modules(_PKGCONFIG REQUIRED allegro-5)            #  Allegro base
-    pkg_check_modules(_PKGCONFIG REQUIRED allegro_main-5)       #  Allegro main
-    pkg_check_modules(_PKGCONFIG REQUIRED allegro_physfs-5)     #  PhysFS add-on
-    pkg_check_modules(_PKGCONFIG REQUIRED allegro_audio-5)      #  Audio add-on
-    pkg_check_modules(_PKGCONFIG REQUIRED allegro_acodec-5)     #  Audio codec add-on
-    pkg_check_modules(_PKGCONFIG REQUIRED allegro_font-5)       #  Font add-on
-    pkg_check_modules(_PKGCONFIG REQUIRED allegro_image-5)      #  Image add-on
-    pkg_check_modules(_PKGCONFIG REQUIRED allegro_primitives-5) #  Primitives add-on
+    pkg_check_modules(ALLEGRO REQUIRED allegro-5)            #  Allegro base
+    pkg_check_modules(ALLEGRO REQUIRED allegro_main-5)       #  Allegro main
+    pkg_check_modules(ALLEGRO REQUIRED allegro_physfs-5)     #  PhysFS add-on
+    pkg_check_modules(ALLEGRO REQUIRED allegro_audio-5)      #  Audio add-on
+    pkg_check_modules(ALLEGRO REQUIRED allegro_acodec-5)     #  Audio codec add-on
+    pkg_check_modules(ALLEGRO REQUIRED allegro_font-5)       #  Font add-on
+    pkg_check_modules(ALLEGRO REQUIRED allegro_image-5)      #  Image add-on
+    pkg_check_modules(ALLEGRO REQUIRED allegro_primitives-5) #  Primitives add-on
+
+    #  Check for WTEngine
+    #pkg_check_modules(WTENGINE REQUIRED IMPORTED_TARGET wtengine)
+    pkg_check_modules(WTENGINE REQUIRED wtengine)
 
 ########################################
 #
@@ -73,7 +76,9 @@ add_executable(wte_demo
 target_link_libraries(wte_demo
     Threads::Threads
     PhysFS
-    ${_PKGCONFIG_LIBRARIES})
+    ${WTENGINE_LIBRARIES}
+    #PkgConfig::WTENGINE
+    ${ALLEGRO_LIBRARIES})
 
 #  Set the build target
 set_target_properties(wte_demo PROPERTIES

@@ -3,17 +3,19 @@
 __WTEngine__ (What the Engine?) is a cross-platform game engine based on [ECS](https://en.wikipedia.org/wiki/Entity_component_system) design that can be used to make a 2D action game.
 The engine is written in C++17 and uses the [Allegro Game Library](https://liballeg.org) and [PhysicsFS](https://www.icculus.org/physfs/).
 
+The library is built as a static archive that contains most of the reusable parts.  The remainder is implemented in headers as it makes use of template specialization to build the final game binary.
+
 #### Documentation:
 https://www.wtfsystems.net/docs/wtengine/index.html
 
 For an example of the engine in action, see the [demo game code](https://github.com/wtfsystems/wtengine/blob/master/example/src/wte_demo.cpp).
 
 #### Features:
- - Internal messaging queue
- - Programmable menu interface
- - Memory manager for in-game objects
- - Global variable maps for game/engine settings
- - Threaded music & audio playback via messages
+ - Memory manager for game objects
+ - Messaging & scripting
+ - Custom menu interface
+ - 2d sprites and animation
+ - Music & sound effects
  - Buildable debug modes
 
 -----

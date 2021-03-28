@@ -28,7 +28,7 @@ endif()
 #  Set compiler flags
 set(CMAKE_CXX_FLAGS "-Wall")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_DEBUG_MODE=9")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DWTE_DEBUG_MODE=0")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DWTE_DEBUG_MODE=0 -lphysfs")
 
 ########################################
 #
@@ -45,18 +45,16 @@ find_package(PhysFS REQUIRED)
 #  pkg-config checks
 find_package(PkgConfig REQUIRED)
     #  Check for Allegro and its required modules
-    pkg_check_modules(ALLEGRO REQUIRED allegro-5)            #  Allegro base
-    pkg_check_modules(ALLEGRO REQUIRED allegro_main-5)       #  Allegro main
-    pkg_check_modules(ALLEGRO REQUIRED allegro_physfs-5)     #  PhysFS add-on
-    pkg_check_modules(ALLEGRO REQUIRED allegro_audio-5)      #  Audio add-on
-    pkg_check_modules(ALLEGRO REQUIRED allegro_acodec-5)     #  Audio codec add-on
-    pkg_check_modules(ALLEGRO REQUIRED allegro_font-5)       #  Font add-on
-    pkg_check_modules(ALLEGRO REQUIRED allegro_image-5)      #  Image add-on
-    pkg_check_modules(ALLEGRO REQUIRED allegro_primitives-5) #  Primitives add-on
-
+    pkg_check_modules(ALLEGRO REQUIRED IMPORTED_TARGET allegro-5)
+    pkg_check_modules(ALLEGRO_MAIN REQUIRED IMPORTED_TARGET allegro_main-5)
+    pkg_check_modules(ALLEGRO_PHYSFS REQUIRED IMPORTED_TARGET allegro_physfs-5)
+    pkg_check_modules(ALLEGRO_AUDIO REQUIRED IMPORTED_TARGET allegro_audio-5)
+    pkg_check_modules(ALLEGRO_ACODEC REQUIRED IMPORTED_TARGET allegro_acodec-5)
+    pkg_check_modules(ALLEGRO_FONT REQUIRED IMPORTED_TARGET allegro_font-5)
+    pkg_check_modules(ALLEGRO_IMAGE REQUIRED IMPORTED_TARGET allegro_image-5)
+    pkg_check_modules(ALLEGRO_PRIMV REQUIRED IMPORTED_TARGET allegro_primitives-5)
     #  Check for WTEngine
-    #pkg_check_modules(WTENGINE REQUIRED IMPORTED_TARGET wtengine)
-    pkg_check_modules(WTENGINE REQUIRED wtengine)
+    pkg_check_modules(WTENGINE REQUIRED IMPORTED_TARGET wtengine)
 
 ########################################
 #
@@ -73,12 +71,18 @@ add_executable(wte_demo
 #
 ########################################
 #  Link libraries
-target_link_libraries(wte_demo
+target_link_libraries(wte_demo PUBLIC
     Threads::Threads
-    PhysFS
-    ${WTENGINE_LIBRARIES}
-    #PkgConfig::WTENGINE
-    ${ALLEGRO_LIBRARIES})
+    #PhysFS
+    PkgConfig::WTENGINE
+    PkgConfig::ALLEGRO
+    PkgConfig::ALLEGRO_MAIN
+    PkgConfig::ALLEGRO_PHYSFS
+    PkgConfig::ALLEGRO_AUDIO
+    PkgConfig::ALLEGRO_ACODEC
+    PkgConfig::ALLEGRO_FONT
+    PkgConfig::ALLEGRO_IMAGE
+    PkgConfig::ALLEGRO_PRIMV)
 
 #  Set the build target
 set_target_properties(wte_demo PROPERTIES

@@ -37,15 +37,15 @@ sudo make install
 
 ## Example
 
-Requires the library to be installed to build.  Working on CMake!
+Requires the library to be installed to build.
 
-For now you can try building with:
 ```
 cd example
-sh build_example.sh
+cmake .
+make
 ```
 
-A compiled demo for Windows can be found in the [releases](https://github.com/wtfsystems/releases) repository.
+A compiled demo for Windows can be found in the [releases](https://github.com/wtfsystems/releases) repository.  Binary data to play the demo is included.
 
 -----
 

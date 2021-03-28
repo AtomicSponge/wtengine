@@ -90,4 +90,3 @@ set_target_properties(wte_demo PROPERTIES
     CXX_STANDARD_REQUIRED True)
 
 #  No install for the demo - Done!
-message("Might not work!!  Run build_example.sh instead")

@@ -2,7 +2,7 @@
 #
 #  WTEngine Demo CMake
 #
-#  Ver:  032521
+#  Ver:  032821
 #  See LICENSE.md for copyright information.
 #
 #  This generates Makefiles for building the engine example.
@@ -27,8 +27,8 @@ endif()
 
 #  Set compiler flags
 set(CMAKE_CXX_FLAGS "-Wall")
-set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_DEBUG_MODE=9 -lphysfs")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DWTE_DEBUG_MODE=0 -lphysfs")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_DEBUG_MODE=9")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DWTE_DEBUG_MODE=0")
 
 ########################################
 #
@@ -40,7 +40,10 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
 #  Check for PhysFS
-find_package(PhysFS REQUIRED)
+find_library(PHYSFS_LIB NAMES physfs libphysfs)
+if(NOT PHYSFS_LIB)
+    message("PhysFS not found!")
+endif()
 
 #  pkg-config checks
 find_package(PkgConfig REQUIRED)
@@ -73,6 +76,7 @@ add_executable(wte_demo
 #  Link libraries
 target_link_libraries(wte_demo PUBLIC
     Threads::Threads
+    ${PHYSFS_LIB}
     PkgConfig::WTENGINE
     PkgConfig::ALLEGRO
     PkgConfig::ALLEGRO_MAIN

@@ -39,7 +39,7 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
 #  Check for PhysFS
-find_package(PhysFS REQUIRED)
+#find_package(PhysFS REQUIRED)
 
 #  Check for Allegro and its required modules
 find_package(PkgConfig REQUIRED)
@@ -103,7 +103,7 @@ target_include_directories(wtengine PRIVATE include)
 #  Link libraries
 target_link_libraries(wtengine PRIVATE
     Threads::Threads
-    PhysFS
+    #PhysFS
     ${ALLEGRO_LIBRARIES})
 
 #  Set the build target

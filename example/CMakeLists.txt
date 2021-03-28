@@ -27,7 +27,7 @@ endif()
 
 #  Set compiler flags
 set(CMAKE_CXX_FLAGS "-Wall")
-set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_DEBUG_MODE=9")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_DEBUG_MODE=9 -lphysfs")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DWTE_DEBUG_MODE=0 -lphysfs")
 
 ########################################
@@ -73,7 +73,6 @@ add_executable(wte_demo
 #  Link libraries
 target_link_libraries(wte_demo PUBLIC
     Threads::Threads
-    #PhysFS
     PkgConfig::WTENGINE
     PkgConfig::ALLEGRO
     PkgConfig::ALLEGRO_MAIN

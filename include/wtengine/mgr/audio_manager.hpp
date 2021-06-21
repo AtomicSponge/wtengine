@@ -14,17 +14,12 @@
 
 #include <string>
 #include <map>
-#include <deque>
-#include <mutex>
-#include <stdexcept>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
-#include <allegro5/allegro_physfs.h>
 
 #include "wtengine/mgr/manager.hpp"
-#include "wtengine/mgr/make_thread.hpp"
 #include "wtengine/_globals/engine_cfg.hpp"
 #include "wtengine/wte_global_defines.hpp"
 #include "wtengine/message.hpp"
@@ -50,7 +45,8 @@ namespace mgr
  * Mixer 3 - Play voice - Load a file and play once. \n 
  * Mixer 4 - Play ambiance - Load a file and play in a loop.  Looping can be disabled.
  */
-class audio_manager final : private manager<audio_manager>, public make_thread {
+//class audio_manager final : private manager<audio_manager>, public make_thread {
+class audio_manager final : private manager<audio_manager> {
     public:
         /*!
          * \brief Audio Manager constructor.
@@ -82,16 +78,113 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
 
         /*!
          * \brief Update engine cfg with the current volume levels.
-         * 
          */
         void get_volume(void) const;
 
         /*!
-         * \brief Take a vector of messages and pass them into the audio messages deck.
-         * 
-         * \param messages Vector of messages to be passed.
+         * \brief Process audio manager messages
          */
-        void transfer_messages(const message_container& messages);
+        void process_messages(const message_container& messages);
+
+        /*!
+         * \brief 
+         */
+        void music_loop(const std::string& arg);
+
+        /*!
+         * \brief 
+         */
+        void music_play(const std::string& arg);
+
+        /*!
+         * \brief 
+         */
+        void music_stop(void);
+
+        /*!
+         * \brief 
+         */
+        void music_pause(void);
+
+        /*!
+         * \brief 
+         */
+        void music_unpause(void);
+
+        /*!
+         * \brief 
+         */
+        void sample_load(const std::string& arg);
+
+        /*!
+         * \brief 
+         */
+        void sample_unload(const std::string& arg);
+
+        /*!
+         * \brief 
+         */
+        void sample_play(void);
+
+        /*!
+         * \brief 
+         */
+        void sample_stop(const std::string& arg);
+
+        /*!
+         * \brief 
+         */
+        void sample_pan(void);
+
+        /*!
+         * \brief 
+         */
+        void sample_clear_instances(void);
+
+        /*!
+         * \brief 
+         */
+        void voice_play(const std::string& arg);
+
+        /*!
+         * \brief 
+         */
+        void voice_stop(void);
+
+        /*!
+         * \brief 
+         */
+        void voice_pause(void);
+
+        /*!
+         * \brief 
+         */
+        void voice_unpause(void);
+
+        /*!
+         * \brief 
+         */
+        void ambiance_loop(const std::string& arg);
+
+        /*!
+         * \brief 
+         */
+        void ambiance_play(const std::string& arg);
+
+        /*!
+         * \brief 
+         */
+        void ambiance_stop(void);
+
+        /*!
+         * \brief 
+         */
+        void ambiance_pause(void);
+
+        /*!
+         * \brief 
+         */
+        void ambiance_unpause(void);
 
     private:
         /*!
@@ -108,8 +201,6 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
          * \brief Set volume levels based on engine cfg settings.
          */
         void set_volume(void);
-
-        void run(void) override;
 
         //  Used for switching on audio messages:
         enum CMD_STR_VALUE {
@@ -132,10 +223,6 @@ class audio_manager final : private manager<audio_manager>, public make_thread {
             CMD_STR_SET_VOLUME
         };
         std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
-
-        //  Deck of audio messages to be processed by the manager.
-        std::deque<message> audio_messages;
-        std::mutex deque_mtx;
 
         /* Allegro objects used by audio manager */
         //  Main audio output

@@ -6,7 +6,6 @@
 #  See LICENSE.md for copyright information.
 #
 #  This generates Makefiles for building the engine example.
-#  Issue:  Not linking PhysFS??
 #
 ############################################################
 

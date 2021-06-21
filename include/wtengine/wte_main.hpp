@@ -194,6 +194,8 @@ class wte_main : private wte_display, private wte_input {
         mgr::spawn_manager spawner;
         //!  System manager
         mgr::system_manager systems;
+        //!  Audio manager
+        mgr::audio_manager audio;
 
     private:
         /*!
@@ -205,10 +207,7 @@ class wte_main : private wte_display, private wte_input {
             //  Initialize managers that require it.
             screen.initialize();
             menus.initialize();
-            audio_th.initialize();
-
-            //  Start the audio thread.
-            audio_th.start();
+            audio.initialize();
 
             //  Load user configured menus.
             load_menus();
@@ -220,19 +219,14 @@ class wte_main : private wte_display, private wte_input {
          * Called after the main loop ends running.
          */
         inline void wte_unload(void) {
-            audio_th.stop();
-
-            screen.de_init();
+            audio.de_init();
             menus.de_init();
-            audio_th.de_init();
+            screen.de_init();
         };
 
         void process_new_game(const std::string&);
         void process_end_game(void);
         void handle_sys_msg(message_container&);
-
-        //  Managers only available internally declared here.
-        mgr::audio_manager audio_th;
 
         //  Used for mapping commands and switching on system messages:
         enum CMD_STR_VALUE {
@@ -342,6 +336,7 @@ inline void wte_main::do_game(void) {
 
     input_flags::unset_all();
 
+    /* *** ENGINE LOOP ************************************************************ */
     while(engine_flags::is_set(IS_RUNNING)) {
         if(!engine_flags::is_set(GAME_STARTED)) {  //  Game not running.
             al_stop_timer(main_timer);             //  Make sure the timer isn't.
@@ -352,7 +347,7 @@ inline void wte_main::do_game(void) {
         //  Also process the on_menu events.
         if(engine_flags::is_set(GAME_MENU_OPENED) && al_get_timer_started(main_timer)) {
             al_stop_timer(main_timer);
-            audio_th.get_volume();  //  Make sure engine cfg matches audio manager.
+            audio.get_volume();  //  Make sure engine cfg matches audio manager.
             on_menu_open();
         }
         if(!engine_flags::is_set(GAME_MENU_OPENED) && !al_get_timer_started(main_timer)) {
@@ -397,7 +392,7 @@ inline void wte_main::do_game(void) {
 
         //  Send audio messages to the audio queue.
         temp_msgs = messages.get_messages("audio");
-        if(!temp_msgs.empty()) audio_th.transfer_messages(temp_msgs);
+        if(!temp_msgs.empty()) audio.process_messages(temp_msgs);
 
         //  Ignore message pruning if WTE_NO_PRUNE build flag is defined.
         #if WTE_PRUNE_ENABLED
@@ -420,7 +415,8 @@ inline void wte_main::do_game(void) {
             if(engine_flags::is_set(GAME_STARTED)) process_end_game();
             engine_flags::unset(IS_RUNNING);
         }
-    }  //  End game loop.
+    }
+    /* *** END ENGINE LOOP ******************************************************** */
 
     wte_unload();
 }

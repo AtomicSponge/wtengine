@@ -193,7 +193,6 @@ void audio_manager::process_messages(const message_container& messages) {
     bool test = false;
 
     //  Iterators for referencing saved & playing samples.
-    std::map<std::string, ALLEGRO_SAMPLE*>::iterator sample_iterator;
     std::map<std::string, ALLEGRO_SAMPLE_ID>::iterator sample_instance;
 
     //  Temp sample ID for storing playing sample references.
@@ -478,7 +477,6 @@ void audio_manager::sample_load(const std::string& arg) {
  *
  */
 void audio_manager::sample_unload(const std::string& arg) {
-    std::map<std::string, ALLEGRO_SAMPLE*>::iterator sample_iterator;
     //  Unload all samples.
     if(arg == "all") {
         //  First clear out the sample instances.
@@ -488,15 +486,15 @@ void audio_manager::sample_unload(const std::string& arg) {
             sample_instance = sample_instances.begin();
         }
         //  Then unload all samples.
-        for(sample_iterator = sample_map.begin(); sample_iterator != sample_map.end();) {
+        for(auto sample_iterator = sample_map.begin(); sample_iterator != sample_map.end();) {
             al_destroy_sample(sample_iterator->second);
             sample_map.erase(sample_iterator);
             sample_iterator = sample_map.begin();
         }
         return;
     }
-    //  Find the sample in the map and unload it->
-    sample_iterator = sample_map.find(arg);
+    //  Find the sample in the map and unload it.
+    auto sample_iterator = sample_map.find(arg);
     if(sample_iterator != sample_map.end()) {
         al_destroy_sample(sample_iterator->second);
         sample_map.erase(sample_iterator);

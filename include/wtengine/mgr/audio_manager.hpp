@@ -124,7 +124,13 @@ class audio_manager final : private manager<audio_manager> {
         /*!
          * \brief 
          */
-        void sample_play(void);
+        void sample_play(
+            const std::string& arga,
+            const std::string& argb,
+            const float gain,
+            const float pan,
+            const float speed
+        );
 
         /*!
          * \brief 

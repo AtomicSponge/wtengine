@@ -190,13 +190,9 @@ void audio_manager::process_messages(const message_container& messages) {
     float gain = 0.0f;
     float pan = 0.0f;
     float speed = 0.0f;
-    bool test = false;
 
     //  Iterators for referencing saved & playing samples.
     std::map<std::string, ALLEGRO_SAMPLE_ID>::iterator sample_instance;
-
-    //  Temp sample ID for storing playing sample references.
-    ALLEGRO_SAMPLE_ID temp_sample_id;
 
     for(auto it = messages.begin(); it != messages.end(); it++) {
         //  Switch over the audio message and process.
@@ -263,8 +259,6 @@ void audio_manager::process_messages(const message_container& messages) {
             //  If passed "once" no reference will be stored and the sample will be played once.
             //  Any other argument for the mode will be used for the reference storage.
             case CMD_STR_PLAY_SAMPLE:
-                //  If sample name not found in map, end.
-                if(sample_map.find(it->get_arg(0)) == sample_map.end()) break;
                 //  If no second argument, end.
                 if(it->get_arg(1) == "") break;
                 if(it->get_arg(2) != "") {
@@ -279,20 +273,7 @@ void audio_manager::process_messages(const message_container& messages) {
                     speed = it->get_arg<float>(4);
                     if(speed <= 0.0f || speed > 2.0f) speed = 1.0f;
                 } else speed = 1.0f;
-                if(it->get_arg(1) == "once") {
-                    // Play the sample once.
-                    al_play_sample((sample_map.find(it->get_arg(0)))->second,
-                                    gain, pan, speed, ALLEGRO_PLAYMODE_ONCE, NULL);
-                } else {
-                    //  If the reference is already playing, end.
-                    if(sample_instances.find(it->get_arg(1)) != sample_instances.end()) break;
-                    //  Store playing reference
-                    test = al_play_sample((sample_map.find(it->get_arg(0)))->second,
-                                            gain, pan, speed, ALLEGRO_PLAYMODE_LOOP, &temp_sample_id);
-                    if(test)
-                        sample_instances.insert(
-                            std::make_pair(it->get_arg(1), temp_sample_id));
-                }
+                sample_play(it->get_arg(0), it->get_arg(1), gain, pan, speed);
                 break;
             /////////////////////////////////////////////
 
@@ -504,8 +485,29 @@ void audio_manager::sample_unload(const std::string& arg) {
 /*
  *
  */
-void audio_manager::sample_play(void) {
-    //
+void audio_manager::sample_play(
+    const std::string& arga,
+    const std::string& argb,
+    const float gain = 1.0f,
+    const float pan = ALLEGRO_AUDIO_PAN_NONE,
+    const float speed = 1.0f)
+{
+    //  If sample name not found in map, end.
+    if(sample_map.find(arga) == sample_map.end()) return;
+
+    if(argb == "once") {
+        // Play the sample once.
+        al_play_sample((sample_map.find(arga))->second,
+                        gain, pan, speed, ALLEGRO_PLAYMODE_ONCE, NULL);
+    } else {
+        //  If the reference is already playing, end.
+        if(sample_instances.find(argb) != sample_instances.end()) return;
+        //  Store playing reference
+        ALLEGRO_SAMPLE_ID temp_sample_id;
+        if(al_play_sample((sample_map.find(arga))->second,
+                           gain, pan, speed, ALLEGRO_PLAYMODE_LOOP, &temp_sample_id))
+            sample_instances.insert(std::make_pair(argb, temp_sample_id));
+    }
 }
 
 /*

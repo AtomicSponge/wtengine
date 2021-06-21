@@ -361,8 +361,6 @@ inline void wte_main::do_game(void) {
         //  Game menu is opened, run the menu manager.
         if(engine_flags::is_set(GAME_MENU_OPENED)) menus.run(messages);
 
-        message_container temp_msgs;
-
         /* *** GAME LOOP ************************************************************ */
         ALLEGRO_EVENT event;
         const bool queue_not_empty = al_get_next_event(main_event_queue, &event);
@@ -377,22 +375,22 @@ inline void wte_main::do_game(void) {
             //  Process messages.
             systems.dispatch(world, messages, the_time);
 
-            //  Get any spawner messages and pass to handler.
-            temp_msgs = messages.get_messages("spawner");
-            if(!temp_msgs.empty()) spawner.process(temp_msgs, world);
+            {//  Get any spawner messages and pass to handler.
+            message_container temp_msgs = messages.get_messages("spawner");
+            if(!temp_msgs.empty()) spawner.process(temp_msgs, world);}
         }
         /* *** END GAME LOOP ******************************************************** */
 
         //  Render the screen.
         screen.render(menus, world);
 
-        //  Get any system messages and pass to handler.
-        temp_msgs = messages.get_messages("system");
-        if(!temp_msgs.empty()) handle_sys_msg(temp_msgs);
+        {//  Get any system messages and pass to handler.
+        message_container temp_msgs = messages.get_messages("system");
+        if(!temp_msgs.empty()) handle_sys_msg(temp_msgs);}
 
-        //  Send audio messages to the audio queue.
-        temp_msgs = messages.get_messages("audio");
-        if(!temp_msgs.empty()) audio.process_messages(temp_msgs);
+        {//  Send audio messages to the audio queue.
+        message_container temp_msgs = messages.get_messages("audio");
+        if(!temp_msgs.empty()) audio.process_messages(temp_msgs);}
 
         //  Ignore message pruning if WTE_NO_PRUNE build flag is defined.
         #if WTE_PRUNE_ENABLED

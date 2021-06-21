@@ -479,11 +479,10 @@ void audio_manager::sample_load(const std::string& arg) {
  */
 void audio_manager::sample_unload(const std::string& arg) {
     std::map<std::string, ALLEGRO_SAMPLE*>::iterator sample_iterator;
-    std::map<std::string, ALLEGRO_SAMPLE_ID>::iterator sample_instance;
     //  Unload all samples.
     if(arg == "all") {
         //  First clear out the sample instances.
-        for(sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
+        for(auto sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
             al_stop_sample(&sample_instance->second);
             sample_instances.erase(sample_instance);
             sample_instance = sample_instances.begin();
@@ -541,8 +540,7 @@ void audio_manager::sample_pan(void) {
  *
  */
 void audio_manager::sample_clear_instances(void) {
-    std::map<std::string, ALLEGRO_SAMPLE_ID>::iterator sample_instance;
-    for(sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
+    for(auto sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
         al_stop_sample(&sample_instance->second);
         sample_instances.erase(sample_instance);
         sample_instance = sample_instances.begin();

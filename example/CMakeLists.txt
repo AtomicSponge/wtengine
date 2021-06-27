@@ -34,10 +34,6 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DWTE_DEBUG_MODE=0")
 #  Library Detection
 #
 ########################################
-#  Set pthreading
-set(THREADS_PREFER_PTHREAD_FLAG ON)
-find_package(Threads REQUIRED)
-
 #  Check for PhysFS
 find_library(PHYSFS_LIB NAMES physfs libphysfs)
 if(NOT PHYSFS_LIB)
@@ -74,7 +70,6 @@ add_executable(wte_demo
 ########################################
 #  Link libraries
 target_link_libraries(wte_demo PUBLIC
-    Threads::Threads
     ${PHYSFS_LIB}
     PkgConfig::WTENGINE
     PkgConfig::ALLEGRO

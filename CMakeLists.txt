@@ -34,10 +34,6 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 #  Library Detection
 #
 ########################################
-#  Set pthreading
-set(THREADS_PREFER_PTHREAD_FLAG ON)
-find_package(Threads REQUIRED)
-
 #  Check for PhysFS
 find_library(PHYSFS_LIB NAMES physfs libphysfs)
 if(NOT PHYSFS_LIB)
@@ -106,7 +102,6 @@ target_include_directories(wtengine PRIVATE include)
 
 #  Link libraries
 target_link_libraries(wtengine PRIVATE
-    Threads::Threads
     ${ALLEGRO_LIBRARIES})
 
 #  Set the build target

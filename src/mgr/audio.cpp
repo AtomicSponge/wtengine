@@ -533,22 +533,6 @@ void audio::sample_stop(const std::string& arg) {
 /*
  *
  */
-void audio::sample_pan(void) {
-    #ifdef ALLEGRO_UNSTABLE
-    /*if(sample_instances.find(sarg == sample_instances.end()) break;
-    if(it->get_arg(1) == "none") {
-        pan = ALLEGRO_AUDIO_PAN_NONE;
-    } else {
-        pan = it->get_arg<float>(1);
-        if(pan < -1.0f || pan > 1.0f) pan = ALLEGRO_AUDIO_PAN_NONE;
-    }
-    al_set_sample_instance_pan(&sample_instances.find(sarg)->second, pan);*/
-    #endif
-}
-
-/*
- *
- */
 void audio::sample_clear_instances(void) {
     for(auto sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
         al_stop_sample(&sample_instance->second);

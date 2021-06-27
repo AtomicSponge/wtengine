@@ -67,7 +67,6 @@ add_library(wtengine STATIC
     src/cmp/input_button.cpp
     src/cmp/input_directional.cpp
     src/cmp/location.cpp
-    src/cmp/sample_loop.cpp
     src/cmp/team.cpp
     src/cmp/velocity.cpp
     src/cmp/visible.cpp

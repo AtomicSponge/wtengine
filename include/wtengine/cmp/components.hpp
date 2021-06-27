@@ -19,7 +19,6 @@
 #include "wtengine/cmp/input_button.hpp"
 #include "wtengine/cmp/input_directional.hpp"
 #include "wtengine/cmp/location.hpp"
-#include "wtengine/cmp/sample_loop.hpp"
 #include "wtengine/cmp/team.hpp"
 #include "wtengine/cmp/velocity.hpp"
 #include "wtengine/cmp/visible.hpp"

@@ -344,14 +344,14 @@ void wte_demo::new_game(void) {
                 entity_id cannon_id = mgr::entities::get_id("main_cannon");
                 wte_set_component(cannon_id, cmp::visible)->hide();
                 wte_set_component(cannon_id, cmp::enabled)->disable();
-                wte_set_component(cannon_id, cmp::sample_loop)->stop("cannon_fire");
+                mgr::audio::sample_stop("cannon_fire");
 
                 //  Just to make sure... turn shield off
                 entity_id shield_id = mgr::entities::get_id("shield");
                 wte_set_component(shield_id, cmp::visible)->hide();
                 wte_set_component(shield_id, cmp::enabled)->disable();
                 wte_set_component(plr_id, cmp::hitbox)->make_solid();
-                wte_set_component(shield_id, cmp::sample_loop)->stop("shield_sound");
+                mgr::audio::sample_stop("shield_sound");
 
                 mgr::audio::sample_play("megumin", "once");
                 game_cfg::subtract<int>("lives", 1);
@@ -399,8 +399,6 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::visible, false);
     wte_new_component(e_id, cmp::enabled, false);
     wte_new_component(e_id, damage, 3);
-    wte_new_component(e_id, cmp::sample_loop);
-    wte_set_component(e_id, cmp::sample_loop)->add_handle("laser", "cannon_fire");
 
     wte_new_component(e_id, cmp::sprite, 10.0f, 200.0f, 0.0f, 0.0f, 2, 2);
     wte_set_component(e_id, cmp::sprite)->load_sprite("cannon.bmp");
@@ -425,7 +423,7 @@ void wte_demo::new_game(void) {
             wte_set_component(can_id, cmp::enabled)->enable();
 
             //  Play sound effect.
-            wte_set_component(can_id, cmp::sample_loop)->start("cannon_fire");
+            mgr::audio::sample_play("laser", "cannon_fire");
         },
         [](const entity_id& can_id) {
             //  Turn the cannon off.
@@ -433,7 +431,7 @@ void wte_demo::new_game(void) {
             wte_set_component(can_id, cmp::enabled)->disable();
 
             //  Stop sound effect.
-            wte_set_component(can_id, cmp::sample_loop)->stop("cannon_fire");
+            mgr::audio::sample_stop("cannon_fire");
         }
     );  //  End cannon input handler.
 
@@ -478,8 +476,6 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::enabled, false);
     wte_new_component(e_id, energy, 50, 100);
     wte_new_component(e_id, damage, 100);
-    wte_new_component(e_id, cmp::sample_loop);
-    wte_set_component(e_id, cmp::sample_loop)->add_handle("shield", "shield_sound");
 
     wte_new_component(e_id, cmp::sprite, 64.0f, 64.0f, 0.0f, 0.0f, 6, 2);
     wte_set_component(e_id, cmp::sprite)->load_sprite("shield.bmp");
@@ -505,7 +501,7 @@ void wte_demo::new_game(void) {
                 wte_set_component(player_entity, cmp::hitbox)->make_fluid();
 
                 //  Play sound effect.
-                wte_set_component(shd_id, cmp::sample_loop)->start("shield_sound");
+                mgr::audio::sample_play("shield", "shield_sound");
             }
         },
         [](const entity_id& shd_id) {
@@ -515,7 +511,7 @@ void wte_demo::new_game(void) {
             entity_id player_entity = mgr::entities::get_id("player");
             wte_set_component(player_entity, cmp::hitbox)->make_solid();
             //  Stop sound effect.
-            wte_set_component(shd_id, cmp::sample_loop)->stop("shield_sound");
+            mgr::audio::sample_stop("shield_sound");
         }
     );  //  End shield input handler.
 
@@ -542,7 +538,7 @@ void wte_demo::new_game(void) {
                 wte_set_component(shd_id, cmp::enabled)->disable();
                 wte_set_component(player_entity, cmp::hitbox)->make_solid();
                 //  Stop sound effect.
-                wte_set_component(shd_id, cmp::sample_loop)->stop("shield_sound");
+                mgr::audio::sample_stop("shield_sound");
             }
         },
         //  Disabeled AI.

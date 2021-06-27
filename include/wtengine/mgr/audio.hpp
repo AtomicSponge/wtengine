@@ -10,8 +10,6 @@
 #ifndef WTE_MGR_AUDIO_HPP
 #define WTE_MGR_AUDIO_HPP
 
-//#define ALLEGRO_UNSTABLE  //  For sample panning, see Allegro docs.
-
 #include <string>
 #include <map>
 
@@ -110,11 +108,6 @@ class audio final : private manager<audio> {
          * \brief 
          */
         static void sample_stop(const std::string& arg);
-
-        /*!
-         * \brief 
-         */
-        static void sample_pan(void);
 
         /*!
          * \brief 

@@ -487,11 +487,21 @@ void audio::sample_unload(const std::string& arg) {
  */
 void audio::sample_play(
     const std::string& arga,
+    const std::string& argb
+) {
+    sample_play(arga, argb, 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.0f);
+}
+
+/*
+ *
+ */
+void audio::sample_play(
+    const std::string& arga,
     const std::string& argb,
-    const float gain = 1.0f,
-    const float pan = ALLEGRO_AUDIO_PAN_NONE,
-    const float speed = 1.0f)
-{
+    const float& gain,
+    const float& pan,
+    const float& speed
+) {
     //  If sample name not found in map, end.
     if(sample_map.find(arga) == sample_map.end()) return;
 

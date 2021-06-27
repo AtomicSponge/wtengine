@@ -92,10 +92,18 @@ class audio final : private manager<audio> {
          */
         static void sample_play(
             const std::string& arga,
+            const std::string& argb
+        );
+
+        /*!
+         * \brief 
+         */
+        static void sample_play(
+            const std::string& arga,
             const std::string& argb,
-            const float gain,
-            const float pan,
-            const float speed
+            const float& gain,
+            const float& pan,
+            const float& speed
         );
 
         /*!

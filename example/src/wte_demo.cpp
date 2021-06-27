@@ -353,7 +353,7 @@ void wte_demo::new_game(void) {
                 wte_set_component(plr_id, cmp::hitbox)->make_solid();
                 wte_set_component(shield_id, cmp::sample_loop)->stop("shield_sound");
 
-                mgr::messages::add_message(message("audio", "play_sample", "megumin;once"));
+                mgr::audio::sample_play("megumin", "once");
                 game_cfg::subtract<int>("lives", 1);
                 wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
                 wte_set_component(plr_id, cmp::sprite)->set_cycle("death");
@@ -460,7 +460,7 @@ void wte_demo::new_game(void) {
                 mgr::messages::add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
                                              std::to_string(wte_get_component(can_id, damage)->dmg)));
                 //  Play the hit effect.
-                //mgr::messages::add_message(message("audio", "play_sample", "fx3;once"));
+                mgr::audio::sample_play("fx3", "once");
             }
         }
     );  //  End cannon message processing.
@@ -611,7 +611,7 @@ void wte_demo::new_game(void) {
                     //  Health check.  If asteroid's HP is <= 0, reward player with points and delete the entity.
                     if(wte_get_component(ast_id, health)->hp <= 0) {
                         mgr::messages::add_message(message("spawner", "delete", mgr::entities::get_name(ast_id)));
-                        mgr::messages::add_message(message("audio", "play_sample", "megumin;once;;;1.8"));
+                        mgr::audio::sample_play("megumin", "once", 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.8f);
                         game_cfg::add<int>("score", (10 * wte_get_component(ast_id, size)->the_size));
 
                         //  If the asteroid was size >= 4, split into two.
@@ -680,14 +680,14 @@ void wte_demo::end_game(void) {
  * On menu open.
  */
 void wte_demo::on_menu_open(void) {
-    mgr::messages::add_message(message("audio", "pause_music", ""));
-    mgr::messages::add_message(message("audio", "pause_ambiance", ""));
+    mgr::audio::music_pause();
+    mgr::audio::ambiance_pause();
 }
 
 /*
  * On menu close.
  */
 void wte_demo::on_menu_close(void) {
-    mgr::messages::add_message(message("audio", "unpause_music", ""));
-    mgr::messages::add_message(message("audio", "unpause_ambiance", ""));
+    mgr::audio::music_unpause();
+    mgr::audio::ambiance_unpause();
 }

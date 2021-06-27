@@ -48,9 +48,6 @@ using entity_component_pair = std::pair<const entity_id, std::shared_ptr<const T
  * \brief An object that handles drawing the world to the screen.
  */
 class renderer final : private manager<renderer> {
-    friend class wte_main;
-    friend class wte_display;
-
     public:
         /*!
          * \brief Get screen width.

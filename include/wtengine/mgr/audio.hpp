@@ -46,8 +46,6 @@ namespace mgr
  * Mixer 4 - Play ambiance - Load a file and play in a loop.  Looping can be disabled.
  */
 class audio final : private manager<audio> {
-    friend class wte_main;
-
     public:
         /*!
          * \brief Update engine cfg with the current volume levels.

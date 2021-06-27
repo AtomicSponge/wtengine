@@ -2,7 +2,6 @@
 #
 #  WTEngine CMake
 #
-#  Ver:  032821
 #  See LICENSE.md for copyright information.
 #
 #  This generates Makefiles for building the engine library.

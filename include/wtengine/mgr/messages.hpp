@@ -38,8 +38,6 @@ namespace mgr
  * \brief Store a collection of message objects in a vector for processing.
  */
 class messages final : private manager<messages> {
-    friend class wte_main;
-
     public:
         /*!
          * \brief Clear the message queue.

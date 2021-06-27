@@ -18,20 +18,18 @@ namespace sys
 logic::logic() : system("logic") {};
 logic::~logic() {};
 
-void logic::run(mgr::entity_manager& world,
-                mgr::message_manager& messages,
-                const int64_t& current_time) {
+void logic::run(void) {
     //  Find the entities with the input handler component
-    component_container<cmp::ai> ai_components = world.set_components<cmp::ai>();
+    component_container<cmp::ai> ai_components = mgr::entities::set_components<cmp::ai>();
 
     for(auto & it : ai_components) {
         //  Make sure there's an enabled component
-        if(world.has_component<cmp::enabled>(it.first)) {
+        if(mgr::entities::has_component<cmp::enabled>(it.first)) {
             //  Process enabled or disabled ai
-            if(world.get_component<cmp::enabled>(it.first)->check())
-                it.second->run_enabled(it.first, world, messages, current_time);
+            if(mgr::entities::get_component<cmp::enabled>(it.first)->check())
+                it.second->run_enabled(it.first);
             else
-                it.second->run_disabled(it.first, world, messages, current_time);
+                it.second->run_disabled(it.first);
         }
     }
 }

@@ -13,8 +13,8 @@
 #include <string>
 #include <memory>
 
-#include "wtengine/mgr/message_manager.hpp"
-#include "wtengine/mgr/entity_manager.hpp"
+#include "wtengine/mgr/messages.hpp"
+#include "wtengine/mgr/entities.hpp"
 #include "wtengine/cmp/components.hpp"
 
 namespace wte
@@ -47,9 +47,7 @@ class system {
         inline const std::string get_name(void) const { return name; };
 
         //!  Override this to create custom run method
-        virtual void run(mgr::entity_manager&,
-                         mgr::message_manager&,
-                         const int64_t&) = 0;
+        virtual void run(void) = 0;
 
     protected:
         /*!

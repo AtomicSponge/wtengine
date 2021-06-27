@@ -15,7 +15,7 @@
 #include <utility>
 
 #include "wtengine/cmp/component.hpp"
-#include "wtengine/mgr/message_manager.hpp"
+#include "wtengine/mgr/messages.hpp"
 
 namespace wte
 {
@@ -54,7 +54,7 @@ class sample_loop final : public component {
          * \param messages Reference to message manager.
          * \param si Sample instance reference.
          */
-        void start(mgr::message_manager& messages, const std::string& si);
+        void start(const std::string& si);
 
         /*!
          * \brief Stop sample loop.
@@ -62,7 +62,7 @@ class sample_loop final : public component {
          * \param messages Reference to message manager.
          * \param si Sample instance reference.
          */
-        void stop(mgr::message_manager& messages, const std::string& si);
+        void stop(const std::string& si);
 
     private:
         //  Key:  Instance name | sample name, is playing

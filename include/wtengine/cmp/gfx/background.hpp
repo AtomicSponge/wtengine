@@ -49,7 +49,7 @@ class background final : public animator, public bitmap_map {
          * \param func Animcation function.
          */
         background(const int w, const int h, const std::size_t l,
-                   void func(const entity_id&, mgr::entity_manager&, const int64_t&));
+                   void func(const entity_id&));
 
         /*!
          * \brief Background destructor.

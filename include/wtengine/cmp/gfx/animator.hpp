@@ -15,7 +15,7 @@
 #include <functional>
 
 #include "wtengine/cmp/component.hpp"
-#include "wtengine/mgr/entity_manager.hpp"
+#include "wtengine/mgr/entities.hpp"
 
 namespace wte
 {
@@ -48,10 +48,8 @@ class animator : public component {
          * \brief Run animaton function wrapper.
          * 
          * \param e_id ID of the entity calling the wrapper.
-         * \param world Reference to the entity manager.
-         * \param engine_time Current value of the main timer.
          */
-        void run(const entity_id& e_id, mgr::entity_manager& world, const int64_t& engine_time);
+        void run(const entity_id& e_id);
 
         /*!
          * \brief Set drawing to the internal bitmap.
@@ -98,7 +96,7 @@ class animator : public component {
          * \param l Layer for sorting.
          * \param func Animation function.
          */
-        inline animator(std::size_t l, void func(const entity_id&, mgr::entity_manager&, const int64_t&)) :
+        inline animator(std::size_t l, void func(const entity_id&)) :
         layer(l), tint_set(false), animate(func) {};
 
         //!  Stores the bitmap used by the animator.
@@ -109,7 +107,7 @@ class animator : public component {
         bool tint_set;
         ALLEGRO_COLOR tint_color;
 
-        std::function<void(const entity_id&, mgr::entity_manager&, const int64_t&)> animate;
+        std::function<void(const entity_id&)> animate;
 };
 
 } //  namespace cmp

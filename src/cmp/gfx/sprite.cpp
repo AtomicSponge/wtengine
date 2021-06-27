@@ -19,27 +19,23 @@ sprite::sprite(
     const float sw, const float sh,
     const float dox, const float doy,
     const std::size_t rt, const std::size_t l) :
-    animator(l, [](
-        const entity_id& e_id,
-        mgr::entity_manager& world,
-        const int64_t& engine_time
-    ) {
+    animator(l, [](const entity_id& e_id) {
             //  Define sprite animation process.
-            if(engine_time % world.get_component<sprite>(e_id)->rate == 0) {
+            if(engine_time::check_time() % mgr::entities::get_component<sprite>(e_id)->rate == 0) {
                 //  Increment frame.
-                world.set_component<sprite>(e_id)->current_frame++;
+                mgr::entities::set_component<sprite>(e_id)->current_frame++;
                 //  Loop frame.
-                if(world.get_component<sprite>(e_id)->current_frame > world.get_component<sprite>(e_id)->stop_frame) {
-                    world.set_component<sprite>(e_id)->current_frame = world.get_component<sprite>(e_id)->start_frame;
+                if(mgr::entities::get_component<sprite>(e_id)->current_frame > mgr::entities::get_component<sprite>(e_id)->stop_frame) {
+                    mgr::entities::set_component<sprite>(e_id)->current_frame = mgr::entities::get_component<sprite>(e_id)->start_frame;
                 }
                 //  Calculate the X position in the sprite sheet.
-                world.set_component<sprite>(e_id)->sprite_x = (float)
-                    ((int)(world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width +
-                    world.get_component<sprite>(e_id)->sheet_width) % world.get_component<sprite>(e_id)->sheet_width);
+                mgr::entities::set_component<sprite>(e_id)->sprite_x = (float)
+                    ((int)(mgr::entities::get_component<sprite>(e_id)->current_frame * mgr::entities::get_component<sprite>(e_id)->sprite_width +
+                    mgr::entities::get_component<sprite>(e_id)->sheet_width) % mgr::entities::get_component<sprite>(e_id)->sheet_width);
                 //  Calculate the Y position in the sprite sheet.
-                world.set_component<sprite>(e_id)->sprite_y = (float)
-                    ((int)((world.get_component<sprite>(e_id)->current_frame * world.get_component<sprite>(e_id)->sprite_width) /
-                    world.get_component<sprite>(e_id)->sheet_width) * world.get_component<sprite>(e_id)->sprite_height);
+                mgr::entities::set_component<sprite>(e_id)->sprite_y = (float)
+                    ((int)((mgr::entities::get_component<sprite>(e_id)->current_frame * mgr::entities::get_component<sprite>(e_id)->sprite_width) /
+                    mgr::entities::get_component<sprite>(e_id)->sheet_width) * mgr::entities::get_component<sprite>(e_id)->sprite_height);
             }
         }
     ),

@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  message_manager.cpp
+ * WTEngine | File:  messages.cpp
  * 
  * \author Matthew Evans
  * \version 0.2
@@ -7,7 +7,7 @@
  * \date 2019-2021
  */
 
-#include "wtengine/mgr/message_manager.hpp"
+#include "wtengine/mgr/messages.hpp"
 
 namespace wte
 {
@@ -15,19 +15,19 @@ namespace wte
 namespace mgr
 {
 
-template <> bool message_manager::manager<message_manager>::initialized = false;
+template <> bool messages::manager<messages>::initialized = false;
 
-message_manager::message_manager() {
+messages::messages() {
     msg_queue.clear();
 
     #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
     //  If debug mode is enabled, create a new log file
-    debug_log_file.open("wte_debug//wte_debug_message_manager.txt", std::ios::trunc);
+    debug_log_file.open("wte_debug//wte_debug_messages.txt", std::ios::trunc);
     debug_log_file << "Logging messages..." << std::endl << std::endl;
     #endif
 }
 
-message_manager::~message_manager() {
+messages::~messages() {
     msg_queue.clear();
 
     #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
@@ -36,23 +36,22 @@ message_manager::~message_manager() {
     #endif
 }
 
-void message_manager::clear(void) {
+void messages::clear(void) {
     msg_queue.clear();
 }
 
-void message_manager::add_message(const message& msg) {
+void messages::add_message(const message& msg) {
     msg_queue.insert(msg_queue.begin(), msg);
     if(msg.is_timed_event()) std::sort(msg_queue.begin(), msg_queue.end());
 }
 
 //  Ignore message pruning if WTE_NO_PRUNE build flag is defined
-#ifndef WTE_NO_PRUNE
-void message_manager::prune(void) {
+void messages::prune(void) {
     for(auto it = msg_queue.begin(); it != msg_queue.end();) {
         //  End early if events are in the future.
-        if(it->get_timer() > check_time()) break;
+        if(it->get_timer() > engine_time::check_time()) break;
         if(it->is_timed_event()) {
-            #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
+            #if WTE_DEBUG_MODE
             debug_log_file << "MESSAGE DELETED | ";
             debug_log_message(*it);
             #endif
@@ -61,17 +60,16 @@ void message_manager::prune(void) {
         else it++;
     }
 }
-#endif
 
-const message_container message_manager::get_messages(const std::string& sys) {
+const message_container messages::get_messages(const std::string& sys) {
     message_container temp_messages;
 
     for(auto it = msg_queue.begin(); it != msg_queue.end();) {
         //  End early if events are in the future
-        if(it->get_timer() > check_time()) break;
+        if(it->get_timer() > engine_time::check_time()) break;
 
-        if((it->get_timer() == -1 || it->get_timer() == check_time()) && it->get_sys() == sys) {
-            #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
+        if((it->get_timer() == -1 || it->get_timer() == engine_time::check_time()) && it->get_sys() == sys) {
+            #if WTE_DEBUG_MODE
             //  Log the message if debug mode is on
             debug_log_message(*it);
             #endif
@@ -83,7 +81,7 @@ const message_container message_manager::get_messages(const std::string& sys) {
     return temp_messages;
 }
 
-void message_manager::load_file(const std::string& fname) {
+void messages::load_file(const std::string& fname) {
     msg_queue.clear();
     //  Open data file - read binary mode.
     ALLEGRO_FILE* file;
@@ -117,7 +115,7 @@ void message_manager::load_file(const std::string& fname) {
     std::sort(msg_queue.begin(), msg_queue.end());
 }
 
-const bool message_manager::load_script(const std::string& fname) {
+const bool messages::load_script(const std::string& fname) {
     //  Open data file - read binary mode.
     ALLEGRO_FILE* file;
     file = al_fopen(fname.c_str(), "rb");
@@ -142,7 +140,7 @@ const bool message_manager::load_script(const std::string& fname) {
         read_message(*file, timer, sys, to, from, cmd, args);
 
         //  Add the current time to the timer value.
-        if(timer != -1) timer += check_time();
+        if(timer != -1) timer += engine_time::check_time();
 
         //  Add message to queue.  Ignore incomplete messages.  Sort while adding.
         if(sys != "" && cmd != "") add_message(message(timer, sys, to, from, cmd, args));
@@ -151,7 +149,7 @@ const bool message_manager::load_script(const std::string& fname) {
     return true;
 }
 
-void message_manager::read_message(ALLEGRO_FILE& file,
+void messages::read_message(ALLEGRO_FILE& file,
                             int64_t& timer,
                             std::string& sys,
                             std::string& to,
@@ -195,9 +193,9 @@ void message_manager::read_message(ALLEGRO_FILE& file,
     }
 }
 
-#if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-void message_manager::debug_log_message(const message& msg) {
-    debug_log_file << "PROC AT:  " << check_time() << " | ";
+#if WTE_DEBUG_MODE
+void messages::debug_log_message(const message& msg) {
+    debug_log_file << "PROC AT:  " << engine_time::check_time() << " | ";
     debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
     debug_log_file << "SYS:  " << msg.get_sys() << " | ";
     if((msg.get_to() != "") || (msg.get_from() != "")) {

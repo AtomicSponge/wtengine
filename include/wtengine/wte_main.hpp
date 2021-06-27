@@ -29,9 +29,9 @@
 #include "wtengine/wte_input.hpp"
 #include "wtengine/_globals/engine_cfg.hpp"
 #include "wtengine/_globals/game_cfg.hpp"
+#include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/engine_flags.hpp"
 #include "wtengine/_globals/alert.hpp"
-#include "wtengine/mgr/engine_time.hpp"
 #include "wtengine/mgr/managers.hpp"
 
 namespace wte
@@ -182,21 +182,6 @@ class wte_main : private wte_display, private wte_input {
         //!  Optional:  Define custom system message handling.
         virtual void handle_custom_sys_msg(const message&) {};
         /* *** End overridden function members *** */
-
-        //  Managers available to game object declared here.
-        //!  World manager
-        mgr::entity_manager world;
-        //!  Menu manager
-        mgr::menu_manager menus;
-        //!  Message manager
-        mgr::message_manager messages;
-        //!  Spawn manager
-        mgr::spawn_manager spawner;
-        //!  System manager
-        mgr::system_manager systems;
-        //!  Audio manager
-        mgr::audio_manager audio;
-
     private:
         /*!
          * \brief Load the engine's managers.
@@ -205,11 +190,11 @@ class wte_main : private wte_display, private wte_input {
          */
         inline void wte_load(void) {
             //  Initialize managers that require it.
-            screen.initialize();
-            menus.initialize();
-            audio.initialize();
+            mgr::renderer::initialize();
+            mgr::menu::initialize();
+            mgr::audio::initialize();
 
-            //  Load user configured menus.
+            //  Load user configured mgr::menu::
             load_menus();
         };
 
@@ -219,9 +204,9 @@ class wte_main : private wte_display, private wte_input {
          * Called after the main loop ends running.
          */
         inline void wte_unload(void) {
-            audio.de_init();
-            menus.de_init();
-            screen.de_init();
+            mgr::audio::de_init();
+            mgr::menu::de_init();
+            mgr::renderer::de_init();
         };
 
         void process_new_game(const std::string&);
@@ -264,31 +249,31 @@ inline void wte_main::process_new_game(const std::string& game_data) {
     engine_flags::unset(GAME_MENU_OPENED);
 
     //  Load a new message data file.
-    if(!game_data.empty()) messages.load_file(game_data);
+    if(!game_data.empty()) mgr::messages::load_file(game_data);
 
     //  Load systems and prevent further systems from being loaded.
     load_systems();
-    systems.finalize();
-    if(systems.empty()) throw std::runtime_error("No systems have been loaded!");
+    mgr::systems::finalize();
+    if(mgr::systems::empty()) throw std::runtime_error("No systems have been loaded!");
 
     //  Clear world and load starting entities.
-    world.clear();
+    mgr::entities::clear();
     new_game();
 
     //  Stop audio manager from playing sounds.
     //  Messages run in reverse order.
     //  Messages from new_game() will run AFTER these.
-    messages.add_message(message("audio", "stop_music", ""));
-    messages.add_message(message("audio", "stop_ambiance", ""));
-    messages.add_message(message("audio", "stop_voice", ""));
-    messages.add_message(message("audio", "unload_sample", "all"));
-    messages.add_message(message("audio", "clear_instances", ""));
+    mgr::messages::add_message(message("audio", "stop_music", ""));
+    mgr::messages::add_message(message("audio", "stop_ambiance", ""));
+    mgr::messages::add_message(message("audio", "stop_voice", ""));
+    mgr::messages::add_message(message("audio", "unload_sample", "all"));
+    mgr::messages::add_message(message("audio", "clear_instances", ""));
 
     //  Restart the timer at zero.
     al_stop_timer(main_timer);
     al_set_timer_count(main_timer, 0);
     engine_flags::set(GAME_STARTED);
-    mgr::engine_time::set_time(al_get_timer_count(main_timer));
+    engine_time::set_time(al_get_timer_count(main_timer));
     al_start_timer(main_timer);
 }
 
@@ -301,25 +286,25 @@ inline void wte_main::process_end_game(void) {
     al_stop_timer(main_timer);
     engine_flags::unset(GAME_STARTED);
     al_set_timer_count(main_timer, 0);
-    mgr::engine_time::set_time(al_get_timer_count(main_timer));
+    engine_time::set_time(al_get_timer_count(main_timer));
 
     //  Stop audio manager from playing sounds.
     //  Messages run in reverse order.
     //  Messages from end_game() will run BEFORE these.
-    messages.add_message(message("audio", "stop_music", ""));
-    messages.add_message(message("audio", "stop_ambiance", ""));
-    messages.add_message(message("audio", "stop_voice", ""));
-    messages.add_message(message("audio", "unload_sample", "all"));
-    messages.add_message(message("audio", "clear_instances", ""));
+    mgr::messages::add_message(message("audio", "stop_music", ""));
+    mgr::messages::add_message(message("audio", "stop_ambiance", ""));
+    mgr::messages::add_message(message("audio", "stop_voice", ""));
+    mgr::messages::add_message(message("audio", "unload_sample", "all"));
+    mgr::messages::add_message(message("audio", "clear_instances", ""));
 
     //  Call end game process.
     end_game();
 
-    //  Clear world and systems.
-    world.clear();
-    systems.clear();
+    //  Clear world and mgr::systems::
+    mgr::entities::clear();
+    mgr::systems::clear();
 
-    //  Open the menus.
+    //  Open the mgr::menu::
     engine_flags::set(GAME_MENU_OPENED);
 }
 
@@ -347,7 +332,7 @@ inline void wte_main::do_game(void) {
         //  Also process the on_menu events.
         if(engine_flags::is_set(GAME_MENU_OPENED) && al_get_timer_started(main_timer)) {
             al_stop_timer(main_timer);
-            audio.get_volume();  //  Make sure engine cfg matches audio manager.
+            mgr::audio::get_volume();  //  Make sure engine cfg matches audio manager.
             on_menu_open();
         }
         if(!engine_flags::is_set(GAME_MENU_OPENED) && !al_get_timer_started(main_timer)) {
@@ -359,44 +344,40 @@ inline void wte_main::do_game(void) {
         check_input_events();
 
         //  Game menu is opened, run the menu manager.
-        if(engine_flags::is_set(GAME_MENU_OPENED)) menus.run(messages);
+        if(engine_flags::is_set(GAME_MENU_OPENED)) mgr::menu::run();
 
         /* *** GAME LOOP ************************************************************ */
         ALLEGRO_EVENT event;
         const bool queue_not_empty = al_get_next_event(main_event_queue, &event);
         //  Call our game logic update on timer events.  Timer is only running when the game is running.
         if(queue_not_empty && event.type == ALLEGRO_EVENT_TIMER) {
-            const int64_t the_time = al_get_timer_count(main_timer);
             //  Set the engine_time object to the current time.
-            mgr::engine_time::set_time(the_time);
+            engine_time::set_time(al_get_timer_count(main_timer));
 
-            //  Run all systems.
-            systems.run(world, messages, the_time);
-            //  Process messages.
-            systems.dispatch(world, messages, the_time);
+            //  Run all mgr::systems::
+            mgr::systems::run();
+            //  Process mgr::messages::
+            mgr::systems::dispatch();
 
             {//  Get any spawner messages and pass to handler.
-            message_container temp_msgs = messages.get_messages("spawner");
-            if(!temp_msgs.empty()) spawner.process(temp_msgs, world);}
+            message_container temp_msgs = mgr::messages::get_messages("spawner");
+            if(!temp_msgs.empty()) mgr::spawner::process(temp_msgs);}
         }
         /* *** END GAME LOOP ******************************************************** */
 
         //  Render the screen.
-        screen.render(menus, world);
+        mgr::renderer::render();
 
         {//  Get any system messages and pass to handler.
-        message_container temp_msgs = messages.get_messages("system");
+        message_container temp_msgs = mgr::messages::get_messages("system");
         if(!temp_msgs.empty()) handle_sys_msg(temp_msgs);}
 
         {//  Send audio messages to the audio queue.
-        message_container temp_msgs = messages.get_messages("audio");
-        if(!temp_msgs.empty()) audio.process_messages(temp_msgs);}
+        message_container temp_msgs = mgr::messages::get_messages("audio");
+        if(!temp_msgs.empty()) mgr::audio::process_messages(temp_msgs);}
 
-        //  Ignore message pruning if WTE_NO_PRUNE build flag is defined.
-        #if WTE_PRUNE_ENABLED
         //  Delete timed messages that were not processed.
-        messages.prune();
-        #endif
+        mgr::messages::prune();
 
         //  Check if display looses focus.
         if(event.type == ALLEGRO_EVENT_DISPLAY_SWITCH_OUT) {
@@ -450,7 +431,7 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
             case CMD_STR_NEW_GAME:
                 //  If the game is running, ignore.
                 if(!engine_flags::is_set(GAME_STARTED)) {
-                    menus.reset();
+                    mgr::menu::reset();
                     process_new_game(it->get_arg(0));
                 }
                 it = sys_msgs.erase(it);
@@ -461,7 +442,7 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
                 //  If the game not is running, ignore.
                 if(engine_flags::is_set(GAME_STARTED)) {
                     process_end_game();
-                    menus.reset();
+                    mgr::menu::reset();
                 }
                 it = sys_msgs.erase(it);
                 break;
@@ -469,22 +450,22 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
             //  CMD:  open_menu argstring - Open a menu, passing a string as an argument.
             //  If the menu doesn't exist, the default will be opened.
             case CMD_STR_OPEN_MENU:
-                menus.open_menu(it->get_arg(0));
+                mgr::menu::open_menu(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 
             //  CMD:  close_menu argstring - Close the opened menu.
-            //  If argstring = "all", close all opened menus.
+            //  If argstring = "all", close all opened mgr::menu::
             case CMD_STR_CLOSE_MENU:
-                if(it->get_arg(0) == "all") menus.reset();
-                else menus.close_menu();
+                if(it->get_arg(0) == "all") mgr::menu::reset();
+                else mgr::menu::close_menu();
                 it = sys_msgs.erase(it);
                 break;
 
             //  CMD:  enable_system - Turn a system on for processing.
             case CMD_STR_ENABLE_SYSTEM:
                 if(engine_flags::is_set(GAME_STARTED))
-                    systems.enable_system(it->get_arg(0));
+                    mgr::systems::enable_system(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 
@@ -492,7 +473,7 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
             //  Message dispatching is still processed.
             case CMD_STR_DISABLE_SYSTEM:
                 if(engine_flags::is_set(GAME_STARTED))
-                    systems.disable_system(it->get_arg(0));
+                    mgr::systems::disable_system(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 
@@ -521,9 +502,9 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
                 //  Reload the display.
                 reconf_display();
                 //  Reload any temp bitmaps.
-                screen.reload_arena_bitmap();
-                menus.reload_menu_bitmap();
-                if(engine_flags::is_set(GAME_STARTED)) systems.reload_temp_bitmaps(world);
+                mgr::renderer::reload_arena_bitmap();
+                mgr::menu::reload_menu_bitmap();
+                if(engine_flags::is_set(GAME_STARTED)) mgr::systems::reload_temp_bitmaps();
                 //  Register display event source and resume timer if it was running.
                 al_register_event_source(main_event_queue, al_get_display_event_source(display));
                 al_pause_event_queue(main_event_queue, false);
@@ -548,7 +529,7 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
             //  CMD:  load_script - Load a script into the message queue.
             case CMD_STR_LOAD_SCRIPT:
                 if(engine_flags::is_set(GAME_STARTED) && it->get_arg(0) != "") {
-                    if(!messages.load_script(it->get_arg(0)))
+                    if(!mgr::messages::load_script(it->get_arg(0)))
                         alert::set_alert("Error loading script:  " + it->get_arg(0));
                 }
                 it = sys_msgs.erase(it);

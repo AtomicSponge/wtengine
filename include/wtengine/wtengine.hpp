@@ -14,6 +14,7 @@
 
 #include "wtengine/_globals/engine_cfg.hpp"
 #include "wtengine/_globals/game_cfg.hpp"
+#include "wtengine/_globals/engine_time.hpp"
 
 #include "wtengine/mnu/menu.hpp"
 #include "wtengine/mnu/menu_items.hpp"

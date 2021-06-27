@@ -45,8 +45,8 @@ void wte_display::create_display(void) {
         engine_cfg::set("scale_factor=1");
     }
 
-    int screen_w = mgr::render_manager::get_arena_width();
-    int screen_h = mgr::render_manager::get_arena_height();
+    int screen_w = mgr::renderer::get_arena_width();
+    int screen_h = mgr::renderer::get_arena_height();
 
     //  Check if a display mode is set.
     if(!engine_cfg::is_reg("display_mode")) engine_cfg::reg("display_mode=windowed");
@@ -54,8 +54,8 @@ void wte_display::create_display(void) {
         al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
     } else {
         al_set_new_display_flags(ALLEGRO_WINDOWED);
-        screen_w = (int)ceil(mgr::render_manager::get_arena_width() * scale_factor);
-        screen_h = (int)ceil(mgr::render_manager::get_arena_height() * scale_factor);
+        screen_w = (int)ceil(mgr::renderer::get_arena_width() * scale_factor);
+        screen_h = (int)ceil(mgr::renderer::get_arena_height() * scale_factor);
     }
 
     //  Create the display.  Full screen windowed defaults to the display resolution.
@@ -64,14 +64,14 @@ void wte_display::create_display(void) {
     //  Display failed to load, try a fallback.
     if(!display) {
         al_set_new_display_flags(ALLEGRO_WINDOWED);
-        display = al_create_display(mgr::render_manager::get_arena_width(),
-                                    mgr::render_manager::get_arena_height());
+        display = al_create_display(mgr::renderer::get_arena_width(),
+                                    mgr::renderer::get_arena_height());
         if(!display) throw std::runtime_error("Failed to configure display!");
         engine_cfg::set("display_mode=windowed");
         engine_cfg::set("scale_factor=1");
         scale_factor = 1.0f;
-        screen_w = mgr::render_manager::get_arena_width();
-        screen_h = mgr::render_manager::get_arena_height();
+        screen_w = mgr::renderer::get_arena_width();
+        screen_h = mgr::renderer::get_arena_height();
     }
 
     //  Set window title.
@@ -92,8 +92,8 @@ void wte_display::create_display(void) {
         screen_w = al_get_display_width(display);
         screen_h = al_get_display_height(display);
     }
-    screen.update_resolution(screen_w, screen_h);
-    screen.set_scale_factor(scale_factor);
+    mgr::renderer::update_resolution(screen_w, screen_h);
+    mgr::renderer::set_scale_factor(scale_factor);
 }
 
 void wte_display::destroy_display(void) {

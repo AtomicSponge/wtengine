@@ -16,7 +16,7 @@
 #include <stdexcept>
 #include <cmath>
 
-#include "wtengine/mgr/render_manager.hpp"
+#include "wtengine/mgr/renderer.hpp"
 
 namespace wte
 {
@@ -63,9 +63,6 @@ class wte_display {
          * \brief Reconfigure the display.
          */
         void reconf_display(void);
-
-        //!  Declare the render manager.
-        mgr::render_manager screen;
 
         //!  Allegro object for the display.
         ALLEGRO_DISPLAY* display;

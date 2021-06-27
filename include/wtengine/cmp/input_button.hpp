@@ -14,8 +14,8 @@
 #include <cassert>
 
 #include "wtengine/cmp/component.hpp"
-#include "wtengine/mgr/entity_manager.hpp"
-#include "wtengine/mgr/message_manager.hpp"
+#include "wtengine/mgr/entities.hpp"
+#include "wtengine/mgr/messages.hpp"
 #include "wtengine/_globals/input_flags.hpp"
 
 namespace wte
@@ -41,14 +41,8 @@ class input_button final : public component {
          */
         input_button(
             const std::size_t button,
-            void func_a(const entity_id&,
-                        mgr::entity_manager&,
-                        mgr::message_manager&,
-                        const int64_t&),
-            void func_b(const entity_id&,
-                        mgr::entity_manager&,
-                        mgr::message_manager&,
-                        const int64_t&)
+            void func_a(const entity_id&),
+            void func_b(const entity_id&)
         );
 
         /*!
@@ -71,10 +65,7 @@ class input_button final : public component {
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.
          */
-        void on_down(const entity_id& e_id,
-                     mgr::entity_manager& world,
-                     mgr::message_manager& messages,
-                     const int64_t& current_time);
+        void on_down(const entity_id& e_id);
 
         /*!
          * \brief Run button on up event.
@@ -84,23 +75,14 @@ class input_button final : public component {
          * \param messages Reference to the message manager.
          * \param current_time Current engine time.
          */
-        void on_up(const entity_id& e_id,
-                   mgr::entity_manager& world,
-                   mgr::message_manager& messages,
-                   const int64_t& current_time);
+        void on_up(const entity_id& e_id);
 
     private:
         std::size_t button_flag;
 
-        std::function<void(const entity_id&,
-                           mgr::entity_manager&,
-                           mgr::message_manager&,
-                           const int64_t&)> button_down;
+        std::function<void(const entity_id&)> button_down;
 
-        std::function<void(const entity_id&,
-                           mgr::entity_manager&,
-                           mgr::message_manager&,
-                           const int64_t&)> button_up;
+        std::function<void(const entity_id&)> button_up;
 };
 
 } //  namespace cmp

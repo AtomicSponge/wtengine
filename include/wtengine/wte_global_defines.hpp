@@ -31,21 +31,16 @@
 #define WTE_TICKS_PER_SECOND (60.0f)
 #endif
 
-/*
- * Set level of debugging.
- * 
- * 0 - No debugging
- * 1 - Display timer counter
- * 2 - Message logging
- * 3 - Draw hitboxes
- * 
- * 9 - Turn on all logging
+/*!
+ * Enable debug mode
  */
-#ifndef WTE_DEBUG_MODE
-#define WTE_DEBUG_MODE (0)
+#ifdef WTE_BUILD_DEBUG
+#define WTE_DEBUG_MODE TRUE
+#else
+#define WTE_DEBUG_MODE FALSE
 #endif
 
-/*
+/*!
  * Set the input mode.  Default is digital.
  * Configures how the engine reads sticks on a gamepad.
  * 
@@ -56,23 +51,14 @@
 #define WTE_INPUT_MODE (0)
 #endif
 
-/*
+/*!
  * Set max number of playing samples.
  */
 #ifndef WTE_MAX_PLAYING_SAMPLES
 #define WTE_MAX_PLAYING_SAMPLES (8)
 #endif
 
-/*
- * Enable message pruning if WTE_NO_PRUNE is not defined.
- */
-#ifdef WTE_NO_PRUNE
-#define WTE_PRUNE_ENABLED FALSE
-#else
-#define WTE_PRUNE_ENABLED TRUE
-#endif
-
-/*
+/*!
  * Enable magic pink for transparency if WTE_NO_MAGIC_PINK is not defined.
  */
 #ifdef WTE_NO_MAGIC_PINK

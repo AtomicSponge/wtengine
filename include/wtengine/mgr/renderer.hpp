@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  render_manager.hpp
+ * WTEngine | File:  renderer.hpp
  * 
  * \author Matthew Evans
  * \version 0.2
@@ -7,8 +7,8 @@
  * \date 2019-2021
  */
 
-#ifndef WTE_MGR_RENDER_MANAGER_HPP
-#define WTE_MGR_RENDER_MANAGER_HPP
+#ifndef WTE_MGR_RENDERER_HPP
+#define WTE_MGR_RENDERER_HPP
 
 #include <string>
 #include <utility>
@@ -21,14 +21,14 @@
 #include <allegro5/allegro_font.h>
 
 #include "wtengine/mgr/manager.hpp"
-#include "wtengine/mgr/engine_time.hpp"
 
 #include "wtengine/wte_global_defines.hpp"
+#include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/engine_flags.hpp"
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/cmp/components.hpp"
-#include "wtengine/mgr/menu_manager.hpp"
-#include "wtengine/mgr/entity_manager.hpp"
+#include "wtengine/mgr/menu.hpp"
+#include "wtengine/mgr/entities.hpp"
 
 namespace wte
 {
@@ -44,47 +44,14 @@ template <typename T>
 using entity_component_pair = std::pair<const entity_id, std::shared_ptr<const T>>;
 
 /*!
- * \class render_manager
+ * \class renderer
  * \brief An object that handles drawing the world to the screen.
  */
-class render_manager final : private manager<render_manager>, private engine_time {
+class renderer final : private manager<renderer> {
+    friend class wte_main;
+    friend class wte_display;
+
     public:
-        /*!
-         * \brief render_manager constructor.
-         * 
-         * Generates the render_manager object.
-         */
-        inline render_manager() : fps_counter(0), fps(0) {};
-
-        /*!
-         * \brief render_manager destructor.
-         */
-        inline ~render_manager() {};
-
-        /*!
-         * \brief Initialize the render manager.
-         * 
-         * Configures the internal objects for the render manager to use.
-         */
-        void initialize(void);
-
-        /*!
-         * \brief De-initialize the render manager.
-         * 
-         * Destories the internal objects.
-         */
-        void de_init(void);
-
-        /*!
-         * \brief Inform the renderer of the screen resolution.
-         * 
-         * Gets called by the engine when the screen resolution is updated.
-         * 
-         * \param w Resolution width in pixels.
-         * \param h Resolution height in pixels.
-         */
-        void update_resolution(const int& w, const int& h);
-
         /*!
          * \brief Get screen width.
          * 
@@ -107,7 +74,7 @@ class render_manager final : private manager<render_manager>, private engine_tim
          * 
          * \param f New scale factor value.
          */
-        void set_scale_factor(const float& f);
+        static void set_scale_factor(const float& f);
 
         /*!
          * \brief Get scale factor.
@@ -115,13 +82,6 @@ class render_manager final : private manager<render_manager>, private engine_tim
          * \return Scale factor multiplier.
          */
         static const int get_scale_factor();
-
-        /*!
-         * \brief Reload the arena bitmap.
-         * 
-         * Called when the screen is updated.
-         */
-        void reload_arena_bitmap(void);
 
         /*!
          * \brief Set the arena size.
@@ -180,32 +140,71 @@ class render_manager final : private manager<render_manager>, private engine_tim
         static void set_font_file(const std::string& fname, const int& size, const int& flags);
 
         /*!
-         * \brief Render method - Draw the game screen.
-         * Gets passed the entity manager and menu manager by
-         * reference then draws everything to screen.
-         * \param menus Reference to menu manager.
-         * \param world Reference to entity manager.
+         * \brief Inform the renderer of the screen resolution.
+         * 
+         * Gets called by the engine when the screen resolution is updated.
+         * 
+         * \param w Resolution width in pixels.
+         * \param h Resolution height in pixels.
          */
-        void render(const menu_manager&, const entity_manager&);
+        static void update_resolution(const int& w, const int& h);
+
+        /*!
+         * \brief Initialize the render manager.
+         * 
+         * Configures the internal objects for the render manager to use.
+         */
+        static void initialize(void);
+
+        /*!
+         * \brief De-initialize the render manager.
+         * 
+         * Destories the internal objects.
+         */
+        static void de_init(void);
+
+        /*!
+         * \brief Reload the arena bitmap.
+         * 
+         * Called when the screen is updated.
+         */
+        static void reload_arena_bitmap(void);
+
+        /*!
+         * \brief Render method - Draw the game screen.
+         */
+        static void render(void);
 
     private:
+        /*!
+         * \brief renderer constructor.
+         * 
+         * Generates the renderer object.
+         */
+        inline renderer() {};
+
+        /*!
+         * \brief renderer destructor.
+         */
+        inline ~renderer() {};
+
         template <typename T> struct comparator {
             const bool operator() (const T& a, const T& b) const {
                 return *a.second < *b.second;
             }
         };
 
-        ALLEGRO_BITMAP* title_bmp;
-        ALLEGRO_BITMAP* background_bmp;
-        ALLEGRO_BITMAP* arena_bmp;
-        ALLEGRO_BITMAP* render_tmp_bmp;
-        ALLEGRO_FONT* overlay_font;
+        inline static ALLEGRO_BITMAP* title_bmp = NULL;
+        inline static ALLEGRO_BITMAP* background_bmp = NULL;
+        inline static ALLEGRO_BITMAP* arena_bmp = NULL;
+        inline static ALLEGRO_BITMAP* render_tmp_bmp = NULL;
+        inline static ALLEGRO_FONT* overlay_font = NULL;
 
-        ALLEGRO_TIMER* fps_timer;
-        ALLEGRO_EVENT_QUEUE* fps_event_queue;
-        ALLEGRO_EVENT fps_event;
+        inline static ALLEGRO_TIMER* fps_timer = NULL;
+        inline static ALLEGRO_EVENT_QUEUE* fps_event_queue = NULL;
+        inline static ALLEGRO_EVENT fps_event;
 
-        std::size_t fps_counter, fps;
+        inline static std::size_t fps_counter = 0, fps = 0;
 
         inline static int screen_w = 0, screen_h = 0;
         inline static float scale_factor = 1.0;

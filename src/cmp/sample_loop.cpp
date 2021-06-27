@@ -33,22 +33,22 @@ const bool sample_loop::add_handle(const std::string& sn, const std::string& si)
     return ret.second;
 }
 
-void sample_loop::start(mgr::message_manager& messages, const std::string& si) {
+void sample_loop::start(const std::string& si) {
     auto ref = instance_map.find(si);
     if(ref != instance_map.end()) {
         if(ref->second.second == false) {  //  If not playing.
             ref->second.second = true;  //  Set is playing.
-            messages.add_message(message("audio", "play_sample", ref->second.first + ";" + si));
+            mgr::messages::add_message(message("audio", "play_sample", ref->second.first + ";" + si));
         }
     }
 }
 
-void sample_loop::stop(mgr::message_manager& messages, const std::string& si) {
+void sample_loop::stop(const std::string& si) {
     auto ref = instance_map.find(si);
     if(ref != instance_map.end()) {
         if(ref->second.second == true) {  //  If is playing.
             ref->second.second = false;  //  Set not playing.
-            messages.add_message(message("audio", "stop_sample", si));
+            mgr::messages::add_message(message("audio", "stop_sample", si));
         }
     }
 }

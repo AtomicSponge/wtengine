@@ -37,14 +37,8 @@ class colision final : public system {
          * 
          * Overrides virtual run member inherited from system object.
          * Selects components by team, then tests each team to see if there is a colision.
-         * 
-         * \param world Reference to the entity manager.
-         * \param messages Reference to the message manager.
-         * \param current_time Current engine time.
          */
-        void run(mgr::entity_manager& world,
-                 mgr::message_manager& messages,
-                 const int64_t& current_time) override;
+        void run(void) override;
 };
 
 } //  namespace sys

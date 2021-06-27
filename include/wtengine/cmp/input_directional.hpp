@@ -14,8 +14,8 @@
 #include <cassert>
 
 #include "wtengine/cmp/component.hpp"
-#include "wtengine/mgr/entity_manager.hpp"
-#include "wtengine/mgr/message_manager.hpp"
+#include "wtengine/mgr/entities.hpp"
+#include "wtengine/mgr/messages.hpp"
 #include "wtengine/_globals/input_flags.hpp"
 
 namespace wte
@@ -37,15 +37,8 @@ class input_directional final : public component {
          */
         input_directional(
             const std::size_t ib,
-            void func_a(const entity_id&,
-                        const float&,
-                        mgr::entity_manager&,
-                        mgr::message_manager&,
-                        const int64_t&),
-            void func_b(const entity_id&,
-                        mgr::entity_manager&,
-                        mgr::message_manager&,
-                        const int64_t&)
+            void func_a(const entity_id&, const float&),
+            void func_b(const entity_id&)
         );
 
         /*!
@@ -65,42 +58,23 @@ class input_directional final : public component {
          * 
          * \param e_id Entity ID
          * \param rad Direction of input in radians.
-         * \param world Reference to the entity manager.
-         * \param messages Reference to the message manager.
-         * \param current_time Current engine time.
          */
         void on_set(const entity_id& e_id,
-                    const float& rad,
-                    mgr::entity_manager& world,
-                    mgr::message_manager& messages,
-                    const int64_t& current_time);
+                    const float& rad);
 
         /*!
          * \brief Run the joystick direction unset function.
          * 
          * \param e_id Entity ID
-         * \param world Reference to the entity manager.
-         * \param messages Reference to the message manager.
-         * \param current_time Current engine time.
          */
-        void on_unset(const entity_id& e_id,
-                      mgr::entity_manager& world,
-                      mgr::message_manager& messages,
-                      const int64_t& current_time);
+        void on_unset(const entity_id& e_id);
 
     private:
         std::size_t input_bind;
 
-        std::function<void(const entity_id&,
-                           const float&,
-                           mgr::entity_manager&,
-                           mgr::message_manager&,
-                           const int64_t&)> direction_set;
+        std::function<void(const entity_id&, const float&)> direction_set;
 
-        std::function<void(const entity_id&,
-                           mgr::entity_manager&,
-                           mgr::message_manager&,
-                           const int64_t&)> direction_unset;
+        std::function<void(const entity_id&)> direction_unset;
 };
 
 } //  namespace cmp

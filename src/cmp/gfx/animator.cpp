@@ -15,12 +15,8 @@ namespace wte
 namespace cmp
 {
 
-void animator::run(
-    const entity_id& e_id,
-    mgr::entity_manager& world,
-    const int64_t& engine_time
-){
-    animate(e_id, world, engine_time);
+void animator::run(const entity_id& e_id){
+    animate(e_id);
 }
 
 void animator::set_drawing(void) {

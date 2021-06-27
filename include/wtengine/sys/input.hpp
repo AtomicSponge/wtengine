@@ -34,14 +34,8 @@ class input final : public system {
          * \brief Input system run method
          * 
          * Get all entities tagged with an input handler component and run.
-         * 
-         * \param world Reference to the entity manager.
-         * \param messages Reference to the message manager.
-         * \param current_time Current value of the main timer.
          */
-        void run(mgr::entity_manager& world,
-                 mgr::message_manager& messages,
-                 const int64_t& current_time) override;
+        void run(void) override;
 };
 
 }  //  namespace sys

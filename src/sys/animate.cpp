@@ -18,15 +18,13 @@ namespace sys
 animate::animate() : system("animate") {}
 animate::~animate() {}
 
-void animate::run(mgr::entity_manager& world,
-                mgr::message_manager& messages,
-                const int64_t& current_time) {
-    component_container<cmp::animator> animation_components = world.set_components<cmp::animator>();
+void animate::run(void) {
+    component_container<cmp::animator> animation_components = mgr::entities::set_components<cmp::animator>();
 
     for(auto & it : animation_components) {
-        if(world.has_component<cmp::visible>(it.first) &&
-            world.get_component<cmp::visible>(it.first)->check())
-                it.second->run(it.first, world, current_time);
+        if(mgr::entities::has_component<cmp::visible>(it.first) &&
+            mgr::entities::get_component<cmp::visible>(it.first)->check())
+                it.second->run(it.first);
     }
 }
 

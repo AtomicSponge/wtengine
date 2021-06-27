@@ -19,21 +19,21 @@
  * \brief Create a new component.
  * Pass a component object and any parameters to create a new component.
  */
-#define wte_new_component(ent_id, new_cmp, ...) (world.add_component(ent_id, std::make_shared<new_cmp>(__VA_ARGS__)))
+#define wte_new_component(ent_id, new_cmp, ...) (mgr::entities::add_component(ent_id, std::make_shared<new_cmp>(__VA_ARGS__)))
 
 /*!
  * \def wte_set_component(ent_id, the_cmp)
  * \brief Set new value for a component.
  * Pass a component object and entity ID.
  */
-#define wte_set_component(ent_id, the_cmp) (world.set_component<the_cmp>(ent_id))
+#define wte_set_component(ent_id, the_cmp) (mgr::entities::set_component<the_cmp>(ent_id))
 
 /*!
  * \def wte_get_component(ent_id, the_cmp)
  * \brief Get current value for a component.
  * Pass a component object and entity ID.
  */
-#define wte_get_component(ent_id, the_cmp) (world.get_component<the_cmp>(ent_id))
+#define wte_get_component(ent_id, the_cmp) (mgr::entities::get_component<the_cmp>(ent_id))
 
 /*********************************
  * Menu items                    *
@@ -71,13 +71,13 @@
  * \def wte_load_sample(samp_str)
  * Load a sample into the audio manager.
  */
-#define wte_load_sample(samp_str) (messages.add_message(message("audio", "load_sample", samp_str)))
+#define wte_load_sample(samp_str) (mgr::messages::add_message(message("audio", "load_sample", samp_str)))
 
 /*!
  * \def wte_add_system(new_sys, ...)
  * \brief Create a new system.
  * Pass a system object and any parameters to create a new system.
  */
-#define wte_add_system(new_sys, ...) (systems.add(std::make_unique<new_sys>(__VA_ARGS__)))
+#define wte_add_system(new_sys, ...) (mgr::systems::add(std::make_unique<new_sys>(__VA_ARGS__)))
 
 #endif

@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  message_manager.hpp
+ * WTEngine | File:  messages.hpp
  * 
  * \author Matthew Evans
  * \version 0.2
@@ -7,8 +7,8 @@
  * \date 2019-2021
  */
 
-#ifndef WTE_MGR_MESSAGE_MANAGER_HPP
-#define WTE_MGR_MESSAGE_MANAGER_HPP
+#ifndef WTE_MGR_MESSAGES_HPP
+#define WTE_MGR_MESSAGES_HPP
 
 #include <string>
 #include <vector>
@@ -19,11 +19,11 @@
 #include <allegro5/allegro_physfs.h>
 
 #include "wtengine/mgr/manager.hpp"
-#include "wtengine/mgr/engine_time.hpp"
+#include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/message.hpp"
 #include "wtengine/wte_global_defines.hpp"
 
-#if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
+#if WTE_DEBUG_MODE
 #include <fstream>
 #endif
 
@@ -34,29 +34,17 @@ namespace mgr
 {
 
 /*!
- * \class message_manager
+ * \class messages
  * \brief Store a collection of message objects in a vector for processing.
  */
-class message_manager final : private manager<message_manager>, private engine_time {
+class messages final : private manager<messages> {
+    friend class wte_main;
+
     public:
-        /*!
-         * \brief Message queue constructor.
-         * 
-         * Clear any existing queue and start logging if debugging is enabled.
-         */
-        message_manager();
-
-        /*!
-         * \brief Message queue destructor.
-         * 
-         * Delete message queue object and close log file if debugging is enabled.
-         */
-        ~message_manager();
-
         /*!
          * \brief Clear the message queue.
          */
-        void clear(void);
+        static void clear(void);
 
         /*!
          * \brief Adds a message object to the start of the msg_queue vector.
@@ -65,15 +53,7 @@ class message_manager final : private manager<message_manager>, private engine_t
          * 
          * \param msg Message to add.
          */
-        void add_message(const message& msg);
-
-        //  Ignore message pruning if WTE_NO_PRUNE build flag is defined
-        #ifndef WTE_NO_PRUNE
-        /*!
-         * Deletes timed messages that were not processed.
-         */
-        void prune(void);
-        #endif
+        static void add_message(const message& msg);
 
         /*!
          * \brief Get messages based on their command.
@@ -83,7 +63,7 @@ class message_manager final : private manager<message_manager>, private engine_t
          * \param sys Manager/system to get messages for.
          * \return Vector of messages.
          */
-        const message_container get_messages(const std::string& sys);
+        static const message_container get_messages(const std::string& sys);
 
         /*!
          * \brief Load a new data file into the message queue.
@@ -93,7 +73,7 @@ class message_manager final : private manager<message_manager>, private engine_t
          * 
          * \param fname Filename to load.
          */
-        void load_file(const std::string& fname);
+        static void load_file(const std::string& fname);
 
         /*!
          * \brief Load additional data into the message queue.
@@ -104,9 +84,13 @@ class message_manager final : private manager<message_manager>, private engine_t
          * \param fname Filename to load.
          * \return True if loaded, false if not.
          */
-        const bool load_script(const std::string& fname);
+        static const bool load_script(const std::string& fname);
 
-    private:
+        /*!
+         * Deletes timed messages that were not processed.
+         */
+        static void prune(void);
+
         /*!
          * \brief Read a message from file.
          * 
@@ -118,13 +102,28 @@ class message_manager final : private manager<message_manager>, private engine_t
          * \param cmd Command value to write to.
          * \param args Argument value to write to.
          */
-        void read_message(ALLEGRO_FILE& file,
+        static void read_message(ALLEGRO_FILE& file,
                                  int64_t& timer,
                                  std::string& sys,
                                  std::string& to,
                                  std::string& from,
                                  std::string& cmd,
                                  std::string& args);
+
+    private:
+        /*!
+         * \brief Message queue constructor.
+         * 
+         * Clear any existing queue and start logging if debugging is enabled.
+         */
+        messages();
+
+        /*!
+         * \brief Message queue destructor.
+         * 
+         * Delete message queue object and close log file if debugging is enabled.
+         */
+        ~messages();
 
         /*!
          * \brief Log processed messages to a file.
@@ -133,14 +132,14 @@ class message_manager final : private manager<message_manager>, private engine_t
          * 
          * \param msg Message to write.
          */
-        #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
-        void debug_log_message(const message& msg);
+        #if WTE_DEBUG_MODE
+        static void debug_log_message(const message& msg);
 
-        std::ofstream debug_log_file;
+        static std::ofstream debug_log_file;
         #endif
 
         //  Vector of all messages to be processed
-        message_container msg_queue;
+        inline static message_container msg_queue = {};
 };
 
 } //  namespace mgr

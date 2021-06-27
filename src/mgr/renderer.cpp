@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  render_manager.cpp
+ * WTEngine | File:  renderer.cpp
  * 
  * \author Matthew Evans
  * \version 0.2
@@ -7,7 +7,7 @@
  * \date 2019-2021
  */
 
-#include "wtengine/mgr/render_manager.hpp"
+#include "wtengine/mgr/renderer.hpp"
 
 namespace wte
 {
@@ -15,9 +15,9 @@ namespace wte
 namespace mgr
 {
 
-template <> bool render_manager::manager<render_manager>::initialized = false;
+template <> bool renderer::manager<renderer>::initialized = false;
 
-void render_manager::initialize(void) {
+void renderer::initialize(void) {
     //  Create the arena bitmap.
     if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
     al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
@@ -77,7 +77,7 @@ void render_manager::initialize(void) {
     al_start_timer(fps_timer);
 }
 
-void render_manager::de_init(void) {
+void renderer::de_init(void) {
     al_destroy_bitmap(title_bmp);
     al_destroy_bitmap(background_bmp);
     al_destroy_bitmap(arena_bmp);
@@ -88,64 +88,64 @@ void render_manager::de_init(void) {
     al_destroy_timer(fps_timer);
 }
 
-void render_manager::update_resolution(const int& w, const int& h) {
+void renderer::update_resolution(const int& w, const int& h) {
     screen_w = w;
     screen_h = h;
 }
 
-const int render_manager::get_screen_width(void) {
+const int renderer::get_screen_width(void) {
     return screen_w;
 }
 
-const int render_manager::get_screen_height(void) {
+const int renderer::get_screen_height(void) {
     return screen_h;
 }
 
-void render_manager::set_scale_factor(const float& f) {
+void renderer::set_scale_factor(const float& f) {
     scale_factor = f;
 }
 
-const int render_manager::get_scale_factor() {
+const int renderer::get_scale_factor() {
     return scale_factor;
 }
 
-void render_manager::reload_arena_bitmap(void) {
+void renderer::reload_arena_bitmap(void) {
     al_destroy_bitmap(arena_bmp);
     al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
     arena_bmp = al_create_bitmap(arena_w, arena_h);
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
 }
 
-void render_manager::set_arena_size(const int& w, const int& h) {
+void renderer::set_arena_size(const int& w, const int& h) {
     if(!arena_created) {
         arena_w = w;
         arena_h = h;
     }
 }
 
-const int render_manager::get_arena_width(void) {
+const int renderer::get_arena_width(void) {
     return arena_w;
 }
 
-const int render_manager::get_arena_height(void) {
+const int renderer::get_arena_height(void) {
     return arena_h;
 }
 
-void render_manager::set_title_screen(const std::string& fname) {
+void renderer::set_title_screen(const std::string& fname) {
     title_screen_file = fname;
 }
 
-void render_manager::set_background_screen(const std::string& fname) {
+void renderer::set_background_screen(const std::string& fname) {
     background_file = fname;
 }
 
-void render_manager::set_font_file(const std::string& fname, const int& size, const int& flags) {
+void renderer::set_font_file(const std::string& fname, const int& size, const int& flags) {
     render_font_file = fname;
     render_font_size = size;
     render_font_flags = flags;
 }
 
-void render_manager::render(const menu_manager& menus, const entity_manager& world) {
+void renderer::render(void) {
     /*
      * Calculate fps.
      */
@@ -184,7 +184,7 @@ void render_manager::render(const menu_manager& menus, const entity_manager& wor
          * Draw the backgrounds.
          */
         const const_component_container<cmp::background> background_components =
-            world.get_components<cmp::background>();
+            mgr::entities::get_components<cmp::background>();
 
         //  Sort the background layers.
         std::multiset<entity_component_pair<cmp::background>,
@@ -193,8 +193,8 @@ void render_manager::render(const menu_manager& menus, const entity_manager& wor
 
         //  Draw each background by layer.
         for(auto & it : background_componenet_set) {
-            if(world.has_component<cmp::visible>(it.first) &&
-               world.get_component<cmp::visible>(it.first)->check())
+            if(mgr::entities::has_component<cmp::visible>(it.first) &&
+               mgr::entities::get_component<cmp::visible>(it.first)->check())
             {
                 if(it.second->draw_tinted())
                     al_draw_tinted_bitmap(&it.second->get_bitmap(), it.second->get_tint(), 0, 0, 0);
@@ -207,7 +207,7 @@ void render_manager::render(const menu_manager& menus, const entity_manager& wor
          * Draw the sprites.
          */
         const const_component_container<cmp::sprite> sprite_components =
-            world.get_components<cmp::sprite>();
+            mgr::entities::get_components<cmp::sprite>();
 
         //  Sort the sprite components.
         std::multiset<entity_component_pair<cmp::sprite>,
@@ -216,9 +216,9 @@ void render_manager::render(const menu_manager& menus, const entity_manager& wor
 
         //  Draw each sprite in order.
         for(auto & it : sprite_componenet_set) {
-            if(world.has_component<cmp::location>(it.first) &&
-               world.has_component<cmp::visible>(it.first) &&
-               world.get_component<cmp::visible>(it.first)->check())
+            if(mgr::entities::has_component<cmp::location>(it.first) &&
+               mgr::entities::has_component<cmp::visible>(it.first) &&
+               mgr::entities::get_component<cmp::visible>(it.first)->check())
             {
                 //  Get the current sprite frame.
                 render_tmp_bmp = al_create_sub_bitmap(
@@ -234,22 +234,22 @@ void render_manager::render(const menu_manager& menus, const entity_manager& wor
                 float destination_x = 0.0f, destination_y = 0.0f;
 
                 //  Check if the sprite should be rotated.
-                if(world.has_component<cmp::direction>(it.first) &&
-                   world.get_component<cmp::direction>(it.first)->show_rotated()) {
-                    sprite_angle = world.get_component<cmp::direction>(it.first)->get_radians();
+                if(mgr::entities::has_component<cmp::direction>(it.first) &&
+                   mgr::entities::get_component<cmp::direction>(it.first)->show_rotated()) {
+                    sprite_angle = mgr::entities::get_component<cmp::direction>(it.first)->get_radians();
                     center_x = (al_get_bitmap_width(render_tmp_bmp) / 2);
                     center_y = (al_get_bitmap_height(render_tmp_bmp) / 2);
 
-                    destination_x = world.get_component<cmp::location>(it.first)->get_x() +
+                    destination_x = mgr::entities::get_component<cmp::location>(it.first)->get_x() +
                         (al_get_bitmap_width(render_tmp_bmp) * it.second->get_scale_factor_x() / 2) +
                         (it.second->get_draw_offset_x() * it.second->get_scale_factor_x());
-                    destination_y = world.get_component<cmp::location>(it.first)->get_y() +
+                    destination_y = mgr::entities::get_component<cmp::location>(it.first)->get_y() +
                         (al_get_bitmap_height(render_tmp_bmp) * it.second->get_scale_factor_y() / 2) +
                         (it.second->get_draw_offset_y() * it.second->get_scale_factor_y());
                 } else {
-                        destination_x = world.get_component<cmp::location>(it.first)->get_x() +
+                        destination_x = mgr::entities::get_component<cmp::location>(it.first)->get_x() +
                             it.second->get_draw_offset_x();
-                        destination_y = world.get_component<cmp::location>(it.first)->get_y() +
+                        destination_y = mgr::entities::get_component<cmp::location>(it.first)->get_y() +
                             it.second->get_draw_offset_y();
                 }
 
@@ -278,32 +278,32 @@ void render_manager::render(const menu_manager& menus, const entity_manager& wor
          * Use different colors for each team.
          * Note:  Re-uses sprite container for rendering.
          */
-        #if WTE_DEBUG_MODE == 3 || WTE_DEBUG_MODE == 9
+        #if WTE_DEBUG_MODE
         for(auto & it : sprite_componenet_set) {
             //  Make sure the entity has a hitbox and is enabled.
-            if(world.has_component<cmp::hitbox>(it.first) &&
-               world.has_component<cmp::team>(it.first) &&
-               world.has_component<cmp::location>(it.first) &&
-               world.has_component<cmp::enabled>(it.first) &&
-               world.get_component<cmp::enabled>(it.first)->check())
+            if(mgr::entities::has_component<cmp::hitbox>(it.first) &&
+               mgr::entities::has_component<cmp::team>(it.first) &&
+               mgr::entities::has_component<cmp::location>(it.first) &&
+               mgr::entities::has_component<cmp::enabled>(it.first) &&
+               mgr::entities::get_component<cmp::enabled>(it.first)->check())
             {
                 //  Select color based on team.
                 ALLEGRO_COLOR team_color;
-                switch(world.get_component<cmp::team>(it.first)->get_team()) {
+                switch(mgr::entities::get_component<cmp::team>(it.first)->get_team()) {
                     case 0: team_color = WTE_COLOR_GREEN; break;
                     case 1: team_color = WTE_COLOR_RED; break;
                     case 2: team_color = WTE_COLOR_BLUE; break;
                     default: team_color = WTE_COLOR_YELLOW;
                 }
                 //  Draw the hitbox.
-                render_tmp_bmp = al_create_bitmap(world.get_component<cmp::hitbox>(it.first)->get_width(),
-                                                  world.get_component<cmp::hitbox>(it.first)->get_height());
+                render_tmp_bmp = al_create_bitmap(mgr::entities::get_component<cmp::hitbox>(it.first)->get_width(),
+                                                  mgr::entities::get_component<cmp::hitbox>(it.first)->get_height());
                 al_set_target_bitmap(render_tmp_bmp);
                 al_clear_to_color(team_color);
                 al_set_target_bitmap(arena_bmp);
                 al_draw_bitmap(render_tmp_bmp,
-                               world.get_component<cmp::location>(it.first)->get_x(),
-                               world.get_component<cmp::location>(it.first)->get_y(), 0);
+                               mgr::entities::get_component<cmp::location>(it.first)->get_x(),
+                               mgr::entities::get_component<cmp::location>(it.first)->get_y(), 0);
                 al_destroy_bitmap(render_tmp_bmp);
             }  //  End hitbox/enabled test.
         }  //  End render component loop.
@@ -313,7 +313,7 @@ void render_manager::render(const menu_manager& menus, const entity_manager& wor
          * Draw the overlays.
          */
         const const_component_container<cmp::overlay> overlay_components =
-            world.get_components<cmp::overlay>();
+            mgr::entities::get_components<cmp::overlay>();
 
         //  Sort the overlay layers.
         std::multiset<entity_component_pair<cmp::overlay>,
@@ -322,8 +322,8 @@ void render_manager::render(const menu_manager& menus, const entity_manager& wor
 
         //  Draw each overlay by layer.
         for(auto & it : overlay_componenet_set) {
-            if(world.has_component<cmp::visible>(it.first) &&
-               world.get_component<cmp::visible>(it.first)->check())
+            if(mgr::entities::has_component<cmp::visible>(it.first) &&
+               mgr::entities::get_component<cmp::visible>(it.first)->check())
             {
                 if(it.second->draw_tinted())
                     al_draw_tinted_bitmap(&it.second->get_bitmap(), it.second->get_tint(),
@@ -355,7 +355,7 @@ void render_manager::render(const menu_manager& menus, const entity_manager& wor
      * Render game menu if it's opened.
      */
     if(engine_flags::is_set(GAME_MENU_OPENED)) {
-        render_tmp_bmp = al_clone_bitmap(&menus.render_menu());
+        render_tmp_bmp = al_clone_bitmap(mgr::menu::render_menu());
         al_set_target_backbuffer(al_get_current_display());
 
         al_draw_scaled_bitmap(
@@ -405,8 +405,8 @@ void render_manager::render(const menu_manager& menus, const entity_manager& wor
     }
 
     //  Draw time if debug mode is enabled.
-    #if WTE_DEBUG_MODE == 1 || WTE_DEBUG_MODE == 9
-    std::string timer_string = "Timer: " + std::to_string(check_time());
+    #if WTE_DEBUG_MODE
+    std::string timer_string = "Timer: " + std::to_string(engine_time::check_time());
     al_draw_text(overlay_font, WTE_COLOR_YELLOW, screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     #endif
 

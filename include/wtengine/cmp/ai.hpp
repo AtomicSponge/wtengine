@@ -13,8 +13,8 @@
 #include <functional>
 
 #include "wtengine/cmp/component.hpp"
-#include "wtengine/mgr/entity_manager.hpp"
-#include "wtengine/mgr/message_manager.hpp"
+#include "wtengine/mgr/entities.hpp"
+#include "wtengine/mgr/messages.hpp"
 
 namespace wte
 {
@@ -37,10 +37,7 @@ class ai final : public component {
          * 
          * \param func Function to define AI process.
          */
-        ai(void func(const entity_id&,
-                     mgr::entity_manager&,
-                     mgr::message_manager&,
-                     const int64_t&));
+        ai(void func(const entity_id&));
 
         /*!
          * \brief AI constructor.
@@ -50,14 +47,8 @@ class ai final : public component {
          * \param func_a Function to define enabled AI process.
          * \param func_b Function to define disabled AI process.
          */
-        ai(void func_a(const entity_id&,
-                       mgr::entity_manager&,
-                       mgr::message_manager&,
-                       const int64_t&),
-           void func_b(const entity_id&,
-                       mgr::entity_manager&,
-                       mgr::message_manager&,
-                       const int64_t&));
+        ai(void func_a(const entity_id&),
+           void func_b(const entity_id&));
 
         /*!
          * \brief AI destructor.
@@ -72,10 +63,7 @@ class ai final : public component {
          * \param messages Reference to the message manager.
          * \param engine_time Current value of the main timer.
          */
-        void run_enabled(const entity_id& eid,
-                         mgr::entity_manager& world,
-                         mgr::message_manager& messages,
-                         const int64_t& engine_time);
+        void run_enabled(const entity_id& e_id);
 
         /*!
          * \brief Run disabled AI function wrapper.
@@ -85,21 +73,12 @@ class ai final : public component {
          * \param messages Reference to the message manager.
          * \param engine_time Current value of the main timer.
          */
-        void run_disabled(const entity_id& eid,
-                          mgr::entity_manager& world,
-                          mgr::message_manager& messages,
-                          const int64_t& engine_time);
+        void run_disabled(const entity_id& e_id);
 
     private:
-        std::function<void(const entity_id&,
-                           mgr::entity_manager&,
-                           mgr::message_manager&,
-                           const int64_t&)> enabled_ai;
+        std::function<void(const entity_id&)> enabled_ai;
 
-        std::function<void(const entity_id&,
-                           mgr::entity_manager&,
-                           mgr::message_manager&,
-                           const int64_t&)> disabled_ai;
+        std::function<void(const entity_id&)> disabled_ai;
 };
 
 } //  namespace cmp

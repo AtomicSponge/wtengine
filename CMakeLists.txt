@@ -26,8 +26,8 @@ endif()
 
 #  Set compiler flags
 set(CMAKE_CXX_FLAGS "-Wall")
-set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_DEBUG_MODE=9")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DWTE_DEBUG_MODE=0")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_BUILD_DEBUG")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 ########################################
 #
@@ -81,11 +81,11 @@ add_library(wtengine STATIC
     src/cmp/gfx/bitmap_map.cpp
     src/cmp/gfx/overlay.cpp
     src/cmp/gfx/sprite.cpp
-    src/mgr/audio_manager.cpp
-    src/mgr/message_manager.cpp
-    src/mgr/render_manager.cpp
-    src/mgr/spawn_manager.cpp
-    src/mgr/system_manager.cpp
+    src/mgr/audio.cpp
+    src/mgr/messages.cpp
+    src/mgr/renderer.cpp
+    src/mgr/spawner.cpp
+    src/mgr/systems.cpp
     src/mnu/menu_item_action.cpp
     src/mnu/menu_item_apply.cpp
     src/mnu/menu_item_selection.cpp

@@ -41,14 +41,8 @@ class movement final : public system {
          * 
          * All entities with a velocity component will be moved.
          * Also checks entities are within their bounding boxes.
-         * 
-         * \param world Reference to the entity manager.
-         * \param messages Reference to the message manager.
-         * \param current_time Current engine time.
          */
-        void run(mgr::entity_manager& world,
-                 mgr::message_manager& messages,
-                 const int64_t& current_time) override;
+        void run(void) override;
 };
 
 } //  namespace sys

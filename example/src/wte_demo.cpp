@@ -54,30 +54,30 @@ wte_demo::~wte_demo() {
  */
 void wte_demo::load_menus(void) {
     //  First set colors used by the menu.
-    menus.set_menu_color(WTE_COLOR_WHITE, WTE_COLOR_DARKPURPLE);
+    mgr::menu::set_menu_color(WTE_COLOR_WHITE, WTE_COLOR_DARKPURPLE);
     //  You can also set menu size here.  If not the default size is used.
-    //menus.set_menu_size(200, 200, 10);
+    //mgr::menus::set_menu_size(200, 200, 10);
 
     //  Configure the root main menu and game menu.
     {
         //  Configure main menu.
-        menus.set_menu("main_menu")->set_title("WTE Demo");
-        menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
-        //menus.set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
-        menus.set_menu("main_menu")->add_item(wte_menu_action("Settings", "open_menu", "settings"));
-        menus.set_menu("main_menu")->add_item(wte_menu_action("Exit Game", "exit"));
+        mgr::menu::set_menu("main_menu")->set_title("WTE Demo");
+        mgr::menu::set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
+        //mgr::menu::set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
+        mgr::menu::set_menu("main_menu")->add_item(wte_menu_action("Settings", "open_menu", "settings"));
+        mgr::menu::set_menu("main_menu")->add_item(wte_menu_action("Exit Game", "exit"));
     }
 
     {
         //  Configure in-game menu.
-        menus.set_menu("game_menu")->set_title("WTE Demo - Game Paused");
-        menus.set_menu("game_menu")->add_item(wte_menu_action("Resume Game", "close_menu", "all"));
-        menus.set_menu("game_menu")->add_item(wte_menu_action("Settings", "open_menu", "game_settings"));
-        menus.set_menu("game_menu")->add_item(wte_menu_action("End Game", "end_game"));
-        menus.set_menu("game_menu")->add_item(wte_menu_action("Exit Game", "exit"));
+        mgr::menu::set_menu("game_menu")->set_title("WTE Demo - Game Paused");
+        mgr::menu::set_menu("game_menu")->add_item(wte_menu_action("Resume Game", "close_menu", "all"));
+        mgr::menu::set_menu("game_menu")->add_item(wte_menu_action("Settings", "open_menu", "game_settings"));
+        mgr::menu::set_menu("game_menu")->add_item(wte_menu_action("End Game", "end_game"));
+        mgr::menu::set_menu("game_menu")->add_item(wte_menu_action("Exit Game", "exit"));
     }
 
-    //  Then define other custom menus.
+    //  Then define other custom mgr::menus::
     {
         //  Create the main settings menu.
         mnu::menu temp_menu = mnu::menu("settings", "Settings");
@@ -85,7 +85,7 @@ void wte_demo::load_menus(void) {
         temp_menu.add_item(wte_menu_action("Video Settings", "open_menu", "video_settings"));
         temp_menu.add_item(wte_menu_action("Audio Settings", "open_menu", "audio_settings"));
         temp_menu.add_item(wte_menu_action("Return", "close_menu"));
-        if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
+        if(!mgr::menu::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 
     {
@@ -94,7 +94,7 @@ void wte_demo::load_menus(void) {
         temp_menu.add_item(wte_menu_action("Video Settings", "open_menu", "video_settings"));
         temp_menu.add_item(wte_menu_action("Audio Settings", "open_menu", "audio_settings"));
         temp_menu.add_item(wte_menu_action("Return", "close_menu"));
-        if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
+        if(!mgr::menu::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 
     {
@@ -104,7 +104,7 @@ void wte_demo::load_menus(void) {
         temp_menu.add_item(wte_menu_selection("Lives:", "max_lives", lives_vec, lives_vec, mnu::GAME_SETTING));
         temp_menu.add_item(wte_menu_apply());
         temp_menu.add_item(wte_menu_action("Return", "close_menu"));
-        if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
+        if(!mgr::menu::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 
     {
@@ -119,7 +119,7 @@ void wte_demo::load_menus(void) {
             [](void){ return engine_flags::is_set(DRAW_FPS); }));
         temp_menu.add_item(wte_menu_apply());
         temp_menu.add_item(wte_menu_action("Return", "close_menu"));
-        if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
+        if(!mgr::menu::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 
     {
@@ -145,7 +145,7 @@ void wte_demo::load_menus(void) {
         temp_menu.add_item(wte_menu_selection("Ambiance Volume:", "mix4_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING));
         temp_menu.add_item(wte_menu_apply());
         temp_menu.add_item(wte_menu_action("Return", "close_menu"));
-        if(!menus.new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
+        if(!mgr::menu::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 }
 
@@ -170,13 +170,13 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     /* *** Background entity *********** */
     /* ********************************* */
-    e_id = world.new_entity();
-    world.set_name(e_id, "starfield");
+    e_id = mgr::entities::new_entity();
+    mgr::entities::set_name(e_id, "starfield");
     wte_new_component(e_id, cmp::visible);
     wte_new_component(e_id, stars);
-    wte_new_component(e_id, cmp::background, mgr::render_manager::get_arena_width(),
-                                             mgr::render_manager::get_arena_height(), 0,
-        [](const entity_id& bkg_id, mgr::entity_manager& world, const int64_t& engine_time) {
+    wte_new_component(e_id, cmp::background, mgr::renderer::get_arena_width(),
+                                             mgr::renderer::get_arena_height(), 0,
+        [](const entity_id& bkg_id) {
             //  Define the animation process for the starfield.
             wte_set_component(bkg_id, cmp::background)->set_drawing();
             al_clear_to_color(WTE_COLOR_BLACK);
@@ -185,10 +185,10 @@ void wte_demo::new_game(void) {
             for(std::size_t i = 0; i < MAX_STARS; i++) {
                 wte_set_component(bkg_id, stars)->y[i] +=
                     wte_get_component(bkg_id, stars)->speed[i] * wte_get_component(bkg_id, stars)->speed_mult;
-                if(wte_get_component(bkg_id, stars)->y[i] > mgr::render_manager::get_arena_height()) {
+                if(wte_get_component(bkg_id, stars)->y[i] > mgr::renderer::get_arena_height()) {
                     //  Make a new star.
                     wte_set_component(bkg_id, stars)->x[i] =
-                        std::rand() % mgr::render_manager::get_arena_width() + 1;
+                        std::rand() % mgr::renderer::get_arena_width() + 1;
                     wte_set_component(bkg_id, stars)->y[i] = 0;
                     wte_set_component(bkg_id, stars)->speed[i] = (std::rand() % 3 + 1) * 3;
                     wte_set_component(bkg_id, stars)->color[i] = std::rand() % 4 + 1;
@@ -212,7 +212,7 @@ void wte_demo::new_game(void) {
     );  //  End background rendering.
 
     wte_new_component(e_id, cmp::dispatcher,
-        [](const entity_id& bkg_id, const message& msg, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& current_time) {
+        [](const entity_id& bkg_id, const message& msg) {
             //  Define message processing for the starfield.
             if(msg.get_cmd() == "default") wte_set_component(bkg_id, stars)->speed_mult = 1;
             if(msg.get_cmd() == "up") wte_set_component(bkg_id, stars)->speed_mult *= 2;
@@ -222,9 +222,9 @@ void wte_demo::new_game(void) {
 
                 for(std::size_t i = 0; i < MAX_STARS; i++) {
                     wte_set_component(bkg_id, stars)->x[i] =
-                        std::rand() % mgr::render_manager::get_arena_width() + 1;
+                        std::rand() % mgr::renderer::get_arena_width() + 1;
                     wte_set_component(bkg_id, stars)->y[i] =
-                        std::rand() % mgr::render_manager::get_arena_height() + 1;
+                        std::rand() % mgr::renderer::get_arena_height() + 1;
                     wte_set_component(bkg_id, stars)->speed[i] = (std::rand() % 3 + 1) * 3;
                     wte_set_component(bkg_id, stars)->color[i] = std::rand() % 4 + 1;
                 }
@@ -235,11 +235,11 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     /* *** Score overlay entity ******** */
     /* ********************************* */
-    e_id = world.new_entity();
-    world.set_name(e_id, "score_overlay");
+    e_id = mgr::entities::new_entity();
+    mgr::entities::set_name(e_id, "score_overlay");
     wte_new_component(e_id, cmp::visible);
-    wte_new_component(e_id, cmp::overlay, 200, 20, 0, mgr::render_manager::get_arena_height() - 20, 0,
-        [](const entity_id& ovr_id, mgr::entity_manager& world, const int64_t& engine_time) {
+    wte_new_component(e_id, cmp::overlay, 200, 20, 0, mgr::renderer::get_arena_height() - 20, 0,
+        [](const entity_id& ovr_id) {
             //  Define what gets displayed on the overlay.
             wte_set_component(ovr_id, cmp::overlay)->set_drawing();
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
@@ -254,14 +254,14 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     /* *** Player Info overlay entity ** */
     /* ********************************* */
-    e_id = world.new_entity();
-    world.set_name(e_id, "player_info_overlay");
+    e_id = mgr::entities::new_entity();
+    mgr::entities::set_name(e_id, "player_info_overlay");
     wte_new_component(e_id, cmp::visible);
-    wte_new_component(e_id, cmp::overlay, 200, 20, mgr::render_manager::get_arena_width() - 200,
-                                                   mgr::render_manager::get_arena_height() - 20, 0,
-        [](const entity_id& ovr_id, mgr::entity_manager& world, const int64_t& engine_time) {
+    wte_new_component(e_id, cmp::overlay, 200, 20, mgr::renderer::get_arena_width() - 200,
+                                                   mgr::renderer::get_arena_height() - 20, 0,
+        [](const entity_id& ovr_id) {
             //  Define what gets displayed on the overlay.
-            entity_id shd_id = world.get_id("shield");
+            entity_id shd_id = mgr::entities::get_id("shield");
             wte_set_component(ovr_id, cmp::overlay)->set_drawing();
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
             al_draw_filled_rectangle((float)(120 - wte_get_component(shd_id, energy)->amt), 0, 120, 10, WTE_COLOR_YELLOW);
@@ -274,12 +274,12 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     /* *** Game Over overlay entity **** */
     /* ********************************* */
-    e_id = world.new_entity();
-    world.set_name(e_id, "game_over_overlay");
+    e_id = mgr::entities::new_entity();
+    mgr::entities::set_name(e_id, "game_over_overlay");
     wte_new_component(e_id, cmp::visible, false);
-    wte_new_component(e_id, cmp::overlay, 480, 132, (mgr::render_manager::get_arena_width() / 2) - 240,
-                                                    (mgr::render_manager::get_arena_height() / 2) - 66, 1,
-        [](const entity_id& ovr_id, mgr::entity_manager& world, const int64_t& engine_time) {
+    wte_new_component(e_id, cmp::overlay, 480, 132, (mgr::renderer::get_arena_width() / 2) - 240,
+                                                    (mgr::renderer::get_arena_height() / 2) - 66, 1,
+        [](const entity_id& ovr_id) {
             //  Define what gets displayed on the overlay.
             wte_set_component(ovr_id, cmp::overlay)->set_drawing();
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
@@ -291,15 +291,15 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     /* *** Player entity *************** */
     /* ********************************* */
-    e_id = world.new_entity();
-    world.set_name(e_id, "player");
+    e_id = mgr::entities::new_entity();
+    mgr::entities::set_name(e_id, "player");
     wte_new_component(e_id, cmp::team, 0);
-    wte_new_component(e_id, cmp::location, (mgr::render_manager::get_arena_width() / 2) - 5,
-                                            mgr::render_manager::get_arena_height() - 40);
+    wte_new_component(e_id, cmp::location, (mgr::renderer::get_arena_width() / 2) - 5,
+                                            mgr::renderer::get_arena_height() - 40);
     wte_new_component(e_id, cmp::hitbox, 10, 10);
     wte_new_component(e_id, cmp::bounding_box, 12.0f, 0.0f,
-                                               (float)(mgr::render_manager::get_arena_width() - 21),
-                                               (float)(mgr::render_manager::get_arena_height() - 32));
+                                               (float)(mgr::renderer::get_arena_width() - 21),
+                                               (float)(mgr::renderer::get_arena_height() - 32));
     wte_new_component(e_id, health, 1, 1);
     wte_new_component(e_id, cmp::visible);
     wte_new_component(e_id, cmp::enabled);
@@ -314,68 +314,68 @@ void wte_demo::new_game(void) {
 
     //  Player input handling.
     wte_new_component(e_id, cmp::input_directional, WTE_JOYSTICK_A,
-        [](const entity_id& plr_id, const float& rad, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
+        [](const entity_id& plr_id, const float& rad) {
             wte_set_component(plr_id, cmp::direction)->set_radians(rad);
             wte_set_component(plr_id, cmp::velocity)->set_velocity(5.0f);
         },
-        [](const entity_id& plr_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
+        [](const entity_id& plr_id) {
             wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
         }
     );  //  End player directional handling.
 
     //  Player logic.
     wte_new_component(e_id, cmp::ai,
-        [](const entity_id& plr_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
+        [](const entity_id& plr_id) {
             if(wte_get_component(plr_id, health)->hp <= 0) {  //  Check player health.
                 wte_set_component(plr_id, cmp::enabled)->disable();
                 wte_set_component(plr_id, health)->hp = wte_get_component(plr_id, health)->hp_max;
-                std::string player_name = world.get_name(plr_id);
-                messages.add_message(message("entities", player_name, player_name, "death", ""));
+                std::string player_name = mgr::entities::get_name(plr_id);
+                mgr::messages::add_message(message("entities", player_name, player_name, "death", ""));
             }
         }
     );  //  End player logic.
 
     //  Player message handling.
     wte_new_component(e_id, cmp::dispatcher,
-        [](const entity_id& plr_id, const message& msg, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& current_time) {
+        [](const entity_id& plr_id, const message& msg) {
             //  Process player death.
             if(msg.get_cmd() == "death") {
                 //  Make sure cannon stops firing
-                entity_id cannon_id = world.get_id("main_cannon");
+                entity_id cannon_id = mgr::entities::get_id("main_cannon");
                 wte_set_component(cannon_id, cmp::visible)->hide();
                 wte_set_component(cannon_id, cmp::enabled)->disable();
-                wte_set_component(cannon_id, cmp::sample_loop)->stop(messages, "cannon_fire");
+                wte_set_component(cannon_id, cmp::sample_loop)->stop("cannon_fire");
 
                 //  Just to make sure... turn shield off
-                entity_id shield_id = world.get_id("shield");
+                entity_id shield_id = mgr::entities::get_id("shield");
                 wte_set_component(shield_id, cmp::visible)->hide();
                 wte_set_component(shield_id, cmp::enabled)->disable();
                 wte_set_component(plr_id, cmp::hitbox)->make_solid();
-                wte_set_component(shield_id, cmp::sample_loop)->stop(messages, "shield_sound");
+                wte_set_component(shield_id, cmp::sample_loop)->stop("shield_sound");
 
-                messages.add_message(message("audio", "play_sample", "megumin;once"));
+                mgr::messages::add_message(message("audio", "play_sample", "megumin;once"));
                 game_cfg::subtract<int>("lives", 1);
                 wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
                 wte_set_component(plr_id, cmp::sprite)->set_cycle("death");
-                messages.add_message(message("system", "disable_system", "input"));
+                mgr::messages::add_message(message("system", "disable_system", "input"));
                 if(game_cfg::get<int>("lives") == 0) {
                     //  Game over!
-                    messages.add_message(message(current_time + 180, "system", "end_game", ""));
-                    entity_id go_id = world.get_id("game_over_overlay");
+                    mgr::messages::add_message(message(engine_time::check_time() + 180, "system", "end_game", ""));
+                    entity_id go_id = mgr::entities::get_id("game_over_overlay");
                     wte_set_component(go_id, cmp::visible)->show();
                 } else {
-                    std::string player_name = world.get_name(plr_id);
-                    messages.add_message(
-                        message(current_time + 120, "entities", player_name, player_name, "reset", "")
+                    std::string player_name = mgr::entities::get_name(plr_id);
+                    mgr::messages::add_message(
+                        message(engine_time::check_time() + 120, "entities", player_name, player_name, "reset", "")
                     );
                 }
             }
 
             //  Reset player.
             if(msg.get_cmd() == "reset") {
-                messages.add_message(message("system", "enable_system", "input"));
-                wte_set_component(plr_id, cmp::location)->set_x((float)((mgr::render_manager::get_arena_width() / 2) - 5));
-                wte_set_component(plr_id, cmp::location)->set_y((float)(mgr::render_manager::get_arena_height() - 40));
+                mgr::messages::add_message(message("system", "enable_system", "input"));
+                wte_set_component(plr_id, cmp::location)->set_x((float)((mgr::renderer::get_arena_width() / 2) - 5));
+                wte_set_component(plr_id, cmp::location)->set_y((float)(mgr::renderer::get_arena_height() - 40));
                 wte_set_component(plr_id, health)->hp = wte_get_component(plr_id, health)->hp_max;
                 wte_set_component(plr_id, cmp::enabled)->enable();
                 wte_set_component(plr_id, cmp::sprite)->set_cycle("main");
@@ -391,8 +391,8 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     /* *** Main cannon entity ********** */
     /* ********************************* */
-    e_id = world.new_entity();
-    world.set_name(e_id, "main_cannon");
+    e_id = mgr::entities::new_entity();
+    mgr::entities::set_name(e_id, "main_cannon");
     wte_new_component(e_id, cmp::team, 0);
     wte_new_component(e_id, cmp::location, 0, 0);
     wte_new_component(e_id, cmp::hitbox, 10, 200, false);
@@ -409,8 +409,8 @@ void wte_demo::new_game(void) {
 
     //  Cannon input handling.
     wte_new_component(e_id, cmp::input_button, WTE_INPUT_BUTTON_1,
-        [](const entity_id& can_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
-            entity_id player_entity = world.get_id("player");
+        [](const entity_id& can_id) {
+            entity_id player_entity = mgr::entities::get_id("player");
             //  Set the cannon's location to match the player.
             wte_set_component(can_id, cmp::location)->set_x(
                 wte_get_component(player_entity, cmp::location)->get_x()
@@ -425,22 +425,22 @@ void wte_demo::new_game(void) {
             wte_set_component(can_id, cmp::enabled)->enable();
 
             //  Play sound effect.
-            wte_set_component(can_id, cmp::sample_loop)->start(messages, "cannon_fire");
+            wte_set_component(can_id, cmp::sample_loop)->start("cannon_fire");
         },
-        [](const entity_id& can_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
+        [](const entity_id& can_id) {
             //  Turn the cannon off.
             wte_set_component(can_id, cmp::visible)->hide();
             wte_set_component(can_id, cmp::enabled)->disable();
 
             //  Stop sound effect.
-            wte_set_component(can_id, cmp::sample_loop)->stop(messages, "cannon_fire");
+            wte_set_component(can_id, cmp::sample_loop)->stop("cannon_fire");
         }
     );  //  End cannon input handler.
 
     //  Cannon logic.
     wte_new_component(e_id, cmp::ai,
-        [](const entity_id& can_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
-            entity_id player_entity = world.get_id("player");
+        [](const entity_id& can_id) {
+            entity_id player_entity = mgr::entities::get_id("player");
             //  Set the cannon's location to match the player.
             wte_set_component(can_id, cmp::location)->set_x(
                 wte_get_component(player_entity, cmp::location)->get_x()
@@ -454,13 +454,13 @@ void wte_demo::new_game(void) {
 
     //  Cannon message processing.
     wte_new_component(e_id, cmp::dispatcher,
-        [](const entity_id& can_id, const message& msg, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& current_time) {
+        [](const entity_id& can_id, const message& msg) {
             if(msg.get_cmd() == "colision") {
                 //  Deal damage
-                messages.add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
+                mgr::messages::add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
                                              std::to_string(wte_get_component(can_id, damage)->dmg)));
                 //  Play the hit effect.
-                //messages.add_message(message("audio", "play_sample", "fx3;once"));
+                //mgr::messages::add_message(message("audio", "play_sample", "fx3;once"));
             }
         }
     );  //  End cannon message processing.
@@ -468,8 +468,8 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     /* *** Shield entity *************** */
     /* ********************************* */
-    e_id = world.new_entity();
-    world.set_name(e_id, "shield");
+    e_id = mgr::entities::new_entity();
+    mgr::entities::set_name(e_id, "shield");
     wte_new_component(e_id, cmp::team, 0);
     wte_new_component(e_id, cmp::location, 0, 0);
     wte_new_component(e_id, cmp::hitbox, 64, 64, false);
@@ -488,8 +488,8 @@ void wte_demo::new_game(void) {
 
     //  Shield input handling.
     wte_new_component(e_id, cmp::input_button, WTE_INPUT_BUTTON_2,
-        [](const entity_id& shd_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
-            entity_id player_entity = world.get_id("player");
+        [](const entity_id& shd_id) {
+            entity_id player_entity = mgr::entities::get_id("player");
             //  Set the shield's location to match the player
             wte_set_component(shd_id, cmp::location)->set_x(
                 wte_get_component(player_entity, cmp::location)->get_x() - 28.0f
@@ -505,25 +505,25 @@ void wte_demo::new_game(void) {
                 wte_set_component(player_entity, cmp::hitbox)->make_fluid();
 
                 //  Play sound effect.
-                wte_set_component(shd_id, cmp::sample_loop)->start(messages, "shield_sound");
+                wte_set_component(shd_id, cmp::sample_loop)->start("shield_sound");
             }
         },
-        [](const entity_id& shd_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
+        [](const entity_id& shd_id) {
             //  Disable shield.
             wte_set_component(shd_id, cmp::visible)->hide();
             wte_set_component(shd_id, cmp::enabled)->disable();
-            entity_id player_entity = world.get_id("player");
+            entity_id player_entity = mgr::entities::get_id("player");
             wte_set_component(player_entity, cmp::hitbox)->make_solid();
             //  Stop sound effect.
-            wte_set_component(shd_id, cmp::sample_loop)->stop(messages, "shield_sound");
+            wte_set_component(shd_id, cmp::sample_loop)->stop("shield_sound");
         }
     );  //  End shield input handler.
 
     //  Shield logic.
     wte_new_component(e_id, cmp::ai,
         //  Enabeled AI.
-        [](const entity_id& shd_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
-            entity_id player_entity = world.get_id("player");
+        [](const entity_id& shd_id) {
+            entity_id player_entity = mgr::entities::get_id("player");
             //  Set the shield's location to match the player.
             wte_set_component(shd_id, cmp::location)->set_x(
                 wte_get_component(player_entity, cmp::location)->get_x() - 28.0f
@@ -542,11 +542,11 @@ void wte_demo::new_game(void) {
                 wte_set_component(shd_id, cmp::enabled)->disable();
                 wte_set_component(player_entity, cmp::hitbox)->make_solid();
                 //  Stop sound effect.
-                wte_set_component(shd_id, cmp::sample_loop)->stop(messages, "shield_sound");
+                wte_set_component(shd_id, cmp::sample_loop)->stop("shield_sound");
             }
         },
         //  Disabeled AI.
-        [](const entity_id& shd_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
+        [](const entity_id& shd_id) {
             //  Recharge the shield.
             if(wte_set_component(shd_id, energy)->amt < wte_set_component(shd_id, energy)->amt_max)
                 wte_set_component(shd_id, energy)->amt += 1;
@@ -555,10 +555,10 @@ void wte_demo::new_game(void) {
 
     //  Shield message processing.
     wte_new_component(e_id, cmp::dispatcher,
-        [](const entity_id& shd_id, const message& msg, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& current_time) {
+        [](const entity_id& shd_id, const message& msg) {
             if(msg.get_cmd() == "colision") {
                 //  Deal damage
-                messages.add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
+                mgr::messages::add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
                                              std::to_string(wte_get_component(shd_id, damage)->dmg)));
             }
         }
@@ -573,13 +573,13 @@ void wte_demo::new_game(void) {
     /*  (4) Velocity                          */
     /*  (5) Size                              */
     /* ************************************** */
-    spawner.add_spawn("asteroid", 5,
-        [](const entity_id& e_id, mgr::entity_manager& world, const msg_arg_list& args) {
+    mgr::spawner::add_spawn("asteroid", 5,
+        [](const entity_id& e_id, const msg_arg_list& args) {
             int temp_size = std::stoi(args[5]);
             if(temp_size < 1) temp_size = 1;
             if(temp_size > 8) temp_size = 8;
 
-            world.set_name(e_id, "asteroid" + std::to_string(e_id));
+            mgr::entities::set_name(e_id, "asteroid" + std::to_string(e_id));
             wte_new_component(e_id, cmp::team, 1);
             wte_new_component(e_id, cmp::location, std::stof(args[1]), std::stof(args[2]));
             wte_new_component(e_id, cmp::hitbox, (float)(temp_size * 16), (float)(temp_size * 16));
@@ -601,17 +601,17 @@ void wte_demo::new_game(void) {
 
             //  Asteroid logic.
             wte_new_component(e_id, cmp::ai,
-                [](const entity_id& ast_id, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& engine_time) {
+                [](const entity_id& ast_id) {
                     //  AI for asteroids defined here.
                     //  Perform OOB check.
-                    if(wte_get_component(ast_id, cmp::location)->get_y() > (float)(mgr::render_manager::get_arena_height() + 100)) {
-                        messages.add_message(message("spawner", "delete", world.get_name(ast_id)));
+                    if(wte_get_component(ast_id, cmp::location)->get_y() > (float)(mgr::renderer::get_arena_height() + 100)) {
+                        mgr::messages::add_message(message("spawner", "delete", mgr::entities::get_name(ast_id)));
                     }
 
                     //  Health check.  If asteroid's HP is <= 0, reward player with points and delete the entity.
                     if(wte_get_component(ast_id, health)->hp <= 0) {
-                        messages.add_message(message("spawner", "delete", world.get_name(ast_id)));
-                        messages.add_message(message("audio", "play_sample", "megumin;once;;;1.8"));
+                        mgr::messages::add_message(message("spawner", "delete", mgr::entities::get_name(ast_id)));
+                        mgr::messages::add_message(message("audio", "play_sample", "megumin;once;;;1.8"));
                         game_cfg::add<int>("score", (10 * wte_get_component(ast_id, size)->the_size));
 
                         //  If the asteroid was size >= 4, split into two.
@@ -630,8 +630,8 @@ void wte_demo::new_game(void) {
                             std::string new_spawner_b = "asteroid;" + std::to_string(new_x) + ";" +
                                 std::to_string(new_y) + ";" + std::to_string(dir_b) + ";" +
                                 std::to_string(new_vel) + ";" + std::to_string(new_size);
-                            messages.add_message(message("spawner", "new", new_spawner_a));
-                            messages.add_message(message("spawner", "new", new_spawner_b));
+                            mgr::messages::add_message(message("spawner", "new", new_spawner_a));
+                            mgr::messages::add_message(message("spawner", "new", new_spawner_b));
                         }
                     }
                 }
@@ -639,10 +639,10 @@ void wte_demo::new_game(void) {
 
             //  Asteroid message processing.
             wte_new_component(e_id, cmp::dispatcher,
-                [](const entity_id& ast_id, const message& msg, mgr::entity_manager& world, mgr::message_manager& messages, const int64_t& current_time) {
+                [](const entity_id& ast_id, const message& msg) {
                     if(msg.get_cmd() == "colision") {
                         //  Deal damage
-                        messages.add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
+                        mgr::messages::add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
                                                      std::to_string(wte_get_component(ast_id, damage)->dmg)));
                     }
 
@@ -663,9 +663,9 @@ void wte_demo::new_game(void) {
     game_cfg::set("lives", game_cfg::get("max_lives"));
 
     //  Load some samples in the audio manager.
-    wte_load_sample("sfx/laser.wav");
-    wte_load_sample("sfx/shield.wav");
-    wte_load_sample("sfx/megumin.wav");
+    mgr::audio::sample_load("sfx/laser.wav");
+    mgr::audio::sample_load("sfx/shield.wav");
+    mgr::audio::sample_load("sfx/megumin.wav");
 }
 
 /*
@@ -680,14 +680,14 @@ void wte_demo::end_game(void) {
  * On menu open.
  */
 void wte_demo::on_menu_open(void) {
-    messages.add_message(message("audio", "pause_music", ""));
-    messages.add_message(message("audio", "pause_ambiance", ""));
+    mgr::messages::add_message(message("audio", "pause_music", ""));
+    mgr::messages::add_message(message("audio", "pause_ambiance", ""));
 }
 
 /*
  * On menu close.
  */
 void wte_demo::on_menu_close(void) {
-    messages.add_message(message("audio", "unpause_music", ""));
-    messages.add_message(message("audio", "unpause_ambiance", ""));
+    mgr::messages::add_message(message("audio", "unpause_music", ""));
+    mgr::messages::add_message(message("audio", "unpause_ambiance", ""));
 }

@@ -26,8 +26,8 @@ endif()
 
 #  Set compiler flags
 set(CMAKE_CXX_FLAGS "-Wall")
-set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_DEBUG_MODE=9")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DWTE_DEBUG_MODE=0")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_BUILD_DEBUG")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 ########################################
 #

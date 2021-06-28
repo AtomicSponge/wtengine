@@ -155,11 +155,6 @@ class renderer final : private manager<renderer> {
          */
         static void reload_arena_bitmap(void);
 
-        /*!
-         * \brief Render method - Draw the game screen.
-         */
-        static void render(void);
-
     private:
         /*!
          * \brief renderer constructor.
@@ -186,6 +181,11 @@ class renderer final : private manager<renderer> {
          * Destories the internal objects.
          */
         static void de_init(void);
+
+        /*!
+         * \brief Render method - Draw the game screen.
+         */
+        static void render(void);
 
         template <typename T> struct comparator {
             const bool operator() (const T& a, const T& b) const {

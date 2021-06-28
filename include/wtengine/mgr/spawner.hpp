@@ -45,15 +45,6 @@ class spawner final : private manager<spawner> {
          */
         static const bool add_spawn(const std::string& name, const std::size_t& num_args,
                                     void func(const entity_id&, const msg_arg_list&));
-        
-        /*!
-         * \brief Process spawns.
-         * 
-         * Takes spawner messages and creates or deletes entities.
-         * 
-         * \param messages Spawner messages from main engine loop.
-         */
-        static void process(const message_container& messages);
 
     private:
         /*!
@@ -69,6 +60,15 @@ class spawner final : private manager<spawner> {
          * Clears the spawner map.
          */
         ~spawner();
+
+        /*!
+         * \brief Process spawns.
+         * 
+         * Takes spawner messages and creates or deletes entities.
+         * 
+         * \param messages Spawner messages from main engine loop.
+         */
+        static void process_messages(const message_container& messages);
 
         inline static std::map<std::string, std::pair<std::size_t,
             std::function<void(const entity_id&, const msg_arg_list&)>>> spawns = {};

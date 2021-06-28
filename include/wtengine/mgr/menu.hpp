@@ -45,6 +45,7 @@ namespace mgr
  */
 class menu final : private manager<menu> {
     friend class interface;
+    friend class renderer;
 
     public:
         /*!
@@ -58,9 +59,6 @@ class menu final : private manager<menu> {
             menu_bitmap = al_create_bitmap(menu_width, menu_height);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
         };
-
-        static void run(void);
-        static ALLEGRO_BITMAP* render_menu(void);
 
         /*!
          * \brief Set menu size.
@@ -222,6 +220,8 @@ class menu final : private manager<menu> {
             else menu_position = opened_menus.top()->items_cbegin();
         };
 
+        static ALLEGRO_BITMAP* render_menu(void);
+
     private:
         /*!
          * \brief Menu manager constructor.
@@ -296,6 +296,8 @@ class menu final : private manager<menu> {
             al_destroy_event_queue(menu_event_queue);
             al_destroy_timer(menu_timer);
         };
+
+        static void run(void);
 
         inline static mnu::menu_item_citerator menu_position;
 

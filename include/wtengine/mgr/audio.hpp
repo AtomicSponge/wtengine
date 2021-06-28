@@ -48,11 +48,6 @@ class audio final : private manager<audio> {
 
     public:
         /*!
-         * \brief Update engine cfg with the current volume levels.
-         */
-        static void get_volume(void);
-
-        /*!
          * \brief 
          */
         static void music_loop(const std::string& arg);
@@ -204,6 +199,11 @@ class audio final : private manager<audio> {
          * \return Filename stripped of folder path and extension.
          */
         static const std::string get_sample_name(const std::string& full_path);
+
+        /*!
+         * \brief Update engine cfg with the current volume levels.
+         */
+        static void get_volume(void);
 
         /*!
          * \brief Set volume levels based on engine cfg settings.

@@ -10,6 +10,9 @@
 #ifndef WTE_MGR_INTERFACE_HPP
 #define WTE_MGR_INTERFACE_HPP
 
+#include <allegro5/allegro.h>
+
+#include "wtengine/message.hpp"
 #include "wtengine/mgr/audio.hpp"
 #include "wtengine/mgr/menu.hpp"
 #include "wtengine/mgr/renderer.hpp"
@@ -53,6 +56,13 @@ class interface {
         /*!
          *
          */
+        inline void audio_get_volume(void) {
+            mgr::audio::get_volume();
+        };
+
+        /*!
+         *
+         */
         inline void audio_set_volume(void) {
             mgr::audio::set_volume();
         };
@@ -81,6 +91,13 @@ class interface {
             mgr::menu::de_init();
         };
 
+        /*!
+         *
+         */
+        inline void menu_run(void) {
+            mgr::menu::run();
+        };
+
         /* ************************************ */
         /* *** RENDERER INTERFACE FUNCTIONS *** */
         /* ************************************ */
@@ -98,9 +115,19 @@ class interface {
             mgr::renderer::de_init();
         };
 
+        /*!
+         *
+         */
+        inline void renderer_render(void) {
+            mgr::renderer::render();
+        };
+
         /* *********************************** */
         /* *** SPAWNER INTERFACE FUNCTIONS *** */
         /* *********************************** */
+        inline void spawner_process_messages(const message_container& messages) {
+            mgr::spawner::process_messages(messages);
+        };
 
         /* *********************************** */
         /* *** SYSTEMS INTERFACE FUNCTIONS *** */

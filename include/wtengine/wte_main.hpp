@@ -192,9 +192,9 @@ class wte_main : private wte_display, private wte_input {
             //  Initialize managers that require it.
             //mgr::renderer::initialize();
             //mgr::menu::initialize();
-            mgr_interface.renderer_init();
-            mgr_interface.menu_init();
-            mgr_interface.audio_init();
+            mgr_inf.renderer_init();
+            mgr_inf.menu_init();
+            mgr_inf.audio_init();
 
             //  Load user configured mgr::menu::
             load_menus();
@@ -206,9 +206,9 @@ class wte_main : private wte_display, private wte_input {
          * Called after the main loop ends running.
          */
         inline void wte_unload(void) {
-            mgr_interface.audio_de_init();
-            mgr_interface.menu_de_init();
-            mgr_interface.renderer_de_init();
+            mgr_inf.audio_de_init();
+            mgr_inf.menu_de_init();
+            mgr_inf.renderer_de_init();
             //mgr::menu::de_init();
             //mgr::renderer::de_init();
         };
@@ -234,7 +234,7 @@ class wte_main : private wte_display, private wte_input {
         ALLEGRO_EVENT_QUEUE* main_event_queue;
 
         //  Interface for manager private member access.
-        mgr::interface mgr_interface;
+        mgr::interface mgr_inf;
         //  Vector of file paths to provide to PhysFS.
         inline static std::vector<std::string> file_locations = {};
         //  Restrict to one instance of the engine running.
@@ -334,7 +334,7 @@ inline void wte_main::do_game(void) {
         //  Also process the on_menu events.
         if(engine_flags::is_set(GAME_MENU_OPENED) && al_get_timer_started(main_timer)) {
             al_stop_timer(main_timer);
-            mgr::audio::get_volume();  //  Make sure engine cfg matches audio manager.
+            mgr_inf.audio_get_volume();  //  Make sure engine cfg matches audio manager.
             on_menu_open();
         }
         if(!engine_flags::is_set(GAME_MENU_OPENED) && !al_get_timer_started(main_timer)) {
@@ -346,7 +346,7 @@ inline void wte_main::do_game(void) {
         check_input_events();
 
         //  Game menu is opened, run the menu manager.
-        if(engine_flags::is_set(GAME_MENU_OPENED)) mgr::menu::run();
+        if(engine_flags::is_set(GAME_MENU_OPENED)) mgr_inf.menu_run();
 
         /* *** GAME LOOP ************************************************************ */
         ALLEGRO_EVENT event;
@@ -363,12 +363,12 @@ inline void wte_main::do_game(void) {
 
             {//  Get any spawner messages and pass to handler.
             message_container temp_msgs = mgr::messages::get_messages("spawner");
-            if(!temp_msgs.empty()) mgr::spawner::process(temp_msgs);}
+            if(!temp_msgs.empty()) mgr_inf.spawner_process_messages(temp_msgs);}
         }
         /* *** END GAME LOOP ******************************************************** */
 
         //  Render the screen.
-        mgr::renderer::render();
+        mgr_inf.renderer_render();
 
         {//  Get any system messages and pass to handler.
         message_container temp_msgs = mgr::messages::get_messages("system");
@@ -376,7 +376,7 @@ inline void wte_main::do_game(void) {
 
         {//  Send audio messages to the audio queue.
         message_container temp_msgs = mgr::messages::get_messages("audio");
-        if(!temp_msgs.empty()) mgr_interface.audio_process_messages(temp_msgs);}
+        if(!temp_msgs.empty()) mgr_inf.audio_process_messages(temp_msgs);}
 
         //  Delete timed messages that were not processed.
         mgr::messages::prune();

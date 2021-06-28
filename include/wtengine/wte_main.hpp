@@ -190,8 +190,10 @@ class wte_main : private wte_display, private wte_input {
          */
         inline void wte_load(void) {
             //  Initialize managers that require it.
-            mgr::renderer::initialize();
-            mgr::menu::initialize();
+            //mgr::renderer::initialize();
+            //mgr::menu::initialize();
+            mgr_interface.renderer_init();
+            mgr_interface.menu_init();
             mgr_interface.audio_init();
 
             //  Load user configured mgr::menu::
@@ -205,8 +207,10 @@ class wte_main : private wte_display, private wte_input {
          */
         inline void wte_unload(void) {
             mgr_interface.audio_de_init();
-            mgr::menu::de_init();
-            mgr::renderer::de_init();
+            mgr_interface.menu_de_init();
+            mgr_interface.renderer_de_init();
+            //mgr::menu::de_init();
+            //mgr::renderer::de_init();
         };
 
         void process_new_game(const std::string&);
@@ -372,7 +376,7 @@ inline void wte_main::do_game(void) {
 
         {//  Send audio messages to the audio queue.
         message_container temp_msgs = mgr::messages::get_messages("audio");
-        if(!temp_msgs.empty()) mgr::audio::process_messages(temp_msgs);}
+        if(!temp_msgs.empty()) mgr_interface.audio_process_messages(temp_msgs);}
 
         //  Delete timed messages that were not processed.
         mgr::messages::prune();

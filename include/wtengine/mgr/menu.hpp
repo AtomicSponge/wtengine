@@ -48,60 +48,6 @@ class menu final : private manager<menu> {
 
     public:
         /*!
-         * \brief Ititialize menu manager.
-         * 
-         * Sets up internal menu objects.  Called during engine initialization.
-         * Also creates the default main menu and in-game menu.
-         */
-        inline static void initialize(void) {
-            if(menu_font_file.empty()) menu_font = al_create_builtin_font();
-            else {
-                menu_font = al_load_font(menu_font_file.c_str(), menu_font_size, menu_font_flags);
-                if(!menu_font) menu_font = al_create_builtin_font();
-            }
-            if(!menu_font) throw std::runtime_error("Unable to set font for menus!");
-
-            //  Create the main menu.
-            mnu::menu temp_main_menu = mnu::menu("main_menu", "Main Menu");
-            if(!new_menu(temp_main_menu)) throw std::runtime_error("Unable to create main menu!");
-
-            //  Create the in-game menu.
-            mnu::menu temp_game_menu = mnu::menu("game_menu", "Game Menu");
-            if(!new_menu(temp_game_menu)) throw std::runtime_error("Unable to create game menu!");
-
-            //  Set font size.
-            font_size = al_get_font_line_height(menu_font);
-
-            //  Create the menu cursor.
-            cursor_bitmap = al_create_bitmap(font_size, font_size);
-
-            //  Create the the menu bitmap for rendering.
-            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            menu_bitmap = al_create_bitmap(menu_width, menu_height);
-            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-
-            //  Create timer & its queue.
-            menu_timer = al_create_timer(1.0f / 30.0f);
-            if(!menu_timer) throw std::runtime_error("Failed to create menu timer!");
-            menu_event_queue = al_create_event_queue();
-            if(!menu_event_queue) throw std::runtime_error("Failed to create menu event queue!");
-            al_register_event_source(menu_event_queue, al_get_timer_event_source(menu_timer));
-        };
-
-        /*!
-         * \brief De-initialize the menu manager.
-         * 
-         * Destories the internal objects.
-         */
-        inline static void de_init(void) {
-            al_destroy_bitmap(menu_bitmap);
-            al_destroy_bitmap(cursor_bitmap);
-            al_destroy_font(menu_font);
-            al_destroy_event_queue(menu_event_queue);
-            al_destroy_timer(menu_timer);
-        };
-
-        /*!
          * \brief Reload the menu bitmap.
          * 
          * Called when the screen is updated.
@@ -295,6 +241,60 @@ class menu final : private manager<menu> {
         inline ~menu() {
             opened_menus = {};
             menus.clear();
+        };
+
+        /*!
+         * \brief Ititialize menu manager.
+         * 
+         * Sets up internal menu objects.  Called during engine initialization.
+         * Also creates the default main menu and in-game menu.
+         */
+        inline static void initialize(void) {
+            if(menu_font_file.empty()) menu_font = al_create_builtin_font();
+            else {
+                menu_font = al_load_font(menu_font_file.c_str(), menu_font_size, menu_font_flags);
+                if(!menu_font) menu_font = al_create_builtin_font();
+            }
+            if(!menu_font) throw std::runtime_error("Unable to set font for menus!");
+
+            //  Create the main menu.
+            mnu::menu temp_main_menu = mnu::menu("main_menu", "Main Menu");
+            if(!new_menu(temp_main_menu)) throw std::runtime_error("Unable to create main menu!");
+
+            //  Create the in-game menu.
+            mnu::menu temp_game_menu = mnu::menu("game_menu", "Game Menu");
+            if(!new_menu(temp_game_menu)) throw std::runtime_error("Unable to create game menu!");
+
+            //  Set font size.
+            font_size = al_get_font_line_height(menu_font);
+
+            //  Create the menu cursor.
+            cursor_bitmap = al_create_bitmap(font_size, font_size);
+
+            //  Create the the menu bitmap for rendering.
+            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+            menu_bitmap = al_create_bitmap(menu_width, menu_height);
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+
+            //  Create timer & its queue.
+            menu_timer = al_create_timer(1.0f / 30.0f);
+            if(!menu_timer) throw std::runtime_error("Failed to create menu timer!");
+            menu_event_queue = al_create_event_queue();
+            if(!menu_event_queue) throw std::runtime_error("Failed to create menu event queue!");
+            al_register_event_source(menu_event_queue, al_get_timer_event_source(menu_timer));
+        };
+
+        /*!
+         * \brief De-initialize the menu manager.
+         * 
+         * Destories the internal objects.
+         */
+        inline static void de_init(void) {
+            al_destroy_bitmap(menu_bitmap);
+            al_destroy_bitmap(cursor_bitmap);
+            al_destroy_font(menu_font);
+            al_destroy_event_queue(menu_event_queue);
+            al_destroy_timer(menu_timer);
         };
 
         inline static mnu::menu_item_citerator menu_position;

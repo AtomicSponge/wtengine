@@ -149,20 +149,6 @@ class renderer final : private manager<renderer> {
         static void update_resolution(const int& w, const int& h);
 
         /*!
-         * \brief Initialize the render manager.
-         * 
-         * Configures the internal objects for the render manager to use.
-         */
-        static void initialize(void);
-
-        /*!
-         * \brief De-initialize the render manager.
-         * 
-         * Destories the internal objects.
-         */
-        static void de_init(void);
-
-        /*!
          * \brief Reload the arena bitmap.
          * 
          * Called when the screen is updated.
@@ -186,6 +172,20 @@ class renderer final : private manager<renderer> {
          * \brief renderer destructor.
          */
         inline ~renderer() {};
+
+        /*!
+         * \brief Initialize the render manager.
+         * 
+         * Configures the internal objects for the render manager to use.
+         */
+        static void initialize(void);
+
+        /*!
+         * \brief De-initialize the render manager.
+         * 
+         * Destories the internal objects.
+         */
+        static void de_init(void);
 
         template <typename T> struct comparator {
             const bool operator() (const T& a, const T& b) const {

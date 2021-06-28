@@ -11,6 +11,10 @@
 #define WTE_MGR_INTERFACE_HPP
 
 #include "wtengine/mgr/audio.hpp"
+#include "wtengine/mgr/menu.hpp"
+#include "wtengine/mgr/renderer.hpp"
+#include "wtengine/mgr/spawner.hpp"
+#include "wtengine/mgr/systems.hpp"
 
 namespace wte
 {
@@ -63,10 +67,36 @@ class interface {
         /* ******************************** */
         /* *** MENU INTERFACE FUNCTIONS *** */
         /* ******************************** */
+        /*!
+         *
+         */
+        inline void menu_init(void) {
+            mgr::menu::initialize();
+        };
+
+        /*!
+         *
+         */
+        inline void menu_de_init(void) {
+            mgr::menu::de_init();
+        };
 
         /* ************************************ */
         /* *** RENDERER INTERFACE FUNCTIONS *** */
         /* ************************************ */
+        /*!
+         *
+         */
+        inline void renderer_init(void) {
+            mgr::renderer::initialize();
+        };
+
+        /*!
+         *
+         */
+        inline void renderer_de_init(void) {
+            mgr::renderer::de_init();
+        };
 
         /* *********************************** */
         /* *** SPAWNER INTERFACE FUNCTIONS *** */

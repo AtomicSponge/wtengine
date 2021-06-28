@@ -19,22 +19,21 @@ sprite::sprite(
     const float sw, const float sh,
     const float dox, const float doy,
     const std::size_t rt, const std::size_t l) :
-    animator(l, [this](const entity_id& e_id) {
-            //  Define sprite animation process.
-            if(engine_time::check_time() % rate == 0) {
-                //  Increment frame.
-                current_frame++;
-                //  Loop frame.
-                if(current_frame > stop_frame) {
-                    current_frame = start_frame;
-                }
-                //  Calculate the X position in the sprite sheet.
-                sprite_x = (float)((int)(current_frame * sprite_width + sheet_width) % sheet_width);
-                //  Calculate the Y position in the sprite sheet.
-                sprite_y = (float)((int)((current_frame * sprite_width) / sheet_width) * sprite_height);
+    animator(l,[this](const entity_id& e_id) {
+        //  Define sprite animation process.
+        if(engine_time::check_time() % rate == 0) {
+            //  Increment frame.
+            current_frame++;
+            //  Loop frame.
+            if(current_frame > stop_frame) {
+                current_frame = start_frame;
             }
+            //  Calculate the X position in the sprite sheet.
+            sprite_x = (float)((int)(current_frame * sprite_width + sheet_width) % sheet_width);
+            //  Calculate the Y position in the sprite sheet.
+            sprite_y = (float)((int)((current_frame * sprite_width) / sheet_width) * sprite_height);
         }
-    ),
+    }),
     sprite_width(sw), sprite_height(sh), draw_offset_x(dox), draw_offset_y(doy),
     sprite_x(0.0f), sprite_y(0.0f), scale_factor_x(1.0f), scale_factor_y(1.0f),
     start_frame(0), stop_frame(0), current_frame(0), rate(rt)

@@ -31,6 +31,8 @@ namespace mgr
  * \brief Store the configured systems and process their runs and dispatches.
  */
 class systems final : private manager<systems> {
+    friend class interface;
+
     public:
         /*!
          * \brief Add a new system to the manager.

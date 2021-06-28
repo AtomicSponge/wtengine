@@ -30,6 +30,8 @@ namespace mgr
  * \brief Create or delete entities while the engine is running.
  */
 class spawner final : private manager<spawner> {
+    friend class interface;
+
     public:
         /*!
          * \brief Add a spawn to the spawner map.

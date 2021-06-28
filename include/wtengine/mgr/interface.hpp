@@ -59,6 +59,22 @@ class interface {
         inline void audio_process_messages(const message_container& messages) {
             mgr::audio::process_messages(messages);
         };
+
+        /* ******************************** */
+        /* *** MENU INTERFACE FUNCTIONS *** */
+        /* ******************************** */
+
+        /* ************************************ */
+        /* *** RENDERER INTERFACE FUNCTIONS *** */
+        /* ************************************ */
+
+        /* *********************************** */
+        /* *** SPAWNER INTERFACE FUNCTIONS *** */
+        /* *********************************** */
+
+        /* *********************************** */
+        /* *** SYSTEMS INTERFACE FUNCTIONS *** */
+        /* *********************************** */
 };
 
 } //  end namespace mgr

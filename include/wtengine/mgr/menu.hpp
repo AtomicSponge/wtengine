@@ -44,6 +44,8 @@ namespace mgr
  * \brief Handles processing menus and rendering them.
  */
 class menu final : private manager<menu> {
+    friend class interface;
+
     public:
         /*!
          * \brief Ititialize menu manager.

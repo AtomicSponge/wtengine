@@ -41,8 +41,8 @@ class input_button final : public component {
          */
         input_button(
             const std::size_t button,
-            void func_a(const entity_id&),
-            void func_b(const entity_id&)
+            std::function<void(const entity_id&)> func_a,
+            std::function<void(const entity_id&)> func_b
         );
 
         /*!

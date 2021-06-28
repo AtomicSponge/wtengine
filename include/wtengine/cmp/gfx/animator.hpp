@@ -96,7 +96,8 @@ class animator : public component {
          * \param l Layer for sorting.
          * \param func Animation function.
          */
-        inline animator(std::size_t l, void func(const entity_id&)) :
+        //inline animator(std::size_t l, void func(const entity_id&)) :
+        inline animator(std::size_t l, std::function<void(const entity_id&)> func) :
         layer(l), tint_set(false), animate(func) {};
 
         //!  Stores the bitmap used by the animator.

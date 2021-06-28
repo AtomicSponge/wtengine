@@ -19,23 +19,19 @@ sprite::sprite(
     const float sw, const float sh,
     const float dox, const float doy,
     const std::size_t rt, const std::size_t l) :
-    animator(l, [](const entity_id& e_id) {
+    animator(l, [this](const entity_id& e_id) {
             //  Define sprite animation process.
-            if(engine_time::check_time() % mgr::entities::get_component<sprite>(e_id)->rate == 0) {
+            if(engine_time::check_time() % rate == 0) {
                 //  Increment frame.
-                mgr::entities::set_component<sprite>(e_id)->current_frame++;
+                current_frame++;
                 //  Loop frame.
-                if(mgr::entities::get_component<sprite>(e_id)->current_frame > mgr::entities::get_component<sprite>(e_id)->stop_frame) {
-                    mgr::entities::set_component<sprite>(e_id)->current_frame = mgr::entities::get_component<sprite>(e_id)->start_frame;
+                if(current_frame > stop_frame) {
+                    current_frame = start_frame;
                 }
                 //  Calculate the X position in the sprite sheet.
-                mgr::entities::set_component<sprite>(e_id)->sprite_x = (float)
-                    ((int)(mgr::entities::get_component<sprite>(e_id)->current_frame * mgr::entities::get_component<sprite>(e_id)->sprite_width +
-                    mgr::entities::get_component<sprite>(e_id)->sheet_width) % mgr::entities::get_component<sprite>(e_id)->sheet_width);
+                sprite_x = (float)((int)(current_frame * sprite_width + sheet_width) % sheet_width);
                 //  Calculate the Y position in the sprite sheet.
-                mgr::entities::set_component<sprite>(e_id)->sprite_y = (float)
-                    ((int)((mgr::entities::get_component<sprite>(e_id)->current_frame * mgr::entities::get_component<sprite>(e_id)->sprite_width) /
-                    mgr::entities::get_component<sprite>(e_id)->sheet_width) * mgr::entities::get_component<sprite>(e_id)->sprite_height);
+                sprite_y = (float)((int)((current_frame * sprite_width) / sheet_width) * sprite_height);
             }
         }
     ),

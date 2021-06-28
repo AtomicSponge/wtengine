@@ -36,7 +36,9 @@ class dispatcher final : public component {
          * 
          * \param func Function to define message processing.
          */
-        dispatcher(void func(const entity_id&, const message&));
+        dispatcher(
+            std::function<void(const entity_id&, const message&)> func
+        );
 
         /*!
          * \brief Dispatched destructor.

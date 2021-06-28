@@ -37,7 +37,7 @@ class ai final : public component {
          * 
          * \param func Function to define AI process.
          */
-        ai(void func(const entity_id&));
+        ai(std::function<void(const entity_id&)> func);
 
         /*!
          * \brief AI constructor.
@@ -47,8 +47,8 @@ class ai final : public component {
          * \param func_a Function to define enabled AI process.
          * \param func_b Function to define disabled AI process.
          */
-        ai(void func_a(const entity_id&),
-           void func_b(const entity_id&));
+        ai(std::function<void(const entity_id&)> func_a,
+           std::function<void(const entity_id&)> func_b);
 
         /*!
          * \brief AI destructor.

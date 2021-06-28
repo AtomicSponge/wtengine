@@ -37,8 +37,8 @@ class input_directional final : public component {
          */
         input_directional(
             const std::size_t ib,
-            void func_a(const entity_id&, const float&),
-            void func_b(const entity_id&)
+            std::function<void(const entity_id&, const float&)> func_a,
+            std::function<void(const entity_id&)> func_b
         );
 
         /*!

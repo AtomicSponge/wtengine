@@ -17,8 +17,8 @@ namespace cmp
 
 input_button::input_button(
     const std::size_t button,
-    void func_a(const entity_id&),
-    void func_b(const entity_id&)
+    std::function<void(const entity_id&)> func_a,
+    std::function<void(const entity_id&)> func_b
 ) : button_flag(button), button_down(func_a), button_up(func_b) {
     assert(button_flag < WTE_MAX_INPUT_BUTTON_FLAGS);
 }

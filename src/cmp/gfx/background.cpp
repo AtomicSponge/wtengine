@@ -18,9 +18,9 @@ namespace cmp
 background::background(
     const int w, const int h,
     const std::size_t l, ALLEGRO_COLOR c) :
-    animator(l, [](const entity_id& e_id) {
-        mgr::entities::set_component<cmp::background>(e_id)->set_drawing();
-        al_clear_to_color(mgr::entities::get_component<cmp::background>(e_id)->get_color());
+    animator(l, [this](const entity_id& e_id) {
+        set_drawing();
+        al_clear_to_color(get_color());
     }), background_w(w), background_h(h), color(c)
 {
     al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
@@ -30,7 +30,7 @@ background::background(
 
 background::background(
     const int w, const int h, const std::size_t l,
-    void func(const entity_id&)
+    std::function<void(const entity_id&)> func
 ) : animator(l, func), background_w(w), background_h(h)
 {
     al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);

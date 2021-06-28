@@ -16,12 +16,12 @@ namespace cmp
 {
 
 ai::ai(
-    void func(const entity_id&)
+    std::function<void(const entity_id&)> func
 ) : enabled_ai(func), disabled_ai([](const entity_id& e_id){}) {}
 
 ai::ai(
-    void func_a(const entity_id&),
-    void func_b(const entity_id&)
+    std::function<void(const entity_id&)> func_a,
+    std::function<void(const entity_id&)> func_b
 ) : enabled_ai(func_a), disabled_ai(func_b) {}
 
 void ai::run_enabled(const entity_id& e_id) {

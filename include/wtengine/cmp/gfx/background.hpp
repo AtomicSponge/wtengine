@@ -12,6 +12,7 @@
 
 #include <string>
 #include <map>
+#include <functional>
 
 #include <allegro5/allegro.h>
 
@@ -49,7 +50,7 @@ class background final : public animator, public bitmap_map {
          * \param func Animcation function.
          */
         background(const int w, const int h, const std::size_t l,
-                   void func(const entity_id&));
+                   std::function<void(const entity_id&)> func);
 
         /*!
          * \brief Background destructor.

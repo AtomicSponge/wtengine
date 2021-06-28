@@ -42,7 +42,7 @@ class overlay final : public animator, public bitmap_map {
          * \param func Function to define what is displayed in the overlay.
          */
         overlay(const int w, const int h, const float x, const float y,
-                       const std::size_t l, void func(const entity_id&));
+                       const std::size_t l, std::function<void(const entity_id&)> func);
 
         /*!
          * \brief Overlay destructor.

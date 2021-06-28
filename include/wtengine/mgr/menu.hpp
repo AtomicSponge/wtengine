@@ -220,8 +220,6 @@ class menu final : private manager<menu> {
             else menu_position = opened_menus.top()->items_cbegin();
         };
 
-        static ALLEGRO_BITMAP* render_menu(void);
-
     private:
         /*!
          * \brief Menu manager constructor.
@@ -298,6 +296,7 @@ class menu final : private manager<menu> {
         };
 
         static void run(void);
+        static ALLEGRO_BITMAP* render_menu(void);
 
         inline static mnu::menu_item_citerator menu_position;
 

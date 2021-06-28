@@ -187,9 +187,9 @@ void audio::set_volume(void) {
  */
 void audio::process_messages(const message_container& messages) {
     //  Initialize variables for local use.
-    float gain = 0.0f;
-    float pan = 0.0f;
-    float speed = 0.0f;
+    float gain = 1.0f;
+    float pan = ALLEGRO_AUDIO_PAN_NONE;
+    float speed = 1.0f;
 
     //  Iterators for referencing saved & playing samples.
     std::map<std::string, ALLEGRO_SAMPLE_ID>::iterator sample_instance;
@@ -394,8 +394,8 @@ void audio::process_messages(const message_container& messages) {
                 //break;
             /////////////////////////////////////////////
         }
-    }  //  End if(!messages.empty())
-}  //  End run member
+    }  //  End for loop
+}  //  End process message member
 
 /*
  *

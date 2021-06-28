@@ -29,12 +29,35 @@ class interface {
         inline interface() {};
         inline ~interface() {};
 
-        void audio_init(void) {
+        /* ********************************* */
+        /* *** AUDIO INTERFACE FUNCTIONS *** */
+        /* ********************************* */
+        /*!
+         *
+         */
+        inline void audio_init(void) {
             mgr::audio::initialize();
         };
 
-        void audio_de_init(void) {
+        /*!
+         *
+         */
+        inline void audio_de_init(void) {
             mgr::audio::de_init();
+        };
+
+        /*!
+         *
+         */
+        inline void audio_set_volume(void) {
+            mgr::audio::set_volume();
+        };
+
+        /*!
+         *
+         */
+        inline void audio_process_messages(const message_container& messages) {
+            mgr::audio::process_messages(messages);
         };
 };
 

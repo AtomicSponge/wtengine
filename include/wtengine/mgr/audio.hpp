@@ -161,26 +161,6 @@ class audio final : private manager<audio> {
          */
         static void ambiance_unpause(void);
 
-        /*!
-         * \brief Process audio manager messages
-         */
-        static void process_messages(const message_container& messages);
-
-        /*!
-         * \brief Get sample name.
-         * 
-         * Pass the full file path and return just the name, no extension.
-         * 
-         * \param full_path Full filename including path.
-         * \return Filename stripped of folder path and extension.
-         */
-        static const std::string get_sample_name(const std::string& full_path);
-
-        /*!
-         * \brief Set volume levels based on engine cfg settings.
-         */
-        static void set_volume(void);
-
     private:
         /*!
          * \brief Audio Manager constructor.
@@ -209,6 +189,26 @@ class audio final : private manager<audio> {
          * Destroies the Allegro objects used by the manager.
          */
         static void de_init(void);
+
+        /*!
+         * \brief Process audio manager messages
+         */
+        static void process_messages(const message_container& messages);
+
+        /*!
+         * \brief Get sample name.
+         * 
+         * Pass the full file path and return just the name, no extension.
+         * 
+         * \param full_path Full filename including path.
+         * \return Filename stripped of folder path and extension.
+         */
+        static const std::string get_sample_name(const std::string& full_path);
+
+        /*!
+         * \brief Set volume levels based on engine cfg settings.
+         */
+        static void set_volume(void);
 
         //  Used for switching on audio messages:
         enum CMD_STR_VALUE {

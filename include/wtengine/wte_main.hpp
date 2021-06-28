@@ -192,7 +192,7 @@ class wte_main : private wte_display, private wte_input {
             //  Initialize managers that require it.
             mgr::renderer::initialize();
             mgr::menu::initialize();
-            mgr::audio::initialize();
+            mgr_interface.audio_init();
 
             //  Load user configured mgr::menu::
             load_menus();
@@ -204,7 +204,7 @@ class wte_main : private wte_display, private wte_input {
          * Called after the main loop ends running.
          */
         inline void wte_unload(void) {
-            mgr::audio::de_init();
+            mgr_interface.audio_de_init();
             mgr::menu::de_init();
             mgr::renderer::de_init();
         };
@@ -229,6 +229,8 @@ class wte_main : private wte_display, private wte_input {
         ALLEGRO_TIMER* main_timer;
         ALLEGRO_EVENT_QUEUE* main_event_queue;
 
+        //  Interface for manager private member access.
+        mgr::interface mgr_interface;
         //  Vector of file paths to provide to PhysFS.
         inline static std::vector<std::string> file_locations = {};
         //  Restrict to one instance of the engine running.

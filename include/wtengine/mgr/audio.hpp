@@ -44,6 +44,8 @@ namespace mgr
  * Mixer 4 - Play ambiance - Load a file and play in a loop.  Looping can be disabled.
  */
 class audio final : private manager<audio> {
+    friend class interface;
+
     public:
         /*!
          * \brief Update engine cfg with the current volume levels.
@@ -160,20 +162,6 @@ class audio final : private manager<audio> {
         static void ambiance_unpause(void);
 
         /*!
-         * \brief Initialize audio manager.
-         * 
-         * Sets up the various Allegro objects for the audio manager to use.
-         */
-        static void initialize(void);
-
-        /*!
-         * \brief De-initialize the audio manager.
-         * 
-         * Destroies the Allegro objects used by the manager.
-         */
-        static void de_init(void);
-
-        /*!
          * \brief Process audio manager messages
          */
         static void process_messages(const message_container& messages);
@@ -207,6 +195,20 @@ class audio final : private manager<audio> {
          * Clears the internal audio deck and audio command map.
          */
         ~audio();
+
+        /*!
+         * \brief Initialize audio manager.
+         * 
+         * Sets up the various Allegro objects for the audio manager to use.
+         */
+        static void initialize(void);
+
+        /*!
+         * \brief De-initialize the audio manager.
+         * 
+         * Destroies the Allegro objects used by the manager.
+         */
+        static void de_init(void);
 
         //  Used for switching on audio messages:
         enum CMD_STR_VALUE {

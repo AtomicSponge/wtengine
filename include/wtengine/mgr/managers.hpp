@@ -17,5 +17,6 @@
 #include "wtengine/mgr/renderer.hpp"
 #include "wtengine/mgr/spawner.hpp"
 #include "wtengine/mgr/systems.hpp"
+#include "wtengine/mgr/interface.hpp"
 
 #endif

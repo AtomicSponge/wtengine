@@ -56,8 +56,8 @@ find_package(PkgConfig REQUIRED)
 #
 ########################################
 add_library(wtengine STATIC
-    src/wte_display.cpp
-    src/wte_input.cpp
+    src/display.cpp
+    src/input.cpp
     src/cmp/ai.cpp
     src/cmp/bounding_box.cpp
     src/cmp/direction.cpp

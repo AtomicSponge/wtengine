@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  wte_commands.hpp
+ * WTEngine | File:  commands.hpp
  * 
  * \author Matthew Evans
  * \version 0.2
@@ -7,24 +7,24 @@
  * \date 2019-2021
  */
 
-#ifndef WTE_COMMANDS_HPP
-#define WTE_COMMANDS_HPP
+#ifndef WTE_COMMANDS__HPP
+#define WTE_COMMANDS__HPP
 
 namespace wte
 {
 
 /*!
- * \class wte_commands
+ * \class commands
  * \brief .
  * 
  * .
  */
-class wte_commands {
+class commands {
     public:
-        inline ~wte_commands() {};
+        inline ~commands() {};
 
     protected:
-        inline wte_commands() {};
+        inline commands() {};
 };
 
 } //  end namespace wte

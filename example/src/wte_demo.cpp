@@ -24,7 +24,7 @@ using namespace wte;  //  Required for macro use.
  * Game's constructor.
  * Initialize game specific variables here.
  */
-wte_demo::wte_demo(int argc, char **argv) : wte_main(argc, argv, "WTE Demo") {
+wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
     //  The engine doesn't use Allegro's primitives addon, so init it here.
     al_init_primitives_addon();
 

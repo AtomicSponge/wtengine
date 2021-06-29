@@ -12,7 +12,7 @@
 
 #include <cassert>
 
-#include "wtengine/wte_global_defines.hpp"
+#include "wtengine/global_defines.hpp"
 
 namespace wte
 {

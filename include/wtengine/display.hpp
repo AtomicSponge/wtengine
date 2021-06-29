@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  wte_display.hpp
+ * WTEngine | File:  display.hpp
  * 
  * \author Matthew Evans
  * \version 0.2
@@ -22,17 +22,17 @@ namespace wte
 {
 
 /*!
- * \class wte_display
+ * \class display
  * \brief Handles control of the display.
  * 
  * Inherited by the main engine class.
  */
-class wte_display {
+class display {
     public:
         /*!
          * \brief Display destructor.
          */
-        inline virtual ~wte_display() {};
+        inline virtual ~display() {};
 
         /*!
          * \brief Get the window title.
@@ -47,7 +47,7 @@ class wte_display {
          * 
          * \param title Window title.
          */
-        wte_display(const std::string& title);
+        display(const std::string& title);
 
         /*!
          * \brief Configure the display.
@@ -65,7 +65,7 @@ class wte_display {
         void reconf_display(void);
 
         //!  Allegro object for the display.
-        ALLEGRO_DISPLAY* display;
+        ALLEGRO_DISPLAY* _display;
 
     private:
         std::string window_title;  //  Title for application window.

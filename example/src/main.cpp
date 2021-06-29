@@ -17,7 +17,7 @@ using namespace wte;
 
 int main(int argc, char **argv) {
     //  Set locations to load game data from.
-    wte_main::add_file_location("data.zip");
+    engine::add_file_location("data.zip");
 
     //  Set the title screen.
     mgr::renderer::set_title_screen("title.bmp");

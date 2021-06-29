@@ -26,7 +26,7 @@
 #include "wtengine/_globals/engine_flags.hpp"
 #include "wtengine/_globals/input_flags.hpp"
 #include "wtengine/mnu/menu.hpp"
-#include "wtengine/wte_global_defines.hpp"
+#include "wtengine/global_defines.hpp"
 
 namespace wte
 {

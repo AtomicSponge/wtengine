@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  wte_display.cpp
+ * WTEngine | File:  display.cpp
  * 
  * \author Matthew Evans
  * \version 0.2
@@ -7,18 +7,18 @@
  * \date 2019-2021
  */
 
-#include "wtengine/wte_display.hpp"
+#include "wtengine/display.hpp"
 
 namespace wte
 {
 
-const std::string wte_display::get_window_title(void) const {
+const std::string display::get_window_title(void) const {
     return window_title;
 }
 
-wte_display::wte_display(const std::string& title) : window_title(title) {}
+display::display(const std::string& title) : window_title(title) {}
 
-void wte_display::create_display(void) {
+void display::create_display(void) {
     al_reset_new_display_options();
 
     //  Configure vsync options.  Gfx driver may override this.
@@ -59,14 +59,14 @@ void wte_display::create_display(void) {
     }
 
     //  Create the display.  Full screen windowed defaults to the display resolution.
-    display = al_create_display(screen_w, screen_h);
+    _display = al_create_display(screen_w, screen_h);
 
     //  Display failed to load, try a fallback.
-    if(!display) {
+    if(!_display) {
         al_set_new_display_flags(ALLEGRO_WINDOWED);
-        display = al_create_display(mgr::renderer::get_arena_width(),
-                                    mgr::renderer::get_arena_height());
-        if(!display) throw std::runtime_error("Failed to configure display!");
+        _display = al_create_display(mgr::renderer::get_arena_width(),
+                                     mgr::renderer::get_arena_height());
+        if(!_display) throw std::runtime_error("Failed to configure display!");
         engine_cfg::set("display_mode=windowed");
         engine_cfg::set("scale_factor=1");
         scale_factor = 1.0f;
@@ -75,32 +75,32 @@ void wte_display::create_display(void) {
     }
 
     //  Set window title.
-    al_set_window_title(display, window_title.c_str());
+    al_set_window_title(_display, window_title.c_str());
 
     //  Set window icon.
     ALLEGRO_FILE* file;
     file = al_fopen("icon.bmp", "rb");
     if(file) {
         ALLEGRO_BITMAP* icon_bitmap = al_load_bitmap_f(file, ".bmp");
-        al_set_display_icon(display, icon_bitmap);
+        al_set_display_icon(_display, icon_bitmap);
         al_destroy_bitmap(icon_bitmap);
     }
     al_fclose(file);
 
     /* *** Render manager updating *** */
     if(engine_cfg::get("display_mode") == "windowed_full_screen") {
-        screen_w = al_get_display_width(display);
-        screen_h = al_get_display_height(display);
+        screen_w = al_get_display_width(_display);
+        screen_h = al_get_display_height(_display);
     }
     mgr::renderer::update_resolution(screen_w, screen_h);
     mgr::renderer::set_scale_factor(scale_factor);
 }
 
-void wte_display::destroy_display(void) {
-    al_destroy_display(display);
+void display::destroy_display(void) {
+    al_destroy_display(_display);
 }
 
-void wte_display::reconf_display(void) {
+void display::reconf_display(void) {
     destroy_display();
     create_display();
     al_convert_memory_bitmaps();

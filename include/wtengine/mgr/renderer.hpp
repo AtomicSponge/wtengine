@@ -22,7 +22,7 @@
 
 #include "wtengine/mgr/manager.hpp"
 
-#include "wtengine/wte_global_defines.hpp"
+#include "wtengine/global_defines.hpp"
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/engine_flags.hpp"
 #include "wtengine/_globals/alert.hpp"

@@ -13,7 +13,7 @@
 
 #include <wtengine/wtengine.hpp>
 
-class wte_demo final : public wte::wte_main {
+class wte_demo final : public wte::engine {
     public:
         wte_demo(int argc, char **argv);
         ~wte_demo();

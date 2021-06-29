@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  wte_input.cpp
+ * WTEngine | File:  input.cpp
  * 
  * \author Matthew Evans
  * \version 0.2
@@ -7,12 +7,12 @@
  * \date 2019-2021
  */
 
-#include "wtengine/wte_input.hpp"
+#include "wtengine/input.hpp"
 
 namespace wte
 {
 
-wte_input::wte_input() {
+input::input() {
     for(std::size_t i = 0; i < WTE_MAX_JOYSTICK_FLAGS; i++) {
         x_axis[i] = 0.0f;
         y_axis[i] = 0.0f;
@@ -23,27 +23,27 @@ wte_input::wte_input() {
     set_binding(false);
 }
 
-void wte_input::create_input_event_queue(void) {
+void input::create_input_event_queue(void) {
     input_event_queue = al_create_event_queue();
     if(!input_event_queue) throw std::runtime_error("Failed to create input event queue!");
 
     al_register_event_source(input_event_queue, al_get_keyboard_event_source());
     if(al_is_joystick_installed()) al_register_event_source(input_event_queue, al_get_joystick_event_source());
 
-    set_binding(al_is_joystick_installed());  //  Called from wte_input_map
+    set_binding(al_is_joystick_installed());  //  Called from input_map
 }
 
-void wte_input::destroy_input_event_queue(void) {
+void input::destroy_input_event_queue(void) {
     al_destroy_event_queue(input_event_queue);
 }
 
-void wte_input::check_input_events(void) {
+void input::check_input_events(void) {
     ALLEGRO_EVENT event;
     const bool queue_not_empty = al_get_next_event(input_event_queue, &event);
     if(queue_not_empty) handle_input_event(event);
 }
 
-void wte_input::handle_input_event(const ALLEGRO_EVENT& event) { 
+void input::handle_input_event(const ALLEGRO_EVENT& event) { 
     //  Clear any active alerts on input event
     if(alert::is_set() &&
        (event.type == ALLEGRO_EVENT_KEY_DOWN ||
@@ -179,7 +179,7 @@ void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
             if(event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_UP][KEY_SET_A] ||
                event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_UP][KEY_SET_B])
             {
-                #if WTE_INPUT_MODE == 0
+                #if input_MODE == 0
                 y_axis[WTE_JOYSTICK_A] = -1.0f;
                 input_flags::set_joystick_radians(WTE_JOYSTICK_A,
                             std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
@@ -193,7 +193,7 @@ void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
             if(event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_DOWN][KEY_SET_A] ||
                event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_DOWN][KEY_SET_B])
             {
-                #if WTE_INPUT_MODE == 0
+                #if input_MODE == 0
                 y_axis[WTE_JOYSTICK_A] = 1.0f;
                 input_flags::set_joystick_radians(WTE_JOYSTICK_A,
                             std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
@@ -207,7 +207,7 @@ void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
             if(event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_LEFT][KEY_SET_A] ||
                event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_LEFT][KEY_SET_B])
             {
-                #if WTE_INPUT_MODE == 0
+                #if input_MODE == 0
                 x_axis[WTE_JOYSTICK_A] = -1.0f;
                 input_flags::set_joystick_radians(WTE_JOYSTICK_A,
                             std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
@@ -221,7 +221,7 @@ void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
             if(event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_RIGHT][KEY_SET_A] ||
                event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_RIGHT][KEY_SET_B])
             {
-                #if WTE_INPUT_MODE == 0
+                #if input_MODE == 0
                 x_axis[WTE_JOYSTICK_A] = 1.0f;
                 input_flags::set_joystick_radians(WTE_JOYSTICK_A,
                             std::atan2(y_axis[WTE_JOYSTICK_A], x_axis[WTE_JOYSTICK_A]));
@@ -259,7 +259,7 @@ void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
             if(event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_UP][KEY_SET_A] ||
                event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_UP][KEY_SET_B])
             {
-                #if WTE_INPUT_MODE == 0
+                #if input_MODE == 0
                 if(y_axis[WTE_JOYSTICK_A] < 0.0f) {
                     y_axis[WTE_JOYSTICK_A] = 0.0f;
                     input_flags::set_joystick_radians(WTE_JOYSTICK_A,
@@ -278,7 +278,7 @@ void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
             if(event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_DOWN][KEY_SET_A] ||
                event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_DOWN][KEY_SET_B])
             {
-                #if WTE_INPUT_MODE == 0
+                #if input_MODE == 0
                 if(y_axis[WTE_JOYSTICK_A] > 0.0f) {
                     y_axis[WTE_JOYSTICK_A] = 0.0f;
                     input_flags::set_joystick_radians(WTE_JOYSTICK_A,
@@ -297,7 +297,7 @@ void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
             if(event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_LEFT][KEY_SET_A] ||
                event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_LEFT][KEY_SET_B])
             {
-                #if WTE_INPUT_MODE == 0
+                #if input_MODE == 0
                 if(x_axis[WTE_JOYSTICK_A] < 0.0f) {
                     x_axis[WTE_JOYSTICK_A] = 0.0f;
                     input_flags::set_joystick_radians(WTE_JOYSTICK_A,
@@ -316,7 +316,7 @@ void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
             if(event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_RIGHT][KEY_SET_A] ||
                event.keyboard.keycode == keyboard_bind[WTE_INPUT_BUTTON_RIGHT][KEY_SET_B])
             {
-                #if WTE_INPUT_MODE == 0
+                #if input_MODE == 0
                 if(x_axis[WTE_JOYSTICK_A] > 0.0f) {
                     x_axis[WTE_JOYSTICK_A] = 0.0f;
                     input_flags::set_joystick_radians(WTE_JOYSTICK_A,
@@ -359,7 +359,7 @@ void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
             else if(event.joystick.stick == 1) THE_STICK = WTE_JOYSTICK_B;
             else if(event.joystick.stick == 2) {  //  Process left trigger.
                 //  Build digital or analogue input, depending on global define.
-                #if WTE_INPUT_MODE == 0
+                #if input_MODE == 0
                 if(event.joystick.pos > 0.5f && last_x_axis[LEFT_TRIGGER] < 0.5f) {
                     //  set button
                     input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT_TRIGGER, WTE_BUTTON_EVENT_DOWN);
@@ -373,15 +373,15 @@ void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                 #else
                 x_axis[LEFT_TRIGGER] = event.joystick.pos;
                 if(x_axis[LEFT_TRIGGER] > 0.0f)
-                    input_flags::joystick_toggle(LEFT_TRIGGER, WTE_INPUT_DIRECTION_SET);
+                    input_flags::joystick_toggle(LEFT_TRIGGER, input_DIRECTION_SET);
                 else
-                    input_flags::joystick_toggle(LEFT_TRIGGER, WTE_INPUT_DIRECTION_UNSET);
+                    input_flags::joystick_toggle(LEFT_TRIGGER, input_DIRECTION_UNSET);
                 #endif
                 break;
             }
             else if(event.joystick.stick == 3) {  //  Process right trigger.
                 //  Build digital or analogue input, depending on global define.
-                #if WTE_INPUT_MODE == 0
+                #if input_MODE == 0
                 if(event.joystick.pos > 0.5f && last_x_axis[RIGHT_TRIGGER] < 0.5f) {
                     input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT_TRIGGER, WTE_BUTTON_EVENT_DOWN);
                     last_x_axis[RIGHT_TRIGGER] = event.joystick.pos;
@@ -393,15 +393,15 @@ void wte_input::handle_input_event(const ALLEGRO_EVENT& event) {
                 #else
                 x_axis[RIGHT_TRIGGER] = event.joystick.pos;
                 if(x_axis[RIGHT_TRIGGER] > 0.0f)
-                    input_flags::joystick_toggle(RIGHT_TRIGGER, WTE_INPUT_DIRECTION_SET);
+                    input_flags::joystick_toggle(RIGHT_TRIGGER, input_DIRECTION_SET);
                 else
-                    input_flags::joystick_toggle(RIGHT_TRIGGER, WTE_INPUT_DIRECTION_UNSET);
+                    input_flags::joystick_toggle(RIGHT_TRIGGER, input_DIRECTION_UNSET);
                 #endif
                 break;
             }
             else break;  //  Not a known joystick axis, end.
             //  Build digital or analogue input, depending on global define.
-            #if WTE_INPUT_MODE == 0
+            #if input_MODE == 0
             /* ********* INPUT DIGITAL MODE ********* */
             switch(event.joystick.axis) {
                 case 0:  //  X axis

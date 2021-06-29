@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  wte_input.hpp
+ * WTEngine | File:  input.hpp
  * 
  * \author Matthew Evans
  * \version 0.2
@@ -15,8 +15,8 @@
 
 #include <allegro5/allegro.h>
 
-#include "wtengine/wte_input_map.hpp"
-#include "wtengine/wte_global_defines.hpp"
+#include "wtengine/input_map.hpp"
+#include "wtengine/global_defines.hpp"
 #include "wtengine/_globals/engine_flags.hpp"
 #include "wtengine/_globals/input_flags.hpp"
 #include "wtengine/_globals/alert.hpp"
@@ -25,7 +25,7 @@ namespace wte
 {
 
 /*!
- * \class wte_input
+ * \class input
  * \brief Manage the input queue and process events.
  * 
  * The engine has two input modes that can be set with the WTE_INPUT_MODE build flag.
@@ -37,18 +37,18 @@ namespace wte
  *      - D-pad only registers button presses, read full data from sticks.
  *      - Analogue triggers have their data stored.
  */
-class wte_input : private wte_input_map {
+class input : private input_map {
     public:
         /*!
          * \brief WTE Input destructor.
          */
-        inline virtual ~wte_input() {};
+        inline virtual ~input() {};
 
     protected:
         /*!
          * \brief WTE Input constructor.
          */
-        wte_input();
+        input();
 
         /*!
          * \brief Create the input queue for capturing events.

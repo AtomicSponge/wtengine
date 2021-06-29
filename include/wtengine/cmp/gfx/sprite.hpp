@@ -21,7 +21,7 @@
 #include "wtengine/cmp/gfx/animator.hpp"
 #include "wtengine/mgr/entities.hpp"
 #include "wtengine/_globals/engine_time.hpp"
-#include "wtengine/wte_global_defines.hpp"
+#include "wtengine/global_defines.hpp"
 
 namespace wte
 {

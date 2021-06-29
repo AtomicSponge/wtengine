@@ -20,6 +20,8 @@ namespace wte
  * \brief Have a manager extend this to track the game timer.
  */
 class engine_time {
+    friend class engine;
+
     public:
         /*!
          * \brief Check the internal timer.

@@ -21,7 +21,7 @@
 #include "wtengine/mgr/manager.hpp"
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/message.hpp"
-#include "wtengine/wte_global_defines.hpp"
+#include "wtengine/global_defines.hpp"
 
 #if WTE_DEBUG_MODE
 #include <fstream>

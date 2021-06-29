@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  wte_input_map.hpp
+ * WTEngine | File:  input_map.hpp
  * 
  * \author Matthew Evans
  * \version 0.2
@@ -19,21 +19,21 @@ namespace wte
 {
 
 /*!
- * \class wte_input_map
+ * \class input_map
  * \brief Map buttons and keyboard
  */
-class wte_input_map {
+class input_map {
     public:
         /*!
          * \brief Input Map destructor.
          */
-        inline virtual ~wte_input_map() {};
+        inline virtual ~input_map() {};
 
     protected:
         /*!
          * \brief Input Map constructor.
          */
-        inline wte_input_map() {
+        inline input_map() {
             for(std::size_t i = 0; i < WTE_MAX_INPUT_BUTTON_FLAGS; i++) {
                 for(std::size_t j = 0; j < MAX_KEY_SETS; j++) {
                     keyboard_bind[i][j] = 0;

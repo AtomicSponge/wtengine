@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  wte_main.hpp
+ * WTEngine | File:  engine.hpp
  * 
  * \author Matthew Evans
  * \version 0.2
@@ -7,8 +7,8 @@
  * \date 2019-2021
  */
 
-#ifndef WTE_MAIN_HPP
-#define WTE_MAIN_HPP
+#ifndef WTE_ENGINE_HPP
+#define WTE_ENGINE_HPP
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
@@ -24,9 +24,9 @@
 #include <map>
 #include <stdexcept>
 
-#include "wtengine/wte_global_defines.hpp"
-#include "wtengine/wte_display.hpp"
-#include "wtengine/wte_input.hpp"
+#include "wtengine/global_defines.hpp"
+#include "wtengine/display.hpp"
+#include "wtengine/input.hpp"
 #include "wtengine/_globals/engine_cfg.hpp"
 #include "wtengine/_globals/game_cfg.hpp"
 #include "wtengine/_globals/engine_time.hpp"
@@ -38,13 +38,13 @@ namespace wte
 {
 
 /*!
- * \class wte_main
+ * \class engine
  * \brief The main engine object.
  * 
  * Sets up various system objects used by the engine.
  * Contains the main game loop and members for managing the game and engine.
  */
-class wte_main : private wte_display, private wte_input {
+class engine : private display, private input {
     public:
         /*!
          * \brief Engine destructor.
@@ -52,7 +52,7 @@ class wte_main : private wte_display, private wte_input {
          * Frees up instance, set initialized flag to false.
          * Also makes sure to unload the engine.
          */
-        inline ~wte_main() {
+        inline ~engine() {
             PHYSFS_deinit();
 
             al_destroy_timer(main_timer);
@@ -66,9 +66,9 @@ class wte_main : private wte_display, private wte_input {
         };
 
         //!  Remove copy constructor.
-        wte_main(const wte_main&) = delete;
+        engine(const engine&) = delete;
         //!  Remove assignment operator.
-        void operator=(wte_main const&) = delete;
+        void operator=(engine const&) = delete;
 
         /*!
          * \brief Add file path to provide to PhysFS.
@@ -94,8 +94,8 @@ class wte_main : private wte_display, private wte_input {
          * \param argv Command line arguments count.
          * \param title Window title.
          */
-        inline wte_main(const int argc, char **argv, const std::string& title) :
-        wte_display(title) {
+        inline engine(const int argc, char **argv, const std::string& title) :
+        display(title) {
             if(initialized == true) throw std::runtime_error(get_window_title() + " already running!");
             initialized = true;
 
@@ -131,7 +131,7 @@ class wte_main : private wte_display, private wte_input {
             if(!main_event_queue) throw std::runtime_error("Failed to create main event queue!");
 
             //  Register event sources.
-            al_register_event_source(main_event_queue, al_get_display_event_source(display));
+            al_register_event_source(main_event_queue, al_get_display_event_source(_display));
             al_register_event_source(main_event_queue, al_get_timer_event_source(main_timer));
 
             create_input_event_queue();
@@ -244,7 +244,7 @@ class wte_main : private wte_display, private wte_input {
  * 
  * \param game_data Game data file to load.
  */
-inline void wte_main::process_new_game(const std::string& game_data) {
+inline void engine::process_new_game(const std::string& game_data) {
     std::srand(std::time(nullptr));  //  Seed random, using time.
 
     //  Make sure the menu isn't opened.
@@ -282,7 +282,7 @@ inline void wte_main::process_new_game(const std::string& game_data) {
  * 
  * Clears out the entities and systems and runs user defined end process.
  */
-inline void wte_main::process_end_game(void) {
+inline void engine::process_end_game(void) {
     al_stop_timer(main_timer);
     engine_flags::unset(GAME_STARTED);
     al_set_timer_count(main_timer, 0);
@@ -309,7 +309,7 @@ inline void wte_main::process_end_game(void) {
 /*!
  * \brief The main engine loop.
  */
-inline void wte_main::do_game(void) {
+inline void engine::do_game(void) {
     wte_load();
 
     //  Set default states.
@@ -406,7 +406,7 @@ inline void wte_main::do_game(void) {
  * 
  * \param sys_msgs  Vector of messages to be processed.
  */
-inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
+inline void engine::handle_sys_msg(message_container& sys_msgs) {
     const bool timer_running = al_get_timer_started(main_timer);
 
     for(auto it = sys_msgs.begin(); it != sys_msgs.end();) {
@@ -496,7 +496,7 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
                 //  Make sure the timer isn't running and unregister the display.
                 if(timer_running) al_stop_timer(main_timer);
                 al_pause_event_queue(main_event_queue, true);
-                al_unregister_event_source(main_event_queue, al_get_display_event_source(display));
+                al_unregister_event_source(main_event_queue, al_get_display_event_source(_display));
                 //  Reload the display.
                 reconf_display();
                 //  Reload any temp bitmaps.
@@ -504,7 +504,7 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
                 mgr::menu::reload_menu_bitmap();
                 if(engine_flags::is_set(GAME_STARTED)) mgr_inf.systems_reload_temp_bitmaps();
                 //  Register display event source and resume timer if it was running.
-                al_register_event_source(main_event_queue, al_get_display_event_source(display));
+                al_register_event_source(main_event_queue, al_get_display_event_source(_display));
                 al_pause_event_queue(main_event_queue, false);
                 if(timer_running) al_resume_timer(main_timer);
                 it = sys_msgs.erase(it);

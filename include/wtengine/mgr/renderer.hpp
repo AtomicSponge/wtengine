@@ -117,11 +117,11 @@ class renderer final : private manager<renderer> {
         static void set_title_screen(const std::string& fname);
 
         /*!
-         * \brief Set the title screen.
+         * \brief Set the background.
          * 
          * This should be called during engine initialization before the main object is created.
          * 
-         * \param fname Filename of the title screen.
+         * \param fname Filename of the background.
          */
         static void set_background_screen(const std::string& fname);
 

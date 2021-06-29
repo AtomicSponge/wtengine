@@ -190,13 +190,11 @@ class wte_main : private wte_display, private wte_input {
          */
         inline void wte_load(void) {
             //  Initialize managers that require it.
-            //mgr::renderer::initialize();
-            //mgr::menu::initialize();
             mgr_inf.renderer_init();
             mgr_inf.menu_init();
             mgr_inf.audio_init();
 
-            //  Load user configured mgr::menu::
+            //  Load user configured menus.
             load_menus();
         };
 
@@ -209,8 +207,6 @@ class wte_main : private wte_display, private wte_input {
             mgr_inf.audio_de_init();
             mgr_inf.menu_de_init();
             mgr_inf.renderer_de_init();
-            //mgr::menu::de_init();
-            //mgr::renderer::de_init();
         };
 
         void process_new_game(const std::string&);
@@ -259,8 +255,8 @@ inline void wte_main::process_new_game(const std::string& game_data) {
 
     //  Load systems and prevent further systems from being loaded.
     load_systems();
-    mgr::systems::finalize();
-    if(mgr::systems::empty()) throw std::runtime_error("No systems have been loaded!");
+    mgr_inf.systems_finalize();
+    if(mgr_inf.systems_empty()) throw std::runtime_error("No systems have been loaded!");
 
     //  Stop audio manager from playing sounds.
     mgr::audio::music_stop();
@@ -279,7 +275,7 @@ inline void wte_main::process_new_game(const std::string& game_data) {
     engine_flags::set(GAME_STARTED);
     engine_time::set_time(al_get_timer_count(main_timer));
     al_start_timer(main_timer);
-}
+};
 
 /*!
  * \brief Call to end the game.
@@ -304,11 +300,11 @@ inline void wte_main::process_end_game(void) {
 
     //  Clear world and systems.
     mgr::entities::clear();
-    mgr::systems::clear();
+    mgr_inf.systems_clear();
 
     //  Open the mgr::menu::
     engine_flags::set(GAME_MENU_OPENED);
-}
+};
 
 /*!
  * \brief The main engine loop.
@@ -357,9 +353,9 @@ inline void wte_main::do_game(void) {
             engine_time::set_time(al_get_timer_count(main_timer));
 
             //  Run all mgr::systems::
-            mgr::systems::run();
+            mgr_inf.systems_run();
             //  Process mgr::messages::
-            mgr::systems::dispatch();
+            mgr_inf.systems_dispatch();
 
             {//  Get any spawner messages and pass to handler.
             message_container temp_msgs = mgr::messages::get_messages("spawner");
@@ -400,7 +396,7 @@ inline void wte_main::do_game(void) {
     /* *** END ENGINE LOOP ******************************************************** */
 
     wte_unload();
-}
+};
 
 /*!
  * \brief System message processing.
@@ -506,7 +502,7 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
                 //  Reload any temp bitmaps.
                 mgr::renderer::reload_arena_bitmap();
                 mgr::menu::reload_menu_bitmap();
-                if(engine_flags::is_set(GAME_STARTED)) mgr::systems::reload_temp_bitmaps();
+                if(engine_flags::is_set(GAME_STARTED)) mgr_inf.systems_reload_temp_bitmaps();
                 //  Register display event source and resume timer if it was running.
                 al_register_event_source(main_event_queue, al_get_display_event_source(display));
                 al_pause_event_queue(main_event_queue, false);
@@ -551,7 +547,7 @@ inline void wte_main::handle_sys_msg(message_container& sys_msgs) {
 
     //  Pass remaining system messages to the custom handler.
     if(!sys_msgs.empty()) for(auto & it : sys_msgs) handle_custom_sys_msg(it);
-}
+};
 
 } //  end namespace wte
 

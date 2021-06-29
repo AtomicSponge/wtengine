@@ -66,6 +66,21 @@ class systems final : private manager<systems> {
          */
         static const bool disable_system(const std::string& sys);
 
+    private:
+        /*!
+         * \brief System Manager constructor.
+         * 
+         * Clears the systems vector and sets the finalized flag to false.
+         */
+        systems();
+
+        /*!
+         * \brief System Manager destructor.
+         * 
+         * Makes sure the systems are cleared.
+         */
+        ~systems();
+
         /*!
          * \brief Clear the system manager and allow systems to be loaded again.
          */
@@ -107,21 +122,6 @@ class systems final : private manager<systems> {
          * Called when the screen is reloaded.
          */
         static void reload_temp_bitmaps(void);
-
-    private:
-        /*!
-         * \brief System Manager constructor.
-         * 
-         * Clears the systems vector and sets the finalized flag to false.
-         */
-        systems();
-
-        /*!
-         * \brief System Manager destructor.
-         * 
-         * Makes sure the systems are cleared.
-         */
-        ~systems();
 
         inline static std::vector<sys::system_uptr> _systems = {};  // Store the vector of systems.
 

@@ -125,6 +125,9 @@ class interface {
         /* *********************************** */
         /* *** SPAWNER INTERFACE FUNCTIONS *** */
         /* *********************************** */
+        /*!
+         *
+         */
         inline void spawner_process_messages(const message_container& messages) {
             mgr::spawner::process_messages(messages);
         };
@@ -132,6 +135,47 @@ class interface {
         /* *********************************** */
         /* *** SYSTEMS INTERFACE FUNCTIONS *** */
         /* *********************************** */
+        /*!
+         *
+         */
+        inline void systems_clear(void) {
+            mgr::systems::clear();
+        };
+
+        /*!
+         *
+         */
+        inline void systems_finalize(void) {
+            mgr::systems::finalize();
+        };
+
+        /*!
+         *
+         */
+        inline const bool systems_empty(void) {
+            return mgr::systems::empty();
+        };
+
+        /*!
+         *
+         */
+        inline void systems_run(void) {
+            mgr::systems::run();
+        };
+
+        /*!
+         *
+         */
+        inline void systems_dispatch(void) {
+            mgr::systems::dispatch();
+        };
+
+        /*!
+         *
+         */
+        inline void systems_reload_temp_bitmaps(void) {
+            mgr::systems::reload_temp_bitmaps();
+        };
 };
 
 } //  end namespace mgr

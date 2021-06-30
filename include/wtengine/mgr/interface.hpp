@@ -13,6 +13,7 @@
 #include <allegro5/allegro.h>
 
 #include "wtengine/message.hpp"
+#include "wtengine/mgr/manager.hpp"
 #include "wtengine/mgr/audio.hpp"
 #include "wtengine/mgr/menu.hpp"
 #include "wtengine/mgr/messages.hpp"
@@ -32,7 +33,7 @@ namespace mgr
  * 
  * .
  */
-class interface {
+class interface : private manager<interface>  {
     public:
         inline interface() {};
         inline ~interface() {};
@@ -217,6 +218,8 @@ class interface {
             mgr::systems::reload_temp_bitmaps();
         };
 };
+
+template <> inline bool interface::manager<interface>::initialized = false;
 
 } //  end namespace mgr
 

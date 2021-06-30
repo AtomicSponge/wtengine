@@ -38,12 +38,11 @@ namespace mgr
  * \brief Store a collection of message objects in a vector for processing.
  */
 class messages final : private manager<messages> {
-    public:
-        /*!
-         * \brief Clear the message queue.
-         */
-        static void clear(void);
+    friend class interface;
+    friend class systems;
+    friend class menu;
 
+    public:
         /*!
          * \brief Adds a message object to the start of the msg_queue vector.
          * 
@@ -54,14 +53,35 @@ class messages final : private manager<messages> {
         static void add_message(const message& msg);
 
         /*!
-         * \brief Get messages based on their command.
+         * \brief Load additional data into the message queue.
          * 
-         * Once events in the future are reached, break early.
+         * This is called by a system message to load additional game data.
+         * Note the timer value used for scripts is adjusted by the game timer.
          * 
-         * \param sys Manager/system to get messages for.
-         * \return Vector of messages.
+         * \param fname Filename to load.
+         * \return True if loaded, false if not.
          */
-        static const message_container get_messages(const std::string& sys);
+        static const bool load_script(const std::string& fname);
+
+    private:
+        /*!
+         * \brief Message queue constructor.
+         * 
+         * Clear any existing queue and start logging if debugging is enabled.
+         */
+        messages();
+
+        /*!
+         * \brief Message queue destructor.
+         * 
+         * Delete message queue object and close log file if debugging is enabled.
+         */
+        ~messages();
+
+        /*!
+         * \brief Clear the message queue.
+         */
+        static void clear(void);
 
         /*!
          * \brief Load a new data file into the message queue.
@@ -74,15 +94,14 @@ class messages final : private manager<messages> {
         static void load_file(const std::string& fname);
 
         /*!
-         * \brief Load additional data into the message queue.
+         * \brief Get messages based on their command.
          * 
-         * This is called by a system message to load additional game data.
-         * Note the timer value used for scripts is adjusted by the game timer.
+         * Once events in the future are reached, break early.
          * 
-         * \param fname Filename to load.
-         * \return True if loaded, false if not.
+         * \param sys Manager/system to get messages for.
+         * \return Vector of messages.
          */
-        static const bool load_script(const std::string& fname);
+        static const message_container get_messages(const std::string& sys);
 
         /*!
          * Deletes timed messages that were not processed.
@@ -107,21 +126,6 @@ class messages final : private manager<messages> {
                                  std::string& from,
                                  std::string& cmd,
                                  std::string& args);
-
-    private:
-        /*!
-         * \brief Message queue constructor.
-         * 
-         * Clear any existing queue and start logging if debugging is enabled.
-         */
-        messages();
-
-        /*!
-         * \brief Message queue destructor.
-         * 
-         * Delete message queue object and close log file if debugging is enabled.
-         */
-        ~messages();
 
         /*!
          * \brief Log processed messages to a file.

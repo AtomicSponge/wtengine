@@ -251,7 +251,7 @@ inline void engine::process_new_game(const std::string& game_data) {
     engine_flags::unset(GAME_MENU_OPENED);
 
     //  Load a new message data file.
-    if(!game_data.empty()) mgr::messages::load_file(game_data);
+    if(!game_data.empty()) mgr_inf.messages_load_file(game_data);
 
     //  Load systems and prevent further systems from being loaded.
     load_systems();
@@ -358,7 +358,7 @@ inline void engine::do_game(void) {
             mgr_inf.systems_dispatch();
 
             {//  Get any spawner messages and pass to handler.
-            message_container temp_msgs = mgr::messages::get_messages("spawner");
+            message_container temp_msgs = mgr_inf.messages_get("spawner");
             if(!temp_msgs.empty()) mgr_inf.spawner_process_messages(temp_msgs);}
         }
         /* *** END GAME LOOP ******************************************************** */
@@ -367,15 +367,15 @@ inline void engine::do_game(void) {
         mgr_inf.renderer_render();
 
         {//  Get any system messages and pass to handler.
-        message_container temp_msgs = mgr::messages::get_messages("system");
+        message_container temp_msgs = mgr_inf.messages_get("system");
         if(!temp_msgs.empty()) handle_sys_msg(temp_msgs);}
 
         {//  Send audio messages to the audio queue.
-        message_container temp_msgs = mgr::messages::get_messages("audio");
+        message_container temp_msgs = mgr_inf.messages_get("audio");
         if(!temp_msgs.empty()) mgr_inf.audio_process_messages(temp_msgs);}
 
         //  Delete timed messages that were not processed.
-        mgr::messages::prune();
+        mgr_inf.messages_prune();
 
         //  Check if display looses focus.
         if(event.type == ALLEGRO_EVENT_DISPLAY_SWITCH_OUT) {
@@ -500,8 +500,8 @@ inline void engine::handle_sys_msg(message_container& sys_msgs) {
                 //  Reload the display.
                 reconf_display();
                 //  Reload any temp bitmaps.
-                mgr::renderer::reload_arena_bitmap();
-                mgr::menu::reload_menu_bitmap();
+                mgr_inf.renderer_reload_arena_bitmap();
+                mgr_inf.menu_reload_bitmap();
                 if(engine_flags::is_set(GAME_STARTED)) mgr_inf.systems_reload_temp_bitmaps();
                 //  Register display event source and resume timer if it was running.
                 al_register_event_source(main_event_queue, al_get_display_event_source(_display));

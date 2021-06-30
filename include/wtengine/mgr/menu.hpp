@@ -49,18 +49,6 @@ class menu final : private manager<menu> {
 
     public:
         /*!
-         * \brief Reload the menu bitmap.
-         * 
-         * Called when the screen is updated.
-         */
-        inline static void reload_menu_bitmap(void) {
-            al_destroy_bitmap(menu_bitmap);
-            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            menu_bitmap = al_create_bitmap(menu_width, menu_height);
-            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-        };
-
-        /*!
          * \brief Set menu size.
          * 
          * Call during menu creation.
@@ -293,6 +281,18 @@ class menu final : private manager<menu> {
             al_destroy_font(menu_font);
             al_destroy_event_queue(menu_event_queue);
             al_destroy_timer(menu_timer);
+        };
+
+        /*!
+         * \brief Reload the menu bitmap.
+         * 
+         * Called when the screen is updated.
+         */
+        inline static void reload_menu_bitmap(void) {
+            al_destroy_bitmap(menu_bitmap);
+            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+            menu_bitmap = al_create_bitmap(menu_width, menu_height);
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
         };
 
         static void run(void);

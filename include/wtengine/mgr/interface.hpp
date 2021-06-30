@@ -15,6 +15,7 @@
 #include "wtengine/message.hpp"
 #include "wtengine/mgr/audio.hpp"
 #include "wtengine/mgr/menu.hpp"
+#include "wtengine/mgr/messages.hpp"
 #include "wtengine/mgr/renderer.hpp"
 #include "wtengine/mgr/spawner.hpp"
 #include "wtengine/mgr/systems.hpp"
@@ -94,8 +95,39 @@ class interface {
         /*!
          *
          */
+        inline void menu_reload_bitmap(void) {
+            mgr::menu::reload_menu_bitmap();
+        };
+
+        /*!
+         *
+         */
         inline void menu_run(void) {
             mgr::menu::run();
+        };
+
+        /* ************************************ */
+        /* *** MESSAGES INTERFACE FUNCTIONS *** */
+        /* ************************************ */
+        /*!
+         *
+         */
+        inline void messages_load_file(const std::string& fname) {
+            mgr::messages::load_file(fname);
+        };
+
+        /*!
+         *
+         */
+        inline const message_container messages_get(const std::string& arg) {
+            return mgr::messages::get_messages(arg);
+        };
+
+        /*!
+         *
+         */
+        inline void messages_prune(void) {
+            mgr::messages::prune();
         };
 
         /* ************************************ */
@@ -113,6 +145,14 @@ class interface {
          */
         inline void renderer_de_init(void) {
             mgr::renderer::de_init();
+        };
+
+        //static void reload_arena_bitmap(void);
+        /*!
+         *
+         */
+        inline void renderer_reload_arena_bitmap(void) {
+            mgr::renderer::reload_arena_bitmap();
         };
 
         /*!

@@ -148,13 +148,6 @@ class renderer final : private manager<renderer> {
          */
         static void update_resolution(const int& w, const int& h);
 
-        /*!
-         * \brief Reload the arena bitmap.
-         * 
-         * Called when the screen is updated.
-         */
-        static void reload_arena_bitmap(void);
-
     private:
         /*!
          * \brief renderer constructor.
@@ -181,6 +174,13 @@ class renderer final : private manager<renderer> {
          * Destories the internal objects.
          */
         static void de_init(void);
+
+        /*!
+         * \brief Reload the arena bitmap.
+         * 
+         * Called when the screen is updated.
+         */
+        static void reload_arena_bitmap(void);
 
         /*!
          * \brief Render method - Draw the game screen.

@@ -87,7 +87,7 @@ namespace mgr
 {
 
 /*!
- * \class entity
+ * \class entities
  * \brief Store a collection of entities and their corresponding components in memory.
  */
 class entities final : private manager<entity> {

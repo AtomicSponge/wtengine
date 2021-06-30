@@ -364,7 +364,7 @@ inline void engine::do_game(void) {
         /* *** END GAME LOOP ******************************************************** */
 
         //  Render the screen.
-        mgr_inf.renderer_render();
+        mgr_inf.renderer_run();
 
         {//  Get any system messages and pass to handler.
         message_container temp_msgs = mgr_inf.messages_get("system");

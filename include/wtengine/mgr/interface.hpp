@@ -12,7 +12,6 @@
 
 #include <allegro5/allegro.h>
 
-#include "wtengine/message.hpp"
 #include "wtengine/mgr/manager.hpp"
 #include "wtengine/mgr/audio.hpp"
 #include "wtengine/mgr/menu.hpp"
@@ -30,8 +29,10 @@ namespace mgr
 /*!
  * \class interface
  * \brief Allows the internal engine to access private members of managers.
- * 
- * .
+ *
+ * The engine class initializes this as a private member.
+ * This way the engine object can be extended, but only the
+ * engine internals will be able to access these commands.
  */
 class interface : private manager<interface>  {
     public:
@@ -42,35 +43,35 @@ class interface : private manager<interface>  {
         /* *** AUDIO INTERFACE FUNCTIONS *** */
         /* ********************************* */
         /*!
-         *
+         * \brief Initialize audio manager,
          */
         inline void audio_init(void) {
             mgr::audio::initialize();
         };
 
         /*!
-         *
+         * \brief De-initialize audio manager,
          */
         inline void audio_de_init(void) {
             mgr::audio::de_init();
         };
 
         /*!
-         *
+         * \brief Get audio manager volume,
          */
         inline void audio_get_volume(void) {
             mgr::audio::get_volume();
         };
 
         /*!
-         *
+         * \brief Set audio manager volume,
          */
         inline void audio_set_volume(void) {
             mgr::audio::set_volume();
         };
 
         /*!
-         *
+         * \brief Process audio manager messages,
          */
         inline void audio_process_messages(const message_container& messages) {
             mgr::audio::process_messages(messages);
@@ -80,28 +81,28 @@ class interface : private manager<interface>  {
         /* *** MENU INTERFACE FUNCTIONS *** */
         /* ******************************** */
         /*!
-         *
+         * \brief Initialize menu manager,
          */
         inline void menu_init(void) {
             mgr::menu::initialize();
         };
 
         /*!
-         *
+         * \brief De-initialize menu manager,
          */
         inline void menu_de_init(void) {
             mgr::menu::de_init();
         };
 
         /*!
-         *
+         * \brief Reload menu manager internal bitmap,
          */
         inline void menu_reload_bitmap(void) {
             mgr::menu::reload_menu_bitmap();
         };
 
         /*!
-         *
+         * \brief Run menus,
          */
         inline void menu_run(void) {
             mgr::menu::run();
@@ -111,21 +112,21 @@ class interface : private manager<interface>  {
         /* *** MESSAGES INTERFACE FUNCTIONS *** */
         /* ************************************ */
         /*!
-         *
+         * \brief Load a file into the message manager.
          */
         inline void messages_load_file(const std::string& fname) {
             mgr::messages::load_file(fname);
         };
 
         /*!
-         *
+         * \brief Get messages based on their system/manager.
          */
         inline const message_container messages_get(const std::string& arg) {
             return mgr::messages::get_messages(arg);
         };
 
         /*!
-         *
+         * \brief Prune unprocessed timed messages.
          */
         inline void messages_prune(void) {
             mgr::messages::prune();
@@ -135,31 +136,30 @@ class interface : private manager<interface>  {
         /* *** RENDERER INTERFACE FUNCTIONS *** */
         /* ************************************ */
         /*!
-         *
+         * \brief Initialize renderer.
          */
         inline void renderer_init(void) {
             mgr::renderer::initialize();
         };
 
         /*!
-         *
+         * \brief De-initialize renderer.
          */
         inline void renderer_de_init(void) {
             mgr::renderer::de_init();
         };
 
-        //static void reload_arena_bitmap(void);
         /*!
-         *
+         * \brief Reload arena bitmap.
          */
         inline void renderer_reload_arena_bitmap(void) {
             mgr::renderer::reload_arena_bitmap();
         };
 
         /*!
-         *
+         * \brief Run renderer.
          */
-        inline void renderer_render(void) {
+        inline void renderer_run(void) {
             mgr::renderer::render();
         };
 
@@ -167,7 +167,7 @@ class interface : private manager<interface>  {
         /* *** SPAWNER INTERFACE FUNCTIONS *** */
         /* *********************************** */
         /*!
-         *
+         * \brief Process messages for the spawner.
          */
         inline void spawner_process_messages(const message_container& messages) {
             mgr::spawner::process_messages(messages);
@@ -177,42 +177,42 @@ class interface : private manager<interface>  {
         /* *** SYSTEMS INTERFACE FUNCTIONS *** */
         /* *********************************** */
         /*!
-         *
+         * \brief Clear systems.
          */
         inline void systems_clear(void) {
             mgr::systems::clear();
         };
 
         /*!
-         *
+         * \brief Finalize system manager.
          */
         inline void systems_finalize(void) {
             mgr::systems::finalize();
         };
 
         /*!
-         *
+         * \brief Empty the system manager for loading.
          */
         inline const bool systems_empty(void) {
             return mgr::systems::empty();
         };
 
         /*!
-         *
+         * \brief Run the system manager.
          */
         inline void systems_run(void) {
             mgr::systems::run();
         };
 
         /*!
-         *
+         * \brief Dispatch messages for systems.
          */
         inline void systems_dispatch(void) {
             mgr::systems::dispatch();
         };
 
         /*!
-         *
+         * \brief Reload temp bitmaps.
          */
         inline void systems_reload_temp_bitmaps(void) {
             mgr::systems::reload_temp_bitmaps();

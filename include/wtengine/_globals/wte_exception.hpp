@@ -21,7 +21,7 @@ namespace wte
  * 
  * .
  */
-class wte_exception : public exception {
+class wte_exception : public std::exception {
     public:
         inline wte_exception(const char* desc) : exception_desc(desc) {};
         inline ~wte_exception() {};

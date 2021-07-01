@@ -28,11 +28,11 @@ const std::size_t input_directional::get_bind(void) const {
 }
 
 void input_directional::on_set(const entity_id& e_id, const float& rad) {
-    direction_set(e_id, rad);
+    try { direction_set(e_id, rad); } catch (...) {}
 }
 
 void input_directional::on_unset(const entity_id& e_id) {
-    direction_unset(e_id);
+    try { direction_unset(e_id); } catch (...) {}
 }
 
 } //  namespace cmp

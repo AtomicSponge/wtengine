@@ -20,7 +20,7 @@ dispatcher::dispatcher(
 ) : handle_msg(func) {};
 
 void dispatcher::proc_msg(const entity_id& e_id, const message& msg) {
-    handle_msg(e_id, msg);
+    try { handle_msg(e_id, msg); } catch (...) {}
 }
 
 } //  namespace cmp

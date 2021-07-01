@@ -16,7 +16,7 @@ namespace cmp
 {
 
 void animator::run(const entity_id& e_id){
-    animate(e_id);
+    try { animate(e_id); } catch (...) {}
 }
 
 void animator::set_drawing(void) {

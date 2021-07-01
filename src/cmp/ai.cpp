@@ -25,11 +25,11 @@ ai::ai(
 ) : enabled_ai(func_a), disabled_ai(func_b) {}
 
 void ai::run_enabled(const entity_id& e_id) {
-    enabled_ai(e_id);
+    try { enabled_ai(e_id); } catch (...) {}
 }
 
 void ai::run_disabled(const entity_id& e_id) {
-    disabled_ai(e_id);
+    try { disabled_ai(e_id); } catch (...) {}
 }
 
 } //  namespace cmp

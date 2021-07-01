@@ -28,11 +28,11 @@ const std::size_t input_button::get_flag(void) const {
 }
 
 void input_button::on_down(const entity_id& e_id) {
-    button_down(e_id);
+    try { button_down(e_id); } catch (...) {}
 }
 
 void input_button::on_up(const entity_id& e_id) {
-    button_up(e_id);
+    try { button_up(e_id); } catch (...) {}
 }
 
 } //  namespace cmp

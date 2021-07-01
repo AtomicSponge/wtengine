@@ -20,7 +20,7 @@ template <> bool messages::manager<messages>::initialized = false;
 messages::messages() {
     msg_queue.clear();
 
-    #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
+    #if WTE_DEBUG_MODE
     //  If debug mode is enabled, create a new log file
     debug_log_file.open("wte_debug//wte_debug_messages.txt", std::ios::trunc);
     debug_log_file << "Logging messages..." << std::endl << std::endl;
@@ -30,7 +30,7 @@ messages::messages() {
 messages::~messages() {
     msg_queue.clear();
 
-    #if WTE_DEBUG_MODE == 2 || WTE_DEBUG_MODE == 9
+    #if WTE_DEBUG_MODE
     //  Close log file if debugging is enabled
     debug_log_file.close();
     #endif

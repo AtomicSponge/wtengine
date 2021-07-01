@@ -22,9 +22,7 @@ void movement::run(void) {
     //  Find the entities with a velocity component.
     const_component_container<cmp::velocity> vel_components = mgr::entities::get_components<cmp::velocity>();
     for(auto & it : vel_components) {
-        if(mgr::entities::has_component<cmp::location>(it.first) &&
-            mgr::entities::has_component<cmp::direction>(it.first))
-        {
+        try {
             mgr::entities::set_component<cmp::location>(it.first)->adjust_x(
                 it.second->get_x_vel() *
                 std::cos(mgr::entities::get_component<cmp::direction>(it.first)->get_radians())
@@ -34,13 +32,13 @@ void movement::run(void) {
                 it.second->get_y_vel() *
                 std::sin(mgr::entities::get_component<cmp::direction>(it.first)->get_radians())
             );
-        }
+        } catch (...) { /*Do nothing */ }
     }
 
     //  Now check all bounding boxes.
     const_component_container<cmp::bounding_box> bbox_components = mgr::entities::get_components<cmp::bounding_box>();
     for(auto & it : bbox_components) {
-        if(mgr::entities::has_component<cmp::location>(it.first)) {
+        try{
             if(mgr::entities::get_component<cmp::location>(it.first)->get_x() < it.second->get_min_x())
                 mgr::entities::set_component<cmp::location>(it.first)->set_x(it.second->get_min_x());
             else if(mgr::entities::get_component<cmp::location>(it.first)->get_x() > it.second->get_max_x())
@@ -50,7 +48,7 @@ void movement::run(void) {
                 mgr::entities::set_component<cmp::location>(it.first)->set_y(it.second->get_min_y());
             else if(mgr::entities::get_component<cmp::location>(it.first)->get_y() > it.second->get_max_y())
                 mgr::entities::set_component<cmp::location>(it.first)->set_y(it.second->get_max_y());
-        }
+        } catch (...) { /*Do nothing */ }
     }
 }
 

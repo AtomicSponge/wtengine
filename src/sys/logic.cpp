@@ -23,14 +23,13 @@ void logic::run(void) {
     component_container<cmp::ai> ai_components = mgr::entities::set_components<cmp::ai>();
 
     for(auto & it : ai_components) {
-        //  Make sure there's an enabled component
-        if(mgr::entities::has_component<cmp::enabled>(it.first)) {
+        try {
             //  Process enabled or disabled ai
             if(mgr::entities::get_component<cmp::enabled>(it.first)->check())
                 it.second->run_enabled(it.first);
             else
                 it.second->run_disabled(it.first);
-        }
+        } catch (...) { /* Do nothing */ }
     }
 }
 

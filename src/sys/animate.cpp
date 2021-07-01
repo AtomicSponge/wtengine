@@ -22,9 +22,10 @@ void animate::run(void) {
     component_container<cmp::animator> animation_components = mgr::entities::set_components<cmp::animator>();
 
     for(auto & it : animation_components) {
-        if(mgr::entities::has_component<cmp::visible>(it.first) &&
-            mgr::entities::get_component<cmp::visible>(it.first)->check())
+        try {
+            if(mgr::entities::get_component<cmp::visible>(it.first)->check())
                 it.second->run(it.first);
+        } catch (...) { /* Do nothing */ }
     }
 }
 

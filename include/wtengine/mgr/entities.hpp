@@ -24,6 +24,7 @@
 #include <memory>
 #include <stdexcept>
 
+#include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/mgr/manager.hpp"
 #include "wtengine/cmp/component.hpp"
 
@@ -241,7 +242,7 @@ class entities final : private manager<entity> {
          * \return Returns a container of components based by entity ID.
          */
         inline static const entity_container set_entity(const entity_id& e_id) {
-            if(!entity_exists(e_id)) return {};
+            if(!entity_exists(e_id)) throw wte_exception("Entity does not exist");
 
             entity_container temp_container;
             const auto results = world.equal_range(e_id);
@@ -259,7 +260,7 @@ class entities final : private manager<entity> {
          * \return Returns a constant container of components based by entity ID.
          */
         inline static const const_entity_container get_entity(const entity_id& e_id) {
-            if(!entity_exists(e_id)) return {};
+            if(!entity_exists(e_id)) throw wte_exception("Entity does not exist");
 
             const_entity_container temp_container;
             const auto results = world.equal_range(e_id);
@@ -348,7 +349,7 @@ class entities final : private manager<entity> {
                 if(std::dynamic_pointer_cast<T>(it->second))
                     return std::static_pointer_cast<T>(it->second);
             }
-            return nullptr;
+            throw wte_exception("Component not found");
         };
 
         /*!
@@ -368,7 +369,7 @@ class entities final : private manager<entity> {
                 if(std::dynamic_pointer_cast<T>(it->second))
                     return std::static_pointer_cast<const T>(it->second);
             }
-            return nullptr;
+            throw wte_exception("Component not found");
         };
 
         /*!

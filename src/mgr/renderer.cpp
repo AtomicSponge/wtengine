@@ -278,15 +278,15 @@ void renderer::render(void) {
             } catch (...) { /* Do nothing */ }
         }
 
+        #if WTE_DEBUG_MODE
         /*
          * Draw sprite hitboxes if enabled.
          * Use different colors for each team.
          * Note:  Re-uses sprite container for rendering.
          */
-        #if WTE_DEBUG_MODE
         for(auto & it : sprite_componenet_set) {
             try {
-                //  Make sure the entity has a hitbox and is enabled.
+                //  Make sure the entity is enabled.
                 if(mgr::entities::get_component<cmp::enabled>(it.first)->check()) {
                     //  Select color based on team.
                     ALLEGRO_COLOR team_color;

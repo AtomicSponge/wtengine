@@ -50,14 +50,14 @@ const bool systems::add(sys::system_uptr new_system) {
 
 void systems::run() {
     for(auto & it : _systems)
-        if((it)->is_enabled()) (it)->run();
+        if((it)->is_enabled()) try { (it)->run(); } catch (...) {}
 }
 
 void systems::dispatch(void) {
     component_container<cmp::dispatcher> dispatch_components =
         mgr::entities::set_components<cmp::dispatcher>();
 
-    while(true) {
+    while(true) {  //  Infinite loop to verify all current messages are processed.
         message_container temp_msgs = mgr::messages::get_messages("entities");
         if(temp_msgs.empty()) break;  //  No messages, end while(true) loop.
 

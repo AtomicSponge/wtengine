@@ -25,6 +25,7 @@
 #include "wtengine/global_defines.hpp"
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/engine_flags.hpp"
+#include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/cmp/components.hpp"
 #include "wtengine/mgr/menu.hpp"

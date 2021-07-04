@@ -229,7 +229,7 @@ void renderer::render(void) {
                     else
                         al_draw_bitmap(&it.second->get_bitmap(), 0, 0, 0);
                 }
-            } catch(...) { /* Do nothing */ }
+            } catch(const wte_exception& e) { alert::set_alert(e.what()); }
         }
 
         /*
@@ -279,7 +279,7 @@ void renderer::render(void) {
                                 destination_y = mgr::entities::get_component<cmp::location>(it.first)->get_y() +
                                     it.second->get_draw_offset_y();
                         }
-                    } catch (...) {
+                    } catch(...) {
                         destination_x = mgr::entities::get_component<cmp::location>(it.first)->get_x() +
                             it.second->get_draw_offset_x();
                         destination_y = mgr::entities::get_component<cmp::location>(it.first)->get_y() +
@@ -304,7 +304,7 @@ void renderer::render(void) {
                         );
                     al_destroy_bitmap(render_tmp_bmp);
                 }
-            } catch (...) { /* Do nothing */ }
+            } catch(const wte_exception& e) { alert::set_alert(e.what()); }
         }
 
         #if WTE_DEBUG_MODE
@@ -336,7 +336,7 @@ void renderer::render(void) {
                                 mgr::entities::get_component<cmp::location>(it.first)->get_y(), 0);
                     al_destroy_bitmap(render_tmp_bmp);
                 }  //  End hitbox/enabled test.
-            } catch (...) { /* Do nothing */ }
+            } catch(const wte_exception& e) { alert::set_alert(e.what()); }
         }  //  End render component loop.
         #endif  //  End draw hitbox check.
 
@@ -362,7 +362,7 @@ void renderer::render(void) {
                         al_draw_bitmap(&it.second->get_bitmap(),
                                         it.second->get_pos_x(), it.second->get_pos_y(), 0);
                 }
-            } catch (...) { /* Do nothing */ }
+            } catch(const wte_exception& e) { alert::set_alert(e.what()); }
         }
 
         /*

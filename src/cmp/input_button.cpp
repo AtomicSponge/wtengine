@@ -15,6 +15,9 @@ namespace wte
 namespace cmp
 {
 
+/*
+ *
+ */
 input_button::input_button(
     const std::size_t button,
     std::function<void(const entity_id&)> func_a,
@@ -23,16 +26,23 @@ input_button::input_button(
     assert(button_flag < WTE_MAX_INPUT_BUTTON_FLAGS);
 }
 
-const std::size_t input_button::get_flag(void) const {
-    return button_flag;
-}
+/*
+ *
+ */
+const std::size_t input_button::get_flag(void) const { return button_flag; }
 
+/*
+ *
+ */
 void input_button::on_down(const entity_id& e_id) {
-    try { button_down(e_id); } catch (...) {}
+    try { button_down(e_id); } catch(const wte_exception& e) { alert::set_alert(e.what()); }
 }
 
+/*
+ *
+ */
 void input_button::on_up(const entity_id& e_id) {
-    try { button_up(e_id); } catch (...) {}
+    try { button_up(e_id); } catch(const wte_exception& e) { alert::set_alert(e.what()); }
 }
 
 } //  namespace cmp

@@ -95,12 +95,16 @@ add_library(wtengine STATIC
 #  Build Process
 #
 ########################################
+option(BUILD_MAGIC_PINK "Use magic pink for transparancey" ON)
+if(NOT BUILD_MAGIC_PINK)
+    target_compile_options(wtengine PRIVATE "-DWTE_NO_MAGIC_PINK")
+endif()
+
 #  Set include folder for building
 target_include_directories(wtengine PRIVATE include)
 
 #  Link libraries
-target_link_libraries(wtengine PRIVATE
-    ${ALLEGRO_LIBRARIES})
+target_link_libraries(wtengine PRIVATE ${ALLEGRO_LIBRARIES})
 
 #  Set the build target
 set_target_properties(wtengine PROPERTIES

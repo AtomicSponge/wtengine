@@ -12,12 +12,19 @@
 namespace wte
 {
 
-const std::string display::get_window_title(void) const {
-    return window_title;
-}
+/*
+ *
+ */
+const std::string display::get_window_title(void) const { return window_title; }
 
+/*
+ *
+ */
 display::display(const std::string& title) : window_title(title) {}
 
+/*
+ *
+ */
 void display::create_display(void) {
     al_reset_new_display_options();
 
@@ -96,10 +103,14 @@ void display::create_display(void) {
     mgr::renderer::set_scale_factor(scale_factor);
 }
 
-void display::destroy_display(void) {
-    al_destroy_display(_display);
-}
+/*
+ *
+ */
+void display::destroy_display(void) { al_destroy_display(_display); }
 
+/*
+ *
+ */
 void display::reconf_display(void) {
     destroy_display();
     create_display();

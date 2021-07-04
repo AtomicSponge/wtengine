@@ -17,6 +17,9 @@ namespace mgr
 
 template <> bool renderer::manager<renderer>::initialized = false;
 
+/*
+ *
+ */
 void renderer::initialize(void) {
     //  Create the arena bitmap.
     if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
@@ -77,6 +80,9 @@ void renderer::initialize(void) {
     al_start_timer(fps_timer);
 }
 
+/*
+ *
+ */
 void renderer::de_init(void) {
     al_destroy_bitmap(title_bmp);
     al_destroy_bitmap(background_bmp);
@@ -88,27 +94,37 @@ void renderer::de_init(void) {
     al_destroy_timer(fps_timer);
 }
 
+/*
+ *
+ */
 void renderer::update_resolution(const int& w, const int& h) {
     screen_w = w;
     screen_h = h;
 }
 
-const int renderer::get_screen_width(void) {
-    return screen_w;
-}
+/*
+ *
+ */
+const int renderer::get_screen_width(void) { return screen_w; }
 
-const int renderer::get_screen_height(void) {
-    return screen_h;
-}
+/*
+ *
+ */
+const int renderer::get_screen_height(void) { return screen_h; }
 
-void renderer::set_scale_factor(const float& f) {
-    scale_factor = f;
-}
+/*
+ *
+ */
+void renderer::set_scale_factor(const float& f) { scale_factor = f; }
 
-const int renderer::get_scale_factor() {
-    return scale_factor;
-}
+/*
+ *
+ */
+const int renderer::get_scale_factor() { return scale_factor; }
 
+/*
+ *
+ */
 void renderer::reload_arena_bitmap(void) {
     al_destroy_bitmap(arena_bmp);
     al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
@@ -116,6 +132,9 @@ void renderer::reload_arena_bitmap(void) {
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
 }
 
+/*
+ *
+ */
 void renderer::set_arena_size(const int& w, const int& h) {
     if(!arena_created) {
         arena_w = w;
@@ -123,28 +142,38 @@ void renderer::set_arena_size(const int& w, const int& h) {
     }
 }
 
-const int renderer::get_arena_width(void) {
-    return arena_w;
-}
+/*
+ *
+ */
+const int renderer::get_arena_width(void) { return arena_w; }
 
-const int renderer::get_arena_height(void) {
-    return arena_h;
-}
+/*
+ *
+ */
+const int renderer::get_arena_height(void) { return arena_h; }
 
-void renderer::set_title_screen(const std::string& fname) {
-    title_screen_file = fname;
-}
+/*
+ *
+ */
+void renderer::set_title_screen(const std::string& fname) { title_screen_file = fname; }
 
-void renderer::set_background_screen(const std::string& fname) {
-    background_file = fname;
-}
+/*
+ *
+ */
+void renderer::set_background_screen(const std::string& fname) { background_file = fname; }
 
+/*
+ *
+ */
 void renderer::set_font_file(const std::string& fname, const int& size, const int& flags) {
     render_font_file = fname;
     render_font_size = size;
     render_font_flags = flags;
 }
 
+/*
+ *
+ */
 void renderer::render(void) {
     /*
      * Calculate fps.

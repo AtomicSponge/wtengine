@@ -37,7 +37,7 @@ sudo make install
 
 -----
 
-## Example
+## Example Game
 
 Requires the library to be installed to build.
 

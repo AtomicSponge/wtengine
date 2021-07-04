@@ -15,11 +15,24 @@ namespace wte
 namespace sys
 {
 
+/*
+ *
+ */
 colision::colision() : system("colision") {}
+
+/*
+ *
+ */
 colision::~colision() {}
 
+/*
+ *
+ */
 void colision::disable(void) { enabled = false; };
 
+/*
+ *
+ */
 void colision::run(void) {
     const_component_container<cmp::team> team_components = mgr::entities::get_components<cmp::team>();
 
@@ -64,7 +77,7 @@ void colision::run(void) {
                                                         "colision", ""));
                     }
                 } //  End skip self check
-            } catch(...) { /* Do nothing */ }
+            } catch(const wte_exception& e) { alert::set_alert(e.what()); }
         } //  End it_b loop
     } //  End it_a loop
 }

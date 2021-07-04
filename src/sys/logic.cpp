@@ -15,9 +15,19 @@ namespace wte
 namespace sys
 {
 
+/*
+ *
+ */
 logic::logic() : system("logic") {};
+
+/*
+ *
+ */
 logic::~logic() {};
 
+/*
+ *
+ */
 void logic::run(void) {
     //  Find the entities with the input handler component
     component_container<cmp::ai> ai_components = mgr::entities::set_components<cmp::ai>();
@@ -29,7 +39,7 @@ void logic::run(void) {
                 it.second->run_enabled(it.first);
             else
                 it.second->run_disabled(it.first);
-        } catch (...) { /* Do nothing */ }
+        } catch(const wte_exception& e) { alert::set_alert(e.what()); }
     }
 }
 

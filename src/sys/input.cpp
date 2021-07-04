@@ -15,11 +15,24 @@ namespace wte
 namespace sys
 {
 
+/*
+ *
+ */
 input::input() : system("input") {}
+
+/*
+ *
+ */
 input::~input() {}
 
+/*
+ *
+ */
 void input::disable(void) { enabled = false; }
 
+/*
+ *
+ */
 void input::run(void) {
     //  First check all directional components.
     component_container<cmp::input_directional> directional_components =

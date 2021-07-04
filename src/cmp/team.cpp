@@ -15,17 +15,22 @@ namespace wte
 namespace cmp
 {
 
+/*
+ *
+ */
 team::team(std::size_t t) : this_team(t) {
     if(this_team > 3) this_team = 3;
 }
 
-const std::size_t team::get_team(void) const {
-    return this_team;
-}
+/*
+ *
+ */
+const std::size_t team::get_team(void) const { return this_team; }
 
-void team::set_team(const std::size_t& t) {
-    this_team = t;
-}
+/*
+ *
+ */
+void team::set_team(const std::size_t& t) { this_team = t; }
 
 } //  namespace cmp
 

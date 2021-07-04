@@ -17,27 +17,37 @@ namespace mgr
 
 template <> bool systems::manager<systems>::initialized = false;
 
-systems::systems() {
-    _systems.clear();
-}
+/*
+ *
+ */
+systems::systems() { _systems.clear(); }
 
-systems::~systems() {
-    _systems.clear();
-}
+/*
+ *
+ */
+systems::~systems() { _systems.clear(); }
 
+/*
+ *
+ */
 void systems::clear(void) {
     _systems.clear();
     finalized = false;
 }
 
-void systems::finalize(void) {
-    finalized = true;
-}
+/*
+ *
+ */
+void systems::finalize(void) { finalized = true; }
 
-const bool systems::empty(void) {
-    return _systems.empty();
-}
+/*
+ *
+ */
+const bool systems::empty(void) { return _systems.empty(); }
 
+/*
+ *
+ */
 const bool systems::add(sys::system_uptr new_system) {
     if(finalized == true) return false;
 
@@ -48,11 +58,19 @@ const bool systems::add(sys::system_uptr new_system) {
     return true;
 }
 
+/*
+ *
+ */
 void systems::run() {
     for(auto & it : _systems)
-        if((it)->is_enabled()) try { (it)->run(); } catch (...) {}
+        if((it)->is_enabled()) 
+            try { (it)->run(); }
+            catch(const wte_exception& e) { alert::set_alert(e.what()); }
 }
 
+/*
+ *
+ */
 void systems::dispatch(void) {
     component_container<cmp::dispatcher> dispatch_components =
         mgr::entities::set_components<cmp::dispatcher>();
@@ -73,6 +91,9 @@ void systems::dispatch(void) {
     }
 }
 
+/*
+ *
+ */
 void systems::reload_temp_bitmaps() {
     component_container<cmp::background> background_components =
         mgr::entities::set_components<cmp::background>();
@@ -89,6 +110,9 @@ void systems::reload_temp_bitmaps() {
     }
 }
 
+/*
+ *
+ */
 const bool systems::enable_system(const std::string& sys) {
     for(auto & it : _systems) {
         if((it)->get_name() == sys) (it)->enable();
@@ -97,6 +121,9 @@ const bool systems::enable_system(const std::string& sys) {
     return false;
 }
 
+/*
+ *
+ */
 const bool systems::disable_system(const std::string& sys) {
     for(auto & it : _systems) {
         if((it)->get_name() == sys) (it)->disable();

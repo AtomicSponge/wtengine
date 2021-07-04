@@ -14,6 +14,8 @@
 #define WTE_ENTITY_START (1)
 #define WTE_ENTITY_MAX (std::numeric_limits<entity_id>::max())
 
+#include <string>
+#include <cstring>
 #include <vector>
 #include <map>
 #include <unordered_map>
@@ -22,7 +24,6 @@
 #include <algorithm>
 #include <limits>
 #include <memory>
-#include <stdexcept>
 
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/mgr/manager.hpp"
@@ -182,13 +183,18 @@ class entities final : private manager<entity> {
          * \brief Get entity name.
          * 
          * \param e_id Entity ID to get name for.
-         * \return Entity name string.  Empty string if not found.
+         * \return Entity name string.
+         * \exception wte_exception Entity does not exist.
          */
         inline static const std::string get_name(const entity_id& e_id) {
             auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),
                                      [&e_id](const entity& e){ return e.first == e_id; });
             if(e_it != entity_vec.end()) return e_it->second;
-            return "";
+            //  Not found, throw error.
+            std::string err_str = "Entity " + std::to_string(e_id) + " does not exist";
+            char err_c[err_str.size() + 1];
+            strcpy(err_c, err_str.c_str());
+            throw wte_exception(err_c);
         };
 
         /*!
@@ -240,9 +246,15 @@ class entities final : private manager<entity> {
          * 
          * \param e_id Entity ID to set components for.
          * \return Returns a container of components based by entity ID.
+         * \exception wte_exception Entity does not exist.
          */
         inline static const entity_container set_entity(const entity_id& e_id) {
-            if(!entity_exists(e_id)) throw wte_exception("Entity does not exist");
+            if(!entity_exists(e_id)) {
+                std::string err_str = "Entity " + std::to_string(e_id) + " does not exist";
+                char err_c[err_str.size() + 1];
+                strcpy(err_c, err_str.c_str());
+                throw wte_exception(err_c);
+            }
 
             entity_container temp_container;
             const auto results = world.equal_range(e_id);
@@ -258,9 +270,15 @@ class entities final : private manager<entity> {
          * 
          * \param e_id Entity ID to get components for.
          * \return Returns a constant container of components based by entity ID.
+         * \exception wte_exception Entity does not exist.
          */
         inline static const const_entity_container get_entity(const entity_id& e_id) {
-            if(!entity_exists(e_id)) throw wte_exception("Entity does not exist");
+            if(!entity_exists(e_id)) {
+                std::string err_str = "Entity " + std::to_string(e_id) + " does not exist";
+                char err_c[err_str.size() + 1];
+                strcpy(err_c, err_str.c_str());
+                throw wte_exception(err_c);
+            }
 
             const_entity_container temp_container;
             const auto results = world.equal_range(e_id);
@@ -335,12 +353,10 @@ class entities final : private manager<entity> {
         /*!
          * \brief Set the value of a component by type for an entity.
          * 
-         * Note that calling this for a component that does not exist will cause the
-         * program to fail.  If there is a chance it does not exist, call has_component() first.
-         * 
          * \tparam T Component type.
          * \param e_id The entity ID to search.
-         * \return Return the component or nullptr if not found.
+         * \return Return the component.
+         * \exception wte_exception Component not found.
          */
         template <typename T> inline static const std::shared_ptr<T> set_component(const entity_id& e_id) {
             const auto results = world.equal_range(e_id);
@@ -349,18 +365,19 @@ class entities final : private manager<entity> {
                 if(std::dynamic_pointer_cast<T>(it->second))
                     return std::static_pointer_cast<T>(it->second);
             }
-            throw wte_exception("Component not found");
+            std::string err_str = "Entity: " + std::to_string(e_id) + " - Component not found";
+            char err_c[err_str.size() + 1];
+            strcpy(err_c, err_str.c_str());
+            throw wte_exception(err_c);
         };
 
         /*!
          * \brief Read the value of a component by type for an entity.
          * 
-         * Note that calling this for a component that does not exist will cause the
-         * program to fail.  If there is a chance it does not exist, call has_component() first.
-         * 
          * \tparam T Component type.
          * \param e_id The entity ID to search.
-         * \return Return the component or nullptr if not found.
+         * \return Return the component.
+         * \exception wte_exception Component not found.
          */
         template <typename T> inline static const std::shared_ptr<const T> get_component(const entity_id& e_id) {
             const auto results = world.equal_range(e_id);
@@ -369,7 +386,10 @@ class entities final : private manager<entity> {
                 if(std::dynamic_pointer_cast<T>(it->second))
                     return std::static_pointer_cast<const T>(it->second);
             }
-            throw wte_exception("Component not found");
+            std::string err_str = "Entity: " + std::to_string(e_id) + " - Component not found";
+            char err_c[err_str.size() + 1];
+            strcpy(err_c, err_str.c_str());
+            throw wte_exception(err_c);
         };
 
         /*!
@@ -412,7 +432,7 @@ class entities final : private manager<entity> {
         /*!
          * \brief Entity manager constructor.
          *
-         * Starts entity counter at 1 and makes sure the world is clear.
+         * Clears the entity & world containers.
          */
         inline entities() {
             entity_vec.clear();

@@ -15,6 +15,9 @@ namespace wte
 namespace cmp
 {
 
+/*
+ *
+ */
 background::background(
     const int w, const int h,
     const std::size_t l, ALLEGRO_COLOR c) :
@@ -28,6 +31,9 @@ background::background(
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
 };
 
+/*
+ *
+ */
 background::background(
     const int w, const int h, const std::size_t l,
     std::function<void(const entity_id&)> func
@@ -38,10 +44,14 @@ background::background(
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
 };
 
-background::~background() {
-    al_destroy_bitmap(internal_bitmap);
-};
+/*
+ *
+ */
+background::~background() { al_destroy_bitmap(internal_bitmap); };
 
+/*
+ *
+ */
 void background::reload_background_bitmap(void) {
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
     ALLEGRO_BITMAP* temp_bmp = al_clone_bitmap(internal_bitmap);
@@ -54,9 +64,10 @@ void background::reload_background_bitmap(void) {
     al_destroy_bitmap(temp_bmp);
 };
 
-ALLEGRO_COLOR background::get_color(void) const {
-    return color;
-};
+/*
+ *
+ */
+ALLEGRO_COLOR background::get_color(void) const { return color; };
 
 } //  namespace cmp
 

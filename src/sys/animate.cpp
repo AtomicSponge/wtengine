@@ -15,9 +15,19 @@ namespace wte
 namespace sys
 {
 
+/*
+ *
+ */
 animate::animate() : system("animate") {}
+
+/*
+ *
+ */
 animate::~animate() {}
 
+/*
+ *
+ */
 void animate::run(void) {
     component_container<cmp::animator> animation_components = mgr::entities::set_components<cmp::animator>();
 
@@ -25,7 +35,7 @@ void animate::run(void) {
         try {
             if(mgr::entities::get_component<cmp::visible>(it.first)->check())
                 it.second->run(it.first);
-        } catch (...) { /* Do nothing */ }
+        } catch(const wte_exception& e) { alert::set_alert(e.what()); }
     }
 }
 

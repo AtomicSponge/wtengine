@@ -17,14 +17,19 @@ namespace mgr
 
 template <> bool spawner::manager<spawner>::initialized = false;
 
-spawner::spawner() {
-    spawns.clear();
-}
+/*
+ *
+ */
+spawner::spawner() { spawns.clear(); }
 
-spawner::~spawner() {
-    spawns.clear();
-}
+/*
+ *
+ */
+spawner::~spawner() { spawns.clear(); }
 
+/*
+ *
+ */
 void spawner::process_messages(const message_container& messages) {
     for(auto & m_it : messages) {
         if(m_it.get_cmd() == "new") {
@@ -47,6 +52,9 @@ void spawner::process_messages(const message_container& messages) {
     }  //  End for(m_it)
 }
 
+/*
+ *
+ */
 const bool spawner::add_spawn(const std::string& name, const std::size_t& num_args,
                             void func(const entity_id&, const msg_arg_list&)) {
     auto ret = spawns.insert(std::make_pair(name, std::make_pair(num_args, func)));

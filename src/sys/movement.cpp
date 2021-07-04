@@ -15,9 +15,19 @@ namespace wte
 namespace sys
 {
 
+/*
+ *
+ */
 movement::movement() : system("movement") {}
+
+/*
+ *
+ */
 movement::~movement() {}
 
+/*
+ *
+ */
 void movement::run(void) {
     //  Find the entities with a velocity component.
     const_component_container<cmp::velocity> vel_components = mgr::entities::get_components<cmp::velocity>();
@@ -32,7 +42,7 @@ void movement::run(void) {
                 it.second->get_y_vel() *
                 std::sin(mgr::entities::get_component<cmp::direction>(it.first)->get_radians())
             );
-        } catch (...) { /*Do nothing */ }
+        } catch(const wte_exception& e) { alert::set_alert(e.what()); }
     }
 
     //  Now check all bounding boxes.
@@ -48,7 +58,7 @@ void movement::run(void) {
                 mgr::entities::set_component<cmp::location>(it.first)->set_y(it.second->get_min_y());
             else if(mgr::entities::get_component<cmp::location>(it.first)->get_y() > it.second->get_max_y())
                 mgr::entities::set_component<cmp::location>(it.first)->set_y(it.second->get_max_y());
-        } catch (...) { /*Do nothing */ }
+        } catch(const wte_exception& e) { alert::set_alert(e.what()); }
     }
 }
 

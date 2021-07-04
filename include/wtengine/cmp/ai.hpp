@@ -15,6 +15,8 @@
 #include "wtengine/cmp/component.hpp"
 #include "wtengine/mgr/entities.hpp"
 #include "wtengine/mgr/messages.hpp"
+#include "wtengine/_globals/alert.hpp"
+#include "wtengine/_globals/wte_exception.hpp"
 
 namespace wte
 {

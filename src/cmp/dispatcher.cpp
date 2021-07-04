@@ -15,12 +15,16 @@ namespace wte
 namespace cmp
 {
 
-dispatcher::dispatcher(
-    std::function<void(const entity_id&, const message&)> func
-) : handle_msg(func) {};
+/*
+ *
+ */
+dispatcher::dispatcher(std::function<void(const entity_id&, const message&)> func) : handle_msg(func) {};
 
+/*
+ *
+ */
 void dispatcher::proc_msg(const entity_id& e_id, const message& msg) {
-    try { handle_msg(e_id, msg); } catch (...) {}
+    try { handle_msg(e_id, msg); } catch(const wte_exception& e) { alert::set_alert(e.what()); }
 }
 
 } //  namespace cmp

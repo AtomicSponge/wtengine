@@ -12,6 +12,9 @@
 namespace wte
 {
 
+/*
+ *
+ */
 input::input() {
     for(std::size_t i = 0; i < WTE_MAX_JOYSTICK_FLAGS; i++) {
         x_axis[i] = 0.0f;
@@ -23,6 +26,9 @@ input::input() {
     set_binding(false);
 }
 
+/*
+ *
+ */
 void input::create_input_event_queue(void) {
     input_event_queue = al_create_event_queue();
     if(!input_event_queue) throw std::runtime_error("Failed to create input event queue!");
@@ -33,16 +39,23 @@ void input::create_input_event_queue(void) {
     set_binding(al_is_joystick_installed());  //  Called from input_map
 }
 
-void input::destroy_input_event_queue(void) {
-    al_destroy_event_queue(input_event_queue);
-}
+/*
+ *
+ */
+void input::destroy_input_event_queue(void) { al_destroy_event_queue(input_event_queue); }
 
+/*
+ *
+ */
 void input::check_input_events(void) {
     ALLEGRO_EVENT event;
     const bool queue_not_empty = al_get_next_event(input_event_queue, &event);
     if(queue_not_empty) handle_input_event(event);
 }
 
+/*
+ *
+ */
 void input::handle_input_event(const ALLEGRO_EVENT& event) { 
     //  Clear any active alerts on input event
     if(alert::is_set() &&

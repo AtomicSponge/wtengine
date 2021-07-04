@@ -15,11 +15,22 @@ namespace wte
 namespace cmp
 {
 
+/*
+ *
+ */
+bitmap_map::bitmap_map() { bmp_map.clear(); }
+
+/*
+ *
+ */
 bitmap_map::~bitmap_map() {
     for(auto & it : bmp_map) al_destroy_bitmap(it.second);
     bmp_map.clear();
 }
 
+/*
+ *
+ */
 const bool bitmap_map::load_bitmap(
     const std::string& label,
     const std::string& fname
@@ -53,6 +64,9 @@ const bool bitmap_map::load_bitmap(
     return ret.second;
 }
 
+/*
+ *
+ */
 const bool bitmap_map::delete_bitmap(const std::string& label) {
     auto it = bmp_map.find(label);
     if(it != bmp_map.end()) {
@@ -63,6 +77,9 @@ const bool bitmap_map::delete_bitmap(const std::string& label) {
     return false;
 }
 
+/*
+ *
+ */
 void bitmap_map::draw_bitmap(
     const std::string& label,
     const float& dx, const float& dy,
@@ -72,6 +89,9 @@ void bitmap_map::draw_bitmap(
     if(it != bmp_map.end()) al_draw_bitmap(it->second, dx, dy, flags);
 }
 
+/*
+ *
+ */
 void bitmap_map::draw_tinted_bitmap(
     const std::string& label,
     const ALLEGRO_COLOR& tint,
@@ -84,6 +104,9 @@ void bitmap_map::draw_tinted_bitmap(
     );
 }
 
+/*
+ *
+ */
 void bitmap_map::draw_bitmap_region(
     const std::string& label,
     const float& sx, const float& sy,
@@ -97,6 +120,9 @@ void bitmap_map::draw_bitmap_region(
     );
 }
 
+/*
+ *
+ */
 void bitmap_map::draw_tinted_bitmap_region(
     const std::string& label,
     const ALLEGRO_COLOR& tint,
@@ -111,6 +137,9 @@ void bitmap_map::draw_tinted_bitmap_region(
     );
 }
 
+/*
+ *
+ */
 void bitmap_map::draw_rotated_bitmap(
     const std::string& label,
     const float& cx, const float& cy,
@@ -123,6 +152,9 @@ void bitmap_map::draw_rotated_bitmap(
     );
 }
 
+/*
+ *
+ */
 void bitmap_map::draw_tinted_rotated_bitmap(
     const std::string& label,
     const ALLEGRO_COLOR& tint,
@@ -136,6 +168,9 @@ void bitmap_map::draw_tinted_rotated_bitmap(
     );
 }
 
+/*
+ *
+ */
 void bitmap_map::draw_scaled_rotated_bitmap(
     const std::string& label,
     const float& cx, const float& cy,
@@ -149,6 +184,9 @@ void bitmap_map::draw_scaled_rotated_bitmap(
     );
 }
 
+/*
+ *
+ */
 void bitmap_map::draw_tinted_scaled_rotated_bitmap(
     const std::string& label,
     const ALLEGRO_COLOR& tint,
@@ -163,6 +201,9 @@ void bitmap_map::draw_tinted_scaled_rotated_bitmap(
     );
 }
 
+/*
+ *
+ */
 void bitmap_map::draw_tinted_scaled_rotated_bitmap_region(
     const std::string& label,
     const float& sx, const float& sy,
@@ -179,6 +220,9 @@ void bitmap_map::draw_tinted_scaled_rotated_bitmap_region(
     );
 }
 
+/*
+ *
+ */
 void bitmap_map::draw_scaled_bitmap(
     const std::string& label,
     const float& sx, const float& sy,
@@ -193,6 +237,9 @@ void bitmap_map::draw_scaled_bitmap(
     );
 }
 
+/*
+ *
+ */
 void bitmap_map::draw_tinted_scaled_bitmap(
     const std::string& label,
     const ALLEGRO_COLOR& tint,
@@ -206,10 +253,6 @@ void bitmap_map::draw_tinted_scaled_bitmap(
     if(it != bmp_map.end()) al_draw_tinted_scaled_bitmap(
         it->second, tint, sx, sy, sw, sh, dx, dy, dw, dh, flags
     );
-}
-
-bitmap_map::bitmap_map() {
-    bmp_map.clear();
 }
 
 } //  namespace cmp

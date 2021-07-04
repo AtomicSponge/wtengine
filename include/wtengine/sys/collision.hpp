@@ -11,6 +11,8 @@
 #define WTE_SYS_COLISION_HPP
 
 #include "wtengine/sys/system.hpp"
+#include "wtengine/_globals/alert.hpp"
+#include "wtengine/_globals/wte_exception.hpp"
 
 namespace wte
 {

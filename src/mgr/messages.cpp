@@ -17,6 +17,9 @@ namespace mgr
 
 template <> bool messages::manager<messages>::initialized = false;
 
+/*
+ *
+ */
 messages::messages() {
     msg_queue.clear();
 
@@ -27,6 +30,9 @@ messages::messages() {
     #endif
 }
 
+/*
+ *
+ */
 messages::~messages() {
     msg_queue.clear();
 
@@ -36,15 +42,22 @@ messages::~messages() {
     #endif
 }
 
-void messages::clear(void) {
-    msg_queue.clear();
-}
+/*
+ *
+ */
+void messages::clear(void) { msg_queue.clear(); }
 
+/*
+ *
+ */
 void messages::add_message(const message& msg) {
     msg_queue.insert(msg_queue.begin(), msg);
     if(msg.is_timed_event()) std::sort(msg_queue.begin(), msg_queue.end());
 }
 
+/*
+ *
+ */
 //  Ignore message pruning if WTE_NO_PRUNE build flag is defined
 void messages::prune(void) {
     for(auto it = msg_queue.begin(); it != msg_queue.end();) {
@@ -61,6 +74,9 @@ void messages::prune(void) {
     }
 }
 
+/*
+ *
+ */
 const message_container messages::get_messages(const std::string& sys) {
     message_container temp_messages;
 
@@ -81,6 +97,9 @@ const message_container messages::get_messages(const std::string& sys) {
     return temp_messages;
 }
 
+/*
+ *
+ */
 void messages::load_file(const std::string& fname) {
     msg_queue.clear();
     //  Open data file - read binary mode.
@@ -115,6 +134,9 @@ void messages::load_file(const std::string& fname) {
     std::sort(msg_queue.begin(), msg_queue.end());
 }
 
+/*
+ *
+ */
 const bool messages::load_script(const std::string& fname) {
     //  Open data file - read binary mode.
     ALLEGRO_FILE* file;
@@ -149,6 +171,9 @@ const bool messages::load_script(const std::string& fname) {
     return true;
 }
 
+/*
+ *
+ */
 void messages::read_message(ALLEGRO_FILE& file,
                             int64_t& timer,
                             std::string& sys,
@@ -194,6 +219,9 @@ void messages::read_message(ALLEGRO_FILE& file,
 }
 
 #if WTE_DEBUG_MODE
+/*
+ *
+ */
 void messages::debug_log_message(const message& msg) {
     debug_log_file << "PROC AT:  " << engine_time::check_time() << " | ";
     debug_log_file << "TIMER:  " << msg.get_timer() << " | ";

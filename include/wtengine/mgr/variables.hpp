@@ -151,7 +151,7 @@ class variables final : private manager<variables> {
             try {
                 return std::any_cast<const T>(_map.at(var));
             } catch(std::out_of_range& e) {
-                std::string err_msg = "Could not set variable: " + var;
+                std::string err_msg = "Could not get variable: " + var;
                 throw wte_exception(err_msg.c_str());
             } catch(std::bad_any_cast& e) {
                 std::string err_msg = "Error reading variable: " + var;

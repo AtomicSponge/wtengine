@@ -160,8 +160,8 @@ class variables final : private manager<variables> {
         };
 
     private:
-        inline variables() {};
-        inline ~variables() {};
+        inline variables() { _map.clear(); };
+        inline ~variables() { _map.clear(); };
 
         /*!
          * \brief Encrypt string.

@@ -28,7 +28,6 @@
 #include "wtengine/display.hpp"
 #include "wtengine/input.hpp"
 #include "wtengine/_globals/engine_cfg.hpp"
-#include "wtengine/_globals/game_cfg.hpp"
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/engine_flags.hpp"
 #include "wtengine/_globals/alert.hpp"
@@ -487,7 +486,7 @@ inline void engine::handle_sys_msg(message_container& sys_msgs) {
             //  Arguments:  var=val
             case CMD_STR_SET_GAMECFG:
                 for(std::size_t i = 0; i < it->num_args(); i++)
-                    game_cfg::set(it->get_arg(i));
+                    //game_cfg::set(it->get_arg(i));
                 it = sys_msgs.erase(it);
                 break;
 

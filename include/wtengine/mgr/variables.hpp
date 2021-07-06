@@ -1,0 +1,206 @@
+/*!
+ * WTEngine | File:  variables.hpp
+ * 
+ * \author Matthew Evans
+ * \version 0.2
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2021
+ */
+
+#ifndef WTE_MGR_VARIABLES_HPP
+#define WTE_MGR_VARIABLES_HPP
+
+#include <string>
+#include <any>
+#include <map>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+#include <limits>
+
+#include "wtengine/mgr/manager.hpp"
+#include "wtengine/_globals/wte_exception.hpp"
+
+namespace wte
+{
+
+namespace mgr
+{
+
+/*!
+ * \class variables
+ * \brief Store game variables
+ */
+class variables final : private manager<variables> {
+    public:
+        /*!
+         * \brief Set the file the game config variables will be written to.
+         * 
+         * \param fname Filename to set saving to.
+         */
+        inline static void set_data_file(const std::string& fname) {
+            data_file_name = fname;
+        };
+
+        /*!
+         * \brief Allows a different encryption key to be set.
+         * 
+         * \param key New key.
+         */
+        inline static void set_enc_key(const char& key) {
+            NOT_THE_ENCRYPTION_KEY = key;
+        };
+
+        /*!
+         * \brief Load game config variables from file.
+         * 
+         * \return False on fail, true on success.
+         */
+        inline static bool load(void) {
+            std::ifstream data_file(data_file_name);
+            if(!data_file.good()) return false;
+
+            std::string it;
+            //  Read each line, try to register or set
+            while(std::getline(data_file, it)) {
+                it = decrypt(it);
+                //if(!reg(it)) set(it);
+            }
+
+            data_file.close();
+            return true;
+        };
+
+        /*!
+         * \brief Clear the current game config save.
+         */
+        inline static void clear_save(void) {
+            std::ofstream data_file(data_file_name, std::ofstream::trunc);
+            data_file.close();
+        };
+
+        /*!
+         * \brief Save a game config variable to file.
+         * 
+         * \param var Variable name.
+         * \return False on fail, true on success.
+         */
+        inline static bool save(const std::string& var) {
+            std::ofstream data_file(data_file_name, std::ofstream::app);
+            if(!data_file.good()) return false;
+
+            try {
+                //data_file << encrypt(var + "=" + _map.at(var)) << std::endl;
+            } catch (std::out_of_range& e) {
+                data_file.close();
+                return false;  //  Didn't find var
+            }
+
+            data_file.close();
+            return true;
+        };
+
+        /*!
+         * Create a new entry in the map.
+         * Call this first before accessing.
+         */
+        template <typename T>  inline static const bool reg(const std::string& var, const T& val) {
+            auto ret = _map.insert(std::make_pair(var, std::make_any<T>(val)));
+            if(ret.second == false) return false;  //  Key exists already
+            else return true;  //  Inserted new key/pair
+        };
+
+        /*!
+         * Check if registered
+         */
+        inline static const bool isreg(const std::string& var) {
+            auto it = _map.find(var);
+            if(it != _map.end()) return true;
+            return false;
+        };
+
+        /*!
+         * Delete entry
+         */
+        inline static bool del(const std::string& var) {
+            auto it = _map.find(var);
+            if(it != _map.end()) {
+                _map.erase(it);
+                return true;
+            }
+            return false;
+        };
+
+        /*!
+         * Set key
+         * Will override value
+         */
+        template <typename T> inline static void set(const std::string& var, const T& val) {
+            try {
+                _map.at(var) = std::make_any<T>(val);
+            } catch(std::out_of_range& e) {
+                std::string err_msg = "Could not set variable: " + var;
+                throw wte_exception(err_msg.c_str());
+            }
+        };
+
+        /*!
+         * Get value
+         */
+        template <typename T> inline static const T get(const std::string& var) {
+            try {
+                return std::any_cast<const T>(_map.at(var));
+            } catch(std::out_of_range& e) {
+                std::string err_msg = "Could not set variable: " + var;
+                throw wte_exception(err_msg.c_str());
+            } catch(std::bad_any_cast& e) {
+                std::string err_msg = "Error reading variable: " + var;
+                throw wte_exception(err_msg.c_str());
+            }
+        };
+
+    private:
+        inline variables() {};
+        inline ~variables() {};
+
+        /*!
+         * \brief Encrypt string.
+         * 
+         * \param input String to encrypt.
+         * \return Encrypted string.
+         */
+        inline static const std::string encrypt(std::string input) {
+            for(std::size_t i = 0; i < input.length(); i++) {
+                input[i] = input[i] - NOT_THE_ENCRYPTION_KEY;
+            }
+
+            return input;
+        };
+
+        /*!
+         * \brief Decrypt string.
+         * 
+         * \param input String to decrypt.
+         * \return Decrypted string.
+         */
+        inline static const std::string decrypt(std::string input) {
+            for(std::size_t i = 0; i < input.length(); i++) {
+                input[i] = input[i] + NOT_THE_ENCRYPTION_KEY;
+            }
+
+            return input;
+        };
+
+        inline static std::string data_file_name = "game.cfg";
+        inline static char NOT_THE_ENCRYPTION_KEY = '@';
+
+        inline static std::map<std::string, std::any> _map = {};
+};
+
+template <> inline bool manager<variables>::initialized = false;
+
+} //  end namespace mgr
+
+} //  end namespace wte
+
+#endif

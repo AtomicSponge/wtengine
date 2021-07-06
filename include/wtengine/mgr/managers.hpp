@@ -12,11 +12,12 @@
 
 #include "wtengine/mgr/audio.hpp"
 #include "wtengine/mgr/entities.hpp"
+#include "wtengine/mgr/interface.hpp"
 #include "wtengine/mgr/menu.hpp"
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mgr/renderer.hpp"
 #include "wtengine/mgr/spawner.hpp"
 #include "wtengine/mgr/systems.hpp"
-#include "wtengine/mgr/interface.hpp"
+#include "wtengine/mgr/variables.hpp"
 
 #endif

@@ -28,12 +28,14 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
     //  The engine doesn't use Allegro's primitives addon, so init it here.
     al_init_primitives_addon();
 
-    game_cfg::reg("score=0");
-    game_cfg::reg("hiscore=0");
-    game_cfg::reg("max_lives=3");
-    game_cfg::reg("lives=3");
+    mgr::variables::reg("score", 0);
+    mgr::variables::reg("hiscore", 0);
+    mgr::variables::reg("max_lives", 3);
+    mgr::variables::reg("lives", 3);
 
-    game_cfg::load();
+    //mgr::variables::load();
+
+    //mgr::messages::add_message(message("system", "new_game", "game.sdf"));
 }
 
 /*
@@ -41,9 +43,9 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
  * Save game variables here.
  */
 wte_demo::~wte_demo() {
-    game_cfg::clear_save();
-    game_cfg::save("max_lives");
-    game_cfg::save("hiscore");
+    //mgr::variables::clear_save();
+    //mgr::variables::save("max_lives");
+    //mgr::variables::save("hiscore");
 
     al_shutdown_primitives_addon();
 }
@@ -244,9 +246,9 @@ void wte_demo::new_game(void) {
             wte_set_component(ovr_id, cmp::overlay)->set_drawing();
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
             wte_set_component(ovr_id, cmp::overlay)->draw_text("Score:  ", WTE_COLOR_WHITE, 110, 0, ALLEGRO_ALIGN_RIGHT);
-            wte_set_component(ovr_id, cmp::overlay)->draw_text(game_cfg::get("score"), WTE_COLOR_WHITE, 110, 0, ALLEGRO_ALIGN_LEFT);
+            wte_set_component(ovr_id, cmp::overlay)->draw_text(std::to_string(mgr::variables::get<int>("score")), WTE_COLOR_WHITE, 110, 0, ALLEGRO_ALIGN_LEFT);
             wte_set_component(ovr_id, cmp::overlay)->draw_text("High Score:  ", WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_RIGHT);
-            wte_set_component(ovr_id, cmp::overlay)->draw_text(game_cfg::get("hiscore"), WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_LEFT);
+            wte_set_component(ovr_id, cmp::overlay)->draw_text(std::to_string(mgr::variables::get<int>("hiscore")), WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_LEFT);
         }
     );  //  End score overlay drawing.
     wte_set_component(e_id, cmp::overlay)->set_font(al_create_builtin_font());
@@ -266,7 +268,7 @@ void wte_demo::new_game(void) {
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
             al_draw_filled_rectangle((float)(120 - wte_get_component(shd_id, energy)->amt), 0, 120, 10, WTE_COLOR_YELLOW);
             wte_set_component(ovr_id, cmp::overlay)->draw_text("Shield", WTE_COLOR_WHITE, 200, 0, ALLEGRO_ALIGN_RIGHT);
-            wte_set_component(ovr_id, cmp::overlay)->draw_text("Lives:  " + game_cfg::get("lives"), WTE_COLOR_WHITE, 200, 10, ALLEGRO_ALIGN_RIGHT);
+            wte_set_component(ovr_id, cmp::overlay)->draw_text("Lives:  " + std::to_string(mgr::variables::get<int>("lives")), WTE_COLOR_WHITE, 200, 10, ALLEGRO_ALIGN_RIGHT);
         }
     );  //  End info overlay drawing.
     wte_set_component(e_id, cmp::overlay)->set_font(al_create_builtin_font());
@@ -354,11 +356,11 @@ void wte_demo::new_game(void) {
                 mgr::audio::sample_stop("shield_sound");
 
                 mgr::audio::sample_play("megumin", "once");
-                game_cfg::subtract<int>("lives", 1);
+                mgr::variables::set<int>("lives", mgr::variables::get<int>("lives") - 1);
                 wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
                 wte_set_component(plr_id, cmp::sprite)->set_cycle("death");
                 mgr::messages::add_message(message("system", "disable_system", "input"));
-                if(game_cfg::get<int>("lives") == 0) {
+                if(mgr::variables::get<int>("lives") == 0) {
                     //  Game over!
                     mgr::messages::add_message(message(engine_time::check_time() + 180, "system", "end_game", ""));
                     entity_id go_id = mgr::entities::get_id("game_over_overlay");
@@ -608,7 +610,9 @@ void wte_demo::new_game(void) {
                     if(wte_get_component(ast_id, health)->hp <= 0) {
                         mgr::messages::add_message(message("spawner", "delete", mgr::entities::get_name(ast_id)));
                         mgr::audio::sample_play("megumin", "once", 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.8f);
-                        game_cfg::add<int>("score", (10 * wte_get_component(ast_id, size)->the_size));
+
+                        mgr::variables::set("score",
+                            (mgr::variables::get<int>("score") + (10 * wte_get_component(ast_id, size)->the_size)));
 
                         //  If the asteroid was size >= 4, split into two.
                         if(wte_get_component(ast_id, size)->the_size >= 4) {
@@ -651,12 +655,12 @@ void wte_demo::new_game(void) {
     );
 
     //  Reset score.
-    game_cfg::set("score=0");
+    mgr::variables::set("score", 0);
 
     //  Set number of lives.
-    if(game_cfg::get<int>("max_lives") > 5 || game_cfg::get<int>("max_lives") < 3)
-        game_cfg::set("max_lives=3");
-    game_cfg::set("lives", game_cfg::get("max_lives"));
+    if(mgr::variables::get<int>("max_lives") > 5 || mgr::variables::get<int>("max_lives") < 3)
+        mgr::variables::set("max_lives", 3);
+    mgr::variables::set("lives", mgr::variables::get<int>("max_lives"));
 
     //  Load some samples in the audio manager.
     mgr::audio::sample_load("sfx/laser.wav");
@@ -668,8 +672,8 @@ void wte_demo::new_game(void) {
  * Stop the game.
  */
 void wte_demo::end_game(void) {
-    if(game_cfg::get<int>("score") > game_cfg::get<int>("hiscore"))
-        game_cfg::set("hiscore", game_cfg::get("score"));
+    if(mgr::variables::get<int>("score") > mgr::variables::get<int>("hiscore"))
+        mgr::variables::set("hiscore", mgr::variables::get<int>("score"));
 }
 
 /*

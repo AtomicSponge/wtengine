@@ -106,30 +106,43 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
             /* *** Joystick events *** */
             /* *********************** */
             /////////////////////////////////////////////////////////////
-            /*case ALLEGRO_EVENT_JOYSTICK_BUTTON_ondown:
-                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_UP])
-                    input_flags::set_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_ondown);
-                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_ondown])
-                    input_flags::set_button_event(WTE_INPUT_BUTTON_ondown, WTE_BUTTON_EVENT_ondown);
-                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_LEFT])
-                    input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_ondown);
-                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_RIGHT])
-                    input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_ondown);
-                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_1])
-                    input_flags::set_button_event(WTE_INPUT_MENU_SELECT, WTE_BUTTON_EVENT_ondown);
-                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_2] ||
-                   event.joystick.button == button_bind[WTE_INPUT_BUTTON_START])
-                    input_flags::set_button_event(WTE_INPUT_MENU_CLOSE, WTE_BUTTON_EVENT_ondown);
+            case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
+                if(event.joystick.button == config::controls::key_menu) {
+                    mgr::menu::close_menu();
+                }
+                if(event.joystick.button == config::controls::key_menu_select) {
+                    mgr::menu::menu_item_select();
+                }
+                if(event.joystick.button == config::controls::p1_button_up ||
+                   event.joystick.button == config::controls::p2_button_up) {
+                    mgr::menu::menu_pos_up();
+                }
+                if(event.joystick.button == config::controls::p1_button_down ||
+                   event.joystick.button == config::controls::p2_button_down) {
+                    mgr::menu::menu_pos_down();
+                }
+                if(event.joystick.button == config::controls::p1_button_left ||
+                   event.joystick.button == config::controls::p2_button_left) {
+                    mgr::menu::menu_pos_start_left();
+                }
+                if(event.joystick.button == config::controls::p1_button_right ||
+                   event.joystick.button == config::controls::p2_button_right) {
+                    mgr::menu::menu_pos_start_right();
+                }
                 break;
             /////////////////////////////////////////////////////////////
             case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_LEFT])
-                    input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_UP);
-                if(event.joystick.button == button_bind[WTE_INPUT_BUTTON_RIGHT])
-                    input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_UP);
+                if(event.joystick.button == config::controls::p1_button_left ||
+                   event.joystick.button == config::controls::p2_button_left) {
+                    mgr::menu::menu_pos_stop_left();
+                }
+                if(event.joystick.button == config::controls::p1_button_right ||
+                   event.joystick.button == config::controls::p2_button_right) {
+                    mgr::menu::menu_pos_stop_right();
+                }
                 break;
             /////////////////////////////////////////////////////////////
-            case ALLEGRO_EVENT_JOYSTICK_AXIS:
+            /*case ALLEGRO_EVENT_JOYSTICK_AXIS:
                 switch(event.joystick.axis) {
                     case 0:  //  X axis
                         if(event.joystick.pos < -0.6f && last_x_axis[WTE_JOYSTICK_A] > -0.6f) {

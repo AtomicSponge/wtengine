@@ -32,7 +32,7 @@ bool config::load(void) {
 
     data_file.close();*/
     return true;
-};
+}
 
 /*
  *
@@ -48,6 +48,6 @@ bool config::save(void) {
 
     data_file.close();*/
     return true;
-};
+}
 
 } //  end namespace wte

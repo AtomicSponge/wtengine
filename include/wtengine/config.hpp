@@ -22,7 +22,7 @@ namespace wte
  */
 class config {
     public:
-        inline config() {};
+        inline virtual ~config() {};
 
         struct flags {
             inline static bool is_running = true;
@@ -133,7 +133,7 @@ class config {
         static bool save(void);
 
     protected:
-        inline ~config() {};
+        inline config() {};
 };
 
 } //  end namespace wte

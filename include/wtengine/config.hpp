@@ -15,6 +15,8 @@
 #include <string>
 #include <fstream>
 
+#include "wtengine/_globals/_defines.hpp"
+
 namespace wte
 {
 
@@ -41,22 +43,28 @@ class config {
             inline static float mix4 = 1.0f;
         };
 
+        struct gfx {
+            inline static std::size_t vsync = 2;
+            inline static std::size_t display_mode = 0;
+            inline static float scale_factor = 1.0f;
+        };
+
         struct controls {
-            inline static int key_menu = ALLEGRO_KEY_ESCAPE;
+            inline static int key_menu = WTE_KEY_MENU_DEFAULT;
 
             /*
             * Player 1 keyboard
             */
-            inline static int p1_key_up = 0;
-            inline static int p1_key_down = 0;
-            inline static int p1_key_left = 0;
-            inline static int p1_key_right = 0;
-            inline static int p1_key_action1 = ALLEGRO_KEY_LCTRL;
-            inline static int p1_key_action2 = ALLEGRO_KEY_ALT;
-            inline static int p1_key_action3 = 0;
-            inline static int p1_key_action4 = 0;
-            inline static int p1_key_action5 = 0;
-            inline static int p1_key_action6 = 0;
+            inline static int p1_key_up = WTE_P1_KEY_UP_DEFAULT;
+            inline static int p1_key_down = WTE_P1_KEY_DOWN_DEFAULT;
+            inline static int p1_key_left = WTE_P1_KEY_LEFT_DEFAULT;
+            inline static int p1_key_right = WTE_P1_KEY_RIGHT_DEFAULT;
+            inline static int p1_key_action1 = WTE_P1_KEY_ACTION1_DEFAULT;
+            inline static int p1_key_action2 = WTE_P1_KEY_ACTION2_DEFAULT;
+            inline static int p1_key_action3 = WTE_P1_KEY_ACTION3_DEFAULT;
+            inline static int p1_key_action4 = WTE_P1_KEY_ACTION4_DEFAULT;
+            inline static int p1_key_action5 = WTE_P1_KEY_ACTION5_DEFAULT;
+            inline static int p1_key_action6 = WTE_P1_KEY_ACTION6_DEFAULT;
 
             /*
             * Player 1 joystick
@@ -115,12 +123,6 @@ class config {
             inline static float p2_polb_y = 0.0f;
             inline static float p2_throttle_left = 0.0f;
             inline static float p2_throttle_right = 0.0f;
-        };
-
-        struct gfx {
-            inline static std::size_t vsync = 2;
-            inline static std::size_t display_mode = 0;
-            inline static float scale_factor = 1.0f;
         };
 
         /*!

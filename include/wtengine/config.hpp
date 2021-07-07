@@ -42,6 +42,8 @@ class config {
         };
 
         struct controls {
+            inline static int key_menu = ALLEGRO_KEY_ESCAPE;
+
             /*
             * Player 1 keyboard
             */
@@ -69,6 +71,8 @@ class config {
             inline static int p1_button_action4 = 0;
             inline static int p1_button_action5 = 0;
             inline static int p1_button_action6 = 0;
+            inline static int p1_button_start = 0;
+            inline static int p1_button_select = 0;
             inline static float p1_pola_x = 0.0f;
             inline static float p1_pola_y = 0.0f;
             inline static float p1_polb_x = 0.0f;
@@ -103,6 +107,8 @@ class config {
             inline static int p2_button_action4 = 0;
             inline static int p2_button_action5 = 0;
             inline static int p2_button_action6 = 0;
+            inline static int p2_button_start = 0;
+            inline static int p2_button_select = 0;
             inline static float p2_pola_x = 0.0f;
             inline static float p2_pola_y = 0.0f;
             inline static float p2_polb_x = 0.0f;

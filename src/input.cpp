@@ -67,38 +67,34 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
             /* *********************** */
             /////////////////////////////////////////////////////////////
             case ALLEGRO_EVENT_KEY_DOWN:
-                if(event.keyboard.keycode == config::controls::p1_key_up||
+                if(event.keyboard.keycode == config::controls::key_menu &&
+                   config::flags::game_started) {
+                    config::flags::game_menu_opened = false;
+                }
+                if(event.keyboard.keycode == config::controls::p1_key_up ||
                    event.keyboard.keycode == config::controls::p2_key_up) {
                     //menu up
                 }
-                if(event.keyboard.keycode == config::controls::p1_key_down||
+                if(event.keyboard.keycode == config::controls::p1_key_down ||
                    event.keyboard.keycode == config::controls::p2_key_down) {
                     //menu ondown
                 }
-                if(event.keyboard.keycode == config::controls::p1_key_left||
+                if(event.keyboard.keycode == config::controls::p1_key_left ||
                    event.keyboard.keycode == config::controls::p2_key_left) {
                     //menu start left
                 }
-                if(event.keyboard.keycode == config::controls::p1_key_right||
+                if(event.keyboard.keycode == config::controls::p1_key_right ||
                    event.keyboard.keycode == config::controls::p2_key_right) {
                     //menu right
                 }
                 break;
             /////////////////////////////////////////////////////////////
             case ALLEGRO_EVENT_KEY_UP:
-                if(event.keyboard.keycode == config::controls::p1_key_up||
-                   event.keyboard.keycode == config::controls::p2_key_up) {
-                    //nothing
-                }
-                if(event.keyboard.keycode == config::controls::p1_key_down||
-                   event.keyboard.keycode == config::controls::p2_key_down) {
-                    //nothing
-                }
-                if(event.keyboard.keycode == config::controls::p1_key_left||
+                if(event.keyboard.keycode == config::controls::p1_key_left ||
                    event.keyboard.keycode == config::controls::p2_key_left) {
                     //menu stop left
                 }
-                if(event.keyboard.keycode == config::controls::p1_key_right||
+                if(event.keyboard.keycode == config::controls::p1_key_right ||
                    event.keyboard.keycode == config::controls::p2_key_right) {
                     //menu stop right
                 }
@@ -177,6 +173,10 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
         /* *********************** */
         /*******************************************************************/
         case ALLEGRO_EVENT_KEY_DOWN:
+            if(event.keyboard.keycode == config::controls::key_menu &&
+               config::flags::game_started) {
+                config::flags::game_menu_opened = true;
+            }
             try {
                 if(event.keyboard.keycode == config::controls::p1_key_up)
                     try { input::event::p1::ondown::up(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
@@ -199,7 +199,7 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                 if(event.keyboard.keycode == config::controls::p1_key_action6)
                     try { input::event::p1::ondown::action6(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
             } catch(wte_exception& e) { alert::set(e.what()); }
-            break;  //  End case ALLEGRO_EVENT_KEY_ondown
+            break;  //  End case ALLEGRO_EVENT_KEY_DOWN
         /*******************************************************************/
         case ALLEGRO_EVENT_KEY_UP:
             try {

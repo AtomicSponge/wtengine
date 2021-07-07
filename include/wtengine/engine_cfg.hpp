@@ -112,11 +112,10 @@ class engine_cfg {
             inline static float p2_throttle_right = 0.0f;
         };
 
-        class gfx {
-            public:
-                inline static std::size_t vsync = 0;
-                inline static std::size_t display_mode = 0;
-                inline static float scale_factor = 1.0f;
+        struct gfx {
+            inline static std::size_t vsync = 0;
+            inline static std::size_t display_mode = 0;
+            inline static float scale_factor = 1.0f;
         };
 
         /*!

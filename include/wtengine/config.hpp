@@ -51,6 +51,7 @@ class config {
 
         struct controls {
             inline static int key_menu = WTE_KEY_MENU_DEFAULT;
+            inline static int key_menu_select = WTE_KET_MENU_SELECT_DEFAULT;
 
             /*
              * Player 1 keyboard

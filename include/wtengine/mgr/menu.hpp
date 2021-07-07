@@ -239,6 +239,10 @@ class menu final : private manager<menu> {
             al_set_timer_count(menu_timer, 0);
         };
 
+        inline static void menu_item_select(void) {
+            if(menu_position != opened_menus.top()->items_cend()) toggle_menu_select = true;
+        };
+
     private:
         /*!
          * \brief Menu manager constructor.
@@ -347,6 +351,7 @@ class menu final : private manager<menu> {
         inline static int font_size = 8;
 
         inline static bool is_button_left = true;
+        inline static bool toggle_menu_select = false;
 
         inline static std::string menu_font_file = "";
         inline static int menu_font_size = 0;
@@ -385,38 +390,7 @@ inline void menu::run(void) {
     /* ************************************************************ */
 
     /* ************************************************************ */
-    //  Iterate through the menu items depending on key press.
-    /*if(input_flags::check_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_DOWN) &&
-       menu_position != opened_menus.top()->items_cbegin()) menu_position--;
-    if(input_flags::check_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_DOWN) &&
-       menu_position != --opened_menus.top()->items_cend()) menu_position++;
-    /* ************************************************************ */
-
-    /* ************************************************************ */
-    //  Switch through a menu item's options depending on key press.
-    //  The longer the button is held down, the faster it will scroll through options.
-    /*if(input_flags::check_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_DOWN) &&
-       menu_position != opened_menus.top()->items_cend())
-    {
-        al_start_timer(menu_timer);
-        is_button_left = true;
-    }
-    if(input_flags::check_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_DOWN) &&
-       menu_position != opened_menus.top()->items_cend())
-    {
-        al_start_timer(menu_timer);
-        is_button_left = false;
-    }
-
-    if(input_flags::check_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_UP)) {
-        al_stop_timer(menu_timer);
-        al_set_timer_count(menu_timer, 0);
-    }
-    if(input_flags::check_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_UP)) {
-        al_stop_timer(menu_timer);
-        al_set_timer_count(menu_timer, 0);
-    }*/
-
+    //  Process left/right menu selection
     bool toggle_menu_item = false;
     ALLEGRO_EVENT event;
     const bool queue_not_empty = al_get_next_event(menu_event_queue, &event);
@@ -432,15 +406,11 @@ inline void menu::run(void) {
         if(is_button_left) (*menu_position)->on_left();
         else (*menu_position)->on_right();
     }
-    //  End left/right input.
     /* ************************************************************ */
 
     /* ************************************************************ */
     //  Menu item was selected, process what happens.
-    //if(input_flags::check_button_event(WTE_INPUT_MENU_SELECT, WTE_BUTTON_EVENT_DOWN) &&
-    if(false &&
-       menu_position != opened_menus.top()->items_cend())
-    {
+    if(toggle_menu_select && menu_position != opened_menus.top()->items_cend()) {
         message temp_msg = (*menu_position)->on_select();
         /* *** Check if the message is for the menu system and process. ********* */
         if(temp_msg.get_sys() == "menu") {
@@ -517,9 +487,6 @@ inline void menu::run(void) {
     }
     //  End menu item processing.
     /* ************************************************************ */
-
-    //  Check for close menu input.
-    //if(input_flags::check_button_event(WTE_INPUT_MENU_CLOSE, WTE_BUTTON_EVENT_DOWN)) close_menu();
 }
 
 /*!

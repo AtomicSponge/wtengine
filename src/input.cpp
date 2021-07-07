@@ -37,9 +37,16 @@ void input::destroy_input_event_queue(void) { al_destroy_event_queue(input_event
  *
  */
 void input::check_input_events(void) {
-    ALLEGRO_EVENT event;
-    const bool queue_not_empty = al_get_next_event(input_event_queue, &event);
-    if(queue_not_empty) handle_input_event(event);
+    //ALLEGRO_EVENT event;
+    //const bool queue_not_empty = al_get_next_event(input_event_queue, &event);
+    //if(queue_not_empty) handle_input_event(event);
+
+    bool queue_not_empty = true;
+    while(queue_not_empty) {
+        ALLEGRO_EVENT event;
+        queue_not_empty = al_get_next_event(input_event_queue, &event);
+        if(queue_not_empty) handle_input_event(event);
+    }
 }
 
 /*
@@ -174,51 +181,54 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
         /* *********************** */
         /*******************************************************************/
         case ALLEGRO_EVENT_KEY_DOWN:
-            if(event.keyboard.keycode == config::controls::p1_key_up)
-                try { input::event::p1::ondown::up(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_down)
-                try { input::event::p1::ondown::down(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_left)
-                try { input::event::p1::ondown::left(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_right)
-                try { input::event::p1::ondown::right(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_action1)
-                try { input::event::p1::ondown::action1(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_action1)
-                try { input::event::p1::ondown::action2(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_action1)
-                try { input::event::p1::ondown::action3(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_action1)
-                try { input::event::p1::ondown::action4(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_action1)
-                try { input::event::p1::ondown::action5(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_action1)
-                try { input::event::p1::ondown::action6(); } catch(wte_exception& e) { alert::set(e.what()); }
-        break;  //  End case ALLEGRO_EVENT_KEY_ondown
+            try {
+                if(event.keyboard.keycode == config::controls::p1_key_up)
+                    try { input::event::p1::ondown::up(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_down)
+                    try { input::event::p1::ondown::down(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_left)
+                    try { input::event::p1::ondown::left(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_right)
+                    try { input::event::p1::ondown::right(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                    try { input::event::p1::ondown::action1(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                    try { input::event::p1::ondown::action2(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                    try { input::event::p1::ondown::action3(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                    try { input::event::p1::ondown::action4(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                    try { input::event::p1::ondown::action5(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                    try { input::event::p1::ondown::action6(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+            } catch(wte_exception& e) { alert::set(e.what()); }
+            break;  //  End case ALLEGRO_EVENT_KEY_ondown
         /*******************************************************************/
         case ALLEGRO_EVENT_KEY_UP:
-            if(event.keyboard.keycode == config::controls::p1_key_up)
-                try { input::event::p1::onup::up(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_down)
-                try { input::event::p1::onup::down(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_left)
-                try { input::event::p1::onup::left(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_right)
-                try { input::event::p1::onup::right(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_action1)
-                try { input::event::p1::onup::action1(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_action1)
-                try { input::event::p1::onup::action2(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_action1)
-                try { input::event::p1::onup::action3(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_action1)
-                try { input::event::p1::onup::action4(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_action1)
-                try { input::event::p1::onup::action5(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == config::controls::p1_key_action1)
-                try { input::event::p1::onup::action6(); } catch(wte_exception& e) { alert::set(e.what()); }
-        break;  //  End case ALLEGRO_EVENT_KEY_UP
-
+            try {
+                if(event.keyboard.keycode == config::controls::p1_key_up)
+                    try { input::event::p1::onup::up(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_down)
+                    try { input::event::p1::onup::down(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_left)
+                    try { input::event::p1::onup::left(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_right)
+                    try { input::event::p1::onup::right(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                    try { input::event::p1::onup::action1(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                    try { input::event::p1::onup::action2(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                    try { input::event::p1::onup::action3(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                    try { input::event::p1::onup::action4(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                    try { input::event::p1::onup::action5(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                    try { input::event::p1::onup::action6(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+            } catch(wte_exception& e) { alert::set(e.what()); }
+            break;  //  End case ALLEGRO_EVENT_KEY_UP
         /* *********************** */
         /* *** Joystick events *** */
         /* *********************** */

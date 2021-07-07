@@ -54,7 +54,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
     };
     input::event::p1::ondown::action1 = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        entity_id can_id = mgr::entities::get_id("cannon");
+        entity_id can_id = mgr::entities::get_id("main_cannon");
         //  Set the cannon's location to match the player.
         wte_set_component(can_id, cmp::location)->set_x(
             wte_get_component(player_id, cmp::location)->get_x()
@@ -105,7 +105,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
     };
     input::event::p1::onup::action1 = []() {
         //  Turn the cannon off.
-        entity_id can_id = mgr::entities::get_id("cannon");
+        entity_id can_id = mgr::entities::get_id("main_cannon");
         wte_set_component(can_id, cmp::visible)->hide();
         wte_set_component(can_id, cmp::enabled)->disable();
         //  Stop sound effect.

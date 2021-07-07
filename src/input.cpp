@@ -192,15 +192,15 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                     try { input::event::p1::ondown::right(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
                 if(event.keyboard.keycode == config::controls::p1_key_action1)
                     try { input::event::p1::ondown::action1(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
-                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                if(event.keyboard.keycode == config::controls::p1_key_action2)
                     try { input::event::p1::ondown::action2(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
-                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                if(event.keyboard.keycode == config::controls::p1_key_action3)
                     try { input::event::p1::ondown::action3(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
-                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                if(event.keyboard.keycode == config::controls::p1_key_action4)
                     try { input::event::p1::ondown::action4(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
-                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                if(event.keyboard.keycode == config::controls::p1_key_action5)
                     try { input::event::p1::ondown::action5(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
-                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                if(event.keyboard.keycode == config::controls::p1_key_action6)
                     try { input::event::p1::ondown::action6(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
             } catch(wte_exception& e) { alert::set(e.what()); }
             break;  //  End case ALLEGRO_EVENT_KEY_ondown
@@ -217,15 +217,15 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                     try { input::event::p1::onup::right(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
                 if(event.keyboard.keycode == config::controls::p1_key_action1)
                     try { input::event::p1::onup::action1(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
-                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                if(event.keyboard.keycode == config::controls::p1_key_action2)
                     try { input::event::p1::onup::action2(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
-                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                if(event.keyboard.keycode == config::controls::p1_key_action3)
                     try { input::event::p1::onup::action3(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
-                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                if(event.keyboard.keycode == config::controls::p1_key_action4)
                     try { input::event::p1::onup::action4(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
-                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                if(event.keyboard.keycode == config::controls::p1_key_action5)
                     try { input::event::p1::onup::action5(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
-                if(event.keyboard.keycode == config::controls::p1_key_action1)
+                if(event.keyboard.keycode == config::controls::p1_key_action6)
                     try { input::event::p1::onup::action6(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
             } catch(wte_exception& e) { alert::set(e.what()); }
             break;  //  End case ALLEGRO_EVENT_KEY_UP

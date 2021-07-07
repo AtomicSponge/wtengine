@@ -30,7 +30,7 @@ class config {
             inline static bool is_running = true;
             inline static bool game_started = false;
             inline static bool game_menu_opened = true;
-            inline static bool draw_fps = false;
+            inline static bool draw_fps = true;
         };
 
         struct volume {
@@ -112,7 +112,7 @@ class config {
         };
 
         struct gfx {
-            inline static std::size_t vsync = 0;
+            inline static std::size_t vsync = 2;
             inline static std::size_t display_mode = 0;
             inline static float scale_factor = 1.0f;
         };

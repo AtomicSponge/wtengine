@@ -34,23 +34,94 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
     mgr::variables::reg("lives", (int)3);
 
     //mgr::variables::load();
-
+/*
     //  Set up input handling
-    input::event::p1::ondown::up = []() {};
-    input::event::p1::ondown::down = []() {};
-    input::event::p1::ondown::left = []() {};
-    input::event::p1::ondown::right = []() {};
-    input::event::p1::ondown::action1 = []() {};
-    input::event::p1::ondown::action2 = []() {};
+    input::event::p1::ondown::up = []() {
+        wte_set_component(plr_id, cmp::direction)->set_radians(rad);
+        wte_set_component(plr_id, cmp::velocity)->set_velocity(5.0f);
+    };
+    input::event::p1::ondown::down = []() {
+        wte_set_component(plr_id, cmp::direction)->set_radians(rad);
+        wte_set_component(plr_id, cmp::velocity)->set_velocity(5.0f);
+    };
+    input::event::p1::ondown::left = []() {
+        wte_set_component(plr_id, cmp::direction)->set_radians(rad);
+        wte_set_component(plr_id, cmp::velocity)->set_velocity(5.0f);
+    };
+    input::event::p1::ondown::right = []() {
+        wte_set_component(plr_id, cmp::direction)->set_radians(rad);
+        wte_set_component(plr_id, cmp::velocity)->set_velocity(5.0f);
+    };
+    input::event::p1::ondown::action1 = []() {
+        entity_id player_entity = mgr::entities::get_id("player");
+        //  Set the cannon's location to match the player.
+        wte_set_component(can_id, cmp::location)->set_x(
+            wte_get_component(player_entity, cmp::location)->get_x()
+        );
+        wte_set_component(can_id, cmp::location)->set_y(
+            wte_get_component(player_entity, cmp::location)->get_y() -
+            wte_get_component(can_id, cmp::hitbox)->get_height()
+        );
 
-    input::event::p1::onup::up = []() {};
-    input::event::p1::onup::down = []() {};
-    input::event::p1::onup::left = []() {};
-    input::event::p1::onup::right = []() {};
-    input::event::p1::onup::action1 = []() {};
-    input::event::p1::onup::action2 = []() {};
+        //  Turn the cannon on.
+        wte_set_component(can_id, cmp::visible)->show();
+        wte_set_component(can_id, cmp::enabled)->enable();
 
-    //mgr::messages::add_message(message("system", "new_game", "game.sdf"));
+        //  Play sound effect.
+        mgr::audio::sample_play("laser", "cannon_fire");
+    };
+    input::event::p1::ondown::action2 = []() {
+        entity_id player_entity = mgr::entities::get_id("player");
+        //  Set the shield's location to match the player
+        wte_set_component(shd_id, cmp::location)->set_x(
+            wte_get_component(player_entity, cmp::location)->get_x() - 28.0f
+        );
+        wte_set_component(shd_id, cmp::location)->set_y(
+            wte_get_component(player_entity, cmp::location)->get_y() - 16.0f
+        );
+
+        if(wte_set_component(shd_id, energy)->amt > 0) {
+            //  Enable the shield.
+            wte_set_component(shd_id, cmp::visible)->show();
+            wte_set_component(shd_id, cmp::enabled)->enable();
+            wte_set_component(player_entity, cmp::hitbox)->make_fluid();
+
+            //  Play sound effect.
+            mgr::audio::sample_play("shield", "shield_sound");
+        }
+    };
+
+    input::event::p1::onup::up = []() {
+        wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
+    };
+    input::event::p1::onup::down = []() {
+        wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
+    };
+    input::event::p1::onup::left = []() {
+        wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
+    };
+    input::event::p1::onup::right = []() {
+        wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
+    };
+    input::event::p1::onup::action1 = []() {
+        //  Turn the cannon off.
+            wte_set_component(can_id, cmp::visible)->hide();
+            wte_set_component(can_id, cmp::enabled)->disable();
+
+            //  Stop sound effect.
+            mgr::audio::sample_stop("cannon_fire");
+    };
+    input::event::p1::onup::action2 = []() {
+        //  Disable shield.
+        wte_set_component(shd_id, cmp::visible)->hide();
+        wte_set_component(shd_id, cmp::enabled)->disable();
+        entity_id player_entity = mgr::entities::get_id("player");
+        wte_set_component(player_entity, cmp::hitbox)->make_solid();
+        //  Stop sound effect.
+        mgr::audio::sample_stop("shield_sound");
+    };
+*/
+    mgr::messages::add_message(message("system", "new_game", "game.sdf"));
 }
 
 /*
@@ -328,17 +399,6 @@ void wte_demo::new_game(void) {
     wte_set_component(e_id, cmp::sprite)->add_cycle("death", 4, 7);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
-    //  Player input handling.
-    wte_new_component(e_id, cmp::input_directional, WTE_JOYSTICK_A,
-        [](const entity_id& plr_id, const float& rad) {
-            wte_set_component(plr_id, cmp::direction)->set_radians(rad);
-            wte_set_component(plr_id, cmp::velocity)->set_velocity(5.0f);
-        },
-        [](const entity_id& plr_id) {
-            wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
-        }
-    );  //  End player directional handling.
-
     //  Player logic.
     wte_new_component(e_id, cmp::ai,
         [](const entity_id& plr_id) {
@@ -421,36 +481,6 @@ void wte_demo::new_game(void) {
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 3);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
-    //  Cannon input handling.
-    wte_new_component(e_id, cmp::input_button, WTE_INPUT_BUTTON_1,
-        [](const entity_id& can_id) {
-            entity_id player_entity = mgr::entities::get_id("player");
-            //  Set the cannon's location to match the player.
-            wte_set_component(can_id, cmp::location)->set_x(
-                wte_get_component(player_entity, cmp::location)->get_x()
-            );
-            wte_set_component(can_id, cmp::location)->set_y(
-                wte_get_component(player_entity, cmp::location)->get_y() -
-                wte_get_component(can_id, cmp::hitbox)->get_height()
-            );
-
-            //  Turn the cannon on.
-            wte_set_component(can_id, cmp::visible)->show();
-            wte_set_component(can_id, cmp::enabled)->enable();
-
-            //  Play sound effect.
-            mgr::audio::sample_play("laser", "cannon_fire");
-        },
-        [](const entity_id& can_id) {
-            //  Turn the cannon off.
-            wte_set_component(can_id, cmp::visible)->hide();
-            wte_set_component(can_id, cmp::enabled)->disable();
-
-            //  Stop sound effect.
-            mgr::audio::sample_stop("cannon_fire");
-        }
-    );  //  End cannon input handler.
-
     //  Cannon logic.
     wte_new_component(e_id, cmp::ai,
         [](const entity_id& can_id) {
@@ -497,39 +527,6 @@ void wte_demo::new_game(void) {
     wte_set_component(e_id, cmp::sprite)->load_sprite("shield.bmp");
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
-
-    //  Shield input handling.
-    wte_new_component(e_id, cmp::input_button, WTE_INPUT_BUTTON_2,
-        [](const entity_id& shd_id) {
-            entity_id player_entity = mgr::entities::get_id("player");
-            //  Set the shield's location to match the player
-            wte_set_component(shd_id, cmp::location)->set_x(
-                wte_get_component(player_entity, cmp::location)->get_x() - 28.0f
-            );
-            wte_set_component(shd_id, cmp::location)->set_y(
-                wte_get_component(player_entity, cmp::location)->get_y() - 16.0f
-            );
-
-            if(wte_set_component(shd_id, energy)->amt > 0) {
-                //  Enable the shield.
-                wte_set_component(shd_id, cmp::visible)->show();
-                wte_set_component(shd_id, cmp::enabled)->enable();
-                wte_set_component(player_entity, cmp::hitbox)->make_fluid();
-
-                //  Play sound effect.
-                mgr::audio::sample_play("shield", "shield_sound");
-            }
-        },
-        [](const entity_id& shd_id) {
-            //  Disable shield.
-            wte_set_component(shd_id, cmp::visible)->hide();
-            wte_set_component(shd_id, cmp::enabled)->disable();
-            entity_id player_entity = mgr::entities::get_id("player");
-            wte_set_component(player_entity, cmp::hitbox)->make_solid();
-            //  Stop sound effect.
-            mgr::audio::sample_stop("shield_sound");
-        }
-    );  //  End shield input handler.
 
     //  Shield logic.
     wte_new_component(e_id, cmp::ai,

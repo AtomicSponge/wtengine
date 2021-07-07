@@ -64,8 +64,6 @@ add_library(wtengine STATIC
     src/cmp/dispatcher.cpp
     src/cmp/enabled.cpp
     src/cmp/hitbox.cpp
-    src/cmp/input_button.cpp
-    src/cmp/input_directional.cpp
     src/cmp/location.cpp
     src/cmp/team.cpp
     src/cmp/velocity.cpp
@@ -86,7 +84,6 @@ add_library(wtengine STATIC
     src/mnu/menu_item_toggle.cpp
     src/sys/animate.cpp
     src/sys/collision.cpp
-    src/sys/input.cpp
     src/sys/logic.cpp
     src/sys/movement.cpp)
 

@@ -2,7 +2,7 @@
  * WTEngine | File:  menu.hpp
  * 
  * \author Matthew Evans
- * \version 0.2
+ * \version 0.3
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -20,13 +20,12 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 
+#include "wtengine/engine_cfg.hpp"
+#include "wtengine/_globals/_defines.hpp"
 #include "wtengine/mgr/manager.hpp"
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mnu/menu_items.hpp"
-#include "wtengine/_globals/engine_flags.hpp"
-#include "wtengine/_globals/input_flags.hpp"
 #include "wtengine/mnu/menu.hpp"
-#include "wtengine/global_defines.hpp"
 
 namespace wte
 {
@@ -134,7 +133,7 @@ class menu final : private manager<menu> {
             }
 
             //  Menu not found, return main menu or game menu if the game is running
-            if(engine_flags::is_set(GAME_STARTED)) {
+            if(engine_cfg::flags::game_started) {
                 for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
                     if("game_menu" == (*it)->get_id()) return *it;
                 }
@@ -175,7 +174,7 @@ class menu final : private manager<menu> {
          */
         inline static void reset(void) {
             opened_menus = {};
-            engine_flags::unset(GAME_MENU_OPENED);
+            engine_cfg::flags::game_menu_opened = false;
         };
 
         /*!
@@ -188,7 +187,7 @@ class menu final : private manager<menu> {
          */
         inline static void open_menu(const std::string& menu_id) {
             opened_menus.push(get_menu(menu_id));
-            engine_flags::set(GAME_MENU_OPENED);
+            engine_cfg::flags::game_menu_opened = true;
             menu_position = opened_menus.top()->items_cbegin();
 
             //  Set default values for any menu settings objects.
@@ -204,7 +203,7 @@ class menu final : private manager<menu> {
          */
         inline static void close_menu(void) {
             opened_menus.pop();
-            if(opened_menus.empty()) engine_flags::unset(GAME_MENU_OPENED);
+            if(opened_menus.empty()) engine_cfg::flags::game_menu_opened = false;
             else menu_position = opened_menus.top()->items_cbegin();
         };
 
@@ -334,7 +333,7 @@ template <> inline bool menu::manager<menu>::initialized = false;
 inline void menu::run(void) {
     if(opened_menus.empty()) {
         //  No menus currently opened, add one to the stack
-        if(engine_flags::is_set(GAME_STARTED)) open_menu("game_menu"); //  Add the in-game menu to the stack.
+        if(engine_cfg::flags::game_started) open_menu("game_menu"); //  Add the in-game menu to the stack.
         else open_menu("main_menu"); //  Add the main menu to the stack.
     }
 
@@ -355,7 +354,7 @@ inline void menu::run(void) {
 
     /* ************************************************************ */
     //  Iterate through the menu items depending on key press.
-    if(input_flags::check_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_DOWN) &&
+    /*if(input_flags::check_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_DOWN) &&
        menu_position != opened_menus.top()->items_cbegin()) menu_position--;
     if(input_flags::check_button_event(WTE_INPUT_BUTTON_DOWN, WTE_BUTTON_EVENT_DOWN) &&
        menu_position != --opened_menus.top()->items_cend()) menu_position++;
@@ -364,7 +363,7 @@ inline void menu::run(void) {
     /* ************************************************************ */
     //  Switch through a menu item's options depending on key press.
     //  The longer the button is held down, the faster it will scroll through options.
-    if(input_flags::check_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_DOWN) &&
+    /*if(input_flags::check_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_DOWN) &&
        menu_position != opened_menus.top()->items_cend())
     {
         al_start_timer(menu_timer);
@@ -384,7 +383,7 @@ inline void menu::run(void) {
     if(input_flags::check_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_UP)) {
         al_stop_timer(menu_timer);
         al_set_timer_count(menu_timer, 0);
-    }
+    }*/
 
     bool toggle_menu_item = false;
     ALLEGRO_EVENT event;
@@ -406,7 +405,8 @@ inline void menu::run(void) {
 
     /* ************************************************************ */
     //  Menu item was selected, process what happens.
-    if(input_flags::check_button_event(WTE_INPUT_MENU_SELECT, WTE_BUTTON_EVENT_DOWN) &&
+    //if(input_flags::check_button_event(WTE_INPUT_MENU_SELECT, WTE_BUTTON_EVENT_DOWN) &&
+    if(false &&
        menu_position != opened_menus.top()->items_cend())
     {
         message temp_msg = (*menu_position)->on_select();
@@ -487,7 +487,7 @@ inline void menu::run(void) {
     /* ************************************************************ */
 
     //  Check for close menu input.
-    if(input_flags::check_button_event(WTE_INPUT_MENU_CLOSE, WTE_BUTTON_EVENT_DOWN)) close_menu();
+    //if(input_flags::check_button_event(WTE_INPUT_MENU_CLOSE, WTE_BUTTON_EVENT_DOWN)) close_menu();
 }
 
 /*!

@@ -2,7 +2,7 @@
  * WTEngine | File:  messages.hpp
  * 
  * \author Matthew Evans
- * \version 0.2
+ * \version 0.3
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -18,10 +18,10 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_physfs.h>
 
-#include "wtengine/mgr/manager.hpp"
+#include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/engine_time.hpp"
-#include "wtengine/message.hpp"
-#include "wtengine/global_defines.hpp"
+#include "wtengine/_globals/message.hpp"
+#include "wtengine/mgr/manager.hpp"
 
 #if WTE_DEBUG_MODE
 #include <fstream>

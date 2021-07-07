@@ -2,7 +2,7 @@
  * WTEngine | File:  menu_item_selection.hpp
  * 
  * \author Matthew Evans
- * \version 0.2
+ * \version 0.3
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -16,9 +16,6 @@
 #include <stdexcept>
 
 #include "wtengine/mnu/menu_item.hpp"
-
-#include "wtengine/_globals/engine_cfg.hpp"
-#include "wtengine/_globals/game_cfg.hpp"
 
 namespace wte
 {

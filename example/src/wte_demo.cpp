@@ -35,6 +35,21 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
 
     //mgr::variables::load();
 
+    //  Set up input handling
+    engine::event::down::p1:up = []() {};
+    engine::event::down::p1:down = []() {};
+    engine::event::down::p1:left = []() {};
+    engine::event::down::p1:right = []() {};
+    engine::event::down::p1:action1 = []() {};
+    engine::event::down::p1:action2 = []() {};
+
+    engine::event::up::p1:up = []() {};
+    engine::event::up::p1:down = []() {};
+    engine::event::up::p1:left = []() {};
+    engine::event::up::p1:right = []() {};
+    engine::event::up::p1:action1 = []() {};
+    engine::event::up::p1:action2 = []() {};
+
     //mgr::messages::add_message(message("system", "new_game", "game.sdf"));
 }
 
@@ -155,7 +170,6 @@ void wte_demo::load_menus(void) {
  * Load the systems in order.
  */
 void wte_demo::load_systems(void) {
-    wte_add_system(sys::input);
     wte_add_system(sys::movement);
     wte_add_system(sys::colision);
     wte_add_system(sys::logic);

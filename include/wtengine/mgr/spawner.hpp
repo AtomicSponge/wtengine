@@ -2,7 +2,7 @@
  * WTEngine | File:  spawner.hpp
  * 
  * \author Matthew Evans
- * \version 0.2
+ * \version 0.3
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -15,9 +15,9 @@
 #include <map>
 #include <functional>
 
+#include "wtengine/_globals/message.hpp"
 #include "wtengine/mgr/manager.hpp"
 #include "wtengine/mgr/entities.hpp"
-#include "wtengine/message.hpp"
 
 namespace wte
 {

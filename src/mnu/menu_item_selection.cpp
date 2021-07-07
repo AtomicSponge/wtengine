@@ -2,7 +2,7 @@
  * WTEngine | File:  menu_item_selection.cpp
  * 
  * \author Matthew Evans
- * \version 0.2
+ * \version 0.3
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -68,8 +68,8 @@ void menu_item_selection::reset_to_default(void) { current_val = default_val; };
  *
  */
 void menu_item_selection::set_default(void) {
-    if(is_engine_setting()) current_val = std::find(std::begin(vals), std::end(vals), engine_cfg::get(var));
-    else current_val = std::find(std::begin(vals), std::end(vals), game_cfg::get(var));
+    //if(is_engine_setting()) current_val = std::find(std::begin(vals), std::end(vals), engine_cfg::get(var));
+    //else current_val = std::find(std::begin(vals), std::end(vals), game_cfg::get(var));
     if(current_val == vals.end()) current_val = vals.begin();
     default_val = current_val;
 };

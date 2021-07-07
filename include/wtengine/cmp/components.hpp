@@ -2,7 +2,7 @@
  * WTEngine | File:  components.hpp
  * 
  * \author Matthew Evans
- * \version 0.2
+ * \version 0.3
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -16,8 +16,6 @@
 #include "wtengine/cmp/dispatcher.hpp"
 #include "wtengine/cmp/enabled.hpp"
 #include "wtengine/cmp/hitbox.hpp"
-#include "wtengine/cmp/input_button.hpp"
-#include "wtengine/cmp/input_directional.hpp"
 #include "wtengine/cmp/location.hpp"
 #include "wtengine/cmp/team.hpp"
 #include "wtengine/cmp/velocity.hpp"

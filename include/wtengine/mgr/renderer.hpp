@@ -2,7 +2,7 @@
  * WTEngine | File:  renderer.hpp
  * 
  * \author Matthew Evans
- * \version 0.2
+ * \version 0.3
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -22,9 +22,8 @@
 
 #include "wtengine/mgr/manager.hpp"
 
-#include "wtengine/global_defines.hpp"
+#include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/engine_time.hpp"
-#include "wtengine/_globals/engine_flags.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/cmp/components.hpp"

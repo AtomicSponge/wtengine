@@ -2,7 +2,7 @@
  * WTEngine | File:  audio.hpp
  * 
  * \author Matthew Evans
- * \version 0.2
+ * \version 0.3
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -17,10 +17,10 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 
+#include "wtengine/engine_cfg.hpp"
 #include "wtengine/mgr/manager.hpp"
-#include "wtengine/_globals/engine_cfg.hpp"
-#include "wtengine/global_defines.hpp"
-#include "wtengine/message.hpp"
+#include "wtengine/_globals/_defines.hpp"
+#include "wtengine/_globals/message.hpp"
 
 namespace wte
 {

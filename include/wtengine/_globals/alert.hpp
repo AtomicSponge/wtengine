@@ -2,7 +2,7 @@
  * WTEngine | File:  alert.hpp
  * 
  * \author Matthew Evans
- * \version 0.2
+ * \version 0.3
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -31,6 +31,11 @@ class alert {
          * \param a Alert to display.
          */
         inline static void set_alert(const std::string& a) {
+            alert_text = a;
+            alert_set = true;
+        };
+
+        inline static void set(const std::string& a) {
             alert_text = a;
             alert_set = true;
         };

@@ -2,7 +2,7 @@
  * WTEngine | File:  engine.hpp
  * 
  * \author Matthew Evans
- * \version 0.2
+ * \version 0.3
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -24,13 +24,12 @@
 #include <map>
 #include <stdexcept>
 
-#include "wtengine/global_defines.hpp"
 #include "wtengine/display.hpp"
+#include "wtengine/engine_cfg.hpp"
 #include "wtengine/input.hpp"
-#include "wtengine/_globals/engine_cfg.hpp"
-#include "wtengine/_globals/engine_time.hpp"
-#include "wtengine/_globals/engine_flags.hpp"
+#include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/alert.hpp"
+#include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/mgr/managers.hpp"
 
 namespace wte
@@ -43,7 +42,7 @@ namespace wte
  * Sets up various system objects used by the engine.
  * Contains the main game loop and members for managing the game and engine.
  */
-class engine : private display, private input {
+class engine : private display, private input, public engine_cfg {
     public:
         /*!
          * \brief Engine destructor.
@@ -153,12 +152,6 @@ class engine : private display, private input {
             //  Set default colors for alerts.
             alert::set_font_color(WTE_COLOR_WHITE);
             alert::set_bg_color(WTE_COLOR_RED);
-
-            //  Check to see if FPS drawing should be enabled.
-            if(engine_cfg::is_reg("draw_fps")) {
-                if(engine_cfg::get<bool>("draw_fps")) engine_flags::set(DRAW_FPS);
-                else engine_flags::unset(DRAW_FPS);
-            }
         };
 
         /* These function members are overridden in the derived class */
@@ -247,7 +240,7 @@ inline void engine::process_new_game(const std::string& game_data) {
     std::srand(std::time(nullptr));  //  Seed random, using time.
 
     //  Make sure the menu isn't opened.
-    engine_flags::unset(GAME_MENU_OPENED);
+    engine_cfg::flags::game_menu_opened = false;
 
     //  Load a new message data file.
     if(!game_data.empty()) mgr_inf.messages_load_file(game_data);
@@ -271,7 +264,7 @@ inline void engine::process_new_game(const std::string& game_data) {
     //  Restart the timer at zero.
     al_stop_timer(main_timer);
     al_set_timer_count(main_timer, 0);
-    engine_flags::set(GAME_STARTED);
+    engine_cfg::flags::game_started = true;
     engine_time::set_time(al_get_timer_count(main_timer));
     al_start_timer(main_timer);
 };
@@ -283,7 +276,7 @@ inline void engine::process_new_game(const std::string& game_data) {
  */
 inline void engine::process_end_game(void) {
     al_stop_timer(main_timer);
-    engine_flags::unset(GAME_STARTED);
+    engine_cfg::flags::game_started = false;
     al_set_timer_count(main_timer, 0);
     engine_time::set_time(al_get_timer_count(main_timer));
 
@@ -302,7 +295,7 @@ inline void engine::process_end_game(void) {
     mgr_inf.systems_clear();
 
     //  Open the mgr::menu::
-    engine_flags::set(GAME_MENU_OPENED);
+    engine_cfg::flags::game_menu_opened = true;
 };
 
 /*!
@@ -312,27 +305,25 @@ inline void engine::do_game(void) {
     wte_load();
 
     //  Set default states.
-    engine_flags::set(IS_RUNNING);
-    engine_flags::unset(GAME_STARTED);
-    engine_flags::set(GAME_MENU_OPENED);
-
-    input_flags::unset_all();
+    flags::is_running = true;
+    flags::game_started = false;
+    flags::game_menu_opened = true;
 
     /* *** ENGINE LOOP ************************************************************ */
-    while(engine_flags::is_set(IS_RUNNING)) {
-        if(!engine_flags::is_set(GAME_STARTED)) {  //  Game not running.
+    while(flags::is_running) {
+        if(!flags::game_started) {  //  Game not running.
             al_stop_timer(main_timer);             //  Make sure the timer isn't.
-            engine_flags::set(GAME_MENU_OPENED);   //  And force the menu manager.
+            flags::game_menu_opened = true;   //  And force the menu manager.
         }
 
         //  Pause / resume timer depending on if the game menu is opened.
         //  Also process the on_menu events.
-        if(engine_flags::is_set(GAME_MENU_OPENED) && al_get_timer_started(main_timer)) {
+        if(flags::game_menu_opened && al_get_timer_started(main_timer)) {
             al_stop_timer(main_timer);
             mgr_inf.audio_get_volume();  //  Make sure engine cfg matches audio manager.
             on_menu_open();
         }
-        if(!engine_flags::is_set(GAME_MENU_OPENED) && !al_get_timer_started(main_timer)) {
+        if(flags::game_menu_opened && !al_get_timer_started(main_timer)) {
             on_menu_close();
             al_resume_timer(main_timer);
         }
@@ -341,7 +332,7 @@ inline void engine::do_game(void) {
         check_input_events();
 
         //  Game menu is opened, run the menu manager.
-        if(engine_flags::is_set(GAME_MENU_OPENED)) mgr_inf.menu_run();
+        if(flags::game_menu_opened) mgr_inf.menu_run();
 
         /* *** GAME LOOP ************************************************************ */
         ALLEGRO_EVENT event;
@@ -388,8 +379,8 @@ inline void engine::do_game(void) {
 
         //  Force quit if the game window is closed.
         if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-            if(engine_flags::is_set(GAME_STARTED)) process_end_game();
-            engine_flags::unset(IS_RUNNING);
+            if(flags::game_started) process_end_game();
+            flags::is_running = false;
         }
     }
     /* *** END ENGINE LOOP ******************************************************** */
@@ -413,8 +404,8 @@ inline void engine::handle_sys_msg(message_container& sys_msgs) {
         switch(map_cmd_str_values[it->get_cmd()]) {
             //  CMD:  exit - Shut down engine.
             case CMD_STR_EXIT:
-                if(engine_flags::is_set(GAME_STARTED)) process_end_game();
-                engine_flags::unset(IS_RUNNING);
+                if(engine_cfg::flags::game_started) process_end_game();
+                engine_cfg::flags::is_running = false;
                 it = sys_msgs.erase(it);
                 break;
 
@@ -427,7 +418,7 @@ inline void engine::handle_sys_msg(message_container& sys_msgs) {
             //  CMD:  new_game - Start up a new game.
             case CMD_STR_NEW_GAME:
                 //  If the game is running, ignore.
-                if(!engine_flags::is_set(GAME_STARTED)) {
+                if(!engine_cfg::flags::game_started) {
                     mgr::menu::reset();
                     process_new_game(it->get_arg(0));
                 }
@@ -437,7 +428,7 @@ inline void engine::handle_sys_msg(message_container& sys_msgs) {
             //  CMD:  end_game - End current game.
             case CMD_STR_END_GAME:
                 //  If the game not is running, ignore.
-                if(engine_flags::is_set(GAME_STARTED)) {
+                if(engine_cfg::flags::game_started) {
                     process_end_game();
                     mgr::menu::reset();
                 }
@@ -461,7 +452,7 @@ inline void engine::handle_sys_msg(message_container& sys_msgs) {
 
             //  CMD:  enable_system - Turn a system on for processing.
             case CMD_STR_ENABLE_SYSTEM:
-                if(engine_flags::is_set(GAME_STARTED))
+                if(engine_cfg::flags::game_started)
                     mgr::systems::enable_system(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
@@ -469,7 +460,7 @@ inline void engine::handle_sys_msg(message_container& sys_msgs) {
             //  CMD:  disable_system - Turn a system off so it's run member is skipped.
             //  Message dispatching is still processed.
             case CMD_STR_DISABLE_SYSTEM:
-                if(engine_flags::is_set(GAME_STARTED))
+                if(engine_cfg::flags::game_started)
                     mgr::systems::disable_system(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
@@ -501,7 +492,7 @@ inline void engine::handle_sys_msg(message_container& sys_msgs) {
                 //  Reload any temp bitmaps.
                 mgr_inf.renderer_reload_arena_bitmap();
                 mgr_inf.menu_reload_bitmap();
-                if(engine_flags::is_set(GAME_STARTED)) mgr_inf.systems_reload_temp_bitmaps();
+                if(engine_cfg::flags::game_started) mgr_inf.systems_reload_temp_bitmaps();
                 //  Register display event source and resume timer if it was running.
                 al_register_event_source(main_event_queue, al_get_display_event_source(_display));
                 al_pause_event_queue(main_event_queue, false);
@@ -511,21 +502,14 @@ inline void engine::handle_sys_msg(message_container& sys_msgs) {
 
             //  CMD:  fps_counter - Enable/disable on-screen fps counter.
             case CMD_STR_FPS_COUNTER:
-                if(it->get_arg(0) == "on") engine_flags::set(DRAW_FPS);
-                if(it->get_arg(0) == "off") engine_flags::unset(DRAW_FPS);
-                if(engine_cfg::is_reg("draw_fps")) {
-                    if(it->get_arg(0) == "on") engine_cfg::set("draw_fps=1");
-                    if(it->get_arg(0) == "off") engine_cfg::set("draw_fps=0");
-                } else {
-                    if(it->get_arg(0) == "on") engine_cfg::reg("draw_fps=1");
-                    if(it->get_arg(0) == "off") engine_cfg::reg("draw_fps=0");
-                }
+                if(it->get_arg(0) == "on") engine_cfg::flags::draw_fps = true;
+                if(it->get_arg(0) == "off") engine_cfg::flags::draw_fps = false;
                 it = sys_msgs.erase(it);
                 break;
 
             //  CMD:  load_script - Load a script into the message queue.
             case CMD_STR_LOAD_SCRIPT:
-                if(engine_flags::is_set(GAME_STARTED) && it->get_arg(0) != "") {
+                if(engine_cfg::flags::game_started) && it->get_arg(0) != "") {
                     if(!mgr::messages::load_script(it->get_arg(0)))
                         alert::set_alert("Error loading script:  " + it->get_arg(0));
                 }

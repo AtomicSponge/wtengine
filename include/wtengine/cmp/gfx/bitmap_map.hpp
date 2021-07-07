@@ -2,7 +2,7 @@
  * WTEngine | File:  bitmap_map.hpp
  * 
  * \author Matthew Evans
- * \version 0.2
+ * \version 0.3
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -15,7 +15,7 @@
 
 #include <allegro5/allegro.h>
 
-#include "wtengine/global_defines.hpp"
+#include "wtengine/_globals/_defines.hpp"
 
 namespace wte
 {

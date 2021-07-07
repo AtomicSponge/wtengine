@@ -2,7 +2,7 @@
  * WTEngine | File:  dispatcher.hpp
  * 
  * \author Matthew Evans
- * \version 0.2
+ * \version 0.3
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -15,7 +15,7 @@
 #include "wtengine/cmp/component.hpp"
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mgr/entities.hpp"
-#include "wtengine/message.hpp"
+#include "wtengine/_globals/message.hpp"
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
 

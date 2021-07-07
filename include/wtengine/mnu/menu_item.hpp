@@ -2,7 +2,7 @@
  * WTEngine | File:  menu_item.hpp
  * 
  * \author Matthew Evans
- * \version 0.2
+ * \version 0.3
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -14,7 +14,7 @@
 #include <vector>
 #include <memory>
 
-#include "wtengine/message.hpp"
+#include "wtengine/_globals/message.hpp"
 
 namespace wte
 {

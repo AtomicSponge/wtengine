@@ -1,8 +1,8 @@
 /*!
- * WTEngine | File:  wte_global_defines.hpp
+ * WTEngine | File:  _defines.hpp
  * 
  * \author Matthew Evans
- * \version 0.2
+ * \version 0.3
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -38,17 +38,6 @@
 #define WTE_DEBUG_MODE TRUE
 #else
 #define WTE_DEBUG_MODE FALSE
-#endif
-
-/*!
- * Set the input mode.  Default is digital.
- * Configures how the engine reads sticks on a gamepad.
- * 
- * 0 - Digital
- * 1 - Analogue
- */
-#ifndef WTE_INPUT_MODE
-#define WTE_INPUT_MODE (0)
 #endif
 
 /*!

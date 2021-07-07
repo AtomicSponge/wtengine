@@ -2,7 +2,7 @@
  * WTEngine | File:  input.hpp
  * 
  * \author Matthew Evans
- * \version 0.2
+ * \version 0.3
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -10,16 +10,18 @@
 #ifndef WTE_INPUT_HPP
 #define WTE_INPUT_HPP
 
+#include <map>
+#include <utility>
+#include <functional>
 #include <cmath>
 #include <stdexcept>
 
 #include <allegro5/allegro.h>
 
-#include "wtengine/input_map.hpp"
-#include "wtengine/global_defines.hpp"
-#include "wtengine/_globals/engine_flags.hpp"
-#include "wtengine/_globals/input_flags.hpp"
+#include "wtengine/engine_cfg.hpp"
+#include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/alert.hpp"
+#include "wtengine/_globals/wte_exception.hpp"
 
 namespace wte
 {
@@ -27,22 +29,69 @@ namespace wte
 /*!
  * \class input
  * \brief Manage the input queue and process events.
- * 
- * The engine has two input modes that can be set with the WTE_INPUT_MODE build flag.
- * (0) Digital mode:
- *      - D-pad and sticks record 8-way directions.
- *      - D-pad and left stick are the same.
- *      - Analogue triggers are read as button presses.
- * (1) Analogue mode:
- *      - D-pad only registers button presses, read full data from sticks.
- *      - Analogue triggers have their data stored.
  */
-class input : private input_map {
+class input {
     public:
         /*!
          * \brief WTE Input destructor.
          */
         inline virtual ~input() {};
+
+        struct event {
+            struct down {
+                struct p1 {
+                    inline static std::function<void(void)> up = [](){};
+                    inline static std::function<void(void)> down = [](){};
+                    inline static std::function<void(void)> left = [](){};
+                    inline static std::function<void(void)> right = [](){};
+                    inline static std::function<void(void)> action1 = [](){};
+                    inline static std::function<void(void)> action2 = [](){};
+                    inline static std::function<void(void)> action3 = [](){};
+                    inline static std::function<void(void)> action4 = [](){};
+                    inline static std::function<void(void)> action5 = [](){};
+                    inline static std::function<void(void)> action6 = [](){};
+                };
+                struct p2 {
+                    inline static std::function<void(void)> up = [](){};
+                    inline static std::function<void(void)> down = [](){};
+                    inline static std::function<void(void)> left = [](){};
+                    inline static std::function<void(void)> right = [](){};
+                    inline static std::function<void(void)> action1 = [](){};
+                    inline static std::function<void(void)> action2 = [](){};
+                    inline static std::function<void(void)> action3 = [](){};
+                    inline static std::function<void(void)> action4 = [](){};
+                    inline static std::function<void(void)> action5 = [](){};
+                    inline static std::function<void(void)> action6 = [](){};
+                };
+            };
+
+            struct up {
+                struct p1 {
+                    inline static std::function<void(void)> up = [](){};
+                    inline static std::function<void(void)> down = [](){};
+                    inline static std::function<void(void)> left = [](){};
+                    inline static std::function<void(void)> right = [](){};
+                    inline static std::function<void(void)> action1 = [](){};
+                    inline static std::function<void(void)> action2 = [](){};
+                    inline static std::function<void(void)> action3 = [](){};
+                    inline static std::function<void(void)> action4 = [](){};
+                    inline static std::function<void(void)> action5 = [](){};
+                    inline static std::function<void(void)> action6 = [](){};
+                };
+                struct p2 {
+                    inline static std::function<void(void)> up = [](){};
+                    inline static std::function<void(void)> down = [](){};
+                    inline static std::function<void(void)> left = [](){};
+                    inline static std::function<void(void)> right = [](){};
+                    inline static std::function<void(void)> action1 = [](){};
+                    inline static std::function<void(void)> action2 = [](){};
+                    inline static std::function<void(void)> action3 = [](){};
+                    inline static std::function<void(void)> action4 = [](){};
+                    inline static std::function<void(void)> action5 = [](){};
+                    inline static std::function<void(void)> action6 = [](){};
+                };
+            };
+        };
 
     protected:
         /*!
@@ -75,12 +124,6 @@ class input : private input_map {
         void handle_input_event(const ALLEGRO_EVENT&);
 
         ALLEGRO_EVENT_QUEUE* input_event_queue;
-
-        float x_axis[WTE_MAX_JOYSTICK_FLAGS];
-        float y_axis[WTE_MAX_JOYSTICK_FLAGS];
-
-        float last_x_axis[WTE_MAX_JOYSTICK_FLAGS];
-        float last_y_axis[WTE_MAX_JOYSTICK_FLAGS];
 };
 
 } //  end namespace wte

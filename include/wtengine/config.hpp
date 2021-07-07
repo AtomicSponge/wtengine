@@ -10,6 +10,8 @@
 #ifndef WTE_CONFIG_HPP
 #define WTE_CONFIG_HPP
 
+#include <allegro5/allegro.h>
+
 #include <string>
 #include <fstream>
 
@@ -47,8 +49,8 @@ class config {
             inline static int p1_key_down = 0;
             inline static int p1_key_left = 0;
             inline static int p1_key_right = 0;
-            inline static int p1_key_action1 = 0;
-            inline static int p1_key_action2 = 0;
+            inline static int p1_key_action1 = ALLEGRO_KEY_LCTRL;
+            inline static int p1_key_action2 = ALLEGRO_KEY_ALT;
             inline static int p1_key_action3 = 0;
             inline static int p1_key_action4 = 0;
             inline static int p1_key_action5 = 0;

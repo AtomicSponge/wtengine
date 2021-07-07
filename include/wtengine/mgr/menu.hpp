@@ -20,7 +20,7 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 
-#include "wtengine/engine_cfg.hpp"
+#include "wtengine/config.hpp"
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/mgr/manager.hpp"
 #include "wtengine/mgr/messages.hpp"
@@ -133,7 +133,7 @@ class menu final : private manager<menu> {
             }
 
             //  Menu not found, return main menu or game menu if the game is running
-            if(engine_cfg::flags::game_started) {
+            if(config::flags::game_started) {
                 for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
                     if("game_menu" == (*it)->get_id()) return *it;
                 }
@@ -174,7 +174,7 @@ class menu final : private manager<menu> {
          */
         inline static void reset(void) {
             opened_menus = {};
-            engine_cfg::flags::game_menu_opened = false;
+            config::flags::game_menu_opened = false;
         };
 
         /*!
@@ -187,7 +187,7 @@ class menu final : private manager<menu> {
          */
         inline static void open_menu(const std::string& menu_id) {
             opened_menus.push(get_menu(menu_id));
-            engine_cfg::flags::game_menu_opened = true;
+            config::flags::game_menu_opened = true;
             menu_position = opened_menus.top()->items_cbegin();
 
             //  Set default values for any menu settings objects.
@@ -203,7 +203,7 @@ class menu final : private manager<menu> {
          */
         inline static void close_menu(void) {
             opened_menus.pop();
-            if(opened_menus.empty()) engine_cfg::flags::game_menu_opened = false;
+            if(opened_menus.empty()) config::flags::game_menu_opened = false;
             else menu_position = opened_menus.top()->items_cbegin();
         };
 
@@ -333,7 +333,7 @@ template <> inline bool menu::manager<menu>::initialized = false;
 inline void menu::run(void) {
     if(opened_menus.empty()) {
         //  No menus currently opened, add one to the stack
-        if(engine_cfg::flags::game_started) open_menu("game_menu"); //  Add the in-game menu to the stack.
+        if(config::flags::game_started) open_menu("game_menu"); //  Add the in-game menu to the stack.
         else open_menu("main_menu"); //  Add the main menu to the stack.
     }
 

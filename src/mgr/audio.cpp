@@ -84,13 +84,6 @@ void audio::initialize(void) {
     al_set_default_mixer(mixer_2);
     al_reserve_samples(WTE_MAX_PLAYING_SAMPLES);
 
-    //  Verify audio levels are registered in engine cfg.
-    /*if(!engine_cfg::is_reg("main_vol")) engine_cfg::reg("main_vol=1.0");
-    if(!engine_cfg::is_reg("mix1_vol")) engine_cfg::reg("mix1_vol=1.0");
-    if(!engine_cfg::is_reg("mix2_vol")) engine_cfg::reg("mix2_vol=1.0");
-    if(!engine_cfg::is_reg("mix3_vol")) engine_cfg::reg("mix3_vol=1.0");
-    if(!engine_cfg::is_reg("mix4_vol")) engine_cfg::reg("mix4_vol=1.0");*/
-
     //  Set volume levels.
     set_volume();
 };
@@ -149,11 +142,7 @@ void audio::de_init(void) {
  *
  */
 void audio::get_volume(void) {
-    //engine_cfg::set("main_vol", std::to_string(al_get_mixer_gain(mixer_main)));
-    //engine_cfg::set("mix1_vol", std::to_string(al_get_mixer_gain(mixer_1)));
-    //engine_cfg::set("mix2_vol", std::to_string(al_get_mixer_gain(mixer_2)));
-    //engine_cfg::set("mix3_vol", std::to_string(al_get_mixer_gain(mixer_3)));
-    //engine_cfg::set("mix4_vol", std::to_string(al_get_mixer_gain(mixer_4)));
+    // legacy
 };
 
 /*
@@ -170,20 +159,20 @@ const std::string audio::get_sample_name(const std::string& full_path) {
  *
  */
 void audio::set_volume(void) {
-    if(engine_cfg::volume::main >= 0.0f && engine_cfg::volume::main <= 1.0f)
-        al_set_mixer_gain(mixer_main, engine_cfg::volume::main);
+    if(config::volume::main >= 0.0f && config::volume::main <= 1.0f)
+        al_set_mixer_gain(mixer_main, config::volume::main);
 
-    if(engine_cfg::volume::mix1 >= 0.0f && engine_cfg::volume::mix1 <= 1.0f)
-        al_set_mixer_gain(mixer_1, engine_cfg::volume::mix1);
+    if(config::volume::mix1 >= 0.0f && config::volume::mix1 <= 1.0f)
+        al_set_mixer_gain(mixer_1, config::volume::mix1);
 
-    if(engine_cfg::volume::mix2 >= 0.0f && engine_cfg::volume::mix2 <= 1.0f)
-        al_set_mixer_gain(mixer_2, engine_cfg::volume::mix2);
+    if(config::volume::mix2 >= 0.0f && config::volume::mix2 <= 1.0f)
+        al_set_mixer_gain(mixer_2, config::volume::mix2);
 
-    if(engine_cfg::volume::mix3 >= 0.0f && engine_cfg::volume::mix3 <= 1.0f)
-        al_set_mixer_gain(mixer_3, engine_cfg::volume::mix3);
+    if(config::volume::mix3 >= 0.0f && config::volume::mix3 <= 1.0f)
+        al_set_mixer_gain(mixer_3, config::volume::mix3);
 
-    if(engine_cfg::volume::mix4 >= 0.0f && engine_cfg::volume::mix4 <= 1.0f)
-        al_set_mixer_gain(mixer_4, engine_cfg::volume::mix4);
+    if(config::volume::mix4 >= 0.0f && config::volume::mix4 <= 1.0f)
+        al_set_mixer_gain(mixer_4, config::volume::mix4);
 };
 
 /*

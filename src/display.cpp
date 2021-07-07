@@ -30,8 +30,8 @@ void display::create_display(void) {
 
     //  Configure vsync options.  Gfx driver may override this.
     //  0 - System decides | 1 - VSync on | 2 - VSync off
-    if(engine_cfg::gfx::vsync >= 0 || engine_cfg::gfx::vsync <= 2) {
-        al_set_new_display_option(ALLEGRO_VSYNC, engine_cfg::gfx::vsync, ALLEGRO_SUGGEST);
+    if(config::gfx::vsync >= 0 || config::gfx::vsync <= 2) {
+        al_set_new_display_option(ALLEGRO_VSYNC, config::gfx::vsync, ALLEGRO_SUGGEST);
     } else {
         al_set_new_display_option(ALLEGRO_VSYNC, 0, ALLEGRO_SUGGEST);
     }
@@ -40,12 +40,12 @@ void display::create_display(void) {
     int screen_h = mgr::renderer::get_arena_height();
 
     //  Check if a display mode is set.
-    if(engine_cfg::gfx::display_mode == 1) {
+    if(config::gfx::display_mode == 1) {
         al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
     } else {
         al_set_new_display_flags(ALLEGRO_WINDOWED);
-        screen_w = (int)ceil(mgr::renderer::get_arena_width() * engine_cfg::gfx::scale_factor);
-        screen_h = (int)ceil(mgr::renderer::get_arena_height() * engine_cfg::gfx::scale_factor);
+        screen_w = (int)ceil(mgr::renderer::get_arena_width() * config::gfx::scale_factor);
+        screen_h = (int)ceil(mgr::renderer::get_arena_height() * config::gfx::scale_factor);
     }
 
     //  Create the display.  Full screen windowed defaults to the display resolution.
@@ -57,8 +57,8 @@ void display::create_display(void) {
         _display = al_create_display(mgr::renderer::get_arena_width(),
                                      mgr::renderer::get_arena_height());
         if(!_display) throw std::runtime_error("Failed to configure display!");
-        engine_cfg::gfx::display_mode = 0;
-        engine_cfg::gfx::scale_factor = 1.0f;
+        config::gfx::display_mode = 0;
+        config::gfx::scale_factor = 1.0f;
         screen_w = mgr::renderer::get_arena_width();
         screen_h = mgr::renderer::get_arena_height();
     }
@@ -77,12 +77,12 @@ void display::create_display(void) {
     al_fclose(file);
 
     /* *** Render manager updating *** */
-    if(engine_cfg::gfx::display_mode == 1) {
+    if(config::gfx::display_mode == 1) {
         screen_w = al_get_display_width(_display);
         screen_h = al_get_display_height(_display);
     }
     mgr::renderer::update_resolution(screen_w, screen_h);
-    mgr::renderer::set_scale_factor(engine_cfg::gfx::scale_factor);
+    mgr::renderer::set_scale_factor(config::gfx::scale_factor);
 }
 
 /*

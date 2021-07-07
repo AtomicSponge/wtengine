@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  engine_cfg.hpp
+ * WTEngine | File:  config.hpp
  * 
  * \author Matthew Evans
  * \version 0.3
@@ -7,8 +7,8 @@
  * \date 2019-2021
  */
 
-#ifndef WTE_ENGINE_CFG_HPP
-#define WTE_ENGINE_CFG_HPP
+#ifndef WTE_CONFIG_HPP
+#define WTE_CONFIG_HPP
 
 #include <string>
 #include <fstream>
@@ -17,12 +17,12 @@ namespace wte
 {
 
 /*!
- * \class engine_cfg
+ * \class config
  * \brief Store engine config variables in a globally accessible class.
  */
-class engine_cfg {
+class config {
     public:
-        inline engine_cfg(void) {};
+        inline config(void) {};
 
         struct flags {
             inline static bool is_running = true;
@@ -161,7 +161,7 @@ class engine_cfg {
         };
 
     protected:
-        inline ~engine_cfg(void) {};
+        inline ~config(void) {};
 };
 
 } //  end namespace wte

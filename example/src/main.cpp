@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
     //mgr::renderer::set_arena_size(1440, 1080);
 
     //  Load settings.
-    engine_cfg::load();
+    config::load();
 
     //  Initialize game object.
     wte_demo my_game(argc, argv);
@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
     my_game.do_game();
 
     //  Save settings.
-    engine_cfg::save();
+    config::save();
 
     return 0; //  Exit program.
 }

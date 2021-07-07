@@ -126,7 +126,7 @@ void wte_demo::load_menus(void) {
         std::vector<std::string> scale_vec = { "0.5", "1", "1.25", "1.5", "1.75", "2" };
         temp_menu.add_item(wte_menu_selection("Scale factor:", "scale_factor", scale_vec, scale_vec, mnu::ENGINE_SETTING_RECONF));
         temp_menu.add_item(wte_menu_toggle("FPS:", "fps_counter", "on", "fps_counter", "off",
-            [](void){ return engine_cfg::flags::draw_fps; }));
+            [](void){ return config::flags::draw_fps; }));
         temp_menu.add_item(wte_menu_apply());
         temp_menu.add_item(wte_menu_action("Return", "close_menu"));
         if(!mgr::menu::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");

@@ -57,46 +57,46 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
     /* ************************************************************* */
     /* *** PROCESS EVENTS WHILE MENU IS OPENED ********************* */
     /* ************************************************************* */
-    if(engine_cfg::flags::game_menu_opened) {
+    if(config::flags::game_menu_opened) {
         switch(event.type) {
             /* *********************** */
             /* *** Keyboard events *** */
             /* *********************** */
             /////////////////////////////////////////////////////////////
             case ALLEGRO_EVENT_KEY_DOWN:
-                if(event.keyboard.keycode == engine_cfg::controls::p1_key_up||
-                   event.keyboard.keycode == engine_cfg::controls::p2_key_up) {
+                if(event.keyboard.keycode == config::controls::p1_key_up||
+                   event.keyboard.keycode == config::controls::p2_key_up) {
                     //menu up
                 }
-                if(event.keyboard.keycode == engine_cfg::controls::p1_key_down||
-                   event.keyboard.keycode == engine_cfg::controls::p2_key_down) {
+                if(event.keyboard.keycode == config::controls::p1_key_down||
+                   event.keyboard.keycode == config::controls::p2_key_down) {
                     //menu down
                 }
-                if(event.keyboard.keycode == engine_cfg::controls::p1_key_left||
-                   event.keyboard.keycode == engine_cfg::controls::p2_key_left) {
+                if(event.keyboard.keycode == config::controls::p1_key_left||
+                   event.keyboard.keycode == config::controls::p2_key_left) {
                     //menu start left
                 }
-                if(event.keyboard.keycode == engine_cfg::controls::p1_key_right||
-                   event.keyboard.keycode == engine_cfg::controls::p2_key_right) {
+                if(event.keyboard.keycode == config::controls::p1_key_right||
+                   event.keyboard.keycode == config::controls::p2_key_right) {
                     //menu right
                 }
                 break;
             /////////////////////////////////////////////////////////////
             case ALLEGRO_EVENT_KEY_UP:
-                if(event.keyboard.keycode == engine_cfg::controls::p1_key_up||
-                   event.keyboard.keycode == engine_cfg::controls::p2_key_up) {
+                if(event.keyboard.keycode == config::controls::p1_key_up||
+                   event.keyboard.keycode == config::controls::p2_key_up) {
                     //nothing
                 }
-                if(event.keyboard.keycode == engine_cfg::controls::p1_key_down||
-                   event.keyboard.keycode == engine_cfg::controls::p2_key_down) {
+                if(event.keyboard.keycode == config::controls::p1_key_down||
+                   event.keyboard.keycode == config::controls::p2_key_down) {
                     //nothing
                 }
-                if(event.keyboard.keycode == engine_cfg::controls::p1_key_left||
-                   event.keyboard.keycode == engine_cfg::controls::p2_key_left) {
+                if(event.keyboard.keycode == config::controls::p1_key_left||
+                   event.keyboard.keycode == config::controls::p2_key_left) {
                     //menu stop left
                 }
-                if(event.keyboard.keycode == engine_cfg::controls::p1_key_right||
-                   event.keyboard.keycode == engine_cfg::controls::p2_key_right) {
+                if(event.keyboard.keycode == config::controls::p1_key_right||
+                   event.keyboard.keycode == config::controls::p2_key_right) {
                     //menu stop right
                 }
                 break;
@@ -174,48 +174,48 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
         /* *********************** */
         /*******************************************************************/
         case ALLEGRO_EVENT_KEY_DOWN:
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_up)
+            if(event.keyboard.keycode == config::controls::p1_key_up)
                 try { input::event::down::p1::up(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_down)
+            if(event.keyboard.keycode == config::controls::p1_key_down)
                 try { input::event::down::p1::down(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_left)
+            if(event.keyboard.keycode == config::controls::p1_key_left)
                 try { input::event::down::p1::left(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_right)
+            if(event.keyboard.keycode == config::controls::p1_key_right)
                 try { input::event::down::p1::right(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_action1)
+            if(event.keyboard.keycode == config::controls::p1_key_action1)
                 try { input::event::down::p1::action1(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_action1)
+            if(event.keyboard.keycode == config::controls::p1_key_action1)
                 try { input::event::down::p1::action2(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_action1)
+            if(event.keyboard.keycode == config::controls::p1_key_action1)
                 try { input::event::down::p1::action3(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_action1)
+            if(event.keyboard.keycode == config::controls::p1_key_action1)
                 try { input::event::down::p1::action4(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_action1)
+            if(event.keyboard.keycode == config::controls::p1_key_action1)
                 try { input::event::down::p1::action5(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_action1)
+            if(event.keyboard.keycode == config::controls::p1_key_action1)
                 try { input::event::down::p1::action6(); } catch(wte_exception& e) { alert::set(e.what()); }
         break;  //  End case ALLEGRO_EVENT_KEY_DOWN
         /*******************************************************************/
         case ALLEGRO_EVENT_KEY_UP:
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_up)
+            if(event.keyboard.keycode == config::controls::p1_key_up)
                 try { input::event::up::p1::up(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_down)
+            if(event.keyboard.keycode == config::controls::p1_key_down)
                 try { input::event::up::p1::down(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_left)
+            if(event.keyboard.keycode == config::controls::p1_key_left)
                 try { input::event::up::p1::left(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_right)
+            if(event.keyboard.keycode == config::controls::p1_key_right)
                 try { input::event::up::p1::right(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_action1)
+            if(event.keyboard.keycode == config::controls::p1_key_action1)
                 try { input::event::up::p1::action1(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_action1)
+            if(event.keyboard.keycode == config::controls::p1_key_action1)
                 try { input::event::up::p1::action2(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_action1)
+            if(event.keyboard.keycode == config::controls::p1_key_action1)
                 try { input::event::up::p1::action3(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_action1)
+            if(event.keyboard.keycode == config::controls::p1_key_action1)
                 try { input::event::up::p1::action4(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_action1)
+            if(event.keyboard.keycode == config::controls::p1_key_action1)
                 try { input::event::up::p1::action5(); } catch(wte_exception& e) { alert::set(e.what()); }
-            if(event.keyboard.keycode == engine_cfg::controls::p1_key_action1)
+            if(event.keyboard.keycode == config::controls::p1_key_action1)
                 try { input::event::up::p1::action6(); } catch(wte_exception& e) { alert::set(e.what()); }
         break;  //  End case ALLEGRO_EVENT_KEY_UP
 

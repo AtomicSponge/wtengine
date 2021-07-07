@@ -196,7 +196,7 @@ void renderer::render(void) {
     /*
      * Render world if the game is running.
      */
-    if(engine_cfg::flags::game_started) {
+    if(config::flags::game_started) {
         /*
          * Draw the full screen background.
          */
@@ -385,7 +385,7 @@ void renderer::render(void) {
     /*
      * Render game menu if it's opened.
      */
-    if(engine_cfg::flags::game_menu_opened) {
+    if(config::flags::game_menu_opened) {
         render_tmp_bmp = al_clone_bitmap(mgr::menu::render_menu());
         al_set_target_backbuffer(al_get_current_display());
 
@@ -430,7 +430,7 @@ void renderer::render(void) {
      * Framerate and timer rendering.
      */
     //  Draw frame rate.
-    if(engine_cfg::flags::draw_fps) {
+    if(config::flags::draw_fps) {
         std::string fps_string = "FPS: " + std::to_string(fps);
         al_draw_text(overlay_font, WTE_COLOR_YELLOW, screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }

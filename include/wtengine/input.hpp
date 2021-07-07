@@ -22,6 +22,7 @@
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
+#include "wtengine/mgr/menu.hpp"
 
 namespace wte
 {

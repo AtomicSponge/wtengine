@@ -207,6 +207,38 @@ class menu final : private manager<menu> {
             else menu_position = opened_menus.top()->items_cbegin();
         };
 
+        inline static void menu_pos_up(void) {
+            if(menu_position != opened_menus.top()->items_cbegin()) menu_position--;
+        };
+
+        inline static void menu_pos_down(void) {
+            if(menu_position != --opened_menus.top()->items_cend()) menu_position++;
+        };
+
+        inline static void menu_pos_start_left(void) {
+            if(menu_position != opened_menus.top()->items_cend()) {
+                al_start_timer(menu_timer);
+                is_button_left = true;
+            }
+        };
+
+        inline static void menu_pos_stop_left(void) {
+            al_stop_timer(menu_timer);
+            al_set_timer_count(menu_timer, 0);
+        };
+
+        inline static void menu_pos_start_right(void) {
+            if(menu_position != opened_menus.top()->items_cend()) {
+                al_start_timer(menu_timer);
+                is_button_left = false;
+            }
+        };
+
+        inline static void menu_pos_stop_right(void) {
+            al_stop_timer(menu_timer);
+            al_set_timer_count(menu_timer, 0);
+        };
+
     private:
         /*!
          * \brief Menu manager constructor.

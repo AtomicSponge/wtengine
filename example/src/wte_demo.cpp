@@ -125,7 +125,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
     };
 
     //  Force game start for testing
-    mgr::messages::add_message(message("system", "new_game", "game.sdf"));
+    //mgr::messages::add_message(message("system", "new_game", "game.sdf"));
 }
 
 /*

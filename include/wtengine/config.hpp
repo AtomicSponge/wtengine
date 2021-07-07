@@ -53,8 +53,8 @@ class config {
             inline static int key_menu = WTE_KEY_MENU_DEFAULT;
 
             /*
-            * Player 1 keyboard
-            */
+             * Player 1 keyboard
+             */
             inline static int p1_key_up = WTE_P1_KEY_UP_DEFAULT;
             inline static int p1_key_down = WTE_P1_KEY_DOWN_DEFAULT;
             inline static int p1_key_left = WTE_P1_KEY_LEFT_DEFAULT;
@@ -67,8 +67,8 @@ class config {
             inline static int p1_key_action6 = WTE_P1_KEY_ACTION6_DEFAULT;
 
             /*
-            * Player 1 joystick
-            */
+             * Player 1 joystick
+             */
             inline static int p1_button_up = 0;
             inline static int p1_button_down = 0;
             inline static int p1_button_left = 0;
@@ -89,8 +89,8 @@ class config {
             inline static float p1_throttle_right = 0.0f;
 
             /*
-            * Player 2 keyboard
-            */
+             * Player 2 keyboard
+             */
             inline static int p2_key_up = 0;
             inline static int p2_key_down = 0;
             inline static int p2_key_left = 0;
@@ -103,8 +103,8 @@ class config {
             inline static int p2_key_action6 = 0;
 
             /*
-            * Player 2 joystick
-            */
+             * Player 2 joystick
+             */
             inline static int p2_button_up = 0;
             inline static int p2_button_down = 0;
             inline static int p2_button_left = 0;

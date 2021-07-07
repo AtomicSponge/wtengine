@@ -73,30 +73,30 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                 }
                 if(event.keyboard.keycode == config::controls::p1_key_up ||
                    event.keyboard.keycode == config::controls::p2_key_up) {
-                    //menu up
+                    mgr::menu::menu_pos_up();
                 }
                 if(event.keyboard.keycode == config::controls::p1_key_down ||
                    event.keyboard.keycode == config::controls::p2_key_down) {
-                    //menu ondown
+                    mgr::menu::menu_pos_down();
                 }
                 if(event.keyboard.keycode == config::controls::p1_key_left ||
                    event.keyboard.keycode == config::controls::p2_key_left) {
-                    //menu start left
+                    mgr::menu::menu_pos_start_left();
                 }
                 if(event.keyboard.keycode == config::controls::p1_key_right ||
                    event.keyboard.keycode == config::controls::p2_key_right) {
-                    //menu right
+                    mgr::menu::menu_pos_start_right();
                 }
                 break;
             /////////////////////////////////////////////////////////////
             case ALLEGRO_EVENT_KEY_UP:
                 if(event.keyboard.keycode == config::controls::p1_key_left ||
                    event.keyboard.keycode == config::controls::p2_key_left) {
-                    //menu stop left
+                    mgr::menu::menu_pos_stop_left();
                 }
                 if(event.keyboard.keycode == config::controls::p1_key_right ||
                    event.keyboard.keycode == config::controls::p2_key_right) {
-                    //menu stop right
+                    mgr::menu::menu_pos_stop_right();
                 }
                 break;
 

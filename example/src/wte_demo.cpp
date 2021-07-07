@@ -36,12 +36,12 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
     //mgr::variables::load();
 
     //  Set up input handling
-    input::event::down::p1::up = []() {};
-    input::event::down::p1::down = []() {};
-    input::event::down::p1::left = []() {};
-    input::event::down::p1::right = []() {};
-    input::event::down::p1::action1 = []() {};
-    input::event::down::p1::action2 = []() {};
+    input::event::p1::ondown::up = []() {};
+    input::event::p1::ondown::down = []() {};
+    input::event::p1::ondown::left = []() {};
+    input::event::p1::ondown::right = []() {};
+    input::event::p1::ondown::action1 = []() {};
+    input::event::p1::ondown::action2 = []() {};
 
     //mgr::messages::add_message(message("system", "new_game", "game.sdf"));
 }

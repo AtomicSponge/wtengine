@@ -38,8 +38,8 @@ class input {
         inline virtual ~input() {};
 
         struct event {
-            struct down {
-                struct p1 {
+            struct p1 {
+                struct ondown {
                     inline static std::function<void(void)> up = [](){};
                     inline static std::function<void(void)> down = [](){};
                     inline static std::function<void(void)> left = [](){};
@@ -51,7 +51,7 @@ class input {
                     inline static std::function<void(void)> action5 = [](){};
                     inline static std::function<void(void)> action6 = [](){};
                 };
-                struct p2 {
+                struct onup {
                     inline static std::function<void(void)> up = [](){};
                     inline static std::function<void(void)> down = [](){};
                     inline static std::function<void(void)> left = [](){};
@@ -65,8 +65,8 @@ class input {
                 };
             };
 
-            struct up {
-                struct p1 {
+            struct p2 {
+                struct ondown {
                     inline static std::function<void(void)> up = [](){};
                     inline static std::function<void(void)> down = [](){};
                     inline static std::function<void(void)> left = [](){};
@@ -78,7 +78,7 @@ class input {
                     inline static std::function<void(void)> action5 = [](){};
                     inline static std::function<void(void)> action6 = [](){};
                 };
-                struct p2 {
+                struct onup {
                     inline static std::function<void(void)> up = [](){};
                     inline static std::function<void(void)> down = [](){};
                     inline static std::function<void(void)> left = [](){};

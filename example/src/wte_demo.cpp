@@ -105,11 +105,11 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
     };
     input::event::p1::onup::action1 = []() {
         //  Turn the cannon off.
-            wte_set_component(can_id, cmp::visible)->hide();
-            wte_set_component(can_id, cmp::enabled)->disable();
+        wte_set_component(can_id, cmp::visible)->hide();
+        wte_set_component(can_id, cmp::enabled)->disable();
 
-            //  Stop sound effect.
-            mgr::audio::sample_stop("cannon_fire");
+        //  Stop sound effect.
+        mgr::audio::sample_stop("cannon_fire");
     };
     input::event::p1::onup::action2 = []() {
         //  Disable shield.

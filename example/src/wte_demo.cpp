@@ -35,7 +35,9 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
 
     //mgr::variables::load();
 
-    //  Set up input handling
+    /*
+     * Set up input handling
+     */
     input::event::p1::ondown::up = []() {
         //wte_set_component(plr_id, cmp::direction)->set_radians(rad);
         //wte_set_component(plr_id, cmp::velocity)->set_velocity(5.0f);
@@ -122,6 +124,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
         mgr::audio::sample_stop("shield_sound");
     };
 
+    //  Force game start for testing
     mgr::messages::add_message(message("system", "new_game", "game.sdf"));
 }
 

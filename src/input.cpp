@@ -37,10 +37,6 @@ void input::destroy_input_event_queue(void) { al_destroy_event_queue(input_event
  *
  */
 void input::check_input_events(void) {
-    //ALLEGRO_EVENT event;
-    //const bool queue_not_empty = al_get_next_event(input_event_queue, &event);
-    //if(queue_not_empty) handle_input_event(event);
-
     bool queue_not_empty = true;
     while(queue_not_empty) {
         ALLEGRO_EVENT event;

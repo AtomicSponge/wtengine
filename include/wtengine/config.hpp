@@ -123,42 +123,14 @@ class config {
          * 
          * \return False on fail, true on success.
          */
-        inline static bool load(void) {
-            /*std::ifstream data_file("settings.cfg");
-            //  Data file doesn't exist, create one
-            if(!data_file.good()) {
-                save();
-                data_file.open("settings.cfg");
-            }
-            if(!data_file.good()) return false;
-
-            std::string it;
-            //  Read each line, try to register or set
-            while(std::getline(data_file, it)) {
-                if(!reg(it)) set(it);
-            }
-
-            data_file.close();*/
-            return true;
-        };
+        static bool load(void);
 
         /*!
          * \brief Save engine config settings to file.
          * 
          * \return False on fail, true on success.
          */
-        inline static bool save(void) {
-            /*std::ofstream data_file("settings.cfg");
-            if(!data_file.good()) return false;
-
-            //  Write each pair to file
-            for(auto it = _map.cbegin(); it != _map.cend(); it++) {
-                data_file << it->first << "=" << it->second << std::endl;
-            }
-
-            data_file.close();*/
-            return true;
-        };
+        static bool save(void);
 
     protected:
         inline ~config(void) {};

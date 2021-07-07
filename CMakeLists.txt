@@ -56,6 +56,7 @@ find_package(PkgConfig REQUIRED)
 #
 ########################################
 add_library(wtengine STATIC
+    src/config.cpp
     src/display.cpp
     src/input.cpp
     src/cmp/ai.cpp

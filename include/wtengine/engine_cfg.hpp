@@ -39,7 +39,7 @@ class engine_cfg {
             inline static float mix4 = 1.0f;
         };
 
-        struct input {
+        struct controls {
             /*
             * Player 1 keyboard
             */

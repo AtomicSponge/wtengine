@@ -36,19 +36,12 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
     //mgr::variables::load();
 
     //  Set up input handling
-    engine::event::down::p1:up = []() {};
-    engine::event::down::p1:down = []() {};
-    engine::event::down::p1:left = []() {};
-    engine::event::down::p1:right = []() {};
-    engine::event::down::p1:action1 = []() {};
-    engine::event::down::p1:action2 = []() {};
-
-    engine::event::up::p1:up = []() {};
-    engine::event::up::p1:down = []() {};
-    engine::event::up::p1:left = []() {};
-    engine::event::up::p1:right = []() {};
-    engine::event::up::p1:action1 = []() {};
-    engine::event::up::p1:action2 = []() {};
+    input::event::down::p1::up = []() {};
+    input::event::down::p1::down = []() {};
+    input::event::down::p1::left = []() {};
+    input::event::down::p1::right = []() {};
+    input::event::down::p1::action1 = []() {};
+    input::event::down::p1::action2 = []() {};
 
     //mgr::messages::add_message(message("system", "new_game", "game.sdf"));
 }
@@ -133,7 +126,7 @@ void wte_demo::load_menus(void) {
         std::vector<std::string> scale_vec = { "0.5", "1", "1.25", "1.5", "1.75", "2" };
         temp_menu.add_item(wte_menu_selection("Scale factor:", "scale_factor", scale_vec, scale_vec, mnu::ENGINE_SETTING_RECONF));
         temp_menu.add_item(wte_menu_toggle("FPS:", "fps_counter", "on", "fps_counter", "off",
-            [](void){ return engine_flags::is_set(DRAW_FPS); }));
+            [](void){ return engine_cfg::flags::draw_fps; }));
         temp_menu.add_item(wte_menu_apply());
         temp_menu.add_item(wte_menu_action("Return", "close_menu"));
         if(!mgr::menu::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");

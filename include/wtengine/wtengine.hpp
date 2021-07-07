@@ -21,7 +21,7 @@
 #include "wtengine/engine.hpp"
 
 #ifdef _WTE_USE_HELPER_MACROS
-#include "wtengine/helper_macros.hpp"
+#include "wtengine/_globals/_helper_macros.hpp"
 #endif
 
 #endif

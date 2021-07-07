@@ -42,7 +42,7 @@ namespace wte
  * Sets up various system objects used by the engine.
  * Contains the main game loop and members for managing the game and engine.
  */
-class engine : private display, private input, public engine_cfg {
+class engine : private display, public input, public engine_cfg {
     public:
         /*!
          * \brief Engine destructor.
@@ -469,7 +469,7 @@ inline void engine::handle_sys_msg(message_container& sys_msgs) {
             //  Arguments:  var=val
             case CMD_STR_SET_ENGCFG:
                 for(std::size_t i = 0; i < it->num_args(); i++)
-                    engine_cfg::set(it->get_arg(i));
+                    //engine_cfg::set(it->get_arg(i));
                 it = sys_msgs.erase(it);
                 break;
 
@@ -509,7 +509,7 @@ inline void engine::handle_sys_msg(message_container& sys_msgs) {
 
             //  CMD:  load_script - Load a script into the message queue.
             case CMD_STR_LOAD_SCRIPT:
-                if(engine_cfg::flags::game_started) && it->get_arg(0) != "") {
+                if(engine_cfg::flags::game_started && it->get_arg(0) != "") {
                     if(!mgr::messages::load_script(it->get_arg(0)))
                         alert::set_alert("Error loading script:  " + it->get_arg(0));
                 }

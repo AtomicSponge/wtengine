@@ -28,11 +28,6 @@ int main(int argc, char **argv) {
     //mgr::renderer::set_arena_size(1920, 1080);
     //mgr::renderer::set_arena_size(1440, 1080);
 
-    //  Register default engine settings.
-    engine_cfg::reg("display_mode=windowed");
-    engine_cfg::reg("scale_factor=1");
-    engine_cfg::reg("draw_fps=0");
-
     //  Load settings.
     engine_cfg::load();
 

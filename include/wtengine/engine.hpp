@@ -305,25 +305,25 @@ inline void engine::do_game(void) {
     wte_load();
 
     //  Set default states.
-    flags::is_running = true;
-    flags::game_started = false;
-    flags::game_menu_opened = true;
+    config::flags::is_running = true;
+    config::flags::game_started = false;
+    config::flags::game_menu_opened = true;
 
     /* *** ENGINE LOOP ************************************************************ */
     while(flags::is_running) {
-        if(!flags::game_started) {  //  Game not running.
-            al_stop_timer(main_timer);             //  Make sure the timer isn't.
-            flags::game_menu_opened = true;   //  And force the menu manager.
+        if(!config::flags::game_started) {            //  Game not running.
+            al_stop_timer(main_timer);        //  Make sure the timer isn't.
+            config::flags::game_menu_opened = true;   //  And force the menu manager.
         }
 
         //  Pause / resume timer depending on if the game menu is opened.
         //  Also process the on_menu events.
-        if(flags::game_menu_opened && al_get_timer_started(main_timer)) {
+        if(config::flags::game_menu_opened && al_get_timer_started(main_timer)) {
             al_stop_timer(main_timer);
             mgr_inf.audio_get_volume();  //  Make sure engine cfg matches audio manager.
             on_menu_open();
         }
-        if(flags::game_menu_opened && !al_get_timer_started(main_timer)) {
+        if(config::flags::game_menu_opened && !al_get_timer_started(main_timer)) {
             on_menu_close();
             al_resume_timer(main_timer);
         }
@@ -332,7 +332,7 @@ inline void engine::do_game(void) {
         check_input_events();
 
         //  Game menu is opened, run the menu manager.
-        if(flags::game_menu_opened) mgr_inf.menu_run();
+        if(config::flags::game_menu_opened) mgr_inf.menu_run();
 
         /* *** GAME LOOP ************************************************************ */
         ALLEGRO_EVENT event;
@@ -379,8 +379,8 @@ inline void engine::do_game(void) {
 
         //  Force quit if the game window is closed.
         if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-            if(flags::game_started) process_end_game();
-            flags::is_running = false;
+            if(config::flags::game_started) process_end_game();
+            config::flags::is_running = false;
         }
     }
     /* *** END ENGINE LOOP ******************************************************** */

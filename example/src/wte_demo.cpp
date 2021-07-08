@@ -39,20 +39,24 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
      * Set up input handling
      */
     input::event::p1::ondown::up = []() {
-        //wte_set_component(plr_id, cmp::direction)->set_radians(rad);
-        //wte_set_component(plr_id, cmp::velocity)->set_velocity(5.0f);
+        entity_id player_id = mgr::entities::get_id("player");
+        //wte_set_component(player_id, cmp::direction)->set_radians(rad);
+        //wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
     };
     input::event::p1::ondown::down = []() {
-        //wte_set_component(plr_id, cmp::direction)->set_radians(rad);
-        //wte_set_component(plr_id, cmp::velocity)->set_velocity(5.0f);
+        entity_id player_id = mgr::entities::get_id("player");
+        //wte_set_component(player_id, cmp::direction)->set_radians(rad);
+        //wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
     };
     input::event::p1::ondown::left = []() {
-        //wte_set_component(plr_id, cmp::direction)->set_radians(rad);
-        //wte_set_component(plr_id, cmp::velocity)->set_velocity(5.0f);
+        entity_id player_id = mgr::entities::get_id("player");
+        //wte_set_component(player_id, cmp::direction)->set_radians(rad);
+        //wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
     };
     input::event::p1::ondown::right = []() {
-        //wte_set_component(plr_id, cmp::direction)->set_radians(rad);
-        //wte_set_component(plr_id, cmp::velocity)->set_velocity(5.0f);
+        entity_id player_id = mgr::entities::get_id("player");
+        //wte_set_component(player_id, cmp::direction)->set_radians(rad);
+        //wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
     };
     input::event::p1::ondown::action1 = []() {
         entity_id player_id = mgr::entities::get_id("player");
@@ -94,16 +98,20 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
     };
 
     input::event::p1::onup::up = []() {
-        //wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
+        entity_id player_id = mgr::entities::get_id("player");
+        //wte_set_component(player_id, cmp::velocity)->set_velocity(0.0f);
     };
     input::event::p1::onup::down = []() {
-        //wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
+        entity_id player_id = mgr::entities::get_id("player");
+        //wte_set_component(player_id, cmp::velocity)->set_velocity(0.0f);
     };
     input::event::p1::onup::left = []() {
-        //wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
+        entity_id player_id = mgr::entities::get_id("player");
+        //wte_set_component(player_id, cmp::velocity)->set_velocity(0.0f);
     };
     input::event::p1::onup::right = []() {
-        //wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
+        entity_id player_id = mgr::entities::get_id("player");
+        //wte_set_component(player_id, cmp::velocity)->set_velocity(0.0f);
     };
     input::event::p1::onup::action1 = []() {
         //  Turn the cannon off.

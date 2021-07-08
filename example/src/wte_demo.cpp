@@ -40,23 +40,31 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
      */
     input::event::p1::ondown::up = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        //wte_set_component(player_id, cmp::direction)->set_radians(rad);
-        //wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
+        config::controls::p1_pola_y = -1.0f;
+        float rad = atan2(config::controls::p1_pola_y, config::controls::p1_pola_x);
+        wte_set_component(player_id, cmp::direction)->set_radians(rad);
+        wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
     };
     input::event::p1::ondown::down = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        //wte_set_component(player_id, cmp::direction)->set_radians(rad);
-        //wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
+        config::controls::p1_pola_y = 1.0f;
+        float rad = atan2(config::controls::p1_pola_y, config::controls::p1_pola_x);
+        wte_set_component(player_id, cmp::direction)->set_radians(rad);
+        wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
     };
     input::event::p1::ondown::left = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        //wte_set_component(player_id, cmp::direction)->set_radians(rad);
-        //wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
+        config::controls::p1_pola_x = -1.0f;
+        float rad = atan2(config::controls::p1_pola_y, config::controls::p1_pola_x);
+        wte_set_component(player_id, cmp::direction)->set_radians(rad);
+        wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
     };
     input::event::p1::ondown::right = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        //wte_set_component(player_id, cmp::direction)->set_radians(rad);
-        //wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
+        config::controls::p1_pola_x = 1.0f;
+        float rad = atan2(config::controls::p1_pola_y, config::controls::p1_pola_x);
+        wte_set_component(player_id, cmp::direction)->set_radians(rad);
+        wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
     };
     input::event::p1::ondown::action1 = []() {
         entity_id player_id = mgr::entities::get_id("player");
@@ -99,19 +107,27 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
 
     input::event::p1::onup::up = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        //wte_set_component(player_id, cmp::velocity)->set_velocity(0.0f);
+        config::controls::p1_pola_y = 0.0f;
+        if(config::controls::p1_pola_x == 0.0f && config::controls::p1_pola_y == 0.0f)
+            wte_set_component(player_id, cmp::velocity)->set_velocity(0.0f);
     };
     input::event::p1::onup::down = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        //wte_set_component(player_id, cmp::velocity)->set_velocity(0.0f);
+        config::controls::p1_pola_y = 0.0f;
+        if(config::controls::p1_pola_x == 0.0f && config::controls::p1_pola_y == 0.0f)
+            wte_set_component(player_id, cmp::velocity)->set_velocity(0.0f);
     };
     input::event::p1::onup::left = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        //wte_set_component(player_id, cmp::velocity)->set_velocity(0.0f);
+        config::controls::p1_pola_x = 0.0f;
+        if(config::controls::p1_pola_x == 0.0f && config::controls::p1_pola_y == 0.0f)
+            wte_set_component(player_id, cmp::velocity)->set_velocity(0.0f);
     };
     input::event::p1::onup::right = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        //wte_set_component(player_id, cmp::velocity)->set_velocity(0.0f);
+        config::controls::p1_pola_x = 0.0f;
+        if(config::controls::p1_pola_x == 0.0f && config::controls::p1_pola_y == 0.0f)
+            wte_set_component(player_id, cmp::velocity)->set_velocity(0.0f);
     };
     input::event::p1::onup::action1 = []() {
         //  Turn the cannon off.
@@ -445,7 +461,7 @@ void wte_demo::new_game(void) {
                 mgr::variables::set<int>("lives", mgr::variables::get<int>("lives") - 1);
                 wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
                 wte_set_component(plr_id, cmp::sprite)->set_cycle("death");
-                mgr::messages::add_message(message("system", "disable_system", "input"));
+                //mgr::messages::add_message(message("system", "disable_system", "input"));
                 if(mgr::variables::get<int>("lives") == 0) {
                     //  Game over!
                     mgr::messages::add_message(message(engine_time::check_time() + 180, "system", "end_game", ""));

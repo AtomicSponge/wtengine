@@ -444,6 +444,7 @@ void wte_demo::new_game(void) {
         [](const entity_id& plr_id, const message& msg) {
             //  Process player death.
             if(msg.get_cmd() == "death") {
+                config::flags::input_enabled = false;
                 //  Make sure cannon stops firing
                 entity_id cannon_id = mgr::entities::get_id("main_cannon");
                 wte_set_component(cannon_id, cmp::visible)->hide();
@@ -461,7 +462,6 @@ void wte_demo::new_game(void) {
                 mgr::variables::set<int>("lives", mgr::variables::get<int>("lives") - 1);
                 wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
                 wte_set_component(plr_id, cmp::sprite)->set_cycle("death");
-                //mgr::messages::add_message(message("system", "disable_system", "input"));
                 if(mgr::variables::get<int>("lives") == 0) {
                     //  Game over!
                     mgr::messages::add_message(message(engine_time::check_time() + 180, "system", "end_game", ""));
@@ -477,7 +477,7 @@ void wte_demo::new_game(void) {
 
             //  Reset player.
             if(msg.get_cmd() == "reset") {
-                mgr::messages::add_message(message("system", "enable_system", "input"));
+                config::flags::input_enabled = true;
                 wte_set_component(plr_id, cmp::location)->set_x((float)((mgr::renderer::get_arena_width() / 2) - 5));
                 wte_set_component(plr_id, cmp::location)->set_y((float)(mgr::renderer::get_arena_height() - 40));
                 wte_set_component(plr_id, health)->hp = wte_get_component(plr_id, health)->hp_max;

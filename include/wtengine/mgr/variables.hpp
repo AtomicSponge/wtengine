@@ -41,15 +41,6 @@ class variables final : private manager<variables> {
         };
 
         /*!
-         * \brief Allows a different encryption key to be set.
-         * 
-         * \param key New key.
-         */
-        inline static void set_enc_key(const char& key) {
-            NOT_THE_ENCRYPTION_KEY = key;
-        };
-
-        /*!
          * \brief Clear the current game config save.
          */
         inline static void clear_save(void) {
@@ -69,13 +60,13 @@ class variables final : private manager<variables> {
                 if(!dfile.good()) return false;
 
                 try {
-                    dfile.write(reinterpret_cast<const char*>(sizeof(var.c_str())), 32);
-                    dfile.write(var.c_str(), sizeof(var.c_str()));
-                    dfile.write(reinterpret_cast<const char*>(sizeof(T)), 32);
-                    dfile.write(
+                    //dfile.write(reinterpret_cast<const char*>(sizeof(var.c_str())), 32);
+                    //dfile.write(var.c_str(), sizeof(var.c_str()));
+                    //dfile.write(reinterpret_cast<const char*>(sizeof(T)), 32);
+                    /*dfile.write(
                         reinterpret_cast<const char*>(std::any_cast<T>((*_map.find(var)).second)),
                         sizeof(T)
-                    );
+                    );*/
                 } catch(...) {
                     dfile.close();
                     return false;
@@ -166,36 +157,7 @@ class variables final : private manager<variables> {
         inline variables() { _map.clear(); };
         inline ~variables() { _map.clear(); };
 
-        /*!
-         * \brief Encrypt string.
-         * 
-         * \param input String to encrypt.
-         * \return Encrypted string.
-         */
-        inline static const std::string encrypt(std::string input) {
-            for(std::size_t i = 0; i < input.length(); i++) {
-                input[i] = input[i] - NOT_THE_ENCRYPTION_KEY;
-            }
-
-            return input;
-        };
-
-        /*!
-         * \brief Decrypt string.
-         * 
-         * \param input String to decrypt.
-         * \return Decrypted string.
-         */
-        inline static const std::string decrypt(std::string input) {
-            for(std::size_t i = 0; i < input.length(); i++) {
-                input[i] = input[i] + NOT_THE_ENCRYPTION_KEY;
-            }
-
-            return input;
-        };
-
         inline static std::string data_file_name = "game.cfg";
-        inline static char NOT_THE_ENCRYPTION_KEY = '@';
 
         inline static std::map<std::string, std::any> _map = {};
 };

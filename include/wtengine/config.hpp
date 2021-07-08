@@ -12,7 +12,6 @@
 
 #include <allegro5/allegro.h>
 
-#include <string>
 #include <fstream>
 
 #include "wtengine/_globals/_defines.hpp"

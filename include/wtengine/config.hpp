@@ -136,14 +136,14 @@ class config {
          * 
          * \return False on fail, true on success.
          */
-        static bool load(void);
+        static const bool load(void);
 
         /*!
          * \brief Save engine config settings to file.
          * 
          * \return False on fail, true on success.
          */
-        static bool save(void);
+        static const bool save(void);
 
     protected:
         inline config() {};

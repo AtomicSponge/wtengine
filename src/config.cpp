@@ -13,40 +13,98 @@ namespace wte
 {
 
 /*
+draw_fps
+vsync
+display_mode
+scale_factor
+main
+mix1
+mix2
+mix3
+mix4
+key_menu
+key_menu_select
+p1_key_up
+p1_key_down
+p1_key_left
+p1_key_right
+p1_key_action1
+p1_key_action2
+p1_key_action3
+p1_key_action4
+p1_key_action5
+p1_key_action6
+p2_key_up
+p2_key_down
+p2_key_left
+p2_key_right
+p2_key_action1
+p2_key_action2
+p2_key_action3
+p2_key_action4
+p2_key_action5
+p2_key_action6
+
+*/
+
+/*
  *
  */
-bool config::load(void) {
-    /*std::ifstream data_file("settings.cfg");
+const bool config::load(void) {
+    std::ifstream dfile("settings.cfg", std::ios::binary);
     //  Data file doesn't exist, create one
-    if(!data_file.good()) {
+    if(!dfile.good()) {
         save();
-        data_file.open("settings.cfg");
+        dfile.open("settings.cfg");
     }
-    if(!data_file.good()) return false;
+    if(!dfile.good()) return false;
 
-    std::string it;
-    //  Read each line, try to register or set
-    while(std::getline(data_file, it)) {
-        if(!reg(it)) set(it);
-    }
+    //  Read
 
-    data_file.close();*/
+    dfile.close();
     return true;
 }
 
 /*
  *
  */
-bool config::save(void) {
-    /*std::ofstream data_file("settings.cfg");
-    if(!data_file.good()) return false;
+const bool config::save(void) {
+    std::ofstream dfile("settings.cfg", std::ios::binary);
+    if(!dfile.good()) return false;
 
-    //  Write each pair to file
-    for(auto it = _map.cbegin(); it != _map.cend(); it++) {
-        data_file << it->first << "=" << it->second << std::endl;
-    }
+    dfile.write(reinterpret_cast<const char*>(&config::flags::draw_fps), sizeof config::flags::draw_fps);
+    dfile.write(reinterpret_cast<const char*>(&config::gfx::vsync), sizeof config::gfx::vsync);
+    dfile.write(reinterpret_cast<const char*>(&config::gfx::display_mode), sizeof config::gfx::display_mode);
+    dfile.write(reinterpret_cast<const char*>(&config::gfx::scale_factor), sizeof config::gfx::scale_factor);
+    dfile.write(reinterpret_cast<const char*>(&config::volume::main), sizeof config::volume::main);
+    dfile.write(reinterpret_cast<const char*>(&config::volume::mix1), sizeof config::volume::mix1);
+    dfile.write(reinterpret_cast<const char*>(&config::volume::mix2), sizeof config::volume::mix2);
+    dfile.write(reinterpret_cast<const char*>(&config::volume::mix3), sizeof config::volume::mix3);
+    dfile.write(reinterpret_cast<const char*>(&config::volume::mix4), sizeof config::volume::mix4);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::key_menu), sizeof config::controls::key_menu);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::key_menu_select), sizeof config::controls::key_menu_select);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p1_key_up), sizeof config::controls::p1_key_up);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p1_key_down), sizeof config::controls::p1_key_down);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p1_key_left), sizeof config::controls::p1_key_left);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p1_key_right), sizeof config::controls::p1_key_right);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p1_key_action1), sizeof config::controls::p1_key_action1);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p1_key_action2), sizeof config::controls::p1_key_action2);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p1_key_action3), sizeof config::controls::p1_key_action3);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p1_key_action4), sizeof config::controls::p1_key_action4);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p1_key_action5), sizeof config::controls::p1_key_action5);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p1_key_action6), sizeof config::controls::p1_key_action6);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p2_key_up), sizeof config::controls::p2_key_up);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p2_key_down), sizeof config::controls::p2_key_down);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p2_key_left), sizeof config::controls::p2_key_left);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p2_key_right), sizeof config::controls::p2_key_right);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p2_key_action1), sizeof config::controls::p2_key_action1);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p2_key_action2), sizeof config::controls::p2_key_action2);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p2_key_action3), sizeof config::controls::p2_key_action3);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p2_key_action4), sizeof config::controls::p2_key_action4);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p2_key_action5), sizeof config::controls::p2_key_action5);
+    dfile.write(reinterpret_cast<const char*>(&config::controls::p2_key_action6), sizeof config::controls::p2_key_action6);
 
-    data_file.close();*/
+    dfile.close();
     return true;
 }
 

@@ -65,17 +65,23 @@ class variables final : private manager<variables> {
          */
         template <typename T> inline static bool save(const std::string& var) {
             if(isreg(var)) {
-                std::ofstream data_file(data_file_name, std::ofstream::app);
-                if(!data_file.good()) return false;
+                std::ofstream dfile(data_file_name, std::ofstream::app);
+                if(!dfile.good()) return false;
 
                 try {
-                    data_file << ((_map.at(var)).type()).name() << std::endl;
+                    dfile.write(reinterpret_cast<const char*>(sizeof(var.c_str())), 32);
+                    dfile.write(var.c_str(), sizeof(var.c_str()));
+                    dfile.write(reinterpret_cast<const char*>(sizeof(T)), 32);
+                    dfile.write(
+                        reinterpret_cast<const char*>(std::any_cast<T>((*_map.find(var)).second)),
+                        sizeof(T)
+                    );
                 } catch(...) {
-                    data_file.close();
+                    dfile.close();
                     return false;
                 }
 
-                data_file.close();
+                dfile.close();
                 return true;
             }
             return false;
@@ -87,12 +93,13 @@ class variables final : private manager<variables> {
          * \return False on fail, true on success.
          */
         template <typename T> inline static bool load(const std::string& var) {
-            std::ifstream data_file(data_file_name);
-            if(!data_file.good()) return false;
+            std::ifstream dfile(data_file_name);
+            if(!dfile.good()) return false;
 
             //  Load
+            //dfile.read(buffer, sizeof T);
 
-            data_file.close();
+            dfile.close();
             return true;
         };
 

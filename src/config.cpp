@@ -19,7 +19,7 @@ const bool config::load(void) {
     std::ifstream dfile("settings.cfg", std::ios::binary);
     //  Data file doesn't exist, create one
     if(!dfile.good()) {
-        save();
+        if(!save()) return false;
         dfile.open("settings.cfg");
     }
     if(!dfile.good()) return false;

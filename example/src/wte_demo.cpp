@@ -41,28 +41,28 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
     input::event::p1::ondown::up = []() {
         entity_id player_id = mgr::entities::get_id("player");
         config::controls::p1_pola_y = -1.0f;
-        float rad = atan2(config::controls::p1_pola_y, config::controls::p1_pola_x);
+        float rad = std::atan2(config::controls::p1_pola_y, config::controls::p1_pola_x);
         wte_set_component(player_id, cmp::direction)->set_radians(rad);
         wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
     };
     input::event::p1::ondown::down = []() {
         entity_id player_id = mgr::entities::get_id("player");
         config::controls::p1_pola_y = 1.0f;
-        float rad = atan2(config::controls::p1_pola_y, config::controls::p1_pola_x);
+        float rad = std::atan2(config::controls::p1_pola_y, config::controls::p1_pola_x);
         wte_set_component(player_id, cmp::direction)->set_radians(rad);
         wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
     };
     input::event::p1::ondown::left = []() {
         entity_id player_id = mgr::entities::get_id("player");
         config::controls::p1_pola_x = -1.0f;
-        float rad = atan2(config::controls::p1_pola_y, config::controls::p1_pola_x);
+        float rad = std::atan2(config::controls::p1_pola_y, config::controls::p1_pola_x);
         wte_set_component(player_id, cmp::direction)->set_radians(rad);
         wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
     };
     input::event::p1::ondown::right = []() {
         entity_id player_id = mgr::entities::get_id("player");
         config::controls::p1_pola_x = 1.0f;
-        float rad = atan2(config::controls::p1_pola_y, config::controls::p1_pola_x);
+        float rad = std::atan2(config::controls::p1_pola_y, config::controls::p1_pola_x);
         wte_set_component(player_id, cmp::direction)->set_radians(rad);
         wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
     };

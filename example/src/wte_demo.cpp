@@ -147,9 +147,6 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
         //  Stop sound effect.
         mgr::audio::sample_stop("shield_sound");
     };
-
-    //  Force game start for testing
-    //mgr::messages::add_message(message("system", "new_game", "game.sdf"));
 }
 
 /*
@@ -596,7 +593,7 @@ void wte_demo::new_game(void) {
             if(msg.get_cmd() == "colision") {
                 //  Deal damage
                 mgr::messages::add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
-                                             std::to_string(wte_get_component(shd_id, damage)->dmg)));
+                                           std::to_string(wte_get_component(shd_id, damage)->dmg)));
             }
         }
     );  //  End shield message processing.

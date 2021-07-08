@@ -14,9 +14,7 @@
 #include <any>
 #include <map>
 #include <fstream>
-#include <sstream>
-#include <iomanip>
-#include <limits>
+#include <typeinfo>
 
 #include "wtengine/mgr/manager.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
@@ -52,26 +50,6 @@ class variables final : private manager<variables> {
         };
 
         /*!
-         * \brief Load game config variables from file.
-         * 
-         * \return False on fail, true on success.
-         */
-        inline static bool load(void) {
-            std::ifstream data_file(data_file_name);
-            if(!data_file.good()) return false;
-
-            std::string it;
-            //  Read each line, try to register or set
-            while(std::getline(data_file, it)) {
-                it = decrypt(it);
-                //if(!reg(it)) set(it);
-            }
-
-            data_file.close();
-            return true;
-        };
-
-        /*!
          * \brief Clear the current game config save.
          */
         inline static void clear_save(void) {
@@ -86,14 +64,37 @@ class variables final : private manager<variables> {
          * \return False on fail, true on success.
          */
         inline static bool save(const std::string& var) {
-            std::ofstream data_file(data_file_name, std::ofstream::app);
+            if(isreg(var)) {
+                std::ofstream data_file(data_file_name, std::ofstream::app);
+                if(!data_file.good()) return false;
+
+                try {
+                    data_file << ((_map.at(var)).type()).name() << std::endl;
+                } catch(...) {
+                    data_file.close();
+                    return false;
+                }
+
+                data_file.close();
+                return true;
+            }
+            return false;
+        };
+
+        /*!
+         * \brief Load game config variables from file.
+         * 
+         * \return False on fail, true on success.
+         */
+        inline static bool load(void) {
+            std::ifstream data_file(data_file_name);
             if(!data_file.good()) return false;
 
-            try {
-                //data_file << encrypt(var + "=" + _map.at(var)) << std::endl;
-            } catch (std::out_of_range& e) {
-                data_file.close();
-                return false;  //  Didn't find var
+            std::string it;
+            //  Read each line, try to register or set
+            while(std::getline(data_file, it)) {
+                it = decrypt(it);
+                //if(!reg(it)) set(it);
             }
 
             data_file.close();

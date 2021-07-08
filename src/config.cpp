@@ -69,7 +69,7 @@ const bool config::load(void) {
  *
  */
 const bool config::save(void) {
-    std::ofstream dfile("settings.cfg", std::ios::binary);
+    std::ofstream dfile("settings.cfg", std::ios::binary | std::ofstream::trunc);
     if(!dfile.good()) return false;
 
     try {

@@ -154,9 +154,9 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
  * Save game variables here.
  */
 wte_demo::~wte_demo() {
-    //mgr::variables::clear_save();
-    //mgr::variables::save("max_lives");
-    //mgr::variables::save("hiscore");
+    mgr::variables::clear_save();
+    mgr::variables::save("max_lives");
+    mgr::variables::save("hiscore");
 
     al_shutdown_primitives_addon();
 }

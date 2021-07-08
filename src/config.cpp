@@ -25,7 +25,6 @@ const bool config::load(void) {
     if(!dfile.good()) return false;
 
     try {
-        //  Read
         dfile.read(reinterpret_cast<char*>(&config::flags::draw_fps), sizeof config::flags::draw_fps);
         dfile.read(reinterpret_cast<char*>(&config::gfx::vsync), sizeof config::gfx::vsync);
         dfile.read(reinterpret_cast<char*>(&config::gfx::display_mode), sizeof config::gfx::display_mode);

@@ -54,8 +54,10 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
        (event.type == ALLEGRO_EVENT_KEY_DOWN ||
         event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)) alert::clear();
 
-    //if(event.type == ALLEGRO_EVENT_KEY_ondown) input_flags::set_last_keypress(event.keyboard.keycode);
-    //if(event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_ondown) input_flags::set_last_buttonpress(event.joystick.button);
+    if(config::flags::record_input) {
+        //if(event.type == ALLEGRO_EVENT_KEY_DOWN) input_flags::set_last_keypress(event.keyboard.keycode);
+        //if(event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN) input_flags::set_last_buttonpress(event.joystick.button);
+    }
 
     /* ************************************************************* */
     /* *** PROCESS EVENTS WHILE MENU IS OPENED ********************* */

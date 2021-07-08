@@ -33,6 +33,7 @@ class config {
             inline static bool game_started = false;
             inline static bool game_menu_opened = true;
             inline static bool draw_fps = true;
+            inline static bool record_input = false;
         };
 
         struct volume {

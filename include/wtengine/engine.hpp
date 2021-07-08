@@ -294,7 +294,7 @@ inline void engine::process_end_game(void) {
     mgr::entities::clear();
     mgr_inf.systems_clear();
 
-    //  Open the mgr::menu::
+    //  Open the menus.
     config::flags::game_menu_opened = true;
 };
 
@@ -310,26 +310,26 @@ inline void engine::do_game(void) {
     config::flags::game_menu_opened = true;
 
     /* *** ENGINE LOOP ************************************************************ */
-    while(flags::is_running) {
+    while(config::flags::is_running) {
         if(!config::flags::game_started) {            //  Game not running.
             al_stop_timer(main_timer);        //  Make sure the timer isn't.
             config::flags::game_menu_opened = true;   //  And force the menu manager.
         }
 
+        //  Check for input.
+        check_input_events();
+
         //  Pause / resume timer depending on if the game menu is opened.
         //  Also process the on_menu events.
         if(config::flags::game_menu_opened && al_get_timer_started(main_timer)) {
             al_stop_timer(main_timer);
-            mgr_inf.audio_get_volume();  //  Make sure engine cfg matches audio manager.
+            //mgr_inf.audio_get_volume();  //  Make sure engine cfg matches audio manager.
             on_menu_open();
         }
-        if(config::flags::game_menu_opened && !al_get_timer_started(main_timer)) {
+        if(!config::flags::game_menu_opened && !al_get_timer_started(main_timer)) {
             on_menu_close();
             al_resume_timer(main_timer);
         }
-
-        //  Check for input.
-        check_input_events();
 
         //  Game menu is opened, run the menu manager.
         if(config::flags::game_menu_opened) mgr_inf.menu_run();

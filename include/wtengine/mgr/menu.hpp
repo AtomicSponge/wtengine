@@ -411,6 +411,7 @@ inline void menu::run(void) {
     /* ************************************************************ */
     //  Menu item was selected, process what happens.
     if(toggle_menu_select && menu_position != opened_menus.top()->items_cend()) {
+        toggle_menu_select = false;
         message temp_msg = (*menu_position)->on_select();
         /* *** Check if the message is for the menu system and process. ********* */
         if(temp_msg.get_sys() == "menu") {

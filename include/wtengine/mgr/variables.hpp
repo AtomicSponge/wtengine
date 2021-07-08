@@ -63,7 +63,7 @@ class variables final : private manager<variables> {
          * \param var Variable name.
          * \return False on fail, true on success.
          */
-        inline static bool save(const std::string& var) {
+        template <typename T> inline static bool save(const std::string& var) {
             if(isreg(var)) {
                 std::ofstream data_file(data_file_name, std::ofstream::app);
                 if(!data_file.good()) return false;
@@ -86,16 +86,11 @@ class variables final : private manager<variables> {
          * 
          * \return False on fail, true on success.
          */
-        inline static bool load(void) {
+        template <typename T> inline static bool load(const std::string& var) {
             std::ifstream data_file(data_file_name);
             if(!data_file.good()) return false;
 
-            std::string it;
-            //  Read each line, try to register or set
-            while(std::getline(data_file, it)) {
-                it = decrypt(it);
-                //if(!reg(it)) set(it);
-            }
+            //  Load
 
             data_file.close();
             return true;
@@ -105,7 +100,7 @@ class variables final : private manager<variables> {
          * Create a new entry in the map.
          * Call this first before accessing.
          */
-        template <typename T>  inline static const bool reg(const std::string& var, const T& val) {
+        template <typename T> inline static const bool reg(const std::string& var, const T& val) {
             auto ret = _map.insert(std::make_pair(var, std::make_any<T>(val)));
             if(ret.second == false) return false;  //  Key exists already
             else return true;  //  Inserted new key/pair
@@ -123,7 +118,7 @@ class variables final : private manager<variables> {
         /*!
          * Delete entry
          */
-        inline static bool del(const std::string& var) {
+        inline static const bool del(const std::string& var) {
             auto it = _map.find(var);
             if(it != _map.end()) {
                 _map.erase(it);

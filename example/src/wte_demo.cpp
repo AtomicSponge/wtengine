@@ -28,12 +28,13 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
     //  The engine doesn't use Allegro's primitives addon, so init it here.
     al_init_primitives_addon();
 
-    mgr::variables::reg("score", (int)0);
-    mgr::variables::reg("hiscore", (int)0);
-    mgr::variables::reg("max_lives", (int)3);
-    mgr::variables::reg("lives", (int)3);
+    mgr::variables::reg<int>("score", 0);
+    mgr::variables::reg<int>("hiscore", 0);
+    mgr::variables::reg<int>("max_lives", 3);
+    mgr::variables::reg<int>("lives", 3);
 
-    //mgr::variables::load();
+    //mgr::variables::load<int>("max_lives");
+    //mgr::variables::load<int>("hiscore");
 
     /*
      * Set up input handling
@@ -155,8 +156,8 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
  */
 wte_demo::~wte_demo() {
     mgr::variables::clear_save();
-    mgr::variables::save("max_lives");
-    mgr::variables::save("hiscore");
+    mgr::variables::save<int>("max_lives");
+    mgr::variables::save<int>("hiscore");
 
     al_shutdown_primitives_addon();
 }

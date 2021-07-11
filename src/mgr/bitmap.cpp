@@ -110,7 +110,7 @@ const bool bitmap::create_bitmap(const std::string& label, const int w, const in
     al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
     ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap(w, h);
     if(!temp_bitmap) return false;
-    auto ret = _bitmaps.insert(std::make_pair(label, std::make_pair(al_clone_bitmap(temp_bitmap), false)));
+    auto ret = _bitmaps.insert(std::make_pair(label, std::make_pair(al_clone_bitmap(temp_bitmap), true)));
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
     al_destroy_bitmap(temp_bitmap);
     if (!ret.second) return false;

@@ -101,7 +101,6 @@ const ALLEGRO_BITMAP* bitmap::get(const std::string& label) {
         std::string err_msg = "Could not find bitmap: " + label;
         throw wte_exception(err_msg.c_str());
     }
-    return NULL;
 }
 
 /*

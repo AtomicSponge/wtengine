@@ -61,6 +61,7 @@
 #endif
 
 //  Define some colors for use in the engine.
+#ifndef WTE_NO_COLORS
 #define WTE_COLOR_BLACK         (al_map_rgb(0,0,0))
 #define WTE_COLOR_RED           (al_map_rgb(255,0,0))
 #define WTE_COLOR_GREEN         (al_map_rgb(0,255,0))
@@ -72,20 +73,45 @@
 #define WTE_COLOR_DARKPURPLE    (al_map_rgb(48, 25, 52))
 #define WTE_COLOR_WHITE         (al_map_rgb(255,255,255))
 #define WTE_COLOR_TRANSPARENT   (al_map_rgba(0, 0, 0, 0))
+#endif
 
 //  Define default keys
+#ifndef WTE_KEY_MENU_DEFAULT
 #define WTE_KEY_MENU_DEFAULT            ALLEGRO_KEY_ESCAPE
+#endif
+#ifndef WTE_KET_MENU_SELECT_DEFAULT
 #define WTE_KET_MENU_SELECT_DEFAULT     ALLEGRO_KEY_SPACE
+#endif
 
+#ifndef WTE_P1_KEY_UP_DEFAULT
 #define WTE_P1_KEY_UP_DEFAULT           ALLEGRO_KEY_UP
+#endif
+#ifndef WTE_P1_KEY_DOWN_DEFAULT
 #define WTE_P1_KEY_DOWN_DEFAULT         ALLEGRO_KEY_DOWN
+#endif
+#ifndef WTE_P1_KEY_LEFT_DEFAULT
 #define WTE_P1_KEY_LEFT_DEFAULT         ALLEGRO_KEY_LEFT
+#endif
+#ifndef WTE_P1_KEY_RIGHT_DEFAULT
 #define WTE_P1_KEY_RIGHT_DEFAULT        ALLEGRO_KEY_RIGHT
+#endif
+#ifndef WTE_P1_KEY_ACTION1_DEFAULT
 #define WTE_P1_KEY_ACTION1_DEFAULT      ALLEGRO_KEY_LCTRL
+#endif
+#ifndef WTE_P1_KEY_ACTION2_DEFAULT
 #define WTE_P1_KEY_ACTION2_DEFAULT      ALLEGRO_KEY_ALT
+#endif
+#ifndef WTE_P1_KEY_ACTION3_DEFAULT
 #define WTE_P1_KEY_ACTION3_DEFAULT      (0)
+#endif
+#ifndef WTE_P1_KEY_ACTION4_DEFAULT
 #define WTE_P1_KEY_ACTION4_DEFAULT      (0)
+#endif
+#ifndef WTE_P1_KEY_ACTION5_DEFAULT
 #define WTE_P1_KEY_ACTION5_DEFAULT      (0)
+#endif
+#ifndef WTE_P1_KEY_ACTION6_DEFAULT
 #define WTE_P1_KEY_ACTION6_DEFAULT      (0)
+#endif
 
 #endif

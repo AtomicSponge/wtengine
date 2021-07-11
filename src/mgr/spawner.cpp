@@ -39,7 +39,12 @@ void spawner::process_messages(const message_container& messages) {
                 //  Note that we do not count the first argument.
                 if(m_it.num_args() == s_it->second.first + 1) {
                     entity_id e_id = mgr::entities::new_entity();
-                    s_it->second.second(e_id, m_it.get_arglist());
+                    try {
+                        s_it->second.second(e_id, m_it.get_arglist());
+                    } catch(...) { 
+                        std::string err_msg = "Error spawning entity " + m_it.get_arg(0);
+                        throw wte_exception(err_msg.c_str());
+                    }
                 }
         }
 

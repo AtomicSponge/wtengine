@@ -63,9 +63,7 @@ const bool systems::add(sys::system_uptr new_system) {
  */
 void systems::run() {
     for(auto & it : _systems)
-        if((it)->is_enabled()) 
-            try { (it)->run(); }
-            catch(const wte_exception& e) { alert::set_alert(e.what()); }
+        try { (it)->run(); } catch(const wte_exception& e) { alert::set_alert(e.what()); }
 }
 
 /*
@@ -108,28 +106,6 @@ void systems::reload_temp_bitmaps() {
     for(auto & it : overlay_components) {
         it.second.get()->reload_overlay_bitmap();
     }
-}
-
-/*
- *
- */
-const bool systems::enable_system(const std::string& sys) {
-    for(auto & it : _systems) {
-        if((it)->get_name() == sys) (it)->enable();
-        return true;
-    }
-    return false;
-}
-
-/*
- *
- */
-const bool systems::disable_system(const std::string& sys) {
-    for(auto & it : _systems) {
-        if((it)->get_name() == sys) (it)->disable();
-        return true;
-    }
-    return false;
 }
 
 } //  namespace mgr

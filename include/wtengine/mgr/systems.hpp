@@ -48,26 +48,6 @@ class systems final : private manager<systems> {
          */
         static const bool add(sys::system_uptr new_system);
 
-        /*!
-         * \brief Enable a system.
-         * 
-         * Toggle a system to enabled so its run member is processed.
-         * 
-         * \param sys Name of system to enable.
-         * \return True if the system was found, false if it was not.
-         */
-        static const bool enable_system(const std::string& sys);
-
-        /*!
-         * \brief Disable a system.
-         * 
-         * Toggle a system to disabled so its run member is skipped.
-         * 
-         * \param sys Name of system to disable.
-         * \return True if the system was found, false if it was not
-         */
-        static const bool disable_system(const std::string& sys);
-
     private:
         /*!
          * \brief System Manager constructor.

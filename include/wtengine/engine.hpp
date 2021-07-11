@@ -92,8 +92,7 @@ class engine : private display, public input, public config {
          * \param argv Command line arguments count.
          * \param title Window title.
          */
-        inline engine(const int argc, char **argv, const std::string& title) :
-        display(title) {
+        inline engine(const int argc, char **argv, const std::string& title) : display(title) {
             if(initialized == true) throw std::runtime_error(get_window_title() + " already running!");
             initialized = true;
 
@@ -183,8 +182,8 @@ class engine : private display, public input, public config {
         inline void wte_load(void) {
             //  Initialize managers that require it.
             mgr_inf.renderer_init();
-            mgr_inf.menu_init();
             mgr_inf.audio_init();
+            mgr_inf.menu_init();
 
             //  Load user configured menus.
             load_menus();
@@ -196,14 +195,17 @@ class engine : private display, public input, public config {
          * Called after the main loop ends running.
          */
         inline void wte_unload(void) {
-            mgr_inf.audio_de_init();
             mgr_inf.menu_de_init();
+            mgr_inf.audio_de_init();
             mgr_inf.renderer_de_init();
         };
 
         void process_new_game(const std::string&);
         void process_end_game(void);
         void handle_sys_msg(message_container&);
+
+        //  Interface for manager private member access.
+        mgr::interface mgr_inf;
 
         //  Used for mapping commands and switching on system messages:
         enum CMD_STR_VALUE {
@@ -215,14 +217,12 @@ class engine : private display, public input, public config {
             CMD_STR_RECONF_DISPLAY,     CMD_STR_FPS_COUNTER,
             CMD_STR_LOAD_SCRIPT
         };
-        std::map<std::string, CMD_STR_VALUE> map_cmd_str_values;
+        inline static std::map<std::string, CMD_STR_VALUE> map_cmd_str_values = {};
 
         //  Allegro objects used by the engine.
-        ALLEGRO_TIMER* main_timer;
-        ALLEGRO_EVENT_QUEUE* main_event_queue;
+        inline static ALLEGRO_TIMER* main_timer = NULL;
+        inline static ALLEGRO_EVENT_QUEUE* main_event_queue = NULL;
 
-        //  Interface for manager private member access.
-        mgr::interface mgr_inf;
         //  Vector of file paths to provide to PhysFS.
         inline static std::vector<std::string> file_locations = {};
         //  Restrict to one instance of the engine running.
@@ -264,8 +264,9 @@ inline void engine::process_new_game(const std::string& game_data) {
     //  Restart the timer at zero.
     al_stop_timer(main_timer);
     al_set_timer_count(main_timer, 0);
-    config::flags::game_started = true;
     engine_time::set_time(al_get_timer_count(main_timer));
+    config::flags::game_started = true;
+    config::flags::input_enabled = true;
     al_start_timer(main_timer);
 };
 
@@ -277,6 +278,7 @@ inline void engine::process_new_game(const std::string& game_data) {
 inline void engine::process_end_game(void) {
     al_stop_timer(main_timer);
     config::flags::game_started = false;
+    config::flags::input_enabled = true;
     al_set_timer_count(main_timer, 0);
     engine_time::set_time(al_get_timer_count(main_timer));
 
@@ -312,7 +314,7 @@ inline void engine::do_game(void) {
     /* *** ENGINE LOOP ************************************************************ */
     while(config::flags::is_running) {
         if(!config::flags::game_started) {            //  Game not running.
-            al_stop_timer(main_timer);        //  Make sure the timer isn't.
+            al_stop_timer(main_timer);                //  Make sure the timer isn't.
             config::flags::game_menu_opened = true;   //  And force the menu manager.
         }
 
@@ -447,21 +449,6 @@ inline void engine::handle_sys_msg(message_container& sys_msgs) {
             case CMD_STR_CLOSE_MENU:
                 if(it->get_arg(0) == "all") mgr::menu::reset();
                 else mgr::menu::close_menu();
-                it = sys_msgs.erase(it);
-                break;
-
-            //  CMD:  enable_system - Turn a system on for processing.
-            case CMD_STR_ENABLE_SYSTEM:
-                if(config::flags::game_started)
-                    mgr::systems::enable_system(it->get_arg(0));
-                it = sys_msgs.erase(it);
-                break;
-
-            //  CMD:  disable_system - Turn a system off so it's run member is skipped.
-            //  Message dispatching is still processed.
-            case CMD_STR_DISABLE_SYSTEM:
-                if(config::flags::game_started)
-                    mgr::systems::disable_system(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 

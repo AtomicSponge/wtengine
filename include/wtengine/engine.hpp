@@ -325,7 +325,6 @@ inline void engine::do_game(void) {
         //  Also process the on_menu events.
         if(config::flags::game_menu_opened && al_get_timer_started(main_timer)) {
             al_stop_timer(main_timer);
-            //mgr_inf.audio_get_volume();  //  Make sure engine cfg matches audio manager.
             on_menu_open();
         }
         if(!config::flags::game_menu_opened && !al_get_timer_started(main_timer)) {

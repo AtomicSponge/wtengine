@@ -141,13 +141,6 @@ void audio::de_init(void) {
 /*
  *
  */
-void audio::get_volume(void) {
-    // legacy
-};
-
-/*
- *
- */
 const std::string audio::get_sample_name(const std::string& full_path) {
     if(full_path.find("/") == std::string::npos)
         return full_path.substr(0, full_path.find("."));

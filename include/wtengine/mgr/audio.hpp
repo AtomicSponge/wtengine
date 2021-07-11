@@ -201,11 +201,6 @@ class audio final : private manager<audio> {
         static const std::string get_sample_name(const std::string& full_path);
 
         /*!
-         * \brief Update engine cfg with the current volume levels.
-         */
-        static void get_volume(void);
-
-        /*!
          * \brief Set volume levels based on engine cfg settings.
          */
         static void set_volume(void);

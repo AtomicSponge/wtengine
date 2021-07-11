@@ -57,13 +57,6 @@ class interface : private manager<interface>  {
         };
 
         /*!
-         * \brief Get audio manager volume,
-         */
-        inline void audio_get_volume(void) {
-            mgr::audio::get_volume();
-        };
-
-        /*!
          * \brief Set audio manager volume,
          */
         inline void audio_set_volume(void) {

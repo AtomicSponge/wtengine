@@ -17,7 +17,6 @@ namespace mgr
 
 template <> bool renderer::manager<renderer>::initialized = false;
 
-ALLEGRO_BITMAP* renderer::background_bmp = NULL;
 ALLEGRO_BITMAP* renderer::render_tmp_bmp = NULL;
 ALLEGRO_FONT* renderer::overlay_font = NULL;
 
@@ -63,21 +62,15 @@ void renderer::initialize(void) {
 
     //  Load the background bitmap.
     if(background_file.empty()) {
-        background_bmp = al_create_bitmap(1, 1);
-        al_set_target_bitmap(background_bmp);
+        mgr::bitmap::create_bitmap("background_bitmap", 1, 1);
+        al_set_target_bitmap(mgr::bitmap::get("background_bitmap"));
         al_clear_to_color(WTE_COLOR_BLACK);
     } else {
-        ALLEGRO_FILE* file;
-        file = al_fopen(background_file.c_str(), "rb");
-        if(!file) {
-            background_bmp = al_create_bitmap(1, 1);
-            al_set_target_bitmap(background_bmp);
+        if(!mgr::bitmap::load(background_file, "background_bitmap")) {
+            mgr::bitmap::create_bitmap("background_bitmap", 1, 1);
+            al_set_target_bitmap(mgr::bitmap::get("background_bitmap"));
             al_clear_to_color(WTE_COLOR_BLACK);
-        } else {
-            background_bmp = al_load_bitmap_f(file, background_file.substr(background_file.find("."),
-                                                background_file.length()).c_str());
         }
-        al_fclose(file);
     }
 
     //  Load font used in renderer.
@@ -98,8 +91,6 @@ void renderer::initialize(void) {
  *
  */
 void renderer::de_init(void) {
-    al_destroy_bitmap(background_bmp);
-
     al_destroy_font(overlay_font);
 
     al_destroy_event_queue(fps_event_queue);
@@ -202,9 +193,9 @@ void renderer::render(void) {
         /*
          * Draw the full screen background.
          */
-        al_draw_scaled_bitmap(background_bmp, 0, 0,
-                              al_get_bitmap_width(background_bmp),
-                              al_get_bitmap_height(background_bmp),
+        al_draw_scaled_bitmap(mgr::bitmap::get("background_bitmap"), 0, 0,
+                              al_get_bitmap_width(mgr::bitmap::get("background_bitmap")),
+                              al_get_bitmap_height(mgr::bitmap::get("background_bitmap")),
                               0, 0, screen_w, screen_h, 0);
 
         //  Set drawing to the arena bitmap.

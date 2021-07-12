@@ -25,12 +25,12 @@ void animator::run(const entity_id& e_id){
 /*
  *
  */
-void animator::set_drawing(void) { al_set_target_bitmap(internal_bitmap); }
+void animator::set_drawing(void) { al_set_target_bitmap(mgr::bitmap::get(internal_bitmap)); }
 
 /*
  *
  */
-ALLEGRO_BITMAP& animator::get_bitmap(void) const { return *internal_bitmap; }
+const std::string animator::get_bitmap(void) const { return internal_bitmap; }
 
 /*
  *

@@ -301,8 +301,12 @@ void wte_demo::new_game(void) {
     mgr::entities::set_name(e_id, "starfield");
     wte_new_component(e_id, cmp::visible);
     wte_new_component(e_id, stars);
-    wte_new_component(e_id, cmp::background, mgr::renderer::get_arena_width(),
-                                             mgr::renderer::get_arena_height(), 0,
+    mgr::bitmap::create_bitmap(
+        "starfield",
+        mgr::renderer::get_arena_width(),
+        mgr::renderer::get_arena_height()
+    );
+    wte_new_component(e_id, cmp::background, "starfield", 0,
         [](const entity_id& bkg_id) {
             //  Define the animation process for the starfield.
             wte_set_component(bkg_id, cmp::background)->set_drawing();
@@ -365,7 +369,8 @@ void wte_demo::new_game(void) {
     e_id = mgr::entities::new_entity();
     mgr::entities::set_name(e_id, "score_overlay");
     wte_new_component(e_id, cmp::visible);
-    wte_new_component(e_id, cmp::overlay, 200, 20, 0, mgr::renderer::get_arena_height() - 20, 0,
+    mgr::bitmap::create_bitmap("score_overlay", 200, 20);
+    wte_new_component(e_id, cmp::overlay, "score_overlay", 0, mgr::renderer::get_arena_height() - 20, 0,
         [](const entity_id& ovr_id) {
             //  Define what gets displayed on the overlay.
             wte_set_component(ovr_id, cmp::overlay)->set_drawing();
@@ -384,8 +389,10 @@ void wte_demo::new_game(void) {
     e_id = mgr::entities::new_entity();
     mgr::entities::set_name(e_id, "player_info_overlay");
     wte_new_component(e_id, cmp::visible);
-    wte_new_component(e_id, cmp::overlay, 200, 20, mgr::renderer::get_arena_width() - 200,
-                                                   mgr::renderer::get_arena_height() - 20, 0,
+    mgr::bitmap::create_bitmap("player_info_overlay", 200, 20);
+    wte_new_component(e_id, cmp::overlay, "player_info_overlay",
+                      mgr::renderer::get_arena_width() - 200,
+                      mgr::renderer::get_arena_height() - 20, 0,
         [](const entity_id& ovr_id) {
             //  Define what gets displayed on the overlay.
             entity_id shd_id = mgr::entities::get_id("shield");
@@ -404,16 +411,13 @@ void wte_demo::new_game(void) {
     e_id = mgr::entities::new_entity();
     mgr::entities::set_name(e_id, "game_over_overlay");
     wte_new_component(e_id, cmp::visible, false);
-    wte_new_component(e_id, cmp::overlay, 480, 132, (mgr::renderer::get_arena_width() / 2) - 240,
-                                                    (mgr::renderer::get_arena_height() / 2) - 66, 1,
-        [](const entity_id& ovr_id) {
-            //  Define what gets displayed on the overlay.
-            wte_set_component(ovr_id, cmp::overlay)->set_drawing();
-            al_clear_to_color(WTE_COLOR_TRANSPARENT);
-            wte_set_component(ovr_id, cmp::overlay)->draw_bitmap("game_over", 0.0f, 0.0f, 0);
-        }
-    );  //  End game over overlay drawing.
-    wte_set_component(e_id, cmp::overlay)->load_bitmap("game_over", "game_over.bmp");
+    mgr::bitmap::load("game_over.bmp", "game_over_overlay");
+    wte_new_component(
+        e_id, cmp::overlay, "game_over_overlay",
+        (mgr::renderer::get_arena_width() / 2) - 240,
+        (mgr::renderer::get_arena_height() / 2) - 66, 1,
+        [](const entity_id& ovr_id) {}
+    );
 
     /* ********************************* */
     /* *** Player entity *************** */
@@ -433,8 +437,8 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::direction, false);
     wte_new_component(e_id, cmp::velocity);
 
-    wte_new_component(e_id, cmp::sprite, 32.0f, 32.0f, -11.0f, 0.0f, 1, 1);
-    wte_set_component(e_id, cmp::sprite)->load_sprite("ship.bmp");
+    mgr::bitmap::load("ship.bmp", "ship");
+    wte_new_component(e_id, cmp::sprite, "ship", 32.0f, 32.0f, -11.0f, 0.0f, 1, 1);
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 3);
     wte_set_component(e_id, cmp::sprite)->add_cycle("death", 4, 7);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
@@ -516,8 +520,8 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::enabled, false);
     wte_new_component(e_id, damage, 3);
 
-    wte_new_component(e_id, cmp::sprite, 10.0f, 200.0f, 0.0f, 0.0f, 2, 2);
-    wte_set_component(e_id, cmp::sprite)->load_sprite("cannon.bmp");
+    mgr::bitmap::load("cannon.bmp", "cannon");
+    wte_new_component(e_id, cmp::sprite, "cannon", 10.0f, 200.0f, 0.0f, 0.0f, 2, 2);
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 3);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
@@ -563,8 +567,8 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, energy, 50, 100);
     wte_new_component(e_id, damage, 100);
 
-    wte_new_component(e_id, cmp::sprite, 64.0f, 64.0f, 0.0f, 0.0f, 6, 2);
-    wte_set_component(e_id, cmp::sprite)->load_sprite("shield.bmp");
+    mgr::bitmap::load("shield.bmp", "shield");
+    wte_new_component(e_id, cmp::sprite, "shield", 64.0f, 64.0f, 0.0f, 0.0f, 6, 2);
     wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
     wte_set_component(e_id, cmp::sprite)->set_cycle("main");
 
@@ -641,8 +645,8 @@ void wte_demo::new_game(void) {
             wte_new_component(e_id, cmp::visible);
             wte_new_component(e_id, cmp::enabled);
 
-            wte_new_component(e_id, cmp::sprite, 16.0f, 16.0f, 0.0f, 0.0f, (int)(30 / std::stof(args[4])), 0);
-            wte_set_component(e_id, cmp::sprite)->load_sprite("asteroid.bmp");
+            mgr::bitmap::load("asteroid.bmp", "asteroid");
+            wte_new_component(e_id, cmp::sprite, "asteroid", 16.0f, 16.0f, 0.0f, 0.0f, (int)(30 / std::stof(args[4])), 0);
             wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
             wte_set_component(e_id, cmp::sprite)->set_cycle("main");
             wte_set_component(e_id, cmp::sprite)->set_scale_factor_x((float)temp_size);

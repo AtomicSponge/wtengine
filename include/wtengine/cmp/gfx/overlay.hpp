@@ -17,7 +17,7 @@
 #include <allegro5/allegro_font.h>
 
 #include "wtengine/cmp/gfx/animator.hpp"
-#include "wtengine/cmp/gfx/bitmap_map.hpp"
+//#include "wtengine/cmp/gfx/bitmap_map.hpp"
 
 namespace wte
 {
@@ -29,7 +29,7 @@ namespace cmp
  * \class overlay
  * \brief Component for storing an overlay image and defining its animation process.
  */
-class overlay final : public animator, public bitmap_map {
+class overlay final : public animator {
     public:
         /*!
          * \brief Overlay constructor.
@@ -41,7 +41,7 @@ class overlay final : public animator, public bitmap_map {
          * \param l Layer for sorting.
          * \param func Function to define what is displayed in the overlay.
          */
-        overlay(const int w, const int h, const float x, const float y,
+        overlay(const std::string bmp, const float x, const float y,
                        const std::size_t l, std::function<void(const entity_id&)> func);
 
         /*!
@@ -92,7 +92,6 @@ class overlay final : public animator, public bitmap_map {
     private:
         ALLEGRO_FONT* overlay_font;
 
-        int overlay_w, overlay_h;
         float pos_x, pos_y;
 };
 

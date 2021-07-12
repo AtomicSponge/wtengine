@@ -10,14 +10,16 @@
 #ifndef WTE_CMP_ANIMATOR_HPP
 #define WTE_CMP_ANIMATOR_HPP
 
-#include <allegro5/allegro.h>
-
 #include <functional>
 
+#include <allegro5/allegro.h>
+
 #include "wtengine/cmp/component.hpp"
-#include "wtengine/mgr/entities.hpp"
+
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
+#include "wtengine/mgr/bitmap.hpp"
+#include "wtengine/mgr/entities.hpp"
 
 namespace wte
 {
@@ -63,7 +65,7 @@ class animator : public component {
          * 
          * \return The internal bitmap.
          */
-        ALLEGRO_BITMAP& get_bitmap(void) const;
+        const std::string get_bitmap(void) const;
 
         /*!
          * \brief Set a tint color.
@@ -99,11 +101,13 @@ class animator : public component {
          * \param func Animation function.
          */
         //inline animator(std::size_t l, void func(const entity_id&)) :
-        inline animator(std::size_t l, std::function<void(const entity_id&)> func) :
-        layer(l), tint_set(false), animate(func) {};
+        inline animator(std::string bmp, std::size_t l, std::function<void(const entity_id&)> func) :
+        internal_bitmap(bmp), layer(l), tint_set(false), animate(func) {
+            //  verify bmp exists
+        };
 
         //!  Stores the bitmap used by the animator.
-        ALLEGRO_BITMAP* internal_bitmap;
+        const std::string internal_bitmap;
 
     private:
         std::size_t layer;

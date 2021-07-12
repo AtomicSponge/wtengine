@@ -73,7 +73,6 @@ add_library(wtengine STATIC
     src/cmp/visible.cpp
     src/cmp/gfx/animator.cpp
     src/cmp/gfx/background.cpp
-    src/cmp/gfx/bitmap_map.cpp
     src/cmp/gfx/overlay.cpp
     src/cmp/gfx/sprite.cpp
     src/mgr/audio.cpp

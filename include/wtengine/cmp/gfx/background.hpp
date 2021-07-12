@@ -17,7 +17,7 @@
 #include <allegro5/allegro.h>
 
 #include "wtengine/cmp/gfx/animator.hpp"
-#include "wtengine/cmp/gfx/bitmap_map.hpp"
+//#include "wtengine/cmp/gfx/bitmap_map.hpp"
 
 namespace wte
 {
@@ -29,7 +29,7 @@ namespace cmp
  * \class background
  * \brief Component for storing a background image and defining its animation process.
  */
-class background final : public animator, public bitmap_map {
+class background final : public animator {
     public:
         /*!
          * \brief Static background, solid color.
@@ -39,7 +39,7 @@ class background final : public animator, public bitmap_map {
          * \param c Allegro color.
          * \param l Background layer.
          */
-        background(const int w, const int h, const std::size_t l, ALLEGRO_COLOR c);
+        background(const std::string bmp, const std::size_t l, ALLEGRO_COLOR c);
 
         /*!
          * \brief Background with custom animation.
@@ -49,7 +49,7 @@ class background final : public animator, public bitmap_map {
          * \param l Background layer.
          * \param func Animcation function.
          */
-        background(const int w, const int h, const std::size_t l,
+        background(const std::string bmp, const std::size_t l,
                    std::function<void(const entity_id&)> func);
 
         /*!
@@ -72,7 +72,6 @@ class background final : public animator, public bitmap_map {
         ALLEGRO_COLOR get_color(void) const;
 
     private:
-        int background_w, background_h;
         ALLEGRO_COLOR color;
 };
 

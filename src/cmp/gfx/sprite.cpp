@@ -19,10 +19,11 @@ namespace cmp
  *
  */
 sprite::sprite(
+    const std::string bmp,
     const float sw, const float sh,
     const float dox, const float doy,
     const std::size_t rt, const std::size_t l) :
-    animator(l,[this](const entity_id& e_id) {
+    animator(bmp, l,[this](const entity_id& e_id) {
         //  Define sprite animation process.
         if(engine_time::check_time() % rate == 0) {
             //  Increment frame.
@@ -41,38 +42,20 @@ sprite::sprite(
     sprite_x(0.0f), sprite_y(0.0f), scale_factor_x(1.0f), scale_factor_y(1.0f),
     start_frame(0), stop_frame(0), current_frame(0), rate(rt)
 {
-    internal_bitmap = NULL;
     if(rate == 0) rate = 1;
+    sheet_width = al_get_bitmap_width(mgr::bitmap::get(get_bitmap()));
+    sheet_height = al_get_bitmap_height(mgr::bitmap::get(get_bitmap()));
 }
 
 /*
  *
  */
-sprite::~sprite() {
-    al_destroy_bitmap(internal_bitmap);
-}
+sprite::~sprite() {}
 
 /*
- *
+ * remove
  */
-void sprite::load_sprite(const std::string& fname) {
-    ALLEGRO_FILE* file;
-    file = al_fopen(fname.c_str(), "rb");
-    if(!file) throw std::runtime_error("Couldn't find sprite file:  " + fname);
-
-    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-    internal_bitmap = al_load_bitmap_f(file, fname.substr(fname.find("."),
-                                                fname.length()).c_str());
-    al_fclose(file);
-    if(!internal_bitmap) throw std::runtime_error("Couldn't load sprite:  " + fname);
-
-    #if WTE_USE_MAGIC_PINK
-    al_convert_mask_to_alpha(internal_bitmap, WTE_MAGIC_PINK);
-    #endif
-
-    sheet_width = al_get_bitmap_width(internal_bitmap);
-    sheet_height = al_get_bitmap_height(internal_bitmap);
-}
+void sprite::load_sprite(const std::string& fname) {}
 
 /*
  *

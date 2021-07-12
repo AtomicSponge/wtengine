@@ -15,9 +15,9 @@
 #include <utility>
 
 #include <allegro5/allegro.h>
-#include <allegro5/allegro_physfs.h>
 
 #include "wtengine/_globals/_defines.hpp"
+#include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/mgr/manager.hpp"
 
@@ -38,7 +38,7 @@ class bitmap final : private manager<bitmap> {
         /*!
          * \brief 
          */
-        static const bool load(const std::string& label, const std::string& fname);
+        static const bool load(const std::string& fname, const std::string& label);
 
         /*!
          * \brief 

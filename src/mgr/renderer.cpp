@@ -17,7 +17,6 @@ namespace mgr
 
 template <> bool renderer::manager<renderer>::initialized = false;
 
-ALLEGRO_BITMAP* renderer::title_bmp = NULL;
 ALLEGRO_BITMAP* renderer::background_bmp = NULL;
 ALLEGRO_BITMAP* renderer::render_tmp_bmp = NULL;
 ALLEGRO_FONT* renderer::overlay_font = NULL;
@@ -51,21 +50,15 @@ void renderer::initialize(void) {
 
     //  Load the title screen bitmap.
     if(title_screen_file.empty()) {
-        title_bmp = al_create_bitmap(1, 1);
-        al_set_target_bitmap(title_bmp);
+        mgr::bitmap::create_bitmap("title_bitmap", 1, 1);
+        al_set_target_bitmap(mgr::bitmap::get("title_bitmap"));
         al_clear_to_color(WTE_COLOR_BLACK);
     } else {
-        ALLEGRO_FILE* file;
-        file = al_fopen(title_screen_file.c_str(), "rb");
-        if(!file) {
-            title_bmp = al_create_bitmap(1, 1);
-            al_set_target_bitmap(title_bmp);
+        if(!mgr::bitmap::load(title_screen_file, "title_bitmap")) {
+            mgr::bitmap::create_bitmap("title_bitmap", 1, 1);
+            al_set_target_bitmap(mgr::bitmap::get("title_bitmap"));
             al_clear_to_color(WTE_COLOR_BLACK);
-        } else {
-            title_bmp = al_load_bitmap_f(file, title_screen_file.substr(title_screen_file.find("."),
-                                         title_screen_file.length()).c_str());
         }
-        al_fclose(file);
     }
 
     //  Load the background bitmap.
@@ -105,7 +98,6 @@ void renderer::initialize(void) {
  *
  */
 void renderer::de_init(void) {
-    al_destroy_bitmap(title_bmp);
     al_destroy_bitmap(background_bmp);
 
     al_destroy_font(overlay_font);
@@ -387,8 +379,9 @@ void renderer::render(void) {
         /*
          * Game is not running - draw the title screen.
          */
-        al_draw_scaled_bitmap(title_bmp, 0, 0,
-                              al_get_bitmap_width(title_bmp), al_get_bitmap_height(title_bmp),
+        al_draw_scaled_bitmap(mgr::bitmap::get("title_bitmap"), 0, 0,
+                              al_get_bitmap_width(mgr::bitmap::get("title_bitmap")),
+                              al_get_bitmap_height(mgr::bitmap::get("title_bitmap")),
                               0, 0, screen_w, screen_h, 0);
     }
 

@@ -33,11 +33,12 @@ bitmap::~bitmap() {
 /*
  *
  */
-const bool bitmap::load(const std::string& label, const std::string& fname) {
+const bool bitmap::load(const std::string& fname, const std::string& label) {
     //  Load the file.
     ALLEGRO_FILE* file;
     file = al_fopen(fname.c_str(), "rb");
     if(!file) {  //  File not found, fail.
+        alert::set("problem was here");
         al_fclose(file);
         return false;
     }

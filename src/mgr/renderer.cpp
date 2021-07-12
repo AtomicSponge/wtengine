@@ -17,6 +17,30 @@ namespace mgr
 
 template <> bool renderer::manager<renderer>::initialized = false;
 
+ALLEGRO_BITMAP* renderer::title_bmp = NULL;
+ALLEGRO_BITMAP* renderer::background_bmp = NULL;
+ALLEGRO_BITMAP* renderer::arena_bmp = NULL;
+ALLEGRO_BITMAP* renderer::render_tmp_bmp = NULL;
+ALLEGRO_FONT* renderer::overlay_font = NULL;
+
+ALLEGRO_TIMER* renderer::fps_timer = NULL;
+ALLEGRO_EVENT_QUEUE* renderer::fps_event_queue = NULL;
+ALLEGRO_EVENT renderer::fps_event;
+
+std::size_t renderer::fps_counter = 0, renderer::fps = 0;
+
+int renderer::screen_w = 0, renderer::screen_h = 0;
+float renderer::scale_factor = 1.0;
+
+int renderer::arena_w = 0, renderer::arena_h = 0;
+bool renderer::arena_created = false;
+
+std::string renderer::title_screen_file = "";
+std::string renderer::background_file = "";
+std::string renderer::render_font_file = "";
+int renderer::render_font_size = 0;
+int renderer::render_font_flags = 0;
+
 /*
  *
  */
@@ -25,6 +49,7 @@ void renderer::initialize(void) {
     if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
     al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
     arena_bmp = al_create_bitmap(arena_w, arena_h);
+    //mgr::bitmap::create_bitmap("arena_bitmap", arena_w, arena_h);
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
     arena_created = true;
 

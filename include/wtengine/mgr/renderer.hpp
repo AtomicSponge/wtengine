@@ -27,8 +27,9 @@
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/cmp/components.hpp"
-#include "wtengine/mgr/menu.hpp"
+#include "wtengine/mgr/bitmap.hpp"
 #include "wtengine/mgr/entities.hpp"
+#include "wtengine/mgr/menu.hpp"
 
 namespace wte
 {
@@ -193,29 +194,29 @@ class renderer final : private manager<renderer> {
             }
         };
 
-        inline static ALLEGRO_BITMAP* title_bmp = NULL;
-        inline static ALLEGRO_BITMAP* background_bmp = NULL;
-        inline static ALLEGRO_BITMAP* arena_bmp = NULL;
-        inline static ALLEGRO_BITMAP* render_tmp_bmp = NULL;
-        inline static ALLEGRO_FONT* overlay_font = NULL;
+        static ALLEGRO_BITMAP* title_bmp;
+        static ALLEGRO_BITMAP* background_bmp;
+        static ALLEGRO_BITMAP* arena_bmp;
+        static ALLEGRO_BITMAP* render_tmp_bmp;
+        static ALLEGRO_FONT* overlay_font;
 
-        inline static ALLEGRO_TIMER* fps_timer = NULL;
-        inline static ALLEGRO_EVENT_QUEUE* fps_event_queue = NULL;
-        inline static ALLEGRO_EVENT fps_event;
+        static ALLEGRO_TIMER* fps_timer;
+        static ALLEGRO_EVENT_QUEUE* fps_event_queue;
+        static ALLEGRO_EVENT fps_event;
 
-        inline static std::size_t fps_counter = 0, fps = 0;
+        static std::size_t fps_counter, fps;
 
-        inline static int screen_w = 0, screen_h = 0;
-        inline static float scale_factor = 1.0;
+        static int screen_w, screen_h;
+        static float scale_factor;
 
-        inline static int arena_w = 0, arena_h = 0;
-        inline static bool arena_created = false;
+        static int arena_w, arena_h;
+        static bool arena_created;
 
-        inline static std::string title_screen_file = "";
-        inline static std::string background_file = "";
-        inline static std::string render_font_file = "";
-        inline static int render_font_size = 0;
-        inline static int render_font_flags = 0;
+        static std::string title_screen_file;
+        static std::string background_file;
+        static std::string render_font_file;
+        static int render_font_size;
+        static int render_font_flags;
 };
 
 } //  namespace mgr

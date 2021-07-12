@@ -35,10 +35,29 @@ class bitmap final : private manager<bitmap> {
     friend class interface;
 
     public:
+        /*!
+         * \brief 
+         */
         static const bool load(const std::string& label, const std::string& fname);
+
+        /*!
+         * \brief 
+         */
         static const bool unload(const std::string& label);
+
+        /*!
+         * \brief 
+         */
         static const ALLEGRO_BITMAP* get(const std::string& label);
+
+        /*!
+         * \brief 
+         */
         static ALLEGRO_BITMAP* draw(const std::string& label);
+
+        /*!
+         * \brief 
+         */
         static const bool create_bitmap(const std::string& label, const int w, const int h);
 
     private:
@@ -52,6 +71,9 @@ class bitmap final : private manager<bitmap> {
          */
         ~bitmap();
 
+        /*!
+         * \brief 
+         */
         static void reload(void);
 
         inline static std::map<std::string, std::pair<ALLEGRO_BITMAP*, bool>> _bitmaps = {};

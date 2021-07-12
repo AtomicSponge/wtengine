@@ -121,7 +121,18 @@ const bool bitmap::create_bitmap(const std::string& label, const int w, const in
  *
  */
 ALLEGRO_BITMAP* bitmap::draw(const std::string& label) {
-    return NULL;
+    try {
+        auto temp_bitmap = _bitmaps.at(label);
+        if(temp_bitmap.second) {
+            return temp_bitmap.first;
+        } else {
+            std::string err_msg = "Can't draw to bitmap: " + label;
+            throw wte_exception(err_msg.c_str());
+        }
+    } catch(std::out_of_range& e) {
+        std::string err_msg = "Could not find bitmap: " + label;
+        throw wte_exception(err_msg.c_str());
+    }
 }
 
 } //  namespace mgr

@@ -474,10 +474,11 @@ inline void engine::handle_sys_msg(message_container& sys_msgs) {
                 if(timer_running) al_stop_timer(main_timer);
                 al_pause_event_queue(main_event_queue, true);
                 al_unregister_event_source(main_event_queue, al_get_display_event_source(_display));
+                //  Backup temp bitmaps.
+                mgr_inf.bitmap_backup();
                 //  Reload the display.
                 reconf_display();
                 //  Reload any temp bitmaps.
-                mgr_inf.menu_reload_bitmap();
                 mgr_inf.bitmap_reload();
                 if(config::flags::game_started) mgr_inf.systems_reload_temp_bitmaps();
                 //  Register display event source and resume timer if it was running.

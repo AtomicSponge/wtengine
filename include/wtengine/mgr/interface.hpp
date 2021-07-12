@@ -71,9 +71,16 @@ class interface : private manager<interface>  {
             mgr::audio::process_messages(messages);
         };
 
-        /* ********************************* */
+        /* ********************************** */
         /* *** BITMAP INTERFACE FUNCTIONS *** */
-        /* ********************************* */
+        /* ********************************** */
+        /*!
+         * \brief Backup all temp bitmaps.
+         */
+        inline void bitmap_backup(void) {
+            mgr::bitmap::backup();
+        };
+
         /*!
          * \brief Reload all temp bitmaps.
          */
@@ -96,13 +103,6 @@ class interface : private manager<interface>  {
          */
         inline void menu_de_init(void) {
             mgr::menu::de_init();
-        };
-
-        /*!
-         * \brief Reload menu manager internal bitmap,
-         */
-        inline void menu_reload_bitmap(void) {
-            mgr::menu::reload_menu_bitmap();
         };
 
         /*!

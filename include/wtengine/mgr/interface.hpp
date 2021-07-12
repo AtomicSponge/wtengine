@@ -14,6 +14,7 @@
 
 #include "wtengine/mgr/manager.hpp"
 #include "wtengine/mgr/audio.hpp"
+#include "wtengine/mgr/bitmap.hpp"
 #include "wtengine/mgr/menu.hpp"
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mgr/renderer.hpp"
@@ -68,6 +69,16 @@ class interface : private manager<interface>  {
          */
         inline void audio_process_messages(const message_container& messages) {
             mgr::audio::process_messages(messages);
+        };
+
+        /* ********************************* */
+        /* *** BITMAP INTERFACE FUNCTIONS *** */
+        /* ********************************* */
+        /*!
+         * \brief Reload all temp bitmaps.
+         */
+        inline void bitmap_reload(void) {
+            mgr::bitmap::reload();
         };
 
         /* ******************************** */

@@ -13,7 +13,6 @@
 #include <string>
 #include <map>
 #include <utility>
-#include <stdexcept>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_physfs.h>
@@ -33,13 +32,14 @@ namespace mgr
  * \brief wip
  */
 class bitmap final : private manager<bitmap> {
+    friend class interface;
+
     public:
         static const bool load(const std::string& label, const std::string& fname);
         static const bool unload(const std::string& label);
-        static void reload(void);
         static const ALLEGRO_BITMAP* get(const std::string& label);
-        static const bool create_bitmap(const std::string& label, const int w, const int h);
         static ALLEGRO_BITMAP* draw(const std::string& label);
+        static const bool create_bitmap(const std::string& label, const int w, const int h);
 
     private:
         /*!
@@ -51,6 +51,8 @@ class bitmap final : private manager<bitmap> {
          * \brief destructor.
          */
         ~bitmap();
+
+        static void reload(void);
 
         inline static std::map<std::string, std::pair<ALLEGRO_BITMAP*, bool>> _bitmaps = {};
 };

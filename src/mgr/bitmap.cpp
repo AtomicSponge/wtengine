@@ -76,6 +76,9 @@ const bool bitmap::unload(const std::string& label) {
     return false;
 }
 
+/*
+ *
+ */
 void bitmap::reload(void) {
     for(auto & it : _bitmaps) {
         if(it.second.second) {

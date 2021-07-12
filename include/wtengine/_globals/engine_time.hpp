@@ -10,7 +10,7 @@
 #ifndef WTE_ENGINE_TIME_HPP
 #define WTE_ENGINE_TIME_HPP
 
-#include <atomic>
+#include <cstdint>
 
 namespace wte
 {
@@ -30,13 +30,11 @@ class engine_time {
          * 
          * \return Timer value.
          */
-        static const int64_t check_time(void) {
-            return current_time.load(std::memory_order_acquire);
-        };
+        static const int64_t check_time(void);
 
     private:
-        engine_time() {};
-        ~engine_time() {};
+        inline engine_time() {};
+        inline ~engine_time() {};
 
         /*!
          * \brief Set the internal timer.
@@ -46,14 +44,10 @@ class engine_time {
          * 
          * \param t Timer value.
          */
-        static void set_time(const int64_t& t) {
-            current_time.store(t, std::memory_order_release);
-        };
+        static void set_time(const int64_t& t);
 
         //  Track game timer
-        inline static std::atomic<int64_t> current_time = 0;
-
-        friend class wte_main;
+        static int64_t current_time;
 };
 
 }  // end namespace wte

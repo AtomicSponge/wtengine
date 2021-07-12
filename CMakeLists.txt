@@ -60,6 +60,7 @@ add_library(wtengine STATIC
     src/display.cpp
     src/input.cpp
     src/_globals/alert.cpp
+    src/_globals/engine_time.cpp
     src/cmp/ai.cpp
     src/cmp/bounding_box.cpp
     src/cmp/direction.cpp

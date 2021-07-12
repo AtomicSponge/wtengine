@@ -79,24 +79,6 @@ const bool bitmap::unload(const std::string& label) {
 /*
  *
  */
-void bitmap::reload(void) {
-    for(auto & it : _bitmaps) {
-        if(it.second.second) {
-            int _width = al_get_bitmap_width(it.second.first);
-            int _height = al_get_bitmap_height(it.second.first);
-            al_destroy_bitmap(it.second.first);
-            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap(_width, _height);
-            it.second.first = al_clone_bitmap(temp_bitmap);
-            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            al_destroy_bitmap(temp_bitmap);
-        }
-    }
-}
-
-/*
- *
- */
 ALLEGRO_BITMAP* bitmap::get(const std::string& label) {
     try {
         return _bitmaps.at(label).first;
@@ -118,6 +100,24 @@ const bool bitmap::create_bitmap(const std::string& label, const int w, const in
     al_destroy_bitmap(temp_bitmap);
     if (!ret.second) return false;
     return true;
+}
+
+/*
+ *
+ */
+void bitmap::reload(void) {
+    for(auto & it : _bitmaps) {
+        if(it.second.second) {
+            int _width = al_get_bitmap_width(it.second.first);
+            int _height = al_get_bitmap_height(it.second.first);
+            al_destroy_bitmap(it.second.first);
+            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+            ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap(_width, _height);
+            it.second.first = al_clone_bitmap(temp_bitmap);
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+            al_destroy_bitmap(temp_bitmap);
+        }
+    }
 }
 
 } //  namespace mgr

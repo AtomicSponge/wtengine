@@ -13,10 +13,10 @@
 #include "wtengine/_globals/_defines.hpp"
 
 #include "wtengine/mnu/menu.hpp"
-#include "wtengine/mnu/menu_items.hpp"
-#include "wtengine/mgr/managers.hpp"
-#include "wtengine/cmp/components.hpp"
-#include "wtengine/sys/systems.hpp"
+#include "wtengine/mnu/_menu_items.hpp"
+#include "wtengine/mgr/_managers.hpp"
+#include "wtengine/cmp/_components.hpp"
+#include "wtengine/sys/_systems.hpp"
 
 #include "wtengine/engine.hpp"
 

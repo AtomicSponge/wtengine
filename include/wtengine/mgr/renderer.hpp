@@ -23,10 +23,10 @@
 #include "wtengine/mgr/manager.hpp"
 
 #include "wtengine/_globals/_defines.hpp"
+#include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
-#include "wtengine/_globals/alert.hpp"
-#include "wtengine/cmp/components.hpp"
+#include "wtengine/cmp/_components.hpp"
 #include "wtengine/mgr/bitmap.hpp"
 #include "wtengine/mgr/entities.hpp"
 #include "wtengine/mgr/menu.hpp"

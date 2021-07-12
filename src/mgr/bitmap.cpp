@@ -110,6 +110,7 @@ const bool bitmap::create_bitmap(const std::string& label, const int w, const in
  *
  */
 void bitmap::backup(void) {
+    _bitmaps_backup.clear();
     for (auto it = _bitmaps.begin(); it != _bitmaps.end();) {
         if(it->second.second) {
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);

@@ -26,7 +26,7 @@
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/mgr/bitmap.hpp"
 #include "wtengine/mgr/messages.hpp"
-#include "wtengine/mnu/menu_items.hpp"
+#include "wtengine/mnu/_menu_items.hpp"
 #include "wtengine/mnu/menu.hpp"
 
 namespace wte

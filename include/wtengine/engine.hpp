@@ -31,7 +31,7 @@
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/engine_time.hpp"
-#include "wtengine/mgr/managers.hpp"
+#include "wtengine/mgr/_managers.hpp"
 
 namespace wte
 {

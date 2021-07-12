@@ -13,9 +13,9 @@
 #include <string>
 #include <memory>
 
+#include "wtengine/cmp/_components.hpp"
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mgr/entities.hpp"
-#include "wtengine/cmp/components.hpp"
 
 namespace wte
 {

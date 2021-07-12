@@ -110,25 +110,31 @@ const bool bitmap::create_bitmap(const std::string& label, const int w, const in
  *
  */
 void bitmap::backup(void) {
-    //
+    for (auto it = _bitmaps.begin(); it != _bitmaps.end();) {
+        if(it->second.second) {
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+            _bitmaps_backup.insert(std::make_pair(it->first, al_clone_bitmap(it->second.first)));
+            //  Now delete the old item.
+            al_destroy_bitmap(it->second.first);
+            it = _bitmaps.erase(it);
+        }
+        else it++;
+    }
 }
 
 /*
  *
  */
 void bitmap::reload(void) {
-    for(auto & it : _bitmaps) {
-        if(it.second.second) {
-            int _width = al_get_bitmap_width(it.second.first);
-            int _height = al_get_bitmap_height(it.second.first);
-            al_destroy_bitmap(it.second.first);
-            al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap(_width, _height);
-            it.second.first = al_clone_bitmap(temp_bitmap);
-            al_destroy_bitmap(temp_bitmap);
-            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-        }
+    for (auto it = _bitmaps_backup.begin(); it != _bitmaps_backup.end();) {
+        al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+        _bitmaps.insert(std::make_pair(it->first, std::make_pair(al_clone_bitmap(it->second), true)));
+        //  Now delete the old backup item.
+        al_destroy_bitmap(it->second);
+        it = _bitmaps_backup.erase(it);
     }
+    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+    _bitmaps_backup.clear();
 }
 
 } //  namespace mgr

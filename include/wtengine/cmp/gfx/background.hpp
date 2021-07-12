@@ -58,13 +58,6 @@ class background final : public animator {
         ~background();
 
         /*!
-         * \brief Reload the background bitmap.
-         * 
-         * Called when the display is recreated.
-         */
-        void reload_background_bitmap(void);
-
-        /*!
          * \brief Get the saved color.
          * 
          * \return Allegro color object.

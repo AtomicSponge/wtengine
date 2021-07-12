@@ -38,11 +38,6 @@ background::background(
 background::~background() {}
 
 /*
- * remove
- */
-void background::reload_background_bitmap(void) {}
-
-/*
  *
  */
 ALLEGRO_COLOR background::get_color(void) const { return color; }

@@ -89,25 +89,6 @@ void systems::dispatch(void) {
     }
 }
 
-/*
- *
- */
-void systems::reload_temp_bitmaps() {
-    component_container<cmp::background> background_components =
-        mgr::entities::set_components<cmp::background>();
-
-    for(auto & it : background_components) {
-        it.second.get()->reload_background_bitmap();
-    }
-
-    component_container<cmp::overlay> overlay_components =
-        mgr::entities::set_components<cmp::overlay>();
-
-    for(auto & it : overlay_components) {
-        it.second.get()->reload_overlay_bitmap();
-    }
-}
-
 } //  namespace mgr
 
 } //  namespace wte

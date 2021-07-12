@@ -50,13 +50,6 @@ class overlay final : public animator {
         ~overlay();
 
         /*!
-         * \brief Reload the overlay bitmap.
-         * 
-         * Called when the screen is updated.
-         */
-        void reload_overlay_bitmap(void);
-
-        /*!
          * \brief Draw text on the overlay.
          * 
          * \param txt Text to be displayed.

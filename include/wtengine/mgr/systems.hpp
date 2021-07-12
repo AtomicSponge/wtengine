@@ -97,14 +97,6 @@ class systems final : private manager<systems> {
          */
         static void dispatch(void);
 
-        /*!
-         * \brief Reloads temporary bitmaps.
-         * 
-         * Any background or overlay drawing bitmaps will be recreated.
-         * Called when the screen is reloaded.
-         */
-        static void reload_temp_bitmaps(void);
-
         inline static std::vector<sys::system_uptr> _systems = {};  // Store the vector of systems.
 
         inline static bool finalized = false; //  Flag to disallow loading of additional systems.

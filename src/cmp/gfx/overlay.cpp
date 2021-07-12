@@ -34,11 +34,6 @@ overlay::~overlay() {
 }
 
 /*
- * remove
- */
-void overlay::reload_overlay_bitmap(void) {}
-
-/*
  *
  */
 void overlay::draw_text(

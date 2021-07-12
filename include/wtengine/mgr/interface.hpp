@@ -207,13 +207,6 @@ class interface : private manager<interface>  {
         inline void systems_dispatch(void) {
             mgr::systems::dispatch();
         };
-
-        /*!
-         * \brief Reload temp bitmaps.
-         */
-        inline void systems_reload_temp_bitmaps(void) {
-            mgr::systems::reload_temp_bitmaps();
-        };
 };
 
 template <> inline bool interface::manager<interface>::initialized = false;

@@ -103,7 +103,12 @@ class animator : public component {
         //inline animator(std::size_t l, void func(const entity_id&)) :
         inline animator(std::string bmp, std::size_t l, std::function<void(const entity_id&)> func) :
         internal_bitmap(bmp), layer(l), tint_set(false), animate(func) {
-            //  verify bmp exists
+            //  Verify bitmap exists.
+            try {
+                mgr::bitmap::get(internal_bitmap);
+            } catch(wte_exception& e) {
+                alert::set(e.what());
+            }
         };
 
         //!  Stores the bitmap used by the animator.

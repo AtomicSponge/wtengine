@@ -114,8 +114,8 @@ void bitmap::reload(void) {
             al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap(_width, _height);
             it.second.first = al_clone_bitmap(temp_bitmap);
-            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             al_destroy_bitmap(temp_bitmap);
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
         }
     }
 }

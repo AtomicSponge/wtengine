@@ -24,9 +24,10 @@
 #include <map>
 #include <stdexcept>
 
-#include "wtengine/display.hpp"
 #include "wtengine/config.hpp"
+#include "wtengine/display.hpp"
 #include "wtengine/input.hpp"
+
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/engine_time.hpp"

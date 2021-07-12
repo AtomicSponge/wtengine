@@ -154,13 +154,6 @@ class interface : private manager<interface>  {
         };
 
         /*!
-         * \brief Reload arena bitmap.
-         */
-        inline void renderer_reload_arena_bitmap(void) {
-            mgr::renderer::reload_arena_bitmap();
-        };
-
-        /*!
          * \brief Run renderer.
          */
         inline void renderer_run(void) {

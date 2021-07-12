@@ -19,7 +19,6 @@ template <> bool renderer::manager<renderer>::initialized = false;
 
 ALLEGRO_BITMAP* renderer::title_bmp = NULL;
 ALLEGRO_BITMAP* renderer::background_bmp = NULL;
-ALLEGRO_BITMAP* renderer::arena_bmp = NULL;
 ALLEGRO_BITMAP* renderer::render_tmp_bmp = NULL;
 ALLEGRO_FONT* renderer::overlay_font = NULL;
 
@@ -108,7 +107,6 @@ void renderer::initialize(void) {
 void renderer::de_init(void) {
     al_destroy_bitmap(title_bmp);
     al_destroy_bitmap(background_bmp);
-    al_destroy_bitmap(arena_bmp);
 
     al_destroy_font(overlay_font);
 
@@ -143,16 +141,6 @@ void renderer::set_scale_factor(const float& f) { scale_factor = f; }
  *
  */
 const int renderer::get_scale_factor() { return scale_factor; }
-
-/*
- *
- */
-void renderer::reload_arena_bitmap(void) {
-    al_destroy_bitmap(arena_bmp);
-    al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-    arena_bmp = al_create_bitmap(arena_w, arena_h);
-    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-}
 
 /*
  *

@@ -177,13 +177,6 @@ class renderer final : private manager<renderer> {
         static void de_init(void);
 
         /*!
-         * \brief Reload the arena bitmap.
-         * 
-         * Called when the screen is updated.
-         */
-        static void reload_arena_bitmap(void);
-
-        /*!
          * \brief Render method - Draw the game screen.
          */
         static void render(void);
@@ -196,7 +189,6 @@ class renderer final : private manager<renderer> {
 
         static ALLEGRO_BITMAP* title_bmp;
         static ALLEGRO_BITMAP* background_bmp;
-        static ALLEGRO_BITMAP* arena_bmp;
         static ALLEGRO_BITMAP* render_tmp_bmp;
         static ALLEGRO_FONT* overlay_font;
 

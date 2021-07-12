@@ -476,7 +476,6 @@ inline void engine::handle_sys_msg(message_container& sys_msgs) {
                 //  Reload the display.
                 reconf_display();
                 //  Reload any temp bitmaps.
-                mgr_inf.renderer_reload_arena_bitmap();
                 mgr_inf.menu_reload_bitmap();
                 mgr_inf.bitmap_reload();
                 if(config::flags::game_started) mgr_inf.systems_reload_temp_bitmaps();

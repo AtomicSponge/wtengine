@@ -47,10 +47,7 @@ int renderer::render_font_flags = 0;
 void renderer::initialize(void) {
     //  Create the arena bitmap.
     if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
-    al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-    arena_bmp = al_create_bitmap(arena_w, arena_h);
-    //mgr::bitmap::create_bitmap("arena_bitmap", arena_w, arena_h);
-    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+    mgr::bitmap::create_bitmap("arena_bitmap", arena_w, arena_h);
     arena_created = true;
 
     //  Load the title screen bitmap.
@@ -67,7 +64,7 @@ void renderer::initialize(void) {
             al_clear_to_color(WTE_COLOR_BLACK);
         } else {
             title_bmp = al_load_bitmap_f(file, title_screen_file.substr(title_screen_file.find("."),
-                                            title_screen_file.length()).c_str());
+                                         title_screen_file.length()).c_str());
         }
         al_fclose(file);
     }
@@ -231,7 +228,7 @@ void renderer::render(void) {
                               0, 0, screen_w, screen_h, 0);
 
         //  Set drawing to the arena bitmap.
-        al_set_target_bitmap(arena_bmp);
+        al_set_target_bitmap(mgr::bitmap::get("arena_bitmap"));
         al_clear_to_color(WTE_COLOR_BLACK);
 
         /*
@@ -355,7 +352,7 @@ void renderer::render(void) {
                                                     mgr::entities::get_component<cmp::hitbox>(it.first)->get_height());
                     al_set_target_bitmap(render_tmp_bmp);
                     al_clear_to_color(team_color);
-                    al_set_target_bitmap(arena_bmp);
+                    al_set_target_bitmap(mgr::bitmap::get("arena_bitmap"));
                     al_draw_bitmap(render_tmp_bmp,
                                 mgr::entities::get_component<cmp::location>(it.first)->get_x(),
                                 mgr::entities::get_component<cmp::location>(it.first)->get_y(), 0);
@@ -394,7 +391,7 @@ void renderer::render(void) {
          * Draw the arena bitmap to the screen.
          */
         al_set_target_backbuffer(al_get_current_display());
-        al_draw_scaled_bitmap(arena_bmp, 0, 0, arena_w, arena_h,
+        al_draw_scaled_bitmap(mgr::bitmap::get("arena_bitmap"), 0, 0, arena_w, arena_h,
                               (screen_w / 2) - (arena_w * scale_factor / 2),
                               (screen_h / 2) - (arena_h * scale_factor / 2),
                               arena_w * scale_factor, arena_h * scale_factor, 0);

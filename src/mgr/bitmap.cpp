@@ -43,7 +43,7 @@ const bool bitmap::load(const std::string& label, const std::string& fname) {
     }
 
     //  Load bitmap into a temp pointer.
-    al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
     ALLEGRO_BITMAP* temp_bitmap =
         al_load_bitmap_f(file, fname.substr(fname.find("."), fname.length()).c_str());
     al_fclose(file);
@@ -97,7 +97,7 @@ void bitmap::reload(void) {
 /*
  *
  */
-const ALLEGRO_BITMAP* bitmap::get(const std::string& label) {
+ALLEGRO_BITMAP* bitmap::get(const std::string& label) {
     try {
         return _bitmaps.at(label).first;
     } catch(std::out_of_range& e) {
@@ -118,24 +118,6 @@ const bool bitmap::create_bitmap(const std::string& label, const int w, const in
     al_destroy_bitmap(temp_bitmap);
     if (!ret.second) return false;
     return true;
-}
-
-/*
- *
- */
-ALLEGRO_BITMAP* bitmap::draw(const std::string& label) {
-    try {
-        auto temp_bitmap = _bitmaps.at(label);
-        if(temp_bitmap.second) {
-            return temp_bitmap.first;
-        } else {
-            std::string err_msg = "Can't draw to bitmap: " + label;
-            throw wte_exception(err_msg.c_str());
-        }
-    } catch(std::out_of_range& e) {
-        std::string err_msg = "Could not find bitmap: " + label;
-        throw wte_exception(err_msg.c_str());
-    }
 }
 
 } //  namespace mgr

@@ -48,12 +48,7 @@ class bitmap final : private manager<bitmap> {
         /*!
          * \brief 
          */
-        static const ALLEGRO_BITMAP* get(const std::string& label);
-
-        /*!
-         * \brief 
-         */
-        static ALLEGRO_BITMAP* draw(const std::string& label);
+        static ALLEGRO_BITMAP* get(const std::string& label);
 
         /*!
          * \brief 

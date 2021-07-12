@@ -187,7 +187,7 @@ class renderer final : private manager<renderer> {
             }
         };
 
-        static ALLEGRO_BITMAP* render_tmp_bmp;
+        static ALLEGRO_BITMAP* temp_bitmap;
         static ALLEGRO_FONT* overlay_font;
 
         static ALLEGRO_TIMER* fps_timer;

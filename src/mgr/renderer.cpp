@@ -17,7 +17,7 @@ namespace mgr
 
 template <> bool renderer::manager<renderer>::initialized = false;
 
-ALLEGRO_BITMAP* renderer::render_tmp_bmp = NULL;
+ALLEGRO_BITMAP* renderer::temp_bitmap = NULL;
 ALLEGRO_FONT* renderer::overlay_font = NULL;
 
 ALLEGRO_TIMER* renderer::fps_timer = NULL;
@@ -241,7 +241,7 @@ void renderer::render(void) {
             try {
                 if(mgr::entities::get_component<cmp::visible>(it.first)->check()) {
                     //  Get the current sprite frame.
-                    render_tmp_bmp = al_create_sub_bitmap(
+                    temp_bitmap = al_create_sub_bitmap(
                         &it.second->get_bitmap(),
                         it.second->get_sprite_x(),
                         it.second->get_sprite_y(),
@@ -257,14 +257,14 @@ void renderer::render(void) {
                         //  Check if the sprite should be rotated.
                         if(mgr::entities::get_component<cmp::direction>(it.first)->show_rotated()) {
                             sprite_angle = mgr::entities::get_component<cmp::direction>(it.first)->get_radians();
-                            center_x = (al_get_bitmap_width(render_tmp_bmp) / 2);
-                            center_y = (al_get_bitmap_height(render_tmp_bmp) / 2);
+                            center_x = (al_get_bitmap_width(temp_bitmap) / 2);
+                            center_y = (al_get_bitmap_height(temp_bitmap) / 2);
 
                             destination_x = mgr::entities::get_component<cmp::location>(it.first)->get_x() +
-                                (al_get_bitmap_width(render_tmp_bmp) * it.second->get_scale_factor_x() / 2) +
+                                (al_get_bitmap_width(temp_bitmap) * it.second->get_scale_factor_x() / 2) +
                                 (it.second->get_draw_offset_x() * it.second->get_scale_factor_x());
                             destination_y = mgr::entities::get_component<cmp::location>(it.first)->get_y() +
-                                (al_get_bitmap_height(render_tmp_bmp) * it.second->get_scale_factor_y() / 2) +
+                                (al_get_bitmap_height(temp_bitmap) * it.second->get_scale_factor_y() / 2) +
                                 (it.second->get_draw_offset_y() * it.second->get_scale_factor_y());
                         } else {
                                 destination_x = mgr::entities::get_component<cmp::location>(it.first)->get_x() +
@@ -282,7 +282,7 @@ void renderer::render(void) {
                     //  Draw the sprite.
                     if(it.second->draw_tinted())
                         al_draw_tinted_scaled_rotated_bitmap(
-                            render_tmp_bmp, it.second->get_tint(),
+                            temp_bitmap, it.second->get_tint(),
                             center_x, center_y, destination_x, destination_y,
                             it.second->get_scale_factor_x(),
                             it.second->get_scale_factor_y(),
@@ -290,12 +290,12 @@ void renderer::render(void) {
                         );
                     else
                         al_draw_scaled_rotated_bitmap(
-                            render_tmp_bmp, center_x, center_y, destination_x, destination_y,
+                            temp_bitmap, center_x, center_y, destination_x, destination_y,
                             it.second->get_scale_factor_x(),
                             it.second->get_scale_factor_y(),
                             sprite_angle, 0
                         );
-                    al_destroy_bitmap(render_tmp_bmp);
+                    al_destroy_bitmap(temp_bitmap);
                 }
             } catch(const wte_exception& e) { alert::set_alert(e.what()); }
         }
@@ -319,15 +319,15 @@ void renderer::render(void) {
                         default: team_color = WTE_COLOR_YELLOW;
                     }
                     //  Draw the hitbox.
-                    render_tmp_bmp = al_create_bitmap(mgr::entities::get_component<cmp::hitbox>(it.first)->get_width(),
+                    temp_bitmap = al_create_bitmap(mgr::entities::get_component<cmp::hitbox>(it.first)->get_width(),
                                                     mgr::entities::get_component<cmp::hitbox>(it.first)->get_height());
-                    al_set_target_bitmap(render_tmp_bmp);
+                    al_set_target_bitmap(temp_bitmap);
                     al_clear_to_color(team_color);
                     al_set_target_bitmap(mgr::bitmap::get("arena_bitmap"));
-                    al_draw_bitmap(render_tmp_bmp,
+                    al_draw_bitmap(temp_bitmap,
                                 mgr::entities::get_component<cmp::location>(it.first)->get_x(),
                                 mgr::entities::get_component<cmp::location>(it.first)->get_y(), 0);
-                    al_destroy_bitmap(render_tmp_bmp);
+                    al_destroy_bitmap(temp_bitmap);
                 }  //  End hitbox/enabled test.
             } catch(const wte_exception& e) { alert::set_alert(e.what()); }
         }  //  End render component loop.
@@ -380,18 +380,18 @@ void renderer::render(void) {
      * Render game menu if it's opened.
      */
     if(config::flags::game_menu_opened) {
-        render_tmp_bmp = al_clone_bitmap(mgr::menu::render_menu());
+        temp_bitmap = al_clone_bitmap(mgr::menu::render_menu());
         al_set_target_backbuffer(al_get_current_display());
 
         al_draw_scaled_bitmap(
-            render_tmp_bmp, 0, 0,
-            al_get_bitmap_width(render_tmp_bmp), al_get_bitmap_height(render_tmp_bmp),
-            (screen_w / 2) - std::floor((al_get_bitmap_width(render_tmp_bmp) * scale_factor) / 2),
-            (screen_h / 2) - std::floor((al_get_bitmap_height(render_tmp_bmp) * scale_factor) / 2),
-            al_get_bitmap_width(render_tmp_bmp) * scale_factor,
-            al_get_bitmap_height(render_tmp_bmp) * scale_factor, 0
+            temp_bitmap, 0, 0,
+            al_get_bitmap_width(temp_bitmap), al_get_bitmap_height(temp_bitmap),
+            (screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * scale_factor) / 2),
+            (screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * scale_factor) / 2),
+            al_get_bitmap_width(temp_bitmap) * scale_factor,
+            al_get_bitmap_height(temp_bitmap) * scale_factor, 0
         );
-        al_destroy_bitmap(render_tmp_bmp);
+        al_destroy_bitmap(temp_bitmap);
     }
 
     /*
@@ -400,24 +400,24 @@ void renderer::render(void) {
     if(alert::is_set()) {
         int font_size = al_get_font_line_height(overlay_font);
 
-        render_tmp_bmp = al_create_bitmap((alert::get_alert().length() * font_size) + 20, font_size + 20);
-        al_set_target_bitmap(render_tmp_bmp);
+        temp_bitmap = al_create_bitmap((alert::get_alert().length() * font_size) + 20, font_size + 20);
+        al_set_target_bitmap(temp_bitmap);
         al_clear_to_color(alert::get_bg_color());
 
         al_draw_text(overlay_font, alert::get_font_color(),
-                     (al_get_bitmap_width(render_tmp_bmp) / 2), 10,
+                     (al_get_bitmap_width(temp_bitmap) / 2), 10,
                      ALLEGRO_ALIGN_CENTER, alert::get_alert().c_str());
 
         al_set_target_backbuffer(al_get_current_display());
         al_draw_scaled_bitmap(
-            render_tmp_bmp, 0, 0,
-            al_get_bitmap_width(render_tmp_bmp), al_get_bitmap_height(render_tmp_bmp),
-            (screen_w / 2) - std::floor((al_get_bitmap_width(render_tmp_bmp) * scale_factor) / 2),
-            (screen_h / 2) - std::floor((al_get_bitmap_height(render_tmp_bmp) * scale_factor) / 2),
-            al_get_bitmap_width(render_tmp_bmp) * scale_factor,
-            al_get_bitmap_height(render_tmp_bmp) * scale_factor, 0
+            temp_bitmap, 0, 0,
+            al_get_bitmap_width(temp_bitmap), al_get_bitmap_height(temp_bitmap),
+            (screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * scale_factor) / 2),
+            (screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * scale_factor) / 2),
+            al_get_bitmap_width(temp_bitmap) * scale_factor,
+            al_get_bitmap_height(temp_bitmap) * scale_factor, 0
         );
-        al_destroy_bitmap(render_tmp_bmp);
+        al_destroy_bitmap(temp_bitmap);
     }
 
     /*

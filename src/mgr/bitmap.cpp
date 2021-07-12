@@ -109,6 +109,13 @@ const bool bitmap::create_bitmap(const std::string& label, const int w, const in
 /*
  *
  */
+void bitmap::backup(void) {
+    //
+}
+
+/*
+ *
+ */
 void bitmap::reload(void) {
     for(auto & it : _bitmaps) {
         if(it.second.second) {

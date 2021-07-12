@@ -69,6 +69,11 @@ class bitmap final : private manager<bitmap> {
         /*!
          * \brief 
          */
+        static void backup(void);
+
+        /*!
+         * \brief 
+         */
         static void reload(void);
 
         static std::map<std::string, std::pair<ALLEGRO_BITMAP*, bool>> _bitmaps;

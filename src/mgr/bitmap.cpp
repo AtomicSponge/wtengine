@@ -17,6 +17,9 @@ namespace mgr
 
 template <> bool bitmap::manager<bitmap>::initialized = false;
 
+std::map<std::string, std::pair<ALLEGRO_BITMAP*, bool>> bitmap::_bitmaps = {};
+std::map<std::string, ALLEGRO_BITMAP*> bitmap::_bitmaps_backup = {};
+
 /*
  *
  */

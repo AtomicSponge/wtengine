@@ -71,7 +71,8 @@ class bitmap final : private manager<bitmap> {
          */
         static void reload(void);
 
-        inline static std::map<std::string, std::pair<ALLEGRO_BITMAP*, bool>> _bitmaps = {};
+        static std::map<std::string, std::pair<ALLEGRO_BITMAP*, bool>> _bitmaps;
+        static std::map<std::string, ALLEGRO_BITMAP*> _bitmaps_backup;
 };
 
 } //  namespace mgr

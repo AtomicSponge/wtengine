@@ -29,7 +29,7 @@ namespace mgr
 
 /*!
  * \class bitmap
- * \brief wip
+ * \brief Stores an index of bitmaps.
  */
 class bitmap final : private manager<bitmap> {
     friend class interface;

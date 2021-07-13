@@ -30,7 +30,7 @@ namespace mgr
 
 /*!
  * \class audio
- * \brief Handles audio messages in a thread.
+ * \brief Handles audio messages.
  * 
  * Messages get passed from the main engine loop via transfer_messages(). \n 
  * The Audio Manager is then implemented as a thread, creating local Allegro objects. \n 

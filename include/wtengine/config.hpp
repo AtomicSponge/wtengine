@@ -27,6 +27,10 @@ class config {
     public:
         inline virtual ~config() {};
 
+        /*!
+         * \struct flags
+         * \brief Engine flags.
+         */
         struct flags {
             inline static bool is_running = true;
             inline static bool game_started = false;
@@ -36,6 +40,10 @@ class config {
             inline static bool input_enabled = true;
         };
 
+        /*!
+         * \struct volume
+         * \brief Volume levels.
+         */
         struct volume {
             inline static float main = 1.0f;
             inline static float mix1 = 1.0f;
@@ -44,12 +52,20 @@ class config {
             inline static float mix4 = 1.0f;
         };
 
+        /*!
+         * \struct gfx
+         * \brief Graphics settings.
+         */
         struct gfx {
             inline static std::size_t vsync = 2;
             inline static std::size_t display_mode = 0;
             inline static float scale_factor = 1.0f;
         };
 
+        /*!
+         * \struct controls
+         * \brief Control binding settings.
+         */
         struct controls {
             inline static int key_menu = WTE_KEY_MENU_DEFAULT;
             inline static int key_menu_select = WTE_KET_MENU_SELECT_DEFAULT;

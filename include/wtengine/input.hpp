@@ -38,8 +38,22 @@ class input {
          */
         inline virtual ~input() {};
 
+        /*!
+         * \struct event
+         * \brief Input event macros.
+         */
         struct event {
+
+            /*!
+             * \struct p1
+             * \brief Player 1 input events.
+             */
             struct p1 {
+
+                /*!
+                 * \struct ondown
+                 * \brief Player 1 on down events.
+                 */
                 struct ondown {
                     inline static std::function<void(void)> up = [](){};
                     inline static std::function<void(void)> down = [](){};
@@ -52,6 +66,11 @@ class input {
                     inline static std::function<void(void)> action5 = [](){};
                     inline static std::function<void(void)> action6 = [](){};
                 };
+
+                /*!
+                 * \struct onup
+                 * \brief Player 1 on up events.
+                 */
                 struct onup {
                     inline static std::function<void(void)> up = [](){};
                     inline static std::function<void(void)> down = [](){};
@@ -66,7 +85,16 @@ class input {
                 };
             };
 
+            /*!
+             * \struct p2
+             * \brief Player 2 input events.
+             */
             struct p2 {
+                
+                /*!
+                 * \struct ondown
+                 * \brief Player 2 on down events.
+                 */
                 struct ondown {
                     inline static std::function<void(void)> up = [](){};
                     inline static std::function<void(void)> down = [](){};
@@ -79,6 +107,11 @@ class input {
                     inline static std::function<void(void)> action5 = [](){};
                     inline static std::function<void(void)> action6 = [](){};
                 };
+                
+                /*!
+                 * \struct onup
+                 * \brief Player 2 on up events.
+                 */
                 struct onup {
                     inline static std::function<void(void)> up = [](){};
                     inline static std::function<void(void)> down = [](){};

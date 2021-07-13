@@ -626,6 +626,7 @@ void wte_demo::new_game(void) {
     /*  (4) Velocity                          */
     /*  (5) Size                              */
     /* ************************************** */
+    mgr::bitmap::load("asteroid.bmp", "asteroid");
     mgr::spawner::add_spawn("asteroid", 5,
         [](const entity_id& e_id, const msg_arg_list& args) {
             int temp_size = std::stoi(args[5]);
@@ -645,7 +646,6 @@ void wte_demo::new_game(void) {
             wte_new_component(e_id, cmp::visible);
             wte_new_component(e_id, cmp::enabled);
 
-            mgr::bitmap::load("asteroid.bmp", "asteroid");
             wte_new_component(e_id, cmp::sprite, "asteroid", 16.0f, 16.0f, 0.0f, 0.0f, (int)(30 / std::stof(args[4])), 0);
             wte_set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
             wte_set_component(e_id, cmp::sprite)->set_cycle("main");

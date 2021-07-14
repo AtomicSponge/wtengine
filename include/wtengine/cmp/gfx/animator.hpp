@@ -18,7 +18,7 @@
 
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
-#include "wtengine/mgr/bitmap.hpp"
+#include "wtengine/mgr/assets.hpp"
 #include "wtengine/mgr/entities.hpp"
 
 namespace wte
@@ -105,7 +105,7 @@ class animator : public component {
         internal_bitmap(bmp), layer(l), tint_set(false), animate(func) {
             //  Verify bitmap exists.
             try {
-                mgr::bitmap::get(internal_bitmap);
+                mgr::assets::get(internal_bitmap);
             } catch(wte_exception& e) {
                 alert::set(e.what());
             }

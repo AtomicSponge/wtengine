@@ -44,31 +44,31 @@ int renderer::render_font_flags = 0;
 void renderer::initialize(void) {
     //  Create the arena bitmap.
     if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
-    mgr::bitmap::create_bitmap("arena_bitmap", arena_w, arena_h);
+    mgr::assets::create_bitmap("arena_bitmap", arena_w, arena_h);
     arena_created = true;
 
     //  Load the title screen bitmap.
     if(title_screen_file.empty()) {
-        mgr::bitmap::create_bitmap("title_bitmap", 1, 1);
-        al_set_target_bitmap(mgr::bitmap::get("title_bitmap"));
+        mgr::assets::create_bitmap("title_bitmap", 1, 1);
+        al_set_target_bitmap(mgr::assets::get("title_bitmap"));
         al_clear_to_color(WTE_COLOR_BLACK);
     } else {
-        if(!mgr::bitmap::load(title_screen_file, "title_bitmap")) {
-            mgr::bitmap::create_bitmap("title_bitmap", 1, 1);
-            al_set_target_bitmap(mgr::bitmap::get("title_bitmap"));
+        if(!mgr::assets::load(title_screen_file, "title_bitmap")) {
+            mgr::assets::create_bitmap("title_bitmap", 1, 1);
+            al_set_target_bitmap(mgr::assets::get("title_bitmap"));
             al_clear_to_color(WTE_COLOR_BLACK);
         }
     }
 
     //  Load the background bitmap.
     if(background_file.empty()) {
-        mgr::bitmap::create_bitmap("background_bitmap", 1, 1);
-        al_set_target_bitmap(mgr::bitmap::get("background_bitmap"));
+        mgr::assets::create_bitmap("background_bitmap", 1, 1);
+        al_set_target_bitmap(mgr::assets::get("background_bitmap"));
         al_clear_to_color(WTE_COLOR_BLACK);
     } else {
-        if(!mgr::bitmap::load(background_file, "background_bitmap")) {
-            mgr::bitmap::create_bitmap("background_bitmap", 1, 1);
-            al_set_target_bitmap(mgr::bitmap::get("background_bitmap"));
+        if(!mgr::assets::load(background_file, "background_bitmap")) {
+            mgr::assets::create_bitmap("background_bitmap", 1, 1);
+            al_set_target_bitmap(mgr::assets::get("background_bitmap"));
             al_clear_to_color(WTE_COLOR_BLACK);
         }
     }
@@ -193,13 +193,13 @@ void renderer::render(void) {
         /*
          * Draw the full screen background.
          */
-        al_draw_scaled_bitmap(mgr::bitmap::get("background_bitmap"), 0, 0,
-                              al_get_bitmap_width(mgr::bitmap::get("background_bitmap")),
-                              al_get_bitmap_height(mgr::bitmap::get("background_bitmap")),
+        al_draw_scaled_bitmap(mgr::assets::get("background_bitmap"), 0, 0,
+                              al_get_bitmap_width(mgr::assets::get("background_bitmap")),
+                              al_get_bitmap_height(mgr::assets::get("background_bitmap")),
                               0, 0, screen_w, screen_h, 0);
 
         //  Set drawing to the arena bitmap.
-        al_set_target_bitmap(mgr::bitmap::get("arena_bitmap"));
+        al_set_target_bitmap(mgr::assets::get("arena_bitmap"));
         al_clear_to_color(WTE_COLOR_BLACK);
 
         /*
@@ -218,9 +218,9 @@ void renderer::render(void) {
             try {
                 if(mgr::entities::get_component<cmp::visible>(it.first)->check()) {
                     if(it.second->draw_tinted())
-                        al_draw_tinted_bitmap(mgr::bitmap::get(it.second->get_bitmap()), it.second->get_tint(), 0, 0, 0);
+                        al_draw_tinted_bitmap(mgr::assets::get(it.second->get_bitmap()), it.second->get_tint(), 0, 0, 0);
                     else
-                        al_draw_bitmap(mgr::bitmap::get(it.second->get_bitmap()), 0, 0, 0);
+                        al_draw_bitmap(mgr::assets::get(it.second->get_bitmap()), 0, 0, 0);
                 }
             } catch(const wte_exception& e) { alert::set_alert(e.what()); }
         }
@@ -242,7 +242,7 @@ void renderer::render(void) {
                 if(mgr::entities::get_component<cmp::visible>(it.first)->check()) {
                     //  Get the current sprite frame.
                     temp_bitmap = al_create_sub_bitmap(
-                        mgr::bitmap::get(it.second->get_bitmap()),
+                        mgr::assets::get(it.second->get_bitmap()),
                         it.second->get_sprite_x(),
                         it.second->get_sprite_y(),
                         it.second->get_sprite_width(),
@@ -323,7 +323,7 @@ void renderer::render(void) {
                                                     mgr::entities::get_component<cmp::hitbox>(it.first)->get_height());
                     al_set_target_bitmap(temp_bitmap);
                     al_clear_to_color(team_color);
-                    al_set_target_bitmap(mgr::bitmap::get("arena_bitmap"));
+                    al_set_target_bitmap(mgr::assets::get("arena_bitmap"));
                     al_draw_bitmap(temp_bitmap,
                                 mgr::entities::get_component<cmp::location>(it.first)->get_x(),
                                 mgr::entities::get_component<cmp::location>(it.first)->get_y(), 0);
@@ -350,12 +350,12 @@ void renderer::render(void) {
                 if(mgr::entities::get_component<cmp::visible>(it.first)->check()) {
                     if(it.second->draw_tinted())
                         al_draw_tinted_bitmap(
-                            mgr::bitmap::get(it.second->get_bitmap()), it.second->get_tint(),
+                            mgr::assets::get(it.second->get_bitmap()), it.second->get_tint(),
                             it.second->get_pos_x(), it.second->get_pos_y(), 0
                         );
                     else
                         al_draw_bitmap(
-                            mgr::bitmap::get(it.second->get_bitmap()),
+                            mgr::assets::get(it.second->get_bitmap()),
                             it.second->get_pos_x(), it.second->get_pos_y(), 0
                         );
                 }
@@ -366,7 +366,7 @@ void renderer::render(void) {
          * Draw the arena bitmap to the screen.
          */
         al_set_target_backbuffer(al_get_current_display());
-        al_draw_scaled_bitmap(mgr::bitmap::get("arena_bitmap"), 0, 0, arena_w, arena_h,
+        al_draw_scaled_bitmap(mgr::assets::get("arena_bitmap"), 0, 0, arena_w, arena_h,
                               (screen_w / 2) - (arena_w * scale_factor / 2),
                               (screen_h / 2) - (arena_h * scale_factor / 2),
                               arena_w * scale_factor, arena_h * scale_factor, 0);
@@ -374,9 +374,9 @@ void renderer::render(void) {
         /*
          * Game is not running - draw the title screen.
          */
-        al_draw_scaled_bitmap(mgr::bitmap::get("title_bitmap"), 0, 0,
-                              al_get_bitmap_width(mgr::bitmap::get("title_bitmap")),
-                              al_get_bitmap_height(mgr::bitmap::get("title_bitmap")),
+        al_draw_scaled_bitmap(mgr::assets::get("title_bitmap"), 0, 0,
+                              al_get_bitmap_width(mgr::assets::get("title_bitmap")),
+                              al_get_bitmap_height(mgr::assets::get("title_bitmap")),
                               0, 0, screen_w, screen_h, 0);
     }
 

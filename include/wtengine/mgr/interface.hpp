@@ -12,10 +12,10 @@
 
 #include <allegro5/allegro.h>
 
+#include "wtengine/mgr/assets.hpp"
 #include "wtengine/mgr/manager.hpp"
 #include "wtengine/mgr/audio.hpp"
-#include "wtengine/mgr/bitmap.hpp"
-#include "wtengine/mgr/menu.hpp"
+#include "wtengine/mgr/menus.hpp"
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mgr/renderer.hpp"
 #include "wtengine/mgr/spawner.hpp"
@@ -72,20 +72,20 @@ class interface : private manager<interface>  {
         };
 
         /* ********************************** */
-        /* *** BITMAP INTERFACE FUNCTIONS *** */
+        /* *** ASSETS INTERFACE FUNCTIONS *** */
         /* ********************************** */
         /*!
          * \brief Backup all temp bitmaps.
          */
         inline void bitmap_backup(void) {
-            mgr::bitmap::backup();
+            mgr::assets::backup();
         };
 
         /*!
          * \brief Reload all temp bitmaps.
          */
         inline void bitmap_reload(void) {
-            mgr::bitmap::reload();
+            mgr::assets::reload();
         };
 
         /* ******************************** */

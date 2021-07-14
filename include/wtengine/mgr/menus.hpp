@@ -24,7 +24,7 @@
 
 #include "wtengine/config.hpp"
 #include "wtengine/_globals/_defines.hpp"
-#include "wtengine/mgr/bitmap.hpp"
+#include "wtengine/mgr/assets.hpp"
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mnu/_menu_items.hpp"
 #include "wtengine/mnu/menu.hpp"
@@ -63,8 +63,8 @@ class menu final : private manager<menu> {
             menu_width = mw;
             menu_height = mh;
             menu_padding = mp;
-            mgr::bitmap::unload("menu_bitmap");
-            mgr::bitmap::create_bitmap("menu_bitmap", menu_width, menu_height);
+            mgr::assets::unload("menu_bitmap");
+            mgr::assets::create_bitmap("menu_bitmap", menu_width, menu_height);
         };
 
         /*!
@@ -292,7 +292,7 @@ class menu final : private manager<menu> {
             cursor_bitmap = al_create_bitmap(font_size, font_size);
 
             //  Create the the menu bitmap for rendering.
-            mgr::bitmap::create_bitmap("menu_bitmap", menu_width, menu_height);
+            mgr::assets::create_bitmap("menu_bitmap", menu_width, menu_height);
 
             //  Create timer & its queue.
             menu_timer = al_create_timer(1.0f / 30.0f);
@@ -482,12 +482,12 @@ inline void menu::run(void) {
  */
 inline ALLEGRO_BITMAP* menu::render_menu(void) {
     //  Set drawing to the menu bitmap.
-    al_set_target_bitmap(mgr::bitmap::get("menu_bitmap"));
+    al_set_target_bitmap(mgr::assets::get("menu_bitmap"));
     al_clear_to_color(menu_bg_color);
 
     //  If the menu stack is empty then the run member hasn't been called yet.
     //  Return a blank bitmap for now.
-    if(opened_menus.empty()) return mgr::bitmap::get("menu_bitmap");
+    if(opened_menus.empty()) return mgr::assets::get("menu_bitmap");
 
     //  Render menu title.
     al_draw_text(menu_font, menu_font_color, menu_width / 2, menu_padding,
@@ -512,7 +512,7 @@ inline ALLEGRO_BITMAP* menu::render_menu(void) {
     //  Render menu cursor.
     if(opened_menus.top()->num_items() != 0) al_draw_bitmap(cursor_bitmap, menu_padding, cursor_pos, 0);
 
-    return mgr::bitmap::get("menu_bitmap");
+    return mgr::assets::get("menu_bitmap");
 }
 
 }  // end namespace mgr

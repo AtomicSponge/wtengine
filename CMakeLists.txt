@@ -75,8 +75,8 @@ add_library(wtengine STATIC
     src/cmp/gfx/background.cpp
     src/cmp/gfx/overlay.cpp
     src/cmp/gfx/sprite.cpp
+    src/mgr/assets.cpp
     src/mgr/audio.cpp
-    src/mgr/bitmap.cpp
     src/mgr/messages.cpp
     src/mgr/renderer.cpp
     src/mgr/spawner.cpp

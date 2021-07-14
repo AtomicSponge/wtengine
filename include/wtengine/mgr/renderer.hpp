@@ -27,9 +27,9 @@
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/cmp/_components.hpp"
-#include "wtengine/mgr/bitmap.hpp"
+#include "wtengine/mgr/assets.hpp"
 #include "wtengine/mgr/entities.hpp"
-#include "wtengine/mgr/menu.hpp"
+#include "wtengine/mgr/menus.hpp"
 
 namespace wte
 {

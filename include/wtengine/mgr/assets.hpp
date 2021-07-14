@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  bitmap.hpp
+ * WTEngine | File:  assets.hpp
  * 
  * \author Matthew Evans
  * \version 0.3
@@ -7,8 +7,8 @@
  * \date 2019-2021
  */
 
-#ifndef WTE_MGR_BITMAP_HPP
-#define WTE_MGR_BITMAP_HPP
+#ifndef WTE_MGR_ASSETS_HPP
+#define WTE_MGR_ASSETS_HPP
 
 #include <string>
 #include <map>
@@ -28,10 +28,10 @@ namespace mgr
 {
 
 /*!
- * \class bitmap
- * \brief Stores an index of bitmaps.
+ * \class assets
+ * \brief Stores an index of assetss.
  */
-class bitmap final : private manager<bitmap> {
+class assets final : private manager<assets> {
     friend class interface;
 
     public:
@@ -59,12 +59,12 @@ class bitmap final : private manager<bitmap> {
         /*!
          * \brief constructor.
          */
-        bitmap();
+        assets();
 
         /*!
          * \brief destructor.
          */
-        ~bitmap();
+        ~assets();
 
         /*!
          * \brief 

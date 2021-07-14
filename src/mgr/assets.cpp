@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  bitmap.cpp
+ * WTEngine | File:  assets.cpp
  * 
  * \author Matthew Evans
  * \version 0.3
@@ -7,7 +7,7 @@
  * \date 2019-2021
  */
 
-#include "wtengine/mgr/bitmap.hpp"
+#include "wtengine/mgr/assets.hpp"
 
 namespace wte
 {
@@ -15,20 +15,20 @@ namespace wte
 namespace mgr
 {
 
-template <> bool bitmap::manager<bitmap>::initialized = false;
+template <> bool assets::manager<assets>::initialized = false;
 
-std::map<std::string, std::pair<ALLEGRO_BITMAP*, bool>> bitmap::_bitmaps = {};
-std::map<std::string, ALLEGRO_BITMAP*> bitmap::_bitmaps_backup = {};
-
-/*
- *
- */
-bitmap::bitmap() { _bitmaps.clear(); }
+std::map<std::string, std::pair<ALLEGRO_BITMAP*, bool>> assets::_bitmaps = {};
+std::map<std::string, ALLEGRO_BITMAP*> assets::_bitmaps_backup = {};
 
 /*
  *
  */
-bitmap::~bitmap() {
+assets::assets() { _bitmaps.clear(); }
+
+/*
+ *
+ */
+assets::~assets() {
     for(auto & it : _bitmaps) al_destroy_bitmap(it.second.first);
     _bitmaps.clear();
 }
@@ -36,7 +36,7 @@ bitmap::~bitmap() {
 /*
  *
  */
-const bool bitmap::load(const std::string& fname, const std::string& label) {
+const bool assets::load(const std::string& fname, const std::string& label) {
     //  Load the file.
     ALLEGRO_FILE* file;
     file = al_fopen(fname.c_str(), "rb");
@@ -70,7 +70,7 @@ const bool bitmap::load(const std::string& fname, const std::string& label) {
 /*
  *
  */
-const bool bitmap::unload(const std::string& label) {
+const bool assets::unload(const std::string& label) {
     auto it = _bitmaps.find(label);
     if(it != _bitmaps.end()) {
         al_destroy_bitmap(it->second.first);
@@ -83,7 +83,7 @@ const bool bitmap::unload(const std::string& label) {
 /*
  *
  */
-ALLEGRO_BITMAP* bitmap::get(const std::string& label) {
+ALLEGRO_BITMAP* assets::get(const std::string& label) {
     try {
         return _bitmaps.at(label).first;
     } catch(std::out_of_range& e) {
@@ -95,7 +95,7 @@ ALLEGRO_BITMAP* bitmap::get(const std::string& label) {
 /*
  *
  */
-const bool bitmap::create_bitmap(const std::string& label, const int w, const int h) {
+const bool assets::create_bitmap(const std::string& label, const int w, const int h) {
     al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
     ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap(w, h);
     if(!temp_bitmap) return false;
@@ -109,7 +109,7 @@ const bool bitmap::create_bitmap(const std::string& label, const int w, const in
 /*
  *
  */
-void bitmap::backup(void) {
+void assets::backup(void) {
     _bitmaps_backup.clear();
     for (auto it = _bitmaps.begin(); it != _bitmaps.end();) {
         if(it->second.second) {
@@ -126,7 +126,7 @@ void bitmap::backup(void) {
 /*
  *
  */
-void bitmap::reload(void) {
+void assets::reload(void) {
     for (auto it = _bitmaps_backup.begin(); it != _bitmaps_backup.end();) {
         al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
         _bitmaps.insert(std::make_pair(it->first, std::make_pair(al_clone_bitmap(it->second), true)));

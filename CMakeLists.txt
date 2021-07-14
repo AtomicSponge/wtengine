@@ -15,7 +15,7 @@
 ########################################
 #  Configure build project
 cmake_minimum_required(VERSION 3.11)
-project(wtengine VERSION 0.3 DESCRIPTION "WTEngine Game Engine")
+project(wtengine VERSION 0.4 DESCRIPTION "WTEngine Game Engine")
 enable_language(CXX)
 
 #  If a build type is not set, set it to Release

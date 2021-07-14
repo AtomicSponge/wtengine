@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  menu.hpp
+ * WTEngine | File:  menus.hpp
  * 
  * \author Matthew Evans
  * \version 0.3
@@ -7,8 +7,8 @@
  * \date 2019-2021
  */
 
-#ifndef WTE_MGR_MENU_HPP
-#define WTE_MGR_MENU_HPP
+#ifndef WTE_MGR_MENUS_HPP
+#define WTE_MGR_MENUS_HPP
 
 #include <string>
 #include <vector>
@@ -44,7 +44,7 @@ namespace mgr
  * \class menu
  * \brief Handles processing menus and rendering them.
  */
-class menu final : private manager<menu> {
+class menus final : private manager<menus> {
     friend class interface;
     friend class renderer;
 
@@ -107,10 +107,10 @@ class menu final : private manager<menu> {
          * \return Returns false if a menu with a similar ID already exists.  Returns true on success.
          */
         inline static const bool new_menu(const mnu::menu& new_menu) {
-            for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
+            for(menu_citerator it = _menus.begin(); it != _menus.end(); it++) {
                 if(new_menu.get_id() == (*it)->get_id()) return false;
             }
-            menus.push_back(std::make_shared<mnu::menu>(new_menu));
+            _menus.push_back(std::make_shared<mnu::menu>(new_menu));
             return true;
         };
 
@@ -125,25 +125,25 @@ class menu final : private manager<menu> {
          * \return Shared pointer to menu.
          */
         inline static const mnu::menu_csptr get_menu(const std::string& name) {
-            if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
+            if(_menus.empty()) throw std::runtime_error("No menus have been loaded!");
 
-            for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
+            for(menu_citerator it = _menus.begin(); it != _menus.end(); it++) {
                 if(name == (*it)->get_id()) return *it;
             }
 
             //  Menu not found, return main menu or game menu if the game is running
             if(config::flags::game_started) {
-                for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
+                for(menu_citerator it = _menus.begin(); it != _menus.end(); it++) {
                     if("game_menu" == (*it)->get_id()) return *it;
                 }
             } else {
-                for(menu_citerator it = menus.begin(); it != menus.end(); it++) {
+                for(menu_citerator it = _menus.begin(); it != _menus.end(); it++) {
                     if("main_menu" == (*it)->get_id()) return *it;
                 }
             }
 
             //  Menu still not found - just return the first one in the vector
-            return *menus.begin();
+            return *_menus.begin();
         };
 
         /*!
@@ -156,9 +156,9 @@ class menu final : private manager<menu> {
          * \return Shared pointer to menu.
          */
         inline static const mnu::menu_sptr set_menu(const std::string& name) {
-            if(menus.empty()) throw std::runtime_error("No menus have been loaded!");
+            if(_menus.empty()) throw std::runtime_error("No menus have been loaded!");
 
-            for(menu_iterator it = menus.begin(); it != menus.end(); it++) {
+            for(menu_iterator it = _menus.begin(); it != _menus.end(); it++) {
                 if(name == (*it)->get_id()) return *it;
             }
 
@@ -248,8 +248,8 @@ class menu final : private manager<menu> {
          * 
          * Generates the menu manager object.
          */
-        inline menu() {
-            menus.clear();
+        inline menus() {
+            _menus.clear();
             opened_menus = {};
         };
 
@@ -258,9 +258,9 @@ class menu final : private manager<menu> {
          * 
          * Cleans up by deleting the menu bitmaps and font.
          */
-        inline ~menu() {
+        inline ~menus() {
             opened_menus = {};
-            menus.clear();
+            _menus.clear();
         };
 
         /*!
@@ -327,7 +327,7 @@ class menu final : private manager<menu> {
         inline static ALLEGRO_TIMER* menu_timer = NULL;
         inline static ALLEGRO_EVENT_QUEUE* menu_event_queue = NULL;
 
-        inline static std::vector<mnu::menu_sptr> menus = {};
+        inline static std::vector<mnu::menu_sptr> _menus = {};
         inline static std::stack<mnu::menu_csptr> opened_menus = {};
 
         inline static float menu_width = 500, menu_height = 400, menu_padding = 32;
@@ -341,7 +341,7 @@ class menu final : private manager<menu> {
         inline static int menu_font_flags = 0;
 };
 
-template <> inline bool menu::manager<menu>::initialized = false;
+template <> inline bool menus::manager<menus>::initialized = false;
 
 /*!
  * \brief Run the menu manager.
@@ -350,7 +350,7 @@ template <> inline bool menu::manager<menu>::initialized = false;
  * 
  * \param messages Reference to the message manager.
  */
-inline void menu::run(void) {
+inline void menus::run(void) {
     if(opened_menus.empty()) {
         //  No menus currently opened, add one to the stack
         if(config::flags::game_started) open_menu("game_menu"); //  Add the in-game menu to the stack.
@@ -480,7 +480,7 @@ inline void menu::run(void) {
  * 
  * \return The rendered menu bitmap.
  */
-inline ALLEGRO_BITMAP* menu::render_menu(void) {
+inline ALLEGRO_BITMAP* menus::render_menu(void) {
     //  Set drawing to the menu bitmap.
     al_set_target_bitmap(mgr::assets::get("menu_bitmap"));
     al_clear_to_color(menu_bg_color);

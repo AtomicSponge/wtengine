@@ -94,22 +94,22 @@ class interface : private manager<interface>  {
         /*!
          * \brief Initialize menu manager,
          */
-        inline void menu_init(void) {
-            mgr::menu::initialize();
+        inline void menus_init(void) {
+            mgr::menus::initialize();
         };
 
         /*!
          * \brief De-initialize menu manager,
          */
-        inline void menu_de_init(void) {
-            mgr::menu::de_init();
+        inline void menus_de_init(void) {
+            mgr::menus::de_init();
         };
 
         /*!
          * \brief Run menus,
          */
-        inline void menu_run(void) {
-            mgr::menu::run();
+        inline void menus_run(void) {
+            mgr::menus::run();
         };
 
         /* ************************************ */

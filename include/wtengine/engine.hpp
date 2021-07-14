@@ -184,7 +184,7 @@ class engine : private display, public input, public config {
             //  Initialize managers that require it.
             mgr_inf.renderer_init();
             mgr_inf.audio_init();
-            mgr_inf.menu_init();
+            mgr_inf.menus_init();
 
             //  Load user configured menus.
             load_menus();
@@ -196,7 +196,7 @@ class engine : private display, public input, public config {
          * Called after the main loop ends running.
          */
         inline void wte_unload(void) {
-            mgr_inf.menu_de_init();
+            mgr_inf.menus_de_init();
             mgr_inf.audio_de_init();
             mgr_inf.renderer_de_init();
         };
@@ -334,7 +334,7 @@ inline void engine::do_game(void) {
         }
 
         //  Game menu is opened, run the menu manager.
-        if(config::flags::game_menu_opened) mgr_inf.menu_run();
+        if(config::flags::game_menu_opened) mgr_inf.menus_run();
 
         /* *** GAME LOOP ************************************************************ */
         ALLEGRO_EVENT event;
@@ -421,7 +421,7 @@ inline void engine::handle_sys_msg(message_container& sys_msgs) {
             case CMD_STR_NEW_GAME:
                 //  If the game is running, ignore.
                 if(!config::flags::game_started) {
-                    mgr::menu::reset();
+                    mgr::menus::reset();
                     process_new_game(it->get_arg(0));
                 }
                 it = sys_msgs.erase(it);
@@ -432,7 +432,7 @@ inline void engine::handle_sys_msg(message_container& sys_msgs) {
                 //  If the game not is running, ignore.
                 if(config::flags::game_started) {
                     process_end_game();
-                    mgr::menu::reset();
+                    mgr::menus::reset();
                 }
                 it = sys_msgs.erase(it);
                 break;
@@ -440,15 +440,15 @@ inline void engine::handle_sys_msg(message_container& sys_msgs) {
             //  CMD:  open_menu argstring - Open a menu, passing a string as an argument.
             //  If the menu doesn't exist, the default will be opened.
             case CMD_STR_OPEN_MENU:
-                mgr::menu::open_menu(it->get_arg(0));
+                mgr::menus::open_menu(it->get_arg(0));
                 it = sys_msgs.erase(it);
                 break;
 
             //  CMD:  close_menu argstring - Close the opened menu.
-            //  If argstring = "all", close all opened mgr::menu::
+            //  If argstring = "all", close all opened menus.
             case CMD_STR_CLOSE_MENU:
-                if(it->get_arg(0) == "all") mgr::menu::reset();
-                else mgr::menu::close_menu();
+                if(it->get_arg(0) == "all") mgr::menus::reset();
+                else mgr::menus::close_menu();
                 it = sys_msgs.erase(it);
                 break;
 

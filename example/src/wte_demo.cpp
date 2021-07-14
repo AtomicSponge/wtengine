@@ -182,27 +182,27 @@ wte_demo::~wte_demo() {
  */
 void wte_demo::load_menus(void) {
     //  First set colors used by the menu.
-    mgr::menu::set_menu_color(WTE_COLOR_WHITE, WTE_COLOR_DARKPURPLE);
+    mgr::menus::set_menu_color(WTE_COLOR_WHITE, WTE_COLOR_DARKPURPLE);
     //  You can also set menu size here.  If not the default size is used.
     //mgr::menus::set_menu_size(200, 200, 10);
 
     //  Configure the root main menu and game menu.
     {
         //  Configure main menu.
-        mgr::menu::set_menu("main_menu")->set_title("WTE Demo");
-        mgr::menu::set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
-        //mgr::menu::set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
-        mgr::menu::set_menu("main_menu")->add_item(wte_menu_action("Settings", "open_menu", "settings"));
-        mgr::menu::set_menu("main_menu")->add_item(wte_menu_action("Exit Game", "exit"));
+        mgr::menus::set_menu("main_menu")->set_title("WTE Demo");
+        mgr::menus::set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
+        //mgr::menus::set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
+        mgr::menus::set_menu("main_menu")->add_item(wte_menu_action("Settings", "open_menu", "settings"));
+        mgr::menus::set_menu("main_menu")->add_item(wte_menu_action("Exit Game", "exit"));
     }
 
     {
         //  Configure in-game menu.
-        mgr::menu::set_menu("game_menu")->set_title("WTE Demo - Game Paused");
-        mgr::menu::set_menu("game_menu")->add_item(wte_menu_action("Resume Game", "close_menu", "all"));
-        mgr::menu::set_menu("game_menu")->add_item(wte_menu_action("Settings", "open_menu", "game_settings"));
-        mgr::menu::set_menu("game_menu")->add_item(wte_menu_action("End Game", "end_game"));
-        mgr::menu::set_menu("game_menu")->add_item(wte_menu_action("Exit Game", "exit"));
+        mgr::menus::set_menu("game_menu")->set_title("WTE Demo - Game Paused");
+        mgr::menus::set_menu("game_menu")->add_item(wte_menu_action("Resume Game", "close_menu", "all"));
+        mgr::menus::set_menu("game_menu")->add_item(wte_menu_action("Settings", "open_menu", "game_settings"));
+        mgr::menus::set_menu("game_menu")->add_item(wte_menu_action("End Game", "end_game"));
+        mgr::menus::set_menu("game_menu")->add_item(wte_menu_action("Exit Game", "exit"));
     }
 
     //  Then define other custom mgr::menus::
@@ -213,7 +213,7 @@ void wte_demo::load_menus(void) {
         temp_menu.add_item(wte_menu_action("Video Settings", "open_menu", "video_settings"));
         temp_menu.add_item(wte_menu_action("Audio Settings", "open_menu", "audio_settings"));
         temp_menu.add_item(wte_menu_action("Return", "close_menu"));
-        if(!mgr::menu::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
+        if(!mgr::menus::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 
     {
@@ -222,7 +222,7 @@ void wte_demo::load_menus(void) {
         temp_menu.add_item(wte_menu_action("Video Settings", "open_menu", "video_settings"));
         temp_menu.add_item(wte_menu_action("Audio Settings", "open_menu", "audio_settings"));
         temp_menu.add_item(wte_menu_action("Return", "close_menu"));
-        if(!mgr::menu::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
+        if(!mgr::menus::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 
     {
@@ -232,7 +232,7 @@ void wte_demo::load_menus(void) {
         temp_menu.add_item(wte_menu_selection("Lives:", "max_lives", lives_vec, lives_vec, mnu::GAME_SETTING));
         temp_menu.add_item(wte_menu_apply());
         temp_menu.add_item(wte_menu_action("Return", "close_menu"));
-        if(!mgr::menu::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
+        if(!mgr::menus::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 
     {
@@ -247,7 +247,7 @@ void wte_demo::load_menus(void) {
             [](void){ return config::flags::draw_fps; }));
         temp_menu.add_item(wte_menu_apply());
         temp_menu.add_item(wte_menu_action("Return", "close_menu"));
-        if(!mgr::menu::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
+        if(!mgr::menus::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 
     {
@@ -273,7 +273,7 @@ void wte_demo::load_menus(void) {
         temp_menu.add_item(wte_menu_selection("Ambiance Volume:", "mix4_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING));
         temp_menu.add_item(wte_menu_apply());
         temp_menu.add_item(wte_menu_action("Return", "close_menu"));
-        if(!mgr::menu::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
+        if(!mgr::menus::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 }
 

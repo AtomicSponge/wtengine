@@ -384,7 +384,7 @@ void renderer::render(void) {
      * Render game menu if it's opened.
      */
     if(config::flags::game_menu_opened) {
-        temp_bitmap = al_clone_bitmap(mgr::menu::render_menu());
+        temp_bitmap = al_clone_bitmap(mgr::menus::render_menu());
         al_set_target_backbuffer(al_get_current_display());
 
         al_draw_scaled_bitmap(

@@ -40,7 +40,7 @@ namespace mgr
 class messages final : private manager<messages> {
     friend class interface;
     friend class systems;
-    friend class menu;
+    friend class menus;
 
     public:
         /*!

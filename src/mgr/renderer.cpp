@@ -129,6 +129,7 @@ const int renderer::get_scale_factor() { return scale_factor; }
  *
  */
 void renderer::set_arena_size(const int& w, const int& h) {
+    if(w < 0 || h < 0) throw std::runtime_error("Arena size can not be negative!");
     if(!arena_created) {
         arena_w = w;
         arena_h = h;

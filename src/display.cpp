@@ -50,6 +50,10 @@ void display::create_display(void) {
 
     //  Create the display.  Full screen windowed defaults to the display resolution.
     _display = al_create_display(screen_w, screen_h);
+    if(config::gfx::display_mode == 1) {
+        screen_w = al_get_display_width(_display);
+        screen_h = al_get_display_height(_display);
+    }
 
     //  Display failed to load, try a fallback.
     if(!_display) {
@@ -77,10 +81,6 @@ void display::create_display(void) {
     al_fclose(file);
 
     /* *** Render manager updating *** */
-    if(config::gfx::display_mode == 1) {
-        screen_w = al_get_display_width(_display);
-        screen_h = al_get_display_height(_display);
-    }
     mgr::renderer::update_resolution(screen_w, screen_h);
     mgr::renderer::set_scale_factor(config::gfx::scale_factor);
 }

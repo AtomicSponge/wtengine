@@ -20,7 +20,7 @@ const bool config::load(void) {
     //  Data file doesn't exist, create one
     if(!dfile.good()) {
         if(!save()) return false;
-        dfile.open("settings.cfg");
+        dfile.open("settings.cfg", std::ios::binary);
     }
     if(!dfile.good()) return false;
 

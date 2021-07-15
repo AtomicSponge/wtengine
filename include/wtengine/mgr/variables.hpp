@@ -56,17 +56,20 @@ class variables final : private manager<variables> {
          */
         template <typename T> inline static bool save(const std::string& var) {
             if(isreg(var)) {
-                std::ofstream dfile(data_file_name, std::ofstream::app);
+                std::ofstream dfile(data_file_name, std::ios::binary | std::ofstream::app);
                 if(!dfile.good()) return false;
 
                 try {
-                    //dfile.write(reinterpret_cast<const char*>(sizeof(var.c_str())), 32);
-                    //dfile.write(var.c_str(), sizeof(var.c_str()));
-                    //dfile.write(reinterpret_cast<const char*>(sizeof(T)), 32);
-                    /*dfile.write(
-                        reinterpret_cast<const char*>(std::any_cast<T>((*_map.find(var)).second)),
+                    dfile.seekp(0, dfile.end);
+                    {int32_t tempi = sizeof(var.c_str());
+                    dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));}
+                    dfile.write(var.c_str(), sizeof(var.c_str()));
+                    {int32_t tempi = sizeof(T);
+                    dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));}
+                    dfile.write(
+                        reinterpret_cast<const char*>(std::any_cast<T>(&(*_map.find(var)).second)),
                         sizeof(T)
-                    );*/
+                    );
                 } catch(...) {
                     dfile.close();
                     return false;

@@ -29,7 +29,7 @@ namespace mgr
 
 /*!
  * \class assets
- * \brief Stores an index of assetss.
+ * \brief Stores an index of assets.
  */
 class assets final : private manager<assets> {
     friend class interface;

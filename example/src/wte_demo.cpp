@@ -244,7 +244,7 @@ void wte_demo::load_menus(void) {
         std::vector<std::string> scale_vec = { "0.5", "1", "1.25", "1.5", "1.75", "2" };
         temp_menu.add_item(wte_menu_selection("Scale factor:", "scale_factor", scale_vec, scale_vec, mnu::ENGINE_SETTING_RECONF));
         temp_menu.add_item(wte_menu_toggle("FPS:", "fps_counter", "on", "fps_counter", "off",
-            [](void){ return config::flags::draw_fps; }));
+                                           [](void){ return config::flags::draw_fps; }));
         temp_menu.add_item(wte_menu_apply());
         temp_menu.add_item(wte_menu_action("Return", "close_menu"));
         if(!mgr::menus::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
@@ -425,12 +425,13 @@ void wte_demo::new_game(void) {
     e_id = mgr::entities::new_entity();
     mgr::entities::set_name(e_id, "player");
     wte_new_component(e_id, cmp::team, 0);
-    wte_new_component(e_id, cmp::location, (mgr::renderer::get_arena_width() / 2) - 5,
-                                            mgr::renderer::get_arena_height() - 40);
+    wte_new_component(e_id, cmp::location,
+                      (mgr::renderer::get_arena_width() / 2) - 5,
+                       mgr::renderer::get_arena_height() - 40);
     wte_new_component(e_id, cmp::hitbox, 10, 10);
     wte_new_component(e_id, cmp::bounding_box, 12.0f, 0.0f,
-                                               (float)(mgr::renderer::get_arena_width() - 21),
-                                               (float)(mgr::renderer::get_arena_height() - 32));
+                      (float)(mgr::renderer::get_arena_width() - 21),
+                      (float)(mgr::renderer::get_arena_height() - 32));
     wte_new_component(e_id, health, 1, 1);
     wte_new_component(e_id, cmp::visible);
     wte_new_component(e_id, cmp::enabled);
@@ -545,8 +546,8 @@ void wte_demo::new_game(void) {
         [](const entity_id& can_id, const message& msg) {
             if(msg.get_cmd() == "colision") {
                 //  Deal damage
-                mgr::messages::add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
-                                             std::to_string(wte_get_component(can_id, damage)->dmg)));
+                mgr::messages::add_message(message("entities", msg.get_from(), msg.get_to(),
+                    "damage", std::to_string(wte_get_component(can_id, damage)->dmg)));
                 //  Play the hit effect.
                 mgr::audio::sample_play("fx3", "once");
             }
@@ -611,8 +612,8 @@ void wte_demo::new_game(void) {
         [](const entity_id& shd_id, const message& msg) {
             if(msg.get_cmd() == "colision") {
                 //  Deal damage
-                mgr::messages::add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
-                                           std::to_string(wte_get_component(shd_id, damage)->dmg)));
+                mgr::messages::add_message(message("entities", msg.get_from(), msg.get_to(),
+                    "damage", std::to_string(wte_get_component(shd_id, damage)->dmg)));
             }
         }
     );  //  End shield message processing.
@@ -667,7 +668,8 @@ void wte_demo::new_game(void) {
                         mgr::audio::sample_play("megumin", "once", 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.8f);
 
                         mgr::variables::set("score",
-                            (mgr::variables::get<int>("score") + (10 * wte_get_component(ast_id, size)->the_size)));
+                            (mgr::variables::get<int>("score") +
+                            (10 * wte_get_component(ast_id, size)->the_size)));
 
                         //  If the asteroid was size >= 4, split into two.
                         if(wte_get_component(ast_id, size)->the_size >= 4) {
@@ -697,8 +699,8 @@ void wte_demo::new_game(void) {
                 [](const entity_id& ast_id, const message& msg) {
                     if(msg.get_cmd() == "colision") {
                         //  Deal damage
-                        mgr::messages::add_message(message("entities", msg.get_from(), msg.get_to(), "damage",
-                                                     std::to_string(wte_get_component(ast_id, damage)->dmg)));
+                        mgr::messages::add_message(message("entities", msg.get_from(), msg.get_to(),
+                            "damage", std::to_string(wte_get_component(ast_id, damage)->dmg)));
                     }
 
                     if(msg.get_cmd() == "damage") {

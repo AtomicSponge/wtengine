@@ -60,16 +60,13 @@ class variables final : private manager<variables> {
                 if(!dfile.good()) return false;
 
                 try {
-                    dfile.seekp(0, dfile.end);
+                    T tempv = std::any_cast<T>((*_map.find(var)).second);
                     {int32_t tempi = sizeof(var.c_str());
                     dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));}
                     dfile.write(var.c_str(), sizeof(var.c_str()));
                     {int32_t tempi = sizeof(T);
                     dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));}
-                    dfile.write(
-                        reinterpret_cast<const char*>(std::any_cast<T>(&(*_map.find(var)).second)),
-                        sizeof(T)
-                    );
+                    dfile.write(reinterpret_cast<const char*>(&tempv), sizeof(T));
                 } catch(...) {
                     dfile.close();
                     return false;

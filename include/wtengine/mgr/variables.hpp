@@ -11,6 +11,7 @@
 #define WTE_MGR_VARIABLES_HPP
 
 #include <string>
+#include <cstring>
 #include <any>
 #include <map>
 #include <fstream>
@@ -64,7 +65,7 @@ class variables final : private manager<variables> {
                 try {
                     T tempv = get<T>(var);
 
-                    {int32_t tempi = sizeof(var.c_str());
+                    {int32_t tempi = std::strlen(var.c_str()) + 1;
                     dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));
                     dfile.write(var.c_str(), tempi);}
 
@@ -102,7 +103,6 @@ class variables final : private manager<variables> {
                     char* buffer = new char[size];
                     dfile.read(buffer, size);
                     in_var = std::string(buffer);
-                    std::cout << "loading " << in_var << std::endl;
                     delete[] buffer;}
 
                     int32_t size;

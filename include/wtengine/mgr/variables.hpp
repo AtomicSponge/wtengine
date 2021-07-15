@@ -16,6 +16,8 @@
 #include <fstream>
 #include <typeinfo>
 
+#include <iostream>
+
 #include "wtengine/mgr/manager.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
 
@@ -60,13 +62,15 @@ class variables final : private manager<variables> {
                 if(!dfile.good()) return false;
 
                 try {
-                    T tempv = std::any_cast<T>((*_map.find(var)).second);
+                    T tempv = get<T>(var);
+
                     {int32_t tempi = sizeof(var.c_str());
-                    dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));}
-                    dfile.write(var.c_str(), sizeof(var.c_str()));
+                    dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));
+                    dfile.write(var.c_str(), tempi);}
+
                     {int32_t tempi = sizeof(T);
-                    dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));}
-                    dfile.write(reinterpret_cast<const char*>(&tempv), sizeof(T));
+                    dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));
+                    dfile.write(reinterpret_cast<const char*>(&tempv), tempi);}
                 } catch(...) {
                     dfile.close();
                     return false;
@@ -80,15 +84,41 @@ class variables final : private manager<variables> {
 
         /*!
          * \brief Load game config variables from file.
-         * 
+         * WIP
          * \return False on fail, true on success.
          */
         template <typename T> inline static bool load(const std::string& var) {
-            std::ifstream dfile(data_file_name);
+            std::ifstream dfile(data_file_name, std::ios::binary);
             if(!dfile.good()) return false;
+            dfile.seekg(0, dfile.beg);
 
-            //  Load
-            //dfile.read(buffer, sizeof T);
+            try {
+                while(true) {
+                    if(dfile.peek() == EOF) return false;
+                    std::string in_var;
+
+                    {int32_t size;
+                    dfile.read(reinterpret_cast<char*>(&size), sizeof(int32_t));
+                    char* buffer = new char[size];
+                    dfile.read(buffer, size);
+                    in_var = std::string(buffer);
+                    std::cout << "loading " << in_var << std::endl;
+                    delete[] buffer;}
+
+                    int32_t size;
+                    dfile.read(reinterpret_cast<char*>(&size), sizeof(int32_t));
+                    if(var == in_var) {
+                        T in_val;
+                        dfile.read(reinterpret_cast<char*>(&in_val), size);
+                        set<T>(var, in_val);
+                        break;
+                    }
+                    dfile.seekg(size, dfile.cur);
+                }
+            } catch(...) {
+                dfile.close();
+                return false;
+            }
 
             dfile.close();
             return true;

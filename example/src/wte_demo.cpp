@@ -33,9 +33,9 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
     mgr::variables::reg<int>("max_lives", 3);
     mgr::variables::reg<int>("lives", 3);
 
-    //mgr::variables::set_data_file("game.cfg");
-    //mgr::variables::load<int>("max_lives");
-    //mgr::variables::load<int>("hiscore");
+    mgr::variables::set_data_file("game.cfg");
+    mgr::variables::load<int>("max_lives");
+    mgr::variables::load<int>("hiscore");
 
     /*
      * Set up input handling

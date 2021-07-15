@@ -85,7 +85,7 @@ class variables final : private manager<variables> {
 
         /*!
          * \brief Load game config variables from file.
-         * WIP
+         *
          * \return False on fail, true on success.
          */
         template <typename T> inline static bool load(const std::string& var) {

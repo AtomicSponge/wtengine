@@ -130,8 +130,7 @@ class variables final : private manager<variables> {
          */
         template <typename T> inline static const bool reg(const std::string& var, const T& val) {
             auto ret = _map.insert(std::make_pair(var, std::make_any<T>(val)));
-            if(ret.second == false) return false;  //  Key exists already
-            else return true;  //  Inserted new key/pair
+            return ret.second;
         };
 
         /*!

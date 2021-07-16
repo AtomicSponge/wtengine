@@ -7,8 +7,15 @@
  * \date 2019-2021
  */
 
-#ifndef WTE_COMMANDS__HPP
-#define WTE_COMMANDS__HPP
+#ifndef WTE_COMMANDS_HPP
+#define WTE_COMMANDS_HPP
+
+#include <string>
+#include <map>
+#include <functional>
+
+#include "wtengine/_globals/message.hpp"
+#include "wtengine/_globals/wte_exception.hpp"
 
 namespace wte
 {
@@ -21,10 +28,14 @@ namespace wte
  */
 class commands {
     public:
-        inline ~commands() {};
+        commands();
+        ~commands();
 
-    protected:
-        inline commands() {};
+        const bool add(const std::string& cmd, const std::function<void(const msg_arg_list&)> func);
+        void process_messages(message_container& messages);
+
+    private:
+        std::map<std::string, std::function<void(const msg_arg_list&)>> _commands;
 };
 
 } //  end namespace wte

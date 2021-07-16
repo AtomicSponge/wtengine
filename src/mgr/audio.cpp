@@ -62,20 +62,21 @@ audio::audio() {
         float gain = 1.0f;
         float pan = ALLEGRO_AUDIO_PAN_NONE;
         float speed = 1.0f;
-        //  If no second argument, end.
-        //if(it->get_arg(1) == "") return;
-        //if(it->get_arg(2) != "") {
-            //gain = it->get_arg<float>(2);
-            //if(gain < 0.0f || gain > 1.0f) gain = 1.0f;
-        //} else gain = 1.0f;
-        //if(it->get_arg(3) != "") {
-            //pan = it->get_arg<float>(3);
-            //if(pan < -1.0f || pan > 1.0f) pan = ALLEGRO_AUDIO_PAN_NONE;
-        //} else pan = ALLEGRO_AUDIO_PAN_NONE;
-        //if(it->get_arg(4) != "") {
-            //speed = it->get_arg<float>(4);
-            //if(speed <= 0.0f || speed > 2.0f) speed = 1.0f;
-        //} else speed = 1.0f;
+
+        if(args.size() < 2) return;
+        if(args.size() >= 3) {
+            gain = std::stof(args[2]);
+            if(gain < 0.0f || gain > 1.0f) gain = 1.0f;
+        }
+        if(args.size() >= 4) {
+            pan = std::stof(args[3]);
+            if(pan < -1.0f || pan > 1.0f) pan = ALLEGRO_AUDIO_PAN_NONE;
+        }
+        if(args.size() >= 5) {
+            speed = std::stof(args[4]);
+            if(speed <= 0.0f || speed > 2.0f) speed = 1.0f;
+        }
+
         sample_play(args[0], args[1], gain, pan, speed);
     });
     cmds.add("stop_sample", [this](const msg_arg_list& args) {

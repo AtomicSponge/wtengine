@@ -82,17 +82,13 @@ class alert {
         static void clear(void);
 
     private:
-        inline alert() {};
-        inline ~alert() {};
+        alert();
+        ~alert();
 
-        //inline static ALLEGRO_COLOR font_color = {};
         static ALLEGRO_COLOR font_color;
-        //inline static ALLEGRO_COLOR bg_color = {};
         static ALLEGRO_COLOR bg_color;
 
-        //inline static std::string alert_text = "";
         static std::string alert_text;
-        //inline static bool alert_set = false;
         static bool alert_set;
 };
 

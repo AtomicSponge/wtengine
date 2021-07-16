@@ -97,9 +97,10 @@ class systems final : private manager<systems> {
          */
         static void dispatch(void);
 
-        inline static std::vector<sys::system_uptr> _systems = {};  // Store the vector of systems.
-
-        inline static bool finalized = false; //  Flag to disallow loading of additional systems.
+        //! Store the vector of systems.
+        static std::vector<sys::system_uptr> _systems;
+        //!  Flag to disallow loading of additional systems.
+        static bool finalized;
 };
 
 } //  namespace mgr

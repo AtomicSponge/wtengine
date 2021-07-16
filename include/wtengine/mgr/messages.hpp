@@ -141,7 +141,7 @@ class messages final : private manager<messages> {
         #endif
 
         //  Vector of all messages to be processed
-        inline static message_container msg_queue = {};
+        static message_container msg_queue;
 };
 
 } //  namespace mgr

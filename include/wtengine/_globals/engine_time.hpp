@@ -33,8 +33,8 @@ class engine_time {
         static const int64_t check_time(void);
 
     private:
-        inline engine_time() {};
-        inline ~engine_time() {};
+        engine_time();
+        ~engine_time();
 
         /*!
          * \brief Set the internal timer.

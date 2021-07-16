@@ -18,6 +18,9 @@ ALLEGRO_COLOR alert::bg_color = {};
 std::string alert::alert_text = "";
 bool alert::alert_set = false;
 
+alert::alert() {}
+alert::~alert() {}
+
 /*
  * 
  */

@@ -14,6 +14,9 @@ namespace wte
 
 int64_t engine_time::current_time = 0;
 
+engine_time::engine_time() {};
+engine_time::~engine_time() {};
+
 /*
  *
  */

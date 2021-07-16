@@ -17,6 +17,8 @@ namespace mgr
 
 template <> bool messages::manager<messages>::initialized = false;
 
+message_container messages::msg_queue = {};
+
 /*
  *
  */

@@ -17,6 +17,10 @@ namespace mgr
 
 template <> bool spawner::manager<spawner>::initialized = false;
 
+std::map<std::string, std::pair<std::size_t,
+    std::function<void(const entity_id&, const msg_arg_list&)>
+>> spawner::spawns = {};
+
 /*
  *
  */

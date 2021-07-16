@@ -42,29 +42,29 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
      */
     input::event::p1::ondown::up = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        config::controls::p1_pola_y = -1.0f;
-        float rad = std::atan2(config::controls::p1_pola_y, config::controls::p1_pola_x);
+        config::controls::p1_polc_y = -1.0f;
+        float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
         wte_set_component(player_id, cmp::direction)->set_radians(rad);
         wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
     };
     input::event::p1::ondown::down = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        config::controls::p1_pola_y = 1.0f;
-        float rad = std::atan2(config::controls::p1_pola_y, config::controls::p1_pola_x);
+        config::controls::p1_polc_y = 1.0f;
+        float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
         wte_set_component(player_id, cmp::direction)->set_radians(rad);
         wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
     };
     input::event::p1::ondown::left = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        config::controls::p1_pola_x = -1.0f;
-        float rad = std::atan2(config::controls::p1_pola_y, config::controls::p1_pola_x);
+        config::controls::p1_polc_x = -1.0f;
+        float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
         wte_set_component(player_id, cmp::direction)->set_radians(rad);
         wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
     };
     input::event::p1::ondown::right = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        config::controls::p1_pola_x = 1.0f;
-        float rad = std::atan2(config::controls::p1_pola_y, config::controls::p1_pola_x);
+        config::controls::p1_polc_x = 1.0f;
+        float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
         wte_set_component(player_id, cmp::direction)->set_radians(rad);
         wte_set_component(player_id, cmp::velocity)->set_velocity(5.0f);
     };
@@ -109,26 +109,26 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
 
     input::event::p1::onup::up = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        config::controls::p1_pola_y = 0.0f;
-        if(config::controls::p1_pola_x == 0.0f && config::controls::p1_pola_y == 0.0f)
+        config::controls::p1_polc_y = 0.0f;
+        if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f)
             wte_set_component(player_id, cmp::velocity)->set_velocity(0.0f);
     };
     input::event::p1::onup::down = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        config::controls::p1_pola_y = 0.0f;
-        if(config::controls::p1_pola_x == 0.0f && config::controls::p1_pola_y == 0.0f)
+        config::controls::p1_polc_y = 0.0f;
+        if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f)
             wte_set_component(player_id, cmp::velocity)->set_velocity(0.0f);
     };
     input::event::p1::onup::left = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        config::controls::p1_pola_x = 0.0f;
-        if(config::controls::p1_pola_x == 0.0f && config::controls::p1_pola_y == 0.0f)
+        config::controls::p1_polc_x = 0.0f;
+        if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f)
             wte_set_component(player_id, cmp::velocity)->set_velocity(0.0f);
     };
     input::event::p1::onup::right = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        config::controls::p1_pola_x = 0.0f;
-        if(config::controls::p1_pola_x == 0.0f && config::controls::p1_pola_y == 0.0f)
+        config::controls::p1_polc_x = 0.0f;
+        if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f)
             wte_set_component(player_id, cmp::velocity)->set_velocity(0.0f);
     };
     input::event::p1::onup::action1 = []() {

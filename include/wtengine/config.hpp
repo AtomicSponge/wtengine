@@ -103,6 +103,8 @@ class config {
             inline static float p1_pola_y = 0.0f;
             inline static float p1_polb_x = 0.0f;
             inline static float p1_polb_y = 0.0f;
+            inline static float p1_polc_x = 0.0f;
+            inline static float p1_polc_y = 0.0f;
             inline static float p1_throttle_left = 0.0f;
             inline static float p1_throttle_right = 0.0f;
 
@@ -139,6 +141,8 @@ class config {
             inline static float p2_pola_y = 0.0f;
             inline static float p2_polb_x = 0.0f;
             inline static float p2_polb_y = 0.0f;
+            inline static float p2_polc_x = 0.0f;
+            inline static float p2_polc_y = 0.0f;
             inline static float p2_throttle_left = 0.0f;
             inline static float p2_throttle_right = 0.0f;
         };

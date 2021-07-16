@@ -91,75 +91,63 @@ class message {
          * \param a Object to compare to.
          * \return True if less than, false if greater than.
          */
-        inline const bool operator<(const message& a) const {
-            return timer < a.timer;
-        };
+        const bool operator<(const message& a) const;
 
         /*!
          * \brief Split arguments into a vector of strings.
          * 
          * \param a String of arguments, delimited by ;
          */
-        inline void split_args(const std::string& a) {
-            if(a == "") arglist.push_back("");
-            else {
-                std::stringstream arg_stream(a);
-                std::string segment;
-
-                while(std::getline(arg_stream, segment, ';')) {
-                    arglist.push_back(segment);
-                }
-            }
-        };
+        void split_args(const std::string& a);
 
         /*!
          * \brief Get timer value.
          * 
          * \return The value of timer.
          */
-        inline const int64_t get_timer(void) const { return timer; };
+        const int64_t get_timer(void) const;
 
         /*!
          * \brief Get system value.
          * 
          * \return The value of sys.
          */
-        inline const std::string get_sys(void) const { return sys; };
+        const std::string get_sys(void) const;
 
         /*!
          * \brief Get to value.
          * 
          * \return The value of to.
          */
-        inline const std::string get_to(void) const { return to; };
+        const std::string get_to(void) const;
 
         /*!
          * \brief Get from value.
          * 
          * \return The value of from.
          */
-        inline const std::string get_from(void) const { return from; };
+        const std::string get_from(void) const;
 
         /*!
          * \brief Get command value.
          * 
          * \return The value of cmd.
          */
-        inline const std::string get_cmd(void) const { return cmd; };
+        const std::string get_cmd(void) const;
 
         /*!
          * \brief Get number of arguments.
          * 
          * \return The number of arguments.
          */
-        inline const std::size_t num_args(void) const { return arglist.size(); };
+        const std::size_t num_args(void) const;
 
         /*!
          * \brief Get the arguments split into a vector.
          * 
          * \return The vector of the arguments.
          */
-        inline const msg_arg_list get_arglist(void) const { return arglist; };
+        const msg_arg_list get_arglist(void) const;
 
         /*!
          * \brief Returns a single argument by pos from the argument list.
@@ -167,20 +155,14 @@ class message {
          * \param pos The position in the argument vector.
          * \return The argument string by position.
          */
-        inline const std::string get_arg(const std::size_t& pos) const {
-            if(pos >= arglist.size()) return "";  //  Out of range, return empty string.
-            else return arglist[pos];
-        };
+        const std::string get_arg(const std::size_t& pos) const;
 
         /*!
          * \brief Check if the event is synced to the timer.
          * 
          * \return Returns false if the timer value is -1, else true.
          */
-        inline const bool is_timed_event(void) const {
-            if(timer == -1) return false;
-            else return true;
-        };
+        const bool is_timed_event(void) const;
 
     private:
         int64_t timer;         //  Timer value that the message will be processed at

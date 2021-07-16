@@ -36,4 +36,75 @@ timer(-1), sys(s), to(t), from(f), cmd(c) { split_args(a); };
 message::message(int64_t e, std::string s, std::string t, std::string f, std::string c, std::string a) :
 timer(e), sys(s), to(t), from(f), cmd(c) { split_args(a); };
 
+/*
+ *
+ */
+const bool message::operator<(const message& a) const { return timer < a.timer; }
+
+/*
+ *
+ */
+void message::split_args(const std::string& a) {
+    if(a == "") arglist.push_back("");
+    else {
+        std::stringstream arg_stream(a);
+        std::string segment;
+
+        while(std::getline(arg_stream, segment, ';')) {
+            arglist.push_back(segment);
+        }
+    }
+}
+
+/*
+ *
+ */
+const int64_t message::get_timer(void) const { return timer; }
+
+/*
+ *
+ */
+const std::string message::get_sys(void) const { return sys; }
+
+/*
+ *
+ */
+const std::string message::get_to(void) const { return to; }
+
+/*
+ *
+ */
+const std::string message::get_from(void) const { return from; }
+
+/*
+ *
+ */
+const std::string message::get_cmd(void) const { return cmd; }
+
+/*
+ *
+ */
+const std::size_t message::num_args(void) const { return arglist.size(); }
+
+/*
+ *
+ */
+const msg_arg_list message::get_arglist(void) const { return arglist; }
+
+/*
+ *
+ */
+const std::string message::get_arg(const std::size_t& pos) const {
+    if(pos >= arglist.size()) return "";  //  Out of range, return empty string.
+    else return arglist[pos];
+}
+
+/*
+ *
+ */
+const bool message::is_timed_event(void) const {
+    if(timer == -1) return false;
+    else return true;
+}
+
 }  //  end namespace wte

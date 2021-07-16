@@ -247,7 +247,7 @@ class engine : private display, public input, public config {
         //  Interface for manager private member access.
         mgr::interface mgr_inf;
         //  Commands.
-        commands cmds;
+        inline static commands cmds;
 
         //  Allegro objects used by the engine.
         inline static ALLEGRO_TIMER* main_timer = NULL;

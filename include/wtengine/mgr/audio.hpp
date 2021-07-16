@@ -20,6 +20,7 @@
 #include "wtengine/config.hpp"
 #include "wtengine/mgr/manager.hpp"
 #include "wtengine/_globals/_defines.hpp"
+#include "wtengine/_globals/commands.hpp"
 #include "wtengine/_globals/message.hpp"
 
 namespace wte
@@ -205,48 +206,28 @@ class audio final : private manager<audio> {
          */
         static void set_volume(void);
 
-        //  Used for switching on audio messages:
-        enum CMD_STR_VALUE {
-            //  Mixer 1
-            CMD_STR_MUSIC_LOOP,
-            CMD_STR_PLAY_MUSIC,      CMD_STR_STOP_MUSIC,
-            CMD_STR_PAUSE_MUSIC,     CMD_STR_UNPAUSE_MUSIC,
-            //  Mixer 2
-            CMD_STR_LOAD_SAMPLE,     CMD_STR_UNLOAD_SAMPLE,
-            CMD_STR_PLAY_SAMPLE,     CMD_STR_STOP_SAMPLE,
-            CMD_STR_PAN_SAMPLE,      CMD_STR_CLEAR_INSTANCES,
-            //  Mixer 3
-            CMD_STR_PLAY_VOICE,      CMD_STR_STOP_VOICE,
-            CMD_STR_PAUSE_VOICE,     CMD_STR_UNPAUSE_VOICE,
-            //  Mixer 4
-            CMD_STR_AMBIANCE_LOOP,
-            CMD_STR_PLAY_AMBIANCE,      CMD_STR_STOP_AMBIANCE,
-            CMD_STR_PAUSE_AMBIANCE,     CMD_STR_UNPAUSE_AMBIANCE,
-            //  General
-            CMD_STR_SET_VOLUME
-        };
-        inline static std::map<std::string, CMD_STR_VALUE> map_cmd_str_values = {};
+        static commands cmds;
 
         /* Allegro objects used by audio manager */
         //  Main audio output
-        inline static ALLEGRO_VOICE* voice = NULL;
+        static ALLEGRO_VOICE* voice;
 
         //  Mixers
-        inline static ALLEGRO_MIXER* mixer_main = NULL;
-        inline static ALLEGRO_MIXER* mixer_1 = NULL;
-        inline static ALLEGRO_MIXER* mixer_2 = NULL;
-        inline static ALLEGRO_MIXER* mixer_3 = NULL;
-        inline static ALLEGRO_MIXER* mixer_4 = NULL;
+        static ALLEGRO_MIXER* mixer_main;
+        static ALLEGRO_MIXER* mixer_1;
+        static ALLEGRO_MIXER* mixer_2;
+        static ALLEGRO_MIXER* mixer_3;
+        static ALLEGRO_MIXER* mixer_4;
 
         // Streams
-        inline static ALLEGRO_AUDIO_STREAM* music_stream = NULL;
-        inline static ALLEGRO_AUDIO_STREAM* ambiance_stream = NULL;
-        inline static ALLEGRO_AUDIO_STREAM* voice_stream = NULL;
+        static ALLEGRO_AUDIO_STREAM* music_stream;
+        static ALLEGRO_AUDIO_STREAM* ambiance_stream;
+        static ALLEGRO_AUDIO_STREAM* voice_stream;
 
         //  Store a reference of loaded samples.
-        inline static std::map<std::string, ALLEGRO_SAMPLE*> sample_map = {};
+        static std::map<std::string, ALLEGRO_SAMPLE*> sample_map;
         //  Store a reference of playing samples.
-        inline static std::map<std::string, ALLEGRO_SAMPLE_ID> sample_instances = {};
+        static std::map<std::string, ALLEGRO_SAMPLE_ID> sample_instances;
 };
 
 } //  namespace mgr

@@ -26,7 +26,7 @@ const bool commands::add(const std::string& cmd, const std::function<void(const 
 /*
  *
  */
-void commands::process_messages(message_container& messages) {
+void commands::process_messages(const message_container& messages) {
     for(auto& it: messages) {
         try { 
             auto res = _commands.find(it.get_cmd());

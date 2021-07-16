@@ -17,37 +17,106 @@ namespace mgr
 
 template <> bool audio::manager<audio>::initialized = false;
 
+commands audio::cmds;
+ALLEGRO_VOICE* audio::voice = NULL;
+ALLEGRO_MIXER* audio::mixer_main = NULL;
+ALLEGRO_MIXER* audio::mixer_1 = NULL;
+ALLEGRO_MIXER* audio::mixer_2 = NULL;
+ALLEGRO_MIXER* audio::mixer_3 = NULL;
+ALLEGRO_MIXER* audio::mixer_4 = NULL;
+ALLEGRO_AUDIO_STREAM* audio::music_stream = NULL;
+ALLEGRO_AUDIO_STREAM* audio::ambiance_stream = NULL;
+ALLEGRO_AUDIO_STREAM* audio::voice_stream = NULL;
+std::map<std::string, ALLEGRO_SAMPLE*> audio::sample_map = {};
+std::map<std::string, ALLEGRO_SAMPLE_ID> audio::sample_instances = {};
+
 /*
  *
  */
 audio::audio() {
     //  Map the audio commands.
     //  Mixer 1
-    map_cmd_str_values["music_loop"] = CMD_STR_MUSIC_LOOP;
-    map_cmd_str_values["play_music"] = CMD_STR_PLAY_MUSIC;
-    map_cmd_str_values["stop_music"] = CMD_STR_STOP_MUSIC;
-    map_cmd_str_values["pause_music"] = CMD_STR_PAUSE_MUSIC;
-    map_cmd_str_values["unpause_music"] = CMD_STR_UNPAUSE_MUSIC;
+    cmds.add("music_loop", [this](const msg_arg_list& args) {
+        music_loop(args[0]);
+    });
+    cmds.add("play_music", [this](const msg_arg_list& args) {
+        music_play(args[0]);
+    });
+    cmds.add("stop_music", [this](const msg_arg_list& args) {
+        music_stop();
+    });
+    cmds.add("pause_music", [this](const msg_arg_list& args) {
+        music_pause();
+    });
+    cmds.add("unpause_music", [this](const msg_arg_list& args) {
+        music_unpause();
+    });
     //  Mixer 2
-    map_cmd_str_values["load_sample"] = CMD_STR_LOAD_SAMPLE;
-    map_cmd_str_values["unload_sample"] = CMD_STR_UNLOAD_SAMPLE;
-    map_cmd_str_values["play_sample"] = CMD_STR_PLAY_SAMPLE;
-    map_cmd_str_values["stop_sample"] = CMD_STR_STOP_SAMPLE;
-    map_cmd_str_values["pan_sample"] = CMD_STR_PAN_SAMPLE;
-    map_cmd_str_values["clear_instances"] = CMD_STR_CLEAR_INSTANCES;
+    cmds.add("load_sample", [this](const msg_arg_list& args) {
+        sample_load(args[0]);
+    });
+    cmds.add("unload_sample", [this](const msg_arg_list& args) {
+        sample_unload(args[0]);
+    });
+    cmds.add("play_sample", [this](const msg_arg_list& args) {
+        float gain = 1.0f;
+        float pan = ALLEGRO_AUDIO_PAN_NONE;
+        float speed = 1.0f;
+        //  If no second argument, end.
+        //if(it->get_arg(1) == "") return;
+        //if(it->get_arg(2) != "") {
+            //gain = it->get_arg<float>(2);
+            //if(gain < 0.0f || gain > 1.0f) gain = 1.0f;
+        //} else gain = 1.0f;
+        //if(it->get_arg(3) != "") {
+            //pan = it->get_arg<float>(3);
+            //if(pan < -1.0f || pan > 1.0f) pan = ALLEGRO_AUDIO_PAN_NONE;
+        //} else pan = ALLEGRO_AUDIO_PAN_NONE;
+        //if(it->get_arg(4) != "") {
+            //speed = it->get_arg<float>(4);
+            //if(speed <= 0.0f || speed > 2.0f) speed = 1.0f;
+        //} else speed = 1.0f;
+        sample_play(args[0], args[1], gain, pan, speed);
+    });
+    cmds.add("stop_sample", [this](const msg_arg_list& args) {
+        sample_stop(args[0]);
+    });
+    cmds.add("clear_instances", [this](const msg_arg_list& args) {
+        sample_clear_instances();
+    });
     //  Mixer 3
-    map_cmd_str_values["play_voice"] = CMD_STR_PLAY_VOICE;
-    map_cmd_str_values["stop_voice"] = CMD_STR_STOP_VOICE;
-    map_cmd_str_values["pause_voice"] = CMD_STR_PAUSE_VOICE;
-    map_cmd_str_values["unpause_voice"] = CMD_STR_UNPAUSE_VOICE;
+    cmds.add("play_voice", [this](const msg_arg_list& args) {
+        voice_play(args[0]);
+    });
+    cmds.add("stop_voice", [this](const msg_arg_list& args) {
+        voice_stop();
+    });
+    cmds.add("pause_voice", [this](const msg_arg_list& args) {
+        voice_pause();
+    });
+    cmds.add("unpause_voice", [this](const msg_arg_list& args) {
+        voice_unpause();
+    });
     //  Mixer 4
-    map_cmd_str_values["ambiance_loop"] = CMD_STR_AMBIANCE_LOOP;
-    map_cmd_str_values["play_ambiance"] = CMD_STR_PLAY_AMBIANCE;
-    map_cmd_str_values["stop_ambiance"] = CMD_STR_STOP_AMBIANCE;
-    map_cmd_str_values["pause_ambiance"] = CMD_STR_PAUSE_AMBIANCE;
-    map_cmd_str_values["unpause_ambiance"] = CMD_STR_UNPAUSE_AMBIANCE;
+    cmds.add("ambiance_loop", [this](const msg_arg_list& args) {
+        ambiance_loop(args[0]);
+    });
+    cmds.add("play_ambiance", [this](const msg_arg_list& args) {
+        ambiance_play(args[0]);
+    });
+    cmds.add("stop_ambiance", [this](const msg_arg_list& args) {
+        ambiance_stop();
+    });
+    cmds.add("pause_ambiance", [this](const msg_arg_list& args) {
+        ambiance_pause();
+    });
+    cmds.add("unpause_ambiance", [this](const msg_arg_list& args) {
+        ambiance_unpause();
+    });
     //  General
-    map_cmd_str_values["set_volume"] = CMD_STR_SET_VOLUME;
+    cmds.add("set_volume", [this](const msg_arg_list& args) {
+        set_volume();
+    });
 
     sample_map.clear();
     sample_instances.clear();
@@ -57,7 +126,6 @@ audio::audio() {
  *
  */
 audio::~audio() {
-    map_cmd_str_values.clear();
     sample_map.clear();
     sample_instances.clear();
 };
@@ -172,216 +240,8 @@ void audio::set_volume(void) {
  *
  */
 void audio::process_messages(const message_container& messages) {
-    //  Initialize variables for local use.
-    float gain = 1.0f;
-    float pan = ALLEGRO_AUDIO_PAN_NONE;
-    float speed = 1.0f;
-
-    //  Iterators for referencing saved & playing samples.
-    std::map<std::string, ALLEGRO_SAMPLE_ID>::iterator sample_instance;
-
-    for(auto it = messages.begin(); it != messages.end(); it++) {
-        //  Switch over the audio message and process.
-        switch(map_cmd_str_values[it->get_cmd()]) {
-            /* ********************************** */
-            /* ***  Mixer 1 - Music controls  *** */
-            /* ********************************** */
-            /////////////////////////////////////////////
-            //  cmd:  music_loop - arg:  enable/disable - Turn music looping on or off.
-            case CMD_STR_MUSIC_LOOP:
-                music_loop(it->get_arg(0));
-                break;
-            /////////////////////////////////////////////
-
-            /////////////////////////////////////////////
-            //  cmd:  play_music - arg:  file.name - Load a file and play in a stream.
-            case CMD_STR_PLAY_MUSIC:
-                music_play(it->get_arg(0));
-                break;
-            /////////////////////////////////////////////
-
-            /////////////////////////////////////////////
-            //  cmd:  stop_music - Stop current music from playing.
-            case CMD_STR_STOP_MUSIC:
-                music_stop();
-                break;
-            /////////////////////////////////////////////
-
-            /////////////////////////////////////////////
-            //  cmd:  pause_music - Pause music if it is playing.
-            case CMD_STR_PAUSE_MUSIC:
-                music_pause();
-                break;
-            /////////////////////////////////////////////
-
-            /////////////////////////////////////////////
-            //  cmd:  unpause_music - Unpause music if it is paused.
-            case CMD_STR_UNPAUSE_MUSIC:
-                music_unpause();
-                break;
-            /////////////////////////////////////////////
-
-            /* *********************************** */
-            /* ***  Mixer 2 - Sample controls  *** */
-            /* *********************************** */
-            /////////////////////////////////////////////
-            //  cmd:  load_sample - args:  file - Load a sample.
-            case CMD_STR_LOAD_SAMPLE:
-                sample_load(it->get_arg(0));
-                break;
-            /////////////////////////////////////////////
-
-            /////////////////////////////////////////////
-            //  cmd:  unload_sample - arg:  sample_name - Unload sample if one is loaded.
-            //  If arg == "all" unload all samples.
-            case CMD_STR_UNLOAD_SAMPLE:
-                sample_unload(it->get_arg(0));
-                break;
-            /////////////////////////////////////////////
-
-            /////////////////////////////////////////////
-            //  cmd:  play_sample - args:  sample_name ; mode (once, loop_ref) ; gain ; pan ; speed
-            //  Start playing loaded sample.
-            //  If passed "once" no reference will be stored and the sample will be played once.
-            //  Any other argument for the mode will be used for the reference storage.
-            case CMD_STR_PLAY_SAMPLE:
-                //  If no second argument, end.
-                if(it->get_arg(1) == "") break;
-                if(it->get_arg(2) != "") {
-                    gain = it->get_arg<float>(2);
-                    if(gain < 0.0f || gain > 1.0f) gain = 1.0f;
-                } else gain = 1.0f;
-                if(it->get_arg(3) != "") {
-                    pan = it->get_arg<float>(3);
-                    if(pan < -1.0f || pan > 1.0f) pan = ALLEGRO_AUDIO_PAN_NONE;
-                } else pan = ALLEGRO_AUDIO_PAN_NONE;
-                if(it->get_arg(4) != "") {
-                    speed = it->get_arg<float>(4);
-                    if(speed <= 0.0f || speed > 2.0f) speed = 1.0f;
-                } else speed = 1.0f;
-                sample_play(it->get_arg(0), it->get_arg(1), gain, pan, speed);
-                break;
-            /////////////////////////////////////////////
-
-            /////////////////////////////////////////////
-            //  cmd:  stop_sample - arg:  loop_ref - Stop looping sample instance.
-            case CMD_STR_STOP_SAMPLE:
-                sample_stop(it->get_arg(0));
-                break;
-            /////////////////////////////////////////////
-
-            /////////////////////////////////////////////
-            //  cmd:  pan_sample - arg:  loop_ref ; pan ([left]-1.0 thru 1.0[right] or none) - Set sample pan.
-            //  Note:  Disabled for now.  Needs testing.
-            case CMD_STR_PAN_SAMPLE:
-                #ifdef ALLEGRO_UNSTABLE
-                /*if(sample_instances.find(it->get_arg(0)) == sample_instances.end()) break;
-                if(it->get_arg(1) == "none") {
-                    pan = ALLEGRO_AUDIO_PAN_NONE;
-                } else {
-                    pan = it->get_arg<float>(1);
-                    if(pan < -1.0f || pan > 1.0f) pan = ALLEGRO_AUDIO_PAN_NONE;
-                }
-                al_set_sample_instance_pan(&sample_instances.find(it->get_arg(0))->second, pan);*/
-                #endif
-                break;
-            /////////////////////////////////////////////
-
-            /////////////////////////////////////////////
-            //  cmd:  clear_instances - Stop all looping sample instances.
-            case CMD_STR_CLEAR_INSTANCES:
-                sample_clear_instances();
-                break;
-            /////////////////////////////////////////////
-
-            /* ********************************** */
-            /* ***  Mixer 3 - Voice controls  *** */
-            /* ********************************** */
-            /////////////////////////////////////////////
-            //  cmd:  play_voice - arg:  file.name - Load a file and play in a stream.
-            case CMD_STR_PLAY_VOICE:
-                voice_play(it->get_arg(0));
-                break;
-            /////////////////////////////////////////////
-
-            /////////////////////////////////////////////
-            //  cmd:  stop_voice - Stop current voice from playing.
-            case CMD_STR_STOP_VOICE:
-                voice_stop();
-                break;
-            /////////////////////////////////////////////
-
-            /////////////////////////////////////////////
-            //  cmd:  pause_voice - Pause voice if it is playing.
-            case CMD_STR_PAUSE_VOICE:
-                voice_pause();
-                break;
-            /////////////////////////////////////////////
-
-            /////////////////////////////////////////////
-            //  cmd:  unpause_voice - Unpause voice if it is paused.
-            case CMD_STR_UNPAUSE_VOICE:
-                voice_unpause();
-                break;
-            /////////////////////////////////////////////
-
-            /* ************************************* */
-            /* ***  Mixer 4 - Ambiance controls  *** */
-            /* ************************************* */
-            /////////////////////////////////////////////
-            //  cmd:  ambiance_loop - arg:  enable/disable - Turn music looping on or off.
-            case CMD_STR_AMBIANCE_LOOP:
-                ambiance_loop(it->get_arg(0));
-                break;
-            /////////////////////////////////////////////
-
-            /////////////////////////////////////////////
-            //  cmd:  play_ambiance - arg:  file.name - Load a file and play in a stream.
-            case CMD_STR_PLAY_AMBIANCE:
-                ambiance_play(it->get_arg(0));
-                break;
-            /////////////////////////////////////////////
-
-            /////////////////////////////////////////////
-            //  cmd:  stop_ambiance - Stop current ambiance from playing.
-            case CMD_STR_STOP_AMBIANCE:
-                ambiance_stop();
-                break;
-            /////////////////////////////////////////////
-
-            /////////////////////////////////////////////
-            //  cmd:  pause_ambiance - Pause ambiance if it is playing.
-            case CMD_STR_PAUSE_AMBIANCE:
-                ambiance_pause();
-                break;
-            /////////////////////////////////////////////
-
-            /////////////////////////////////////////////
-            //  cmd:  unpause_ambiance - Unpause ambiance if it is paused.
-            case CMD_STR_UNPAUSE_AMBIANCE:
-                ambiance_unpause();
-                break;
-            /////////////////////////////////////////////
-
-            /* ************************ */
-            /* *** General commands *** */
-            /* ************************ */
-            /////////////////////////////////////////////
-            //  cmd:  set_volume - Get audio levels from engine cfg and set.
-            case CMD_STR_SET_VOLUME:
-                set_volume();
-                break;
-            /////////////////////////////////////////////
-
-            /////////////////////////////////////////////
-            //  cmd:  new_cmd - description.
-            //case CMD_STR_X:
-                //
-                //break;
-            /////////////////////////////////////////////
-        }
-    }  //  End for loop
-}  //  End process message member
+    cmds.process_messages(messages);
+}
 
 /*
  *

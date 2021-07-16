@@ -33,7 +33,7 @@ class commands {
         ~commands();
 
         const bool add(const std::string& cmd, const std::function<void(const msg_arg_list&)> func);
-        void process_messages(message_container& messages);
+        void process_messages(const message_container& messages);
 
     private:
         std::map<std::string, std::function<void(const msg_arg_list&)>> _commands;

@@ -32,9 +32,6 @@ typedef std::vector<std::string> msg_arg_list;
  */
 class message {
     public:
-        inline message() {};
-        inline ~message() {};
-
         /*!
          * \brief Message Constructor
          * 

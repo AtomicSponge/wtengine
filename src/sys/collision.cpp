@@ -28,11 +28,6 @@ colision::~colision() {}
 /*
  *
  */
-void colision::disable(void) { enabled = false; };
-
-/*
- *
- */
 void colision::run(void) {
     const_component_container<cmp::team> team_components = mgr::entities::get_components<cmp::team>();
 

@@ -30,11 +30,6 @@ class colision final : public system {
         ~colision();
 
         /*!
-         * \brief Allow the colision system to be disabled.
-         */
-        void disable(void) override;
-
-        /*!
          * \brief Colision system run.
          * 
          * Overrides virtual run member inherited from system object.

@@ -36,13 +36,6 @@ class system {
         //!  Remove assignment operator
         void operator=(system const&) = delete;
 
-        //!  Enable the system
-        inline void enable(void) { enabled = true; };
-        //!  Disable the system - Must override and define to be used
-        virtual void disable(void) {};
-        //!  Check if the system is enabled
-        inline const bool is_enabled(void) const { return enabled; };
-
         //!  Get the system name
         inline const std::string get_name(void) const { return name; };
 
@@ -55,12 +48,10 @@ class system {
          * 
          * \param n System name.
          */
-        system(const std::string& n) : name(n), enabled(true) {};
+        system(const std::string& n) : name(n) {};
 
         //!  Name of system.
-        std::string name;
-        //!  Flag to enable/disable system.
-        bool enabled;
+        const std::string name;
 };
 
 /*!

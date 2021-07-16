@@ -378,23 +378,18 @@ inline void engine::do_game(void) {
             //  Process mgr::messages::
             mgr_inf.systems_dispatch();
 
-            {//  Get any spawner messages and pass to handler.
-            message_container temp_msgs = mgr_inf.messages_get("spawner");
-            if(!temp_msgs.empty()) mgr_inf.spawner_process_messages(temp_msgs);}
+            //  Get any spawner messages and pass to handler.
+            mgr_inf.spawner_process_messages(mgr_inf.messages_get("spawner"));
         }
         /* *** END GAME LOOP ******************************************************** */
 
         //  Render the screen.
         mgr_inf.renderer_run();
 
-        {//  Get any system messages and pass to handler.
-        message_container temp_msgs = mgr_inf.messages_get("system");
-        if(!temp_msgs.empty()) cmds.process_messages(temp_msgs);}
-
-        {//  Send audio messages to the audio queue.
-        message_container temp_msgs = mgr_inf.messages_get("audio");
-        if(!temp_msgs.empty()) mgr_inf.audio_process_messages(temp_msgs);}
-
+        //  Get any system messages and pass to handler.
+        cmds.process_messages(mgr_inf.messages_get("system"));
+        //  Send audio messages to the audio queue.
+        mgr_inf.audio_process_messages(mgr_inf.messages_get("audio"));
         //  Delete timed messages that were not processed.
         mgr_inf.messages_prune();
 

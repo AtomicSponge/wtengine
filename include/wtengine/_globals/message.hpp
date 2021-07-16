@@ -44,8 +44,7 @@ class message {
          * \param c Command.
          * \param a Arguments delimited by ;
          */
-        inline message(std::string s, std::string c, std::string a) :
-            timer(-1), sys(s), to(""), from(""), cmd(c) { split_args(a); };
+        message(std::string s, std::string c, std::string a);
 
         /*!
          * \brief Message Constructor
@@ -57,8 +56,7 @@ class message {
          * \param c Command.
          * \param a Arguments delimited by ;
          */
-        inline message(int64_t e, std::string s, std::string c, std::string a) :
-            timer(e), sys(s), to(""), from(""), cmd(c) { split_args(a); };
+        message(int64_t e, std::string s, std::string c, std::string a);
 
         /*!
          * \brief Message Constructor
@@ -71,8 +69,7 @@ class message {
          * \param c Command.
          * \param a Arguments delimited by ;
          */
-        inline message(std::string s, std::string t, std::string f, std::string c, std::string a) :
-            timer(-1), sys(s), to(t), from(f), cmd(c) { split_args(a); };
+        message(std::string s, std::string t, std::string f, std::string c, std::string a);
 
         /*!
          * \brief Message Constructor
@@ -86,8 +83,7 @@ class message {
          * \param c Command.
          * \param a Arguments delimited by ;
          */
-        inline message(int64_t e, std::string s, std::string t, std::string f, std::string c, std::string a) :
-            timer(e), sys(s), to(t), from(f), cmd(c) { split_args(a); };
+        message(int64_t e, std::string s, std::string t, std::string f, std::string c, std::string a);
 
         /*!
          * \brief Overload < operator to sort by timer value.

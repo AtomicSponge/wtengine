@@ -30,6 +30,7 @@
 
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/alert.hpp"
+#include "wtengine/_globals/commands.hpp"
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/mgr/_managers.hpp"
 
@@ -134,20 +135,60 @@ class engine : private display, public input, public config {
 
             create_input_event_queue();
 
-            //  Map commands to enums for switching over in the system msg handler.
-            map_cmd_str_values["exit"] = CMD_STR_EXIT;
-            map_cmd_str_values["alert"] = CMD_STR_ALERT;
-            map_cmd_str_values["new_game"] = CMD_STR_NEW_GAME;
-            map_cmd_str_values["end_game"] = CMD_STR_END_GAME;
-            map_cmd_str_values["open_menu"] = CMD_STR_OPEN_MENU;
-            map_cmd_str_values["close_menu"] = CMD_STR_CLOSE_MENU;
-            map_cmd_str_values["enable_system"] = CMD_STR_ENABLE_SYSTEM;
-            map_cmd_str_values["disable_system"] = CMD_STR_DISABLE_SYSTEM;
-            map_cmd_str_values["set_engcfg"] = CMD_STR_SET_ENGCFG;
-            map_cmd_str_values["set_gamecfg"] = CMD_STR_SET_GAMECFG;
-            map_cmd_str_values["reconf_display"] = CMD_STR_RECONF_DISPLAY;
-            map_cmd_str_values["fps_counter"] = CMD_STR_FPS_COUNTER;
-            map_cmd_str_values["load_script"] = CMD_STR_LOAD_SCRIPT;
+            //  commands
+            cmds.add("exit", [this](const msg_arg_list& args) {
+                if(config::flags::game_started) process_end_game();
+                config::flags::is_running = false;
+            });
+            cmds.add("alert", [this](const msg_arg_list& args) {
+                alert::set_alert(args[0]);
+            });
+            cmds.add("new_game", [this](const msg_arg_list& args) {
+                if(!config::flags::game_started) {
+                    mgr::menus::reset();
+                    process_new_game(args[0]);
+                }
+            });
+            cmds.add("end_game", [this](const msg_arg_list& args) {
+                if(config::flags::game_started) {
+                    process_end_game();
+                    mgr::menus::reset();
+                }
+            });
+            cmds.add("open_menu", [this](const msg_arg_list& args) {
+                mgr::menus::open_menu(args[0]);
+            });
+            cmds.add("close_menu", [this](const msg_arg_list& args) {
+                if(args[0] == "all") mgr::menus::reset();
+                else mgr::menus::close_menu();
+            });
+            cmds.add("reconf_display", [this](const msg_arg_list& args) {
+                const bool timer_running = al_get_timer_started(main_timer);
+                //  Make sure the timer isn't running and unregister the display.
+                if(timer_running) al_stop_timer(main_timer);
+                al_pause_event_queue(main_event_queue, true);
+                al_unregister_event_source(main_event_queue, al_get_display_event_source(_display));
+                //  Backup temp bitmaps.
+                mgr_inf.bitmap_backup();
+                //  Reload the display.
+                reconf_display();
+                //  Reload any temp bitmaps.
+                mgr_inf.bitmap_reload();
+                //  Register display event source and resume timer if it was running.
+                al_register_event_source(main_event_queue, al_get_display_event_source(_display));
+                al_pause_event_queue(main_event_queue, false);
+                if(timer_running) al_resume_timer(main_timer);
+            });
+            cmds.add("fps_counter", [this](const msg_arg_list& args) {
+                if(args[0] == "on") config::flags::draw_fps = true;
+                if(args[0] == "off") config::flags::draw_fps = false;
+            });
+            cmds.add("load_script", [this](const msg_arg_list& args) {
+                if(config::flags::game_started && args[0] != "") {
+                    if(!mgr::messages::load_script(args[0]))
+                        alert::set_alert("Error loading script:  " + args[0]);
+                }
+            });
 
             //  Set default colors for alerts.
             alert::set_font_color(WTE_COLOR_WHITE);
@@ -171,8 +212,6 @@ class engine : private display, public input, public config {
         virtual void out_of_focus(void) {};
         //!  Optional:  In focus handler
         virtual void back_in_focus(void) {};
-        //!  Optional:  Define custom system message handling.
-        virtual void handle_custom_sys_msg(const message&) {};
         /* *** End overridden function members *** */
     private:
         /*!
@@ -207,18 +246,8 @@ class engine : private display, public input, public config {
 
         //  Interface for manager private member access.
         mgr::interface mgr_inf;
-
-        //  Used for mapping commands and switching on system messages:
-        enum CMD_STR_VALUE {
-            CMD_STR_EXIT,               CMD_STR_ALERT,
-            CMD_STR_NEW_GAME,           CMD_STR_END_GAME,
-            CMD_STR_OPEN_MENU,          CMD_STR_CLOSE_MENU,
-            CMD_STR_ENABLE_SYSTEM,      CMD_STR_DISABLE_SYSTEM,
-            CMD_STR_SET_ENGCFG,         CMD_STR_SET_GAMECFG,
-            CMD_STR_RECONF_DISPLAY,     CMD_STR_FPS_COUNTER,
-            CMD_STR_LOAD_SCRIPT
-        };
-        inline static std::map<std::string, CMD_STR_VALUE> map_cmd_str_values = {};
+        //  Commands.
+        commands cmds;
 
         //  Allegro objects used by the engine.
         inline static ALLEGRO_TIMER* main_timer = NULL;
@@ -360,7 +389,7 @@ inline void engine::do_game(void) {
 
         {//  Get any system messages and pass to handler.
         message_container temp_msgs = mgr_inf.messages_get("system");
-        if(!temp_msgs.empty()) handle_sys_msg(temp_msgs);}
+        if(!temp_msgs.empty()) cmds.process_messages(temp_msgs);}
 
         {//  Send audio messages to the audio queue.
         message_container temp_msgs = mgr_inf.messages_get("audio");
@@ -388,135 +417,6 @@ inline void engine::do_game(void) {
     /* *** END ENGINE LOOP ******************************************************** */
 
     wte_unload();
-};
-
-/*!
- * \brief System message processing.
- * 
- * Switch over the system messages and process.
- * Remaining messages are passed to the custom handler.
- * 
- * \param sys_msgs  Vector of messages to be processed.
- */
-inline void engine::handle_sys_msg(message_container& sys_msgs) {
-    const bool timer_running = al_get_timer_started(main_timer);
-
-    for(auto it = sys_msgs.begin(); it != sys_msgs.end();) {
-        //  Switch over the system messages, deleting each as they are processed.
-        switch(map_cmd_str_values[it->get_cmd()]) {
-            //  CMD:  exit - Shut down engine.
-            case CMD_STR_EXIT:
-                if(config::flags::game_started) process_end_game();
-                config::flags::is_running = false;
-                it = sys_msgs.erase(it);
-                break;
-
-            //  CMD:  alert - Display an alert.
-            case CMD_STR_ALERT:
-                alert::set_alert(it->get_arg(0));
-                it = sys_msgs.erase(it);
-                break;
-
-            //  CMD:  new_game - Start up a new game.
-            case CMD_STR_NEW_GAME:
-                //  If the game is running, ignore.
-                if(!config::flags::game_started) {
-                    mgr::menus::reset();
-                    process_new_game(it->get_arg(0));
-                }
-                it = sys_msgs.erase(it);
-                break;
-
-            //  CMD:  end_game - End current game.
-            case CMD_STR_END_GAME:
-                //  If the game not is running, ignore.
-                if(config::flags::game_started) {
-                    process_end_game();
-                    mgr::menus::reset();
-                }
-                it = sys_msgs.erase(it);
-                break;
-
-            //  CMD:  open_menu argstring - Open a menu, passing a string as an argument.
-            //  If the menu doesn't exist, the default will be opened.
-            case CMD_STR_OPEN_MENU:
-                mgr::menus::open_menu(it->get_arg(0));
-                it = sys_msgs.erase(it);
-                break;
-
-            //  CMD:  close_menu argstring - Close the opened menu.
-            //  If argstring = "all", close all opened menus.
-            case CMD_STR_CLOSE_MENU:
-                if(it->get_arg(0) == "all") mgr::menus::reset();
-                else mgr::menus::close_menu();
-                it = sys_msgs.erase(it);
-                break;
-
-            //  CMD:  set_engcfg - Set engine cfg variables.
-            //  Arguments:  var=val
-            case CMD_STR_SET_ENGCFG:
-                for(std::size_t i = 0; i < it->num_args(); i++)
-                    //config::set(it->get_arg(i));
-                it = sys_msgs.erase(it);
-                break;
-
-            //  CMD:  set_gamecfg - Set game cfg variables.
-            //  Arguments:  var=val
-            case CMD_STR_SET_GAMECFG:
-                for(std::size_t i = 0; i < it->num_args(); i++)
-                    //game_cfg::set(it->get_arg(i));
-                it = sys_msgs.erase(it);
-                break;
-
-            //  CMD:  reconf_display - Reconfigure the display.
-            case CMD_STR_RECONF_DISPLAY:
-                //  Make sure the timer isn't running and unregister the display.
-                if(timer_running) al_stop_timer(main_timer);
-                al_pause_event_queue(main_event_queue, true);
-                al_unregister_event_source(main_event_queue, al_get_display_event_source(_display));
-                //  Backup temp bitmaps.
-                mgr_inf.bitmap_backup();
-                //  Reload the display.
-                reconf_display();
-                //  Reload any temp bitmaps.
-                mgr_inf.bitmap_reload();
-                //  Register display event source and resume timer if it was running.
-                al_register_event_source(main_event_queue, al_get_display_event_source(_display));
-                al_pause_event_queue(main_event_queue, false);
-                if(timer_running) al_resume_timer(main_timer);
-                it = sys_msgs.erase(it);
-                break;
-
-            //  CMD:  fps_counter - Enable/disable on-screen fps counter.
-            case CMD_STR_FPS_COUNTER:
-                if(it->get_arg(0) == "on") config::flags::draw_fps = true;
-                if(it->get_arg(0) == "off") config::flags::draw_fps = false;
-                it = sys_msgs.erase(it);
-                break;
-
-            //  CMD:  load_script - Load a script into the message queue.
-            case CMD_STR_LOAD_SCRIPT:
-                if(config::flags::game_started && it->get_arg(0) != "") {
-                    if(!mgr::messages::load_script(it->get_arg(0)))
-                        alert::set_alert("Error loading script:  " + it->get_arg(0));
-                }
-                it = sys_msgs.erase(it);
-                break;
-
-            //  CMD:  new_cmd - description
-            //case CMD_STR_X:
-                //
-                //it = sys_msgs.erase(it);
-                //break;
-
-            //  Command not defined, iterate to next.
-            default:
-                it++;
-        }
-    }
-
-    //  Pass remaining system messages to the custom handler.
-    if(!sys_msgs.empty()) for(auto & it : sys_msgs) handle_custom_sys_msg(it);
 };
 
 } //  end namespace wte

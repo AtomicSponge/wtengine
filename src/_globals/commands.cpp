@@ -21,7 +21,12 @@ const bool commands::add(const std::string& cmd, const std::function<void(const 
 }
 
 void commands::process_messages(message_container& messages) {
-    for(auto& it: messages) try { _commands.find(it.get_cmd())->second(it.get_arglist()); } catch(...) {}
+    for(auto& it: messages) {
+        try { 
+            auto res = _commands.find(it.get_cmd());
+            if(res != _commands.end()) res->second(it.get_arglist());
+        } catch(...) {}
+    }
 }
 
 } //  end namespace wte

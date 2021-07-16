@@ -504,7 +504,7 @@ void wte_demo::new_game(void) {
 
             //  Take damage.
             if(msg.get_cmd() == "damage") {
-                wte_set_component(plr_id, health)->hp -= msg.get_arg<int>(0);
+                wte_set_component(plr_id, health)->hp -= std::stoi(msg.get_arglist()[0]);
             }
         }
     );  //  End player message processing.
@@ -704,7 +704,7 @@ void wte_demo::new_game(void) {
                     }
 
                     if(msg.get_cmd() == "damage") {
-                        wte_set_component(ast_id, health)->hp -= msg.get_arg<int>(0);
+                        wte_set_component(ast_id, health)->hp -= std::stoi(msg.get_arglist()[0]);
                     }
                 }
             );  //  End asteroid message dispatching.

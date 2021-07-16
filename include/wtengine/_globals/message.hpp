@@ -177,27 +177,6 @@ class message {
         };
 
         /*!
-         * \brief Get a single argument by pos from the argument list, casted to a type.
-         * 
-         * \tparam T Type to cast to.
-         * \param pos The position in the argument vector.
-         * \return The argument by position casted to type.
-         */
-        template <typename T>
-        inline const T get_arg(const std::size_t& pos) const {
-            //  Bad position, return false.
-            if(pos >= arglist.size()) return std::any_cast<const bool>(false);
-            try {
-                T temp;
-                std::stringstream(arglist[pos]) >>
-                    std::setprecision(std::numeric_limits<T>::max_digits10) >> std::fixed >> temp;
-                return std::any_cast<const T>(temp);
-            } catch (std::bad_any_cast& e) {
-                return std::any_cast<const bool>(false);  //  Bad cast, return false.
-            }
-        };
-
-        /*!
          * \brief Check if the event is synced to the timer.
          * 
          * \return Returns false if the timer value is -1, else true.

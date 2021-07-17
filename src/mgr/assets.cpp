@@ -41,7 +41,6 @@ const bool assets::load(const std::string& fname, const std::string& label) {
     ALLEGRO_FILE* file;
     file = al_fopen(fname.c_str(), "rb");
     if(!file) {  //  File not found, fail.
-        alert::set("problem was here");
         al_fclose(file);
         return false;
     }

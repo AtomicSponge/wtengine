@@ -16,6 +16,7 @@
 #include <map>
 #include <fstream>
 #include <typeinfo>
+#include <type_traits>
 
 #include <iostream>
 
@@ -58,6 +59,7 @@ class variables final : private manager<variables> {
          * \return False on fail, true on success.
          */
         template <typename T> inline static bool save(const std::string& var) {
+            verify<T>();
             if(isreg(var)) {
                 std::ofstream dfile(data_file_name, std::ios::binary | std::ofstream::app);
                 if(!dfile.good()) return false;
@@ -89,6 +91,7 @@ class variables final : private manager<variables> {
          * \return False on fail, true on success.
          */
         template <typename T> inline static bool load(const std::string& var) {
+            verify<T>();
             std::ifstream dfile(data_file_name, std::ios::binary);
             if(!dfile.good()) return false;
             dfile.seekg(0, dfile.beg);
@@ -129,6 +132,7 @@ class variables final : private manager<variables> {
          * Call this first before accessing.
          */
         template <typename T> inline static const bool reg(const std::string& var, const T& val) {
+            verify<T>();
             auto ret = _map.insert(std::make_pair(var, std::make_any<T>(val)));
             return ret.second;
         };
@@ -159,6 +163,7 @@ class variables final : private manager<variables> {
          * Will override value
          */
         template <typename T> inline static void set(const std::string& var, const T& val) {
+            verify<T>();
             try {
                 _map.at(var) = std::make_any<T>(val);
             } catch(std::out_of_range& e) {
@@ -171,6 +176,7 @@ class variables final : private manager<variables> {
          * Get value
          */
         template <typename T> inline static const T get(const std::string& var) {
+            verify<T>();
             try {
                 return std::any_cast<const T>(_map.at(var));
             } catch(std::out_of_range& e) {
@@ -185,6 +191,25 @@ class variables final : private manager<variables> {
     private:
         inline variables() { _map.clear(); };
         inline ~variables() { _map.clear(); };
+
+        /*!
+         * Make sure valid data type
+         */
+        template <typename T> inline static void verify(void) {
+            static_assert(
+                std::is_same<int, T>::value ||
+                std::is_same<int16_t, T>::value ||
+                std::is_same<int32_t, T>::value ||
+                std::is_same<int64_t, T>::value ||
+                std::is_same<uint, T>::value ||
+                std::is_same<uint16_t, T>::value ||
+                std::is_same<uint32_t, T>::value ||
+                std::is_same<uint64_t, T>::value ||
+                std::is_same<float, T>::value ||
+                std::is_same<double, T>::value ||
+                std::is_same<long double, T>::value
+            );
+        };
 
         inline static std::string data_file_name = "game.cfg";
 

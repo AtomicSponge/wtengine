@@ -11,6 +11,7 @@
 #define WTE_MAIN_INCLUDE_HPP
 
 #include "wtengine/_globals/_defines.hpp"
+#include "wtengine/_globals/wrappers.hpp"
 
 #include "wtengine/mnu/menu.hpp"
 #include "wtengine/mnu/_menu_items.hpp"

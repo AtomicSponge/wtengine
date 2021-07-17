@@ -132,12 +132,32 @@ class al_bitmap {
 
 class al_font {
     public:
+        /*!
+         *
+         */
         inline al_font() {
             _al_font = NULL;
         };
 
+        /*!
+         *
+         */
         inline ~al_font() {
             al_destroy_font(_al_font);
+        };
+
+        /*!
+         *
+         */
+        inline ALLEGRO_FONT* font(void) {
+            return _al_font;
+        };
+
+        /*!
+         *
+         */
+        const bool load(const std::string& fname) {
+            return false;
         };
 
     private:

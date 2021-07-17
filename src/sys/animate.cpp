@@ -35,7 +35,7 @@ void animate::run(void) {
         try {
             if(mgr::entities::get_component<cmp::visible>(it.first)->check())
                 it.second->run(it.first);
-        } catch(const wte_exception& e) { alert::set_alert(e.what()); }
+        } catch(const wte_exception& e) { alert::set(e.what()); }
     }
 }
 

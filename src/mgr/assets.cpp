@@ -87,7 +87,7 @@ ALLEGRO_BITMAP* assets::get(const std::string& label) {
     try {
         return _bitmaps.at(label).first;
     } catch(std::out_of_range& e) {
-        std::string err_msg = "Could not find bitmap: " + label;
+        const std::string err_msg = "Could not find bitmap: " + label;
         throw wte_exception(err_msg.c_str());
     }
 }

@@ -18,7 +18,7 @@ namespace cmp
 /*
  *
  */
-dispatcher::dispatcher(std::function<void(const entity_id&, const message&)> func) : handle_msg(func) {};
+dispatcher::dispatcher(const std::function<void(const entity_id&, const message&)>& func) : handle_msg(func) {};
 
 /*
  *

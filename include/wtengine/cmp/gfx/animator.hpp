@@ -100,16 +100,8 @@ class animator : public component {
          * \param l Layer for sorting.
          * \param func Animation function.
          */
-        //inline animator(std::size_t l, void func(const entity_id&)) :
-        inline animator(std::string bmp, std::size_t l, std::function<void(const entity_id&)> func) :
-        internal_bitmap(bmp), layer(l), tint_set(false), animate(func) {
-            //  Verify bitmap exists.
-            try {
-                mgr::assets::get(internal_bitmap);
-            } catch(wte_exception& e) {
-                alert::set(e.what());
-            }
-        };
+        animator(const std::string& bmp, const std::size_t& l,
+                 const std::function<void(const entity_id&)>& func);
 
         //!  Stores the bitmap used by the animator.
         const std::string internal_bitmap;

@@ -41,8 +41,8 @@ class overlay final : public animator {
          * \param l Layer for sorting.
          * \param func Function to define what is displayed in the overlay.
          */
-        overlay(const std::string bmp, const float x, const float y,
-                       const std::size_t l, std::function<void(const entity_id&)> func);
+        overlay(const std::string& bmp, const float& x, const float& y,
+                const std::size_t& l, const std::function<void(const entity_id&)>& func);
 
         /*!
          * \brief Overlay destructor.
@@ -59,7 +59,7 @@ class overlay final : public animator {
          * \param f Text flags for drawing - see Allegro docs on al_draw_text.
          */
         void draw_text(const std::string& txt, const ALLEGRO_COLOR& color,
-                              const float& x, const float& y, const int& f);
+                       const float& x, const float& y, const int& f);
 
         /*!
          * \brief Get X position.

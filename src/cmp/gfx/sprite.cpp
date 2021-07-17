@@ -19,10 +19,10 @@ namespace cmp
  *
  */
 sprite::sprite(
-    const std::string bmp,
-    const float sw, const float sh,
-    const float dox, const float doy,
-    const std::size_t rt, const std::size_t l) :
+    const std::string& bmp,
+    const float& sw, const float& sh,
+    const float& dox, const float& doy,
+    const std::size_t& rt, const std::size_t& l) :
     animator(bmp, l,[this](const entity_id& e_id) {
         //  Define sprite animation process.
         if(engine_time::check_time() % rate == 0) {

@@ -19,10 +19,10 @@ namespace cmp
  *
  */
 overlay::overlay(
-    const std::string bmp,
-    const float x, const float y,
-    const std::size_t l,
-    std::function<void(const entity_id&)> func
+    const std::string& bmp,
+    const float& x, const float& y,
+    const std::size_t& l,
+    const std::function<void(const entity_id&)>& func
 ) : animator(bmp, l, func), pos_x(x), pos_y(y)
 { overlay_font = NULL; }
 

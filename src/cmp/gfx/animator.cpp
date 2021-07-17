@@ -18,6 +18,22 @@ namespace cmp
 /*
  *
  */
+animator::animator(
+    const std::string& bmp,
+    const std::size_t& l,
+    const std::function<void(const entity_id&)>& func
+) : internal_bitmap(bmp), layer(l), tint_set(false), animate(func) {
+    //  Verify bitmap exists.
+    try {
+        mgr::assets::get(internal_bitmap);
+    } catch(wte_exception& e) {
+        alert::set(e.what());
+    }
+}
+
+/*
+ *
+ */
 void animator::run(const entity_id& e_id){
     try { animate(e_id); } catch(const wte_exception& e) { alert::set_alert(e.what()); }
 }

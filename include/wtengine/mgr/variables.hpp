@@ -58,35 +58,33 @@ class variables final : private manager<variables> {
          */
         template <typename T> inline static bool save(const std::string& var) {
             verify<T>();
-            if(isreg(var)) {
-                std::ofstream dfile(data_file_name, std::ios::binary | std::ofstream::app);
-                if(!dfile.good()) return false;
+            if(!isreg(var)) return false;
+            std::ofstream dfile(data_file_name, std::ios::binary | std::ofstream::app);
+            if(!dfile.good()) return false;
 
-                try {
-                    T tempv = get<T>(var);
+            try {
+                T tempv = get<T>(var);
 
-                    {int32_t tempi = std::strlen(var.c_str()) + 1;
-                    dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));
-                    dfile.write(var.c_str(), tempi);}
+                {int32_t tempi = std::strlen(var.c_str()) + 1;
+                dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));
+                dfile.write(var.c_str(), tempi);}
 
-                    {int32_t tempi;
-                    if(std::is_same<std::string, T>::value)
-                        tempi = std::strlen(std::any_cast<const std::string>(tempv).c_str()) + 1;
-                    else tempi = sizeof(T);
-                    dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));
-                    if(std::is_same<std::string, T>::value)
-                        dfile.write(std::any_cast<const std::string>(tempv).c_str(), tempi);
-                    else
-                        dfile.write(reinterpret_cast<const char*>(&tempv), tempi);}
-                } catch(...) {
-                    dfile.close();
-                    return false;
-                }
-
+                {int32_t tempi;
+                if(std::is_same<std::string, T>::value)
+                    tempi = std::strlen(std::any_cast<const std::string>(tempv).c_str()) + 1;
+                else tempi = sizeof(T);
+                dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));
+                if(std::is_same<std::string, T>::value)
+                    dfile.write(std::any_cast<const std::string>(tempv).c_str(), tempi);
+                else
+                    dfile.write(reinterpret_cast<const char*>(&tempv), tempi);}
+            } catch(...) {
                 dfile.close();
-                return true;
+                return false;
             }
-            return false;
+
+            dfile.close();
+            return true;
         };
 
         /*!

@@ -18,8 +18,6 @@
 #include <typeinfo>
 #include <type_traits>
 
-#include <iostream>
-
 #include "wtengine/mgr/manager.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
 
@@ -71,9 +69,15 @@ class variables final : private manager<variables> {
                     dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));
                     dfile.write(var.c_str(), tempi);}
 
-                    {int32_t tempi = sizeof(T);
+                    {int32_t tempi;
+                    if(std::is_same<std::string, T>::value)
+                        tempi = std::strlen(std::any_cast<const std::string>(tempv).c_str()) + 1;
+                    else tempi = sizeof(T);
                     dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));
-                    dfile.write(reinterpret_cast<const char*>(&tempv), tempi);}
+                    if(std::is_same<std::string, T>::value)
+                        dfile.write(std::any_cast<const std::string>(tempv).c_str(), tempi);
+                    else
+                        dfile.write(reinterpret_cast<const char*>(&tempv), tempi);}
                 } catch(...) {
                     dfile.close();
                     return false;
@@ -111,9 +115,17 @@ class variables final : private manager<variables> {
                     int32_t size;
                     dfile.read(reinterpret_cast<char*>(&size), sizeof(int32_t));
                     if(var == in_var) {
-                        T in_val;
-                        dfile.read(reinterpret_cast<char*>(&in_val), size);
-                        set<T>(var, in_val);
+                        if(std::is_same<std::string, T>::value) {
+                            char* buffer = new char[size];
+                            dfile.read(buffer, size);
+                            std::string in_val = std::string(buffer);
+                            delete[] buffer;
+                            set<std::string>(var, in_val);
+                        } else {
+                            T in_val;
+                            dfile.read(reinterpret_cast<char*>(&in_val), size);
+                            set<T>(var, in_val);
+                        }
                         break;
                     }
                     dfile.seekg(size, dfile.cur);
@@ -207,7 +219,8 @@ class variables final : private manager<variables> {
                 std::is_same<uint64_t, T>::value ||
                 std::is_same<float, T>::value ||
                 std::is_same<double, T>::value ||
-                std::is_same<long double, T>::value
+                std::is_same<long double, T>::value ||
+                std::is_same<std::string, T>::value
             );
         };
 

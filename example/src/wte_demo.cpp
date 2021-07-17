@@ -495,6 +495,9 @@ void wte_demo::new_game(void) {
             //  Reset player.
             if(msg.get_cmd() == "reset") {
                 config::flags::input_enabled = true;
+                config::controls::p1_polc_x = 0.0f;
+                config::controls::p1_polc_y = 0.0f;
+                wte_set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
                 wte_set_component(plr_id, cmp::location)->set_x((float)((mgr::renderer::get_arena_width() / 2) - 5));
                 wte_set_component(plr_id, cmp::location)->set_y((float)(mgr::renderer::get_arena_height() - 40));
                 wte_set_component(plr_id, health)->hp = wte_get_component(plr_id, health)->hp_max;

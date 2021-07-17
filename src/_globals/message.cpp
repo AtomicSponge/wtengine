@@ -15,25 +15,25 @@ namespace wte
 /*
  *
  */
-message::message(std::string s, std::string c, std::string a) :
+message::message(const std::string& s, const std::string& c, const std::string& a) :
 timer(-1), sys(s), to(""), from(""), cmd(c) { split_args(a); };
 
 /*
  *
  */
-message::message(int64_t e, std::string s, std::string c, std::string a) :
+message::message(const int64_t& e, const std::string& s, const std::string& c, const std::string& a) :
 timer(e), sys(s), to(""), from(""), cmd(c) { split_args(a); };
 
 /*
  *
  */
-message::message(std::string s, std::string t, std::string f, std::string c, std::string a) :
+message::message(const std::string& s, const std::string& t, const std::string& f, const std::string& c, const std::string& a) :
 timer(-1), sys(s), to(t), from(f), cmd(c) { split_args(a); };
 
 /*
  *
  */
-message::message(int64_t e, std::string s, std::string t, std::string f, std::string c, std::string a) :
+message::message(const int64_t& e, const std::string& s, const std::string& t, const std::string& f, const std::string& c, const std::string& a) :
 timer(e), sys(s), to(t), from(f), cmd(c) { split_args(a); };
 
 /*

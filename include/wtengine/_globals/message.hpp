@@ -41,7 +41,7 @@ class message {
          * \param c Command.
          * \param a Arguments delimited by ;
          */
-        message(std::string s, std::string c, std::string a);
+        message(const std::string& s, const std::string& c, const std::string& a);
 
         /*!
          * \brief Message Constructor
@@ -53,7 +53,7 @@ class message {
          * \param c Command.
          * \param a Arguments delimited by ;
          */
-        message(int64_t e, std::string s, std::string c, std::string a);
+        message(const int64_t& e, const std::string& s, const std::string& c, const std::string& a);
 
         /*!
          * \brief Message Constructor
@@ -66,7 +66,7 @@ class message {
          * \param c Command.
          * \param a Arguments delimited by ;
          */
-        message(std::string s, std::string t, std::string f, std::string c, std::string a);
+        message(const std::string& s, const std::string& t, const std::string& f, const std::string& c, const std::string& a);
 
         /*!
          * \brief Message Constructor
@@ -80,7 +80,7 @@ class message {
          * \param c Command.
          * \param a Arguments delimited by ;
          */
-        message(int64_t e, std::string s, std::string t, std::string f, std::string c, std::string a);
+        message(const int64_t& e, const std::string& s, const std::string& t, const std::string& f, const std::string& c, const std::string& a);
 
         /*!
          * \brief Overload < operator to sort by timer value.

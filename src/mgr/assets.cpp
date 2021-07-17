@@ -17,20 +17,20 @@ namespace mgr
 
 template <> bool assets::manager<assets>::initialized = false;
 
-std::map<std::string, std::pair<ALLEGRO_BITMAP*, bool>> assets::_bitmaps = {};
+std::map<std::string, std::pair<ALLEGRO_BITMAP*, bool>> assets::_assets = {};
 std::map<std::string, ALLEGRO_BITMAP*> assets::_bitmaps_backup = {};
 
 /*
  *
  */
-assets::assets() { _bitmaps.clear(); }
+assets::assets() { _assets.clear(); }
 
 /*
  *
  */
 assets::~assets() {
-    for(auto & it : _bitmaps) al_destroy_bitmap(it.second.first);
-    _bitmaps.clear();
+    for(auto & it : _assets) al_destroy_bitmap(it.second.first);
+    _assets.clear();
 }
 
 /*
@@ -61,7 +61,7 @@ const bool assets::load(const std::string& fname, const std::string& label) {
 
     //  Store the bitmap.
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-    auto ret = _bitmaps.insert(std::make_pair(label, std::make_pair(al_clone_bitmap(temp_bitmap), false)));
+    auto ret = _assets.insert(std::make_pair(label, std::make_pair(al_clone_bitmap(temp_bitmap), false)));
     al_destroy_bitmap(temp_bitmap);
 
     return ret.second;
@@ -71,10 +71,10 @@ const bool assets::load(const std::string& fname, const std::string& label) {
  *
  */
 const bool assets::unload(const std::string& label) {
-    auto it = _bitmaps.find(label);
-    if(it != _bitmaps.end()) {
+    auto it = _assets.find(label);
+    if(it != _assets.end()) {
         al_destroy_bitmap(it->second.first);
-        _bitmaps.erase(it);
+        _assets.erase(it);
         return true;
     }
     return false;
@@ -85,7 +85,7 @@ const bool assets::unload(const std::string& label) {
  */
 ALLEGRO_BITMAP* assets::get(const std::string& label) {
     try {
-        return _bitmaps.at(label).first;
+        return _assets.at(label).first;
     } catch(std::out_of_range& e) {
         const std::string err_msg = "Could not find bitmap: " + label;
         throw wte_exception(err_msg.c_str());
@@ -99,7 +99,7 @@ const bool assets::create_bitmap(const std::string& label, const int w, const in
     al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
     ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap(w, h);
     if(!temp_bitmap) return false;
-    auto ret = _bitmaps.insert(std::make_pair(label, std::make_pair(al_clone_bitmap(temp_bitmap), true)));
+    auto ret = _assets.insert(std::make_pair(label, std::make_pair(al_clone_bitmap(temp_bitmap), true)));
     al_destroy_bitmap(temp_bitmap);
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
     if (!ret.second) return false;
@@ -111,13 +111,13 @@ const bool assets::create_bitmap(const std::string& label, const int w, const in
  */
 void assets::backup(void) {
     _bitmaps_backup.clear();
-    for (auto it = _bitmaps.begin(); it != _bitmaps.end();) {
+    for (auto it = _assets.begin(); it != _assets.end();) {
         if(it->second.second) {
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             _bitmaps_backup.insert(std::make_pair(it->first, al_clone_bitmap(it->second.first)));
             //  Now delete the old item.
             al_destroy_bitmap(it->second.first);
-            it = _bitmaps.erase(it);
+            it = _assets.erase(it);
         }
         else it++;
     }
@@ -129,7 +129,7 @@ void assets::backup(void) {
 void assets::reload(void) {
     for (auto it = _bitmaps_backup.begin(); it != _bitmaps_backup.end();) {
         al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-        _bitmaps.insert(std::make_pair(it->first, std::make_pair(al_clone_bitmap(it->second), true)));
+        _assets.insert(std::make_pair(it->first, std::make_pair(al_clone_bitmap(it->second), true)));
         //  Now delete the old backup item.
         al_destroy_bitmap(it->second);
         it = _bitmaps_backup.erase(it);

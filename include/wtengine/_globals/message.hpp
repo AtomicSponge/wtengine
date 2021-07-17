@@ -88,7 +88,7 @@ class message {
          * \param a Object to compare to.
          * \return True if less than, false if greater than.
          */
-        const bool operator<(const message& a) const;
+        const bool operator<(const message& m) const;
 
         /*!
          * \brief Split arguments into a vector of strings.

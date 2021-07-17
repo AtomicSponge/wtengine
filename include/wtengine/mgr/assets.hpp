@@ -76,7 +76,7 @@ class assets final : private manager<assets> {
          */
         static void reload(void);
 
-        static std::map<std::string, std::pair<ALLEGRO_BITMAP*, bool>> _bitmaps;
+        static std::map<std::string, std::pair<ALLEGRO_BITMAP*, bool>> _assets;
         static std::map<std::string, ALLEGRO_BITMAP*> _bitmaps_backup;
 };
 

@@ -39,7 +39,7 @@ timer(e), sys(s), to(t), from(f), cmd(c) { split_args(a); };
 /*
  *
  */
-const bool message::operator<(const message& a) const { return timer < a.timer; }
+const bool message::operator<(const message& m) const { return timer < m.timer; }
 
 /*
  *

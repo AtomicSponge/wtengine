@@ -209,6 +209,8 @@ class variables final : private manager<variables> {
          */
         template <typename T> inline static void verify(void) {
             static_assert(
+                std::is_same<bool, T>::value ||
+                std::is_same<char, T>::value ||
                 std::is_same<int, T>::value ||
                 std::is_same<int16_t, T>::value ||
                 std::is_same<int32_t, T>::value ||

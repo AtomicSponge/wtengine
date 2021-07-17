@@ -75,7 +75,7 @@ class menus final : private manager<menus> {
          * \param fcolor Allegro color to use for font.
          * \param bgcolor Allegro color to use for background.
          */
-        inline static void set_menu_color(ALLEGRO_COLOR fcolor, ALLEGRO_COLOR bgcolor) {
+        inline static void set_menu_color(const ALLEGRO_COLOR& fcolor, const ALLEGRO_COLOR& bgcolor) {
             menu_font_color = fcolor;
             menu_bg_color = bgcolor;
 

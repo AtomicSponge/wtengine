@@ -94,7 +94,7 @@ class engine : private display, public input, public config {
          * \param argv Command line arguments count.
          * \param title Window title.
          */
-        inline engine(const int argc, char **argv, const std::string& title) : display(title) {
+        inline engine(const int& argc, char** const& argv, const std::string& title) : display(title) {
             if(initialized == true) throw std::runtime_error(get_window_title() + " already running!");
             initialized = true;
 

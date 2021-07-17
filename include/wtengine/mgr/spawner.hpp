@@ -45,7 +45,7 @@ class spawner final : private manager<spawner> {
          * \return True if inserted into the spawn map, false if not.
          */
         static const bool add_spawn(const std::string& name, const std::size_t& num_args,
-                                    void func(const entity_id&, const msg_arg_list&));
+                                    const std::function<void(const entity_id&, const msg_arg_list&)>& func);
 
     private:
         /*!

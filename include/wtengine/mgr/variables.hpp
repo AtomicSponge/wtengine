@@ -96,6 +96,7 @@ class variables final : private manager<variables> {
          */
         template <typename T> inline static bool load(const std::string& var) {
             verify<T>();
+            if(!isreg(var)) return false;
             std::ifstream dfile(data_file_name, std::ios::binary);
             if(!dfile.good()) return false;
             dfile.seekg(0, dfile.beg);

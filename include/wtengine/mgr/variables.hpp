@@ -44,6 +44,8 @@ class variables final : private manager<variables> {
 
         /*!
          * \brief Clear the current game config save.
+         *
+         * \return False on fail, true on success.
          */
         inline static bool clear_save(void) {
             std::ofstream dfile(data_file_name, std::ofstream::trunc);

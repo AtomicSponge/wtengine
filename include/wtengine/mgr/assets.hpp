@@ -53,7 +53,7 @@ class assets final : private manager<assets> {
         /*!
          * \brief 
          */
-        static const bool create_bitmap(const std::string& label, const int w, const int h);
+        static const bool create_bitmap(const std::string& label, const int& w, const int& h);
 
     private:
         /*!

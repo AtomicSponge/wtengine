@@ -95,7 +95,7 @@ ALLEGRO_BITMAP* assets::get(const std::string& label) {
 /*
  *
  */
-const bool assets::create_bitmap(const std::string& label, const int w, const int h) {
+const bool assets::create_bitmap(const std::string& label, const int& w, const int& h) {
     al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
     ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap(w, h);
     if(!temp_bitmap) return false;

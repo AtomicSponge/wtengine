@@ -43,14 +43,14 @@ class direction final : public component {
          * 
          * \param r Draw rotated flag.
          */
-        direction(const bool r);
+        direction(const bool& r);
 
         /*!
          * \brief Direction constructor.
          * 
          * \param a Angle of direction in radians.
          */
-        direction(const float a);
+        direction(const float& a);
 
         /*!
          * \brief Direction constructor.
@@ -58,7 +58,7 @@ class direction final : public component {
          * \param a Angle of direction in radians.
          * \param r Draw rotated flag.
          */
-        direction(const float a, const bool r);
+        direction(const float& a, const bool& r);
 
         /*!
          * \brief Set angle of direction using degrees.

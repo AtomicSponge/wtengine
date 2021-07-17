@@ -23,12 +23,12 @@ velocity::velocity(void) : x_vel(0.0f), y_vel(0.0f) {}
 /*
  *
  */
-velocity::velocity(const float v) : x_vel(v), y_vel(v) {}
+velocity::velocity(const float& v) : x_vel(v), y_vel(v) {}
 
 /*
  *
  */
-velocity::velocity(const float xv, const float yv) : x_vel(xv), y_vel(yv) {}
+velocity::velocity(const float& xv, const float& yv) : x_vel(xv), y_vel(yv) {}
 
 /*
  *

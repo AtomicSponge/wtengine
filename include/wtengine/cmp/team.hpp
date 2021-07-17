@@ -31,7 +31,7 @@ class team final : public component {
          * 
          * \param t Team value for the entity.
          */
-        team(std::size_t t);
+        team(const std::size_t& t);
 
         /*!
          * \brief Get team.

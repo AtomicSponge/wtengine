@@ -30,7 +30,7 @@ class location final : public component {
          * \param x Horizontal location of the entity.
          * \param y Verticle location of the entity.
          */
-        location(float x, float y);
+        location(const float& x, const float& y);
 
         /*!
          * \brief Get X location.

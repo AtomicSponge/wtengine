@@ -67,14 +67,14 @@ class alert {
          * 
          * \param c A struct representing an Allegro Color object for the alert font.
          */
-        static void set_font_color(const ALLEGRO_COLOR c);
+        static void set_font_color(const ALLEGRO_COLOR& c);
 
         /*!
          * \brief Set the background color for alerts.
          * 
          * \param c A struct representing an Allegro Color object for the alert background.
          */
-        static void set_bg_color(const ALLEGRO_COLOR c);
+        static void set_bg_color(const ALLEGRO_COLOR& c);
 
         /*!
          * \brief Clear the alert.

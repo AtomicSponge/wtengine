@@ -57,12 +57,12 @@ const ALLEGRO_COLOR alert::get_bg_color(void) { return bg_color; };
 /*
  * 
  */
-void alert::set_font_color(const ALLEGRO_COLOR c) { font_color = c; };
+void alert::set_font_color(const ALLEGRO_COLOR& c) { font_color = c; };
 
 /*
  * 
  */
-void alert::set_bg_color(const ALLEGRO_COLOR c) { bg_color = c; };
+void alert::set_bg_color(const ALLEGRO_COLOR& c) { bg_color = c; };
 
 /*
  * 

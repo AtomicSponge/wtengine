@@ -38,7 +38,7 @@ class visible final : public component {
          * 
          * \param v Boolean value for visibility.
          */
-        visible(const bool v);
+        visible(const bool& v);
 
         /*!
          * \brief Check if visible.

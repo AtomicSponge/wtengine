@@ -34,7 +34,7 @@ class velocity final : public component {
          * 
          * \param v Velocity for X and Y.
          */
-        velocity(const float v);
+        velocity(const float& v);
 
         /*!
          * \brief Velocity constructor.
@@ -42,7 +42,7 @@ class velocity final : public component {
          * \param xv X velocity.
          * \param yv Y velocity.
          */
-        velocity(const float xv, const float yv);
+        velocity(const float& xv, const float& yv);
 
         /*!
          * \brief Set X velocity.

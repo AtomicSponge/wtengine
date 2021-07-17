@@ -23,7 +23,7 @@ enabled::enabled() : is_enabled(true) {}
 /*
  *
  */
-enabled::enabled(const bool e) : is_enabled(e) {}
+enabled::enabled(const bool& e) : is_enabled(e) {}
 
 /*
  *

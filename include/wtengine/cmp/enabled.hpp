@@ -36,7 +36,7 @@ class enabled final : public component {
          * 
          * Pass boolean value to the component to set if it is enabled.
          */
-        enabled(const bool e);
+        enabled(const bool& e);
 
         /*!
          * \brief Check if the entity is enabled.

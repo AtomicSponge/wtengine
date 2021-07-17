@@ -27,17 +27,17 @@ direction::direction(void) : angle(0.0f), draw_rotated(true) {}
 /*
  *
  */
-direction::direction(const bool r) : angle(0.0f), draw_rotated(r) {}
+direction::direction(const bool& r) : angle(0.0f), draw_rotated(r) {}
 
 /*
  *
  */
-direction::direction(const float a) : angle(a), draw_rotated(true) {}
+direction::direction(const float& a) : angle(a), draw_rotated(true) {}
 
 /*
  *
  */
-direction::direction(const float a, const bool r) : angle(a), draw_rotated(r) {}
+direction::direction(const float& a, const bool& r) : angle(a), draw_rotated(r) {}
 
 /*
  *

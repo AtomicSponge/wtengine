@@ -18,12 +18,12 @@ namespace cmp
 /*
  *
  */
-hitbox::hitbox(float w, float h) : width(w), height(h), solid(true) {}
+hitbox::hitbox(const float& w, const float& h) : width(w), height(h), solid(true) {}
 
 /*
  *
  */
-hitbox::hitbox(float w, float h, bool s) : width(w), height(h), solid(s) {}
+hitbox::hitbox(const float& w, const float& h, const bool& s) : width(w), height(h), solid(s) {}
 
 /*
  *

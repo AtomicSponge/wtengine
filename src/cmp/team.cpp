@@ -18,7 +18,7 @@ namespace cmp
 /*
  *
  */
-team::team(std::size_t t) : this_team(t) {
+team::team(const std::size_t& t) : this_team(t) {
     if(this_team > 3) this_team = 3;
 }
 

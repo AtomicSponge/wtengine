@@ -23,7 +23,7 @@ visible::visible() : is_visible(true) {}
 /*
  *
  */
-visible::visible(const bool v) : is_visible(v) {}
+visible::visible(const bool& v) : is_visible(v) {}
 
 /*
  *

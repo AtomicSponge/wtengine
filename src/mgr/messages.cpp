@@ -117,12 +117,8 @@ void messages::load_file(const std::string& fname) {
     while(true) {
         if(al_feof(file)) break;  //  End loop if eof.
 
-        int64_t timer = 0;
-        std::string sys = "";
-        std::string to = "";
-        std::string from = "";
-        std::string cmd = "";
-        std::string args = "";
+        int64_t timer = -1;
+        std::string sys, to, from, cmd, args;
 
         //  Read the message from file.
         read_message(*file, timer, sys, to, from, cmd, args);
@@ -153,12 +149,8 @@ const bool messages::load_script(const std::string& fname) {
     while(true) {
         if(al_feof(file)) break;  //  End loop if eof.
 
-        int64_t timer = 0;
-        std::string sys = "";
-        std::string to = "";
-        std::string from = "";
-        std::string cmd = "";
-        std::string args = "";
+        int64_t timer = -1;
+        std::string sys, to, from, cmd, args;
 
         //  Read the message from file.
         read_message(*file, timer, sys, to, from, cmd, args);
@@ -176,13 +168,10 @@ const bool messages::load_script(const std::string& fname) {
 /*
  *
  */
-void messages::read_message(ALLEGRO_FILE& file,
-                            int64_t& timer,
-                            std::string& sys,
-                            std::string& to,
-                            std::string& from,
-                            std::string& cmd,
-                            std::string& args) {
+void messages::read_message(
+    ALLEGRO_FILE& file, int64_t& timer,
+    std::string& sys, std::string& to, std::string& from,
+    std::string& cmd, std::string& args) {
     //  Read in timer value.
     al_fread(&file, &timer, sizeof(int64_t));
 

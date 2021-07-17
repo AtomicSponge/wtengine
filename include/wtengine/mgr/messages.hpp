@@ -119,13 +119,10 @@ class messages final : private manager<messages> {
          * \param cmd Command value to write to.
          * \param args Argument value to write to.
          */
-        static void read_message(ALLEGRO_FILE& file,
-                                 int64_t& timer,
-                                 std::string& sys,
-                                 std::string& to,
-                                 std::string& from,
-                                 std::string& cmd,
-                                 std::string& args);
+        static void read_message(
+            ALLEGRO_FILE& file, int64_t& timer,
+            std::string& sys, std::string& to,
+            std::string& from, std::string& cmd, std::string& args);
 
         /*!
          * \brief Log processed messages to a file.

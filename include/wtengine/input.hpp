@@ -21,6 +21,7 @@
 #include "wtengine/config.hpp"
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/alert.hpp"
+#include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/mgr/menus.hpp"
 
@@ -153,6 +154,16 @@ class input {
          * Called during the main engine loop.  Pass any events to the input handler.
          */
         void check_input_events(void);
+
+        struct lastkeypress {
+            inline static int64_t timer = 0;
+            inline static int key = 0;
+        };
+
+        struct lastbuttonpress {
+            inline static int64_t timer = 0;
+            inline static int button = 0;
+        };
 
     private:
         void handle_input_event(const ALLEGRO_EVENT&);

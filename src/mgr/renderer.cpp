@@ -200,7 +200,7 @@ void renderer::render(void) {
                               0, 0, screen_w, screen_h, 0);
 
         //  Set drawing to the arena bitmap.
-        al_set_target_bitmap(*mgr::assets::secret_get<al_bitmap>("arena_bitmap"));
+        al_set_target_bitmap(mgr::assets::secret_get<al_bitmap>("arena_bitmap").bitmap());
         al_clear_to_color(WTE_COLOR_BLACK);
 
         /*
@@ -243,7 +243,7 @@ void renderer::render(void) {
                 if(mgr::entities::get_component<cmp::visible>(it.first)->check()) {
                     //  Get the current sprite frame.
                     temp_bitmap = al_create_sub_bitmap(
-                        *mgr::assets::secret_get<al_bitmap>(it.second->get_bitmap()),
+                        mgr::assets::secret_get<al_bitmap>(it.second->get_bitmap()).bitmap(),
                         it.second->get_sprite_x(),
                         it.second->get_sprite_y(),
                         it.second->get_sprite_width(),

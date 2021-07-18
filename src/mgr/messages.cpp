@@ -19,6 +19,10 @@ template <> bool messages::manager<messages>::initialized = false;
 
 message_container messages::msg_queue = {};
 
+#if WTE_DEBUG_MODE
+std::ofstream messages::debug_log_file;
+#endif
+
 /*
  *
  */

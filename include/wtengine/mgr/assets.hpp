@@ -15,6 +15,9 @@
 #include <any>
 #include <utility>
 
+#include <type_traits>
+#include <cassert>
+
 #include <allegro5/allegro.h>
 
 #include "wtengine/_globals/_defines.hpp"
@@ -43,6 +46,7 @@ class assets final : private manager<assets> {
          * \brief 
          */
         template <typename T> inline static const bool load(const std::string& label, const T& data) {
+            assert(std::is_copy_constructible<T>::value);
             auto ret = _assets.insert(std::make_pair(label, std::make_pair(std::make_any<T>(data), true)));
             return ret.second;
         };

@@ -99,9 +99,9 @@ class al_bitmap {
             return temp;
         };*/
 
-        inline ALLEGRO_BITMAP* operator*() {
+        /*inline ALLEGRO_BITMAP* operator*() {
             return _al_bitmap;
-        };
+        };*/
 
         /*!
          *

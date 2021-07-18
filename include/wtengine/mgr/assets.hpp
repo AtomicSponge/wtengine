@@ -12,12 +12,14 @@
 
 #include <string>
 #include <map>
+#include <any>
 #include <utility>
 
 #include <allegro5/allegro.h>
 
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/alert.hpp"
+#include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/mgr/manager.hpp"
 
@@ -33,12 +35,14 @@ namespace mgr
  */
 class assets final : private manager<assets> {
     friend class interface;
+    friend class renderer;
+    friend class menus;
 
     public:
         /*!
          * \brief 
          */
-        static const bool load(const std::string& fname, const std::string& label);
+        template <typename T> static const bool load(const std::string& label, const T& data);
 
         /*!
          * \brief 
@@ -48,12 +52,7 @@ class assets final : private manager<assets> {
         /*!
          * \brief 
          */
-        static ALLEGRO_BITMAP* get(const std::string& label);
-
-        /*!
-         * \brief 
-         */
-        static const bool create_bitmap(const std::string& label, const int& w, const int& h);
+        template <typename T> static T get(const std::string& label);
 
     private:
         /*!
@@ -69,15 +68,30 @@ class assets final : private manager<assets> {
         /*!
          * \brief 
          */
-        static void backup(void);
+        template <typename T> static const bool secret_load(const std::string& label, const T& data);
 
         /*!
          * \brief 
          */
-        static void reload(void);
+        static const bool secret_unload(const std::string& label);
 
-        static std::map<std::string, std::pair<ALLEGRO_BITMAP*, bool>> _assets;
-        static std::map<std::string, ALLEGRO_BITMAP*> _bitmaps_backup;
+        /*!
+         * \brief 
+         */
+        template <typename T> static T secret_get(const std::string& label);
+
+        /*!
+         * \brief 
+         */
+        static void backup_bitmaps(void);
+
+        /*!
+         * \brief 
+         */
+        static void reload_bitmaps(void);
+
+        static std::map<std::string, std::pair<std::any, bool>> _assets;
+        static std::map<std::string, al_bitmap> _bitmaps_backup;
 };
 
 } //  namespace mgr

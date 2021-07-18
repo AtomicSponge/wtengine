@@ -78,14 +78,14 @@ class interface : private manager<interface>  {
          * \brief Backup all temp bitmaps.
          */
         inline void bitmap_backup(void) {
-            mgr::assets::backup();
+            mgr::assets::backup_bitmaps();
         };
 
         /*!
          * \brief Reload all temp bitmaps.
          */
         inline void bitmap_reload(void) {
-            mgr::assets::reload();
+            mgr::assets::reload_bitmaps();
         };
 
         /* ******************************** */

@@ -32,7 +32,7 @@ void animator::run(const entity_id& e_id) { animate(e_id); }
 /*
  *
  */
-void animator::set_drawing(void) { al_set_target_bitmap(mgr::assets::get(internal_bitmap)); }
+void animator::set_drawing(void) { al_set_target_bitmap(*mgr::assets::get<al_bitmap>(internal_bitmap)); }
 
 /*
  *

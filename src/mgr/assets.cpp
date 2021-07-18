@@ -17,8 +17,8 @@ namespace mgr
 
 template <> bool assets::manager<assets>::initialized = false;
 
-std::map<std::string, std::pair<ALLEGRO_BITMAP*, bool>> assets::_assets = {};
-std::map<std::string, ALLEGRO_BITMAP*> assets::_bitmaps_backup = {};
+std::map<std::string, std::pair<std::any, bool>> assets::_assets = {};
+std::map<std::string, al_bitmap> assets::_bitmaps_backup = {};
 
 /*
  *
@@ -28,41 +28,13 @@ assets::assets() { _assets.clear(); }
 /*
  *
  */
-assets::~assets() {
-    for(auto & it : _assets) al_destroy_bitmap(it.second.first);
-    _assets.clear();
-}
+assets::~assets() { _assets.clear(); }
 
 /*
  *
  */
-const bool assets::load(const std::string& fname, const std::string& label) {
-    //  Load the file.
-    ALLEGRO_FILE* file;
-    file = al_fopen(fname.c_str(), "rb");
-    if(!file) {  //  File not found, fail.
-        al_fclose(file);
-        return false;
-    }
-
-    //  Load bitmap into a temp pointer.
-    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-    ALLEGRO_BITMAP* temp_bitmap =
-        al_load_bitmap_f(file, fname.substr(fname.find("."), fname.length()).c_str());
-    al_fclose(file);
-
-    if(!temp_bitmap) return false;  //  Bitmap not loaded, fail.
-
-    #if WTE_USE_MAGIC_PINK
-    //  Apply transparency if magic pink is enabled.
-    al_convert_mask_to_alpha(temp_bitmap, WTE_MAGIC_PINK);
-    #endif
-
-    //  Store the bitmap.
-    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-    auto ret = _assets.insert(std::make_pair(label, std::make_pair(al_clone_bitmap(temp_bitmap), false)));
-    al_destroy_bitmap(temp_bitmap);
-
+template <typename T> const bool assets::load(const std::string& label, const T& data) {
+    auto ret = _assets.insert(std::make_pair(label, std::make_pair<std::make_any<T>(data), true>));
     return ret.second;
 }
 
@@ -71,8 +43,7 @@ const bool assets::load(const std::string& fname, const std::string& label) {
  */
 const bool assets::unload(const std::string& label) {
     auto it = _assets.find(label);
-    if(it != _assets.end()) {
-        al_destroy_bitmap(it->second.first);
+    if(it != _assets.end() && it->second.second) {
         _assets.erase(it);
         return true;
     }
@@ -82,11 +53,13 @@ const bool assets::unload(const std::string& label) {
 /*
  *
  */
-ALLEGRO_BITMAP* assets::get(const std::string& label) {
+template <typename T> T assets::get(const std::string& label) {
     try {
-        return _assets.at(label).first;
+        if(_assets.at(label).second) return _assets.at(label).first;
+        const std::string err_msg = "Asset is protected: " + label;
+        throw wte_exception(err_msg.c_str());
     } catch(std::out_of_range& e) {
-        const std::string err_msg = "Could not find bitmap: " + label;
+        const std::string err_msg = "Could not find asset: " + label;
         throw wte_exception(err_msg.c_str());
     }
 }
@@ -94,22 +67,40 @@ ALLEGRO_BITMAP* assets::get(const std::string& label) {
 /*
  *
  */
-const bool assets::create_bitmap(const std::string& label, const int& w, const int& h) {
-    al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-    ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap(w, h);
-    if(!temp_bitmap) return false;
-    auto ret = _assets.insert(std::make_pair(label, std::make_pair(al_clone_bitmap(temp_bitmap), true)));
-    al_destroy_bitmap(temp_bitmap);
-    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-    if (!ret.second) return false;
-    return true;
+template <typename T> const bool assets::secret_load(const std::string& label, const T& data) {
+    auto ret = _assets.insert(std::make_pair(label, std::make_pair<std::make_any<T>(data), false>));
+    return ret.second;
 }
 
 /*
  *
  */
-void assets::backup(void) {
-    _bitmaps_backup.clear();
+const bool assets::secret_unload(const std::string& label) {
+    auto it = _assets.find(label);
+    if(it != _assets.end()) {
+        _assets.erase(it);
+        return true;
+    }
+    return false;
+}
+
+/*
+ *
+ */
+template <typename T> T assets::secret_get(const std::string& label) {
+    try {
+        return _assets.at(label);
+    } catch(std::out_of_range& e) {
+        const std::string err_msg = "Could not find asset: " + label;
+        throw wte_exception(err_msg.c_str());
+    }
+}
+
+/*
+ *
+ */
+void assets::backup_bitmaps(void) {
+    /*_bitmaps_backup.clear();
     for (auto it = _assets.begin(); it != _assets.end();) {
         if(it->second.second) {
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
@@ -119,14 +110,14 @@ void assets::backup(void) {
             it = _assets.erase(it);
         }
         else it++;
-    }
+    }*/
 }
 
 /*
  *
  */
-void assets::reload(void) {
-    for (auto it = _bitmaps_backup.begin(); it != _bitmaps_backup.end();) {
+void assets::reload_bitmaps(void) {
+    /*for (auto it = _bitmaps_backup.begin(); it != _bitmaps_backup.end();) {
         al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
         _assets.insert(std::make_pair(it->first, std::make_pair(al_clone_bitmap(it->second), true)));
         //  Now delete the old backup item.
@@ -134,7 +125,7 @@ void assets::reload(void) {
         it = _bitmaps_backup.erase(it);
     }
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-    _bitmaps_backup.clear();
+    _bitmaps_backup.clear();*/
 }
 
 } //  namespace mgr

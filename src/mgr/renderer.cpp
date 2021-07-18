@@ -44,17 +44,17 @@ int renderer::render_font_flags = 0;
 void renderer::initialize(void) {
     //  Create the arena bitmap.
     if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
-    mgr::assets::secret_load("arena_bitmap", al_bitmap(arena_w, arena_h, true));
+    mgr::assets::secret_load<al_bitmap>("arena_bitmap", al_bitmap(arena_w, arena_h, true));
     arena_created = true;
 
     //  Load the title screen bitmap.
     if(title_screen_file.empty()) {
-        mgr::assets::secret_load("title_bitmap", al_bitmap(1, 1));
+        mgr::assets::secret_load<al_bitmap>("title_bitmap", al_bitmap(1, 1));
         al_set_target_bitmap(*mgr::assets::secret_get<al_bitmap>("title_bitmap"));
         al_clear_to_color(WTE_COLOR_BLACK);
     } else {
         if(!mgr::assets::secret_load(title_screen_file, "title_bitmap")) {
-            mgr::assets::secret_load("title_bitmap", al_bitmap(1, 1));
+            mgr::assets::secret_load<al_bitmap>("title_bitmap", al_bitmap(1, 1));
             al_set_target_bitmap(*mgr::assets::secret_get<al_bitmap>("title_bitmap"));
             al_clear_to_color(WTE_COLOR_BLACK);
         }
@@ -62,12 +62,12 @@ void renderer::initialize(void) {
 
     //  Load the background bitmap.
     if(background_file.empty()) {
-        mgr::assets::secret_load("background_bitmap", al_bitmap(1, 1));
+        mgr::assets::secret_load<al_bitmap>("background_bitmap", al_bitmap(1, 1));
         al_set_target_bitmap(*mgr::assets::secret_get<al_bitmap>("background_bitmap"));
         al_clear_to_color(WTE_COLOR_BLACK);
     } else {
-        if(!mgr::assets::secret_load(background_file, "background_bitmap")) {
-            mgr::assets::secret_load("background_bitmap", al_bitmap(1, 1));
+        if(!mgr::assets::secret_load<al_bitmap>("background_bitmap", al_bitmap(background_file))) {
+            mgr::assets::secret_load<al_bitmap>("background_bitmap", al_bitmap(1, 1));
             al_set_target_bitmap(*mgr::assets::secret_get<al_bitmap>("background_bitmap"));
             al_clear_to_color(WTE_COLOR_BLACK);
         }

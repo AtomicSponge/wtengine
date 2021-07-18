@@ -113,7 +113,7 @@ class al_bitmap {
         /*!
          *
          */
-        const bool load(const std::string& fname) {
+        inline const bool load(const std::string& fname) {
             //  Load the file.
             ALLEGRO_FILE* file;
             file = al_fopen(fname.c_str(), "rb");

@@ -65,29 +65,32 @@ class al_bitmap {
          */
         inline al_bitmap(const std::string& fname, const bool& p) : nopreserve(p) { load(fname); };
 
-        inline al_bitmap(const al_bitmap& b) {
+        /*inline al_bitmap(const al_bitmap& b) {
             if(b.nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             _al_bitmap = al_clone_bitmap(b._al_bitmap);
             nopreserve = b.nopreserve;
-        };
+        };*/
 
         /*!
          *
          */
-        inline al_bitmap operator=(const al_bitmap& b) {
+        /*inline al_bitmap operator=(const al_bitmap& b) {
             al_bitmap temp;
             if(b.nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             temp._al_bitmap = al_clone_bitmap(b._al_bitmap);
             temp.nopreserve = b.nopreserve;
             return temp;
-        };
+        };*/
 
         /*!
          *
          */
-        inline ~al_bitmap() { al_destroy_bitmap(_al_bitmap); };
+        inline ~al_bitmap() {
+            //al_destroy_bitmap(_al_bitmap);
+            //_al_bitmap = NULL;
+        };
 
         inline ALLEGRO_BITMAP* operator*() { return _al_bitmap; };
 

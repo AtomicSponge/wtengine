@@ -65,7 +65,7 @@ class assets final : private manager<assets> {
         template <typename T> inline static T get(const std::string& label) {
             try {
                 auto res = _assets.at(label);
-                if(res.second) return std::any_cast<T&>(res.first);
+                if(res.second) return std::any_cast<T>(res.first);
                 const std::string err_msg = "Asset is protected: " + label;
                 throw wte_exception(err_msg.c_str());
             } catch(std::out_of_range& e) {
@@ -110,7 +110,7 @@ class assets final : private manager<assets> {
          */
         template <typename T> inline static T secret_get(const std::string& label) {
             try {
-                return std::any_cast<T&>(_assets.at(label).first);
+                return std::any_cast<T>(_assets.at(label).first);
             } catch(std::out_of_range& e) {
                 const std::string err_msg = "Could not find asset: " + label;
                 throw wte_exception(err_msg.c_str());

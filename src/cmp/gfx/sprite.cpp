@@ -43,8 +43,8 @@ sprite::sprite(
     start_frame(0), stop_frame(0), current_frame(0), rate(rt)
 {
     if(rate == 0) rate = 1;
-    sheet_width = al_get_bitmap_width(mgr::assets::get<al_bitmap>(get_bitmap()).bitmap());
-    sheet_height = al_get_bitmap_height(mgr::assets::get<al_bitmap>(get_bitmap()).bitmap());
+    sheet_width = al_get_bitmap_width(*mgr::assets::get<al_bitmap>(internal_bitmap));
+    sheet_height = al_get_bitmap_height(*mgr::assets::get<al_bitmap>(internal_bitmap));
 }
 
 /*

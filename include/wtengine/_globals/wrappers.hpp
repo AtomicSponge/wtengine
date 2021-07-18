@@ -78,6 +78,8 @@ class al_bitmap {
          *
          */
         inline operator=(const al_bitmap& b) {
+            if(b.nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+            else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             _al_bitmap = al_clone_bitmap(b._al_bitmap);
             nopreserve = b.nopreserve;
         };
@@ -142,6 +144,14 @@ class al_font {
         /*!
          *
          */
+        inline al_font(const std::string& fname, const int& size, const int& flags) {
+            if(fname == "default") _al_font = al_create_builtin_font();
+            else _al_font = al_load_font(fname.c_str(), size, flags);
+        };
+
+        /*!
+         *
+         */
         inline ~al_font() {
             al_destroy_font(_al_font);
         };
@@ -151,13 +161,6 @@ class al_font {
          */
         inline ALLEGRO_FONT* font(void) {
             return _al_font;
-        };
-
-        /*!
-         *
-         */
-        const bool load(const std::string& fname) {
-            return false;
         };
 
     private:

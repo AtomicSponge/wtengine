@@ -66,7 +66,7 @@ class animator : public component {
          * 
          * \return The internal bitmap.
          */
-        const std::string get_bitmap(void) const;
+        ALLEGRO_BITMAP* get_bitmap(void) const;
 
         /*!
          * \brief Set a tint color.

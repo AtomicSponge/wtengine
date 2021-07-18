@@ -219,9 +219,9 @@ void renderer::render(void) {
             try {
                 if(mgr::entities::get_component<cmp::visible>(it.first)->check()) {
                     if(it.second->draw_tinted())
-                        al_draw_tinted_bitmap(*mgr::assets::secret_get<al_bitmap>(it.second->get_bitmap()), it.second->get_tint(), 0, 0, 0);
+                        al_draw_tinted_bitmap(it.second->get_bitmap(), it.second->get_tint(), 0, 0, 0);
                     else
-                        al_draw_bitmap(*mgr::assets::secret_get<al_bitmap>(it.second->get_bitmap()), 0, 0, 0);
+                        al_draw_bitmap(it.second->get_bitmap(), 0, 0, 0);
                 }
             } catch(const wte_exception& e) { alert::set_alert(e.what()); }
         }
@@ -243,7 +243,7 @@ void renderer::render(void) {
                 if(mgr::entities::get_component<cmp::visible>(it.first)->check()) {
                     //  Get the current sprite frame.
                     temp_bitmap = al_create_sub_bitmap(
-                        *mgr::assets::secret_get<al_bitmap>(it.second->get_bitmap()),
+                        it.second->get_bitmap(),
                         it.second->get_sprite_x(),
                         it.second->get_sprite_y(),
                         it.second->get_sprite_width(),
@@ -351,12 +351,12 @@ void renderer::render(void) {
                 if(mgr::entities::get_component<cmp::visible>(it.first)->check()) {
                     if(it.second->draw_tinted())
                         al_draw_tinted_bitmap(
-                            *mgr::assets::secret_get<al_bitmap>(it.second->get_bitmap()), it.second->get_tint(),
+                            it.second->get_bitmap(), it.second->get_tint(),
                             it.second->get_pos_x(), it.second->get_pos_y(), 0
                         );
                     else
                         al_draw_bitmap(
-                            *mgr::assets::secret_get<al_bitmap>(it.second->get_bitmap()),
+                            it.second->get_bitmap(),
                             it.second->get_pos_x(), it.second->get_pos_y(), 0
                         );
                 }

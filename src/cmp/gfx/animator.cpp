@@ -37,7 +37,7 @@ void animator::set_drawing(void) { al_set_target_bitmap(*mgr::assets::get<al_bit
 /*
  *
  */
-const std::string animator::get_bitmap(void) const { return internal_bitmap; }
+ALLEGRO_BITMAP* animator::get_bitmap(void) const { return *mgr::assets::get<al_bitmap>(internal_bitmap); }
 
 /*
  *

@@ -75,17 +75,17 @@ class assets final : private manager<assets> {
 
     private:
         /*!
-         * \brief constructor.
+         * \brief 
          */
         inline assets() { _assets.clear(); };
 
         /*!
-         * \brief destructor.
+         * \brief 
          */
         inline ~assets() { _assets.clear(); };
 
         /*!
-         * \brief destructor.
+         * \brief 
          */
         template <typename T> inline static const bool secret_load(const std::string& label, const T& data) {
             auto ret = _assets.insert(std::make_pair(label, std::make_pair(std::make_any<T>(data), false)));
@@ -93,7 +93,7 @@ class assets final : private manager<assets> {
         };
 
         /*!
-         * \brief destructor.
+         * \brief 
          */
         inline static const bool secret_unload(const std::string& label) {
             auto it = _assets.find(label);
@@ -105,7 +105,7 @@ class assets final : private manager<assets> {
         };
 
         /*!
-         * \brief destructor.
+         * \brief 
          */
         template <typename T> inline static T secret_get(const std::string& label) {
             try {
@@ -116,6 +116,9 @@ class assets final : private manager<assets> {
             }
         };
 
+        /*!
+         * \brief 
+         */
         inline static void backup_bitmaps(void) {
             /*_bitmaps_backup.clear();
             for (auto it = _assets.begin(); it != _assets.end();) {
@@ -130,9 +133,9 @@ class assets final : private manager<assets> {
             }*/
         };
 
-        /*
-        *
-        */
+        /*!
+         * \brief 
+         */
         inline static void reload_bitmaps(void) {
             /*for (auto it = _bitmaps_backup.begin(); it != _bitmaps_backup.end();) {
                 al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);

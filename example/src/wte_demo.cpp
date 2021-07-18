@@ -302,7 +302,7 @@ void wte_demo::new_game(void) {
     wte_new_component(e_id, cmp::visible);
     wte_new_component(e_id, stars);
     mgr::assets::load("starfield",
-        al_bitmap(mgr::renderer::get_arena_width(), mgr::renderer::get_arena_height()));
+        al_bitmap(mgr::renderer::get_arena_width(), mgr::renderer::get_arena_height(), true));
     wte_new_component(e_id, cmp::background, "starfield", 0,
         [](const entity_id& bkg_id) {
             //  Define the animation process for the starfield.

@@ -46,7 +46,7 @@ class assets final : private manager<assets> {
          * \brief 
          */
         template <typename T> inline static const bool load(const std::string& label, const T& data) {
-            assert(std::is_copy_constructible<T>::value);
+            static_assert(std::is_copy_constructible<T>::value);
             auto ret = _assets.insert(std::make_pair(label, std::make_pair(std::make_any<T>(data), true)));
             return ret.second;
         };
@@ -56,7 +56,8 @@ class assets final : private manager<assets> {
          */
         inline static const bool unload(const std::string& label) {
             auto it = _assets.find(label);
-            if(it != _assets.end() && it->second.second) {
+            //if(it != _assets.end() && it->second.second) {
+            if(it != _assets.end()) {
                 _assets.erase(it);
                 return true;
             }
@@ -68,7 +69,8 @@ class assets final : private manager<assets> {
          */
         template <typename T> inline static T get(const std::string& label) {
             try {
-                if(_assets.at(label).second) return std::any_cast<T>(_assets.at(label).first);
+                auto res = _assets.at(label);
+                if(res.second) return std::any_cast<T&>(res.first);
                 const std::string err_msg = "Asset is protected: " + label;
                 throw wte_exception(err_msg.c_str());
             } catch(std::out_of_range& e) {
@@ -92,6 +94,7 @@ class assets final : private manager<assets> {
          * \brief 
          */
         template <typename T> inline static const bool secret_load(const std::string& label, const T& data) {
+            static_assert(std::is_copy_constructible<T>::value);
             auto ret = _assets.insert(std::make_pair(label, std::make_pair(std::make_any<T>(data), false)));
             return ret.second;
         };
@@ -113,7 +116,7 @@ class assets final : private manager<assets> {
          */
         template <typename T> inline static T secret_get(const std::string& label) {
             try {
-                return std::any_cast<T>(_assets.at(label).first);
+                return std::any_cast<T&>(_assets.at(label).first);
             } catch(std::out_of_range& e) {
                 const std::string err_msg = "Could not find asset: " + label;
                 throw wte_exception(err_msg.c_str());

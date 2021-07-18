@@ -29,16 +29,12 @@ class al_bitmap {
         /*!
          *
          */
-        inline al_bitmap() : nopreserve(false) {
-            _al_bitmap = NULL;
-        };
+        inline al_bitmap() : nopreserve(false) { _al_bitmap = NULL; };
 
         /*!
          *
          */
-        inline al_bitmap(const bool& p) : nopreserve(p) {
-            _al_bitmap = NULL;
-        };
+        inline al_bitmap(const bool& p) : nopreserve(p) { _al_bitmap = NULL; };
 
         /*!
          *
@@ -62,16 +58,12 @@ class al_bitmap {
         /*!
          *
          */
-        inline al_bitmap(const std::string& fname) : nopreserve(false) {
-            load(fname);
-        };
+        inline al_bitmap(const std::string& fname) : nopreserve(false) { load(fname); };
 
         /*!
          *
          */
-        inline al_bitmap(const std::string& fname, const bool& p) : nopreserve(p) {
-            load(fname);
-        };
+        inline al_bitmap(const std::string& fname, const bool& p) : nopreserve(p) { load(fname); };
 
         inline al_bitmap(const al_bitmap& b) {
             if(b.nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
@@ -83,39 +75,31 @@ class al_bitmap {
         /*!
          *
          */
-        inline ~al_bitmap() {
-            al_destroy_bitmap(_al_bitmap);
-        };
+        inline ~al_bitmap() { al_destroy_bitmap(_al_bitmap); };
 
         /*!
          *
          */
-        /*inline al_bitmap operator=(const al_bitmap& b) {
+        inline al_bitmap operator=(const al_bitmap& b) {
             al_bitmap temp;
             if(b.nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             temp._al_bitmap = al_clone_bitmap(b._al_bitmap);
             temp.nopreserve = b.nopreserve;
             return temp;
-        };*/
-
-        /*inline ALLEGRO_BITMAP* operator*() {
-            return _al_bitmap;
-        };*/
-
-        /*!
-         *
-         */
-        inline ALLEGRO_BITMAP* bitmap(void) {
-            return _al_bitmap;
         };
 
+        //inline ALLEGRO_BITMAP* operator*() { return _al_bitmap; };
+
         /*!
          *
          */
-        inline const bool isconverted(void) const {
-            return !nopreserve;
-        }
+        inline ALLEGRO_BITMAP* bitmap(void) { return _al_bitmap; };
+
+        /*!
+         *
+         */
+        inline const bool isconverted(void) const { return !nopreserve; }
 
         /*!
          *

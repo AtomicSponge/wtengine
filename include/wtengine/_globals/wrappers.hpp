@@ -21,6 +21,9 @@
 namespace wte
 {
 
+/*!
+ *
+ */
 class al_bitmap {
     public:
         /*!
@@ -85,6 +88,10 @@ class al_bitmap {
             else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             _al_bitmap = al_clone_bitmap(b._al_bitmap);
             nopreserve = b.nopreserve;
+        };
+
+        inline ALLEGRO_BITMAP* operator*() {
+            return _al_bitmap;
         };
 
         /*!
@@ -157,6 +164,10 @@ class al_font {
          */
         inline ~al_font() {
             al_destroy_font(_al_font);
+        };
+
+        inline ALLEGRO_FONT* operator*() {
+            return _al_font;
         };
 
         /*!

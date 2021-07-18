@@ -75,11 +75,6 @@ class al_bitmap {
         /*!
          *
          */
-        inline ~al_bitmap() { al_destroy_bitmap(_al_bitmap); };
-
-        /*!
-         *
-         */
         inline al_bitmap operator=(const al_bitmap& b) {
             al_bitmap temp;
             if(b.nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
@@ -89,7 +84,12 @@ class al_bitmap {
             return temp;
         };
 
-        //inline ALLEGRO_BITMAP* operator*() { return _al_bitmap; };
+        /*!
+         *
+         */
+        inline ~al_bitmap() { al_destroy_bitmap(_al_bitmap); };
+
+        inline ALLEGRO_BITMAP* operator*() { return _al_bitmap; };
 
         /*!
          *
@@ -155,20 +155,14 @@ class al_font {
         /*!
          *
          */
-        inline ~al_font() {
-            al_destroy_font(_al_font);
-        };
+        inline ~al_font() { al_destroy_font(_al_font); };
 
-        inline ALLEGRO_FONT* operator*() {
-            return _al_font;
-        };
+        inline ALLEGRO_FONT* operator*() { return _al_font; };
 
         /*!
          *
          */
-        inline ALLEGRO_FONT* font(void) {
-            return _al_font;
-        };
+        inline ALLEGRO_FONT* font(void) { return _al_font; };
 
     private:
         ALLEGRO_FONT* _al_font;

@@ -15,9 +15,6 @@
 #include <any>
 #include <utility>
 
-#include <type_traits>
-#include <cassert>
-
 #include <allegro5/allegro.h>
 
 #include "wtengine/_globals/_defines.hpp"
@@ -46,7 +43,6 @@ class assets final : private manager<assets> {
          * \brief 
          */
         template <typename T> inline static const bool load(const std::string& label, const T& data) {
-            static_assert(std::is_copy_constructible<T>::value);
             auto ret = _assets.insert(std::make_pair(label, std::make_pair(std::make_any<T>(data), true)));
             return ret.second;
         };
@@ -56,8 +52,7 @@ class assets final : private manager<assets> {
          */
         inline static const bool unload(const std::string& label) {
             auto it = _assets.find(label);
-            //if(it != _assets.end() && it->second.second) {
-            if(it != _assets.end()) {
+            if(it != _assets.end() && it->second.second) {
                 _assets.erase(it);
                 return true;
             }
@@ -94,7 +89,6 @@ class assets final : private manager<assets> {
          * \brief 
          */
         template <typename T> inline static const bool secret_load(const std::string& label, const T& data) {
-            static_assert(std::is_copy_constructible<T>::value);
             auto ret = _assets.insert(std::make_pair(label, std::make_pair(std::make_any<T>(data), false)));
             return ret.second;
         };

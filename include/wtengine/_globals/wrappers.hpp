@@ -11,6 +11,7 @@
 #define WTE_WRAPPERS_HPP
 
 #include <string>
+#include <cassert>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
@@ -40,6 +41,7 @@ class al_bitmap {
          *
          */
         inline al_bitmap(const int& w, const int& h) : nopreserve(false) {
+            assert(w > 0 && h > 0);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             _al_bitmap = al_create_bitmap(w, h);
         };
@@ -48,6 +50,7 @@ class al_bitmap {
          *
          */
         inline al_bitmap(const int& w, const int& h, const bool& p) : nopreserve(p) {
+            assert(w > 0 && h > 0);
             if(nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             _al_bitmap = al_create_bitmap(w, h);

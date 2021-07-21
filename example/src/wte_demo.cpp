@@ -362,7 +362,7 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     /* *** Score overlay entity ******** */
     /* ********************************* */
-    /*e_id = mgr::entities::new_entity();
+    e_id = mgr::entities::new_entity();
     mgr::entities::set_name(e_id, "score_overlay");
     wte_new_component(e_id, cmp::visible);
     mgr::assets::load<al_bitmap>("score_overlay", 200, 20, true);
@@ -383,7 +383,7 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     /* *** Player Info overlay entity ** */
     /* ********************************* */
-    /*e_id = mgr::entities::new_entity();
+    e_id = mgr::entities::new_entity();
     mgr::entities::set_name(e_id, "player_info_overlay");
     wte_new_component(e_id, cmp::visible);
     mgr::assets::load<al_bitmap>("player_info_overlay", 200, 20, true);

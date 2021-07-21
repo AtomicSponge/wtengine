@@ -58,7 +58,7 @@ void movement::run(void) {
                 mgr::entities::set_component<cmp::location>(it.first)->set_y(it.second->get_min_y());
             else if(mgr::entities::get_component<cmp::location>(it.first)->get_y() > it.second->get_max_y())
                 mgr::entities::set_component<cmp::location>(it.first)->set_y(it.second->get_max_y());
-        } catch(const wte_exception& e) { alert::set(e.what()); }
+        } catch(...) { throw; }
     }
 }
 

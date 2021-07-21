@@ -39,7 +39,7 @@ void logic::run(void) {
                 it.second->run_enabled(it.first);
             else
                 it.second->run_disabled(it.first);
-        } catch(const wte_exception& e) { alert::set(e.what()); }
+        } catch(...) { throw; }
     }
 }
 

@@ -40,7 +40,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
     /*
      * Set up input handling
      */
-    input::event::p1::ondown::up = []() {
+    /*input::event::p1::ondown::up = []() {
         entity_id player_id = mgr::entities::get_id("player");
         config::controls::p1_polc_y = -1.0f;
         float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
@@ -161,7 +161,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
     input::event::p2::onup::left = input::event::p1::onup::left;
     input::event::p2::onup::right = input::event::p1::onup::right;
     input::event::p2::onup::action1 = input::event::p1::onup::action1;
-    input::event::p2::onup::action2 = input::event::p1::onup::action2;
+    input::event::p2::onup::action2 = input::event::p1::onup::action2;*/
 }
 
 /*
@@ -362,7 +362,7 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     /* *** Score overlay entity ******** */
     /* ********************************* */
-    e_id = mgr::entities::new_entity();
+    /*e_id = mgr::entities::new_entity();
     mgr::entities::set_name(e_id, "score_overlay");
     wte_new_component(e_id, cmp::visible);
     mgr::assets::load<al_bitmap>("score_overlay", 200, 20, true);
@@ -383,7 +383,7 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     /* *** Player Info overlay entity ** */
     /* ********************************* */
-    e_id = mgr::entities::new_entity();
+    /*e_id = mgr::entities::new_entity();
     mgr::entities::set_name(e_id, "player_info_overlay");
     wte_new_component(e_id, cmp::visible);
     mgr::assets::load<al_bitmap>("player_info_overlay", 200, 20, true);
@@ -405,7 +405,7 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     /* *** Game Over overlay entity **** */
     /* ********************************* */
-    e_id = mgr::entities::new_entity();
+    /*e_id = mgr::entities::new_entity();
     mgr::entities::set_name(e_id, "game_over_overlay");
     wte_new_component(e_id, cmp::visible, false);
     mgr::assets::load<al_bitmap>("game_over_overlay", "game_over.bmp");
@@ -419,7 +419,7 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     /* *** Player entity *************** */
     /* ********************************* */
-    e_id = mgr::entities::new_entity();
+    /*e_id = mgr::entities::new_entity();
     mgr::entities::set_name(e_id, "player");
     wte_new_component(e_id, cmp::team, 0);
     wte_new_component(e_id, cmp::location,

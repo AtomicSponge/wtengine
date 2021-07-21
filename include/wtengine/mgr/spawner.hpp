@@ -15,8 +15,8 @@
 #include <map>
 #include <functional>
 
+#include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/message.hpp"
-#include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/mgr/manager.hpp"
 #include "wtengine/mgr/entities.hpp"
 

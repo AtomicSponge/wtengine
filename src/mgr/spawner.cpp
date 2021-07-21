@@ -46,8 +46,7 @@ void spawner::process_messages(const message_container& messages) {
                     try {
                         s_it->second.second(e_id, m_it.get_arglist());
                     } catch(...) { 
-                        std::string err_msg = "Error spawning entity " + m_it.get_arg(0);
-                        throw wte_exception(err_msg.c_str());
+                        alert::set("Error spawning entity " + m_it.get_arg(0));
                     }
                 }
         }

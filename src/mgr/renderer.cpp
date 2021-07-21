@@ -307,7 +307,7 @@ void renderer::render(void) {
          * Use different colors for each team.
          * Note:  Re-uses sprite container for rendering.
          */
-        for(auto & it : sprite_componenet_set) {
+        /*for(auto & it : sprite_componenet_set) {
             try {
                 //  Make sure the entity is enabled.
                 if(mgr::entities::get_component<cmp::enabled>(it.first)->check()) {
@@ -331,7 +331,7 @@ void renderer::render(void) {
                     al_destroy_bitmap(temp_bitmap);
                 }  //  End hitbox/enabled test.
             } catch(const wte_exception& e) { alert::set(e.what()); }
-        }  //  End render component loop.
+        }  //  End render component loop.*/
         #endif  //  End draw hitbox check.
 
         /*

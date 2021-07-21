@@ -18,7 +18,7 @@ namespace cmp
 /*
  *
  */
-background::background(const std::shared_ptr<wte_asset> bmp, const std::size_t& l, const ALLEGRO_COLOR& c) :
+background::background(std::shared_ptr<wte_asset> bmp, const std::size_t& l, const ALLEGRO_COLOR& c) :
 animator(bmp, l, [this](const entity_id& e_id) {
     set_drawing();
     al_clear_to_color(get_color());
@@ -28,7 +28,7 @@ animator(bmp, l, [this](const entity_id& e_id) {
  *
  */
 background::background(
-    const std::shared_ptr<wte_asset>& bmp, const std::size_t& l,
+    std::shared_ptr<wte_asset> bmp, const std::size_t& l,
     const std::function<void(const entity_id&)>& func
 ) : animator(bmp, l, func) {}
 

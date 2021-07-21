@@ -19,7 +19,7 @@ namespace cmp
  *
  */
 sprite::sprite(
-    const std::shared_ptr<wte_asset> bmp,
+    std::shared_ptr<wte_asset> bmp,
     const float& sw, const float& sh,
     const float& dox, const float& doy,
     const std::size_t& rt, const std::size_t& l) :
@@ -51,11 +51,6 @@ sprite::sprite(
  *
  */
 sprite::~sprite() {}
-
-/*
- * remove
- */
-void sprite::load_sprite(const std::string& fname) {}
 
 /*
  *

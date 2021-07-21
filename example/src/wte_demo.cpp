@@ -513,7 +513,7 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     /* *** Main cannon entity ********** */
     /* ********************************* */
-    e_id = mgr::entities::new_entity();
+    /*e_id = mgr::entities::new_entity();
     mgr::entities::set_name(e_id, "main_cannon");
     wte_new_component(e_id, cmp::team, 0);
     wte_new_component(e_id, cmp::location, 0, 0);
@@ -559,7 +559,7 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     /* *** Shield entity *************** */
     /* ********************************* */
-    e_id = mgr::entities::new_entity();
+    /*e_id = mgr::entities::new_entity();
     mgr::entities::set_name(e_id, "shield");
     wte_new_component(e_id, cmp::team, 0);
     wte_new_component(e_id, cmp::location, 0, 0);
@@ -630,7 +630,7 @@ void wte_demo::new_game(void) {
     /*  (4) Velocity                          */
     /*  (5) Size                              */
     /* ************************************** */
-    mgr::assets::load<al_bitmap>("asteroid", "asteroid.bmp");
+    /*mgr::assets::load<al_bitmap>("asteroid", "asteroid.bmp");
     mgr::spawner::add_spawn("asteroid", 5,
         [](const entity_id& e_id, const msg_arg_list& args) {
             int temp_size = std::stoi(args[5]);
@@ -713,7 +713,7 @@ void wte_demo::new_game(void) {
                 }
             );  //  End asteroid message dispatching.
         }  //  End asteroid spawner function.
-    );
+    );*/
 
     //  Reset score.
     mgr::variables::set("score", 0);

@@ -28,6 +28,8 @@ namespace wte
  *
  */
 class al_bitmap : public wte_asset {
+    friend class assets;
+
     public:
         /*!
          * \brief
@@ -113,6 +115,12 @@ class al_bitmap : public wte_asset {
             return true;
         };
 
+        inline void set(ALLEGRO_BITMAP* temp_bmp) {
+            if(nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+            else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+            _al_bitmap = al_clone_bitmap(temp_bmp);
+        }
+
         /*!
          * \brief
          */
@@ -122,7 +130,6 @@ class al_bitmap : public wte_asset {
          * \brief
          */
         inline const int get_height(void) const { return al_get_bitmap_height(_al_bitmap); };
-
     private:
         ALLEGRO_BITMAP* _al_bitmap;
         bool nopreserve;

@@ -125,36 +125,39 @@ class assets final : private manager<assets> {
          * \brief 
          */
         inline static void backup_bitmaps(void) {
-            /*_bitmaps_backup.clear();
-            for (auto it = _assets.begin(); it != _assets.end();) {
-                if(it->second.second) {
-                    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-                    _bitmaps_backup.insert(std::make_pair(it->first, al_clone_bitmap(it->second.first)));
-                    //  Now delete the old item.
-                    al_destroy_bitmap(it->second.first);
-                    it = _assets.erase(it);
+            _bitmaps_backup.clear();
+            for (auto & it : _assets) {
+                if(std::dynamic_pointer_cast<al_bitmap>(it.second.first)) {
+                    if(std::static_pointer_cast<al_bitmap>(it.second.first)->isconverted()) {
+                        //  Make a conversion safe copy in the backup map.
+                        al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+                        _bitmaps_backup.insert(std::make_pair(it.first, al_clone_bitmap(**std::static_pointer_cast<al_bitmap>(it.second.first))));
+                        //  Now delete the old item.
+                        al_destroy_bitmap(**std::static_pointer_cast<al_bitmap>(it.second.first));
+                    }
                 }
-                else it++;
-            }*/
+            }
         };
 
         /*!
          * \brief 
          */
         inline static void reload_bitmaps(void) {
-            /*for (auto it = _bitmaps_backup.begin(); it != _bitmaps_backup.end();) {
+            for (auto & it : _bitmaps_backup) {
+                //  Restore bitmap, setting the no preserve flag.
                 al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-                _assets.insert(std::make_pair(it->first, std::make_pair(al_clone_bitmap(it->second), true)));
-                //  Now delete the old backup item.
-                al_destroy_bitmap(it->second);
-                it = _bitmaps_backup.erase(it);
+                try {
+                    std::static_pointer_cast<al_bitmap>(_assets.at(it.first).first)->set(it.second);
+                } catch(...) {}
+                //  Now delete the old backup bitmap.
+                al_destroy_bitmap(it.second);
             }
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            _bitmaps_backup.clear();*/
+            _bitmaps_backup.clear();
         };
 
         inline static std::map<std::string, std::pair<std::shared_ptr<wte_asset>, bool>> _assets = {};
-        inline static std::map<std::string, al_bitmap> _bitmaps_backup = {};
+        inline static std::map<std::string, ALLEGRO_BITMAP*> _bitmaps_backup = {};
 };
 
 template <> inline bool assets::manager<assets>::initialized = false;

@@ -85,7 +85,7 @@ class al_bitmap : public wte_asset {
         /*!
          * \brief
          */
-        inline const bool isconverted(void) const { return !nopreserve; }
+        inline const bool isconverted(void) const { return !nopreserve; };
 
         /*!
          * \brief
@@ -115,11 +115,14 @@ class al_bitmap : public wte_asset {
             return true;
         };
 
+        /*!
+         * \brief
+         */
         inline void set(ALLEGRO_BITMAP* temp_bmp) {
             if(nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             _al_bitmap = al_clone_bitmap(temp_bmp);
-        }
+        };
 
         /*!
          * \brief

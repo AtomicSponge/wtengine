@@ -281,10 +281,10 @@ void wte_demo::load_menus(void) {
  * Load the systems in order.
  */
 void wte_demo::load_systems(void) {
-    wte_add_system(sys::movement);
-    wte_add_system(sys::colision);
-    wte_add_system(sys::logic);
-    wte_add_system(sys::animate);
+    mgr::systems::add(std::make_unique<sys::movement>());
+    mgr::systems::add(std::make_unique<sys::colision>());
+    mgr::systems::add(std::make_unique<sys::logic>());
+    mgr::systems::add(std::make_unique<sys::animate>());
 }
 
 /*

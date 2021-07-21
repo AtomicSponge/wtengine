@@ -39,16 +39,3 @@
  * Create a new menu toggle item.
  */
 #define wte_menu_toggle(...) (std::make_shared<mnu::menu_item_toggle>(__VA_ARGS__))
-
-/*********************************
- * Other items                   *
- *********************************/
-
-/*!
- * \def wte_add_system(new_sys, ...)
- * \brief Create a new system.
- * Pass a system object and any parameters to create a new system.
- */
-#define wte_add_system(new_sys, ...) (mgr::systems::add(std::make_unique<new_sys>(__VA_ARGS__)))
-
-#endif

@@ -435,7 +435,8 @@ void wte_demo::new_game(void) {
     mgr::entities::add_component<cmp::direction>(e_id, false);
     mgr::entities::add_component<cmp::velocity>(e_id);
 
-    mgr::assets::load<al_bitmap>("ship", 320, 320);
+    mgr::assets::load<al_bitmap>("ship");
+    mgr::assets::get<al_bitmap>("ship")->load("ship.bmp");
     //mgr::assets::load<al_bitmap>("ship", "ship.bmp");
     mgr::entities::add_component<cmp::sprite>(e_id, mgr::assets::get<al_bitmap>("ship"),
         32.0f, 32.0f, -11.0f, 0.0f, 1, 1);

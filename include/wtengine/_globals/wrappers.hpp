@@ -63,12 +63,12 @@ class al_bitmap : public wte_asset {
         /*!
          * \brief
          */
-        inline al_bitmap(const std::string& fname) : _al_bitmap(NULL), nopreserve(false) { load(fname); };
+        //inline al_bitmap(const std::string& fname) : _al_bitmap(NULL), nopreserve(false) { load(fname); };
 
         /*!
          * \brief
          */
-        inline al_bitmap(const std::string& fname, const bool& p) : _al_bitmap(NULL), nopreserve(p) { load(fname); };
+        //inline al_bitmap(const std::string& fname, const bool& p) : _al_bitmap(NULL), nopreserve(p) { load(fname); };
 
         /*!
          * \brief

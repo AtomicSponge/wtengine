@@ -294,8 +294,9 @@ class entities final : private manager<entity> {
          * 
          * Entities can only have a single compoenent of each type.
          * 
+         * \tparam T Component type to add.
          * \param e_id Entity ID to add a component to.
-         * \param comp Componenet to add.
+         * \param args List of parameters to pass to component constructor.
          * \return Return false if the entity does not exist.
          * \return Return false if the entity already has a component of the same type.
          * \return Return true on success.
@@ -316,7 +317,7 @@ class entities final : private manager<entity> {
         /*!
          * \brief Delete a component by type for an entity.
          * 
-         * \tparam T Component type.
+         * \tparam T Component type to delete.
          * \param e_id Entity ID to delete component from.
          * \return Return true if a component was deleted.
          * \return Return false if no components were deleted.
@@ -336,7 +337,7 @@ class entities final : private manager<entity> {
         /*!
          * \brief Check if an entity has a component by type.
          * 
-         * \tparam T Component type.
+         * \tparam T Component type to check.
          * \param e_id The entity ID to check.
          * \return Return true if the entity has the component.
          * \return Return false if it does not.
@@ -353,7 +354,7 @@ class entities final : private manager<entity> {
         /*!
          * \brief Set the value of a component by type for an entity.
          * 
-         * \tparam T Component type.
+         * \tparam T Component type to search.
          * \param e_id The entity ID to search.
          * \return Return the component.
          * \exception wte_exception Component not found.
@@ -374,7 +375,7 @@ class entities final : private manager<entity> {
         /*!
          * \brief Read the value of a component by type for an entity.
          * 
-         * \tparam T Component type.
+         * \tparam T Component type to search.
          * \param e_id The entity ID to search.
          * \return Return the component.
          * \exception wte_exception Component not found.
@@ -397,7 +398,7 @@ class entities final : private manager<entity> {
          * 
          * This will return a container of modifiable components casted to their type.
          * 
-         * \tparam T Component type.
+         * \tparam T Component type to search.
          * \return Returns a container of components of all the same type.
          */
         template <typename T> inline static const component_container<T> set_components(void) {
@@ -415,7 +416,7 @@ class entities final : private manager<entity> {
          * 
          * This will return a container of non-modifiable components casted to their type.
          * 
-         * \tparam T Component type.
+         * \tparam T Component type to search.
          * \return Returns a constant container of components of all the same type.
          */
         template <typename T> inline static const const_component_container<T> get_components(void) {

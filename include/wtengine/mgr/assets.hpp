@@ -5,6 +5,8 @@
  * \version 0.4
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
+ *
+ * WIP
  */
 
 #ifndef WTE_MGR_ASSETS_HPP

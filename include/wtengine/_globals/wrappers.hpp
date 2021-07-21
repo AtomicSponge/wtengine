@@ -5,6 +5,8 @@
  * \version 0.4
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
+ *
+ * WIP
  */
 
 #ifndef WTE_WRAPPERS_HPP
@@ -21,93 +23,93 @@
 namespace wte
 {
 
+class asset {
+    public:
+        /*!
+         * \brief
+         */
+        inline virtual ~asset() ();
+
+        //!  Remove copy constructor.
+        inline asset(const asset&) = delete;
+        //!  Remove assignment operator.
+        inline void operator=(asset const&) = delete;
+
+    protected:
+        /*!
+         * \brief
+         */
+        inline asset() {};
+};
+
 /*!
  *
  */
-class al_bitmap {
+class al_bitmap : public asset {
     public:
         /*!
-         *
+         * \brief
          */
         inline al_bitmap() : nopreserve(false) { _al_bitmap = NULL; };
 
         /*!
-         *
+         * \brief
          */
         inline al_bitmap(const bool& p) : nopreserve(p) { _al_bitmap = NULL; };
 
         /*!
-         *
+         * \brief
          */
         inline al_bitmap(const int& w, const int& h) : nopreserve(false) {
             assert(w > 0 && h > 0);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             _al_bitmap = al_create_bitmap(w, h);
-            calc_size();
         };
 
         /*!
-         *
+         * \brief
          */
         inline al_bitmap(const int& w, const int& h, const bool& p) : nopreserve(p) {
             assert(w > 0 && h > 0);
             if(nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             _al_bitmap = al_create_bitmap(w, h);
-            calc_size();
         };
 
         /*!
-         *
+         * \brief
          */
         inline al_bitmap(const std::string& fname) : nopreserve(false) { load(fname); };
 
         /*!
-         *
+         * \brief
          */
         inline al_bitmap(const std::string& fname, const bool& p) : nopreserve(p) { load(fname); };
 
-        /*inline al_bitmap(const al_bitmap& b) {
-            if(b.nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            _al_bitmap = al_clone_bitmap(b._al_bitmap);
-            nopreserve = b.nopreserve;
-        };*/
+        //!  Remove copy constructor.
+        al_bitmap(const al_bitmap&) = delete;
+        //!  Remove assignment operator.
+        void operator=(al_bitmap const&) = delete;
 
         /*!
-         *
+         * \brief
          */
-        /*inline al_bitmap operator=(const al_bitmap& b) {
-            al_bitmap temp;
-            if(b.nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            temp._al_bitmap = al_clone_bitmap(b._al_bitmap);
-            temp.nopreserve = b.nopreserve;
-            return temp;
-        };*/
-
-        /*!
-         *
-         */
-        inline ~al_bitmap() {
-            //al_destroy_bitmap(_al_bitmap);
-            //_al_bitmap = NULL;
-        };
+        inline ~al_bitmap() { al_destroy_bitmap(_al_bitmap); };
 
         inline ALLEGRO_BITMAP* operator*() { return _al_bitmap; };
 
         /*!
-         *
+         * \brief
          */
         inline ALLEGRO_BITMAP* bitmap(void) { return _al_bitmap; };
 
         /*!
-         *
+         * \brief
          */
         inline const bool isconverted(void) const { return !nopreserve; }
 
         /*!
-         *
+         * \brief
          */
         inline const bool load(const std::string& fname) {
             //  Load the file.
@@ -132,36 +134,25 @@ class al_bitmap {
             al_convert_mask_to_alpha(_al_bitmap, WTE_MAGIC_PINK);
             #endif
 
-            calc_size();
-
             return true;
         };
 
         /*!
-         *
+         * \brief
          */
-        inline void calc_size(void) {
-            width = al_get_bitmap_width(_al_bitmap);
-            height = al_get_bitmap_height(_al_bitmap);
-        };
+        inline const int get_width(void) const { return al_get_bitmap_width(_al_bitmap); };
 
         /*!
-         *
+         * \brief
          */
-        inline const int get_width(void) const { return width; };
-
-        /*!
-         *
-         */
-        inline const int get_height(void) const { return height; };
+        inline const int get_height(void) const { return al_get_bitmap_height(_al_bitmap); };
 
     private:
         ALLEGRO_BITMAP* _al_bitmap;
-        int width, height;
         bool nopreserve;
 };
 
-class al_font {
+class al_font : public asset {
     public:
         /*!
          *

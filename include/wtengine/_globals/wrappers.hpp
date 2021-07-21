@@ -34,17 +34,17 @@ class al_bitmap : public wte_asset {
         /*!
          * \brief
          */
-        inline al_bitmap() : nopreserve(false) { _al_bitmap = NULL; };
+        inline al_bitmap() : _al_bitmap(NULL), nopreserve(false) {};
 
         /*!
          * \brief
          */
-        inline al_bitmap(const bool& p) : nopreserve(p) { _al_bitmap = NULL; };
+        inline al_bitmap(const bool& p) : _al_bitmap(NULL), nopreserve(p) {};
 
         /*!
          * \brief
          */
-        inline al_bitmap(const int& w, const int& h) : nopreserve(false) {
+        inline al_bitmap(const int& w, const int& h) : _al_bitmap(NULL), nopreserve(false) {
             assert(w > 0 && h > 0);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             _al_bitmap = al_create_bitmap(w, h);
@@ -53,7 +53,7 @@ class al_bitmap : public wte_asset {
         /*!
          * \brief
          */
-        inline al_bitmap(const int& w, const int& h, const bool& p) : nopreserve(p) {
+        inline al_bitmap(const int& w, const int& h, const bool& p) : _al_bitmap(NULL), nopreserve(p) {
             assert(w > 0 && h > 0);
             if(nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
@@ -63,12 +63,12 @@ class al_bitmap : public wte_asset {
         /*!
          * \brief
          */
-        inline al_bitmap(const std::string& fname) : nopreserve(false) { load(fname); };
+        inline al_bitmap(const std::string& fname) : _al_bitmap(NULL), nopreserve(false) { load(fname); };
 
         /*!
          * \brief
          */
-        inline al_bitmap(const std::string& fname, const bool& p) : nopreserve(p) { load(fname); };
+        inline al_bitmap(const std::string& fname, const bool& p) : _al_bitmap(NULL), nopreserve(p) { load(fname); };
 
         /*!
          * \brief

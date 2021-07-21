@@ -133,6 +133,7 @@ class al_bitmap : public wte_asset {
          * \brief
          */
         inline const int get_height(void) const { return al_get_bitmap_height(_al_bitmap); };
+
     private:
         ALLEGRO_BITMAP* _al_bitmap;
         bool nopreserve;

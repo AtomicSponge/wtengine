@@ -19,7 +19,7 @@ namespace cmp
  *
  */
 animator::animator(
-    const std::string& bmp,
+    const std::shared_ptr<wte_asset>& bmp,
     const std::size_t& l,
     const std::function<void(const entity_id&)>& func
 ) : internal_bitmap(bmp), layer(l), tint_set(false), animate(func) {}
@@ -32,12 +32,12 @@ void animator::run(const entity_id& e_id) { try { animate(e_id); } catch(...) { 
 /*
  *
  */
-void animator::set_drawing(void) { al_set_target_bitmap(**mgr::assets::get<al_bitmap>(internal_bitmap)); }
+void animator::set_drawing(void) { al_set_target_bitmap(**std::static_pointer_cast<al_bitmap>(internal_bitmap)); }
 
 /*
  *
  */
-ALLEGRO_BITMAP* animator::get_bitmap(void) const { return **mgr::assets::get<al_bitmap>(internal_bitmap); }
+ALLEGRO_BITMAP* animator::get_bitmap(void) const { return **std::static_pointer_cast<al_bitmap>(internal_bitmap); }
 
 /*
  *

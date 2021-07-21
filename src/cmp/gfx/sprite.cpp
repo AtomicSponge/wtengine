@@ -19,7 +19,7 @@ namespace cmp
  *
  */
 sprite::sprite(
-    const std::string& bmp,
+    const std::shared_ptr<wte_asset>& bmp,
     const float& sw, const float& sh,
     const float& dox, const float& doy,
     const std::size_t& rt, const std::size_t& l) :
@@ -43,8 +43,8 @@ sprite::sprite(
     start_frame(0), stop_frame(0), current_frame(0), rate(rt)
 {
     if(rate == 0) rate = 1;
-    sheet_width = mgr::assets::get<al_bitmap>(internal_bitmap)->get_width();
-    sheet_height = mgr::assets::get<al_bitmap>(internal_bitmap)->get_height();
+    sheet_width = std::static_pointer_cast<al_bitmap>(internal_bitmap)->get_width();
+    sheet_height = std::static_pointer_cast<al_bitmap>(internal_bitmap)->get_height();
 }
 
 /*

@@ -17,7 +17,6 @@
 #include <allegro5/allegro.h>
 
 #include "wtengine/cmp/gfx/animator.hpp"
-//#include "wtengine/cmp/gfx/bitmap_map.hpp"
 
 namespace wte
 {
@@ -39,7 +38,7 @@ class background final : public animator {
          * \param c Allegro color.
          * \param l Background layer.
          */
-        background(const std::string& bmp, const std::size_t& l, const ALLEGRO_COLOR& c);
+        background(const std::shared_ptr<wte_asset>& bmp, const std::size_t& l, const ALLEGRO_COLOR& c);
 
         /*!
          * \brief Background with custom animation.
@@ -49,7 +48,7 @@ class background final : public animator {
          * \param l Background layer.
          * \param func Animcation function.
          */
-        background(const std::string& bmp, const std::size_t& l,
+        background(const std::shared_ptr<wte_asset>& bmp, const std::size_t& l,
                    const std::function<void(const entity_id&)>& func);
 
         /*!

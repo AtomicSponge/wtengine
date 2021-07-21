@@ -45,7 +45,7 @@ class sprite final : public animator {
          * \param rt Rate in engine timer ticks for animation.
          * \param l Layer for sorting.
          */
-        sprite(const std::string& bmp,
+        sprite(const std::shared_ptr<wte_asset>& bmp,
                const float& sw, const float& sh,
                const float& dox, const float& doy,
                const std::size_t& rt, const std::size_t& l);

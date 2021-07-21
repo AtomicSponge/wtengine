@@ -19,7 +19,7 @@ namespace cmp
  *
  */
 overlay::overlay(
-    const std::string& bmp,
+    const std::shared_ptr<wte_asset>& bmp,
     const float& x, const float& y,
     const std::size_t& l,
     const std::function<void(const entity_id&)>& func

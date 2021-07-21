@@ -19,28 +19,10 @@
 #include <allegro5/allegro_font.h>
 
 #include "wtengine/_globals/_defines.hpp"
+#include "wtengine/_globals/wte_asset.hpp"
 
 namespace wte
 {
-
-class wte_asset {
-    public:
-        /*!
-         * \brief
-         */
-        inline virtual ~wte_asset() {};
-
-        //!  Remove copy constructor.
-        inline wte_asset(const wte_asset&) = delete;
-        //!  Remove assignment operator.
-        inline void operator=(wte_asset const&) = delete;
-
-    protected:
-        /*!
-         * \brief
-         */
-        inline wte_asset() {};
-};
 
 /*!
  *

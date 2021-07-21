@@ -32,12 +32,12 @@ void animator::run(const entity_id& e_id) { try { animate(e_id); } catch(...) { 
 /*
  *
  */
-void animator::set_drawing(void) { al_set_target_bitmap(*mgr::assets::get<al_bitmap>(internal_bitmap)); }
+void animator::set_drawing(void) { al_set_target_bitmap(**mgr::assets::get<al_bitmap>(internal_bitmap)); }
 
 /*
  *
  */
-ALLEGRO_BITMAP* animator::get_bitmap(void) const { return *mgr::assets::get<al_bitmap>(internal_bitmap); }
+ALLEGRO_BITMAP* animator::get_bitmap(void) const { return **mgr::assets::get<al_bitmap>(internal_bitmap); }
 
 /*
  *

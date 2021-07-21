@@ -23,29 +23,29 @@
 namespace wte
 {
 
-class asset {
+class wte_asset {
     public:
         /*!
          * \brief
          */
-        inline virtual ~asset() ();
+        inline virtual ~wte_asset() {};
 
         //!  Remove copy constructor.
-        inline asset(const asset&) = delete;
+        inline wte_asset(const wte_asset&) = delete;
         //!  Remove assignment operator.
-        inline void operator=(asset const&) = delete;
+        inline void operator=(wte_asset const&) = delete;
 
     protected:
         /*!
          * \brief
          */
-        inline asset() {};
+        inline wte_asset() {};
 };
 
 /*!
  *
  */
-class al_bitmap : public asset {
+class al_bitmap : public wte_asset {
     public:
         /*!
          * \brief
@@ -86,11 +86,6 @@ class al_bitmap : public asset {
          */
         inline al_bitmap(const std::string& fname, const bool& p) : nopreserve(p) { load(fname); };
 
-        //!  Remove copy constructor.
-        al_bitmap(const al_bitmap&) = delete;
-        //!  Remove assignment operator.
-        void operator=(al_bitmap const&) = delete;
-
         /*!
          * \brief
          */
@@ -120,7 +115,6 @@ class al_bitmap : public asset {
                 return false;
             }
 
-            //  Load bitmap into a temp pointer.
             if(nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             _al_bitmap =
@@ -152,7 +146,7 @@ class al_bitmap : public asset {
         bool nopreserve;
 };
 
-class al_font : public asset {
+class al_font : public wte_asset {
     public:
         /*!
          *

@@ -50,12 +50,12 @@ void renderer::initialize(void) {
     //  Load the title screen bitmap.
     if(title_screen_file.empty()) {
         mgr::assets::secret_load<al_bitmap>("wte_title_bitmap", 1, 1);
-        al_set_target_bitmap(*mgr::assets::secret_get<al_bitmap>("wte_title_bitmap"));
+        al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_title_bitmap"));
         al_clear_to_color(WTE_COLOR_BLACK);
     } else {
         if(!mgr::assets::secret_load<al_bitmap>("wte_title_bitmap", title_screen_file)) {
             mgr::assets::secret_load<al_bitmap>("wte_title_bitmap", 1, 1);
-            al_set_target_bitmap(*mgr::assets::secret_get<al_bitmap>("wte_title_bitmap"));
+            al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_title_bitmap"));
             al_clear_to_color(WTE_COLOR_BLACK);
         }
     }
@@ -63,12 +63,12 @@ void renderer::initialize(void) {
     //  Load the background bitmap.
     if(background_file.empty()) {
         mgr::assets::secret_load<al_bitmap>("wte_background_bitmap", 1, 1);
-        al_set_target_bitmap(*mgr::assets::secret_get<al_bitmap>("wte_background_bitmap"));
+        al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_background_bitmap"));
         al_clear_to_color(WTE_COLOR_BLACK);
     } else {
         if(!mgr::assets::secret_load<al_bitmap>("wte_background_bitmap", background_file)) {
             mgr::assets::secret_load<al_bitmap>("wte_background_bitmap", 1, 1);
-            al_set_target_bitmap(*mgr::assets::secret_get<al_bitmap>("wte_background_bitmap"));
+            al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_background_bitmap"));
             al_clear_to_color(WTE_COLOR_BLACK);
         }
     }
@@ -194,13 +194,13 @@ void renderer::render(void) {
         /*
          * Draw the full screen background.
          */
-        al_draw_scaled_bitmap(*mgr::assets::secret_get<al_bitmap>("wte_background_bitmap"), 0, 0,
-                              mgr::assets::secret_get<al_bitmap>("wte_background_bitmap").get_width(),
-                              mgr::assets::secret_get<al_bitmap>("wte_background_bitmap").get_height(),
+        al_draw_scaled_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_background_bitmap"), 0, 0,
+                              mgr::assets::secret_get<al_bitmap>("wte_background_bitmap")->get_width(),
+                              mgr::assets::secret_get<al_bitmap>("wte_background_bitmap")->get_height(),
                               0, 0, screen_w, screen_h, 0);
 
         //  Set drawing to the arena bitmap.
-        al_set_target_bitmap(*mgr::assets::secret_get<al_bitmap>("wte_arena_bitmap"));
+        al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_arena_bitmap"));
         al_clear_to_color(WTE_COLOR_BLACK);
 
         /*
@@ -324,7 +324,7 @@ void renderer::render(void) {
                                                     mgr::entities::get_component<cmp::hitbox>(it.first)->get_height());
                     al_set_target_bitmap(temp_bitmap);
                     al_clear_to_color(team_color);
-                    al_set_target_bitmap(*mgr::assets::secret_get<al_bitmap>("wte_arena_bitmap"));
+                    al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_arena_bitmap"));
                     al_draw_bitmap(temp_bitmap,
                                 mgr::entities::get_component<cmp::location>(it.first)->get_x(),
                                 mgr::entities::get_component<cmp::location>(it.first)->get_y(), 0);
@@ -367,7 +367,7 @@ void renderer::render(void) {
          * Draw the arena bitmap to the screen.
          */
         al_set_target_backbuffer(al_get_current_display());
-        al_draw_scaled_bitmap(*mgr::assets::secret_get<al_bitmap>("wte_arena_bitmap"), 0, 0, arena_w, arena_h,
+        al_draw_scaled_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_arena_bitmap"), 0, 0, arena_w, arena_h,
                               (screen_w / 2) - (arena_w * scale_factor / 2),
                               (screen_h / 2) - (arena_h * scale_factor / 2),
                               arena_w * scale_factor, arena_h * scale_factor, 0);
@@ -375,9 +375,9 @@ void renderer::render(void) {
         /*
          * Game is not running - draw the title screen.
          */
-        al_draw_scaled_bitmap(*mgr::assets::secret_get<al_bitmap>("wte_title_bitmap"), 0, 0,
-                              mgr::assets::secret_get<al_bitmap>("wte_title_bitmap").get_width(),
-                              mgr::assets::secret_get<al_bitmap>("wte_title_bitmap").get_height(),
+        al_draw_scaled_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_title_bitmap"), 0, 0,
+                              mgr::assets::secret_get<al_bitmap>("wte_title_bitmap")->get_width(),
+                              mgr::assets::secret_get<al_bitmap>("wte_title_bitmap")->get_height(),
                               0, 0, screen_w, screen_h, 0);
     }
 

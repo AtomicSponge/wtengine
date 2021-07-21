@@ -47,7 +47,6 @@ class assets final : private manager<assets> {
         template <typename T, typename... Args> inline static const bool load(const std::string& label, Args... args) {
             auto ret = _assets.insert(std::make_pair(label, std::make_pair(std::make_shared<T>(args...), true)));
             return ret.second;
-            return false;
         };
 
         /*!

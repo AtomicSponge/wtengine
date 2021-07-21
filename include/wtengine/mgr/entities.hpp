@@ -300,16 +300,16 @@ class entities final : private manager<entity> {
          * \return Return false if the entity already has a component of the same type.
          * \return Return true on success.
          */
-        inline static const bool add_component(const entity_id& e_id, const cmp::component_sptr& comp) {
+        template <typename T, typename... Args> inline static const bool add_component(const entity_id& e_id, Args... args) {
             if(!entity_exists(e_id)) return false;
 
             //  Check derived types of existing components, make sure one does not already exist.
             const const_entity_container check_entity = get_entity(e_id);
             for(auto & it : check_entity) {
-                if(typeid(*it).name() == typeid(*comp).name()) return false;
+                if(typeid(*it).name() == typeid(T).name()) return false;
             }
 
-            world.insert(std::make_pair(e_id, comp));
+            auto ret = world.insert(std::make_pair(e_id, std::make_shared<T>(args...)));
             return true;
         };
 

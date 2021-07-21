@@ -10,30 +10,7 @@
 #ifndef WTE_HELPER_MACROS_HPP
 #define WTE_HELPER_MACROS_HPP
 
-/*********************************
- * Entity items                  *
- *********************************/
-
-/*!
- * \def wte_new_component(new_cmp, ...)
- * \brief Create a new component.
- * Pass a component object and any parameters to create a new component.
- */
-#define wte_new_component(ent_id, new_cmp, ...) (mgr::entities::add_component(ent_id, std::make_shared<new_cmp>(__VA_ARGS__)))
-
-/*!
- * \def wte_set_component(ent_id, the_cmp)
- * \brief Set new value for a component.
- * Pass a component object and entity ID.
- */
-#define wte_set_component(ent_id, the_cmp) (mgr::entities::set_component<the_cmp>(ent_id))
-
-/*!
- * \def wte_get_component(ent_id, the_cmp)
- * \brief Get current value for a component.
- * Pass a component object and entity ID.
- */
-#define wte_get_component(ent_id, the_cmp) (mgr::entities::get_component<the_cmp>(ent_id))
+/*  NOTE:  Will remove after menus are done */
 
 /*********************************
  * Menu items                    *
@@ -66,12 +43,6 @@
 /*********************************
  * Other items                   *
  *********************************/
-
-/*!
- * \def wte_load_sample(samp_str)
- * Load a sample into the audio manager.
- */
-#define wte_load_sample(samp_str) (mgr::messages::add_message(message("audio", "load_sample", samp_str)))
 
 /*!
  * \def wte_add_system(new_sys, ...)

@@ -144,8 +144,7 @@ class assets final : private manager<assets> {
          */
         inline static void reload_bitmaps(void) {
             for (auto & it : _bitmaps_backup) {
-                //  Restore bitmap, setting the no preserve flag.
-                al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+                //  Restore bitmap.
                 try {
                     std::static_pointer_cast<al_bitmap>(_assets.at(it.first).first)->set(it.second);
                 } catch(...) {}

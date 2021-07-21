@@ -85,7 +85,7 @@ class al_bitmap : public wte_asset {
         /*!
          * \brief
          */
-        inline const bool isconverted(void) const { return !nopreserve; };
+        inline const bool isconverted(void) const { return nopreserve; };
 
         /*!
          * \brief

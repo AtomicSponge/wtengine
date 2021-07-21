@@ -639,7 +639,7 @@ void wte_demo::new_game(void) {
     /*  (5) Size                              */
     /* ************************************** */
     //mgr::assets::load<al_bitmap>("asteroid", "asteroid.bmp");
-    /*mgr::assets::load<al_bitmap>("asteroid");
+    mgr::assets::load<al_bitmap>("asteroid");
     mgr::assets::get<al_bitmap>("asteroid")->load("asteroid.bmp");
     mgr::spawner::add_spawn("asteroid", 5,
         [](const entity_id& e_id, const msg_arg_list& args) {
@@ -648,53 +648,53 @@ void wte_demo::new_game(void) {
             if(temp_size > 8) temp_size = 8;
 
             mgr::entities::set_name(e_id, "asteroid" + std::to_string(e_id));
-            mgr::entities::add_component(e_id, cmp::team, 1);
-            mgr::entities::add_component(e_id, cmp::location, std::stof(args[1]), std::stof(args[2]));
-            mgr::entities::add_component(e_id, cmp::hitbox, (float)(temp_size * 16), (float)(temp_size * 16));
-            mgr::entities::add_component(e_id, health, temp_size * 10, temp_size * 10);
-            mgr::entities::add_component(e_id, damage, 10);
-            mgr::entities::add_component(e_id, size, temp_size);
-            mgr::entities::add_component(e_id, cmp::direction);
-            mgr::entities::set_component(e_id, cmp::direction)->set_degrees(std::stof(args[3]));
-            mgr::entities::add_component(e_id, cmp::velocity, std::stof(args[4]));
-            mgr::entities::add_component(e_id, cmp::visible);
-            mgr::entities::add_component(e_id, cmp::enabled);
+            mgr::entities::add_component<cmp::team>(e_id, 1);
+            mgr::entities::add_component<cmp::location>(e_id, std::stof(args[1]), std::stof(args[2]));
+            mgr::entities::add_component<cmp::hitbox>(e_id, (float)(temp_size * 16), (float)(temp_size * 16));
+            mgr::entities::add_component<health>(e_id, temp_size * 10, temp_size * 10);
+            mgr::entities::add_component<damage>(e_id, 10);
+            mgr::entities::add_component<size>(e_id, temp_size);
+            mgr::entities::add_component<cmp::direction>(e_id);
+            mgr::entities::set_component<cmp::direction>(e_id)->set_degrees(std::stof(args[3]));
+            mgr::entities::add_component<cmp::velocity>(e_id, std::stof(args[4]));
+            mgr::entities::add_component<cmp::visible>(e_id);
+            mgr::entities::add_component<cmp::enabled>(e_id);
 
-            mgr::entities::add_component(e_id, cmp::sprite, mgr::assets::get<al_bitmap>("asteroid"),
+            mgr::entities::add_component<cmp::sprite>(e_id, mgr::assets::get<al_bitmap>("asteroid"),
                               16.0f, 16.0f, 0.0f, 0.0f, (int)(30 / std::stof(args[4])), 0);
-            mgr::entities::set_component(e_id, cmp::sprite)->add_cycle("main", 0, 5);
-            mgr::entities::set_component(e_id, cmp::sprite)->set_cycle("main");
-            mgr::entities::set_component(e_id, cmp::sprite)->set_scale_factor_x((float)temp_size);
-            mgr::entities::set_component(e_id, cmp::sprite)->set_scale_factor_y((float)temp_size);
+            mgr::entities::set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 5);
+            mgr::entities::set_component<cmp::sprite>(e_id)->set_cycle("main");
+            mgr::entities::set_component<cmp::sprite>(e_id)->set_scale_factor_x((float)temp_size);
+            mgr::entities::set_component<cmp::sprite>(e_id)->set_scale_factor_y((float)temp_size);
 
             //  Asteroid logic.
-            mgr::entities::add_component(e_id, cmp::ai,
+            mgr::entities::add_component<cmp::ai>(e_id,
                 [](const entity_id& ast_id) {
                     //  AI for asteroids defined here.
                     //  Perform OOB check.
-                    if(mgr::entities::get_component(ast_id, cmp::location)->get_y() > (float)(mgr::renderer::get_arena_height() + 100)) {
+                    if(mgr::entities::get_component<cmp::location>(ast_id)->get_y() > (float)(mgr::renderer::get_arena_height() + 100)) {
                         mgr::messages::add_message(message("spawner", "delete", mgr::entities::get_name(ast_id)));
                     }
 
                     //  Health check.  If asteroid's HP is <= 0, reward player with points and delete the entity.
-                    if(mgr::entities::get_component(ast_id, health)->hp <= 0) {
+                    if(mgr::entities::get_component<health>(ast_id)->hp <= 0) {
                         mgr::messages::add_message(message("spawner", "delete", mgr::entities::get_name(ast_id)));
                         mgr::audio::sample_play("megumin", "once", 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.8f);
 
                         mgr::variables::set("score",
                             (mgr::variables::get<int>("score") +
-                            (10 * mgr::entities::get_component(ast_id, size)->the_size)));
+                            (10 * mgr::entities::get_component<size>(ast_id)->the_size)));
 
                         //  If the asteroid was size >= 4, split into two.
-                        if(mgr::entities::get_component(ast_id, size)->the_size >= 4) {
-                            const int new_size = mgr::entities::get_component(ast_id, size)->the_size / 2;
-                            float dir_a = mgr::entities::get_component(ast_id, cmp::direction)->get_degrees() - 90.0f;
+                        if(mgr::entities::get_component<size>(ast_id)->the_size >= 4) {
+                            const int new_size = mgr::entities::get_component<size>(ast_id)->the_size / 2;
+                            float dir_a = mgr::entities::get_component<cmp::direction>(ast_id)->get_degrees() - 90.0f;
                             if(dir_a < 0.0f) dir_a = 0.0f;
-                            float dir_b = mgr::entities::get_component(ast_id, cmp::direction)->get_degrees() + 90.0f;
+                            float dir_b = mgr::entities::get_component<cmp::direction>(ast_id)->get_degrees() + 90.0f;
                             if(dir_b > 360.0f) dir_b = 360.0f;
-                            const float new_x = mgr::entities::get_component(ast_id, cmp::location)->get_x();
-                            const float new_y = mgr::entities::get_component(ast_id, cmp::location)->get_y();
-                            const float new_vel = mgr::entities::get_component(ast_id, cmp::velocity)->get_x_vel() / 2;
+                            const float new_x = mgr::entities::get_component<cmp::location>(ast_id)->get_x();
+                            const float new_y = mgr::entities::get_component<cmp::location>(ast_id)->get_y();
+                            const float new_vel = mgr::entities::get_component<cmp::velocity>(ast_id)->get_x_vel() / 2;
                             std::string new_spawner_a = "asteroid;" + std::to_string(new_x) + ";" +
                                 std::to_string(new_y) + ";" + std::to_string(dir_a) + ";" +
                                 std::to_string(new_vel) + ";" + std::to_string(new_size);
@@ -709,21 +709,21 @@ void wte_demo::new_game(void) {
             );  //  End asteroid AI
 
             //  Asteroid message processing.
-            mgr::entities::add_component(e_id, cmp::dispatcher,
+            mgr::entities::add_component<cmp::dispatcher>(e_id,
                 [](const entity_id& ast_id, const message& msg) {
                     if(msg.get_cmd() == "colision") {
                         //  Deal damage
                         mgr::messages::add_message(message("entities", msg.get_from(), msg.get_to(),
-                            "damage", std::to_string(mgr::entities::get_component(ast_id, damage)->dmg)));
+                            "damage", std::to_string(mgr::entities::get_component<damage>(ast_id)->dmg)));
                     }
 
                     if(msg.get_cmd() == "damage") {
-                        mgr::entities::set_component(ast_id, health)->hp -= std::stoi(msg.get_arglist()[0]);
+                        mgr::entities::set_component<health>(ast_id)->hp -= std::stoi(msg.get_arglist()[0]);
                     }
                 }
             );  //  End asteroid message dispatching.
         }  //  End asteroid spawner function.
-    );*/
+    );
 
     //  Reset score.
     mgr::variables::set("score", 0);

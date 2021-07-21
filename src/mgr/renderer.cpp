@@ -53,11 +53,8 @@ void renderer::initialize(void) {
         al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_title_bitmap"));
         al_clear_to_color(WTE_COLOR_BLACK);
     } else {
-        if(!mgr::assets::secret_load<al_bitmap>("wte_title_bitmap", title_screen_file)) {
-            mgr::assets::secret_load<al_bitmap>("wte_title_bitmap", 1, 1);
-            al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_title_bitmap"));
-            al_clear_to_color(WTE_COLOR_BLACK);
-        }
+        mgr::assets::secret_load<al_bitmap>("wte_title_bitmap");
+        mgr::assets::secret_get<al_bitmap>("wte_title_bitmap")->load(title_screen_file);
     }
 
     //  Load the background bitmap.
@@ -66,11 +63,8 @@ void renderer::initialize(void) {
         al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_background_bitmap"));
         al_clear_to_color(WTE_COLOR_BLACK);
     } else {
-        if(!mgr::assets::secret_load<al_bitmap>("wte_background_bitmap", background_file)) {
-            mgr::assets::secret_load<al_bitmap>("wte_background_bitmap", 1, 1);
-            al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_background_bitmap"));
-            al_clear_to_color(WTE_COLOR_BLACK);
-        }
+        mgr::assets::secret_load<al_bitmap>("wte_background_bitmap");
+        mgr::assets::secret_get<al_bitmap>("wte_background_bitmap")->load(background_file);
     }
 
     //  Load font used in renderer.

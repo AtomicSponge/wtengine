@@ -419,35 +419,36 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     /* *** Player entity *************** */
     /* ********************************* */
-    /*e_id = mgr::entities::new_entity();
+    e_id = mgr::entities::new_entity();
     mgr::entities::set_name(e_id, "player");
-    add_component(e_id, cmp::team, 0);
-    add_component(e_id, cmp::location,
-                      (mgr::renderer::get_arena_width() / 2) - 5,
-                       mgr::renderer::get_arena_height() - 40);
-    add_component(e_id, cmp::hitbox, 10, 10);
-    add_component(e_id, cmp::bounding_box, 12.0f, 0.0f,
-                      (float)(mgr::renderer::get_arena_width() - 21),
-                      (float)(mgr::renderer::get_arena_height() - 32));
-    add_component(e_id, health, 1, 1);
-    add_component(e_id, cmp::visible);
-    add_component(e_id, cmp::enabled);
-    add_component(e_id, cmp::direction, false);
-    add_component(e_id, cmp::velocity);
+    mgr::entities::add_component<cmp::team>(e_id, 0);
+    mgr::entities::add_component<cmp::location>(e_id,
+        (mgr::renderer::get_arena_width() / 2) - 5,
+         mgr::renderer::get_arena_height() - 40);
+    mgr::entities::add_component<cmp::hitbox>(e_id, 10, 10);
+    mgr::entities::add_component<cmp::bounding_box>(e_id, 12.0f, 0.0f,
+        (float)(mgr::renderer::get_arena_width() - 21),
+        (float)(mgr::renderer::get_arena_height() - 32));
+    mgr::entities::add_component<health>(e_id, 1, 1);
+    mgr::entities::add_component<cmp::visible>(e_id);
+    mgr::entities::add_component<cmp::enabled>(e_id);
+    mgr::entities::add_component<cmp::direction>(e_id, false);
+    mgr::entities::add_component<cmp::velocity>(e_id);
 
-    mgr::assets::load<al_bitmap>("ship", "ship.bmp");
-    add_component(e_id, cmp::sprite, mgr::assets::get<al_bitmap>("ship"),
-                      32.0f, 32.0f, -11.0f, 0.0f, 1, 1);
-    mgr::entities::set_component(e_id, cmp::sprite)->add_cycle("main", 0, 3);
-    mgr::entities::set_component(e_id, cmp::sprite)->add_cycle("death", 4, 7);
-    mgr::entities::set_component(e_id, cmp::sprite)->set_cycle("main");
+    mgr::assets::load<al_bitmap>("ship", 320, 320);
+    //mgr::assets::load<al_bitmap>("ship", "ship.bmp");
+    mgr::entities::add_component<cmp::sprite>(e_id, mgr::assets::get<al_bitmap>("ship"),
+        32.0f, 32.0f, -11.0f, 0.0f, 1, 1);
+    mgr::entities::set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
+    mgr::entities::set_component<cmp::sprite>(e_id)->add_cycle("death", 4, 7);
+    mgr::entities::set_component<cmp::sprite>(e_id)->set_cycle("main");
 
     //  Player logic.
-    add_component(e_id, cmp::ai,
+    mgr::entities::add_component<cmp::ai>(e_id,
         [](const entity_id& plr_id) {
-            if(mgr::entities::get_component(plr_id, health)->hp <= 0) {  //  Check player health.
-                mgr::entities::set_component(plr_id, cmp::enabled)->disable();
-                mgr::entities::set_component(plr_id, health)->hp = mgr::entities::get_component(plr_id, health)->hp_max;
+            if(mgr::entities::get_component<health>(plr_id)->hp <= 0) {  //  Check player health.
+                mgr::entities::set_component<cmp::enabled>(plr_id)->disable();
+                mgr::entities::set_component<health>(plr_id)->hp = mgr::entities::get_component<health>(plr_id)->hp_max;
                 std::string player_name = mgr::entities::get_name(plr_id);
                 mgr::messages::add_message(message("entities", player_name, player_name, "death", ""));
             }
@@ -455,33 +456,33 @@ void wte_demo::new_game(void) {
     );  //  End player logic.
 
     //  Player message handling.
-    add_component(e_id, cmp::dispatcher,
+    mgr::entities::add_component<cmp::dispatcher>(e_id,
         [](const entity_id& plr_id, const message& msg) {
             //  Process player death.
             if(msg.get_cmd() == "death") {
                 config::flags::input_enabled = false;
                 //  Make sure cannon stops firing
                 entity_id cannon_id = mgr::entities::get_id("main_cannon");
-                mgr::entities::set_component(cannon_id, cmp::visible)->hide();
-                mgr::entities::set_component(cannon_id, cmp::enabled)->disable();
+                mgr::entities::set_component<cmp::visible>(cannon_id)->hide();
+                mgr::entities::set_component<cmp::enabled>(cannon_id)->disable();
                 mgr::audio::sample_stop("cannon_fire");
 
                 //  Just to make sure... turn shield off
                 entity_id shield_id = mgr::entities::get_id("shield");
-                mgr::entities::set_component(shield_id, cmp::visible)->hide();
-                mgr::entities::set_component(shield_id, cmp::enabled)->disable();
-                mgr::entities::set_component(plr_id, cmp::hitbox)->make_solid();
+                mgr::entities::set_component<cmp::visible>(shield_id)->hide();
+                mgr::entities::set_component<cmp::enabled>(shield_id)->disable();
+                mgr::entities::set_component<cmp::hitbox>(plr_id)->make_solid();
                 mgr::audio::sample_stop("shield_sound");
 
                 mgr::audio::sample_play("megumin", "once");
                 mgr::variables::set<int>("lives", mgr::variables::get<int>("lives") - 1);
-                mgr::entities::set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
-                mgr::entities::set_component(plr_id, cmp::sprite)->set_cycle("death");
+                mgr::entities::set_component<cmp::velocity>(plr_id)->set_velocity(0.0f);
+                mgr::entities::set_component<cmp::sprite>(plr_id)->set_cycle("death");
                 if(mgr::variables::get<int>("lives") == 0) {
                     //  Game over!
                     mgr::messages::add_message(message(engine_time::check_time() + 180, "system", "end_game", ""));
                     entity_id go_id = mgr::entities::get_id("game_over_overlay");
-                    mgr::entities::set_component(go_id, cmp::visible)->show();
+                    mgr::entities::set_component<cmp::visible>(go_id)->show();
                 } else {
                     std::string player_name = mgr::entities::get_name(plr_id);
                     mgr::messages::add_message(
@@ -495,17 +496,17 @@ void wte_demo::new_game(void) {
                 config::flags::input_enabled = true;
                 config::controls::p1_polc_x = 0.0f;
                 config::controls::p1_polc_y = 0.0f;
-                mgr::entities::set_component(plr_id, cmp::velocity)->set_velocity(0.0f);
-                mgr::entities::set_component(plr_id, cmp::location)->set_x((float)((mgr::renderer::get_arena_width() / 2) - 5));
-                mgr::entities::set_component(plr_id, cmp::location)->set_y((float)(mgr::renderer::get_arena_height() - 40));
-                mgr::entities::set_component(plr_id, health)->hp = mgr::entities::get_component(plr_id, health)->hp_max;
-                mgr::entities::set_component(plr_id, cmp::enabled)->enable();
-                mgr::entities::set_component(plr_id, cmp::sprite)->set_cycle("main");
+                mgr::entities::set_component<cmp::velocity>(plr_id)->set_velocity(0.0f);
+                mgr::entities::set_component<cmp::location>(plr_id)->set_x((float)((mgr::renderer::get_arena_width() / 2) - 5));
+                mgr::entities::set_component<cmp::location>(plr_id)->set_y((float)(mgr::renderer::get_arena_height() - 40));
+                mgr::entities::set_component<health>(plr_id)->hp = mgr::entities::get_component<health>(plr_id)->hp_max;
+                mgr::entities::set_component<cmp::enabled>(plr_id)->enable();
+                mgr::entities::set_component<cmp::sprite>(plr_id)->set_cycle("main");
             }
 
             //  Take damage.
             if(msg.get_cmd() == "damage") {
-                mgr::entities::set_component(plr_id, health)->hp -= std::stoi(msg.get_arglist()[0]);
+                mgr::entities::set_component<health>(plr_id)->hp -= std::stoi(msg.get_arglist()[0]);
             }
         }
     );  //  End player message processing.

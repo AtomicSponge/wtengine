@@ -39,3 +39,5 @@
  * Create a new menu toggle item.
  */
 #define wte_menu_toggle(...) (std::make_shared<mnu::menu_item_toggle>(__VA_ARGS__))
+
+#endif

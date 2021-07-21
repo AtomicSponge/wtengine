@@ -71,7 +71,9 @@ class al_bitmap : public wte_asset {
         /*!
          * \brief
          */
-        inline ~al_bitmap() { al_destroy_bitmap(_al_bitmap); };
+        inline ~al_bitmap() {
+            al_destroy_bitmap(_al_bitmap);
+        };
 
         inline ALLEGRO_BITMAP* operator*() { return _al_bitmap; };
 

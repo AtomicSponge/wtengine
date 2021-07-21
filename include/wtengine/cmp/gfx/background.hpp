@@ -38,7 +38,7 @@ class background final : public animator {
          * \param c Allegro color.
          * \param l Background layer.
          */
-        background(const std::shared_ptr<wte_asset>& bmp, const std::size_t& l, const ALLEGRO_COLOR& c);
+        background(const std::shared_ptr<wte_asset> bmp, const std::size_t& l, const ALLEGRO_COLOR& c);
 
         /*!
          * \brief Background with custom animation.

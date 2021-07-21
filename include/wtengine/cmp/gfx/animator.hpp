@@ -99,7 +99,7 @@ class animator : public component {
          * \param l Layer for sorting.
          * \param func Animation function.
          */
-        animator(const std::shared_ptr<wte_asset>& bmp, const std::size_t& l,
+        animator(const std::shared_ptr<wte_asset> bmp, const std::size_t& l,
                  const std::function<void(const entity_id&)>& func);
 
         //!  Stores the bitmap used by the animator.

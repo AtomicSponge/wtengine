@@ -42,8 +42,8 @@ class assets final : private manager<assets> {
         /*!
          * \brief 
          */
-        template <typename T> inline static const bool load(const std::string& label, const T& data) {
-            auto ret = _assets.insert(std::make_pair(label, std::make_pair(std::make_any<T>(data), true)));
+        template <typename T, typename... Args> inline static const bool load(const std::string& label, Args... args) {
+            auto ret = _assets.insert(std::make_pair(label, std::make_pair(std::make_any<T>(args...), true)));
             return ret.second;
         };
 
@@ -88,8 +88,8 @@ class assets final : private manager<assets> {
         /*!
          * \brief 
          */
-        template <typename T> inline static const bool secret_load(const std::string& label, const T& data) {
-            auto ret = _assets.insert(std::make_pair(label, std::make_pair(std::make_any<T>(data), false)));
+        template <typename T, typename... Args> inline static const bool secret_load(const std::string& label, Args... args) {
+            auto ret = _assets.insert(std::make_pair(label, std::make_pair(std::make_any<T>(args...), false)));
             return ret.second;
         };
 

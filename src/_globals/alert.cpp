@@ -24,11 +24,6 @@ alert::~alert() {}
 /*
  * 
  */
-void alert::set_alert(const std::string& a) { set(a); };
-
-/*
- * 
- */
 void alert::set(const std::string& a) {
     alert_text = a;
     alert_set = true;

@@ -18,7 +18,6 @@
 
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/wrappers.hpp"
-#include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/mgr/assets.hpp"
 #include "wtengine/mgr/entities.hpp"
 

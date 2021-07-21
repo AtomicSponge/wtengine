@@ -18,14 +18,12 @@ namespace cmp
 /*
  *
  */
-dispatcher::dispatcher(const std::function<void(const entity_id&, const message&)>& func) : handle_msg(func) {};
+dispatcher::dispatcher(const std::function<void(const entity_id&, const message&)>& func) : handle_msg(func) {}
 
 /*
  *
  */
-void dispatcher::proc_msg(const entity_id& e_id, const message& msg) {
-    try { handle_msg(e_id, msg); } catch(const wte_exception& e) { alert::set_alert(e.what()); }
-}
+void dispatcher::proc_msg(const entity_id& e_id, const message& msg) { try { handle_msg(e_id, msg); } catch(...) { throw; } }
 
 } //  namespace cmp
 

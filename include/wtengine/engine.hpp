@@ -141,7 +141,7 @@ class engine : private display, public input, public config {
                 config::flags::is_running = false;
             });
             cmds.add("alert", [this](const msg_arg_list& args) {
-                alert::set_alert(args[0]);
+                alert::set(args[0]);
             });
             cmds.add("new_game", [this](const msg_arg_list& args) {
                 if(!config::flags::game_started) {
@@ -186,7 +186,7 @@ class engine : private display, public input, public config {
             cmds.add("load_script", [this](const msg_arg_list& args) {
                 if(config::flags::game_started && args[0] != "") {
                     if(!mgr::messages::load_script(args[0]))
-                        alert::set_alert("Error loading script:  " + args[0]);
+                        alert::set("Error loading script:  " + args[0]);
                 }
             });
 

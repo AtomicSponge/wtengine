@@ -42,7 +42,7 @@ void movement::run(void) {
                 it.second->get_y_vel() *
                 std::sin(mgr::entities::get_component<cmp::direction>(it.first)->get_radians())
             );
-        } catch(const wte_exception& e) { alert::set_alert(e.what()); }
+        } catch(const wte_exception& e) { alert::set(e.what()); }
     }
 
     //  Now check all bounding boxes.
@@ -58,7 +58,7 @@ void movement::run(void) {
                 mgr::entities::set_component<cmp::location>(it.first)->set_y(it.second->get_min_y());
             else if(mgr::entities::get_component<cmp::location>(it.first)->get_y() > it.second->get_max_y())
                 mgr::entities::set_component<cmp::location>(it.first)->set_y(it.second->get_max_y());
-        } catch(const wte_exception& e) { alert::set_alert(e.what()); }
+        } catch(const wte_exception& e) { alert::set(e.what()); }
     }
 }
 

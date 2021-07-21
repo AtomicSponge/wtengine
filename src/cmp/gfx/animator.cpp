@@ -27,7 +27,7 @@ animator::animator(
 /*
  *
  */
-void animator::run(const entity_id& e_id) { animate(e_id); }
+void animator::run(const entity_id& e_id) { try { animate(e_id); } catch(...) { throw; } }
 
 /*
  *

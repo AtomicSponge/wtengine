@@ -44,17 +44,17 @@ int renderer::render_font_flags = 0;
 void renderer::initialize(void) {
     //  Create the arena bitmap.
     if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
-    mgr::assets::secret_load<al_bitmap>("wte_arena_bitmap", al_bitmap(arena_w, arena_h, true));
+    mgr::assets::secret_load<al_bitmap>("wte_arena_bitmap", arena_w, arena_h, true);
     arena_created = true;
 
     //  Load the title screen bitmap.
     if(title_screen_file.empty()) {
-        mgr::assets::secret_load<al_bitmap>("wte_title_bitmap", al_bitmap(1, 1));
+        mgr::assets::secret_load<al_bitmap>("wte_title_bitmap", 1, 1);
         al_set_target_bitmap(*mgr::assets::secret_get<al_bitmap>("wte_title_bitmap"));
         al_clear_to_color(WTE_COLOR_BLACK);
     } else {
-        if(!mgr::assets::secret_load("wte_title_bitmap", al_bitmap(title_screen_file))) {
-            mgr::assets::secret_load<al_bitmap>("wte_title_bitmap", al_bitmap(1, 1));
+        if(!mgr::assets::secret_load<al_bitmap>("wte_title_bitmap", title_screen_file)) {
+            mgr::assets::secret_load<al_bitmap>("wte_title_bitmap", 1, 1);
             al_set_target_bitmap(*mgr::assets::secret_get<al_bitmap>("wte_title_bitmap"));
             al_clear_to_color(WTE_COLOR_BLACK);
         }
@@ -62,12 +62,12 @@ void renderer::initialize(void) {
 
     //  Load the background bitmap.
     if(background_file.empty()) {
-        mgr::assets::secret_load<al_bitmap>("wte_background_bitmap", al_bitmap(1, 1));
+        mgr::assets::secret_load<al_bitmap>("wte_background_bitmap", 1, 1);
         al_set_target_bitmap(*mgr::assets::secret_get<al_bitmap>("wte_background_bitmap"));
         al_clear_to_color(WTE_COLOR_BLACK);
     } else {
-        if(!mgr::assets::secret_load<al_bitmap>("wte_background_bitmap", al_bitmap(background_file))) {
-            mgr::assets::secret_load<al_bitmap>("wte_background_bitmap", al_bitmap(1, 1));
+        if(!mgr::assets::secret_load<al_bitmap>("wte_background_bitmap", background_file)) {
+            mgr::assets::secret_load<al_bitmap>("wte_background_bitmap", 1, 1);
             al_set_target_bitmap(*mgr::assets::secret_get<al_bitmap>("wte_background_bitmap"));
             al_clear_to_color(WTE_COLOR_BLACK);
         }
@@ -175,7 +175,7 @@ void renderer::render(void) {
     fps_counter++;
     //  Update fps on unique ticks only.
     const bool queue_not_empty = al_get_next_event(fps_event_queue, &fps_event);
-    if(fps_event.type == ALLEGRO_EVENT_TIMER && queue_not_empty) {
+    if(queue_not_empty && fps_event.type == ALLEGRO_EVENT_TIMER) {
         fps = fps_counter;
         fps_counter = 0;
         al_set_timer_count(fps_timer, 0);
@@ -195,8 +195,8 @@ void renderer::render(void) {
          * Draw the full screen background.
          */
         al_draw_scaled_bitmap(*mgr::assets::secret_get<al_bitmap>("wte_background_bitmap"), 0, 0,
-                              al_get_bitmap_width(*mgr::assets::secret_get<al_bitmap>("wte_background_bitmap")),
-                              al_get_bitmap_height(*mgr::assets::secret_get<al_bitmap>("wte_background_bitmap")),
+                              mgr::assets::secret_get<al_bitmap>("wte_background_bitmap").get_width(),
+                              mgr::assets::secret_get<al_bitmap>("wte_background_bitmap").get_height(),
                               0, 0, screen_w, screen_h, 0);
 
         //  Set drawing to the arena bitmap.
@@ -223,7 +223,7 @@ void renderer::render(void) {
                     else
                         al_draw_bitmap(it.second->get_bitmap(), 0, 0, 0);
                 }
-            } catch(const wte_exception& e) { alert::set_alert(e.what()); }
+            } catch(const wte_exception& e) { alert::set(e.what()); }
         }
 
         /*
@@ -298,7 +298,7 @@ void renderer::render(void) {
                         );
                     al_destroy_bitmap(temp_bitmap);
                 }
-            } catch(const wte_exception& e) { alert::set_alert(e.what()); }
+            } catch(const wte_exception& e) { alert::set(e.what()); }
         }
 
         #if WTE_DEBUG_MODE
@@ -330,7 +330,7 @@ void renderer::render(void) {
                                 mgr::entities::get_component<cmp::location>(it.first)->get_y(), 0);
                     al_destroy_bitmap(temp_bitmap);
                 }  //  End hitbox/enabled test.
-            } catch(const wte_exception& e) { alert::set_alert(e.what()); }
+            } catch(const wte_exception& e) { alert::set(e.what()); }
         }  //  End render component loop.
         #endif  //  End draw hitbox check.
 
@@ -360,7 +360,7 @@ void renderer::render(void) {
                             it.second->get_pos_x(), it.second->get_pos_y(), 0
                         );
                 }
-            } catch(const wte_exception& e) { alert::set_alert(e.what()); }
+            } catch(const wte_exception& e) { alert::set(e.what()); }
         }
 
         /*
@@ -376,8 +376,8 @@ void renderer::render(void) {
          * Game is not running - draw the title screen.
          */
         al_draw_scaled_bitmap(*mgr::assets::secret_get<al_bitmap>("wte_title_bitmap"), 0, 0,
-                              al_get_bitmap_width(*mgr::assets::secret_get<al_bitmap>("wte_title_bitmap")),
-                              al_get_bitmap_height(*mgr::assets::secret_get<al_bitmap>("wte_title_bitmap")),
+                              mgr::assets::secret_get<al_bitmap>("wte_title_bitmap").get_width(),
+                              mgr::assets::secret_get<al_bitmap>("wte_title_bitmap").get_height(),
                               0, 0, screen_w, screen_h, 0);
     }
 

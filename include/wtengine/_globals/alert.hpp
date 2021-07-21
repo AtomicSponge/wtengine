@@ -30,8 +30,6 @@ class alert {
          * 
          * \param a Alert to display.
          */
-        static void set_alert(const std::string& a);
-
         static void set(const std::string& a);
 
         /*!

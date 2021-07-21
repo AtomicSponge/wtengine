@@ -43,6 +43,7 @@ class al_bitmap {
             assert(w > 0 && h > 0);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             _al_bitmap = al_create_bitmap(w, h);
+            calc_size();
         };
 
         /*!
@@ -53,6 +54,7 @@ class al_bitmap {
             if(nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             _al_bitmap = al_create_bitmap(w, h);
+            calc_size();
         };
 
         /*!
@@ -130,11 +132,32 @@ class al_bitmap {
             al_convert_mask_to_alpha(_al_bitmap, WTE_MAGIC_PINK);
             #endif
 
+            calc_size();
+
             return true;
         };
 
+        /*!
+         *
+         */
+        inline void calc_size(void) {
+            width = al_get_bitmap_width(_al_bitmap);
+            height = al_get_bitmap_height(_al_bitmap);
+        };
+
+        /*!
+         *
+         */
+        inline const int get_width(void) const { return width; };
+
+        /*!
+         *
+         */
+        inline const int get_height(void) const { return height; };
+
     private:
         ALLEGRO_BITMAP* _al_bitmap;
+        int width, height;
         bool nopreserve;
 };
 

@@ -72,7 +72,7 @@ void colision::run(void) {
                                                         "colision", ""));
                     }
                 } //  End skip self check
-            } catch(const wte_exception& e) { alert::set_alert(e.what()); }
+            } catch(const wte_exception& e) { alert::set(e.what()); }
         } //  End it_b loop
     } //  End it_a loop
 }

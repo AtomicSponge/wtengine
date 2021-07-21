@@ -66,7 +66,7 @@ const bool systems::add(sys::system_uptr new_system) {
  */
 void systems::run() {
     for(auto & it : _systems)
-        try { (it)->run(); } catch(const wte_exception& e) { alert::set_alert(e.what()); }
+        try { (it)->run(); } catch(const wte_exception& e) { alert::set(e.what()); }
 }
 
 /*

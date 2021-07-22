@@ -93,7 +93,6 @@ class assets final : private manager<assets> {
         template <typename T, typename... Args> inline static const bool secret_load(const std::string& label, Args... args) {
             auto ret = _assets.insert(std::make_pair(label, std::make_pair(std::make_shared<T>(args...), false)));
             return ret.second;
-            return false;
         };
 
         /*!

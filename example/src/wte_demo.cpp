@@ -9,8 +9,6 @@
  * This extends the wte_main object to define a custom game.
  */
 
-#define _WTE_USE_HELPER_MACROS  //  Use engine helper macros.
-
 #include <numeric>
 
 #include <allegro5/allegro_primitives.h>
@@ -18,7 +16,7 @@
 #include "include/wte_demo.hpp"
 #include "include/my_components.hpp"
 
-using namespace wte;  //  Required for macro use.
+using namespace wte;
 
 /*
  * Game's constructor.
@@ -175,6 +173,11 @@ wte_demo::~wte_demo() {
 
     al_shutdown_primitives_addon();
 }
+
+#define wte_menu_action(...) (std::make_shared<mnu::menu_item_action>(__VA_ARGS__))
+#define wte_menu_apply(...) (std::make_shared<mnu::menu_item_apply>(__VA_ARGS__))
+#define wte_menu_selection(...) (std::make_shared<mnu::menu_item_selection>(__VA_ARGS__))
+#define wte_menu_toggle(...) (std::make_shared<mnu::menu_item_toggle>(__VA_ARGS__))
 
 /*
  * Load menus.

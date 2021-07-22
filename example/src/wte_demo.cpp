@@ -664,7 +664,7 @@ void wte_demo::new_game(void) {
             mgr::entities::add_component<cmp::enabled>(e_id);
 
             mgr::entities::add_component<cmp::sprite>(e_id, mgr::assets::get<al_bitmap>("asteroid"),
-                              16.0f, 16.0f, 0.0f, 0.0f, (int)(30 / std::stof(args[4])), 0);
+                16.0f, 16.0f, 0.0f, 0.0f, (int)(30 / std::stof(args[4])), 0);
             mgr::entities::set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 5);
             mgr::entities::set_component<cmp::sprite>(e_id)->set_cycle("main");
             mgr::entities::set_component<cmp::sprite>(e_id)->set_scale_factor_x((float)temp_size);

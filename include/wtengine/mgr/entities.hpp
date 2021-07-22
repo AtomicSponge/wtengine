@@ -305,12 +305,12 @@ class entities final : private manager<entity> {
             if(!entity_exists(e_id)) return false;
 
             //  Check derived types of existing components, make sure one does not already exist.
-            const const_entity_container check_entity = get_entity(e_id);
+            const auto check_entity = get_entity(e_id);
             for(auto & it : check_entity) {
                 if(typeid(*it).name() == typeid(T).name()) return false;
             }
 
-            auto ret = world.insert(std::make_pair(e_id, std::make_shared<T>(args...)));
+            world.insert(std::make_pair(e_id, std::make_shared<T>(args...)));
             return true;
         };
 

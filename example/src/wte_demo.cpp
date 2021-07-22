@@ -107,25 +107,25 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
 
     input::event::p1::onup::up = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        config::controls::p1_polc_y = 0.0f;
+        if(config::controls::p1_polc_y != 1.0f) config::controls::p1_polc_y = 0.0f;
         if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f)
             mgr::entities::set_component<cmp::velocity>(player_id)->set_velocity(0.0f);
     };
     input::event::p1::onup::down = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        config::controls::p1_polc_y = 0.0f;
+        if(config::controls::p1_polc_y != -1.0f) config::controls::p1_polc_y = 0.0f;
         if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f)
             mgr::entities::set_component<cmp::velocity>(player_id)->set_velocity(0.0f);
     };
     input::event::p1::onup::left = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        config::controls::p1_polc_x = 0.0f;
+        if(config::controls::p1_polc_x != 1.0f) config::controls::p1_polc_x = 0.0f;
         if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f)
             mgr::entities::set_component<cmp::velocity>(player_id)->set_velocity(0.0f);
     };
     input::event::p1::onup::right = []() {
         entity_id player_id = mgr::entities::get_id("player");
-        config::controls::p1_polc_x = 0.0f;
+        if(config::controls::p1_polc_x != -1.0f) config::controls::p1_polc_x = 0.0f;
         if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f)
             mgr::entities::set_component<cmp::velocity>(player_id)->set_velocity(0.0f);
     };

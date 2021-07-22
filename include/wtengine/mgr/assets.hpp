@@ -18,7 +18,6 @@
 #include <allegro5/allegro.h>
 
 #include "wtengine/_globals/_defines.hpp"
-#include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/mgr/manager.hpp"

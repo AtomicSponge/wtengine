@@ -16,11 +16,12 @@
 #include <memory>
 
 #include "wtengine/mgr/manager.hpp"
-#include "wtengine/sys/system.hpp"
-#include "wtengine/mgr/messages.hpp"
-#include "wtengine/mgr/entities.hpp"
+
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
+#include "wtengine/mgr/messages.hpp"
+#include "wtengine/mgr/world.hpp"
+#include "wtengine/sys/system.hpp"
 
 namespace wte
 {

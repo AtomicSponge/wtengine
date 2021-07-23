@@ -74,7 +74,7 @@ void systems::run() {
  */
 void systems::dispatch(void) {
     component_container<cmp::dispatcher> dispatch_components =
-        mgr::entities::set_components<cmp::dispatcher>();
+        mgr::world::set_components<cmp::dispatcher>();
 
     while(true) {  //  Infinite loop to verify all current messages are processed.
         message_container temp_msgs = mgr::messages::get_messages("entities");
@@ -82,7 +82,7 @@ void systems::dispatch(void) {
 
         for(auto & c_it : dispatch_components) {
             for(auto m_it = temp_msgs.begin(); m_it != temp_msgs.end();) {
-                if(m_it->get_to() == mgr::entities::get_name(c_it.first)) {
+                if(m_it->get_to() == mgr::world::get_name(c_it.first)) {
                     c_it.second->proc_msg(c_it.first, *m_it);
                     m_it = temp_msgs.erase(m_it);
                 } else m_it++;

@@ -29,8 +29,8 @@
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/cmp/_components.hpp"
 #include "wtengine/mgr/assets.hpp"
-#include "wtengine/mgr/entities.hpp"
 #include "wtengine/mgr/menus.hpp"
+#include "wtengine/mgr/world.hpp"
 
 namespace wte
 {

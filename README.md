@@ -125,35 +125,13 @@ By default the engine will tick at 60 iterations a second.  You can change the r
 
 -----
 
-#### WTE_DEBUG_MODE
-Set level of debugging.
-- 0 - No debugging (default)
-- 1 - Display timer counter
-- 2 - Message logging
-- 3 - Draw hitboxes 
-- 9 - Turn on all logging
-
------
-
-#### WTE_INPUT_MODE
-Set the input mode.  Configures how the engine reads sticks on a gamepad.  Default is digital mode.
-- 0 - Digital
-  - D-pad and sticks record 8-way directions.
-  - D-pad and left stick are the same.
-  - Analogue triggers are read as button presses.
-- 1 - Analogue
-  - D-pad only registers button presses, read full data from sticks.
-  - Analogue triggers have their data stored.
+#### WTE_BUILD_DEBUG
+Build debug logging.
 
 -----
 
 #### WTE_MAX_PLAYING_SAMPLES
 Sets the maximum number of simultaneous playing samples.  Default is eight.
-
------
-
-#### WTE_NO_PRUNE
-By default the engine will delete timed messages that were not processed.  Define this to disable the feature.
 
 -----
 

@@ -42,7 +42,7 @@ void spawner::process_messages(const message_container& messages) {
                 //  Make sure the number of arguments match what's expected.
                 //  Note that we do not count the first argument.
                 if(m_it.num_args() == s_it->second.first + 1) {
-                    entity_id e_id = mgr::entities::new_entity();
+                    entity_id e_id = mgr::world::new_entity();
                     try {
                         s_it->second.second(e_id, m_it.get_arglist());
                     } catch(...) { 
@@ -52,9 +52,9 @@ void spawner::process_messages(const message_container& messages) {
         }
 
         if(m_it.get_cmd() == "delete") {
-            entity_id delete_entity_id = mgr::entities::get_id(m_it.get_arg(0));
+            entity_id delete_entity_id = mgr::world::get_id(m_it.get_arg(0));
             if(delete_entity_id != WTE_ENTITY_ERROR) {
-                mgr::entities::delete_entity(delete_entity_id);
+                mgr::world::delete_entity(delete_entity_id);
             }
         }
     }  //  End for(m_it)

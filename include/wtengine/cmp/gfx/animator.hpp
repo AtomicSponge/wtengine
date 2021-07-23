@@ -18,7 +18,7 @@
 
 #include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
-#include "wtengine/mgr/entities.hpp"
+#include "wtengine/mgr/world.hpp"
 
 namespace wte
 {

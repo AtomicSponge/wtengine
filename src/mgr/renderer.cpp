@@ -201,7 +201,7 @@ void renderer::render(void) {
          * Draw the backgrounds.
          */
         const const_component_container<cmp::background> background_components =
-            mgr::entities::get_components<cmp::background>();
+            mgr::world::get_components<cmp::background>();
 
         //  Sort the background layers.
         std::multiset<entity_component_pair<cmp::background>,
@@ -211,7 +211,7 @@ void renderer::render(void) {
         //  Draw each background by layer.
         for(auto & it : background_componenet_set) {
             try {
-                if(mgr::entities::get_component<cmp::visible>(it.first)->check()) {
+                if(mgr::world::get_component<cmp::visible>(it.first)->check()) {
                     if(it.second->draw_tinted())
                         al_draw_tinted_bitmap(it.second->get_bitmap(), it.second->get_tint(), 0, 0, 0);
                     else
@@ -224,7 +224,7 @@ void renderer::render(void) {
          * Draw the sprites.
          */
         const const_component_container<cmp::sprite> sprite_components =
-            mgr::entities::get_components<cmp::sprite>();
+            mgr::world::get_components<cmp::sprite>();
 
         //  Sort the sprite components.
         std::multiset<entity_component_pair<cmp::sprite>,
@@ -234,7 +234,7 @@ void renderer::render(void) {
         //  Draw each sprite in order.
         for(auto & it : sprite_componenet_set) {
             try {
-                if(mgr::entities::get_component<cmp::visible>(it.first)->check()) {
+                if(mgr::world::get_component<cmp::visible>(it.first)->check()) {
                     //  Get the current sprite frame.
                     temp_bitmap = al_create_sub_bitmap(
                         it.second->get_bitmap(),
@@ -250,27 +250,27 @@ void renderer::render(void) {
 
                     try {
                         //  Check if the sprite should be rotated.
-                        if(mgr::entities::get_component<cmp::direction>(it.first)->show_rotated()) {
-                            sprite_angle = mgr::entities::get_component<cmp::direction>(it.first)->get_radians();
+                        if(mgr::world::get_component<cmp::direction>(it.first)->show_rotated()) {
+                            sprite_angle = mgr::world::get_component<cmp::direction>(it.first)->get_radians();
                             center_x = (al_get_bitmap_width(temp_bitmap) / 2);
                             center_y = (al_get_bitmap_height(temp_bitmap) / 2);
 
-                            destination_x = mgr::entities::get_component<cmp::location>(it.first)->get_x() +
+                            destination_x = mgr::world::get_component<cmp::location>(it.first)->get_x() +
                                 (al_get_bitmap_width(temp_bitmap) * it.second->get_scale_factor_x() / 2) +
                                 (it.second->get_draw_offset_x() * it.second->get_scale_factor_x());
-                            destination_y = mgr::entities::get_component<cmp::location>(it.first)->get_y() +
+                            destination_y = mgr::world::get_component<cmp::location>(it.first)->get_y() +
                                 (al_get_bitmap_height(temp_bitmap) * it.second->get_scale_factor_y() / 2) +
                                 (it.second->get_draw_offset_y() * it.second->get_scale_factor_y());
                         } else {
-                                destination_x = mgr::entities::get_component<cmp::location>(it.first)->get_x() +
+                                destination_x = mgr::world::get_component<cmp::location>(it.first)->get_x() +
                                     it.second->get_draw_offset_x();
-                                destination_y = mgr::entities::get_component<cmp::location>(it.first)->get_y() +
+                                destination_y = mgr::world::get_component<cmp::location>(it.first)->get_y() +
                                     it.second->get_draw_offset_y();
                         }
                     } catch(...) {
-                        destination_x = mgr::entities::get_component<cmp::location>(it.first)->get_x() +
+                        destination_x = mgr::world::get_component<cmp::location>(it.first)->get_x() +
                             it.second->get_draw_offset_x();
-                        destination_y = mgr::entities::get_component<cmp::location>(it.first)->get_y() +
+                        destination_y = mgr::world::get_component<cmp::location>(it.first)->get_y() +
                             it.second->get_draw_offset_y();
                     }
 
@@ -304,24 +304,24 @@ void renderer::render(void) {
         /*for(auto & it : sprite_componenet_set) {
             try {
                 //  Make sure the entity is enabled.
-                if(mgr::entities::get_component<cmp::enabled>(it.first)->check()) {
+                if(mgr::world::get_component<cmp::enabled>(it.first)->check()) {
                     //  Select color based on team.
                     ALLEGRO_COLOR team_color;
-                    switch(mgr::entities::get_component<cmp::team>(it.first)->get_team()) {
+                    switch(mgr::world::get_component<cmp::team>(it.first)->get_team()) {
                         case 0: team_color = WTE_COLOR_GREEN; break;
                         case 1: team_color = WTE_COLOR_RED; break;
                         case 2: team_color = WTE_COLOR_BLUE; break;
                         default: team_color = WTE_COLOR_YELLOW;
                     }
                     //  Draw the hitbox.
-                    temp_bitmap = al_create_bitmap(mgr::entities::get_component<cmp::hitbox>(it.first)->get_width(),
-                                                    mgr::entities::get_component<cmp::hitbox>(it.first)->get_height());
+                    temp_bitmap = al_create_bitmap(mgr::world::get_component<cmp::hitbox>(it.first)->get_width(),
+                                                    mgr::world::get_component<cmp::hitbox>(it.first)->get_height());
                     al_set_target_bitmap(temp_bitmap);
                     al_clear_to_color(team_color);
                     al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_arena_bitmap"));
                     al_draw_bitmap(temp_bitmap,
-                                mgr::entities::get_component<cmp::location>(it.first)->get_x(),
-                                mgr::entities::get_component<cmp::location>(it.first)->get_y(), 0);
+                                mgr::world::get_component<cmp::location>(it.first)->get_x(),
+                                mgr::world::get_component<cmp::location>(it.first)->get_y(), 0);
                     al_destroy_bitmap(temp_bitmap);
                 }  //  End hitbox/enabled test.
             } catch(const wte_exception& e) { alert::set(e.what()); }
@@ -332,7 +332,7 @@ void renderer::render(void) {
          * Draw the overlays.
          */
         const const_component_container<cmp::overlay> overlay_components =
-            mgr::entities::get_components<cmp::overlay>();
+            mgr::world::get_components<cmp::overlay>();
 
         //  Sort the overlay layers.
         std::multiset<entity_component_pair<cmp::overlay>,
@@ -342,7 +342,7 @@ void renderer::render(void) {
         //  Draw each overlay by layer.
         for(auto & it : overlay_componenet_set) {
             try {
-                if(mgr::entities::get_component<cmp::visible>(it.first)->check()) {
+                if(mgr::world::get_component<cmp::visible>(it.first)->check()) {
                     if(it.second->draw_tinted())
                         al_draw_tinted_bitmap(
                             it.second->get_bitmap(), it.second->get_tint(),

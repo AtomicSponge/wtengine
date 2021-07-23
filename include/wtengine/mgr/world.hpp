@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  entities.hpp
+ * WTEngine | File:  world.hpp
  * 
  * \author Matthew Evans
  * \version 0.4
@@ -7,8 +7,8 @@
  * \date 2019-2021
  */
 
-#ifndef WTE_MGR_ENTITY_HPP
-#define WTE_MGR_ENTITY_HPP
+#ifndef WTE_MGR_WORLD_HPP
+#define WTE_MGR_WORLD_HPP
 
 #define WTE_ENTITY_ERROR (0)
 #define WTE_ENTITY_START (1)
@@ -89,10 +89,10 @@ namespace mgr
 {
 
 /*!
- * \class entities
+ * \class world
  * \brief Store a collection of entities and their corresponding components in memory.
  */
-class entities final : private manager<entity> {
+class world final : private manager<world> {
     public:
         /*!
          * \brief Clear the entity manager.
@@ -102,7 +102,7 @@ class entities final : private manager<entity> {
         inline static void clear(void) {
             entity_counter = WTE_ENTITY_START;
             entity_vec.clear();
-            world.clear();
+            _world.clear();
         };
 
         /*!
@@ -158,7 +158,7 @@ class entities final : private manager<entity> {
             auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),
                                      [&e_id](const entity& e){ return e.first == e_id; });
             if(e_it != entity_vec.end()) {
-                world.erase(e_id);     //  Remove all associated componenets.
+                _world.erase(e_id);     //  Remove all associated componenets.
                 entity_vec.erase(e_it);  //  Delete the entity.
                 return true;
             }
@@ -257,7 +257,7 @@ class entities final : private manager<entity> {
             }
 
             entity_container temp_container;
-            const auto results = world.equal_range(e_id);
+            const auto results = _world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
                 temp_container.emplace_back(cmp::component_sptr((*it).second));
@@ -281,7 +281,7 @@ class entities final : private manager<entity> {
             }
 
             const_entity_container temp_container;
-            const auto results = world.equal_range(e_id);
+            const auto results = _world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
                 temp_container.emplace_back(cmp::component_csptr((*it).second));
@@ -310,7 +310,7 @@ class entities final : private manager<entity> {
                 if(typeid(*it).name() == typeid(T).name()) return false;
             }
 
-            world.insert(std::make_pair(e_id, std::make_shared<T>(args...)));
+            _world.insert(std::make_pair(e_id, std::make_shared<T>(args...)));
             return true;
         };
 
@@ -323,11 +323,11 @@ class entities final : private manager<entity> {
          * \return Return false if no components were deleted.
          */
         template <typename T> inline static const bool delete_component(const entity_id& e_id) {
-            auto results = world.equal_range(e_id);
+            auto results = _world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second)) {
-                    it = world.erase(it);
+                    it = _world.erase(it);
                     return true;
                 }
             }
@@ -343,7 +343,7 @@ class entities final : private manager<entity> {
          * \return Return false if it does not.
          */
         template <typename T> inline static const bool has_component(const entity_id& e_id) {
-            const auto results = world.equal_range(e_id);
+            const auto results = _world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second)) return true;
@@ -360,7 +360,7 @@ class entities final : private manager<entity> {
          * \exception wte_exception Component not found.
          */
         template <typename T> inline static const std::shared_ptr<T> set_component(const entity_id& e_id) {
-            const auto results = world.equal_range(e_id);
+            const auto results = _world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second))
@@ -381,7 +381,7 @@ class entities final : private manager<entity> {
          * \exception wte_exception Component not found.
          */
         template <typename T> inline static const std::shared_ptr<const T> get_component(const entity_id& e_id) {
-            const auto results = world.equal_range(e_id);
+            const auto results = _world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second))
@@ -404,7 +404,7 @@ class entities final : private manager<entity> {
         template <typename T> inline static const component_container<T> set_components(void) {
             component_container<T> temp_components;
 
-            for(auto & it : world) {
+            for(auto & it : _world) {
                 if(std::dynamic_pointer_cast<T>(it.second))
                     temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
             }
@@ -422,7 +422,7 @@ class entities final : private manager<entity> {
         template <typename T> inline static const const_component_container<T> get_components(void) {
             const_component_container<T> temp_components;
 
-            for(auto & it : world) {
+            for(auto & it : _world) {
                 if(std::dynamic_pointer_cast<T>(it.second))
                     temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
             }
@@ -435,9 +435,9 @@ class entities final : private manager<entity> {
          *
          * Clears the entity & world containers.
          */
-        inline entities() {
+        inline world() {
             entity_vec.clear();
-            world.clear();
+            _world.clear();
         };
 
         /*!
@@ -445,16 +445,16 @@ class entities final : private manager<entity> {
          *
          * Clears the entity manager.
          */
-        inline ~entities() {
+        inline ~world() {
             clear();
         };
 
         inline static entity_id entity_counter = WTE_ENTITY_START;
         inline static world_container entity_vec = {};
-        inline static world_map world = {};
+        inline static world_map _world = {};
 };
 
-template <> inline bool manager<entity>::initialized = false;
+template <> inline bool manager<world>::initialized = false;
 
 } //  namespace mgr
 

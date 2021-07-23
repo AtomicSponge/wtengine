@@ -29,11 +29,11 @@ animate::~animate() {}
  *
  */
 void animate::run(void) {
-    component_container<cmp::animator> animation_components = mgr::entities::set_components<cmp::animator>();
+    component_container<cmp::animator> animation_components = mgr::world::set_components<cmp::animator>();
 
     for(auto & it : animation_components) {
         try {
-            if(mgr::entities::get_component<cmp::visible>(it.first)->check())
+            if(mgr::world::get_component<cmp::visible>(it.first)->check())
                 it.second->run(it.first);
         } catch(...) { throw; }
     }

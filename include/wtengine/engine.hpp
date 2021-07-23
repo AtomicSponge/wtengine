@@ -288,7 +288,7 @@ inline void engine::process_new_game(const std::string& game_data) {
     mgr::audio::sample_clear_instances();
     
     //  Clear world and load starting entities.
-    mgr::entities::clear();
+    mgr::world::clear();
     new_game();
 
     //  Restart the timer at zero.
@@ -323,7 +323,7 @@ inline void engine::process_end_game(void) {
     end_game();
 
     //  Clear world and systems.
-    mgr::entities::clear();
+    mgr::world::clear();
     mgr_inf.systems_clear();
 
     //  Open the menus.

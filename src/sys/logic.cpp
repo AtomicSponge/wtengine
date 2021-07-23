@@ -30,12 +30,12 @@ logic::~logic() {};
  */
 void logic::run(void) {
     //  Find the entities with the input handler component
-    component_container<cmp::ai> ai_components = mgr::entities::set_components<cmp::ai>();
+    component_container<cmp::ai> ai_components = mgr::world::set_components<cmp::ai>();
 
     for(auto & it : ai_components) {
         try {
             //  Process enabled or disabled ai
-            if(mgr::entities::get_component<cmp::enabled>(it.first)->check())
+            if(mgr::world::get_component<cmp::enabled>(it.first)->check())
                 it.second->run_enabled(it.first);
             else
                 it.second->run_disabled(it.first);

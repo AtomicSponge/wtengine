@@ -15,7 +15,7 @@
 
 #include "wtengine/cmp/_components.hpp"
 #include "wtengine/mgr/messages.hpp"
-#include "wtengine/mgr/entities.hpp"
+#include "wtengine/mgr/world.hpp"
 
 namespace wte
 {

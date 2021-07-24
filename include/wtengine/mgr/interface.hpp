@@ -10,8 +10,6 @@
 #ifndef WTE_MGR_INTERFACE_HPP
 #define WTE_MGR_INTERFACE_HPP
 
-#include <allegro5/allegro.h>
-
 #include "wtengine/mgr/assets.hpp"
 #include "wtengine/mgr/manager.hpp"
 #include "wtengine/mgr/audio.hpp"
@@ -46,9 +44,7 @@ class interface : private manager<interface>  {
         /*!
          * \brief Initialize audio manager,
          */
-        inline void audio_init(void) {
-            mgr::audio::initialize();
-        };
+        void audio_init(void);
 
         /*!
          * \brief De-initialize audio manager,
@@ -209,7 +205,7 @@ class interface : private manager<interface>  {
         };
 };
 
-template <> inline bool interface::manager<interface>::initialized = false;
+//template <> inline bool interface::manager<interface>::initialized = false;
 
 } //  end namespace mgr
 

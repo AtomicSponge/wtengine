@@ -15,13 +15,15 @@
 ########################################
 #  Configure build project
 cmake_minimum_required(VERSION 3.11)
-project(wtengine VERSION 0.4 DESCRIPTION "WTEngine Game Engine")
+project(wtengine VERSION 0.5 DESCRIPTION "WTEngine Game Engine")
 enable_language(CXX)
 
 #  If a build type is not set, set it to Release
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build)
 
 #  Set compiler flags
 set(CMAKE_CXX_FLAGS "-Wall")
@@ -56,13 +58,14 @@ find_package(PkgConfig REQUIRED)
 #
 ########################################
 add_library(wtengine STATIC
-    src/config.cpp
-    src/display.cpp
-    src/input.cpp
     src/_globals/alert.cpp
     src/_globals/commands.cpp
     src/_globals/engine_time.cpp
     src/_globals/message.cpp
+    src/cmp/gfx/animator.cpp
+    src/cmp/gfx/background.cpp
+    src/cmp/gfx/overlay.cpp
+    src/cmp/gfx/sprite.cpp
     src/cmp/ai.cpp
     src/cmp/bounding_box.cpp
     src/cmp/direction.cpp
@@ -73,15 +76,15 @@ add_library(wtengine STATIC
     src/cmp/team.cpp
     src/cmp/velocity.cpp
     src/cmp/visible.cpp
-    src/cmp/gfx/animator.cpp
-    src/cmp/gfx/background.cpp
-    src/cmp/gfx/overlay.cpp
-    src/cmp/gfx/sprite.cpp
+    src/mgr/assets.cpp
     src/mgr/audio.cpp
+    src/mgr/interface.cpp
     src/mgr/messages.cpp
     src/mgr/renderer.cpp
     src/mgr/spawner.cpp
     src/mgr/systems.cpp
+    src/mgr/variables.cpp
+    src/mgr/world.cpp
     src/mnu/menu_item_action.cpp
     src/mnu/menu_item_apply.cpp
     src/mnu/menu_item_selection.cpp
@@ -89,7 +92,10 @@ add_library(wtengine STATIC
     src/sys/animate.cpp
     src/sys/collision.cpp
     src/sys/logic.cpp
-    src/sys/movement.cpp)
+    src/sys/movement.cpp
+    src/config.cpp
+    src/display.cpp
+    src/input.cpp)
 
 ########################################
 #

@@ -38,21 +38,14 @@ class variables final : private manager<variables> {
          * 
          * \param fname Filename to set saving to.
          */
-        inline static void set_data_file(const std::string& fname) {
-            data_file_name = fname;
-        };
+        static void set_data_file(const std::string& fname);
 
         /*!
          * \brief Clear the current game config save.
          *
          * \return False on fail, true on success.
          */
-        inline static bool clear_save(void) {
-            std::ofstream dfile(data_file_name, std::ofstream::trunc);
-            if(!dfile.good()) return false;
-            dfile.close();
-            return true;
-        };
+        static bool clear_save(void);
 
         /*!
          * \brief Save a game config variable to file.
@@ -155,23 +148,12 @@ class variables final : private manager<variables> {
         /*!
          * Check if registered
          */
-        inline static const bool isreg(const std::string& var) {
-            auto it = _map.find(var);
-            if(it != _map.end()) return true;
-            return false;
-        };
+        static const bool isreg(const std::string& var);
 
         /*!
          * Delete entry
          */
-        inline static const bool del(const std::string& var) {
-            auto it = _map.find(var);
-            if(it != _map.end()) {
-                _map.erase(it);
-                return true;
-            }
-            return false;
-        };
+        static const bool del(const std::string& var);
 
         /*!
          * Set key
@@ -204,8 +186,8 @@ class variables final : private manager<variables> {
         };
 
     private:
-        inline variables() { _map.clear(); };
-        inline ~variables() { _map.clear(); };
+        variables();
+        ~variables();
 
         /*!
          * Make sure valid data type
@@ -230,12 +212,10 @@ class variables final : private manager<variables> {
             );
         };
 
-        inline static std::string data_file_name = "game.cfg";
+        static std::string data_file_name;
 
-        inline static std::map<std::string, std::any> _map = {};
+        static std::map<std::string, std::any> _map;
 };
-
-template <> inline bool manager<variables>::initialized = false;
 
 } //  end namespace mgr
 

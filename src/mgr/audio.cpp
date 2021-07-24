@@ -34,6 +34,9 @@ std::map<std::string, ALLEGRO_SAMPLE_ID> audio::sample_instances = {};
  *
  */
 audio::audio() {
+    sample_map.clear();
+    sample_instances.clear();
+
     //  Map the audio commands.
     //  Mixer 1
     cmds.add("music_loop", [this](const msg_arg_list& args) {
@@ -118,9 +121,6 @@ audio::audio() {
     cmds.add("set_volume", [this](const msg_arg_list& args) {
         set_volume();
     });
-
-    sample_map.clear();
-    sample_instances.clear();
 };
 
 /*

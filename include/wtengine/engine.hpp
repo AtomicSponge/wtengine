@@ -137,7 +137,7 @@ class engine : private display, public input, public config {
         void process_end_game(void);
 
         //  Interface for manager private member access.
-        mgr::interface mgr_inf;
+        static mgr::interface mgr_inf;
         //  Commands.
         static commands cmds;
 

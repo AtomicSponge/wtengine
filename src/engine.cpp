@@ -12,6 +12,7 @@
 namespace wte
 {
 
+mgr::interface engine::mgr_inf;
 commands engine::cmds;
 ALLEGRO_TIMER* engine::main_timer = NULL;
 ALLEGRO_EVENT_QUEUE* engine::main_event_queue = NULL;

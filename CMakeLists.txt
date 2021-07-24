@@ -23,8 +23,9 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build)
+#file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/build)
+#set(RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
+#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 
 #  Set compiler flags
 set(CMAKE_CXX_FLAGS "-Wall")
@@ -58,7 +59,7 @@ find_package(PkgConfig REQUIRED)
 #  Configure Sources
 #
 ########################################
-add_library(wtengine STATIC
+add_library(wtengine STATIC 
     src/_globals/alert.cpp
     src/_globals/commands.cpp
     src/_globals/engine_time.cpp

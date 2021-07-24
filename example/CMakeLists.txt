@@ -36,7 +36,8 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 #  Check for PhysFS
 find_library(PHYSFS_LIB NAMES physfs libphysfs)
 if(NOT PHYSFS_LIB)
-    message("PhysFS not found!")
+    message("Error! PhysFS not found!  Aborting.")
+    return()
 endif()
 
 #  pkg-config checks

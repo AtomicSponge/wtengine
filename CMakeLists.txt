@@ -23,6 +23,7 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build)
 
 #  Set compiler flags
@@ -38,8 +39,8 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 #  Check for PhysFS
 find_library(PHYSFS_LIB NAMES physfs libphysfs)
 if(NOT PHYSFS_LIB)
-    #  Not required to build, so just throw a warning for now
-    message("Warning! PhysFS not found!")
+    message("Error! PhysFS not found!  Aborting.")
+    return()
 endif()
 
 #  Check for Allegro and its required modules

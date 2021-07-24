@@ -2,7 +2,7 @@
  * WTEngine | File:  systems.cpp
  * 
  * \author Matthew Evans
- * \version 0.4
+ * \version 0.5
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -83,7 +83,9 @@ void systems::dispatch(void) {
         for(auto & c_it : dispatch_components) {
             for(auto m_it = temp_msgs.begin(); m_it != temp_msgs.end();) {
                 if(m_it->get_to() == mgr::world::get_name(c_it.first)) {
-                    c_it.second->proc_msg(c_it.first, *m_it);
+                    try {
+                        c_it.second->proc_msg(c_it.first, *m_it);
+                    } catch(const wte_exception& e) { alert::set(e.what()); }
                     m_it = temp_msgs.erase(m_it);
                 } else m_it++;
             }

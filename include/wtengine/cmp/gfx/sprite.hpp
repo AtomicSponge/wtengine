@@ -2,7 +2,7 @@
  * WTEngine | File:  sprite.hpp
  * 
  * \author Matthew Evans
- * \version 0.4
+ * \version 0.5
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -20,6 +20,7 @@
 
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/engine_time.hpp"
+#include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/cmp/gfx/animator.hpp"
 #include "wtengine/mgr/world.hpp"
 

@@ -2,7 +2,7 @@
  * WTEngine | File:  menu_item_toggle.cpp
  * 
  * \author Matthew Evans
- * \version 0.4
+ * \version 0.5
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */

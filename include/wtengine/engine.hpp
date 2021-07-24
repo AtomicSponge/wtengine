@@ -2,7 +2,7 @@
  * WTEngine | File:  engine.hpp
  * 
  * \author Matthew Evans
- * \version 0.4
+ * \version 0.5
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -289,7 +289,13 @@ inline void engine::process_new_game(const std::string& game_data) {
     
     //  Clear world and load starting entities.
     mgr::world::clear();
-    new_game();
+    
+    try { new_game(); } catch(wte_exception& e) {
+        //  Failed to create new game, abort.
+        alert::set(e.what());
+        config::flags::game_menu_opened = true;
+        return;
+    }
 
     //  Restart the timer at zero.
     al_stop_timer(main_timer);
@@ -320,7 +326,7 @@ inline void engine::process_end_game(void) {
     mgr::audio::sample_clear_instances();
 
     //  Call end game process.
-    end_game();
+    try { end_game(); } catch(wte_exception& e) { alert::set(e.what()); }
 
     //  Clear world and systems.
     mgr::world::clear();

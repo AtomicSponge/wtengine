@@ -2,7 +2,7 @@
  * WTEngine | File:  sprite.cpp
  * 
  * \author Matthew Evans
- * \version 0.4
+ * \version 0.5
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -43,8 +43,12 @@ sprite::sprite(
     start_frame(0), stop_frame(0), current_frame(0), rate(rt)
 {
     if(rate == 0) rate = 1;
-    sheet_width = std::static_pointer_cast<al_bitmap>(internal_bitmap)->get_width();
-    sheet_height = std::static_pointer_cast<al_bitmap>(internal_bitmap)->get_height();
+    try {
+        sheet_width = std::static_pointer_cast<al_bitmap>(internal_bitmap)->get_width();
+        sheet_height = std::static_pointer_cast<al_bitmap>(internal_bitmap)->get_height();
+    } catch(...) {
+        throw wte_exception("Error creating sprite.  Cannot access asset.");
+    }
 }
 
 /*

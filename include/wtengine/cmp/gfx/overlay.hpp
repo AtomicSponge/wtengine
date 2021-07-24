@@ -2,7 +2,7 @@
  * WTEngine | File:  overlay.hpp
  * 
  * \author Matthew Evans
- * \version 0.4
+ * \version 0.5
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -17,7 +17,6 @@
 #include <allegro5/allegro_font.h>
 
 #include "wtengine/cmp/gfx/animator.hpp"
-//#include "wtengine/cmp/gfx/bitmap_map.hpp"
 
 namespace wte
 {

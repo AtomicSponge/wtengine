@@ -2,7 +2,7 @@
  * WTEngine | File:  movement.cpp
  * 
  * \author Matthew Evans
- * \version 0.4
+ * \version 0.5
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */
@@ -42,7 +42,7 @@ void movement::run(void) {
                 it.second->get_y_vel() *
                 std::sin(mgr::world::get_component<cmp::direction>(it.first)->get_radians())
             );
-        } catch(const wte_exception& e) { alert::set(e.what()); }
+        } catch(...) { throw; }
     }
 
     //  Now check all bounding boxes.

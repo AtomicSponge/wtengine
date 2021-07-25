@@ -62,18 +62,20 @@ class variables final : private manager<variables> {
             try {
                 T tempv = get<T>(var);
 
+                //  Write variable name.
                 {int32_t tempi = std::strlen(var.c_str()) + 1;
                 dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));
                 dfile.write(var.c_str(), tempi);}
 
+                //  Write variable value.
                 {int32_t tempi;
                 if(std::is_same<std::string, T>::value)
                     tempi = std::strlen(std::any_cast<const std::string>(tempv).c_str()) + 1;
                 else tempi = sizeof(T);
                 dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));
-                if(std::is_same<std::string, T>::value)
+                if(std::is_same<std::string, T>::value)  //  Variable is a string.
                     dfile.write(std::any_cast<const std::string>(tempv).c_str(), tempi);
-                else
+                else  //  Handle simple variables.
                     dfile.write(reinterpret_cast<const char*>(&tempv), tempi);}
             } catch(...) {
                 dfile.close();
@@ -96,11 +98,12 @@ class variables final : private manager<variables> {
             if(!dfile.good()) return false;
             dfile.seekg(0, dfile.beg);
 
-            while(true) {
+            while(true) {  //  Check entire file.
                 try {
                     if(dfile.peek() == EOF) return false;
                     std::string in_var;
 
+                    //  Read in variable name
                     {int32_t size;
                     dfile.read(reinterpret_cast<char*>(&size), sizeof(int32_t));
                     char* buffer = new char[size];
@@ -110,21 +113,23 @@ class variables final : private manager<variables> {
 
                     int32_t size;
                     dfile.read(reinterpret_cast<char*>(&size), sizeof(int32_t));
-                    if(var == in_var) {
+                    if(var == in_var) {  //  Found variable.
                         if(std::is_same<std::string, T>::value) {
+                            //  Variable is a string, read accordingly.
                             char* buffer = new char[size];
                             dfile.read(buffer, size);
                             std::string in_val = std::string(buffer);
                             delete[] buffer;
                             set<std::string>(var, in_val);
                         } else {
+                            //  Handle simple variable.
                             T in_val;
                             dfile.read(reinterpret_cast<char*>(&in_val), size);
                             set<T>(var, in_val);
                         }
-                        break;
+                        break;  //  Found value, break loop.
                     }
-                    dfile.seekg(size, dfile.cur);
+                    dfile.seekg(size, dfile.cur);  //  Skip if not correct variable.
                 } catch(...) {
                     dfile.close();
                     return false;

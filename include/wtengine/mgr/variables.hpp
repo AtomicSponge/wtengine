@@ -96,8 +96,8 @@ class variables final : private manager<variables> {
             if(!dfile.good()) return false;
             dfile.seekg(0, dfile.beg);
 
-            try {
-                while(true) {
+            while(true) {
+                try {
                     if(dfile.peek() == EOF) return false;
                     std::string in_var;
 
@@ -125,10 +125,10 @@ class variables final : private manager<variables> {
                         break;
                     }
                     dfile.seekg(size, dfile.cur);
+                } catch(...) {
+                    dfile.close();
+                    return false;
                 }
-            } catch(...) {
-                dfile.close();
-                return false;
             }
 
             dfile.close();

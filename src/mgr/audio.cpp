@@ -9,6 +9,8 @@
 
 #include "wtengine/mgr/audio.hpp"
 
+//#include <iostream>
+
 namespace wte
 {
 
@@ -43,6 +45,7 @@ audio::audio() {
         music_loop(args[0]);
     });
     cmds.add("play_music", [this](const msg_arg_list& args) {
+        //std::cout << "command ran" << std::endl;
         music_play(args[0]);
     });
     cmds.add("stop_music", [this](const msg_arg_list& args) {
@@ -240,9 +243,7 @@ void audio::set_volume(void) {
 /*
  *
  */
-void audio::process_messages(const message_container& messages) {
-    cmds.process_messages(messages);
-}
+void audio::process_messages(const message_container& messages) { cmds.process_messages(messages); }
 
 /*
  *
@@ -265,7 +266,11 @@ void audio::music_play(const std::string& arg) {
     }
     //  Load stream and play.
     music_stream = al_load_audio_stream(arg.c_str(), 4, 2048);
-    if(!music_stream) return;  //  Didn't load audio, end.
+    if(!music_stream) {
+        //std::cout << "no music" << std::endl;
+        return;  //  Didn't load audio, end.
+    }
+    //std::cout << "music should be playing" << std::endl;
     al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_LOOP);
     al_attach_audio_stream_to_mixer(music_stream, mixer_1);
 }

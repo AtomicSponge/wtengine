@@ -18,7 +18,7 @@ commands::~commands() { _commands.clear(); }
 /*
  *
  */
-const bool commands::add(const std::string& cmd, const std::function<void(const msg_arg_list&)> func) {
+const bool commands::add(const std::string& cmd, const std::function<void(const msg_arg_list&)>& func) {
     auto ret = _commands.insert(std::make_pair(cmd, func));
     return ret.second;
 }

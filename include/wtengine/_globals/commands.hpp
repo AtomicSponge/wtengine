@@ -32,7 +32,7 @@ class commands {
         commands();
         ~commands();
 
-        const bool add(const std::string& cmd, const std::function<void(const msg_arg_list&)> func);
+        const bool add(const std::string& cmd, const std::function<void(const msg_arg_list&)>& func);
         void process_messages(const message_container& messages);
 
     private:

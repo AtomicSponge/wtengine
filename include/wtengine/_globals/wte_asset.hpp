@@ -10,13 +10,13 @@
 #ifndef WTE_ASSET_HPP
 #define WTE_ASSET_HPP
 
+namespace wte
+{
+
 /*!
  * \class wte_asset
  * \brief Interface class for creating an asset.
  */
-namespace wte
-{
-
 class wte_asset {
     public:
         inline virtual ~wte_asset() {};

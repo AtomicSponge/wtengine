@@ -24,7 +24,7 @@ namespace wte
 class wte_exception : public std::exception {
     public:
         /*!
-         * \brief wte_exception constructor.
+         * \brief Create a wte_exception.
          * \param desc Exception description.
          */
         inline wte_exception(const char* desc) : exception_desc(desc) {};
@@ -32,15 +32,14 @@ class wte_exception : public std::exception {
 
         /*!
          * \brief Returns the description of the thrown exception.
-         *
-         * \return Thrown exception.
+         * \return Description of thrown exception.
          */
         virtual const char* what() const throw() {
             return exception_desc;
         }
 
     private:
-        const char* exception_desc;
+        const char* exception_desc;     //  Exception description.
 };
 
 } //  end namespace wte

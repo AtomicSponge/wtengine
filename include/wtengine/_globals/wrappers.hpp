@@ -23,24 +23,31 @@ namespace wte
 {
 
 /*!
- *
+ * \class al_bitmap
+ * \brief Provides a wrapper to Allegro Bitmaps.
  */
 class al_bitmap : public wte_asset {
-    friend class assets;
-
     public:
         /*!
-         * \brief
+         * \brief Creates a null bitmap that preserves its data.
          */
         inline al_bitmap() : _al_bitmap(NULL), nopreserve(false) {};
 
         /*!
-         * \brief
+         * \brief Set bitmap preservation.
+         *
+         * Set the nopreserve flag to true to create a bitmap that does not preserve its data
+         * when the screen is reset.  This is to increase performance when drawing.
+         * See Allegro docs on graphics routines for more info.
+         *
+         * \param p Preservation flag.
          */
         inline al_bitmap(const bool& p) : _al_bitmap(NULL), nopreserve(p) {};
 
         /*!
-         * \brief
+         * \brief Creates a bitmap of w x h that preserves its data.
+         * \param w Width in pixels.
+         * \param h Hieght in pixels.
          */
         inline al_bitmap(const int& w, const int& h) : _al_bitmap(NULL), nopreserve(false) {
             assert(w > 0 && h > 0);
@@ -49,7 +56,10 @@ class al_bitmap : public wte_asset {
         };
 
         /*!
-         * \brief
+         * \brief Creates a bitmap of w x h and set the preservation flag.
+         * \param w Width in pixels.
+         * \param h Hieght in pixels.
+         * \param p Preservation flag.
          */
         inline al_bitmap(const int& w, const int& h, const bool& p) : _al_bitmap(NULL), nopreserve(p) {
             assert(w > 0 && h > 0);
@@ -58,35 +68,40 @@ class al_bitmap : public wte_asset {
             _al_bitmap = al_create_bitmap(w, h);
         };
 
-        /*!
-         * \brief
+        /*
+         * having an issue with these
          */
         //inline al_bitmap(const std::string& fname) : _al_bitmap(NULL), nopreserve(false) { load(fname); };
 
-        /*!
-         * \brief
+        /*
+         * having an issue with these
          */
         //inline al_bitmap(const std::string& fname, const bool& p) : _al_bitmap(NULL), nopreserve(p) { load(fname); };
 
         /*!
-         * \brief
+         * \brief Return a pointer to the internal Allegro bitmap.
+         * \return Allegro bitmap pointer.
          */
         inline ~al_bitmap() {};
 
         inline ALLEGRO_BITMAP* operator*() { return _al_bitmap; };
 
         /*!
-         * \brief
+         * \brief Return a pointer to the internal Allegro bitmap.
+         * \return Allegro bitmap pointer.
          */
         inline ALLEGRO_BITMAP* bitmap(void) { return _al_bitmap; };
 
         /*!
-         * \brief
+         * \brief Check if the bitmap should be converted when the screen is updated.
+         * \return True if it should be converted, false if not.
          */
         inline const bool isconverted(void) const { return nopreserve; };
 
         /*!
-         * \brief
+         * \brief Load a bitmap from file.
+         * \param fname Filename to load.
+         * \return True if loaded, false on error.
          */
         inline const bool load(const std::string& fname) {
             //  Load the file.
@@ -114,7 +129,8 @@ class al_bitmap : public wte_asset {
         };
 
         /*!
-         * \brief
+         * \brief Set the bitmap from an existing one.
+         * \param temp_bmp Bitmap to copy.
          */
         inline void set(ALLEGRO_BITMAP* temp_bmp) {
             if(nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
@@ -123,18 +139,20 @@ class al_bitmap : public wte_asset {
         };
 
         /*!
-         * \brief
+         * \brief Get bitmap width.
+         * \return Bitmap width.
          */
         inline const int get_width(void) const { return al_get_bitmap_width(_al_bitmap); };
 
         /*!
-         * \brief
+         * \brief Get bitmap height.
+         * \return Bitmap height.
          */
         inline const int get_height(void) const { return al_get_bitmap_height(_al_bitmap); };
 
     private:
-        ALLEGRO_BITMAP* _al_bitmap;
-        bool nopreserve;
+        ALLEGRO_BITMAP* _al_bitmap; //  Internal Allegro bitmap.
+        bool nopreserve;            //  Preservation flag.
 };
 
 class al_font : public wte_asset {

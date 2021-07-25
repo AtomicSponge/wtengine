@@ -320,23 +320,12 @@ class world final : private manager<world> {
         };
 
     private:
-        /*!
-         * \brief Entity manager constructor.
-         *
-         * Clears the entity & world containers.
-         */
         world();
-
-        /*!
-         * \brief Entity manager destructor.
-         *
-         * Clears the entity manager.
-         */
         ~world();
 
-        static entity_id entity_counter;
-        static world_container entity_vec;
-        static world_map _world;
+        static entity_id entity_counter;    //  Last Entity ID used.
+        static world_container entity_vec;  //  Container for all entities.
+        static world_map _world;            //  Container for all components.
 };
 
 } //  namespace mgr

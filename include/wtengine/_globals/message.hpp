@@ -85,7 +85,7 @@ class message {
         /*!
          * \brief Overload < operator to sort by timer value.
          * 
-         * \param a Object to compare to.
+         * \param m Object to compare to.
          * \return True if less than, false if greater than.
          */
         const bool operator<(const message& m) const;

@@ -24,8 +24,6 @@ namespace wte
 /*!
  * \class display
  * \brief Handles control of the display.
- * 
- * Inherited by the main engine class.
  */
 class display {
     public:
@@ -36,7 +34,6 @@ class display {
 
         /*!
          * \brief Get the window title.
-         * 
          * \return Window title as string.
          */
         const std::string get_window_title(void) const;
@@ -44,7 +41,6 @@ class display {
     protected:
         /*!
          * \brief Display constructor.
-         * 
          * \param title Window title.
          */
         display(const std::string& title);

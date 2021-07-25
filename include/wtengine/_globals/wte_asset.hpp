@@ -12,16 +12,13 @@
 
 /*!
  * \class wte_asset
- * \brief asset
+ * \brief Interface class for creating an asset.
  */
 namespace wte
 {
 
 class wte_asset {
     public:
-        /*!
-         * \brief
-         */
         inline virtual ~wte_asset() {};
 
         //!  Remove copy constructor.
@@ -30,12 +27,9 @@ class wte_asset {
         inline void operator=(wte_asset const&) = delete;
 
     protected:
-        /*!
-         * \brief
-         */
         inline wte_asset() {};
 };
 
-} //  end namespace wte
+}  //  end namespace wte
 
 #endif

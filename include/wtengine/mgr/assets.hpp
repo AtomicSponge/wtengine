@@ -41,7 +41,12 @@ class assets final : private manager<assets> {
 
     public:
         /*!
-         * \brief 
+         * \brief Load an asset.
+         * \tparam T Asset type to add.
+         * \tparam Args Parameters to asset constructor.
+         * \param label Reference label for asset.
+         * \param args Parameters to asset constructor.
+         * \return True if loaded.  False if not.
          */
         template <typename T, typename... Args>
         inline static const bool load(
@@ -53,12 +58,21 @@ class assets final : private manager<assets> {
         };
 
         /*!
-         * \brief 
+         * \brief Unload an asset.
+         * \param label Reference label for asset.
+         * \return True if removed, false if not.
          */
-        static const bool unload(const std::string& label);
+        static const bool unload(
+            const std::string& label
+        );
 
         /*!
-         * \brief 
+         * \brief Get an asset by reference label.
+         * \param label Reference label for asset.
+         * \tparam T Asset type to get.
+         * \return Pointer to asset.
+         * \exception Asset is protected.
+         * \exception Asset not found.
          */
         template <typename T>
         inline static const std::shared_ptr<T> get(
@@ -76,18 +90,19 @@ class assets final : private manager<assets> {
         };
 
     private:
-        /*!
-         * \brief 
-         */
         assets();
-
-        /*!
-         * \brief 
-         */
         ~assets();
 
         /*!
-         * \brief 
+         * \brief Load an asset.
+         *
+         * This creates a private asset only accessable by engine internals.
+         *
+         * \tparam T Asset type to add.
+         * \tparam Args Parameters to asset constructor.
+         * \param label Reference label for asset.
+         * \param args Parameters to asset constructor.
+         * \return True if loaded.  False if not.
          */
         template <typename T, typename... Args>
         inline static const bool secret_load(
@@ -99,12 +114,26 @@ class assets final : private manager<assets> {
         };
 
         /*!
-         * \brief 
+         * \brief Unload an asset.
+         *
+         * Allows removal of private assets.
+         *
+         * \param label Reference label for asset.
+         * \return True if removed, false if not.
          */
-        static const bool secret_unload(const std::string& label);
+        static const bool secret_unload(
+            const std::string& label
+        );
 
         /*!
-         * \brief 
+         * \brief Get an asset by reference label.
+         *
+         * This allows access to private assets created ny secret_load.
+         *
+         * \param label Reference label for asset.
+         * \tparam T Asset type to get.
+         * \return Pointer to asset.
+         * \exception Asset not found.
          */
         template <typename T>
         inline static const std::shared_ptr<T> secret_get(
@@ -118,18 +147,29 @@ class assets final : private manager<assets> {
             }
         };
 
-        /*!
-         * \brief 
+        /*
+         * Backup temp bitmaps
          */
         static void backup_bitmaps(void);
 
         /*!
-         * \brief 
+         * Restore temp bitmaps
          */
         static void reload_bitmaps(void);
 
-        static std::map<std::string, std::pair<std::shared_ptr<wte_asset>, bool>> _assets;
-        static std::map<std::string, ALLEGRO_BITMAP*> _bitmaps_backup;
+        //  Store the asset map.
+        static std::map<
+            std::string,
+            std::pair<
+                std::shared_ptr<wte_asset>,
+                bool
+        >> _assets;
+
+        //  Map for bitmap backup process.
+        static std::map<
+            std::string,
+            ALLEGRO_BITMAP*
+        > _bitmaps_backup;
 };
 
 } //  namespace mgr

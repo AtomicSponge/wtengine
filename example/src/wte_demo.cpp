@@ -512,7 +512,7 @@ void wte_demo::new_game(void) {
 
             //  Take damage.
             if(msg.get_cmd() == "damage") {
-                mgr::world::set_component<health>(plr_id)->hp -= std::stoi(msg.get_arglist()[0]);
+                mgr::world::set_component<health>(plr_id)->hp -= std::stoi(msg.get_arg(0));
             }
         }
     );  //  End player message processing.
@@ -645,7 +645,7 @@ void wte_demo::new_game(void) {
     mgr::assets::load<al_bitmap>("asteroid");
     mgr::assets::get<al_bitmap>("asteroid")->load("asteroid.bmp");
     mgr::spawner::add_spawn("asteroid", 5,
-        [](const entity_id& e_id, const msg_arg_list& args) {
+        [](const entity_id& e_id, const msg_args& args) {
             int temp_size = std::stoi(args[5]);
             if(temp_size < 1) temp_size = 1;
             if(temp_size > 8) temp_size = 8;
@@ -721,7 +721,7 @@ void wte_demo::new_game(void) {
                     }
 
                     if(msg.get_cmd() == "damage") {
-                        mgr::world::set_component<health>(ast_id)->hp -= std::stoi(msg.get_arglist()[0]);
+                        mgr::world::set_component<health>(ast_id)->hp -= std::stoi(msg.get_arg(0));
                     }
                 }
             );  //  End asteroid message dispatching.

@@ -37,7 +37,7 @@ class commands {
          * \param func Lambda expression to run.
          * \return True on sucess, false on fail.
          */
-        const bool add(const std::string& cmd, const std::function<void(const msg_arg_list&)>& func);
+        const bool add(const std::string& cmd, const std::function<void(const msg_args&)>& func);
 
         /*!
          * \brief Process a list of messages.
@@ -48,7 +48,7 @@ class commands {
 
     private:
         //  Container for commands.
-        std::map<std::string, std::function<void(const msg_arg_list&)>> _commands;
+        std::map<std::string, std::function<void(const msg_args&)>> _commands;
 };
 
 } //  end namespace wte

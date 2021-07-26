@@ -45,13 +45,13 @@ const bool message::operator<(const message& m) const { return timer < m.timer; 
  *
  */
 void message::split_args(const std::string& a) {
-    if(a == "") arglist.push_back("");
+    if(a == "") args.push_back("");
     else {
         std::stringstream arg_stream(a);
         std::string segment;
 
         while(std::getline(arg_stream, segment, ';')) {
-            arglist.push_back(segment);
+            args.push_back(segment);
         }
     }
 }
@@ -84,19 +84,19 @@ const std::string message::get_cmd(void) const { return cmd; }
 /*
  *
  */
-const std::size_t message::num_args(void) const { return arglist.size(); }
+const std::size_t message::num_args(void) const { return args.size(); }
 
 /*
  *
  */
-const msg_arg_list message::get_arglist(void) const { return arglist; }
+const msg_args message::get_args(void) const { return args; }
 
 /*
  *
  */
 const std::string message::get_arg(const std::size_t& pos) const {
-    if(pos >= arglist.size()) return "";  //  Out of range, return empty string.
-    else return arglist[pos];
+    if(pos >= args.size()) return "";  //  Out of range, return empty string.
+    else return args[pos];
 }
 
 /*

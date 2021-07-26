@@ -41,30 +41,30 @@ audio::audio() {
 
     //  Map the audio commands.
     //  Mixer 1
-    cmds.add("music_loop", [this](const msg_arg_list& args) {
+    cmds.add("music_loop", [this](const msg_args& args) {
         music_loop(args[0]);
     });
-    cmds.add("play_music", [this](const msg_arg_list& args) {
+    cmds.add("play_music", [this](const msg_args& args) {
         //std::cout << "command ran" << std::endl;
         music_play(args[0]);
     });
-    cmds.add("stop_music", [this](const msg_arg_list& args) {
+    cmds.add("stop_music", [this](const msg_args& args) {
         music_stop();
     });
-    cmds.add("pause_music", [this](const msg_arg_list& args) {
+    cmds.add("pause_music", [this](const msg_args& args) {
         music_pause();
     });
-    cmds.add("unpause_music", [this](const msg_arg_list& args) {
+    cmds.add("unpause_music", [this](const msg_args& args) {
         music_unpause();
     });
     //  Mixer 2
-    cmds.add("load_sample", [this](const msg_arg_list& args) {
+    cmds.add("load_sample", [this](const msg_args& args) {
         sample_load(args[0]);
     });
-    cmds.add("unload_sample", [this](const msg_arg_list& args) {
+    cmds.add("unload_sample", [this](const msg_args& args) {
         sample_unload(args[0]);
     });
-    cmds.add("play_sample", [this](const msg_arg_list& args) {
+    cmds.add("play_sample", [this](const msg_args& args) {
         float gain = 1.0f;
         float pan = ALLEGRO_AUDIO_PAN_NONE;
         float speed = 1.0f;
@@ -85,43 +85,43 @@ audio::audio() {
 
         sample_play(args[0], args[1], gain, pan, speed);
     });
-    cmds.add("stop_sample", [this](const msg_arg_list& args) {
+    cmds.add("stop_sample", [this](const msg_args& args) {
         sample_stop(args[0]);
     });
-    cmds.add("clear_instances", [this](const msg_arg_list& args) {
+    cmds.add("clear_instances", [this](const msg_args& args) {
         sample_clear_instances();
     });
     //  Mixer 3
-    cmds.add("play_voice", [this](const msg_arg_list& args) {
+    cmds.add("play_voice", [this](const msg_args& args) {
         voice_play(args[0]);
     });
-    cmds.add("stop_voice", [this](const msg_arg_list& args) {
+    cmds.add("stop_voice", [this](const msg_args& args) {
         voice_stop();
     });
-    cmds.add("pause_voice", [this](const msg_arg_list& args) {
+    cmds.add("pause_voice", [this](const msg_args& args) {
         voice_pause();
     });
-    cmds.add("unpause_voice", [this](const msg_arg_list& args) {
+    cmds.add("unpause_voice", [this](const msg_args& args) {
         voice_unpause();
     });
     //  Mixer 4
-    cmds.add("ambiance_loop", [this](const msg_arg_list& args) {
+    cmds.add("ambiance_loop", [this](const msg_args& args) {
         ambiance_loop(args[0]);
     });
-    cmds.add("play_ambiance", [this](const msg_arg_list& args) {
+    cmds.add("play_ambiance", [this](const msg_args& args) {
         ambiance_play(args[0]);
     });
-    cmds.add("stop_ambiance", [this](const msg_arg_list& args) {
+    cmds.add("stop_ambiance", [this](const msg_args& args) {
         ambiance_stop();
     });
-    cmds.add("pause_ambiance", [this](const msg_arg_list& args) {
+    cmds.add("pause_ambiance", [this](const msg_args& args) {
         ambiance_pause();
     });
-    cmds.add("unpause_ambiance", [this](const msg_arg_list& args) {
+    cmds.add("unpause_ambiance", [this](const msg_args& args) {
         ambiance_unpause();
     });
     //  General
-    cmds.add("set_volume", [this](const msg_arg_list& args) {
+    cmds.add("set_volume", [this](const msg_args& args) {
         set_volume();
     });
 };

@@ -18,7 +18,7 @@ commands::~commands() { _commands.clear(); }
 /*
  *
  */
-const bool commands::add(const std::string& cmd, const std::function<void(const msg_arg_list&)>& func) {
+const bool commands::add(const std::string& cmd, const std::function<void(const msg_args&)>& func) {
     auto ret = _commands.insert(std::make_pair(cmd, func));
     return ret.second;
 }
@@ -30,7 +30,7 @@ void commands::process_messages(const message_container& messages) {
     for(auto& it: messages) {
         try { 
             auto res = _commands.find(it.get_cmd());
-            if(res != _commands.end()) res->second(it.get_arglist());
+            if(res != _commands.end()) res->second(it.get_args());
         } catch(wte_exception& e) { alert::set(e.what()); }
     }
 }

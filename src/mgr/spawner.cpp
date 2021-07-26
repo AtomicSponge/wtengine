@@ -18,7 +18,7 @@ namespace mgr
 template <> bool spawner::manager<spawner>::initialized = false;
 
 std::map<std::string, std::pair<std::size_t,
-    std::function<void(const entity_id&, const msg_arg_list&)>
+    std::function<void(const entity_id&, const msg_args&)>
 >> spawner::spawns = {};
 
 /*
@@ -44,7 +44,7 @@ void spawner::process_messages(const message_container& messages) {
                 if(m_it.num_args() == s_it->second.first + 1) {
                     entity_id e_id = mgr::world::new_entity();
                     try {
-                        s_it->second.second(e_id, m_it.get_arglist());
+                        s_it->second.second(e_id, m_it.get_args());
                     } catch(...) { 
                         alert::set("Error spawning entity " + m_it.get_arg(0));
                     }
@@ -64,7 +64,7 @@ void spawner::process_messages(const message_container& messages) {
  *
  */
 const bool spawner::add_spawn(const std::string& name, const std::size_t& num_args,
-                              const std::function<void(const entity_id&, const msg_arg_list&)>& func) {
+                              const std::function<void(const entity_id&, const msg_args&)>& func) {
     auto ret = spawns.insert(std::make_pair(name, std::make_pair(num_args, func)));
     return ret.second;
 }

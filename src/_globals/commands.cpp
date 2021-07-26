@@ -37,8 +37,9 @@ void commands::process_messages(
         try { 
             auto res = _commands.find(it.get_cmd());
             if(res != _commands.end()) {
+                //  Check to make sure there are enough arguments to run the command.
                 if(it.num_args() >= res->second.first) res->second.second(it.get_args());
-                else {
+                else {  //  Command not found
                     std::string err_msg = "Error processing command: " + it.get_cmd();
                     throw wte_exception(err_msg.c_str());
                 }

@@ -39,7 +39,6 @@ class animator : public component {
 
         /*!
          * \brief Overload < operator to sort by layer value.
-         * 
          * \param a Object to compare to.
          * \return True if <, false if >
          */
@@ -49,7 +48,6 @@ class animator : public component {
 
         /*!
          * \brief Run animaton function wrapper.
-         * 
          * \param e_id ID of the entity calling the wrapper.
          */
         void run(const entity_id& e_id);
@@ -61,21 +59,18 @@ class animator : public component {
 
         /*!
          * \brief Return the internal bitmap.
-         * 
          * \return The internal bitmap.
          */
         ALLEGRO_BITMAP* get_bitmap(void) const;
 
         /*!
          * \brief Set a tint color.
-         * 
          * \param c Allegro color.
          */
         void set_tint(const ALLEGRO_COLOR& c);
 
         /*!
          * \brief Get the tint color.
-         * 
          * \return Allegro color.
          */
         const ALLEGRO_COLOR get_tint(void) const;
@@ -87,7 +82,6 @@ class animator : public component {
 
         /*!
          * \brief Check if the bitmap should be drawn tinted.
-         * 
          * \return True if tint set, false if tint cleared.
          */
         const bool draw_tinted(void) const;
@@ -95,7 +89,6 @@ class animator : public component {
     protected:
         /*!
          * \brief Animator constructor.
-         * 
          * \param l Layer for sorting.
          * \param func Animation function.
          */
@@ -106,10 +99,11 @@ class animator : public component {
         std::shared_ptr<wte_asset> internal_bitmap;
 
     private:
-        std::size_t layer;
-        bool tint_set;
-        ALLEGRO_COLOR tint_color;
+        std::size_t layer;          //  Layer position.
+        bool tint_set;              //  Flag to set tint.
+        ALLEGRO_COLOR tint_color;   //  Color of tint.
 
+        //  Animation function.
         std::function<void(const entity_id&)> animate;
 };
 

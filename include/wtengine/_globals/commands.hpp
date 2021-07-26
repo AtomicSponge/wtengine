@@ -32,7 +32,6 @@ class commands {
 
         /*!
          * \brief Add a command to the command processor.
-         *
          * \param cmd Command name to run.
          * \param func Lambda expression to run.
          * \return True on sucess, false on fail.
@@ -41,7 +40,6 @@ class commands {
 
         /*!
          * \brief Process a list of messages.
-         *
          * \param messages List of messages to process.
          */
         void process_messages(const message_container& messages);

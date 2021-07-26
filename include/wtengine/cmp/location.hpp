@@ -25,8 +25,7 @@ namespace cmp
 class location final : public component {
     public:
         /*!
-         * \brief Location constructor.
-         * 
+         * \brief Create a new Location component.
          * \param x Horizontal location of the entity.
          * \param y Verticle location of the entity.
          */
@@ -34,48 +33,42 @@ class location final : public component {
 
         /*!
          * \brief Get X location.
-         * 
          * \return X location of entity.
          */
         const float get_x(void) const;
 
         /*!
          * \brief Get Y location.
-         * 
          * \return Y location of entity.
          */
         const float get_y(void) const;
 
         /*!
          * \brief Set X location.
-         * 
          * \param x New X location for entity.
          */
         void set_x(const float& x);
 
         /*!
          * \brief Set Y location.
-         * 
          * \param y New Y location for entity.
          */
         void set_y(const float& y);
 
         /*!
          * \brief Adjust X location.
-         * 
          * \param x X offset for entity.
          */
         void adjust_x(const float& x);
 
         /*!
          * \brief Adjust Y location.
-         * 
          * \param y Y offset for entity.
          */
         void adjust_y(const float& y);
 
     private:
-        float pos_x, pos_y;
+        float pos_x, pos_y; //  X & Y location.
 };
 
 } //  namespace cmp

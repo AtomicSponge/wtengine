@@ -27,8 +27,7 @@ namespace cmp
 class bounding_box final : public component {
     public:
         /*!
-         * \brief Bounding box constructor.
-         * 
+         * \brief Create a new Bounding Box component.
          * \param lx Left X
          * \param ly Left Y
          * \param rx Right X
@@ -39,63 +38,55 @@ class bounding_box final : public component {
 
         /*!
          * \brief Set left X of the bounding box.
-         * 
          * \param mx Left X
          */
         void set_min_x(const float& mx);
 
         /*!
          * \brief Set left Y of the bounding box.
-         * 
          * \param my Left Y
          */
         void set_min_y(const float& my);
 
         /*!
          * \brief Set right X of the bounding box.
-         * 
          * \param mx Right X
          */
         void set_max_x(const float& mx);
 
         /*!
          * \brief Set right Y of the bounding box.
-         * 
          * \param my right Y
          */
         void set_max_y(const float& my);
 
         /*!
          * \brief Get the left X of the bounding box.
-         * 
          * \return Left X
          */
         const float get_min_x(void) const;
 
         /*!
          * \brief Get the left Y of the bounding box.
-         * 
          * \return Left Y
          */
         const float get_min_y(void) const;
 
         /*!
          * \brief Get the right X of the bounding box.
-         * 
          * \return Right X
          */
         const float get_max_x(void) const;
 
         /*!
          * \brief Get the right Y of the bounding box.
-         * 
          * \return Right Y
          */
         const float get_max_y(void) const;
 
     private:
-        float min_x, min_y;
-        float max_x, max_y;
+        float min_x, min_y;  //  Top left position of bounding box.
+        float max_x, max_y;  //  Bottom right position of bounding box.
 };
 
 } //  namespace cmp

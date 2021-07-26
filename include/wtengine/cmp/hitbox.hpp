@@ -25,78 +25,63 @@ namespace cmp
 class hitbox final : public component {
     public:
         /*!
-         * \brief Hitbox constructor.
-         * 
-         * Call this to have the hitbox enabled by default.
-         * 
+         * \brief Create a new Hitbox component.
          * \param w Width of the hitbox in pixels.
          * \param h Height of the hitbox in pixels.
          */
         hitbox(const float& w, const float& h);
 
         /*!
-         * \brief Hitbox constructor.
-         * 
-         * Call this to set if the hitbox is enabled or not.
-         * 
+         * \brief Create a new Hitbox component, set solid flag.
          * \param w Width of the hitbox in pixels.
          * \param h Height of the hitbox in pixels.
-         * \param s Boolean value for if the hitbox is enabled.
+         * \param s Boolean value for if the hitbox is solid (enabled).
          */
         hitbox(const float& w, const float& h, const bool& s);
 
         /*!
          * \brief Get hitbox width.
-         * 
          * \return Width of hitbox.
          */
         const float get_width(void) const;
 
         /*!
          * \brief Get hitbox height.
-         * 
          * \return Height of hitbox.
          */
         const float get_height(void) const;
 
         /*!
          * \brief Set width of hitbox.
-         * 
          * \param w New width.
          */
         void set_width(const float& w);
 
         /*!
          * \brief Set height of hitbox.
-         * 
          * \param h New height.
          */
         void set_height(const float& h);
 
         /*!
          * \brief Check if solid.
-         * 
          * \return True if solid, false if not.
          */
         const bool is_solid(void) const;
 
         /*!
-         * \brief Make entity solid.
-         * 
-         * Sets internal flag to true.
+         * \brief Make entity solid (enable).
          */
         void make_solid(void);
 
         /*!
-         * \brief Make entity not solid.
-         * 
-         * Sets internal flag to false.
+         * \brief Make entity fluid (disable).
          */
         void make_fluid(void);
 
     private:
-        float width, height;
-        bool solid;
+        float width, height;    //  Width & height of hitbox.
+        bool solid;             //  Solid (enabled) flag.
 };
 
 } //  namespace cmp

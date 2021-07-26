@@ -31,8 +31,7 @@ namespace cmp
 class overlay final : public animator {
     public:
         /*!
-         * \brief Overlay constructor.
-         * 
+         * \brief Create a new Overlay component.
          * \param w Overlay width in pixels.
          * \param h Overlay height in pixels.
          * \param x Horizontal location of the overlay in pixels.
@@ -50,7 +49,6 @@ class overlay final : public animator {
 
         /*!
          * \brief Draw text on the overlay.
-         * 
          * \param txt Text to be displayed.
          * \param color Allegro color object.
          * \param x Horizontal location of the text.
@@ -62,29 +60,26 @@ class overlay final : public animator {
 
         /*!
          * \brief Get X position.
-         * 
          * \return X position.
          */
         const float get_pos_x(void) const;
 
         /*!
          * \brief Get Y position.
-         * 
          * \return Y position.
          */
         const float get_pos_y(void) const;
 
         /*!
          * \brief Set the font used by the overlay.
-         * 
          * \param font Allegro font object to be used.
          */
         void set_font(ALLEGRO_FONT* font);
 
     private:
-        ALLEGRO_FONT* overlay_font;
+        ALLEGRO_FONT* overlay_font;     //  Allegro font for overlay.
 
-        float pos_x, pos_y;
+        float pos_x, pos_y;             //  X/Y position of overlay.
 };
 
 } //  namespace cmp

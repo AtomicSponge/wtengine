@@ -25,42 +25,34 @@ namespace cmp
 class enabled final : public component {
     public:
         /*!
-         * \brief Enabled constructor.
-         * 
-         * If passed nothing, enabled by default.
+         * \brief Create a new Enabled componenet.
          */
         enabled();
 
         /*!
-         * \brief Enabled constructor.
-         * 
-         * Pass boolean value to the component to set if it is enabled.
+         * \brief Create a new Enabled componenet.
+         * \param e Boolean value to set enabled flag.
          */
         enabled(const bool& e);
 
         /*!
          * \brief Check if the entity is enabled.
-         * 
          * \return True if enabled, false if not.
          */
         const bool check(void) const;
 
         /*!
-         * \brief Set enabled.
-         * 
-         * Sets internal flag to true.
+         * \brief Set to enabled.
          */
         void enable(void);
 
         /*!
-         * \brief Set disabled.
-         * 
-         * Sets internal flag to false.
+         * \brief Set to disabled.
          */
         void disable(void);
 
     private:
-        bool is_enabled;
+        bool is_enabled;  //  Enabled flag.
 };
 
 } //  namespace cmp

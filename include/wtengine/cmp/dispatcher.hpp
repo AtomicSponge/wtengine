@@ -33,8 +33,7 @@ namespace cmp
 class dispatcher final : public component {
     public:
         /*!
-         * \brief Dispatcher constructor.
-         * 
+         * \brief Create a new Dispatcher component.
          * \param func Function to define message processing.
          */
         dispatcher(
@@ -48,7 +47,6 @@ class dispatcher final : public component {
 
         /*!
          * \brief Run dispatcher function wrapper.
-         * 
          * \param e_id ID of the entity calling the wrapper.
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
@@ -58,6 +56,7 @@ class dispatcher final : public component {
         void proc_msg(const entity_id& e_id, const message& msg);
 
     private:
+        //  Message handler.
         std::function<void(const entity_id&, const message&)> handle_msg;
 };
 

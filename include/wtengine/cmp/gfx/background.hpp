@@ -26,13 +26,12 @@ namespace cmp
 
 /*!
  * \class background
- * \brief Component for storing a background image and defining its animation process.
+ * \brief Component for storing a Background image and defining its animation process.
  */
 class background final : public animator {
     public:
         /*!
-         * \brief Static background, solid color.
-         * 
+         * \brief Create a static Background component, solid color.
          * \param w Background width.
          * \param h Background height.
          * \param c Allegro color.
@@ -41,8 +40,7 @@ class background final : public animator {
         background(std::shared_ptr<wte_asset> bmp, const std::size_t& l, const ALLEGRO_COLOR& c);
 
         /*!
-         * \brief Background with custom animation.
-         * 
+         * \brief Create a Background component with custom animation.
          * \param w Background width.
          * \param h Background height.
          * \param l Background layer.
@@ -58,13 +56,12 @@ class background final : public animator {
 
         /*!
          * \brief Get the saved color.
-         * 
          * \return Allegro color object.
          */
         ALLEGRO_COLOR get_color(void) const;
 
     private:
-        ALLEGRO_COLOR color;
+        ALLEGRO_COLOR color;    //  Background color for solid bg.
 };
 
 } //  namespace cmp

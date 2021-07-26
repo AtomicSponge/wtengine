@@ -32,19 +32,13 @@ namespace cmp
 class ai final : public component {
     public:
         /*!
-         * \brief AI constructor.
-         * 
-         * Create an AI component with enabled only AI.
-         * 
+         * \brief Create an AI component with enabled only AI.
          * \param func Function to define AI process.
          */
         ai(const std::function<void(const entity_id&)>& func);
 
         /*!
-         * \brief AI constructor.
-         * 
-         * Create an AI component with enabled and disabled AI.
-         * 
+         * \brief Create an AI component with enabled and disabled AI.
          * \param func_a Function to define enabled AI process.
          * \param func_b Function to define disabled AI process.
          */
@@ -58,7 +52,6 @@ class ai final : public component {
 
         /*!
          * \brief Run enabled AI function wrapper.
-         * 
          * \param eid ID of the entity calling the wrapper.
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
@@ -68,7 +61,6 @@ class ai final : public component {
 
         /*!
          * \brief Run disabled AI function wrapper.
-         * 
          * \param eid ID of the entity calling the wrapper.
          * \param world Reference to the entity manager.
          * \param messages Reference to the message manager.
@@ -77,8 +69,9 @@ class ai final : public component {
         void run_disabled(const entity_id& e_id);
 
     private:
+        //  AI to run when enabled.
         std::function<void(const entity_id&)> enabled_ai;
-
+        //  AI to run when disabled.
         std::function<void(const entity_id&)> disabled_ai;
 };
 

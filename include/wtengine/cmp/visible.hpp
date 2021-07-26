@@ -25,44 +25,34 @@ namespace cmp
 class visible final : public component {
     public:
         /*!
-         * \brief Visible constructor.
-         * 
-         * Call this to be visible by default.
+         * \brief Create a new Visible component.
          */
         visible();
 
         /*!
-         * \brief Visible constructor.
-         * 
-         * Call this to set if the entity is visible.
-         * 
+         * \brief Create a new Visible component and set the visibility flag.
          * \param v Boolean value for visibility.
          */
         visible(const bool& v);
 
         /*!
          * \brief Check if visible.
-         * 
          * \return True if visible, false if not.
          */
         const bool check(void) const;
 
         /*!
          * \brief Show the entity.
-         * 
-         * Sets internal flag to true.
          */
         void show(void);
 
         /*!
          * \brief Hide the entity.
-         * 
-         * Sets internal flag to false.
          */
         void hide(void);
 
     private:
-        bool is_visible;
+        bool is_visible;    //  Flag to set visibility.
 };
 
 } //  namespace cmp

@@ -64,33 +64,33 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
     create_input_event_queue();
 
     //  commands
-    cmds.add("exit", [this](const msg_args& args) {
+    cmds.add("exit", 0, [this](const msg_args& args) {
         if(config::flags::game_started) process_end_game();
         config::flags::is_running = false;
     });
-    cmds.add("alert", [this](const msg_args& args) {
+    cmds.add("alert", 1, [this](const msg_args& args) {
         alert::set(args[0]);
     });
-    cmds.add("new_game", [this](const msg_args& args) {
+    cmds.add("new_game", 1, [this](const msg_args& args) {
         if(!config::flags::game_started) {
             mgr::menus::reset();
             process_new_game(args[0]);
         }
     });
-    cmds.add("end_game", [this](const msg_args& args) {
+    cmds.add("end_game", 0, [this](const msg_args& args) {
         if(config::flags::game_started) {
             process_end_game();
             mgr::menus::reset();
         }
     });
-    cmds.add("open_menu", [this](const msg_args& args) {
+    cmds.add("open_menu", 1, [this](const msg_args& args) {
         mgr::menus::open_menu(args[0]);
     });
-    cmds.add("close_menu", [this](const msg_args& args) {
+    cmds.add("close_menu", 1, [this](const msg_args& args) {
         if(args[0] == "all") mgr::menus::reset();
         else mgr::menus::close_menu();
     });
-    cmds.add("reconf_display", [this](const msg_args& args) {
+    cmds.add("reconf_display", 0, [this](const msg_args& args) {
         const bool timer_running = al_get_timer_started(main_timer);
         //  Make sure the timer isn't running and unregister the display.
         if(timer_running) al_stop_timer(main_timer);
@@ -107,11 +107,11 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
         al_pause_event_queue(main_event_queue, false);
         if(timer_running) al_resume_timer(main_timer);
     });
-    cmds.add("fps_counter", [this](const msg_args& args) {
+    cmds.add("fps_counter", 1, [this](const msg_args& args) {
         if(args[0] == "on") config::flags::draw_fps = true;
         if(args[0] == "off") config::flags::draw_fps = false;
     });
-    cmds.add("load_script", [this](const msg_args& args) {
+    cmds.add("load_script", 1, [this](const msg_args& args) {
         if(config::flags::game_started && args[0] != "") {
             if(!mgr::messages::load_script(args[0]))
                 alert::set("Error loading script:  " + args[0]);

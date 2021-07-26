@@ -22,13 +22,13 @@
 
 #include "wtengine/mgr/manager.hpp"
 
-#include "wtengine/config.hpp"
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/mgr/assets.hpp"
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mnu/_menu_items.hpp"
 #include "wtengine/mnu/menu.hpp"
+#include "wtengine/config.hpp"
 
 namespace wte
 {

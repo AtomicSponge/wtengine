@@ -26,20 +26,12 @@ namespace sys
  */
 class movement final : public system {
     public:
-        /*!
-         * \brief Movement System constructor.
-         */
         movement();
-
-        /*!
-         * \brief Movement System destructor.
-         */
         ~movement();
 
         /*!
-         * \brief Movement system run.
+         * \brief All entities with a velocity component will be moved.
          * 
-         * All entities with a velocity component will be moved.
          * Also checks entities are within their bounding boxes.
          */
         void run(void) override;

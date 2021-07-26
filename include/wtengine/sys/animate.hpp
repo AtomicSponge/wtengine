@@ -28,9 +28,8 @@ class animate final : public system {
         ~animate();
 
         /*!
-         * \brief Animate system run.
+         * \brief Gets all animation components and processes their run members.
          * 
-         * Gets all animation components and processes their run members.
          * The entity must also have the visible component and is set visible to be drawn.
          */
         void run(void) override;

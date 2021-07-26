@@ -20,7 +20,7 @@ namespace sys
 
 /*!
  * \class colision
- * \brief Will select components by team and test for a colision
+ * \brief Selects components by team and tests for colisions.
  */
 class colision final : public system {
     public:
@@ -28,10 +28,7 @@ class colision final : public system {
         ~colision();
 
         /*!
-         * \brief Colision system run.
-         * 
-         * Overrides virtual run member inherited from system object.
-         * Selects components by team, then tests each team to see if there is a colision.
+         * \brief Selects components by team, then tests each team to see if there is a colision.
          */
         void run(void) override;
 };

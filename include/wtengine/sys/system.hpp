@@ -25,7 +25,7 @@ namespace sys
 
 /*!
  * \class system
- * \brief Interface class for creating systems.
+ * \brief Interface class for creating Systems.
  */
 class system {
     public:
@@ -36,15 +36,18 @@ class system {
         //!  Remove assignment operator
         void operator=(system const&) = delete;
 
-        //!  Get the system name
+        /*!
+         * \brief Get the system name.
+         * \return System name.
+         */
         inline const std::string get_name(void) const { return name; };
 
-        //!  Override this to create custom run method
+        //!  Override this to create custom System run method
         virtual void run(void) = 0;
 
     protected:
         /*!
-         * \brief System constructor.
+         * \brief Create a new System object.
          * 
          * \param n System name.
          */

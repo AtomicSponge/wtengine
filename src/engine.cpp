@@ -282,9 +282,9 @@ void engine::do_game(void) {
             //  Set the engine_time object to the current time.
             engine_time::set_time(al_get_timer_count(main_timer));
 
-            //  Run all mgr::systems::
+            //  Run all systems.
             mgr_inf.systems_run();
-            //  Process mgr::messages::
+            //  Process messages.
             mgr_inf.systems_dispatch();
 
             //  Get any spawner messages and pass to handler.

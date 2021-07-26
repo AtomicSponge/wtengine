@@ -10,6 +10,12 @@
 #ifndef WTE_ENGINE_HPP
 #define WTE_ENGINE_HPP
 
+#include <ctime>
+#include <string>
+#include <vector>
+#include <map>
+#include <stdexcept>
+
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
@@ -17,12 +23,6 @@
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_physfs.h>
 #include <physfs.h>
-
-#include <ctime>
-#include <string>
-#include <vector>
-#include <map>
-#include <stdexcept>
 
 #include "wtengine/config.hpp"
 #include "wtengine/display.hpp"
@@ -39,7 +39,7 @@ namespace wte
 
 /*!
  * \class engine
- * \brief The main engine object.
+ * \brief The main engine class.
  * 
  * Sets up various system objects used by the engine.
  * Contains the main game loop and members for managing the game and engine.
@@ -47,10 +47,9 @@ namespace wte
 class engine : private display, public input, public config {
     public:
         /*!
-         * \brief Engine destructor.
+         * \brief Unloads the game engine.
          * 
          * Frees up instance, set initialized flag to false.
-         * Also makes sure to unload the engine.
          */
         ~engine();
 
@@ -75,7 +74,7 @@ class engine : private display, public input, public config {
 
     protected:
         /*!
-         * \brief Engine constructor.
+         * \brief Create a new instance of the game engine.
          * 
          * Force single instance, set initialized flag to true.
          * Throws a runtime error if another instance is called.
@@ -106,39 +105,34 @@ class engine : private display, public input, public config {
         /* *** End overridden function members *** */
 
     private:
-        /*!
-         * \brief Load the engine's managers.
-         * 
+        /*
+         * Load the engine's managers.
          * Called before the main loop starts.
          */
         void wte_load(void);
 
-        /*!
-         * \brief Unload the engine's managers.
-         * 
+        /*
+         * Unload the engine's managers.
          * Called after the main loop ends running.
          */
         void wte_unload(void);
 
-        /*!
-         * \brief Call to start a new game.
-         * 
+        /*
+         * Call to start a new game.
          * Loads a game data file and user defined systems and starting entities.
-         * 
-         * \param game_data Game data file to load.
+         * Gets passed game data file to load.
          */
-        void process_new_game(const std::string&);
+        void process_new_game(const std::string& game_data);
 
         /*!
-         * \brief Call to end the game.
-         * 
+         * Call to end the game.
          * Clears out the entities and systems and runs user defined end process.
          */
         void process_end_game(void);
 
         //  Interface for manager private member access.
         static mgr::interface mgr_inf;
-        //  Commands.
+        //  Internal commands for the engine.
         static commands cmds;
 
         //  Allegro objects used by the engine.

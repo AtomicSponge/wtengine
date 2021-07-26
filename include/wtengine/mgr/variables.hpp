@@ -19,6 +19,7 @@
 #include <type_traits>
 
 #include "wtengine/mgr/manager.hpp"
+
 #include "wtengine/_globals/wte_exception.hpp"
 
 namespace wte

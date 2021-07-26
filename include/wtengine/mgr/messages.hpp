@@ -15,6 +15,10 @@
 #include <algorithm>
 #include <stdexcept>
 
+#if WTE_DEBUG_MODE
+#include <fstream>
+#endif
+
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_physfs.h>
 
@@ -22,10 +26,6 @@
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/message.hpp"
 #include "wtengine/mgr/manager.hpp"
-
-#if WTE_DEBUG_MODE
-#include <fstream>
-#endif
 
 namespace wte
 {

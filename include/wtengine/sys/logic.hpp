@@ -26,20 +26,11 @@ namespace sys
  */
 class logic final : public system {
     public:
-        /*!
-         * \brief Logic System constructor.
-         */
         logic();
-
-        /*!
-         * \brief Logic System destructor.
-         */
         ~logic();
 
         /*!
-         * \brief Logic system run.
-         * 
-         * Finds all entities with an ai component and processes their logic.
+         * \brief Finds all entities with an ai component and processes their logic.
          */
         void run(void) override;
 };

@@ -15,9 +15,10 @@
 #include <map>
 #include <functional>
 
+#include "wtengine/mgr/manager.hpp"
+
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/message.hpp"
-#include "wtengine/mgr/manager.hpp"
 #include "wtengine/mgr/world.hpp"
 
 namespace wte

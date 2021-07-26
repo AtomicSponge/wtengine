@@ -27,7 +27,7 @@ namespace wte
  * \class al_bitmap
  * \brief Provides a wrapper to Allegro Bitmaps.
  */
-class al_bitmap : public wte_asset {
+class al_bitmap final : public wte_asset {
     public:
         /*!
          * \brief Creates a null bitmap that preserves its data.
@@ -156,7 +156,7 @@ class al_bitmap : public wte_asset {
         bool nopreserve;            //  Preservation flag.
 };
 
-class al_font : public wte_asset {
+class al_font final : public wte_asset {
     public:
         /*!
          *

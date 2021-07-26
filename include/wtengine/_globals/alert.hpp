@@ -23,7 +23,7 @@ namespace wte
  * 
  * Alerts are cleared after the player presses a button.
  */
-class alert {
+class alert final {
     public:
         /*!
          * \brief Set the alert text and flag there is an alert.

@@ -27,7 +27,7 @@ typedef std::vector<std::string> msg_args;
  * \class message
  * \brief Define individual message objects.
  */
-class message {
+class message final {
     public:
         /*!
          * \brief Create a non-timed message.

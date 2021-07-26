@@ -25,7 +25,7 @@ namespace wte
  * \class commands
  * \brief Container for storing engine commands expressed as a lambda.
  */
-class commands {
+class commands final {
     public:
         commands();
         ~commands();

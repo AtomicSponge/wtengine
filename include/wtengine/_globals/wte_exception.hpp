@@ -21,7 +21,7 @@ namespace wte
  * 
  * Exceptions thrown this way will be displayed as an alert in the engine.
  */
-class wte_exception : public std::exception {
+class wte_exception final : public std::exception {
     public:
         /*!
          * \brief Create a wte_exception.

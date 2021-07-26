@@ -19,7 +19,7 @@ namespace wte
  * \class engine_time
  * \brief Have a manager extend this to track the game timer.
  */
-class engine_time {
+class engine_time final {
     friend class engine;
 
     public:

@@ -33,7 +33,7 @@ namespace mgr
  * This way the engine object can be extended, but only the
  * engine internals will be able to access these commands.
  */
-class interface : private manager<interface>  {
+class interface final : private manager<interface>  {
     public:
         interface();
         ~interface();

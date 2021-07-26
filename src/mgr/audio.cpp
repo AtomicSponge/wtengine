@@ -212,16 +212,6 @@ void audio::de_init(void) {
 /*
  *
  */
-const std::string audio::get_sample_name(const std::string& full_path) {
-    if(full_path.find("/") == std::string::npos)
-        return full_path.substr(0, full_path.find("."));
-    return full_path.substr(full_path.find_last_of("/") + 1,
-        full_path.find(".") - (full_path.find_last_of("/") + 1));
-};
-
-/*
- *
- */
 void audio::set_volume(void) {
     if(config::volume::main >= 0.0f && config::volume::main <= 1.0f)
         al_set_mixer_gain(mixer_main, config::volume::main);

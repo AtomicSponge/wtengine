@@ -53,13 +53,17 @@ class audio final : private manager<audio> {
          * \brief Toggle music looping.
          * \param arg "enable" or "disable"
          */
-        static void music_loop(const std::string& arg);
+        static void music_loop(
+            const std::string& arg
+        );
 
         /*!
          * \brief Play a music file.
          * \param arg Music filename.
          */
-        static void music_play(const std::string& arg);
+        static void music_play(
+            const std::string& arg
+        );
 
         /*!
          * \brief Stop playing music.
@@ -81,13 +85,18 @@ class audio final : private manager<audio> {
          * \param fname Sample filename.
          * \param sname Sample reference name.
          */
-        static void sample_load(const std::string& fname, const std::string& sname);
+        static void sample_load(
+            const std::string& fname,
+            const std::string& sname
+        );
 
         /*!
          * \brief Unload a sample.
          * \param sname Sample name or "all" for unload all samples.
          */
-        static void sample_unload(const std::string& sname);
+        static void sample_unload(
+            const std::string& sname
+        );
 
         /*!
          * \brief Play a sample.
@@ -124,7 +133,9 @@ class audio final : private manager<audio> {
          * \brief Stop a playing sample.
          * \param ref Playing sample reference name.
          */
-        static void sample_stop(const std::string& ref);
+        static void sample_stop(
+            const std::string& ref
+        );
 
         /*!
          * \brief Claer all playing sample instances.
@@ -135,7 +146,9 @@ class audio final : private manager<audio> {
          * \brief Play an audio file.
          * \param fname Filename to play.
          */
-        static void voice_play(const std::string& fname);
+        static void voice_play(
+            const std::string& fname
+        );
 
         /*!
          * \brief 
@@ -155,12 +168,16 @@ class audio final : private manager<audio> {
         /*!
          * \brief 
          */
-        static void ambiance_loop(const std::string& arg);
+        static void ambiance_loop(
+            const std::string& arg
+        );
 
         /*!
          * \brief 
          */
-        static void ambiance_play(const std::string& arg);
+        static void ambiance_play(
+            const std::string& arg
+        );
 
         /*!
          * \brief 
@@ -178,51 +195,33 @@ class audio final : private manager<audio> {
         static void ambiance_unpause(void);
 
     private:
-        /*!
-         * \brief Audio Manager constructor.
-         * 
+        /* 
          * Clears the internal audio deck and maps the audio commands.
          */
         audio();
 
-        /*!
-         * \brief Audio Manager destructor.
-         * 
+        /* 
          * Clears the internal audio deck and audio command map.
          */
         ~audio();
 
-        /*!
-         * \brief Initialize audio manager.
-         * 
+        /* 
          * Sets up the various Allegro objects for the audio manager to use.
          */
         static void initialize(void);
 
-        /*!
-         * \brief De-initialize the audio manager.
-         * 
+        /* 
          * Destroies the Allegro objects used by the manager.
          */
         static void de_init(void);
 
-        /*!
-         * \brief Process audio manager messages
+        /*
+         * Process audio manager messages
          */
         static void process_messages(const message_container& messages);
 
-        /*!
-         * \brief Get sample name.
-         * 
-         * Pass the full file path and return just the name, no extension.
-         * 
-         * \param full_path Full filename including path.
-         * \return Filename stripped of folder path and extension.
-         */
-        static const std::string get_sample_name(const std::string& full_path);
-
-        /*!
-         * \brief Set volume levels based on engine cfg settings.
+        /*
+         * Set volume levels based on engine cfg settings.
          */
         static void set_volume(void);
 

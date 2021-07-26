@@ -16,8 +16,9 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 
-#include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
+
+#include "wtengine/_globals/_defines.hpp"
 
 namespace wte
 {

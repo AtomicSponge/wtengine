@@ -18,10 +18,11 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
+#include "wtengine/cmp/gfx/animator.hpp"
+
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
-#include "wtengine/cmp/gfx/animator.hpp"
 #include "wtengine/mgr/world.hpp"
 
 namespace wte

@@ -25,8 +25,9 @@
 #include <limits>
 #include <memory>
 
-#include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/mgr/manager.hpp"
+
+#include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/cmp/component.hpp"
 
 namespace wte

@@ -13,9 +13,6 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include <iomanip>
-#include <limits>
-#include <any>
 
 namespace wte
 {

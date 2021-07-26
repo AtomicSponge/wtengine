@@ -11,6 +11,7 @@
 #define WTE_CMP_ANIMATOR_HPP
 
 #include <functional>
+#include <memory>
 
 #include <allegro5/allegro.h>
 

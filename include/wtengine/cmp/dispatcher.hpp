@@ -13,6 +13,7 @@
 #include <functional>
 
 #include "wtengine/cmp/component.hpp"
+
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mgr/world.hpp"
 #include "wtengine/_globals/message.hpp"

@@ -20,6 +20,7 @@
 #include "wtengine/mgr/manager.hpp"
 
 #include "wtengine/_globals/_defines.hpp"
+#include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
@@ -79,14 +80,16 @@ class assets final : private manager<assets> {
             const std::string& label
         ) {
             try {
-                auto res = _assets.at(label);
-                if(res.second) return std::static_pointer_cast<T>(res.first);
-                const std::string err_msg = "Asset is protected: " + label;
-                throw wte_exception(err_msg.c_str());
-            } catch(std::out_of_range& e) {
-                const std::string err_msg = "Could not find asset: " + label;
-                throw wte_exception(err_msg.c_str());
-            }
+                try {
+                    auto res = _assets.at(label);
+                    if(res.second) return std::static_pointer_cast<T>(res.first);
+                    const std::string err_msg = "Asset is protected: " + label;
+                    throw wte_exception(err_msg.c_str());
+                } catch(std::out_of_range& e) {
+                    const std::string err_msg = "Could not find asset: " + label;
+                    throw wte_exception(err_msg.c_str());
+                }
+            } catch(wte_exception& e) { alert::set(e.what()); }
         };
 
     private:

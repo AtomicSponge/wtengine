@@ -59,7 +59,7 @@ audio::audio() {
     });
     //  Mixer 2
     cmds.add("load_sample", [this](const msg_args& args) {
-        sample_load(args[0]);
+        sample_load(args[0], args[1]);
     });
     cmds.add("unload_sample", [this](const msg_args& args) {
         sample_unload(args[0]);
@@ -300,18 +300,18 @@ void audio::music_unpause(void) {
 /*
  *
  */
-void audio::sample_load(const std::string& arg) {
+void audio::sample_load(const std::string& fname, const std::string& sname) {
     //  Insert sample into reference map
-    if(al_load_sample(arg.c_str()) != NULL)
-        sample_map.insert(std::make_pair(get_sample_name(arg), al_load_sample(arg.c_str())));
+    if(al_load_sample(fname.c_str()) != NULL)
+        sample_map.insert(std::make_pair(sname, al_load_sample(fname.c_str())));
 }
 
 /*
  *
  */
-void audio::sample_unload(const std::string& arg) {
+void audio::sample_unload(const std::string& sname) {
     //  Unload all samples.
-    if(arg == "all") {
+    if(sname == "all") {
         //  First clear out the sample instances.
         for(auto sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
             al_stop_sample(&sample_instance->second);
@@ -327,7 +327,7 @@ void audio::sample_unload(const std::string& arg) {
         return;
     }
     //  Find the sample in the map and unload it.
-    auto sample_iterator = sample_map.find(arg);
+    auto sample_iterator = sample_map.find(sname);
     if(sample_iterator != sample_map.end()) {
         al_destroy_sample(sample_iterator->second);
         sample_map.erase(sample_iterator);
@@ -338,48 +338,48 @@ void audio::sample_unload(const std::string& arg) {
  *
  */
 void audio::sample_play(
-    const std::string& arga,
-    const std::string& argb
+    const std::string& sname,
+    const std::string& ref
 ) {
-    sample_play(arga, argb, 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.0f);
+    sample_play(sname, ref, 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.0f);
 }
 
 /*
  *
  */
 void audio::sample_play(
-    const std::string& arga,
-    const std::string& argb,
+    const std::string& sname,
+    const std::string& ref,
     const float& gain,
     const float& pan,
     const float& speed
 ) {
     //  If sample name not found in map, end.
-    if(sample_map.find(arga) == sample_map.end()) return;
+    if(sample_map.find(sname) == sample_map.end()) return;
 
-    if(argb == "once") {
+    if(ref == "once") {
         // Play the sample once.
-        al_play_sample((sample_map.find(arga))->second,
+        al_play_sample((sample_map.find(sname))->second,
                         gain, pan, speed, ALLEGRO_PLAYMODE_ONCE, NULL);
     } else {
         //  If the reference is already playing, end.
-        if(sample_instances.find(argb) != sample_instances.end()) return;
+        if(sample_instances.find(ref) != sample_instances.end()) return;
         //  Store playing reference
         ALLEGRO_SAMPLE_ID temp_sample_id;
-        if(al_play_sample((sample_map.find(arga))->second,
+        if(al_play_sample((sample_map.find(sname))->second,
                            gain, pan, speed, ALLEGRO_PLAYMODE_LOOP, &temp_sample_id))
-            sample_instances.insert(std::make_pair(argb, temp_sample_id));
+            sample_instances.insert(std::make_pair(ref, temp_sample_id));
     }
 }
 
 /*
  *
  */
-void audio::sample_stop(const std::string& arg) {
+void audio::sample_stop(const std::string& ref) {
     //  If instance does not exist, end.
-    if(sample_instances.find(arg) == sample_instances.end()) return;
-    al_stop_sample(&sample_instances.find(arg)->second);
-    sample_instances.erase(sample_instances.find(arg));
+    if(sample_instances.find(ref) == sample_instances.end()) return;
+    al_stop_sample(&sample_instances.find(ref)->second);
+    sample_instances.erase(sample_instances.find(ref));
 }
 
 /*
@@ -396,7 +396,7 @@ void audio::sample_clear_instances(void) {
 /*
  *
  */
-void audio::voice_play(const std::string& arg) {
+void audio::voice_play(const std::string& fname) {
     //  Unload audio stream if one is already attached.
     if(al_get_mixer_attached(mixer_3)) {
         al_drain_audio_stream(voice_stream);
@@ -404,7 +404,7 @@ void audio::voice_play(const std::string& arg) {
         al_destroy_audio_stream(voice_stream);
     }
     //  Load stream and play.
-    voice_stream = al_load_audio_stream(arg.c_str(), 4, 2048);
+    voice_stream = al_load_audio_stream(fname.c_str(), 4, 2048);
     if(!voice_stream) return;  //  Didn't load audio, end.
     al_set_audio_stream_playmode(voice_stream, ALLEGRO_PLAYMODE_ONCE);
     al_attach_audio_stream_to_mixer(voice_stream, mixer_3);

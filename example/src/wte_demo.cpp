@@ -737,9 +737,9 @@ void wte_demo::new_game(void) {
     mgr::variables::set("lives", mgr::variables::get<int>("max_lives"));
 
     //  Load some samples in the audio manager.
-    mgr::audio::sample_load("sfx/laser.wav");
-    mgr::audio::sample_load("sfx/shield.wav");
-    mgr::audio::sample_load("sfx/megumin.wav");
+    mgr::audio::sample_load("sfx/laser.wav", "laser");
+    mgr::audio::sample_load("sfx/shield.wav", "shield");
+    mgr::audio::sample_load("sfx/megumin.wav", "megumin");
 }
 
 /*

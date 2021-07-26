@@ -50,73 +50,92 @@ class audio final : private manager<audio> {
 
     public:
         /*!
-         * \brief 
+         * \brief Toggle music looping.
+         * \param arg "enable" or "disable"
          */
         static void music_loop(const std::string& arg);
 
         /*!
-         * \brief 
+         * \brief Play a music file.
+         * \param arg Music filename.
          */
         static void music_play(const std::string& arg);
 
         /*!
-         * \brief 
+         * \brief Stop playing music.
          */
         static void music_stop(void);
 
         /*!
-         * \brief 
+         * \brief Pause music.
          */
         static void music_pause(void);
 
         /*!
-         * \brief 
+         * \brief Unpause music.
          */
         static void music_unpause(void);
 
         /*!
-         * \brief 
+         * \brief Load a sample.
+         * \param fname Sample filename.
+         * \param sname Sample reference name.
          */
-        static void sample_load(const std::string& arg);
+        static void sample_load(const std::string& fname, const std::string& sname);
 
         /*!
-         * \brief 
+         * \brief Unload a sample.
+         * \param sname Sample name or "all" for unload all samples.
          */
-        static void sample_unload(const std::string& arg);
+        static void sample_unload(const std::string& sname);
 
         /*!
-         * \brief 
+         * \brief Play a sample.
+         *
+         * When setting the playmode, passing "once" will play the sample once.
+         * Passing a reference name will play the sample in a loop.
+         * The sample can be stopped later using this reference name.
+         *
+         * \param sname Sample name.
+         * \param ref Playmode.
          */
         static void sample_play(
-            const std::string& arga,
-            const std::string& argb
+            const std::string& sname,
+            const std::string& ref
         );
 
         /*!
-         * \brief 
+         * \brief Play a sample.
+         * \param sname Sample name.
+         * \param ref Playmode.
+         * \param gain Gain value.  See allegro docs on al_play_sample for more info.
+         * \param pan Pan value.  See allegro docs on al_play_sample for more info.
+         * \param speed Speed value.  See allegro docs on al_play_sample for more info.
          */
         static void sample_play(
-            const std::string& arga,
-            const std::string& argb,
+            const std::string& sname,
+            const std::string& ref,
             const float& gain,
             const float& pan,
             const float& speed
         );
 
         /*!
-         * \brief 
+         * \brief Stop a playing sample.
+         * \param ref Playing sample reference name.
          */
-        static void sample_stop(const std::string& arg);
+        static void sample_stop(const std::string& ref);
 
         /*!
-         * \brief 
+         * \brief Claer all playing sample instances.
          */
         static void sample_clear_instances(void);
 
         /*!
-         * \brief 
+         * \brief Play an audio file.
+         * \param fname Filename to play.
          */
-        static void voice_play(const std::string& arg);
+        static void voice_play(const std::string& fname);
 
         /*!
          * \brief 

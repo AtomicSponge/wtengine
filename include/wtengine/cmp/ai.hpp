@@ -35,19 +35,20 @@ class ai final : public component {
          * \brief Create an AI component with enabled only AI.
          * \param func Function to define AI process.
          */
-        ai(const std::function<void(const entity_id&)>& func);
+        ai(
+            const std::function<void(const entity_id&)>& func
+        );
 
         /*!
          * \brief Create an AI component with enabled and disabled AI.
          * \param func_a Function to define enabled AI process.
          * \param func_b Function to define disabled AI process.
          */
-        ai(const std::function<void(const entity_id&)>& func_a,
-           const std::function<void(const entity_id&)>& func_b);
+        ai(
+            const std::function<void(const entity_id&)>& func_a,
+            const std::function<void(const entity_id&)>& func_b
+        );
 
-        /*!
-         * \brief AI destructor.
-         */
         inline ~ai() {};
 
         /*!
@@ -57,7 +58,9 @@ class ai final : public component {
          * \param messages Reference to the message manager.
          * \param engine_time Current value of the main timer.
          */
-        void run_enabled(const entity_id& e_id);
+        void run_enabled(
+            const entity_id& e_id
+        );
 
         /*!
          * \brief Run disabled AI function wrapper.
@@ -66,7 +69,9 @@ class ai final : public component {
          * \param messages Reference to the message manager.
          * \param engine_time Current value of the main timer.
          */
-        void run_disabled(const entity_id& e_id);
+        void run_disabled(
+            const entity_id& e_id
+        );
 
     private:
         //  AI to run when enabled.

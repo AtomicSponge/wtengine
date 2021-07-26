@@ -40,7 +40,10 @@ class velocity final : public component {
          * \param xv X velocity.
          * \param yv Y velocity.
          */
-        velocity(const float& xv, const float& yv);
+        velocity(
+            const float& xv,
+            const float& yv
+        );
 
         /*!
          * \brief Set X velocity.

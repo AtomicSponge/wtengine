@@ -35,7 +35,11 @@ class message final {
          * \param c Command.
          * \param a Arguments delimited by ;
          */
-        message(const std::string& s, const std::string& c, const std::string& a);
+        message(
+            const std::string& s,
+            const std::string& c,
+            const std::string& a
+        );
 
         /*!
          * \brief Create a timed message.
@@ -44,7 +48,12 @@ class message final {
          * \param c Command.
          * \param a Arguments delimited by ;
          */
-        message(const int64_t& e, const std::string& s, const std::string& c, const std::string& a);
+        message(
+            const int64_t& e,
+            const std::string& s,
+            const std::string& c,
+            const std::string& a
+        );
 
         /*!
          * \brief Create a non-timed message with a to & from.
@@ -54,7 +63,13 @@ class message final {
          * \param c Command.
          * \param a Arguments delimited by ;
          */
-        message(const std::string& s, const std::string& t, const std::string& f, const std::string& c, const std::string& a);
+        message(
+            const std::string& s,
+            const std::string& t,
+            const std::string& f,
+            const std::string& c,
+            const std::string& a
+        );
 
         /*!
          * \brief Create a timed message with a to & from.
@@ -65,20 +80,31 @@ class message final {
          * \param c Command.
          * \param a Arguments delimited by ;
          */
-        message(const int64_t& e, const std::string& s, const std::string& t, const std::string& f, const std::string& c, const std::string& a);
+        message(
+            const int64_t& e,
+            const std::string& s,
+            const std::string& t,
+            const std::string& f,
+            const std::string& c,
+            const std::string& a
+        );
 
         /*!
          * \brief Overload < operator to sort by timer value.
          * \param m Object to compare to.
          * \return True if less than, false if greater than.
          */
-        const bool operator<(const message& m) const;
+        const bool operator<(
+            const message& m
+        ) const;
 
         /*!
          * \brief Split arguments into a vector of strings.
          * \param a String of arguments, delimited by ;
          */
-        void split_args(const std::string& a);
+        void split_args(
+            const std::string& a
+        );
 
         /*!
          * \brief Get timer value.
@@ -127,7 +153,9 @@ class message final {
          * \param pos The position in the argument vector.
          * \return The argument string by position.
          */
-        const std::string get_arg(const std::size_t& pos) const;
+        const std::string get_arg(
+            const std::size_t& pos
+        ) const;
 
         /*!
          * \brief Check if the event is synced to the timer.

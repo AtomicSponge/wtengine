@@ -43,8 +43,12 @@ class assets final : private manager<assets> {
         /*!
          * \brief 
          */
-        template <typename T, typename... Args> inline static const bool load(const std::string& label, Args... args) {
-            auto ret = _assets.insert(std::make_pair(label, std::make_pair(std::make_shared<T>(args...), true)));
+        template <typename T, typename... Args>
+        inline static const bool load(
+            const std::string& label, Args... args
+        ) {
+            auto ret =
+                _assets.insert(std::make_pair(label, std::make_pair(std::make_shared<T>(args...), true)));
             return ret.second;
         };
 
@@ -56,7 +60,10 @@ class assets final : private manager<assets> {
         /*!
          * \brief 
          */
-        template <typename T> inline static const std::shared_ptr<T> get(const std::string& label) {
+        template <typename T>
+        inline static const std::shared_ptr<T> get(
+            const std::string& label
+        ) {
             try {
                 auto res = _assets.at(label);
                 if(res.second) return std::static_pointer_cast<T>(res.first);
@@ -82,7 +89,11 @@ class assets final : private manager<assets> {
         /*!
          * \brief 
          */
-        template <typename T, typename... Args> inline static const bool secret_load(const std::string& label, Args... args) {
+        template <typename T, typename... Args>
+        inline static const bool secret_load(
+            const std::string& label,
+            Args... args
+        ) {
             auto ret = _assets.insert(std::make_pair(label, std::make_pair(std::make_shared<T>(args...), false)));
             return ret.second;
         };
@@ -95,7 +106,10 @@ class assets final : private manager<assets> {
         /*!
          * \brief 
          */
-        template <typename T> inline static const std::shared_ptr<T> secret_get(const std::string& label) {
+        template <typename T>
+        inline static const std::shared_ptr<T> secret_get(
+            const std::string& label
+        ) {
             try {
                 return std::static_pointer_cast<T>(_assets.at(label).first);
             } catch(std::out_of_range& e) {

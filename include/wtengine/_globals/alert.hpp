@@ -29,7 +29,9 @@ class alert final {
          * \brief Set the alert text and flag there is an alert.
          * \param a Alert to display.
          */
-        static void set(const std::string& a);
+        static void set(
+            const std::string& a
+        );
 
         /*!
          * \brief Return the alert string.

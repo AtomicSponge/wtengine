@@ -43,14 +43,19 @@ class al_bitmap final : public wte_asset {
          *
          * \param p Preservation flag.
          */
-        inline al_bitmap(const bool& p) : _al_bitmap(NULL), nopreserve(p) {};
+        inline al_bitmap(
+            const bool& p
+        ) : _al_bitmap(NULL), nopreserve(p) {};
 
         /*!
          * \brief Creates a bitmap of w x h that preserves its data.
          * \param w Width in pixels.
          * \param h Hieght in pixels.
          */
-        inline al_bitmap(const int& w, const int& h) : _al_bitmap(NULL), nopreserve(false) {
+        inline al_bitmap(
+            const int& w,
+            const int& h
+        ) : _al_bitmap(NULL), nopreserve(false) {
             assert(w > 0 && h > 0);
             al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             _al_bitmap = al_create_bitmap(w, h);
@@ -62,7 +67,11 @@ class al_bitmap final : public wte_asset {
          * \param h Hieght in pixels.
          * \param p Preservation flag.
          */
-        inline al_bitmap(const int& w, const int& h, const bool& p) : _al_bitmap(NULL), nopreserve(p) {
+        inline al_bitmap(
+            const int& w,
+            const int& h,
+            const bool& p
+        ) : _al_bitmap(NULL), nopreserve(p) {
             assert(w > 0 && h > 0);
             if(nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
@@ -104,7 +113,9 @@ class al_bitmap final : public wte_asset {
          * \param fname Filename to load.
          * \return True if loaded, false on error.
          */
-        inline const bool load(const std::string& fname) {
+        inline const bool load(
+            const std::string& fname
+        ) {
             //  Load the file.
             ALLEGRO_FILE* file;
             file = al_fopen(fname.c_str(), "rb");
@@ -133,7 +144,9 @@ class al_bitmap final : public wte_asset {
          * \brief Set the bitmap from an existing one.
          * \param temp_bmp Bitmap to copy.
          */
-        inline void set(ALLEGRO_BITMAP* temp_bmp) {
+        inline void set(
+            ALLEGRO_BITMAP* temp_bmp
+        ) {
             if(nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
             _al_bitmap = al_clone_bitmap(temp_bmp);
@@ -168,7 +181,11 @@ class al_font final : public wte_asset {
         /*!
          *
          */
-        inline al_font(const std::string& fname, const int& size, const int& flags) {
+        inline al_font(
+            const std::string& fname,
+            const int& size,
+            const int& flags
+        ) {
             if(fname == "default") _al_font = al_create_builtin_font();
             else _al_font = al_load_font(fname.c_str(), size, flags);
         };

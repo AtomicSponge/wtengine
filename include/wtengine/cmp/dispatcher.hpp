@@ -54,7 +54,10 @@ class dispatcher final : public component {
          * \param current_time Current engine time.
          * \param msg Message to process.
          */
-        void proc_msg(const entity_id& e_id, const message& msg);
+        void proc_msg(
+            const entity_id& e_id,
+            const message& msg
+        );
 
     private:
         //  Message handler.

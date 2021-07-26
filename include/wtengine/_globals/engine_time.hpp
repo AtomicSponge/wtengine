@@ -44,7 +44,9 @@ class engine_time final {
          * 
          * \param t Timer value.
          */
-        static void set_time(const int64_t& t);
+        static void set_time(
+            const int64_t& t
+        );
 
         //  Track game timer
         static int64_t current_time;

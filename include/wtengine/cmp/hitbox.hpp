@@ -29,7 +29,10 @@ class hitbox final : public component {
          * \param w Width of the hitbox in pixels.
          * \param h Height of the hitbox in pixels.
          */
-        hitbox(const float& w, const float& h);
+        hitbox(
+            const float& w,
+            const float& h
+        );
 
         /*!
          * \brief Create a new Hitbox component, set solid flag.
@@ -37,7 +40,11 @@ class hitbox final : public component {
          * \param h Height of the hitbox in pixels.
          * \param s Boolean value for if the hitbox is solid (enabled).
          */
-        hitbox(const float& w, const float& h, const bool& s);
+        hitbox(
+            const float& w,
+            const float& h,
+            const bool& s
+        );
 
         /*!
          * \brief Get hitbox width.

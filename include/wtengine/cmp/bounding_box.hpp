@@ -33,8 +33,12 @@ class bounding_box final : public component {
          * \param rx Right X
          * \param ry Right Y
          */
-        bounding_box(const float& lx, const float& ly,
-                     const float& rx, const float& ry);
+        bounding_box(
+            const float& lx,
+            const float& ly,
+            const float& rx,
+            const float& ry
+        );
 
         /*!
          * \brief Set left X of the bounding box.

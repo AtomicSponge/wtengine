@@ -193,8 +193,8 @@ void wte_demo::load_menus(void) {
     {
         //  Configure main menu.
         mgr::menus::set_menu("main_menu")->set_title("WTE Demo");
-        mgr::menus::set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
-        //mgr::menus::set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
+        //mgr::menus::set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
+        mgr::menus::set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
         mgr::menus::set_menu("main_menu")->add_item(wte_menu_action("Settings", "open_menu", "settings"));
         mgr::menus::set_menu("main_menu")->add_item(wte_menu_action("Exit Game", "exit"));
     }

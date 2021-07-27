@@ -32,17 +32,16 @@ namespace mgr
 
 /*!
  * \class audio
- * \brief Handles audio messages.
- * 
- * Messages get passed from the main engine loop via transfer_messages(). \n 
- * The Audio Manager is then implemented as a thread, creating local Allegro objects. \n 
- * As messages are placed in the deck, take them from the top and process. \n 
- * \n 
- * The manager creates the following mixers: \n 
- * Mixer Main - All other mixers attach to this. \n 
- * Mixer 1 - Play music - Load a file and play in a loop.  Looping can be disabled. \n 
- * Mixer 2 - Play samples - Has set number of samples that can be loaded in. \n 
- * Mixer 3 - Play voice - Load a file and play once. \n 
+ * \brief Handles audio playback.
+ *
+ * Messages get passed from the main engine loop via process_messages(). \n
+ * Also can be controlled directly via function calls. \n
+ * \n
+ * The manager creates the following mixers: \n
+ * Mixer Main - All other mixers attach to this. \n
+ * Mixer 1 - Play music - Load a file and play in a loop.  Looping can be disabled. \n
+ * Mixer 2 - Play samples - Has set number of samples that can be loaded in. \n
+ * Mixer 3 - Play voice - Load a file and play once. \n
  * Mixer 4 - Play ambiance - Load a file and play in a loop.  Looping can be disabled.
  */
 class audio final : private manager<audio> {

@@ -47,7 +47,9 @@ class systems final : private manager<systems> {
          * \param new_system System to add.
          * \return True if added, false if not.
          */
-        static const bool add(sys::system_uptr new_system);
+        static const bool add(
+            sys::system_uptr new_system
+        );
 
     private:
         /*!

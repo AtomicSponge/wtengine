@@ -145,7 +145,10 @@ class world final : private manager<world> {
          * \param name Entity name to set.
          * \return True if set, false on error.
          */
-        static const bool set_name(const entity_id& e_id, const std::string& name);
+        static const bool set_name(
+            const entity_id& e_id,
+            const std::string& name
+        );
 
         /*!
          * \brief Get entity ID by name.
@@ -192,12 +195,16 @@ class world final : private manager<world> {
          * \return Return false if the entity already has a component of the same type.
          * \return Return true on success.
          */
-        template <typename T, typename... Args> inline static const bool add_component(const entity_id& e_id, Args... args) {
+        template <typename T, typename... Args>
+        inline static const bool add_component(
+            const entity_id& e_id,
+            Args... args
+        ) {
             if(!entity_exists(e_id)) return false;
 
             //  Check derived types of existing components, make sure one does not already exist.
             const auto check_entity = get_entity(e_id);
-            for(auto & it : check_entity) {
+            for(auto& it: check_entity) {
                 if(typeid(*it).name() == typeid(T).name()) return false;
             }
 
@@ -213,7 +220,10 @@ class world final : private manager<world> {
          * \return Return true if a component was deleted.
          * \return Return false if no components were deleted.
          */
-        template <typename T> inline static const bool delete_component(const entity_id& e_id) {
+        template <typename T>
+        inline static const bool delete_component(
+            const entity_id& e_id
+        ) {
             auto results = _world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
@@ -233,7 +243,10 @@ class world final : private manager<world> {
          * \return Return true if the entity has the component.
          * \return Return false if it does not.
          */
-        template <typename T> inline static const bool has_component(const entity_id& e_id) {
+        template <typename T>
+        inline static const bool has_component(
+            const entity_id& e_id
+        ) {
             const auto results = _world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
@@ -250,7 +263,10 @@ class world final : private manager<world> {
          * \return Return the component.
          * \exception wte_exception Component not found.
          */
-        template <typename T> inline static const std::shared_ptr<T> set_component(const entity_id& e_id) {
+        template <typename T>
+        inline static const std::shared_ptr<T> set_component(
+            const entity_id& e_id
+        ) {
             const auto results = _world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
@@ -271,7 +287,10 @@ class world final : private manager<world> {
          * \return Return the component.
          * \exception wte_exception Component not found.
          */
-        template <typename T> inline static const std::shared_ptr<const T> get_component(const entity_id& e_id) {
+        template <typename T>
+        inline static const std::shared_ptr<const T> get_component(
+            const entity_id& e_id
+        ) {
             const auto results = _world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
@@ -292,10 +311,11 @@ class world final : private manager<world> {
          * \tparam T Component type to search.
          * \return Returns a container of components of all the same type.
          */
-        template <typename T> inline static const component_container<T> set_components(void) {
+        template <typename T>
+        inline static const component_container<T> set_components(void) {
             component_container<T> temp_components;
 
-            for(auto & it : _world) {
+            for(auto& it: _world) {
                 if(std::dynamic_pointer_cast<T>(it.second))
                     temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
             }
@@ -310,10 +330,11 @@ class world final : private manager<world> {
          * \tparam T Component type to search.
          * \return Returns a constant container of components of all the same type.
          */
-        template <typename T> inline static const const_component_container<T> get_components(void) {
+        template <typename T>
+        inline static const const_component_container<T> get_components(void) {
             const_component_container<T> temp_components;
 
-            for(auto & it : _world) {
+            for(auto& it: _world) {
                 if(std::dynamic_pointer_cast<T>(it.second))
                     temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
             }

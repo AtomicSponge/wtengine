@@ -83,7 +83,11 @@ class engine : private display, public input, public config {
          * \param argv Command line arguments count.
          * \param title Window title.
          */
-        engine(const int& argc, char** const& argv, const std::string& title);
+        engine(
+            const int& argc,
+            char** const& argv,
+            const std::string& title
+        );
 
         /* These function members are overridden in the derived class */
         //!  Define this to implement custom menu layout.

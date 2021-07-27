@@ -50,7 +50,9 @@ class messages final : private manager<messages> {
          * 
          * \param msg Message to add.
          */
-        static void add_message(const message& msg);
+        static void add_message(
+            const message& msg
+        );
 
         /*!
          * \brief Load additional data into the message queue.
@@ -61,7 +63,9 @@ class messages final : private manager<messages> {
          * \param fname Filename to load.
          * \return True if loaded, false if not.
          */
-        static const bool load_script(const std::string& fname);
+        static const bool load_script(
+            const std::string& fname
+        );
 
     private:
         /*!
@@ -91,7 +95,9 @@ class messages final : private manager<messages> {
          * 
          * \param fname Filename to load.
          */
-        static void load_file(const std::string& fname);
+        static void load_file(
+            const std::string& fname
+        );
 
         /*!
          * \brief Get messages based on their command.
@@ -101,7 +107,9 @@ class messages final : private manager<messages> {
          * \param sys Manager/system to get messages for.
          * \return Vector of messages.
          */
-        static const message_container get_messages(const std::string& sys);
+        static const message_container get_messages(
+            const std::string& sys
+        );
 
         /*!
          * Deletes timed messages that were not processed.
@@ -120,9 +128,14 @@ class messages final : private manager<messages> {
          * \param args Argument value to write to.
          */
         static void read_message(
-            ALLEGRO_FILE& file, int64_t& timer,
-            std::string& sys, std::string& to,
-            std::string& from, std::string& cmd, std::string& args);
+            ALLEGRO_FILE& file,
+            int64_t& timer,
+            std::string& sys,
+            std::string& to,
+            std::string& from,
+            std::string& cmd,
+            std::string& args
+        );
 
         /*!
          * \brief Log processed messages to a file.

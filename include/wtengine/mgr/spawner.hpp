@@ -45,8 +45,11 @@ class spawner final : private manager<spawner> {
          * \param func Function for creating the entity.
          * \return True if inserted into the spawn map, false if not.
          */
-        static const bool add_spawn(const std::string& name, const std::size_t& num_args,
-                                    const std::function<void(const entity_id&, const msg_args&)>& func);
+        static const bool add_spawn(
+            const std::string& name,
+            const std::size_t& num_args,
+            const std::function<void(const entity_id&, const msg_args&)>& func
+        );
 
     private:
         /*!
@@ -70,7 +73,9 @@ class spawner final : private manager<spawner> {
          * 
          * \param messages Spawner messages from main engine loop.
          */
-        static void process_messages(const message_container& messages);
+        static void process_messages(
+            const message_container& messages
+        );
 
         static std::map<std::string, std::pair<std::size_t,
             std::function<void(const entity_id&, const msg_args&)>

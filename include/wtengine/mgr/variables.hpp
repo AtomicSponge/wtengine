@@ -36,25 +36,26 @@ class variables final : private manager<variables> {
     public:
         /*!
          * \brief Set the file the game config variables will be written to.
-         * 
          * \param fname Filename to set saving to.
          */
         static void set_data_file(const std::string& fname);
 
         /*!
          * \brief Clear the current game config save.
-         *
          * \return False on fail, true on success.
          */
         static bool clear_save(void);
 
         /*!
          * \brief Save a game config variable to file.
-         * 
+         * \tparam T Variable type.
          * \param var Variable name.
          * \return False on fail, true on success.
          */
-        template <typename T> inline static bool save(const std::string& var) {
+        template <typename T>
+        inline static bool save(
+            const std::string& var
+        ) {
             verify<T>();
             if(!isreg(var)) return false;
             std::ofstream dfile(data_file_name, std::ios::binary | std::ofstream::app);
@@ -89,10 +90,14 @@ class variables final : private manager<variables> {
 
         /*!
          * \brief Load game config variables from file.
-         *
+         * \tparam T Variable type.
+         * \param var Variable name.
          * \return False on fail, true on success.
          */
-        template <typename T> inline static bool load(const std::string& var) {
+        template <typename T>
+        inline static bool load(
+            const std::string& var
+        ) {
             verify<T>();
             if(!isreg(var)) return false;
             std::ifstream dfile(data_file_name, std::ios::binary);
@@ -142,30 +147,47 @@ class variables final : private manager<variables> {
         };
 
         /*!
-         * Create a new entry in the map.
-         * Call this first before accessing.
+         * \brief Create a new entry in the map.
+         * \tparam T Variable type.
+         * \param var Variable name.
+         * \param val Variable starting value.
+         * \return False on fail, true on success.
          */
-        template <typename T> inline static const bool reg(const std::string& var, const T& val) {
+        template <typename T>
+        inline static const bool reg(
+            const std::string& var,
+            const T& val
+        ) {
             verify<T>();
             auto ret = _map.insert(std::make_pair(var, std::make_any<T>(val)));
             return ret.second;
         };
 
         /*!
-         * Check if registered
+         * \brief Check if a variable is registered.
+         * \param var Variable name.
+         * \return True if it is, false if not.
          */
         static const bool isreg(const std::string& var);
 
         /*!
-         * Delete entry
+         * \brief Delete a variable.
+         * \param var Variable name.
+         * \return True if deleted, false if not.
          */
         static const bool del(const std::string& var);
 
         /*!
-         * Set key
-         * Will override value
+         * \brief Set a variable's value.
+         * \tparam T Variable type.
+         * \param var Variable name.
+         * \param val New value.
          */
-        template <typename T> inline static void set(const std::string& var, const T& val) {
+        template <typename T>
+        inline static void set(
+            const std::string& var,
+            const T& val
+        ) {
             verify<T>();
             try {
                 _map.at(var) = std::make_any<T>(val);
@@ -176,9 +198,15 @@ class variables final : private manager<variables> {
         };
 
         /*!
-         * Get value
+         * \brief Get a variable's value.
+         * \tparam T Variable type.
+         * \param var Variable name.
+         * \return The variable's current value.
          */
-        template <typename T> inline static const T get(const std::string& var) {
+        template <typename T>
+        inline static const T get(
+            const std::string& var
+        ) {
             verify<T>();
             try {
                 return std::any_cast<const T>(_map.at(var));
@@ -195,10 +223,11 @@ class variables final : private manager<variables> {
         variables();
         ~variables();
 
-        /*!
-         * Make sure valid data type
+        /*
+         * Verify valid data type.
          */
-        template <typename T> inline static void verify(void) {
+        template <typename T>
+        inline static void verify(void) {
             static_assert(
                 std::is_same<bool, T>::value ||
                 std::is_same<char, T>::value ||
@@ -218,9 +247,8 @@ class variables final : private manager<variables> {
             );
         };
 
-        static std::string data_file_name;
-
-        static std::map<std::string, std::any> _map;
+        static std::string data_file_name;  //  File to save variables to.
+        static std::map<std::string, std::any> _map;  //  Map of variables.
 };
 
 } //  end namespace mgr

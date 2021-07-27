@@ -42,22 +42,23 @@ class interface final : private manager<interface>  {
         /* *** AUDIO INTERFACE FUNCTIONS *** */
         /* ********************************* */
         /*!
-         * \brief Initialize audio manager,
+         * \brief Initialize audio manager.
          */
         void audio_init(void);
 
         /*!
-         * \brief De-initialize audio manager,
+         * \brief De-initialize audio manager.
          */
         void audio_de_init(void);
 
         /*!
-         * \brief Set audio manager volume,
+         * \brief Set audio manager volume.
          */
         void audio_set_volume(void);
 
         /*!
-         * \brief Process audio manager messages,
+         * \brief Process audio manager messages.
+         * \param messages Container of messages to process.
          */
         void audio_process_messages(const message_container& messages);
 
@@ -78,17 +79,17 @@ class interface final : private manager<interface>  {
         /* *** MENU INTERFACE FUNCTIONS *** */
         /* ******************************** */
         /*!
-         * \brief Initialize menu manager,
+         * \brief Initialize menu manager.
          */
         void menus_init(void);
 
         /*!
-         * \brief De-initialize menu manager,
+         * \brief De-initialize menu manager.
          */
         void menus_de_init(void);
 
         /*!
-         * \brief Run menus,
+         * \brief Run menus.
          */
         void menus_run(void);
 
@@ -97,11 +98,13 @@ class interface final : private manager<interface>  {
         /* ************************************ */
         /*!
          * \brief Load a file into the message manager.
+         * \param fname Filename to load.
          */
         void messages_load_file(const std::string& fname);
 
         /*!
          * \brief Get messages based on their system/manager.
+         * \param arg Name of system or manager.
          */
         const message_container messages_get(const std::string& arg);
 
@@ -133,6 +136,7 @@ class interface final : private manager<interface>  {
         /* *********************************** */
         /*!
          * \brief Process messages for the spawner.
+         * \param messages Container of messages to process.
          */
         void spawner_process_messages(const message_container& messages);
 

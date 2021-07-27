@@ -246,7 +246,7 @@ void audio::music_loop(const std::string& arg) {
 /*
  *
  */
-void audio::music_play(const std::string& arg) {
+void audio::music_play(const std::string& fname) {
     //  Unload audio stream if one is already attached.
     if(al_get_mixer_attached(mixer_1)) {
         al_drain_audio_stream(music_stream);
@@ -254,7 +254,7 @@ void audio::music_play(const std::string& arg) {
         al_destroy_audio_stream(music_stream);
     }
     //  Load stream and play.
-    music_stream = al_load_audio_stream(arg.c_str(), 4, 2048);
+    music_stream = al_load_audio_stream(fname.c_str(), 4, 2048);
     if(!music_stream) {
         //std::cout << "no music" << std::endl;
         return;  //  Didn't load audio, end.
@@ -435,7 +435,7 @@ void audio::ambiance_loop(const std::string& arg) {
 /*
  *
  */
-void audio::ambiance_play(const std::string& arg) {
+void audio::ambiance_play(const std::string& fname) {
     //  Unload audio stream if one is already attached.
     if(al_get_mixer_attached(mixer_4)) {
         al_drain_audio_stream(ambiance_stream);
@@ -443,7 +443,7 @@ void audio::ambiance_play(const std::string& arg) {
         al_destroy_audio_stream(ambiance_stream);
     }
     //  Load stream and play.
-    ambiance_stream = al_load_audio_stream(arg.c_str(), 4, 2048);
+    ambiance_stream = al_load_audio_stream(fname.c_str(), 4, 2048);
     if(!ambiance_stream) return;  //  Didn't load audio, end.
     al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
     al_attach_audio_stream_to_mixer(ambiance_stream, mixer_4);

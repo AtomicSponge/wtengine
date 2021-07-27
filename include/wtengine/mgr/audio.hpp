@@ -62,7 +62,7 @@ class audio final : private manager<audio> {
          * \param arg Music filename.
          */
         static void music_play(
-            const std::string& arg
+            const std::string& fname
         );
 
         /*!
@@ -151,46 +151,48 @@ class audio final : private manager<audio> {
         );
 
         /*!
-         * \brief 
+         * \brief Stop a playing audio file.
          */
         static void voice_stop(void);
 
         /*!
-         * \brief 
+         * \brief Pause playing audio file.
          */
         static void voice_pause(void);
 
         /*!
-         * \brief 
+         * \brief Resume playing audio file.
          */
         static void voice_unpause(void);
 
         /*!
-         * \brief 
+         * \brief Toggle ambiance looping.
+         * \param arg "enable" or "disable"
          */
         static void ambiance_loop(
             const std::string& arg
         );
 
         /*!
-         * \brief 
+         * \brief Play a file.
+         * \param arg Ambiance filename.
          */
         static void ambiance_play(
-            const std::string& arg
+            const std::string& fname
         );
 
         /*!
-         * \brief 
+         * \brief Stop playing ambiance.
          */
         static void ambiance_stop(void);
 
         /*!
-         * \brief 
+         * \brief Pause playing ambiance.
          */
         static void ambiance_pause(void);
 
         /*!
-         * \brief 
+         * \brief Resume playing ambiance.
          */
         static void ambiance_unpause(void);
 

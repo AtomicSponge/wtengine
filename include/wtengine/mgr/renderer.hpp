@@ -75,7 +75,9 @@ class renderer final : private manager<renderer> {
          * 
          * \param f New scale factor value.
          */
-        static void set_scale_factor(const float& f);
+        static void set_scale_factor(
+            const float& f
+        );
 
         /*!
          * \brief Get scale factor.
@@ -93,7 +95,10 @@ class renderer final : private manager<renderer> {
          * \param w Arena width in pixels.
          * \param h Arena height in pixels.
          */
-        static void set_arena_size(const int& w, const int& h);
+        static void set_arena_size(
+            const int& w,
+            const int& h
+        );
 
         /*!
          * \brief Get the arnea width.
@@ -116,7 +121,9 @@ class renderer final : private manager<renderer> {
          * 
          * \param fname Filename of the title screen.
          */
-        static void set_title_screen(const std::string& fname);
+        static void set_title_screen(
+            const std::string& fname
+        );
 
         /*!
          * \brief Set the background.
@@ -125,7 +132,9 @@ class renderer final : private manager<renderer> {
          * 
          * \param fname Filename of the background.
          */
-        static void set_background_screen(const std::string& fname);
+        static void set_background_screen(
+            const std::string& fname
+        );
 
         /*!
          * \brief Set the font to be used by the renderer.
@@ -138,7 +147,11 @@ class renderer final : private manager<renderer> {
          * \param size Font size.
          * \param flags Font flags.
          */
-        static void set_font_file(const std::string& fname, const int& size, const int& flags);
+        static void set_font_file(
+            const std::string& fname,
+            const int& size,
+            const int& flags
+        );
 
         /*!
          * \brief Inform the renderer of the screen resolution.
@@ -148,7 +161,10 @@ class renderer final : private manager<renderer> {
          * \param w Resolution width in pixels.
          * \param h Resolution height in pixels.
          */
-        static void update_resolution(const int& w, const int& h);
+        static void update_resolution(
+            const int& w,
+            const int& h
+        );
 
     private:
         /*!

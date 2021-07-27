@@ -58,7 +58,7 @@ class audio final : private manager<audio> {
 
         /*!
          * \brief Play a music file.
-         * \param arg Music filename.
+         * \param fname Music filename.
          */
         static void music_play(
             const std::string& fname
@@ -174,7 +174,7 @@ class audio final : private manager<audio> {
 
         /*!
          * \brief Play a file.
-         * \param arg Ambiance filename.
+         * \param fname Ambiance filename.
          */
         static void ambiance_play(
             const std::string& fname

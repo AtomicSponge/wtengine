@@ -399,13 +399,13 @@ void renderer::render(void) {
     if(alert::is_set()) {
         int font_size = al_get_font_line_height(overlay_font);
 
-        temp_bitmap = al_create_bitmap((alert::get_alert().length() * font_size) + 20, font_size + 20);
+        temp_bitmap = al_create_bitmap((alert::get().length() * font_size) + 20, font_size + 20);
         al_set_target_bitmap(temp_bitmap);
         al_clear_to_color(alert::get_bg_color());
 
         al_draw_text(overlay_font, alert::get_font_color(),
                      (al_get_bitmap_width(temp_bitmap) / 2), 10,
-                     ALLEGRO_ALIGN_CENTER, alert::get_alert().c_str());
+                     ALLEGRO_ALIGN_CENTER, alert::get().c_str());
 
         al_set_target_backbuffer(al_get_current_display());
         al_draw_scaled_bitmap(

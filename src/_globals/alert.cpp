@@ -32,7 +32,7 @@ void alert::set(const std::string& a) {
 /*
  * 
  */
-const std::string alert::get_alert(void) { return alert_text; };
+const std::string alert::get(void) { return alert_text; };
 
 /*
  * 

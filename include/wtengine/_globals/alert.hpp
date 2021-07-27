@@ -37,7 +37,7 @@ class alert final {
          * \brief Return the alert string.
          * \return The alert message itself.
          */
-        static const std::string get_alert(void);
+        static const std::string get(void);
 
         /*!
          * \brief Check to see if an alert is set.

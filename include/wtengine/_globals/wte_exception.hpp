@@ -27,19 +27,25 @@ class wte_exception final : public std::exception {
          * \brief Create a wte_exception.
          * \param desc Exception description.
          */
-        inline wte_exception(const char* desc) : exception_desc(desc) {};
+        inline wte_exception(const char* desc) : description(desc), time(0) {};
+        inline wte_exception(const char* desc, const int64_t& t) : description(desc), time(t) {};
         inline ~wte_exception() {};
 
         /*!
          * \brief Returns the description of the thrown exception.
          * \return Description of thrown exception.
          */
-        virtual const char* what() const throw() {
-            return exception_desc;
+        const char* what() const noexcept override {
+            return description;
+        };
+
+        const int64_t when() const noexcept {
+            return time;
         }
 
     private:
-        const char* exception_desc;     //  Exception description.
+        const char* description;  //  Exception description.
+        const int64_t time;
 };
 
 } //  end namespace wte

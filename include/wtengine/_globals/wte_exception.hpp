@@ -57,16 +57,16 @@ class wte_exception final : public std::exception {
         };
 
         /*!
-         * \brief
-         * \return
+         * \brief Return the location the exception occured.
+         * \return Location of thrown exception.
          */
         inline const char* where() const noexcept {
             return location;
         };
 
         /*!
-         * \brief
-         * \return
+         * \brief Return the time the exception occured.
+         * \return Time of thrown exception.
          */
         inline const int64_t when() const noexcept {
             return time;

@@ -16,6 +16,9 @@ namespace wte
 ALLEGRO_COLOR alert::font_color = {};
 ALLEGRO_COLOR alert::bg_color = {};
 std::string alert::alert_text = "";
+std::string alert::alert_location = "";
+int64_t alert::alert_time = -1;
+bool alert::alert_status = false;
 bool alert::alert_set = false;
 
 alert::alert() {}
@@ -24,8 +27,16 @@ alert::~alert() {}
 /*
  * 
  */
-void alert::set(const std::string& a) {
+void alert::set(
+    const std::string& a,
+    const std::string& l,
+    const int64_t& t,
+    const bool& s
+) {
     alert_text = a;
+    alert_location = l;
+    alert_time = t;
+    alert_status = s;
     alert_set = true;
 };
 
@@ -33,6 +44,21 @@ void alert::set(const std::string& a) {
  * 
  */
 const std::string alert::get(void) { return alert_text; };
+
+/*
+ * 
+ */
+const std::string alert::get_location(void) { return alert_location; };
+
+/*
+ * 
+ */
+const int64_t alert::get_time(void) { return alert_time; };
+
+/*
+ * 
+ */
+const bool alert::get_status(void) { return alert_status; };
 
 /*
  * 

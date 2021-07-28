@@ -201,47 +201,47 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                 try {
                     /* *** PLAYER 1 *** */
                     if(event.keyboard.keycode == config::controls::p1_key_up)
-                        try { input::event::p1::ondown::up(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                        try { input::event::p1::ondown::up(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_down)
-                        try { input::event::p1::ondown::down(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                        try { input::event::p1::ondown::down(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_left)
-                        try { input::event::p1::ondown::left(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                        try { input::event::p1::ondown::left(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_right)
-                        try { input::event::p1::ondown::right(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                        try { input::event::p1::ondown::right(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_action1)
-                        try { input::event::p1::ondown::action1(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                        try { input::event::p1::ondown::action1(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_action2)
-                        try { input::event::p1::ondown::action2(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                        try { input::event::p1::ondown::action2(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_action3)
-                        try { input::event::p1::ondown::action3(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                        try { input::event::p1::ondown::action3(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_action4)
-                        try { input::event::p1::ondown::action4(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                        try { input::event::p1::ondown::action4(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_action5)
-                        try { input::event::p1::ondown::action5(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                        try { input::event::p1::ondown::action5(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_action6)
-                        try { input::event::p1::ondown::action6(); } catch(...) { throw wte_exception("Error processing player1 ondown input"); }
+                        try { input::event::p1::ondown::action6(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
                     /* *** PLAYER 2 *** */
                     if(event.keyboard.keycode == config::controls::p2_key_up)
-                        try { input::event::p2::ondown::up(); } catch(...) { throw wte_exception("Error processing player2 ondown input"); }
+                        try { input::event::p2::ondown::up(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_down)
-                        try { input::event::p2::ondown::down(); } catch(...) { throw wte_exception("Error processing player2 ondown input"); }
+                        try { input::event::p2::ondown::down(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_left)
-                        try { input::event::p2::ondown::left(); } catch(...) { throw wte_exception("Error processing player2 ondown input"); }
+                        try { input::event::p2::ondown::left(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_right)
-                        try { input::event::p2::ondown::right(); } catch(...) { throw wte_exception("Error processing player2 ondown input"); }
+                        try { input::event::p2::ondown::right(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_action1)
-                        try { input::event::p2::ondown::action1(); } catch(...) { throw wte_exception("Error processing player2 ondown input"); }
+                        try { input::event::p2::ondown::action1(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_action2)
-                        try { input::event::p2::ondown::action2(); } catch(...) { throw wte_exception("Error processing player2 ondown input"); }
+                        try { input::event::p2::ondown::action2(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_action3)
-                        try { input::event::p2::ondown::action3(); } catch(...) { throw wte_exception("Error processing player2 ondown input"); }
+                        try { input::event::p2::ondown::action3(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_action4)
-                        try { input::event::p2::ondown::action4(); } catch(...) { throw wte_exception("Error processing player2 ondown input"); }
+                        try { input::event::p2::ondown::action4(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_action5)
-                        try { input::event::p2::ondown::action5(); } catch(...) { throw wte_exception("Error processing player2 ondown input"); }
+                        try { input::event::p2::ondown::action5(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_action6)
-                        try { input::event::p2::ondown::action6(); } catch(...) { throw wte_exception("Error processing player2 ondown input"); }
-                } catch(wte_exception& e) { alert::set(e.what()); }
+                        try { input::event::p2::ondown::action6(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
+                } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
             }
             break;  //  End case ALLEGRO_EVENT_KEY_DOWN
         /*******************************************************************/
@@ -250,47 +250,47 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                 try {
                     /* *** PLAYER 1 *** */
                     if(event.keyboard.keycode == config::controls::p1_key_up)
-                        try { input::event::p1::onup::up(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                        try { input::event::p1::onup::up(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_down)
-                        try { input::event::p1::onup::down(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                        try { input::event::p1::onup::down(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_left)
-                        try { input::event::p1::onup::left(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                        try { input::event::p1::onup::left(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_right)
-                        try { input::event::p1::onup::right(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                        try { input::event::p1::onup::right(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_action1)
-                        try { input::event::p1::onup::action1(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                        try { input::event::p1::onup::action1(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_action2)
-                        try { input::event::p1::onup::action2(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                        try { input::event::p1::onup::action2(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_action3)
-                        try { input::event::p1::onup::action3(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                        try { input::event::p1::onup::action3(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_action4)
-                        try { input::event::p1::onup::action4(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                        try { input::event::p1::onup::action4(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_action5)
-                        try { input::event::p1::onup::action5(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                        try { input::event::p1::onup::action5(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_action6)
-                        try { input::event::p1::onup::action6(); } catch(...) { throw wte_exception("Error processing player1 onup input"); }
+                        try { input::event::p1::onup::action6(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
                     /* *** PLAYER 2 *** */
                     if(event.keyboard.keycode == config::controls::p2_key_up)
-                        try { input::event::p2::onup::up(); } catch(...) { throw wte_exception("Error processing player2 onup input"); }
+                        try { input::event::p2::onup::up(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_down)
-                        try { input::event::p2::onup::down(); } catch(...) { throw wte_exception("Error processing player2 onup input"); }
+                        try { input::event::p2::onup::down(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_left)
-                        try { input::event::p2::onup::left(); } catch(...) { throw wte_exception("Error processing player2 onup input"); }
+                        try { input::event::p2::onup::left(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_right)
-                        try { input::event::p2::onup::right(); } catch(...) { throw wte_exception("Error processing player2 onup input"); }
+                        try { input::event::p2::onup::right(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_action1)
-                        try { input::event::p2::onup::action1(); } catch(...) { throw wte_exception("Error processing player2 onup input"); }
+                        try { input::event::p2::onup::action1(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_action2)
-                        try { input::event::p2::onup::action2(); } catch(...) { throw wte_exception("Error processing player2 onup input"); }
+                        try { input::event::p2::onup::action2(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_action3)
-                        try { input::event::p2::onup::action3(); } catch(...) { throw wte_exception("Error processing player2 onup input"); }
+                        try { input::event::p2::onup::action3(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_action4)
-                        try { input::event::p2::onup::action4(); } catch(...) { throw wte_exception("Error processing player2 onup input"); }
+                        try { input::event::p2::onup::action4(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_action5)
-                        try { input::event::p2::onup::action5(); } catch(...) { throw wte_exception("Error processing player2 onup input"); }
+                        try { input::event::p2::onup::action5(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_action6)
-                        try { input::event::p2::onup::action6(); } catch(...) { throw wte_exception("Error processing player2 onup input"); }
-                } catch(wte_exception& e) { alert::set(e.what()); }
+                        try { input::event::p2::onup::action6(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
+                } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
             }
             break;  //  End case ALLEGRO_EVENT_KEY_UP
         /* *********************** */

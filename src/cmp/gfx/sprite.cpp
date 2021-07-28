@@ -47,7 +47,7 @@ sprite::sprite(
         sheet_width = std::static_pointer_cast<al_bitmap>(internal_bitmap)->get_width();
         sheet_height = std::static_pointer_cast<al_bitmap>(internal_bitmap)->get_height();
     } catch(...) {
-        throw wte_exception("Error creating sprite.  Cannot access asset.");
+        throw wte_exception("Error creating sprite.  Cannot access asset.", "sprite", engine_time::check_time());
     }
 }
 

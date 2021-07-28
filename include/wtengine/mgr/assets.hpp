@@ -21,6 +21,7 @@
 
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/alert.hpp"
+#include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
@@ -85,12 +86,12 @@ class assets final : private manager<assets> {
                     auto res = _assets.at(label);
                     if(res.second) return std::static_pointer_cast<T>(res.first);
                     const std::string err_msg = "Asset is protected: " + label;
-                    throw wte_exception(err_msg.c_str());
+                    throw wte_exception(err_msg.c_str(), "assets", engine_time::check_time());
                 } catch(std::out_of_range& e) {
                     const std::string err_msg = "Could not find asset: " + label;
-                    throw wte_exception(err_msg.c_str());
+                    throw wte_exception(err_msg.c_str(), "assets", engine_time::check_time());
                 }
-            } catch(wte_exception& e) { alert::set(e.what()); }
+            } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
         };
 
     private:
@@ -147,7 +148,7 @@ class assets final : private manager<assets> {
                 return std::static_pointer_cast<T>(_assets.at(label).first);
             } catch(std::out_of_range& e) {
                 const std::string err_msg = "Could not find asset: " + label;
-                throw wte_exception(err_msg.c_str());
+                throw wte_exception(err_msg.c_str(), "assets", engine_time::check_time());
             }
         };
 

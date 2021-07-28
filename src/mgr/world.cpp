@@ -116,7 +116,7 @@ const std::string world::get_name(const entity_id& e_id) {
     std::string err_str = "Entity " + std::to_string(e_id) + " does not exist";
     char err_c[err_str.size() + 1];
     strcpy(err_c, err_str.c_str());
-    throw wte_exception(err_c);
+    throw wte_exception(err_c, "world", engine_time::check_time());
 }
 
 /*
@@ -158,7 +158,7 @@ const entity_container world::set_entity(const entity_id& e_id) {
         std::string err_str = "Entity " + std::to_string(e_id) + " does not exist";
         char err_c[err_str.size() + 1];
         strcpy(err_c, err_str.c_str());
-        throw wte_exception(err_c);
+        throw wte_exception(err_c, "world", engine_time::check_time());
     }
 
     entity_container temp_container;
@@ -178,7 +178,7 @@ const const_entity_container world::get_entity(const entity_id& e_id) {
         std::string err_str = "Entity " + std::to_string(e_id) + " does not exist";
         char err_c[err_str.size() + 1];
         strcpy(err_c, err_str.c_str());
-        throw wte_exception(err_c);
+        throw wte_exception(err_c, "world", engine_time::check_time());
     }
 
     const_entity_container temp_container;

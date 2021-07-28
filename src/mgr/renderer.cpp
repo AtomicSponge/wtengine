@@ -217,7 +217,7 @@ void renderer::render(void) {
                     else
                         al_draw_bitmap(it.second->get_bitmap(), 0, 0, 0);
                 }
-            } catch(const wte_exception& e) { alert::set(e.what()); }
+            } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
         }
 
         /*
@@ -292,7 +292,7 @@ void renderer::render(void) {
                         );
                     al_destroy_bitmap(temp_bitmap);
                 }
-            } catch(const wte_exception& e) { alert::set(e.what()); }
+            } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
         }
 
         #if WTE_DEBUG_MODE
@@ -324,7 +324,7 @@ void renderer::render(void) {
                                 mgr::world::get_component<cmp::location>(it.first)->get_y(), 0);
                     al_destroy_bitmap(temp_bitmap);
                 }  //  End hitbox/enabled test.
-            } catch(const wte_exception& e) { alert::set(e.what()); }
+            } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
         }  //  End render component loop.*/
         #endif  //  End draw hitbox check.
 
@@ -354,7 +354,7 @@ void renderer::render(void) {
                             it.second->get_pos_x(), it.second->get_pos_y(), 0
                         );
                 }
-            } catch(const wte_exception& e) { alert::set(e.what()); }
+            } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
         }
 
         /*

@@ -12,6 +12,12 @@
 
 #include <exception>
 
+#if WTE_DEBUG_MODE
+#include <fstream>
+#endif
+
+#include "wtengine/_globals/_defines.hpp"
+
 namespace wte
 {
 
@@ -27,25 +33,53 @@ class wte_exception final : public std::exception {
          * \brief Create a wte_exception.
          * \param desc Exception description.
          */
-        inline wte_exception(const char* desc) : description(desc), time(0) {};
-        inline wte_exception(const char* desc, const int64_t& t) : description(desc), time(t) {};
+        inline wte_exception(
+            const char* desc
+        ) : description(desc), time(-1) {
+            #if WTE_DEBUG_MODE
+            log_exception(desc, -1);
+            #endif
+        };
+
+        inline wte_exception(
+            const char* desc,
+            const int64_t& t
+        ) : description(desc), time(t) {
+            #if WTE_DEBUG_MODE
+            log_exception(desc, t);
+            #endif
+        };
+
         inline ~wte_exception() {};
 
         /*!
          * \brief Returns the description of the thrown exception.
          * \return Description of thrown exception.
          */
-        const char* what() const noexcept override {
+        inline const char* what() const noexcept override {
             return description;
         };
 
-        const int64_t when() const noexcept {
+        inline const int64_t when() const noexcept {
             return time;
-        }
+        };
 
     private:
         const char* description;  //  Exception description.
         const int64_t time;
+
+        #if WTE_DEBUG_MODE
+        inline void log_exception(
+            const char* desc,
+            const int64_t& t
+        ) {
+            exception_log_file.open("wte_debug//exception_log.txt", std::ios::app);
+            exception_log_file << t << "\t" << desc << std::endl;
+            exception_log_file.close();
+        };
+
+        inline static std::ofstream exception_log_file;
+        #endif
 };
 
 } //  end namespace wte

@@ -12,11 +12,11 @@
 
 #include <exception>
 
+#include "wtengine/_globals/_defines.hpp"
+
 #if WTE_DEBUG_MODE
 #include <fstream>
 #endif
-
-#include "wtengine/_globals/_defines.hpp"
 
 namespace wte
 {

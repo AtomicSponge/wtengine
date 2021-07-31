@@ -105,7 +105,6 @@ class menus final : private manager<menus> {
 
         /*!
          * \brief Add a menu to the menu vector.
-         * 
          * \param new_menu A menu object.
          * \return Returns false if a menu with a similar ID already exists.  Returns true on success.
          */
@@ -193,38 +192,41 @@ class menus final : private manager<menus> {
          */
         static void close_menu(void);
 
+        /* ********************************* */
+        /* *** MENU NAVIGATION FUNCTIONS *** */
+        /* ********************************* */
         /*!
-         * \brief
+         * \brief Menu position up.
          */
         static void menu_pos_up(void);
 
         /*!
-         * \brief
+         * \brief Menu position down.
          */
         static void menu_pos_down(void);
 
         /*!
-         * \brief
+         * \brief Start scrolling menu options left.
          */
         static void menu_pos_start_left(void);
 
         /*!
-         * \brief
+         * \brief Stop scrolling menu options left.
          */
         static void menu_pos_stop_left(void);
 
         /*!
-         * \brief
+         * \brief Start scrolling menu options right.
          */
         static void menu_pos_start_right(void);
 
         /*!
-         * \brief
+         * \brief Stop scrolling menu options right.
          */
         static void menu_pos_stop_right(void);
 
         /*!
-         * \brief
+         * \brief Select menu item.
          */
         static void menu_item_select(void);
 

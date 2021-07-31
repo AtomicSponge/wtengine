@@ -38,8 +38,8 @@ namespace mgr
  */
 class interface final : private manager<interface>  {
     public:
-        interface();
-        ~interface();
+        inline interface() {};
+        inline ~interface() {};
 
         /* ********************************* */
         /* *** AUDIO INTERFACE FUNCTIONS *** */
@@ -47,22 +47,22 @@ class interface final : private manager<interface>  {
         /*!
          * \brief Initialize audio manager.
          */
-        void audio_init(void);
+        inline void audio_init(void) { mgr::audio::initialize(); };
 
         /*!
          * \brief De-initialize audio manager.
          */
-        void audio_de_init(void);
+        inline void audio_de_init(void) { mgr::audio::de_init(); };
 
         /*!
          * \brief Set audio manager volume.
          */
-        void audio_set_volume(void);
+        inline void audio_set_volume(void) { mgr::audio::set_volume(); };
 
         /*!
          * \brief Process audio manager messages.
          */
-        void audio_process_messages(const message_container& messages);
+        inline void audio_process_messages(const message_container& messages) { mgr::audio::process_messages(messages); };
 
         /* ********************************** */
         /* *** ASSETS INTERFACE FUNCTIONS *** */
@@ -70,12 +70,12 @@ class interface final : private manager<interface>  {
         /*!
          * \brief Backup all temp bitmaps.
          */
-        void bitmap_backup(void);
+        inline void bitmap_backup(void) { mgr::assets::backup_bitmaps(); };
 
         /*!
          * \brief Reload all temp bitmaps.
          */
-        void bitmap_reload(void);
+        inline void bitmap_reload(void) { mgr::assets::reload_bitmaps(); };
 
         /* ******************************** */
         /* *** MENU INTERFACE FUNCTIONS *** */
@@ -83,17 +83,21 @@ class interface final : private manager<interface>  {
         /*!
          * \brief Initialize menu manager.
          */
-        void menus_init(void);
+        inline void menus_init(void) { mgr::menus::initialize(); };
 
         /*!
          * \brief De-initialize menu manager.
          */
-        void menus_de_init(void);
+        inline void menus_de_init(void) { mgr::menus::de_init(); };
 
         /*!
          * \brief Run menus.
          */
-        void menus_run(void);
+        inline void menus_run(void) { mgr::menus::run(); };
+
+        inline void menus_reset(void) { mgr::menus::reset(); }
+        inline void menus_open(const std::string& menu_id) { mgr::menus::open_menu(menu_id); }
+        inline void menus_close(void) { mgr::menus::close_menu(); }
 
         /* ************************************ */
         /* *** MESSAGES INTERFACE FUNCTIONS *** */
@@ -101,17 +105,17 @@ class interface final : private manager<interface>  {
         /*!
          * \brief Load a file into the message manager.
          */
-        void messages_load_file(const std::string& fname);
+        inline void messages_load_file(const std::string& fname) { mgr::messages::load_file(fname); };
 
         /*!
          * \brief Get messages based on their system/manager.
          */
-        const message_container messages_get(const std::string& arg);
+        inline const message_container messages_get(const std::string& arg) { return mgr::messages::get_messages(arg); };
 
         /*!
          * \brief Prune unprocessed timed messages.
          */
-        void messages_prune(void);
+        inline void messages_prune(void) { mgr::messages::prune(); };
 
         /* ************************************ */
         /* *** RENDERER INTERFACE FUNCTIONS *** */
@@ -119,17 +123,17 @@ class interface final : private manager<interface>  {
         /*!
          * \brief Initialize renderer.
          */
-        void renderer_init(void);
+        inline void renderer_init(void) { mgr::renderer::initialize(); };
 
         /*!
          * \brief De-initialize renderer.
          */
-        void renderer_de_init(void);
+        inline void renderer_de_init(void) { mgr::renderer::de_init(); };
 
         /*!
          * \brief Run renderer.
          */
-        void renderer_run(void);
+        inline void renderer_run(void) { mgr::renderer::render(); };
 
         /* *********************************** */
         /* *** SPAWNER INTERFACE FUNCTIONS *** */
@@ -137,7 +141,7 @@ class interface final : private manager<interface>  {
         /*!
          * \brief Process messages for the spawner.
          */
-        void spawner_process_messages(const message_container& messages);
+        inline void spawner_process_messages(const message_container& messages) { mgr::spawner::process_messages(messages); };
 
         /* *********************************** */
         /* *** SYSTEMS INTERFACE FUNCTIONS *** */
@@ -145,28 +149,30 @@ class interface final : private manager<interface>  {
         /*!
          * \brief Clear systems.
          */
-        void systems_clear(void);
+        inline void systems_clear(void) { mgr::systems::clear(); };
 
         /*!
          * \brief Finalize system manager.
          */
-        void systems_finalize(void);
+        inline void systems_finalize(void) { mgr::systems::finalize(); };
 
         /*!
          * \brief Empty the system manager for loading.
          */
-        const bool systems_empty(void);
+        inline const bool systems_empty(void) { return mgr::systems::empty(); };
 
         /*!
          * \brief Run the system manager.
          */
-        void systems_run(void);
+        inline void systems_run(void) { mgr::systems::run(); };
 
         /*!
          * \brief Dispatch messages for systems.
          */
-        void systems_dispatch(void);
+        inline void systems_dispatch(void) { mgr::systems::dispatch(); };
 };
+
+template <> inline bool interface::manager<interface>::initialized = false;
 
 } //  end namespace mgr
 

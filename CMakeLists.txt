@@ -80,7 +80,6 @@ add_library(wtengine STATIC
     src/cmp/visible.cpp
     src/mgr/assets.cpp
     src/mgr/audio.cpp
-    src/mgr/interface.cpp
     src/mgr/menus.cpp
     src/mgr/messages.cpp
     src/mgr/renderer.cpp

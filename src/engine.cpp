@@ -74,22 +74,22 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
     });
     cmds.add("new_game", 1, [this](const msg_args& args) {
         if(!config::flags::game_started) {
-            mgr::menus::reset();
+            mgr_inf.menus_reset();
             process_new_game(args[0]);
         }
     });
     cmds.add("end_game", 0, [this](const msg_args& args) {
         if(config::flags::game_started) {
             process_end_game();
-            mgr::menus::reset();
+            mgr_inf.menus_reset();
         }
     });
     cmds.add("open_menu", 1, [this](const msg_args& args) {
-        mgr::menus::open_menu(args[0]);
+        mgr_inf.menus_open(args[0]);
     });
     cmds.add("close_menu", 1, [this](const msg_args& args) {
-        if(args[0] == "all") mgr::menus::reset();
-        else mgr::menus::close_menu();
+        if(args[0] == "all") mgr_inf.menus_reset();
+        else mgr_inf.menus_close();
     });
     cmds.add("reconf_display", 0, [this](const msg_args& args) {
         const bool timer_running = al_get_timer_started(main_timer);

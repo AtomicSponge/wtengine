@@ -169,30 +169,6 @@ class menus final : private manager<menus> {
             return nullptr;
         };
 
-        /*!
-         * \brief Reset menu manager.
-         * 
-         * Clear the stack of opened menus.
-         */
-        static void reset(void);
-
-        /*!
-         * \brief Add a menu to the opened stack.
-         * 
-         * Takes a menu from the vector container and adds it to the top of the opened stack.
-         * Also resets the menu position.
-         * 
-         * \param menu_id Menu to open.
-         */
-        static void open_menu(const std::string& menu_id);
-
-        /*!
-         * \brief Close the current opened menu.
-         * 
-         * Remove the menu from the top of the stack.
-         */
-        static void close_menu(void);
-
     private:
         menus();
         ~menus();
@@ -218,6 +194,22 @@ class menus final : private manager<menus> {
          * This is called from within the renderer.
          */
         static ALLEGRO_BITMAP* render_menu(void);
+
+        /*!
+         * \brief Clear the stack of opened menus.
+         */
+        static void reset(void);
+
+        /*!
+         * \brief Add a menu to the opened stack.
+         * \param menu_id Menu to open.
+         */
+        static void open_menu(const std::string& menu_id);
+
+        /*!
+         * \brief Close the current opened menu.
+         */
+        static void close_menu(void);
 
         /* *************************************** */
         /* *** START MENU NAVIGATION FUNCTIONS *** */

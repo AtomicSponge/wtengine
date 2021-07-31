@@ -18,12 +18,9 @@ namespace wte
 namespace mgr
 {
 
-/*!
- * \class input_inf
- * \brief Allows the input subsystem to access private members of the menu manager.
- *
- * These functions are not needed for implementation
- * and are only here as a reference.
+/*
+ * Allows the input class to access private members of the menu manager.
+ * These functions are not needed for implementation.
  */
 class input_inf final : private manager<input_inf>  {
     public:

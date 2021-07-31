@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  menu_item_toggle.hpp
+ * WTEngine | File:  toggle.hpp
  * 
  * \author Matthew Evans
  * \version 0.5
@@ -23,10 +23,10 @@ namespace mnu
 {
 
 /*!
- * \class menu_item_toggle
+ * \class toggle
  * \brief On/off menu item.
  */
-class menu_item_toggle final : public menu_item {
+class toggle final : public menu_item {
     public:
         /*!
          * \brief Create a menu toggle item.  Uses default setting type.
@@ -38,12 +38,14 @@ class menu_item_toggle final : public menu_item {
          * \param aoff Arguments to use when toggled off.
          * \param func Fuction to determine defaut setting.
          */
-        menu_item_toggle(const std::string label,
-                                const std::string con,
-                                const std::string aon,
-                                const std::string coff,
-                                const std::string aoff,
-                                bool func(void));
+        toggle(
+            const std::string label,
+            const std::string con,
+            const std::string aon,
+            const std::string coff,
+            const std::string aoff,
+            bool func(void)
+        );
 
         /*!
          * \brief Create a menu toggle item.
@@ -56,18 +58,20 @@ class menu_item_toggle final : public menu_item {
          * \param st Setting type.
          * \param func Fuction to determine defaut setting.
          */
-        menu_item_toggle(const std::string label,
-                                const std::string con,
-                                const std::string aon,
-                                const std::string coff,
-                                const std::string aoff,
-                                const std::size_t st,
-                                bool func(void));
+        toggle(
+            const std::string label,
+            const std::string con,
+            const std::string aon,
+            const std::string coff,
+            const std::string aoff,
+            const std::size_t st,
+            bool func(void)
+        );
 
         /*!
          * \brief Menu toggle item destructor.
          */
-        ~menu_item_toggle();
+        ~toggle();
 
         /*!
          * \brief On left process.

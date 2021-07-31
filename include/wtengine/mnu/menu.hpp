@@ -13,6 +13,8 @@
 #include <string>
 #include <vector>
 
+#include "wtengine/_globals/wrappers.hpp"
+#include "wtengine/mgr/assets.hpp"
 #include "wtengine/mnu/menu_item.hpp"
 
 namespace wte
@@ -34,95 +36,75 @@ class menu {
     public:
         /*!
          * \brief Menu constructor.
-         * 
          * \param i Menu ID.
          * \param t Menu display title.
          */
-        menu(const std::string i, const std::string t) :
-        id(i), title(t) {
-            items.clear();
-        };
+        menu(
+            const std::string i,
+            const std::string t
+        );
 
-        /*!
-         * \brief Menu destructor.
-         */
-        ~menu() {
-            items.clear();
-        };
+        ~menu();
 
         /*!
          * \brief Get menu ID.
-         * 
          * \return The menu ID.
          */
-        const std::string get_id(void) const {
-            return id;
-        };
+        const std::string get_id(void) const;
 
         /*!
          * \brief Get menu display title.
-         * 
          * \return The menu display title.
          */
-        const std::string get_title(void) const {
-            return title;
-        };
+        const std::string get_title(void) const;
 
         /*!
          * \brief Get number of menu items.
-         * 
          * \return Count of items.
          */
-        std::size_t num_items(void) const {
-            return items.size();
-        };
+        const std::size_t num_items(void) const;
 
         /*!
          * \brief Get menu items start iterator.
-         * 
          * \return Constant iterator to beginnig of menu items.
          */
-        menu_item_citerator items_cbegin(void) const {
-            return items.cbegin();
-        };
+        menu_item_citerator items_cbegin(void) const;
 
         /*!
          * \brief Get menu items end iterator.
-         * 
          * \return Constant iterator to end of menu items.
          */
-        menu_item_citerator items_cend(void) const {
-            return items.cend();
-        };
+        menu_item_citerator items_cend(void) const;
 
         /*!
          * \brief Set the menu display title.
-         * 
          * \param t New display title to set.
          */
-        void set_title(const std::string& t) {
-            title = t;
-        };
+        void set_title(const std::string& t);
 
         /*!
          * \brief Add a menu item to an existing menu.
-         * 
-         * \param item Shared pointer for the new item.
+         * \tparam T Menu item to add.
+         * \tparam Args Menu item arguments.
+         * \param args Arguments to pass to menu item constructor.
          */
-        void add_item(const menu_item_sptr& item) {
-            items.push_back(item);
+        template <typename T, typename... Args>
+        inline void add_item(Args... args) {
+            items.push_back(std::make_shared<T>(args...));
         };
 
     private:
-        menu_items items;
-
         std::string id;
         std::string title;
+        int pos_x, pos_y;
+        menu_items items;
+        std::shared_ptr<wte_asset> background;
+        std::shared_ptr<wte_asset> font;
 };
 
-//! Shared pointer for addressing menu items.
+//! Shared pointer for addressing a menu.
 typedef std::shared_ptr<mnu::menu> menu_sptr;
-//! Constant shared pointer for addressing menu items.
+//! Constant shared pointer for addressing a menu.
 typedef std::shared_ptr<const mnu::menu> menu_csptr;
 
 }  // end namespace mnu

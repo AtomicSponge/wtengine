@@ -10,9 +10,9 @@
 #ifndef WTE_MENU_ITEMS_HPP
 #define WTE_MENU_ITEMS_HPP
 
-#include "wtengine/mnu/menu_item_action.hpp"
-#include "wtengine/mnu/menu_item_selection.hpp"
-#include "wtengine/mnu/menu_item_apply.hpp"
-#include "wtengine/mnu/menu_item_toggle.hpp"
+#include "wtengine/mnu/action.hpp"
+#include "wtengine/mnu/selection.hpp"
+#include "wtengine/mnu/apply.hpp"
+#include "wtengine/mnu/toggle.hpp"
 
 #endif

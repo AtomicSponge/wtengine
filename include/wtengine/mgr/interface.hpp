@@ -31,7 +31,10 @@ namespace mgr
  *
  * The engine class initializes this as a private member.
  * This way the engine object can be extended, but only the
- * engine internals will be able to access these commands.
+ * engine internals will be able to access these commands. \n
+ * \n
+ * These functions are not needed for implementation
+ * and are only here as a reference.
  */
 class interface final : private manager<interface>  {
     public:
@@ -58,7 +61,6 @@ class interface final : private manager<interface>  {
 
         /*!
          * \brief Process audio manager messages.
-         * \param messages Container of messages to process.
          */
         void audio_process_messages(const message_container& messages);
 
@@ -98,13 +100,11 @@ class interface final : private manager<interface>  {
         /* ************************************ */
         /*!
          * \brief Load a file into the message manager.
-         * \param fname Filename to load.
          */
         void messages_load_file(const std::string& fname);
 
         /*!
          * \brief Get messages based on their system/manager.
-         * \param arg Name of system or manager.
          */
         const message_container messages_get(const std::string& arg);
 
@@ -136,7 +136,6 @@ class interface final : private manager<interface>  {
         /* *********************************** */
         /*!
          * \brief Process messages for the spawner.
-         * \param messages Container of messages to process.
          */
         void spawner_process_messages(const message_container& messages);
 

@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  menu_item_selection.hpp
+ * WTEngine | File:  selection.hpp
  * 
  * \author Matthew Evans
  * \version 0.5
@@ -24,10 +24,10 @@ namespace mnu
 {
 
 /*!
- * \class menu_item_selection
+ * \class selection
  * \brief Menu item with multiple options.
  */
-class menu_item_selection final : public menu_item {
+class selection final : public menu_item {
     public:
         /*!
          * \brief Menu item selection constructor.
@@ -38,16 +38,18 @@ class menu_item_selection final : public menu_item {
          * \param vl Vector of allowed settings.
          * \param st Type of setting.
          */
-        menu_item_selection(const std::string label,
-                                   const std::string vr,
-                                   const std::vector<std::string> dvl,
-                                   const std::vector<std::string> vl,
-                                   const std::size_t st);
+        selection(
+            const std::string label,
+            const std::string vr,
+            const std::vector<std::string> dvl,
+            const std::vector<std::string> vl,
+            const std::size_t st
+        );
 
         /*!
          * \brief Menu item selection destructor.
          */
-        ~menu_item_selection();
+        ~selection();
 
         /*!
          * \brief Define left click process.

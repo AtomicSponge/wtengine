@@ -81,16 +81,18 @@ add_library(wtengine STATIC
     src/mgr/assets.cpp
     src/mgr/audio.cpp
     src/mgr/interface.cpp
+    src/mgr/menus.cpp
     src/mgr/messages.cpp
     src/mgr/renderer.cpp
     src/mgr/spawner.cpp
     src/mgr/systems.cpp
     src/mgr/variables.cpp
     src/mgr/world.cpp
-    src/mnu/menu_item_action.cpp
-    src/mnu/menu_item_apply.cpp
-    src/mnu/menu_item_selection.cpp
-    src/mnu/menu_item_toggle.cpp
+    src/mnu/action.cpp
+    src/mnu/apply.cpp
+    src/mnu/menu.cpp
+    src/mnu/selection.cpp
+    src/mnu/toggle.cpp
     src/sys/animate.cpp
     src/sys/collision.cpp
     src/sys/logic.cpp

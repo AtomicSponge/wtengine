@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  menu_item_apply.hpp
+ * WTEngine | File:  apply.hpp
  * 
  * \author Matthew Evans
  * \version 0.5
@@ -22,20 +22,20 @@ namespace mnu
 {
 
 /*!
- * \class menu_item_apply
+ * \class apply
  * \brief An apply option for the menus.
  */
-class menu_item_apply final : public menu_item {
+class apply final : public menu_item {
     public:
         /*!
          * \brief Menu Item Apply constructor.
          */
-        menu_item_apply();
+        apply();
 
         /*!
          * \brief Menu Item Apply destructor.
          */
-        ~menu_item_apply();
+        ~apply();
 
         /*!
          * \brief On left trigger.

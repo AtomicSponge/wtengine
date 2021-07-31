@@ -38,8 +38,8 @@ namespace mgr
  */
 class assets final : private manager<assets> {
     friend class interface;
-    friend class renderer;
     friend class menus;
+    friend class renderer;
 
     public:
         /*!

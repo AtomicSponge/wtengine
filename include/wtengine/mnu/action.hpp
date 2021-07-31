@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  menu_item_action.hpp
+ * WTEngine | File:  action.hpp
  * 
  * \author Matthew Evans
  * \version 0.5
@@ -22,10 +22,10 @@ namespace mnu
 {
 
 /*!
- * \class menu_item_action
+ * \class action
  * \brief Menu item that runs a message
  */
-class menu_item_action final : public menu_item {
+class action final : public menu_item {
     public:
         /*!
          * \brief Menu item action constructor.
@@ -36,7 +36,7 @@ class menu_item_action final : public menu_item {
          * \param c Command to run for item.
          * \param a Arguments for command.
          */
-        menu_item_action(const std::string l, const std::string c, const std::string a);
+        action(const std::string l, const std::string c, const std::string a);
 
         /*!
          * \brief Menu item action constructor.
@@ -46,12 +46,12 @@ class menu_item_action final : public menu_item {
          * \param l Label for item.
          * \param c Command to run for item.
          */
-        menu_item_action(const std::string l, const std::string c);
+        action(const std::string l, const std::string c);
 
         /*!
          * \brief Menu item action destructor.
          */
-        ~menu_item_action();
+        ~action();
 
         /*!
          * \brief Menu item action on selection.

@@ -23,7 +23,7 @@
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
-#include "wtengine/mgr/menus.hpp"
+#include "wtengine/mgr/input_inf.hpp"
 
 namespace wte
 {
@@ -169,6 +169,8 @@ class input {
         void handle_input_event(const ALLEGRO_EVENT&);
 
         ALLEGRO_EVENT_QUEUE* input_event_queue;
+
+        mgr::input_inf menu_inf;
 };
 
 } //  end namespace wte

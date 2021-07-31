@@ -46,6 +46,7 @@ namespace mgr
  * \brief Handles processing menus and rendering them.
  */
 class menus final : private manager<menus> {
+    friend class input_inf;
     friend class interface;
     friend class renderer;
 
@@ -192,44 +193,6 @@ class menus final : private manager<menus> {
          */
         static void close_menu(void);
 
-        /* ********************************* */
-        /* *** MENU NAVIGATION FUNCTIONS *** */
-        /* ********************************* */
-        /*!
-         * \brief Menu position up.
-         */
-        static void menu_pos_up(void);
-
-        /*!
-         * \brief Menu position down.
-         */
-        static void menu_pos_down(void);
-
-        /*!
-         * \brief Start scrolling menu options left.
-         */
-        static void menu_pos_start_left(void);
-
-        /*!
-         * \brief Stop scrolling menu options left.
-         */
-        static void menu_pos_stop_left(void);
-
-        /*!
-         * \brief Start scrolling menu options right.
-         */
-        static void menu_pos_start_right(void);
-
-        /*!
-         * \brief Stop scrolling menu options right.
-         */
-        static void menu_pos_stop_right(void);
-
-        /*!
-         * \brief Select menu item.
-         */
-        static void menu_item_select(void);
-
     private:
         menus();
         ~menus();
@@ -255,6 +218,20 @@ class menus final : private manager<menus> {
          * This is called from within the renderer.
          */
         static ALLEGRO_BITMAP* render_menu(void);
+
+        /* *************************************** */
+        /* *** START MENU NAVIGATION FUNCTIONS *** */
+        /* *************************************** */
+        static void menu_pos_up(void);
+        static void menu_pos_down(void);
+        static void menu_pos_start_left(void);
+        static void menu_pos_stop_left(void);
+        static void menu_pos_start_right(void);
+        static void menu_pos_stop_right(void);
+        static void menu_item_select(void);
+        /* *************************************** */
+        /* ***  END MENU NAVIGATION FUNCTIONS  *** */
+        /* *************************************** */
 
         static mnu::menu_item_citerator menu_position;
 

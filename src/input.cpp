@@ -76,37 +76,37 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
             /////////////////////////////////////////////////////////////
             case ALLEGRO_EVENT_KEY_DOWN:
                 if(event.keyboard.keycode == config::controls::key_menu) {
-                    mgr::menus::close_menu();
+                    menu_inf.menu_close();
                 }
                 if(event.keyboard.keycode == config::controls::key_menu_select) {
-                    mgr::menus::menu_item_select();
+                    menu_inf.menu_select();
                 }
                 if(event.keyboard.keycode == config::controls::p1_key_up ||
                    event.keyboard.keycode == config::controls::p2_key_up) {
-                    mgr::menus::menu_pos_up();
+                    menu_inf.menu_up();
                 }
                 if(event.keyboard.keycode == config::controls::p1_key_down ||
                    event.keyboard.keycode == config::controls::p2_key_down) {
-                    mgr::menus::menu_pos_down();
+                    menu_inf.menu_down();
                 }
                 if(event.keyboard.keycode == config::controls::p1_key_left ||
                    event.keyboard.keycode == config::controls::p2_key_left) {
-                    mgr::menus::menu_pos_start_left();
+                    menu_inf.menu_start_left();
                 }
                 if(event.keyboard.keycode == config::controls::p1_key_right ||
                    event.keyboard.keycode == config::controls::p2_key_right) {
-                    mgr::menus::menu_pos_start_right();
+                    menu_inf.menu_start_right();
                 }
                 break;
             /////////////////////////////////////////////////////////////
             case ALLEGRO_EVENT_KEY_UP:
                 if(event.keyboard.keycode == config::controls::p1_key_left ||
                    event.keyboard.keycode == config::controls::p2_key_left) {
-                    mgr::menus::menu_pos_stop_left();
+                    menu_inf.menu_stop_left();
                 }
                 if(event.keyboard.keycode == config::controls::p1_key_right ||
                    event.keyboard.keycode == config::controls::p2_key_right) {
-                    mgr::menus::menu_pos_stop_right();
+                    menu_inf.menu_stop_right();
                 }
                 break;
 
@@ -116,37 +116,37 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
             /////////////////////////////////////////////////////////////
             case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
                 if(event.joystick.button == config::controls::key_menu) {
-                    mgr::menus::close_menu();
+                    menu_inf.menu_close();
                 }
                 if(event.joystick.button == config::controls::key_menu_select) {
-                    mgr::menus::menu_item_select();
+                    menu_inf.menu_select();
                 }
                 if(event.joystick.button == config::controls::p1_button_up ||
                    event.joystick.button == config::controls::p2_button_up) {
-                    mgr::menus::menu_pos_up();
+                    menu_inf.menu_up();
                 }
                 if(event.joystick.button == config::controls::p1_button_down ||
                    event.joystick.button == config::controls::p2_button_down) {
-                    mgr::menus::menu_pos_down();
+                    menu_inf.menu_down();
                 }
                 if(event.joystick.button == config::controls::p1_button_left ||
                    event.joystick.button == config::controls::p2_button_left) {
-                    mgr::menus::menu_pos_start_left();
+                    menu_inf.menu_start_left();
                 }
                 if(event.joystick.button == config::controls::p1_button_right ||
                    event.joystick.button == config::controls::p2_button_right) {
-                    mgr::menus::menu_pos_start_right();
+                    menu_inf.menu_start_right();
                 }
                 break;
             /////////////////////////////////////////////////////////////
             case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
                 if(event.joystick.button == config::controls::p1_button_left ||
                    event.joystick.button == config::controls::p2_button_left) {
-                    mgr::menus::menu_pos_stop_left();
+                    menu_inf.menu_stop_left();
                 }
                 if(event.joystick.button == config::controls::p1_button_right ||
                    event.joystick.button == config::controls::p2_button_right) {
-                    mgr::menus::menu_pos_stop_right();
+                    menu_inf.menu_stop_right();
                 }
                 break;
             /////////////////////////////////////////////////////////////

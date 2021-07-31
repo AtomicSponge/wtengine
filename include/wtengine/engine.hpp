@@ -33,6 +33,7 @@
 #include "wtengine/_globals/commands.hpp"
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/mgr/_managers.hpp"
+#include "wtengine/mgr/interface.hpp"
 
 namespace wte
 {

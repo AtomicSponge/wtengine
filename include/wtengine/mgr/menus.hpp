@@ -301,39 +301,6 @@ class menus final : private manager<menus> {
         static bool do_render;
 };
 
-inline void menus::run(void) {
-    if(opened_menus.empty()) {
-        //  No menus currently opened, add one to the stack.
-        if(config::flags::game_started) open_menu("game_menu");  //  Add the in-game menu to the stack.
-        else open_menu("main_menu");  //  Add the main menu to the stack.
-    }
-    if(!al_get_timer_started(menu_timer)) al_resume_timer(menu_timer);  //  Make sure timer is running.
-
-    ALLEGRO_EVENT event;
-    const bool queue_not_empty = al_get_next_event(menu_event_queue, &event);
-    if(queue_not_empty && event.type == ALLEGRO_EVENT_TIMER) {
-        do_render = true;
-
-        if(select_menu_option) {
-            bool toggle_menu_item = false;
-
-            if(al_get_timer_count(menu_timer) == last_tick + 1) {
-                toggle_menu_item = true;
-            }
-            if(al_get_timer_count(menu_timer) >= last_tick + 20) {
-                if(al_get_timer_count(menu_timer) >= last_tick + 70) toggle_menu_item = true;
-                else if(al_get_timer_count(menu_timer) % 5 == 0) toggle_menu_item = true;
-            }
-
-            if(toggle_menu_item) {
-                if(is_button_left) (*menu_position)->on_left();
-                else (*menu_position)->on_right();
-            }
-        }
-        //  End menu item processing.
-    }
-}
-
 }  // end namespace mgr
 
 }  // end namespace wte

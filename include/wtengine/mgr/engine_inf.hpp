@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  interface.hpp
+ * WTEngine | File:  engine_inf.hpp
  * 
  * \author Matthew Evans
  * \version 0.5

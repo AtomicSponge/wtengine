@@ -37,7 +37,7 @@ namespace mgr
  * \brief Stores an index of assets.
  */
 class assets final : private manager<assets> {
-    friend class interface;
+    friend class engine_inf;
     friend class menus;
     friend class renderer;
 

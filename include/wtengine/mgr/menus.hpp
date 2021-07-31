@@ -46,8 +46,8 @@ namespace mgr
  * \brief Handles processing menus and rendering them.
  */
 class menus final : private manager<menus> {
+    friend class engine_inf;
     friend class input_inf;
-    friend class interface;
     friend class renderer;
 
     public:

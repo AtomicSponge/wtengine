@@ -32,7 +32,7 @@ namespace mgr
  * \brief Create or delete entities while the engine is running.
  */
 class spawner final : private manager<spawner> {
-    friend class interface;
+    friend class engine_inf;
 
     public:
         /*!

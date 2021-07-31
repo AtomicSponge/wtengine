@@ -26,7 +26,7 @@ namespace mgr
 {
 
 /*!
- * \class interface
+ * \class engine_inf
  * \brief Allows the internal engine to access private members of managers.
  *
  * The engine class initializes this as a private member.
@@ -36,10 +36,10 @@ namespace mgr
  * These functions are not needed for implementation
  * and are only here as a reference.
  */
-class interface final : private manager<interface>  {
+class engine_inf final : private manager<engine_inf>  {
     public:
-        inline interface() {};
-        inline ~interface() {};
+        inline engine_inf() {};
+        inline ~engine_inf() {};
 
         /* ********************************* */
         /* *** AUDIO INTERFACE FUNCTIONS *** */
@@ -172,7 +172,7 @@ class interface final : private manager<interface>  {
         inline void systems_dispatch(void) { mgr::systems::dispatch(); };
 };
 
-template <> inline bool interface::manager<interface>::initialized = false;
+template <> inline bool engine_inf::manager<engine_inf>::initialized = false;
 
 } //  end namespace mgr
 

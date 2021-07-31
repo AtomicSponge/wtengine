@@ -33,7 +33,7 @@
 #include "wtengine/_globals/commands.hpp"
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/mgr/_managers.hpp"
-#include "wtengine/mgr/interface.hpp"
+#include "wtengine/mgr/engine_inf.hpp"
 
 namespace wte
 {
@@ -136,7 +136,7 @@ class engine : private display, public input, public config {
         void process_end_game(void);
 
         //  Interface for manager private member access.
-        static mgr::interface mgr_inf;
+        static mgr::engine_inf mgr_inf;
         //  Internal commands for the engine.
         static commands cmds;
 

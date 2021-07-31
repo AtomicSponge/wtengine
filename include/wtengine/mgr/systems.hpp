@@ -34,7 +34,7 @@ namespace mgr
  * \brief Store the configured systems and process their runs and dispatches.
  */
 class systems final : private manager<systems> {
-    friend class interface;
+    friend class engine_inf;
 
     public:
         /*!

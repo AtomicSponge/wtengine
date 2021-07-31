@@ -290,13 +290,14 @@ class menus final : private manager<menus> {
         static float menu_width, menu_height, menu_padding;
         static int font_size;
 
+        static bool select_menu_option;
         static bool is_button_left;
-        static bool toggle_menu_select;
 
         static std::string menu_font_file;
         static int menu_font_size;
         static int menu_font_flags;
 
+        static int64_t last_tick;
         static bool do_render;
 };
 
@@ -312,17 +313,22 @@ inline void menus::run(void) {
     const bool queue_not_empty = al_get_next_event(menu_event_queue, &event);
     if(queue_not_empty && event.type == ALLEGRO_EVENT_TIMER) {
         do_render = true;
-        bool toggle_menu_item = false;
 
-        /*if(al_get_timer_count(menu_timer) == 1) toggle_menu_item = true;
-        if(al_get_timer_count(menu_timer) >= 20) {
-            if(al_get_timer_count(menu_timer) >= 70) toggle_menu_item = true;
-            else if(al_get_timer_count(menu_timer) % 5 == 0) toggle_menu_item = true;
-        }*/
+        if(select_menu_option) {
+            bool toggle_menu_item = false;
 
-        if(toggle_menu_item) {
-            if(is_button_left) (*menu_position)->on_left();
-            else (*menu_position)->on_right();
+            if(al_get_timer_count(menu_timer) == last_tick + 1) {
+                toggle_menu_item = true;
+            }
+            if(al_get_timer_count(menu_timer) >= last_tick + 20) {
+                if(al_get_timer_count(menu_timer) >= last_tick + 70) toggle_menu_item = true;
+                else if(al_get_timer_count(menu_timer) % 5 == 0) toggle_menu_item = true;
+            }
+
+            if(toggle_menu_item) {
+                if(is_button_left) (*menu_position)->on_left();
+                else (*menu_position)->on_right();
+            }
         }
         //  End menu item processing.
     }

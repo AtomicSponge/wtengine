@@ -28,11 +28,12 @@ std::vector<mnu::menu_sptr> menus::_menus = {};
 std::stack<mnu::menu_csptr> menus::opened_menus = {};
 float menus::menu_width = 500, menus::menu_height = 400, menus::menu_padding = 32;
 int menus::font_size = 8;
+bool menus::select_menu_option = false;
 bool menus::is_button_left = true;
-bool menus::toggle_menu_select = false;
 std::string menus::menu_font_file = "";
 int menus::menu_font_size = 0;
 int menus::menu_font_flags = 0;
+int64_t menus::last_tick = 0;
 bool menus::do_render = false;
 
 /*
@@ -153,15 +154,15 @@ void menus::menu_pos_down(void) {
 void menus::menu_pos_start_left(void) {
     if(menu_position != opened_menus.top()->items_cend()) {
         is_button_left = true;
+        select_menu_option = true;
+        last_tick = al_get_timer_count(menu_timer);
     }
 }
 
 /*
  *
  */
-void menus::menu_pos_stop_left(void) {
-    //
-}
+void menus::menu_pos_stop_left(void) { select_menu_option = false; }
 
 /*
  *
@@ -169,15 +170,15 @@ void menus::menu_pos_stop_left(void) {
 void menus::menu_pos_start_right(void) {
     if(menu_position != opened_menus.top()->items_cend()) {
         is_button_left = false;
+        select_menu_option = true;
+        last_tick = al_get_timer_count(menu_timer);
     }
 }
 
 /*
  *
  */
-void menus::menu_pos_stop_right(void) {
-    //
-}
+void menus::menu_pos_stop_right(void) { select_menu_option = false; }
 
 /*
  *

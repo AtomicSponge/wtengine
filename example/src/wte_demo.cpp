@@ -174,11 +174,6 @@ wte_demo::~wte_demo() {
     al_shutdown_primitives_addon();
 }
 
-#define wte_menu_action(...) (std::make_shared<mnu::menu_item_action>(__VA_ARGS__))
-#define wte_menu_apply(...) (std::make_shared<mnu::menu_item_apply>(__VA_ARGS__))
-#define wte_menu_selection(...) (std::make_shared<mnu::menu_item_selection>(__VA_ARGS__))
-#define wte_menu_toggle(...) (std::make_shared<mnu::menu_item_toggle>(__VA_ARGS__))
-
 /*
  * Load menus.
  * Items will appear in the order they were added.
@@ -193,38 +188,38 @@ void wte_demo::load_menus(void) {
     {
         //  Configure main menu.
         mgr::menus::set_menu("main_menu")->set_title("WTE Demo");
-        mgr::menus::set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game", "game.sdf"));
-        //mgr::menus::set_menu("main_menu")->add_item(wte_menu_action("New Game", "new_game"));
-        mgr::menus::set_menu("main_menu")->add_item(wte_menu_action("Settings", "open_menu", "settings"));
-        mgr::menus::set_menu("main_menu")->add_item(wte_menu_action("Exit Game", "exit"));
+        mgr::menus::set_menu("main_menu")->add_item<mnu::action>("New Game", "new_game", "game.sdf");
+        //mgr::menus::set_menu("main_menu")->add_item<mnu::action>("New Game", "new_game");
+        mgr::menus::set_menu("main_menu")->add_item<mnu::action>("Settings", "open_menu", "settings");
+        mgr::menus::set_menu("main_menu")->add_item<mnu::action>("Exit Game", "exit");
     }
 
     {
         //  Configure in-game menu.
         mgr::menus::set_menu("game_menu")->set_title("WTE Demo - Game Paused");
-        mgr::menus::set_menu("game_menu")->add_item(wte_menu_action("Resume Game", "close_menu", "all"));
-        mgr::menus::set_menu("game_menu")->add_item(wte_menu_action("Settings", "open_menu", "game_settings"));
-        mgr::menus::set_menu("game_menu")->add_item(wte_menu_action("End Game", "end_game"));
-        mgr::menus::set_menu("game_menu")->add_item(wte_menu_action("Exit Game", "exit"));
+        mgr::menus::set_menu("game_menu")->add_item<mnu::action>("Resume Game", "close_menu", "all");
+        mgr::menus::set_menu("game_menu")->add_item<mnu::action>("Settings", "open_menu", "game_settings");
+        mgr::menus::set_menu("game_menu")->add_item<mnu::action>("End Game", "end_game");
+        mgr::menus::set_menu("game_menu")->add_item<mnu::action>("Exit Game", "exit");
     }
 
     //  Then define other custom mgr::menus::
     {
         //  Create the main settings menu.
         mnu::menu temp_menu = mnu::menu("settings", "Settings");
-        temp_menu.add_item(wte_menu_action("Demo Settings", "open_menu", "demo_settings"));
-        temp_menu.add_item(wte_menu_action("Video Settings", "open_menu", "video_settings"));
-        temp_menu.add_item(wte_menu_action("Audio Settings", "open_menu", "audio_settings"));
-        temp_menu.add_item(wte_menu_action("Return", "close_menu"));
+        temp_menu.add_item<mnu::action>("Demo Settings", "open_menu", "demo_settings");
+        temp_menu.add_item<mnu::action>("Video Settings", "open_menu", "video_settings");
+        temp_menu.add_item<mnu::action>("Audio Settings", "open_menu", "audio_settings");
+        temp_menu.add_item<mnu::action>("Return", "close_menu");
         if(!mgr::menus::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 
     {
         //  Create the in-game settings menu.
         mnu::menu temp_menu = mnu::menu("game_settings", "Settings");
-        temp_menu.add_item(wte_menu_action("Video Settings", "open_menu", "video_settings"));
-        temp_menu.add_item(wte_menu_action("Audio Settings", "open_menu", "audio_settings"));
-        temp_menu.add_item(wte_menu_action("Return", "close_menu"));
+        temp_menu.add_item<mnu::action>("Video Settings", "open_menu", "video_settings");
+        temp_menu.add_item<mnu::action>("Audio Settings", "open_menu", "audio_settings");
+        temp_menu.add_item<mnu::action>("Return", "close_menu");
         if(!mgr::menus::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 
@@ -232,9 +227,9 @@ void wte_demo::load_menus(void) {
         //  Create the demo game settings menu.
         mnu::menu temp_menu = mnu::menu("demo_settings", "Demo Settings");
         std::vector<std::string> lives_vec = { "3", "4", "5" };
-        temp_menu.add_item(wte_menu_selection("Lives:", "max_lives", lives_vec, lives_vec, mnu::GAME_SETTING));
-        temp_menu.add_item(wte_menu_apply());
-        temp_menu.add_item(wte_menu_action("Return", "close_menu"));
+        temp_menu.add_item<mnu::selection>("Lives:", "max_lives", lives_vec, lives_vec, mnu::GAME_SETTING);
+        temp_menu.add_item<mnu::apply>();
+        temp_menu.add_item<mnu::action>("Return", "close_menu");
         if(!mgr::menus::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 
@@ -243,13 +238,13 @@ void wte_demo::load_menus(void) {
         mnu::menu temp_menu = mnu::menu("video_settings", "Video Settings");
         std::vector<std::string> mode_dvec = { "Windowed", "Windowed Full Screen" };
         std::vector<std::string> mode_vec = { "windowed", "windowed_full_screen" };
-        temp_menu.add_item(wte_menu_selection("Display Mode:", "display_mode", mode_dvec, mode_vec, mnu::ENGINE_SETTING_RECONF));
+        temp_menu.add_item<mnu::selection>("Display Mode:", "display_mode", mode_dvec, mode_vec, mnu::ENGINE_SETTING_RECONF);
         std::vector<std::string> scale_vec = { "0.5", "1", "1.25", "1.5", "1.75", "2" };
-        temp_menu.add_item(wte_menu_selection("Scale factor:", "scale_factor", scale_vec, scale_vec, mnu::ENGINE_SETTING_RECONF));
-        temp_menu.add_item(wte_menu_toggle("FPS:", "fps_counter", "on", "fps_counter", "off",
-                                           [](void){ return config::flags::draw_fps; }));
-        temp_menu.add_item(wte_menu_apply());
-        temp_menu.add_item(wte_menu_action("Return", "close_menu"));
+        temp_menu.add_item<mnu::selection>("Scale factor:", "scale_factor", scale_vec, scale_vec, mnu::ENGINE_SETTING_RECONF);
+        temp_menu.add_item<mnu::toggle>("FPS:", "fps_counter", "on", "fps_counter", "off",
+                                        [](void){ return config::flags::draw_fps; });
+        temp_menu.add_item<mnu::apply>();
+        temp_menu.add_item<mnu::action>("Return", "close_menu");
         if(!mgr::menus::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 
@@ -269,13 +264,13 @@ void wte_demo::load_menus(void) {
         }
 
         mnu::menu temp_menu = mnu::menu("audio_settings", "Audio Settings");
-        temp_menu.add_item(wte_menu_selection("Main Volume:", "main_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING));
-        temp_menu.add_item(wte_menu_selection("Music Volume:", "mix1_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING));
-        temp_menu.add_item(wte_menu_selection("Effects Volume:", "mix2_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING));
-        temp_menu.add_item(wte_menu_selection("Voice Volume:", "mix3_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING));
-        temp_menu.add_item(wte_menu_selection("Ambiance Volume:", "mix4_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING));
-        temp_menu.add_item(wte_menu_apply());
-        temp_menu.add_item(wte_menu_action("Return", "close_menu"));
+        temp_menu.add_item<mnu::selection>("Main Volume:", "main_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING);
+        temp_menu.add_item<mnu::selection>("Music Volume:", "mix1_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING);
+        temp_menu.add_item<mnu::selection>("Effects Volume:", "mix2_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING);
+        temp_menu.add_item<mnu::selection>("Voice Volume:", "mix3_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING);
+        temp_menu.add_item<mnu::selection>("Ambiance Volume:", "mix4_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING);
+        temp_menu.add_item<mnu::apply>();
+        temp_menu.add_item<mnu::action>("Return", "close_menu");
         if(!mgr::menus::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");
     }
 }

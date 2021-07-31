@@ -20,14 +20,12 @@ namespace mgr
 
 /*!
  * \class manager
- * \brief Extend this to create a manager class.
+ * \brief Extend this to create a new engine manager.
  * 
  * These are restricted to a single instance.
  */
 template <class derived> class manager {
     public:
-        //!  Free up single instance,
-        //!  sets the initialized flag to false.
         inline virtual ~manager() { initialized = false; };
 
         //!  Remove copy constructor
@@ -36,12 +34,13 @@ template <class derived> class manager {
         void operator=(manager const&) = delete;
 
     private:
-        //  Flag used to force single instance
-        static bool initialized;
+        static bool initialized;  //  Force single instance.
 
     protected:
-        //!  Force single instance, sets the initialized flag to true.
-        //!  Throws a runtime error if more than one instance of this class is running
+        /*!
+         * \brief Create a new engine manager.
+         * \exception runtime_error Manager is already running.
+         */
         inline manager() {
             if(initialized == true) throw std::runtime_error("An instance of this manager is already running!");
             initialized = true;

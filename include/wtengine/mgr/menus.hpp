@@ -229,48 +229,28 @@ class menus final : private manager<menus> {
         static void menu_item_select(void);
 
     private:
-        /*!
-         * \brief Menu manager constructor.
-         * 
-         * Generates the menu manager object.
-         */
         menus();
-
-        /*!
-         * \brief Menu manager destructor.
-         * 
-         * Cleans up by deleting the menu bitmaps and font.
-         */
         ~menus();
 
-        /*!
-         * \brief Ititialize menu manager.
-         * 
+        /*
          * Sets up internal menu objects.  Called during engine initialization.
          * Also creates the default main menu and in-game menu.
          */
         static void initialize(void);
 
-        /*!
-         * \brief De-initialize the menu manager.
-         * 
+        /*
          * Destories the internal objects.
          */
         static void de_init(void);
 
-        /*!
-         * \brief Run the menu manager.
-         * 
+        /*
          * Adds a menu to the stack if none are opened, then processes the menus.
          */
         static void run(void);
 
-        /*!
-         * \brief Renders the active menu from the top of the stack.
-         * 
-         * This is called from within the renderer.  Drawing target must be reset after calling.
-         * 
-         * \return The rendered menu bitmap.
+        /*
+         * Renders the active menu from the top of the stack. 
+         * This is called from within the renderer.
          */
         static ALLEGRO_BITMAP* render_menu(void);
 

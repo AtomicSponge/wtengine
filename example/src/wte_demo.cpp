@@ -203,7 +203,7 @@ void wte_demo::load_menus(void) {
         mgr::menus::set_menu("game_menu")->add_item<mnu::action>("Exit Game", "exit");
     }
 
-    //  Then define other custom mgr::menus::
+    //  Then define other custom menus.
     {
         //  Create the main settings menu.
         mnu::menu temp_menu = mnu::menu("settings", "Settings");

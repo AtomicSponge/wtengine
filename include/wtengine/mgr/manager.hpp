@@ -10,7 +10,6 @@
 #ifndef WTE_MGR_MANAGER_HPP
 #define WTE_MGR_MANAGER_HPP
 
-#include <memory>
 #include <stdexcept>
 
 namespace wte
@@ -29,9 +28,7 @@ template <class derived> class manager {
     public:
         //!  Free up single instance,
         //!  sets the initialized flag to false.
-        inline virtual ~manager() {
-            initialized = false;
-        };
+        inline virtual ~manager() { initialized = false; };
 
         //!  Remove copy constructor
         manager(const manager&) = delete;

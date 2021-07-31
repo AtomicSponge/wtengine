@@ -15,6 +15,8 @@
 
 #include "wtengine/mnu/menu_item.hpp"
 
+#include "wtengine/mgr/messages.hpp"
+
 namespace wte
 {
 
@@ -58,7 +60,7 @@ class apply final : public menu_item {
          * 
          * \return A menu message object that will either run the apply or cancel.
          */
-        const message on_select(void) override;
+        void on_select(void) override;
 
         /*!
          * \brief Return display text for the menu item when rendering.

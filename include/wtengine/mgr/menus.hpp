@@ -324,12 +324,6 @@ inline void menus::run(void) {
             if(is_button_left) (*menu_position)->on_left();
             else (*menu_position)->on_right();
         }
-
-        //  Menu item was selected, process what happens.
-        if(toggle_menu_select && menu_position != opened_menus.top()->items_cend()) {
-            toggle_menu_select = false;
-            message temp_msg = (*menu_position)->on_select();
-        }
         //  End menu item processing.
     }
 }

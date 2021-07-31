@@ -35,7 +35,7 @@ action::~action() {};
 /*
  *
  */
-const message action::on_select(void) { return message("system", cmd, arg); };
+void action::on_select(void) { mgr::messages::add_message(message("system", cmd, arg)); };
 
 /*
  *

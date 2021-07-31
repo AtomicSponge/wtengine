@@ -38,7 +38,7 @@ void apply::on_right(void) { cmd = "apply"; };
 /*
  *
  */
-const message apply::on_select(void) { return message("menu", cmd, ""); };
+void apply::on_select(void) { mgr::messages::add_message(message("menu", cmd, "")); };
 
 /*
  *

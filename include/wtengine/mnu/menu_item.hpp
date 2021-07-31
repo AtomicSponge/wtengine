@@ -59,7 +59,7 @@ class menu_item {
         /*!
          * \brief Define selection process.
          */
-        inline virtual const message on_select(void) { return message("system", "null", "null"); };
+        inline virtual void on_select(void) {};
 
         /*!
          * \brief Define reset process.

@@ -15,6 +15,8 @@
 
 #include "wtengine/mnu/menu_item.hpp"
 
+#include "wtengine/mgr/messages.hpp"
+
 namespace wte
 {
 
@@ -58,7 +60,7 @@ class action final : public menu_item {
          * 
          * Return the stored command when selected.
          */
-        const message on_select(void) override;
+        void on_select(void) override;
 
         /*!
          * \brief Return display text for the menu item when rendering.

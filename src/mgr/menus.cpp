@@ -183,9 +183,7 @@ void menus::menu_pos_stop_right(void) {
  *
  */
 void menus::menu_item_select(void) {
-    if(menu_position != opened_menus.top()->items_cend()) toggle_menu_select = true;
-
-    //  TODO:  process on select event
+    if(menu_position != opened_menus.top()->items_cend()) (*menu_position)->on_select();
 }
 
 /*

@@ -195,7 +195,7 @@ class al_font final : public wte_asset {
         /*!
          * \brief Delete font asset.
          */
-        inline ~al_font() { al_destroy_font(_al_font); };
+        inline ~al_font() {};
 
         /*!
          * \brief Get font asset.

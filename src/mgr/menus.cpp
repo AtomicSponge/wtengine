@@ -281,7 +281,6 @@ void menus::run(void) {
                 else (*menu_position)->on_right();
             }
         }
-        //  End menu item processing.
     }
 }
 

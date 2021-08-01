@@ -172,33 +172,36 @@ class al_bitmap final : public wte_asset {
 class al_font final : public wte_asset {
     public:
         /*!
-         *
+         * \brief Create a font asset using Allegro's default font.
          */
-        inline al_font() {
-            _al_font = NULL;
-        };
+        inline al_font() { _al_font = al_create_builtin_font(); };
 
         /*!
-         *
+         * \brief Create a font asset from file.
+         * \param fname Font file name.
+         * \param size Font size.  See Allegro docs on fonts.
+         * \param flags Font flags.  See Allegro docs on fonts.
          */
         inline al_font(
             const std::string& fname,
             const int& size,
             const int& flags
-        ) {
-            if(fname == "default") _al_font = al_create_builtin_font();
-            else _al_font = al_load_font(fname.c_str(), size, flags);
-        };
+        ) { _al_font = al_load_font(fname.c_str(), size, flags); };
 
         /*!
-         *
+         * \brief Delete font asset.
          */
         inline ~al_font() { al_destroy_font(_al_font); };
 
+        /*!
+         * \brief Get font asset.
+         * \return Pointer to font asset.
+         */
         inline ALLEGRO_FONT* operator*() { return _al_font; };
 
         /*!
-         *
+         * \brief Get font asset.
+         * \return Pointer to font asset.
          */
         inline ALLEGRO_FONT* font(void) { return _al_font; };
 

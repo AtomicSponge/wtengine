@@ -70,64 +70,45 @@ class messages final : private manager<messages> {
         );
 
     private:
-        /*!
-         * \brief Message queue constructor.
-         * 
+        /*
          * Clear any existing queue and start logging if debugging is enabled.
          */
         messages();
 
-        /*!
-         * \brief Message queue destructor.
-         * 
+        /* 
          * Delete message queue object and close log file if debugging is enabled.
          */
         ~messages();
 
-        /*!
-         * \brief Clear the message queue.
+        /*
+         * Clear the message queue.
          */
         static void clear(void);
 
-        /*!
-         * \brief Load a new data file into the message queue.
-         * 
+        /*
+         * Load a new data file into the message queue.
          * This is called when a new game is created.
          * Events are placed in order according to the timer value.
-         * 
-         * \param fname Filename to load.
          */
         static void load_file(
             const std::string& fname
         );
 
-        /*!
-         * \brief Get messages based on their command.
-         * 
+        /*
+         * Get messages based on their command.
          * Once events in the future are reached, break early.
-         * 
-         * \param sys Manager/system to get messages for.
-         * \return Vector of messages.
          */
         static const message_container get_messages(
             const std::string& sys
         );
 
-        /*!
+        /*
          * Deletes timed messages that were not processed.
          */
         static void prune(void);
 
-        /*!
-         * \brief Read a message from file.
-         * 
-         * \param file Allegro file to read from.
-         * \param timer Timer value to write to.
-         * \param sys System value to write to.
-         * \param to Entity To value to write to.
-         * \param from Entity From value to write to.
-         * \param cmd Command value to write to.
-         * \param args Argument value to write to.
+        /*
+         * Read a message from file.
          */
         static void read_message(
             ALLEGRO_FILE& file,
@@ -139,12 +120,8 @@ class messages final : private manager<messages> {
             std::string& args
         );
 
-        /*!
-         * \brief Log processed messages to a file.
-         * 
+        /*
          * Write a message to the debug log file if debugging is enabled.
-         * 
-         * \param msg Message to write.
          */
         #if WTE_DEBUG_MODE
         static void debug_log_message(const message& msg);

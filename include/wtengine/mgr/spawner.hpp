@@ -54,26 +54,11 @@ class spawner final : private manager<spawner> {
         );
 
     private:
-        /*!
-         * \brief Spawn Manager constructor.
-         * 
-         * Clears the spawner map.
-         */
         spawner();
-
-        /*!
-         * \brief Spawn Manager destructor.
-         * 
-         * Clears the spawner map.
-         */
         ~spawner();
 
-        /*!
-         * \brief Process spawns.
-         * 
+        /*
          * Takes spawner messages and creates or deletes entities.
-         * 
-         * \param messages Spawner messages from main engine loop.
          */
         static void process_messages(
             const message_container& messages

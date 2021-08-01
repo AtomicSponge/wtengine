@@ -184,19 +184,18 @@ class menus final : private manager<menus> {
          */
         static ALLEGRO_BITMAP* render_menu(void);
 
-        /*!
-         * \brief Clear the stack of opened menus.
+        /*
+         * Clear the stack of opened menus.
          */
         static void reset(void);
 
-        /*!
-         * \brief Add a menu to the opened stack.
-         * \param menu_id Menu to open.
+        /*
+         * Add a menu to the opened stack.
          */
         static void open_menu(const std::string& menu_id);
 
-        /*!
-         * \brief Close the current opened menu.
+        /*
+         * Close the current opened menu.
          */
         static void close_menu(void);
 

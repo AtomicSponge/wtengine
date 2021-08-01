@@ -54,57 +54,39 @@ class systems final : private manager<systems> {
         );
 
     private:
-        /*!
-         * \brief System Manager constructor.
-         * 
-         * Clears the systems vector and sets the finalized flag to false.
-         */
         systems();
-
-        /*!
-         * \brief System Manager destructor.
-         * 
-         * Makes sure the systems are cleared.
-         */
         ~systems();
 
-        /*!
-         * \brief Clear the system manager and allow systems to be loaded again.
+        /*
+         * Clear the system manager and allow systems to be loaded again.
          */
         static void clear(void);
 
-        /*!
-         * \brief Finalize system manager.
-         * 
+        /*
          * Set finalized flag to prevent additional systems from being loaded.
          */
         static void finalize(void);
 
-        /*!
-         * \brief Check if systems were loaded into the manager.
-         * 
-         * \return True if empty, false if not.
+        /*
+         * Check if systems were loaded into the manager.
          */
         static const bool empty(void);
 
-        /*!
+        /*
          * \brief Run all systems.
-         * 
-         * Iterate through the system vector and run each.
          */
         static void run(void);
 
-        /*!
-         * \brief Process dispatcher components.
-         * 
+        /*
+         * Process dispatcher components. 
          * Get messages for the entities and pass to each.
          * Keeps checking for responces and will process as well.
          */
         static void dispatch(void);
 
-        //! Store the vector of systems.
+        // Store the vector of systems.
         static std::vector<sys::system_uptr> _systems;
-        //!  Flag to disallow loading of additional systems.
+        //  Flag to disallow loading of additional systems.
         static bool finalized;
 };
 

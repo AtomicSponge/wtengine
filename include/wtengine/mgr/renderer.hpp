@@ -60,14 +60,12 @@ class renderer final : private manager<renderer> {
     public:
         /*!
          * \brief Get screen width.
-         * 
          * \return Screen width in pixels.
          */
         static const int get_screen_width(void);
 
         /*!
          * \brief Get screen height.
-         * 
          * \return Screen height in pixels.
          */
         static const int get_screen_height(void);
@@ -86,7 +84,6 @@ class renderer final : private manager<renderer> {
 
         /*!
          * \brief Get scale factor.
-         * 
          * \return Scale factor multiplier.
          */
         static const int get_scale_factor();
@@ -107,14 +104,12 @@ class renderer final : private manager<renderer> {
 
         /*!
          * \brief Get the arnea width.
-         * 
          * \return The arena width in pixels.
          */
         static const int get_arena_width(void);
 
         /*!
          * \brief Get the arena height.
-         * 
          * \return The arena height in pixels.
          */
         static const int get_arena_height(void);
@@ -159,47 +154,34 @@ class renderer final : private manager<renderer> {
         );
 
     private:
-        /*!
-         * \brief renderer constructor.
-         * 
+        /* 
          * Generates the renderer object.
          */
         inline renderer() {};
 
-        /*!
-         * \brief renderer destructor.
-         */
         inline ~renderer() {};
 
-        /*!
-         * \brief Initialize the render manager.
-         * 
+        /* 
          * Configures the internal objects for the render manager to use.
          */
         static void initialize(void);
 
-        /*!
-         * \brief De-initialize the render manager.
-         * 
+        /* 
          * Destories the internal objects.
          */
         static void de_init(void);
 
-        /*!
-         * \brief Inform the renderer of the screen resolution.
-         * 
+        /*
+         * Inform the renderer of the screen resolution.
          * Gets called by the engine when the screen resolution is updated.
-         * 
-         * \param w Resolution width in pixels.
-         * \param h Resolution height in pixels.
          */
         static void update_resolution(
             const int& w,
             const int& h
         );
 
-        /*!
-         * \brief Render method - Draw the game screen.
+        /*
+         * Draw the game screen.
          */
         static void render(void);
 

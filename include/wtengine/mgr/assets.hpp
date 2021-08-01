@@ -100,16 +100,8 @@ class assets final : private manager<assets> {
         assets();
         ~assets();
 
-        /*!
-         * \brief Load an asset.
-         *
-         * This creates a private asset only accessable by engine internals.
-         *
-         * \tparam T Asset type to add.
-         * \tparam Args Parameters to asset constructor.
-         * \param label Reference label for asset.
-         * \param args Parameters to asset constructor.
-         * \return True if loaded.  False if not.
+        /*
+         * Creates a private asset only accessable by engine internals.
          */
         template <typename T, typename... Args>
         inline static const bool secret_load(
@@ -120,27 +112,15 @@ class assets final : private manager<assets> {
             return ret.second;
         };
 
-        /*!
-         * \brief Unload an asset.
-         *
+        /*
          * Allows removal of private assets.
-         *
-         * \param label Reference label for asset.
-         * \return True if removed, false if not.
          */
         static const bool secret_unload(
             const std::string& label
         );
 
-        /*!
-         * \brief Get an asset by reference label.
-         *
-         * This allows access to private assets created ny secret_load.
-         *
-         * \param label Reference label for asset.
-         * \tparam T Asset type to get.
-         * \return Pointer to asset.
-         * \exception Asset not found.
+        /*
+         * Allows access to private assets created ny secret_load.
          */
         template <typename T>
         inline static const std::shared_ptr<T> secret_get(

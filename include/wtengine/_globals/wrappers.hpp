@@ -25,7 +25,7 @@ namespace wte
 
 /*!
  * \class al_bitmap
- * \brief Provides a wrapper to Allegro Bitmaps.
+ * \brief Provides a wrapper to Allegro bitmaps.
  */
 class al_bitmap final : public wte_asset {
     public:
@@ -169,6 +169,10 @@ class al_bitmap final : public wte_asset {
         bool nopreserve;            //  Preservation flag.
 };
 
+/*!
+ * \class al_font
+ * \brief Provides a wrapper to Allegro fonts.
+ */
 class al_font final : public wte_asset {
     public:
         /*!

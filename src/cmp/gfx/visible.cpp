@@ -7,7 +7,7 @@
  * \date 2019-2021
  */
 
-#include "wtengine/cmp/visible.hpp"
+#include "wtengine/cmp/gfx/visible.hpp"
 
 namespace wte
 {

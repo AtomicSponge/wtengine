@@ -19,11 +19,11 @@
 #include "wtengine/cmp/location.hpp"
 #include "wtengine/cmp/team.hpp"
 #include "wtengine/cmp/velocity.hpp"
-#include "wtengine/cmp/visible.hpp"
 
 //  Graphics components
 #include "wtengine/cmp/gfx/background.hpp"
 #include "wtengine/cmp/gfx/overlay.hpp"
 #include "wtengine/cmp/gfx/sprite.hpp"
+#include "wtengine/cmp/gfx/visible.hpp"
 
 #endif

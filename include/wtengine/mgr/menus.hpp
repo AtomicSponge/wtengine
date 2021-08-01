@@ -57,16 +57,23 @@ class menus final : private manager<menus> {
     public:
         /*!
          * \brief
+         * \param bmp
          */
         static void set_background(std::shared_ptr<wte_asset> bmp);
 
         /*!
          * \brief
+         * \param font
+         * \param fcolor
          */
-        static void set_font(std::shared_ptr<wte_asset> font);
+        static void set_font(
+            std::shared_ptr<wte_asset> font,
+            ALLEGRO_COLOR& fcolor
+        );
 
         /*!
          * \brief
+         * \param bmp
          */
         static void set_cursor(std::shared_ptr<wte_asset> bmp);
 
@@ -160,6 +167,7 @@ class menus final : private manager<menus> {
 
         static std::shared_ptr<wte_asset> menu_background;
         static std::shared_ptr<wte_asset> menu_font;
+        static ALLEGRO_COLOR menu_font_color;
         static std::shared_ptr<wte_asset> cursor_bitmap;
         static mnu::menu_item_citerator menu_position;
         static bool select_menu_option;

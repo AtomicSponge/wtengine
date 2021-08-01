@@ -20,6 +20,7 @@ template <> bool menus::manager<menus>::initialized = false;
 mnu::menu_item_citerator menus::menu_position;
 std::shared_ptr<wte_asset> menus::menu_background;
 std::shared_ptr<wte_asset> menus::menu_font;
+ALLEGRO_COLOR menus::menu_font_color;
 std::shared_ptr<wte_asset> menus::cursor_bitmap;
 ALLEGRO_TIMER* menus::menu_timer = NULL;
 ALLEGRO_EVENT_QUEUE* menus::menu_event_queue = NULL;
@@ -91,7 +92,13 @@ void menus::set_background(std::shared_ptr<wte_asset> bmp) { menu_background = b
 /*
  *
  */
-void menus::set_font(std::shared_ptr<wte_asset> font) { menu_font = font; }
+void menus::set_font(
+    std::shared_ptr<wte_asset> font,
+    ALLEGRO_COLOR& fcolor
+) {
+    menu_font = font;
+    menu_font_color = fcolor;
+}
 
 /*
  *

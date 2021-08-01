@@ -12,6 +12,8 @@
 namespace wte
 {
 
+bool display::initialized = false;
+
 /*
  *
  */
@@ -20,7 +22,10 @@ const std::string display::get_window_title(void) const { return window_title; }
 /*
  *
  */
-display::display(const std::string& title) : window_title(title) {}
+display::display(const std::string& title) : window_title(title) {
+    if(initialized == true) throw std::runtime_error("Display instance already running!");
+    initialized = true;
+}
 
 /*
  *

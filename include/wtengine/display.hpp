@@ -65,6 +65,7 @@ class display {
 
     private:
         std::string window_title;  //  Title for application window.
+        static bool initialized;
 };
 
 } //  end namespace wte

@@ -12,6 +12,16 @@
 namespace wte
 {
 
+bool config::initialized = false;
+
+/*
+ *
+ */
+config::config() {
+    if(initialized == true) throw std::runtime_error("Config instance already running!");
+    initialized = true;
+}
+
 /*
  *
  */

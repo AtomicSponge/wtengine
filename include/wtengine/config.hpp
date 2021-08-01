@@ -160,7 +160,8 @@ class config {
         static const bool save(void);
 
     protected:
-        inline config() {};
+        config();
+        static bool initialized;
 };
 
 } //  end namespace wte

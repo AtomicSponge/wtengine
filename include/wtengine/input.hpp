@@ -169,6 +169,7 @@ class input {
         void handle_input_event(const ALLEGRO_EVENT&);
 
         ALLEGRO_EVENT_QUEUE* input_event_queue;
+        static bool initialized;
 };
 
 } //  end namespace wte

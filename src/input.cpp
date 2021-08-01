@@ -12,10 +12,15 @@
 namespace wte
 {
 
+bool input::initialized = false;
+
 /*
  *
  */
-input::input() {}
+input::input() {
+    if(initialized == true) throw std::runtime_error("Input instance already running!");
+    initialized = true;
+}
 
 /*
  *

@@ -437,7 +437,7 @@ void wte_demo::new_game(void) {
     mgr::assets::load<al_bitmap>("ship");
     mgr::assets::get<al_bitmap>("ship")->load("ship.bmp");
     mgr::world::add_component<cmp::sprite>(e_id, mgr::assets::get<al_bitmap>("ship"),
-        32.0f, 32.0f, -11.0f, 0.0f, 1, 1);
+                                           32.0f, 32.0f, -11.0f, 0.0f, 1, 1);
     mgr::world::set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
     mgr::world::set_component<cmp::sprite>(e_id)->add_cycle("death", 4, 7);
     mgr::world::set_component<cmp::sprite>(e_id)->set_cycle("main");

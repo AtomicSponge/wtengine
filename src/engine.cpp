@@ -157,6 +157,7 @@ void engine::wte_load(void) {
 
     //  Load user configured menus.
     load_menus();
+    mgr::menus::generate_menus();
 }
 
 /*

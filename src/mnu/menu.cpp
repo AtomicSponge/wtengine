@@ -20,8 +20,10 @@ namespace mnu
  */
 menu::menu(
     const std::string i,
-    const std::string t
-) : id(i), title(t) { items.clear(); }
+    const std::string t,
+    std::shared_ptr<wte_asset> bmp,
+    std::shared_ptr<wte_asset> font
+) : id(i), title(t), menu_background(bmp), menu_font(font) { items.clear(); }
 
 /*
  *

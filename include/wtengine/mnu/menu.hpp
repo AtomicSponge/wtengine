@@ -12,8 +12,10 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "wtengine/_globals/wrappers.hpp"
+#include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/mgr/assets.hpp"
 #include "wtengine/mnu/menu_item.hpp"
 
@@ -50,7 +52,9 @@ class menu {
          */
         menu(
             const std::string i,
-            const std::string t
+            const std::string t,
+            std::shared_ptr<wte_asset> bmp,
+            std::shared_ptr<wte_asset> font
         );
 
         ~menu();
@@ -102,13 +106,16 @@ class menu {
          * Get menu items end iterator.
          */
         menu_item_citerator items_cend(void) const;
-        
+
         std::string id;
         std::string title;
-        int pos_x, pos_y;
         menu_items items;
-        std::shared_ptr<wte_asset> background;
-        std::shared_ptr<wte_asset> font;
+        float pos_x, pos_y;
+
+        std::shared_ptr<wte_asset> menu_background;
+        std::shared_ptr<wte_asset> menu_font;
+        static ALLEGRO_COLOR menu_font_color;
+        static ALLEGRO_COLOR menu_bg_color;
 };
 
 //! Shared pointer for addressing a menu.

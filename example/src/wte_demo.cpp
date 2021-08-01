@@ -179,8 +179,6 @@ wte_demo::~wte_demo() {
  * Items will appear in the order they were added.
  */
 void wte_demo::load_menus(void) {
-    mgr::menus::set_menu_color(WTE_COLOR_WHITE, WTE_COLOR_DARKPURPLE);
-
     //  Configure the root main menu and game menu.
     {
         //  Configure main menu.
@@ -203,7 +201,11 @@ void wte_demo::load_menus(void) {
     //  Then define other custom menus.
     {
         //  Create the main settings menu.
-        mnu::menu temp_menu = mnu::menu("settings", "Settings");
+        mnu::menu temp_menu = mnu::menu(
+            "settings", "Settings",
+            bitmap,
+            mgr::assets::get<al_font>("wte_default_font")
+        );
         temp_menu.add_item<mnu::action>("Demo Settings", "open_menu", "demo_settings");
         temp_menu.add_item<mnu::action>("Video Settings", "open_menu", "video_settings");
         temp_menu.add_item<mnu::action>("Audio Settings", "open_menu", "audio_settings");
@@ -213,7 +215,11 @@ void wte_demo::load_menus(void) {
 
     {
         //  Create the in-game settings menu.
-        mnu::menu temp_menu = mnu::menu("game_settings", "Settings");
+        mnu::menu temp_menu = mnu::menu(
+            "game_settings", "Settings",
+            bitmap,
+            mgr::assets::get<al_font>("wte_default_font")
+        );
         temp_menu.add_item<mnu::action>("Video Settings", "open_menu", "video_settings");
         temp_menu.add_item<mnu::action>("Audio Settings", "open_menu", "audio_settings");
         temp_menu.add_item<mnu::action>("Return", "close_menu");
@@ -222,7 +228,11 @@ void wte_demo::load_menus(void) {
 
     {
         //  Create the demo game settings menu.
-        mnu::menu temp_menu = mnu::menu("demo_settings", "Demo Settings");
+        mnu::menu temp_menu = mnu::menu(
+            "demo_settings", "Demo Settings",
+            bitmap,
+            mgr::assets::get<al_font>("wte_default_font")
+        );
         std::vector<std::string> lives_vec = { "3", "4", "5" };
         temp_menu.add_item<mnu::selection>("Lives:", "max_lives", lives_vec, lives_vec, mnu::GAME_SETTING);
         temp_menu.add_item<mnu::apply>();
@@ -232,7 +242,11 @@ void wte_demo::load_menus(void) {
 
     {
         //  Create the video settings menu.
-        mnu::menu temp_menu = mnu::menu("video_settings", "Video Settings");
+        mnu::menu temp_menu = mnu::menu(
+            "video_settings", "Video Settings",
+            bitmap,
+            mgr::assets::get<al_font>("wte_default_font")
+        );
         std::vector<std::string> mode_dvec = { "Windowed", "Windowed Full Screen" };
         std::vector<std::string> mode_vec = { "windowed", "windowed_full_screen" };
         temp_menu.add_item<mnu::selection>("Display Mode:", "display_mode", mode_dvec, mode_vec, mnu::ENGINE_SETTING_RECONF);

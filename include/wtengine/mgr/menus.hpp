@@ -56,37 +56,9 @@ class menus final : private manager<menus> {
 
     public:
         /*!
-         * \brief Set menu colors.
-         * 
-         * Call during menu creation.
-         * 
-         * \param fcolor Allegro color to use for font.
-         * \param bgcolor Allegro color to use for background.
+         * \brief
          */
-        inline static void set_menu_color(const ALLEGRO_COLOR& fcolor, const ALLEGRO_COLOR& bgcolor) {
-            menu_font_color = fcolor;
-            menu_bg_color = bgcolor;
-
-            al_set_target_bitmap(cursor_bitmap);
-            al_clear_to_color(menu_font_color);
-        };
-
-        /*!
-         * \brief Set the font to be used by the menus.
-         * 
-         * If not called, Allegro's default font will be used.
-         * This should be called during engine initialization before the main object is created.
-         * See the Allegro docs for more information on al_load_font and the parameters used.
-         * 
-         * \param fname Filename to use.
-         * \param size Font size.
-         * \param flags Font flags.
-         */
-        inline static void set_font_file(const std::string& fname, const int& size, const int& flags) {
-            menu_font_file = fname;
-            menu_font_size = size;
-            menu_font_flags = flags;
-        };
+        static void set_cursor(std::shared_ptr<wte_asset> bmp);
 
         /*!
          * \brief Add a menu to the menu vector.
@@ -178,28 +150,17 @@ class menus final : private manager<menus> {
         /* ***  END MENU NAVIGATION FUNCTIONS  *** */
         /* *************************************** */
 
-        static mnu::menu_item_citerator menu_position;
-
-        static ALLEGRO_BITMAP* cursor_bitmap;
-        static ALLEGRO_FONT* menu_font;
-        static ALLEGRO_COLOR menu_font_color;
-        static ALLEGRO_COLOR menu_bg_color;
-
         static ALLEGRO_TIMER* menu_timer;
         static ALLEGRO_EVENT_QUEUE* menu_event_queue;
 
-        static std::vector<mnu::menu_sptr> _menus;
-        static std::stack<mnu::menu_csptr> opened_menus;
-
-        static float menu_width, menu_height, menu_padding;
-        static int font_size;
-
+        static std::shared_ptr<wte_asset> cursor_bitmap;
+        static mnu::menu_item_citerator menu_position;
         static bool select_menu_option;
         static bool is_button_left;
+        static int cursor_size;
 
-        static std::string menu_font_file;
-        static int menu_font_size;
-        static int menu_font_flags;
+        static std::vector<mnu::menu_sptr> _menus;
+        static std::stack<mnu::menu_csptr> opened_menus;
 
         static int64_t last_tick;
         static bool do_render;

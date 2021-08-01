@@ -18,21 +18,14 @@ namespace mgr
 template <> bool menus::manager<menus>::initialized = false;
 
 mnu::menu_item_citerator menus::menu_position;
-ALLEGRO_BITMAP* menus::cursor_bitmap = NULL;
-ALLEGRO_FONT* menus::menu_font = NULL;
-ALLEGRO_COLOR menus::menu_font_color;
-ALLEGRO_COLOR menus::menu_bg_color;
+std::shared_ptr<wte_asset> menus::cursor_bitmap;
 ALLEGRO_TIMER* menus::menu_timer = NULL;
 ALLEGRO_EVENT_QUEUE* menus::menu_event_queue = NULL;
 std::vector<mnu::menu_sptr> menus::_menus = {};
 std::stack<mnu::menu_csptr> menus::opened_menus = {};
-float menus::menu_width = 500, menus::menu_height = 400, menus::menu_padding = 32;
-int menus::font_size = 8;
+int menus::cursor_size = 8;
 bool menus::select_menu_option = false;
 bool menus::is_button_left = true;
-std::string menus::menu_font_file = "";
-int menus::menu_font_size = 0;
-int menus::menu_font_flags = 0;
 int64_t menus::last_tick = 0;
 bool menus::do_render = false;
 
@@ -56,26 +49,24 @@ menus::~menus() {
  *
  */
 void menus::initialize(void) {
-    if(menu_font_file.empty()) menu_font = al_create_builtin_font();
-    else {
-        menu_font = al_load_font(menu_font_file.c_str(), menu_font_size, menu_font_flags);
-        if(!menu_font) menu_font = al_create_builtin_font();
-    }
-    if(!menu_font) throw std::runtime_error("Unable to set font for menus!");
-
+    mgr::assets::secret_load<al_bitmap>(
+        "wte_temp_menu_bg_bitmap",
+        mgr::renderer::get_arena_width(),
+        mgr::renderer::get_arena_height()
+    );
+    al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_temp_menu_bg_bitmap"));
+    al_clear_to_color(WTE_COLOR_DARKPURPLE);
     //  Create the main menu.
-    if(!new_menu(mnu::menu("main_menu", "Main Menu")))
-        throw std::runtime_error("Unable to create main menu!");
+    if(!new_menu(mnu::menu("main_menu", "Main Menu",
+                            mgr::assets::secret_get<al_bitmap>("wte_temp_menu_bg_bitmap"),
+                            mgr::assets::secret_get<al_font>("wte_default_font")))
+      ) throw std::runtime_error("Unable to create main menu!");
 
     //  Create the in-game menu.
-    if(!new_menu(mnu::menu("game_menu", "Game Menu")))
-        throw std::runtime_error("Unable to create game menu!");
-
-    //  Set font size.
-    font_size = al_get_font_line_height(menu_font);
-
-    //  Create the menu cursor.
-    cursor_bitmap = al_create_bitmap(font_size, font_size);
+    if(!new_menu(mnu::menu("game_menu", "Game Menu",
+                            mgr::assets::secret_get<al_bitmap>("wte_temp_menu_bg_bitmap"),
+                            mgr::assets::secret_get<al_font>("wte_default_font")))
+      ) throw std::runtime_error("Unable to create game menu!");
 
     //  Create the the menu bitmap for rendering.
     mgr::assets::secret_load<al_bitmap>(
@@ -84,8 +75,6 @@ void menus::initialize(void) {
         mgr::renderer::get_arena_height(),
         true
     );
-    al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_menu_bitmap"));
-    al_clear_to_color(WTE_COLOR_TRANSPARENT);
 
     //  Create timer & its queue.
     menu_timer = al_create_timer(1.0f / 30.0f);
@@ -100,10 +89,15 @@ void menus::initialize(void) {
  *
  */
 void menus::de_init(void) {
-    al_destroy_bitmap(cursor_bitmap);
-    al_destroy_font(menu_font);
     al_destroy_event_queue(menu_event_queue);
     al_destroy_timer(menu_timer);
+}
+
+/*
+ *
+ */
+void menus::set_cursor(std::shared_ptr<wte_asset> bmp) {
+    cursor_bitmap = bmp;
 }
 
 /*
@@ -152,8 +146,8 @@ const mnu::menu_sptr menus::set_menu(const std::string& name) {
         if(name == (*it)->get_id()) return *it;
     }
 
-    //  Menu not found - return null pointer
-    return nullptr;
+    //  Menu not found - just return the first one in the vector
+    return *_menus.begin();
 }
 
 /*
@@ -291,10 +285,10 @@ ALLEGRO_BITMAP* menus::render_menu(void) {
     if(do_render) {
         //  Set drawing to the menu bitmap.
         al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_menu_bitmap"));
-        al_clear_to_color(menu_bg_color);
+        al_clear_to_color(WTE_COLOR_TRANSPARENT);
 
         //  Render menu title.
-        al_draw_text(menu_font, menu_font_color, menu_width / 2, menu_padding,
+        /*al_draw_text(menu_font, menu_font_color, menu_width / 2, menu_padding,
                      ALLEGRO_ALIGN_CENTER, opened_menus.top()->get_title().c_str());
 
         //  Render menu items.
@@ -314,7 +308,8 @@ ALLEGRO_BITMAP* menus::render_menu(void) {
         }
 
         //  Render menu cursor.
-        if(opened_menus.top()->num_items() != 0) al_draw_bitmap(cursor_bitmap, menu_padding, cursor_pos, 0);
+        if(opened_menus.top()->num_items() != 0) al_draw_bitmap(**std::static_pointer_cast<al_bitmap>(cursor_bitmap), menu_padding, cursor_pos, 0);
+        */
         do_render = false;
     }
 

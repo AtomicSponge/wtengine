@@ -49,6 +49,7 @@ menus::~menus() {
  *
  */
 void menus::initialize(void) {
+    //  Create a temp bitmap for the default menus to use.
     mgr::assets::secret_load<al_bitmap>(
         "wte_temp_menu_bg_bitmap",
         mgr::renderer::get_arena_width(),
@@ -56,16 +57,16 @@ void menus::initialize(void) {
     );
     al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_temp_menu_bg_bitmap"));
     al_clear_to_color(WTE_COLOR_DARKPURPLE);
+
     //  Create the main menu.
     if(!new_menu(mnu::menu("main_menu", "Main Menu",
-                            mgr::assets::secret_get<al_bitmap>("wte_temp_menu_bg_bitmap"),
-                            mgr::assets::secret_get<al_font>("wte_default_font")))
+                           mgr::assets::secret_get<al_bitmap>("wte_temp_menu_bg_bitmap"),
+                           mgr::assets::secret_get<al_font>("wte_default_font")))
       ) throw std::runtime_error("Unable to create main menu!");
-
     //  Create the in-game menu.
     if(!new_menu(mnu::menu("game_menu", "Game Menu",
-                            mgr::assets::secret_get<al_bitmap>("wte_temp_menu_bg_bitmap"),
-                            mgr::assets::secret_get<al_font>("wte_default_font")))
+                           mgr::assets::secret_get<al_bitmap>("wte_temp_menu_bg_bitmap"),
+                           mgr::assets::secret_get<al_font>("wte_default_font")))
       ) throw std::runtime_error("Unable to create game menu!");
 
     //  Create the the menu bitmap for rendering.
@@ -262,13 +263,12 @@ void menus::run(void) {
         if(select_menu_option) {
             bool toggle_menu_item = false;
 
-            if(al_get_timer_count(menu_timer) == last_tick + 1) {
-                toggle_menu_item = true;
-            }
-            if(al_get_timer_count(menu_timer) >= last_tick + 20) {
-                if(al_get_timer_count(menu_timer) >= last_tick + 70) toggle_menu_item = true;
-                else if(al_get_timer_count(menu_timer) % 5 == 0) toggle_menu_item = true;
-            }
+            if(al_get_timer_count(menu_timer) >= last_tick + 105)
+                if(al_get_timer_count(menu_timer) % 2 == 0) toggle_menu_item = true;
+            else if(al_get_timer_count(menu_timer) >= last_tick + 60)
+                if(al_get_timer_count(menu_timer) % 15 == 0) toggle_menu_item = true;
+            else if(al_get_timer_count(menu_timer) == last_tick + 30) toggle_menu_item = true;
+            else if(al_get_timer_count(menu_timer) == last_tick + 1) toggle_menu_item = true;
 
             if(toggle_menu_item) {
                 if(is_button_left) (*menu_position)->on_left();

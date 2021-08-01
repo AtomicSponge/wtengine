@@ -14,6 +14,7 @@
 #include <utility>
 #include <set>
 #include <iterator>
+#include <memory>
 #include <stdexcept>
 #include <cassert>
 
@@ -143,14 +144,10 @@ class renderer final : private manager<renderer> {
          * This should be called during engine initialization before the main object is created.
          * See the Allegro docs for more information on al_load_font and the parameters used.
          * 
-         * \param fname Filename to use.
-         * \param size Font size.
-         * \param flags Font flags.
+         * \param fone Font asset to use.
          */
-        static void set_font_file(
-            const std::string& fname,
-            const int& size,
-            const int& flags
+        static void set_font(
+            std::shared_ptr<wte_asset> font
         );
 
     private:
@@ -197,6 +194,8 @@ class renderer final : private manager<renderer> {
         static ALLEGRO_EVENT_QUEUE* fps_event_queue;
         static ALLEGRO_EVENT fps_event;
 
+        static std::shared_ptr<wte_asset> renderer_font;
+
         static std::size_t fps_counter, fps;
 
         static int screen_w, screen_h;
@@ -207,7 +206,6 @@ class renderer final : private manager<renderer> {
 
         static std::string title_screen_file;
         static std::string background_file;
-        static std::string render_font_file;
         static int render_font_size;
         static int render_font_flags;
 };

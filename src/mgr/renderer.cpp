@@ -21,6 +21,7 @@ ALLEGRO_BITMAP* renderer::temp_bitmap = NULL;
 ALLEGRO_TIMER* renderer::fps_timer = NULL;
 ALLEGRO_EVENT_QUEUE* renderer::fps_event_queue = NULL;
 ALLEGRO_EVENT renderer::fps_event;
+std::shared_ptr<wte_asset> renderer::renderer_font;
 std::size_t renderer::fps_counter = 0, renderer::fps = 0;
 int renderer::screen_w = 0, renderer::screen_h = 0;
 float renderer::scale_factor = 1.0;
@@ -28,7 +29,6 @@ int renderer::arena_w = 0, renderer::arena_h = 0;
 bool renderer::arena_created = false;
 std::string renderer::title_screen_file = "";
 std::string renderer::background_file = "";
-std::string renderer::render_font_file = "";
 int renderer::render_font_size = 0;
 int renderer::render_font_flags = 0;
 
@@ -40,6 +40,9 @@ void renderer::initialize(void) {
     if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
     mgr::assets::secret_load<al_bitmap>("wte_arena_bitmap", arena_w, arena_h, true);
     arena_created = true;
+
+    //  Set the overlay's font to the system default.
+    renderer_font = mgr::assets::secret_get<al_font>("wte_default_font");
 
     //  Load the title screen bitmap.
     if(title_screen_file.empty()) {
@@ -137,11 +140,7 @@ void renderer::set_background_screen(const std::string& fname) { background_file
 /*
  *
  */
-void renderer::set_font_file(const std::string& fname, const int& size, const int& flags) {
-    render_font_file = fname;
-    render_font_size = size;
-    render_font_flags = flags;
-}
+void renderer::set_font(std::shared_ptr<wte_asset> font) { renderer_font = font; }
 
 /*
  *
@@ -381,13 +380,13 @@ void renderer::render(void) {
      * Render alerts.
      */
     if(alert::is_set()) {
-        int font_size = al_get_font_line_height(**mgr::assets::secret_get<al_font>("wte_default_font"));
+        int font_size = al_get_font_line_height(**std::static_pointer_cast<al_font>(renderer_font));
 
         temp_bitmap = al_create_bitmap((alert::get().length() * font_size) + 20, font_size + 20);
         al_set_target_bitmap(temp_bitmap);
         al_clear_to_color(alert::get_bg_color());
 
-        al_draw_text(**mgr::assets::secret_get<al_font>("wte_default_font"), alert::get_font_color(),
+        al_draw_text(**std::static_pointer_cast<al_font>(renderer_font), alert::get_font_color(),
                      (al_get_bitmap_width(temp_bitmap) / 2), 10,
                      ALLEGRO_ALIGN_CENTER, alert::get().c_str());
 
@@ -409,13 +408,13 @@ void renderer::render(void) {
     //  Draw frame rate.
     if(config::flags::draw_fps) {
         std::string fps_string = "FPS: " + std::to_string(fps);
-        al_draw_text(**mgr::assets::secret_get<al_font>("wte_default_font"), WTE_COLOR_YELLOW, screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
+        al_draw_text(**std::static_pointer_cast<al_font>(renderer_font), WTE_COLOR_YELLOW, screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
 
     //  Draw time if debug mode is enabled.
     #if WTE_DEBUG_MODE
     std::string timer_string = "Timer: " + std::to_string(engine_time::check_time());
-    al_draw_text(**mgr::assets::secret_get<al_font>("wte_default_font"), WTE_COLOR_YELLOW, screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
+    al_draw_text(**std::static_pointer_cast<al_font>(renderer_font), WTE_COLOR_YELLOW, screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     #endif
 
     /*

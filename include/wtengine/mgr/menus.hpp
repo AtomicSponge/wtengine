@@ -93,13 +93,7 @@ class menus final : private manager<menus> {
          * \param new_menu A menu object.
          * \return Returns false if a menu with a similar ID already exists.  Returns true on success.
          */
-        inline static const bool new_menu(const mnu::menu& new_menu) {
-            for(menu_citerator it = _menus.begin(); it != _menus.end(); it++) {
-                if(new_menu.get_id() == (*it)->get_id()) return false;
-            }
-            _menus.push_back(std::make_shared<mnu::menu>(new_menu));
-            return true;
-        };
+        static const bool new_menu(const mnu::menu& new_menu);
 
         /*!
          * \brief Get menu by name.
@@ -111,27 +105,7 @@ class menus final : private manager<menus> {
          * \param name Menu name.
          * \return Shared pointer to menu.
          */
-        inline static const mnu::menu_csptr get_menu(const std::string& name) {
-            if(_menus.empty()) throw std::runtime_error("No menus have been loaded!");
-
-            for(menu_citerator it = _menus.begin(); it != _menus.end(); it++) {
-                if(name == (*it)->get_id()) return *it;
-            }
-
-            //  Menu not found, return main menu or game menu if the game is running
-            if(config::flags::game_started) {
-                for(menu_citerator it = _menus.begin(); it != _menus.end(); it++) {
-                    if("game_menu" == (*it)->get_id()) return *it;
-                }
-            } else {
-                for(menu_citerator it = _menus.begin(); it != _menus.end(); it++) {
-                    if("main_menu" == (*it)->get_id()) return *it;
-                }
-            }
-
-            //  Menu still not found - just return the first one in the vector
-            return *_menus.begin();
-        };
+        static const mnu::menu_csptr get_menu(const std::string& name);
 
         /*!
          * \brief Set menu by name.
@@ -142,16 +116,7 @@ class menus final : private manager<menus> {
          * \param name Menu name.
          * \return Shared pointer to menu.
          */
-        inline static const mnu::menu_sptr set_menu(const std::string& name) {
-            if(_menus.empty()) throw std::runtime_error("No menus have been loaded!");
-
-            for(menu_iterator it = _menus.begin(); it != _menus.end(); it++) {
-                if(name == (*it)->get_id()) return *it;
-            }
-
-            //  Menu not found - return null pointer
-            return nullptr;
-        };
+        static const mnu::menu_sptr set_menu(const std::string& name);
 
     private:
         menus();

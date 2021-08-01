@@ -29,8 +29,6 @@ int renderer::arena_w = 0, renderer::arena_h = 0;
 bool renderer::arena_created = false;
 std::string renderer::title_screen_file = "";
 std::string renderer::background_file = "";
-int renderer::render_font_size = 0;
-int renderer::render_font_flags = 0;
 
 /*
  *

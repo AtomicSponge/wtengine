@@ -206,8 +206,6 @@ class renderer final : private manager<renderer> {
 
         static std::string title_screen_file;
         static std::string background_file;
-        static int render_font_size;
-        static int render_font_flags;
 };
 
 } //  namespace mgr

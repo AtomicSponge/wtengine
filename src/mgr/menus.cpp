@@ -263,12 +263,15 @@ void menus::run(void) {
         if(select_menu_option) {
             bool toggle_menu_item = false;
 
-            if(al_get_timer_count(menu_timer) >= last_tick + 105)
+            if(al_get_timer_count(menu_timer) >= last_tick + 105) {
                 if(al_get_timer_count(menu_timer) % 2 == 0) toggle_menu_item = true;
-            else if(al_get_timer_count(menu_timer) >= last_tick + 60)
-                if(al_get_timer_count(menu_timer) % 15 == 0) toggle_menu_item = true;
-            else if(al_get_timer_count(menu_timer) == last_tick + 30) toggle_menu_item = true;
-            else if(al_get_timer_count(menu_timer) == last_tick + 1) toggle_menu_item = true;
+            } else {
+                if(al_get_timer_count(menu_timer) >= last_tick + 60) {
+                    if(al_get_timer_count(menu_timer) % 15 == 0) toggle_menu_item = true;
+                } else
+                    if(al_get_timer_count(menu_timer) == last_tick + 30) toggle_menu_item = true;
+                    else if(al_get_timer_count(menu_timer) == last_tick + 1) toggle_menu_item = true;
+            }
 
             if(toggle_menu_item) {
                 if(is_button_left) (*menu_position)->on_left();

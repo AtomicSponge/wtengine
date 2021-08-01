@@ -27,7 +27,7 @@
 #include "wtengine/mgr/assets.hpp"
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mgr/renderer.hpp"
-#include "wtengine/mnu/_menu_items.hpp"
+#include "wtengine/mnu/menu_item.hpp"
 #include "wtengine/mnu/menu.hpp"
 #include "wtengine/config.hpp"
 

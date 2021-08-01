@@ -34,6 +34,8 @@
 namespace wte
 {
 
+class engine;
+
 /*
  * Define containers for entity/component/world storage.
  */
@@ -95,14 +97,9 @@ namespace mgr
  * \brief Store a collection of entities and their corresponding components in memory.
  */
 class world final : private manager<world> {
-    public:
-        /*!
-         * \brief Clear the entity manager.
-         * 
-         * Set the entity counter to zero and clear the entities and componenets.
-         */
-        static void clear(void);
+    friend class wte::engine;
 
+    public:
         /*!
          * \brief Create a new entity by name, using the next available ID.
          * 
@@ -345,6 +342,11 @@ class world final : private manager<world> {
     private:
         world();
         ~world();
+
+        /*
+         * Clear the entity manager.
+         */
+        static void clear(void);
 
         static entity_id entity_counter;    //  Last Entity ID used.
         static world_container entity_vec;  //  Container for all entities.

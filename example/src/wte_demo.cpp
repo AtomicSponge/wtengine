@@ -179,10 +179,7 @@ wte_demo::~wte_demo() {
  * Items will appear in the order they were added.
  */
 void wte_demo::load_menus(void) {
-    //  First set colors used by the menu.
     mgr::menus::set_menu_color(WTE_COLOR_WHITE, WTE_COLOR_DARKPURPLE);
-    //  You can also set menu size here.  If not the default size is used.
-    //mgr::menus::set_menu_size(200, 200, 10);
 
     //  Configure the root main menu and game menu.
     {
@@ -385,9 +382,10 @@ void wte_demo::new_game(void) {
     mgr::world::set_name(e_id, "player_info_overlay");
     mgr::world::add_component<cmp::visible>(e_id);
     mgr::assets::load<al_bitmap>("player_info_overlay", 200, 20, true);
-    mgr::world::add_component<cmp::overlay>(e_id, mgr::assets::get<al_bitmap>("player_info_overlay"),
-                      mgr::renderer::get_arena_width() - 200,
-                      mgr::renderer::get_arena_height() - 20, 0,
+    mgr::world::add_component<cmp::overlay>(e_id,
+        mgr::assets::get<al_bitmap>("player_info_overlay"),
+        mgr::renderer::get_arena_width() - 200,
+        mgr::renderer::get_arena_height() - 20, 0,
         [](const entity_id& ovr_id) {
             //  Define what gets displayed on the overlay.
             entity_id shd_id = mgr::world::get_id("shield");
@@ -528,7 +526,7 @@ void wte_demo::new_game(void) {
     mgr::assets::load<al_bitmap>("cannon");
     mgr::assets::get<al_bitmap>("cannon")->load("cannon.bmp");
     mgr::world::add_component<cmp::sprite>(e_id, mgr::assets::get<al_bitmap>("cannon"),
-                      10.0f, 200.0f, 0.0f, 0.0f, 2, 2);
+                                           10.0f, 200.0f, 0.0f, 0.0f, 2, 2);
     mgr::world::set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
     mgr::world::set_component<cmp::sprite>(e_id)->set_cycle("main");
 
@@ -578,7 +576,7 @@ void wte_demo::new_game(void) {
     mgr::assets::load<al_bitmap>("shield");
     mgr::assets::get<al_bitmap>("shield")->load("shield.bmp");
     mgr::world::add_component<cmp::sprite>(e_id, mgr::assets::get<al_bitmap>("shield"),
-                      64.0f, 64.0f, 0.0f, 0.0f, 6, 2);
+                                           64.0f, 64.0f, 0.0f, 0.0f, 6, 2);
     mgr::world::set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 5);
     mgr::world::set_component<cmp::sprite>(e_id)->set_cycle("main");
 

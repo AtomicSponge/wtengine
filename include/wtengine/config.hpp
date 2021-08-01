@@ -161,7 +161,7 @@ class config {
 
     protected:
         config();
-        static bool initialized;
+        static bool initialized;  //  Restrict to one instance.
 };
 
 } //  end namespace wte

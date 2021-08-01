@@ -128,7 +128,7 @@ class engine : private display, public input, public config {
          */
         void process_new_game(const std::string& game_data);
 
-        /*!
+        /*
          * Call to end the game.
          * Clears out the entities and systems and runs user defined end process.
          */

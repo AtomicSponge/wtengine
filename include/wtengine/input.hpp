@@ -129,29 +129,24 @@ class input {
         };
 
     protected:
-        /*!
-         * \brief WTE Input constructor.
-         */
         input();
 
-        /*!
-         * \brief Create the input queue for capturing events.
-         * 
+        /*
+         * Create the input queue for capturing events. 
          * Called during engine initialization.
          */
         void create_input_event_queue(void);
 
-        /*!
-         * \brief Destroy the input queue.
-         * 
+        /*
+         * Destroy the input queue.
          * Called during engine de-initialization.
          */
         void destroy_input_event_queue(void);
 
-        /*!
-         * \brief Check the input queue for events.
-         * 
-         * Called during the main engine loop.  Pass any events to the input handler.
+        /*
+         * Check the input queue for events.
+         * Called during the main engine loop.
+         * Passes any events to the input handler.
          */
         void check_input_events(void);
 
@@ -166,9 +161,14 @@ class input {
         };
 
     private:
+        /*
+         * Process input events
+         */
         void handle_input_event(const ALLEGRO_EVENT&);
 
+        // Input event queue.
         ALLEGRO_EVENT_QUEUE* input_event_queue;
+        //  Restrict to one instance.
         static bool initialized;
 };
 

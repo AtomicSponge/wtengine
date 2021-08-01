@@ -39,33 +39,32 @@ class display {
         const std::string get_window_title(void) const;
 
     protected:
-        /*!
-         * \brief Display constructor.
-         * \param title Window title.
+        /*
+         * Display constructor.
          */
         display(const std::string& title);
 
-        /*!
-         * \brief Configure the display.
+        /*
+         * Configure the display.
          */
         void create_display(void);
 
-        /*!
-         * \brief Destroy the display.
+        /*
+         * Destroy the display.
          */
         void destroy_display(void);
 
-        /*!
-         * \brief Reconfigure the display.
+        /*
+         * Reconfigure the display.
          */
         void reconf_display(void);
 
-        //!  Allegro object for the display.
+        //  Allegro object for the display.
         ALLEGRO_DISPLAY* _display;
 
     private:
         std::string window_title;  //  Title for application window.
-        static bool initialized;
+        static bool initialized;   //  Restrict to one instance.
 };
 
 } //  end namespace wte

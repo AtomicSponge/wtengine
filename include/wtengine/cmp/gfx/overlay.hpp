@@ -55,22 +55,6 @@ class overlay final : public animator {
             const std::function<void(const entity_id&)>& func
         );
 
-        /*!
-         * \brief Create a new Overlay component.  Use system default font.
-         * \param bmp Bitmap asset to use.
-         * \param x Horizontal location of the overlay in pixels.
-         * \param y Verticle location of the overlay in pixels.
-         * \param l Layer for sorting.
-         * \param func Function to define what is displayed in the overlay.
-         */
-        overlay(
-            std::shared_ptr<wte_asset> bmp,
-            const float& x,
-            const float& y,
-            const std::size_t& l,
-            const std::function<void(const entity_id&)>& func
-        );
-
         ~overlay();
 
         /*!

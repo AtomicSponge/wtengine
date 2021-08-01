@@ -361,7 +361,9 @@ void wte_demo::new_game(void) {
     mgr::world::set_name(e_id, "score_overlay");
     mgr::world::add_component<cmp::visible>(e_id);
     mgr::assets::load<al_bitmap>("score_overlay", 200, 20, true);
-    mgr::world::add_component<cmp::overlay>(e_id, mgr::assets::get<al_bitmap>("score_overlay"),
+    mgr::world::add_component<cmp::overlay>(e_id,
+        mgr::assets::get<al_bitmap>("score_overlay"),
+        mgr::assets::get<al_font>("wte_default_font"),
         0, mgr::renderer::get_arena_height() - 20, 0,
         [](const entity_id& ovr_id) {
             //  Define what gets displayed on the overlay.
@@ -383,6 +385,7 @@ void wte_demo::new_game(void) {
     mgr::assets::load<al_bitmap>("player_info_overlay", 200, 20, true);
     mgr::world::add_component<cmp::overlay>(e_id,
         mgr::assets::get<al_bitmap>("player_info_overlay"),
+        mgr::assets::get<al_font>("wte_default_font"),
         mgr::renderer::get_arena_width() - 200,
         mgr::renderer::get_arena_height() - 20, 0,
         [](const entity_id& ovr_id) {
@@ -405,8 +408,9 @@ void wte_demo::new_game(void) {
     //mgr::assets::load<al_bitmap>("game_over_overlay", "game_over.bmp");
     mgr::assets::load<al_bitmap>("game_over_overlay");
     mgr::assets::get<al_bitmap>("game_over_overlay")->load("game_over.bmp");
-    mgr::world::add_component<cmp::overlay>(
-        e_id, mgr::assets::get<al_bitmap>("game_over_overlay"),
+    mgr::world::add_component<cmp::overlay>(e_id,
+        mgr::assets::get<al_bitmap>("game_over_overlay"),
+        mgr::assets::get<al_font>("wte_default_font"),
         (mgr::renderer::get_arena_width() / 2) - 240,
         (mgr::renderer::get_arena_height() / 2) - 66, 1,
         [](const entity_id& ovr_id) {}

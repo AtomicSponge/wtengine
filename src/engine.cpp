@@ -156,7 +156,7 @@ void engine::wte_load(void) {
     mgr::menus::initialize();
 
     //  Generate Allegro's default font and load into asset mgr.
-    mgr::assets::secret_load<al_font>("wte_default_font");
+    mgr::assets::load<al_font>("wte_default_font");
 
     //  Load user configured menus.
     load_menus();

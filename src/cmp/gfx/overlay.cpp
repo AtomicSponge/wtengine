@@ -37,7 +37,7 @@ overlay::overlay(
     const std::size_t& l,
     const std::function<void(const entity_id&)>& func
 ) : animator(bmp, l, func), pos_x(x), pos_y(y) {
-    overlay_font = mgr::assets::secret_get<al_font>("wte_default_font");
+    overlay_font = mgr::assets::get<al_font>("wte_default_font");
 }
 
 /*

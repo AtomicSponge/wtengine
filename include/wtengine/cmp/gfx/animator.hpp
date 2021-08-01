@@ -89,12 +89,16 @@ class animator : public component {
 
     protected:
         /*!
-         * \brief Animator constructor.
-         * \param l Layer for sorting.
+         * \brief Create a new component based on the Animator.
+         * \param bmp Bitmap asset to use.
+         * \param l Layer position.
          * \param func Animation function.
          */
-        animator(std::shared_ptr<wte_asset> bmp, const std::size_t& l,
-                 const std::function<void(const entity_id&)>& func);
+        animator(
+            std::shared_ptr<wte_asset> bmp,
+            const std::size_t& l,
+            const std::function<void(const entity_id&)>& func
+        );
 
         //!  Stores the bitmap used by the animator.
         std::shared_ptr<wte_asset> internal_bitmap;

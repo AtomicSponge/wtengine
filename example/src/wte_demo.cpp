@@ -179,6 +179,11 @@ wte_demo::~wte_demo() {
  * Items will appear in the order they were added.
  */
 void wte_demo::load_menus(void) {
+    //  Set the background and font for the menus.
+    //mgr::menus::set_background();
+    //mgr::menus::set_font();
+    //mgr::menus::set_cursor();
+
     //  Configure the root main menu and game menu.
     {
         //  Configure main menu.

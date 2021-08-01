@@ -18,6 +18,8 @@ namespace mgr
 template <> bool menus::manager<menus>::initialized = false;
 
 mnu::menu_item_citerator menus::menu_position;
+std::shared_ptr<wte_asset> menus::menu_background;
+std::shared_ptr<wte_asset> menus::menu_font;
 std::shared_ptr<wte_asset> menus::cursor_bitmap;
 ALLEGRO_TIMER* menus::menu_timer = NULL;
 ALLEGRO_EVENT_QUEUE* menus::menu_event_queue = NULL;
@@ -49,25 +51,12 @@ menus::~menus() {
  *
  */
 void menus::initialize(void) {
-    //  Create a temp bitmap for the default menus to use.
-    mgr::assets::secret_load<al_bitmap>(
-        "wte_temp_menu_bg_bitmap",
-        mgr::renderer::get_arena_width(),
-        mgr::renderer::get_arena_height()
-    );
-    al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_temp_menu_bg_bitmap"));
-    al_clear_to_color(WTE_COLOR_DARKPURPLE);
-
     //  Create the main menu.
-    if(!new_menu(mnu::menu("main_menu", "Main Menu",
-                           mgr::assets::secret_get<al_bitmap>("wte_temp_menu_bg_bitmap"),
-                           mgr::assets::secret_get<al_font>("wte_default_font")))
-      ) throw std::runtime_error("Unable to create main menu!");
+    if(!new_menu(mnu::menu("main_menu", "Main Menu")))
+        throw std::runtime_error("Unable to create main menu!");
     //  Create the in-game menu.
-    if(!new_menu(mnu::menu("game_menu", "Game Menu",
-                           mgr::assets::secret_get<al_bitmap>("wte_temp_menu_bg_bitmap"),
-                           mgr::assets::secret_get<al_font>("wte_default_font")))
-      ) throw std::runtime_error("Unable to create game menu!");
+    if(!new_menu(mnu::menu("game_menu", "Game Menu")))
+        throw std::runtime_error("Unable to create game menu!");
 
     //  Create the the menu bitmap for rendering.
     mgr::assets::secret_load<al_bitmap>(
@@ -97,9 +86,17 @@ void menus::de_init(void) {
 /*
  *
  */
-void menus::set_cursor(std::shared_ptr<wte_asset> bmp) {
-    cursor_bitmap = bmp;
-}
+void menus::set_background(std::shared_ptr<wte_asset> bmp) { menu_background = bmp; }
+
+/*
+ *
+ */
+void menus::set_font(std::shared_ptr<wte_asset> font) { menu_font = font; }
+
+/*
+ *
+ */
+void menus::set_cursor(std::shared_ptr<wte_asset> bmp) { cursor_bitmap = bmp; }
 
 /*
  *
@@ -196,6 +193,7 @@ void menus::close_menu(void) {
  */
 void menus::menu_pos_up(void) {
     if(menu_position != opened_menus.top()->items_cbegin()) menu_position--;
+    do_render = true;
 }
 
 /*
@@ -203,6 +201,7 @@ void menus::menu_pos_up(void) {
  */
 void menus::menu_pos_down(void) {
     if(menu_position != --opened_menus.top()->items_cend()) menu_position++;
+    do_render = true;
 }
 
 /*
@@ -242,6 +241,7 @@ void menus::menu_pos_stop_right(void) { select_menu_option = false; }
  */
 void menus::menu_item_select(void) {
     if(menu_position != opened_menus.top()->items_cend()) (*menu_position)->on_select();
+    do_render = true;
 }
 
 /*
@@ -258,8 +258,6 @@ void menus::run(void) {
     ALLEGRO_EVENT event;
     const bool queue_not_empty = al_get_next_event(menu_event_queue, &event);
     if(queue_not_empty && event.type == ALLEGRO_EVENT_TIMER) {
-        do_render = true;
-
         if(select_menu_option) {
             bool toggle_menu_item = false;
 
@@ -274,6 +272,7 @@ void menus::run(void) {
             }
 
             if(toggle_menu_item) {
+                do_render = true;
                 if(is_button_left) (*menu_position)->on_left();
                 else (*menu_position)->on_right();
             }
@@ -291,7 +290,7 @@ ALLEGRO_BITMAP* menus::render_menu(void) {
         al_clear_to_color(WTE_COLOR_TRANSPARENT);
 
         //  Render menu title.
-        /*al_draw_text(menu_font, menu_font_color, menu_width / 2, menu_padding,
+        al_draw_text(menu_font, menu_font_color, menu_width / 2, menu_padding,
                      ALLEGRO_ALIGN_CENTER, opened_menus.top()->get_title().c_str());
 
         //  Render menu items.
@@ -312,7 +311,7 @@ ALLEGRO_BITMAP* menus::render_menu(void) {
 
         //  Render menu cursor.
         if(opened_menus.top()->num_items() != 0) al_draw_bitmap(**std::static_pointer_cast<al_bitmap>(cursor_bitmap), menu_padding, cursor_pos, 0);
-        */
+
         do_render = false;
     }
 

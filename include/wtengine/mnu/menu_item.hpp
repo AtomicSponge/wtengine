@@ -41,7 +41,6 @@ class menu_item {
 
         /*!
          * \brief Return display text for the menu item when rendering.
-         * 
          * \return Vector of display text.
          */
         inline virtual const std::vector<std::string> get_text(void) const { return {"null"}; };
@@ -73,28 +72,24 @@ class menu_item {
 
         /*!
          * \brief Define setting changed process.
-         * 
          * \return Default return false.
          */
         inline virtual const bool setting_changed(void) const { return false; };
 
         /*!
          * \brief Get the display label.
-         * 
          * \return The label text.
          */
         inline const std::string get_label(void) const { return label; };
 
         /*!
          * \brief Get the setting type.
-         * 
          * \return Setting type.
          */
         inline const std::size_t get_setting_type(void) const { return setting_type; };
 
         /*!
          * \brief Check if it is an engine setting.
-         * 
          * \return True if an engine setting, false if a game setting.
          */
         inline const bool is_engine_setting(void) const { 
@@ -108,7 +103,6 @@ class menu_item {
     protected:
         /*!
          * \brief Menu item constructor.
-         * 
          * \param l Label of the menu item.
          */
         inline menu_item(
@@ -117,7 +111,6 @@ class menu_item {
 
         /*!
          * \brief Menu item constructor.
-         * 
          * \param l Label of the menu item.
          * \param st Setting type.
          */

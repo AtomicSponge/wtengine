@@ -58,6 +58,16 @@ class menus final : private manager<menus> {
         /*!
          * \brief
          */
+        static void set_background(std::shared_ptr<wte_asset> bmp);
+
+        /*!
+         * \brief
+         */
+        static void set_font(std::shared_ptr<wte_asset> font);
+
+        /*!
+         * \brief
+         */
         static void set_cursor(std::shared_ptr<wte_asset> bmp);
 
         /*!
@@ -153,6 +163,8 @@ class menus final : private manager<menus> {
         static ALLEGRO_TIMER* menu_timer;
         static ALLEGRO_EVENT_QUEUE* menu_event_queue;
 
+        static std::shared_ptr<wte_asset> menu_background;
+        static std::shared_ptr<wte_asset> menu_font;
         static std::shared_ptr<wte_asset> cursor_bitmap;
         static mnu::menu_item_citerator menu_position;
         static bool select_menu_option;

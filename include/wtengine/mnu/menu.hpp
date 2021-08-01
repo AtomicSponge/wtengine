@@ -52,9 +52,7 @@ class menu {
          */
         menu(
             const std::string i,
-            const std::string t,
-            std::shared_ptr<wte_asset> bmp,
-            std::shared_ptr<wte_asset> font
+            const std::string t
         );
 
         ~menu();
@@ -110,12 +108,6 @@ class menu {
         std::string id;
         std::string title;
         menu_items items;
-        float pos_x, pos_y;
-
-        std::shared_ptr<wte_asset> menu_background;
-        std::shared_ptr<wte_asset> menu_font;
-        static ALLEGRO_COLOR menu_font_color;
-        static ALLEGRO_COLOR menu_bg_color;
 };
 
 //! Shared pointer for addressing a menu.

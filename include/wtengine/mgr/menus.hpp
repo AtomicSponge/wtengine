@@ -116,11 +116,6 @@ class menus final : private manager<menus> {
         static void de_init(void);
 
         /*
-         * Pre-renders game menus.
-         */
-        static void generate_menus(void);
-
-        /*
          * Adds a menu to the stack if none are opened, then processes the menus.
          */
         static void run(void);

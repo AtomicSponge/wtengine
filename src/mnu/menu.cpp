@@ -60,13 +60,6 @@ menu_item_citerator menu::items_cend(void) const { return items.cend(); }
  */
 void menu::set_title(const std::string& t) { title = t; }
 
-/*
- *
- */
-void menu::render(void) {
-    //
-}
-
 }  // end namespace mnu
 
 }  // end namespace wte

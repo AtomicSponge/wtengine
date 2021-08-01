@@ -151,13 +151,6 @@ const mnu::menu_sptr menus::set_menu(const std::string& name) {
 /*
  *
  */
-void menus::generate_menus(void) {
-    for(auto& it: _menus) it->render();
-}
-
-/*
- *
- */
 void menus::reset(void) {
     opened_menus = {};
     config::flags::game_menu_opened = false;

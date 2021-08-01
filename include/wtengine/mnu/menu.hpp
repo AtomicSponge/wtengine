@@ -93,8 +93,6 @@ class menu {
         };
 
     private:
-        void render(void);
-
         /*
          * Get menu items start iterator.
          */

@@ -29,6 +29,8 @@
 namespace wte
 {
 
+class engine;
+
 namespace mgr
 {
 
@@ -37,7 +39,7 @@ namespace mgr
  * \brief Stores an index of assets.
  */
 class assets final : private manager<assets> {
-    friend class engine_inf;
+    friend class wte::engine;
     friend class menus;
     friend class renderer;
 

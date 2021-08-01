@@ -64,12 +64,12 @@ void menus::initialize(void) {
     if(!menu_font) throw std::runtime_error("Unable to set font for menus!");
 
     //  Create the main menu.
-    mnu::menu temp_main_menu = mnu::menu("main_menu", "Main Menu");
-    if(!new_menu(temp_main_menu)) throw std::runtime_error("Unable to create main menu!");
+    if(!new_menu(mnu::menu("main_menu", "Main Menu")))
+        throw std::runtime_error("Unable to create main menu!");
 
     //  Create the in-game menu.
-    mnu::menu temp_game_menu = mnu::menu("game_menu", "Game Menu");
-    if(!new_menu(temp_game_menu)) throw std::runtime_error("Unable to create game menu!");
+    if(!new_menu(mnu::menu("game_menu", "Game Menu")))
+        throw std::runtime_error("Unable to create game menu!");
 
     //  Set font size.
     font_size = al_get_font_line_height(menu_font);
@@ -78,9 +78,14 @@ void menus::initialize(void) {
     cursor_bitmap = al_create_bitmap(font_size, font_size);
 
     //  Create the the menu bitmap for rendering.
-    mgr::assets::secret_load<al_bitmap>("wte_menu_bitmap", menu_width, menu_height, true);
+    mgr::assets::secret_load<al_bitmap>(
+        "wte_menu_bitmap",
+        mgr::renderer::get_arena_width(),
+        mgr::renderer::get_arena_height(),
+        true
+    );
     al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_menu_bitmap"));
-    al_clear_to_color(WTE_COLOR_BLACK);
+    al_clear_to_color(WTE_COLOR_TRANSPARENT);
 
     //  Create timer & its queue.
     menu_timer = al_create_timer(1.0f / 30.0f);
@@ -99,6 +104,13 @@ void menus::de_init(void) {
     al_destroy_font(menu_font);
     al_destroy_event_queue(menu_event_queue);
     al_destroy_timer(menu_timer);
+}
+
+/*
+ *
+ */
+void menus::generate_menus(void) {
+    for(auto& it: _menus) it->render();
 }
 
 /*

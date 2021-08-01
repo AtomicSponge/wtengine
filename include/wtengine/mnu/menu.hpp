@@ -20,6 +20,13 @@
 namespace wte
 {
 
+namespace mgr
+{
+
+class menus;
+
+}
+
 namespace mnu
 {
 
@@ -33,6 +40,8 @@ typedef std::vector<menu_item_sptr>::const_iterator menu_item_citerator;
  * \brief Class for defining a menu.
  */
 class menu {
+    friend class wte::mgr::menus;
+
     public:
         /*!
          * \brief Menu constructor.
@@ -65,18 +74,6 @@ class menu {
         const std::size_t num_items(void) const;
 
         /*!
-         * \brief Get menu items start iterator.
-         * \return Constant iterator to beginnig of menu items.
-         */
-        menu_item_citerator items_cbegin(void) const;
-
-        /*!
-         * \brief Get menu items end iterator.
-         * \return Constant iterator to end of menu items.
-         */
-        menu_item_citerator items_cend(void) const;
-
-        /*!
          * \brief Set the menu display title.
          * \param t New display title to set.
          */
@@ -94,6 +91,18 @@ class menu {
         };
 
     private:
+        void render(void);
+
+        /*
+         * Get menu items start iterator.
+         */
+        menu_item_citerator items_cbegin(void) const;
+
+        /*
+         * Get menu items end iterator.
+         */
+        menu_item_citerator items_cend(void) const;
+        
         std::string id;
         std::string title;
         int pos_x, pos_y;

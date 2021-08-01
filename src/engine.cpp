@@ -12,7 +12,6 @@
 namespace wte
 {
 
-mgr::engine_inf engine::mgr_inf;
 commands engine::cmds;
 ALLEGRO_TIMER* engine::main_timer = NULL;
 ALLEGRO_EVENT_QUEUE* engine::main_event_queue = NULL;
@@ -74,22 +73,22 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
     });
     cmds.add("new_game", 1, [this](const msg_args& args) {
         if(!config::flags::game_started) {
-            mgr_inf.menus_reset();
+            mgr::menus::reset();
             process_new_game(args[0]);
         }
     });
     cmds.add("end_game", 0, [this](const msg_args& args) {
         if(config::flags::game_started) {
             process_end_game();
-            mgr_inf.menus_reset();
+            mgr::menus::reset();
         }
     });
     cmds.add("open_menu", 1, [this](const msg_args& args) {
-        mgr_inf.menus_open(args[0]);
+        mgr::menus::open_menu(args[0]);
     });
     cmds.add("close_menu", 1, [this](const msg_args& args) {
-        if(args[0] == "all") mgr_inf.menus_reset();
-        else mgr_inf.menus_close();
+        if(args[0] == "all") mgr::menus::reset();
+        else mgr::menus::close_menu();
     });
     cmds.add("reconf_display", 0, [this](const msg_args& args) {
         const bool timer_running = al_get_timer_started(main_timer);
@@ -98,11 +97,11 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
         al_pause_event_queue(main_event_queue, true);
         al_unregister_event_source(main_event_queue, al_get_display_event_source(_display));
         //  Backup temp bitmaps.
-        mgr_inf.bitmap_backup();
+        mgr::assets::backup_bitmaps();
         //  Reload the display.
         reconf_display();
         //  Reload any temp bitmaps.
-        mgr_inf.bitmap_reload();
+        mgr::assets::reload_bitmaps();
         //  Register display event source and resume timer if it was running.
         al_register_event_source(main_event_queue, al_get_display_event_source(_display));
         al_pause_event_queue(main_event_queue, false);
@@ -152,9 +151,9 @@ void engine::add_file_location(const std::string& flocation) {
  */
 void engine::wte_load(void) {
     //  Initialize managers that require it.
-    mgr_inf.renderer_init();
-    mgr_inf.audio_init();
-    mgr_inf.menus_init();
+    mgr::renderer::initialize();
+    mgr::audio::initialize();
+    mgr::menus::initialize();
 
     //  Load user configured menus.
     load_menus();
@@ -164,9 +163,9 @@ void engine::wte_load(void) {
  *
  */
 void engine::wte_unload(void) {
-    mgr_inf.menus_de_init();
-    mgr_inf.audio_de_init();
-    mgr_inf.renderer_de_init();
+    mgr::menus::de_init();
+    mgr::audio::de_init();
+    mgr::renderer::de_init();
 }
 
 /*
@@ -179,12 +178,12 @@ void engine::process_new_game(const std::string& game_data) {
     config::flags::game_menu_opened = false;
 
     //  Load a new message data file.
-    if(!game_data.empty()) mgr_inf.messages_load_file(game_data);
+    if(!game_data.empty()) mgr::messages::load_file(game_data);
 
     //  Load systems and prevent further systems from being loaded.
     load_systems();
-    mgr_inf.systems_finalize();
-    if(mgr_inf.systems_empty()) throw std::runtime_error("No systems have been loaded!");
+    mgr::systems::finalize();
+    if(mgr::systems::empty()) throw std::runtime_error("No systems have been loaded!");
 
     //  Stop audio manager from playing sounds.
     mgr::audio::music_stop();
@@ -234,7 +233,7 @@ void engine::process_end_game(void) {
 
     //  Clear world and systems.
     mgr::world::clear();
-    mgr_inf.systems_clear();
+    mgr::systems::clear();
 
     //  Open the menus.
     config::flags::game_menu_opened = true;
@@ -273,7 +272,7 @@ void engine::do_game(void) {
         }
 
         //  Game menu is opened, run the menu manager.
-        if(config::flags::game_menu_opened) mgr_inf.menus_run();
+        if(config::flags::game_menu_opened) mgr::menus::run();
 
         /* *** GAME LOOP ************************************************************ */
         ALLEGRO_EVENT event;
@@ -284,24 +283,24 @@ void engine::do_game(void) {
             engine_time::set_time(al_get_timer_count(main_timer));
 
             //  Run all systems.
-            mgr_inf.systems_run();
+            mgr::systems::run();
             //  Process messages.
-            mgr_inf.systems_dispatch();
+            mgr::systems::dispatch();
 
             //  Get any spawner messages and pass to handler.
-            mgr_inf.spawner_process_messages(mgr_inf.messages_get("spawner"));
+            mgr::spawner::process_messages(mgr::messages::get_messages("spawner"));
         }
         /* *** END GAME LOOP ******************************************************** */
 
         //  Render the screen.
-        mgr_inf.renderer_run();
+        mgr::renderer::render();
 
         //  Get any system messages and pass to handler.
-        cmds.process_messages(mgr_inf.messages_get("system"));
+        cmds.process_messages(mgr::messages::get_messages("system"));
         //  Send audio messages to the audio queue.
-        mgr_inf.audio_process_messages(mgr_inf.messages_get("audio"));
+        mgr::audio::process_messages(mgr::messages::get_messages("audio"));
         //  Delete timed messages that were not processed.
-        mgr_inf.messages_prune();
+        mgr::messages::prune();
 
         //  Check if display looses focus.
         if(event.type == ALLEGRO_EVENT_DISPLAY_SWITCH_OUT) {

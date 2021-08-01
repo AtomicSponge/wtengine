@@ -27,6 +27,8 @@
 namespace wte
 {
 
+class engine;
+
 namespace mgr
 {
 
@@ -45,7 +47,7 @@ namespace mgr
  * Mixer 4 - Play ambiance - Load a file and play in a loop.  Looping can be disabled.
  */
 class audio final : private manager<audio> {
-    friend class engine_inf;
+    friend class wte::engine;
 
     public:
         /*!

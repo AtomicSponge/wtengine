@@ -26,12 +26,16 @@
 #include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/mgr/assets.hpp"
 #include "wtengine/mgr/messages.hpp"
+#include "wtengine/mgr/renderer.hpp"
 #include "wtengine/mnu/_menu_items.hpp"
 #include "wtengine/mnu/menu.hpp"
 #include "wtengine/config.hpp"
 
 namespace wte
 {
+
+class engine;
+class input;
 
 //! Menu iterator.
 typedef std::vector<mnu::menu_sptr>::iterator menu_iterator;
@@ -46,31 +50,11 @@ namespace mgr
  * \brief Handles processing menus and rendering them.
  */
 class menus final : private manager<menus> {
-    friend class engine_inf;
-    friend class input_inf;
+    friend class wte::engine;
+    friend class wte::input;
     friend class renderer;
 
     public:
-        /*!
-         * \brief Set menu size.
-         * 
-         * Call during menu creation.
-         * If not called the default size of 500x400 padding 32 is used.
-         * 
-         * \param mw Menu width in pixels.
-         * \param mh Menu height in pixels.
-         * \param mp Menu padding in pixels.
-         */
-        inline static void set_menu_size(const float& mw, const float& mh, const float& mp) {
-            menu_width = mw;
-            menu_height = mh;
-            menu_padding = mp;
-            mgr::assets::secret_unload("wte_menu_bitmap");
-            mgr::assets::secret_load<al_bitmap>("wte_menu_bitmap", menu_width, menu_height, true);
-            al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_menu_bitmap"));
-            al_clear_to_color(WTE_COLOR_BLACK);
-        };
-
         /*!
          * \brief Set menu colors.
          * 
@@ -183,6 +167,11 @@ class menus final : private manager<menus> {
          * Destories the internal objects.
          */
         static void de_init(void);
+
+        /*
+         * Pre-renders game menus.
+         */
+        static void generate_menus(void);
 
         /*
          * Adds a menu to the stack if none are opened, then processes the menus.

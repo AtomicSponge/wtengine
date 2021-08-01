@@ -24,6 +24,8 @@
 namespace wte
 {
 
+class engine;
+
 namespace mgr
 {
 
@@ -32,7 +34,7 @@ namespace mgr
  * \brief Create or delete entities while the engine is running.
  */
 class spawner final : private manager<spawner> {
-    friend class engine_inf;
+    friend class wte::engine;
 
     public:
         /*!

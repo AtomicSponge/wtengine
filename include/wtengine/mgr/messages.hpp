@@ -30,6 +30,8 @@
 namespace wte
 {
 
+class engine;
+
 namespace mgr
 {
 
@@ -38,7 +40,7 @@ namespace mgr
  * \brief Store a collection of message objects in a vector for processing.
  */
 class messages final : private manager<messages> {
-    friend class engine_inf;
+    friend class wte::engine;
     friend class systems;
     friend class menus;
 

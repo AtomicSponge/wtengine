@@ -26,6 +26,8 @@
 namespace wte
 {
 
+class engine;
+
 namespace mgr
 {
 
@@ -34,7 +36,7 @@ namespace mgr
  * \brief Store the configured systems and process their runs and dispatches.
  */
 class systems final : private manager<systems> {
-    friend class engine_inf;
+    friend class wte::engine;
 
     public:
         /*!

@@ -31,6 +31,13 @@ namespace wte
 
 class engine;
 
+namespace cmp
+{
+
+class overlay;
+
+}
+
 namespace mgr
 {
 
@@ -40,6 +47,7 @@ namespace mgr
  */
 class assets final : private manager<assets> {
     friend class wte::engine;
+    friend class cmp::overlay;
     friend class menus;
     friend class renderer;
 

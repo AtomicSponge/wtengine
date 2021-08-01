@@ -12,11 +12,17 @@
 
 #include <string>
 #include <map>
+#include <functional>
+#include <memory>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 
 #include "wtengine/cmp/gfx/animator.hpp"
+
+#include "wtengine/_globals/wrappers.hpp"
+#include "wtengine/_globals/wte_asset.hpp"
+#include "wtengine/mgr/assets.hpp"
 
 namespace wte
 {
@@ -29,22 +35,42 @@ namespace cmp
  * \brief Component for storing an overlay image and defining its animation process.
  */
 class overlay final : public animator {
+
     public:
         /*!
          * \brief Create a new Overlay component.
-         * \param w Overlay width in pixels.
-         * \param h Overlay height in pixels.
+         * \param bmp Bitmap asset to use.
+         * \param font Font asset to use.
          * \param x Horizontal location of the overlay in pixels.
          * \param y Verticle location of the overlay in pixels.
          * \param l Layer for sorting.
          * \param func Function to define what is displayed in the overlay.
          */
-        overlay(std::shared_ptr<wte_asset> bmp, const float& x, const float& y,
-                const std::size_t& l, const std::function<void(const entity_id&)>& func);
+        overlay(
+            std::shared_ptr<wte_asset> bmp,
+            std::shared_ptr<wte_asset> font,
+            const float& x,
+            const float& y,
+            const std::size_t& l,
+            const std::function<void(const entity_id&)>& func
+        );
 
         /*!
-         * \brief Overlay destructor.
+         * \brief Create a new Overlay component.  Use system default font.
+         * \param bmp Bitmap asset to use.
+         * \param x Horizontal location of the overlay in pixels.
+         * \param y Verticle location of the overlay in pixels.
+         * \param l Layer for sorting.
+         * \param func Function to define what is displayed in the overlay.
          */
+        overlay(
+            std::shared_ptr<wte_asset> bmp,
+            const float& x,
+            const float& y,
+            const std::size_t& l,
+            const std::function<void(const entity_id&)>& func
+        );
+
         ~overlay();
 
         /*!
@@ -55,8 +81,13 @@ class overlay final : public animator {
          * \param y Verticle location of the text.
          * \param f Text flags for drawing - see Allegro docs on al_draw_text.
          */
-        void draw_text(const std::string& txt, const ALLEGRO_COLOR& color,
-                       const float& x, const float& y, const int& f);
+        void draw_text(
+            const std::string& txt,
+            const ALLEGRO_COLOR& color,
+            const float& x,
+            const float& y,
+            const int& f
+        );
 
         /*!
          * \brief Get X position.
@@ -70,16 +101,10 @@ class overlay final : public animator {
          */
         const float get_pos_y(void) const;
 
-        /*!
-         * \brief Set the font used by the overlay.
-         * \param font Allegro font object to be used.
-         */
-        void set_font(ALLEGRO_FONT* font);
-
     private:
-        ALLEGRO_FONT* overlay_font;     //  Allegro font for overlay.
-
-        float pos_x, pos_y;             //  X/Y position of overlay.
+        //  Font for overlay.
+        std::shared_ptr<wte_asset> overlay_font;
+        float pos_x, pos_y;  //  X/Y position of overlay.
 };
 
 } //  namespace cmp

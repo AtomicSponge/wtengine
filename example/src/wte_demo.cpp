@@ -373,7 +373,6 @@ void wte_demo::new_game(void) {
             mgr::world::set_component<cmp::overlay>(ovr_id)->draw_text(std::to_string(mgr::variables::get<int>("hiscore")), WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_LEFT);
         }
     );  //  End score overlay drawing.
-    mgr::world::set_component<cmp::overlay>(e_id)->set_font(al_create_builtin_font());
 
     /* ********************************* */
     /* *** Player Info overlay entity ** */
@@ -396,7 +395,6 @@ void wte_demo::new_game(void) {
             mgr::world::set_component<cmp::overlay>(ovr_id)->draw_text("Lives:  " + std::to_string(mgr::variables::get<int>("lives")), WTE_COLOR_WHITE, 200, 10, ALLEGRO_ALIGN_RIGHT);
         }
     );  //  End info overlay drawing.
-    mgr::world::set_component<cmp::overlay>(e_id)->set_font(al_create_builtin_font());
 
     /* ********************************* */
     /* *** Game Over overlay entity **** */

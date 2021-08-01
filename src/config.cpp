@@ -39,6 +39,7 @@ const bool config::load(void) {
         dfile.read(reinterpret_cast<char*>(&config::gfx::vsync), sizeof config::gfx::vsync);
         dfile.read(reinterpret_cast<char*>(&config::gfx::display_mode), sizeof config::gfx::display_mode);
         dfile.read(reinterpret_cast<char*>(&config::gfx::scale_factor), sizeof config::gfx::scale_factor);
+        dfile.read(reinterpret_cast<char*>(&config::gfx::menu_scale_factor), sizeof config::gfx::menu_scale_factor);
         dfile.read(reinterpret_cast<char*>(&config::volume::main), sizeof config::volume::main);
         dfile.read(reinterpret_cast<char*>(&config::volume::mix1), sizeof config::volume::mix1);
         dfile.read(reinterpret_cast<char*>(&config::volume::mix2), sizeof config::volume::mix2);
@@ -87,6 +88,7 @@ const bool config::save(void) {
         dfile.write(reinterpret_cast<const char*>(&config::gfx::vsync), sizeof config::gfx::vsync);
         dfile.write(reinterpret_cast<const char*>(&config::gfx::display_mode), sizeof config::gfx::display_mode);
         dfile.write(reinterpret_cast<const char*>(&config::gfx::scale_factor), sizeof config::gfx::scale_factor);
+        dfile.write(reinterpret_cast<const char*>(&config::gfx::menu_scale_factor), sizeof config::gfx::menu_scale_factor);
         dfile.write(reinterpret_cast<const char*>(&config::volume::main), sizeof config::volume::main);
         dfile.write(reinterpret_cast<const char*>(&config::volume::mix1), sizeof config::volume::mix1);
         dfile.write(reinterpret_cast<const char*>(&config::volume::mix2), sizeof config::volume::mix2);

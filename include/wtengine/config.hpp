@@ -60,6 +60,7 @@ class config {
             inline static std::size_t vsync = 2;
             inline static std::size_t display_mode = 0;
             inline static float scale_factor = 1.0f;
+            inline static float menu_scale_factor = 1.0f;
         };
 
         /*!

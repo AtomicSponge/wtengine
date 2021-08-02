@@ -56,15 +56,15 @@ class menus final : private manager<menus> {
 
     public:
         /*!
-         * \brief
-         * \param bmp
+         * \brief Set a background to be used by the menus.
+         * \param bmp Allegro bitmap asset.
          */
         static void set_background(std::shared_ptr<wte_asset> bmp);
 
         /*!
-         * \brief
-         * \param font
-         * \param fcolor
+         * \brief Set a font to be used when rendering menus.
+         * \param font Allegro font asset.
+         * \param fcolor Allegro font color.
          */
         static void set_font(
             std::shared_ptr<wte_asset> font,
@@ -72,8 +72,8 @@ class menus final : private manager<menus> {
         );
 
         /*!
-         * \brief
-         * \param bmp
+         * \brief Set a bitmap to use as the menu cursor.
+         * \param bmp Allegro bitmap asset.
          */
         static void set_cursor(std::shared_ptr<wte_asset> bmp);
 

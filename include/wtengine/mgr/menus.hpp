@@ -166,6 +166,8 @@ class menus final : private manager<menus> {
         static ALLEGRO_EVENT_QUEUE* menu_event_queue;
         static ALLEGRO_COLOR menu_font_color;
 
+        static std::shared_ptr<wte_asset> menu_buffer;
+        static std::shared_ptr<wte_asset> menu_temp_bmp;
         static std::shared_ptr<wte_asset> menu_background;
         static std::shared_ptr<wte_asset> menu_font;
         static std::shared_ptr<wte_asset> cursor_bitmap;

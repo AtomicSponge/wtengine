@@ -68,7 +68,7 @@ class menus final : private manager<menus> {
          */
         static void set_font(
             std::shared_ptr<wte_asset> font,
-            ALLEGRO_COLOR& fcolor
+            const ALLEGRO_COLOR& fcolor
         );
 
         /*!
@@ -164,19 +164,25 @@ class menus final : private manager<menus> {
 
         static ALLEGRO_TIMER* menu_timer;
         static ALLEGRO_EVENT_QUEUE* menu_event_queue;
+        static ALLEGRO_COLOR menu_font_color;
 
         static std::shared_ptr<wte_asset> menu_background;
         static std::shared_ptr<wte_asset> menu_font;
-        static ALLEGRO_COLOR menu_font_color;
         static std::shared_ptr<wte_asset> cursor_bitmap;
-        static mnu::menu_item_citerator menu_position;
-        static bool select_menu_option;
-        static bool is_button_left;
-        static int cursor_size;
 
         static std::vector<mnu::menu_sptr> _menus;
         static std::stack<mnu::menu_csptr> opened_menus;
+        static mnu::menu_item_citerator menu_position;
 
+        static int font_size;
+        static int menu_padding;
+        static int menu_width;
+        static int menu_height;
+        
+        static bool select_menu_option;
+        static bool is_button_left;
+        static int cursor_size;
+        
         static int64_t last_tick;
         static bool do_render;
 };

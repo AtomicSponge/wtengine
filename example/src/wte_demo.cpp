@@ -179,10 +179,18 @@ wte_demo::~wte_demo() {
  * Items will appear in the order they were added.
  */
 void wte_demo::load_menus(void) {
-    //  Set the background and font for the menus.
-    //mgr::menus::set_background();
-    //mgr::menus::set_font();
-    //mgr::menus::set_cursor();
+    //  Set up the menu manager.
+    mgr::assets::load<al_bitmap>("menu_background", 300, 200, true);
+    al_set_target_bitmap(**mgr::assets::get<al_bitmap>("menu_background"));
+    al_clear_to_color(WTE_COLOR_DARKPURPLE);
+    mgr::menus::set_background(mgr::assets::get<al_bitmap>("menu_background"));
+
+    mgr::menus::set_font(mgr::assets::get<al_font>("wte_default_font"), WTE_COLOR_WHITE);
+
+    mgr::assets::load<al_bitmap>("cursor", 8, 8, true);
+    al_set_target_bitmap(**mgr::assets::get<al_bitmap>("cursor"));
+    al_clear_to_color(WTE_COLOR_DARKPURPLE);
+    mgr::menus::set_cursor(mgr::assets::get<al_bitmap>("cursor"));
 
     //  Configure the root main menu and game menu.
     {

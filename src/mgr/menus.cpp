@@ -26,11 +26,14 @@ ALLEGRO_TIMER* menus::menu_timer = NULL;
 ALLEGRO_EVENT_QUEUE* menus::menu_event_queue = NULL;
 std::vector<mnu::menu_sptr> menus::_menus = {};
 std::stack<mnu::menu_csptr> menus::opened_menus = {};
-int menus::cursor_size = 8;
 bool menus::select_menu_option = false;
 bool menus::is_button_left = true;
 int64_t menus::last_tick = 0;
 bool menus::do_render = false;
+int menus::font_size = 8;
+int menus::menu_padding = 8;
+int menus::menu_width = 0;
+int menus::menu_height = 0;
 
 /*
  *
@@ -61,7 +64,7 @@ void menus::initialize(void) {
 
     //  Create the the menu bitmap for rendering.
     mgr::assets::secret_load<al_bitmap>(
-        "wte_menu_bitmap",
+        "wte_menu_buffer_bitmap",
         mgr::renderer::get_arena_width(),
         mgr::renderer::get_arena_height(),
         true
@@ -87,14 +90,18 @@ void menus::de_init(void) {
 /*
  *
  */
-void menus::set_background(std::shared_ptr<wte_asset> bmp) { menu_background = bmp; }
+void menus::set_background(std::shared_ptr<wte_asset> bmp) {
+    menu_background = bmp;
+    menu_width = al_get_bitmap_width(**std::static_pointer_cast<al_bitmap>(menu_background));
+    menu_height = al_get_bitmap_height(**std::static_pointer_cast<al_bitmap>(menu_background));
+}
 
 /*
  *
  */
 void menus::set_font(
     std::shared_ptr<wte_asset> font,
-    ALLEGRO_COLOR& fcolor
+    const ALLEGRO_COLOR& fcolor
 ) {
     menu_font = font;
     menu_font_color = fcolor;
@@ -161,6 +168,7 @@ const mnu::menu_sptr menus::set_menu(const std::string& name) {
 void menus::reset(void) {
     opened_menus = {};
     config::flags::game_menu_opened = false;
+    do_render = true;
 }
 
 /*
@@ -175,6 +183,7 @@ void menus::open_menu(const std::string& menu_id) {
     for(auto it = opened_menus.top()->items_cbegin(); it != opened_menus.top()->items_cend(); it++) {
         (*it)->set_default();
     }
+    do_render = true;
 }
 
 /*
@@ -285,13 +294,20 @@ void menus::run(void) {
  */
 ALLEGRO_BITMAP* menus::render_menu(void) {
     if(do_render) {
-        //  Set drawing to the menu bitmap.
-        al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_menu_bitmap"));
+        //  Clear the menu buffer.
+        al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_menu_buffer_bitmap"));
         al_clear_to_color(WTE_COLOR_TRANSPARENT);
 
+        //  Set drawing to the menu bitmap.
+        al_set_target_bitmap(**std::static_pointer_cast<al_bitmap>(menu_background));
         //  Render menu title.
-        al_draw_text(menu_font, menu_font_color, menu_width / 2, menu_padding,
-                     ALLEGRO_ALIGN_CENTER, opened_menus.top()->get_title().c_str());
+        al_draw_text(
+            **std::static_pointer_cast<al_font>(menu_font),
+            menu_font_color,
+            menu_width / 2, menu_padding,
+            ALLEGRO_ALIGN_CENTER,
+            opened_menus.top()->get_title().c_str()
+        );
 
         //  Render menu items.
         float cursor_pos = 10.0;
@@ -304,18 +320,34 @@ ALLEGRO_BITMAP* menus::render_menu(void) {
             vcounter++;
             hpart = menu_width / ((*it)->get_text().size() + 1);
             for(std::size_t i = 0; i < (*it)->get_text().size(); i++)
-                al_draw_text(menu_font, menu_font_color, hpart * (i + 1), (offset / 2) + (vpart * vcounter),
-                            ALLEGRO_ALIGN_CENTER, (*it)->get_text()[i].c_str());
+                al_draw_text(
+                    **std::static_pointer_cast<al_font>(menu_font),
+                    menu_font_color,
+                    hpart * (i + 1), (offset / 2) + (vpart * vcounter),
+                    ALLEGRO_ALIGN_CENTER,
+                    (*it)->get_text()[i].c_str()
+                );
             if(it == menu_position) cursor_pos = (offset / 2) + (vpart * vcounter);
         }
 
         //  Render menu cursor.
         if(opened_menus.top()->num_items() != 0) al_draw_bitmap(**std::static_pointer_cast<al_bitmap>(cursor_bitmap), menu_padding, cursor_pos, 0);
 
+        //  Draw rendered menu.
+        al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_menu_buffer_bitmap"));
+        al_draw_scaled_bitmap(
+            **std::static_pointer_cast<al_bitmap>(menu_background),
+            0, 0, menu_width, menu_height,
+            (mgr::renderer::get_arena_width() / 2) - (menu_width * config::gfx::menu_scale_factor / 2),
+            (mgr::renderer::get_arena_height() / 2) - (menu_height * config::gfx::menu_scale_factor / 2),
+            menu_width * config::gfx::menu_scale_factor,
+            menu_height * config::gfx::menu_scale_factor, 0
+        );
+
         do_render = false;
     }
 
-    return **mgr::assets::secret_get<al_bitmap>("wte_menu_bitmap");
+    return **mgr::assets::secret_get<al_bitmap>("wte_menu_buffer_bitmap");
 }
 
 }  // end namespace mgr

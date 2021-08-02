@@ -88,7 +88,7 @@ class menu {
          * \param args Arguments to pass to menu item constructor.
          */
         template <typename T, typename... Args>
-        inline void add_item(Args&... args) {
+        inline void add_item(Args... args) {
             items.push_back(std::make_shared<T>(args...));
         };
 

@@ -29,7 +29,7 @@ std::stack<mnu::menu_csptr> menus::opened_menus = {};
 bool menus::select_menu_option = false;
 bool menus::is_button_left = true;
 int64_t menus::last_tick = 0;
-bool menus::do_render = false;
+bool menus::do_render = true;
 int menus::font_size = 8;
 int menus::menu_padding = 8;
 int menus::menu_width = 0;
@@ -94,6 +94,7 @@ void menus::set_background(std::shared_ptr<wte_asset> bmp) {
     menu_background = bmp;
     menu_width = al_get_bitmap_width(**std::static_pointer_cast<al_bitmap>(menu_background));
     menu_height = al_get_bitmap_height(**std::static_pointer_cast<al_bitmap>(menu_background));
+    mgr::assets::secret_load<al_bitmap>("wte_menu_bitmap", menu_width, menu_height, true);
 }
 
 /*
@@ -299,7 +300,8 @@ ALLEGRO_BITMAP* menus::render_menu(void) {
         al_clear_to_color(WTE_COLOR_TRANSPARENT);
 
         //  Set drawing to the menu bitmap.
-        al_set_target_bitmap(**std::static_pointer_cast<al_bitmap>(menu_background));
+        al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_menu_bitmap"));
+        al_draw_bitmap(**std::static_pointer_cast<al_bitmap>(menu_background), 0, 0, 0);
         //  Render menu title.
         al_draw_text(
             **std::static_pointer_cast<al_font>(menu_font),
@@ -336,7 +338,7 @@ ALLEGRO_BITMAP* menus::render_menu(void) {
         //  Draw rendered menu.
         al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_menu_buffer_bitmap"));
         al_draw_scaled_bitmap(
-            **std::static_pointer_cast<al_bitmap>(menu_background),
+            **mgr::assets::secret_get<al_bitmap>("wte_menu_bitmap"),
             0, 0, menu_width, menu_height,
             (mgr::renderer::get_arena_width() / 2) - (menu_width * config::gfx::menu_scale_factor / 2),
             (mgr::renderer::get_arena_height() / 2) - (menu_height * config::gfx::menu_scale_factor / 2),

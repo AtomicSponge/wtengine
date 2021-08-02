@@ -22,7 +22,7 @@ animator::animator(
     std::shared_ptr<wte_asset> bmp,
     const std::size_t& l,
     const std::function<void(const entity_id&)>& func
-) : internal_bitmap(bmp), layer(l), tint_set(false), animate(func) {}
+) : internal_bitmap(bmp), layer(l), tint_set(false), visible(true), animate(func) {}
 
 /*
  *

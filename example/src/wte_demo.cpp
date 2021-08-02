@@ -191,7 +191,7 @@ void wte_demo::load_menus(void) {
     //  Create a cursor bitmap and load into menu mgr.
     mgr::assets::load<al_bitmap>("cursor", 8, 8);
     al_set_target_bitmap(**mgr::assets::get<al_bitmap>("cursor"));
-    al_clear_to_color(WTE_COLOR_DARKPURPLE);
+    al_clear_to_color(WTE_COLOR_WHITE);
     mgr::menus::set_cursor(mgr::assets::get<al_bitmap>("cursor"));
 
     //  Configure the root main menu and game menu.

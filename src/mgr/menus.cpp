@@ -197,6 +197,7 @@ void menus::close_menu(void) {
     opened_menus.pop();
     if(opened_menus.empty()) config::flags::game_menu_opened = false;
     else menu_position = opened_menus.top()->items_cbegin();
+    do_render = true;
 }
 
 /*

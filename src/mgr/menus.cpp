@@ -30,10 +30,10 @@ bool menus::select_menu_option = false;
 bool menus::is_button_left = true;
 int64_t menus::last_tick = 0;
 bool menus::do_render = true;
-int menus::font_size = 8;
-int menus::menu_padding = 8;
+int menus::font_size = 0;
 int menus::menu_width = 0;
 int menus::menu_height = 0;
+int menus::menu_padding = 8;
 
 /*
  *
@@ -106,6 +106,7 @@ void menus::set_font(
 ) {
     menu_font = font;
     menu_font_color = fcolor;
+    font_size = al_get_font_line_height(**std::static_pointer_cast<al_font>(menu_font));
 }
 
 /*

@@ -180,7 +180,7 @@ wte_demo::~wte_demo() {
  */
 void wte_demo::load_menus(void) {
     //  Create a menu background and load into menu mgr.
-    mgr::assets::load<al_bitmap>("menu_background", 300, 200);
+    mgr::assets::load<al_bitmap>("menu_background", 480, 360);
     al_set_target_bitmap(**mgr::assets::get<al_bitmap>("menu_background"));
     al_clear_to_color(WTE_COLOR_DARKPURPLE);
     mgr::menus::set_background(mgr::assets::get<al_bitmap>("menu_background"));

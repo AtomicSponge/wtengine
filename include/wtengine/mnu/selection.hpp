@@ -31,7 +31,6 @@ class selection final : public menu_item {
     public:
         /*!
          * \brief Menu item selection constructor.
-         * 
          * \param label Item display label.
          * \param vr Variable to adjust.
          * \param dvl Vector of display items.
@@ -63,7 +62,6 @@ class selection final : public menu_item {
 
         /*!
          * \brief Return display text for the menu item when rendering.
-         * 
          * \return Vector of display text strings.
          */
         const std::vector<std::string> get_text(void) const override;
@@ -89,7 +87,6 @@ class selection final : public menu_item {
 
         /*!
          * \brief Get the setting to be applied by the system.
-         * 
          * \return A string in format var=val
          */
         const std::string get_setting(void);

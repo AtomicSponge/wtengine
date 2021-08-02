@@ -30,7 +30,6 @@ class toggle final : public menu_item {
     public:
         /*!
          * \brief Create a menu toggle item.  Uses default setting type.
-         * 
          * \param label Item display label.
          * \param con Command to run when toggled on.
          * \param aon Arguments to use when toggled on.
@@ -49,7 +48,6 @@ class toggle final : public menu_item {
 
         /*!
          * \brief Create a menu toggle item.
-         * 
          * \param label Item display label.
          * \param con Command to run when toggled on.
          * \param aon Arguments to use when toggled on.
@@ -74,63 +72,45 @@ class toggle final : public menu_item {
         ~toggle();
 
         /*!
-         * \brief On left process.
-         * 
-         * Toggles on.
+         * \brief Toggle on.
          */
         void on_left(void) override;
 
         /*!
-         * \brief On right process.
-         * 
-         * Toggles off.
+         * \brief Toggle off.
          */
         void on_right(void) override;
 
         /*!
          * \brief Get display text
-         * 
          * \return Vector of strings to render.
          */
         const std::vector<std::string> get_text(void) const override;
 
         /*!
-         * \brief Get the active command.
-         * 
-         * Return the command depending if the setting is toggled on or off.
-         * 
+         * \brief Return the command depending if the setting is toggled on or off.
          * \return Active command string.
          */
         const std::string get_active_cmd(void);
 
         /*!
-         * \brief Get the active arguments.
-         * 
-         * Return arguments depending if the setting is toggled on or off.
-         * 
+         * \brief Return arguments depending if the setting is toggled on or off.
          * \return Active arguments string.
          */
         const std::string get_active_args(void);
 
         /*!
          * \brief Reset to default value.
-         * 
-         * If the menu is canceled, return to proper setting.
          */
         void reset_to_default(void) override;
 
         /*!
-         * \brief Set default value.
-         * 
-         * Determine and set the default value for the menu toggle item.
+         * \brief Determine and set the default value for the menu toggle item.
          */
         void set_default(void) override;
 
         /*!
-         * \brief Setting changed process.
-         * 
-         * Checks if the current selection is the same as the default.
-         * 
+         * \brief Checks if the current selection is the same as the default.
          * \return True if the setting changed, false if it did not.
          */
         const bool setting_changed(void) const override;

@@ -273,12 +273,12 @@ void menus::run(void) {
         if(select_menu_option) {
             bool toggle_menu_item = false;
 
-                if(al_get_timer_count(menu_timer) >= last_tick + 80) toggle_menu_item = true;
+                if(al_get_timer_count(menu_timer) >= last_tick + 60) toggle_menu_item = true;
                 else {
-                    if(al_get_timer_count(menu_timer) >= last_tick + 40) {
+                    if(al_get_timer_count(menu_timer) >= last_tick + 30) {
                         if(al_get_timer_count(menu_timer) % 2 == 0) toggle_menu_item = true;
                     } else {
-                        if(al_get_timer_count(menu_timer) == last_tick + 20) toggle_menu_item = true;
+                        if(al_get_timer_count(menu_timer) == last_tick + 15) toggle_menu_item = true;
                         else if(al_get_timer_count(menu_timer) == last_tick + 1) toggle_menu_item = true;
                     }
                 }

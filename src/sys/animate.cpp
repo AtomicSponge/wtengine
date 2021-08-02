@@ -31,12 +31,8 @@ animate::~animate() {}
 void animate::run(void) {
     component_container<cmp::animator> animation_components = mgr::world::set_components<cmp::animator>();
 
-    for(auto & it : animation_components) {
-        try {
-            if(mgr::world::get_component<cmp::visible>(it.first)->check())
-                it.second->run(it.first);
-        } catch(...) { throw; }
-    }
+    for(auto & it : animation_components)
+        if(it.second->is_visible()) try { it.second->run(it.first); } catch(...) { throw; }
 }
 
 } //  namespace sys

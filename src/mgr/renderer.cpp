@@ -191,14 +191,12 @@ void renderer::render(void) {
 
         //  Draw each background by layer.
         for(auto & it : background_componenet_set) {
-            try {
-                if(mgr::world::get_component<cmp::visible>(it.first)->check()) {
-                    if(it.second->draw_tinted())
-                        al_draw_tinted_bitmap(it.second->get_bitmap(), it.second->get_tint(), 0, 0, 0);
-                    else
-                        al_draw_bitmap(it.second->get_bitmap(), 0, 0, 0);
-                }
-            } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
+            if(it.second->is_visible()) {
+                if(it.second->draw_tinted())
+                    al_draw_tinted_bitmap(it.second->get_bitmap(), it.second->get_tint(), 0, 0, 0);
+                else
+                    al_draw_bitmap(it.second->get_bitmap(), 0, 0, 0);
+            }
         }
 
         /*
@@ -215,7 +213,7 @@ void renderer::render(void) {
         //  Draw each sprite in order.
         for(auto & it : sprite_componenet_set) {
             try {
-                if(mgr::world::get_component<cmp::visible>(it.first)->check()) {
+                if(it.second->is_visible()) {
                     //  Get the current sprite frame.
                     temp_bitmap = al_create_sub_bitmap(
                         it.second->get_bitmap(),
@@ -322,20 +320,18 @@ void renderer::render(void) {
 
         //  Draw each overlay by layer.
         for(auto & it : overlay_componenet_set) {
-            try {
-                if(mgr::world::get_component<cmp::visible>(it.first)->check()) {
-                    if(it.second->draw_tinted())
-                        al_draw_tinted_bitmap(
-                            it.second->get_bitmap(), it.second->get_tint(),
-                            it.second->get_pos_x(), it.second->get_pos_y(), 0
-                        );
-                    else
-                        al_draw_bitmap(
-                            it.second->get_bitmap(),
-                            it.second->get_pos_x(), it.second->get_pos_y(), 0
-                        );
-                }
-            } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
+            if(it.second->is_visible()) {
+                if(it.second->draw_tinted())
+                    al_draw_tinted_bitmap(
+                        it.second->get_bitmap(), it.second->get_tint(),
+                        it.second->get_pos_x(), it.second->get_pos_y(), 0
+                    );
+                else
+                    al_draw_bitmap(
+                        it.second->get_bitmap(),
+                        it.second->get_pos_x(), it.second->get_pos_y(), 0
+                    );
+            }
         }
 
         /*

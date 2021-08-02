@@ -68,7 +68,6 @@ add_library(wtengine STATIC
     src/cmp/gfx/background.cpp
     src/cmp/gfx/overlay.cpp
     src/cmp/gfx/sprite.cpp
-    src/cmp/gfx/visible.cpp
     src/cmp/ai.cpp
     src/cmp/bounding_box.cpp
     src/cmp/direction.cpp

@@ -87,6 +87,22 @@ class animator : public component {
          */
         const bool draw_tinted(void) const;
 
+        /*!
+         * \brief Check if visible.
+         * \return True if visible, false if not.
+         */
+        const bool is_visible(void) const;
+
+        /*!
+         * \brief Show the entity.
+         */
+        void show(void);
+
+        /*!
+         * \brief Hide the entity.
+         */
+        void hide(void);
+
     protected:
         /*!
          * \brief Create a new component based on the Animator.
@@ -106,6 +122,7 @@ class animator : public component {
     private:
         std::size_t layer;          //  Layer position.
         bool tint_set;              //  Flag to set tint.
+        bool visible;               //  Flag to set visibility.
         ALLEGRO_COLOR tint_color;   //  Color of tint.
 
         //  Animation function.

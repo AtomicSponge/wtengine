@@ -186,7 +186,6 @@ class menus final : private manager<menus> {
         static int cursor_size;
         
         static int64_t last_tick;
-        static bool do_render;
 };
 
 }  // end namespace mgr

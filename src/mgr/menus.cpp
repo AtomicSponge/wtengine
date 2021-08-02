@@ -31,7 +31,6 @@ std::stack<mnu::menu_csptr> menus::opened_menus = {};
 bool menus::select_menu_option = false;
 bool menus::is_button_left = true;
 int64_t menus::last_tick = 0;
-bool menus::do_render = true;
 int menus::font_size = 0;
 int menus::menu_width = 0;
 int menus::menu_height = 0;
@@ -174,7 +173,6 @@ const mnu::menu_sptr menus::set_menu(const std::string& name) {
 void menus::reset(void) {
     opened_menus = {};
     config::flags::game_menu_opened = false;
-    do_render = true;
 }
 
 /*
@@ -189,7 +187,6 @@ void menus::open_menu(const std::string& menu_id) {
     for(auto it = opened_menus.top()->items_cbegin(); it != opened_menus.top()->items_cend(); it++) {
         (*it)->set_default();
     }
-    do_render = true;
 }
 
 /*
@@ -201,7 +198,6 @@ void menus::close_menu(void) {
     opened_menus.pop();
     if(opened_menus.empty()) config::flags::game_menu_opened = false;
     else menu_position = opened_menus.top()->items_cbegin();
-    do_render = true;
 }
 
 /*
@@ -209,7 +205,6 @@ void menus::close_menu(void) {
  */
 void menus::menu_pos_up(void) {
     if(menu_position != opened_menus.top()->items_cbegin()) menu_position--;
-    do_render = true;
 }
 
 /*
@@ -217,7 +212,6 @@ void menus::menu_pos_up(void) {
  */
 void menus::menu_pos_down(void) {
     if(menu_position != --opened_menus.top()->items_cend()) menu_position++;
-    do_render = true;
 }
 
 /*
@@ -257,7 +251,6 @@ void menus::menu_pos_stop_right(void) { select_menu_option = false; }
  */
 void menus::menu_item_select(void) {
     if(menu_position != opened_menus.top()->items_cend()) (*menu_position)->on_select();
-    do_render = true;
 }
 
 /*
@@ -288,7 +281,6 @@ void menus::run(void) {
                 }
 
             if(toggle_menu_item) {
-                do_render = true;
                 if(is_button_left) (*menu_position)->on_left();
                 else (*menu_position)->on_right();
             }
@@ -300,60 +292,56 @@ void menus::run(void) {
  *
  */
 ALLEGRO_BITMAP* menus::render_menu(void) {
-    if(do_render) {
-        //  Clear the menu buffer.
-        al_set_target_bitmap(**std::static_pointer_cast<al_bitmap>(menu_buffer));
-        al_clear_to_color(WTE_COLOR_TRANSPARENT);
+    //  Clear the menu buffer.
+    al_set_target_bitmap(**std::static_pointer_cast<al_bitmap>(menu_buffer));
+    al_clear_to_color(WTE_COLOR_TRANSPARENT);
 
-        //  Set drawing to the menu bitmap.
-        al_set_target_bitmap(**std::static_pointer_cast<al_bitmap>(menu_temp_bmp));
-        al_draw_bitmap(**std::static_pointer_cast<al_bitmap>(menu_background), 0, 0, 0);
-        //  Render menu title.
-        al_draw_text(
-            **std::static_pointer_cast<al_font>(menu_font),
-            menu_font_color,
-            menu_width / 2, menu_padding,
-            ALLEGRO_ALIGN_CENTER,
-            opened_menus.top()->get_title().c_str()
-        );
+    //  Set drawing to the menu bitmap.
+    al_set_target_bitmap(**std::static_pointer_cast<al_bitmap>(menu_temp_bmp));
+    al_draw_bitmap(**std::static_pointer_cast<al_bitmap>(menu_background), 0, 0, 0);
+    //  Render menu title.
+    al_draw_text(
+        **std::static_pointer_cast<al_font>(menu_font),
+        menu_font_color,
+        menu_width / 2, menu_padding,
+        ALLEGRO_ALIGN_CENTER,
+        opened_menus.top()->get_title().c_str()
+    );
 
-        //  Render menu items.
-        float cursor_pos = 10.0;
-        float vpart = 0.0, hpart = 0.0, offset = 0.0;
-        std::size_t vcounter = 0;
+    //  Render menu items.
+    float cursor_pos = 10.0;
+    float vpart = 0.0, hpart = 0.0, offset = 0.0;
+    std::size_t vcounter = 0;
 
-        offset = menu_padding + font_size + menu_padding;
-        vpart = (menu_height - offset) / (opened_menus.top()->num_items() + 1);
-        for(auto it = opened_menus.top()->items_cbegin(); it != opened_menus.top()->items_cend(); it++) {
-            vcounter++;
-            hpart = menu_width / ((*it)->get_text().size() + 1);
-            for(std::size_t i = 0; i < (*it)->get_text().size(); i++)
-                al_draw_text(
-                    **std::static_pointer_cast<al_font>(menu_font),
-                    menu_font_color,
-                    hpart * (i + 1), (offset / 2) + (vpart * vcounter),
-                    ALLEGRO_ALIGN_CENTER,
-                    (*it)->get_text()[i].c_str()
-                );
-            if(it == menu_position) cursor_pos = (offset / 2) + (vpart * vcounter);
-        }
-
-        //  Render menu cursor.
-        if(opened_menus.top()->num_items() != 0) al_draw_bitmap(**std::static_pointer_cast<al_bitmap>(cursor_bitmap), menu_padding, cursor_pos, 0);
-
-        //  Draw rendered menu.
-        al_set_target_bitmap(**std::static_pointer_cast<al_bitmap>(menu_buffer));
-        al_draw_scaled_bitmap(
-            **std::static_pointer_cast<al_bitmap>(menu_temp_bmp),
-            0, 0, menu_width, menu_height,
-            (mgr::renderer::get_arena_width() / 2) - (menu_width * config::gfx::menu_scale_factor / 2),
-            (mgr::renderer::get_arena_height() / 2) - (menu_height * config::gfx::menu_scale_factor / 2),
-            menu_width * config::gfx::menu_scale_factor,
-            menu_height * config::gfx::menu_scale_factor, 0
-        );
-
-        do_render = false;
+    offset = menu_padding + font_size + menu_padding;
+    vpart = (menu_height - offset) / (opened_menus.top()->num_items() + 1);
+    for(auto it = opened_menus.top()->items_cbegin(); it != opened_menus.top()->items_cend(); it++) {
+        vcounter++;
+        hpart = menu_width / ((*it)->get_text().size() + 1);
+        for(std::size_t i = 0; i < (*it)->get_text().size(); i++)
+            al_draw_text(
+                **std::static_pointer_cast<al_font>(menu_font),
+                menu_font_color,
+                hpart * (i + 1), (offset / 2) + (vpart * vcounter),
+                ALLEGRO_ALIGN_CENTER,
+                (*it)->get_text()[i].c_str()
+            );
+        if(it == menu_position) cursor_pos = (offset / 2) + (vpart * vcounter);
     }
+
+    //  Render menu cursor.
+    if(opened_menus.top()->num_items() != 0) al_draw_bitmap(**std::static_pointer_cast<al_bitmap>(cursor_bitmap), menu_padding, cursor_pos, 0);
+
+    //  Draw rendered menu.
+    al_set_target_bitmap(**std::static_pointer_cast<al_bitmap>(menu_buffer));
+    al_draw_scaled_bitmap(
+        **std::static_pointer_cast<al_bitmap>(menu_temp_bmp),
+        0, 0, menu_width, menu_height,
+        (mgr::renderer::get_arena_width() / 2) - (menu_width * config::gfx::menu_scale_factor / 2),
+        (mgr::renderer::get_arena_height() / 2) - (menu_height * config::gfx::menu_scale_factor / 2),
+        menu_width * config::gfx::menu_scale_factor,
+        menu_height * config::gfx::menu_scale_factor, 0
+    );
 
     return **std::static_pointer_cast<al_bitmap>(menu_buffer);
 }

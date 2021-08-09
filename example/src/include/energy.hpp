@@ -24,7 +24,7 @@ class energy final : public wte::cmp::component {
          * \param hm Max health value.
          * \return void
          */
-        inline energy(const int e, const int em) :
+        inline energy(const int& e, const int& em) :
         amt(e), amt_max(em) {};
 
         int amt, amt_max;

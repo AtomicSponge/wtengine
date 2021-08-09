@@ -17,24 +17,24 @@ namespace mgr
 
 template <> bool menus::manager<menus>::initialized = false;
 
-mnu::menu_item_citerator menus::menu_position;
+ALLEGRO_TIMER* menus::menu_timer = NULL;
+ALLEGRO_EVENT_QUEUE* menus::menu_event_queue = NULL;
+ALLEGRO_COLOR menus::menu_font_color;
 std::shared_ptr<wte_asset> menus::menu_buffer;
 std::shared_ptr<wte_asset> menus::menu_temp_bmp;
 std::shared_ptr<wte_asset> menus::menu_background;
 std::shared_ptr<wte_asset> menus::menu_font;
-ALLEGRO_COLOR menus::menu_font_color;
 std::shared_ptr<wte_asset> menus::cursor_bitmap;
-ALLEGRO_TIMER* menus::menu_timer = NULL;
-ALLEGRO_EVENT_QUEUE* menus::menu_event_queue = NULL;
 std::vector<mnu::menu_sptr> menus::_menus = {};
 std::stack<mnu::menu_csptr> menus::opened_menus = {};
+mnu::menu_item_citerator menus::menu_position;
+int menus::font_size = 0;
+int menus::menu_padding = 0;
+int menus::menu_width = 0;
+int menus::menu_height = 0;
 bool menus::select_menu_option = false;
 bool menus::is_button_left = true;
 int64_t menus::last_tick = 0;
-int menus::font_size = 0;
-int menus::menu_width = 0;
-int menus::menu_height = 0;
-int menus::menu_padding = 8;
 
 /*
  *
@@ -99,6 +99,11 @@ void menus::set_background(std::shared_ptr<wte_asset> bmp) {
     mgr::assets::secret_load<al_bitmap>("wte_menu_bitmap", menu_width, menu_height, true);
     menu_temp_bmp = mgr::assets::secret_get<al_bitmap>("wte_menu_bitmap");
 }
+
+/*
+ *
+ */
+void menus::set_padding(const int& p) { menu_padding = p; }
 
 /*
  *

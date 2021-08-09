@@ -24,6 +24,7 @@
 
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/wrappers.hpp"
+#include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/mgr/assets.hpp"
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mgr/renderer.hpp"
@@ -60,6 +61,12 @@ class menus final : private manager<menus> {
          * \param bmp Allegro bitmap asset.
          */
         static void set_background(std::shared_ptr<wte_asset> bmp);
+
+        /*!
+         * \brief Set menu padding.
+         * \param p Padding value to set.
+         */
+        static void set_padding(const int& p);
 
         /*!
          * \brief Set a font to be used when rendering menus.
@@ -183,7 +190,6 @@ class menus final : private manager<menus> {
         
         static bool select_menu_option;
         static bool is_button_left;
-        static int cursor_size;
         
         static int64_t last_tick;
 };

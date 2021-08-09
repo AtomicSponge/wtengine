@@ -103,7 +103,7 @@ class menu {
          */
         menu_item_citerator items_cend(void) const;
 
-        std::string id;
+        const std::string id;
         std::string title;
         menu_items items;
 };

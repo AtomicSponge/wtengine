@@ -23,7 +23,7 @@ class damage final : public wte::cmp::component {
          * \param d Damage amount.
          * \return void
          */
-        inline damage(int d) : dmg(d) {};
+        inline damage(const int& d) : dmg(d) {};
 
         int dmg;
 };

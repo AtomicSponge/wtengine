@@ -24,7 +24,7 @@ class health final : public wte::cmp::component {
          * \param hm Max health value.
          * \return void
          */
-        inline health(const int h, const int hm) :
+        inline health(const int& h, const int& hm) :
         hp(h), hp_max(hm) {};
 
         int hp, hp_max;

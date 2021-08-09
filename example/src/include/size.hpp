@@ -23,7 +23,7 @@ class size final : public wte::cmp::component {
          * \param s Size.
          * \return void
          */
-        inline size(int s) : the_size(s) {};
+        inline size(const int& s) : the_size(s) {};
 
         int the_size;
 };

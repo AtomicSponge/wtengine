@@ -185,6 +185,8 @@ void wte_demo::load_menus(void) {
     al_clear_to_color(WTE_COLOR_DARKPURPLE);
     mgr::menus::set_background(mgr::assets::get<al_bitmap>("menu_background"));
 
+    //  Set menu padding.
+    mgr::menus::set_padding(12);
     //  Set menu mgr font.
     mgr::menus::set_font(mgr::assets::get<al_font>("wte_default_font"), WTE_COLOR_WHITE);
 

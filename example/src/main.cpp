@@ -13,23 +13,20 @@
 
 #include "include/wte_demo.hpp"
 
-using namespace wte;
-
 int main(int argc, char **argv) {
     //  Set locations to load game data from.
-    engine::add_file_location("data.zip");
+    wte::engine::add_file_location("data.zip");
 
     //  Set the title screen.
-    mgr::renderer::set_title_screen("title.bmp");
-    //mgr::renderer::set_background_screen("title.bmp");
+    wte::mgr::renderer::set_title_screen("title.bmp");
+    //wte::mgr::renderer::set_background_screen("title.bmp");
 
     //  Set the size of the play area.
-    mgr::renderer::set_arena_size(768, 1024);
-    //mgr::renderer::set_arena_size(1920, 1080);
-    //mgr::renderer::set_arena_size(1440, 1080);
+    wte::mgr::renderer::set_arena_size(768, 1024);
+    //wte::mgr::renderer::set_arena_size(1920, 1080);
 
     //  Load settings.
-    config::load();
+    wte::config::load();
 
     //  Initialize game object.
     wte_demo my_game(argc, argv);
@@ -37,7 +34,7 @@ int main(int argc, char **argv) {
     my_game.do_game();
 
     //  Save settings.
-    config::save();
+    wte::config::save();
 
     return 0; //  Exit program.
 }

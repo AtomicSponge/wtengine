@@ -21,7 +21,7 @@ ALLEGRO_BITMAP* renderer::temp_bitmap = NULL;
 ALLEGRO_TIMER* renderer::fps_timer = NULL;
 ALLEGRO_EVENT_QUEUE* renderer::fps_event_queue = NULL;
 ALLEGRO_EVENT renderer::fps_event;
-std::shared_ptr<wte_asset> renderer::renderer_font;
+wte_asset<al_font> renderer::renderer_font;
 std::size_t renderer::fps_counter = 0, renderer::fps = 0;
 int renderer::screen_w = 0, renderer::screen_h = 0;
 float renderer::scale_factor = 1.0;
@@ -36,30 +36,30 @@ std::string renderer::background_file = "";
 void renderer::initialize(void) {
     //  Create the arena bitmap.
     if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
-    mgr::assets::secret_load<al_bitmap>("wte_arena_bitmap", arena_w, arena_h, true);
+    arena_bitmap = al_bitmap(arena_w, arena_h, true);
     arena_created = true;
 
     //  Set the overlay's font to the system default.
-    renderer_font = mgr::assets::secret_get<al_font>("wte_default_font");
+    renderer_font = mgr::assets::get<al_font>("wte_default_font");
 
     //  Load the title screen bitmap.
     if(title_screen_file.empty()) {
-        mgr::assets::secret_load<al_bitmap>("wte_title_bitmap", 1, 1);
-        al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_title_bitmap"));
+        title_bitmap = al_bitmap(1, 1);
+        al_set_target_bitmap(**title_bitmap);
         al_clear_to_color(WTE_COLOR_BLACK);
     } else {
-        mgr::assets::secret_load<al_bitmap>("wte_title_bitmap");
-        mgr::assets::secret_get<al_bitmap>("wte_title_bitmap")->load(title_screen_file);
+        title_bitmap = al_bitmap();
+        title_bitmap->load(title_screen_file);
     }
 
     //  Load the background bitmap.
     if(background_file.empty()) {
-        mgr::assets::secret_load<al_bitmap>("wte_background_bitmap", 1, 1);
-        al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_background_bitmap"));
+        background_bitmap = al_bitmap(1, 1);
+        al_set_target_bitmap(**background_bitmap);
         al_clear_to_color(WTE_COLOR_BLACK);
     } else {
-        mgr::assets::secret_load<al_bitmap>("wte_background_bitmap");
-        mgr::assets::secret_get<al_bitmap>("wte_background_bitmap")->load(background_file);
+        background_bitmap = al_bitmap();
+        background_bitmap->load(background_file);
     }
 
     fps_timer = al_create_timer(1);
@@ -138,7 +138,7 @@ void renderer::set_background_screen(const std::string& fname) { background_file
 /*
  *
  */
-void renderer::set_font(std::shared_ptr<wte_asset> font) { renderer_font = font; }
+void renderer::set_font(wte_asset<al_font> font) { renderer_font = font; }
 
 /*
  *
@@ -169,13 +169,12 @@ void renderer::render(void) {
         /*
          * Draw the full screen background.
          */
-        al_draw_scaled_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_background_bitmap"), 0, 0,
-                              mgr::assets::secret_get<al_bitmap>("wte_background_bitmap")->get_width(),
-                              mgr::assets::secret_get<al_bitmap>("wte_background_bitmap")->get_height(),
+        al_draw_scaled_bitmap(**background_bitmap, 0, 0,
+                              background_bitmap->get_width(), background_bitmap->get_height(),
                               0, 0, screen_w, screen_h, 0);
 
         //  Set drawing to the arena bitmap.
-        al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_arena_bitmap"));
+        al_set_target_bitmap(**arena_bitmap);
         al_clear_to_color(WTE_COLOR_BLACK);
 
         /*
@@ -297,7 +296,7 @@ void renderer::render(void) {
                                                     mgr::world::get_component<cmp::hitbox>(it.first)->get_height());
                     al_set_target_bitmap(temp_bitmap);
                     al_clear_to_color(team_color);
-                    al_set_target_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_arena_bitmap"));
+                    al_set_target_bitmap(**arena_bitmap);
                     al_draw_bitmap(temp_bitmap,
                                 mgr::world::get_component<cmp::location>(it.first)->get_x(),
                                 mgr::world::get_component<cmp::location>(it.first)->get_y(), 0);
@@ -338,7 +337,7 @@ void renderer::render(void) {
          * Draw the arena bitmap to the screen.
          */
         al_set_target_backbuffer(al_get_current_display());
-        al_draw_scaled_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_arena_bitmap"), 0, 0, arena_w, arena_h,
+        al_draw_scaled_bitmap(**arena_bitmap, 0, 0, arena_w, arena_h,
                               (screen_w / 2) - (arena_w * scale_factor / 2),
                               (screen_h / 2) - (arena_h * scale_factor / 2),
                               arena_w * scale_factor, arena_h * scale_factor, 0);
@@ -346,9 +345,8 @@ void renderer::render(void) {
         /*
          * Game is not running - draw the title screen.
          */
-        al_draw_scaled_bitmap(**mgr::assets::secret_get<al_bitmap>("wte_title_bitmap"), 0, 0,
-                              mgr::assets::secret_get<al_bitmap>("wte_title_bitmap")->get_width(),
-                              mgr::assets::secret_get<al_bitmap>("wte_title_bitmap")->get_height(),
+        al_draw_scaled_bitmap(**title_bitmap, 0, 0,
+                              title_bitmap->get_width(), title_bitmap->get_height(),
                               0, 0, screen_w, screen_h, 0);
     }
 
@@ -374,13 +372,13 @@ void renderer::render(void) {
      * Render alerts.
      */
     if(alert::is_set()) {
-        int font_size = al_get_font_line_height(**std::static_pointer_cast<al_font>(renderer_font));
+        int font_size = al_get_font_line_height(**renderer_font);
 
         temp_bitmap = al_create_bitmap((alert::get().length() * font_size) + 20, font_size + 20);
         al_set_target_bitmap(temp_bitmap);
         al_clear_to_color(alert::get_bg_color());
 
-        al_draw_text(**std::static_pointer_cast<al_font>(renderer_font), alert::get_font_color(),
+        al_draw_text(**renderer_font, alert::get_font_color(),
                      (al_get_bitmap_width(temp_bitmap) / 2), 10,
                      ALLEGRO_ALIGN_CENTER, alert::get().c_str());
 
@@ -402,13 +400,13 @@ void renderer::render(void) {
     //  Draw frame rate.
     if(config::flags::draw_fps) {
         std::string fps_string = "FPS: " + std::to_string(fps);
-        al_draw_text(**std::static_pointer_cast<al_font>(renderer_font), WTE_COLOR_YELLOW, screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
+        al_draw_text(**renderer_font, WTE_COLOR_YELLOW, screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
 
     //  Draw time if debug mode is enabled.
     #if WTE_DEBUG_MODE
     std::string timer_string = "Timer: " + std::to_string(engine_time::check_time());
-    al_draw_text(**std::static_pointer_cast<al_font>(renderer_font), WTE_COLOR_YELLOW, screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
+    al_draw_text(**renderer_font, WTE_COLOR_YELLOW, screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     #endif
 
     /*

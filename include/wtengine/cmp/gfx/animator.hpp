@@ -11,7 +11,6 @@
 #define WTE_CMP_ANIMATOR_HPP
 
 #include <functional>
-#include <memory>
 
 #include <allegro5/allegro.h>
 
@@ -111,13 +110,13 @@ class animator : public component {
          * \param func Animation function.
          */
         animator(
-            std::shared_ptr<wte_asset> bmp,
+            wte_asset<al_bitmap> bmp,
             const std::size_t& l,
             const std::function<void(const entity_id&)>& func
         );
 
         //!  Stores the bitmap used by the animator.
-        std::shared_ptr<wte_asset> internal_bitmap;
+        wte_asset<al_bitmap> internal_bitmap;
 
     private:
         std::size_t layer;          //  Layer position.

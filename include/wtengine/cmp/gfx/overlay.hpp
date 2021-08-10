@@ -13,16 +13,11 @@
 #include <string>
 #include <map>
 #include <functional>
-#include <memory>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 
 #include "wtengine/cmp/gfx/animator.hpp"
-
-#include "wtengine/_globals/wrappers.hpp"
-#include "wtengine/_globals/wte_asset.hpp"
-#include "wtengine/mgr/assets.hpp"
 
 namespace wte
 {
@@ -47,8 +42,8 @@ class overlay final : public animator {
          * \param func Function to define what is displayed in the overlay.
          */
         overlay(
-            std::shared_ptr<wte_asset> bmp,
-            std::shared_ptr<wte_asset> font,
+            wte_asset<al_bitmap> bmp,
+            wte_asset<al_font> font,
             const float& x,
             const float& y,
             const std::size_t& l,
@@ -87,7 +82,7 @@ class overlay final : public animator {
 
     private:
         //  Font for overlay.
-        std::shared_ptr<wte_asset> overlay_font;
+        wte_asset<al_font> overlay_font;
         float pos_x, pos_y;  //  X/Y position of overlay.
 };
 

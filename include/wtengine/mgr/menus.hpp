@@ -24,8 +24,8 @@
 
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/wrappers.hpp"
+#include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
-#include "wtengine/mgr/assets.hpp"
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mgr/renderer.hpp"
 #include "wtengine/mnu/menu_item.hpp"
@@ -60,7 +60,7 @@ class menus final : private manager<menus> {
          * \brief Set a background to be used by the menus.
          * \param bmp Allegro bitmap asset.
          */
-        static void set_background(std::shared_ptr<wte_asset> bmp);
+        static void set_background(wte_asset<al_bitmap> bmp);
 
         /*!
          * \brief Set menu padding.
@@ -74,7 +74,7 @@ class menus final : private manager<menus> {
          * \param fcolor Allegro font color.
          */
         static void set_font(
-            std::shared_ptr<wte_asset> font,
+            wte_asset<al_font> font,
             const ALLEGRO_COLOR& fcolor
         );
 
@@ -82,7 +82,7 @@ class menus final : private manager<menus> {
          * \brief Set a bitmap to use as the menu cursor.
          * \param bmp Allegro bitmap asset.
          */
-        static void set_cursor(std::shared_ptr<wte_asset> bmp);
+        static void set_cursor(wte_asset<al_bitmap> bmp);
 
         /*!
          * \brief Add a menu to the menu vector.
@@ -173,11 +173,11 @@ class menus final : private manager<menus> {
         static ALLEGRO_EVENT_QUEUE* menu_event_queue;
         static ALLEGRO_COLOR menu_font_color;
 
-        static std::shared_ptr<wte_asset> menu_buffer;
-        static std::shared_ptr<wte_asset> menu_temp_bmp;
-        static std::shared_ptr<wte_asset> menu_background;
-        static std::shared_ptr<wte_asset> menu_font;
-        static std::shared_ptr<wte_asset> cursor_bitmap;
+        static wte_asset<al_bitmap> menu_buffer;
+        static wte_asset<al_bitmap> menu_temp_bmp;
+        static wte_asset<al_bitmap> menu_background;
+        static wte_asset<al_font> menu_font;
+        static wte_asset<al_bitmap> cursor_bitmap;
 
         static std::vector<mnu::menu_sptr> _menus;
         static std::stack<mnu::menu_csptr> opened_menus;

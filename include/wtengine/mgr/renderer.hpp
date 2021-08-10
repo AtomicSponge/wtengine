@@ -28,9 +28,9 @@
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/wrappers.hpp"
+#include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/cmp/_components.hpp"
-#include "wtengine/mgr/assets.hpp"
 #include "wtengine/mgr/menus.hpp"
 #include "wtengine/mgr/world.hpp"
 
@@ -147,7 +147,7 @@ class renderer final : private manager<renderer> {
          * \param fone Font asset to use.
          */
         static void set_font(
-            std::shared_ptr<wte_asset> font
+            wte_asset<al_font> font
         );
 
     private:
@@ -194,7 +194,11 @@ class renderer final : private manager<renderer> {
         static ALLEGRO_EVENT_QUEUE* fps_event_queue;
         static ALLEGRO_EVENT fps_event;
 
-        static std::shared_ptr<wte_asset> renderer_font;
+        static wte_asset<al_bitmap> arena_bitmap;
+        static wte_asset<al_bitmap> title_bitmap;
+        static wte_asset<al_bitmap> background_bitmap;
+
+        static wte_asset<al_font> renderer_font;
 
         static std::size_t fps_counter, fps;
 

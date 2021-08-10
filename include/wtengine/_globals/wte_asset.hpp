@@ -10,6 +10,8 @@
 #ifndef WTE_ASSET_HPP
 #define WTE_ASSET_HPP
 
+#include <memory>
+
 namespace wte
 {
 
@@ -17,17 +19,51 @@ namespace wte
  * \class wte_asset
  * \brief Interface class for creating an asset.
  */
-class wte_asset {
+template <class T> class wte_asset final {
     public:
-        inline virtual ~wte_asset() {};
+        /*!
+         * \brief
+         * \param args
+         */
+        template <typename... Args>
+        inline wte_asset(Args... args) {
+            internal_data = std::make_shared<T>(args...);
+        };
 
-        //!  Remove copy constructor.
-        inline wte_asset(const wte_asset&) = delete;
-        //!  Remove assignment operator.
-        inline void operator=(wte_asset const&) = delete;
+        inline ~wte_asset() {};
 
-    protected:
-        inline wte_asset() {};
+        /*!
+         * \brief
+         * \param a
+         */
+        inline wte_asset(const wte_asset<T>& a) { internal_data = a.internal_data; };
+
+        /*!
+         * \brief
+         * \param a
+         */
+        inline void operator=(wte_asset<T> const& a) { internal_data = a.internal_data; };
+
+        /*!
+         * \brief
+         * \return
+         */
+        inline T* get() const noexcept { return internal_data.get(); };
+        
+        /*!
+         * \brief
+         * \return
+         */
+        inline T& operator*() const noexcept { return *internal_data; };
+
+        /*!
+         * \brief
+         * \return
+         */
+        inline T* operator->() const noexcept { return internal_data.get(); };
+
+    private:
+        std::shared_ptr<T> internal_data;
 };
 
 }  //  end namespace wte

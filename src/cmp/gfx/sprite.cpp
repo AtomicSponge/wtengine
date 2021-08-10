@@ -19,7 +19,7 @@ namespace cmp
  *
  */
 sprite::sprite(
-    std::shared_ptr<wte_asset> bmp,
+    wte_asset<al_bitmap> bmp,
     const float& sw, const float& sh,
     const float& dox, const float& doy,
     const std::size_t& rt, const std::size_t& l) :
@@ -44,8 +44,8 @@ sprite::sprite(
 {
     if(rate == 0) rate = 1;
     try {
-        sheet_width = std::static_pointer_cast<al_bitmap>(internal_bitmap)->get_width();
-        sheet_height = std::static_pointer_cast<al_bitmap>(internal_bitmap)->get_height();
+        sheet_width = internal_bitmap->get_width();
+        sheet_height = internal_bitmap->get_height();
     } catch(...) {
         throw wte_exception("Error creating sprite.  Cannot access asset.", "sprite", engine_time::check_time());
     }

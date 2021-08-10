@@ -1,0 +1,11 @@
+.cmake/
+*_bak/
+build/
+docs/
+
+.bakignore
+.comment_updater.config
+*.code-workspace
+
+tools/csv2sdf/*.sdf
+tools/csv2sdf/*.csv

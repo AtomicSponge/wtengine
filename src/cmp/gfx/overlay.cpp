@@ -19,8 +19,8 @@ namespace cmp
  *
  */
 overlay::overlay(
-    std::shared_ptr<wte_asset> bmp,
-    std::shared_ptr<wte_asset> font,
+    wte_asset<al_bitmap> bmp,
+    wte_asset<al_font> font,
     const float& x,
     const float& y,
     const std::size_t& l,
@@ -41,7 +41,7 @@ void overlay::draw_text(
     const float& x, const float& y,
     const int& f
 ) {
-    al_draw_text(**std::static_pointer_cast<al_font>(overlay_font), color, x, y, f, txt.c_str());
+    al_draw_text(**overlay_font, color, x, y, f, txt.c_str());
 }
 
 /*

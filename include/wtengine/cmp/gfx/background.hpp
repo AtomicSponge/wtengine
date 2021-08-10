@@ -37,7 +37,7 @@ class background final : public animator {
          * \param c Allegro color.
          * \param l Background layer.
          */
-        background(std::shared_ptr<wte_asset> bmp, const std::size_t& l, const ALLEGRO_COLOR& c);
+        background(wte_asset<al_bitmap> bmp, const std::size_t& l, const ALLEGRO_COLOR& c);
 
         /*!
          * \brief Create a Background component with custom animation.
@@ -46,7 +46,7 @@ class background final : public animator {
          * \param l Background layer.
          * \param func Animcation function.
          */
-        background(std::shared_ptr<wte_asset> bmp, const std::size_t& l,
+        background(wte_asset<al_bitmap> bmp, const std::size_t& l,
                    const std::function<void(const entity_id&)>& func);
 
         /*!

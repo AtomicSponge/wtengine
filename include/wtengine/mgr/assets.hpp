@@ -40,8 +40,6 @@ namespace mgr
  */
 class assets final : private manager<assets> {
     friend class wte::engine;
-    friend class menus;
-    friend class renderer;
 
     public:
         /*!
@@ -52,13 +50,13 @@ class assets final : private manager<assets> {
          * \param args Parameters to asset constructor.
          * \return True if loaded.  False if not.
          */
-        template <typename T, typename... Args>
+        template <typename T>
         inline static const bool load(
             const std::string& label,
-            Args... args
+            const T& asset
         ) {
             auto ret =
-                _assets.insert(std::make_pair(label, std::make_pair(std::make_shared<T>(args...), true)));
+                _assets<T>.insert(std::make_pair(label, wte_asset<T>(asset)));
             return ret.second;
         };
 
@@ -67,72 +65,41 @@ class assets final : private manager<assets> {
          * \param label Reference label for asset.
          * \return True if removed, false if not.
          */
-        static const bool unload(
+        template <typename T>
+        inline static const bool unload(
             const std::string& label
-        );
+        ) {
+            auto it = _assets<T>.find(label);
+            if(it != _assets<T>.end()) {
+                _assets<T>.erase(it);
+                return true;
+            }
+            return false;
+        };
 
         /*!
          * \brief Get an asset by reference label.
          * \param label Reference label for asset.
          * \tparam T Asset type to get.
          * \return Pointer to asset.
-         * \exception Asset is protected.
          * \exception Asset not found.
          */
         template <typename T>
-        inline static const std::shared_ptr<T> get(
+        inline static const wte_asset<T> get(
             const std::string& label
         ) {
             try {
-                try {
-                    auto res = _assets.at(label);
-                    if(res.second) return std::static_pointer_cast<T>(res.first);
-                    const std::string err_msg = "Asset is protected: " + label;
-                    throw wte_exception(err_msg.c_str(), "assets", engine_time::check_time());
-                } catch(std::out_of_range& e) {
-                    const std::string err_msg = "Could not find asset: " + label;
-                    throw wte_exception(err_msg.c_str(), "assets", engine_time::check_time());
-                }
-            } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
-        };
-
-    private:
-        assets();
-        ~assets();
-
-        /*
-         * Creates a private asset only accessable by engine internals.
-         */
-        template <typename T, typename... Args>
-        inline static const bool secret_load(
-            const std::string& label,
-            Args... args
-        ) {
-            auto ret = _assets.insert(std::make_pair(label, std::make_pair(std::make_shared<T>(args...), false)));
-            return ret.second;
-        };
-
-        /*
-         * Allows removal of private assets.
-         */
-        static const bool secret_unload(
-            const std::string& label
-        );
-
-        /*
-         * Allows access to private assets created ny secret_load.
-         */
-        template <typename T>
-        inline static const std::shared_ptr<T> secret_get(
-            const std::string& label
-        ) {
-            try {
-                return std::static_pointer_cast<T>(_assets.at(label).first);
+                auto res = _assets<T>.at(label);
+                return res;
             } catch(std::out_of_range& e) {
                 const std::string err_msg = "Could not find asset: " + label;
                 throw wte_exception(err_msg.c_str(), "assets", engine_time::check_time());
             }
         };
+
+    private:
+        assets();
+        ~assets();
 
         /*
          * Backup temp bitmaps
@@ -145,12 +112,11 @@ class assets final : private manager<assets> {
         static void reload_bitmaps(void);
 
         //  Store the asset map.
-        static std::map<
+        template <typename T>
+        inline static std::map<
             std::string,
-            std::pair<
-                std::shared_ptr<wte_asset>,
-                bool
-        >> _assets;
+            wte_asset<T>
+        > _assets = {};
 
         //  Map for bitmap backup process.
         static std::map<

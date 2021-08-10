@@ -16,8 +16,6 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 
-#include "wtengine/_globals/wte_asset.hpp"
-
 #include "wtengine/_globals/_defines.hpp"
 
 namespace wte
@@ -27,7 +25,7 @@ namespace wte
  * \class al_bitmap
  * \brief Provides a wrapper to Allegro bitmaps.
  */
-class al_bitmap final : public wte_asset {
+class al_bitmap final {
     public:
         /*!
          * \brief Creates a null bitmap that preserves its data.
@@ -173,7 +171,7 @@ class al_bitmap final : public wte_asset {
  * \class al_font
  * \brief Provides a wrapper to Allegro fonts.
  */
-class al_font final : public wte_asset {
+class al_font final {
     public:
         /*!
          * \brief Create a font asset using Allegro's default font.

@@ -180,7 +180,7 @@ wte_demo::~wte_demo() {
  */
 void wte_demo::load_menus(void) {
     //  Create a menu background and load into menu mgr.
-    mgr::assets::load<al_bitmap>("menu_background", 480, 360);
+    mgr::assets::load<al_bitmap>("menu_background", al_bitmap(480, 360));
     al_set_target_bitmap(**mgr::assets::get<al_bitmap>("menu_background"));
     al_clear_to_color(WTE_COLOR_DARKPURPLE);
     mgr::menus::set_background(mgr::assets::get<al_bitmap>("menu_background"));
@@ -191,7 +191,7 @@ void wte_demo::load_menus(void) {
     mgr::menus::set_font(mgr::assets::get<al_font>("wte_default_font"), WTE_COLOR_WHITE);
 
     //  Create a cursor bitmap and load into menu mgr.
-    mgr::assets::load<al_bitmap>("cursor", 8, 8);
+    mgr::assets::load<al_bitmap>("cursor", al_bitmap(8, 8));
     al_set_target_bitmap(**mgr::assets::get<al_bitmap>("cursor"));
     al_clear_to_color(WTE_COLOR_WHITE);
     mgr::menus::set_cursor(mgr::assets::get<al_bitmap>("cursor"));
@@ -295,7 +295,7 @@ void wte_demo::new_game(void) {
     e_id = mgr::world::new_entity();
     mgr::world::set_name(e_id, "starfield");
     mgr::world::add_component<stars>(e_id);
-    mgr::assets::load<al_bitmap>("starfield", mgr::renderer::get_arena_width(), mgr::renderer::get_arena_height(), true);
+    mgr::assets::load<al_bitmap>("starfield", al_bitmap(mgr::renderer::get_arena_width(), mgr::renderer::get_arena_height(), true));
     mgr::world::add_component<cmp::background>(e_id, mgr::assets::get<al_bitmap>("starfield"), 0,
         [](const entity_id& bkg_id) {
             //  Define the animation process for the starfield.
@@ -358,7 +358,7 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     e_id = mgr::world::new_entity();
     mgr::world::set_name(e_id, "score_overlay");
-    mgr::assets::load<al_bitmap>("score_overlay", 200, 20, true);
+    mgr::assets::load<al_bitmap>("score_overlay", al_bitmap(200, 20, true));
     mgr::world::add_component<cmp::overlay>(e_id,
         mgr::assets::get<al_bitmap>("score_overlay"),
         mgr::assets::get<al_font>("wte_default_font"),
@@ -379,7 +379,7 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     e_id = mgr::world::new_entity();
     mgr::world::set_name(e_id, "player_info_overlay");
-    mgr::assets::load<al_bitmap>("player_info_overlay", 200, 20, true);
+    mgr::assets::load<al_bitmap>("player_info_overlay", al_bitmap(200, 20, true));
     mgr::world::add_component<cmp::overlay>(e_id,
         mgr::assets::get<al_bitmap>("player_info_overlay"),
         mgr::assets::get<al_font>("wte_default_font"),
@@ -401,9 +401,9 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     e_id = mgr::world::new_entity();
     mgr::world::set_name(e_id, "game_over_overlay");
-    //mgr::assets::load<al_bitmap>("game_over_overlay", "game_over.bmp");
-    mgr::assets::load<al_bitmap>("game_over_overlay");
-    mgr::assets::get<al_bitmap>("game_over_overlay")->load("game_over.bmp");
+    {al_bitmap temp_bmp = al_bitmap();
+    temp_bmp.load("game_over.bmp");
+    mgr::assets::load<al_bitmap>("game_over_overlay", temp_bmp);}
     mgr::world::add_component<cmp::overlay>(e_id,
         mgr::assets::get<al_bitmap>("game_over_overlay"),
         mgr::assets::get<al_font>("wte_default_font"),
@@ -431,9 +431,9 @@ void wte_demo::new_game(void) {
     mgr::world::add_component<cmp::direction>(e_id, false);
     mgr::world::add_component<cmp::velocity>(e_id);
 
-    //mgr::assets::load<al_bitmap>("ship", "ship.bmp");
-    mgr::assets::load<al_bitmap>("ship");
-    mgr::assets::get<al_bitmap>("ship")->load("ship.bmp");
+    {al_bitmap temp_bmp = al_bitmap();
+    temp_bmp.load("ship.bmp");
+    mgr::assets::load<al_bitmap>("ship", temp_bmp);}
     mgr::world::add_component<cmp::sprite>(e_id, mgr::assets::get<al_bitmap>("ship"),
                                            32.0f, 32.0f, -11.0f, 0.0f, 1, 1);
     mgr::world::set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
@@ -519,9 +519,9 @@ void wte_demo::new_game(void) {
     mgr::world::add_component<cmp::enabled>(e_id, false);
     mgr::world::add_component<damage>(e_id, 3);
 
-    //mgr::assets::load<al_bitmap>("cannon", "cannon.bmp");
-    mgr::assets::load<al_bitmap>("cannon");
-    mgr::assets::get<al_bitmap>("cannon")->load("cannon.bmp");
+    {al_bitmap temp_bmp = al_bitmap();
+    temp_bmp.load("cannon.bmp");
+    mgr::assets::load<al_bitmap>("cannon", temp_bmp);}
     mgr::world::add_component<cmp::sprite>(e_id, mgr::assets::get<al_bitmap>("cannon"),
                                            10.0f, 200.0f, 0.0f, 0.0f, 2, 2);
     mgr::world::set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
@@ -569,9 +569,9 @@ void wte_demo::new_game(void) {
     mgr::world::add_component<energy>(e_id, 50, 100);
     mgr::world::add_component<damage>(e_id, 100);
 
-    //mgr::assets::load<al_bitmap>("shield", "shield.bmp");
-    mgr::assets::load<al_bitmap>("shield");
-    mgr::assets::get<al_bitmap>("shield")->load("shield.bmp");
+    {al_bitmap temp_bmp = al_bitmap();
+    temp_bmp.load("shield.bmp");
+    mgr::assets::load<al_bitmap>("shield", temp_bmp);}
     mgr::world::add_component<cmp::sprite>(e_id, mgr::assets::get<al_bitmap>("shield"),
                                            64.0f, 64.0f, 0.0f, 0.0f, 6, 2);
     mgr::world::set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 5);
@@ -632,9 +632,9 @@ void wte_demo::new_game(void) {
     /*  (4) Velocity                          */
     /*  (5) Size                              */
     /* ************************************** */
-    //mgr::assets::load<al_bitmap>("asteroid", "asteroid.bmp");
-    mgr::assets::load<al_bitmap>("asteroid");
-    mgr::assets::get<al_bitmap>("asteroid")->load("asteroid.bmp");
+    {al_bitmap temp_bmp = al_bitmap();
+    temp_bmp.load("asteroid.bmp");
+    mgr::assets::load<al_bitmap>("asteroid", temp_bmp);}
     mgr::spawner::add_spawn("asteroid", 5,
         [](const entity_id& e_id, const msg_args& args) {
             int temp_size = std::stoi(args[5]);

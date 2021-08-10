@@ -20,7 +20,7 @@ template <> bool messages::manager<messages>::initialized = false;
 message_container messages::msg_queue = {};
 
 #if WTE_DEBUG_MODE
-std::ofstream messages::debug_log_file;
+std::ofstream messages::debug_log_file("wte_debug//wte_debug_messages.txt", std::ios::trunc);
 #endif
 
 /*
@@ -30,8 +30,6 @@ messages::messages() {
     msg_queue.clear();
 
     #if WTE_DEBUG_MODE
-    //  If debug mode is enabled, create a new log file
-    debug_log_file.open("wte_debug//wte_debug_messages.txt", std::ios::trunc);
     debug_log_file << "Logging messages..." << std::endl << std::endl;
     #endif
 }
@@ -227,7 +225,7 @@ void messages::debug_log_message(const message& msg) {
     }
     debug_log_file << "CMD:  " << msg.get_cmd() << " | ";
     debug_log_file << "ARGS:  ";
-    msg_arg_list arglist = msg.get_arglist();
+    msg_args arglist = msg.get_args();
     for(auto i = arglist.begin(); i != arglist.end(); i++) {
         debug_log_file << *i;
         if(std::next(i, 1) != arglist.end()) debug_log_file << ";";

@@ -14,10 +14,7 @@
 #include <vector>
 #include <algorithm>
 #include <stdexcept>
-
-#if WTE_DEBUG_MODE
 #include <fstream>
-#endif
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_physfs.h>

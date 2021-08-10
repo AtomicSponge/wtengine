@@ -43,12 +43,6 @@ template <class T> class wte_asset final {
          * \param a
          */
         inline void operator=(wte_asset<T> const& a) { internal_data = a.internal_data; };
-
-        /*!
-         * \brief
-         * \return
-         */
-        inline T* get() const noexcept { return internal_data.get(); };
         
         /*!
          * \brief

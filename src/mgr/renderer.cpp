@@ -43,7 +43,7 @@ void renderer::initialize(void) {
     arena_created = true;
 
     //  Set the overlay's font to the system default.
-    renderer_font = mgr::assets::get<al_font>("wte_default_font");
+    renderer_font = mgr::assets<al_font>::get<al_font>("wte_default_font");
 
     //  Load the title screen bitmap.
     if(title_screen_file.empty()) {

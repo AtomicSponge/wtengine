@@ -15,7 +15,7 @@ namespace wte
 namespace mgr
 {
 
-template <> bool assets::manager<assets>::initialized = false;
+template <> bool assets<>::manager<assets<>>::initialized = false;
 
 //std::map<std::string, ALLEGRO_BITMAP*> assets::_bitmaps_backup = {};
 

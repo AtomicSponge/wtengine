@@ -39,7 +39,7 @@ namespace mgr
  * \tparam ...Types Types of assets used in game code.
  */
 template <typename ...Types>
-class assets final : private manager<assets> {
+class assets final : private manager<assets<>> {
     friend class wte::engine;
 
     public:
@@ -108,7 +108,7 @@ class assets final : private manager<assets> {
                 const wte_asset<T>& obj
             ) {
                 static_assert((sizeof ...(Ts)) > 0, "Asset template type error.");
-                return load<T, idx + 1, Ts&&...>::get_impl(label, obj);
+                return load_impl<T, idx + 1, Ts&&...>::load(label, obj);
             }
         };
 
@@ -130,7 +130,7 @@ class assets final : private manager<assets> {
                 const std::string& label
             ) {
                 static_assert((sizeof ...(Ts)) > 0, "Asset template type error.");
-                return unload<T, idx + 1, Ts&&...>::unload_impl(label);
+                return unload_impl<T, idx + 1, Ts&&...>::unload(label);
             }
         };
 
@@ -155,7 +155,7 @@ class assets final : private manager<assets> {
             ) {
                 static_assert((sizeof ...(Ts)) > 0, "Asset template type error.");
                 try {
-                    return get<T, idx + 1, Ts&&...>::get_impl(label);
+                    return get_impl<T, idx + 1, Ts&&...>::get(label);
                 } catch(...) { throw; }
             }
         };

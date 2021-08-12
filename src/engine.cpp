@@ -97,11 +97,11 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
         al_pause_event_queue(main_event_queue, true);
         al_unregister_event_source(main_event_queue, al_get_display_event_source(_display));
         //  Backup temp bitmaps.
-        mgr::assets::backup_bitmaps();
+        //mgr::assets::backup_bitmaps();
         //  Reload the display.
         reconf_display();
         //  Reload any temp bitmaps.
-        mgr::assets::reload_bitmaps();
+        //mgr::assets::reload_bitmaps();
         //  Register display event source and resume timer if it was running.
         al_register_event_source(main_event_queue, al_get_display_event_source(_display));
         al_pause_event_queue(main_event_queue, false);

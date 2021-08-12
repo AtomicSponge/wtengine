@@ -13,7 +13,7 @@
 #include <string>
 #include <tuple>
 #include <map>
-#include <utility>
+#include <exception>
 
 #include <allegro5/allegro.h>
 
@@ -22,7 +22,6 @@
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/engine_time.hpp"
-#include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
 
@@ -86,7 +85,12 @@ class assets final : private manager<assets> {
         inline static const wte_asset<T> get(
             const std::string& label
         ) {
-            return get_impl<T, 0, Types...>::get_impl(this, label);
+            try {
+                return get_impl<T, 0, Types...>::get_impl(this, label);
+            } catch(std::out_of_range& e) {
+                std::string err_msg = "Could not get asset: " + label;
+                throw wte_exception(err_msg.c_str(), "assets", engine_time::check_time());
+            }
         };
 
     private:
@@ -155,7 +159,9 @@ class assets final : private manager<assets> {
                 const std::string& label
             ) {
                 static_assert((sizeof ...(Ts)) > 0, "Asset template type error.");
-                return get_impl<T, idx + 1, Ts...>::get_impl(this_ptr, label);
+                try {
+                    return get_impl<T, idx + 1, Ts...>::get_impl(this_ptr, label);
+                } catch(...) { throw; }
             }
         };
 
@@ -165,7 +171,9 @@ class assets final : private manager<assets> {
                 assets* this_ptr,
                 const std::string& label
             ) {
-                return std::get<idx>(this_ptr->_assets).at(label);
+                try {
+                    return std::get<idx>(this_ptr->_assets).at(label);
+                } catch(...) { throw; }
             }
         };
 

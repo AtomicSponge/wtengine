@@ -623,6 +623,7 @@ void wte_demo::new_game(void) {
         }
     );  //  End shield message processing.
 
+
     /* ************************************** */
     /* Add the asteroid entity to the spawner */
     /* Arguments:                             */
@@ -632,9 +633,9 @@ void wte_demo::new_game(void) {
     /*  (4) Velocity                          */
     /*  (5) Size                              */
     /* ************************************** */
-    {al_bitmap temp_bmp = al_bitmap();
-    temp_bmp.load("asteroid.bmp");
-    mgr::assets::load<al_bitmap>("asteroid", temp_bmp);}
+    {wte_asset<al_bitmap> temp_asset = make_asset(al_bitmap());
+    temp_asset->load("asteroid.bmp");
+    mgr::assets::load<al_bitmap>("asteroid", temp_asset);}
     mgr::spawner::add_spawn("asteroid", 5,
         [](const entity_id& e_id, const msg_args& args) {
             int temp_size = std::stoi(args[5]);

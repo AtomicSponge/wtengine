@@ -39,7 +39,7 @@ std::string renderer::background_file = "";
 void renderer::initialize(void) {
     //  Create the arena bitmap.
     if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
-    arena_bitmap = al_bitmap(arena_w, arena_h, true);
+    arena_bitmap = make_asset(al_bitmap(arena_w, arena_h, true));
     arena_created = true;
 
     //  Set the overlay's font to the system default.
@@ -47,21 +47,21 @@ void renderer::initialize(void) {
 
     //  Load the title screen bitmap.
     if(title_screen_file.empty()) {
-        title_bitmap = al_bitmap(1, 1);
+        title_bitmap = make_asset(al_bitmap(1, 1));
         al_set_target_bitmap(**title_bitmap);
         al_clear_to_color(WTE_COLOR_BLACK);
     } else {
-        title_bitmap = al_bitmap();
+        title_bitmap = make_asset(al_bitmap());
         title_bitmap->load(title_screen_file);
     }
 
     //  Load the background bitmap.
     if(background_file.empty()) {
-        background_bitmap = al_bitmap(1, 1);
+        background_bitmap = make_asset(al_bitmap(1, 1));
         al_set_target_bitmap(**background_bitmap);
         al_clear_to_color(WTE_COLOR_BLACK);
     } else {
-        background_bitmap = al_bitmap();
+        background_bitmap = make_asset(al_bitmap());
         background_bitmap->load(background_file);
     }
 

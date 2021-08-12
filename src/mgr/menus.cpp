@@ -51,11 +51,11 @@ void menus::initialize(void) {
         throw std::runtime_error("Unable to create game menu!");
 
     //  Create the the menu bitmap for rendering.
-    menu_buffer = al_bitmap(
+    menu_buffer = make_asset(al_bitmap(
         mgr::renderer::get_arena_width(),
         mgr::renderer::get_arena_height(),
         true
-    );
+    ));
 
     //  Create timer & its queue.
     menu_timer = al_create_timer(1.0f / 30.0f);

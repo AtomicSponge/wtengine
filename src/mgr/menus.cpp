@@ -39,23 +39,10 @@ int64_t menus::last_tick = 0;
 /*
  *
  */
-menus::menus() {
-    _menus.clear();
-    opened_menus = {};
-}
-
-/*
- *
- */
-menus::~menus() {
-    opened_menus = {};
-    _menus.clear();
-}
-
-/*
- *
- */
 void menus::initialize(void) {
+    _menus.clear();
+    opened_menus = {};
+    
     //  Create the main menu.
     if(!new_menu(mnu::menu("main_menu", "Main Menu")))
         throw std::runtime_error("Unable to create main menu!");
@@ -85,6 +72,9 @@ void menus::initialize(void) {
 void menus::de_init(void) {
     al_destroy_event_queue(menu_event_queue);
     al_destroy_timer(menu_timer);
+
+    opened_menus = {};
+    _menus.clear();
 }
 
 /*

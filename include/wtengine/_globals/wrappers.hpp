@@ -139,10 +139,10 @@ class al_bitmap final {
         };
 
         /*!
-         * \brief Set the bitmap from an existing one.
+         * \brief Copy a bitmap from an existing one.
          * \param temp_bmp Bitmap to copy.
          */
-        inline void set(
+        inline void clone(
             ALLEGRO_BITMAP* temp_bmp
         ) {
             if(nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);

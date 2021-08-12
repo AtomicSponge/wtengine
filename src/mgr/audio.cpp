@@ -35,9 +35,27 @@ std::map<std::string, ALLEGRO_SAMPLE_ID> audio::sample_instances = {};
 /*
  *
  */
-audio::audio() {
-    sample_map.clear();
-    sample_instances.clear();
+void audio::initialize(void) {
+    voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
+    mixer_main = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
+    mixer_1 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
+    mixer_2 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
+    mixer_3 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
+    mixer_4 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
+
+    //  Set up the mixers.
+    al_attach_mixer_to_voice(mixer_main, voice);
+    al_attach_mixer_to_mixer(mixer_1, mixer_main);
+    al_attach_mixer_to_mixer(mixer_2, mixer_main);
+    al_attach_mixer_to_mixer(mixer_3, mixer_main);
+    al_attach_mixer_to_mixer(mixer_4, mixer_main);
+
+    //  Set number of samples.
+    al_set_default_mixer(mixer_2);
+    al_reserve_samples(WTE_MAX_PLAYING_SAMPLES);
+
+    //  Set volume levels.
+    set_volume();
 
     //  Map the audio commands.
     //  Mixer 1
@@ -123,40 +141,6 @@ audio::audio() {
     cmds.add("set_volume", 0, [this](const msg_args& args) {
         set_volume();
     });
-};
-
-/*
- *
- */
-audio::~audio() {
-    sample_map.clear();
-    sample_instances.clear();
-};
-
-/*
- *
- */
-void audio::initialize(void) {
-    voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
-    mixer_main = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
-    mixer_1 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
-    mixer_2 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
-    mixer_3 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
-    mixer_4 = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
-
-    //  Set up the mixers.
-    al_attach_mixer_to_voice(mixer_main, voice);
-    al_attach_mixer_to_mixer(mixer_1, mixer_main);
-    al_attach_mixer_to_mixer(mixer_2, mixer_main);
-    al_attach_mixer_to_mixer(mixer_3, mixer_main);
-    al_attach_mixer_to_mixer(mixer_4, mixer_main);
-
-    //  Set number of samples.
-    al_set_default_mixer(mixer_2);
-    al_reserve_samples(WTE_MAX_PLAYING_SAMPLES);
-
-    //  Set volume levels.
-    set_volume();
 };
 
 /*

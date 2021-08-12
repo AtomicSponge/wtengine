@@ -23,16 +23,6 @@ bool systems::finalized = false;
 /*
  *
  */
-systems::systems() { _systems.clear(); }
-
-/*
- *
- */
-systems::~systems() { _systems.clear(); }
-
-/*
- *
- */
 void systems::clear(void) {
     _systems.clear();
     finalized = false;

@@ -50,6 +50,9 @@ class audio final : private manager<audio> {
     friend class wte::engine;
 
     public:
+        audio() = delete;
+        ~audio() = delete;
+
         /*!
          * \brief Toggle music looping.
          * \param arg "enable" or "disable"
@@ -198,16 +201,6 @@ class audio final : private manager<audio> {
         static void ambiance_unpause(void);
 
     private:
-        /* 
-         * Clears the internal audio deck and maps the audio commands.
-         */
-        audio();
-
-        /* 
-         * Clears the internal audio deck and audio command map.
-         */
-        ~audio();
-
         /* 
          * Sets up the various Allegro objects for the audio manager to use.
          */

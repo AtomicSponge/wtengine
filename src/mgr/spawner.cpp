@@ -24,16 +24,6 @@ std::map<std::string, std::pair<std::size_t,
 /*
  *
  */
-spawner::spawner() { spawns.clear(); }
-
-/*
- *
- */
-spawner::~spawner() { spawns.clear(); }
-
-/*
- *
- */
 void spawner::process_messages(const message_container& messages) {
     for(auto & m_it : messages) {
         if(m_it.get_cmd() == "new") {

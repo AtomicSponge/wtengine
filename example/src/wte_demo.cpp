@@ -180,7 +180,7 @@ wte_demo::~wte_demo() {
  */
 void wte_demo::load_menus(void) {
     //  Create a menu background and load into menu mgr.
-    mgr::assets::load<al_bitmap>("menu_background", al_bitmap(480, 360));
+    mgr::assets::load<al_bitmap>("menu_background", 480, 360);
     al_set_target_bitmap(**mgr::assets::get<al_bitmap>("menu_background"));
     al_clear_to_color(WTE_COLOR_DARKPURPLE);
     mgr::menus::set_background(mgr::assets::get<al_bitmap>("menu_background"));
@@ -191,7 +191,7 @@ void wte_demo::load_menus(void) {
     mgr::menus::set_font(mgr::assets::get<al_font>("wte_default_font"), WTE_COLOR_WHITE);
 
     //  Create a cursor bitmap and load into menu mgr.
-    mgr::assets::load<al_bitmap>("cursor", al_bitmap(8, 8));
+    mgr::assets::load<al_bitmap>("cursor", 8, 8);
     al_set_target_bitmap(**mgr::assets::get<al_bitmap>("cursor"));
     al_clear_to_color(WTE_COLOR_WHITE);
     mgr::menus::set_cursor(mgr::assets::get<al_bitmap>("cursor"));
@@ -295,7 +295,7 @@ void wte_demo::new_game(void) {
     e_id = mgr::world::new_entity();
     mgr::world::set_name(e_id, "starfield");
     mgr::world::add_component<stars>(e_id);
-    mgr::assets::load<al_bitmap>("starfield", al_bitmap(mgr::renderer::get_arena_width(), mgr::renderer::get_arena_height(), true));
+    mgr::assets::load<al_bitmap>("starfield", mgr::renderer::get_arena_width(), mgr::renderer::get_arena_height(), true);
     mgr::world::add_component<cmp::background>(e_id, mgr::assets::get<al_bitmap>("starfield"), 0,
         [](const entity_id& bkg_id) {
             //  Define the animation process for the starfield.
@@ -358,7 +358,7 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     e_id = mgr::world::new_entity();
     mgr::world::set_name(e_id, "score_overlay");
-    mgr::assets::load<al_bitmap>("score_overlay", al_bitmap(200, 20, true));
+    mgr::assets::load<al_bitmap>("score_overlay", 200, 20, true);
     mgr::world::add_component<cmp::overlay>(e_id,
         mgr::assets::get<al_bitmap>("score_overlay"),
         mgr::assets::get<al_font>("wte_default_font"),
@@ -379,7 +379,7 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     e_id = mgr::world::new_entity();
     mgr::world::set_name(e_id, "player_info_overlay");
-    mgr::assets::load<al_bitmap>("player_info_overlay", al_bitmap(200, 20, true));
+    mgr::assets::load<al_bitmap>("player_info_overlay", 200, 20, true);
     mgr::world::add_component<cmp::overlay>(e_id,
         mgr::assets::get<al_bitmap>("player_info_overlay"),
         mgr::assets::get<al_font>("wte_default_font"),

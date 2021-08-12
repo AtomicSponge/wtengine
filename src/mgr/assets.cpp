@@ -22,16 +22,6 @@ std::map<std::string, ALLEGRO_BITMAP*> assets::_bitmaps_backup = {};
 /*
  *
  */
-assets::assets() {}
-
-/*
- *
- */
-assets::~assets() {}
-
-/*
- *
- */
 void assets::backup_bitmaps(void) {
     _bitmaps_backup.clear();
     /*for (auto & it : _assets) {

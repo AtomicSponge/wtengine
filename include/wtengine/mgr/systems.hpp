@@ -39,6 +39,9 @@ class systems final : private manager<systems> {
     friend class wte::engine;
 
     public:
+        systems() = delete;
+        ~systems() = delete;
+
         /*!
          * \brief Add a new system to the manager.
          * 
@@ -54,9 +57,6 @@ class systems final : private manager<systems> {
         );
 
     private:
-        systems();
-        ~systems();
-
         /*
          * Clear the system manager and allow systems to be loaded again.
          */

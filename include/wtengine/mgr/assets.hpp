@@ -11,9 +11,9 @@
 #define WTE_MGR_ASSETS_HPP
 
 #include <string>
+#include <tuple>
 #include <map>
 #include <utility>
-#include <memory>
 
 #include <allegro5/allegro.h>
 
@@ -37,31 +37,34 @@ namespace mgr
 /*!
  * \class assets
  * \brief Stores an index of assets.
+ * \tparam ...Types Types of assets used in game code.
  */
+template <typename ...Types>
 class assets final : private manager<assets> {
     friend class wte::engine;
 
     public:
+        assets() = delete;
+        ~assets() = delete;
+
         /*!
          * \brief Load an asset.
          * \tparam T Asset type to add.
-         * \tparam Args Parameters to asset constructor.
          * \param label Reference label for asset.
-         * \param args Parameters to asset constructor.
+         * \param obj
          * \return True if loaded.  False if not.
          */
         template <typename T>
         inline static const bool load(
             const std::string& label,
-            const T& asset
+            const wte_asset<T> obj
         ) {
-            auto ret =
-                _assets<T>.insert(std::make_pair(label, wte_asset<T>(asset)));
-            return ret.second;
+            return load_impl<T, 0, Types...>::load_impl(this, label, obj);
         };
 
         /*!
          * \brief Unload an asset.
+         * \tparam T Asset type to unload.
          * \param label Reference label for asset.
          * \return True if removed, false if not.
          */
@@ -69,54 +72,120 @@ class assets final : private manager<assets> {
         inline static const bool unload(
             const std::string& label
         ) {
-            auto it = _assets<T>.find(label);
-            if(it != _assets<T>.end()) {
-                _assets<T>.erase(it);
-                return true;
-            }
-            return false;
+            return unload_impl<T, 0, Types...>::unload_impl(this, label);
         };
 
         /*!
          * \brief Get an asset by reference label.
-         * \param label Reference label for asset.
          * \tparam T Asset type to get.
-         * \return Pointer to asset.
+         * \param label Reference label for asset.
+         * \return Shared pointer to asset.
          * \exception Asset not found.
          */
         template <typename T>
         inline static const wte_asset<T> get(
             const std::string& label
         ) {
-            try {
-                auto res = _assets<T>.at(label);
-                return res;
-            } catch(std::out_of_range& e) {
-                const std::string err_msg = "Could not find asset: " + label;
-                throw wte_exception(err_msg.c_str(), "assets", engine_time::check_time());
-            }
+            return get_impl<T, 0, Types...>::get_impl(this, label);
         };
 
     private:
-        assets();
-        ~assets();
+        /*
+         * The template specializations below generate a tuple of maps
+         * for each asset type found in the game code.
+         *
+         * First template does compile-time matching for asset load/unload/get implementations.
+         * Second template is the actual specialization of each member.
+         */
+        template <typename T, size_t idx, typename U, typename ...Ts>
+        struct load_impl {
+            inline static const bool load_impl(
+                assets* this_ptr,
+                const std::string& label,
+                const wte_asset<T>& obj
+            ) {
+                static_assert((sizeof ...(Ts)) > 0, "Asset template type error.");
+                return load_impl<T, idx + 1, Ts...>::get_impl(this_ptr, label, obj);
+            }
+        };
+
+        template <typename T, size_t idx, typename ...Ts>
+        struct load_impl<T, idx, T, Ts...> {
+            inline static const bool load_impl(
+                assets* this_ptr,
+                const std::string& label,
+                const wte_asset<T>& obj
+            ) {
+                auto ret =
+                    std::get<idx>(this_ptr->_assets).insert(std::make_pair(label, obj));
+                return ret.second;
+            }
+        };
+
+        template <typename T, size_t idx, typename U, typename ...Ts>
+        struct unload_impl {
+            inline static const bool unload_impl(
+                assets* this_ptr,
+                const std::string& label
+            ) {
+                static_assert((sizeof ...(Ts)) > 0, "Asset template type error.");
+                return unload_impl<T, idx + 1, Ts...>::unload_impl(this_ptr, label);
+            }
+        };
+
+        template <typename T, size_t idx, typename ...Ts>
+        struct unload_impl<T, idx, T, Ts...> {
+            inline static const bool unload_impl(
+                assets* this_ptr,
+                const std::string& label
+            ) {
+                auto it = std::get<idx>(this_ptr->_assets).find(label);
+                if(it != std::get<idx>(this_ptr->_assets).end()) {
+                    std::get<idx>(this_ptr->_assets).erase(it);
+                    return true;
+                }
+                return false;
+            }
+        };
+
+        template <typename T, size_t idx, typename U, typename ...Ts>
+        struct get_impl {
+            inline static wte_asset<T> get_impl(
+                assets* this_ptr,
+                const std::string& label
+            ) {
+                static_assert((sizeof ...(Ts)) > 0, "Asset template type error.");
+                return get_impl<T, idx + 1, Ts...>::get_impl(this_ptr, label);
+            }
+        };
+
+        template <typename T, size_t idx, typename ...Ts>
+        struct get_impl<T, idx, T, Ts...> {
+            inline static wte_asset<T> get_impl(
+                assets* this_ptr,
+                const std::string& label
+            ) {
+                return std::get<idx>(this_ptr->_assets).at(label);
+            }
+        };
 
         /*
          * Backup temp bitmaps
          */
         static void backup_bitmaps(void);
 
-        /*!
+        /*
          * Restore temp bitmaps
          */
         static void reload_bitmaps(void);
 
         //  Store the asset map.
-        template <typename T>
-        inline static std::map<
-            std::string,
-            wte_asset<T>
-        > _assets = {};
+        inline static std::tuple<
+            std::map<
+                std::string,
+                wte_asset<Types>
+            >
+        ...> _assets = {};
 
         //  Map for bitmap backup process.
         static std::map<

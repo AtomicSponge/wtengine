@@ -21,30 +21,19 @@ message_container messages::msg_queue = {};
 
 #if WTE_DEBUG_MODE
 std::ofstream messages::debug_log_file("wte_debug//wte_debug_messages.txt", std::ios::trunc);
-#endif
 
 /*
- *
+ * Start logging if debugging is enabled.
  */
 messages::messages() {
-    msg_queue.clear();
-
-    #if WTE_DEBUG_MODE
     debug_log_file << "Logging messages..." << std::endl << std::endl;
-    #endif
 }
 
 /*
- *
+ * Close log file if debugging is enabled.
  */
-messages::~messages() {
-    msg_queue.clear();
-
-    #if WTE_DEBUG_MODE
-    //  Close log file if debugging is enabled
-    debug_log_file.close();
-    #endif
-}
+messages::~messages() { debug_log_file.close(); }
+#endif
 
 /*
  *
@@ -62,7 +51,6 @@ void messages::add_message(const message& msg) {
 /*
  *
  */
-//  Ignore message pruning if WTE_NO_PRUNE build flag is defined
 void messages::prune(void) {
     for(auto it = msg_queue.begin(); it != msg_queue.end();) {
         //  End early if events are in the future.

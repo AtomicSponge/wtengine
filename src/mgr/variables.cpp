@@ -23,16 +23,6 @@ std::map<std::string, std::any> variables::_map = {};
 /*
  *
  */
-variables::variables() { _map.clear(); }
-
-/*
- *
- */
-variables::~variables() { _map.clear(); }
-
-/*
- *
- */
 void variables::set_data_file(const std::string& fname) {
     data_file_name = fname;
 }

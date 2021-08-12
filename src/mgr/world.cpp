@@ -24,19 +24,6 @@ world_map world::_world = {};
 /*
  *
  */
-world::world() {
-    entity_vec.clear();
-    _world.clear();
-}
-
-/*
- *
- */
-world::~world() { clear(); }
-
-/*
- *
- */
 void world::clear(void) {
     entity_counter = WTE_ENTITY_START;
     entity_vec.clear();

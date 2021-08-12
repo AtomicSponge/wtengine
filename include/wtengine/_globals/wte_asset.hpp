@@ -16,49 +16,10 @@ namespace wte
 {
 
 /*!
- * \class wte_asset
- * \brief Interface class for creating an asset.
+ * \tparam T Asset type.
  */
-template <class T> class wte_asset final {
-    public:
-        /*!
-         * \brief
-         * \param args
-         */
-        template <typename... Args>
-        inline wte_asset(Args... args) {
-            internal_data = std::make_shared<T>(args...);
-        };
-
-        inline ~wte_asset() {};
-
-        /*!
-         * \brief
-         * \param a
-         */
-        inline wte_asset(const wte_asset<T>& a) { internal_data = a.internal_data; };
-
-        /*!
-         * \brief
-         * \param a
-         */
-        inline void operator=(wte_asset<T> const& a) { internal_data = a.internal_data; };
-        
-        /*!
-         * \brief
-         * \return
-         */
-        inline T& operator*() const noexcept { return *internal_data; };
-
-        /*!
-         * \brief
-         * \return
-         */
-        inline T* operator->() const noexcept { return internal_data.get(); };
-
-    private:
-        std::shared_ptr<T> internal_data;
-};
+template <typename T>
+using wte_asset = std::shared_prt<T>;
 
 }  //  end namespace wte
 

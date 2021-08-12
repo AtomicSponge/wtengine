@@ -42,6 +42,11 @@ class messages final : private manager<messages> {
     friend class menus;
 
     public:
+        #if WTE_DEBUG_MODE == FALSE
+        messages() = delete;
+        ~messages() = delete;
+        #endif
+
         /*!
          * \brief Adds a message object to the start of the msg_queue vector.
          * 
@@ -56,7 +61,7 @@ class messages final : private manager<messages> {
         /*!
          * \brief Load additional data into the message queue.
          * 
-         * This is called by a system message to load additional game data.
+         * Can be called by a system message to load additional game data.
          * Note the timer value used for scripts is adjusted by the game timer.
          * 
          * \param fname Filename to load.
@@ -67,15 +72,10 @@ class messages final : private manager<messages> {
         );
 
     private:
-        /*
-         * Clear any existing queue and start logging if debugging is enabled.
-         */
+        #if WTE_DEBUG_MODE
         messages();
-
-        /* 
-         * Delete message queue object and close log file if debugging is enabled.
-         */
         ~messages();
+        #endif
 
         /*
          * Clear the message queue.

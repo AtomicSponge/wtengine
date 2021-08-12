@@ -37,9 +37,6 @@ class spawner final : private manager<spawner> {
     friend class wte::engine;
 
     public:
-        spawner() = delete;
-        ~spawner() = delete;
-
         /*!
          * \brief Add a spawn to the spawner map.
          * 
@@ -57,6 +54,9 @@ class spawner final : private manager<spawner> {
         );
 
     private:
+        spawner() = default;
+        ~spawner() = default;
+
         /*
          * Takes spawner messages and creates or deletes entities.
          */

@@ -21,19 +21,25 @@ message_container messages::msg_queue = {};
 
 #if WTE_DEBUG_MODE
 std::ofstream messages::debug_log_file("wte_debug//wte_debug_messages.txt", std::ios::trunc);
+#endif
 
 /*
  * Start logging if debugging is enabled.
  */
 messages::messages() {
+    #if WTE_DEBUG_MODE
     debug_log_file << "Logging messages..." << std::endl << std::endl;
+    #endif
 }
 
 /*
  * Close log file if debugging is enabled.
  */
-messages::~messages() { debug_log_file.close(); }
-#endif
+messages::~messages() {
+    #if WTE_DEBUG_MODE
+    debug_log_file.close();
+    #endif
+}
 
 /*
  *

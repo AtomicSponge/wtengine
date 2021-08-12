@@ -43,9 +43,6 @@ class assets final : private manager<assets> {
     friend class wte::engine;
 
     public:
-        assets() = delete;
-        ~assets() = delete;
-
         /*!
          * \brief Load an asset.
          * \tparam T Asset type to add.
@@ -94,6 +91,9 @@ class assets final : private manager<assets> {
         };
 
     private:
+        assets() = default;
+        ~assets() = default;
+
         /*
          * The template specializations below generate a tuple of maps
          * for each asset type found in the game code.

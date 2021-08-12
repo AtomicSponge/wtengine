@@ -42,11 +42,6 @@ class messages final : private manager<messages> {
     friend class menus;
 
     public:
-        #if WTE_DEBUG_MODE == FALSE
-        messages() = delete;
-        ~messages() = delete;
-        #endif
-
         /*!
          * \brief Adds a message object to the start of the msg_queue vector.
          * 
@@ -72,10 +67,8 @@ class messages final : private manager<messages> {
         );
 
     private:
-        #if WTE_DEBUG_MODE
         messages();
         ~messages();
-        #endif
 
         /*
          * Clear the message queue.

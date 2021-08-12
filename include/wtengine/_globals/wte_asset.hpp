@@ -19,7 +19,7 @@ namespace wte
  * \tparam T Asset type.
  */
 template <typename T>
-using wte_asset = std::shared_prt<T>;
+using wte_asset = std::shared_ptr<T>;
 
 }  //  end namespace wte
 

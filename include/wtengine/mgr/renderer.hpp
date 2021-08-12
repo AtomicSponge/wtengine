@@ -59,9 +59,6 @@ class renderer final : private manager<renderer> {
     friend class wte::engine;
 
     public:
-        renderer() = delete;
-        ~renderer() = delete;
-
         /*!
          * \brief Get screen width.
          * \return Screen width in pixels.
@@ -154,6 +151,9 @@ class renderer final : private manager<renderer> {
         );
 
     private:
+        renderer() = default;
+        ~renderer() = default;
+
         /* 
          * Configures the internal objects for the render manager to use.
          */

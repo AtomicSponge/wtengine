@@ -100,9 +100,6 @@ class world final : private manager<world> {
     friend class wte::engine;
 
     public:
-        world() = delete;
-        ~world() = delete;
-
         /*!
          * \brief Create a new entity by name, using the next available ID.
          * 
@@ -339,6 +336,9 @@ class world final : private manager<world> {
         };
 
     private:
+        world() = default;
+        ~world() = default;
+
         /*
          * Clear the entity manager.
          */

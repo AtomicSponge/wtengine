@@ -56,9 +56,6 @@ class menus final : private manager<menus> {
     friend class renderer;
 
     public:
-        menus() = delete;
-        ~menus() = delete;
-
         /*!
          * \brief Set a background to be used by the menus.
          * \param bmp Allegro bitmap asset.
@@ -118,6 +115,9 @@ class menus final : private manager<menus> {
         static const mnu::menu_sptr set_menu(const std::string& name);
 
     private:
+        menus() = default;
+        ~menus() = default;
+
         /*
          * Sets up internal menu objects.  Called during engine initialization.
          * Also creates the default main menu and in-game menu.

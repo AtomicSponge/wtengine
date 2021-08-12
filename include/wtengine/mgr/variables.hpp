@@ -35,9 +35,6 @@ namespace mgr
  */
 class variables final : private manager<variables> {
     public:
-        variables() = delete;
-        ~variables() = delete;
-
         /*!
          * \brief Set the file the game config variables will be written to.
          * \param fname Filename to set saving to.
@@ -224,6 +221,9 @@ class variables final : private manager<variables> {
         };
 
     private:
+        variables() = default;
+        ~variables() = default;
+
         /*
          * Verify valid data type.
          */

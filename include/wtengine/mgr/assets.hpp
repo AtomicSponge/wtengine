@@ -55,7 +55,7 @@ class assets final : private manager<assets> {
             const std::string& label,
             const wte_asset<T> obj
         ) {
-            return load_impl<T, 0, Types...>::load_impl(this, label, obj);
+            return load_impl<T, 0, Types...>::load_impl(label, obj);
         };
 
         /*!
@@ -68,7 +68,7 @@ class assets final : private manager<assets> {
         inline static const bool unload(
             const std::string& label
         ) {
-            return unload_impl<T, 0, Types...>::unload_impl(this, label);
+            return unload_impl<T, 0, Types...>::unload_impl(label);
         };
 
         /*!
@@ -83,7 +83,7 @@ class assets final : private manager<assets> {
             const std::string& label
         ) {
             try {
-                return get_impl<T, 0, Types...>::get_impl(this, label);
+                return get_impl<T, 0, Types...>::get_impl(label);
             } catch(std::out_of_range& e) {
                 std::string err_msg = "Could not get asset: " + label;
                 throw wte_exception(err_msg.c_str(), "assets", engine_time::check_time());
@@ -103,49 +103,45 @@ class assets final : private manager<assets> {
          */
         template <typename T, size_t idx, typename U, typename ...Ts>
         struct load_impl {
-            inline static const bool load_impl(
-                assets* this_ptr,
+            inline const bool load(
                 const std::string& label,
                 const wte_asset<T>& obj
             ) {
                 static_assert((sizeof ...(Ts)) > 0, "Asset template type error.");
-                return load_impl<T, idx + 1, Ts...>::get_impl(this_ptr, label, obj);
+                return load<T, idx + 1, Ts&&...>::get_impl(label, obj);
             }
         };
 
         template <typename T, size_t idx, typename ...Ts>
-        struct load_impl<T, idx, T, Ts...> {
-            inline static const bool load_impl(
-                assets* this_ptr,
+        struct load_impl<T, idx, T, ...Ts> {
+            inline const bool load(
                 const std::string& label,
                 const wte_asset<T>& obj
             ) {
                 auto ret =
-                    std::get<idx>(this_ptr->_assets).insert(std::make_pair(label, obj));
+                    std::get<idx>(assets::_assets).insert(std::make_pair(label, obj));
                 return ret.second;
             }
         };
 
         template <typename T, size_t idx, typename U, typename ...Ts>
         struct unload_impl {
-            inline static const bool unload_impl(
-                assets* this_ptr,
+            inline const bool unload(
                 const std::string& label
             ) {
                 static_assert((sizeof ...(Ts)) > 0, "Asset template type error.");
-                return unload_impl<T, idx + 1, Ts...>::unload_impl(this_ptr, label);
+                return unload<T, idx + 1, Ts&&...>::unload_impl(label);
             }
         };
 
         template <typename T, size_t idx, typename ...Ts>
-        struct unload_impl<T, idx, T, Ts...> {
-            inline static const bool unload_impl(
-                assets* this_ptr,
+        struct unload_impl<T, idx, T, ...Ts> {
+            inline const bool unload(
                 const std::string& label
             ) {
-                auto it = std::get<idx>(this_ptr->_assets).find(label);
-                if(it != std::get<idx>(this_ptr->_assets).end()) {
-                    std::get<idx>(this_ptr->_assets).erase(it);
+                auto it = std::get<idx>(assets::_assets).find(label);
+                if(it != std::get<idx>(assets::_assets).end()) {
+                    std::get<idx>(assets::_assets).erase(it);
                     return true;
                 }
                 return false;
@@ -154,25 +150,23 @@ class assets final : private manager<assets> {
 
         template <typename T, size_t idx, typename U, typename ...Ts>
         struct get_impl {
-            inline static wte_asset<T> get_impl(
-                assets* this_ptr,
+            inline const wte_asset<T> get(
                 const std::string& label
             ) {
                 static_assert((sizeof ...(Ts)) > 0, "Asset template type error.");
                 try {
-                    return get_impl<T, idx + 1, Ts...>::get_impl(this_ptr, label);
+                    return get<T, idx + 1, Ts&&...>::get_impl(label);
                 } catch(...) { throw; }
             }
         };
 
         template <typename T, size_t idx, typename ...Ts>
-        struct get_impl<T, idx, T, Ts...> {
-            inline static wte_asset<T> get_impl(
-                assets* this_ptr,
+        struct get_impl<T, idx, T, ...Ts> {
+            inline const wte_asset<T> get(
                 const std::string& label
             ) {
                 try {
-                    return std::get<idx>(this_ptr->_assets).at(label);
+                    return std::get<idx>(assets::_assets).at(label);
                 } catch(...) { throw; }
             }
         };
@@ -180,12 +174,12 @@ class assets final : private manager<assets> {
         /*
          * Backup temp bitmaps
          */
-        static void backup_bitmaps(void);
+        //static void backup_bitmaps(void);
 
         /*
          * Restore temp bitmaps
          */
-        static void reload_bitmaps(void);
+        //static void reload_bitmaps(void);
 
         //  Store the asset map.
         inline static std::tuple<
@@ -196,10 +190,10 @@ class assets final : private manager<assets> {
         ...> _assets = {};
 
         //  Map for bitmap backup process.
-        static std::map<
+        /*static std::map<
             std::string,
             ALLEGRO_BITMAP*
-        > _bitmaps_backup;
+        > _bitmaps_backup;*/
 };
 
 } //  namespace mgr

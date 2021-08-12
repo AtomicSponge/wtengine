@@ -17,14 +17,14 @@ namespace mgr
 
 template <> bool assets::manager<assets>::initialized = false;
 
-std::map<std::string, ALLEGRO_BITMAP*> assets::_bitmaps_backup = {};
+//std::map<std::string, ALLEGRO_BITMAP*> assets::_bitmaps_backup = {};
 
 /*
  *
  */
-void assets::backup_bitmaps(void) {
+/*void assets::backup_bitmaps(void) {
     _bitmaps_backup.clear();
-    /*for (auto & it : _assets) {
+    for (auto & it : _assets) {
         if(std::dynamic_pointer_cast<al_bitmap>(it.second)) {
             if(std::static_pointer_cast<al_bitmap>(it.second)->isconverted()) {
                 //  Make a conversion safe copy in the backup map.
@@ -34,14 +34,14 @@ void assets::backup_bitmaps(void) {
                 al_destroy_bitmap(**std::static_pointer_cast<al_bitmap>(it.second));
             }
         }
-    }*/
-}
+    }
+}*/
 
 /*
  *
  */
-void assets::reload_bitmaps(void) {
-    /*for (auto & it : _bitmaps_backup) {
+/*void assets::reload_bitmaps(void) {
+    for (auto & it : _bitmaps_backup) {
         //  Restore bitmap.
         try {
             std::static_pointer_cast<al_bitmap>(_assets.at(it.first).first)->set(it.second);
@@ -49,9 +49,9 @@ void assets::reload_bitmaps(void) {
         //  Now delete the old backup bitmap.
         al_destroy_bitmap(it.second);
     }
-    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);*/
+    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
     _bitmaps_backup.clear();
-}
+}*/
 
 } //  namespace mgr
 

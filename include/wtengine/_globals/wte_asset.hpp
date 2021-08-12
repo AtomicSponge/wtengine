@@ -21,6 +21,12 @@ namespace wte
 template <typename T>
 using wte_asset = std::shared_ptr<T>;
 
+template <typename T>
+inline static const wte_asset<T> make_asset(const T& obj) {
+    std::shared_ptr<T> temp(obj);
+    return temp;
+}
+
 }  //  end namespace wte
 
 #endif

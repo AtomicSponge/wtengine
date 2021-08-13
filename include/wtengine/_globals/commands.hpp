@@ -29,8 +29,8 @@ namespace wte
  */
 class commands final {
     public:
-        commands();
-        ~commands();
+        commands() = default;
+        ~commands() = default;
 
         /*!
          * \brief Add a command to the command processor.

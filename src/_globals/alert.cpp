@@ -21,9 +21,6 @@ int64_t alert::alert_time = -1;
 bool alert::alert_status = false;
 bool alert::alert_set = false;
 
-alert::alert() {}
-alert::~alert() {}
-
 /*
  * 
  */

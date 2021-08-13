@@ -29,7 +29,7 @@ namespace sys
  */
 class system {
     public:
-        virtual ~system() {};
+        virtual ~system() = default;
 
         //!  Remove copy constructor
         system(const system&) = delete;
@@ -40,7 +40,7 @@ class system {
          * \brief Get the system name.
          * \return System name.
          */
-        inline const std::string get_name(void) const { return name; };
+        const std::string get_name(void) const { return name; };
 
         //!  Override this to create custom System run method
         virtual void run(void) = 0;

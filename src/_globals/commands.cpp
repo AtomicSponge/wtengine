@@ -12,9 +12,6 @@
 namespace wte
 {
 
-commands::commands() { _commands.clear(); }
-commands::~commands() { _commands.clear(); }
-
 /*
  *
  */

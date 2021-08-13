@@ -25,6 +25,9 @@ namespace wte
  */
 class alert final {
     public:
+        alert() = delete;
+        ~alert() = delete;
+
         /*!
          * \brief Set the alert text and flag there is an alert.
          * \param a Alert to display.
@@ -100,9 +103,6 @@ class alert final {
         static void clear(void);
 
     private:
-        alert();
-        ~alert();
-
         static ALLEGRO_COLOR font_color;    //  Alert font color.
         static ALLEGRO_COLOR bg_color;      //  Alert background color.
 

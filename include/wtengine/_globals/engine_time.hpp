@@ -23,6 +23,9 @@ class engine_time final {
     friend class engine;
 
     public:
+        engine_time() = delete;
+        ~engine_time() = delete;
+
         /*!
          * \brief Check the internal timer.
          * 
@@ -33,9 +36,6 @@ class engine_time final {
         static const int64_t check_time(void);
 
     private:
-        engine_time();
-        ~engine_time();
-
         /*!
          * \brief Set the internal timer.
          * 

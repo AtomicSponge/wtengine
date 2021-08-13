@@ -26,7 +26,7 @@ namespace mgr
  */
 template <class derived> class manager {
     public:
-        inline virtual ~manager() { initialized = false; };
+        virtual ~manager() { initialized = false; };
 
         //!  Remove copy constructor
         manager(const manager&) = delete;
@@ -41,7 +41,7 @@ template <class derived> class manager {
          * \brief Create a new engine manager.
          * \exception runtime_error Manager is already running.
          */
-        inline manager() {
+        manager() {
             if(initialized == true) throw std::runtime_error("An instance of this manager is already running!");
             initialized = true;
         };

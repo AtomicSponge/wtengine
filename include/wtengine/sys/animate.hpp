@@ -25,7 +25,7 @@ namespace sys
 class animate final : public system {
     public:
         animate();
-        ~animate();
+        ~animate() = default;
 
         /*!
          * \brief Gets all animation components and processes their run members.

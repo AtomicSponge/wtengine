@@ -23,11 +23,6 @@ animate::animate() : system("animate") {}
 /*
  *
  */
-animate::~animate() {}
-
-/*
- *
- */
 void animate::run(void) {
     component_container<cmp::animator> animation_components = mgr::world::set_components<cmp::animator>();
 

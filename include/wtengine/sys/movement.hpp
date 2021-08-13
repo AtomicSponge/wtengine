@@ -27,7 +27,7 @@ namespace sys
 class movement final : public system {
     public:
         movement();
-        ~movement();
+        ~movement() = default;
 
         /*!
          * \brief All entities with a velocity component will be moved.

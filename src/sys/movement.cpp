@@ -23,11 +23,6 @@ movement::movement() : system("movement") {}
 /*
  *
  */
-movement::~movement() {}
-
-/*
- *
- */
 void movement::run(void) {
     //  Find the entities with a velocity component.
     const_component_container<cmp::velocity> vel_components = mgr::world::get_components<cmp::velocity>();

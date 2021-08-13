@@ -27,7 +27,7 @@ namespace sys
 class logic final : public system {
     public:
         logic();
-        ~logic();
+        ~logic() = default;
 
         /*!
          * \brief Finds all entities with an ai component and processes their logic.

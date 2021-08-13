@@ -37,7 +37,7 @@ class input {
         /*!
          * \brief WTE Input destructor.
          */
-        inline virtual ~input() {};
+        virtual ~input() = default;
 
         /*!
          * \struct event

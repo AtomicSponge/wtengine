@@ -25,7 +25,7 @@ namespace sys
 class colision final : public system {
     public:
         colision();
-        ~colision();
+        ~colision() = default;
 
         /*!
          * \brief Selects components by team, then tests each team to see if there is a colision.

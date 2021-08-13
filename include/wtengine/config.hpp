@@ -25,7 +25,7 @@ namespace wte
  */
 class config {
     public:
-        inline virtual ~config() {};
+        virtual ~config() = default;
 
         /*!
          * \struct flags

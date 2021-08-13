@@ -23,11 +23,6 @@ colision::colision() : system("colision") {}
 /*
  *
  */
-colision::~colision() {}
-
-/*
- *
- */
 void colision::run(void) {
     const_component_container<cmp::team> team_components = mgr::world::get_components<cmp::team>();
 

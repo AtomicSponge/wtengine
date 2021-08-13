@@ -30,7 +30,7 @@ class display {
         /*!
          * \brief Display destructor.
          */
-        inline virtual ~display() {};
+        virtual ~display() = default;
 
         /*!
          * \brief Get the window title.

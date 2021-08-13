@@ -47,7 +47,7 @@ class assets final : private manager<assets<>> {
          * \brief Load an asset.
          * \tparam T Asset type to add.
          * \param label Reference label for asset.
-         * \param obj
+         * \param obj Asset to add.
          * \return True if loaded.  False if not.
          */
         template <typename T>

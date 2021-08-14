@@ -87,6 +87,9 @@ class assets final : private manager<assets<>> {
             } catch(std::out_of_range& e) {
                 std::string err_msg = "Could not get asset: " + label;
                 throw wte_exception(err_msg.c_str(), "assets", engine_time::check_time());
+            } catch(...) {
+                std::string err_msg = "Error reading asset: " + label;
+                throw wte_exception(err_msg.c_str(), "assets", engine_time::check_time());
             }
         };
 
@@ -187,7 +190,7 @@ class assets final : private manager<assets<>> {
                 std::string,
                 wte_asset<Types>
             >
-        ...> _assets = {};
+        ...> _assets;
 
         //  Map for bitmap backup process.
         /*static std::map<

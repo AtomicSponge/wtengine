@@ -61,10 +61,12 @@ void colision::run(void) {
                         //  Send a message that two entities colided.
                         //  Each entity will get a colision message.
                         //  Ex:  A hit B, B hit A.
-                        mgr::messages::add_message(message("entities",
-                                                        mgr::world::get_name(it_a.first),
-                                                        mgr::world::get_name(it_b.first),
-                                                        "colision", ""));
+                        mgr::messages::add_message(
+                            message("entities",
+                                    mgr::world::get_name(it_a.first),
+                                    mgr::world::get_name(it_b.first),
+                                    "colision", "")
+                        );
                     }
                 } //  End skip self check
             } catch(...) { throw; }

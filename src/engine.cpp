@@ -151,7 +151,7 @@ void engine::add_file_location(const std::string& flocation) {
  */
 void engine::wte_load(void) {
     //  Generate Allegro's default font and load into asset mgr.
-    mgr::assets<al_font>::load<al_font>("wte_default_font", wte_asset<al_font>());
+    mgr::assets<al_font>::load<al_font>("wte_default_font", make_asset(al_font()));
 
     //  Initialize managers that require it.
     mgr::renderer::initialize();

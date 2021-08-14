@@ -127,17 +127,6 @@ class renderer final : private manager<renderer> {
         );
 
         /*!
-         * \brief Set the background.
-         * 
-         * This should be called during engine initialization before the main object is created.
-         * 
-         * \param fname Filename of the background.
-         */
-        static void set_background_screen(
-            const std::string& fname
-        );
-
-        /*!
          * \brief Set the font to be used by the renderer.
          * 
          * If not called, Allegro's default font will be used.
@@ -192,7 +181,6 @@ class renderer final : private manager<renderer> {
 
         static wte_asset<al_bitmap> arena_bitmap;
         static wte_asset<al_bitmap> title_bitmap;
-        static wte_asset<al_bitmap> background_bitmap;
 
         static wte_asset<al_font> renderer_font;
 

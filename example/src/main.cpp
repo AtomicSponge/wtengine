@@ -19,7 +19,6 @@ int main(int argc, char **argv) {
 
     //  Set the title screen.
     wte::mgr::renderer::set_title_screen("title.bmp");
-    //wte::mgr::renderer::set_background_screen("title.bmp");
 
     //  Set the size of the play area.
     wte::mgr::renderer::set_arena_size(768, 1024);

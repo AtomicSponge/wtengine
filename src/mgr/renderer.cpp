@@ -23,7 +23,6 @@ ALLEGRO_EVENT_QUEUE* renderer::fps_event_queue = NULL;
 ALLEGRO_EVENT renderer::fps_event;
 wte_asset<al_bitmap> renderer::arena_bitmap;
 wte_asset<al_bitmap> renderer::title_bitmap;
-wte_asset<al_bitmap> renderer::background_bitmap;
 wte_asset<al_font> renderer::renderer_font;
 std::size_t renderer::fps_counter = 0, renderer::fps = 0;
 int renderer::screen_w = 0, renderer::screen_h = 0;
@@ -53,16 +52,6 @@ void renderer::initialize(void) {
     } else {
         title_bitmap = make_asset(al_bitmap());
         title_bitmap->load(title_screen_file);
-    }
-
-    //  Load the background bitmap.
-    if(background_file.empty()) {
-        background_bitmap = make_asset(al_bitmap(1, 1));
-        al_set_target_bitmap(**background_bitmap);
-        al_clear_to_color(WTE_COLOR_BLACK);
-    } else {
-        background_bitmap = make_asset(al_bitmap());
-        background_bitmap->load(background_file);
     }
 
     fps_timer = al_create_timer(1);
@@ -136,11 +125,6 @@ void renderer::set_title_screen(const std::string& fname) { title_screen_file = 
 /*
  *
  */
-void renderer::set_background_screen(const std::string& fname) { background_file = fname; }
-
-/*
- *
- */
 void renderer::set_font(wte_asset<al_font> font) { renderer_font = font; }
 
 /*
@@ -164,18 +148,12 @@ void renderer::render(void) {
 
     //  Set drawing to the screen.
     al_set_target_backbuffer(al_get_current_display());
+    al_clear_to_color(WTE_COLOR_BLACK);
 
     /*
      * Render world if the game is running.
      */
     if(config::flags::game_started) {
-        /*
-         * Draw the full screen background.
-         */
-        al_draw_scaled_bitmap(**background_bitmap, 0, 0,
-                              background_bitmap->get_width(), background_bitmap->get_height(),
-                              0, 0, screen_w, screen_h, 0);
-
         //  Set drawing to the arena bitmap.
         al_set_target_bitmap(**arena_bitmap);
         al_clear_to_color(WTE_COLOR_BLACK);
@@ -416,8 +394,6 @@ void renderer::render(void) {
      * Update the screen
      */
     al_flip_display();
-    //  Set default bitmap flags.
-    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
 }
 
 } //  namespace mgr

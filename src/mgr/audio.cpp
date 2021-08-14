@@ -29,8 +29,8 @@ ALLEGRO_MIXER* audio::mixer_4 = NULL;
 ALLEGRO_AUDIO_STREAM* audio::music_stream = NULL;
 ALLEGRO_AUDIO_STREAM* audio::ambiance_stream = NULL;
 ALLEGRO_AUDIO_STREAM* audio::voice_stream = NULL;
-std::map<std::string, ALLEGRO_SAMPLE*> audio::sample_map = {};
-std::map<std::string, ALLEGRO_SAMPLE_ID> audio::sample_instances = {};
+std::map<std::string, ALLEGRO_SAMPLE*> audio::sample_map;
+std::map<std::string, ALLEGRO_SAMPLE_ID> audio::sample_instances;
 
 /*
  *

@@ -25,8 +25,8 @@ wte_asset<al_bitmap> menus::menu_temp_bmp;
 wte_asset<al_bitmap> menus::menu_background;
 wte_asset<al_font> menus::menu_font;
 wte_asset<al_bitmap> menus::cursor_bitmap;
-std::vector<mnu::menu_sptr> menus::_menus = {};
-std::stack<mnu::menu_csptr> menus::opened_menus = {};
+std::vector<mnu::menu_sptr> menus::_menus;
+std::stack<mnu::menu_csptr> menus::opened_menus;
 mnu::menu_item_citerator menus::menu_position;
 int menus::font_size = 0;
 int menus::menu_padding = 0;
@@ -40,9 +40,6 @@ int64_t menus::last_tick = 0;
  *
  */
 void menus::initialize(void) {
-    _menus.clear();
-    opened_menus = {};
-    
     //  Create the main menu.
     if(!new_menu(mnu::menu("main_menu", "Main Menu")))
         throw std::runtime_error("Unable to create main menu!");
@@ -72,9 +69,6 @@ void menus::initialize(void) {
 void menus::de_init(void) {
     al_destroy_event_queue(menu_event_queue);
     al_destroy_timer(menu_timer);
-
-    opened_menus = {};
-    _menus.clear();
 }
 
 /*

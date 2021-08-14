@@ -15,7 +15,7 @@ namespace wte
 commands engine::cmds;
 ALLEGRO_TIMER* engine::main_timer = NULL;
 ALLEGRO_EVENT_QUEUE* engine::main_event_queue = NULL;
-std::vector<std::string> engine::file_locations = {};
+std::vector<std::string> engine::file_locations;
 bool engine::initialized = false;
 
 /*

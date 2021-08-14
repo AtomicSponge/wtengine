@@ -18,7 +18,7 @@ namespace mgr
 template <> bool variables::manager<variables>::initialized = false;
 
 std::string variables::data_file_name = "game.cfg";
-std::map<std::string, std::any> variables::_map = {};
+std::map<std::string, std::any> variables::_map;
 
 /*
  *

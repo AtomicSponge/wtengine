@@ -13,8 +13,8 @@
 namespace wte
 {
 
-ALLEGRO_COLOR alert::font_color = {};
-ALLEGRO_COLOR alert::bg_color = {};
+ALLEGRO_COLOR alert::font_color;
+ALLEGRO_COLOR alert::bg_color;
 std::string alert::alert_text = "";
 std::string alert::alert_location = "";
 int64_t alert::alert_time = -1;

@@ -17,7 +17,7 @@ namespace mgr
 
 template <> bool systems::manager<systems>::initialized = false;
 
-std::vector<sys::system_uptr> systems::_systems = {};
+std::vector<sys::system_uptr> systems::_systems;
 bool systems::finalized = false;
 
 /*

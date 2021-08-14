@@ -18,8 +18,8 @@ namespace mgr
 template <> bool world::manager<world>::initialized = false;
 
 entity_id world::entity_counter = WTE_ENTITY_START;
-world_container world::entity_vec = {};
-world_map world::_world = {};
+world_container world::entity_vec;
+world_map world::_world;
 
 /*
  *

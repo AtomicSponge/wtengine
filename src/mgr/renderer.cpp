@@ -30,8 +30,8 @@ int renderer::screen_w = 0, renderer::screen_h = 0;
 float renderer::scale_factor = 1.0;
 int renderer::arena_w = 0, renderer::arena_h = 0;
 bool renderer::arena_created = false;
-std::string renderer::title_screen_file = "";
-std::string renderer::background_file = "";
+std::string renderer::title_screen_file;
+std::string renderer::background_file;
 
 /*
  *

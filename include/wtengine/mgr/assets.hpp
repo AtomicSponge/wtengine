@@ -68,7 +68,7 @@ class assets final : private manager<assets<>> {
         template <typename T>
         inline static const bool load(
             const std::string& label,
-            const T obj
+            const T& obj
         ) {
             return load_impl<T, 0, Types...>::load(label, make_asset(obj));
         };

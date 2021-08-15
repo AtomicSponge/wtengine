@@ -87,7 +87,6 @@ void display::create_display(void) {
 
     /* *** Render manager updating *** */
     mgr::renderer::update_resolution(screen_w, screen_h);
-    mgr::renderer::set_scale_factor(config::gfx::scale_factor);
 }
 
 /*

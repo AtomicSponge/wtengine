@@ -26,7 +26,6 @@ wte_asset<al_bitmap> renderer::title_bitmap;
 wte_asset<al_font> renderer::renderer_font;
 std::size_t renderer::fps_counter = 0, renderer::fps = 0;
 int renderer::screen_w = 0, renderer::screen_h = 0;
-float renderer::scale_factor = 1.0;
 int renderer::arena_w = 0, renderer::arena_h = 0;
 bool renderer::arena_created = false;
 std::string renderer::title_screen_file;
@@ -89,16 +88,6 @@ const int renderer::get_screen_height(void) { return screen_h; }
 /*
  *
  */
-void renderer::set_scale_factor(const float& f) { scale_factor = f; }
-
-/*
- *
- */
-const int renderer::get_scale_factor() { return scale_factor; }
-
-/*
- *
- */
 void renderer::set_arena_size(const int& w, const int& h) {
     assert(w > 0 && h > 0);
     if(!arena_created) {
@@ -131,6 +120,7 @@ void renderer::set_font(wte_asset<al_font> font) { renderer_font = font; }
  *
  */
 void renderer::render(void) {
+    float scale_factor = config::gfx::scale_factor;
     /*
      * Calculate fps.
      */

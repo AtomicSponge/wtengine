@@ -33,6 +33,7 @@
 #include "wtengine/cmp/_components.hpp"
 #include "wtengine/mgr/menus.hpp"
 #include "wtengine/mgr/world.hpp"
+#include "wtengine/config.hpp"
 
 namespace wte
 {
@@ -70,24 +71,6 @@ class renderer final : private manager<renderer> {
          * \return Screen height in pixels.
          */
         static const int get_screen_height(void);
-
-        /*!
-         * \brief Set scale factor.
-         * 
-         * This is used to scale the game arena and menus to a larger size.
-         * For support of higher resolution screens.
-         * 
-         * \param f New scale factor value.
-         */
-        static void set_scale_factor(
-            const float& f
-        );
-
-        /*!
-         * \brief Get scale factor.
-         * \return Scale factor multiplier.
-         */
-        static const int get_scale_factor();
 
         /*!
          * \brief Set the arena size.
@@ -187,7 +170,6 @@ class renderer final : private manager<renderer> {
         static std::size_t fps_counter, fps;
 
         static int screen_w, screen_h;
-        static float scale_factor;
 
         static int arena_w, arena_h;
         static bool arena_created;

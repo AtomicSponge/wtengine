@@ -38,6 +38,18 @@ class display {
          */
         const std::string get_window_title(void) const;
 
+        /*!
+         * \brief Get screen width.
+         * \return Screen width in pixels.
+         */
+        static const int get_screen_width(void);
+
+        /*!
+         * \brief Get screen height.
+         * \return Screen height in pixels.
+         */
+        static const int get_screen_height(void);
+
     protected:
         /*
          * Display constructor.
@@ -60,7 +72,7 @@ class display {
         void reconf_display(void);
 
         //  Allegro object for the display.
-        ALLEGRO_DISPLAY* _display;
+        static ALLEGRO_DISPLAY* _display;
 
     private:
         std::string window_title;  //  Title for application window.

@@ -14,10 +14,7 @@ namespace wte
 
 bool display::initialized = false;
 
-/*
- *
- */
-const std::string display::get_window_title(void) const { return window_title; }
+ALLEGRO_DISPLAY* display::_display;
 
 /*
  *
@@ -26,6 +23,21 @@ display::display(const std::string& title) : window_title(title) {
     if(initialized == true) throw std::runtime_error("Display instance already running!");
     initialized = true;
 }
+
+/*
+ *
+ */
+const std::string display::get_window_title(void) const { return window_title; }
+
+/*
+ *
+ */
+const int display::get_screen_width(void) { return al_get_display_width(_display); }
+
+/*
+ *
+ */
+const int display::get_screen_height(void) { return al_get_display_height(_display); }
 
 /*
  *
@@ -86,7 +98,7 @@ void display::create_display(void) {
     al_fclose(file);
 
     /* *** Render manager updating *** */
-    mgr::renderer::update_resolution(screen_w, screen_h);
+    mgr::renderer::set_resolution(screen_w, screen_h);
 }
 
 /*

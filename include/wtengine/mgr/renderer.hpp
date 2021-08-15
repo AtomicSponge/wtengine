@@ -34,6 +34,7 @@
 #include "wtengine/mgr/menus.hpp"
 #include "wtengine/mgr/world.hpp"
 #include "wtengine/config.hpp"
+#include "wtengine/display.hpp"
 
 namespace wte
 {
@@ -60,18 +61,6 @@ class renderer final : private manager<renderer> {
     friend class wte::engine;
 
     public:
-        /*!
-         * \brief Get screen width.
-         * \return Screen width in pixels.
-         */
-        static const int get_screen_width(void);
-
-        /*!
-         * \brief Get screen height.
-         * \return Screen height in pixels.
-         */
-        static const int get_screen_height(void);
-
         /*!
          * \brief Set the arena size.
          * 
@@ -140,7 +129,7 @@ class renderer final : private manager<renderer> {
          * Inform the renderer of the screen resolution.
          * Gets called by the engine when the screen resolution is updated.
          */
-        static void update_resolution(
+        static void set_resolution(
             const int& w,
             const int& h
         );
@@ -157,20 +146,17 @@ class renderer final : private manager<renderer> {
         };
 
         static ALLEGRO_BITMAP* temp_bitmap;
-
         static ALLEGRO_TIMER* fps_timer;
         static ALLEGRO_EVENT_QUEUE* fps_event_queue;
         static ALLEGRO_EVENT fps_event;
 
         static wte_asset<al_bitmap> arena_bitmap;
         static wte_asset<al_bitmap> title_bitmap;
-
         static wte_asset<al_font> renderer_font;
 
         static std::size_t fps_counter, fps;
 
         static int screen_w, screen_h;
-
         static int arena_w, arena_h;
         static bool arena_created;
 

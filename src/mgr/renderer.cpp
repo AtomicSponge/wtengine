@@ -70,20 +70,10 @@ void renderer::de_init(void) {
 /*
  *
  */
-void renderer::update_resolution(const int& w, const int& h) {
+void renderer::set_resolution(const int& w, const int& h) {
     screen_w = w;
     screen_h = h;
 }
-
-/*
- *
- */
-const int renderer::get_screen_width(void) { return screen_w; }
-
-/*
- *
- */
-const int renderer::get_screen_height(void) { return screen_h; }
 
 /*
  *

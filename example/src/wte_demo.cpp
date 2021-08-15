@@ -199,8 +199,8 @@ void wte_demo::load_menus(void) {
     //  Configure the root main menu and game menu.
     {//  Configure main menu.
     mgr::menus::set_menu("main_menu")->set_title("WTE Demo");
-    mgr::menus::set_menu("main_menu")->add_item<mnu::action>("New Game", "new_game", "game.sdf");
-    //mgr::menus::set_menu("main_menu")->add_item<mnu::action>("New Game", "new_game");
+    //mgr::menus::set_menu("main_menu")->add_item<mnu::action>("New Game", "new_game", "game.sdf");
+    mgr::menus::set_menu("main_menu")->add_item<mnu::action>("New Game", "new_game");
     mgr::menus::set_menu("main_menu")->add_item<mnu::action>("Settings", "open_menu", "settings");
     mgr::menus::set_menu("main_menu")->add_item<mnu::action>("Exit Game", "exit");}
 
@@ -408,9 +408,8 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     e_id = mgr::world::new_entity();
     mgr::world::set_name(e_id, "game_over_overlay");
-    {al_bitmap temp_bmp = al_bitmap();
-    temp_bmp.load("game_over.bmp");
-    mgr::assets<al_bitmap>::load<al_bitmap>("game_over_overlay", temp_bmp);}
+    mgr::assets<al_bitmap>::load<al_bitmap>("game_over_overlay", al_bitmap());
+    mgr::assets<al_bitmap>::get<al_bitmap>("game_over_overlay")->load("game_over.bmp");
     mgr::world::add_component<cmp::overlay>(e_id,
         mgr::assets<al_bitmap>::get<al_bitmap>("game_over_overlay"),
         mgr::assets<al_font>::get<al_font>("wte_default_font"),
@@ -438,9 +437,8 @@ void wte_demo::new_game(void) {
     mgr::world::add_component<cmp::direction>(e_id, false);
     mgr::world::add_component<cmp::velocity>(e_id);
 
-    {al_bitmap temp_bmp = al_bitmap();
-    temp_bmp.load("ship.bmp");
-    mgr::assets<al_bitmap>::load<al_bitmap>("ship", temp_bmp);}
+    mgr::assets<al_bitmap>::load<al_bitmap>("ship", al_bitmap());
+    mgr::assets<al_bitmap>::get<al_bitmap>("ship")->load("ship.bmp");
     mgr::world::add_component<cmp::sprite>(e_id, mgr::assets<al_bitmap>::get<al_bitmap>("ship"),
                                            32.0f, 32.0f, -11.0f, 0.0f, 1, 1);
     mgr::world::set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
@@ -526,9 +524,8 @@ void wte_demo::new_game(void) {
     mgr::world::add_component<cmp::enabled>(e_id, false);
     mgr::world::add_component<damage>(e_id, 3);
 
-    {al_bitmap temp_bmp = al_bitmap();
-    temp_bmp.load("cannon.bmp");
-    mgr::assets<al_bitmap>::load<al_bitmap>("cannon", temp_bmp);}
+    mgr::assets<al_bitmap>::load<al_bitmap>("cannon", al_bitmap());
+    mgr::assets<al_bitmap>::get<al_bitmap>("cannon")->load("cannon.bmp");
     mgr::world::add_component<cmp::sprite>(e_id, mgr::assets<al_bitmap>::get<al_bitmap>("cannon"),
                                            10.0f, 200.0f, 0.0f, 0.0f, 2, 2);
     mgr::world::set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
@@ -576,9 +573,8 @@ void wte_demo::new_game(void) {
     mgr::world::add_component<energy>(e_id, 50, 100);
     mgr::world::add_component<damage>(e_id, 100);
 
-    {al_bitmap temp_bmp = al_bitmap();
-    temp_bmp.load("shield.bmp");
-    mgr::assets<al_bitmap>::load<al_bitmap>("shield", temp_bmp);}
+    mgr::assets<al_bitmap>::load<al_bitmap>("shield", al_bitmap());
+    mgr::assets<al_bitmap>::get<al_bitmap>("shield")->load("shield.bmp");
     mgr::world::add_component<cmp::sprite>(e_id, mgr::assets<al_bitmap>::get<al_bitmap>("shield"),
                                            64.0f, 64.0f, 0.0f, 0.0f, 6, 2);
     mgr::world::set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 5);
@@ -630,7 +626,6 @@ void wte_demo::new_game(void) {
         }
     );  //  End shield message processing.
 
-
     /* ************************************** */
     /* Add the asteroid entity to the spawner */
     /* Arguments:                             */
@@ -640,9 +635,8 @@ void wte_demo::new_game(void) {
     /*  (4) Velocity                          */
     /*  (5) Size                              */
     /* ************************************** */
-    {al_bitmap temp_asset = al_bitmap();
-    temp_asset.load("asteroid.bmp");
-    mgr::assets<al_bitmap>::load<al_bitmap>("asteroid", temp_asset);}
+    mgr::assets<al_bitmap>::load<al_bitmap>("asteroid", al_bitmap());
+    mgr::assets<al_bitmap>::get<al_bitmap>("asteroid")->load("asteroid.bmp");
     mgr::spawner::add_spawn("asteroid", 5,
         [](const entity_id& e_id, const msg_args& args) {
             int temp_size = std::stoi(args[5]);

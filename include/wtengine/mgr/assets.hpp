@@ -38,7 +38,7 @@ namespace mgr
  * \brief Stores an index of assets.
  * \tparam ...Types Types of assets used in game code.
  */
-template <typename ...Types>
+template <typename... Types>
 class assets final : private manager<assets<>> {
     friend class wte::engine;
 
@@ -119,7 +119,7 @@ class assets final : private manager<assets<>> {
          * First template does compile-time matching for asset load/unload/get implementations.
          * Second template is the actual specialization of each member.
          */
-        template <typename T, size_t idx, typename U, typename ...Ts>
+        template <typename T, size_t idx, typename U, typename... Ts>
         struct load_impl {
             inline static const bool load(
                 const std::string& label,
@@ -130,7 +130,7 @@ class assets final : private manager<assets<>> {
             }
         };
 
-        template <typename T, size_t idx, typename ...Ts>
+        template <typename T, size_t idx, typename... Ts>
         struct load_impl<T, idx, T, Ts...> {
             inline static const bool load(
                 const std::string& label,
@@ -142,7 +142,7 @@ class assets final : private manager<assets<>> {
             }
         };
 
-        template <typename T, size_t idx, typename U, typename ...Ts>
+        template <typename T, size_t idx, typename U, typename... Ts>
         struct unload_impl {
             inline static const bool unload(
                 const std::string& label
@@ -152,7 +152,7 @@ class assets final : private manager<assets<>> {
             }
         };
 
-        template <typename T, size_t idx, typename ...Ts>
+        template <typename T, size_t idx, typename... Ts>
         struct unload_impl<T, idx, T, Ts...> {
             inline static const bool unload(
                 const std::string& label
@@ -166,7 +166,7 @@ class assets final : private manager<assets<>> {
             }
         };
 
-        template <typename T, size_t idx, typename U, typename ...Ts>
+        template <typename T, size_t idx, typename U, typename... Ts>
         struct get_impl {
             inline static const wte_asset<T> get(
                 const std::string& label
@@ -178,7 +178,7 @@ class assets final : private manager<assets<>> {
             }
         };
 
-        template <typename T, size_t idx, typename ...Ts>
+        template <typename T, size_t idx, typename... Ts>
         struct get_impl<T, idx, T, Ts...> {
             inline static const wte_asset<T> get(
                 const std::string& label

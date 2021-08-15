@@ -44,7 +44,7 @@ class assets final : private manager<assets<>> {
 
     public:
         /*!
-         * \brief Load an asset.
+         * \brief Load an existing asset.
          * \tparam T Asset type to add.
          * \param label Reference label for asset.
          * \param obj Asset to add.
@@ -56,6 +56,21 @@ class assets final : private manager<assets<>> {
             const wte_asset<T> obj
         ) {
             return load_impl<T, 0, Types...>::load(label, obj);
+        };
+
+        /*!
+         * \brief Load an asset using a new object.
+         * \tparam T Asset type to add.
+         * \param label Reference label for asset.
+         * \param obj Asset to add.
+         * \return True if loaded.  False if not.
+         */
+        template <typename T>
+        inline static const bool load(
+            const std::string& label,
+            const T obj
+        ) {
+            return load_impl<T, 0, Types...>::load(label, make_asset(obj));
         };
 
         /*!

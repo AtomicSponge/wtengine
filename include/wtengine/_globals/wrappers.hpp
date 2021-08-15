@@ -90,7 +90,7 @@ class al_bitmap final {
          * \brief Return a pointer to the internal Allegro bitmap.
          * \return Allegro bitmap pointer.
          */
-        inline ~al_bitmap() {};
+        inline ~al_bitmap() = default;
 
         inline ALLEGRO_BITMAP* operator*() { return _al_bitmap; };
 
@@ -193,7 +193,7 @@ class al_font final {
         /*!
          * \brief Delete font asset.
          */
-        inline ~al_font() {};
+        inline ~al_font() = default;
 
         /*!
          * \brief Get font asset.

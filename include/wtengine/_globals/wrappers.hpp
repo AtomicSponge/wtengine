@@ -234,9 +234,7 @@ class al_bitmap_converter final {
         inline static void backup_bitmaps(void) {
             _bitmaps_backup.clear();
             /*al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            constexpr auto idx = Index<al_bitmap, mgr::assets::_assets>::value;
-            static_assert(idx == -1, "al_bitmap type not found!");
-            for (auto& it: mgr::assets<>::_assets<idx>) {
+            for (auto& it: std::get<idx>(mgr::assets::_assets)) {
                 if(it.second->isconverted()) {
                     //  Make a conversion safe copy in the backup map.
                     _bitmaps_backup.insert(std::make_pair(it.first, al_clone_bitmap(**it.second)));
@@ -254,7 +252,7 @@ class al_bitmap_converter final {
             for (auto& it: _bitmaps_backup) {
                 //  Restore bitmap.
                 try {
-                    std::get<al_bitmap>(mgr::assets::_assets).get(it.first)->set(it.second);
+                    std::get<idx>(mgr::assets::_assets).get(it.first)->set(it.second);
                 } catch(...) {}
                 //  Now delete the old backup bitmap.
                 al_destroy_bitmap(it.second);
@@ -279,6 +277,8 @@ class al_bitmap_converter final {
             std::string,
             ALLEGRO_BITMAP*
         > _bitmaps_backup;
+
+        //inline static constexpr int idx = Index<al_bitmap, mgr::assets::_assets>::value;
 };
 
 }  //  end namespace wte

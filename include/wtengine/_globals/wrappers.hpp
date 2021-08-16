@@ -234,7 +234,7 @@ class al_bitmap_converter final {
         inline static void backup_bitmaps(void) {
             _bitmaps_backup.clear();
             /*al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            for (auto& it: std::get<idx>(mgr::assets::_assets)) {
+            for (auto& it: std::get<idx>(mgr::assets<>::_assets)) {
                 if(it.second->isconverted()) {
                     //  Make a conversion safe copy in the backup map.
                     _bitmaps_backup.insert(std::make_pair(it.first, al_clone_bitmap(**it.second)));
@@ -252,7 +252,7 @@ class al_bitmap_converter final {
             for (auto& it: _bitmaps_backup) {
                 //  Restore bitmap.
                 try {
-                    std::get<idx>(mgr::assets::_assets).get(it.first)->set(it.second);
+                    std::get<idx>(mgr::assets<>::_assets).get(it.first)->set(it.second);
                 } catch(...) {}
                 //  Now delete the old backup bitmap.
                 al_destroy_bitmap(it.second);
@@ -266,11 +266,11 @@ class al_bitmap_converter final {
         template <class U, class ...T>
         class Index<U, std::tuple<T...>> {
             template <std::size_t ...idx>
-            static constexpr std::size_t find_index(std::index_sequence<idx...>) {
+            inline static constexpr std::size_t find_index(std::index_sequence<idx...>) {
                 return -1 + ((std::is_same<U, T>::value ? idx + 1 : 0) + ...);
             }
         public:
-            static constexpr std::size_t value = find_index(std::index_sequence_for<T...>{});
+            inline static constexpr std::size_t value = find_index(std::index_sequence_for<T...>{});
         };
 
         inline static std::map<

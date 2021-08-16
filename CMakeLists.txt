@@ -77,7 +77,6 @@ add_library(wtengine STATIC
     src/cmp/location.cpp
     src/cmp/team.cpp
     src/cmp/velocity.cpp
-    src/mgr/assets.cpp
     src/mgr/audio.cpp
     src/mgr/menus.cpp
     src/mgr/messages.cpp

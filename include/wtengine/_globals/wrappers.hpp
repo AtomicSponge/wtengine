@@ -11,6 +11,7 @@
 #define WTE_WRAPPERS_HPP
 
 #include <string>
+#include <map>
 #include <cassert>
 
 #include <allegro5/allegro.h>

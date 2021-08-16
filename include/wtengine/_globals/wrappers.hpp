@@ -18,6 +18,7 @@
 #include <allegro5/allegro_font.h>
 
 #include "wtengine/_globals/_defines.hpp"
+#include "wtengine/mgr/assets.hpp"
 
 namespace wte
 {
@@ -212,8 +213,6 @@ class al_font final {
         ALLEGRO_FONT* _al_font;
 };
 
-//namespace mgr { class assets; }
-
 /*!
  * \class al_bitmap_converter
  * \brief Helper class to backup and restore non-preserved Allegro bitmaps.
@@ -235,7 +234,9 @@ class al_bitmap_converter final {
         inline static void backup_bitmaps(void) {
             _bitmaps_backup.clear();
             /*al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            for (auto & it : std::get<al_bitmap>(mgr::assets::_assets)) {
+            constexpr auto idx = Index<al_bitmap, mgr::assets::_assets>::value;
+            static_assert(idx == -1, "al_bitmap type not found!");
+            for (auto& it: mgr::assets<>::_assets<idx>) {
                 if(it.second->isconverted()) {
                     //  Make a conversion safe copy in the backup map.
                     _bitmaps_backup.insert(std::make_pair(it.first, al_clone_bitmap(**it.second)));
@@ -250,7 +251,7 @@ class al_bitmap_converter final {
          */
         inline static void reload_bitmaps(void) {
             /*al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            for (auto & it : _bitmaps_backup) {
+            for (auto& it: _bitmaps_backup) {
                 //  Restore bitmap.
                 try {
                     std::get<al_bitmap>(mgr::assets::_assets).get(it.first)->set(it.second);
@@ -259,6 +260,19 @@ class al_bitmap_converter final {
                 al_destroy_bitmap(it.second);
             }*/
             _bitmaps_backup.clear();
+        };
+
+        template <class U, class Tuple>
+        class Index;
+
+        template <class U, class ...T>
+        class Index<U, std::tuple<T...>> {
+            template <std::size_t ...idx>
+            static constexpr std::size_t find_index(std::index_sequence<idx...>) {
+                return -1 + ((std::is_same<U, T>::value ? idx + 1 : 0) + ...);
+            }
+        public:
+            static constexpr std::size_t value = find_index(std::index_sequence_for<T...>{});
         };
 
         inline static std::map<

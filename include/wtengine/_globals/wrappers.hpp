@@ -268,7 +268,7 @@ class al_bitmap_converter final {
         private:
             template <std::size_t ...idx>
             inline static constexpr std::size_t find_index(std::index_sequence<idx...>) {
-                constexpr int index = ((std::is_same<U, T>::value ? idx + 1 : 0) + ...);
+                constexpr int index = -1 + ((std::is_same<U, T>::value ? idx + 1 : 0) + ...);
                 static_assert(index > 0, "Index not found.");
                 return (std::size_t)index;
             };

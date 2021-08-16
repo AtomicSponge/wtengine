@@ -266,11 +266,11 @@ class al_bitmap_converter final {
         template <class U, class ...T>
         class Index<U, std::tuple<T...>> {
             template <std::size_t ...idx>
-            inline static constexpr std::size_t find_index(std::index_sequence<idx...>) {
+            inline static constexpr int find_index(std::index_sequence<idx...>) {
                 return -1 + ((std::is_same<U, T>::value ? idx + 1 : 0) + ...);
             }
         public:
-            inline static constexpr std::size_t value = find_index(std::index_sequence_for<T...>{});
+            inline static constexpr int value = find_index(std::index_sequence_for<T...>{});
         };
 
         inline static std::map<

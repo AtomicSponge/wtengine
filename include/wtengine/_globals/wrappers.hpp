@@ -212,47 +212,54 @@ class al_font final {
         ALLEGRO_FONT* _al_font;
 };
 
+//namespace mgr { class assets; }
+
+/*!
+ * \class al_bitmap_converter
+ * \brief Helper class to backup and restore non-preserved Allegro bitmaps.
+ * Called by the engine internally durring the reconfig display command.
+ */
 class al_bitmap_converter final {
     friend class engine;
 
     public:
         al_bitmap_converter() = delete;
         ~al_bitmap_converter() = delete;
+        al_bitmap_converter(const al_bitmap_converter&) = delete;
+        void operator=(al_bitmap_converter const&) = delete;
 
     private:
         /*
          *
          */
-        /*inline static void backup_bitmaps(void) {
+        inline static void backup_bitmaps(void) {
             _bitmaps_backup.clear();
-            for (auto & it : _assets) {
-                if(std::dynamic_pointer_cast<al_bitmap>(it.second)) {
-                    if(std::static_pointer_cast<al_bitmap>(it.second)->isconverted()) {
-                        //  Make a conversion safe copy in the backup map.
-                        al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-                        _bitmaps_backup.insert(std::make_pair(it.first, al_clone_bitmap(**std::static_pointer_cast<al_bitmap>(it.second.first))));
-                        //  Now delete the old item.
-                        al_destroy_bitmap(**std::static_pointer_cast<al_bitmap>(it.second));
-                    }
+            /*al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+            for (auto & it : std::get<al_bitmap>(mgr::assets::_assets)) {
+                if(it.second->isconverted()) {
+                    //  Make a conversion safe copy in the backup map.
+                    _bitmaps_backup.insert(std::make_pair(it.first, al_clone_bitmap(**it.second)));
+                    //  Now delete the old item.
+                    al_destroy_bitmap(**it.second);
                 }
-            }
-        };*/
+            }*/
+        };
 
         /*
          *
          */
-        /*inline static void reload_bitmaps(void) {
+        inline static void reload_bitmaps(void) {
+            /*al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
             for (auto & it : _bitmaps_backup) {
                 //  Restore bitmap.
                 try {
-                    std::static_pointer_cast<al_bitmap>(_assets.at(it.first).first)->set(it.second);
+                    std::get<al_bitmap>(mgr::assets::_assets).get(it.first)->set(it.second);
                 } catch(...) {}
                 //  Now delete the old backup bitmap.
                 al_destroy_bitmap(it.second);
-            }
-            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+            }*/
             _bitmaps_backup.clear();
-        };*/
+        };
 
         inline static std::map<
             std::string,

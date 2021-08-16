@@ -76,9 +76,12 @@ void menus::de_init(void) {
  */
 void menus::set_background(wte_asset<al_bitmap> bmp) {
     menu_background = bmp;
-    menu_temp_bmp = bmp;
     menu_width = al_get_bitmap_width(**menu_background);
     menu_height = al_get_bitmap_height(**menu_background);
+
+    menu_temp_bmp = make_asset(al_bitmap(menu_width, menu_height, true));
+    //  Add reference to Asset manager so bitmap can be reloaded.
+    mgr::assets<al_bitmap>::load<al_bitmap>("wte_menus_menu_temp_bmp", menu_temp_bmp);
 }
 
 /*

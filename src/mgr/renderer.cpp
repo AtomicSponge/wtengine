@@ -38,6 +38,8 @@ void renderer::initialize(void) {
     //  Create the arena bitmap.
     if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
     arena_bitmap = make_asset(al_bitmap(arena_w, arena_h, true));
+    //  Add reference to Asset manager so bitmap can be reloaded.
+    mgr::assets<al_bitmap>::load<al_bitmap>("wte_renderer_arena_bitmap", arena_bitmap);
     arena_created = true;
 
     //  Set the overlay's font to the system default.

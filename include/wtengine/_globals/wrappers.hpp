@@ -264,7 +264,7 @@ class al_bitmap_converter final {
         inline static std::map<
             std::string,
             ALLEGRO_BITMAP*
-        > _bitmaps_backup = {};
+        > _bitmaps_backup;
 };
 
 }  //  end namespace wte

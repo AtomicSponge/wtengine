@@ -265,12 +265,15 @@ class al_bitmap_converter final {
 
         template <class U, class ...T>
         class Index<U, std::tuple<T...>> {
+        private:
             template <std::size_t ...idx>
-            inline static constexpr int find_index(std::index_sequence<idx...>) {
-                return -1 + ((std::is_same<U, T>::value ? idx + 1 : 0) + ...);
-            }
+            inline static constexpr std::size_t find_index(std::index_sequence<idx...>) {
+                constexpr int index = ((std::is_same<U, T>::value ? idx + 1 : 0) + ...);
+                static_assert(index > 0, "Index not found.");
+                return (std::size_t)index;
+            };
         public:
-            inline static constexpr int value = find_index(std::index_sequence_for<T...>{});
+            inline static constexpr std::size_t value = find_index(std::index_sequence_for<T...>{});
         };
 
         inline static std::map<
@@ -278,7 +281,7 @@ class al_bitmap_converter final {
             ALLEGRO_BITMAP*
         > _bitmaps_backup;
 
-        //inline static constexpr int idx = Index<al_bitmap, mgr::assets::_assets>::value;
+        //inline static constexpr std::size_t idx = Index<al_bitmap, mgr::assets::_assets>::value;
 };
 
 }  //  end namespace wte

@@ -211,6 +211,54 @@ class al_font final {
         ALLEGRO_FONT* _al_font;
 };
 
+class al_bitmap_converter final {
+    friend class engine;
+
+    public:
+        al_bitmap_converter() = delete;
+        ~al_bitmap_converter() = delete;
+
+    private:
+        /*
+         *
+         */
+        /*inline static void backup_bitmaps(void) {
+            _bitmaps_backup.clear();
+            for (auto & it : _assets) {
+                if(std::dynamic_pointer_cast<al_bitmap>(it.second)) {
+                    if(std::static_pointer_cast<al_bitmap>(it.second)->isconverted()) {
+                        //  Make a conversion safe copy in the backup map.
+                        al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+                        _bitmaps_backup.insert(std::make_pair(it.first, al_clone_bitmap(**std::static_pointer_cast<al_bitmap>(it.second.first))));
+                        //  Now delete the old item.
+                        al_destroy_bitmap(**std::static_pointer_cast<al_bitmap>(it.second));
+                    }
+                }
+            }
+        };*/
+
+        /*
+         *
+         */
+        /*inline static void reload_bitmaps(void) {
+            for (auto & it : _bitmaps_backup) {
+                //  Restore bitmap.
+                try {
+                    std::static_pointer_cast<al_bitmap>(_assets.at(it.first).first)->set(it.second);
+                } catch(...) {}
+                //  Now delete the old backup bitmap.
+                al_destroy_bitmap(it.second);
+            }
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+            _bitmaps_backup.clear();
+        };*/
+
+        inline static std::map<
+            std::string,
+            ALLEGRO_BITMAP*
+        > _bitmaps_backup = {};
+};
+
 }  //  end namespace wte
 
 #endif

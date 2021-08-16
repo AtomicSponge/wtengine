@@ -29,6 +29,7 @@ namespace wte
 {
 
 class engine;
+class al_bitmap_converter;
 
 namespace mgr
 {
@@ -41,6 +42,7 @@ namespace mgr
 template <typename... Types>
 class assets final : private manager<assets<>> {
     friend class wte::engine;
+    friend class wte::al_bitmap_converter;
 
     public:
         /*!
@@ -189,16 +191,6 @@ class assets final : private manager<assets<>> {
             }
         };
 
-        /*
-         * Backup temp bitmaps
-         */
-        //static void backup_bitmaps(void);
-
-        /*
-         * Restore temp bitmaps
-         */
-        //static void reload_bitmaps(void);
-
         //  Store the asset map.
         inline static std::tuple<
             std::map<
@@ -206,13 +198,9 @@ class assets final : private manager<assets<>> {
                 wte_asset<Types>
             >
         ...> _assets;
-
-        //  Map for bitmap backup process.
-        /*static std::map<
-            std::string,
-            ALLEGRO_BITMAP*
-        > _bitmaps_backup;*/
 };
+
+template <> inline bool assets<>::manager<assets<>>::initialized = false;
 
 } //  namespace mgr
 

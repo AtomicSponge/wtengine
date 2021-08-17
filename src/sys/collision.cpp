@@ -29,6 +29,11 @@ void colision::run(void) {
     for(auto& it_a: team_components) {
         for(auto& it_b: team_components) {
             try {
+                cmp::const_comp_ptr<cmp::location> temp_location_a = mgr::world::get_component<cmp::location>(it_a.first);
+                cmp::const_comp_ptr<cmp::location> temp_location_b = mgr::world::get_component<cmp::location>(it_b.first);
+                cmp::const_comp_ptr<cmp::hitbox> temp_hitbox_a = mgr::world::get_component<cmp::hitbox>(it_a.first);
+                cmp::const_comp_ptr<cmp::hitbox> temp_hitbox_b = mgr::world::get_component<cmp::hitbox>(it_b.first);
+
                 /*
                  * Only test if:  Not the same entity.
                  *                Entities are on different teams.
@@ -37,25 +42,17 @@ void colision::run(void) {
                 if(
                     it_a.first != it_b.first &&
                     it_a.second->get_team() != it_b.second->get_team() &&
-                    mgr::world::get_component<cmp::hitbox>(it_a.first)->is_solid() &&
-                    mgr::world::get_component<cmp::hitbox>(it_b.first)->is_solid()
+                    temp_hitbox_a->is_solid() &&
+                    temp_hitbox_b->is_solid()
                 ) {
                     //  Use AABB to test colision
-                    if((mgr::world::get_component<cmp::location>(it_a.first)->get_x() <
-                        mgr::world::get_component<cmp::location>(it_b.first)->get_x() +
-                        mgr::world::get_component<cmp::hitbox>(it_b.first)->get_width()
+                    if((temp_location_a->get_x() < temp_location_b->get_x() + temp_hitbox_b->get_width()
                         && 
-                        mgr::world::get_component<cmp::location>(it_a.first)->get_x() +
-                        mgr::world::get_component<cmp::hitbox>(it_a.first)->get_width() >
-                        mgr::world::get_component<cmp::location>(it_b.first)->get_x())
+                        temp_location_a->get_x() + temp_hitbox_a->get_width() > temp_location_b->get_x())
                         &&
-                        (mgr::world::get_component<cmp::location>(it_a.first)->get_y() <
-                        mgr::world::get_component<cmp::location>(it_b.first)->get_y() +
-                        mgr::world::get_component<cmp::hitbox>(it_b.first)->get_height()
+                        temp_location_a->get_y() < temp_location_b->get_y() + temp_hitbox_b->get_height()
                         && 
-                        mgr::world::get_component<cmp::location>(it_a.first)->get_y() +
-                        mgr::world::get_component<cmp::hitbox>(it_a.first)->get_height() >
-                        mgr::world::get_component<cmp::location>(it_b.first)->get_y()))
+                        temp_location_a->get_y() + temp_hitbox_a->get_height() > temp_location_b->get_y())
                     {
                         //  Send a message that two entities colided.
                         //  Each entity will get a colision message.

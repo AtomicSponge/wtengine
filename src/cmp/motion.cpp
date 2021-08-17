@@ -70,7 +70,10 @@ const float motion::get_y_vel(void) const { return y_vel; }
 /*
  *
  */
-void motion::set_velocity(const float& v) { x_vel = v; }
+void motion::set_velocity(const float& v) {
+    x_vel = v;
+    y_vel = v;
+}
 
 /*
  *

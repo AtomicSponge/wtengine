@@ -17,12 +17,12 @@ namespace cmp
 
 ai::ai(
     const std::function<void(const entity_id&)>& func
-) : enabled_ai(func), disabled_ai([](const entity_id& e_id){}) {}
+) : enabled(true), enabled_ai(func), disabled_ai([](const entity_id& e_id){}) {}
 
 ai::ai(
     const std::function<void(const entity_id&)>& func_a,
     const std::function<void(const entity_id&)>& func_b
-) : enabled_ai(func_a), disabled_ai(func_b) {}
+) : enabled(true), enabled_ai(func_a), disabled_ai(func_b) {}
 
 void ai::run_enabled(const entity_id& e_id) {
     try { enabled_ai(e_id); } catch(...) { throw; }

@@ -22,7 +22,7 @@ animator::animator(
     wte_asset<al_bitmap> bmp,
     const std::size_t& l,
     const std::function<void(const entity_id&)>& func
-) : internal_bitmap(bmp), layer(l), tint_set(false), visible(true), animate(func) {}
+) : internal_bitmap(bmp), layer(l), tint_set(false), visible(true), direction(0.0f), rotated(false), animate(func) {}
 
 /*
  *

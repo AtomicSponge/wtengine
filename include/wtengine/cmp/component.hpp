@@ -55,6 +55,17 @@ typedef std::shared_ptr<cmp::component> component_sptr;
  */
 typedef std::shared_ptr<const cmp::component> component_csptr;
 
+/*!
+ * \typedef
+ */
+template <typename T>
+using comp_ptr = std::shared_ptr<T>;
+/*!
+ * \typedef
+ */
+template <typename T>
+using const_comp_ptr = std::shared_ptr<const T>;
+
 } //  namespace cmp
 
 } //  namespace wte

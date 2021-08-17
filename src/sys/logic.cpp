@@ -27,7 +27,7 @@ void logic::run(void) {
     //  Find the entities with the input handler component
     component_container<cmp::ai> ai_components = mgr::world::set_components<cmp::ai>();
 
-    for(auto & it : ai_components) {
+    for(auto& it: ai_components) {
         try {
             //  Process enabled or disabled ai
             if(it.second->status())

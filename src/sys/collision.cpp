@@ -26,8 +26,8 @@ colision::colision() : system("colision") {}
 void colision::run(void) {
     const_component_container<cmp::team> team_components = mgr::world::get_components<cmp::team>();
 
-    for(auto & it_a : team_components) {
-        for(auto & it_b : team_components) {
+    for(auto& it_a: team_components) {
+        for(auto& it_b: team_components) {
             try {
                 /*
                  * Only test if:  Not the same entity.

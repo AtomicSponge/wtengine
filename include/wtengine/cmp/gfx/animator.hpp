@@ -87,12 +87,6 @@ class animator : public component {
         const bool draw_tinted(void) const;
 
         /*!
-         * \brief Check if visible.
-         * \return True if visible, false if not.
-         */
-        const bool is_visible(void) const;
-
-        /*!
          * \brief Show the entity.
          */
         void show(void);
@@ -103,6 +97,12 @@ class animator : public component {
         void hide(void);
 
         /*!
+         * \brief Check if visible.
+         * \return True if visible, false if not.
+         */
+        const bool is_visible(void) const;
+
+        /*!
          * \brief
          */
         void is_roated(void);
@@ -111,7 +111,7 @@ class animator : public component {
          * \brief
          */
         void not_roated(void);
-        
+
         /*!
          * \brief
          */

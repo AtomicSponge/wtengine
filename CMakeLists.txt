@@ -71,7 +71,6 @@ add_library(wtengine STATIC
     src/cmp/ai.cpp
     src/cmp/bounding_box.cpp
     src/cmp/dispatcher.cpp
-    src/cmp/enabled.cpp
     src/cmp/hitbox.cpp
     src/cmp/location.cpp
     src/cmp/motion.cpp

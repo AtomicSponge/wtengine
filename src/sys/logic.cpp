@@ -30,7 +30,7 @@ void logic::run(void) {
     for(auto & it : ai_components) {
         try {
             //  Process enabled or disabled ai
-            if(mgr::world::get_component<cmp::enabled>(it.first)->check())
+            if(it.second->status())
                 it.second->run_enabled(it.first);
             else
                 it.second->run_disabled(it.first);

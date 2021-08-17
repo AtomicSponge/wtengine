@@ -73,11 +73,26 @@ class ai final : public component {
             const entity_id& e_id
         );
 
+        /*!
+         * \brief Check if the entity is enabled.
+         * \return True if enabled, false if not.
+         */
+        const bool status(void) const;
+
+        /*!
+         * \brief Set to enabled.
+         */
+        void enable(void);
+
+        /*!
+         * \brief Set to disabled.
+         */
+        void disable(void);
+
     private:
-        //  AI to run when enabled.
-        std::function<void(const entity_id&)> enabled_ai;
-        //  AI to run when disabled.
-        std::function<void(const entity_id&)> disabled_ai;
+        bool enabled;  //  Enabled flag.
+        std::function<void(const entity_id&)> enabled_ai;   //  AI to run when enabled.
+        std::function<void(const entity_id&)> disabled_ai;  //  AI to run when disabled.
 };
 
 } //  namespace cmp

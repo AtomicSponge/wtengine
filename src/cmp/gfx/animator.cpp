@@ -65,17 +65,17 @@ const bool animator::draw_tinted(void) const { return tint_set; }
 /*
  *
  */
-const bool animator::is_visible(void) const { return visible; }
-
-/*
- *
- */
 void animator::show(void) { visible = true; }
 
 /*
  *
  */
 void animator::hide(void) { visible = false; }
+
+/*
+ *
+ */
+const bool animator::is_visible(void) const { return visible; }
 
 /*
  *

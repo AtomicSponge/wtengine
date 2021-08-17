@@ -32,15 +32,14 @@ void colision::run(void) {
                 /*
                  * Only test if:  Not the same entity.
                  *                Entities are on different teams.
-                 *                Both entities are enabled.
-                 *                The entity being compared against is solid.
+                 *                Both entities are solid.
                  */
-                if((it_a.first != it_b.first) &&
-                    (it_a.second->get_team() != it_b.second->get_team()) &&
-                    mgr::world::get_component<cmp::enabled>(it_a.first)->check() &&
-                    mgr::world::get_component<cmp::enabled>(it_b.first)->check() &&
-                    mgr::world::get_component<cmp::hitbox>(it_b.first)->is_solid())
-                {
+                if(
+                    it_a.first != it_b.first &&
+                    it_a.second->get_team() != it_b.second->get_team() &&
+                    mgr::world::get_component<cmp::hitbox>(it_a.first)->is_solid() &&
+                    mgr::world::get_component<cmp::hitbox>(it_b.first)->is_solid()
+                ) {
                     //  Use AABB to test colision
                     if((mgr::world::get_component<cmp::location>(it_a.first)->get_x() <
                         mgr::world::get_component<cmp::location>(it_b.first)->get_x() +

@@ -41,28 +41,28 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
     input::event::p1::ondown::up = []() {
         entity_id player_id = mgr::world::get_id("player");
         config::controls::p1_polc_y = -1.0f;
-        float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
+        const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
         mgr::world::set_component<cmp::motion>(player_id)->set_direction(rad);
         mgr::world::set_component<cmp::motion>(player_id)->set_velocity(5.0f);
     };
     input::event::p1::ondown::down = []() {
         entity_id player_id = mgr::world::get_id("player");
         config::controls::p1_polc_y = 1.0f;
-        float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
+        const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
         mgr::world::set_component<cmp::motion>(player_id)->set_direction(rad);
         mgr::world::set_component<cmp::motion>(player_id)->set_velocity(5.0f);
     };
     input::event::p1::ondown::left = []() {
         entity_id player_id = mgr::world::get_id("player");
         config::controls::p1_polc_x = -1.0f;
-        float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
+        const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
         mgr::world::set_component<cmp::motion>(player_id)->set_direction(rad);
         mgr::world::set_component<cmp::motion>(player_id)->set_velocity(5.0f);
     };
     input::event::p1::ondown::right = []() {
         entity_id player_id = mgr::world::get_id("player");
         config::controls::p1_polc_x = 1.0f;
-        float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
+        const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
         mgr::world::set_component<cmp::motion>(player_id)->set_direction(rad);
         mgr::world::set_component<cmp::motion>(player_id)->set_velocity(5.0f);
     };

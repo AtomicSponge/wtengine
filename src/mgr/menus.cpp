@@ -110,9 +110,7 @@ void menus::set_cursor(wte_asset<al_bitmap> bmp) { cursor_bitmap = bmp; }
  *
  */
 const bool menus::new_menu(const mnu::menu& new_menu) {
-    for(menu_citerator it = _menus.begin(); it != _menus.end(); it++) {
-        if(new_menu.get_id() == (*it)->get_id()) return false;
-    }
+    for(auto& it: _menus) if(new_menu.get_id() == it->get_id()) return false;
     _menus.push_back(std::make_shared<mnu::menu>(new_menu));
     return true;
 }
@@ -121,39 +119,18 @@ const bool menus::new_menu(const mnu::menu& new_menu) {
  *
  */
 const mnu::menu_csptr menus::get_menu(const std::string& name) {
-    if(_menus.empty()) throw std::runtime_error("No menus have been loaded!");
-
-    for(menu_citerator it = _menus.begin(); it != _menus.end(); it++) {
-        if(name == (*it)->get_id()) return *it;
-    }
-
-    //  Menu not found, return main menu or game menu if the game is running
-    if(config::flags::game_started) {
-        for(menu_citerator it = _menus.begin(); it != _menus.end(); it++) {
-            if("game_menu" == (*it)->get_id()) return *it;
-        }
-    } else {
-        for(menu_citerator it = _menus.begin(); it != _menus.end(); it++) {
-            if("main_menu" == (*it)->get_id()) return *it;
-        }
-    }
-
-    //  Menu still not found - just return the first one in the vector
-    return *_menus.begin();
+    for(auto& it: _menus) if(name == it->get_id()) return it;
+    std::string err_str = "Menu \'" + name + "\' not found!";
+    throw wte_exception(err_str.c_str(), "menus", engine_time::check_time());
 }
 
 /*
  *
  */
 const mnu::menu_sptr menus::set_menu(const std::string& name) {
-    if(_menus.empty()) throw std::runtime_error("No menus have been loaded!");
-
-    for(menu_iterator it = _menus.begin(); it != _menus.end(); it++) {
-        if(name == (*it)->get_id()) return *it;
-    }
-
-    //  Menu not found - just return the first one in the vector
-    return *_menus.begin();
+    for(auto& it: _menus) if(name == it->get_id()) return it;
+    std::string err_str = "Menu \'" + name + "\' not found!";
+    throw wte_exception(err_str.c_str(), "menus", engine_time::check_time());
 }
 
 /*

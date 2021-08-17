@@ -77,6 +77,31 @@ void animator::show(void) { visible = true; }
  */
 void animator::hide(void) { visible = false; }
 
+/*
+ *
+ */
+void animator::is_roated(void) { rotated = true; }
+
+/*
+ *
+ */
+void animator::not_roated(void) { rotated = false; }
+
+/*
+ *
+ */
+const bool animator::draw_rotated(void) const { return rotated; }
+
+/*
+ *
+ */
+void animator::set_direction(const float& d) { direction = d; }
+
+/*
+ *
+ */
+const float animator::get_direction(void) const { return direction; }
+
 } //  namespace cmp
 
 } //  namespace wte

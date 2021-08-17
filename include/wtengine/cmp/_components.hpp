@@ -12,13 +12,12 @@
 
 #include "wtengine/cmp/ai.hpp"
 #include "wtengine/cmp/bounding_box.hpp"
-#include "wtengine/cmp/direction.hpp"
 #include "wtengine/cmp/dispatcher.hpp"
 #include "wtengine/cmp/enabled.hpp"
 #include "wtengine/cmp/hitbox.hpp"
 #include "wtengine/cmp/location.hpp"
+#include "wtengine/cmp/motion.hpp"
 #include "wtengine/cmp/team.hpp"
-#include "wtengine/cmp/velocity.hpp"
 
 //  Graphics components
 #include "wtengine/cmp/gfx/background.hpp"

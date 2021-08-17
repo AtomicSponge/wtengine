@@ -191,8 +191,8 @@ void renderer::render(void) {
 
                     try {
                         //  Check if the sprite should be rotated.
-                        if(mgr::world::get_component<cmp::direction>(it.first)->show_rotated()) {
-                            sprite_angle = mgr::world::get_component<cmp::direction>(it.first)->get_radians();
+                        if(it.second->draw_rotated()) {
+                            sprite_angle = it.second->get_direction();
                             center_x = (al_get_bitmap_width(temp_bitmap) / 2);
                             center_y = (al_get_bitmap_height(temp_bitmap) / 2);
 
@@ -209,10 +209,7 @@ void renderer::render(void) {
                                     it.second->get_draw_offset_y();
                         }
                     } catch(...) {
-                        destination_x = mgr::world::get_component<cmp::location>(it.first)->get_x() +
-                            it.second->get_draw_offset_x();
-                        destination_y = mgr::world::get_component<cmp::location>(it.first)->get_y() +
-                            it.second->get_draw_offset_y();
+                        //  Didn't have location components
                     }
 
                     //  Draw the sprite.

@@ -29,7 +29,6 @@
 namespace wte
 {
 
-class engine;
 class al_bitmap_converter;
 
 namespace mgr
@@ -42,7 +41,6 @@ namespace mgr
  */
 template <typename... Types>
 class assets final : private manager<assets<>> {
-    friend class wte::engine;
     friend class wte::al_bitmap_converter;
 
     public:

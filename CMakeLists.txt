@@ -70,13 +70,12 @@ add_library(wtengine STATIC
     src/cmp/gfx/sprite.cpp
     src/cmp/ai.cpp
     src/cmp/bounding_box.cpp
-    src/cmp/direction.cpp
     src/cmp/dispatcher.cpp
     src/cmp/enabled.cpp
     src/cmp/hitbox.cpp
     src/cmp/location.cpp
+    src/cmp/motion.cpp
     src/cmp/team.cpp
-    src/cmp/velocity.cpp
     src/mgr/audio.cpp
     src/mgr/menus.cpp
     src/mgr/messages.cpp

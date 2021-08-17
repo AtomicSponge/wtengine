@@ -102,6 +102,31 @@ class animator : public component {
          */
         void hide(void);
 
+        /*!
+         * \brief
+         */
+        void is_roated(void);
+
+        /*!
+         * \brief
+         */
+        void not_roated(void);
+        
+        /*!
+         * \brief
+         */
+        const bool draw_rotated(void) const;
+
+        /*!
+         * \brief
+         */
+        void set_direction(const float& d);
+
+        /*!
+         * \brief
+         */
+        const float get_direction(void) const;
+
     protected:
         /*!
          * \brief Create a new component based on the Animator.
@@ -123,6 +148,9 @@ class animator : public component {
         bool tint_set;              //  Flag to set tint.
         bool visible;               //  Flag to set visibility.
         ALLEGRO_COLOR tint_color;   //  Color of tint.
+
+        float direction;
+        bool rotated;
 
         //  Animation function.
         std::function<void(const entity_id&)> animate;

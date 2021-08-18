@@ -33,9 +33,6 @@ namespace wte {
  */
 class input {
     public:
-        /*!
-         * \brief WTE Input destructor.
-         */
         virtual ~input() = default;
 
         /*!
@@ -130,20 +127,20 @@ class input {
     protected:
         input();
 
-        /*
-         * Create the input queue for capturing events. 
+        /*!
+         * \brief Create the input queue for capturing events. 
          * Called during engine initialization.
          */
         void create_input_event_queue(void);
 
-        /*
-         * Destroy the input queue.
+        /*!
+         * \brief Destroy the input queue.
          * Called during engine de-initialization.
          */
         void destroy_input_event_queue(void);
 
-        /*
-         * Check the input queue for events.
+        /*!
+         * \brief Check the input queue for events.
          * Called during the main engine loop.
          * Passes any events to the input handler.
          */

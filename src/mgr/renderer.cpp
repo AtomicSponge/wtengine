@@ -152,7 +152,7 @@ void renderer::render(void) {
             background_components.begin(), background_components.end());
 
         //  Draw each background by layer.
-        for(auto & it : background_componenet_set) {
+        for(auto& it: background_componenet_set) {
             if(it.second->is_visible()) {
                 if(it.second->draw_tinted())
                     al_draw_tinted_bitmap(
@@ -182,7 +182,7 @@ void renderer::render(void) {
             sprite_components.begin(), sprite_components.end());
 
         //  Draw each sprite in order.
-        for(auto & it : sprite_componenet_set) {
+        for(auto& it: sprite_componenet_set) {
             if(it.second->is_visible()) {
                 //  Get the current sprite frame.
                 temp_bitmap = al_create_sub_bitmap(
@@ -243,7 +243,7 @@ void renderer::render(void) {
          * Use different colors for each team.
          * Note:  Re-uses sprite container for rendering.
          */
-        /*for(auto & it : sprite_componenet_set) {
+        /*for(auto& it: sprite_componenet_set) {
             try {
                 //  Make sure the entity is enabled.
                 if(mgr::world::get_component<cmp::enabled>(it.first)->check()) {
@@ -282,7 +282,7 @@ void renderer::render(void) {
             overlay_components.begin(), overlay_components.end());
 
         //  Draw each overlay by layer.
-        for(auto & it : overlay_componenet_set) {
+        for(auto& it: overlay_componenet_set) {
             if(it.second->is_visible()) {
                 if(it.second->draw_tinted())
                     al_draw_tinted_bitmap(

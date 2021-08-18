@@ -215,7 +215,7 @@ void renderer::render(void) {
                             destination_x = temp_get->get_x() + it.second->get_draw_offset_x();
                             destination_y = temp_get->get_y() + it.second->get_draw_offset_y();
                     }
-                } catch(...) { /* Didn't have location component */ }
+                } catch(...) { throw; }
 
                 //  Draw the sprite.
                 if(it.second->draw_tinted())

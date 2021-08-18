@@ -86,14 +86,14 @@ class motion final : public component {
         const float get_y_vel(void) const;
 
         /*!
-         * \brief Set velocity for X and Y.
-         * \param v Velocity
+         * \brief Set velocity for X & Y.
+         * \param v The new velocity value.
          */
         void set_velocity(const float& v);
 
         /*!
-         * \brief Set velocity for X and Y.
-         * \param v Velocity
+         * \brief Get velocity for X & Y.
+         * \return The velocity value.
          */
         const float get_velocity(void) const;
 

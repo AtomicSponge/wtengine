@@ -54,9 +54,6 @@ class ai final : public component {
         /*!
          * \brief Run enabled AI function wrapper.
          * \param eid ID of the entity calling the wrapper.
-         * \param world Reference to the entity manager.
-         * \param messages Reference to the message manager.
-         * \param engine_time Current value of the main timer.
          */
         void run_enabled(
             const entity_id& e_id
@@ -65,9 +62,6 @@ class ai final : public component {
         /*!
          * \brief Run disabled AI function wrapper.
          * \param eid ID of the entity calling the wrapper.
-         * \param world Reference to the entity manager.
-         * \param messages Reference to the message manager.
-         * \param engine_time Current value of the main timer.
          */
         void run_disabled(
             const entity_id& e_id

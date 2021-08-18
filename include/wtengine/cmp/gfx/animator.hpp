@@ -152,8 +152,8 @@ class animator : public component {
         bool visible;               //  Flag to set visibility.
         ALLEGRO_COLOR tint_color;   //  Color of tint.
 
-        float direction;
-        bool rotated;
+        float direction;    //  Direction to draw when rotated.
+        bool rotated;       //  Rotation flag.
 
         //  Animation function.
         std::function<void(const entity_id&)> animate;

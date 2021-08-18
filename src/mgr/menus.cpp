@@ -9,11 +9,9 @@
 
 #include "wtengine/mgr/menus.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace mgr
-{
+namespace mgr {
 
 template <> bool menus::manager<menus>::initialized = false;
 

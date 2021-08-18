@@ -18,8 +18,7 @@
 
 #include "wtengine/mgr/renderer.hpp"
 
-namespace wte
-{
+namespace wte {
 
 /*!
  * \class display

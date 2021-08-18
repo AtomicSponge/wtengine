@@ -9,11 +9,9 @@
 
 #include "wtengine/mgr/messages.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace mgr
-{
+namespace mgr {
 
 template <> bool messages::manager<messages>::initialized = false;
 

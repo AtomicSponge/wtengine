@@ -9,8 +9,7 @@
 
 #include "wtengine/_globals/commands.hpp"
 
-namespace wte
-{
+namespace wte {
 
 /*
  *

@@ -9,11 +9,9 @@
 
 #include "wtengine/mnu/apply.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace mnu
-{
+namespace mnu {
 
 /*
  *

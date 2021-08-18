@@ -19,11 +19,9 @@
 #include "wtengine/_globals/message.hpp"
 #include "wtengine/_globals/alert.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace cmp
-{
+namespace cmp {
 
 /*!
  * \class dispatcher

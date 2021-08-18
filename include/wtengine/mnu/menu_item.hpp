@@ -16,11 +16,9 @@
 
 #include "wtengine/_globals/message.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace mnu
-{
+namespace mnu {
 
 enum MENU_SETTING_TYPE {
     GAME_SETTING,       AUDIO_SETTING,

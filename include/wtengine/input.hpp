@@ -25,8 +25,7 @@
 #include "wtengine/mgr/menus.hpp"
 #include "wtengine/config.hpp"
 
-namespace wte
-{
+namespace wte {
 
 /*!
  * \class input

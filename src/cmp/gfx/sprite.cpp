@@ -9,11 +9,9 @@
 
 #include "wtengine/cmp/gfx/sprite.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace cmp
-{
+namespace cmp {
 
 /*
  *

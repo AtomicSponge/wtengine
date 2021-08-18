@@ -9,8 +9,7 @@
 
 #include "wtengine/_globals/engine_time.hpp"
 
-namespace wte
-{
+namespace wte {
 
 int64_t engine_time::current_time = 0;
 

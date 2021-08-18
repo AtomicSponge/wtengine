@@ -18,8 +18,7 @@
 #include <fstream>
 #endif
 
-namespace wte
-{
+namespace wte {
 
 /*!
  * \class wte_exception

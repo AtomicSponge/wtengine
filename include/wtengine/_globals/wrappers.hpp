@@ -23,8 +23,7 @@
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/mgr/assets.hpp"
 
-namespace wte
-{
+namespace wte {
 
 /*!
  * \class al_bitmap

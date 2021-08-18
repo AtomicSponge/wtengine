@@ -16,8 +16,7 @@
 
 #include "wtengine/_globals/_defines.hpp"
 
-namespace wte
-{
+namespace wte {
 
 /*!
  * \class config

@@ -12,11 +12,9 @@
 
 #include "wtengine/cmp/component.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace cmp
-{
+namespace cmp {
 
 /*!
  * \class location

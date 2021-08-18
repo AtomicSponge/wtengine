@@ -9,11 +9,9 @@
 
 #include "wtengine/mgr/renderer.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace mgr
-{
+namespace mgr {
 
 template <> bool renderer::manager<renderer>::initialized = false;
 

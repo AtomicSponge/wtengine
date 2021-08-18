@@ -9,11 +9,9 @@
 
 #include "wtengine/mgr/spawner.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace mgr
-{
+namespace mgr {
 
 template <> bool spawner::manager<spawner>::initialized = false;
 

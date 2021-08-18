@@ -21,13 +21,11 @@
 #include "wtengine/_globals/message.hpp"
 #include "wtengine/mgr/world.hpp"
 
-namespace wte
-{
+namespace wte {
 
 class engine;
 
-namespace mgr
-{
+namespace mgr {
 
 /*!
  * \class spawner

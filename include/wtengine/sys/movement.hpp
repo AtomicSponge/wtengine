@@ -14,11 +14,9 @@
 
 #include "wtengine/sys/system.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace sys
-{
+namespace sys {
 
 /*!
  * \class movement

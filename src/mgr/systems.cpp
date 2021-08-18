@@ -9,11 +9,9 @@
 
 #include "wtengine/mgr/systems.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace mgr
-{
+namespace mgr {
 
 template <> bool systems::manager<systems>::initialized = false;
 

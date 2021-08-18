@@ -12,11 +12,9 @@
 
 #include <memory>
 
-namespace wte
-{
+namespace wte {
 
-namespace cmp
-{
+namespace cmp {
 
 /*!
  * \class component

@@ -9,11 +9,9 @@
 
 #include "wtengine/mgr/world.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace mgr
-{
+namespace mgr {
 
 template <> bool world::manager<world>::initialized = false;
 

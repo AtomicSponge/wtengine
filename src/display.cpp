@@ -9,8 +9,7 @@
 
 #include "wtengine/display.hpp"
 
-namespace wte
-{
+namespace wte {
 
 bool display::initialized = false;
 

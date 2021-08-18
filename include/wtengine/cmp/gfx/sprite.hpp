@@ -25,11 +25,9 @@
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/mgr/world.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace cmp
-{
+namespace cmp {
 
 /*!
  * \class sprite

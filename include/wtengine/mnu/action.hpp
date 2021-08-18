@@ -17,11 +17,9 @@
 
 #include "wtengine/mgr/messages.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace mnu
-{
+namespace mnu {
 
 /*!
  * \class action

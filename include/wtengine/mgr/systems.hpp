@@ -23,13 +23,11 @@
 #include "wtengine/mgr/world.hpp"
 #include "wtengine/sys/system.hpp"
 
-namespace wte
-{
+namespace wte {
 
 class engine;
 
-namespace mgr
-{
+namespace mgr {
 
 /*!
  * \class systems

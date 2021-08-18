@@ -11,11 +11,9 @@
 
 //#include <iostream>
 
-namespace wte
-{
+namespace wte {
 
-namespace mgr
-{
+namespace mgr {
 
 template <> bool audio::manager<audio>::initialized = false;
 

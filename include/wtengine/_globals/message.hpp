@@ -14,8 +14,7 @@
 #include <vector>
 #include <sstream>
 
-namespace wte
-{
+namespace wte {
 
 /*!
  * \typedef std::vector<std::string> msg_args

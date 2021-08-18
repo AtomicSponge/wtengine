@@ -12,11 +12,9 @@
 
 #include <stdexcept>
 
-namespace wte
-{
+namespace wte {
 
-namespace mgr
-{
+namespace mgr {
 
 /*!
  * \class manager

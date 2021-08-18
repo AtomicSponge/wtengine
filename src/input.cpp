@@ -9,8 +9,7 @@
 
 #include "wtengine/input.hpp"
 
-namespace wte
-{
+namespace wte {
 
 bool input::initialized = false;
 

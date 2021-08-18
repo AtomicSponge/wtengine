@@ -20,11 +20,9 @@
 #include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/mgr/world.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace cmp
-{
+namespace cmp {
 
 /*!
  * \class gfx

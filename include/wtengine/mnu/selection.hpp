@@ -17,11 +17,9 @@
 
 #include "wtengine/mnu/menu_item.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace mnu
-{
+namespace mnu {
 
 /*!
  * \class selection

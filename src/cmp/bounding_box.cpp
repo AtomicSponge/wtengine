@@ -9,11 +9,9 @@
 
 #include "wtengine/cmp/bounding_box.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace cmp
-{
+namespace cmp {
 
 /*
  *

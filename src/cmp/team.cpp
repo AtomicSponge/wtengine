@@ -9,11 +9,9 @@
 
 #include "wtengine/cmp/team.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace cmp
-{
+namespace cmp {
 
 /*
  *

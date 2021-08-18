@@ -19,18 +19,15 @@
 #include "wtengine/mgr/assets.hpp"
 #include "wtengine/mnu/menu_item.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace mgr
-{
+namespace mgr {
 
 class menus;
 
 }
 
-namespace mnu
-{
+namespace mnu {
 
 //!  Container for storing menu items.
 typedef std::vector<menu_item_sptr> menu_items;

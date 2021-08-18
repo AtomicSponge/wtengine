@@ -12,8 +12,7 @@
 
 #include <memory>
 
-namespace wte
-{
+namespace wte {
 
 /*!
  * \tparam T Asset type.

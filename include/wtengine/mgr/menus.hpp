@@ -33,8 +33,7 @@
 #include "wtengine/mnu/menu.hpp"
 #include "wtengine/config.hpp"
 
-namespace wte
-{
+namespace wte {
 
 class engine;
 class input;
@@ -44,8 +43,7 @@ typedef std::vector<mnu::menu_sptr>::iterator menu_iterator;
 //! Constant menu iterator.
 typedef std::vector<mnu::menu_sptr>::const_iterator menu_citerator;
 
-namespace mgr
-{
+namespace mgr {
 
 /*!
  * \class menus

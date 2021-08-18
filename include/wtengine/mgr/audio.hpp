@@ -24,13 +24,11 @@
 #include "wtengine/_globals/message.hpp"
 #include "wtengine/config.hpp"
 
-namespace wte
-{
+namespace wte {
 
 class engine;
 
-namespace mgr
-{
+namespace mgr {
 
 /*!
  * \class audio

@@ -9,11 +9,9 @@
 
 #include "wtengine/cmp/ai.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace cmp
-{
+namespace cmp {
 
 ai::ai(
     const std::function<void(const entity_id&)>& func

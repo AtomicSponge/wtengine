@@ -10,8 +10,7 @@
 
 #include "wtengine/_globals/alert.hpp"
 
-namespace wte
-{
+namespace wte {
 
 ALLEGRO_COLOR alert::font_color;
 ALLEGRO_COLOR alert::bg_color;

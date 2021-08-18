@@ -9,11 +9,9 @@
 
 #include "wtengine/cmp/gfx/gfx.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace cmp
-{
+namespace cmp {
 
 /*
  *

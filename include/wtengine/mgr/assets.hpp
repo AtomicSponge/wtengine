@@ -26,13 +26,11 @@
 #include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
 
-namespace wte
-{
+namespace wte {
 
 class al_bitmap_converter;
 
-namespace mgr
-{
+namespace mgr {
 
 /*!
  * \class assets

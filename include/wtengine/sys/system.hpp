@@ -17,11 +17,9 @@
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mgr/world.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace sys
-{
+namespace sys {
 
 /*!
  * \class system

@@ -31,8 +31,7 @@
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/cmp/component.hpp"
 
-namespace wte
-{
+namespace wte {
 
 class engine;
 
@@ -89,8 +88,7 @@ using const_component_container = std::map<const entity_id, std::shared_ptr<cons
  */
 typedef std::unordered_multimap<entity_id, cmp::component_sptr> world_map;
 
-namespace mgr
-{
+namespace mgr {
 
 /*!
  * \class world

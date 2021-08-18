@@ -14,8 +14,7 @@
 
 #include <allegro5/allegro.h>
 
-namespace wte
-{
+namespace wte {
 
 /*!
  * \class alert

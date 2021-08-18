@@ -36,14 +36,12 @@
 #include "wtengine/config.hpp"
 #include "wtengine/display.hpp"
 
-namespace wte
-{
+namespace wte {
 
 class display;
 class engine;
 
-namespace mgr
-{
+namespace mgr {
 
 /*!
  * Container for an entity and component pair.  Used for sorting.

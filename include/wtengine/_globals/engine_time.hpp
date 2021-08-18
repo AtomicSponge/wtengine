@@ -12,8 +12,7 @@
 
 #include <cstdint>
 
-namespace wte
-{
+namespace wte {
 
 /*!
  * \class engine_time

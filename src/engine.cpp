@@ -9,8 +9,7 @@
 
 #include "wtengine/engine.hpp"
 
-namespace wte
-{
+namespace wte {
 
 commands engine::cmds;
 ALLEGRO_TIMER* engine::main_timer = NULL;

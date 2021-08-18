@@ -9,11 +9,9 @@
 
 #include "wtengine/mgr/variables.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace mgr
-{
+namespace mgr {
 
 template <> bool variables::manager<variables>::initialized = false;
 

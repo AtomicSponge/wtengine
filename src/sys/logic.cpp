@@ -9,11 +9,9 @@
 
 #include "wtengine/sys/logic.hpp"
 
-namespace wte
-{
+namespace wte {
 
-namespace sys
-{
+namespace sys {
 
 /*
  *

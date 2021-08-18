@@ -9,8 +9,7 @@
 
 #include "wtengine/config.hpp"
 
-namespace wte
-{
+namespace wte {
 
 bool config::initialized = false;
 

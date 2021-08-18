@@ -2,7 +2,7 @@
  * WTEngine | File:  location.cpp
  * 
  * \author Matthew Evans
- * \version 0.5
+ * \version 0.6
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */

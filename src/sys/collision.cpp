@@ -49,14 +49,15 @@ void colision::run(void) {
                     temp_hitbox_a->is_solid() && temp_hitbox_b->is_solid()
                 ) {
                     //  Use AABB to test colision
-                    if((temp_location_a->get_x() < temp_location_b->get_x() + temp_hitbox_b->get_width()
+                    if(
+                        temp_location_a->get_x() < temp_location_b->get_x() + temp_hitbox_b->get_width()
                         && 
-                        temp_location_a->get_x() + temp_hitbox_a->get_width() > temp_location_b->get_x())
+                        temp_location_a->get_x() + temp_hitbox_a->get_width() > temp_location_b->get_x()
                         &&
                         temp_location_a->get_y() < temp_location_b->get_y() + temp_hitbox_b->get_height()
                         && 
-                        temp_location_a->get_y() + temp_hitbox_a->get_height() > temp_location_b->get_y())
-                    {
+                        temp_location_a->get_y() + temp_hitbox_a->get_height() > temp_location_b->get_y()
+                    ) {
                         //  Send a message that two entities colided.
                         //  Each entity will get a colision message.
                         //  Ex:  A hit B, B hit A.

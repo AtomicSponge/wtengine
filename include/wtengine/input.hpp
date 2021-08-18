@@ -149,26 +149,29 @@ class input {
          */
         void check_input_events(void);
 
+        /*!
+         * \struct lastkeypress
+         * \brief Record last key press.
+         */
         struct lastkeypress {
             inline static int64_t timer = 0;
             inline static int key = 0;
         };
 
+        /*!
+         * \struct lastbuttonpress
+         * \brief Record last button press.
+         */
         struct lastbuttonpress {
             inline static int64_t timer = 0;
             inline static int button = 0;
         };
 
     private:
-        /*
-         * Process input events
-         */
-        void handle_input_event(const ALLEGRO_EVENT&);
+        void handle_input_event(const ALLEGRO_EVENT&);  //  Process input events
 
-        // Input event queue.
-        ALLEGRO_EVENT_QUEUE* input_event_queue;
-        //  Restrict to one instance.
-        static bool initialized;
+        ALLEGRO_EVENT_QUEUE* input_event_queue;  //  Input event queue.
+        static bool initialized;  //  Restrict to one instance.
 };
 
 } //  end namespace wte

@@ -81,6 +81,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
         //  Turn the cannon on.
         mgr::world::set_component<cmp::sprite>(can_id)->show();
         mgr::world::set_component<cmp::ai>(can_id)->enable();
+        mgr::world::set_component<cmp::hitbox>(can_id)->make_solid();
         //  Play sound effect.
         mgr::audio::sample_play("laser", "cannon_fire");
     };
@@ -99,6 +100,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
             //  Enable the shield.
             mgr::world::set_component<cmp::sprite>(shd_id)->show();
             mgr::world::set_component<cmp::ai>(shd_id)->enable();
+            mgr::world::set_component<cmp::hitbox>(shd_id)->make_solid();
             mgr::world::set_component<cmp::hitbox>(player_id)->make_fluid();
             //  Play sound effect.
             mgr::audio::sample_play("shield", "shield_sound");
@@ -134,6 +136,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
         entity_id can_id = mgr::world::get_id("main_cannon");
         mgr::world::set_component<cmp::sprite>(can_id)->hide();
         mgr::world::set_component<cmp::ai>(can_id)->disable();
+        mgr::world::set_component<cmp::hitbox>(can_id)->make_fluid();
         //  Stop sound effect.
         mgr::audio::sample_stop("cannon_fire");
     };
@@ -143,6 +146,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
         //  Disable shield.
         mgr::world::set_component<cmp::sprite>(shd_id)->hide();
         mgr::world::set_component<cmp::ai>(shd_id)->disable();
+        mgr::world::set_component<cmp::hitbox>(shd_id)->make_fluid();
         mgr::world::set_component<cmp::hitbox>(player_id)->make_solid();
         //  Stop sound effect.
         mgr::audio::sample_stop("shield_sound");
@@ -519,6 +523,7 @@ void wte_demo::new_game(void) {
     mgr::world::add_component<cmp::team>(e_id, 0);
     mgr::world::add_component<cmp::location>(e_id, 0, 0);
     mgr::world::add_component<cmp::hitbox>(e_id, 10, 200, false);
+    mgr::world::set_component<cmp::hitbox>(e_id)->make_fluid();
     mgr::world::add_component<damage>(e_id, 3);
 
     mgr::assets<al_bitmap>::load<al_bitmap>("cannon", al_bitmap());

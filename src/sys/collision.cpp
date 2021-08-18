@@ -42,7 +42,7 @@ void colision::run(void) {
                 if(
                     it_a.first != it_b.first &&
                     it_a.second->get_team() != it_b.second->get_team() &&
-                    temp_hitbox_b->is_solid()
+                    temp_hitbox_a->is_solid() && temp_hitbox_b->is_solid()
                 ) {
                     //  Use AABB to test colision
                     if((temp_location_a->get_x() < temp_location_b->get_x() + temp_hitbox_b->get_width()

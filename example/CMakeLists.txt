@@ -25,7 +25,7 @@ endif()
 
 #  Set compiler flags
 set(CMAKE_CXX_FLAGS "-Wall")
-set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_BUILD_DEBUG")
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 ########################################
@@ -62,6 +62,10 @@ find_package(PkgConfig REQUIRED)
 add_executable(wte_demo
     src/main.cpp
     src/wte_demo.cpp)
+
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+    target_compile_options(wte_demo PRIVATE "-DWTE_BUILD_DEBUG")
+endif()
 
 ########################################
 #

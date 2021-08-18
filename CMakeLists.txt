@@ -29,7 +29,7 @@ endif()
 
 #  Set compiler flags
 set(CMAKE_CXX_FLAGS "-Wall")
-set(CMAKE_CXX_FLAGS_DEBUG "-g -DWTE_BUILD_DEBUG")
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 ########################################
@@ -105,6 +105,10 @@ add_library(wtengine STATIC
 option(BUILD_MAGIC_PINK "Use magic pink for transparancey" ON)
 if(NOT BUILD_MAGIC_PINK)
     target_compile_options(wtengine PRIVATE "-DWTE_NO_MAGIC_PINK")
+endif()
+
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+    target_compile_options(wtengine PRIVATE "-DWTE_BUILD_DEBUG")
 endif()
 
 #  Set include folder for building

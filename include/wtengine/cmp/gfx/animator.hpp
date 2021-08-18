@@ -103,27 +103,30 @@ class animator : public component {
         const bool is_visible(void) const;
 
         /*!
-         * \brief
+         * \brief Set to draw rotated.
          */
         void is_roated(void);
 
         /*!
-         * \brief
+         * \brief Set to not draw rotated.
          */
         void not_roated(void);
 
         /*!
-         * \brief
+         * \brief Check if should be drawn rotated.
+         * \return True if draw rotated, false if not.
          */
         const bool draw_rotated(void) const;
 
         /*!
-         * \brief
+         * \brief Set direction of rotation.
+         * \param d Direction in radians.
          */
         void set_direction(const float& d);
 
         /*!
-         * \brief
+         * \brief Get direction of rotation.
+         * \return Direction in radians.
          */
         const float get_direction(void) const;
 

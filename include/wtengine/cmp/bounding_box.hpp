@@ -40,6 +40,8 @@ class bounding_box final : public component {
             const float& ry
         );
 
+        ~bounding_box() = default;
+
         /*!
          * \brief Set left X of the bounding box.
          * \param mx Left X

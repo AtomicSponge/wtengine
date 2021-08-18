@@ -34,6 +34,8 @@ class location final : public component {
             const float& y
         );
 
+        ~location() = default;
+
         /*!
          * \brief Get X location.
          * \return X location of entity.

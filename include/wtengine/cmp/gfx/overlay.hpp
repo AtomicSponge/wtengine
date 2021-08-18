@@ -50,7 +50,7 @@ class overlay final : public gfx {
             const std::function<void(const entity_id&)>& func
         );
 
-        ~overlay();
+        ~overlay() = default;
 
         /*!
          * \brief Draw text on the overlay.

@@ -49,7 +49,7 @@ class ai final : public component {
             const std::function<void(const entity_id&)>& func_b
         );
 
-        inline ~ai() {};
+        ~ai() = default;
 
         /*!
          * \brief Run enabled AI function wrapper.

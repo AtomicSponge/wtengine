@@ -30,11 +30,6 @@ overlay::overlay(
 /*
  *
  */
-overlay::~overlay() {}
-
-/*
- *
- */
 void overlay::draw_text(
     const std::string& txt,
     const ALLEGRO_COLOR& color,

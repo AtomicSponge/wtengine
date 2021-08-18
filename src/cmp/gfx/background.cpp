@@ -35,11 +35,6 @@ background::background(
 /*
  *
  */
-background::~background() {}
-
-/*
- *
- */
 ALLEGRO_COLOR background::get_color(void) const { return color; }
 
 } //  namespace cmp

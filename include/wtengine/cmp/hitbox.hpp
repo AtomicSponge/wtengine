@@ -46,6 +46,8 @@ class hitbox final : public component {
             const bool& s
         );
 
+        ~hitbox() = default;
+
         /*!
          * \brief Get hitbox width.
          * \return Width of hitbox.

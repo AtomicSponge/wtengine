@@ -54,11 +54,6 @@ sprite::sprite(
 /*
  *
  */
-sprite::~sprite() {}
-
-/*
- *
- */
 const bool sprite::add_cycle(
     const std::string& name,
     const std::size_t& start,

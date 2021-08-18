@@ -51,6 +51,8 @@ class motion final : public component {
             const float& yv
         );
 
+        ~motion() = default;
+
         /*!
          * \brief
          */

@@ -54,7 +54,7 @@ class sprite final : public gfx {
         /*!
          * \brief Sprite destructor.
          */
-        ~sprite();
+        ~sprite() = default;
 
         /*!
          * \brief Add animation cycle.

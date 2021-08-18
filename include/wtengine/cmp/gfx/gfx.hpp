@@ -32,7 +32,7 @@ namespace cmp
  */
 class gfx : public component {
     public:
-        ~gfx() = default;
+        virtual ~gfx() = default;
 
         /*!
          * \brief Overload < operator to sort by layer value.

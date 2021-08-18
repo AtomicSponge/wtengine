@@ -33,6 +33,8 @@ class team final : public component {
          */
         team(const std::size_t& t);
 
+        ~team() = default;
+
         /*!
          * \brief Get team.
          * \return Team the entity is on.

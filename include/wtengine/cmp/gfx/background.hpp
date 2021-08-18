@@ -52,7 +52,7 @@ class background final : public gfx {
         /*!
          * \brief Background destructor.
          */
-        ~background();
+        ~background() = default;
 
         /*!
          * \brief Get the saved color.

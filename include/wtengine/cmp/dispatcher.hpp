@@ -46,7 +46,7 @@ class dispatcher final : public component {
         /*!
          * \brief Dispatched destructor.
          */
-        inline ~dispatcher() {};
+        ~dispatcher() = default;
 
         /*!
          * \brief Run dispatcher function wrapper.

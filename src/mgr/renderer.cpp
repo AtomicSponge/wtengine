@@ -288,13 +288,16 @@ void renderer::render(void) {
             if(it.second->is_visible()) {
                 if(it.second->draw_tinted())
                     al_draw_tinted_bitmap(
-                        it.second->get_bitmap(), it.second->get_tint(),
-                        it.second->get_pos_x(), it.second->get_pos_y(), 0
+                        it.second->get_bitmap(),
+                        it.second->get_tint(),
+                        it.second->get_pos_x(),
+                        it.second->get_pos_y(), 0
                     );
                 else
                     al_draw_bitmap(
                         it.second->get_bitmap(),
-                        it.second->get_pos_x(), it.second->get_pos_y(), 0
+                        it.second->get_pos_x(),
+                        it.second->get_pos_y(), 0
                     );
             }
         }

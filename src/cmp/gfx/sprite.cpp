@@ -23,7 +23,7 @@ sprite::sprite(
     const float& sw, const float& sh,
     const float& dox, const float& doy,
     const std::size_t& rt, const std::size_t& l) :
-    animator(bmp, l,[this](const entity_id& e_id) {
+    gfx(bmp, l,[this](const entity_id& e_id) {
         //  Define sprite animation process.
         if(engine_time::check_time() % rate == 0) {
             //  Increment frame.

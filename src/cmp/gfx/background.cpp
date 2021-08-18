@@ -19,7 +19,7 @@ namespace cmp
  *
  */
 background::background(wte_asset<al_bitmap> bmp, const std::size_t& l, const ALLEGRO_COLOR& c) :
-animator(bmp, l, [this](const entity_id& e_id) {
+gfx(bmp, l, [this](const entity_id& e_id) {
     set_drawing();
     al_clear_to_color(get_color());
 }), color(c) {}
@@ -30,7 +30,7 @@ animator(bmp, l, [this](const entity_id& e_id) {
 background::background(
     wte_asset<al_bitmap> bmp, const std::size_t& l,
     const std::function<void(const entity_id&)>& func
-) : animator(bmp, l, func) {}
+) : gfx(bmp, l, func) {}
 
 /*
  *

@@ -17,7 +17,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 
-#include "wtengine/cmp/gfx/animator.hpp"
+#include "wtengine/cmp/gfx/gfx.hpp"
 
 namespace wte
 {
@@ -29,7 +29,7 @@ namespace cmp
  * \class overlay
  * \brief Component for storing an overlay image and defining its animation process.
  */
-class overlay final : public animator {
+class overlay final : public gfx {
 
     public:
         /*!

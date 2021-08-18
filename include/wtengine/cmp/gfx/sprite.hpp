@@ -18,7 +18,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
-#include "wtengine/cmp/gfx/animator.hpp"
+#include "wtengine/cmp/gfx/gfx.hpp"
 
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/engine_time.hpp"
@@ -35,7 +35,7 @@ namespace cmp
  * \class sprite
  * \brief Component for loading a sprite sheet and storing its animation frames.
  */
-class sprite final : public animator {
+class sprite final : public gfx {
     public:
         /*!
          * \brief Create a new Sprite component.

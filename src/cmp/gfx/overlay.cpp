@@ -25,7 +25,7 @@ overlay::overlay(
     const float& y,
     const std::size_t& l,
     const std::function<void(const entity_id&)>& func
-) : animator(bmp, l, func), overlay_font(font), pos_x(x), pos_y(y) {}
+) : gfx(bmp, l, func), overlay_font(font), pos_x(x), pos_y(y) {}
 
 /*
  *

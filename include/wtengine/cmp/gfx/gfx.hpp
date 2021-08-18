@@ -27,22 +27,19 @@ namespace cmp
 {
 
 /*!
- * \class animator
+ * \class gfx
  * \brief Interface class for components with an animation process.
  */
-class animator : public component {
+class gfx : public component {
     public:
-        /*!
-         * \brief Animator destructor.
-         */
-        inline ~animator() {};
+        ~gfx() = default;
 
         /*!
          * \brief Overload < operator to sort by layer value.
          * \param a Object to compare to.
          * \return True if <, false if >
          */
-        const bool operator<(const animator& a) const {
+        const bool operator<(const gfx& a) const {
             return layer < a.layer;
         };
 
@@ -132,12 +129,12 @@ class animator : public component {
 
     protected:
         /*!
-         * \brief Create a new component based on the Animator.
+         * \brief Extend to create a gfx component.
          * \param bmp Bitmap asset to use.
          * \param l Layer position.
          * \param func Animation function.
          */
-        animator(
+        gfx(
             wte_asset<al_bitmap> bmp,
             const std::size_t& l,
             const std::function<void(const entity_id&)>& func

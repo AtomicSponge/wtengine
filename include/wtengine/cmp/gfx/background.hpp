@@ -16,7 +16,7 @@
 
 #include <allegro5/allegro.h>
 
-#include "wtengine/cmp/gfx/animator.hpp"
+#include "wtengine/cmp/gfx/gfx.hpp"
 
 namespace wte
 {
@@ -28,7 +28,7 @@ namespace cmp
  * \class background
  * \brief Component for storing a Background image and defining its animation process.
  */
-class background final : public animator {
+class background final : public gfx {
     public:
         /*!
          * \brief Create a static Background component, solid color.

@@ -18,24 +18,43 @@ namespace cmp
 /*
  *
  */
-background::background(wte_asset<al_bitmap> bmp, const std::size_t& l, const ALLEGRO_COLOR& c) :
-gfx(bmp, l, [this](const entity_id& e_id) {
-    set_drawing();
-    al_clear_to_color(get_color());
-}), color(c) {}
+background::background(
+    wte_asset<al_bitmap> bmp,
+    const std::size_t& l,
+    const float& x,
+    const float& y
+) : gfx(bmp, l, [this](const entity_id& e_id) {}), pos_x(x), pos_y(y) {}
 
 /*
  *
  */
 background::background(
-    wte_asset<al_bitmap> bmp, const std::size_t& l,
+    wte_asset<al_bitmap> bmp,
+    const std::size_t& l,
+    const float& x,
+    const float& y,
     const std::function<void(const entity_id&)>& func
-) : gfx(bmp, l, func) {}
+) : gfx(bmp, l, func), pos_x(x), pos_y(y) {}
 
 /*
  *
  */
-ALLEGRO_COLOR background::get_color(void) const { return color; }
+void background::set_pos_x(const float& x) { pos_x = x; }
+
+/*
+ *
+ */
+void background::set_pos_y(const float& y) { pos_y = y; }
+
+/*
+ *
+ */
+const float background::get_pos_x(void) const { return pos_x; }
+
+/*
+ *
+ */
+const float background::get_pos_y(void) const { return pos_y; }
 
 } //  namespace cmp
 

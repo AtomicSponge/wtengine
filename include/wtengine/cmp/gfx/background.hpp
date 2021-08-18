@@ -31,37 +31,63 @@ namespace cmp
 class background final : public gfx {
     public:
         /*!
-         * \brief Create a static Background component, solid color.
-         * \param w Background width.
-         * \param h Background height.
-         * \param c Allegro color.
+         * \brief Create a static Background component.
+         * \param bmp Bitmap for static background.
          * \param l Background layer.
+         * \param x X position of background.
+         * \param y Y position of background.
          */
-        background(wte_asset<al_bitmap> bmp, const std::size_t& l, const ALLEGRO_COLOR& c);
+        background(
+            wte_asset<al_bitmap> bmp,
+            const std::size_t& l,
+            const float& x,
+            const float& y
+        );
 
         /*!
          * \brief Create a Background component with custom animation.
-         * \param w Background width.
-         * \param h Background height.
+         * \param bmp Bitmap for background.
          * \param l Background layer.
+         * \param x X position of background.
+         * \param y Y position of background.
          * \param func Animcation function.
          */
-        background(wte_asset<al_bitmap> bmp, const std::size_t& l,
-                   const std::function<void(const entity_id&)>& func);
+        background(
+            wte_asset<al_bitmap> bmp,
+            const std::size_t& l,
+            const float& x,
+            const float& y,
+            const std::function<void(const entity_id&)>& func
+        );
 
-        /*!
-         * \brief Background destructor.
-         */
         ~background() = default;
 
         /*!
-         * \brief Get the saved color.
-         * \return Allegro color object.
+         * \brief Set X position.
+         * \param x X position.
          */
-        ALLEGRO_COLOR get_color(void) const;
+        void set_pos_x(const float& x);
+
+        /*!
+         * \brief Set Y position.
+         * \param x Y position.
+         */
+        void set_pos_y(const float& y);
+
+        /*!
+         * \brief Get X position.
+         * \return X position.
+         */
+        const float get_pos_x(void) const;
+
+        /*!
+         * \brief Get Y position.
+         * \return Y position.
+         */
+        const float get_pos_y(void) const;
 
     private:
-        ALLEGRO_COLOR color;    //  Background color for solid bg.
+        float pos_x, pos_y;  //  Location in the arena of the background.
 };
 
 } //  namespace cmp

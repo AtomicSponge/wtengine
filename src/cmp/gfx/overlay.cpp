@@ -42,6 +42,16 @@ void overlay::draw_text(
 /*
  *
  */
+void overlay::set_pos_x(const float& x) { pos_x = x; }
+
+/*
+ *
+ */
+void overlay::set_pos_y(const float& y) { pos_y = y; }
+
+/*
+ *
+ */
 const float overlay::get_pos_x(void) const { return pos_x; }
 
 /*

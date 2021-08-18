@@ -107,10 +107,10 @@ class variables final : private manager<variables> {
 
             while(true) {  //  Check entire file.
                 try {
-                    if(dfile.peek() == EOF) return false;
+                    if(dfile.peek() == EOF) return false;  //  Hit end of file and not found.
                     std::string in_var;
 
-                    //  Read in variable name
+                    //  Read in variable name.
                     {int32_t size;
                     dfile.read(reinterpret_cast<char*>(&size), sizeof(int32_t));
                     char* buffer = new char[size];
@@ -118,6 +118,7 @@ class variables final : private manager<variables> {
                     in_var = std::string(buffer);
                     delete[] buffer;}
 
+                    //  Read in variable size.
                     int32_t size;
                     dfile.read(reinterpret_cast<char*>(&size), sizeof(int32_t));
                     if(var == in_var) {  //  Found variable.
@@ -129,7 +130,7 @@ class variables final : private manager<variables> {
                             delete[] buffer;
                             set<std::string>(var, in_val);
                         } else {
-                            //  Handle simple variable.
+                            //  Handle other data types.
                             T in_val;
                             dfile.read(reinterpret_cast<char*>(&in_val), size);
                             set<T>(var, in_val);
@@ -137,7 +138,7 @@ class variables final : private manager<variables> {
                         break;  //  Found value, break loop.
                     }
                     dfile.seekg(size, dfile.cur);  //  Skip if not correct variable.
-                } catch(...) {
+                } catch(...) {  //  Error reading, fail.
                     dfile.close();
                     return false;
                 }

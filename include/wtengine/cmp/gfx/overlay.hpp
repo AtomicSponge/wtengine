@@ -37,7 +37,7 @@ class overlay final : public gfx {
          * \param bmp Bitmap asset to use.
          * \param font Font asset to use.
          * \param x Horizontal location of the overlay in pixels.
-         * \param y Verticle location of the overlay in pixels.
+         * \param y Vertical location of the overlay in pixels.
          * \param l Layer for sorting.
          * \param func Function to define what is displayed in the overlay.
          */
@@ -57,7 +57,7 @@ class overlay final : public gfx {
          * \param txt Text to be displayed.
          * \param color Allegro color object.
          * \param x Horizontal location of the text.
-         * \param y Verticle location of the text.
+         * \param y Vertical location of the text.
          * \param f Text flags for drawing - see Allegro docs on al_draw_text.
          */
         void draw_text(
@@ -67,6 +67,18 @@ class overlay final : public gfx {
             const float& y,
             const int& f
         );
+
+        /*!
+         * \brief Set X position.
+         * \param x X position.
+         */
+        void set_pos_x(const float& x);
+
+        /*!
+         * \brief Set Y position.
+         * \param x Y position.
+         */
+        void set_pos_y(const float& y);
 
         /*!
          * \brief Get X position.
@@ -81,9 +93,8 @@ class overlay final : public gfx {
         const float get_pos_y(void) const;
 
     private:
-        //  Font for overlay.
-        wte_asset<al_font> overlay_font;
-        float pos_x, pos_y;  //  X/Y position of overlay.
+        wte_asset<al_font> overlay_font;  //  Font for overlay.
+        float pos_x, pos_y;               //  X/Y position of overlay.
 };
 
 } //  namespace cmp

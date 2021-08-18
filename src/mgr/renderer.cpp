@@ -183,60 +183,58 @@ void renderer::render(void) {
 
         //  Draw each sprite in order.
         for(auto & it : sprite_componenet_set) {
-            try {
-                if(it.second->is_visible()) {
-                    //  Get the current sprite frame.
-                    temp_bitmap = al_create_sub_bitmap(
-                        it.second->get_bitmap(),
-                        it.second->get_sprite_x(),
-                        it.second->get_sprite_y(),
-                        it.second->get_sprite_width(),
-                        it.second->get_sprite_height()
+            if(it.second->is_visible()) {
+                //  Get the current sprite frame.
+                temp_bitmap = al_create_sub_bitmap(
+                    it.second->get_bitmap(),
+                    it.second->get_sprite_x(),
+                    it.second->get_sprite_y(),
+                    it.second->get_sprite_width(),
+                    it.second->get_sprite_height()
+                );
+
+                float sprite_angle = 0.0f;
+                float center_x = 0.0f, center_y = 0.0f;
+                float destination_x = 0.0f, destination_y = 0.0f;
+
+                try {
+                    cmp::const_comp_ptr<cmp::location> temp_get = mgr::world::get_component<cmp::location>(it.first);
+                    //  Check if the sprite should be rotated.
+                    if(it.second->draw_rotated()) {
+                        sprite_angle = it.second->get_direction();
+                        center_x = (al_get_bitmap_width(temp_bitmap) / 2);
+                        center_y = (al_get_bitmap_height(temp_bitmap) / 2);
+
+                        destination_x = temp_get->get_x() +
+                            (al_get_bitmap_width(temp_bitmap) * it.second->get_scale_factor_x() / 2) +
+                            (it.second->get_draw_offset_x() * it.second->get_scale_factor_x());
+                        destination_y = temp_get->get_y() +
+                            (al_get_bitmap_height(temp_bitmap) * it.second->get_scale_factor_y() / 2) +
+                            (it.second->get_draw_offset_y() * it.second->get_scale_factor_y());
+                    } else {
+                            destination_x = temp_get->get_x() + it.second->get_draw_offset_x();
+                            destination_y = temp_get->get_y() + it.second->get_draw_offset_y();
+                    }
+                } catch(...) { /* Didn't have location component */ }
+
+                //  Draw the sprite.
+                if(it.second->draw_tinted())
+                    al_draw_tinted_scaled_rotated_bitmap(
+                        temp_bitmap, it.second->get_tint(),
+                        center_x, center_y, destination_x, destination_y,
+                        it.second->get_scale_factor_x(),
+                        it.second->get_scale_factor_y(),
+                        sprite_angle, 0
                     );
-
-                    float sprite_angle = 0.0f;
-                    float center_x = 0.0f, center_y = 0.0f;
-                    float destination_x = 0.0f, destination_y = 0.0f;
-
-                    try {
-                        cmp::const_comp_ptr<cmp::location> temp_get = mgr::world::get_component<cmp::location>(it.first);
-                        //  Check if the sprite should be rotated.
-                        if(it.second->draw_rotated()) {
-                            sprite_angle = it.second->get_direction();
-                            center_x = (al_get_bitmap_width(temp_bitmap) / 2);
-                            center_y = (al_get_bitmap_height(temp_bitmap) / 2);
-
-                            destination_x = temp_get->get_x() +
-                                (al_get_bitmap_width(temp_bitmap) * it.second->get_scale_factor_x() / 2) +
-                                (it.second->get_draw_offset_x() * it.second->get_scale_factor_x());
-                            destination_y = temp_get->get_y() +
-                                (al_get_bitmap_height(temp_bitmap) * it.second->get_scale_factor_y() / 2) +
-                                (it.second->get_draw_offset_y() * it.second->get_scale_factor_y());
-                        } else {
-                                destination_x = temp_get->get_x() + it.second->get_draw_offset_x();
-                                destination_y = temp_get->get_y() + it.second->get_draw_offset_y();
-                        }
-                    } catch(...) { /* Didn't have location component */ }
-
-                    //  Draw the sprite.
-                    if(it.second->draw_tinted())
-                        al_draw_tinted_scaled_rotated_bitmap(
-                            temp_bitmap, it.second->get_tint(),
-                            center_x, center_y, destination_x, destination_y,
-                            it.second->get_scale_factor_x(),
-                            it.second->get_scale_factor_y(),
-                            sprite_angle, 0
-                        );
-                    else
-                        al_draw_scaled_rotated_bitmap(
-                            temp_bitmap, center_x, center_y, destination_x, destination_y,
-                            it.second->get_scale_factor_x(),
-                            it.second->get_scale_factor_y(),
-                            sprite_angle, 0
-                        );
-                    al_destroy_bitmap(temp_bitmap);
-                }
-            } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
+                else
+                    al_draw_scaled_rotated_bitmap(
+                        temp_bitmap, center_x, center_y, destination_x, destination_y,
+                        it.second->get_scale_factor_x(),
+                        it.second->get_scale_factor_y(),
+                        sprite_angle, 0
+                    );
+                al_destroy_bitmap(temp_bitmap);
+            }
         }
 
         #if WTE_DEBUG_MODE

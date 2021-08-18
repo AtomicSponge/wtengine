@@ -45,7 +45,24 @@ void input::check_input_events(void) {
     while(queue_not_empty) {
         ALLEGRO_EVENT event;
         queue_not_empty = al_get_next_event(input_event_queue, &event);
-        if(queue_not_empty) handle_input_event(event);
+        if(queue_not_empty) {
+            handle_input_event(event);
+
+            //  Record last button/key press.
+            if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
+                lastkeypress::timer = engine_time::check_time();
+                lastkeypress::key = event.keyboard.keycode;
+            }
+            if(event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN) {
+                lastbuttonpress::timer = engine_time::check_time();
+                lastbuttonpress::button = event.joystick.button;
+            }
+
+            //  Record input if enabled.
+            if(config::flags::record_input) {
+                //
+            }
+        }
     }
 }
 
@@ -57,17 +74,6 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
     if(alert::is_set() &&
        (event.type == ALLEGRO_EVENT_KEY_DOWN ||
         event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)) alert::clear();
-
-    if(config::flags::record_input) {
-        if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
-            lastkeypress::timer = engine_time::check_time();
-            lastkeypress::key = event.keyboard.keycode;
-        }
-        if(event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN) {
-            lastbuttonpress::timer = engine_time::check_time();
-            lastbuttonpress::button = event.joystick.button;
-        }
-    }
 
     /* ************************************************************* */
     /* *** PROCESS EVENTS WHILE MENU IS OPENED ********************* */

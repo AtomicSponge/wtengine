@@ -28,7 +28,7 @@ namespace cmp
 
 /*!
  * \class gfx
- * \brief Interface class for components with an animation process.
+ * \brief Interface class for components that display graphics.
  */
 class gfx : public component {
     public:

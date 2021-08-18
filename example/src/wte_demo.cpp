@@ -307,7 +307,8 @@ void wte_demo::new_game(void) {
             true
         )
     );
-    mgr::world::add_component<cmp::background>(e_id, mgr::assets<al_bitmap>::get<al_bitmap>("starfield"), 0,
+    mgr::world::add_component<cmp::background>(e_id,
+        mgr::assets<al_bitmap>::get<al_bitmap>("starfield"), 0, 0, 0,
         [](const entity_id& bkg_id) {
             //  Define the animation process for the starfield.
             mgr::world::set_component<cmp::background>(bkg_id)->set_drawing();

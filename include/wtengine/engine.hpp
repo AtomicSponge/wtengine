@@ -102,9 +102,9 @@ class engine : private display, public input, public config {
         virtual void on_menu_open(void) {};
         //!  Optional:  On menu close.
         virtual void on_menu_close(void) {};
-        //!  Optional:  Out of focus handler
+        //!  Optional:  Window out of focus handler.
         virtual void out_of_focus(void) {};
-        //!  Optional:  In focus handler
+        //!  Optional:  Window back in focus handler.
         virtual void back_in_focus(void) {};
         /* *** End overridden function members *** */
 

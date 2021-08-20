@@ -262,22 +262,6 @@ class al_bitmap_converter final {
             _bitmaps_backup.clear();
         };
 
-        /*template <class U, class Tuple>
-        class Index;
-
-        template <class U, class ...T>
-        class Index<U, std::tuple<T...>> {
-        private:
-            template <std::size_t ...idx>
-            inline static constexpr std::size_t find_index(std::index_sequence<idx...>) {
-                constexpr int index = -1 + ((std::is_same<U, T>::value ? idx + 1 : 0) + ...);
-                static_assert(index > 0, "Index not found.");
-                return (std::size_t)index;
-            };
-        public:
-            inline static constexpr std::size_t value = find_index(std::index_sequence_for<T...>{});
-        };*/
-
         inline static std::map<
             std::string,
             ALLEGRO_BITMAP*
@@ -301,7 +285,7 @@ class al_bitmap_converter final {
         };
 
         template<typename Tuple, std::size_t ...Indices>
-        constexpr typename runtime_get_func_table<Tuple,std::index_sequence<Indices...>>::get_func_ptr
+        constexpr typename runtime_get_func_table<Tuple, std::index_sequence<Indices...>>::get_func_ptr
         runtime_get_func_table<Tuple, std::index_sequence<Indices...>>::table[std::tuple_size<Tuple>::value];
 
         template<typename Tuple>

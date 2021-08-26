@@ -199,10 +199,10 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
     /* ************************************************************* */
     else {
         switch(event.type) {
+
         /* *********************** */
         /* *** Keyboard events *** */
         /* *********************** */
-        /*******************************************************************/
         case ALLEGRO_EVENT_KEY_DOWN:
             if(event.keyboard.keycode == config::controls::key_menu) config::_flags::game_menu_opened = true;
             if(config::flags::input_enabled) {
@@ -276,7 +276,6 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                 } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
             }
             break;  //  End case ALLEGRO_EVENT_KEY_DOWN
-        /*******************************************************************/
         case ALLEGRO_EVENT_KEY_UP:
             if(config::flags::input_enabled) {
                 try {
@@ -349,11 +348,150 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                 } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
             }
             break;  //  End case ALLEGRO_EVENT_KEY_UP
+
         /* *********************** */
         /* *** Joystick events *** */
         /* *********************** */
-        /*******************************************************************/
-
+        case ALLEGRO_EVENT_JOYSTICK_AXIS:
+            /* *** PLAYER 1 *** */
+            /* *** PLAYER 2 *** */
+            break;
+        case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
+            /* *** PLAYER 1 *** */
+            if(event.joystick.button == config::controls::p1_button_up)
+                try { 
+                    config::_controls::p1_polc_y = -1.0f;
+                    input::event::p1::ondown::up();
+                } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_down)
+                try {
+                    config::_controls::p1_polc_y = 1.0f;
+                    input::event::p1::ondown::down();
+                } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_left)
+                try {
+                    config::_controls::p1_polc_x = -1.0f;
+                    input::event::p1::ondown::left();
+                } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_right)
+                try {
+                    config::_controls::p1_polc_x = 1.0f;
+                    input::event::p1::ondown::right();
+                } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_action1)
+                try { input::event::p1::ondown::action1(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_action2)
+                try { input::event::p1::ondown::action2(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_action3)
+                try { input::event::p1::ondown::action3(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_action4)
+                try { input::event::p1::ondown::action4(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_action5)
+                try { input::event::p1::ondown::action5(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_action6)
+                try { input::event::p1::ondown::action6(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
+            /* *** PLAYER 2 *** */
+            if(event.joystick.button == config::controls::p2_button_up)
+                try { 
+                    config::_controls::p2_polc_y = -1.0f;
+                    input::event::p2::ondown::up();
+                } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_down)
+                try {
+                    config::_controls::p2_polc_y = 1.0f;
+                    input::event::p2::ondown::down();
+                } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_left)
+                try {
+                    config::_controls::p2_polc_x = -1.0f;
+                    input::event::p1::ondown::left();
+                } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_right)
+                try {
+                    config::_controls::p2_polc_x = 1.0f;
+                    input::event::p2::ondown::right();
+                } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_action1)
+                try { input::event::p2::ondown::action1(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_action2)
+                try { input::event::p2::ondown::action2(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_action3)
+                try { input::event::p2::ondown::action3(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_action4)
+                try { input::event::p2::ondown::action4(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_action5)
+                try { input::event::p2::ondown::action5(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_action6)
+                try { input::event::p2::ondown::action6(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
+            break;  //  end ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN
+        case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
+            /* *** PLAYER 1 *** */
+            if(event.joystick.button == config::controls::p1_button_up)
+                try { 
+                    if(config::controls::p1_polc_y != 1.0f) config::_controls::p1_polc_y = 0.0f;
+                    input::event::p1::onup::up();
+                } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_down)
+                try {
+                    if(config::controls::p1_polc_y != -1.0f) config::_controls::p1_polc_y = 0.0f;
+                    input::event::p1::onup::down();
+                } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_left)
+                try {
+                    if(config::controls::p1_polc_x != 1.0f) config::_controls::p1_polc_x = 0.0f;
+                    input::event::p1::onup::left();
+                } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_right)
+                try {
+                    if(config::controls::p1_polc_x != -1.0f) config::_controls::p1_polc_x = 0.0f;
+                    input::event::p1::onup::right();
+                } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_action1)
+                try { input::event::p1::onup::action1(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_action2)
+                try { input::event::p1::onup::action2(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_action3)
+                try { input::event::p1::onup::action3(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_action4)
+                try { input::event::p1::onup::action4(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_action5)
+                try { input::event::p1::onup::action5(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p1_button_action6)
+                try { input::event::p1::onup::action6(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
+            /* *** PLAYER 2 *** */
+            if(event.joystick.button == config::controls::p2_button_up)
+                try { 
+                    if(config::controls::p2_polc_y != 1.0f) config::_controls::p2_polc_y = 0.0f;
+                    input::event::p2::onup::up();
+                } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_down)
+                try {
+                    if(config::controls::p2_polc_y != -1.0f) config::_controls::p2_polc_y = 0.0f;
+                    input::event::p2::onup::down();
+                } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_left)
+                try {
+                    if(config::controls::p2_polc_x != 1.0f) config::_controls::p2_polc_x = 0.0f;
+                    input::event::p1::onup::left();
+                } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_right)
+                try {
+                    if(config::controls::p2_polc_x != -1.0f) config::_controls::p2_polc_x = 0.0f;
+                    input::event::p2::onup::right();
+                } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_action1)
+                try { input::event::p2::onup::action1(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_action2)
+                try { input::event::p2::onup::action2(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_action3)
+                try { input::event::p2::onup::action3(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_action4)
+                try { input::event::p2::onup::action4(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_action5)
+                try { input::event::p2::onup::action5(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
+            if(event.joystick.button == config::controls::p2_button_action6)
+                try { input::event::p2::onup::action6(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
+            break;  //  end ALLEGRO_EVENT_JOYSTICK_BUTTON_UP
         }  //  End switch(event.type)
     } //  End game event processing
 }

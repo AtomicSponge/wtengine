@@ -199,7 +199,6 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
     /* ************************************************************* */
     else {
         switch(event.type) {
-
         /* *********************** */
         /* *** Keyboard events *** */
         /* *********************** */

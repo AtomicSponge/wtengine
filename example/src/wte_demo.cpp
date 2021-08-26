@@ -143,19 +143,6 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
         //  Stop sound effect.
         mgr::audio::sample_stop("shield_sound");
     };
-
-    input::event::p2::ondown::up = input::event::p1::ondown::up;
-    input::event::p2::ondown::down = input::event::p1::ondown::down;
-    input::event::p2::ondown::left = input::event::p1::ondown::left;
-    input::event::p2::ondown::right = input::event::p1::ondown::right;
-    input::event::p2::ondown::action1 = input::event::p1::ondown::action1;
-    input::event::p2::ondown::action2 = input::event::p1::ondown::action2;
-    input::event::p2::onup::up = input::event::p1::onup::up;
-    input::event::p2::onup::down = input::event::p1::onup::down;
-    input::event::p2::onup::left = input::event::p1::onup::left;
-    input::event::p2::onup::right = input::event::p1::onup::right;
-    input::event::p2::onup::action1 = input::event::p1::onup::action1;
-    input::event::p2::onup::action2 = input::event::p1::onup::action2;
 }
 
 /*

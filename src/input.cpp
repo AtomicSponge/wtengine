@@ -78,119 +78,119 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
     /* ************************************************************* */
     if(config::flags::game_menu_opened) {
         switch(event.type) {
-            /* *********************** */
-            /* *** Keyboard events *** */
-            /* *********************** */
-            /////////////////////////////////////////////////////////////
-            case ALLEGRO_EVENT_KEY_DOWN:
-                if(event.keyboard.keycode == config::controls::key_menu) {
-                    mgr::menus::close_menu();
-                }
-                if(event.keyboard.keycode == config::controls::key_menu_select) {
-                    mgr::menus::menu_item_select();
-                }
-                if(event.keyboard.keycode == config::controls::p1_key_up ||
-                   event.keyboard.keycode == config::controls::p2_key_up) {
-                    mgr::menus::menu_pos_up();
-                }
-                if(event.keyboard.keycode == config::controls::p1_key_down ||
-                   event.keyboard.keycode == config::controls::p2_key_down) {
-                    mgr::menus::menu_pos_down();
-                }
-                if(event.keyboard.keycode == config::controls::p1_key_left ||
-                   event.keyboard.keycode == config::controls::p2_key_left) {
-                    mgr::menus::menu_pos_start_left();
-                }
-                if(event.keyboard.keycode == config::controls::p1_key_right ||
-                   event.keyboard.keycode == config::controls::p2_key_right) {
-                    mgr::menus::menu_pos_start_right();
-                }
-                break;
-            /////////////////////////////////////////////////////////////
-            case ALLEGRO_EVENT_KEY_UP:
-                if(event.keyboard.keycode == config::controls::p1_key_left ||
-                   event.keyboard.keycode == config::controls::p2_key_left) {
-                    mgr::menus::menu_pos_stop_left();
-                }
-                if(event.keyboard.keycode == config::controls::p1_key_right ||
-                   event.keyboard.keycode == config::controls::p2_key_right) {
-                    mgr::menus::menu_pos_stop_right();
-                }
-                break;
+        /* *********************** */
+        /* *** Keyboard events *** */
+        /* *********************** */
+        /////////////////////////////////////////////////////////////
+        case ALLEGRO_EVENT_KEY_DOWN:
+            if(event.keyboard.keycode == config::controls::key_menu) {
+                mgr::menus::close_menu();
+            }
+            if(event.keyboard.keycode == config::controls::key_menu_select) {
+                mgr::menus::menu_item_select();
+            }
+            if(event.keyboard.keycode == config::controls::p1_key_up ||
+                event.keyboard.keycode == config::controls::p2_key_up) {
+                mgr::menus::menu_pos_up();
+            }
+            if(event.keyboard.keycode == config::controls::p1_key_down ||
+                event.keyboard.keycode == config::controls::p2_key_down) {
+                mgr::menus::menu_pos_down();
+            }
+            if(event.keyboard.keycode == config::controls::p1_key_left ||
+                event.keyboard.keycode == config::controls::p2_key_left) {
+                mgr::menus::menu_pos_start_left();
+            }
+            if(event.keyboard.keycode == config::controls::p1_key_right ||
+                event.keyboard.keycode == config::controls::p2_key_right) {
+                mgr::menus::menu_pos_start_right();
+            }
+            break;
+        /////////////////////////////////////////////////////////////
+        case ALLEGRO_EVENT_KEY_UP:
+            if(event.keyboard.keycode == config::controls::p1_key_left ||
+                event.keyboard.keycode == config::controls::p2_key_left) {
+                mgr::menus::menu_pos_stop_left();
+            }
+            if(event.keyboard.keycode == config::controls::p1_key_right ||
+                event.keyboard.keycode == config::controls::p2_key_right) {
+                mgr::menus::menu_pos_stop_right();
+            }
+            break;
 
-            /* *********************** */
-            /* *** Joystick events *** */
-            /* *********************** */
-            /////////////////////////////////////////////////////////////
-            case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-                if(event.joystick.button == config::controls::key_menu) {
-                    mgr::menus::close_menu();
-                }
-                if(event.joystick.button == config::controls::key_menu_select) {
-                    mgr::menus::menu_item_select();
-                }
-                if(event.joystick.button == config::controls::p1_button_up ||
-                   event.joystick.button == config::controls::p2_button_up) {
-                    mgr::menus::menu_pos_up();
-                }
-                if(event.joystick.button == config::controls::p1_button_down ||
-                   event.joystick.button == config::controls::p2_button_down) {
-                    mgr::menus::menu_pos_down();
-                }
-                if(event.joystick.button == config::controls::p1_button_left ||
-                   event.joystick.button == config::controls::p2_button_left) {
-                    mgr::menus::menu_pos_start_left();
-                }
-                if(event.joystick.button == config::controls::p1_button_right ||
-                   event.joystick.button == config::controls::p2_button_right) {
-                    mgr::menus::menu_pos_start_right();
-                }
-                break;
-            /////////////////////////////////////////////////////////////
-            case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-                if(event.joystick.button == config::controls::p1_button_left ||
-                   event.joystick.button == config::controls::p2_button_left) {
-                    mgr::menus::menu_pos_stop_left();
-                }
-                if(event.joystick.button == config::controls::p1_button_right ||
-                   event.joystick.button == config::controls::p2_button_right) {
-                    mgr::menus::menu_pos_stop_right();
-                }
-                break;
-            /////////////////////////////////////////////////////////////
-            /*case ALLEGRO_EVENT_JOYSTICK_AXIS:
-                switch(event.joystick.axis) {
-                    case 0:  //  X axis
-                        if(event.joystick.pos < -0.6f && last_x_axis[WTE_JOYSTICK_A] > -0.6f) {
-                            input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_ondown);
-                            last_x_axis[WTE_JOYSTICK_A] = event.joystick.pos;
-                            break;
-                        }
-                        if(event.joystick.pos > 0.6f && last_x_axis[WTE_JOYSTICK_A] < 0.6f) {
-                            input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_ondown);
-                            last_x_axis[WTE_JOYSTICK_A] = event.joystick.pos;
-                            break;
-                        }
-                        if(event.joystick.pos > -0.6f && last_x_axis[WTE_JOYSTICK_A] < -0.6f) {
-                            input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_UP);
-                            last_x_axis[WTE_JOYSTICK_A] = event.joystick.pos;
-                            break;
-                        }
-                        if(event.joystick.pos < 0.6f && last_x_axis[WTE_JOYSTICK_A] > 0.6f) {
-                            input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_UP);
-                            last_x_axis[WTE_JOYSTICK_A] = event.joystick.pos;
-                            break;
-                        }
+        /* *********************** */
+        /* *** Joystick events *** */
+        /* *********************** */
+        /////////////////////////////////////////////////////////////
+        case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
+            if(event.joystick.button == config::controls::key_menu) {
+                mgr::menus::close_menu();
+            }
+            if(event.joystick.button == config::controls::key_menu_select) {
+                mgr::menus::menu_item_select();
+            }
+            if(event.joystick.button == config::controls::p1_button_up ||
+                event.joystick.button == config::controls::p2_button_up) {
+                mgr::menus::menu_pos_up();
+            }
+            if(event.joystick.button == config::controls::p1_button_down ||
+                event.joystick.button == config::controls::p2_button_down) {
+                mgr::menus::menu_pos_down();
+            }
+            if(event.joystick.button == config::controls::p1_button_left ||
+                event.joystick.button == config::controls::p2_button_left) {
+                mgr::menus::menu_pos_start_left();
+            }
+            if(event.joystick.button == config::controls::p1_button_right ||
+                event.joystick.button == config::controls::p2_button_right) {
+                mgr::menus::menu_pos_start_right();
+            }
+            break;
+        /////////////////////////////////////////////////////////////
+        case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
+            if(event.joystick.button == config::controls::p1_button_left ||
+                event.joystick.button == config::controls::p2_button_left) {
+                mgr::menus::menu_pos_stop_left();
+            }
+            if(event.joystick.button == config::controls::p1_button_right ||
+                event.joystick.button == config::controls::p2_button_right) {
+                mgr::menus::menu_pos_stop_right();
+            }
+            break;
+        /////////////////////////////////////////////////////////////
+        /*case ALLEGRO_EVENT_JOYSTICK_AXIS:
+            switch(event.joystick.axis) {
+                case 0:  //  X axis
+                    if(event.joystick.pos < -0.6f && last_x_axis[WTE_JOYSTICK_A] > -0.6f) {
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_ondown);
+                        last_x_axis[WTE_JOYSTICK_A] = event.joystick.pos;
                         break;
-                    case 1:  //  Y axis
-                        if(event.joystick.pos < -0.6f && last_y_axis[WTE_JOYSTICK_A] > -0.6f)
-                            input_flags::set_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_ondown);
-                        if(event.joystick.pos > 0.6f && last_y_axis[WTE_JOYSTICK_A] < 0.6f)
-                            input_flags::set_button_event(WTE_INPUT_BUTTON_ondown, WTE_BUTTON_EVENT_ondown);
-                        last_y_axis[WTE_JOYSTICK_A] = event.joystick.pos;
+                    }
+                    if(event.joystick.pos > 0.6f && last_x_axis[WTE_JOYSTICK_A] < 0.6f) {
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_ondown);
+                        last_x_axis[WTE_JOYSTICK_A] = event.joystick.pos;
                         break;
-                }
-                break;*/
+                    }
+                    if(event.joystick.pos > -0.6f && last_x_axis[WTE_JOYSTICK_A] < -0.6f) {
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_LEFT, WTE_BUTTON_EVENT_UP);
+                        last_x_axis[WTE_JOYSTICK_A] = event.joystick.pos;
+                        break;
+                    }
+                    if(event.joystick.pos < 0.6f && last_x_axis[WTE_JOYSTICK_A] > 0.6f) {
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_RIGHT, WTE_BUTTON_EVENT_UP);
+                        last_x_axis[WTE_JOYSTICK_A] = event.joystick.pos;
+                        break;
+                    }
+                    break;
+                case 1:  //  Y axis
+                    if(event.joystick.pos < -0.6f && last_y_axis[WTE_JOYSTICK_A] > -0.6f)
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_UP, WTE_BUTTON_EVENT_ondown);
+                    if(event.joystick.pos > 0.6f && last_y_axis[WTE_JOYSTICK_A] < 0.6f)
+                        input_flags::set_button_event(WTE_INPUT_BUTTON_ondown, WTE_BUTTON_EVENT_ondown);
+                    last_y_axis[WTE_JOYSTICK_A] = event.joystick.pos;
+                    break;
+            }
+            break;*/
         }  //  End switch(event.type)
     }  //  End menu event processing
 
@@ -203,10 +203,12 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
         /* *********************** */
         /* *** Keyboard events *** */
         /* *********************** */
+        /////////////////////////////////////////////////////////////
         case ALLEGRO_EVENT_KEY_DOWN:
             if(event.keyboard.keycode == config::controls::key_menu) config::_flags::game_menu_opened = true;
             if(config::flags::input_enabled) {
                 try {
+                    /////////////////////////////////////////////////////////////
                     /* *** PLAYER 1 *** */
                     if(event.keyboard.keycode == config::controls::p1_key_up)
                         try { 
@@ -240,6 +242,7 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                         try { input::event::p1::ondown::action5(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_action6)
                         try { input::event::p1::ondown::action6(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
+                    /////////////////////////////////////////////////////////////
                     /* *** PLAYER 2 *** */
                     if(event.keyboard.keycode == config::controls::p2_key_up)
                         try {
@@ -276,9 +279,11 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                 } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
             }
             break;  //  End case ALLEGRO_EVENT_KEY_DOWN
+        /////////////////////////////////////////////////////////////
         case ALLEGRO_EVENT_KEY_UP:
             if(config::flags::input_enabled) {
                 try {
+                    /////////////////////////////////////////////////////////////
                     /* *** PLAYER 1 *** */
                     if(event.keyboard.keycode == config::controls::p1_key_up)
                         try {
@@ -312,6 +317,7 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                         try { input::event::p1::onup::action5(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p1_key_action6)
                         try { input::event::p1::onup::action6(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
+                    /////////////////////////////////////////////////////////////
                     /* *** PLAYER 2 *** */
                     if(event.keyboard.keycode == config::controls::p2_key_up)
                         try {
@@ -352,10 +358,12 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
         /* *********************** */
         /* *** Joystick events *** */
         /* *********************** */
+        /////////////////////////////////////////////////////////////
         case ALLEGRO_EVENT_JOYSTICK_AXIS:
             /* *** PLAYER 1 *** */
             /* *** PLAYER 2 *** */
             break;
+        /////////////////////////////////////////////////////////////
         case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
             /* *** PLAYER 1 *** */
             if(event.joystick.button == config::controls::p1_button_up)
@@ -390,6 +398,7 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                 try { input::event::p1::ondown::action5(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
             if(event.joystick.button == config::controls::p1_button_action6)
                 try { input::event::p1::ondown::action6(); } catch(...) { throw wte_exception("Error processing player1 ondown input", "input", engine_time::check_time()); }
+            /////////////////////////////////////////////////////////////
             /* *** PLAYER 2 *** */
             if(event.joystick.button == config::controls::p2_button_up)
                 try { 
@@ -424,7 +433,9 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
             if(event.joystick.button == config::controls::p2_button_action6)
                 try { input::event::p2::ondown::action6(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
             break;  //  end ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN
+        /////////////////////////////////////////////////////////////
         case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
+            /////////////////////////////////////////////////////////////
             /* *** PLAYER 1 *** */
             if(event.joystick.button == config::controls::p1_button_up)
                 try { 
@@ -458,6 +469,7 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                 try { input::event::p1::onup::action5(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
             if(event.joystick.button == config::controls::p1_button_action6)
                 try { input::event::p1::onup::action6(); } catch(...) { throw wte_exception("Error processing player1 onup input", "input", engine_time::check_time()); }
+            /////////////////////////////////////////////////////////////
             /* *** PLAYER 2 *** */
             if(event.joystick.button == config::controls::p2_button_up)
                 try { 

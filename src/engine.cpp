@@ -64,7 +64,7 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
     //  commands
     cmds.add("exit", 0, [this](const msg_args& args) {
         if(config::flags::game_started) process_end_game();
-        config::flags::is_running = false;
+        config::_flags::is_running = false;
     });
     cmds.add("alert", 3, [this](const msg_args& args) {
         // need to parse args
@@ -177,7 +177,7 @@ void engine::process_new_game(const std::string& game_data) {
     std::srand(std::time(nullptr));  //  Seed random, using time.
 
     //  Make sure the menu isn't opened.
-    config::flags::game_menu_opened = false;
+    config::_flags::game_menu_opened = false;
 
     //  Load a new message data file.
     if(!game_data.empty()) mgr::messages::load_file(game_data);
@@ -200,7 +200,7 @@ void engine::process_new_game(const std::string& game_data) {
     try { new_game(); } catch(wte_exception& e) {
         //  Failed to create new game, abort.
         alert::set(e.what(), e.where(), e.when(), true);
-        config::flags::game_menu_opened = true;
+        config::_flags::game_menu_opened = true;
         return;
     }
 
@@ -208,7 +208,7 @@ void engine::process_new_game(const std::string& game_data) {
     al_stop_timer(main_timer);
     al_set_timer_count(main_timer, 0);
     engine_time::set_time(al_get_timer_count(main_timer));
-    config::flags::game_started = true;
+    config::_flags::game_started = true;
     config::flags::input_enabled = true;
     al_start_timer(main_timer);
 }
@@ -218,7 +218,7 @@ void engine::process_new_game(const std::string& game_data) {
  */
 void engine::process_end_game(void) {
     al_stop_timer(main_timer);
-    config::flags::game_started = false;
+    config::_flags::game_started = false;
     config::flags::input_enabled = true;
     al_set_timer_count(main_timer, 0);
     engine_time::set_time(al_get_timer_count(main_timer));
@@ -238,7 +238,7 @@ void engine::process_end_game(void) {
     mgr::systems::clear();
 
     //  Open the menus.
-    config::flags::game_menu_opened = true;
+    config::_flags::game_menu_opened = true;
 }
 
 /*
@@ -248,15 +248,15 @@ void engine::do_game(void) {
     wte_load();
 
     //  Set default states.
-    config::flags::is_running = true;
-    config::flags::game_started = false;
-    config::flags::game_menu_opened = true;
+    config::_flags::is_running = true;
+    config::_flags::game_started = false;
+    config::_flags::game_menu_opened = true;
 
     /* *** ENGINE LOOP ************************************************************ */
     while(config::flags::is_running) {
         if(!config::flags::game_started) {            //  Game not running.
             al_stop_timer(main_timer);                //  Make sure the timer isn't.
-            config::flags::game_menu_opened = true;   //  And force the menu manager.
+            config::_flags::game_menu_opened = true;   //  And force the menu manager.
         }
 
         //  Check for input.
@@ -317,7 +317,7 @@ void engine::do_game(void) {
         //  Force quit if the game window is closed.
         if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
             if(config::flags::game_started) process_end_game();
-            config::flags::is_running = false;
+            config::_flags::is_running = false;
         }
     }
     /* *** END ENGINE LOOP ******************************************************** */

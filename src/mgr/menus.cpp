@@ -136,7 +136,7 @@ const mnu::menu_sptr menus::set_menu(const std::string& name) {
  */
 void menus::reset(void) {
     opened_menus = {};
-    config::flags::game_menu_opened = false;
+    config::_flags::game_menu_opened = false;
 }
 
 /*
@@ -144,7 +144,7 @@ void menus::reset(void) {
  */
 void menus::open_menu(const std::string& menu_id) {
     opened_menus.push(get_menu(menu_id));
-    config::flags::game_menu_opened = true;
+    config::_flags::game_menu_opened = true;
     menu_position = opened_menus.top()->items_cbegin();
 
     //  Set default values for any menu settings objects.
@@ -160,7 +160,7 @@ void menus::close_menu(void) {
     al_stop_timer(menu_timer);
     al_set_timer_count(menu_timer, 0);
     opened_menus.pop();
-    if(opened_menus.empty()) config::flags::game_menu_opened = false;
+    if(opened_menus.empty()) config::_flags::game_menu_opened = false;
     else menu_position = opened_menus.top()->items_cbegin();
 }
 

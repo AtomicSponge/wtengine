@@ -77,8 +77,8 @@ void display::create_display(void) {
         _display = al_create_display(mgr::renderer::get_arena_width(),
                                      mgr::renderer::get_arena_height());
         if(!_display) throw std::runtime_error("Failed to configure display!");
-        config::gfx::display_mode = 0;
-        config::gfx::scale_factor = 1.0f;
+        config::_gfx::display_mode = 0;
+        config::_gfx::scale_factor = 1.0f;
         screen_w = mgr::renderer::get_arena_width();
         screen_h = mgr::renderer::get_arena_height();
     }

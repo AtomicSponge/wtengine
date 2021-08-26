@@ -18,11 +18,22 @@
 
 namespace wte {
 
+namespace mgr {
+    class menus;
+    class renderer;
+}
+
 /*!
  * \class config
  * \brief Store engine config variables in a globally accessible class.
  */
 class config {
+    friend class display;
+    friend class engine;
+    friend class input;
+    friend class mgr::menus;
+    friend class mgr::renderer;
+
     public:
         virtual ~config() = default;
 
@@ -31,9 +42,9 @@ class config {
          * \brief Engine flags.
          */
         struct flags {
-            inline static bool is_running = true;
-            inline static bool game_started = false;
-            inline static bool game_menu_opened = true;
+            static const bool& is_running;
+            static const bool& game_started;
+            static const bool& game_menu_opened;
             inline static bool draw_fps = true;
             inline static bool record_input = false;
             inline static bool input_enabled = true;
@@ -44,11 +55,11 @@ class config {
          * \brief Volume levels.
          */
         struct volume {
-            inline static float main = 1.0f;
-            inline static float mix1 = 1.0f;
-            inline static float mix2 = 1.0f;
-            inline static float mix3 = 1.0f;
-            inline static float mix4 = 1.0f;
+            static const float& main;
+            static const float& mix1;
+            static const float& mix2;
+            static const float& mix3;
+            static const float& mix4;
         };
 
         /*!
@@ -56,10 +67,10 @@ class config {
          * \brief Graphics settings.
          */
         struct gfx {
-            inline static std::size_t vsync = 2;
-            inline static std::size_t display_mode = 0;
-            inline static float scale_factor = 1.0f;
-            inline static float menu_scale_factor = 1.0f;
+            static const std::size_t& vsync;
+            static const std::size_t& display_mode;
+            static const float& scale_factor;
+            static const float& menu_scale_factor;
         };
 
         /*!
@@ -67,6 +78,136 @@ class config {
          * \brief Control binding settings.
          */
         struct controls {
+            static const int& key_menu;
+            static const int& key_menu_select;
+
+            /*
+             * Player 1 keyboard
+             */
+            static const int& p1_key_up;
+            static const int& p1_key_down;
+            static const int& p1_key_left;
+            static const int& p1_key_right;
+            static const int& p1_key_action1;
+            static const int& p1_key_action2;
+            static const int& p1_key_action3;
+            static const int& p1_key_action4;
+            static const int& p1_key_action5;
+            static const int& p1_key_action6;
+
+            /*
+             * Player 1 joystick
+             */
+            static const int& p1_button_up;
+            static const int& p1_button_down;
+            static const int& p1_button_left;
+            static const int& p1_button_right;
+            static const int& p1_button_action1;
+            static const int& p1_button_action2;
+            static const int& p1_button_action3;
+            static const int& p1_button_action4;
+            static const int& p1_button_action5;
+            static const int& p1_button_action6;
+            static const int& p1_button_start;
+            static const int& p1_button_select;
+            static const float& p1_pola_x;
+            static const float& p1_pola_y;
+            static const float& p1_polb_x;
+            static const float& p1_polb_y;
+            static const float& p1_polc_x;
+            static const float& p1_polc_y;
+            static const float& p1_throttle_left;
+            static const float& p1_throttle_right;
+
+            /*
+             * Player 2 keyboard
+             */
+            static const int& p2_key_up;
+            static const int& p2_key_down;
+            static const int& p2_key_left;
+            static const int& p2_key_right;
+            static const int& p2_key_action1;
+            static const int& p2_key_action2;
+            static const int& p2_key_action3;
+            static const int& p2_key_action4;
+            static const int& p2_key_action5;
+            static const int& p2_key_action6;
+
+            /*
+             * Player 2 joystick
+             */
+            static const int& p2_button_up;
+            static const int& p2_button_down;
+            static const int& p2_button_left;
+            static const int& p2_button_right;
+            static const int& p2_button_action1;
+            static const int& p2_button_action2;
+            static const int& p2_button_action3;
+            static const int& p2_button_action4;
+            static const int& p2_button_action5;
+            static const int& p2_button_action6;
+            static const int& p2_button_start;
+            static const int& p2_button_select;
+            static const float& p2_pola_x;
+            static const float& p2_pola_y;
+            static const float& p2_polb_x;
+            static const float& p2_polb_y;
+            static const float& p2_polc_x;
+            static const float& p2_polc_y;
+            static const float& p2_throttle_left;
+            static const float& p2_throttle_right;
+
+            /*!
+             * \brief Reset P1 joystick polls.
+             */
+            static void reset_p1_pols(void);
+
+            /*!
+             * \brief Reset P2 joystick polls.
+             */
+            static void reset_p2_pols(void);
+
+            /*!
+             * \brief Reset P1 & P2 joystick polls.
+             */
+            static void reset_pols(void);
+        };
+
+        /*!
+         * \brief Load engine config settings from file.
+         * \return False on fail, true on success.
+         */
+        static const bool load(void);
+
+        /*!
+         * \brief Save engine config settings to file.
+         * \return False on fail, true on success.
+         */
+        static const bool save(void);
+
+    private:
+        struct _flags {
+            inline static bool is_running = true;
+            inline static bool game_started = false;
+            inline static bool game_menu_opened = true;
+        };
+
+        struct _volume {
+            inline static float main = 1.0f;
+            inline static float mix1 = 1.0f;
+            inline static float mix2 = 1.0f;
+            inline static float mix3 = 1.0f;
+            inline static float mix4 = 1.0f;
+        };
+
+        struct _gfx {
+            inline static std::size_t vsync = 2;
+            inline static std::size_t display_mode = 0;
+            inline static float scale_factor = 1.0f;
+            inline static float menu_scale_factor = 1.0f;
+        };
+
+        struct _controls {
             inline static int key_menu = WTE_KEY_MENU_DEFAULT;
             inline static int key_menu_select = WTE_KET_MENU_SELECT_DEFAULT;
 
@@ -146,18 +287,6 @@ class config {
             inline static float p2_throttle_left = 0.0f;
             inline static float p2_throttle_right = 0.0f;
         };
-
-        /*!
-         * \brief Load engine config settings from file.
-         * \return False on fail, true on success.
-         */
-        static const bool load(void);
-
-        /*!
-         * \brief Save engine config settings to file.
-         * \return False on fail, true on success.
-         */
-        static const bool save(void);
 
     protected:
         config();

@@ -110,7 +110,7 @@ void renderer::set_font(wte_asset<al_font> font) { renderer_font = font; }
  *
  */
 void renderer::render(void) {
-    float scale_factor = config::gfx::scale_factor;
+    const float scale_factor = config::gfx::scale_factor;
     /*
      * Calculate fps.
      */
@@ -191,12 +191,12 @@ void renderer::render(void) {
                     it.second->get_sprite_height()
                 );
 
-                float sprite_angle = 0.0f;
-                float center_x = 0.0f, center_y = 0.0f;
-                float destination_x = 0.0f, destination_y = 0.0f;
-
                 try {
+                    float sprite_angle = 0.0f;
+                    float center_x = 0.0f, center_y = 0.0f;
+                    float destination_x = 0.0f, destination_y = 0.0f;
                     cmp::const_comp_ptr<cmp::location> temp_get = mgr::world::get_component<cmp::location>(it.first);
+
                     //  Check if the sprite should be rotated.
                     if(it.second->draw_rotated()) {
                         sprite_angle = it.second->get_direction();
@@ -213,24 +213,25 @@ void renderer::render(void) {
                             destination_x = temp_get->get_x() + it.second->get_draw_offset_x();
                             destination_y = temp_get->get_y() + it.second->get_draw_offset_y();
                     }
+
+                    //  Draw the sprite.
+                    if(it.second->draw_tinted())
+                        al_draw_tinted_scaled_rotated_bitmap(
+                            temp_bitmap, it.second->get_tint(),
+                            center_x, center_y, destination_x, destination_y,
+                            it.second->get_scale_factor_x(),
+                            it.second->get_scale_factor_y(),
+                            sprite_angle, 0
+                        );
+                    else
+                        al_draw_scaled_rotated_bitmap(
+                            temp_bitmap, center_x, center_y, destination_x, destination_y,
+                            it.second->get_scale_factor_x(),
+                            it.second->get_scale_factor_y(),
+                            sprite_angle, 0
+                        );
                 } catch(...) { throw; }
 
-                //  Draw the sprite.
-                if(it.second->draw_tinted())
-                    al_draw_tinted_scaled_rotated_bitmap(
-                        temp_bitmap, it.second->get_tint(),
-                        center_x, center_y, destination_x, destination_y,
-                        it.second->get_scale_factor_x(),
-                        it.second->get_scale_factor_y(),
-                        sprite_angle, 0
-                    );
-                else
-                    al_draw_scaled_rotated_bitmap(
-                        temp_bitmap, center_x, center_y, destination_x, destination_y,
-                        it.second->get_scale_factor_x(),
-                        it.second->get_scale_factor_y(),
-                        sprite_angle, 0
-                    );
                 al_destroy_bitmap(temp_bitmap);
             }
         }
@@ -319,16 +320,17 @@ void renderer::render(void) {
      * Render game menu if it's opened.
      */
     if(config::flags::game_menu_opened) {
+        const float menu_scale_factor = config::gfx::menu_scale_factor;
         temp_bitmap = al_clone_bitmap(mgr::menus::render_menu());
         al_set_target_backbuffer(al_get_current_display());
 
         al_draw_scaled_bitmap(
             temp_bitmap, 0, 0,
             al_get_bitmap_width(temp_bitmap), al_get_bitmap_height(temp_bitmap),
-            (screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * scale_factor) / 2),
-            (screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * scale_factor) / 2),
-            al_get_bitmap_width(temp_bitmap) * scale_factor,
-            al_get_bitmap_height(temp_bitmap) * scale_factor, 0
+            (screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * menu_scale_factor) / 2),
+            (screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * menu_scale_factor) / 2),
+            al_get_bitmap_width(temp_bitmap) * menu_scale_factor,
+            al_get_bitmap_height(temp_bitmap) * menu_scale_factor, 0
         );
         al_destroy_bitmap(temp_bitmap);
     }
@@ -337,7 +339,7 @@ void renderer::render(void) {
      * Render alerts.
      */
     if(alert::is_set()) {
-        int font_size = al_get_font_line_height(**renderer_font);
+        const int font_size = al_get_font_line_height(**renderer_font);
 
         temp_bitmap = al_create_bitmap((alert::get().length() * font_size) + 20, font_size + 20);
         al_set_target_bitmap(temp_bitmap);
@@ -364,13 +366,13 @@ void renderer::render(void) {
      */
     //  Draw frame rate.
     if(config::flags::draw_fps) {
-        std::string fps_string = "FPS: " + std::to_string(fps);
+        const std::string fps_string = "FPS: " + std::to_string(fps);
         al_draw_text(**renderer_font, WTE_COLOR_YELLOW, screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
 
     //  Draw time if debug mode is enabled.
     #if WTE_DEBUG_MODE
-    std::string timer_string = "Timer: " + std::to_string(engine_time::check_time());
+    const std::string timer_string = "Timer: " + std::to_string(engine_time::check_time());
     al_draw_text(**renderer_font, WTE_COLOR_YELLOW, screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     #endif
 

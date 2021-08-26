@@ -40,28 +40,24 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
      */
     input::event::p1::ondown::up = []() {
         entity_id player_id = mgr::world::get_id("player");
-        config::controls::p1_polc_y = -1.0f;
         const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
         mgr::world::set_component<cmp::motion>(player_id)->set_direction(rad);
         mgr::world::set_component<cmp::motion>(player_id)->set_velocity(5.0f);
     };
     input::event::p1::ondown::down = []() {
         entity_id player_id = mgr::world::get_id("player");
-        config::controls::p1_polc_y = 1.0f;
         const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
         mgr::world::set_component<cmp::motion>(player_id)->set_direction(rad);
         mgr::world::set_component<cmp::motion>(player_id)->set_velocity(5.0f);
     };
     input::event::p1::ondown::left = []() {
         entity_id player_id = mgr::world::get_id("player");
-        config::controls::p1_polc_x = -1.0f;
         const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
         mgr::world::set_component<cmp::motion>(player_id)->set_direction(rad);
         mgr::world::set_component<cmp::motion>(player_id)->set_velocity(5.0f);
     };
     input::event::p1::ondown::right = []() {
         entity_id player_id = mgr::world::get_id("player");
-        config::controls::p1_polc_x = 1.0f;
         const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
         mgr::world::set_component<cmp::motion>(player_id)->set_direction(rad);
         mgr::world::set_component<cmp::motion>(player_id)->set_velocity(5.0f);
@@ -109,25 +105,21 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
 
     input::event::p1::onup::up = []() {
         entity_id player_id = mgr::world::get_id("player");
-        if(config::controls::p1_polc_y != 1.0f) config::controls::p1_polc_y = 0.0f;
         if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f)
             mgr::world::set_component<cmp::motion>(player_id)->set_velocity(0.0f);
     };
     input::event::p1::onup::down = []() {
         entity_id player_id = mgr::world::get_id("player");
-        if(config::controls::p1_polc_y != -1.0f) config::controls::p1_polc_y = 0.0f;
         if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f)
             mgr::world::set_component<cmp::motion>(player_id)->set_velocity(0.0f);
     };
     input::event::p1::onup::left = []() {
         entity_id player_id = mgr::world::get_id("player");
-        if(config::controls::p1_polc_x != 1.0f) config::controls::p1_polc_x = 0.0f;
         if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f)
             mgr::world::set_component<cmp::motion>(player_id)->set_velocity(0.0f);
     };
     input::event::p1::onup::right = []() {
         entity_id player_id = mgr::world::get_id("player");
-        if(config::controls::p1_polc_x != -1.0f) config::controls::p1_polc_x = 0.0f;
         if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f)
             mgr::world::set_component<cmp::motion>(player_id)->set_velocity(0.0f);
     };
@@ -470,14 +462,17 @@ void wte_demo::new_game(void) {
                 entity_id cannon_id = mgr::world::get_id("main_cannon");
                 mgr::world::set_component<cmp::sprite>(cannon_id)->hide();
                 mgr::world::set_component<cmp::ai>(cannon_id)->disable();
+                mgr::world::set_component<cmp::hitbox>(cannon_id)->make_fluid();
                 mgr::audio::sample_stop("cannon_fire");
 
                 //  Just to make sure... turn shield off
                 entity_id shield_id = mgr::world::get_id("shield");
                 mgr::world::set_component<cmp::sprite>(shield_id)->hide();
                 mgr::world::set_component<cmp::ai>(shield_id)->disable();
-                mgr::world::set_component<cmp::hitbox>(plr_id)->make_solid();
+                mgr::world::set_component<cmp::hitbox>(shield_id)->make_fluid();
                 mgr::audio::sample_stop("shield_sound");
+
+                mgr::world::set_component<cmp::hitbox>(plr_id)->make_fluid();
 
                 mgr::audio::sample_play("megumin", "once");
                 mgr::variables::set<int>("lives", mgr::variables::get<int>("lives") - 1);
@@ -499,14 +494,14 @@ void wte_demo::new_game(void) {
             //  Reset player.
             if(msg.get_cmd() == "reset") {
                 config::flags::input_enabled = true;
-                config::controls::p1_polc_x = 0.0f;
-                config::controls::p1_polc_y = 0.0f;
+                config::controls::reset_pols();
                 mgr::world::set_component<cmp::motion>(plr_id)->set_velocity(0.0f);
                 mgr::world::set_component<cmp::location>(plr_id)->set_x((float)((mgr::renderer::get_arena_width() / 2) - 5));
                 mgr::world::set_component<cmp::location>(plr_id)->set_y((float)(mgr::renderer::get_arena_height() - 40));
                 mgr::world::set_component<health>(plr_id)->hp = mgr::world::get_component<health>(plr_id)->hp_max;
                 mgr::world::set_component<cmp::ai>(plr_id)->enable();
                 mgr::world::set_component<cmp::sprite>(plr_id)->set_cycle("main");
+                mgr::world::set_component<cmp::hitbox>(plr_id)->make_solid();
             }
 
             //  Take damage.

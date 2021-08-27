@@ -54,7 +54,7 @@ const bool systems::add(sys::system_uptr new_system) {
  */
 void systems::run() {
     for(auto& it: _systems)
-        try { (it)->run(); } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
+        try { (it)->run(); } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
 }
 
 /*
@@ -73,7 +73,7 @@ void systems::dispatch(void) {
                 if(m_it->get_to() == mgr::world::get_name(c_it.first)) {
                     try {
                         c_it.second->proc_msg(c_it.first, *m_it);
-                    } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
+                    } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
                     m_it = temp_msgs.erase(m_it);
                 } else m_it++;
             }

@@ -236,7 +236,7 @@ class al_bitmap_converter final {
         inline static void backup_bitmaps(void) {
             _bitmaps_backup.clear();
             /*al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            for (auto& it: std::get<idx>(mgr::assets<>::_assets)) {
+            for (auto& it: std::get<1>(mgr::assets<>::_assets)) {
                 if(it.second->isconverted()) {
                     //  Make a conversion safe copy in the backup map.
                     _bitmaps_backup.insert(std::make_pair(it.first, al_clone_bitmap(**it.second)));
@@ -267,22 +267,22 @@ class al_bitmap_converter final {
             ALLEGRO_BITMAP*
         > _bitmaps_backup;
 
-        //inline static constexpr std::size_t idx = Index<al_bitmap, mgr::assets::_assets>::value;
-
         /*template<
             typename Tuple,
-            typename Indices=std::make_index_sequence<std::tuple_size<Tuple>::value>
+            typename Indices = std::make_index_sequence<std::tuple_size<Tuple>::value>
         >
         struct runtime_get_func_table;
 
         template<typename Tuple, std::size_t ...Indices>
         struct runtime_get_func_table<Tuple,std::index_sequence<Indices...>>{
             using return_type = typename std::tuple_element<0,Tuple>::type&;
-            using get_func_ptr=return_type (*)(Tuple&) noexcept;
-            static constexpr get_func_ptr table[std::tuple_size<Tuple>::value] = {
+            using get_func_ptr = return_type (*)(Tuple&) noexcept;
+            inline static constexpr get_func_ptr table[std::tuple_size<Tuple>::value] = {
                 &std::get<Indices>...
             };
         };
+
+        inline static constexpr std::size_t idx = Indices<al_bitmap, mgr::assets<>::_assets>;
 
         template<typename Tuple, std::size_t ...Indices>
         constexpr typename runtime_get_func_table<Tuple, std::index_sequence<Indices...>>::get_func_ptr

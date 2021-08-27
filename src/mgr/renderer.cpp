@@ -343,9 +343,9 @@ void renderer::render(void) {
 
         ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap((alert::get().length() * font_size) + 20, font_size + 20);
         al_set_target_bitmap(temp_bitmap);
-        al_clear_to_color(alert::get_bg_color());
+        al_clear_to_color(WTE_COLOR_RED);
 
-        al_draw_text(**renderer_font, alert::get_font_color(),
+        al_draw_text(**renderer_font, WTE_COLOR_WHITE,
                      (al_get_bitmap_width(temp_bitmap) / 2), 10,
                      ALLEGRO_ALIGN_CENTER, alert::get().c_str());
 

@@ -68,7 +68,7 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
     });
     cmds.add("alert", 3, [this](const msg_args& args) {
         // need to parse args
-        //alert::set(args[0], args[1], engine_time::check_time(), args[2]);
+        //alert::set(args[0], args[1], engine_time::check_time());
     });
     cmds.add("new_game", 1, [this](const msg_args& args) {
         if(!config::flags::game_started) {
@@ -108,13 +108,9 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
     cmds.add("load_script", 1, [this](const msg_args& args) {
         if(config::flags::game_started && args[0] != "") {
             if(!mgr::messages::load_script(args[0]))
-                alert::set("Error loading script:  " + args[0], "engine", engine_time::check_time(), true);
+                alert::set("Error loading script:  " + args[0], "engine", engine_time::check_time());
         }
     });
-
-    //  Set default colors for alerts.
-    alert::set_font_color(WTE_COLOR_WHITE);
-    alert::set_bg_color(WTE_COLOR_RED);
 }
 
 /*
@@ -194,7 +190,7 @@ void engine::process_new_game(const std::string& game_data) {
     
     try { new_game(); } catch(wte_exception& e) {
         //  Failed to create new game, abort.
-        alert::set(e.what(), e.where(), e.when(), true);
+        alert::set(e.what(), e.where(), e.when());
         config::_flags::game_menu_opened = true;
         return;
     }
@@ -226,7 +222,7 @@ void engine::process_end_game(void) {
     mgr::audio::sample_clear_instances();
 
     //  Call end game process.
-    try { end_game(); } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
+    try { end_game(); } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
 
     //  Clear world and systems.
     mgr::world::clear();

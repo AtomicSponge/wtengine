@@ -275,7 +275,7 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                         try { input::event::p2::ondown::action5(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_action6)
                         try { input::event::p2::ondown::action6(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
-                } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
+                } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
             }
             break;  //  End case ALLEGRO_EVENT_KEY_DOWN
         /////////////////////////////////////////////////////////////
@@ -350,7 +350,7 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                         try { input::event::p2::onup::action5(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
                     if(event.keyboard.keycode == config::controls::p2_key_action6)
                         try { input::event::p2::onup::action6(); } catch(...) { throw wte_exception("Error processing player2 onup input", "input", engine_time::check_time()); }
-                } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
+                } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
             }
             break;  //  End case ALLEGRO_EVENT_KEY_UP
 

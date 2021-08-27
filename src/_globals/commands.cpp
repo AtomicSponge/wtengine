@@ -40,7 +40,7 @@ void commands::process_messages(
                     throw wte_exception(err_msg.c_str(), "command processor", engine_time::check_time());
                 }
             }
-        } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
+        } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
     }
 }
 

@@ -12,8 +12,6 @@
 
 #include <string>
 
-#include <allegro5/allegro.h>
-
 namespace wte {
 
 /*!
@@ -32,13 +30,11 @@ class alert final {
          * \param a Alert to display.
          * \param l Location of alert.
          * \param t Time of alert.
-         * \param s Status of the alert (true = bad / false = good).
          */
         static void set(
             const std::string& a,
             const std::string& l,
-            const int64_t& t,
-            const bool& s
+            const int64_t& t
         );
 
         /*!
@@ -59,13 +55,6 @@ class alert final {
          */
         static const int64_t get_time(void);
 
-        
-        /*!
-         * \brief Return the alert status.
-         * \return Status of the alert.
-         */
-        static const bool get_status(void);
-
         /*!
          * \brief Check to see if an alert is set.
          * \return True if set, false if not set.
@@ -73,42 +62,14 @@ class alert final {
         static const bool is_set(void);
 
         /*!
-         * \brief Get the font color for alerts.
-         * \return A struct representing an Allegro Color object for the alert font.
-         */
-        static const ALLEGRO_COLOR get_font_color(void);
-
-        /*!
-         * \brief Get the background color for alerts.
-         * \return A struct representing an Allegro Color object for the alert background.
-         */
-        static const ALLEGRO_COLOR get_bg_color(void);
-
-        /*!
-         * \brief Set the font color for alerts.
-         * \param c A struct representing an Allegro Color object for the alert font.
-         */
-        static void set_font_color(const ALLEGRO_COLOR& c);
-
-        /*!
-         * \brief Set the background color for alerts.
-         * \param c A struct representing an Allegro Color object for the alert background.
-         */
-        static void set_bg_color(const ALLEGRO_COLOR& c);
-
-        /*!
          * \brief Clear the alert.
          */
         static void clear(void);
 
     private:
-        static ALLEGRO_COLOR font_color;    //  Alert font color.
-        static ALLEGRO_COLOR bg_color;      //  Alert background color.
-
         static std::string alert_text;      //  The alert display text.
         static std::string alert_location;  //  Location of the alert.
         static int64_t alert_time;          //  Alert time.
-        static bool alert_status;           //  Status of alert.
         static bool alert_set;              //  Flag to check if alert is set.
 };
 

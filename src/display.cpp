@@ -109,9 +109,11 @@ void display::destroy_display(void) { al_destroy_display(_display); }
  *
  */
 void display::reconf_display(void) {
+    al_bitmap_converter::backup_bitmaps();
     destroy_display();
     create_display();
     al_convert_memory_bitmaps();
+    al_bitmap_converter::reload_bitmaps();
 }
 
 } //  end namespace wte

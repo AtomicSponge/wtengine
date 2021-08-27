@@ -221,7 +221,7 @@ class al_font final {
  * Called by the engine internally durring the reconfig display command.
  */
 class al_bitmap_converter final {
-    friend class engine;
+    friend class display;
 
     public:
         al_bitmap_converter() = delete;

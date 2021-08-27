@@ -16,6 +16,7 @@
 #include <stdexcept>
 #include <cmath>
 
+#include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/mgr/renderer.hpp"
 
 namespace wte {

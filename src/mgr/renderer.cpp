@@ -15,7 +15,6 @@ namespace mgr {
 
 template <> bool renderer::manager<renderer>::initialized = false;
 
-ALLEGRO_BITMAP* renderer::temp_bitmap = NULL;
 ALLEGRO_TIMER* renderer::fps_timer = NULL;
 ALLEGRO_EVENT_QUEUE* renderer::fps_event_queue = NULL;
 ALLEGRO_EVENT renderer::fps_event;
@@ -110,7 +109,6 @@ void renderer::set_font(wte_asset<al_font> font) { renderer_font = font; }
  *
  */
 void renderer::render(void) {
-    const float scale_factor = config::gfx::scale_factor;
     /*
      * Calculate fps.
      */
@@ -183,7 +181,7 @@ void renderer::render(void) {
         for(auto& it: sprite_componenet_set) {
             if(it.second->is_visible()) {
                 //  Get the current sprite frame.
-                temp_bitmap = al_create_sub_bitmap(
+                ALLEGRO_BITMAP* temp_bitmap = al_create_sub_bitmap(
                     it.second->get_bitmap(),
                     it.second->get_sprite_x(),
                     it.second->get_sprite_y(),
@@ -255,8 +253,9 @@ void renderer::render(void) {
                         default: team_color = WTE_COLOR_YELLOW;
                     }
                     //  Draw the hitbox.
-                    temp_bitmap = al_create_bitmap(mgr::world::get_component<cmp::hitbox>(it.first)->get_width(),
-                                                    mgr::world::get_component<cmp::hitbox>(it.first)->get_height());
+                    ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap(
+                        mgr::world::get_component<cmp::hitbox>(it.first)->get_width(),
+                        mgr::world::get_component<cmp::hitbox>(it.first)->get_height());
                     al_set_target_bitmap(temp_bitmap);
                     al_clear_to_color(team_color);
                     al_set_target_bitmap(**arena_bitmap);
@@ -304,9 +303,10 @@ void renderer::render(void) {
          */
         al_set_target_backbuffer(al_get_current_display());
         al_draw_scaled_bitmap(**arena_bitmap, 0, 0, arena_w, arena_h,
-                              (screen_w / 2) - (arena_w * scale_factor / 2),
-                              (screen_h / 2) - (arena_h * scale_factor / 2),
-                              arena_w * scale_factor, arena_h * scale_factor, 0);
+                              (screen_w / 2) - (arena_w * config::gfx::scale_factor / 2),
+                              (screen_h / 2) - (arena_h * config::gfx::scale_factor / 2),
+                              arena_w * config::gfx::scale_factor,
+                              arena_h * config::gfx::scale_factor, 0);
     } else {
         /*
          * Game is not running - draw the title screen.
@@ -320,8 +320,8 @@ void renderer::render(void) {
      * Render game menu if it's opened.
      */
     if(config::flags::game_menu_opened) {
-        const float menu_scale_factor = config::gfx::menu_scale_factor;
-        temp_bitmap = al_clone_bitmap(mgr::menus::render_menu());
+        const float menu_scale_factor = config::gfx::menu_scale_factor * config::gfx::scale_factor;
+        ALLEGRO_BITMAP* temp_bitmap = al_clone_bitmap(mgr::menus::render_menu());
         al_set_target_backbuffer(al_get_current_display());
 
         al_draw_scaled_bitmap(
@@ -341,7 +341,7 @@ void renderer::render(void) {
     if(alert::is_set()) {
         const int font_size = al_get_font_line_height(**renderer_font);
 
-        temp_bitmap = al_create_bitmap((alert::get().length() * font_size) + 20, font_size + 20);
+        ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap((alert::get().length() * font_size) + 20, font_size + 20);
         al_set_target_bitmap(temp_bitmap);
         al_clear_to_color(alert::get_bg_color());
 
@@ -353,10 +353,10 @@ void renderer::render(void) {
         al_draw_scaled_bitmap(
             temp_bitmap, 0, 0,
             al_get_bitmap_width(temp_bitmap), al_get_bitmap_height(temp_bitmap),
-            (screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * scale_factor) / 2),
-            (screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * scale_factor) / 2),
-            al_get_bitmap_width(temp_bitmap) * scale_factor,
-            al_get_bitmap_height(temp_bitmap) * scale_factor, 0
+            (screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * config::gfx::scale_factor) / 2),
+            (screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * config::gfx::scale_factor) / 2),
+            al_get_bitmap_width(temp_bitmap) * config::gfx::scale_factor,
+            al_get_bitmap_height(temp_bitmap) * config::gfx::scale_factor, 0
         );
         al_destroy_bitmap(temp_bitmap);
     }

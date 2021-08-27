@@ -42,7 +42,7 @@ const bool systems::empty(void) { return _systems.empty(); }
 const bool systems::add(sys::system_uptr new_system) {
     if(finalized == true) return false;
 
-    for(auto & it : _systems)
+    for(auto& it: _systems)
         if((it)->get_name() == new_system->get_name()) return false;
 
     _systems.push_back(std::move(new_system));
@@ -53,7 +53,7 @@ const bool systems::add(sys::system_uptr new_system) {
  *
  */
 void systems::run() {
-    for(auto & it : _systems)
+    for(auto& it: _systems)
         try { (it)->run(); } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
 }
 
@@ -68,7 +68,7 @@ void systems::dispatch(void) {
         message_container temp_msgs = mgr::messages::get_messages("entities");
         if(temp_msgs.empty()) break;  //  No messages, end while(true) loop.
 
-        for(auto & c_it : dispatch_components) {
+        for(auto& c_it: dispatch_components) {
             for(auto m_it = temp_msgs.begin(); m_it != temp_msgs.end();) {
                 if(m_it->get_to() == mgr::world::get_name(c_it.first)) {
                     try {

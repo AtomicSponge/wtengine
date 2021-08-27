@@ -23,7 +23,7 @@ std::map<std::string, std::pair<std::size_t,
  *
  */
 void spawner::process_messages(const message_container& messages) {
-    for(auto & m_it : messages) {
+    for(auto& m_it: messages) {
         if(m_it.get_cmd() == "new") {
             auto s_it = spawns.find(m_it.get_arg(0));
             if(s_it != spawns.end())

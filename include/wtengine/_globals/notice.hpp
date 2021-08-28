@@ -76,7 +76,7 @@ class notice final {
 
         /*!
          * \brief Set the notice font color.
-         * \param a Allegro color to use for font.
+         * \param c Allegro color to use for font.
          */
         static void set_notice_font_color(const ALLEGRO_COLOR& c);
 

@@ -66,9 +66,8 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
         if(config::flags::game_started) process_end_game();
         config::_flags::is_running = false;
     });
-    cmds.add("alert", 3, [this](const msg_args& args) {
-        // need to parse args
-        //alert::set(args[0], args[1], engine_time::check_time());
+    cmds.add("alert", 2, [this](const msg_args& args) {
+        alert::set(args[0], args[1], engine_time::check_time());
     });
     cmds.add("new_game", 1, [this](const msg_args& args) {
         if(!config::flags::game_started) {

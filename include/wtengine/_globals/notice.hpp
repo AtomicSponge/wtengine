@@ -20,6 +20,10 @@
 
 namespace wte {
 
+namespace mgr {
+    class renderer;
+}
+
 /*!
  * \class notice
  * \brief Allows the engine to set a notice to be displayed to the screen.
@@ -27,6 +31,8 @@ namespace wte {
  * Notices are cleared after the player presses a button.
  */
 class notice final {
+    friend class mgr::renderer;
+
     public:
         notice() = delete;
         ~notice() = delete;
@@ -57,22 +63,39 @@ class notice final {
         static void clear(void);
 
         /*!
-         * \brief Set notice background.
+         * \brief Set the notice background.
          * \param a Asset to use for background.
          */
-        static void set_notice_bg(wte_asset<al_bitmap> a);
+        static void set_notice_bg(const wte_asset<al_bitmap> a);
 
         /*!
-         * \brief Set notice font.
+         * \brief Set the notice font.
          * \param a Asset to use for font.
          */
-        static void set_notice_font(wte_asset<al_font> a);
+        static void set_notice_font(const wte_asset<al_font> a);
+
+        /*!
+         * \brief Set the notice font color.
+         * \param a Allegro color to use for font.
+         */
+        static void set_notice_font_color(const ALLEGRO_COLOR& c);
 
     private:
-        static std::string notice_text;         //  The notice display text.
-        static bool notice_set;                 //  Flag to check if a notice is set.
-        static wte_asset<al_bitmap> notice_bg;  //  Background for notice.
-        static wte_asset<al_font> notice_font;  //  Font for notice.
+        /*
+         * Get the notice font.
+         */
+        static wte_asset<al_font> get_notice_font(void);
+
+        /*
+         * Get the notice font color.
+         */
+        static ALLEGRO_COLOR get_notice_font_color(void);
+
+        static std::string notice_text;          //  The notice display text.
+        static bool notice_set;                  //  Flag to check if a notice is set.
+        static wte_asset<al_bitmap> notice_bg;   //  Background for notice.
+        static wte_asset<al_font> notice_font;   //  Font for notice.
+        static ALLEGRO_COLOR notice_font_color;  //
 };
 
 } //  end namespace wte

@@ -36,31 +36,31 @@ void alert::set(
  */
 const std::string alert::get(void) { 
     return "Alert: " + alert_text + " At: " + alert_location + "Time: " + std::to_string(alert_time);
-};
+}
 
 /*
  * 
  */
-const std::string alert::get_text(void) { return alert_text; };
+const std::string alert::get_text(void) { return alert_text; }
 
 /*
  * 
  */
-const std::string alert::get_location(void) { return alert_location; };
+const std::string alert::get_location(void) { return alert_location; }
 
 /*
  * 
  */
-const int64_t alert::get_time(void) { return alert_time; };
+const int64_t alert::get_time(void) { return alert_time; }
 
 /*
  * 
  */
-const bool alert::is_set(void) { return alert_set; };
+const bool alert::is_set(void) { return alert_set; }
 
 /*
  * 
  */
-void alert::clear(void) { alert_set = false; };
+void alert::clear(void) { alert_set = false; }
 
 }  //  end namespace wte

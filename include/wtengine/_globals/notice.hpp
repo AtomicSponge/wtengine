@@ -12,6 +12,12 @@
 
 #include <string>
 
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_font.h>
+
+#include "wtengine/_globals/wrappers.hpp"
+#include "wtengine/_globals/wte_asset.hpp"
+
 namespace wte {
 
 /*!
@@ -50,9 +56,23 @@ class notice final {
          */
         static void clear(void);
 
+        /*!
+         * \brief Set notice background.
+         * \param a Asset to use for background.
+         */
+        static void set_notice_bg(wte_asset<al_bitmap> a);
+
+        /*!
+         * \brief Set notice font.
+         * \param a Asset to use for font.
+         */
+        static void set_notice_font(wte_asset<al_font> a);
+
     private:
-        static std::string notice_text;     //  The notice display text.
-        static bool notice_set;             //  Flag to check if a notice is set.
+        static std::string notice_text;         //  The notice display text.
+        static bool notice_set;                 //  Flag to check if a notice is set.
+        static wte_asset<al_bitmap> notice_bg;  //  Background for notice.
+        static wte_asset<al_font> notice_font;  //  Font for notice.
 };
 
 } //  end namespace wte

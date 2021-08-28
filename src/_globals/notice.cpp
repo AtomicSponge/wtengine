@@ -28,16 +28,26 @@ void notice::set(
 /*
  * 
  */
-const std::string notice::get(void) {  return notice_text; };
+const std::string notice::get(void) {  return notice_text; }
 
 /*
  * 
  */
-const bool notice::is_set(void) { return notice_set; };
+const bool notice::is_set(void) { return notice_set; }
 
 /*
  * 
  */
-void notice::clear(void) { notice_set = false; };
+void notice::clear(void) { notice_set = false; }
+
+/*
+ * 
+ */
+void notice::set_notice_bg(wte_asset<al_bitmap> a) { notice_bg = a; }
+
+/*
+ * 
+ */
+void notice::set_notice_font(wte_asset<al_font> a) { notice_font = a; }
 
 }  //  end namespace wte

@@ -180,7 +180,10 @@ class al_font final {
         /*!
          * \brief Create a font asset using Allegro's default font.
          */
-        inline al_font() { _al_font = al_create_builtin_font(); };
+        inline al_font() {
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+            _al_font = al_create_builtin_font();
+        };
 
         /*!
          * \brief Create a font asset from file.
@@ -192,7 +195,10 @@ class al_font final {
             const std::string& fname,
             const int& size,
             const int& flags
-        ) { _al_font = al_load_font(fname.c_str(), size, flags); };
+        ) {
+            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+            _al_font = al_load_font(fname.c_str(), size, flags);
+        };
 
         /*!
          * \brief Delete font asset.

@@ -64,6 +64,7 @@ add_library(wtengine STATIC
     src/_globals/commands.cpp
     src/_globals/engine_time.cpp
     src/_globals/message.cpp
+    src/_globals/notice.cpp
     src/cmp/gfx/gfx.cpp
     src/cmp/gfx/background.cpp
     src/cmp/gfx/overlay.cpp

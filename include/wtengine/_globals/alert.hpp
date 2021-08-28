@@ -38,10 +38,16 @@ class alert final {
         );
 
         /*!
-         * \brief Return the alert string.
-         * \return The alert message itself.
+         * \brief Return the alert.
+         * \return The full alert message.
          */
         static const std::string get(void);
+
+        /*!
+         * \brief Return the alert text.
+         * \return Description of the alert.
+         */
+        static const std::string get_text(void);
 
         /*!
          * \brief Return the alert location.

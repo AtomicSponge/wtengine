@@ -34,7 +34,14 @@ void alert::set(
 /*
  * 
  */
-const std::string alert::get(void) { return alert_text; };
+const std::string alert::get(void) { 
+    return "Alert: " + alert_text + " At: " + alert_location + "Time: " + std::to_string(alert_time);
+};
+
+/*
+ * 
+ */
+const std::string alert::get_text(void) { return alert_text; };
 
 /*
  * 

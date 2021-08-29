@@ -69,12 +69,12 @@ void systems::dispatch(void) {
         if(temp_msgs.empty()) break;  //  No messages, end while(true) loop.
 
         for(auto& m_it: temp_msgs) { for(auto& c_it: dispatch_components) {
-            if(m_it.get_to() == mgr::world::get_name(c_it.first)) {
-                try {
+            try {
+                if(m_it.get_to() == mgr::world::get_name(c_it.first)) {
                     c_it.second->proc_msg(c_it.first, m_it);
-                } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
-                break;  //  Found, stop checking dispatch components.
-            }
+                    break;  //  Found, stop checking dispatch components.
+                }
+            } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
         }}
     }
 }

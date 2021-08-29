@@ -68,6 +68,7 @@ void systems::dispatch(void) {
         message_container temp_msgs = mgr::messages::get_messages("entities");
         if(temp_msgs.empty()) break;  //  No messages, end while(true) loop.
 
+        //  For all messages, check each dispatch component.
         for(auto& m_it: temp_msgs) { for(auto& c_it: dispatch_components) {
             try {
                 if(m_it.get_to() == mgr::world::get_name(c_it.first)) {

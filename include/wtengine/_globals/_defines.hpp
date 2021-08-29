@@ -57,7 +57,7 @@
 #endif
 
 #if WTE_USE_MAGIC_PINK
-#define WTE_MAGIC_PINK          (al_map_rgb(255, 0, 255))
+#define WTE_MAGIC_PINK          (al_map_rgb(255,0,255))
 #endif
 
 //  Define some colors for use in the engine.
@@ -68,11 +68,11 @@
 #define WTE_COLOR_YELLOW        (al_map_rgb(255,255,0))
 #define WTE_COLOR_BLUE          (al_map_rgb(0,0,255))
 #define WTE_COLOR_TEAL          (al_map_rgb(0,128,128))
-#define WTE_COLOR_ORANGE        (al_map_rgb(255, 165, 0))
-#define WTE_COLOR_PURPLE        (al_map_rgb(135, 31, 120))
-#define WTE_COLOR_DARKPURPLE    (al_map_rgb(48, 25, 52))
+#define WTE_COLOR_ORANGE        (al_map_rgb(255,165,0))
+#define WTE_COLOR_PURPLE        (al_map_rgb(135,31,120))
+#define WTE_COLOR_DARKPURPLE    (al_map_rgb(48,25,52))
 #define WTE_COLOR_WHITE         (al_map_rgb(255,255,255))
-#define WTE_COLOR_TRANSPARENT   (al_map_rgba(0, 0, 0, 0))
+#define WTE_COLOR_TRANSPARENT   (al_map_rgba(0,0,0,0))
 #endif
 
 //  Define default keys

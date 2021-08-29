@@ -40,10 +40,10 @@ class systems final : private manager<systems> {
         /*!
          * \brief Add a new system to the manager.
          * 
-         * Enters system into the vector of systems if not.
+         * Enters system into the vector of systems.
          * Systems run in the order they were added.
          * Can fail if the system exists or if the game is running.
-         * 
+         *
          * \param new_system System to add.
          * \return True if added, false if not.
          */

@@ -182,8 +182,8 @@ void wte_demo::load_menus(void) {
     //  Configure the root main menu and game menu.
     {//  Configure main menu.
     mgr::menus::set_menu("main_menu")->set_title("WTE Demo");
-    mgr::menus::set_menu("main_menu")->add_item<mnu::action>("New Game", "new_game", "game.sdf");
-    //mgr::menus::set_menu("main_menu")->add_item<mnu::action>("New Game", "new_game");
+    //mgr::menus::set_menu("main_menu")->add_item<mnu::action>("New Game", "new_game", "game.sdf");
+    mgr::menus::set_menu("main_menu")->add_item<mnu::action>("New Game", "new_game");
     mgr::menus::set_menu("main_menu")->add_item<mnu::action>("Settings", "open_menu", "settings");
     mgr::menus::set_menu("main_menu")->add_item<mnu::action>("Exit Game", "exit");}
 

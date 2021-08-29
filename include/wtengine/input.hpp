@@ -34,6 +34,8 @@ namespace wte {
 class input {
     public:
         virtual ~input() = default;
+        input(const input&) = delete;
+        void operator=(input const&) = delete;
 
         /*!
          * \struct event

@@ -38,6 +38,8 @@ class alert final {
     public:
         alert() = delete;
         ~alert() = delete;
+        alert(const alert&) = delete;
+        void operator=(alert const&) = delete;
 
     private:
         /*

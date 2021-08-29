@@ -24,6 +24,8 @@ class engine_time final {
     public:
         engine_time() = delete;
         ~engine_time() = delete;
+        engine_time(const engine_time&) = delete;
+        void operator=(engine_time const&) = delete;
 
         /*!
          * \brief Check the internal timer.

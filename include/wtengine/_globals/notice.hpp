@@ -36,6 +36,8 @@ class notice final {
     public:
         notice() = delete;
         ~notice() = delete;
+        notice(const notice&) = delete;
+        void operator=(notice const&) = delete;
 
         /*!
          * \brief Set the notice and flag that its set.

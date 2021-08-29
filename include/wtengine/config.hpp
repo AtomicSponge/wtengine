@@ -35,6 +35,8 @@ class config {
 
     public:
         virtual ~config() = default;
+        config(const config&) = delete;
+        void operator=(config const&) = delete;
 
         /*!
          * \struct flags

@@ -27,10 +27,9 @@ namespace wte {
  */
 class display {
     public:
-        /*!
-         * \brief Display destructor.
-         */
         virtual ~display() = default;
+        display(const display&) = delete;
+        void operator=(display const&) = delete;
 
         /*!
          * \brief Get the window title.

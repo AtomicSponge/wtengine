@@ -75,7 +75,10 @@ void systems::dispatch(void) {
                     c_it.second->proc_msg(c_it.first, m_it);
                     break;  //  Found, stop checking dispatch components.
                 }
-            } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
+            } catch(const wte_exception& e) {
+                alert::set(e.what(), e.where(), e.when());
+                break;
+            } catch(...) { break; }
         }}  //  End double for
     }
 }

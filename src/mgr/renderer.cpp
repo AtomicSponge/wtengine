@@ -344,7 +344,7 @@ void renderer::render(void) {
      */
     if(notice::is_set()) {
         const int font_size = al_get_font_line_height(**notice::get_notice_font());
-
+        const float menu_scale_factor = config::gfx::menu_scale_factor * config::gfx::scale_factor;
         ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap((notice::get().length() * font_size) + 20, font_size + 20);
         al_set_target_bitmap(temp_bitmap);
         al_clear_to_color(WTE_COLOR_RED);
@@ -357,14 +357,14 @@ void renderer::render(void) {
         al_draw_scaled_bitmap(
             temp_bitmap, 0, 0,
             al_get_bitmap_width(temp_bitmap), al_get_bitmap_height(temp_bitmap),
-            (screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * config::gfx::scale_factor) / 2),
-            (screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * config::gfx::scale_factor) / 2),
-            al_get_bitmap_width(temp_bitmap) * config::gfx::scale_factor,
-            al_get_bitmap_height(temp_bitmap) * config::gfx::scale_factor, 0
+            (screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * menu_scale_factor) / 2),
+            (screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * menu_scale_factor) / 2),
+            al_get_bitmap_width(temp_bitmap) * menu_scale_factor,
+            al_get_bitmap_height(temp_bitmap) * menu_scale_factor, 0
         );
         al_destroy_bitmap(temp_bitmap);
     }
-    
+
     /*
      * Render alerts.
      */

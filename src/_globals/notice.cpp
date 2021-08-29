@@ -26,7 +26,7 @@ void notice::set(
 ) {
     notice_text = n;
     notice_set = true;
-};
+}
 
 /*
  * 
@@ -56,7 +56,7 @@ void notice::set_notice_font(wte_asset<al_font> a) { notice_font = a; }
 /*
  * 
  */
-wte_asset<al_font> notice::get_notice_font(void) { return notice_font; }
+const wte_asset<al_font> notice::get_notice_font(void) { return notice_font; }
 
 /*
  * 
@@ -66,6 +66,6 @@ void notice::set_notice_font_color(const ALLEGRO_COLOR& c) { notice_font_color =
 /*
  * 
  */
-ALLEGRO_COLOR notice::get_notice_font_color(void) { return notice_font_color; }
+const ALLEGRO_COLOR notice::get_notice_font_color(void) { return notice_font_color; }
 
 }  //  end namespace wte

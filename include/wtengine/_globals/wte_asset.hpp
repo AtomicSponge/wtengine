@@ -24,11 +24,12 @@ using wte_asset = std::shared_ptr<T>;
  * \brief Create an asset (shared) pointer.
  * \tparam T Asset type.
  * \param obj Object to create asset from.
+ * \return A new asset (shared pointer).
  */
 template <typename T>
 inline static const wte_asset<T> make_asset(const T& obj) {
     return std::make_shared<T>(obj);
-}
+};
 
 }  //  end namespace wte
 

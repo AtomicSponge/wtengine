@@ -84,12 +84,12 @@ class notice final {
         /*
          * Get the notice font.
          */
-        static wte_asset<al_font> get_notice_font(void);
+        static const wte_asset<al_font> get_notice_font(void);
 
         /*
          * Get the notice font color.
          */
-        static ALLEGRO_COLOR get_notice_font_color(void);
+        static const ALLEGRO_COLOR get_notice_font_color(void);
 
         static std::string notice_text;          //  The notice display text.
         static bool notice_set;                  //  Flag to check if a notice is set.

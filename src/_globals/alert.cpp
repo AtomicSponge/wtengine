@@ -29,7 +29,7 @@ void alert::set(
     alert_location = l;
     alert_time = t;
     alert_set = true;
-};
+}
 
 /*
  * 

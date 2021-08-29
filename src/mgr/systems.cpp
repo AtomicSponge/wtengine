@@ -76,7 +76,7 @@ void systems::dispatch(void) {
                     break;  //  Found, stop checking dispatch components.
                 }
             } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
-        }}
+        }}  //  End double for
     }
 }
 

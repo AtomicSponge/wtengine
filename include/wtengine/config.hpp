@@ -29,6 +29,7 @@ namespace mgr {
  */
 class config {
     friend class display;
+    friend class engine;
     friend class input;
     friend class mgr::menus;
     friend class mgr::renderer;
@@ -189,6 +190,7 @@ class config {
     protected:
         config();
 
+    private:
         struct _flags {
             inline static bool is_running = true;
             inline static bool game_started = false;
@@ -291,7 +293,6 @@ class config {
             inline static float p2_throttle_right = 0.0f;
         };
 
-    private:
         static bool initialized;  //  Restrict to one instance.
 };
 

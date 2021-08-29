@@ -68,17 +68,14 @@ void systems::dispatch(void) {
         message_container temp_msgs = mgr::messages::get_messages("entities");
         if(temp_msgs.empty()) break;  //  No messages, end while(true) loop.
 
-        for(auto& c_it: dispatch_components) {
-            for(auto m_it = temp_msgs.begin(); m_it != temp_msgs.end();) {
-                if(m_it->get_to() == mgr::world::get_name(c_it.first)) {
-                    try {
-                        c_it.second->proc_msg(c_it.first, *m_it);
-                    } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
-                    m_it = temp_msgs.erase(m_it);
-                } else m_it++;
+        for(auto& m_it: temp_msgs) { for(auto& c_it: dispatch_components) {
+            if(m_it.get_to() == mgr::world::get_name(c_it.first)) {
+                try {
+                    c_it.second->proc_msg(c_it.first, m_it);
+                } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
+                break;  //  Found, stop checking dispatch components.
             }
-            if(temp_msgs.empty()) break;  //  No messages left, end comp loop.
-        }
+        }}
     }
 }
 

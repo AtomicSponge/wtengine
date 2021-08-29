@@ -14,22 +14,34 @@
 
 namespace wte {
 
+namespace mgr {
+    class spawner;
+    class systems;
+    class renderer;
+}
+
 /*!
  * \class alert
  * \brief Allows the engine to set an alert to be displayed to the screen.
  * 
  * Alerts are cleared after the player presses a button.
+ * Used internally by the engine only.  Use notice class instead.
  */
 class alert final {
+    friend class commands;
+    friend class engine;
+    friend class input;
+    friend class mgr::spawner;
+    friend class mgr::systems;
+    friend class mgr::renderer;
+
     public:
         alert() = delete;
         ~alert() = delete;
 
-        /*!
-         * \brief Set the alert text and flag there is an alert.
-         * \param a Alert to display.
-         * \param l Location of alert.
-         * \param t Time of alert.
+    private:
+        /*
+         * Set the alert text and flag there is an alert.
          */
         static void set(
             const std::string& a,
@@ -37,42 +49,36 @@ class alert final {
             const int64_t& t
         );
 
-        /*!
-         * \brief Return the alert.
-         * \return The full alert message.
+        /*
+         * Return the alert.
          */
         static const std::string get(void);
 
-        /*!
-         * \brief Return the alert text.
-         * \return Description of the alert.
+        /*
+         * Return the alert description.
          */
         static const std::string get_text(void);
 
-        /*!
-         * \brief Return the alert location.
-         * \return Location alert was made.
+        /*
+         * Return the alert location.
          */
         static const std::string get_location(void);
 
-        /*!
-         * \brief Return the alert time.
-         * \return Time the alert was made.
+        /*
+         * Return the alert time.
          */
         static const int64_t get_time(void);
 
-        /*!
-         * \brief Check to see if an alert is set.
-         * \return True if set, false if not set.
+        /*
+         * Check to see if an alert is set.
          */
         static const bool is_set(void);
 
-        /*!
-         * \brief Clear the alert.
+        /*
+         * Clear the alert.
          */
         static void clear(void);
 
-    private:
         static std::string alert_text;      //  The alert display text.
         static std::string alert_location;  //  Location of the alert.
         static int64_t alert_time;          //  Alert time.

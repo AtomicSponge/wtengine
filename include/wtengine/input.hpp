@@ -69,6 +69,8 @@ class input {
                     inline static std::function<void(void)> action4 = [](){};
                     inline static std::function<void(void)> action5 = [](){};
                     inline static std::function<void(void)> action6 = [](){};
+                    inline static std::function<void(void)> action7 = [](){};
+                    inline static std::function<void(void)> action8 = [](){};
                 };
 
                 /*!
@@ -86,6 +88,8 @@ class input {
                     inline static std::function<void(void)> action4 = [](){};
                     inline static std::function<void(void)> action5 = [](){};
                     inline static std::function<void(void)> action6 = [](){};
+                    inline static std::function<void(void)> action7 = [](){};
+                    inline static std::function<void(void)> action8 = [](){};
                 };
             };
 
@@ -110,6 +114,8 @@ class input {
                     inline static std::function<void(void)> action4 = [](){};
                     inline static std::function<void(void)> action5 = [](){};
                     inline static std::function<void(void)> action6 = [](){};
+                    inline static std::function<void(void)> action7 = [](){};
+                    inline static std::function<void(void)> action8 = [](){};
                 };
                 
                 /*!
@@ -127,6 +133,8 @@ class input {
                     inline static std::function<void(void)> action4 = [](){};
                     inline static std::function<void(void)> action5 = [](){};
                     inline static std::function<void(void)> action6 = [](){};
+                    inline static std::function<void(void)> action7 = [](){};
+                    inline static std::function<void(void)> action8 = [](){};
                 };
             };
         };

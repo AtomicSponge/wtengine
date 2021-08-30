@@ -57,11 +57,11 @@ class config {
          * \brief Volume levels.
          */
         struct volume {
-            static const float& main;   //!<
-            static const float& mix1;   //!<
-            static const float& mix2;   //!<
-            static const float& mix3;   //!<
-            static const float& mix4;   //!<
+            static const float& main;   //!<  Main volume level.
+            static const float& mix1;   //!<  Mix 1 volume level.
+            static const float& mix2;   //!<  Mix 2 volume level.
+            static const float& mix3;   //!<  Mix 3 volume level.
+            static const float& mix4;   //!<  Mix 4 volume level.
         };
 
         /*!
@@ -69,14 +69,14 @@ class config {
          * \brief Graphics settings.
          */
         struct gfx {
-            static const int& screen_w;                 //!<
-            static const int& screen_h;                 //!<
-            static const int& arena_w;                  //!<
-            static const int& arena_h;                  //!<
-            static const std::size_t& vsync;            //!<
-            static const std::size_t& display_mode;     //!<
-            static const float& scale_factor;           //!<
-            static const float& menu_scale_factor;      //!<
+            static const int& screen_w;                 //!<  Screen width.
+            static const int& screen_h;                 //!<  Screen height.
+            static const int& arena_w;                  //!<  Arena width.
+            static const int& arena_h;                  //!<  Arena height.
+            static const std::size_t& vsync;            //!<  Vsync setting.
+            static const std::size_t& display_mode;     //!<  Display mode setting.
+            static const float& scale_factor;           //!<  Arena scale factor.
+            static const float& menu_scale_factor;      //!<  Menu scale factor.
         };
 
         /*!
@@ -84,22 +84,22 @@ class config {
          * \brief Control binding settings.
          */
         struct controls {
-            static const int& key_menu;         //!<
-            static const int& key_menu_select;  //!<
+            static const int& key_menu;         //!<  Open menu key.
+            static const int& key_menu_select;  //!<  Select menu item key.
 
             /*
              * Player 1 keyboard
              */
-            static const int& p1_key_up;        //!<
-            static const int& p1_key_down;      //!<
-            static const int& p1_key_left;      //!<
-            static const int& p1_key_right;     //!<
-            static const int& p1_key_action1;   //!<
-            static const int& p1_key_action2;   //!<
-            static const int& p1_key_action3;   //!<
-            static const int& p1_key_action4;   //!<
-            static const int& p1_key_action5;   //!<
-            static const int& p1_key_action6;   //!<
+            static const int& p1_key_up;        //!<  Player 1 input up key.
+            static const int& p1_key_down;      //!<  Player 1 input down key.
+            static const int& p1_key_left;      //!<  Player 1 input left key.
+            static const int& p1_key_right;     //!<  Player 1 input right key.
+            static const int& p1_key_action1;   //!<  Player 1 input action 1 key.
+            static const int& p1_key_action2;   //!<  Player 1 input action 2 key.
+            static const int& p1_key_action3;   //!<  Player 1 input action 3 key.
+            static const int& p1_key_action4;   //!<  Player 1 input action 4 key.
+            static const int& p1_key_action5;   //!<  Player 1 input action 5 key.
+            static const int& p1_key_action6;   //!<  Player 1 input action 6 key.
 
             /*
              * Player 1 joystick
@@ -128,16 +128,16 @@ class config {
             /*
              * Player 2 keyboard
              */
-            static const int& p2_key_up;        //!<
-            static const int& p2_key_down;      //!<
-            static const int& p2_key_left;      //!<
-            static const int& p2_key_right;     //!<
-            static const int& p2_key_action1;   //!<
-            static const int& p2_key_action2;   //!<
-            static const int& p2_key_action3;   //!<
-            static const int& p2_key_action4;   //!<
-            static const int& p2_key_action5;   //!<
-            static const int& p2_key_action6;   //!<
+            static const int& p2_key_up;        //!<  Player 2 input up key.
+            static const int& p2_key_down;      //!<  Player 2 input down key.
+            static const int& p2_key_left;      //!<  Player 2 input left key.
+            static const int& p2_key_right;     //!<  Player 2 input right key.
+            static const int& p2_key_action1;   //!<  Player 2 input action 1 key.
+            static const int& p2_key_action2;   //!<  Player 2 input action 2 key.
+            static const int& p2_key_action3;   //!<  Player 2 input action 3 key.
+            static const int& p2_key_action4;   //!<  Player 2 input action 4 key.
+            static const int& p2_key_action5;   //!<  Player 2 input action 5 key.
+            static const int& p2_key_action6;   //!<  Player 2 input action 6 key.
 
             /*
              * Player 2 joystick

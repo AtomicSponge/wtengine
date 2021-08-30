@@ -47,8 +47,8 @@ class config {
             static const bool& is_running;
             static const bool& game_started;
             static const bool& game_menu_opened;
+            static const bool& record_input;
             inline static bool draw_fps = true;
-            inline static bool record_input = false;
             inline static bool input_enabled = true;
         };
 
@@ -195,6 +195,7 @@ class config {
             inline static bool is_running = true;
             inline static bool game_started = false;
             inline static bool game_menu_opened = true;
+            inline static bool record_input = false;
         };
 
         struct _volume {

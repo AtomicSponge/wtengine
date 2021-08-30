@@ -16,6 +16,7 @@ bool config::initialized = false;
 const bool& config::flags::is_running = config::_flags::is_running;
 const bool& config::flags::game_started = config::_flags::game_started;
 const bool& config::flags::game_menu_opened = config::_flags::game_menu_opened;
+const bool& config::flags::record_input = config::_flags::record_input;
 
 const float& config::volume::main = config::_volume::main;
 const float& config::volume::mix1 = config::_volume::mix1;

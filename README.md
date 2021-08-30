@@ -65,7 +65,7 @@ pkg-config --libs --exists wtengine
 
 -----
 
-__NOTE:__ _The following is *kinda* incomplete, *sorta* outdated, and is a *work in progress*._
+__NOTE:__ _The following is (kinda) incomplete, (sorta) outdated, and is a work in progress._
 
 -----
 

@@ -144,8 +144,8 @@ class input {
          * \brief Record last key press.
          */
         struct lastkeypress {
-            static const int64_t& timer;
-            static const int& key;
+            static const int64_t& timer;  //!<  Time the key was pressed.
+            static const int& key;        //!<  Keycode of key pressed.
         };
 
         /*!
@@ -153,8 +153,8 @@ class input {
          * \brief Record last button press.
          */
         struct lastbuttonpress {
-            static const int64_t& timer;
-            static const int& button;
+            static const int64_t& timer;  //!<  Time the button was pressed.
+            static const int& button;     //!<  Button code of button pressed.
         };
 
     protected:

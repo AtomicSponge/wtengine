@@ -24,6 +24,19 @@ input::input() {
 /*
  *
  */
+void input::toggle_input_recording(void) {
+    if(config::flags::record_input) {
+        //  Turn recording off
+        config::_flags::record_input = false;
+    } else {
+        //  Turn recording on
+        config::_flags::record_input = true;
+    }
+}
+
+/*
+ *
+ */
 void input::create_input_event_queue(void) {
     input_event_queue = al_create_event_queue();
     if(!input_event_queue) throw std::runtime_error("Failed to create input event queue!");

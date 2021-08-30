@@ -38,6 +38,11 @@ class input {
         void operator=(input const&) = delete;
 
         /*!
+         * \brief Toggle input recording.
+         */
+        static void toggle_input_recording(void);
+
+        /*!
          * \struct event
          * \brief Input event macros.
          */

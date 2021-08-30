@@ -98,7 +98,7 @@ class input {
              * \brief Player 2 input events.
              */
             struct p2 {
-                
+
                 /*!
                  * \struct ondown
                  * \brief Player 2 on down events.
@@ -117,7 +117,7 @@ class input {
                     inline static std::function<void(void)> action7 = [](){};  //!<  Player 2 input action7 on down event.
                     inline static std::function<void(void)> action8 = [](){};  //!<  Player 2 input action8 on down event.
                 };
-                
+
                 /*!
                  * \struct onup
                  * \brief Player 2 on up events.

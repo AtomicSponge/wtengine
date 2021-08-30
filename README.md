@@ -71,11 +71,34 @@ __NOTE:__ _The following is incomplete, outdated, and is a work in progress._
 
 ## Index
 
+- Main Engine Object
+- Build Flags
+- ECS
+    - Entities
+    - Components
+    - Systems
+- Components with Custom Functions
+    - Background & Overlay
+    - Dispatcher
+    - Ai
+- Menus
+- Messaging and List of Built-In Commands
+    - Message format
+    - Examples
+    - Built-In Messages
+- Setting up PhysicsFS
+- Setting up the Renderer
+- Spawning Entities
+- Variables
+
+
 -----
+
+Needs review
 
 ## Main Engine Object
 
-Creating a game is done by extending the __wte_main__ object and implementing the members below.
+Creating a game is done by extending the __engine__ object and implementing the members below.
 
 
 *Required:*
@@ -459,7 +482,7 @@ Spawning or deleting entities is then performed by passing a message.  See the s
 
 Needs review
 
-## Variable Maps
+## Variables
 
 The variable maps are a method to dynamically create and store variables for use by the game engine.  WTEngine has two variable maps:  __game_cfg__ and __engine_cfg__.  These are stored as strings, but can be type-casted to return as specific data types.  Be careful when using these as they can return unexpected results if misused!
 

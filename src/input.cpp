@@ -71,16 +71,6 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
        (event.type == ALLEGRO_EVENT_KEY_DOWN ||
         event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)) alert::clear();
 
-    //  Record last button/key press.
-    if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
-        lastkeypress::timer = engine_time::check_time();
-        lastkeypress::key = event.keyboard.keycode;
-    }
-    if(event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN) {
-        lastbuttonpress::timer = engine_time::check_time();
-        lastbuttonpress::button = event.joystick.button;
-    }
-
     //  Record input if enabled.
     if(config::flags::record_input) {
         //
@@ -217,6 +207,9 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
         /* *********************** */
         /////////////////////////////////////////////////////////////
         case ALLEGRO_EVENT_KEY_DOWN:
+            //  Record last key pressed.
+            lastkeypress::timer = engine_time::check_time();
+            lastkeypress::key = event.keyboard.keycode;
             if(event.keyboard.keycode == config::controls::key_menu) config::_flags::game_menu_opened = true;
             if(config::flags::input_enabled) {
                 try {
@@ -377,6 +370,9 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
             break;
         /////////////////////////////////////////////////////////////
         case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
+            //  Record last button pressed.
+            lastbuttonpress::timer = engine_time::check_time();
+            lastbuttonpress::button = event.joystick.button;
             /* *** PLAYER 1 *** */
             if(event.joystick.button == config::controls::p1_button_up)
                 try { 

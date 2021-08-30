@@ -116,7 +116,7 @@ See the demo files __main.cpp__ and __wte_demo.cpp__ for an example of an implem
 
 ## Build Flags
 
-All build flags are defined in __wte_global_defines.hpp__
+All build flags are defined in __wtengine/_globals/_defines.hpp__
 
 -----
 
@@ -176,17 +176,17 @@ Components are the data objects that make up each entity.  Examples would be the
 
 *Adding a component:*
 ```
-wte_new_component(e_id, cmp::visible, false);
+mgr::world::add_component<cmp::team>(e_id, 0);
 ```
 
 *Setting a component's data:*
 ```
-wte_set_component(e_id, cmp::sprite)->load_sprite("my_sprite.bmp");
+mgr::world::set_component<cmp::overlay>(e_id)->hide();
 ```
 
 *Reading a component's data:*
 ```
-wte_get_component(e_id, cmp::location)->get_x()
+if(mgr::world::get_component<health>(plr_id)->hp <= 0)
 ```
 
 -----
@@ -198,11 +198,10 @@ Systems are functions that are processed each iteration when the game is running
 *Example:*
 ```
 void wte_demo::load_systems(void) {
-    wte_add_system(sys::input);
-    wte_add_system(sys::movement);
-    wte_add_system(sys::colision);
-    wte_add_system(sys::logic);
-    wte_add_system(sys::animate);
+    mgr::systems::add(std::make_unique<sys::movement>());
+    mgr::systems::add(std::make_unique<sys::colision>());
+    mgr::systems::add(std::make_unique<sys::logic>());
+    mgr::systems::add(std::make_unique<sys::animate>());
 }
 ```
 
@@ -219,38 +218,31 @@ Certain components within the engine allow to have custom functionality assigned
 ####  Background & Overlay
 Define custom animation processes for backgrounds & overlays.
 ```
-const entity_id&, mgr::entity_manager&, const int64_t&
+const entity_id&
 ```
 - __const entity_id&__ - Reference to the Entity ID associated with the calling component.
-- __mgr::entity_manager&__ - Reference to the entity manager.
-- __const int64_t&__ - Reference to the current engine time value.
 
 -----
 
 ####  Dispatcher
 Define entity message processing.
 ```
-const entity_id&, const message&, mgr::entity_manager&, mgr::message_manager&, const int64_t&
+const entity_id&
 ```
 - __entity_id&__ - Reference to the Entity ID associated with the calling component.
-- __const message&__ - Message to be processed.
-- __mgr::entity_manager&__ - Reference to the entity manager.
-- __mgr::message_manager&__ - Reference to the message manager.
-- __int64_t&__ - Reference to the current engine time value.
 
 -----
 
 ####  Ai
 Define entity logic.  Has seperate calls for enabled and disabled entities.
 ```
-const entity_id&, mgr::entity_manager&, mgr::message_manager&, const int64_t&
+const entity_id&
 ```
 - __entity_id&__ - Reference to the Entity ID associated with the calling component.
-- __mgr::entity_manager&__ - Reference to the entity manager.
-- __mgr::message_manager&__ - Reference to the message manager.
-- __int64_t&__ - Reference to the current engine time value.
 
 -----
+
+OLD
 
 ####  Input_directional
 Directional input handling.
@@ -265,6 +257,8 @@ const entity_id&, const float&, mgr::entity_manager&, mgr::message_manager&, con
 
 -----
 
+OLD
+
 ####  Input_button
 Button input handling.
 ```
@@ -278,6 +272,8 @@ const entity_id&, mgr::entity_manager&, mgr::message_manager&, const int64_t&
 -----
 
 ## Menus
+
+OLD WIP
 
 By default WTEngine creates two empty menus, __main_menu__ and __game_menu__.  You can then create additional menus as necessary and add items to them.  See the documentation on the individual menu items for their usage and  functionality.  All menus are stored in the __menu_manager__ object.
 
@@ -333,18 +329,20 @@ Arguments are split with a semicolon ;
 #### Examples:
 *Send an instant message to pause music:*
 ```
-messages.add_message(message("audio", "pause_music", ""));
+mgr::messages::add_message(message("audio", "pause_music", ""));
 ```
 *Delete my_entity at timer value 100:*
 ```
-messages.add_message(message(100, "spawner", "delete", "my_entity"));
+mgr::messages::add_message(message(100, "spawner", "delete", "my_entity"));
 ```
 *Communication between entities:*
 ```
-messages.add_message(message("entities", "first_entity", "second_entity", "command", "argument;another"));
+mgr::messages::add_message(message("entities", "first_entity", "second_entity", "command", "argument;another"));
 ```
 
 -----
+
+Needs review
 
 #### Built-In Messages
 
@@ -409,6 +407,8 @@ You can make multiple calls to load from more than one location.  That's all the
 
 -----
 
+Needs review
+
 ## Setting up the Renderer
 
 The __render_manager__ requires some parameters to be set up in your __main.cpp__ file before calling the main engine object.
@@ -433,13 +433,15 @@ mgr::render_manager::set_background_screen("title.bmp");
 
 -----
 
+Needs review
+
 ##  Spawning Entities
 
 Spawning new entities while the engine is running is handled by the __spawn_manager__.  When setting up a new game, you can add functions to the __spawn_manager__ to be called later.
 
 Adding to the spawner is done as such:
 ```
-spawner.add_spawn(spawn_name, number_of_arguments, function)
+mrg::spawner::add_spawn(spawn_name, number_of_arguments, function)
 ```
 
 Note that the number of arguments assigned must match what the calling message contains, but not counting the first argument.  For example, if the message contains a total of 6 arguments, then pass the number 5.  This is because the first argument of the message is used for searching the spawn_name value.  If a number of arguments is being passed that the __spawn_manager__ did not expect, the message will be ignored.
@@ -447,15 +449,16 @@ Note that the number of arguments assigned must match what the calling message c
 The function being passed is used to create the new entity and needs the following signature:
 
 ```
-const entity_id&, mgr::entity_manager&, const msg_arg_list&
+const entity_id&, const msg_arg_list&
 ```
 - __const entity_id&__ - Reference to the Entity ID associated with the calling component.
-- __mgr::entity_manager&__ - Reference to the entity manager.
 - __const msg_arg_list&__ - Reference to the message arguments in vector format.
 
 Spawning or deleting entities is then performed by passing a message.  See the section on messaging for more information.
 
 -----
+
+Needs review
 
 ## Variable Maps
 
@@ -497,6 +500,8 @@ The messaging system can also be used to set these variables.  See the documenta
 
 -----
 
+Needs review
+
 #### Saving data:
 Both variable maps can save their data, but the functionality is different for each.
 
@@ -530,6 +535,8 @@ game_cfg::save("hiscore");
 ```
 
 -----
+
+Needs review
 
 #### Engine Config Variables Created by the Engine:
 

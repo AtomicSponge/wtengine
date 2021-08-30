@@ -33,9 +33,9 @@ namespace wte {
  */
 class input {
     public:
-        virtual ~input() = default;
-        input(const input&) = delete;
-        void operator=(input const&) = delete;
+        virtual ~input() = default;             //!<  Default virtual destructor.
+        input(const input&) = delete;           //!<  Delete copy constructor.
+        void operator=(input const&) = delete;  //!<  Delete assignment operator.
 
         /*!
          * \brief Toggle input recording.
@@ -59,18 +59,18 @@ class input {
                  * \brief Player 1 on down events.
                  */
                 struct ondown {
-                    inline static std::function<void(void)> up = [](){};
-                    inline static std::function<void(void)> down = [](){};
-                    inline static std::function<void(void)> left = [](){};
-                    inline static std::function<void(void)> right = [](){};
-                    inline static std::function<void(void)> action1 = [](){};
-                    inline static std::function<void(void)> action2 = [](){};
-                    inline static std::function<void(void)> action3 = [](){};
-                    inline static std::function<void(void)> action4 = [](){};
-                    inline static std::function<void(void)> action5 = [](){};
-                    inline static std::function<void(void)> action6 = [](){};
-                    inline static std::function<void(void)> action7 = [](){};
-                    inline static std::function<void(void)> action8 = [](){};
+                    inline static std::function<void(void)> up = [](){};       //!<
+                    inline static std::function<void(void)> down = [](){};     //!<
+                    inline static std::function<void(void)> left = [](){};     //!<
+                    inline static std::function<void(void)> right = [](){};    //!<
+                    inline static std::function<void(void)> action1 = [](){};  //!<
+                    inline static std::function<void(void)> action2 = [](){};  //!<
+                    inline static std::function<void(void)> action3 = [](){};  //!<
+                    inline static std::function<void(void)> action4 = [](){};  //!<
+                    inline static std::function<void(void)> action5 = [](){};  //!<
+                    inline static std::function<void(void)> action6 = [](){};  //!<
+                    inline static std::function<void(void)> action7 = [](){};  //!<
+                    inline static std::function<void(void)> action8 = [](){};  //!<
                 };
 
                 /*!
@@ -78,18 +78,18 @@ class input {
                  * \brief Player 1 on up events.
                  */
                 struct onup {
-                    inline static std::function<void(void)> up = [](){};
-                    inline static std::function<void(void)> down = [](){};
-                    inline static std::function<void(void)> left = [](){};
-                    inline static std::function<void(void)> right = [](){};
-                    inline static std::function<void(void)> action1 = [](){};
-                    inline static std::function<void(void)> action2 = [](){};
-                    inline static std::function<void(void)> action3 = [](){};
-                    inline static std::function<void(void)> action4 = [](){};
-                    inline static std::function<void(void)> action5 = [](){};
-                    inline static std::function<void(void)> action6 = [](){};
-                    inline static std::function<void(void)> action7 = [](){};
-                    inline static std::function<void(void)> action8 = [](){};
+                    inline static std::function<void(void)> up = [](){};       //!<
+                    inline static std::function<void(void)> down = [](){};     //!<
+                    inline static std::function<void(void)> left = [](){};     //!<
+                    inline static std::function<void(void)> right = [](){};    //!<
+                    inline static std::function<void(void)> action1 = [](){};  //!<
+                    inline static std::function<void(void)> action2 = [](){};  //!<
+                    inline static std::function<void(void)> action3 = [](){};  //!<
+                    inline static std::function<void(void)> action4 = [](){};  //!<
+                    inline static std::function<void(void)> action5 = [](){};  //!<
+                    inline static std::function<void(void)> action6 = [](){};  //!<
+                    inline static std::function<void(void)> action7 = [](){};  //!<
+                    inline static std::function<void(void)> action8 = [](){};  //!<
                 };
             };
 
@@ -104,18 +104,18 @@ class input {
                  * \brief Player 2 on down events.
                  */
                 struct ondown {
-                    inline static std::function<void(void)> up = [](){};
-                    inline static std::function<void(void)> down = [](){};
-                    inline static std::function<void(void)> left = [](){};
-                    inline static std::function<void(void)> right = [](){};
-                    inline static std::function<void(void)> action1 = [](){};
-                    inline static std::function<void(void)> action2 = [](){};
-                    inline static std::function<void(void)> action3 = [](){};
-                    inline static std::function<void(void)> action4 = [](){};
-                    inline static std::function<void(void)> action5 = [](){};
-                    inline static std::function<void(void)> action6 = [](){};
-                    inline static std::function<void(void)> action7 = [](){};
-                    inline static std::function<void(void)> action8 = [](){};
+                    inline static std::function<void(void)> up = [](){};       //!<
+                    inline static std::function<void(void)> down = [](){};     //!<
+                    inline static std::function<void(void)> left = [](){};     //!<
+                    inline static std::function<void(void)> right = [](){};    //!<
+                    inline static std::function<void(void)> action1 = [](){};  //!<
+                    inline static std::function<void(void)> action2 = [](){};  //!<
+                    inline static std::function<void(void)> action3 = [](){};  //!<
+                    inline static std::function<void(void)> action4 = [](){};  //!<
+                    inline static std::function<void(void)> action5 = [](){};  //!<
+                    inline static std::function<void(void)> action6 = [](){};  //!<
+                    inline static std::function<void(void)> action7 = [](){};  //!<
+                    inline static std::function<void(void)> action8 = [](){};  //!<
                 };
                 
                 /*!
@@ -123,18 +123,18 @@ class input {
                  * \brief Player 2 on up events.
                  */
                 struct onup {
-                    inline static std::function<void(void)> up = [](){};
-                    inline static std::function<void(void)> down = [](){};
-                    inline static std::function<void(void)> left = [](){};
-                    inline static std::function<void(void)> right = [](){};
-                    inline static std::function<void(void)> action1 = [](){};
-                    inline static std::function<void(void)> action2 = [](){};
-                    inline static std::function<void(void)> action3 = [](){};
-                    inline static std::function<void(void)> action4 = [](){};
-                    inline static std::function<void(void)> action5 = [](){};
-                    inline static std::function<void(void)> action6 = [](){};
-                    inline static std::function<void(void)> action7 = [](){};
-                    inline static std::function<void(void)> action8 = [](){};
+                    inline static std::function<void(void)> up = [](){};       //!<
+                    inline static std::function<void(void)> down = [](){};     //!<
+                    inline static std::function<void(void)> left = [](){};     //!<
+                    inline static std::function<void(void)> right = [](){};    //!<
+                    inline static std::function<void(void)> action1 = [](){};  //!<
+                    inline static std::function<void(void)> action2 = [](){};  //!<
+                    inline static std::function<void(void)> action3 = [](){};  //!<
+                    inline static std::function<void(void)> action4 = [](){};  //!<
+                    inline static std::function<void(void)> action5 = [](){};  //!<
+                    inline static std::function<void(void)> action6 = [](){};  //!<
+                    inline static std::function<void(void)> action7 = [](){};  //!<
+                    inline static std::function<void(void)> action8 = [](){};  //!<
                 };
             };
         };

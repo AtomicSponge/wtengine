@@ -104,26 +104,26 @@ class config {
             /*
              * Player 1 joystick
              */
-            static const int& p1_button_up;          //!<
-            static const int& p1_button_down;        //!<
-            static const int& p1_button_left;        //!<
-            static const int& p1_button_right;       //!<
-            static const int& p1_button_action1;     //!<
-            static const int& p1_button_action2;     //!<
-            static const int& p1_button_action3;     //!<
-            static const int& p1_button_action4;     //!<
-            static const int& p1_button_action5;     //!<
-            static const int& p1_button_action6;     //!<
-            static const int& p1_button_start;       //!<
-            static const int& p1_button_select;      //!<
-            static const float& p1_pola_x;           //!<
-            static const float& p1_pola_y;           //!<
-            static const float& p1_polb_x;           //!<
-            static const float& p1_polb_y;           //!<
-            static const float& p1_polc_x;           //!<
-            static const float& p1_polc_y;           //!<
-            static const float& p1_throttle_left;    //!<
-            static const float& p1_throttle_right;   //!<
+            static const int& p1_button_up;          //!<  Player 1 input button up.
+            static const int& p1_button_down;        //!<  Player 1 input button down.
+            static const int& p1_button_left;        //!<  Player 1 input button left.
+            static const int& p1_button_right;       //!<  Player 1 input button right.
+            static const int& p1_button_action1;     //!<  Player 1 input button action 1.
+            static const int& p1_button_action2;     //!<  Player 1 input button action 2.
+            static const int& p1_button_action3;     //!<  Player 1 input button action 3.
+            static const int& p1_button_action4;     //!<  Player 1 input button action 4.
+            static const int& p1_button_action5;     //!<  Player 1 input button action 5.
+            static const int& p1_button_action6;     //!<  Player 1 input button action 6.
+            static const int& p1_button_start;       //!<  Player 1 input button start.
+            static const int& p1_button_select;      //!<  Player 1 input button select.
+            static const float& p1_pola_x;           //!<  Player 1 joystick A position X.
+            static const float& p1_pola_y;           //!<  Player 1 joystick A position Y.
+            static const float& p1_polb_x;           //!<  Player 1 joystick B position X.
+            static const float& p1_polb_y;           //!<  Player 1 joystick B position Y.
+            static const float& p1_polc_x;           //!<  Player 1 joystick C position X.
+            static const float& p1_polc_y;           //!<  Player 1 joystick C position Y.
+            static const float& p1_throttle_left;    //!<  Player 1 throttle left.
+            static const float& p1_throttle_right;   //!<  Player 1 throttle right.
 
             /*
              * Player 2 keyboard
@@ -142,26 +142,26 @@ class config {
             /*
              * Player 2 joystick
              */
-            static const int& p2_button_up;          //!<
-            static const int& p2_button_down;        //!<
-            static const int& p2_button_left;        //!<
-            static const int& p2_button_right;       //!<
-            static const int& p2_button_action1;     //!<
-            static const int& p2_button_action2;     //!<
-            static const int& p2_button_action3;     //!<
-            static const int& p2_button_action4;     //!<
-            static const int& p2_button_action5;     //!<
-            static const int& p2_button_action6;     //!<
-            static const int& p2_button_start;       //!<
-            static const int& p2_button_select;      //!<
-            static const float& p2_pola_x;           //!<
-            static const float& p2_pola_y;           //!<
-            static const float& p2_polb_x;           //!<
-            static const float& p2_polb_y;           //!<
-            static const float& p2_polc_x;           //!<
-            static const float& p2_polc_y;           //!<
-            static const float& p2_throttle_left;    //!<
-            static const float& p2_throttle_right;   //!<
+            static const int& p2_button_up;          //!<  Player 2 input button up.
+            static const int& p2_button_down;        //!<  Player 2 input button down.
+            static const int& p2_button_left;        //!<  Player 2 input button left.
+            static const int& p2_button_right;       //!<  Player 2 input button right.
+            static const int& p2_button_action1;     //!<  Player 2 input button action 1.
+            static const int& p2_button_action2;     //!<  Player 2 input button action 2.
+            static const int& p2_button_action3;     //!<  Player 2 input button action 3.
+            static const int& p2_button_action4;     //!<  Player 2 input button action 4.
+            static const int& p2_button_action5;     //!<  Player 2 input button action 5.
+            static const int& p2_button_action6;     //!<  Player 2 input button action 6.
+            static const int& p2_button_start;       //!<  Player 2 input button start.
+            static const int& p2_button_select;      //!<  Player 2 input button select.
+            static const float& p2_pola_x;           //!<  Player 2 joystick A position X.
+            static const float& p2_pola_y;           //!<  Player 2 joystick A position Y.
+            static const float& p2_polb_x;           //!<  Player 2 joystick B position X.
+            static const float& p2_polb_y;           //!<  Player 2 joystick B position Y.
+            static const float& p2_polc_x;           //!<  Player 2 joystick C position X.
+            static const float& p2_polc_y;           //!<  Player 2 joystick C position Y.
+            static const float& p2_throttle_left;    //!<  Player 2 throttle left.
+            static const float& p2_throttle_right;   //!<  Player 2 throttle right.
 
             /*!
              * \brief Reset P1 joystick polls.

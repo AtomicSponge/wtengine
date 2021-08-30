@@ -71,25 +71,25 @@ __NOTE:__ _The following is (kinda) incomplete, (sorta) outdated, and is a work 
 
 ## Index
 
-- Main Engine Object
-- Build Flags
-- ECS
-    - Entities
-    - Components
-    - Systems
-- Components with Custom Functions
-    - Background & Overlay
-    - Dispatcher
-    - Ai
-- Menus
-- Messaging and List of Built-In Commands
-    - Message format
-    - Examples
-    - Built-In Messages
-- Setting up PhysicsFS
-- Setting up the Renderer
-- Spawning Entities
-- Variables
+- <a href="#main-engine-object">Main Engine Object</a>
+- <a href="#build-flags">Build Flags</a>
+- <a href="#entities--components--systems">ECS</a>
+    - <a href="#entities">Entities</a>
+    - <a href="#components">Components</a>
+    - <a href="#systems">Systems</a>
+- <a href="#components-with-custom-functions">Components with Custom Functions</a>
+    - <a href="#background--overlay">Background & Overlay</a>
+    - <a href="#dispatcher">Dispatcher</a>
+    - <a href="#ai">Ai</a>
+- <a href="#menus">Menus</a>
+- <a href="#messaging-and-list-of-built-in-commands">Messaging and List of Built-In Commands</a>
+    - <a href="#message-format">Message format</a>
+    - <a href="#examples">Examples</a>
+    - <a href="#built-in-messages">Built-In Messages</a>
+- <a href="#setting-up-physicsfs">Setting up PhysicsFS</a>
+- <a href="#setting-up-the-renderer">Setting up the Renderer</a>
+- <a href="#spawning-entities">Spawning Entities</a>
+- <a href="#variables">Variables</a>
 
 
 -----

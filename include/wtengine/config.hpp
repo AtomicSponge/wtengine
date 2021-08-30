@@ -44,12 +44,12 @@ class config {
          * \brief Engine flags.
          */
         struct flags {
-            static const bool& is_running;
-            static const bool& game_started;
-            static const bool& game_menu_opened;
-            static const bool& record_input;
-            inline static bool draw_fps = true;
-            inline static bool input_enabled = true;
+            static const bool& is_running;              //!<  Flag to check if the game is running.
+            static const bool& game_started;            //!<  Flag to check if the game has started.
+            static const bool& game_menu_opened;        //!<  Flag to check if the menu is opened.
+            static const bool& record_input;            //!<  Flag to enable/disable input recording.
+            inline static bool draw_fps = true;         //!<  Flag to check if fps should be drawn.
+            inline static bool input_enabled = true;    //!<  Flag to check if input is enabled.
         };
 
         /*!
@@ -57,11 +57,11 @@ class config {
          * \brief Volume levels.
          */
         struct volume {
-            static const float& main;
-            static const float& mix1;
-            static const float& mix2;
-            static const float& mix3;
-            static const float& mix4;
+            static const float& main;   //!<
+            static const float& mix1;   //!<
+            static const float& mix2;   //!<
+            static const float& mix3;   //!<
+            static const float& mix4;   //!<
         };
 
         /*!
@@ -69,14 +69,14 @@ class config {
          * \brief Graphics settings.
          */
         struct gfx {
-            static const int& screen_w;
-            static const int& screen_h;
-            static const int& arena_w;
-            static const int& arena_h;
-            static const std::size_t& vsync;
-            static const std::size_t& display_mode;
-            static const float& scale_factor;
-            static const float& menu_scale_factor;
+            static const int& screen_w;                 //!<
+            static const int& screen_h;                 //!<
+            static const int& arena_w;                  //!<
+            static const int& arena_h;                  //!<
+            static const std::size_t& vsync;            //!<
+            static const std::size_t& display_mode;     //!<
+            static const float& scale_factor;           //!<
+            static const float& menu_scale_factor;      //!<
         };
 
         /*!
@@ -84,84 +84,84 @@ class config {
          * \brief Control binding settings.
          */
         struct controls {
-            static const int& key_menu;
-            static const int& key_menu_select;
+            static const int& key_menu;         //!<
+            static const int& key_menu_select;  //!<
 
             /*
              * Player 1 keyboard
              */
-            static const int& p1_key_up;
-            static const int& p1_key_down;
-            static const int& p1_key_left;
-            static const int& p1_key_right;
-            static const int& p1_key_action1;
-            static const int& p1_key_action2;
-            static const int& p1_key_action3;
-            static const int& p1_key_action4;
-            static const int& p1_key_action5;
-            static const int& p1_key_action6;
+            static const int& p1_key_up;        //!<
+            static const int& p1_key_down;      //!<
+            static const int& p1_key_left;      //!<
+            static const int& p1_key_right;     //!<
+            static const int& p1_key_action1;   //!<
+            static const int& p1_key_action2;   //!<
+            static const int& p1_key_action3;   //!<
+            static const int& p1_key_action4;   //!<
+            static const int& p1_key_action5;   //!<
+            static const int& p1_key_action6;   //!<
 
             /*
              * Player 1 joystick
              */
-            static const int& p1_button_up;
-            static const int& p1_button_down;
-            static const int& p1_button_left;
-            static const int& p1_button_right;
-            static const int& p1_button_action1;
-            static const int& p1_button_action2;
-            static const int& p1_button_action3;
-            static const int& p1_button_action4;
-            static const int& p1_button_action5;
-            static const int& p1_button_action6;
-            static const int& p1_button_start;
-            static const int& p1_button_select;
-            static const float& p1_pola_x;
-            static const float& p1_pola_y;
-            static const float& p1_polb_x;
-            static const float& p1_polb_y;
-            static const float& p1_polc_x;
-            static const float& p1_polc_y;
-            static const float& p1_throttle_left;
-            static const float& p1_throttle_right;
+            static const int& p1_button_up;          //!<
+            static const int& p1_button_down;        //!<
+            static const int& p1_button_left;        //!<
+            static const int& p1_button_right;       //!<
+            static const int& p1_button_action1;     //!<
+            static const int& p1_button_action2;     //!<
+            static const int& p1_button_action3;     //!<
+            static const int& p1_button_action4;     //!<
+            static const int& p1_button_action5;     //!<
+            static const int& p1_button_action6;     //!<
+            static const int& p1_button_start;       //!<
+            static const int& p1_button_select;      //!<
+            static const float& p1_pola_x;           //!<
+            static const float& p1_pola_y;           //!<
+            static const float& p1_polb_x;           //!<
+            static const float& p1_polb_y;           //!<
+            static const float& p1_polc_x;           //!<
+            static const float& p1_polc_y;           //!<
+            static const float& p1_throttle_left;    //!<
+            static const float& p1_throttle_right;   //!<
 
             /*
              * Player 2 keyboard
              */
-            static const int& p2_key_up;
-            static const int& p2_key_down;
-            static const int& p2_key_left;
-            static const int& p2_key_right;
-            static const int& p2_key_action1;
-            static const int& p2_key_action2;
-            static const int& p2_key_action3;
-            static const int& p2_key_action4;
-            static const int& p2_key_action5;
-            static const int& p2_key_action6;
+            static const int& p2_key_up;        //!<
+            static const int& p2_key_down;      //!<
+            static const int& p2_key_left;      //!<
+            static const int& p2_key_right;     //!<
+            static const int& p2_key_action1;   //!<
+            static const int& p2_key_action2;   //!<
+            static const int& p2_key_action3;   //!<
+            static const int& p2_key_action4;   //!<
+            static const int& p2_key_action5;   //!<
+            static const int& p2_key_action6;   //!<
 
             /*
              * Player 2 joystick
              */
-            static const int& p2_button_up;
-            static const int& p2_button_down;
-            static const int& p2_button_left;
-            static const int& p2_button_right;
-            static const int& p2_button_action1;
-            static const int& p2_button_action2;
-            static const int& p2_button_action3;
-            static const int& p2_button_action4;
-            static const int& p2_button_action5;
-            static const int& p2_button_action6;
-            static const int& p2_button_start;
-            static const int& p2_button_select;
-            static const float& p2_pola_x;
-            static const float& p2_pola_y;
-            static const float& p2_polb_x;
-            static const float& p2_polb_y;
-            static const float& p2_polc_x;
-            static const float& p2_polc_y;
-            static const float& p2_throttle_left;
-            static const float& p2_throttle_right;
+            static const int& p2_button_up;          //!<
+            static const int& p2_button_down;        //!<
+            static const int& p2_button_left;        //!<
+            static const int& p2_button_right;       //!<
+            static const int& p2_button_action1;     //!<
+            static const int& p2_button_action2;     //!<
+            static const int& p2_button_action3;     //!<
+            static const int& p2_button_action4;     //!<
+            static const int& p2_button_action5;     //!<
+            static const int& p2_button_action6;     //!<
+            static const int& p2_button_start;       //!<
+            static const int& p2_button_select;      //!<
+            static const float& p2_pola_x;           //!<
+            static const float& p2_pola_y;           //!<
+            static const float& p2_polb_x;           //!<
+            static const float& p2_polb_y;           //!<
+            static const float& p2_polc_x;           //!<
+            static const float& p2_polc_y;           //!<
+            static const float& p2_throttle_left;    //!<
+            static const float& p2_throttle_right;   //!<
 
             /*!
              * \brief Reset P1 joystick polls.

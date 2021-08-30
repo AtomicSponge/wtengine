@@ -59,18 +59,18 @@ class input {
                  * \brief Player 1 on down events.
                  */
                 struct ondown {
-                    inline static std::function<void(void)> up = [](){};       //!<  Player 1 button up on down event.
-                    inline static std::function<void(void)> down = [](){};     //!<  Player 1 button down on down event.
-                    inline static std::function<void(void)> left = [](){};     //!<  Player 1 button left on down event.
-                    inline static std::function<void(void)> right = [](){};    //!<  Player 1 button right on down event.
-                    inline static std::function<void(void)> action1 = [](){};  //!<  Player 1 button action1 on down event.
-                    inline static std::function<void(void)> action2 = [](){};  //!<  Player 1 button action2 on down event.
-                    inline static std::function<void(void)> action3 = [](){};  //!<  Player 1 button action3 on down event.
-                    inline static std::function<void(void)> action4 = [](){};  //!<  Player 1 button action4 on down event.
-                    inline static std::function<void(void)> action5 = [](){};  //!<  Player 1 button action5 on down event.
-                    inline static std::function<void(void)> action6 = [](){};  //!<  Player 1 button action6 on down event.
-                    inline static std::function<void(void)> action7 = [](){};  //!<  Player 1 button action7 on down event.
-                    inline static std::function<void(void)> action8 = [](){};  //!<  Player 1 button action8 on down event.
+                    inline static std::function<void(void)> up = [](){};       //!<  Player 1 input up on down event.
+                    inline static std::function<void(void)> down = [](){};     //!<  Player 1 input down on down event.
+                    inline static std::function<void(void)> left = [](){};     //!<  Player 1 input left on down event.
+                    inline static std::function<void(void)> right = [](){};    //!<  Player 1 input right on down event.
+                    inline static std::function<void(void)> action1 = [](){};  //!<  Player 1 input action1 on down event.
+                    inline static std::function<void(void)> action2 = [](){};  //!<  Player 1 input action2 on down event.
+                    inline static std::function<void(void)> action3 = [](){};  //!<  Player 1 input action3 on down event.
+                    inline static std::function<void(void)> action4 = [](){};  //!<  Player 1 input action4 on down event.
+                    inline static std::function<void(void)> action5 = [](){};  //!<  Player 1 input action5 on down event.
+                    inline static std::function<void(void)> action6 = [](){};  //!<  Player 1 input action6 on down event.
+                    inline static std::function<void(void)> action7 = [](){};  //!<  Player 1 input action7 on down event.
+                    inline static std::function<void(void)> action8 = [](){};  //!<  Player 1 input action8 on down event.
                 };
 
                 /*!
@@ -78,18 +78,18 @@ class input {
                  * \brief Player 1 on up events.
                  */
                 struct onup {
-                    inline static std::function<void(void)> up = [](){};       //!<  Player 1 button up on up event.
-                    inline static std::function<void(void)> down = [](){};     //!<  Player 1 button down on up event.
-                    inline static std::function<void(void)> left = [](){};     //!<  Player 1 button left on up event.
-                    inline static std::function<void(void)> right = [](){};    //!<  Player 1 button right on up event.
-                    inline static std::function<void(void)> action1 = [](){};  //!<  Player 1 button action1 on up event.
-                    inline static std::function<void(void)> action2 = [](){};  //!<  Player 1 button action2 on up event.
-                    inline static std::function<void(void)> action3 = [](){};  //!<  Player 1 button action3 on up event.
-                    inline static std::function<void(void)> action4 = [](){};  //!<  Player 1 button action4 on up event.
-                    inline static std::function<void(void)> action5 = [](){};  //!<  Player 1 button action5 on up event.
-                    inline static std::function<void(void)> action6 = [](){};  //!<  Player 1 button action6 on up event.
-                    inline static std::function<void(void)> action7 = [](){};  //!<  Player 1 button action7 on up event.
-                    inline static std::function<void(void)> action8 = [](){};  //!<  Player 1 button action8 on up event.
+                    inline static std::function<void(void)> up = [](){};       //!<  Player 1 input up on up event.
+                    inline static std::function<void(void)> down = [](){};     //!<  Player 1 input down on up event.
+                    inline static std::function<void(void)> left = [](){};     //!<  Player 1 input left on up event.
+                    inline static std::function<void(void)> right = [](){};    //!<  Player 1 input right on up event.
+                    inline static std::function<void(void)> action1 = [](){};  //!<  Player 1 input action1 on up event.
+                    inline static std::function<void(void)> action2 = [](){};  //!<  Player 1 input action2 on up event.
+                    inline static std::function<void(void)> action3 = [](){};  //!<  Player 1 input action3 on up event.
+                    inline static std::function<void(void)> action4 = [](){};  //!<  Player 1 input action4 on up event.
+                    inline static std::function<void(void)> action5 = [](){};  //!<  Player 1 input action5 on up event.
+                    inline static std::function<void(void)> action6 = [](){};  //!<  Player 1 input action6 on up event.
+                    inline static std::function<void(void)> action7 = [](){};  //!<  Player 1 input action7 on up event.
+                    inline static std::function<void(void)> action8 = [](){};  //!<  Player 1 input action8 on up event.
                 };
             };
 
@@ -104,18 +104,18 @@ class input {
                  * \brief Player 2 on down events.
                  */
                 struct ondown {
-                    inline static std::function<void(void)> up = [](){};       //!<  Player 2 button up on down event.
-                    inline static std::function<void(void)> down = [](){};     //!<  Player 2 button down on down event.
-                    inline static std::function<void(void)> left = [](){};     //!<  Player 2 button left on down event.
-                    inline static std::function<void(void)> right = [](){};    //!<  Player 2 button right on down event.
-                    inline static std::function<void(void)> action1 = [](){};  //!<  Player 2 button action1 on down event.
-                    inline static std::function<void(void)> action2 = [](){};  //!<  Player 2 button action2 on down event.
-                    inline static std::function<void(void)> action3 = [](){};  //!<  Player 2 button action3 on down event.
-                    inline static std::function<void(void)> action4 = [](){};  //!<  Player 2 button action4 on down event.
-                    inline static std::function<void(void)> action5 = [](){};  //!<  Player 2 button action5 on down event.
-                    inline static std::function<void(void)> action6 = [](){};  //!<  Player 2 button action6 on down event.
-                    inline static std::function<void(void)> action7 = [](){};  //!<  Player 2 button action7 on down event.
-                    inline static std::function<void(void)> action8 = [](){};  //!<  Player 2 button action8 on down event.
+                    inline static std::function<void(void)> up = [](){};       //!<  Player 2 input up on down event.
+                    inline static std::function<void(void)> down = [](){};     //!<  Player 2 input down on down event.
+                    inline static std::function<void(void)> left = [](){};     //!<  Player 2 input left on down event.
+                    inline static std::function<void(void)> right = [](){};    //!<  Player 2 input right on down event.
+                    inline static std::function<void(void)> action1 = [](){};  //!<  Player 2 input action1 on down event.
+                    inline static std::function<void(void)> action2 = [](){};  //!<  Player 2 input action2 on down event.
+                    inline static std::function<void(void)> action3 = [](){};  //!<  Player 2 input action3 on down event.
+                    inline static std::function<void(void)> action4 = [](){};  //!<  Player 2 input action4 on down event.
+                    inline static std::function<void(void)> action5 = [](){};  //!<  Player 2 input action5 on down event.
+                    inline static std::function<void(void)> action6 = [](){};  //!<  Player 2 input action6 on down event.
+                    inline static std::function<void(void)> action7 = [](){};  //!<  Player 2 input action7 on down event.
+                    inline static std::function<void(void)> action8 = [](){};  //!<  Player 2 input action8 on down event.
                 };
                 
                 /*!
@@ -123,18 +123,18 @@ class input {
                  * \brief Player 2 on up events.
                  */
                 struct onup {
-                    inline static std::function<void(void)> up = [](){};       //!<  Player 2 button up on up event.
-                    inline static std::function<void(void)> down = [](){};     //!<  Player 2 button down on up event.
-                    inline static std::function<void(void)> left = [](){};     //!<  Player 2 button left on up event.
-                    inline static std::function<void(void)> right = [](){};    //!<  Player 2 button right on up event.
-                    inline static std::function<void(void)> action1 = [](){};  //!<  Player 2 button action1 on up event.
-                    inline static std::function<void(void)> action2 = [](){};  //!<  Player 2 button action2 on up event.
-                    inline static std::function<void(void)> action3 = [](){};  //!<  Player 2 button action3 on up event.
-                    inline static std::function<void(void)> action4 = [](){};  //!<  Player 2 button action4 on up event.
-                    inline static std::function<void(void)> action5 = [](){};  //!<  Player 2 button action5 on up event.
-                    inline static std::function<void(void)> action6 = [](){};  //!<  Player 2 button action6 on up event.
-                    inline static std::function<void(void)> action7 = [](){};  //!<  Player 2 button action7 on up event.
-                    inline static std::function<void(void)> action8 = [](){};  //!<  Player 2 button action8 on up event.
+                    inline static std::function<void(void)> up = [](){};       //!<  Player 2 input up on up event.
+                    inline static std::function<void(void)> down = [](){};     //!<  Player 2 input down on up event.
+                    inline static std::function<void(void)> left = [](){};     //!<  Player 2 input left on up event.
+                    inline static std::function<void(void)> right = [](){};    //!<  Player 2 input right on up event.
+                    inline static std::function<void(void)> action1 = [](){};  //!<  Player 2 input action1 on up event.
+                    inline static std::function<void(void)> action2 = [](){};  //!<  Player 2 input action2 on up event.
+                    inline static std::function<void(void)> action3 = [](){};  //!<  Player 2 input action3 on up event.
+                    inline static std::function<void(void)> action4 = [](){};  //!<  Player 2 input action4 on up event.
+                    inline static std::function<void(void)> action5 = [](){};  //!<  Player 2 input action5 on up event.
+                    inline static std::function<void(void)> action6 = [](){};  //!<  Player 2 input action6 on up event.
+                    inline static std::function<void(void)> action7 = [](){};  //!<  Player 2 input action7 on up event.
+                    inline static std::function<void(void)> action8 = [](){};  //!<  Player 2 input action8 on up event.
                 };
             };
         };

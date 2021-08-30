@@ -1,6 +1,8 @@
+#  What the Engine?
+
 ## About
 
-__WTEngine__ (What the Engine?) is a cross-platform game engine based on [ECS](https://en.wikipedia.org/wiki/Entity_component_system) design that can be used to make a 2D action game.
+__WTEngine__ is a cross-platform game engine based on [ECS](https://en.wikipedia.org/wiki/Entity_component_system) design that can be used to make a 2D action game.
 The engine is written in C++17 and uses the [Allegro Game Library](https://liballeg.org) and [PhysicsFS](https://www.icculus.org/physfs/).
 
 #### API Documentation:
@@ -82,7 +84,7 @@ __NOTE:__ _The following is (kinda) incomplete, (sorta) outdated, and is a work 
     - <a href="#dispatcher">Dispatcher</a>
     - <a href="#ai">Ai</a>
 - <a href="#menus">Menus</a>
-- <a href="#messaging-and-list-of-built-in-commands">Messaging and List of Built-In Commands</a>
+- <a href="#messaging-and-commands">Messaging and Commands</a>
     - <a href="#message-format">Message format</a>
     - <a href="#examples">Examples</a>
     - <a href="#built-in-messages">Built-In Messages</a>
@@ -90,7 +92,6 @@ __NOTE:__ _The following is (kinda) incomplete, (sorta) outdated, and is a work 
 - <a href="#setting-up-the-renderer">Setting up the Renderer</a>
 - <a href="#spawning-entities">Spawning Entities</a>
 - <a href="#variables">Variables</a>
-
 
 -----
 
@@ -328,7 +329,7 @@ The values are width, height and padding in order.  The engine will default to 5
 
 -----
 
-## Messaging and List of Built-In Commands
+## Messaging and Commands
 
 All in-engine communication is done with the messaging queue.  Messages can be used to change game settings, control the game menus, or have entities interact with each other.  Messages can also be set with a timer value to be processed later.  The __message_manager__ stores messages and keeps track of when they should be processed.
 

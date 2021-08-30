@@ -52,10 +52,8 @@ class engine : private display, public input, public config {
          */
         ~engine();
 
-        //!  Remove copy constructor.
-        engine(const engine&) = delete;
-        //!  Remove assignment operator.
-        void operator=(engine const&) = delete;
+        engine(const engine&) = delete;          //!<  Delete copy constructor.
+        void operator=(engine const&) = delete;  //!<  Delete assignment operator.
 
         /*!
          * \brief Add file path to provide to PhysFS.

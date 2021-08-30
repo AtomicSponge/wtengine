@@ -31,16 +31,6 @@ const std::string display::get_window_title(void) const { return window_title; }
 /*
  *
  */
-const int display::get_screen_width(void) { return al_get_display_width(_display); }
-
-/*
- *
- */
-const int display::get_screen_height(void) { return al_get_display_height(_display); }
-
-/*
- *
- */
 void display::create_display(void) {
     al_reset_new_display_options();
 

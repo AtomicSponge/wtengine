@@ -26,10 +26,12 @@ namespace wte {
  * \brief Handles control of the display.
  */
 class display {
+    friend class engine;
+
     public:
-        virtual ~display() = default;
-        display(const display&) = delete;
-        void operator=(display const&) = delete;
+        virtual ~display() = default;             //!<  Default virtual destructor.
+        display(const display&) = delete;         //!<  Delete copy constructor.
+        void operator=(display const&) = delete;  //!<  Delete assignment operator.
 
         /*!
          * \brief Get the window title.
@@ -37,24 +39,14 @@ class display {
          */
         const std::string get_window_title(void) const;
 
-        /*!
-         * \brief Get screen width.
-         * \return Screen width in pixels.
-         */
-        static const int get_screen_width(void);
-
-        /*!
-         * \brief Get screen height.
-         * \return Screen height in pixels.
-         */
-        static const int get_screen_height(void);
-
     protected:
-        /*
-         * Display constructor.
+        /*!
+         * \brief Display constructor.
+         * \param title Window title.
          */
         display(const std::string& title);
 
+    private:
         /*
          * Configure the display.
          */
@@ -70,10 +62,8 @@ class display {
          */
         void reconf_display(void);
 
-        //  Allegro object for the display.
-        static ALLEGRO_DISPLAY* _display;
+        static ALLEGRO_DISPLAY* _display;  //!<  Allegro object for the display.
 
-    private:
         std::string window_title;  //  Title for application window.
         static bool initialized;   //  Restrict to one instance.
 };

@@ -12,6 +12,10 @@
 namespace wte {
 
 bool input::initialized = false;
+const int64_t& input::lastkeypress::timer = input::_lastkeypress::timer;
+const int& input::lastkeypress::key = input::_lastkeypress::key;
+const int64_t& input::lastbuttonpress::timer = input::_lastbuttonpress::timer;
+const int& input::lastbuttonpress::button = input::_lastbuttonpress::button;
 
 /*
  *
@@ -207,9 +211,6 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
         /* *********************** */
         /////////////////////////////////////////////////////////////
         case ALLEGRO_EVENT_KEY_DOWN:
-            //  Record last key pressed.
-            lastkeypress::timer = engine_time::check_time();
-            lastkeypress::key = event.keyboard.keycode;
             if(event.keyboard.keycode == config::controls::key_menu) config::_flags::game_menu_opened = true;
             if(config::flags::input_enabled) {
                 try {
@@ -291,6 +292,9 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                         try { input::event::p2::ondown::action8(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
                 } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
             }
+            //  Record last key pressed.
+            _lastkeypress::timer = engine_time::check_time();
+            _lastkeypress::key = event.keyboard.keycode;
             break;  //  End case ALLEGRO_EVENT_KEY_DOWN
         /////////////////////////////////////////////////////////////
         case ALLEGRO_EVENT_KEY_UP:
@@ -387,9 +391,6 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
             break;
         /////////////////////////////////////////////////////////////
         case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-            //  Record last button pressed.
-            lastbuttonpress::timer = engine_time::check_time();
-            lastbuttonpress::button = event.joystick.button;
             /* *** PLAYER 1 *** */
             if(event.joystick.button == config::controls::p1_button_up)
                 try { 
@@ -465,6 +466,9 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                 try { input::event::p2::ondown::action7(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
             if(event.joystick.button == config::controls::p2_button_action8)
                 try { input::event::p2::ondown::action8(); } catch(...) { throw wte_exception("Error processing player2 ondown input", "input", engine_time::check_time()); }
+            //  Record last button pressed.
+            _lastbuttonpress::timer = engine_time::check_time();
+            _lastbuttonpress::button = event.joystick.button;
             break;  //  end ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN
         /////////////////////////////////////////////////////////////
         case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:

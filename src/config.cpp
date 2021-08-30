@@ -46,6 +46,8 @@ const int& config::controls::p1_key_action3 = config::_controls::p1_key_action3;
 const int& config::controls::p1_key_action4 = config::_controls::p1_key_action4;
 const int& config::controls::p1_key_action5 = config::_controls::p1_key_action5;
 const int& config::controls::p1_key_action6 = config::_controls::p1_key_action6;
+const int& config::controls::p1_key_action7 = config::_controls::p1_key_action7;
+const int& config::controls::p1_key_action8 = config::_controls::p1_key_action8;
 
 const int& config::controls::p1_button_up = config::_controls::p1_button_up;
 const int& config::controls::p1_button_down = config::_controls::p1_button_down;
@@ -57,6 +59,8 @@ const int& config::controls::p1_button_action3 = config::_controls::p1_button_ac
 const int& config::controls::p1_button_action4 = config::_controls::p1_button_action4;
 const int& config::controls::p1_button_action5 = config::_controls::p1_button_action5;
 const int& config::controls::p1_button_action6 = config::_controls::p1_button_action6;
+const int& config::controls::p1_button_action7 = config::_controls::p1_button_action7;
+const int& config::controls::p1_button_action8 = config::_controls::p1_button_action8;
 const int& config::controls::p1_button_start = config::_controls::p1_button_start;
 const int& config::controls::p1_button_select = config::_controls::p1_button_select;
 const float& config::controls::p1_pola_x = config::_controls::p1_pola_x;
@@ -78,6 +82,8 @@ const int& config::controls::p2_key_action3 = config::_controls::p2_key_action3;
 const int& config::controls::p2_key_action4 = config::_controls::p2_key_action4;
 const int& config::controls::p2_key_action5 = config::_controls::p2_key_action5;
 const int& config::controls::p2_key_action6 = config::_controls::p2_key_action6;
+const int& config::controls::p2_key_action7 = config::_controls::p2_key_action7;
+const int& config::controls::p2_key_action8 = config::_controls::p2_key_action8;
 
 const int& config::controls::p2_button_up = config::_controls::p2_button_up;
 const int& config::controls::p2_button_down = config::_controls::p2_button_down;
@@ -89,6 +95,8 @@ const int& config::controls::p2_button_action3 = config::_controls::p2_button_ac
 const int& config::controls::p2_button_action4 = config::_controls::p2_button_action4;
 const int& config::controls::p2_button_action5 = config::_controls::p2_button_action5;
 const int& config::controls::p2_button_action6 = config::_controls::p2_button_action6;
+const int& config::controls::p2_button_action7 = config::_controls::p2_button_action7;
+const int& config::controls::p2_button_action8 = config::_controls::p2_button_action8;
 const int& config::controls::p2_button_start = config::_controls::p2_button_start;
 const int& config::controls::p2_button_select = config::_controls::p2_button_select;
 const float& config::controls::p2_pola_x = config::_controls::p2_pola_x;
@@ -165,6 +173,7 @@ const bool config::load(void) {
         dfile.read(reinterpret_cast<char*>(&_volume::mix4), sizeof _volume::mix4);
         dfile.read(reinterpret_cast<char*>(&_controls::key_menu), sizeof _controls::key_menu);
         dfile.read(reinterpret_cast<char*>(&_controls::key_menu_select), sizeof _controls::key_menu_select);
+
         dfile.read(reinterpret_cast<char*>(&_controls::p1_key_up), sizeof _controls::p1_key_up);
         dfile.read(reinterpret_cast<char*>(&_controls::p1_key_down), sizeof _controls::p1_key_down);
         dfile.read(reinterpret_cast<char*>(&_controls::p1_key_left), sizeof _controls::p1_key_left);
@@ -175,6 +184,24 @@ const bool config::load(void) {
         dfile.read(reinterpret_cast<char*>(&_controls::p1_key_action4), sizeof _controls::p1_key_action4);
         dfile.read(reinterpret_cast<char*>(&_controls::p1_key_action5), sizeof _controls::p1_key_action5);
         dfile.read(reinterpret_cast<char*>(&_controls::p1_key_action6), sizeof _controls::p1_key_action6);
+        dfile.read(reinterpret_cast<char*>(&_controls::p1_key_action7), sizeof _controls::p1_key_action7);
+        dfile.read(reinterpret_cast<char*>(&_controls::p1_key_action8), sizeof _controls::p1_key_action8);
+
+        dfile.read(reinterpret_cast<char*>(&_controls::p1_button_up), sizeof _controls::p1_button_up);
+        dfile.read(reinterpret_cast<char*>(&_controls::p1_button_down), sizeof _controls::p1_button_down);
+        dfile.read(reinterpret_cast<char*>(&_controls::p1_button_left), sizeof _controls::p1_button_left);
+        dfile.read(reinterpret_cast<char*>(&_controls::p1_button_right), sizeof _controls::p1_button_right);
+        dfile.read(reinterpret_cast<char*>(&_controls::p1_button_action1), sizeof _controls::p1_button_action1);
+        dfile.read(reinterpret_cast<char*>(&_controls::p1_button_action2), sizeof _controls::p1_button_action2);
+        dfile.read(reinterpret_cast<char*>(&_controls::p1_button_action3), sizeof _controls::p1_button_action3);
+        dfile.read(reinterpret_cast<char*>(&_controls::p1_button_action4), sizeof _controls::p1_button_action4);
+        dfile.read(reinterpret_cast<char*>(&_controls::p1_button_action5), sizeof _controls::p1_button_action5);
+        dfile.read(reinterpret_cast<char*>(&_controls::p1_button_action6), sizeof _controls::p1_button_action6);
+        dfile.read(reinterpret_cast<char*>(&_controls::p1_button_action7), sizeof _controls::p1_button_action7);
+        dfile.read(reinterpret_cast<char*>(&_controls::p1_button_action8), sizeof _controls::p1_button_action8);
+        dfile.read(reinterpret_cast<char*>(&_controls::p1_button_start), sizeof _controls::p1_button_start);
+        dfile.read(reinterpret_cast<char*>(&_controls::p1_button_select), sizeof _controls::p1_button_select);
+
         dfile.read(reinterpret_cast<char*>(&_controls::p2_key_up), sizeof _controls::p2_key_up);
         dfile.read(reinterpret_cast<char*>(&_controls::p2_key_down), sizeof _controls::p2_key_down);
         dfile.read(reinterpret_cast<char*>(&_controls::p2_key_left), sizeof _controls::p2_key_left);
@@ -185,6 +212,23 @@ const bool config::load(void) {
         dfile.read(reinterpret_cast<char*>(&_controls::p2_key_action4), sizeof _controls::p2_key_action4);
         dfile.read(reinterpret_cast<char*>(&_controls::p2_key_action5), sizeof _controls::p2_key_action5);
         dfile.read(reinterpret_cast<char*>(&_controls::p2_key_action6), sizeof _controls::p2_key_action6);
+        dfile.read(reinterpret_cast<char*>(&_controls::p2_key_action7), sizeof _controls::p2_key_action7);
+        dfile.read(reinterpret_cast<char*>(&_controls::p2_key_action8), sizeof _controls::p2_key_action8);
+
+        dfile.read(reinterpret_cast<char*>(&_controls::p2_button_up), sizeof _controls::p2_button_up);
+        dfile.read(reinterpret_cast<char*>(&_controls::p2_button_down), sizeof _controls::p2_button_down);
+        dfile.read(reinterpret_cast<char*>(&_controls::p2_button_left), sizeof _controls::p2_button_left);
+        dfile.read(reinterpret_cast<char*>(&_controls::p2_button_right), sizeof _controls::p2_button_right);
+        dfile.read(reinterpret_cast<char*>(&_controls::p2_button_action1), sizeof _controls::p2_button_action1);
+        dfile.read(reinterpret_cast<char*>(&_controls::p2_button_action2), sizeof _controls::p2_button_action2);
+        dfile.read(reinterpret_cast<char*>(&_controls::p2_button_action3), sizeof _controls::p2_button_action3);
+        dfile.read(reinterpret_cast<char*>(&_controls::p2_button_action4), sizeof _controls::p2_button_action4);
+        dfile.read(reinterpret_cast<char*>(&_controls::p2_button_action5), sizeof _controls::p2_button_action5);
+        dfile.read(reinterpret_cast<char*>(&_controls::p2_button_action6), sizeof _controls::p2_button_action6);
+        dfile.read(reinterpret_cast<char*>(&_controls::p2_button_action7), sizeof _controls::p2_button_action7);
+        dfile.read(reinterpret_cast<char*>(&_controls::p2_button_action8), sizeof _controls::p2_button_action8);
+        dfile.read(reinterpret_cast<char*>(&_controls::p2_button_start), sizeof _controls::p2_button_start);
+        dfile.read(reinterpret_cast<char*>(&_controls::p2_button_select), sizeof _controls::p2_button_select);
     } catch(...) {
         dfile.close();
         return false;
@@ -214,6 +258,7 @@ const bool config::save(void) {
         dfile.write(reinterpret_cast<const char*>(&volume::mix4), sizeof volume::mix4);
         dfile.write(reinterpret_cast<const char*>(&controls::key_menu), sizeof controls::key_menu);
         dfile.write(reinterpret_cast<const char*>(&controls::key_menu_select), sizeof controls::key_menu_select);
+        
         dfile.write(reinterpret_cast<const char*>(&controls::p1_key_up), sizeof controls::p1_key_up);
         dfile.write(reinterpret_cast<const char*>(&controls::p1_key_down), sizeof controls::p1_key_down);
         dfile.write(reinterpret_cast<const char*>(&controls::p1_key_left), sizeof controls::p1_key_left);
@@ -224,6 +269,24 @@ const bool config::save(void) {
         dfile.write(reinterpret_cast<const char*>(&controls::p1_key_action4), sizeof controls::p1_key_action4);
         dfile.write(reinterpret_cast<const char*>(&controls::p1_key_action5), sizeof controls::p1_key_action5);
         dfile.write(reinterpret_cast<const char*>(&controls::p1_key_action6), sizeof controls::p1_key_action6);
+        dfile.write(reinterpret_cast<const char*>(&controls::p1_key_action7), sizeof controls::p1_key_action7);
+        dfile.write(reinterpret_cast<const char*>(&controls::p1_key_action8), sizeof controls::p1_key_action8);
+        
+        dfile.write(reinterpret_cast<const char*>(&controls::p1_button_up), sizeof controls::p1_button_up);
+        dfile.write(reinterpret_cast<const char*>(&controls::p1_button_down), sizeof controls::p1_button_down);
+        dfile.write(reinterpret_cast<const char*>(&controls::p1_button_left), sizeof controls::p1_button_left);
+        dfile.write(reinterpret_cast<const char*>(&controls::p1_button_right), sizeof controls::p1_button_right);
+        dfile.write(reinterpret_cast<const char*>(&controls::p1_button_action1), sizeof controls::p1_button_action1);
+        dfile.write(reinterpret_cast<const char*>(&controls::p1_button_action2), sizeof controls::p1_button_action2);
+        dfile.write(reinterpret_cast<const char*>(&controls::p1_button_action3), sizeof controls::p1_button_action3);
+        dfile.write(reinterpret_cast<const char*>(&controls::p1_button_action4), sizeof controls::p1_button_action4);
+        dfile.write(reinterpret_cast<const char*>(&controls::p1_button_action5), sizeof controls::p1_button_action5);
+        dfile.write(reinterpret_cast<const char*>(&controls::p1_button_action6), sizeof controls::p1_button_action6);
+        dfile.write(reinterpret_cast<const char*>(&controls::p1_button_action7), sizeof controls::p1_button_action7);
+        dfile.write(reinterpret_cast<const char*>(&controls::p1_button_action8), sizeof controls::p1_button_action8);
+        dfile.write(reinterpret_cast<const char*>(&controls::p1_button_start), sizeof controls::p1_button_start);
+        dfile.write(reinterpret_cast<const char*>(&controls::p1_button_select), sizeof controls::p1_button_select);
+        
         dfile.write(reinterpret_cast<const char*>(&controls::p2_key_up), sizeof controls::p2_key_up);
         dfile.write(reinterpret_cast<const char*>(&controls::p2_key_down), sizeof controls::p2_key_down);
         dfile.write(reinterpret_cast<const char*>(&controls::p2_key_left), sizeof controls::p2_key_left);
@@ -234,6 +297,23 @@ const bool config::save(void) {
         dfile.write(reinterpret_cast<const char*>(&controls::p2_key_action4), sizeof controls::p2_key_action4);
         dfile.write(reinterpret_cast<const char*>(&controls::p2_key_action5), sizeof controls::p2_key_action5);
         dfile.write(reinterpret_cast<const char*>(&controls::p2_key_action6), sizeof controls::p2_key_action6);
+        dfile.write(reinterpret_cast<const char*>(&controls::p2_key_action7), sizeof controls::p2_key_action7);
+        dfile.write(reinterpret_cast<const char*>(&controls::p2_key_action8), sizeof controls::p2_key_action8);
+
+        dfile.write(reinterpret_cast<const char*>(&controls::p2_button_up), sizeof controls::p2_button_up);
+        dfile.write(reinterpret_cast<const char*>(&controls::p2_button_down), sizeof controls::p2_button_down);
+        dfile.write(reinterpret_cast<const char*>(&controls::p2_button_left), sizeof controls::p2_button_left);
+        dfile.write(reinterpret_cast<const char*>(&controls::p2_button_right), sizeof controls::p2_button_right);
+        dfile.write(reinterpret_cast<const char*>(&controls::p2_button_action1), sizeof controls::p2_button_action1);
+        dfile.write(reinterpret_cast<const char*>(&controls::p2_button_action2), sizeof controls::p2_button_action2);
+        dfile.write(reinterpret_cast<const char*>(&controls::p2_button_action3), sizeof controls::p2_button_action3);
+        dfile.write(reinterpret_cast<const char*>(&controls::p2_button_action4), sizeof controls::p2_button_action4);
+        dfile.write(reinterpret_cast<const char*>(&controls::p2_button_action5), sizeof controls::p2_button_action5);
+        dfile.write(reinterpret_cast<const char*>(&controls::p2_button_action6), sizeof controls::p2_button_action6);
+        dfile.write(reinterpret_cast<const char*>(&controls::p2_button_action7), sizeof controls::p2_button_action7);
+        dfile.write(reinterpret_cast<const char*>(&controls::p2_button_action8), sizeof controls::p2_button_action8);
+        dfile.write(reinterpret_cast<const char*>(&controls::p2_button_start), sizeof controls::p2_button_start);
+        dfile.write(reinterpret_cast<const char*>(&controls::p2_button_select), sizeof controls::p2_button_select);
     } catch(...) {
         dfile.close();
         return false;

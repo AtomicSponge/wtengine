@@ -100,6 +100,8 @@ class config {
             static const int& p1_key_action4;   //!<  Player 1 input action 4 key.
             static const int& p1_key_action5;   //!<  Player 1 input action 5 key.
             static const int& p1_key_action6;   //!<  Player 1 input action 6 key.
+            static const int& p1_key_action7;   //!<  Player 1 input action 7 key.
+            static const int& p1_key_action8;   //!<  Player 1 input action 8 key.
 
             /*
              * Player 1 joystick
@@ -114,6 +116,8 @@ class config {
             static const int& p1_button_action4;     //!<  Player 1 input button action 4.
             static const int& p1_button_action5;     //!<  Player 1 input button action 5.
             static const int& p1_button_action6;     //!<  Player 1 input button action 6.
+            static const int& p1_button_action7;     //!<  Player 1 input button action 7.
+            static const int& p1_button_action8;     //!<  Player 1 input button action 8.
             static const int& p1_button_start;       //!<  Player 1 input button start.
             static const int& p1_button_select;      //!<  Player 1 input button select.
             static const float& p1_pola_x;           //!<  Player 1 joystick A position X.
@@ -138,6 +142,8 @@ class config {
             static const int& p2_key_action4;   //!<  Player 2 input action 4 key.
             static const int& p2_key_action5;   //!<  Player 2 input action 5 key.
             static const int& p2_key_action6;   //!<  Player 2 input action 6 key.
+            static const int& p2_key_action7;   //!<  Player 2 input action 7 key.
+            static const int& p2_key_action8;   //!<  Player 2 input action 8 key.
 
             /*
              * Player 2 joystick
@@ -152,6 +158,8 @@ class config {
             static const int& p2_button_action4;     //!<  Player 2 input button action 4.
             static const int& p2_button_action5;     //!<  Player 2 input button action 5.
             static const int& p2_button_action6;     //!<  Player 2 input button action 6.
+            static const int& p2_button_action7;     //!<  Player 2 input button action 7.
+            static const int& p2_button_action8;     //!<  Player 2 input button action 8.
             static const int& p2_button_start;       //!<  Player 2 input button start.
             static const int& p2_button_select;      //!<  Player 2 input button select.
             static const float& p2_pola_x;           //!<  Player 2 joystick A position X.
@@ -236,6 +244,8 @@ class config {
             inline static int p1_key_action4 = WTE_P1_KEY_ACTION4_DEFAULT;
             inline static int p1_key_action5 = WTE_P1_KEY_ACTION5_DEFAULT;
             inline static int p1_key_action6 = WTE_P1_KEY_ACTION6_DEFAULT;
+            inline static int p1_key_action7 = WTE_P1_KEY_ACTION7_DEFAULT;
+            inline static int p1_key_action8 = WTE_P1_KEY_ACTION8_DEFAULT;
 
             /*
              * Player 1 joystick
@@ -250,6 +260,8 @@ class config {
             inline static int p1_button_action4 = 0;
             inline static int p1_button_action5 = 0;
             inline static int p1_button_action6 = 0;
+            inline static int p1_button_action7 = 0;
+            inline static int p1_button_action8 = 0;
             inline static int p1_button_start = 0;
             inline static int p1_button_select = 0;
             inline static float p1_pola_x = 0.0f;
@@ -274,6 +286,8 @@ class config {
             inline static int p2_key_action4 = WTE_P2_KEY_ACTION4_DEFAULT;
             inline static int p2_key_action5 = WTE_P2_KEY_ACTION5_DEFAULT;
             inline static int p2_key_action6 = WTE_P2_KEY_ACTION6_DEFAULT;
+            inline static int p2_key_action7 = WTE_P2_KEY_ACTION7_DEFAULT;
+            inline static int p2_key_action8 = WTE_P2_KEY_ACTION8_DEFAULT;
 
             /*
              * Player 2 joystick
@@ -288,6 +302,8 @@ class config {
             inline static int p2_button_action4 = 0;
             inline static int p2_button_action5 = 0;
             inline static int p2_button_action6 = 0;
+            inline static int p2_button_action7 = 0;
+            inline static int p2_button_action8 = 0;
             inline static int p2_button_start = 0;
             inline static int p2_button_select = 0;
             inline static float p2_pola_x = 0.0f;

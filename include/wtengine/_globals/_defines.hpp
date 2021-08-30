@@ -116,6 +116,12 @@
 #ifndef WTE_P1_KEY_ACTION6_DEFAULT
 #define WTE_P1_KEY_ACTION6_DEFAULT      (0)
 #endif
+#ifndef WTE_P1_KEY_ACTION7_DEFAULT
+#define WTE_P1_KEY_ACTION7_DEFAULT      (0)
+#endif
+#ifndef WTE_P1_KEY_ACTION8_DEFAULT
+#define WTE_P1_KEY_ACTION8_DEFAULT      (0)
+#endif
 
 /*
  * Player 2 keyboard inputs
@@ -150,5 +156,12 @@
 #ifndef WTE_P2_KEY_ACTION6_DEFAULT
 #define WTE_P2_KEY_ACTION6_DEFAULT      (0)
 #endif
+#ifndef WTE_P2_KEY_ACTION7_DEFAULT
+#define WTE_P2_KEY_ACTION7_DEFAULT      (0)
+#endif
+#ifndef WTE_P2_KEY_ACTION8_DEFAULT
+#define WTE_P2_KEY_ACTION8_DEFAULT      (0)
+#endif
+
 
 #endif

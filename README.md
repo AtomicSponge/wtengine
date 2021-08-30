@@ -92,7 +92,6 @@ virtual void on_menu_open(void) - Events when a menu opens
 virtual void on_menu_close(void) - Events when a menu closes
 virtual void out_of_focus(void) - Events if the game window is clicked out of
 virtual void back_in_focus(void) - Events when the game window is brought back into focus
-virtual void handle_custom_sys_msg(const message&) - Define custom message handling
 ```
 
 In your __main.cpp__ file delcare the object as such:

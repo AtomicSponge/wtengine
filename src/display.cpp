@@ -52,16 +52,16 @@ void display::create_display(void) {
         al_set_new_display_option(ALLEGRO_VSYNC, 0, ALLEGRO_SUGGEST);
     }
 
-    int screen_w = mgr::renderer::get_arena_width();
-    int screen_h = mgr::renderer::get_arena_height();
+    int screen_w = config::gfx::arena_w;
+    int screen_h = config::gfx::arena_h;
 
     //  Check if a display mode is set.
     if(config::gfx::display_mode == 1) {
         al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
     } else {
         al_set_new_display_flags(ALLEGRO_WINDOWED);
-        screen_w = (int)ceil(mgr::renderer::get_arena_width() * config::gfx::scale_factor);
-        screen_h = (int)ceil(mgr::renderer::get_arena_height() * config::gfx::scale_factor);
+        screen_w = (int)ceil(config::gfx::arena_w * config::gfx::scale_factor);
+        screen_h = (int)ceil(config::gfx::arena_h * config::gfx::scale_factor);
     }
 
     //  Create the display.  Full screen windowed defaults to the display resolution.
@@ -74,13 +74,13 @@ void display::create_display(void) {
     //  Display failed to load, try a fallback.
     if(!_display) {
         al_set_new_display_flags(ALLEGRO_WINDOWED);
-        _display = al_create_display(mgr::renderer::get_arena_width(),
-                                     mgr::renderer::get_arena_height());
+        _display = al_create_display(config::gfx::arena_w,
+                                     config::gfx::arena_h);
         if(!_display) throw std::runtime_error("Failed to configure display!");
         config::_gfx::display_mode = 0;
         config::_gfx::scale_factor = 1.0f;
-        screen_w = mgr::renderer::get_arena_width();
-        screen_h = mgr::renderer::get_arena_height();
+        screen_w = config::gfx::arena_w;
+        screen_h = config::gfx::arena_h;
     }
 
     //  Set window title.
@@ -96,8 +96,8 @@ void display::create_display(void) {
     }
     al_fclose(file);
 
-    /* *** Render manager updating *** */
-    mgr::renderer::set_resolution(screen_w, screen_h);
+    config::_gfx::screen_w = screen_w;
+    config::_gfx::screen_h = screen_h;
 }
 
 /*

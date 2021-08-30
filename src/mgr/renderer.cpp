@@ -22,8 +22,6 @@ wte_asset<al_bitmap> renderer::arena_bitmap;
 wte_asset<al_bitmap> renderer::title_bitmap;
 wte_asset<al_font> renderer::renderer_font;
 std::size_t renderer::fps_counter = 0, renderer::fps = 0;
-int renderer::screen_w = 0, renderer::screen_h = 0;
-int renderer::arena_w = 0, renderer::arena_h = 0;
 bool renderer::arena_created = false;
 std::string renderer::title_screen_file;
 std::string renderer::background_file;
@@ -33,8 +31,8 @@ std::string renderer::background_file;
  */
 void renderer::initialize(void) {
     //  Create the arena bitmap.
-    if(arena_w == 0 || arena_h == 0) throw std::runtime_error("Arena size not defined!");
-    arena_bitmap = make_asset(al_bitmap(arena_w, arena_h, true));
+    if(config::gfx::arena_w == 0 || config::gfx::arena_h == 0) throw std::runtime_error("Arena size not defined!");
+    arena_bitmap = make_asset(al_bitmap(config::gfx::arena_w, config::gfx::arena_h, true));
     //  Add reference to Asset manager so bitmap can be reloaded.
     mgr::assets<al_bitmap>::load<al_bitmap>("wte_renderer_arena_bitmap", arena_bitmap);
     arena_created = true;
@@ -69,31 +67,13 @@ void renderer::de_init(void) {
 /*
  *
  */
-void renderer::set_resolution(const int& w, const int& h) {
-    screen_w = w;
-    screen_h = h;
-}
-
-/*
- *
- */
 void renderer::set_arena_size(const int& w, const int& h) {
     assert(w > 0 && h > 0);
     if(!arena_created) {
-        arena_w = w;
-        arena_h = h;
+        config::_gfx::arena_w = w;
+        config::_gfx::arena_h = h;
     }
 }
-
-/*
- *
- */
-const int renderer::get_arena_width(void) { return arena_w; }
-
-/*
- *
- */
-const int renderer::get_arena_height(void) { return arena_h; }
 
 /*
  *
@@ -306,18 +286,19 @@ void renderer::render(void) {
          * Draw the arena bitmap to the screen.
          */
         al_set_target_backbuffer(al_get_current_display());
-        al_draw_scaled_bitmap(**arena_bitmap, 0, 0, arena_w, arena_h,
-                              (screen_w / 2) - (arena_w * config::gfx::scale_factor / 2),
-                              (screen_h / 2) - (arena_h * config::gfx::scale_factor / 2),
-                              arena_w * config::gfx::scale_factor,
-                              arena_h * config::gfx::scale_factor, 0);
+        al_draw_scaled_bitmap(
+            **arena_bitmap, 0, 0, config::gfx::arena_w, config::gfx::arena_h,
+            (config::gfx::screen_w / 2) - (config::gfx::arena_w * config::gfx::scale_factor / 2),
+            (config::gfx::screen_h / 2) - (config::gfx::arena_h * config::gfx::scale_factor / 2),
+            config::gfx::arena_w * config::gfx::scale_factor,
+            config::gfx::arena_h * config::gfx::scale_factor, 0);
     } else {
         /*
          * Game is not running - draw the title screen.
          */
         al_draw_scaled_bitmap(**title_bitmap, 0, 0,
-                              title_bitmap->get_width(), title_bitmap->get_height(),
-                              0, 0, screen_w, screen_h, 0);
+            title_bitmap->get_width(), title_bitmap->get_height(),
+            0, 0, config::gfx::screen_w, config::gfx::screen_h, 0);
     }
 
     /*
@@ -331,8 +312,8 @@ void renderer::render(void) {
         al_draw_scaled_bitmap(
             temp_bitmap, 0, 0,
             al_get_bitmap_width(temp_bitmap), al_get_bitmap_height(temp_bitmap),
-            (screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * menu_scale_factor) / 2),
-            (screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * menu_scale_factor) / 2),
+            (config::gfx::screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * menu_scale_factor) / 2),
+            (config::gfx::screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * menu_scale_factor) / 2),
             al_get_bitmap_width(temp_bitmap) * menu_scale_factor,
             al_get_bitmap_height(temp_bitmap) * menu_scale_factor, 0
         );
@@ -350,15 +331,15 @@ void renderer::render(void) {
         al_clear_to_color(WTE_COLOR_RED);
 
         al_draw_text(**notice::get_notice_font(), notice::get_notice_font_color(),
-                     (al_get_bitmap_width(temp_bitmap) / 2), 10,
-                     ALLEGRO_ALIGN_CENTER, notice::get().c_str());
+            (al_get_bitmap_width(temp_bitmap) / 2), 10,
+            ALLEGRO_ALIGN_CENTER, notice::get().c_str());
 
         al_set_target_backbuffer(al_get_current_display());
         al_draw_scaled_bitmap(
             temp_bitmap, 0, 0,
             al_get_bitmap_width(temp_bitmap), al_get_bitmap_height(temp_bitmap),
-            (screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * menu_scale_factor) / 2),
-            (screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * menu_scale_factor) / 2),
+            (config::gfx::screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * menu_scale_factor) / 2),
+            (config::gfx::screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * menu_scale_factor) / 2),
             al_get_bitmap_width(temp_bitmap) * menu_scale_factor,
             al_get_bitmap_height(temp_bitmap) * menu_scale_factor, 0
         );
@@ -376,15 +357,15 @@ void renderer::render(void) {
         al_clear_to_color(WTE_COLOR_RED);
 
         al_draw_text(**renderer_font, WTE_COLOR_WHITE,
-                     (al_get_bitmap_width(temp_bitmap) / 2), 10,
-                     ALLEGRO_ALIGN_CENTER, alert::get().c_str());
+            (al_get_bitmap_width(temp_bitmap) / 2), 10,
+            ALLEGRO_ALIGN_CENTER, alert::get().c_str());
 
         al_set_target_backbuffer(al_get_current_display());
         al_draw_scaled_bitmap(
             temp_bitmap, 0, 0,
             al_get_bitmap_width(temp_bitmap), al_get_bitmap_height(temp_bitmap),
-            (screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * config::gfx::scale_factor) / 2),
-            (screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * config::gfx::scale_factor) / 2),
+            (config::gfx::screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * config::gfx::scale_factor) / 2),
+            (config::gfx::screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * config::gfx::scale_factor) / 2),
             al_get_bitmap_width(temp_bitmap) * config::gfx::scale_factor,
             al_get_bitmap_height(temp_bitmap) * config::gfx::scale_factor, 0
         );
@@ -397,13 +378,13 @@ void renderer::render(void) {
     //  Draw frame rate.
     if(config::flags::draw_fps) {
         const std::string fps_string = "FPS: " + std::to_string(fps);
-        al_draw_text(**renderer_font, WTE_COLOR_YELLOW, screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
+        al_draw_text(**renderer_font, WTE_COLOR_YELLOW, config::gfx::screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
 
     //  Draw time if debug mode is enabled.
     #if WTE_DEBUG_MODE
     const std::string timer_string = "Timer: " + std::to_string(engine_time::check_time());
-    al_draw_text(**renderer_font, WTE_COLOR_YELLOW, screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
+    al_draw_text(**renderer_font, WTE_COLOR_YELLOW, config::gfx::screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     #endif
 
     /*

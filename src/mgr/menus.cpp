@@ -47,8 +47,8 @@ void menus::initialize(void) {
 
     //  Create the the menu bitmap for rendering.
     menu_buffer = make_asset(al_bitmap(
-        mgr::renderer::get_arena_width(),
-        mgr::renderer::get_arena_height(),
+        config::gfx::arena_w,
+        config::gfx::arena_h,
         true
     ));
 
@@ -298,8 +298,8 @@ ALLEGRO_BITMAP* menus::render_menu(void) {
     al_set_target_bitmap(**menu_buffer);
     al_draw_scaled_bitmap(
         **menu_temp_bmp, 0, 0, menu_width, menu_height,
-        (mgr::renderer::get_arena_width() / 2) - (menu_width * config::gfx::menu_scale_factor / 2),
-        (mgr::renderer::get_arena_height() / 2) - (menu_height * config::gfx::menu_scale_factor / 2),
+        (config::gfx::arena_w / 2) - (menu_width * config::gfx::menu_scale_factor / 2),
+        (config::gfx::arena_h / 2) - (menu_height * config::gfx::menu_scale_factor / 2),
         menu_width * config::gfx::menu_scale_factor,
         menu_height * config::gfx::menu_scale_factor, 0
     );

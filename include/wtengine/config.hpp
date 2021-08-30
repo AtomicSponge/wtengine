@@ -69,6 +69,10 @@ class config {
          * \brief Graphics settings.
          */
         struct gfx {
+            static const int& screen_w;
+            static const int& screen_h;
+            static const int& arena_w;
+            static const int& arena_h;
             static const std::size_t& vsync;
             static const std::size_t& display_mode;
             static const float& scale_factor;
@@ -207,6 +211,8 @@ class config {
         };
 
         struct _gfx {
+            inline static int screen_w = 0, screen_h = 0;
+            inline static int arena_w = 0, arena_h = 0;
             inline static std::size_t vsync = 2;
             inline static std::size_t display_mode = 0;
             inline static float scale_factor = 1.0f;

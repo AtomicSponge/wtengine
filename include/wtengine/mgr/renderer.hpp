@@ -75,18 +75,6 @@ class renderer final : private manager<renderer> {
         );
 
         /*!
-         * \brief Get the arnea width.
-         * \return The arena width in pixels.
-         */
-        static const int get_arena_width(void);
-
-        /*!
-         * \brief Get the arena height.
-         * \return The arena height in pixels.
-         */
-        static const int get_arena_height(void);
-
-        /*!
          * \brief Set the title screen.
          * 
          * This should be called during engine initialization before the main object is created.
@@ -125,15 +113,6 @@ class renderer final : private manager<renderer> {
         static void de_init(void);
 
         /*
-         * Inform the renderer of the screen resolution.
-         * Gets called by the engine when the screen resolution is updated.
-         */
-        static void set_resolution(
-            const int& w,
-            const int& h
-        );
-
-        /*
          * Draw the game screen.
          */
         static void render(void);
@@ -154,8 +133,6 @@ class renderer final : private manager<renderer> {
 
         static std::size_t fps_counter, fps;
 
-        static int screen_w, screen_h;
-        static int arena_w, arena_h;
         static bool arena_created;
 
         static std::string title_screen_file;

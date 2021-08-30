@@ -24,6 +24,10 @@ const float& config::volume::mix2 = config::_volume::mix2;
 const float& config::volume::mix3 = config::_volume::mix3;
 const float& config::volume::mix4 = config::_volume::mix4;
 
+const int& config::gfx::screen_w = config::_gfx::screen_w;
+const int& config::gfx::screen_h = config::_gfx::screen_h;
+const int& config::gfx::arena_w = config::_gfx::arena_w;
+const int& config::gfx::arena_h = config::_gfx::arena_h;
 const std::size_t& config::gfx::vsync = config::_gfx::vsync;
 const std::size_t& config::gfx::display_mode = config::_gfx::display_mode;
 const float& config::gfx::scale_factor = config::_gfx::scale_factor;

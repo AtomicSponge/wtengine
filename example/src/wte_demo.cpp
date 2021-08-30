@@ -281,8 +281,8 @@ void wte_demo::new_game(void) {
     mgr::assets<al_bitmap>::load<al_bitmap>(
         "starfield",
         al_bitmap(
-            mgr::renderer::get_arena_width(),
-            mgr::renderer::get_arena_height(),
+            config::gfx::arena_w,
+            config::gfx::arena_h,
             true
         )
     );
@@ -297,10 +297,10 @@ void wte_demo::new_game(void) {
             for(std::size_t i = 0; i < MAX_STARS; i++) {
                 mgr::world::set_component<stars>(bkg_id)->y[i] +=
                     mgr::world::get_component<stars>(bkg_id)->speed[i] * mgr::world::get_component<stars>(bkg_id)->speed_mult;
-                if(mgr::world::get_component<stars>(bkg_id)->y[i] > mgr::renderer::get_arena_height()) {
+                if(mgr::world::get_component<stars>(bkg_id)->y[i] > config::gfx::arena_h) {
                     //  Make a new star.
                     mgr::world::set_component<stars>(bkg_id)->x[i] =
-                        std::rand() % mgr::renderer::get_arena_width() + 1;
+                        std::rand() % config::gfx::arena_w + 1;
                     mgr::world::set_component<stars>(bkg_id)->y[i] = 0;
                     mgr::world::set_component<stars>(bkg_id)->speed[i] = (std::rand() % 3 + 1) * 3;
                     mgr::world::set_component<stars>(bkg_id)->color[i] = std::rand() % 4 + 1;
@@ -334,9 +334,9 @@ void wte_demo::new_game(void) {
 
                 for(std::size_t i = 0; i < MAX_STARS; i++) {
                     mgr::world::set_component<stars>(bkg_id)->x[i] =
-                        std::rand() % mgr::renderer::get_arena_width() + 1;
+                        std::rand() % config::gfx::arena_w + 1;
                     mgr::world::set_component<stars>(bkg_id)->y[i] =
-                        std::rand() % mgr::renderer::get_arena_height() + 1;
+                        std::rand() % config::gfx::arena_h + 1;
                     mgr::world::set_component<stars>(bkg_id)->speed[i] = (std::rand() % 3 + 1) * 3;
                     mgr::world::set_component<stars>(bkg_id)->color[i] = std::rand() % 4 + 1;
                 }
@@ -353,7 +353,7 @@ void wte_demo::new_game(void) {
     mgr::world::add_component<cmp::overlay>(e_id,
         mgr::assets<al_bitmap>::get<al_bitmap>("score_overlay"),
         mgr::assets<al_font>::get<al_font>("wte_default_font"),
-        0, mgr::renderer::get_arena_height() - 20, 0,
+        0, config::gfx::arena_h - 20, 0,
         [](const entity_id& ovr_id) {
             //  Define what gets displayed on the overlay.
             mgr::world::set_component<cmp::overlay>(ovr_id)->set_drawing();
@@ -374,8 +374,8 @@ void wte_demo::new_game(void) {
     mgr::world::add_component<cmp::overlay>(e_id,
         mgr::assets<al_bitmap>::get<al_bitmap>("player_info_overlay"),
         mgr::assets<al_font>::get<al_font>("wte_default_font"),
-        mgr::renderer::get_arena_width() - 200,
-        mgr::renderer::get_arena_height() - 20, 0,
+        config::gfx::arena_w - 200,
+        config::gfx::arena_h - 20, 0,
         [](const entity_id& ovr_id) {
             //  Define what gets displayed on the overlay.
             entity_id shd_id = mgr::world::get_id("shield");
@@ -397,8 +397,8 @@ void wte_demo::new_game(void) {
     mgr::world::add_component<cmp::overlay>(e_id,
         mgr::assets<al_bitmap>::get<al_bitmap>("game_over_overlay"),
         mgr::assets<al_font>::get<al_font>("wte_default_font"),
-        (mgr::renderer::get_arena_width() / 2) - 240,
-        (mgr::renderer::get_arena_height() / 2) - 66, 1,
+        (config::gfx::arena_w / 2) - 240,
+        (config::gfx::arena_h / 2) - 66, 1,
         [](const entity_id& ovr_id) {}
     );
     mgr::world::set_component<cmp::overlay>(e_id)->hide();
@@ -410,12 +410,12 @@ void wte_demo::new_game(void) {
     mgr::world::set_name(e_id, "player");
     mgr::world::add_component<cmp::team>(e_id, 0);
     mgr::world::add_component<cmp::location>(e_id,
-        (mgr::renderer::get_arena_width() / 2) - 5,
-         mgr::renderer::get_arena_height() - 40);
+        (config::gfx::arena_w / 2) - 5,
+         config::gfx::arena_h - 40);
     mgr::world::add_component<cmp::hitbox>(e_id, 10, 10);
     mgr::world::add_component<cmp::bounding_box>(e_id, 12.0f, 0.0f,
-        (float)(mgr::renderer::get_arena_width() - 21),
-        (float)(mgr::renderer::get_arena_height() - 32));
+        (float)(config::gfx::arena_w - 21),
+        (float)(config::gfx::arena_h - 32));
     mgr::world::add_component<health>(e_id, 1, 1);
     mgr::world::add_component<cmp::motion>(e_id);
 
@@ -483,8 +483,8 @@ void wte_demo::new_game(void) {
                 config::flags::input_enabled = true;
                 config::controls::reset_pols();
                 mgr::world::set_component<cmp::motion>(plr_id)->set_velocity(0.0f);
-                mgr::world::set_component<cmp::location>(plr_id)->set_x((float)((mgr::renderer::get_arena_width() / 2) - 5));
-                mgr::world::set_component<cmp::location>(plr_id)->set_y((float)(mgr::renderer::get_arena_height() - 40));
+                mgr::world::set_component<cmp::location>(plr_id)->set_x((float)((config::gfx::arena_w / 2) - 5));
+                mgr::world::set_component<cmp::location>(plr_id)->set_y((float)(config::gfx::arena_h - 40));
                 mgr::world::set_component<health>(plr_id)->hp = mgr::world::get_component<health>(plr_id)->hp_max;
                 mgr::world::set_component<cmp::ai>(plr_id)->enable();
                 mgr::world::set_component<cmp::sprite>(plr_id)->set_cycle("main");
@@ -654,7 +654,7 @@ void wte_demo::new_game(void) {
                 [](const entity_id& ast_id) {
                     //  AI for asteroids defined here.
                     //  Perform OOB check.
-                    if(mgr::world::get_component<cmp::location>(ast_id)->get_y() > (float)(mgr::renderer::get_arena_height() + 100)) {
+                    if(mgr::world::get_component<cmp::location>(ast_id)->get_y() > (float)(config::gfx::arena_h + 100)) {
                         mgr::messages::add_message(message("spawner", "delete", mgr::world::get_name(ast_id)));
                     }
 

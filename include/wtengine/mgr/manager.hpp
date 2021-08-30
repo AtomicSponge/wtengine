@@ -24,15 +24,9 @@ namespace mgr {
  */
 template <class derived> class manager {
     public:
-        virtual ~manager() { initialized = false; };
-
-        //!  Remove copy constructor
-        manager(const manager&) = delete;
-        //!  Remove assignment operator
-        void operator=(manager const&) = delete;
-
-    private:
-        static bool initialized;  //  Force single instance.
+        virtual ~manager() = default;             //!<  Default virtual destructor.
+        manager(const manager&) = delete;         //!<  Delete copy constructor.
+        void operator=(manager const&) = delete;  //!<  Delete assignment operator.
 
     protected:
         /*!
@@ -43,6 +37,9 @@ template <class derived> class manager {
             if(initialized == true) throw std::runtime_error("An instance of this manager is already running!");
             initialized = true;
         };
+
+    private:
+        static bool initialized;  //  Force single instance.
 };
 
 }  // end namespace mgr

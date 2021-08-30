@@ -27,12 +27,9 @@ namespace sys {
  */
 class system {
     public:
-        virtual ~system() = default;
-
-        //!  Remove copy constructor
-        system(const system&) = delete;
-        //!  Remove assignment operator
-        void operator=(system const&) = delete;
+        virtual ~system() = default;             //!<  Default virtual destructor.
+        system(const system&) = delete;          //!<  Delete copy constructor.
+        void operator=(system const&) = delete;  //!<  Delete assignment operator.
 
         /*!
          * \brief Get the system name.

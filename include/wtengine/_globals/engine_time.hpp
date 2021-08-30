@@ -22,35 +22,28 @@ class engine_time final {
     friend class engine;
 
     public:
-        engine_time() = delete;
-        ~engine_time() = delete;
-        engine_time(const engine_time&) = delete;
-        void operator=(engine_time const&) = delete;
+        engine_time() = delete;                       //!<  Delete constructor.
+        ~engine_time() = delete;                      //!<  Delete destructor.
+        engine_time(const engine_time&) = delete;     //!<  Delete copy constructor.
+        void operator=(engine_time const&) = delete;  //!<  Delete assignment operator.
 
         /*!
-         * \brief Check the internal timer.
-         * 
-         * Call this member to check the game timer.
-         * 
+         * \brief Check the internal engine timer.
          * \return Timer value.
          */
         static const int64_t check_time(void);
 
     private:
-        /*!
-         * \brief Set the internal timer.
-         * 
+        /*
+         * Sets the internal timer.
          * This is called once during the game loop in class wte_main
          * and when starting/stopping the game.
-         * 
-         * \param t Timer value.
          */
         static void set_time(
             const int64_t& t
         );
 
-        //  Track game timer
-        static int64_t current_time;
+        static int64_t current_time;  //  Track game timer
 };
 
 }  // end namespace wte

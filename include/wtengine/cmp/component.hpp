@@ -24,29 +24,20 @@ namespace cmp {
  */
 class component {
     public:
-        /*!
-         * \brief Component destructor.
-         */
-        virtual ~component() = default;
-
-        //!  Remove copy constructor
-        component(const component&) = delete;
-        //!  Remove assignment operator
-        void operator=(component const&) = delete;
+        virtual ~component() = default;             //!<  Default virtual destructor.
+        component(const component&) = delete;       //!<  Delete copy constructor.
+        void operator=(component const&) = delete;  //!<  Delete assignment operator.
 
     protected:
-        /*!
-         * \brief Component constructor.
-         */
-        component() = default;
+        component() = default;                      //!<  Default constructor.
 };
 
 /*!
  * \typedef std::shared_ptr<cmp::component> component_sptr
  * Component shared pointer.
  */
-
 typedef std::shared_ptr<cmp::component> component_sptr;
+
 /*!
  * \typedef std::shared_ptr<const cmp::component> component_csptr
  * Constant component shared pointer.
@@ -58,6 +49,7 @@ typedef std::shared_ptr<const cmp::component> component_csptr;
  */
 template <typename T>
 using comp_ptr = std::shared_ptr<T>;
+
 /*!
  * \typedef
  */

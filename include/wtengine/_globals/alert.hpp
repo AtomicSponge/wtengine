@@ -36,10 +36,10 @@ class alert final {
     friend class mgr::renderer;
 
     public:
-        alert() = delete;
-        ~alert() = delete;
-        alert(const alert&) = delete;
-        void operator=(alert const&) = delete;
+        alert() = delete;                       //!<  Delete constructor.
+        ~alert() = delete;                      //!<  Delete destructor.
+        alert(const alert&) = delete;           //!<  Delete copy constructor.
+        void operator=(alert const&) = delete;  //!<  Delete assignment operator.
 
     private:
         /*

@@ -34,10 +34,10 @@ class notice final {
     friend class mgr::renderer;
 
     public:
-        notice() = delete;
-        ~notice() = delete;
-        notice(const notice&) = delete;
-        void operator=(notice const&) = delete;
+        notice() = delete;                       //!<  Delete constructor.
+        ~notice() = delete;                      //!<  Delete destructor.
+        notice(const notice&) = delete;          //!<  Delete copy constructor.
+        void operator=(notice const&) = delete;  //!<  Delete assignment operator.
 
         /*!
          * \brief Set the notice and flag that its set.

@@ -45,7 +45,7 @@ class wte_exception final : public std::exception {
             #endif
         };
 
-        inline ~wte_exception() = default;
+        inline ~wte_exception() = default;  //!<  Default destructor.
 
         /*!
          * \brief Returns the description of the thrown exception.

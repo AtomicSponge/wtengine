@@ -11,11 +11,6 @@
 #define WTE_WRAPPERS_HPP
 
 #include <string>
-#include <map>
-#include <tuple>
-#include <utility>
-#include <type_traits>
-#include <stdexcept>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>

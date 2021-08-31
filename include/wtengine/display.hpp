@@ -12,9 +12,13 @@
 
 #include <allegro5/allegro.h>
 
-#include <string>
-#include <stdexcept>
 #include <cmath>
+#include <string>
+#include <map>
+#include <tuple>
+#include <utility>
+#include <type_traits>
+#include <stdexcept>
 
 #include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/mgr/renderer.hpp"
@@ -62,7 +66,7 @@ class display {
          */
         void reconf_display(void);
 
-        static ALLEGRO_DISPLAY* _display;  //!<  Allegro object for the display.
+        static ALLEGRO_DISPLAY* _display;  //  Allegro object for the display.
 
         std::string window_title;  //  Title for application window.
         static bool initialized;   //  Restrict to one instance.

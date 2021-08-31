@@ -73,17 +73,10 @@ class display {
 
         class al_bitmap_converter final {
             friend class display;
-
-            public:
-                al_bitmap_converter() = delete;
-                ~al_bitmap_converter() = delete;
-                al_bitmap_converter(const al_bitmap_converter&) = delete;
-                void operator=(al_bitmap_converter const&) = delete;
-
             private:
                 /*
-                *
-                */
+                 *
+                 */
                 inline static void backup_bitmaps(void) {
                     _bitmaps_backup.clear();
                     /*al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
@@ -98,8 +91,8 @@ class display {
                 };
 
                 /*
-                *
-                */
+                 *
+                 */
                 inline static void reload_bitmaps(void) {
                     /*al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
                     for (auto& it: _bitmaps_backup) {

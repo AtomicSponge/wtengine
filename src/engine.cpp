@@ -178,11 +178,11 @@ void engine::process_new_game(const std::string& game_data) {
     if(mgr::systems::empty()) throw std::runtime_error("No systems have been loaded!");
 
     //  Stop audio manager from playing sounds.
-    mgr::audio::music_stop();
-    mgr::audio::ambiance_stop();
-    mgr::audio::voice_stop();
-    mgr::audio::sample_unload("all");
-    mgr::audio::sample_clear_instances();
+    mgr::audio::music::stop();
+    mgr::audio::ambiance::stop();
+    mgr::audio::voice::stop();
+    mgr::audio::sample::unload("all");
+    mgr::audio::sample::clear_instances();
     
     //  Clear world and load starting entities.
     mgr::world::clear();
@@ -214,11 +214,11 @@ void engine::process_end_game(void) {
     engine_time::set_time(al_get_timer_count(main_timer));
 
     //  Stop audio manager from playing sounds.
-    mgr::audio::music_stop();
-    mgr::audio::ambiance_stop();
-    mgr::audio::voice_stop();
-    mgr::audio::sample_unload("all");
-    mgr::audio::sample_clear_instances();
+    mgr::audio::music::stop();
+    mgr::audio::ambiance::stop();
+    mgr::audio::voice::stop();
+    mgr::audio::sample::unload("all");
+    mgr::audio::sample::clear_instances();
 
     //  Call end game process.
     try { end_game(); } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }

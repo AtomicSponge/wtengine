@@ -54,27 +54,27 @@ void audio::initialize(void) {
     //  Map the audio commands.
     //  Mixer 1
     cmds.add("music_loop", 1, [](const msg_args& args) {
-        audio::music_loop(args[0]);
+        audio::music::loop(args[0]);
     });
     cmds.add("play_music", 1, [](const msg_args& args) {
         //std::cout << "command ran" << std::endl;
-        audio::music_play(args[0]);
+        audio::music::play(args[0]);
     });
     cmds.add("stop_music", 0, [](const msg_args& args) {
-        audio::music_stop();
+        audio::music::stop();
     });
     cmds.add("pause_music", 0, [](const msg_args& args) {
-        audio::music_pause();
+        audio::music::pause();
     });
     cmds.add("unpause_music", 0, [](const msg_args& args) {
-        audio::music_unpause();
+        audio::music::unpause();
     });
     //  Mixer 2
     cmds.add("load_sample", 2, [](const msg_args& args) {
-        audio::sample_load(args[0], args[1]);
+        audio::sample::load(args[0], args[1]);
     });
     cmds.add("unload_sample", 1, [](const msg_args& args) {
-        audio::sample_unload(args[0]);
+        audio::sample::unload(args[0]);
     });
     cmds.add("play_sample", 2, [](const msg_args& args) {
         float gain = 1.0f;
@@ -94,42 +94,42 @@ void audio::initialize(void) {
             if(speed <= 0.0f || speed > 2.0f) speed = 1.0f;
         }
 
-        audio::sample_play(args[0], args[1], gain, pan, speed);
+        audio::sample::play(args[0], args[1], gain, pan, speed);
     });
     cmds.add("stop_sample", 1, [](const msg_args& args) {
-        audio::sample_stop(args[0]);
+        audio::sample::stop(args[0]);
     });
     cmds.add("clear_instances", 0, [](const msg_args& args) {
-        audio::sample_clear_instances();
+        audio::sample::clear_instances();
     });
     //  Mixer 3
     cmds.add("play_voice", 1, [](const msg_args& args) {
-        audio::voice_play(args[0]);
+        audio::voice::play(args[0]);
     });
     cmds.add("stop_voice", 0, [](const msg_args& args) {
-        audio::voice_stop();
+        audio::voice::stop();
     });
     cmds.add("pause_voice", 0, [](const msg_args& args) {
-        audio::voice_pause();
+        audio::voice::pause();
     });
     cmds.add("unpause_voice", 0, [](const msg_args& args) {
-        audio::voice_unpause();
+        audio::voice::unpause();
     });
     //  Mixer 4
     cmds.add("ambiance_loop", 1, [](const msg_args& args) {
-        audio::ambiance_loop(args[0]);
+        audio::ambiance::loop(args[0]);
     });
     cmds.add("play_ambiance", 1, [](const msg_args& args) {
-        audio::ambiance_play(args[0]);
+        audio::ambiance::play(args[0]);
     });
     cmds.add("stop_ambiance", 0, [](const msg_args& args) {
-        audio::ambiance_stop();
+        audio::ambiance::stop();
     });
     cmds.add("pause_ambiance", 0, [](const msg_args& args) {
-        audio::ambiance_pause();
+        audio::ambiance::pause();
     });
     cmds.add("unpause_ambiance", 0, [](const msg_args& args) {
-        audio::ambiance_unpause();
+        audio::ambiance::unpause();
     });
     //  General
     cmds.add("set_volume", 0, [](const msg_args& args) {
@@ -215,7 +215,7 @@ void audio::process_messages(const message_container& messages) { cmds.process_m
 /*
  *
  */
-void audio::music_loop(const std::string& arg) {
+void audio::music::loop(const std::string& arg) {
     if(!al_get_mixer_attached(mixer_1)) return;  //  Music not loaded, end.
     if(arg == "enable") al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_LOOP);
     if(arg == "disable") al_set_audio_stream_playmode(music_stream, ALLEGRO_PLAYMODE_ONCE);
@@ -224,7 +224,7 @@ void audio::music_loop(const std::string& arg) {
 /*
  *
  */
-void audio::music_play(const std::string& fname) {
+void audio::music::play(const std::string& fname) {
     //  Unload audio stream if one is already attached.
     if(al_get_mixer_attached(mixer_1)) {
         al_drain_audio_stream(music_stream);
@@ -245,14 +245,14 @@ void audio::music_play(const std::string& fname) {
 /*
  *
  */
-void audio::music_stop(void) {
+void audio::music::stop(void) {
     if(al_get_mixer_attached(mixer_1)) al_set_audio_stream_playing(music_stream, false);
 }
 
 /*
  *
  */
-void audio::music_pause(void) {
+void audio::music::pause(void) {
     if(al_get_mixer_attached(mixer_1) && al_get_mixer_playing(mixer_1))
         al_set_audio_stream_playing(music_stream, false);
 }
@@ -260,14 +260,14 @@ void audio::music_pause(void) {
 /*
  *
  */
-void audio::music_unpause(void) {
+void audio::music::unpause(void) {
     if(al_get_mixer_attached(mixer_1)) al_set_audio_stream_playing(music_stream, true);
 }
 
 /*
  *
  */
-void audio::sample_load(const std::string& fname, const std::string& sname) {
+void audio::sample::load(const std::string& fname, const std::string& sname) {
     //  Insert sample into reference map
     if(al_load_sample(fname.c_str()) != NULL)
         sample_map.insert(std::make_pair(sname, al_load_sample(fname.c_str())));
@@ -276,7 +276,7 @@ void audio::sample_load(const std::string& fname, const std::string& sname) {
 /*
  *
  */
-void audio::sample_unload(const std::string& sname) {
+void audio::sample::unload(const std::string& sname) {
     //  Unload all samples.
     if(sname == "all") {
         //  First clear out the sample instances.
@@ -304,17 +304,17 @@ void audio::sample_unload(const std::string& sname) {
 /*
  *
  */
-void audio::sample_play(
+void audio::sample::play(
     const std::string& sname,
     const std::string& ref
 ) {
-    sample_play(sname, ref, 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.0f);
+    sample::play(sname, ref, 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.0f);
 }
 
 /*
  *
  */
-void audio::sample_play(
+void audio::sample::play(
     const std::string& sname,
     const std::string& ref,
     const float& gain,
@@ -342,7 +342,7 @@ void audio::sample_play(
 /*
  *
  */
-void audio::sample_stop(const std::string& ref) {
+void audio::sample::stop(const std::string& ref) {
     //  If instance does not exist, end.
     if(sample_instances.find(ref) == sample_instances.end()) return;
     al_stop_sample(&sample_instances.find(ref)->second);
@@ -352,7 +352,7 @@ void audio::sample_stop(const std::string& ref) {
 /*
  *
  */
-void audio::sample_clear_instances(void) {
+void audio::sample::clear_instances(void) {
     for(auto sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
         al_stop_sample(&sample_instance->second);
         sample_instances.erase(sample_instance);
@@ -363,7 +363,7 @@ void audio::sample_clear_instances(void) {
 /*
  *
  */
-void audio::voice_play(const std::string& fname) {
+void audio::voice::play(const std::string& fname) {
     //  Unload audio stream if one is already attached.
     if(al_get_mixer_attached(mixer_3)) {
         al_drain_audio_stream(voice_stream);
@@ -380,14 +380,14 @@ void audio::voice_play(const std::string& fname) {
 /*
  *
  */
-void audio::voice_stop(void) {
+void audio::voice::stop(void) {
     if(al_get_mixer_attached(mixer_3)) al_set_audio_stream_playing(voice_stream, false);
 }
 
 /*
  *
  */
-void audio::voice_pause(void) {
+void audio::voice::pause(void) {
     if(al_get_mixer_attached(mixer_3) && al_get_mixer_playing(mixer_3))
         al_set_audio_stream_playing(voice_stream, false);
 }
@@ -395,14 +395,14 @@ void audio::voice_pause(void) {
 /*
  *
  */
-void audio::voice_unpause(void) {
+void audio::voice::unpause(void) {
     if(al_get_mixer_attached(mixer_3)) al_set_audio_stream_playing(voice_stream, true);
 }
 
 /*
  *
  */
-void audio::ambiance_loop(const std::string& arg) {
+void audio::ambiance::loop(const std::string& arg) {
     if(!al_get_mixer_attached(mixer_4)) return;  //  Ambiance not loaded, end.
     if(arg == "enable")
         al_set_audio_stream_playmode(ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
@@ -413,7 +413,7 @@ void audio::ambiance_loop(const std::string& arg) {
 /*
  *
  */
-void audio::ambiance_play(const std::string& fname) {
+void audio::ambiance::play(const std::string& fname) {
     //  Unload audio stream if one is already attached.
     if(al_get_mixer_attached(mixer_4)) {
         al_drain_audio_stream(ambiance_stream);
@@ -430,14 +430,14 @@ void audio::ambiance_play(const std::string& fname) {
 /*
  *
  */
-void audio::ambiance_stop(void) {
+void audio::ambiance::stop(void) {
     if(al_get_mixer_attached(mixer_4)) al_set_audio_stream_playing(ambiance_stream, false);
 }
 
 /*
  *
  */
-void audio::ambiance_pause(void) {
+void audio::ambiance::pause(void) {
     if(al_get_mixer_attached(mixer_4) && al_get_mixer_playing(mixer_4))
         al_set_audio_stream_playing(ambiance_stream, false);
 }
@@ -445,7 +445,7 @@ void audio::ambiance_pause(void) {
 /*
  *
  */
-void audio::ambiance_unpause(void) {
+void audio::ambiance::unpause(void) {
     if(al_get_mixer_attached(mixer_4)) al_set_audio_stream_playing(ambiance_stream, true);
 }
 

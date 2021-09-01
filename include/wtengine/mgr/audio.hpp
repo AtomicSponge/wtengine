@@ -48,152 +48,160 @@ class audio final : private manager<audio> {
     friend class wte::engine;
 
     public:
-        /*!
-         * \brief Toggle music looping.
-         * \param arg "enable" or "disable"
-         */
-        static void music_loop(
-            const std::string& arg
-        );
+        struct music {
+            /*!
+            * \brief Toggle music looping.
+            * \param arg "enable" or "disable"
+            */
+            static void loop(
+                const std::string& arg
+            );
 
-        /*!
-         * \brief Play a music file.
-         * \param fname Music filename.
-         */
-        static void music_play(
-            const std::string& fname
-        );
+            /*!
+            * \brief Play a music file.
+            * \param fname Music filename.
+            */
+            static void play(
+                const std::string& fname
+            );
 
-        /*!
-         * \brief Stop playing music.
-         */
-        static void music_stop(void);
+            /*!
+            * \brief Stop playing music.
+            */
+            static void stop(void);
 
-        /*!
-         * \brief Pause music.
-         */
-        static void music_pause(void);
+            /*!
+            * \brief Pause music.
+            */
+            static void pause(void);
 
-        /*!
-         * \brief Unpause music.
-         */
-        static void music_unpause(void);
+            /*!
+            * \brief Unpause music.
+            */
+            static void unpause(void);
+        };
 
-        /*!
-         * \brief Load a sample.
-         * \param fname Sample filename.
-         * \param sname Sample reference name.
-         */
-        static void sample_load(
-            const std::string& fname,
-            const std::string& sname
-        );
+        struct sample {
+            /*!
+            * \brief Load a sample.
+            * \param fname Sample filename.
+            * \param sname Sample reference name.
+            */
+            static void load(
+                const std::string& fname,
+                const std::string& sname
+            );
 
-        /*!
-         * \brief Unload a sample.
-         * \param sname Sample name or "all" for unload all samples.
-         */
-        static void sample_unload(
-            const std::string& sname
-        );
+            /*!
+            * \brief Unload a sample.
+            * \param sname Sample name or "all" for unload all samples.
+            */
+            static void unload(
+                const std::string& sname
+            );
 
-        /*!
-         * \brief Play a sample.
-         *
-         * When setting the playmode, passing "once" will play the sample once.
-         * Passing a reference name will play the sample in a loop.
-         * The sample can be stopped later using this reference name.
-         *
-         * \param sname Sample name.
-         * \param ref Playmode.
-         */
-        static void sample_play(
-            const std::string& sname,
-            const std::string& ref
-        );
+            /*!
+            * \brief Play a sample.
+            *
+            * When setting the playmode, passing "once" will play the sample once.
+            * Passing a reference name will play the sample in a loop.
+            * The sample can be stopped later using this reference name.
+            *
+            * \param sname Sample name.
+            * \param ref Playmode.
+            */
+            static void play(
+                const std::string& sname,
+                const std::string& ref
+            );
 
-        /*!
-         * \brief Play a sample.
-         * \param sname Sample name.
-         * \param ref Playmode.
-         * \param gain Gain value.  See allegro docs on al_play_sample for more info.
-         * \param pan Pan value.  See allegro docs on al_play_sample for more info.
-         * \param speed Speed value.  See allegro docs on al_play_sample for more info.
-         */
-        static void sample_play(
-            const std::string& sname,
-            const std::string& ref,
-            const float& gain,
-            const float& pan,
-            const float& speed
-        );
+            /*!
+            * \brief Play a sample.
+            * \param sname Sample name.
+            * \param ref Playmode.
+            * \param gain Gain value.  See allegro docs on al_play_sample for more info.
+            * \param pan Pan value.  See allegro docs on al_play_sample for more info.
+            * \param speed Speed value.  See allegro docs on al_play_sample for more info.
+            */
+            static void play(
+                const std::string& sname,
+                const std::string& ref,
+                const float& gain,
+                const float& pan,
+                const float& speed
+            );
 
-        /*!
-         * \brief Stop a playing sample.
-         * \param ref Playing sample reference name.
-         */
-        static void sample_stop(
-            const std::string& ref
-        );
+            /*!
+            * \brief Stop a playing sample.
+            * \param ref Playing sample reference name.
+            */
+            static void stop(
+                const std::string& ref
+            );
 
-        /*!
-         * \brief Claer all playing sample instances.
-         */
-        static void sample_clear_instances(void);
+            /*!
+            * \brief Claer all playing sample instances.
+            */
+            static void clear_instances(void);
+        };
 
-        /*!
-         * \brief Play an audio file.
-         * \param fname Filename to play.
-         */
-        static void voice_play(
-            const std::string& fname
-        );
+        struct voice {
+            /*!
+            * \brief Play an audio file.
+            * \param fname Filename to play.
+            */
+            static void play(
+                const std::string& fname
+            );
 
-        /*!
-         * \brief Stop a playing audio file.
-         */
-        static void voice_stop(void);
+            /*!
+            * \brief Stop a playing audio file.
+            */
+            static void stop(void);
 
-        /*!
-         * \brief Pause playing audio file.
-         */
-        static void voice_pause(void);
+            /*!
+            * \brief Pause playing audio file.
+            */
+            static void pause(void);
 
-        /*!
-         * \brief Resume playing audio file.
-         */
-        static void voice_unpause(void);
+            /*!
+            * \brief Resume playing audio file.
+            */
+            static void unpause(void);
+        };
 
-        /*!
-         * \brief Toggle ambiance looping.
-         * \param arg "enable" or "disable"
-         */
-        static void ambiance_loop(
-            const std::string& arg
-        );
+        struct ambiance {
+            /*!
+            * \brief Toggle ambiance looping.
+            * \param arg "enable" or "disable"
+            */
+            static void loop(
+                const std::string& arg
+            );
 
-        /*!
-         * \brief Play a file.
-         * \param fname Ambiance filename.
-         */
-        static void ambiance_play(
-            const std::string& fname
-        );
+            /*!
+            * \brief Play a file.
+            * \param fname Ambiance filename.
+            */
+            static void play(
+                const std::string& fname
+            );
 
-        /*!
-         * \brief Stop playing ambiance.
-         */
-        static void ambiance_stop(void);
+            /*!
+            * \brief Stop playing ambiance.
+            */
+            static void stop(void);
 
-        /*!
-         * \brief Pause playing ambiance.
-         */
-        static void ambiance_pause(void);
+            /*!
+            * \brief Pause playing ambiance.
+            */
+            static void pause(void);
 
-        /*!
-         * \brief Resume playing ambiance.
-         */
-        static void ambiance_unpause(void);
+            /*!
+            * \brief Resume playing ambiance.
+            */
+            static void unpause(void);
+        };
 
     private:
         audio() = default;

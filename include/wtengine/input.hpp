@@ -10,6 +10,7 @@
 #ifndef WTE_INPUT_HPP
 #define WTE_INPUT_HPP
 
+#include <vector>
 #include <map>
 #include <utility>
 #include <functional>
@@ -180,6 +181,8 @@ class input {
         void check_input_events(void);
 
     private:
+        void handle_input_event(const ALLEGRO_EVENT&);  //  Process input events
+
         struct _lastkeypress {
             inline static int64_t timer = 0;
             inline static int key = 0;
@@ -190,7 +193,7 @@ class input {
             inline static int button = 0;
         };
 
-        void handle_input_event(const ALLEGRO_EVENT&);  //  Process input events
+        static std::vector<int> input_recorder;
 
         ALLEGRO_EVENT_QUEUE* input_event_queue;  //  Input event queue.
         static bool initialized;  //  Restrict to one instance.

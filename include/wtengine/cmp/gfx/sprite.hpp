@@ -44,15 +44,17 @@ class sprite final : public gfx {
          * \param rt Rate in engine timer ticks for animation.
          * \param l Layer for sorting.
          */
-        sprite(wte_asset<al_bitmap> bmp,
-               const float& sw, const float& sh,
-               const float& dox, const float& doy,
-               const std::size_t& rt, const std::size_t& l);
+        sprite(
+            wte_asset<al_bitmap> bmp,
+            const float& sw,
+            const float& sh,
+            const float& dox,
+            const float& doy,
+            const std::size_t& rt,
+            const std::size_t& l
+        );
 
-        /*!
-         * \brief Sprite destructor.
-         */
-        ~sprite() = default;
+        ~sprite() = default;  //!<  Default destructor.
 
         /*!
          * \brief Add animation cycle.
@@ -61,9 +63,11 @@ class sprite final : public gfx {
          * \param stop End cell of cycle.
          * \return True if created, false if not.
          */
-        const bool add_cycle(const std::string& name,
-                             const std::size_t& start,
-                             const std::size_t& stop);
+        const bool add_cycle(
+            const std::string& name,
+            const std::size_t& start,
+            const std::size_t& stop
+        );
 
         /*!
          * \brief Set the active cycle.

@@ -176,7 +176,7 @@ void renderer::render(void) {
                     cmp::const_comp_ptr<cmp::location> temp_get = mgr::world::get_component<cmp::location>(it.first);
 
                     //  Check if the sprite should be rotated.
-                    if(it.second->draw_rotated()) {
+                    if(it.second->is_rotated()) {
                         sprite_angle = it.second->get_direction();
                         center_x = (al_get_bitmap_width(temp_bitmap) / 2);
                         center_y = (al_get_bitmap_height(temp_bitmap) / 2);
@@ -216,38 +216,38 @@ void renderer::render(void) {
 
         #if WTE_DEBUG_MODE
         /*
-         * Draw sprite hitboxes if enabled.
-         * Use different colors for each team.
-         * Note:  Re-uses sprite container for rendering.
+         * Draw sprite hitboxes if enabled.  Use different colors for each team.
          */
-        const const_component_container<cmp::hitbox> hitbox_components =
-            mgr::world::get_components<cmp::hitbox>();
-        
-        for(auto& it: const_component_container) {
-            if(it.second->is_solid()) {
-                //  Select color based on team.
-                ALLEGRO_COLOR team_color;
-                try {
-                    switch(mgr::world::get_component<cmp::team>(it.first)->get_team()) {
-                        case 0: team_color = WTE_COLOR_GREEN; break;
-                        case 1: team_color = WTE_COLOR_RED; break;
-                        case 2: team_color = WTE_COLOR_BLUE; break;
-                        default: team_color = WTE_COLOR_YELLOW;
-                    }
-                } catch(...) { team_color = WTE_COLOR_RED; }
-                //  Draw the hitbox.
-                ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap(
-                    it.second->get_width(),
-                    it.second->get_height());
-                al_set_target_bitmap(temp_bitmap);
-                al_clear_to_color(team_color);
-                al_set_target_bitmap(**arena_bitmap);
-                try {
-                    al_draw_bitmap(temp_bitmap,
-                        mgr::world::get_component<cmp::location>(it.first)->get_x(),
-                        mgr::world::get_component<cmp::location>(it.first)->get_y(), 0);
-                } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when(), true); }
-                al_destroy_bitmap(temp_bitmap);
+        if(config::flags::show_hitboxes) {
+            const const_component_container<cmp::hitbox> hitbox_components =
+                mgr::world::get_components<cmp::hitbox>();
+            
+            for(auto& it: hitbox_components) {
+                if(it.second->is_solid()) {
+                    //  Select color based on team.
+                    ALLEGRO_COLOR team_color;
+                    try {
+                        switch(mgr::world::get_component<cmp::team>(it.first)->get_team()) {
+                            case 0: team_color = WTE_COLOR_GREEN; break;
+                            case 1: team_color = WTE_COLOR_RED; break;
+                            case 2: team_color = WTE_COLOR_BLUE; break;
+                            default: team_color = WTE_COLOR_YELLOW;
+                        }
+                    } catch(...) { team_color = WTE_COLOR_RED; }
+                    //  Draw the hitbox.
+                    ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap(
+                        it.second->get_width(),
+                        it.second->get_height());
+                    al_set_target_bitmap(temp_bitmap);
+                    al_clear_to_color(team_color);
+                    al_set_target_bitmap(**arena_bitmap);
+                    try {
+                        al_draw_bitmap(temp_bitmap,
+                            mgr::world::get_component<cmp::location>(it.first)->get_x(),
+                            mgr::world::get_component<cmp::location>(it.first)->get_y(), 0);
+                    } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
+                    al_destroy_bitmap(temp_bitmap);
+                }
             }
         }
         #endif

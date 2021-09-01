@@ -58,7 +58,7 @@ class background final : public gfx {
             const std::function<void(const entity_id&)>& func
         );
 
-        ~background() = default;
+        ~background() = default;  //!<  Default destructor.
 
         /*!
          * \brief Set X position.

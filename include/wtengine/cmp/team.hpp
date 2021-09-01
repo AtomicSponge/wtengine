@@ -31,7 +31,7 @@ class team final : public component {
          */
         team(const std::size_t& t);
 
-        ~team() = default;
+        ~team() = default;  //!<  Default destructor.
 
         /*!
          * \brief Get team.

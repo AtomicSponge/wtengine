@@ -44,7 +44,7 @@ class hitbox final : public component {
             const bool& s
         );
 
-        ~hitbox() = default;
+        ~hitbox() = default;  //!<  Default destructor.
 
         /*!
          * \brief Get hitbox width.

@@ -32,7 +32,7 @@ class location final : public component {
             const float& y
         );
 
-        ~location() = default;
+        ~location() = default;  //!<  Default destructor.
 
         /*!
          * \brief Get X location.

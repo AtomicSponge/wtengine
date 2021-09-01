@@ -646,7 +646,7 @@ void wte_demo::new_game(void) {
             mgr::world::set_component<cmp::sprite>(e_id)->set_cycle("main");
             mgr::world::set_component<cmp::sprite>(e_id)->set_scale_factor_x((float)temp_size);
             mgr::world::set_component<cmp::sprite>(e_id)->set_scale_factor_y((float)temp_size);
-            mgr::world::set_component<cmp::sprite>(e_id)->draw_rotated();
+            mgr::world::set_component<cmp::sprite>(e_id)->set_rotation(true);
             mgr::world::set_component<cmp::sprite>(e_id)->set_direction(std::stof(args[3]) * (M_PI / 180));
 
             //  Asteroid logic.

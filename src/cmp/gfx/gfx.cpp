@@ -78,17 +78,12 @@ const bool gfx::is_visible(void) const { return visible; }
 /*
  *
  */
-void gfx::is_roated(void) { rotated = true; }
+void gfx::set_rotation(const bool& r) { rotated = r; }
 
 /*
  *
  */
-void gfx::not_roated(void) { rotated = false; }
-
-/*
- *
- */
-const bool gfx::draw_rotated(void) const { return rotated; }
+const bool gfx::is_rotated(void) const { return rotated; }
 
 /*
  *

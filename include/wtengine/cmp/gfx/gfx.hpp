@@ -22,6 +22,10 @@
 
 namespace wte {
 
+namespace sys {
+    class animate;
+}
+
 namespace cmp {
 
 /*!
@@ -29,6 +33,8 @@ namespace cmp {
  * \brief Interface class for components that display graphics.
  */
 class gfx : public component {
+    friend class sys::animate;
+
     public:
         virtual ~gfx() = default;
 
@@ -40,12 +46,6 @@ class gfx : public component {
         const bool operator<(const gfx& a) const {
             return layer < a.layer;
         };
-
-        /*!
-         * \brief Run animaton function wrapper.
-         * \param e_id ID of the entity calling the wrapper.
-         */
-        void run(const entity_id& e_id);
 
         /*!
          * \brief Set drawing to the internal bitmap.
@@ -98,20 +98,16 @@ class gfx : public component {
         const bool is_visible(void) const;
 
         /*!
-         * \brief Set to draw rotated.
+         * \brief Set rotation.
+         * \param r True to draw rotated, false to not.
          */
-        void is_roated(void);
-
-        /*!
-         * \brief Set to not draw rotated.
-         */
-        void not_roated(void);
+        void set_rotation(const bool& r);
 
         /*!
          * \brief Check if should be drawn rotated.
          * \return True if draw rotated, false if not.
          */
-        const bool draw_rotated(void) const;
+        const bool is_rotated(void) const;
 
         /*!
          * \brief Set direction of rotation.
@@ -142,6 +138,11 @@ class gfx : public component {
         wte_asset<al_bitmap> internal_bitmap;
 
     private:
+        /*
+         * Run animaton function wrapper.
+         */
+        void run(const entity_id& e_id);
+
         std::size_t layer;          //  Layer position.
         bool tint_set;              //  Flag to set tint.
         bool visible;               //  Flag to set visibility.

@@ -38,7 +38,7 @@ class bounding_box final : public component {
             const float& ry
         );
 
-        ~bounding_box() = default;
+        ~bounding_box() = default;  //!<  Default destructor.
 
         /*!
          * \brief Set left X of the bounding box.

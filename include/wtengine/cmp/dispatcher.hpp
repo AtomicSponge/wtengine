@@ -21,6 +21,10 @@
 
 namespace wte {
 
+namespace mgr {
+    class systems;
+}
+
 namespace cmp {
 
 /*!
@@ -30,6 +34,8 @@ namespace cmp {
  * Define message processing in handle_msg lambda.
  */
 class dispatcher final : public component {
+    friend class mgr::systems;
+
     public:
         /*!
          * \brief Create a new Dispatcher component.
@@ -46,20 +52,15 @@ class dispatcher final : public component {
          */
         ~dispatcher() = default;
 
-        /*!
-         * \brief Run dispatcher function wrapper.
-         * \param e_id ID of the entity calling the wrapper.
-         * \param world Reference to the entity manager.
-         * \param messages Reference to the message manager.
-         * \param current_time Current engine time.
-         * \param msg Message to process.
+    private:
+        /*
+         * Run dispatcher function wrapper.
          */
         void proc_msg(
             const entity_id& e_id,
             const message& msg
         );
 
-    private:
         //  Message handler.
         std::function<void(const entity_id&, const message&)> handle_msg;
 };

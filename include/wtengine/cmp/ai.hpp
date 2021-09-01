@@ -19,6 +19,10 @@
 
 namespace wte {
 
+namespace sys {
+    class logic;
+}
+
 namespace cmp {
 
 /*!
@@ -28,6 +32,8 @@ namespace cmp {
  * Allows functions to be created to define the enabled or disabled logic.
  */
 class ai final : public component {
+    friend class sys::logic;
+
     public:
         /*!
          * \brief Create an AI component with enabled only AI.
@@ -47,23 +53,7 @@ class ai final : public component {
             const std::function<void(const entity_id&)>& func_b
         );
 
-        ~ai() = default;
-
-        /*!
-         * \brief Run enabled AI function wrapper.
-         * \param eid ID of the entity calling the wrapper.
-         */
-        void run_enabled(
-            const entity_id& e_id
-        );
-
-        /*!
-         * \brief Run disabled AI function wrapper.
-         * \param eid ID of the entity calling the wrapper.
-         */
-        void run_disabled(
-            const entity_id& e_id
-        );
+        ~ai() = default;  //!<  Default destructor.
 
         /*!
          * \brief Check if the entity is enabled.
@@ -82,6 +72,20 @@ class ai final : public component {
         void disable(void);
 
     private:
+        /*
+         * Run enabled AI function wrapper.
+         */
+        void run_enabled(
+            const entity_id& e_id
+        );
+
+        /*
+         * Run disabled AI function wrapper.
+         */
+        void run_disabled(
+            const entity_id& e_id
+        );
+
         bool enabled;  //  Enabled flag.
         std::function<void(const entity_id&)> enabled_ai;   //  AI to run when enabled.
         std::function<void(const entity_id&)> disabled_ai;  //  AI to run when disabled.

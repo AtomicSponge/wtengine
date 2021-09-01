@@ -49,7 +49,7 @@ class motion final : public component {
             const float& yv
         );
 
-        ~motion() = default;
+        ~motion() = default;  //!<  Default destructor.
 
         /*!
          * \brief

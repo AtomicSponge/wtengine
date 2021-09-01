@@ -330,4 +330,4 @@ const bool config::save(void) {
     return true;
 }
 
-} //  end namespace wte
+}  //  end namespace wte

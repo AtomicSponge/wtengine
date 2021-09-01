@@ -9,9 +9,7 @@
 
 #include "wtengine/mnu/menu.hpp"
 
-namespace wte {
-
-namespace mnu {
+namespace wte::mnu {
 
 /*
  *
@@ -56,6 +54,4 @@ menu_item_citerator menu::items_cend(void) const { return items.cend(); }
  */
 void menu::set_title(const std::string& t) { title = t; }
 
-}  // end namespace mnu
-
-}  // end namespace wte
+}  //  end namespace wte::mnu

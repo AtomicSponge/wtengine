@@ -9,9 +9,7 @@
 
 #include "wtengine/mgr/spawner.hpp"
 
-namespace wte {
-
-namespace mgr {
+namespace wte::mgr {
 
 template <> bool spawner::manager<spawner>::initialized = false;
 
@@ -57,6 +55,4 @@ const bool spawner::add_spawn(const std::string& name, const std::size_t& num_ar
     return ret.second;
 }
 
-} //  namespace mgr
-
-} //  namespace wte
+}  //  end namespace wte::mgr

@@ -9,9 +9,7 @@
 
 #include "wtengine/mgr/variables.hpp"
 
-namespace wte {
-
-namespace mgr {
+namespace wte::mgr {
 
 template <> bool variables::manager<variables>::initialized = false;
 
@@ -56,6 +54,4 @@ const bool variables::del(const std::string& var) {
     return false;
 }
 
-} //  end namespace mgr
-
-} //  end namespace wte
+}  //  end namespace wte::mgr

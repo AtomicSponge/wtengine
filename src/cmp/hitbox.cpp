@@ -9,9 +9,7 @@
 
 #include "wtengine/cmp/hitbox.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*
  *
@@ -58,6 +56,4 @@ void hitbox::make_solid(void) { solid = true; }
  */
 void hitbox::make_fluid(void) { solid = false; }
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp

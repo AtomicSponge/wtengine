@@ -9,9 +9,7 @@
 
 #include "wtengine/sys/animate.hpp"
 
-namespace wte {
-
-namespace sys {
+namespace wte::sys {
 
 /*
  *
@@ -28,6 +26,4 @@ void animate::run(void) {
         if(it.second->is_visible()) try { it.second->run(it.first); } catch(...) { throw; }
 }
 
-} //  namespace sys
-
-} //  namespace wte
+}  //  end namespace wte::sys

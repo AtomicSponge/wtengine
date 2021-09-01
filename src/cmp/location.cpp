@@ -9,9 +9,7 @@
 
 #include "wtengine/cmp/location.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*
  *
@@ -48,6 +46,4 @@ void location::adjust_x(const float& x) { pos_x += x; }
  */
 void location::adjust_y(const float& y) { pos_y += y; }
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp

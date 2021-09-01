@@ -9,9 +9,7 @@
 
 #include "wtengine/cmp/team.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*
  *
@@ -30,6 +28,4 @@ const std::size_t team::get_team(void) const { return this_team; }
  */
 void team::set_team(const std::size_t& t) { this_team = t; }
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp

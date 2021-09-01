@@ -9,9 +9,7 @@
 
 #include "wtengine/mgr/messages.hpp"
 
-namespace wte {
-
-namespace mgr {
+namespace wte::mgr {
 
 template <> bool messages::manager<messages>::initialized = false;
 
@@ -226,6 +224,4 @@ void messages::debug_log_message(const message& msg) {
 }
 #endif
 
-} //  namespace mgr
-
-} //  namespace wte
+}  //  end namespace wte::mgr

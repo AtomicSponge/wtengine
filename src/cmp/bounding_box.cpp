@@ -9,9 +9,7 @@
 
 #include "wtengine/cmp/bounding_box.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*
  *
@@ -62,6 +60,4 @@ const float bounding_box::get_max_x(void) const { return max_x; }
  */
 const float bounding_box::get_max_y(void) const { return max_y; }
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp

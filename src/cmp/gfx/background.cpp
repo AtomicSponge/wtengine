@@ -9,9 +9,7 @@
 
 #include "wtengine/cmp/gfx/background.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*
  *
@@ -54,6 +52,4 @@ const float background::get_pos_x(void) const { return pos_x; }
  */
 const float background::get_pos_y(void) const { return pos_y; }
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp

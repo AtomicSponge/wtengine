@@ -9,9 +9,7 @@
 
 #include "wtengine/cmp/gfx/gfx.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*
  *
@@ -95,6 +93,4 @@ void gfx::set_direction(const float& d) { direction = d; }
  */
 const float gfx::get_direction(void) const { return direction; }
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp

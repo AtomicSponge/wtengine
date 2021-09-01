@@ -9,9 +9,7 @@
 
 #include "wtengine/cmp/gfx/overlay.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*
  *
@@ -57,6 +55,4 @@ const float overlay::get_pos_x(void) const { return pos_x; }
  */
 const float overlay::get_pos_y(void) const { return pos_y; }
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp

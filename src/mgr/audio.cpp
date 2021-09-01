@@ -9,11 +9,7 @@
 
 #include "wtengine/mgr/audio.hpp"
 
-//#include <iostream>
-
-namespace wte {
-
-namespace mgr {
+namespace wte::mgr {
 
 template <> bool audio::manager<audio>::initialized = false;
 
@@ -453,6 +449,4 @@ void audio::ambiance_unpause(void) {
     if(al_get_mixer_attached(mixer_4)) al_set_audio_stream_playing(ambiance_stream, true);
 }
 
-} //  namespace mgr
-
-} //  end namespace wte
+}  //  end namespace wte::mgr

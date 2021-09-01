@@ -9,9 +9,7 @@
 
 #include "wtengine/cmp/ai.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 ai::ai(
     const std::function<void(const entity_id&)>& func
@@ -45,6 +43,4 @@ void ai::enable(void) { enabled = true; }
  */
 void ai::disable(void) { enabled = false; }
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp

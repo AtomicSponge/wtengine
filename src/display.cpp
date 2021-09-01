@@ -106,4 +106,4 @@ void display::reconf_display(void) {
     al_bitmap_converter::reload_bitmaps();
 }
 
-} //  end namespace wte
+}  //  end namespace wte

@@ -315,4 +315,4 @@ void engine::do_game(void) {
     wte_unload();
 }
 
-} //  end namespace wte
+}  //  end namespace wte

@@ -9,9 +9,7 @@
 
 #include "wtengine/mnu/action.hpp"
 
-namespace wte {
-
-namespace mnu {
+namespace wte::mnu {
 
 /*
  *
@@ -40,6 +38,4 @@ void action::on_select(void) { mgr::messages::add_message(message("system", cmd,
  */
 const std::vector<std::string> action::get_text(void) const { return { get_label() }; };
 
-}  // end namespace mnu
-
-}  // end namespace wte
+}  //  end namespace wte::mnu

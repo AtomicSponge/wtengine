@@ -9,9 +9,7 @@
 
 #include "wtengine/sys/movement.hpp"
 
-namespace wte {
-
-namespace sys {
+namespace wte::sys {
 
 /*
  *
@@ -50,6 +48,4 @@ void movement::run(void) {
     }
 }
 
-} //  namespace sys
-
-} //  namespace wte
+}  //  end namespace wte::sys

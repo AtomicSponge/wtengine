@@ -9,9 +9,7 @@
 
 #include "wtengine/sys/logic.hpp"
 
-namespace wte {
-
-namespace sys {
+namespace wte::sys {
 
 /*
  *
@@ -34,6 +32,4 @@ void logic::run(void) {
     }
 }
 
-} //  namespace sys
-
-} //  namespace wte
+}  //  end namespace wte::sys

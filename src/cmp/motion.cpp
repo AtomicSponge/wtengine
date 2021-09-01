@@ -9,9 +9,7 @@
 
 #include "wtengine/cmp/motion.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*
  *
@@ -78,6 +76,4 @@ void motion::set_velocity(const float& v) {
  */
 const float motion::get_velocity(void) const { return x_vel; }
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp

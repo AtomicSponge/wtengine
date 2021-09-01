@@ -9,9 +9,7 @@
 
 #include "wtengine/mnu/toggle.hpp"
 
-namespace wte {
-
-namespace mnu {
+namespace wte::mnu {
 
 /*
  *
@@ -99,6 +97,4 @@ const bool toggle::setting_changed(void) const {
     return true;
 }
 
-}  // end namespace mnu
-
-}  // end namespace wte
+}  //  end namespace wte::mnu

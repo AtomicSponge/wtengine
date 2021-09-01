@@ -9,9 +9,7 @@
 
 #include "wtengine/mgr/menus.hpp"
 
-namespace wte {
-
-namespace mgr {
+namespace wte::mgr {
 
 template <> bool menus::manager<menus>::initialized = false;
 
@@ -307,6 +305,4 @@ ALLEGRO_BITMAP* menus::render_menu(void) {
     return **menu_buffer;
 }
 
-}  // end namespace mgr
-
-}  // end namespace wte
+}  //  end namespace wte::mgr

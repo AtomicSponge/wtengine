@@ -9,9 +9,7 @@
 
 #include "wtengine/mgr/systems.hpp"
 
-namespace wte {
-
-namespace mgr {
+namespace wte::mgr {
 
 template <> bool systems::manager<systems>::initialized = false;
 
@@ -83,6 +81,4 @@ void systems::dispatch(void) {
     }
 }
 
-} //  namespace mgr
-
-} //  namespace wte
+}  //  end namespace wte::mgr

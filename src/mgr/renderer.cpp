@@ -9,9 +9,7 @@
 
 #include "wtengine/mgr/renderer.hpp"
 
-namespace wte {
-
-namespace mgr {
+namespace wte::mgr {
 
 template <> bool renderer::manager<renderer>::initialized = false;
 
@@ -393,6 +391,4 @@ void renderer::render(void) {
     al_flip_display();
 }
 
-} //  namespace mgr
-
-} //  namespace wte
+}  //  namespace wte::mgr

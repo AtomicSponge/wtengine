@@ -559,4 +559,4 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
     } //  End game event processing
 }
 
-} //  end namespace wte
+}  //  end namespace wte

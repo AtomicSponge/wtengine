@@ -9,9 +9,7 @@
 
 #include "wtengine/cmp/dispatcher.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*
  *
@@ -23,6 +21,4 @@ dispatcher::dispatcher(const std::function<void(const entity_id&, const message&
  */
 void dispatcher::proc_msg(const entity_id& e_id, const message& msg) { try { handle_msg(e_id, msg); } catch(...) { throw; } }
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp

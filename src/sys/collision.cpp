@@ -9,9 +9,7 @@
 
 #include "wtengine/sys/collision.hpp"
 
-namespace wte {
-
-namespace sys {
+namespace wte::sys {
 
 /*
  *
@@ -72,6 +70,4 @@ void colision::run(void) {
     } //  End it_a loop
 }
 
-} //  namespace sys
-
-} //  namespace wte
+}  //  end namespace wte::sys

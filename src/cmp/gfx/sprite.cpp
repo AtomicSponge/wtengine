@@ -9,9 +9,7 @@
 
 #include "wtengine/cmp/gfx/sprite.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*
  *
@@ -123,6 +121,4 @@ const float sprite::get_scale_factor_x(void) const { return scale_factor_x; }
  */
 const float sprite::get_scale_factor_y(void) const { return scale_factor_y; }
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp

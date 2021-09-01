@@ -9,9 +9,7 @@
 
 #include "wtengine/mgr/world.hpp"
 
-namespace wte {
-
-namespace mgr {
+namespace wte::mgr {
 
 template <> bool world::manager<world>::initialized = false;
 
@@ -169,6 +167,4 @@ const const_entity_container world::get_entity(const entity_id& e_id) {
     return temp_container;
 }
 
-} //  namespace mgr
-
-} //  namespace wte
+}  //  end namespace wte::mgr

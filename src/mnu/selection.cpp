@@ -9,9 +9,7 @@
 
 #include "wtengine/mnu/selection.hpp"
 
-namespace wte {
-
-namespace mnu {
+namespace wte::mnu {
 
 /*
  *
@@ -86,6 +84,4 @@ const bool selection::setting_changed(void) const {
  */
 const std::string selection::get_setting(void) { return var + "=" + *current_val; };
 
-}  // end namespace mnu
-
-}  // end namespace wte
+}  //  end namespace wte::mnu

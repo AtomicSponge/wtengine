@@ -48,6 +48,10 @@ class audio final : private manager<audio> {
     friend class wte::engine;
 
     public:
+        /*!
+         * \struct music
+         * \brief Music commands.
+         */
         struct music {
             /*!
             * \brief Toggle music looping.
@@ -81,6 +85,10 @@ class audio final : private manager<audio> {
             static void unpause(void);
         };
 
+        /*!
+         * \struct sample
+         * \brief Sample commands.
+         */
         struct sample {
             /*!
             * \brief Load a sample.
@@ -145,6 +153,10 @@ class audio final : private manager<audio> {
             static void clear_instances(void);
         };
 
+        /*!
+         * \struct voice
+         * \brief Voice commands.
+         */
         struct voice {
             /*!
             * \brief Play an audio file.
@@ -170,6 +182,10 @@ class audio final : private manager<audio> {
             static void unpause(void);
         };
 
+        /*!
+         * \struct ambiance
+         * \brief Ambiance commands.
+         */
         struct ambiance {
             /*!
             * \brief Toggle ambiance looping.

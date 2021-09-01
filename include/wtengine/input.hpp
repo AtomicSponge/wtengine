@@ -196,6 +196,6 @@ class input {
         static bool initialized;  //  Restrict to one instance.
 };
 
-} //  end namespace wte
+}  //  end namespace wte
 
 #endif

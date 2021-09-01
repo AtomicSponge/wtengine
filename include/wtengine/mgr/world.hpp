@@ -88,7 +88,9 @@ using const_component_container = std::map<const entity_id, std::shared_ptr<cons
  */
 typedef std::unordered_multimap<entity_id, cmp::component_sptr> world_map;
 
-namespace mgr {
+}
+
+namespace wte::mgr {
 
 /*!
  * \class world
@@ -347,8 +349,6 @@ class world final : private manager<world> {
         static world_map _world;            //  Container for all components.
 };
 
-} //  namespace mgr
-
-} //  namespace wte
+}  //  namespace wte::mgr
 
 #endif

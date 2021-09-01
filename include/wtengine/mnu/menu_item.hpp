@@ -16,9 +16,7 @@
 
 #include "wtengine/_globals/message.hpp"
 
-namespace wte {
-
-namespace mnu {
+namespace wte::mnu {
 
 enum MENU_SETTING_TYPE {
     GAME_SETTING,       AUDIO_SETTING,
@@ -125,8 +123,6 @@ class menu_item {
 //! Menu Item shared pointer
 typedef std::shared_ptr<menu_item> menu_item_sptr;
 
-}  // end namespace mnu
-
-}  // end namespace wte
+}  //  end namespace wte::mnu
 
 #endif

@@ -25,7 +25,9 @@ namespace wte {
 
 class engine;
 
-namespace mgr {
+}
+
+namespace wte::mgr {
 
 /*!
  * \class spawner
@@ -67,8 +69,6 @@ class spawner final : private manager<spawner> {
         >> spawns;
 };
 
-} //  namespace mgr
-
-} //  namespace wte
+}  //  end namespace wte::mgr
 
 #endif

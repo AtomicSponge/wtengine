@@ -17,9 +17,7 @@
 
 #include "wtengine/mgr/messages.hpp"
 
-namespace wte {
-
-namespace mnu {
+namespace wte::mnu {
 
 /*!
  * \class apply
@@ -87,8 +85,6 @@ class apply final : public menu_item {
         std::string cmd;
 };
 
-}  // end namespace mnu
-
-}  // end namespace wte
+}  //  end namespace wte::mnu
 
 #endif

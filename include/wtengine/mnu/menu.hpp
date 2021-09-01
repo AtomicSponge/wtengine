@@ -19,15 +19,13 @@
 #include "wtengine/mgr/assets.hpp"
 #include "wtengine/mnu/menu_item.hpp"
 
-namespace wte {
-
-namespace mgr {
+namespace wte::mgr {
 
 class menus;
 
 }
 
-namespace mnu {
+namespace wte::mnu {
 
 //!  Container for storing menu items.
 typedef std::vector<menu_item_sptr> menu_items;
@@ -110,8 +108,6 @@ typedef std::shared_ptr<mnu::menu> menu_sptr;
 //! Constant shared pointer for addressing a menu.
 typedef std::shared_ptr<const mnu::menu> menu_csptr;
 
-}  // end namespace mnu
-
-}  // end namespace wte
+}  //  end namespace wte::mnu
 
 #endif

@@ -14,9 +14,7 @@
 
 #include "wtengine/sys/system.hpp"
 
-namespace wte {
-
-namespace sys {
+namespace wte::sys {
 
 /*!
  * \class movement
@@ -35,8 +33,6 @@ class movement final : public system {
         void run(void) override;
 };
 
-} //  namespace sys
-
-} //  namespace wte
+}  //  namespace wte::sys
 
 #endif

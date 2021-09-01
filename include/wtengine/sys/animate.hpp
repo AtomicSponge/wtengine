@@ -12,9 +12,7 @@
 
 #include "wtengine/sys/system.hpp"
 
-namespace wte {
-
-namespace sys {
+namespace wte::sys {
 
 /*!
  * \class animate
@@ -33,8 +31,6 @@ class animate final : public system {
         void run(void) override;
 };
 
-} //  namespace sys
-
-} //  namespace wte
+}  //  end namespace wte::sys
 
 #endif

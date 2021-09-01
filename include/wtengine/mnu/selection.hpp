@@ -17,9 +17,7 @@
 
 #include "wtengine/mnu/menu_item.hpp"
 
-namespace wte {
-
-namespace mnu {
+namespace wte::mnu {
 
 /*!
  * \class selection
@@ -97,8 +95,6 @@ class selection final : public menu_item {
         std::vector<std::string>::const_iterator default_val;
 };
 
-}  // end namespace mnu
-
-}  // end namespace wte
+}  //  end namespace wte::mnu
 
 #endif

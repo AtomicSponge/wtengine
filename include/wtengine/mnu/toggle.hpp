@@ -16,9 +16,7 @@
 
 #include "wtengine/mnu/menu_item.hpp"
 
-namespace wte {
-
-namespace mnu {
+namespace wte::mnu {
 
 /*!
  * \class toggle
@@ -123,8 +121,6 @@ class toggle final : public menu_item {
         std::function<bool(void)> defaulter;
 };
 
-}  // end namespace mnu
-
-}  // end namespace wte
+}  //  end namespace wte::mnu
 
 #endif

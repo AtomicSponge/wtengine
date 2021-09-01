@@ -144,6 +144,6 @@ class engine : private display, public input, public config {
         static bool initialized;
 };
 
-} //  end namespace wte
+}  //  end namespace wte
 
 #endif

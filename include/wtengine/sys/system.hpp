@@ -17,9 +17,7 @@
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mgr/world.hpp"
 
-namespace wte {
-
-namespace sys {
+namespace wte::sys {
 
 /*!
  * \class system
@@ -58,8 +56,6 @@ class system {
  */
 typedef std::unique_ptr<system> system_uptr;
 
-} //  namespace sys
-
-} //  namespace wte
+}  //  end namespace wte::sys
 
 #endif

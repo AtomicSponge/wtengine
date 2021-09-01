@@ -27,7 +27,9 @@ namespace wte {
 
 class engine;
 
-namespace mgr {
+}
+
+namespace wte::mgr {
 
 /*!
  * \class systems
@@ -88,8 +90,6 @@ class systems final : private manager<systems> {
         static bool finalized;
 };
 
-} //  namespace mgr
-
-} //  namespace wte
+}  //  end namespace wte::mgr
 
 #endif

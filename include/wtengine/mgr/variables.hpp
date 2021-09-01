@@ -249,6 +249,6 @@ class variables final : private manager<variables> {
         static std::map<std::string, std::any> _map;  //  Map of variables.
 };
 
-} //  end namespace wte::mgr
+}  //  end namespace wte::mgr
 
 #endif

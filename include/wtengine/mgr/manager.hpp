@@ -12,9 +12,7 @@
 
 #include <stdexcept>
 
-namespace wte {
-
-namespace mgr {
+namespace wte::mgr {
 
 /*!
  * \class manager
@@ -42,8 +40,6 @@ template <class derived> class manager {
         static bool initialized;  //  Force single instance.
 };
 
-}  // end namespace mgr
-
-}  // end namespace wte
+}  //  end namespace wte::mgr
 
 #endif

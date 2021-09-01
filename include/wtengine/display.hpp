@@ -72,8 +72,7 @@ class display {
         static bool initialized;   //  Restrict to one instance.
 
         class al_bitmap_converter final {
-            friend class display;
-            private:
+            public:
                 /*
                  *
                  */
@@ -106,6 +105,7 @@ class display {
                     _bitmaps_backup.clear();
                 };
 
+            private:
                 inline static std::map<
                     std::string,
                     ALLEGRO_BITMAP*
@@ -142,6 +142,6 @@ class display {
         };
 };
 
-} //  end namespace wte
+}  //  end namespace wte
 
 #endif

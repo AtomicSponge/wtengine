@@ -16,12 +16,12 @@
 
 #include "wtengine/_globals/_defines.hpp"
 
-namespace wte {
-
-namespace mgr {
+namespace wte::mgr {
     class menus;
     class renderer;
 }
+
+namespace wte {
 
 /*!
  * \class config
@@ -325,6 +325,6 @@ class config {
         static bool initialized;  //  Restrict to one instance.
 };
 
-} //  end namespace wte
+}  //  end namespace wte
 
 #endif

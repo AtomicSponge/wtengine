@@ -42,7 +42,9 @@ namespace wte {
 class display;
 class engine;
 
-namespace mgr {
+}
+
+namespace wte::mgr {
 
 /*!
  * Container for an entity and component pair.  Used for sorting.
@@ -139,8 +141,6 @@ class renderer final : private manager<renderer> {
         static std::string background_file;
 };
 
-} //  namespace mgr
-
-} //  namespace wte
+}  //  end namespace wte::mgr
 
 #endif

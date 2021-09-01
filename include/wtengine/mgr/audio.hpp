@@ -28,7 +28,9 @@ namespace wte {
 
 class engine;
 
-namespace mgr {
+}
+
+namespace wte::mgr {
 
 /*!
  * \class audio
@@ -243,8 +245,6 @@ class audio final : private manager<audio> {
         static std::map<std::string, ALLEGRO_SAMPLE_ID> sample_instances;
 };
 
-} //  namespace mgr
-
-} //  end namespace wte
+}  //  end namespace wte::mgr
 
 #endif

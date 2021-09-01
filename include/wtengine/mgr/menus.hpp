@@ -43,7 +43,9 @@ typedef std::vector<mnu::menu_sptr>::iterator menu_iterator;
 //! Constant menu iterator.
 typedef std::vector<mnu::menu_sptr>::const_iterator menu_citerator;
 
-namespace mgr {
+}
+
+namespace wte::mgr {
 
 /*!
  * \class menus
@@ -193,8 +195,6 @@ class menus final : private manager<menus> {
         static int64_t last_tick;
 };
 
-}  // end namespace mgr
-
-}  // end namespace wte
+}  //  end namespace wte::mgr
 
 #endif

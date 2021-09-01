@@ -30,7 +30,9 @@ namespace wte {
 
 class al_bitmap_converter;
 
-namespace mgr {
+}
+
+namespace wte::mgr {
 
 /*!
  * \class assets
@@ -199,8 +201,6 @@ class assets final : private manager<assets<>> {
 
 template <> inline bool assets<>::manager<assets<>>::initialized = false;
 
-} //  namespace mgr
-
-} //  namespace wte
+}  //  end namespace wte::mgr
 
 #endif

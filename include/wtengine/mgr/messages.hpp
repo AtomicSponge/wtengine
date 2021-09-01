@@ -28,7 +28,9 @@ namespace wte {
 
 class engine;
 
-namespace mgr {
+}
+
+namespace wte::mgr {
 
 /*!
  * \class messages
@@ -121,8 +123,6 @@ class messages final : private manager<messages> {
         static message_container msg_queue;
 };
 
-} //  namespace mgr
-
-} //  namespace wte
+}  //  end namespace wte::mgr
 
 #endif

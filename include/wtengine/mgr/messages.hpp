@@ -25,9 +25,7 @@
 #include "wtengine/mgr/manager.hpp"
 
 namespace wte {
-
-class engine;
-
+    class engine;
 }
 
 namespace wte::mgr {

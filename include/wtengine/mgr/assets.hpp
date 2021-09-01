@@ -27,9 +27,7 @@
 #include "wtengine/_globals/wte_exception.hpp"
 
 namespace wte {
-
-class al_bitmap_converter;
-
+    class al_bitmap_converter;
 }
 
 namespace wte::mgr {

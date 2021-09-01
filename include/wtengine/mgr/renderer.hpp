@@ -38,10 +38,8 @@
 #include "wtengine/display.hpp"
 
 namespace wte {
-
-class display;
-class engine;
-
+    class display;
+    class engine;
 }
 
 namespace wte::mgr {

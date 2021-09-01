@@ -20,9 +20,7 @@
 #include "wtengine/mnu/menu_item.hpp"
 
 namespace wte::mgr {
-
-class menus;
-
+    class menus;
 }
 
 namespace wte::mnu {

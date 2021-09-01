@@ -22,9 +22,7 @@
 #include "wtengine/mgr/world.hpp"
 
 namespace wte {
-
-class engine;
-
+    class engine;
 }
 
 namespace wte::mgr {

@@ -34,15 +34,13 @@
 #include "wtengine/config.hpp"
 
 namespace wte {
+    class engine;
+    class input;
 
-class engine;
-class input;
-
-//! Menu iterator.
-typedef std::vector<mnu::menu_sptr>::iterator menu_iterator;
-//! Constant menu iterator.
-typedef std::vector<mnu::menu_sptr>::const_iterator menu_citerator;
-
+    //! Menu iterator.
+    typedef std::vector<mnu::menu_sptr>::iterator menu_iterator;
+    //! Constant menu iterator.
+    typedef std::vector<mnu::menu_sptr>::const_iterator menu_citerator;
 }
 
 namespace wte::mgr {

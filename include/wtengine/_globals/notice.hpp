@@ -18,11 +18,11 @@
 #include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
 
-namespace wte {
-
-namespace mgr {
+namespace wte::mgr {
     class renderer;
 }
+
+namespace wte {
 
 /*!
  * \class notice
@@ -100,6 +100,6 @@ class notice final {
         static ALLEGRO_COLOR notice_font_color;  //
 };
 
-} //  end namespace wte
+}  //  end namespace wte
 
 #endif

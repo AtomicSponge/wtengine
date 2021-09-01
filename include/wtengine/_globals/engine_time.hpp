@@ -46,6 +46,6 @@ class engine_time final {
         static int64_t current_time;  //  Track game timer
 };
 
-}  // end namespace wte
+}  //  end namespace wte
 
 #endif

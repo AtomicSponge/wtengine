@@ -12,9 +12,7 @@
 
 #include "wtengine/cmp/component.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*!
  * \class team
@@ -49,8 +47,6 @@ class team final : public component {
         std::size_t this_team;  //  Team number.
 };
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp
 
 #endif

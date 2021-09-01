@@ -12,13 +12,13 @@
 
 #include <string>
 
-namespace wte {
-
-namespace mgr {
+namespace wte::mgr {
     class spawner;
     class systems;
     class renderer;
 }
+
+namespace wte {
 
 /*!
  * \class alert
@@ -87,6 +87,6 @@ class alert final {
         static bool alert_set;              //  Flag to check if alert is set.
 };
 
-} //  end namespace wte
+}  //  end namespace wte
 
 #endif

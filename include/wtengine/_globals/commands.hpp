@@ -62,6 +62,6 @@ class commands final {
         >> _commands;
 };
 
-} //  end namespace wte
+}  //  end namespace wte
 
 #endif

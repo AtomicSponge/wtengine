@@ -23,9 +23,7 @@
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
 
-namespace wte {
-
-namespace mgr {
+namespace wte::mgr {
 
 /*!
  * \class variables
@@ -70,7 +68,7 @@ class variables final : private manager<variables> {
 
                 //  Write variable value.
                 {int32_t tempi;
-                if(std::is_same<std::string, T>::value)
+                if constexpr(std::is_same<std::string, T>::value)
                     tempi = std::strlen(std::any_cast<const std::string>(tempv).c_str()) + 1;
                 else tempi = sizeof(T);
                 dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));
@@ -251,8 +249,6 @@ class variables final : private manager<variables> {
         static std::map<std::string, std::any> _map;  //  Map of variables.
 };
 
-} //  end namespace mgr
-
-} //  end namespace wte
+} //  end namespace wte::mgr
 
 #endif

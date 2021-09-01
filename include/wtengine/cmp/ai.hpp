@@ -17,13 +17,11 @@
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mgr/world.hpp"
 
-namespace wte {
-
-namespace sys {
+namespace wte::sys {
     class logic;
 }
 
-namespace cmp {
+namespace wte::cmp {
 
 /*!
  * \class ai
@@ -91,8 +89,6 @@ class ai final : public component {
         std::function<void(const entity_id&)> disabled_ai;  //  AI to run when disabled.
 };
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp
 
 #endif

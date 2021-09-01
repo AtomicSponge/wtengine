@@ -18,9 +18,7 @@
 
 #include "wtengine/cmp/gfx/gfx.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*!
  * \class background
@@ -88,8 +86,6 @@ class background final : public gfx {
         float pos_x, pos_y;  //  Location in the arena of the background.
 };
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp
 
 #endif

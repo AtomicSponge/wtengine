@@ -12,9 +12,7 @@
 
 #include "wtengine/cmp/component.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*!
  * \class bounding_box
@@ -93,8 +91,6 @@ class bounding_box final : public component {
         float max_x, max_y;  //  Bottom right position of bounding box.
 };
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp
 
 #endif

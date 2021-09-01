@@ -12,9 +12,7 @@
 
 #include "wtengine/cmp/component.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*!
  * \class motion
@@ -102,8 +100,6 @@ class motion final : public component {
         float x_vel, y_vel;     //  X & Y velocity.
 };
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp
 
 #endif

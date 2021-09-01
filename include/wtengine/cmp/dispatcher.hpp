@@ -19,13 +19,11 @@
 #include "wtengine/_globals/message.hpp"
 #include "wtengine/_globals/alert.hpp"
 
-namespace wte {
-
-namespace mgr {
+namespace wte::mgr {
     class systems;
 }
 
-namespace cmp {
+namespace wte::cmp {
 
 /*!
  * \class dispatcher
@@ -65,8 +63,6 @@ class dispatcher final : public component {
         std::function<void(const entity_id&, const message&)> handle_msg;
 };
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp
 
 #endif

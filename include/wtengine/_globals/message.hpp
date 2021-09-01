@@ -177,6 +177,6 @@ class message final {
  */
 typedef std::vector<message> message_container;
 
-} //  namespace wte
+}  //  end namespace wte
 
 #endif

@@ -93,6 +93,6 @@ class wte_exception final : public std::exception {
         #endif
 };
 
-} //  end namespace wte
+}  //  end namespace wte
 
 #endif

@@ -12,9 +12,7 @@
 
 #include "wtengine/cmp/component.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*!
  * \class hitbox
@@ -91,8 +89,6 @@ class hitbox final : public component {
         bool solid;             //  Solid (enabled) flag.
 };
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp
 
 #endif

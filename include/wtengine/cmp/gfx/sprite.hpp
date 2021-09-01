@@ -25,9 +25,7 @@
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/mgr/world.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*!
  * \class sprite
@@ -149,8 +147,6 @@ class sprite final : public gfx {
         std::size_t current_frame, rate;        //  Current frame counter and frame rate.
 };
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp
 
 #endif

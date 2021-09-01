@@ -19,9 +19,7 @@
 
 #include "wtengine/cmp/gfx/gfx.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*!
  * \class overlay
@@ -95,8 +93,6 @@ class overlay final : public gfx {
         float pos_x, pos_y;               //  X/Y position of overlay.
 };
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp
 
 #endif

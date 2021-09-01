@@ -12,9 +12,7 @@
 
 #include "wtengine/cmp/component.hpp"
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*!
  * \class location
@@ -74,8 +72,6 @@ class location final : public component {
         float pos_x, pos_y; //  X & Y location.
 };
 
-} //  namespace cmp
-
-} //  namespace wte
+} //  namespace wte::cmp
 
 #endif

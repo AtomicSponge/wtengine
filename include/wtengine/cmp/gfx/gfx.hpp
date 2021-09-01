@@ -20,13 +20,11 @@
 #include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/mgr/world.hpp"
 
-namespace wte {
-
-namespace sys {
+namespace wte::sys {
     class animate;
 }
 
-namespace cmp {
+namespace wte::cmp {
 
 /*!
  * \class gfx
@@ -155,8 +153,6 @@ class gfx : public component {
         std::function<void(const entity_id&)> animate;
 };
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp
 
 #endif

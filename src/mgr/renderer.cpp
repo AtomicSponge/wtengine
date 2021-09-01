@@ -216,7 +216,7 @@ void renderer::render(void) {
 
         #if WTE_DEBUG_MODE
         /*
-         * Draw sprite hitboxes if enabled.  Use different colors for each team.
+         * Draw hitboxes if enabled.  Use different colors for each team.
          */
         if(config::flags::show_hitboxes) {
             const const_component_container<cmp::hitbox> hitbox_components =

@@ -16,7 +16,7 @@ template <> bool messages::manager<messages>::initialized = false;
 message_container messages::msg_queue;
 
 #if WTE_DEBUG_MODE
-std::ofstream messages::debug_log_file("wte_debug//wte_debug_messages.txt", std::ios::trunc);
+std::ofstream messages::debug_log_file("wte_debug//messages.txt", std::ios::trunc);
 #endif
 
 /*

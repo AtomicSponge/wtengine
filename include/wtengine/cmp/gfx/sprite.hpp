@@ -110,30 +110,6 @@ class sprite final : public gfx {
          */
         const float get_sprite_y(void) const;
 
-        /*!
-         * \brief Set the X scale factor.
-         * \param sx New scale factor X value.
-         */
-        void set_scale_factor_x(const float& sx);
-
-        /*!
-         * \brief Set the Y scale factor.
-         * \param sy New scale factor Y value.
-         */
-        void set_scale_factor_y(const float& sy);
-
-        /*!
-         * \brief Get the X scale factor.
-         * \return scale_factor_x
-         */
-        const float get_scale_factor_x(void) const;
-
-        /*!
-         * \brief Get the Y scale factor.
-         * \return scale_factor_y
-         */
-        const float get_scale_factor_y(void) const;
-
     private:
         //  Animation cycle index.
         std::map<std::string, std::pair<std::size_t, std::size_t>> cycles;
@@ -141,7 +117,6 @@ class sprite final : public gfx {
         float sprite_width, sprite_height;      //  Sprite width & height.
         float draw_offset_x, draw_offset_y;     //  Sprite draw offset x/y.
         float sprite_x, sprite_y;               //  Sprite location.
-        float scale_factor_x, scale_factor_y;   //  Sprite x/y scale factor.
         int sheet_width, sheet_height;          //  Sprite sheet size (w/h).
         std::size_t start_frame, stop_frame;    //  Current start/stop frame postitions.
         std::size_t current_frame, rate;        //  Current frame counter and frame rate.

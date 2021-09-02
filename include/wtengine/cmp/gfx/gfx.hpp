@@ -119,6 +119,30 @@ class gfx : public component {
          */
         const float get_direction(void) const;
 
+        /*!
+         * \brief Set the X scale factor.
+         * \param sx New scale factor X value.
+         */
+        void set_scale_factor_x(const float& sx);
+
+        /*!
+         * \brief Set the Y scale factor.
+         * \param sy New scale factor Y value.
+         */
+        void set_scale_factor_y(const float& sy);
+
+        /*!
+         * \brief Get the X scale factor.
+         * \return scale_factor_x
+         */
+        const float get_scale_factor_x(void) const;
+
+        /*!
+         * \brief Get the Y scale factor.
+         * \return scale_factor_y
+         */
+        const float get_scale_factor_y(void) const;
+
     protected:
         /*!
          * \brief Extend to create a gfx component.
@@ -148,6 +172,7 @@ class gfx : public component {
 
         float direction;    //  Direction to draw when rotated.
         bool rotated;       //  Rotation flag.
+        float scale_factor_x, scale_factor_y;   //  X/Y scale factor.
 
         //  Animation function.
         std::function<void(const entity_id&)> animate;

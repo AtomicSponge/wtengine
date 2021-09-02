@@ -18,7 +18,9 @@ gfx::gfx(
     wte_asset<al_bitmap> bmp,
     const std::size_t& l,
     const std::function<void(const entity_id&)>& func
-) : internal_bitmap(bmp), layer(l), tint_set(false), visible(true), direction(0.0f), rotated(false), animate(func) {}
+) : internal_bitmap(bmp), layer(l), tint_set(false), visible(true),
+direction(0.0f), rotated(false), scale_factor_x(1.0f), scale_factor_y(1.0f),
+animate(func) {}
 
 /*
  *
@@ -92,5 +94,25 @@ void gfx::set_direction(const float& d) { direction = d; }
  *
  */
 const float gfx::get_direction(void) const { return direction; }
+
+/*
+ *
+ */
+void gfx::set_scale_factor_x(const float& sx) { scale_factor_x = sx; }
+
+/*
+ *
+ */
+void gfx::set_scale_factor_y(const float& sy) { scale_factor_y = sy; }
+
+/*
+ *
+ */
+const float gfx::get_scale_factor_x(void) const { return scale_factor_x; }
+
+/*
+ *
+ */
+const float gfx::get_scale_factor_y(void) const { return scale_factor_y; }
 
 }  //  end namespace wte::cmp

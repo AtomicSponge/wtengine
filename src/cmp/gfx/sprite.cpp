@@ -35,7 +35,7 @@ sprite::sprite(
         }
     }),
     sprite_width(sw), sprite_height(sh), draw_offset_x(dox), draw_offset_y(doy),
-    sprite_x(0.0f), sprite_y(0.0f), scale_factor_x(1.0f), scale_factor_y(1.0f),
+    sprite_x(0.0f), sprite_y(0.0f),
     start_frame(0), stop_frame(0), current_frame(0), rate(rt)
 {
     if(rate == 0) rate = 1;
@@ -100,25 +100,5 @@ const float sprite::get_sprite_x(void) const { return sprite_x; }
  *
  */
 const float sprite::get_sprite_y(void) const { return sprite_y; }
-
-/*
- *
- */
-void sprite::set_scale_factor_x(const float& sx) { scale_factor_x = sx; }
-
-/*
- *
- */
-void sprite::set_scale_factor_y(const float& sy) { scale_factor_y = sy; }
-
-/*
- *
- */
-const float sprite::get_scale_factor_x(void) const { return scale_factor_x; }
-
-/*
- *
- */
-const float sprite::get_scale_factor_y(void) const { return scale_factor_y; }
 
 }  //  end namespace wte::cmp

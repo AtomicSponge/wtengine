@@ -128,18 +128,39 @@ void renderer::render(void) {
         //  Draw each background by layer.
         for(auto& it: background_componenet_set) {
             if(it.second->is_visible()) {
+                float angle = 0.0f;
+                float center_x = 0.0f, center_y = 0.0f;
+                float destination_x = 0.0f, destination_y = 0.0f;
+
+                if(it.second->is_rotated()) {
+                    angle = it.second->get_direction();
+                    center_x = (al_get_bitmap_width(it.second->get_bitmap()) / 2);
+                    center_y = (al_get_bitmap_height(it.second->get_bitmap()) / 2);
+
+                    destination_x = it.second->get_pos_x() +
+                        (al_get_bitmap_width(it.second->get_bitmap()) * it.second->get_scale_factor_x() / 2);
+                    destination_y = it.second->get_pos_y() +
+                        (al_get_bitmap_height(it.second->get_bitmap()) * it.second->get_scale_factor_y() / 2);
+                } else {
+                        destination_x = it.second->get_pos_x();
+                        destination_y = it.second->get_pos_y();
+                }
+
                 if(it.second->draw_tinted())
-                    al_draw_tinted_bitmap(
-                        it.second->get_bitmap(),
-                        it.second->get_tint(),
-                        it.second->get_pos_x(),
-                        it.second->get_pos_y(), 0
+                    al_draw_tinted_scaled_rotated_bitmap(
+                        it.second->get_bitmap(), it.second->get_tint(),
+                        center_x, center_y, destination_x, destination_y,
+                        it.second->get_scale_factor_x(),
+                        it.second->get_scale_factor_y(),
+                        angle, 0
                     );
                 else
-                    al_draw_bitmap(
+                    al_draw_scaled_rotated_bitmap(
                         it.second->get_bitmap(),
-                        it.second->get_pos_x(),
-                        it.second->get_pos_y(), 0
+                        center_x, center_y, destination_x, destination_y,
+                        it.second->get_scale_factor_x(),
+                        it.second->get_scale_factor_y(),
+                        angle, 0
                     );
             }
         }
@@ -168,14 +189,14 @@ void renderer::render(void) {
                 );
 
                 try {
-                    float sprite_angle = 0.0f;
+                    float angle = 0.0f;
                     float center_x = 0.0f, center_y = 0.0f;
                     float destination_x = 0.0f, destination_y = 0.0f;
                     cmp::const_comp_ptr<cmp::location> temp_get = mgr::world::get_component<cmp::location>(it.first);
 
                     //  Check if the sprite should be rotated.
                     if(it.second->is_rotated()) {
-                        sprite_angle = it.second->get_direction();
+                        angle = it.second->get_direction();
                         center_x = (al_get_bitmap_width(temp_bitmap) / 2);
                         center_y = (al_get_bitmap_height(temp_bitmap) / 2);
 
@@ -197,14 +218,14 @@ void renderer::render(void) {
                             center_x, center_y, destination_x, destination_y,
                             it.second->get_scale_factor_x(),
                             it.second->get_scale_factor_y(),
-                            sprite_angle, 0
+                            angle, 0
                         );
                     else
                         al_draw_scaled_rotated_bitmap(
                             temp_bitmap, center_x, center_y, destination_x, destination_y,
                             it.second->get_scale_factor_x(),
                             it.second->get_scale_factor_y(),
-                            sprite_angle, 0
+                            angle, 0
                         );
                 } catch(...) { throw; }
 
@@ -264,18 +285,39 @@ void renderer::render(void) {
         //  Draw each overlay by layer.
         for(auto& it: overlay_componenet_set) {
             if(it.second->is_visible()) {
+                float angle = 0.0f;
+                float center_x = 0.0f, center_y = 0.0f;
+                float destination_x = 0.0f, destination_y = 0.0f;
+
+                if(it.second->is_rotated()) {
+                    angle = it.second->get_direction();
+                    center_x = (al_get_bitmap_width(it.second->get_bitmap()) / 2);
+                    center_y = (al_get_bitmap_height(it.second->get_bitmap()) / 2);
+
+                    destination_x = it.second->get_pos_x() +
+                        (al_get_bitmap_width(it.second->get_bitmap()) * it.second->get_scale_factor_x() / 2);
+                    destination_y = it.second->get_pos_y() +
+                        (al_get_bitmap_height(it.second->get_bitmap()) * it.second->get_scale_factor_y() / 2);
+                } else {
+                        destination_x = it.second->get_pos_x();
+                        destination_y = it.second->get_pos_y();
+                }
+
                 if(it.second->draw_tinted())
-                    al_draw_tinted_bitmap(
-                        it.second->get_bitmap(),
-                        it.second->get_tint(),
-                        it.second->get_pos_x(),
-                        it.second->get_pos_y(), 0
+                    al_draw_tinted_scaled_rotated_bitmap(
+                        it.second->get_bitmap(), it.second->get_tint(),
+                        center_x, center_y, destination_x, destination_y,
+                        it.second->get_scale_factor_x(),
+                        it.second->get_scale_factor_y(),
+                        angle, 0
                     );
                 else
-                    al_draw_bitmap(
+                    al_draw_scaled_rotated_bitmap(
                         it.second->get_bitmap(),
-                        it.second->get_pos_x(),
-                        it.second->get_pos_y(), 0
+                        center_x, center_y, destination_x, destination_y,
+                        it.second->get_scale_factor_x(),
+                        it.second->get_scale_factor_y(),
+                        angle, 0
                     );
             }
         }

@@ -623,7 +623,7 @@ void wte_demo::new_game(void) {
     /* ************************************** */
     mgr::assets<al_bitmap>::load<al_bitmap>("asteroid", al_bitmap());
     mgr::assets<al_bitmap>::get<al_bitmap>("asteroid")->load("asteroid.bmp");
-    mgr::spawner::add_spawn("asteroid", 5,
+    mgr::spawner::add("asteroid", 5,
         [](const entity_id& e_id, const msg_args& args) {
             int temp_size = std::stoi(args[5]);
             if(temp_size < 1) temp_size = 1;

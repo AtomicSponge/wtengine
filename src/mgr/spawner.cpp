@@ -49,7 +49,7 @@ void spawner::process_messages(const message_container& messages) {
 /*
  *
  */
-const bool spawner::add_spawn(const std::string& name, const std::size_t& num_args,
+const bool spawner::add(const std::string& name, const std::size_t& num_args,
                               const std::function<void(const entity_id&, const msg_args&)>& func) {
     auto ret = spawns.insert(std::make_pair(name, std::make_pair(num_args, func)));
     return ret.second;

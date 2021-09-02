@@ -280,7 +280,7 @@ void engine::do_game(void) {
             mgr::systems::dispatch();
 
             //  Get any spawner messages and pass to handler.
-            mgr::spawner::process_messages(mgr::messages::get_messages("spawner"));
+            mgr::spawner::process_messages(mgr::messages::get("spawner"));
         }
         /* *** END GAME LOOP ******************************************************** */
 
@@ -288,9 +288,9 @@ void engine::do_game(void) {
         mgr::renderer::render();
 
         //  Get any system messages and pass to handler.
-        cmds.process_messages(mgr::messages::get_messages("system"));
+        cmds.process_messages(mgr::messages::get("system"));
         //  Send audio messages to the audio queue.
-        mgr::audio::process_messages(mgr::messages::get_messages("audio"));
+        mgr::audio::process_messages(mgr::messages::get("audio"));
         //  Delete timed messages that were not processed.
         mgr::messages::prune();
 

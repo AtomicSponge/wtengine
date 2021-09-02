@@ -434,7 +434,7 @@ void wte_demo::new_game(void) {
                 mgr::world::set_component<cmp::ai>(plr_id)->disable();
                 mgr::world::set_component<health>(plr_id)->hp = mgr::world::get_component<health>(plr_id)->hp_max;
                 std::string player_name = mgr::world::get_name(plr_id);
-                mgr::messages::add_message(message("entities", player_name, player_name, "death", ""));
+                mgr::messages::add(message("entities", player_name, player_name, "death", ""));
             }
         }
     );  //  End player logic.
@@ -467,12 +467,12 @@ void wte_demo::new_game(void) {
                 mgr::world::set_component<cmp::sprite>(plr_id)->set_cycle("death");
                 if(mgr::variables::get<int>("lives") == 0) {
                     //  Game over!
-                    mgr::messages::add_message(message(engine_time::check_time() + 180, "system", "end_game", ""));
+                    mgr::messages::add(message(engine_time::check_time() + 180, "system", "end_game", ""));
                     entity_id go_id = mgr::world::get_id("game_over_overlay");
                     mgr::world::set_component<cmp::sprite>(go_id)->show();
                 } else {
                     std::string player_name = mgr::world::get_name(plr_id);
-                    mgr::messages::add_message(
+                    mgr::messages::add(
                         message(engine_time::check_time() + 120, "entities", player_name, player_name, "reset", "")
                     );
                 }
@@ -538,7 +538,7 @@ void wte_demo::new_game(void) {
         [](const entity_id& can_id, const message& msg) {
             if(msg.get_cmd() == "colision") {
                 //  Deal damage
-                mgr::messages::add_message(message("entities", msg.get_from(), msg.get_to(),
+                mgr::messages::add(message("entities", msg.get_from(), msg.get_to(),
                     "damage", std::to_string(mgr::world::get_component<damage>(can_id)->dmg)));
                 //  Play the hit effect.
                 mgr::audio::sample::play("fx3", "once");
@@ -606,7 +606,7 @@ void wte_demo::new_game(void) {
         [](const entity_id& shd_id, const message& msg) {
             if(msg.get_cmd() == "colision") {
                 //  Deal damage
-                mgr::messages::add_message(message("entities", msg.get_from(), msg.get_to(),
+                mgr::messages::add(message("entities", msg.get_from(), msg.get_to(),
                     "damage", std::to_string(mgr::world::get_component<damage>(shd_id)->dmg)));
             }
         }
@@ -655,12 +655,12 @@ void wte_demo::new_game(void) {
                     //  AI for asteroids defined here.
                     //  Perform OOB check.
                     if(mgr::world::get_component<cmp::location>(ast_id)->get_y() > (float)(config::gfx::arena_h + 100)) {
-                        mgr::messages::add_message(message("spawner", "delete", mgr::world::get_name(ast_id)));
+                        mgr::messages::add(message("spawner", "delete", mgr::world::get_name(ast_id)));
                     }
 
                     //  Health check.  If asteroid's HP is <= 0, reward player with points and delete the entity.
                     if(mgr::world::get_component<health>(ast_id)->hp <= 0) {
-                        mgr::messages::add_message(message("spawner", "delete", mgr::world::get_name(ast_id)));
+                        mgr::messages::add(message("spawner", "delete", mgr::world::get_name(ast_id)));
                         mgr::audio::sample::play("megumin", "once", 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.8f);
 
                         mgr::variables::set("score",
@@ -683,8 +683,8 @@ void wte_demo::new_game(void) {
                             std::string new_spawner_b = "asteroid;" + std::to_string(new_x) + ";" +
                                 std::to_string(new_y) + ";" + std::to_string(dir_b) + ";" +
                                 std::to_string(new_vel) + ";" + std::to_string(new_size);
-                            mgr::messages::add_message(message("spawner", "new", new_spawner_a));
-                            mgr::messages::add_message(message("spawner", "new", new_spawner_b));
+                            mgr::messages::add(message("spawner", "new", new_spawner_a));
+                            mgr::messages::add(message("spawner", "new", new_spawner_b));
                         }
                     }
                 }
@@ -695,7 +695,7 @@ void wte_demo::new_game(void) {
                 [](const entity_id& ast_id, const message& msg) {
                     if(msg.get_cmd() == "colision") {
                         //  Deal damage
-                        mgr::messages::add_message(message("entities", msg.get_from(), msg.get_to(),
+                        mgr::messages::add(message("entities", msg.get_from(), msg.get_to(),
                             "damage", std::to_string(mgr::world::get_component<damage>(ast_id)->dmg)));
                     }
 

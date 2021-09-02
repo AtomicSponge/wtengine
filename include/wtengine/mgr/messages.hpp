@@ -47,7 +47,7 @@ class messages final : private manager<messages> {
          * 
          * \param msg Message to add.
          */
-        static void add_message(
+        static void add(
             const message& msg
         );
 
@@ -86,7 +86,7 @@ class messages final : private manager<messages> {
          * Get messages based on their command.
          * Once events in the future are reached, break early.
          */
-        static const message_container get_messages(
+        static const message_container get(
             const std::string& sys
         );
 
@@ -98,7 +98,7 @@ class messages final : private manager<messages> {
         /*
          * Read a message from file.
          */
-        static void read_message(
+        static void read(
             ALLEGRO_FILE& file,
             int64_t& timer,
             std::string& sys,
@@ -112,13 +112,13 @@ class messages final : private manager<messages> {
          * Write a message to the debug log file if debugging is enabled.
          */
         #if WTE_DEBUG_MODE
-        static void debug_log_message(const message& msg);
+        static void log(const message& msg);
 
         static std::ofstream debug_log_file;
         #endif
 
         //  Vector of all messages to be processed
-        static message_container msg_queue;
+        static message_container _messages;
 };
 
 }  //  end namespace wte::mgr

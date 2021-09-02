@@ -13,7 +13,7 @@ namespace wte::mgr {
 
 template <> bool messages::manager<messages>::initialized = false;
 
-message_container messages::msg_queue;
+message_container messages::_messages;
 
 #if WTE_DEBUG_MODE
 std::ofstream messages::debug_log_file("wte_debug//messages.txt", std::ios::trunc);
@@ -40,29 +40,29 @@ messages::~messages() {
 /*
  *
  */
-void messages::clear(void) { msg_queue.clear(); }
+void messages::clear(void) { _messages.clear(); }
 
 /*
  *
  */
-void messages::add_message(const message& msg) {
-    msg_queue.insert(msg_queue.begin(), msg);
-    if(msg.is_timed_event()) std::sort(msg_queue.begin(), msg_queue.end());
+void messages::add(const message& msg) {
+    _messages.insert(_messages.begin(), msg);
+    if(msg.is_timed_event()) std::sort(_messages.begin(), _messages.end());
 }
 
 /*
  *
  */
 void messages::prune(void) {
-    for(auto it = msg_queue.begin(); it != msg_queue.end();) {
+    for(auto it = _messages.begin(); it != _messages.end();) {
         //  End early if events are in the future.
         if(it->get_timer() > engine_time::check_time()) break;
         if(it->is_timed_event()) {
             #if WTE_DEBUG_MODE
             debug_log_file << "MESSAGE DELETED | ";
-            debug_log_message(*it);
+            log(*it);
             #endif
-            it = msg_queue.erase(it);
+            it = _messages.erase(it);
         }
         else it++;
     }
@@ -71,20 +71,20 @@ void messages::prune(void) {
 /*
  *
  */
-const message_container messages::get_messages(const std::string& sys) {
+const message_container messages::get(const std::string& sys) {
     message_container temp_messages;
 
-    for(auto it = msg_queue.begin(); it != msg_queue.end();) {
+    for(auto it = _messages.begin(); it != _messages.end();) {
         //  End early if events are in the future
         if(it->get_timer() > engine_time::check_time()) break;
 
         if((it->get_timer() == -1 || it->get_timer() == engine_time::check_time()) && it->get_sys() == sys) {
             #if WTE_DEBUG_MODE
             //  Log the message if debug mode is on
-            debug_log_message(*it);
+            log(*it);
             #endif
             temp_messages.push_back(*it);  //  Add the message to the temp vector to be returned.
-            it = msg_queue.erase(it);  //  Erase the message once processed.
+            it = _messages.erase(it);  //  Erase the message once processed.
         } else it++;  //  Message not processed, iterate to next.
     }
 
@@ -95,7 +95,7 @@ const message_container messages::get_messages(const std::string& sys) {
  *
  */
 void messages::load_file(const std::string& fname) {
-    msg_queue.clear();
+    _messages.clear();
     //  Open data file - read binary mode.
     ALLEGRO_FILE* file;
     file = al_fopen(fname.c_str(), "rb");
@@ -113,15 +113,15 @@ void messages::load_file(const std::string& fname) {
         std::string sys, to, from, cmd, args;
 
         //  Read the message from file.
-        read_message(*file, timer, sys, to, from, cmd, args);
+        read(*file, timer, sys, to, from, cmd, args);
 
         //  Add message to queue.  Ignore incomplete messages.
-        if(sys != "" && cmd != "") msg_queue.push_back(message(timer, sys, to, from, cmd, args));
+        if(sys != "" && cmd != "") _messages.push_back(message(timer, sys, to, from, cmd, args));
     }
     al_fclose(file);
 
     //  Sort the queue so timed events are in order first to last.
-    std::sort(msg_queue.begin(), msg_queue.end());
+    std::sort(_messages.begin(), _messages.end());
 }
 
 /*
@@ -145,13 +145,13 @@ const bool messages::load_script(const std::string& fname) {
         std::string sys, to, from, cmd, args;
 
         //  Read the message from file.
-        read_message(*file, timer, sys, to, from, cmd, args);
+        read(*file, timer, sys, to, from, cmd, args);
 
         //  Add the current time to the timer value.
         if(timer != -1) timer += engine_time::check_time();
 
         //  Add message to queue.  Ignore incomplete messages.  Sort while adding.
-        if(sys != "" && cmd != "") add_message(message(timer, sys, to, from, cmd, args));
+        if(sys != "" && cmd != "") add(message(timer, sys, to, from, cmd, args));
     }
     al_fclose(file);
     return true;
@@ -160,7 +160,7 @@ const bool messages::load_script(const std::string& fname) {
 /*
  *
  */
-void messages::read_message(
+void messages::read(
     ALLEGRO_FILE& file, int64_t& timer,
     std::string& sys, std::string& to, std::string& from,
     std::string& cmd, std::string& args) {
@@ -205,7 +205,7 @@ void messages::read_message(
 /*
  *
  */
-void messages::debug_log_message(const message& msg) {
+void messages::log(const message& msg) {
     debug_log_file << "PROC AT:  " << engine_time::check_time() << " | ";
     debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
     debug_log_file << "SYS:  " << msg.get_sys() << " | ";

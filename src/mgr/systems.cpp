@@ -63,7 +63,7 @@ void systems::dispatch(void) {
         mgr::world::set_components<cmp::dispatcher>();
 
     while(true) {  //  Infinite loop to verify all current messages are processed.
-        message_container temp_msgs = mgr::messages::get_messages("entities");
+        message_container temp_msgs = mgr::messages::get("entities");
         if(temp_msgs.empty()) break;  //  No messages, end while(true) loop.
 
         //  For all messages, check each dispatch component.

@@ -31,7 +31,7 @@ action::~action() {};
 /*
  *
  */
-void action::on_select(void) { mgr::messages::add_message(message("system", cmd, arg)); };
+void action::on_select(void) { mgr::messages::add(message("system", cmd, arg)); };
 
 /*
  *

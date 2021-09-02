@@ -57,7 +57,7 @@ void colision::run(void) {
                         //  Send a message that two entities colided.
                         //  Each entity will get a colision message.
                         //  Ex:  A hit B, B hit A.
-                        mgr::messages::add_message(
+                        mgr::messages::add(
                             message("entities",
                                     mgr::world::get_name(it_a.first),
                                     mgr::world::get_name(it_b.first),

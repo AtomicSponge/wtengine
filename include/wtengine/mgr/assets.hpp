@@ -27,7 +27,8 @@
 #include "wtengine/_globals/wte_exception.hpp"
 
 namespace wte {
-    class al_bitmap_converter;
+    class display;
+    //class al_bitmap_converter;
 }
 
 namespace wte::mgr {
@@ -39,7 +40,8 @@ namespace wte::mgr {
  */
 template <typename... Types>
 class assets final : private manager<assets<>> {
-    friend class wte::al_bitmap_converter;
+    friend class wte::display;
+    //friend class wte::al_bitmap_converter;
 
     public:
         /*!

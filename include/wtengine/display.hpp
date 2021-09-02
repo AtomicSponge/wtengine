@@ -78,6 +78,8 @@ class display {
                  */
                 inline static void backup_bitmaps(void) {
                     _bitmaps_backup.clear();
+                    //Index<al_bitmap, mgr::assets<>::_assets>::value
+                    //for(auto& it: std::get<Index<al_bitmap, mgr::assets<>::_assets>::value>(mgr::assets<>::_assets)) {}
                     /*al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
                     for (auto& it: std::get<1>(mgr::assets<>::_assets)) {
                         if(it.second->isconverted()) {
@@ -111,34 +113,35 @@ class display {
                     ALLEGRO_BITMAP*
                 > _bitmaps_backup;
 
-                /*template<
+                template<
                     typename Tuple,
-                    typename Indices = std::make_index_sequence<std::tuple_size<Tuple>::value>
+                    typename F,
+                    typename Indices=std::make_index_sequence<std::tuple_size<Tuple>::value>
                 >
                 struct runtime_get_func_table;
 
-                template<typename Tuple, std::size_t ...Indices>
-                struct runtime_get_func_table<Tuple,std::index_sequence<Indices...>>{
-                    using return_type = typename std::tuple_element<0,Tuple>::type&;
-                    using get_func_ptr = return_type (*)(Tuple&) noexcept;
-                    inline static constexpr get_func_ptr table[std::tuple_size<Tuple>::value] = {
-                        &std::get<Indices>...
+                template<typename Tuple, typename F, size_t I>
+                    void applyForIndex(Tuple& t, F f) {
+                        f(std::get<I>(t));
+                    }
+
+                template<typename Tuple, typename F, size_t ... Indices>
+                struct runtime_get_func_table<Tuple,F,std::index_sequence<Indices...>>{
+                    using FuncType = void(*)(Tuple&, F);
+                    static constexpr FuncType table[]={
+                        &applyForIndex<Tuple, F, Indices>...
                     };
                 };
 
-                inline static constexpr std::size_t idx = Indices<al_bitmap, mgr::assets<>::_assets>;
+                template<typename Tuple, typename F>
+                void runtime_get(Tuple& t,size_t index, F f) {
+                    using tuple_type=typename std::remove_reference<Tuple>::type;
+                    if(index>=std::tuple_size<tuple_type>::value)
+                        throw std::runtime_error("Out of range");
+                    runtime_get_func_table<tuple_type, F>::table[index](t, f);
+                }
 
-                template<typename Tuple, std::size_t ...Indices>
-                constexpr typename runtime_get_func_table<Tuple, std::index_sequence<Indices...>>::get_func_ptr
-                runtime_get_func_table<Tuple, std::index_sequence<Indices...>>::table[std::tuple_size<Tuple>::value];
 
-                template<typename Tuple>
-                constexpr typename std::tuple_element<0, typename std::remove_reference<Tuple>::type>::type& runtime_get(Tuple&& t, std::size_t index) {
-                    using tuple_type = typename std::remove_reference<Tuple>::type;
-                    if(index >= std::tuple_size<tuple_type>::value)
-                        throw std::runtime_error("Index not found.");
-                    return runtime_get_func_table<tuple_type>::table[index](t);
-                };*/
         };
 };
 

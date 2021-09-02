@@ -6,7 +6,7 @@
  * See LICENSE.md for copyright information
  *
  * WTE Demo game code.
- * This extends the wte_main object to define a custom game.
+ * This extends the engine object to define a custom game.
  */
 
 #include <numeric>

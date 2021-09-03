@@ -31,6 +31,7 @@ namespace wte {
  * Notices are cleared after the player presses a button.
  */
 class notice final {
+    friend class input;
     friend class mgr::renderer;
 
     public:
@@ -60,11 +61,6 @@ class notice final {
         static const bool is_set(void);
 
         /*!
-         * \brief Clear the notice.
-         */
-        static void clear(void);
-
-        /*!
          * \brief Set the notice font.
          * \param a Asset to use for font.
          */
@@ -83,6 +79,11 @@ class notice final {
         static void set_notice_bg_color(const ALLEGRO_COLOR& c);
 
     private:
+        /*
+         * Clear the notice.
+         */
+        static void clear(void);
+
         /*
          * Get the notice font.
          */

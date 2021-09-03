@@ -73,10 +73,13 @@ void input::check_input_events(void) {
  *
  */
 void input::handle_input_event(const ALLEGRO_EVENT& event) { 
-    //  Clear any active alerts on input event
+    //  Clear any active alerts or notices on input event
     if(alert::is_set() &&
        (event.type == ALLEGRO_EVENT_KEY_DOWN ||
         event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)) alert::clear();
+    if(notice::is_set() &&
+       (event.type == ALLEGRO_EVENT_KEY_DOWN ||
+        event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)) notice::clear();
 
     //  Record input if enabled.
     if(config::flags::record_input) {

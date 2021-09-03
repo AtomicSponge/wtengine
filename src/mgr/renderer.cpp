@@ -368,7 +368,7 @@ void renderer::render(void) {
         const float menu_scale_factor = config::gfx::menu_scale_factor * config::gfx::scale_factor;
         ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap((notice::get().length() * font_size) + 20, font_size + 20);
         al_set_target_bitmap(temp_bitmap);
-        al_clear_to_color(WTE_COLOR_RED);
+        al_clear_to_color(notice::get_notice_bg_color());
 
         al_draw_text(**notice::get_notice_font(), notice::get_notice_font_color(),
             (al_get_bitmap_width(temp_bitmap) / 2), 10,

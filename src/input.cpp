@@ -219,8 +219,7 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
         case ALLEGRO_EVENT_KEY_DOWN:
             #if WTE_DEBUG_MODE
             if(event.keyboard.keycode == WTE_KEY_TOGGLE_HITBOX) {
-                if(config::flags::show_hitboxes) config::_flags::show_hitboxes = false;
-                else config::_flags::show_hitboxes = true;
+                if(config::flags::show_hitboxes) config::_flags::show_hitboxes = false ? true;
             }
             #endif
             if(event.keyboard.keycode == config::controls::key_menu) config::_flags::menu_opened = true;

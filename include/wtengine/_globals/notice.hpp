@@ -102,8 +102,8 @@ class notice final {
         static std::string notice_text;          //  The notice display text.
         static bool notice_set;                  //  Flag to check if a notice is set.
         static wte_asset<al_font> notice_font;   //  Font for notice.
-        static ALLEGRO_COLOR notice_font_color;  //
-        static ALLEGRO_COLOR notice_bg_color;    //
+        static ALLEGRO_COLOR notice_font_color;  //  Allegro color for font.
+        static ALLEGRO_COLOR notice_bg_color;    //  Allegro color for background.
 };
 
 }  //  end namespace wte

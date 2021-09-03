@@ -75,16 +75,6 @@ class al_bitmap final {
             _al_bitmap = al_create_bitmap(w, h);
         };
 
-        /*
-         * having an issue with these
-         */
-        //inline al_bitmap(const std::string& fname) : _al_bitmap(NULL), nopreserve(false) { load(fname); };
-
-        /*
-         * having an issue with these
-         */
-        //inline al_bitmap(const std::string& fname, const bool& p) : _al_bitmap(NULL), nopreserve(p) { load(fname); };
-
         /*!
          * \brief Return a pointer to the internal Allegro bitmap.
          * \return Allegro bitmap pointer.

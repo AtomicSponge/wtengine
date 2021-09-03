@@ -15,7 +15,7 @@ bool config::initialized = false;
 
 const bool& config::flags::is_running = config::_flags::is_running;
 const bool& config::flags::game_started = config::_flags::game_started;
-const bool& config::flags::game_menu_opened = config::_flags::game_menu_opened;
+const bool& config::flags::menu_opened = config::_flags::menu_opened;
 const bool& config::flags::record_input = config::_flags::record_input;
 #if WTE_DEBUG_MODE
 const bool& config::flags::show_hitboxes = config::_flags::show_hitboxes;

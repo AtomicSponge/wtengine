@@ -167,7 +167,7 @@ void engine::process_new_game(const std::string& game_data) {
     std::srand(std::time(nullptr));  //  Seed random, using time.
 
     //  Make sure the menu isn't opened.
-    config::_flags::game_menu_opened = false;
+    config::_flags::menu_opened = false;
 
     //  Load a new message data file.
     if(!game_data.empty()) mgr::messages::load_file(game_data);
@@ -190,7 +190,7 @@ void engine::process_new_game(const std::string& game_data) {
     try { new_game(); } catch(wte_exception& e) {
         //  Failed to create new game, abort.
         alert::set(e.what(), e.where(), e.when());
-        config::_flags::game_menu_opened = true;
+        config::_flags::menu_opened = true;
         return;
     }
 
@@ -228,7 +228,7 @@ void engine::process_end_game(void) {
     mgr::systems::clear();
 
     //  Open the menus.
-    config::_flags::game_menu_opened = true;
+    config::_flags::menu_opened = true;
 }
 
 /*
@@ -240,13 +240,13 @@ void engine::do_game(void) {
     //  Set default states.
     config::_flags::is_running = true;
     config::_flags::game_started = false;
-    config::_flags::game_menu_opened = true;
+    config::_flags::menu_opened = true;
 
     /* *** ENGINE LOOP ************************************************************ */
     while(config::flags::is_running) {
         if(!config::flags::game_started) {            //  Game not running.
             al_stop_timer(main_timer);                //  Make sure the timer isn't.
-            config::_flags::game_menu_opened = true;   //  And force the menu manager.
+            config::_flags::menu_opened = true;   //  And force the menu manager.
         }
 
         //  Check for input.
@@ -254,17 +254,17 @@ void engine::do_game(void) {
 
         //  Pause / resume timer depending on if the game menu is opened.
         //  Also process the on_menu events.
-        if(config::flags::game_menu_opened && al_get_timer_started(main_timer)) {
+        if(config::flags::menu_opened && al_get_timer_started(main_timer)) {
             al_stop_timer(main_timer);
             on_menu_open();
         }
-        if(!config::flags::game_menu_opened && !al_get_timer_started(main_timer)) {
+        if(!config::flags::menu_opened && !al_get_timer_started(main_timer)) {
             on_menu_close();
             al_resume_timer(main_timer);
         }
 
         //  Game menu is opened, run the menu manager.
-        if(config::flags::game_menu_opened) mgr::menus::run();
+        if(config::flags::menu_opened) mgr::menus::run();
 
         /* *** GAME LOOP ************************************************************ */
         ALLEGRO_EVENT event;

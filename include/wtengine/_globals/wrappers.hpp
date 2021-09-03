@@ -152,8 +152,8 @@ class al_bitmap final {
         inline const int get_height(void) const { return al_get_bitmap_height(_al_bitmap); };
 
     private:
-        ALLEGRO_BITMAP* _al_bitmap; //  Internal Allegro bitmap.
-        bool nopreserve;            //  Preservation flag.
+        ALLEGRO_BITMAP* _al_bitmap;  //  Internal Allegro bitmap.
+        bool nopreserve;             //  Preservation flag.
 };
 
 /*!

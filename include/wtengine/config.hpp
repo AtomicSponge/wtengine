@@ -46,7 +46,7 @@ class config {
         struct flags {
             static const bool& is_running;            //!<  Flag to check if the game is running.
             static const bool& game_started;          //!<  Flag to check if the game has started.
-            static const bool& game_menu_opened;      //!<  Flag to check if the menu is opened.
+            static const bool& menu_opened;           //!<  Flag to check if the menu is opened.
             static const bool& record_input;          //!<  Flag to enable/disable input recording.
             #if WTE_DEBUG_MODE
             static const bool& show_hitboxes;         //!<  Flag to enable/disable hitbox rendering.
@@ -209,7 +209,7 @@ class config {
         struct _flags {
             inline static bool is_running = true;
             inline static bool game_started = false;
-            inline static bool game_menu_opened = true;
+            inline static bool menu_opened = true;
             inline static bool record_input = false;
             #if WTE_DEBUG_MODE
             inline static bool show_hitboxes = false;

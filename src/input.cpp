@@ -89,7 +89,7 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
     /* ************************************************************* */
     /* *** PROCESS EVENTS WHILE MENU IS OPENED ********************* */
     /* ************************************************************* */
-    if(config::flags::game_menu_opened) {
+    if(config::flags::menu_opened) {
         switch(event.type) {
         /* *********************** */
         /* *** Keyboard events *** */
@@ -223,7 +223,7 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
                 else config::_flags::show_hitboxes = true;
             }
             #endif
-            if(event.keyboard.keycode == config::controls::key_menu) config::_flags::game_menu_opened = true;
+            if(event.keyboard.keycode == config::controls::key_menu) config::_flags::menu_opened = true;
             if(config::flags::input_enabled) {
                 try {
                     /////////////////////////////////////////////////////////////

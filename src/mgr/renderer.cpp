@@ -344,7 +344,7 @@ void renderer::render(void) {
     /*
      * Render game menu if it's opened.
      */
-    if(config::flags::game_menu_opened) {
+    if(config::flags::menu_opened) {
         const float menu_scale_factor = config::gfx::menu_scale_factor * config::gfx::scale_factor;
         ALLEGRO_BITMAP* temp_bitmap = al_clone_bitmap(mgr::menus::render_menu());
         al_set_target_backbuffer(al_get_current_display());
@@ -366,7 +366,7 @@ void renderer::render(void) {
     if(notice::is_set()) {
         const int font_size = al_get_font_line_height(**notice::get_notice_font());
         const float menu_scale_factor = config::gfx::menu_scale_factor * config::gfx::scale_factor;
-        ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap((notice::get().length() * font_size) + 20, font_size + 20);
+        ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap((notice::get().length() * font_size) + (font_size * 2), font_size + (font_size * 2));
         al_set_target_bitmap(temp_bitmap);
         al_clear_to_color(notice::get_notice_bg_color());
 
@@ -392,7 +392,7 @@ void renderer::render(void) {
     if(alert::is_set()) {
         const int font_size = al_get_font_line_height(**renderer_font);
 
-        ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap((alert::get().length() * font_size) + 20, font_size + 20);
+        ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap((alert::get().length() * font_size) + (font_size * 2), font_size + (font_size * 2));
         al_set_target_bitmap(temp_bitmap);
         al_clear_to_color(WTE_COLOR_RED);
 

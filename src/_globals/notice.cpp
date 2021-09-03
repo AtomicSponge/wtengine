@@ -14,9 +14,9 @@ namespace wte {
 
 std::string notice::notice_text;
 bool notice::notice_set = false;
-wte_asset<al_bitmap> notice::notice_bg;
 wte_asset<al_font> notice::notice_font;
 ALLEGRO_COLOR notice::notice_font_color;
+ALLEGRO_COLOR notice::notice_bg_color;
 
 /*
  * 
@@ -46,11 +46,6 @@ void notice::clear(void) { notice_set = false; }
 /*
  * 
  */
-void notice::set_notice_bg(wte_asset<al_bitmap> a) { notice_bg = a; }
-
-/*
- * 
- */
 void notice::set_notice_font(wte_asset<al_font> a) { notice_font = a; }
 
 /*
@@ -67,5 +62,15 @@ void notice::set_notice_font_color(const ALLEGRO_COLOR& c) { notice_font_color =
  * 
  */
 const ALLEGRO_COLOR notice::get_notice_font_color(void) { return notice_font_color; }
+
+/*
+ * 
+ */
+void notice::set_notice_bg_color(const ALLEGRO_COLOR& c) { notice_bg_color = c; }
+
+/*
+ * 
+ */
+const ALLEGRO_COLOR notice::get_notice_bg_color(void) { return notice_bg_color; }
 
 }  //  end namespace wte

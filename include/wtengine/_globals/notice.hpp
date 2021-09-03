@@ -65,12 +65,6 @@ class notice final {
         static void clear(void);
 
         /*!
-         * \brief Set the notice background.
-         * \param a Asset to use for background.
-         */
-        static void set_notice_bg(const wte_asset<al_bitmap> a);
-
-        /*!
          * \brief Set the notice font.
          * \param a Asset to use for font.
          */
@@ -81,6 +75,12 @@ class notice final {
          * \param c Allegro color to use for font.
          */
         static void set_notice_font_color(const ALLEGRO_COLOR& c);
+
+        /*!
+         * \brief Set the notice background color.
+         * \param c Allegro color to use for background.
+         */
+        static void set_notice_bg_color(const ALLEGRO_COLOR& c);
 
     private:
         /*
@@ -93,11 +93,16 @@ class notice final {
          */
         static const ALLEGRO_COLOR get_notice_font_color(void);
 
+        /*
+         * Get the notice background color.
+         */
+        static const ALLEGRO_COLOR get_notice_bg_color(void);
+
         static std::string notice_text;          //  The notice display text.
         static bool notice_set;                  //  Flag to check if a notice is set.
-        static wte_asset<al_bitmap> notice_bg;   //  Background for notice.
         static wte_asset<al_font> notice_font;   //  Font for notice.
         static ALLEGRO_COLOR notice_font_color;  //
+        static ALLEGRO_COLOR notice_bg_color;    //
 };
 
 }  //  end namespace wte

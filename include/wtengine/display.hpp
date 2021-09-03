@@ -79,11 +79,11 @@ class display {
                 inline static void backup_bitmaps(void) {
                     _bitmaps_backup.clear();
                     //Index<al_bitmap, mgr::assets<>::_assets>::value
-                    /*runtime_get(mgr::assets<>::_assets, <al_bitmap>, [](auto& elm) {
-                        for(auto& it: elm) {}
+                    /*runtime_get(mgr::assets<>::_assets, 0, [](auto& elm) {
+                        //for(auto& it: elm) {}
                     });*/
                     //for(auto& it: std::get<al_bitmap>(mgr::assets<>::_assets)) {}
-                    //auto test = std::get<al_bitmap>(mgr::assets<>::_assets);
+                    //std::get<al_bitmap>(mgr::assets<al_bitmap>::_assets);
                     /*al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
                     for (auto& it: std::get<1>(mgr::assets<>::_assets)) {
                         if(it.second->isconverted()) {
@@ -117,7 +117,7 @@ class display {
                     ALLEGRO_BITMAP*
                 > _bitmaps_backup;
 
-                /*template<
+                template<
                     typename Tuple,
                     typename F,
                     typename Indices=std::make_index_sequence<std::tuple_size<Tuple>::value>
@@ -143,7 +143,7 @@ class display {
                     if(index>=std::tuple_size<tuple_type>::value)
                         throw std::runtime_error("Out of range");
                     runtime_get_func_table<tuple_type, F>::table[index](t, f);
-                }*/
+                }
 
 
         };

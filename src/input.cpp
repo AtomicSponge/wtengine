@@ -136,10 +136,12 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
         /* *********************** */
         /////////////////////////////////////////////////////////////
         case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-            if(event.joystick.button == config::controls::key_menu) {
+            if(event.joystick.button == config::controls::p1_button_select ||
+                event.joystick.button == config::controls::p2_button_select) {
                 mgr::menus::close_menu();
             }
-            if(event.joystick.button == config::controls::key_menu_select) {
+            if(event.joystick.button == config::controls::p1_button_start ||
+                event.joystick.button == config::controls::p2_button_start) {
                 mgr::menus::menu_item_select();
             }
             if(event.joystick.button == config::controls::p1_button_up ||

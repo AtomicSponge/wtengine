@@ -34,12 +34,12 @@ class toggle final : public menu_item {
          * \param func Fuction to determine defaut setting.
          */
         toggle(
-            const std::string label,
-            const std::string con,
-            const std::string aon,
-            const std::string coff,
-            const std::string aoff,
-            bool func(void)
+            const std::string& label,
+            const std::string& con,
+            const std::string& aon,
+            const std::string& coff,
+            const std::string& aoff,
+            const std::function<bool(void)>& func
         );
 
         /*!

@@ -78,7 +78,7 @@ class menu_item {
          * \param l Label of the menu item.
          */
         inline menu_item(
-            const std::string l
+            const std::string& l
         ) : label(l) {};
 
     private:

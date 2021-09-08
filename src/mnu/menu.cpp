@@ -15,14 +15,9 @@ namespace wte::mnu {
  *
  */
 menu::menu(
-    const std::string i,
-    const std::string t
-) : id(i), title(t) { items.clear(); }
-
-/*
- *
- */
-menu::~menu() { items.clear(); }
+    const std::string& i,
+    const std::string& t
+) : id(i), title(t) {}
 
 /*
  *

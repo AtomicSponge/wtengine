@@ -34,7 +34,11 @@ class action final : public menu_item {
          * \param c Command to run for item.
          * \param a Arguments for command.
          */
-        action(const std::string l, const std::string c, const std::string a);
+        action(
+            const std::string& l,
+            const std::string& c,
+            const std::string& a
+        );
 
         /*!
          * \brief Menu item action constructor.
@@ -44,12 +48,15 @@ class action final : public menu_item {
          * \param l Label for item.
          * \param c Command to run for item.
          */
-        action(const std::string l, const std::string c);
+        action(
+            const std::string& l,
+            const std::string& c
+        );
 
         /*!
          * \brief Menu item action destructor.
          */
-        ~action();
+        ~action() = default;
 
         /*!
          * \brief Menu item action on selection.

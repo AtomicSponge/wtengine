@@ -44,11 +44,11 @@ class menu {
          * \param t Menu display title.
          */
         menu(
-            const std::string i,
-            const std::string t
+            const std::string& i,
+            const std::string& t
         );
 
-        ~menu();
+        ~menu() = default;
 
         /*!
          * \brief Get menu ID.

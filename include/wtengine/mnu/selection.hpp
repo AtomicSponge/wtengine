@@ -33,10 +33,10 @@ class selection final : public menu_item {
          * \param vl Vector of allowed settings.
          */
         selection(
-            const std::string label,
-            const std::string vr,
-            const std::vector<std::string> dvl,
-            const std::vector<std::string> vl
+            const std::string& label,
+            const std::string& vr,
+            const std::vector<std::string>& dvl,
+            const std::vector<std::string>& vl
         );
 
         /*!

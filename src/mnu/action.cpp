@@ -14,19 +14,21 @@ namespace wte::mnu {
 /*
  *
  */
-action::action(const std::string l, const std::string c, const std::string a) :
+action::action(
+    const std::string& l,
+    const std::string& c,
+    const std::string& a
+) :
     menu_item(l), cmd(c), arg(a) {};
 
 /*
  *
  */
-action::action(const std::string l, const std::string c) :
+action::action(
+    const std::string& l,
+    const std::string& c
+) :
     menu_item(l), cmd(c), arg("") {};
-
-/*
- *
- */
-action::~action() {};
 
 /*
  *

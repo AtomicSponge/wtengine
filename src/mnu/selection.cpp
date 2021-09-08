@@ -18,19 +18,13 @@ selection::selection(
     const std::string label,
     const std::string vr,
     const std::vector<std::string> dvl,
-    const std::vector<std::string> vl,
-    const std::size_t st
-) : menu_item(label, st), var(vr), display_vals(dvl), vals(vl) {
+    const std::vector<std::string> vl
+) : menu_item(label), var(vr), display_vals(dvl), vals(vl) {
     if(dvl.size() != vl.size())
         throw std::runtime_error("Selection item label and value counts must be the same!");
     current_val = vals.begin();
     default_val = current_val;
 };
-
-/*
- *
- */
-selection::~selection() {};
 
 /*
  *

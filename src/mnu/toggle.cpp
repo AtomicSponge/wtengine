@@ -28,26 +28,6 @@ toggle::toggle(
 /*
  *
  */
-toggle::toggle(
-    const std::string label,
-    const std::string con,
-    const std::string aon,
-    const std::string coff,
-    const std::string aoff,
-    const std::size_t st,
-    bool func(void)
-) : menu_item(label, st), cmd_on(con), cmd_off(coff), arg_on(aon), arg_off(aoff), defaulter(func) {
-    toggled = default_val = defaulter();
-}
-
-/*
- *
- */
-toggle::~toggle() {}
-
-/*
- *
- */
 void toggle::on_left(void) { toggled = true; }
 
 /*

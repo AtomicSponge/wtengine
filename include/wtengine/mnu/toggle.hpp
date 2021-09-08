@@ -43,29 +43,9 @@ class toggle final : public menu_item {
         );
 
         /*!
-         * \brief Create a menu toggle item.
-         * \param label Item display label.
-         * \param con Command to run when toggled on.
-         * \param aon Arguments to use when toggled on.
-         * \param coff Command to run when toggled off.
-         * \param aoff Arguments to use when toggled off.
-         * \param st Setting type.
-         * \param func Fuction to determine defaut setting.
-         */
-        toggle(
-            const std::string label,
-            const std::string con,
-            const std::string aon,
-            const std::string coff,
-            const std::string aoff,
-            const std::size_t st,
-            bool func(void)
-        );
-
-        /*!
          * \brief Menu toggle item destructor.
          */
-        ~toggle();
+        ~toggle() = default;
 
         /*!
          * \brief Toggle on.

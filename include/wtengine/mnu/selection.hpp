@@ -31,20 +31,18 @@ class selection final : public menu_item {
          * \param vr Variable to adjust.
          * \param dvl Vector of display items.
          * \param vl Vector of allowed settings.
-         * \param st Type of setting.
          */
         selection(
             const std::string label,
             const std::string vr,
             const std::vector<std::string> dvl,
-            const std::vector<std::string> vl,
-            const std::size_t st
+            const std::vector<std::string> vl
         );
 
         /*!
          * \brief Menu item selection destructor.
          */
-        ~selection();
+        ~selection() = default;
 
         /*!
          * \brief Define left click process.

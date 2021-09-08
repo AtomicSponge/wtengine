@@ -213,7 +213,7 @@ void wte_demo::load_menus(void) {
     {//  Create the demo game settings menu.
     mnu::menu temp_menu = mnu::menu("demo_settings", "Demo Settings");
     std::vector<std::string> lives_vec = { "3", "4", "5" };
-    temp_menu.add_item<mnu::selection>("Lives:", "max_lives", lives_vec, lives_vec, mnu::GAME_SETTING);
+    temp_menu.add_item<mnu::selection>("Lives:", "max_lives", lives_vec, lives_vec);
     temp_menu.add_item<mnu::apply>();
     temp_menu.add_item<mnu::action>("Return", "close_menu");
     if(!mgr::menus::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");}
@@ -222,9 +222,9 @@ void wte_demo::load_menus(void) {
     mnu::menu temp_menu = mnu::menu("video_settings", "Video Settings");
     std::vector<std::string> mode_dvec = { "Windowed", "Windowed Full Screen" };
     std::vector<std::string> mode_vec = { "windowed", "windowed_full_screen" };
-    temp_menu.add_item<mnu::selection>("Display Mode:", "display_mode", mode_dvec, mode_vec, mnu::ENGINE_SETTING_RECONF);
+    temp_menu.add_item<mnu::selection>("Display Mode:", "display_mode", mode_dvec, mode_vec);
     std::vector<std::string> scale_vec = { "0.5", "1", "1.25", "1.5", "1.75", "2" };
-    temp_menu.add_item<mnu::selection>("Scale factor:", "scale_factor", scale_vec, scale_vec, mnu::ENGINE_SETTING_RECONF);
+    temp_menu.add_item<mnu::selection>("Scale factor:", "scale_factor", scale_vec, scale_vec);
     temp_menu.add_item<mnu::toggle>("FPS:", "fps_counter", "on", "fps_counter", "off",
                                     [](void){ return config::flags::draw_fps; });
     temp_menu.add_item<mnu::apply>();
@@ -245,11 +245,11 @@ void wte_demo::load_menus(void) {
     }
 
     mnu::menu temp_menu = mnu::menu("audio_settings", "Audio Settings");
-    temp_menu.add_item<mnu::selection>("Main Volume:", "main_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING);
-    temp_menu.add_item<mnu::selection>("Music Volume:", "mix1_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING);
-    temp_menu.add_item<mnu::selection>("Effects Volume:", "mix2_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING);
-    temp_menu.add_item<mnu::selection>("Voice Volume:", "mix3_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING);
-    temp_menu.add_item<mnu::selection>("Ambiance Volume:", "mix4_vol", vol_dvec, vol_vec, mnu::AUDIO_SETTING);
+    temp_menu.add_item<mnu::selection>("Main Volume:", "main_vol", vol_dvec, vol_vec);
+    temp_menu.add_item<mnu::selection>("Music Volume:", "mix1_vol", vol_dvec, vol_vec);
+    temp_menu.add_item<mnu::selection>("Effects Volume:", "mix2_vol", vol_dvec, vol_vec);
+    temp_menu.add_item<mnu::selection>("Voice Volume:", "mix3_vol", vol_dvec, vol_vec);
+    temp_menu.add_item<mnu::selection>("Ambiance Volume:", "mix4_vol", vol_dvec, vol_vec);
     temp_menu.add_item<mnu::apply>();
     temp_menu.add_item<mnu::action>("Return", "close_menu");
     if(!mgr::menus::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");}

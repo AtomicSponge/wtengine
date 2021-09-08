@@ -18,12 +18,6 @@
 
 namespace wte::mnu {
 
-enum MENU_SETTING_TYPE {
-    GAME_SETTING,       AUDIO_SETTING,
-    ENGINE_SETTING,     ENGINE_SETTING_RECONF,
-    DEFAULT_SETTING
-};
-
 /*!
  * \class menu_item
  * \brief Menu item interface class.
@@ -78,24 +72,6 @@ class menu_item {
          */
         inline const std::string get_label(void) const { return label; };
 
-        /*!
-         * \brief Get the setting type.
-         * \return Setting type.
-         */
-        inline const std::size_t get_setting_type(void) const { return setting_type; };
-
-        /*!
-         * \brief Check if it is an engine setting.
-         * \return True if an engine setting, false if a game setting.
-         */
-        inline const bool is_engine_setting(void) const { 
-            if(setting_type == ENGINE_SETTING ||
-               setting_type == ENGINE_SETTING_RECONF ||
-               setting_type == AUDIO_SETTING)
-                return true;
-            return false;
-        };
-
     protected:
         /*!
          * \brief Menu item constructor.
@@ -103,21 +79,10 @@ class menu_item {
          */
         inline menu_item(
             const std::string l
-        ) : label(l), setting_type(DEFAULT_SETTING) {};
-
-        /*!
-         * \brief Menu item constructor.
-         * \param l Label of the menu item.
-         * \param st Setting type.
-         */
-        inline menu_item(
-            const std::string l,
-            const std::size_t st
-        ) : label(l), setting_type(st) {};
+        ) : label(l) {};
 
     private:
         std::string label;
-        std::size_t setting_type;
 };
 
 //! Menu Item shared pointer

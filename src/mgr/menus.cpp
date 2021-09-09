@@ -216,9 +216,7 @@ void menus::menu_pos_stop_right(void) { select_menu_option = false; }
 void menus::menu_item_select(void) {
     if(menu_position != opened_menus.top()->items_cend()) (*menu_position)->on_select();
     if(do_apply) {
-        for(auto& it: opened_menus.top()->get_items()) {
-            //
-        }
+        for(auto& it: opened_menus.top()->get_items()) it->apply_setting();
         do_apply = false;
     }
     if(do_cancel) {

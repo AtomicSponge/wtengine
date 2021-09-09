@@ -58,6 +58,11 @@ class item {
         inline virtual void set_default(void) {};
 
         /*!
+         * \brief Define apply setting process.
+         */
+        inline virtual void apply_setting(void) {};
+
+        /*!
          * \brief Define setting changed process.
          * \return Default return false.
          */

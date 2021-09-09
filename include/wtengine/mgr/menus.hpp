@@ -29,7 +29,7 @@
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mgr/renderer.hpp"
-#include "wtengine/mnu/menu_item.hpp"
+#include "wtengine/mnu/item.hpp"
 #include "wtengine/mnu/menu.hpp"
 #include "wtengine/config.hpp"
 

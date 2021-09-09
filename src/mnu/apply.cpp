@@ -31,7 +31,7 @@ void apply::on_right(void) { do_apply = true; }
  */
 void apply::on_select(void) {
     if(do_apply) mgr::menus::do_apply = true;
-    mgr::menus::do_cancel = true;
+    else mgr::menus::do_cancel = true;
 }
 
 /*

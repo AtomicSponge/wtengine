@@ -39,10 +39,7 @@ class selection final : public menu_item {
             const std::vector<std::string>& vls
         );
 
-        /*!
-         * \brief Menu item selection destructor.
-         */
-        ~selection() = default;
+        ~selection() = default;  //!<  Default destructor.
 
         /*!
          * \brief Define left click process.

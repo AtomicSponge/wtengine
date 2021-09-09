@@ -48,7 +48,7 @@ class menu {
             const std::string& t
         );
 
-        ~menu() = default;
+        ~menu() = default;  //!<  Default destructor.
 
         /*!
          * \brief Get menu ID.

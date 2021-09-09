@@ -53,10 +53,7 @@ class action final : public menu_item {
             const std::string& c
         );
 
-        /*!
-         * \brief Menu item action destructor.
-         */
-        ~action() = default;
+        ~action() = default;  //!<  Default destructor.
 
         /*!
          * \brief Menu item action on selection.

@@ -24,10 +24,7 @@ namespace wte::mnu {
  */
 class menu_item {
     public:
-        /*!
-         * \brief Menu item destructor.
-         */
-        inline virtual ~menu_item() {};
+        inline virtual ~menu_item() = default;    //!<  Default virtual destructor.
 
         /*!
          * \brief Return display text for the menu item when rendering.

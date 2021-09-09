@@ -30,10 +30,7 @@ class apply final : public menu_item {
          */
         apply();
 
-        /*!
-         * \brief Menu Item Apply destructor.
-         */
-        ~apply() = default;
+        ~apply() = default;  //!<  Default destructor.
 
         /*!
          * \brief On left trigger.

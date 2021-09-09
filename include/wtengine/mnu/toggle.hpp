@@ -42,10 +42,7 @@ class toggle final : public menu_item {
             const std::function<bool(void)>& func
         );
 
-        /*!
-         * \brief Menu toggle item destructor.
-         */
-        ~toggle() = default;
+        ~toggle() = default;  //!<  Default destructor.
 
         /*!
          * \brief Toggle on.

@@ -11,7 +11,7 @@
 
 #include <wtengine/wtengine.hpp>
 
-#include "include/wte_demo.hpp"
+#include <wte_demo.hpp>
 
 int main(int argc, char **argv) {
     //  Set locations to load game data from.

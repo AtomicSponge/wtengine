@@ -72,6 +72,9 @@ endif()
 #  Build Process
 #
 ########################################
+#  Set include folder for building
+target_include_directories(wte_demo PRIVATE include)
+
 #  Link libraries
 target_link_libraries(wte_demo PUBLIC
     ${PHYSFS_LIB}

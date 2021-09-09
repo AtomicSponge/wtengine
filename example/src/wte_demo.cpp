@@ -13,8 +13,8 @@
 
 #include <allegro5/allegro_primitives.h>
 
-#include "include/wte_demo.hpp"
-#include "include/my_components.hpp"
+#include <wte_demo.hpp>
+#include <my_components.hpp>
 
 using namespace wte;
 

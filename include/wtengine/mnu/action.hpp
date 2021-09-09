@@ -7,13 +7,13 @@
  * \date 2019-2021
  */
 
-#ifndef WTE_MNU_MENU_ITEM_ACTION_HPP
-#define WTE_MNU_MENU_ITEM_ACTION_HPP
+#ifndef WTE_MNU_ITEM_ACTION_HPP
+#define WTE_MNU_ITEM_ACTION_HPP
 
 #include <string>
 #include <vector>
 
-#include "wtengine/mnu/menu_item.hpp"
+#include "wtengine/mnu/item.hpp"
 
 #include "wtengine/mgr/messages.hpp"
 
@@ -23,7 +23,7 @@ namespace wte::mnu {
  * \class action
  * \brief Menu item that runs a message
  */
-class action final : public menu_item {
+class action final : public item {
     public:
         /*!
          * \brief Menu item action constructor.

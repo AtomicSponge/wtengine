@@ -19,7 +19,7 @@ selection::selection(
     const std::string& vr,
     const std::vector<std::string>& dvls,
     const std::vector<std::string>& vls
-) : menu_item(label), var(vr), display_vals(dvls), vals(vls) {
+) : item(label), var(vr), display_vals(dvls), vals(vls) {
     assert(dvls.size() == vls.size());
     current_val = vals.begin();
     default_val = current_val;

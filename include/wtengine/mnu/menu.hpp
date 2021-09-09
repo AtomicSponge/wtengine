@@ -17,7 +17,7 @@
 #include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/mgr/assets.hpp"
-#include "wtengine/mnu/menu_item.hpp"
+#include "wtengine/mnu/item.hpp"
 
 namespace wte::mgr {
     class menus;
@@ -26,9 +26,9 @@ namespace wte::mgr {
 namespace wte::mnu {
 
 //!  Container for storing menu items.
-typedef std::vector<menu_item_sptr> menu_items;
+typedef std::vector<item_sptr> items;
 //!  Constant iterator for addressing menu items.
-typedef std::vector<menu_item_sptr>::const_iterator menu_item_citerator;
+typedef std::vector<item_sptr>::const_iterator item_citerator;
 
 /*!
  * \class menu
@@ -82,23 +82,23 @@ class menu {
          */
         template <typename T, typename... Args>
         inline void add_item(Args... args) {
-            items.push_back(std::make_shared<T>(args...));
+            _items.push_back(std::make_shared<T>(args...));
         };
 
     private:
         /*
          * Get menu items start iterator.
          */
-        menu_item_citerator items_cbegin(void) const;
+        item_citerator items_cbegin(void) const;
 
         /*
          * Get menu items end iterator.
          */
-        menu_item_citerator items_cend(void) const;
+        item_citerator items_cend(void) const;
 
         const std::string id;
         std::string title;
-        menu_items items;
+        items _items;
 };
 
 //! Shared pointer for addressing a menu.

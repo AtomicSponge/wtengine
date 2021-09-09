@@ -7,15 +7,15 @@
  * \date 2019-2021
  */
 
-#ifndef WTE_MNU_MENU_ITEM_SELECTION_HPP
-#define WTE_MNU_MENU_ITEM_SELECTION_HPP
+#ifndef WTE_MNU_ITEM_SELECTION_HPP
+#define WTE_MNU_ITEM_SELECTION_HPP
 
 #include <string>
 #include <vector>
 #include <algorithm>
 #include <cassert>
 
-#include "wtengine/mnu/menu_item.hpp"
+#include "wtengine/mnu/item.hpp"
 
 namespace wte::mnu {
 
@@ -23,7 +23,7 @@ namespace wte::mnu {
  * \class selection
  * \brief Menu item with multiple options.
  */
-class selection final : public menu_item {
+class selection final : public item {
     public:
         /*!
          * \brief Menu item selection constructor.

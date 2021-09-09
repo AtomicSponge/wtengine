@@ -7,14 +7,14 @@
  * \date 2019-2021
  */
 
-#ifndef WTE_MNU_MENU_ITEM_TOGGLE_HPP
-#define WTE_MNU_MENU_ITEM_TOGGLE_HPP
+#ifndef WTE_MNU_ITEM_TOGGLE_HPP
+#define WTE_MNU_ITEM_TOGGLE_HPP
 
 #include <string>
 #include <vector>
 #include <functional>
 
-#include "wtengine/mnu/menu_item.hpp"
+#include "wtengine/mnu/item.hpp"
 
 namespace wte::mnu {
 
@@ -22,7 +22,7 @@ namespace wte::mnu {
  * \class toggle
  * \brief On/off menu item.
  */
-class toggle final : public menu_item {
+class toggle final : public item {
     public:
         /*!
          * \brief Create a menu toggle item.  Uses default setting type.

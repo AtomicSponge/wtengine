@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  menu_item.hpp
+ * WTEngine | File:  item.hpp
  * 
  * \author Matthew Evans
  * \version 0.6
@@ -7,8 +7,8 @@
  * \date 2019-2021
  */
 
-#ifndef WTE_MNU_MENU_ITEM_HPP
-#define WTE_MNU_MENU_ITEM_HPP
+#ifndef WTE_MNU_ITEM_HPP
+#define WTE_MNU_ITEM_HPP
 
 #include <string>
 #include <vector>
@@ -19,12 +19,12 @@
 namespace wte::mnu {
 
 /*!
- * \class menu_item
+ * \class item
  * \brief Menu item interface class.
  */
-class menu_item {
+class item {
     public:
-        inline virtual ~menu_item() = default;    //!<  Default virtual destructor.
+        inline virtual ~item() = default;    //!<  Default virtual destructor.
 
         /*!
          * \brief Return display text for the menu item when rendering.
@@ -74,7 +74,7 @@ class menu_item {
          * \brief Menu item constructor.
          * \param l Label of the menu item.
          */
-        inline menu_item(
+        inline item(
             const std::string& l
         ) : label(l) {};
 
@@ -83,7 +83,7 @@ class menu_item {
 };
 
 //! Menu Item shared pointer
-typedef std::shared_ptr<menu_item> menu_item_sptr;
+typedef std::shared_ptr<item> item_sptr;
 
 }  //  end namespace wte::mnu
 

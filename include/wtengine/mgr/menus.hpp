@@ -180,7 +180,7 @@ class menus final : private manager<menus> {
 
         static std::vector<mnu::menu_sptr> _menus;
         static std::stack<mnu::menu_csptr> opened_menus;
-        static mnu::menu_item_citerator menu_position;
+        static mnu::item_citerator menu_position;
 
         static int font_size;
         static int menu_padding;

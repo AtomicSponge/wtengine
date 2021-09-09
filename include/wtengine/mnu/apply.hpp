@@ -7,13 +7,13 @@
  * \date 2019-2021
  */
 
-#ifndef WTE_MNU_MENU_ITEM_APPLY_HPP
-#define WTE_MNU_MENU_ITEM_APPLY_HPP
+#ifndef WTE_MNU_ITEM_APPLY_HPP
+#define WTE_MNU_ITEM_APPLY_HPP
 
 #include <string>
 #include <vector>
 
-#include "wtengine/mnu/menu_item.hpp"
+#include "wtengine/mnu/item.hpp"
 
 #include "wtengine/mgr/messages.hpp"
 
@@ -23,7 +23,7 @@ namespace wte::mnu {
  * \class apply
  * \brief An apply option for the menus.
  */
-class apply final : public menu_item {
+class apply final : public item {
     public:
         /*!
          * \brief Menu Item Apply constructor.

@@ -21,7 +21,7 @@ toggle::toggle(
     const std::string& coff,
     const std::string& aoff,
     const std::function<bool(void)>& func
-) : menu_item(label), cmd_on(con), cmd_off(coff), arg_on(aon), arg_off(aoff), defaulter(func) {
+) : item(label), cmd_on(con), cmd_off(coff), arg_on(aon), arg_off(aoff), defaulter(func) {
     toggled = default_val = defaulter();
 }
 

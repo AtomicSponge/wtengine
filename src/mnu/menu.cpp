@@ -32,17 +32,17 @@ const std::string menu::get_title(void) const { return title; }
 /*
  *
  */
-const std::size_t menu::num_items(void) const { return items.size(); }
+const std::size_t menu::num_items(void) const { return _items.size(); }
 
 /*
  *
  */
-menu_item_citerator menu::items_cbegin(void) const { return items.cbegin(); }
+item_citerator menu::items_cbegin(void) const { return _items.cbegin(); }
 
 /*
  *
  */
-menu_item_citerator menu::items_cend(void) const { return items.cend(); }
+item_citerator menu::items_cend(void) const { return _items.cend(); }
 
 /*
  *

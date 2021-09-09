@@ -14,7 +14,7 @@ namespace wte::mnu {
 /*
  *
  */
-apply::apply() : menu_item("Apply"), do_apply(false) {}
+apply::apply() : item("Apply"), do_apply(false) {}
 
 /*
  *

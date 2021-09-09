@@ -23,7 +23,7 @@ wte_asset<al_font> menus::menu_font;
 wte_asset<al_bitmap> menus::cursor_bitmap;
 std::vector<mnu::menu_sptr> menus::_menus;
 std::stack<mnu::menu_csptr> menus::opened_menus;
-mnu::menu_item_citerator menus::menu_position;
+mnu::item_citerator menus::menu_position;
 int menus::font_size = 0;
 int menus::menu_padding = 0;
 int menus::menu_width = 0;

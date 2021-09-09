@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  _menu_items.hpp
+ * WTEngine | File:  _items.hpp
  * 
  * \author Matthew Evans
  * \version 0.6
@@ -7,8 +7,8 @@
  * \date 2019-2021
  */
 
-#ifndef WTE_MENU_ITEMS_HPP
-#define WTE_MENU_ITEMS_HPP
+#ifndef WTE_MNU_ITEMS_HPP
+#define WTE_MNU_ITEMS_HPP
 
 #include "wtengine/mnu/action.hpp"
 #include "wtengine/mnu/selection.hpp"

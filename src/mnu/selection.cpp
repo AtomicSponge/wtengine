@@ -17,11 +17,10 @@ namespace wte::mnu {
 selection::selection(
     const std::string& label,
     const std::string& vr,
-    const std::vector<std::string>& dvl,
-    const std::vector<std::string>& vl
-) : menu_item(label), var(vr), display_vals(dvl), vals(vl) {
-    if(dvl.size() != vl.size())
-        throw std::runtime_error("Selection item label and value counts must be the same!");
+    const std::vector<std::string>& dvls,
+    const std::vector<std::string>& vls
+) : menu_item(label), var(vr), display_vals(dvls), vals(vls) {
+    assert(dvls.size() == vls.size());
     current_val = vals.begin();
     default_val = current_val;
 };
@@ -59,8 +58,6 @@ void selection::reset_to_default(void) { current_val = default_val; };
  *
  */
 void selection::set_default(void) {
-    //if(is_engine_setting()) current_val = std::find(std::begin(vals), std::end(vals), engine_cfg::get(var));
-    //else current_val = std::find(std::begin(vals), std::end(vals), game_cfg::get(var));
     if(current_val == vals.end()) current_val = vals.begin();
     default_val = current_val;
 };

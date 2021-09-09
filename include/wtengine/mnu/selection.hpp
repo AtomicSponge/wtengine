@@ -13,7 +13,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <stdexcept>
+#include <cassert>
 
 #include "wtengine/mnu/menu_item.hpp"
 
@@ -29,14 +29,14 @@ class selection final : public menu_item {
          * \brief Menu item selection constructor.
          * \param label Item display label.
          * \param vr Variable to adjust.
-         * \param dvl Vector of display items.
-         * \param vl Vector of allowed settings.
+         * \param dvls Vector of display items.
+         * \param vls Vector of allowed settings.
          */
         selection(
             const std::string& label,
             const std::string& vr,
-            const std::vector<std::string>& dvl,
-            const std::vector<std::string>& vl
+            const std::vector<std::string>& dvls,
+            const std::vector<std::string>& vls
         );
 
         /*!

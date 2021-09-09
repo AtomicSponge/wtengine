@@ -82,7 +82,7 @@ class apply final : public menu_item {
         void set_default(void) override;
 
     private:
-        std::string cmd;
+        bool do_apply;
 };
 
 }  //  end namespace wte::mnu

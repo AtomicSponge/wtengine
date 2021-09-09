@@ -14,39 +14,39 @@ namespace wte::mnu {
 /*
  *
  */
-apply::apply() : menu_item("applier"), cmd("cancel") {}
+apply::apply() : menu_item("Apply"), do_apply(false) {}
 
 /*
  *
  */
-void apply::on_left(void) { cmd = "cancel"; }
+void apply::on_left(void) { do_apply = false; }
 
 /*
  *
  */
-void apply::on_right(void) { cmd = "apply"; }
+void apply::on_right(void) { do_apply = true; }
 
 /*
  *
  */
-void apply::on_select(void) { mgr::messages::add(message("menu", cmd, "")); }
+void apply::on_select(void) {}
 
 /*
  *
  */
 const std::vector<std::string> apply::get_text(void) const {
-    if(cmd == "apply") return { "Cancel", "< Apply >" };
+    if(do_apply) return { "Cancel", "< Apply >" };
     return { "< Cancel >", "Apply" };
 }
 
 /*
  *
  */
-void apply::reset_to_default(void) { cmd = "cancel"; }
+void apply::reset_to_default(void) { do_apply = false; }
 
 /*
  *
  */
-void apply::set_default(void) { cmd = "cancel"; }
+void apply::set_default(void) { do_apply = false; }
 
 }  //  end namespace wte::mnu

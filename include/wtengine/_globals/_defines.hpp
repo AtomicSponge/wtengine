@@ -38,6 +38,7 @@
 #define WTE_DEBUG_MODE TRUE
 #else
 #define WTE_DEBUG_MODE FALSE
+#define NDEBUG
 #endif
 
 /*!

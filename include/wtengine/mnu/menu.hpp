@@ -96,6 +96,11 @@ class menu {
          */
         item_citerator items_cend(void) const;
 
+        /*
+         * Get menu items.
+         */
+        items get_items(void) const;
+
         const std::string id;
         std::string title;
         items _items;

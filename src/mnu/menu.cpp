@@ -32,6 +32,11 @@ const std::string menu::get_title(void) const { return title; }
 /*
  *
  */
+void menu::set_title(const std::string& t) { title = t; }
+
+/*
+ *
+ */
 const std::size_t menu::num_items(void) const { return _items.size(); }
 
 /*
@@ -47,6 +52,6 @@ item_citerator menu::items_cend(void) const { return _items.cend(); }
 /*
  *
  */
-void menu::set_title(const std::string& t) { title = t; }
+items menu::get_items(void) const { return _items; }
 
 }  //  end namespace wte::mnu

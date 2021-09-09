@@ -43,6 +43,10 @@ namespace wte {
     typedef std::vector<mnu::menu_sptr>::const_iterator menu_citerator;
 }
 
+namespace wte::mnu {
+    class apply;
+}
+
 namespace wte::mgr {
 
 /*!
@@ -50,6 +54,7 @@ namespace wte::mgr {
  * \brief Handles processing menus and rendering them.
  */
 class menus final : private manager<menus> {
+    friend class wte::mnu::apply;
     friend class wte::engine;
     friend class wte::input;
     friend class renderer;
@@ -189,6 +194,9 @@ class menus final : private manager<menus> {
         
         static bool select_menu_option;
         static bool is_button_left;
+
+        static bool do_apply;
+        static bool do_cancel;
         
         static int64_t last_tick;
 };

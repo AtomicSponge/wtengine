@@ -15,6 +15,7 @@
 
 #include "wtengine/mnu/item.hpp"
 
+#include "wtengine/mgr/menus.hpp"
 #include "wtengine/mgr/messages.hpp"
 
 namespace wte::mnu {

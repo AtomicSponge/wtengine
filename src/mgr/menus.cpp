@@ -30,6 +30,8 @@ int menus::menu_width = 0;
 int menus::menu_height = 0;
 bool menus::select_menu_option = false;
 bool menus::is_button_left = true;
+bool menus::do_apply = false;
+bool menus::do_cancel = false;
 int64_t menus::last_tick = 0;
 
 /*
@@ -213,6 +215,12 @@ void menus::menu_pos_stop_right(void) { select_menu_option = false; }
  */
 void menus::menu_item_select(void) {
     if(menu_position != opened_menus.top()->items_cend()) (*menu_position)->on_select();
+    if(do_apply) {
+        do_apply = false;
+    }
+    if(do_cancel) {
+        do_cancel = false;
+    }
 }
 
 /*

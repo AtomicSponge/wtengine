@@ -52,8 +52,8 @@ class spawner final : private manager<spawner> {
         );
 
         /*!
-         * \brief
-         * \param name
+         * \brief Delete a spawn.
+         * \param name Name of spawn to delete.
          */
         static const bool remove(const std::string& name);
 

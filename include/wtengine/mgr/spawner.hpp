@@ -51,16 +51,20 @@ class spawner final : private manager<spawner> {
             const std::function<void(const entity_id&, const msg_args&)>& func
         );
 
+        /*!
+         * \brief
+         * \param name
+         */
+        static const bool remove(const std::string& name);
+
     private:
         spawner() = default;
         ~spawner() = default;
 
         /*
-         * Takes spawner messages and creates or deletes entities.
+         * Takes spawner messages and processes.
          */
-        static void process_messages(
-            const message_container& messages
-        );
+        static void process_messages(const message_container& messages);
 
         static std::map<std::string, std::pair<std::size_t,
             std::function<void(const entity_id&, const msg_args&)>

@@ -13,9 +13,34 @@ namespace wte::mgr {
 
 template <> bool spawner::manager<spawner>::initialized = false;
 
-std::map<std::string, std::pair<std::size_t,
-    std::function<void(const entity_id&, const msg_args&)>
->> spawner::spawns = {};
+std::map<
+    std::string,
+    std::pair<
+        std::size_t,
+        std::function<void(const entity_id&, const msg_args&)>
+>> spawner::spawns;
+
+/*
+ *
+ */
+const bool spawner::add(const std::string& name, const std::size_t& num_args,
+                              const std::function<void(const entity_id&, const msg_args&)>& func) {
+    auto ret = spawns.insert(std::make_pair(name, std::make_pair(num_args, func)));
+    return ret.second;
+}
+
+/*
+ *
+ */
+const bool spawner::remove(const std::string& name) {
+    auto it = std::find_if(spawns.begin(), spawns.end(),
+                           [&name](const auto& e){ return e.first == name; });
+    if(it != spawns.end()) {
+        spawns.erase(it);
+        return true;
+    }
+    return false;
+}
 
 /*
  *
@@ -44,15 +69,6 @@ void spawner::process_messages(const message_container& messages) {
             }
         }
     }  //  End for(m_it)
-}
-
-/*
- *
- */
-const bool spawner::add(const std::string& name, const std::size_t& num_args,
-                              const std::function<void(const entity_id&, const msg_args&)>& func) {
-    auto ret = spawns.insert(std::make_pair(name, std::make_pair(num_args, func)));
-    return ret.second;
 }
 
 }  //  end namespace wte::mgr

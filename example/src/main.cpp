@@ -22,7 +22,6 @@ int main(int argc, char **argv) {
 
     //  Set the size of the play area.
     wte::mgr::renderer::set_arena_size(768, 1024);
-    //wte::mgr::renderer::set_arena_size(1920, 1080);
 
     //  Load settings.
     wte::config::load();

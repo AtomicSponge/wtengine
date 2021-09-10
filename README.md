@@ -65,11 +65,7 @@ pkg-config --libs --exists wtengine
 
 #  Manual
 
------
-
 __NOTE:__ _The following is (kinda) incomplete, (sorta) outdated, and is a work in progress._
-
------
 
 ## Index
 
@@ -135,31 +131,27 @@ wte_demo::wte_demo(int argc, char **argv) : wte_main(argc, argv, "WTE Demo")
 
 See the demo files __main.cpp__ and __wte_demo.cpp__ for an example of an implementation.
 
+<a href="#index">Return to Index</a>
+
 -----
 
 ## Build Flags
 
 All build flags are defined in __wtengine/_globals/_defines.hpp__
 
------
-
 #### WTE_TICKS_PER_SECOND
 By default the engine will tick at 60 iterations a second.  You can change the rate using this build flag.  The value is a float.
-
------
 
 #### WTE_BUILD_DEBUG
 Build debug logging.
 
------
-
 #### WTE_MAX_PLAYING_SAMPLES
 Sets the maximum number of simultaneous playing samples.  Default is eight.
 
------
-
 #### WTE_NO_MAGIC_PINK
 By default the engine will use "magic pink" (RGB 255, 0, 255) for transparency.  Define this to disable the feature.
+
+<a href="#index">Return to Index</a>
 
 -----
 
@@ -191,8 +183,6 @@ std::string player_name = world.get_name(plr_id);
 entity_id e_id = world.get_id("some_entity");
 ```
 
------
-
 #### Components:
 
 Components are the data objects that make up each entity.  Examples would be the location on the screen, sprite data, hitpoints, etc.  After creating an entity you can assign components to it using its Entity ID.  The engine has seperate functions for reading and setting component data.  You can also create your own components by extending the base __component__ object.
@@ -212,8 +202,6 @@ mgr::world::set_component<cmp::overlay>(e_id)->hide();
 if(mgr::world::get_component<health>(plr_id)->hp <= 0)
 ```
 
------
-
 #### Systems:
 
 Systems are functions that are processed each iteration when the game is running.  These are designed to obtain all components of a certain type and process them.  For example, the movement system will look for all entities with a velocity component, verify they have a location component, and update their posistion based on the velocity value.  You can also create your own systems by extending the base __system__ object.  You then load all systems into the __system_manager__ in order they will be processed.
@@ -230,13 +218,13 @@ void wte_demo::load_systems(void) {
 
 The __entity_manager__ has members for reading or setting all components of a type, see its documentation for more information.
 
+<a href="#index">Return to Index</a>
+
 -----
 
 ##  Components with Custom Functions
 
 Certain components within the engine allow to have custom functionality assigned.  Below is the required function signatures for defining these components.  Please see their individual documentation for more information.
-
------
 
 ####  Background & Overlay
 Define custom animation processes for backgrounds & overlays.
@@ -245,16 +233,12 @@ const entity_id&
 ```
 - __const entity_id&__ - Reference to the Entity ID associated with the calling component.
 
------
-
 ####  Dispatcher
 Define entity message processing.
 ```
 const entity_id&
 ```
 - __entity_id&__ - Reference to the Entity ID associated with the calling component.
-
------
 
 ####  Ai
 Define entity logic.  Has seperate calls for enabled and disabled entities.
@@ -263,34 +247,7 @@ const entity_id&
 ```
 - __entity_id&__ - Reference to the Entity ID associated with the calling component.
 
------
-
-OLD
-
-####  Input_directional
-Directional input handling.
-```
-const entity_id&, const float&, mgr::entity_manager&, mgr::message_manager&, const int64_t&
-```
-- __entity_id&__ - Reference to the Entity ID associated with the calling component.
-- __const float&__ - Direction in radians.
-- __mgr::entity_manager&__ - Reference to the entity manager.
-- __mgr::message_manager&__ - Reference to the message manager.
-- __int64_t&__ - Reference to the current engine time value.
-
------
-
-OLD
-
-####  Input_button
-Button input handling.
-```
-const entity_id&, mgr::entity_manager&, mgr::message_manager&, const int64_t&
-```
-- __entity_id&__ - Reference to the Entity ID associated with the calling component.
-- __mgr::entity_manager&__ - Reference to the entity manager.
-- __mgr::message_manager&__ - Reference to the message manager.
-- __int64_t&__ - Reference to the current engine time value.
+<a href="#index">Return to Index</a>
 
 -----
 
@@ -327,6 +284,8 @@ menus.set_menu_size(200, 200, 10);
 ```
 The values are width, height and padding in order.  The engine will default to 500x400x32 if not called.
 
+<a href="#index">Return to Index</a>
+
 -----
 
 ## Messaging and Commands
@@ -336,8 +295,6 @@ All in-engine communication is done with the messaging queue.  Messages can be u
 When starting a new game, a file containing messages in binary format can be passed for processing.  The engine also has a command (see list below) that can be used to load additional messages.  These messages have their timer values added to the current engine time when loaded.
 
 A tool named *csv2sdf* is included to convert files in CSV format to be readable by the engine.
-
------
 
 #### Message format:
 
@@ -362,8 +319,6 @@ mgr::messages::add_message(message(100, "spawner", "delete", "my_entity"));
 ```
 mgr::messages::add_message(message("entities", "first_entity", "second_entity", "command", "argument;another"));
 ```
-
------
 
 Needs review
 
@@ -416,6 +371,8 @@ some_sample;loop_ref;;0.4
 
 This loads a looping sample with a pan value, but no gain or speed.
 
+<a href="#index">Return to Index</a>
+
 -----
 
 ## Setting up PhysicsFS
@@ -427,6 +384,8 @@ wte_main::add_file_location("data.zip");
 ```
 
 You can make multiple calls to load from more than one location.  That's all there is to it!
+
+<a href="#index">Return to Index</a>
 
 -----
 
@@ -454,6 +413,8 @@ Load a file to be used as the in-game background.  If the arena size is smaller 
 mgr::render_manager::set_background_screen("title.bmp");
 ```
 
+<a href="#index">Return to Index</a>
+
 -----
 
 Needs review
@@ -478,6 +439,8 @@ const entity_id&, const msg_arg_list&
 - __const msg_arg_list&__ - Reference to the message arguments in vector format.
 
 Spawning or deleting entities is then performed by passing a message.  See the section on messaging for more information.
+
+<a href="#index">Return to Index</a>
 
 -----
 
@@ -521,8 +484,6 @@ game_cfg::subtract<int>("lives", 1);
 
 The messaging system can also be used to set these variables.  See the documentation page on messaging for more information.
 
------
-
 Needs review
 
 #### Saving data:
@@ -557,8 +518,6 @@ game_cfg::clear_save();
 game_cfg::save("hiscore");
 ```
 
------
-
 Needs review
 
 #### Engine Config Variables Created by the Engine:
@@ -575,6 +534,4 @@ Needs review
 | set_b_key_KEY | wte_input_map.hpp | Set B key bind (KEY = key to bind) |
 | joy_ACTION | wte_input_map.hpp | Joystick input binding (ACTION = joystick action to bind) |
 
------
-
-End
+<a href="#index">Return to Index</a> | <a href="#what-the-engine">Top of Page</a>

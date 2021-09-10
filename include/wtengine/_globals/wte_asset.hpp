@@ -2,7 +2,7 @@
  * WTEngine | File:  wte_asset.hpp
  * 
  * \author Matthew Evans
- * \version 0.6
+ * \version 0.7
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */

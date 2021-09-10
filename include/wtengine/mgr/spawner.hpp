@@ -66,8 +66,11 @@ class spawner final : private manager<spawner> {
          */
         static void process_messages(const message_container& messages);
 
-        static std::map<std::string, std::pair<std::size_t,
-            std::function<void(const entity_id&, const msg_args&)>
+        static std::map<
+            std::string,
+            std::pair<
+                std::size_t,
+                std::function<void(const entity_id&, const msg_args&)>
         >> spawns;
 };
 

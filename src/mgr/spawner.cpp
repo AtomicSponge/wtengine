@@ -23,8 +23,11 @@ std::map<
 /*
  *
  */
-const bool spawner::add(const std::string& name, const std::size_t& num_args,
-                              const std::function<void(const entity_id&, const msg_args&)>& func) {
+const bool spawner::add(
+    const std::string& name,
+    const std::size_t& num_args,
+    const std::function<void(const entity_id&, const msg_args&)>& func
+) {
     auto ret = spawns.insert(std::make_pair(name, std::make_pair(num_args, func)));
     return ret.second;
 }

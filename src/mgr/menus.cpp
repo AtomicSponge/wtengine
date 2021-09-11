@@ -150,9 +150,7 @@ void menus::open_menu(const std::string& menu_id) {
     menu_position = opened_menus.top()->items_cbegin();
 
     //  Set default values for any menu settings objects.
-    for(auto it = opened_menus.top()->items_cbegin(); it != opened_menus.top()->items_cend(); it++) {
-        (*it)->set_default();
-    }
+    for(auto& it: opened_menus.top()->get_items()) it->set_default();
 }
 
 /*
@@ -266,10 +264,6 @@ void menus::run(void) {
  *
  */
 void menus::render_menu(void) {
-    //  Clear the menu buffer.
-    al_set_target_bitmap(**menu_buffer);
-    al_clear_to_color(WTE_COLOR_TRANSPARENT);
-
     //  Set drawing to the menu bitmap.
     al_set_target_bitmap(**menu_temp_bmp);
     al_draw_bitmap(**menu_background, 0, 0, 0);
@@ -288,17 +282,20 @@ void menus::render_menu(void) {
 
     offset = menu_padding + font_size + menu_padding;
     vpart = (menu_height - offset) / (opened_menus.top()->num_items() + 1);
-    for(auto it = opened_menus.top()->items_cbegin(); it != opened_menus.top()->items_cend(); it++) {
+    for(auto& it: opened_menus.top()->get_items()) {
         vcounter++;
-        hpart = menu_width / ((*it)->get_text().size() + 1);
-        for(std::size_t i = 0; i < (*it)->get_text().size(); i++)
+        hpart = menu_width / (it->get_text().size() + 1);
+        for(std::size_t i = 0; i < it->get_text().size(); i++)
             al_draw_text(
                 **menu_font, menu_font_color,
                 hpart * (i + 1), (offset / 2) + (vpart * vcounter),
                 ALLEGRO_ALIGN_CENTER,
-                (*it)->get_text()[i].c_str()
+                it->get_text()[i].c_str()
             );
-        if(it == menu_position) cursor_pos = (offset / 2) + (vpart * vcounter);
+        if(std::find(
+            opened_menus.top()->items_cbegin(),
+            opened_menus.top()->items_cend(),
+            it) == menu_position) cursor_pos = (offset / 2) + (vpart * vcounter);
     }
 
     //  Render menu cursor.
@@ -306,6 +303,7 @@ void menus::render_menu(void) {
 
     //  Draw rendered menu.
     al_set_target_bitmap(**menu_buffer);
+    al_clear_to_color(WTE_COLOR_TRANSPARENT);
     al_draw_scaled_bitmap(
         **menu_temp_bmp, 0, 0, menu_width, menu_height,
         (config::gfx::arena_w / 2) - (menu_width * config::gfx::menu_scale_factor / 2),

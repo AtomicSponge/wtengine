@@ -14,6 +14,7 @@
 #include <vector>
 #include <stack>
 #include <memory>
+#include <algorithm>
 #include <stdexcept>
 
 #include <allegro5/allegro.h>

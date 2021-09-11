@@ -350,7 +350,6 @@ void renderer::render(void) {
     if(config::flags::menu_opened) {
         mgr::menus::render_menu();
         al_set_target_backbuffer(al_get_current_display());
-
         al_draw_scaled_bitmap(
             **menu_bitmap, 0, 0,
             config::gfx::arena_w, config::gfx::arena_h,

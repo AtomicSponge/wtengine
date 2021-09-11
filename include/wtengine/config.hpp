@@ -17,6 +17,7 @@
 #include "wtengine/_globals/_defines.hpp"
 
 namespace wte::mgr {
+    class audio;
     class menus;
     class renderer;
 }
@@ -31,6 +32,7 @@ class config {
     friend class display;
     friend class engine;
     friend class input;
+    friend class mgr::audio;
     friend class mgr::menus;
     friend class mgr::renderer;
 

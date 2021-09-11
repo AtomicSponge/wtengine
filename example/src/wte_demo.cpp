@@ -254,19 +254,19 @@ void wte_demo::load_menus(void) {
     mnu::menu temp_menu = mnu::menu("audio_settings", "Audio Settings");
     temp_menu.add_item<mnu::selection>("Main Volume:", vol_dvec, vol_vec,
         [](void){ return std::to_string(config::volume::main); },
-        [](const std::string& val){ std::stof(val); });
+        [](const std::string& val){ mgr::audio::set_level(0, std::stof(val)); });
     temp_menu.add_item<mnu::selection>("Music Volume:", vol_dvec, vol_vec,
         [](void){ return std::to_string(config::volume::mix1); },
-        [](const std::string& val){ std::stof(val); });
+        [](const std::string& val){ mgr::audio::set_level(1, std::stof(val)); });
     temp_menu.add_item<mnu::selection>("Effects Volume:", vol_dvec, vol_vec,
         [](void){ return std::to_string(config::volume::mix2); },
-        [](const std::string& val){ std::stof(val); });
+        [](const std::string& val){ mgr::audio::set_level(2, std::stof(val)); });
     temp_menu.add_item<mnu::selection>("Voice Volume:", vol_dvec, vol_vec,
         [](void){ return std::to_string(config::volume::mix3); },
-        [](const std::string& val){ std::stof(val); });
+        [](const std::string& val){ mgr::audio::set_level(3, std::stof(val)); });
     temp_menu.add_item<mnu::selection>("Ambiance Volume:", vol_dvec, vol_vec,
         [](void){ return std::to_string(config::volume::mix4); },
-        [](const std::string& val){ std::stof(val); });
+        [](const std::string& val){ mgr::audio::set_level(4, std::stof(val)); });
     temp_menu.add_item<mnu::apply>();
     temp_menu.add_item<mnu::action>("Return", "close_menu");
     if(!mgr::menus::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");}

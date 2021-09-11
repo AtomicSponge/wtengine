@@ -190,19 +190,47 @@ void audio::de_init(void) {
 /*
  *
  */
+void audio::set_level(
+    const std::size_t& m,
+    const float& l
+) {
+    switch(m) {
+        case 0:
+            if(l >= 0.0f && l <= 1.0f) config::_volume::main = l;
+            else config::_volume::main = 0.0f;
+            break;
+        case 1:
+            if(l >= 0.0f && l <= 1.0f) config::_volume::mix1 = l;
+            else config::_volume::mix1 = 0.0f;
+            break;
+        case 2:
+            if(l >= 0.0f && l <= 1.0f) config::_volume::mix2 = l;
+            else config::_volume::mix2 = 0.0f;
+            break;
+        case 3:
+            if(l >= 0.0f && l <= 1.0f) config::_volume::mix3 = l;
+            else config::_volume::mix3 = 0.0f;
+            break;
+        case 4:
+            if(l >= 0.0f && l <= 1.0f) config::_volume::mix4 = l;
+            else config::_volume::mix4 = 0.0f;
+            break;
+    };
+    set_volume();
+}
+
+/*
+ *
+ */
 void audio::set_volume(void) {
     if(config::volume::main >= 0.0f && config::volume::main <= 1.0f)
         al_set_mixer_gain(mixer_main, config::volume::main);
-
     if(config::volume::mix1 >= 0.0f && config::volume::mix1 <= 1.0f)
         al_set_mixer_gain(mixer_1, config::volume::mix1);
-
     if(config::volume::mix2 >= 0.0f && config::volume::mix2 <= 1.0f)
         al_set_mixer_gain(mixer_2, config::volume::mix2);
-
     if(config::volume::mix3 >= 0.0f && config::volume::mix3 <= 1.0f)
         al_set_mixer_gain(mixer_3, config::volume::mix3);
-
     if(config::volume::mix4 >= 0.0f && config::volume::mix4 <= 1.0f)
         al_set_mixer_gain(mixer_4, config::volume::mix4);
 };

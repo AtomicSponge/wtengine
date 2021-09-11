@@ -85,8 +85,8 @@ class ai final : public component {
         );
 
         bool enabled;  //  Enabled flag.
-        std::function<void(const entity_id&)> enabled_ai;   //  AI to run when enabled.
-        std::function<void(const entity_id&)> disabled_ai;  //  AI to run when disabled.
+        const std::function<void(const entity_id&)> enabled_ai;   //  AI to run when enabled.
+        const std::function<void(const entity_id&)> disabled_ai;  //  AI to run when disabled.
 };
 
 }  //  end namespace wte::cmp

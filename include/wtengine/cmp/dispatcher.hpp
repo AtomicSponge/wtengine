@@ -60,7 +60,7 @@ class dispatcher final : public component {
         );
 
         //  Message handler.
-        std::function<void(const entity_id&, const message&)> handle_msg;
+        const std::function<void(const entity_id&, const message&)> handle_msg;
 };
 
 }  //  end namespace wte::cmp

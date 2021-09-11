@@ -175,7 +175,7 @@ class gfx : public component {
         float scale_factor_x, scale_factor_y;   //  X/Y scale factor.
 
         //  Animation function.
-        std::function<void(const entity_id&)> animate;
+        const std::function<void(const entity_id&)> animate;
 };
 
 }  //  end namespace wte::cmp

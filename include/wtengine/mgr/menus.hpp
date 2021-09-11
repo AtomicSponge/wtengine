@@ -142,7 +142,7 @@ class menus final : private manager<menus> {
          * Renders the active menu from the top of the stack. 
          * This is called from within the renderer.
          */
-        static ALLEGRO_BITMAP* render_menu(void);
+        static void render_menu(void);
 
         /*
          * Clear the stack of opened menus.

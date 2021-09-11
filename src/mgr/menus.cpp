@@ -51,6 +51,8 @@ void menus::initialize(void) {
         config::gfx::arena_h,
         true
     ));
+    //  Add reference to Asset manager so bitmap can be reloaded.
+    mgr::assets<al_bitmap>::load<al_bitmap>("wte_menus_menu_buffer", menu_buffer);
 
     //  Create timer & its queue.
     menu_timer = al_create_timer(1.0f / 30.0f);
@@ -229,8 +231,7 @@ void menus::menu_item_select(void) {
  *
  */
 void menus::run(void) {
-    if(opened_menus.empty()) {
-        //  No menus currently opened, add one to the stack.
+    if(opened_menus.empty()) {  //  No menus currently opened, add one to the stack.
         if(config::flags::game_started) open_menu("game_menu");  //  Add the in-game menu to the stack.
         else open_menu("main_menu");  //  Add the main menu to the stack.
     }
@@ -263,7 +264,7 @@ void menus::run(void) {
 /*
  *
  */
-ALLEGRO_BITMAP* menus::render_menu(void) {
+void menus::render_menu(void) {
     //  Clear the menu buffer.
     al_set_target_bitmap(**menu_buffer);
     al_clear_to_color(WTE_COLOR_TRANSPARENT);
@@ -311,8 +312,6 @@ ALLEGRO_BITMAP* menus::render_menu(void) {
         menu_width * config::gfx::menu_scale_factor,
         menu_height * config::gfx::menu_scale_factor, 0
     );
-
-    return **menu_buffer;
 }
 
 }  //  end namespace wte::mgr

@@ -345,19 +345,17 @@ void renderer::render(void) {
      * Render game menu if it's opened.
      */
     if(config::flags::menu_opened) {
-        const float menu_scale_factor = config::gfx::menu_scale_factor * config::gfx::scale_factor;
-        ALLEGRO_BITMAP* temp_bitmap = al_clone_bitmap(mgr::menus::render_menu());
+        mgr::menus::render_menu();
         al_set_target_backbuffer(al_get_current_display());
 
         al_draw_scaled_bitmap(
-            temp_bitmap, 0, 0,
-            al_get_bitmap_width(temp_bitmap), al_get_bitmap_height(temp_bitmap),
-            (config::gfx::screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * menu_scale_factor) / 2),
-            (config::gfx::screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * menu_scale_factor) / 2),
-            al_get_bitmap_width(temp_bitmap) * menu_scale_factor,
-            al_get_bitmap_height(temp_bitmap) * menu_scale_factor, 0
+            **mgr::assets<al_bitmap>::get<al_bitmap>("wte_menus_menu_buffer"), 0, 0,
+            config::gfx::arena_w, config::gfx::arena_h,
+            (config::gfx::screen_w / 2) - (config::gfx::arena_w * config::gfx::scale_factor / 2),
+            (config::gfx::screen_h / 2) - (config::gfx::arena_h * config::gfx::scale_factor / 2),
+            config::gfx::arena_w * config::gfx::scale_factor,
+            config::gfx::arena_h * config::gfx::scale_factor, 0
         );
-        al_destroy_bitmap(temp_bitmap);
     }
 
     /*

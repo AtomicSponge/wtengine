@@ -52,6 +52,6 @@ item_citerator menu::items_cend(void) const { return _items.cend(); }
 /*
  *
  */
-items menu::get_items(void) const { return _items; }
+const items menu::get_items(void) const { return _items; }
 
 }  //  end namespace wte::mnu

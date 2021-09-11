@@ -99,7 +99,7 @@ class menu {
         /*
          * Get menu items.
          */
-        items get_items(void) const;
+        const items get_items(void) const;
 
         const std::string id;
         std::string title;

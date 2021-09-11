@@ -51,28 +51,16 @@ class menu {
         ~menu() = default;  //!<  Default destructor.
 
         /*!
-         * \brief Get menu ID.
-         * \return The menu ID.
+         * \brief Set the menu display title.
+         * \param t New display title to set.
          */
-        const std::string get_id(void) const;
+        void set_title(const std::string& t);
 
         /*!
          * \brief Get menu display title.
          * \return The menu display title.
          */
         const std::string get_title(void) const;
-
-        /*!
-         * \brief Get number of menu items.
-         * \return Count of items.
-         */
-        const std::size_t num_items(void) const;
-
-        /*!
-         * \brief Set the menu display title.
-         * \param t New display title to set.
-         */
-        void set_title(const std::string& t);
 
         /*!
          * \brief Add a menu item to an existing menu.
@@ -86,6 +74,16 @@ class menu {
         };
 
     private:
+        /*
+         * Get menu ID.
+         */
+        const std::string get_id(void) const;
+
+        /*
+         * Get number of menu items.
+         */
+        const std::size_t num_items(void) const;
+
         /*
          * Get menu items start iterator.
          */

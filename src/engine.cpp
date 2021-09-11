@@ -223,9 +223,10 @@ void engine::process_end_game(void) {
     //  Call end game process.
     try { end_game(); } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
 
-    //  Clear world and systems.
+    //  Clear managers.
     mgr::world::clear();
     mgr::systems::clear();
+    mgr::messages::clear();
 
     //  Open the menus.
     config::_flags::menu_opened = true;

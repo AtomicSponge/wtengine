@@ -79,6 +79,8 @@ class apply final : public item {
          */
         void set_default(void) override;
 
+        void apply_setting(void) override;
+
     private:
         bool do_apply;
 };

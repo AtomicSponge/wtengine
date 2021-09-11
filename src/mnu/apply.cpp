@@ -52,4 +52,9 @@ void apply::reset_to_default(void) { do_apply = false; }
  */
 void apply::set_default(void) { do_apply = false; }
 
+/*
+ *
+ */
+void apply::apply_setting(void) { do_apply = false; }
+
 }  //  end namespace wte::mnu

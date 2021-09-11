@@ -225,14 +225,24 @@ void audio::set_level(
 void audio::set_volume(void) {
     if(config::volume::main >= 0.0f && config::volume::main <= 1.0f)
         al_set_mixer_gain(mixer_main, config::volume::main);
+    else
+        al_set_mixer_gain(mixer_main, 0.5f);
     if(config::volume::mix1 >= 0.0f && config::volume::mix1 <= 1.0f)
         al_set_mixer_gain(mixer_1, config::volume::mix1);
+    else
+        al_set_mixer_gain(mixer_1, 0.5f);
     if(config::volume::mix2 >= 0.0f && config::volume::mix2 <= 1.0f)
         al_set_mixer_gain(mixer_2, config::volume::mix2);
+    else
+        al_set_mixer_gain(mixer_2, 0.5f);
     if(config::volume::mix3 >= 0.0f && config::volume::mix3 <= 1.0f)
         al_set_mixer_gain(mixer_3, config::volume::mix3);
+    else
+        al_set_mixer_gain(mixer_3, 0.5f);
     if(config::volume::mix4 >= 0.0f && config::volume::mix4 <= 1.0f)
         al_set_mixer_gain(mixer_4, config::volume::mix4);
+    else
+        al_set_mixer_gain(mixer_4, 0.5f);
 };
 
 /*

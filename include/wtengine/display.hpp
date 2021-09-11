@@ -44,14 +44,14 @@ class display {
         const std::string get_window_title(void) const;
 
         /*!
-         * \brief
-         * \param m
+         * \brief Set the display mode.
+         * \param m Display mode value.
          */
         static void set_display_mode(const std::size_t& m);
 
         /*!
-         * \brief
-         * \param f
+         * \brief Set the scale factor.
+         * \param f Scale factor value.
          */
         static void set_scale_factor(const float& f);
 

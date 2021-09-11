@@ -14,7 +14,7 @@ namespace wte::mgr {
 template <> bool spawner::manager<spawner>::initialized = false;
 
 std::map<
-    std::string,
+    const std::string,
     std::pair<
         const std::size_t,
         const std::function<void(const entity_id&, const msg_args&)>

@@ -29,7 +29,6 @@ class selection final : public item {
         /*!
          * \brief Menu item selection constructor.
          * \param label Item display label.
-         * \param vr Variable to adjust.
          * \param dvls Vector of display items.
          * \param vls Vector of allowed settings.
          * \param dfunc Function to determine defaut setting.
@@ -37,7 +36,6 @@ class selection final : public item {
          */
         selection(
             const std::string& label,
-            const std::string& vr,
             const std::vector<std::string>& dvls,
             const std::vector<std::string>& vls,
             const std::function<const std::string(void)>& dfunc,
@@ -78,22 +76,12 @@ class selection final : public item {
         void apply_setting(void) override;
 
         /*!
-         * \brief Setting changed process.
-         * 
-         * Checks if the current selection is the same as the default.
-         * 
+         * \brief Checks if the current selection is the same as the default.
          * \return True if the setting changed, false if it did not.
          */
         const bool setting_changed(void) const override;
 
-        /*!
-         * \brief Get the setting to be applied by the system.
-         * \return A string in format var=val
-         */
-        const std::string get_setting(void);
-
     private:
-        std::string var;
         std::vector<std::string> display_vals;
         std::vector<std::string> vals;
         std::vector<std::string>::const_iterator current_val;

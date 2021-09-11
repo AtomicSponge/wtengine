@@ -231,6 +231,9 @@ void wte_demo::load_menus(void) {
     temp_menu.add_item<mnu::selection>("Scale factor:", scale_vec, scale_vec,
         [](void){ return std::to_string(config::gfx::scale_factor); },
         [](const std::string& val){ display::set_scale_factor(std::stof(val)); });
+    temp_menu.add_item<mnu::selection>("Menu scale factor:", scale_vec, scale_vec,
+        [](void){ return std::to_string(config::gfx::menu_scale_factor); },
+        [](const std::string& val){ mgr::menus::set_menu_scale_factor(std::stof(val)); });
     temp_menu.add_item<mnu::toggle>("FPS:",
         [](void){ return config::flags::draw_fps; },
         [](const bool& val){ config::flags::draw_fps = val; });

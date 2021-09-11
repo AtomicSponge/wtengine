@@ -23,6 +23,7 @@ selection::selection(
 ) : item(label), display_vals(dvls), vals(vls), defaulter(dfunc), applier(afunc) {
     assert(dvls.size() == vls.size());
     set_default();
+    reset_to_default();
 }
 
 /*
@@ -60,8 +61,8 @@ void selection::reset_to_default(void) { current_val = default_val; }
 void selection::set_default(void) {
     auto it = std::find_if(vals.begin(), vals.end(),
                            [this](const auto& e){ return e == defaulter(); });
-    if(it != vals.end()) current_val = it;
-    else current_val = vals.begin();
+    if(it != vals.end()) default_val = it;
+    else default_val = vals.begin();
 }
 
 /*

@@ -19,7 +19,7 @@ selection::selection(
     const std::string& vr,
     const std::vector<std::string>& dvls,
     const std::vector<std::string>& vls,
-    const std::function<void(void)>& dfunc,
+    const std::function<const std::string(void)>& dfunc,
     const std::function<void(void)>& afunc
 ) : item(label), var(vr), display_vals(dvls), vals(vls), defaulter(dfunc), applier(afunc) {
     assert(dvls.size() == vls.size());

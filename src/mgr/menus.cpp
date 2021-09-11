@@ -219,6 +219,7 @@ void menus::menu_item_select(void) {
     if(menu_position != opened_menus.top()->items_cend()) (*menu_position)->on_select();
     if(do_apply) {
         for(auto& it: opened_menus.top()->get_items()) it->apply_setting();
+        if(config::gfx::needs_reconfig) mgr::messages::add(message("system", "reconf_display", ""));
         do_apply = false;
     }
     if(do_cancel) {

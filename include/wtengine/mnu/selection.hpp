@@ -39,7 +39,7 @@ class selection final : public item {
             const std::vector<std::string>& dvls,
             const std::vector<std::string>& vls,
             const std::function<const std::string(void)>& dfunc,
-            const std::function<void(void)>& afunc
+            const std::function<void(const std::string&)>& afunc
         );
 
         ~selection() = default;  //!<  Default destructor.
@@ -87,7 +87,7 @@ class selection final : public item {
         std::vector<std::string>::const_iterator current_val;
         std::vector<std::string>::const_iterator default_val;
         std::function<const std::string(void)> defaulter;
-        std::function<void(void)> applier;
+        std::function<void(const std::string&)> applier;
 };
 
 }  //  end namespace wte::mnu

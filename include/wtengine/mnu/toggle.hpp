@@ -33,7 +33,7 @@ class toggle final : public item {
         toggle(
             const std::string& label,
             const std::function<const bool(void)>& dfunc,
-            const std::function<void(void)>& afunc
+            const std::function<void(const bool&)>& afunc
         );
 
         ~toggle() = default;  //!<  Default destructor.
@@ -79,7 +79,7 @@ class toggle final : public item {
         bool toggled, default_val;
 
         std::function<const bool(void)> defaulter;
-        std::function<void(void)> applier;
+        std::function<void(const bool&)> applier;
 };
 
 }  //  end namespace wte::mnu

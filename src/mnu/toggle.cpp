@@ -17,7 +17,7 @@ namespace wte::mnu {
 toggle::toggle(
     const std::string& label,
     const std::function<const bool(void)>& dfunc,
-    const std::function<void(void)>& afunc
+    const std::function<void(const bool&)>& afunc
 ) : item(label), defaulter(dfunc), applier(afunc) {
     toggled = default_val = defaulter();
 }
@@ -53,7 +53,7 @@ void toggle::set_default(void) { toggled = default_val = defaulter(); }
 /*
  *
  */
-void toggle::apply_setting(void) { applier(); }
+void toggle::apply_setting(void) { applier(toggled); }
 
 /*
  *

@@ -19,7 +19,7 @@ selection::selection(
     const std::vector<std::string>& dvls,
     const std::vector<std::string>& vls,
     const std::function<const std::string(void)>& dfunc,
-    const std::function<void(void)>& afunc
+    const std::function<void(const std::string&)>& afunc
 ) : item(label), display_vals(dvls), vals(vls), defaulter(dfunc), applier(afunc) {
     assert(dvls.size() == vls.size());
     set_default();
@@ -68,7 +68,9 @@ void selection::set_default(void) {
 /*
  *
  */
-void selection::apply_setting(void) { applier(); }
+void selection::apply_setting(void) {
+    applier(vals.at(std::distance(vals.cbegin(), current_val)));
+}
 
 /*
  *

@@ -31,6 +31,20 @@ const std::string display::get_window_title(void) const { return window_title; }
 /*
  *
  */
+void display::set_display_mode(void) {
+    //
+}
+
+/*
+ *
+ */
+void display::set_scale_factor(void) {
+    //
+}
+
+/*
+ *
+ */
 void display::create_display(void) {
     al_reset_new_display_options();
 

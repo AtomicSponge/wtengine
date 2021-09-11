@@ -43,6 +43,16 @@ class display {
          */
         const std::string get_window_title(void) const;
 
+        /*!
+         * \brief
+         */
+        static void set_display_mode(void);
+
+        /*!
+         * \brief
+         */
+        static void set_scale_factor(void);
+
     protected:
         /*!
          * \brief Display constructor.
@@ -68,8 +78,8 @@ class display {
 
         static ALLEGRO_DISPLAY* _display;  //  Allegro object for the display.
 
-        std::string window_title;  //  Title for application window.
-        static bool initialized;   //  Restrict to one instance.
+        const std::string window_title;    //  Title for application window.
+        static bool initialized;           //  Restrict to one instance.
 
         class al_bitmap_converter final {
             public:

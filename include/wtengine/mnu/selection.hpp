@@ -32,6 +32,7 @@ class selection final : public item {
          * \param vr Variable to adjust.
          * \param dvls Vector of display items.
          * \param vls Vector of allowed settings.
+         * \param dfunc Function to determine defaut setting.
          * \param afunc Function to apply setting.
          */
         selection(
@@ -39,6 +40,7 @@ class selection final : public item {
             const std::string& vr,
             const std::vector<std::string>& dvls,
             const std::vector<std::string>& vls,
+            const std::function<void(void)>& dfunc,
             const std::function<void(void)>& afunc
         );
 
@@ -96,6 +98,7 @@ class selection final : public item {
         std::vector<std::string> vals;
         std::vector<std::string>::const_iterator current_val;
         std::vector<std::string>::const_iterator default_val;
+        std::function<void(void)> defaulter;
         std::function<void(void)> applier;
 };
 

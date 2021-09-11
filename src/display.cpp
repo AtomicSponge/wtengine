@@ -33,6 +33,7 @@ const std::string display::get_window_title(void) const { return window_title; }
  */
 void display::set_display_mode(const std::size_t& m) {
     config::_gfx::display_mode = m;
+    config::_gfx::needs_reconfig = true;
 }
 
 /*
@@ -40,6 +41,7 @@ void display::set_display_mode(const std::size_t& m) {
  */
 void display::set_scale_factor(const float& f) {
     config::_gfx::scale_factor = f;
+    config::_gfx::needs_reconfig = true;
 }
 
 /*
@@ -118,6 +120,7 @@ void display::reconf_display(void) {
     create_display();
     al_convert_memory_bitmaps();
     al_bitmap_converter::reload_bitmaps();
+    config::_gfx::needs_reconfig = false;
 }
 
 }  //  end namespace wte

@@ -35,6 +35,7 @@ const std::size_t& config::gfx::vsync = config::_gfx::vsync;
 const std::size_t& config::gfx::display_mode = config::_gfx::display_mode;
 const float& config::gfx::scale_factor = config::_gfx::scale_factor;
 const float& config::gfx::menu_scale_factor = config::_gfx::menu_scale_factor;
+const bool& config::gfx::needs_reconfig = config::_gfx::needs_reconfig;
 
 const int& config::controls::key_menu = config::_controls::key_menu;
 const int& config::controls::key_menu_select = config::_controls::key_menu_select;

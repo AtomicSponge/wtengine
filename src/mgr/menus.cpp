@@ -276,15 +276,13 @@ void menus::render_menu(void) {
     );
 
     //  Render menu items.
-    float cursor_pos = 10.0;
-    float vpart = 0.0, hpart = 0.0, offset = 0.0;
+    float cursor_pos = 0.0f;
     std::size_t vcounter = 0;
-
-    offset = menu_padding + font_size + menu_padding;
-    vpart = (menu_height - offset) / (opened_menus.top()->num_items() + 1);
+    const float offset = menu_padding + font_size + menu_padding;
+    const float vpart = (menu_height - offset) / (opened_menus.top()->num_items() + 1);
     for(auto& it: opened_menus.top()->get_items()) {
         vcounter++;
-        hpart = menu_width / (it->get_text().size() + 1);
+        const float hpart = menu_width / (it->get_text().size() + 1);
         for(std::size_t i = 0; i < it->get_text().size(); i++)
             al_draw_text(
                 **menu_font, menu_font_color,

@@ -246,7 +246,7 @@ class variables final : private manager<variables> {
         };
 
         static std::string data_file_name;  //  File to save variables to.
-        static std::map<std::string, std::any> _map;  //  Map of variables.
+        static std::map<const std::string, std::any> _map;  //  Map of variables.
 };
 
 }  //  end namespace wte::mgr

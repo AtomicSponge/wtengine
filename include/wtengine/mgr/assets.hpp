@@ -193,7 +193,7 @@ class assets final : private manager<assets<>> {
         //  Store the asset map.
         inline static std::tuple<
             std::map<
-                std::string,
+                const std::string,
                 wte_asset<Types>
             >
         ...> _assets;

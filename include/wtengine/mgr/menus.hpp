@@ -90,6 +90,12 @@ class menus final : private manager<menus> {
         static void set_cursor(wte_asset<al_bitmap> bmp);
 
         /*!
+         * \brief Set the menu scale factor.
+         * \param f Scale factor value.
+         */
+        static void set_menu_scale_factor(const float& f);
+
+        /*!
          * \brief Add a menu to the menu vector.
          * \param new_menu A menu object.
          * \return Returns false if a menu with a similar ID already exists.  Returns true on success.

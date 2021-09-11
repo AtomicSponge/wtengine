@@ -109,6 +109,11 @@ void menus::set_cursor(wte_asset<al_bitmap> bmp) { cursor_bitmap = bmp; }
 /*
  *
  */
+void menus::set_menu_scale_factor(const float& f) { config::_gfx::menu_scale_factor = f; }
+
+/*
+ *
+ */
 const bool menus::new_menu(const mnu::menu& new_menu) {
     for(auto& it: _menus) if(new_menu.get_id() == it->get_id()) return false;
     _menus.push_back(std::make_shared<mnu::menu>(new_menu));

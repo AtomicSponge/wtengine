@@ -16,7 +16,7 @@ namespace wte::mnu {
  */
 toggle::toggle(
     const std::string& label,
-    const std::function<bool(void)>& dfunc,
+    const std::function<const bool(void)>& dfunc,
     const std::function<void(void)>& afunc
 ) : item(label), defaulter(dfunc), applier(afunc) {
     toggled = default_val = defaulter();

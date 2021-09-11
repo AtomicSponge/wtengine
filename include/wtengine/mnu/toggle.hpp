@@ -32,7 +32,7 @@ class toggle final : public item {
          */
         toggle(
             const std::string& label,
-            const std::function<bool(void)>& dfunc,
+            const std::function<const bool(void)>& dfunc,
             const std::function<void(void)>& afunc
         );
 
@@ -78,7 +78,7 @@ class toggle final : public item {
     private:
         bool toggled, default_val;
 
-        std::function<bool(void)> defaulter;
+        std::function<const bool(void)> defaulter;
         std::function<void(void)> applier;
 };
 

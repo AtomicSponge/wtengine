@@ -183,16 +183,16 @@ void wte_demo::load_menus(void) {
     {//  Configure main menu.
     mgr::menus::set_menu("main_menu")->set_title("WTE Demo");
     mgr::menus::set_menu("main_menu")->add_item<mnu::action>("New Game", "new_game", "game.sdf");
-    //mgr::menus::set_menu("main_menu")->add_item<mnu::action>("New Game", "new_game");
+    mgr::menus::set_menu("main_menu")->add_item<mnu::action>("Test Game", "new_game");
     mgr::menus::set_menu("main_menu")->add_item<mnu::action>("Settings", "open_menu", "settings");
-    mgr::menus::set_menu("main_menu")->add_item<mnu::action>("Exit Game", "exit");}
+    mgr::menus::set_menu("main_menu")->add_item<mnu::action>("Exit Demo", "exit");}
 
     {//  Configure in-game menu.
     mgr::menus::set_menu("game_menu")->set_title("WTE Demo - Game Paused");
     mgr::menus::set_menu("game_menu")->add_item<mnu::action>("Resume Game", "close_menu", "all");
     mgr::menus::set_menu("game_menu")->add_item<mnu::action>("Settings", "open_menu", "game_settings");
     mgr::menus::set_menu("game_menu")->add_item<mnu::action>("End Game", "end_game");
-    mgr::menus::set_menu("game_menu")->add_item<mnu::action>("Exit Game", "exit");}
+    mgr::menus::set_menu("game_menu")->add_item<mnu::action>("Exit Demo", "exit");}
 
     //  Then define other custom menus.
     {//  Create the main settings menu.

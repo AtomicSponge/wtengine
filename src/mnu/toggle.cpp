@@ -16,12 +16,9 @@ namespace wte::mnu {
  */
 toggle::toggle(
     const std::string& label,
-    const std::string& con,
-    const std::string& aon,
-    const std::string& coff,
-    const std::string& aoff,
-    const std::function<bool(void)>& func
-) : item(label), cmd_on(con), cmd_off(coff), arg_on(aon), arg_off(aoff), defaulter(func) {
+    const std::function<bool(void)>& dfunc,
+    const std::function<void(void)>& afunc
+) : item(label), defaulter(dfunc), applier(afunc) {
     toggled = default_val = defaulter();
 }
 
@@ -46,28 +43,19 @@ const std::vector<std::string> toggle::get_text(void) const {
 /*
  *
  */
-const std::string toggle::get_active_cmd(void) {
-    if(toggled) return cmd_on;
-    return cmd_off;
-}
-
-/*
- *
- */
-const std::string toggle::get_active_args(void) {
-    if(toggled) return arg_on;
-    return arg_off;
-}
-
-/*
- *
- */
 void toggle::reset_to_default(void) { toggled = default_val; }
 
 /*
  *
  */
 void toggle::set_default(void) { toggled = default_val = defaulter(); }
+
+/*
+ *
+ */
+void toggle::apply_setting(void) {
+    //
+}
 
 /*
  *

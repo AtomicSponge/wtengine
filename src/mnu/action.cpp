@@ -18,8 +18,7 @@ action::action(
     const std::string& l,
     const std::string& c,
     const std::string& a
-) :
-    item(l), cmd(c), arg(a) {};
+) : item(l), cmd(c), arg(a) {}
 
 /*
  *
@@ -27,17 +26,16 @@ action::action(
 action::action(
     const std::string& l,
     const std::string& c
-) :
-    item(l), cmd(c), arg("") {};
+) : item(l), cmd(c), arg("") {}
 
 /*
  *
  */
-void action::on_select(void) { mgr::messages::add(message("system", cmd, arg)); };
+void action::on_select(void) { mgr::messages::add(message("system", cmd, arg)); }
 
 /*
  *
  */
-const std::vector<std::string> action::get_text(void) const { return { get_label() }; };
+const std::vector<std::string> action::get_text(void) const { return { get_label() }; }
 
 }  //  end namespace wte::mnu

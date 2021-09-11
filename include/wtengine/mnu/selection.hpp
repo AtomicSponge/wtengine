@@ -12,6 +12,7 @@
 
 #include <string>
 #include <vector>
+#include <functional>
 #include <algorithm>
 #include <cassert>
 
@@ -31,12 +32,14 @@ class selection final : public item {
          * \param vr Variable to adjust.
          * \param dvls Vector of display items.
          * \param vls Vector of allowed settings.
+         * \param afunc Function to apply setting.
          */
         selection(
             const std::string& label,
             const std::string& vr,
             const std::vector<std::string>& dvls,
-            const std::vector<std::string>& vls
+            const std::vector<std::string>& vls,
+            const std::function<void(void)>& afunc
         );
 
         ~selection() = default;  //!<  Default destructor.
@@ -68,6 +71,11 @@ class selection final : public item {
         void set_default(void) override;
 
         /*!
+         * \brief Apply the setting.
+         */
+        void apply_setting(void) override;
+
+        /*!
          * \brief Setting changed process.
          * 
          * Checks if the current selection is the same as the default.
@@ -88,6 +96,7 @@ class selection final : public item {
         std::vector<std::string> vals;
         std::vector<std::string>::const_iterator current_val;
         std::vector<std::string>::const_iterator default_val;
+        std::function<void(void)> applier;
 };
 
 }  //  end namespace wte::mnu

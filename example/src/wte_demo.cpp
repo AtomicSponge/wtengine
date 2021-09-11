@@ -247,7 +247,7 @@ void wte_demo::load_menus(void) {
     //  Create the volume display and levels vectors.
     std::vector<std::string> vol_dvec;
     std::vector<std::string> vol_vec;
-    for(auto & vol_it : vol_values) {
+    for(auto& vol_it: vol_values) {
         vol_dvec.push_back(std::to_string(vol_it));
         vol_vec.push_back(std::to_string((float)vol_it / 100.0f));
     }

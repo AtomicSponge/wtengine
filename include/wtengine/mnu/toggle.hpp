@@ -77,9 +77,8 @@ class toggle final : public item {
 
     private:
         bool toggled, default_val;
-
-        std::function<const bool(void)> defaulter;
-        std::function<void(const bool&)> applier;
+        const std::function<const bool(void)> defaulter;
+        const std::function<void(const bool&)> applier;
 };
 
 }  //  end namespace wte::mnu

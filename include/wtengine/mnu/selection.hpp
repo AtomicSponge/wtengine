@@ -82,12 +82,12 @@ class selection final : public item {
         const bool setting_changed(void) const override;
 
     private:
-        std::vector<std::string> display_vals;
-        std::vector<std::string> vals;
+        const std::vector<std::string> display_vals;
+        const std::vector<std::string> vals;
         std::vector<std::string>::const_iterator current_val;
         std::vector<std::string>::const_iterator default_val;
-        std::function<const std::string(void)> defaulter;
-        std::function<void(const std::string&)> applier;
+        const std::function<const std::string(void)> defaulter;
+        const std::function<void(const std::string&)> applier;
 };
 
 }  //  end namespace wte::mnu

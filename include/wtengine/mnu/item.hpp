@@ -84,7 +84,7 @@ class item {
         ) : label(l) {};
 
     private:
-        std::string label;
+        const std::string label;
 };
 
 //! Menu Item shared pointer

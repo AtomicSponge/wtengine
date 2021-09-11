@@ -57,23 +57,18 @@ class action final : public item {
 
         /*!
          * \brief Menu item action on selection.
-         * 
-         * Return the stored command when selected.
          */
         void on_select(void) override;
 
         /*!
          * \brief Return display text for the menu item when rendering.
-         * 
-         * Displays the action item's label.
-         * 
          * \return Vector of display text strings.
          */
         const std::vector<std::string> get_text(void) const override;
 
     private:
-        std::string cmd;
-        std::string arg;
+        const std::string cmd;
+        const std::string arg;
 };
 
 }  //  end namespace wte::mnu

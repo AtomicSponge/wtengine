@@ -219,8 +219,10 @@ class audio final : private manager<audio> {
             static void unpause(void);
         };
 
-        /*
-         * Adjust a mixer's volume level
+        /*!
+         * \brief Adjust a mixer's volume level.
+         * \param m Mixer to adjust.
+         * \param l Volume level to set.
          */
         static void set_level(
             const std::size_t& m,

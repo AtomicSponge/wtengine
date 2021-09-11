@@ -215,7 +215,7 @@ void wte_demo::load_menus(void) {
     std::vector<std::string> lives_vec = { "3", "4", "5" };
     temp_menu.add_item<mnu::selection>("Lives:", lives_vec, lives_vec,
         [](void){ return std::to_string(mgr::variables::get<int>("max_lives")); },
-        [](const std::string& val){});
+        [](const std::string& val){ mgr::variables::set<int>("max_lives", std::stoi(val)); });
     temp_menu.add_item<mnu::apply>();
     temp_menu.add_item<mnu::action>("Return", "close_menu");
     if(!mgr::menus::new_menu(temp_menu)) throw std::runtime_error("Unable to create game menu!");}

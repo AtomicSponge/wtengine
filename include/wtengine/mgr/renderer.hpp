@@ -129,6 +129,7 @@ class renderer final : private manager<renderer> {
 
         static wte_asset<al_bitmap> arena_bitmap;
         static wte_asset<al_bitmap> title_bitmap;
+        static wte_asset<al_bitmap> menu_bitmap;
         static wte_asset<al_font> renderer_font;
 
         static std::size_t fps_counter, fps;

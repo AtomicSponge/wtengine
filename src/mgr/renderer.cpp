@@ -18,6 +18,7 @@ ALLEGRO_EVENT_QUEUE* renderer::fps_event_queue = NULL;
 ALLEGRO_EVENT renderer::fps_event;
 wte_asset<al_bitmap> renderer::arena_bitmap;
 wte_asset<al_bitmap> renderer::title_bitmap;
+wte_asset<al_bitmap> renderer::menu_bitmap;
 wte_asset<al_font> renderer::renderer_font;
 std::size_t renderer::fps_counter = 0, renderer::fps = 0;
 bool renderer::arena_created = false;
@@ -37,6 +38,8 @@ void renderer::initialize(void) {
 
     //  Set the overlay's font to the system default.
     renderer_font = mgr::assets<al_font>::get<al_font>("wte_default_font");
+    //  Set the reference to the menu bitmap.
+    menu_bitmap = mgr::assets<al_bitmap>::get<al_bitmap>("wte_menus_menu_buffer");
 
     //  Load the title screen bitmap.
     if(title_screen_file.empty()) {
@@ -349,7 +352,7 @@ void renderer::render(void) {
         al_set_target_backbuffer(al_get_current_display());
 
         al_draw_scaled_bitmap(
-            **mgr::assets<al_bitmap>::get<al_bitmap>("wte_menus_menu_buffer"), 0, 0,
+            **menu_bitmap, 0, 0,
             config::gfx::arena_w, config::gfx::arena_h,
             (config::gfx::screen_w / 2) - (config::gfx::arena_w * config::gfx::scale_factor / 2),
             (config::gfx::screen_h / 2) - (config::gfx::arena_h * config::gfx::scale_factor / 2),

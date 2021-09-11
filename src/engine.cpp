@@ -143,9 +143,9 @@ void engine::wte_load(void) {
     mgr::assets<al_font>::load<al_font>("wte_default_font", make_asset(al_font()));
 
     //  Initialize managers that require it.
-    mgr::renderer::initialize();
     mgr::audio::initialize();
     mgr::menus::initialize();
+    mgr::renderer::initialize();
 
     //  Load user configured menus.
     load_menus();
@@ -155,8 +155,8 @@ void engine::wte_load(void) {
  *
  */
 void engine::wte_unload(void) {
-    mgr::menus::de_init();
     mgr::audio::de_init();
+    mgr::menus::de_init();
     mgr::renderer::de_init();
 }
 

@@ -16,6 +16,10 @@
 
 #include "wtengine/_globals/message.hpp"
 
+namespace wte::mgr {
+    class menus;
+}
+
 namespace wte::mnu {
 
 /*!
@@ -23,50 +27,10 @@ namespace wte::mnu {
  * \brief Menu item interface class.
  */
 class item {
+    friend class mgr::menus;
+
     public:
         inline virtual ~item() = default;    //!<  Default virtual destructor.
-
-        /*!
-         * \brief Return display text for the menu item when rendering.
-         * \return Vector of display text.
-         */
-        inline virtual const std::vector<std::string> get_text(void) const { return {"null"}; };
-
-        /*!
-         * \brief Define left click process.
-         */
-        inline virtual void on_left(void) {};
-
-        /*!
-         * \brief Define right click process.
-         */
-        inline virtual void on_right(void) {};
-
-        /*!
-         * \brief Define selection process.
-         */
-        inline virtual void on_select(void) {};
-
-        /*!
-         * \brief Define reset process.
-         */
-        inline virtual void reset_to_default(void) {};
-
-        /*!
-         * \brief Define default value process.
-         */
-        inline virtual void set_default(void) {};
-
-        /*!
-         * \brief Define apply setting process.
-         */
-        inline virtual void apply_setting(void) {};
-
-        /*!
-         * \brief Define setting changed process.
-         * \return Default return false.
-         */
-        inline virtual const bool setting_changed(void) const { return false; };
 
         /*!
          * \brief Get the display label.
@@ -84,6 +48,46 @@ class item {
         ) : label(l) {};
 
     private:
+        /*
+         * Return display text for the menu item when rendering.
+         */
+        inline virtual const std::vector<std::string> get_text(void) const { return {"null"}; };
+
+        /*
+         * Define left click process.
+         */
+        inline virtual void on_left(void) {};
+
+        /*
+         * Define right click process.
+         */
+        inline virtual void on_right(void) {};
+
+        /*
+         * Define selection process.
+         */
+        inline virtual void on_select(void) {};
+
+        /*
+         * Define reset process.
+         */
+        inline virtual void reset_to_default(void) {};
+
+        /*
+         * Define default value process.
+         */
+        inline virtual void set_default(void) {};
+
+        /*
+         * Define apply setting process.
+         */
+        inline virtual void apply_setting(void) {};
+
+        /*
+         * Define setting changed process.
+         */
+        inline virtual const bool setting_changed(void) const { return false; };
+
         const std::string label;
 };
 

@@ -55,18 +55,17 @@ class action final : public item {
 
         ~action() = default;  //!<  Default destructor.
 
-        /*!
-         * \brief Menu item action on selection.
+    private:
+        /*
+         * Menu item action on selection.
          */
         void on_select(void) override;
 
-        /*!
-         * \brief Return display text for the menu item when rendering.
-         * \return Vector of display text strings.
+        /*
+         * Return display text for the menu item when rendering.
          */
         const std::vector<std::string> get_text(void) const override;
 
-    private:
         const std::string cmd;
         const std::string arg;
 };

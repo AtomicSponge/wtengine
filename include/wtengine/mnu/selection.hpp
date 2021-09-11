@@ -44,44 +44,42 @@ class selection final : public item {
 
         ~selection() = default;  //!<  Default destructor.
 
-        /*!
-         * \brief Define left click process.
+    private:
+        /*
+         * Define left click process.
          */
         void on_left(void) override;
 
-        /*!
-         * \brief Define right click process.
+        /*
+         * Define right click process.
          */
         void on_right(void) override;
 
-        /*!
-         * \brief Return display text for the menu item when rendering.
-         * \return Vector of display text strings.
+        /*
+         * Return display text for the menu item when rendering.
          */
         const std::vector<std::string> get_text(void) const override;
 
-        /*!
-         * \brief Reset to the default variable.
+        /*
+         * Reset to the default variable.
          */
         void reset_to_default(void) override;
 
-        /*!
-         * \brief Set the default variable.
+        /*
+         * Set the default variable.
          */
         void set_default(void) override;
 
-        /*!
-         * \brief Apply the setting.
+        /*
+         * Apply the setting.
          */
         void apply_setting(void) override;
 
-        /*!
-         * \brief Checks if the current selection is the same as the default.
-         * \return True if the setting changed, false if it did not.
+        /*
+         * Checks if the current selection is the same as the default.
          */
         const bool setting_changed(void) const override;
 
-    private:
         const std::vector<std::string> display_vals;
         const std::vector<std::string> vals;
         std::vector<std::string>::const_iterator current_val;

@@ -33,44 +33,42 @@ class apply final : public item {
 
         ~apply() = default;  //!<  Default destructor.
 
-        /*!
-         * \brief Set the apply item to cancel.
+    private:
+        /*
+         * Set the apply item to cancel.
          */
         void on_left(void) override;
 
-        /*!
-         * \brief Set the apply item to apply.
+        /*
+         * Set the apply item to apply.
          */
         void on_right(void) override;
 
-        /*!
-         * \brief On select trigger.
-         * \return A menu message object that will either run the apply or cancel.
+        /*
+         * On select trigger.
          */
         void on_select(void) override;
 
-        /*!
-         * \brief Return display text for the menu item when rendering.
-         * \return Vector of display text strings.
+        /*
+         * Return display text for the menu item when rendering.
          */
         const std::vector<std::string> get_text(void) const override;
 
-        /*!
-         * \brief Reset the apply item to the canceled state.
+        /*
+         * Reset the apply item to the canceled state.
          */
         void reset_to_default(void) override;
 
-        /*!
-         * \brief Set the apply item's default state to canceled.
+        /*
+         * Set the apply item's default state to canceled.
          */
         void set_default(void) override;
 
-        /*!
-         * \brief Reset the apply item to the canceled state.
+        /*
+         * Reset the apply item to the canceled state.
          */
         void apply_setting(void) override;
 
-    private:
         bool do_apply;
 };
 

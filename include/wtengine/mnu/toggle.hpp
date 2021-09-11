@@ -38,44 +38,43 @@ class toggle final : public item {
 
         ~toggle() = default;  //!<  Default destructor.
 
-        /*!
-         * \brief Toggle on.
+    private:
+        /*
+         * Toggle on.
          */
         void on_left(void) override;
 
-        /*!
-         * \brief Toggle off.
+        /*
+         * Toggle off.
          */
         void on_right(void) override;
 
-        /*!
-         * \brief Get display text
-         * \return Vector of strings to render.
+        /*
+         * Get display text
+         * Vector of strings to render.
          */
         const std::vector<std::string> get_text(void) const override;
 
-        /*!
-         * \brief Reset to default value.
+        /*
+         * Reset to default value.
          */
         void reset_to_default(void) override;
 
-        /*!
-         * \brief Determine and set the default value for the menu toggle item.
+        /*
+         * Determine and set the default value for the menu toggle item.
          */
         void set_default(void) override;
 
-        /*!
-         * \brief Apply the setting.
+        /*
+         * Apply the setting.
          */
         void apply_setting(void) override;
 
-        /*!
-         * \brief Checks if the current selection is the same as the default.
-         * \return True if the setting changed, false if it did not.
+        /*
+         * Checks if the current selection is the same as the default.
          */
         const bool setting_changed(void) const override;
 
-    private:
         bool toggled, default_val;
         const std::function<const bool(void)> defaulter;
         const std::function<void(const bool&)> applier;

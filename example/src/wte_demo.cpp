@@ -229,7 +229,7 @@ void wte_demo::load_menus(void) {
         [](void){});
     std::vector<std::string> scale_vec = { "0.5", "1", "1.25", "1.5", "1.75", "2" };
     temp_menu.add_item<mnu::selection>("Scale factor:", "scale_factor", scale_vec, scale_vec,
-        [](void){ return ""; },
+        [](void){ return std::to_string(config::gfx::scale_factor); },
         [](void){});
     temp_menu.add_item<mnu::toggle>(
         "FPS:",
@@ -254,19 +254,19 @@ void wte_demo::load_menus(void) {
 
     mnu::menu temp_menu = mnu::menu("audio_settings", "Audio Settings");
     temp_menu.add_item<mnu::selection>("Main Volume:", "main_vol", vol_dvec, vol_vec,
-        [](void){ return ""; },
+        [](void){ return std::to_string(config::volume::main); },
         [](void){});
     temp_menu.add_item<mnu::selection>("Music Volume:", "mix1_vol", vol_dvec, vol_vec,
-        [](void){ return ""; },
+        [](void){ return std::to_string(config::volume::mix1); },
         [](void){});
     temp_menu.add_item<mnu::selection>("Effects Volume:", "mix2_vol", vol_dvec, vol_vec,
-        [](void){ return ""; },
+        [](void){ return std::to_string(config::volume::mix2); },
         [](void){});
     temp_menu.add_item<mnu::selection>("Voice Volume:", "mix3_vol", vol_dvec, vol_vec,
-        [](void){ return ""; },
+        [](void){ return std::to_string(config::volume::mix3); },
         [](void){});
     temp_menu.add_item<mnu::selection>("Ambiance Volume:", "mix4_vol", vol_dvec, vol_vec,
-        [](void){ return ""; },
+        [](void){ return std::to_string(config::volume::mix4); },
         [](void){});
     temp_menu.add_item<mnu::apply>();
     temp_menu.add_item<mnu::action>("Return", "close_menu");

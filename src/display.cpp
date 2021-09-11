@@ -31,15 +31,15 @@ const std::string display::get_window_title(void) const { return window_title; }
 /*
  *
  */
-void display::set_display_mode(void) {
-    //
+void display::set_display_mode(const std::size_t& m) {
+    config::_gfx::display_mode = m;
 }
 
 /*
  *
  */
-void display::set_scale_factor(void) {
-    //
+void display::set_scale_factor(const float& f) {
+    config::_gfx::scale_factor = f;
 }
 
 /*

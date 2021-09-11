@@ -226,11 +226,11 @@ void wte_demo::load_menus(void) {
     std::vector<std::string> mode_vec = { "0", "1" };
     temp_menu.add_item<mnu::selection>("Display Mode:", mode_dvec, mode_vec,
         [](void){ return std::to_string(config::gfx::display_mode); },
-        [](const std::string& val){ std::stoi(val); });
+        [](const std::string& val){ display::set_display_mode(std::stoi(val)); });
     std::vector<std::string> scale_vec = { "0.5", "1", "1.25", "1.5", "1.75", "2" };
     temp_menu.add_item<mnu::selection>("Scale factor:", scale_vec, scale_vec,
         [](void){ return std::to_string(config::gfx::scale_factor); },
-        [](const std::string& val){ std::stof(val); });
+        [](const std::string& val){ display::set_scale_factor(std::stof(val)); });
     temp_menu.add_item<mnu::toggle>("FPS:",
         [](void){ return config::flags::draw_fps; },
         [](const bool& val){ config::flags::draw_fps = val; });

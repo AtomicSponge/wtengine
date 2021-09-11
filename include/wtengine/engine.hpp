@@ -43,7 +43,7 @@ namespace wte {
  * Sets up various system objects used by the engine.
  * Contains the main game loop and members for managing the game and engine.
  */
-class engine : private display, public input, public config {
+class engine : public config, public display, public input {
     public:
         /*!
          * \brief Unloads the game engine.

@@ -45,13 +45,15 @@ class display {
 
         /*!
          * \brief
+         * \param m
          */
-        static void set_display_mode(void);
+        static void set_display_mode(const std::size_t& m);
 
         /*!
          * \brief
+         * \param f
          */
-        static void set_scale_factor(void);
+        static void set_scale_factor(const float& f);
 
     protected:
         /*!

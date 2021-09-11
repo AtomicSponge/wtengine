@@ -68,9 +68,7 @@ void selection::set_default(void) {
 /*
  *
  */
-void selection::apply_setting(void) {
-    //
-}
+void selection::apply_setting(void) { applier(); }
 
 /*
  *

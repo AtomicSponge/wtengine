@@ -53,9 +53,7 @@ void toggle::set_default(void) { toggled = default_val = defaulter(); }
 /*
  *
  */
-void toggle::apply_setting(void) {
-    //
-}
+void toggle::apply_setting(void) { applier(); }
 
 /*
  *

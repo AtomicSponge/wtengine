@@ -16,7 +16,11 @@ const int64_t& input::lastkeypress::timer = input::_lastkeypress::timer;
 const int& input::lastkeypress::key = input::_lastkeypress::key;
 const int64_t& input::lastbuttonpress::timer = input::_lastbuttonpress::timer;
 const int& input::lastbuttonpress::button = input::_lastbuttonpress::button;
-std::vector<int> input::input_recorder;
+int64_t input::last_tick = 0;
+std::vector<
+    std::pair<const int64_t, const std::vector<ALLEGRO_EVENT>>
+> input::input_recorder;
+std::vector<ALLEGRO_EVENT> input::event_recorder;
 
 /*
  *
@@ -37,6 +41,7 @@ void input::toggle_input_recording(void) {
     } else {
         //  Turn recording on
         config::_flags::record_input = true;
+        event_recorder.clear();
         input_recorder.clear();
     }
 }
@@ -67,6 +72,19 @@ void input::check_input_events(void) {
         queue_not_empty = al_get_next_event(input_event_queue, &event);
         if(queue_not_empty) handle_input_event(event);
     }
+}
+
+/*
+ *
+ */
+void input::record_event(const ALLEGRO_EVENT& event) { 
+    if(engine_time::check() > last_tick && !event_recorder.empty())  {
+        input_recorder.push_back(std::make_pair(last_tick, event_recorder));
+        event_recorder.clear();
+    }
+    event_recorder.push_back(event);
+
+    last_tick = engine_time::check();
 }
 
 /*

@@ -181,6 +181,7 @@ class input {
         void check_input_events(void);
 
     private:
+        void record_event(const ALLEGRO_EVENT&);        //  Record input events.
         void handle_input_event(const ALLEGRO_EVENT&);  //  Process input events
 
         struct _lastkeypress {
@@ -193,7 +194,11 @@ class input {
             inline static int button = 0;
         };
 
-        static std::vector<int> input_recorder;
+        static int64_t last_tick;
+        static std::vector<
+            std::pair<const int64_t, const std::vector<ALLEGRO_EVENT>>
+        > input_recorder;
+        static std::vector<ALLEGRO_EVENT> event_recorder;
 
         ALLEGRO_EVENT_QUEUE* input_event_queue;  //  Input event queue.
         static bool initialized;  //  Restrict to one instance.

@@ -60,17 +60,13 @@ class audio final : private manager<audio> {
             * \brief Toggle music looping.
             * \param arg "enable" or "disable"
             */
-            static void loop(
-                const std::string& arg
-            );
+            static void loop(const std::string& arg);
 
             /*!
             * \brief Play a music file.
             * \param fname Music filename.
             */
-            static void play(
-                const std::string& fname
-            );
+            static void play(const std::string& fname);
 
             /*!
             * \brief Stop playing music.
@@ -128,9 +124,7 @@ class audio final : private manager<audio> {
             * \brief Stop a playing sample.
             * \param ref Playing sample reference name.
             */
-            static void stop(
-                const std::string& ref
-            );
+            static void stop(const std::string& ref);
 
             /*!
             * \brief Claer all playing sample instances.
@@ -147,9 +141,7 @@ class audio final : private manager<audio> {
             * \brief Play an audio file.
             * \param fname Filename to play.
             */
-            static void play(
-                const std::string& fname
-            );
+            static void play(const std::string& fname);
 
             /*!
             * \brief Stop a playing audio file.
@@ -176,17 +168,13 @@ class audio final : private manager<audio> {
             * \brief Toggle ambiance looping.
             * \param arg "enable" or "disable"
             */
-            static void loop(
-                const std::string& arg
-            );
+            static void loop(const std::string& arg);
 
             /*!
             * \brief Play a file.
             * \param fname Ambiance filename.
             */
-            static void play(
-                const std::string& fname
-            );
+            static void play(const std::string& fname);
 
             /*!
             * \brief Stop playing ambiance.

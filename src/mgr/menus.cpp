@@ -121,7 +121,7 @@ const bool menus::new_menu(const mnu::menu& new_menu) {
 const mnu::menu_csptr menus::get_menu(const std::string& name) {
     for(auto& it: _menus) if(name == it->get_id()) return it;
     std::string err_str = "Menu \'" + name + "\' not found!";
-    throw wte_exception(err_str.c_str(), "menus", engine_time::check_time());
+    throw wte_exception(err_str.c_str(), "menus", engine_time::check());
 }
 
 /*
@@ -130,7 +130,7 @@ const mnu::menu_csptr menus::get_menu(const std::string& name) {
 const mnu::menu_sptr menus::set_menu(const std::string& name) {
     for(auto& it: _menus) if(name == it->get_id()) return it;
     std::string err_str = "Menu \'" + name + "\' not found!";
-    throw wte_exception(err_str.c_str(), "menus", engine_time::check_time());
+    throw wte_exception(err_str.c_str(), "menus", engine_time::check());
 }
 
 /*

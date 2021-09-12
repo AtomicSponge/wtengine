@@ -60,7 +60,7 @@ void spawner::process_messages(const message_container& messages) {
                     try {
                         s_it->second.second(e_id, m_it.get_args());
                     } catch(...) { 
-                        alert::set("Error spawning entity " + m_it.get_arg(0), "spawner", engine_time::check_time());
+                        alert::set("Error spawning entity " + m_it.get_arg(0), "spawner", engine_time::check());
                     }
                 }
         }

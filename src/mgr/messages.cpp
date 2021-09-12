@@ -56,7 +56,7 @@ void messages::add(const message& msg) {
 void messages::prune(void) {
     for(auto it = _messages.begin(); it != _messages.end();) {
         //  End early if events are in the future.
-        if(it->get_timer() > engine_time::check_time()) break;
+        if(it->get_timer() > engine_time::check()) break;
         if(it->is_timed_event()) {
             #if WTE_DEBUG_MODE
             debug_log_file << "MESSAGE DELETED | ";
@@ -76,9 +76,9 @@ const message_container messages::get(const std::string& sys) {
 
     for(auto it = _messages.begin(); it != _messages.end();) {
         //  End early if events are in the future
-        if(it->get_timer() > engine_time::check_time()) break;
+        if(it->get_timer() > engine_time::check()) break;
 
-        if((it->get_timer() == -1 || it->get_timer() == engine_time::check_time()) && it->get_sys() == sys) {
+        if((it->get_timer() == -1 || it->get_timer() == engine_time::check()) && it->get_sys() == sys) {
             #if WTE_DEBUG_MODE
             //  Log the message if debug mode is on
             log(*it);
@@ -148,7 +148,7 @@ const bool messages::load_script(const std::string& fname) {
         read(*file, timer, sys, to, from, cmd, args);
 
         //  Add the current time to the timer value.
-        if(timer != -1) timer += engine_time::check_time();
+        if(timer != -1) timer += engine_time::check();
 
         //  Add message to queue.  Ignore incomplete messages.  Sort while adding.
         if(sys != "" && cmd != "") add(message(timer, sys, to, from, cmd, args));

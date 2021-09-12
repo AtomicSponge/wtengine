@@ -191,7 +191,7 @@ class variables final : private manager<variables> {
                 _map.at(var) = std::make_any<T>(val);
             } catch(std::out_of_range& e) {
                 std::string err_msg = "Could not set variable: " + var;
-                throw wte_exception(err_msg.c_str(), "variables", engine_time::check_time());
+                throw wte_exception(err_msg.c_str(), "variables", engine_time::check());
             }
         };
 
@@ -210,10 +210,10 @@ class variables final : private manager<variables> {
                 return std::any_cast<const T>(_map.at(var));
             } catch(std::out_of_range& e) {
                 std::string err_msg = "Could not get variable: " + var;
-                throw wte_exception(err_msg.c_str(), "variables", engine_time::check_time());
+                throw wte_exception(err_msg.c_str(), "variables", engine_time::check());
             } catch(std::bad_any_cast& e) {
                 std::string err_msg = "Error reading variable: " + var;
-                throw wte_exception(err_msg.c_str(), "variables", engine_time::check_time());
+                throw wte_exception(err_msg.c_str(), "variables", engine_time::check());
             }
         };
 

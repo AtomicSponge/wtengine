@@ -67,7 +67,7 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
         config::_flags::is_running = false;
     });
     cmds.add("alert", 2, [this](const msg_args& args) {
-        alert::set(args[0], args[1], engine_time::check_time());
+        alert::set(args[0], args[1], engine_time::check());
     });
     cmds.add("new_game", 1, [this](const msg_args& args) {
         if(!config::flags::game_started) {
@@ -107,7 +107,7 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
     cmds.add("load_script", 1, [this](const msg_args& args) {
         if(config::flags::game_started && args[0] != "") {
             if(!mgr::messages::load_script(args[0]))
-                alert::set("Error loading script:  " + args[0], "engine", engine_time::check_time());
+                alert::set("Error loading script:  " + args[0], "engine", engine_time::check());
         }
     });
 }
@@ -197,7 +197,7 @@ void engine::process_new_game(const std::string& game_data) {
     //  Restart the timer at zero.
     al_stop_timer(main_timer);
     al_set_timer_count(main_timer, 0);
-    engine_time::set_time(al_get_timer_count(main_timer));
+    engine_time::set(al_get_timer_count(main_timer));
     config::_flags::game_started = true;
     config::flags::input_enabled = true;
     al_start_timer(main_timer);
@@ -211,7 +211,7 @@ void engine::process_end_game(void) {
     config::_flags::game_started = false;
     config::flags::input_enabled = true;
     al_set_timer_count(main_timer, 0);
-    engine_time::set_time(al_get_timer_count(main_timer));
+    engine_time::set(al_get_timer_count(main_timer));
 
     //  Stop audio manager from playing sounds.
     mgr::audio::music::stop();
@@ -273,7 +273,7 @@ void engine::do_game(void) {
         //  Call our game logic update on timer events.  Timer is only running when the game is running.
         if(queue_not_empty && event.type == ALLEGRO_EVENT_TIMER) {
             //  Set the engine_time object to the current time.
-            engine_time::set_time(al_get_timer_count(main_timer));
+            engine_time::set(al_get_timer_count(main_timer));
 
             //  Run all systems.
             mgr::systems::run();

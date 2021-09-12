@@ -21,7 +21,7 @@ sprite::sprite(
     const std::size_t& rt, const std::size_t& l) :
     gfx(bmp, l,[this](const entity_id& e_id) {
         //  Define sprite animation process.
-        if(engine_time::check_time() % rate == 0) {
+        if(engine_time::check() % rate == 0) {
             //  Increment frame.
             current_frame++;
             //  Loop frame.
@@ -43,7 +43,7 @@ sprite::sprite(
         sheet_width = internal_bitmap->get_width();
         sheet_height = internal_bitmap->get_height();
     } catch(...) {
-        throw wte_exception("Error creating sprite.  Cannot access asset.", "sprite", engine_time::check_time());
+        throw wte_exception("Error creating sprite.  Cannot access asset.", "sprite", engine_time::check());
     }
 }
 

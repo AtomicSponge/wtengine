@@ -487,13 +487,13 @@ void wte_demo::new_game(void) {
                 mgr::world::set_component<cmp::sprite>(plr_id)->set_cycle("death");
                 if(mgr::variables::get<int>("lives") == 0) {
                     //  Game over!
-                    mgr::messages::add(message(engine_time::check_time() + 180, "system", "end_game", ""));
+                    mgr::messages::add(message(engine_time::check() + 180, "system", "end_game", ""));
                     entity_id go_id = mgr::world::get_id("game_over_overlay");
                     mgr::world::set_component<cmp::sprite>(go_id)->show();
                 } else {
                     std::string player_name = mgr::world::get_name(plr_id);
                     mgr::messages::add(
-                        message(engine_time::check_time() + 120, "entities", player_name, player_name, "reset", "")
+                        message(engine_time::check() + 120, "entities", player_name, player_name, "reset", "")
                     );
                 }
             }

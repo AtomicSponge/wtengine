@@ -37,7 +37,7 @@ void commands::process_messages(
                 if(it.num_args() >= res->second.first) res->second.second(it.get_args());
                 else {  //  Command not found
                     std::string err_msg = "Error processing command: " + it.get_cmd();
-                    throw wte_exception(err_msg.c_str(), "command processor", engine_time::check_time());
+                    throw wte_exception(err_msg.c_str(), "command processor", engine_time::check());
                 }
             }
         } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }

@@ -31,7 +31,7 @@ class engine_time final {
          * \brief Check the internal engine timer.
          * \return Timer value.
          */
-        static const int64_t check_time(void);
+        static const int64_t check(void);
 
     private:
         /*
@@ -39,7 +39,7 @@ class engine_time final {
          * This is called once during the game loop in class wte_main
          * and when starting/stopping the game.
          */
-        static void set_time(
+        static void set(
             const int64_t& t
         );
 

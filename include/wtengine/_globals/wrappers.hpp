@@ -14,6 +14,8 @@
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/mgr/assets.hpp"
@@ -75,12 +77,12 @@ class al_bitmap final {
             _al_bitmap = al_create_bitmap(w, h);
         };
 
+        inline ~al_bitmap() = default;  //!<  Default destructor.
+
         /*!
          * \brief Return a pointer to the internal Allegro bitmap.
          * \return Allegro bitmap pointer.
          */
-        inline ~al_bitmap() = default;
-
         inline ALLEGRO_BITMAP* operator*() { return _al_bitmap; };
 
         /*!
@@ -190,10 +192,7 @@ class al_font final {
             _al_font = al_load_font(fname.c_str(), size, flags);
         };
 
-        /*!
-         * \brief Delete font asset.
-         */
-        inline ~al_font() = default;
+        inline ~al_font() = default;  //!<  Default destructor.
 
         /*!
          * \brief Get font asset.
@@ -209,6 +208,38 @@ class al_font final {
 
     private:
         ALLEGRO_FONT* _al_font;
+};
+
+/*!
+ * \class al_sample
+ * \brief Provides a wrapper to Allegro samples.
+ */
+class al_sample final {
+    public:
+        /*!
+         * \brief Load a sample asset.
+         * \param fname Sample file name.
+         */
+        inline al_sample(const std::string& fname) {
+            _al_sample = al_load_sample(fname.c_str());
+        };
+
+        inline ~al_sample() = default;  //!<  Default destructor.
+
+        /*!
+         * \brief Get sample asset.
+         * \return Pointer to sample asset.
+         */
+        inline ALLEGRO_SAMPLE* operator*() { return _al_sample; };
+
+        /*!
+         * \brief Get sample asset.
+         * \return Pointer to sample asset.
+         */
+        inline ALLEGRO_SAMPLE* sample(void) { return _al_sample; };
+
+    private:
+        ALLEGRO_SAMPLE* _al_sample;
 };
 
 }  //  end namespace wte

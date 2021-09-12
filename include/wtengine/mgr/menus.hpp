@@ -199,7 +199,7 @@ class menus final : private manager<menus> {
         static int menu_width;
         static int menu_height;
         
-        static bool select_menu_option;
+        static bool scroll_option;
         static bool is_button_left;
 
         static bool do_apply;

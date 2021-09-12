@@ -28,7 +28,7 @@ int menus::font_size = 0;
 int menus::menu_padding = 0;
 int menus::menu_width = 0;
 int menus::menu_height = 0;
-bool menus::select_menu_option = false;
+bool menus::scroll_option = false;
 bool menus::is_button_left = true;
 bool menus::do_apply = false;
 bool menus::do_cancel = false;
@@ -156,6 +156,7 @@ void menus::open_menu(const std::string& menu_id) {
 
     //  Set default values for any menu settings objects.
     for(auto& it: opened_menus.top()->get_items()) it->set_default();
+    for(auto& it: opened_menus.top()->get_items()) it->reset_to_default();
 }
 
 /*
@@ -189,7 +190,7 @@ void menus::menu_pos_down(void) {
 void menus::menu_pos_start_left(void) {
     if(menu_position != opened_menus.top()->items_cend()) {
         is_button_left = true;
-        select_menu_option = true;
+        scroll_option = true;
         last_tick = al_get_timer_count(menu_timer);
     }
 }
@@ -197,7 +198,7 @@ void menus::menu_pos_start_left(void) {
 /*
  *
  */
-void menus::menu_pos_stop_left(void) { select_menu_option = false; }
+void menus::menu_pos_stop_left(void) { scroll_option = false; }
 
 /*
  *
@@ -205,7 +206,7 @@ void menus::menu_pos_stop_left(void) { select_menu_option = false; }
 void menus::menu_pos_start_right(void) {
     if(menu_position != opened_menus.top()->items_cend()) {
         is_button_left = false;
-        select_menu_option = true;
+        scroll_option = true;
         last_tick = al_get_timer_count(menu_timer);
     }
 }
@@ -213,7 +214,7 @@ void menus::menu_pos_start_right(void) {
 /*
  *
  */
-void menus::menu_pos_stop_right(void) { select_menu_option = false; }
+void menus::menu_pos_stop_right(void) { scroll_option = false; }
 
 /*
  *
@@ -243,24 +244,20 @@ void menus::run(void) {
 
     ALLEGRO_EVENT event;
     const bool queue_not_empty = al_get_next_event(menu_event_queue, &event);
-    if(queue_not_empty && event.type == ALLEGRO_EVENT_TIMER) {
-        if(select_menu_option) {
-            bool toggle_menu_item = false;
-
-                if(al_get_timer_count(menu_timer) >= last_tick + 60) toggle_menu_item = true;
-                else {
-                    if(al_get_timer_count(menu_timer) >= last_tick + 30) {
-                        if(al_get_timer_count(menu_timer) % 2 == 0) toggle_menu_item = true;
-                    } else {
-                        if(al_get_timer_count(menu_timer) == last_tick + 15) toggle_menu_item = true;
-                        else if(al_get_timer_count(menu_timer) == last_tick + 1) toggle_menu_item = true;
-                    }
-                }
-
-            if(toggle_menu_item) {
-                if(is_button_left) (*menu_position)->on_left();
-                else (*menu_position)->on_right();
+    if(scroll_option && queue_not_empty && event.type == ALLEGRO_EVENT_TIMER) {
+        bool toggle_menu_item = false;
+        if(al_get_timer_count(menu_timer) >= last_tick + 60) toggle_menu_item = true;
+        else {
+            if(al_get_timer_count(menu_timer) >= last_tick + 30) {
+                if(al_get_timer_count(menu_timer) % 2 == 0) toggle_menu_item = true;
+            } else {
+                if(al_get_timer_count(menu_timer) == last_tick + 15) toggle_menu_item = true;
+                else if(al_get_timer_count(menu_timer) == last_tick + 1) toggle_menu_item = true;
             }
+        }
+        if(toggle_menu_item) {
+            if(is_button_left) (*menu_position)->on_left();
+            else (*menu_position)->on_right();
         }
     }
 }

@@ -24,7 +24,7 @@ ALLEGRO_AUDIO_STREAM* audio::music_stream = NULL;
 ALLEGRO_AUDIO_STREAM* audio::ambiance_stream = NULL;
 ALLEGRO_AUDIO_STREAM* audio::voice_stream = NULL;
 std::map<std::string, ALLEGRO_SAMPLE*> audio::sample_map;
-std::map<std::string, ALLEGRO_SAMPLE_ID> audio::sample_instances;
+std::map<const std::string, ALLEGRO_SAMPLE_ID> audio::sample_instances;
 
 /*
  *
@@ -373,6 +373,39 @@ void audio::sample::play(
         ALLEGRO_SAMPLE_ID temp_sample_id;
         if(al_play_sample((sample_map.find(sname))->second,
                            gain, pan, speed, ALLEGRO_PLAYMODE_LOOP, &temp_sample_id))
+            sample_instances.insert(std::make_pair(ref, temp_sample_id));
+    }
+}
+
+/*
+ *
+ */
+void audio::sample::play(
+    wte_asset<al_sample> sample,
+    const std::string& ref
+) {
+    sample::play(sample, ref, 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.0f);
+}
+
+/*
+ *
+ */
+void audio::sample::play(
+    wte_asset<al_sample> sample,
+    const std::string& ref,
+    const float& gain,
+    const float& pan,
+    const float& speed
+) {
+    if(ref == "once") {
+        // Play the sample once.
+        al_play_sample(**sample, gain, pan, speed, ALLEGRO_PLAYMODE_ONCE, NULL);
+    } else {
+        //  If the reference is already playing, end.
+        if(sample_instances.find(ref) != sample_instances.end()) return;
+        //  Store playing reference
+        ALLEGRO_SAMPLE_ID temp_sample_id;
+        if(al_play_sample(**sample, gain, pan, speed, ALLEGRO_PLAYMODE_LOOP, &temp_sample_id))
             sample_instances.insert(std::make_pair(ref, temp_sample_id));
     }
 }

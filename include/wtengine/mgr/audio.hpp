@@ -22,6 +22,8 @@
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/commands.hpp"
 #include "wtengine/_globals/message.hpp"
+#include "wtengine/_globals/wrappers.hpp"
+#include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/config.hpp"
 
 namespace wte {
@@ -133,6 +135,37 @@ class audio final : private manager<audio> {
             */
             static void play(
                 const std::string& sname,
+                const std::string& ref,
+                const float& gain,
+                const float& pan,
+                const float& speed
+            );
+
+            /*!
+            * \brief Play a sample.
+            *
+            * When setting the playmode, passing "once" will play the sample once.
+            * Passing a reference name will play the sample in a loop.
+            * The sample can be stopped later using this reference name.
+            *
+            * \param sample Sample asset.
+            * \param ref Playmode.
+            */
+            static void play(
+                wte_asset<al_sample> sample,
+                const std::string& ref
+            );
+
+            /*!
+            * \brief Play a sample.
+            * \param sample Sample asset.
+            * \param ref Playmode.
+            * \param gain Gain value.  See allegro docs on al_play_sample for more info.
+            * \param pan Pan value.  See allegro docs on al_play_sample for more info.
+            * \param speed Speed value.  See allegro docs on al_play_sample for more info.
+            */
+            static void play(
+                wte_asset<al_sample> sample,
                 const std::string& ref,
                 const float& gain,
                 const float& pan,
@@ -274,7 +307,7 @@ class audio final : private manager<audio> {
         //  Store a reference of loaded samples.
         static std::map<std::string, ALLEGRO_SAMPLE*> sample_map;
         //  Store a reference of playing samples.
-        static std::map<std::string, ALLEGRO_SAMPLE_ID> sample_instances;
+        static std::map<const std::string, ALLEGRO_SAMPLE_ID> sample_instances;
 };
 
 }  //  end namespace wte::mgr

@@ -17,7 +17,6 @@ ALLEGRO_TIMER* menus::menu_timer = NULL;
 ALLEGRO_EVENT_QUEUE* menus::menu_event_queue = NULL;
 ALLEGRO_COLOR menus::menu_font_color;
 wte_asset<al_bitmap> menus::menu_buffer;
-wte_asset<al_bitmap> menus::menu_temp_bmp;
 wte_asset<al_bitmap> menus::menu_background;
 wte_asset<al_font> menus::menu_font;
 wte_asset<al_bitmap> menus::cursor_bitmap;
@@ -78,10 +77,6 @@ void menus::set_background(wte_asset<al_bitmap> bmp) {
     menu_background = bmp;
     menu_width = al_get_bitmap_width(**menu_background);
     menu_height = al_get_bitmap_height(**menu_background);
-
-    menu_temp_bmp = make_asset(al_bitmap(menu_width, menu_height, true));
-    //  Add reference to Asset manager so bitmap can be reloaded.
-    mgr::assets<al_bitmap>::load<al_bitmap>("wte_menus_menu_temp_bmp", menu_temp_bmp);
 }
 
 /*
@@ -267,9 +262,11 @@ void menus::run(void) {
  *
  */
 void menus::render_menu(void) {
-    //  Set drawing to the menu bitmap.
-    al_set_target_bitmap(**menu_temp_bmp);
+    al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+    ALLEGRO_BITMAP* menu_temp_bmp = al_create_bitmap(menu_width, menu_height);
+    al_set_target_bitmap(menu_temp_bmp);
     al_draw_bitmap(**menu_background, 0, 0, 0);
+
     //  Render menu title.
     al_draw_text(
         **menu_font, menu_font_color,
@@ -306,12 +303,13 @@ void menus::render_menu(void) {
     al_set_target_bitmap(**menu_buffer);
     al_clear_to_color(WTE_COLOR_TRANSPARENT);
     al_draw_scaled_bitmap(
-        **menu_temp_bmp, 0, 0, menu_width, menu_height,
+        menu_temp_bmp, 0, 0, menu_width, menu_height,
         (config::gfx::arena_w / 2) - (menu_width * config::gfx::menu_scale_factor / 2),
         (config::gfx::arena_h / 2) - (menu_height * config::gfx::menu_scale_factor / 2),
         menu_width * config::gfx::menu_scale_factor,
         menu_height * config::gfx::menu_scale_factor, 0
     );
+    al_destroy_bitmap(menu_temp_bmp);
 }
 
 }  //  end namespace wte::mgr

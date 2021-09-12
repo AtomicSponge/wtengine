@@ -185,7 +185,6 @@ class menus final : private manager<menus> {
         static ALLEGRO_COLOR menu_font_color;
 
         static wte_asset<al_bitmap> menu_buffer;
-        static wte_asset<al_bitmap> menu_temp_bmp;
         static wte_asset<al_bitmap> menu_background;
         static wte_asset<al_font> menu_font;
         static wte_asset<al_bitmap> cursor_bitmap;

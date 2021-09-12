@@ -45,11 +45,7 @@ void menus::initialize(void) {
         throw std::runtime_error("Unable to create game menu!");
 
     //  Create the the menu bitmap for rendering.
-    menu_buffer = make_asset(al_bitmap(
-        config::gfx::arena_w,
-        config::gfx::arena_h,
-        true
-    ));
+    menu_buffer = make_asset(al_bitmap(true));
     //  Add reference to Asset manager so bitmap can be reloaded.
     mgr::assets<al_bitmap>::load<al_bitmap>("wte_menus_menu_buffer", menu_buffer);
 
@@ -152,6 +148,10 @@ void menus::open_menu(const std::string& menu_id) {
     //  Set default values for any menu settings objects.
     for(auto& it: opened_menus.top()->get_items()) it->set_default();
     for(auto& it: opened_menus.top()->get_items()) it->reset_to_default();
+
+    al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+    menu_buffer->destroy();
+    menu_buffer->clone(al_create_bitmap(menu_width, menu_height));
 }
 
 /*
@@ -262,9 +262,7 @@ void menus::run(void) {
  *
  */
 void menus::render_menu(void) {
-    al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-    ALLEGRO_BITMAP* menu_temp_bmp = al_create_bitmap(menu_width, menu_height);
-    al_set_target_bitmap(menu_temp_bmp);
+    al_set_target_bitmap(**menu_buffer);
     al_draw_bitmap(**menu_background, 0, 0, 0);
 
     //  Render menu title.
@@ -298,18 +296,6 @@ void menus::render_menu(void) {
 
     //  Render menu cursor.
     if(opened_menus.top()->num_items() != 0) al_draw_bitmap(**cursor_bitmap, menu_padding, cursor_pos, 0);
-
-    //  Draw rendered menu.
-    al_set_target_bitmap(**menu_buffer);
-    al_clear_to_color(WTE_COLOR_TRANSPARENT);
-    al_draw_scaled_bitmap(
-        menu_temp_bmp, 0, 0, menu_width, menu_height,
-        (config::gfx::arena_w / 2) - (menu_width * config::gfx::menu_scale_factor / 2),
-        (config::gfx::arena_h / 2) - (menu_height * config::gfx::menu_scale_factor / 2),
-        menu_width * config::gfx::menu_scale_factor,
-        menu_height * config::gfx::menu_scale_factor, 0
-    );
-    al_destroy_bitmap(menu_temp_bmp);
 }
 
 }  //  end namespace wte::mgr

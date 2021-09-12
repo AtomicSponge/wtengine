@@ -350,13 +350,15 @@ void renderer::render(void) {
     if(config::flags::menu_opened) {
         mgr::menus::render_menu();
         al_set_target_backbuffer(al_get_current_display());
+        const int menu_width = menu_bitmap->get_width();
+        const int menu_height = menu_bitmap->get_height();
+        const float scale_factor = config::gfx::menu_scale_factor * config::gfx::scale_factor;
         al_draw_scaled_bitmap(
-            **menu_bitmap, 0, 0,
-            config::gfx::arena_w, config::gfx::arena_h,
-            (config::gfx::screen_w / 2) - (config::gfx::arena_w * config::gfx::scale_factor / 2),
-            (config::gfx::screen_h / 2) - (config::gfx::arena_h * config::gfx::scale_factor / 2),
-            config::gfx::arena_w * config::gfx::scale_factor,
-            config::gfx::arena_h * config::gfx::scale_factor, 0
+            **menu_bitmap, 0, 0, menu_width, menu_height,
+            (config::gfx::arena_w / 2) - (menu_width * scale_factor / 2),
+            (config::gfx::arena_h / 2) - (menu_height * scale_factor / 2),
+            menu_width * scale_factor,
+            menu_height * scale_factor, 0
         );
     }
 

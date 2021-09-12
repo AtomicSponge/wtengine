@@ -140,6 +140,11 @@ class al_bitmap final {
         };
 
         /*!
+         * \brief Destroy the internal bitmap.
+         */
+        inline void destroy(void) { al_destroy_bitmap(_al_bitmap); };
+
+        /*!
          * \brief Get bitmap width.
          * \return Bitmap width.
          */

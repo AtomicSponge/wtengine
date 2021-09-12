@@ -98,14 +98,6 @@ class message final {
         ) const;
 
         /*!
-         * \brief Split arguments into a vector of strings.
-         * \param a String of arguments, delimited by ;
-         */
-        void split_args(
-            const std::string& a
-        );
-
-        /*!
          * \brief Get timer value.
          * \return The value of timer.
          */
@@ -163,6 +155,13 @@ class message final {
         const bool is_timed_event(void) const;
 
     private:
+        /*
+         * Split arguments into a vector of strings.
+         */
+        void split_args(
+            const std::string& a
+        );
+
         int64_t timer;      //  Timer value that the message will be processed at
         std::string sys;    //  System that will process the message
         std::string to;     //  Message to entity field

@@ -344,15 +344,15 @@ void renderer::render(void) {
             0, 0, config::gfx::screen_w, config::gfx::screen_h, 0);
     }
 
+    const float scale_factor = config::gfx::menu_scale_factor * config::gfx::scale_factor;
     /*
      * Render game menu if it's opened.
      */
     if(config::flags::menu_opened) {
         mgr::menus::render_menu();
-        al_set_target_backbuffer(al_get_current_display());
         const int menu_width = menu_bitmap->get_width();
         const int menu_height = menu_bitmap->get_height();
-        const float scale_factor = config::gfx::menu_scale_factor * config::gfx::scale_factor;
+        al_set_target_backbuffer(al_get_current_display());
         al_draw_scaled_bitmap(
             **menu_bitmap, 0, 0, menu_width, menu_height,
             (config::gfx::arena_w / 2) - (menu_width * scale_factor / 2),
@@ -367,7 +367,6 @@ void renderer::render(void) {
      */
     if(notice::is_set()) {
         const int font_size = al_get_font_line_height(**notice::get_notice_font());
-        const float scale_factor = config::gfx::menu_scale_factor * config::gfx::scale_factor;
         ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap((notice::get().length() * font_size) + (font_size * 2), font_size + (font_size * 2));
         al_set_target_bitmap(temp_bitmap);
         al_clear_to_color(notice::get_notice_bg_color());
@@ -393,7 +392,6 @@ void renderer::render(void) {
      */
     if(alert::is_set()) {
         const int font_size = al_get_font_line_height(**renderer_font);
-
         ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap((alert::get().length() * font_size) + (font_size * 2), font_size + (font_size * 2));
         al_set_target_bitmap(temp_bitmap);
         al_clear_to_color(WTE_COLOR_RED);
@@ -406,10 +404,10 @@ void renderer::render(void) {
         al_draw_scaled_bitmap(
             temp_bitmap, 0, 0,
             al_get_bitmap_width(temp_bitmap), al_get_bitmap_height(temp_bitmap),
-            (config::gfx::screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * config::gfx::scale_factor) / 2),
-            (config::gfx::screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * config::gfx::scale_factor) / 2),
-            al_get_bitmap_width(temp_bitmap) * config::gfx::scale_factor,
-            al_get_bitmap_height(temp_bitmap) * config::gfx::scale_factor, 0
+            (config::gfx::screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * scale_factor) / 2),
+            (config::gfx::screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * scale_factor) / 2),
+            al_get_bitmap_width(temp_bitmap) * scale_factor,
+            al_get_bitmap_height(temp_bitmap) * scale_factor, 0
         );
         al_destroy_bitmap(temp_bitmap);
     }

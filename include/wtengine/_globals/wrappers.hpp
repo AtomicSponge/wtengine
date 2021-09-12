@@ -86,12 +86,6 @@ class al_bitmap final {
         inline ALLEGRO_BITMAP* operator*() { return _al_bitmap; };
 
         /*!
-         * \brief Return a pointer to the internal Allegro bitmap.
-         * \return Allegro bitmap pointer.
-         */
-        inline ALLEGRO_BITMAP* bitmap(void) { return _al_bitmap; };
-
-        /*!
          * \brief Check if the bitmap should be converted when the screen is updated.
          * \return True if it should be converted, false if not.
          */
@@ -200,12 +194,6 @@ class al_font final {
          */
         inline ALLEGRO_FONT* operator*() { return _al_font; };
 
-        /*!
-         * \brief Get font asset.
-         * \return Pointer to font asset.
-         */
-        inline ALLEGRO_FONT* font(void) { return _al_font; };
-
     private:
         ALLEGRO_FONT* _al_font;
 };
@@ -231,12 +219,6 @@ class al_sample final {
          * \return Pointer to sample asset.
          */
         inline ALLEGRO_SAMPLE* operator*() { return _al_sample; };
-
-        /*!
-         * \brief Get sample asset.
-         * \return Pointer to sample asset.
-         */
-        inline ALLEGRO_SAMPLE* sample(void) { return _al_sample; };
 
     private:
         ALLEGRO_SAMPLE* _al_sample;

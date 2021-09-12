@@ -246,6 +246,7 @@ void menus::run(void) {
     const bool queue_not_empty = al_get_next_event(menu_event_queue, &event);
     if(scroll_option && queue_not_empty && event.type == ALLEGRO_EVENT_TIMER) {
         bool toggle_menu_item = false;
+        //  Gradually increase the speed of scrolling.
         if(al_get_timer_count(menu_timer) >= last_tick + 60) toggle_menu_item = true;
         else {
             if(al_get_timer_count(menu_timer) >= last_tick + 30) {

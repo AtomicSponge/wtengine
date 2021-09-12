@@ -725,6 +725,11 @@ void wte_demo::new_game(void) {
         }  //  End asteroid spawner function.
     );
 
+    //  Load some samples in the asset manager.
+    mgr::assets<al_sample>::load<al_sample>("laser", al_sample("sfx/laser.wav"));
+    mgr::assets<al_sample>::load<al_sample>("shield", al_sample("sfx/shield.wav"));
+    mgr::assets<al_sample>::load<al_sample>("megumin", al_sample("sfx/megumin.wav"));
+
     //  Reset score.
     mgr::variables::set("score", 0);
 
@@ -732,11 +737,6 @@ void wte_demo::new_game(void) {
     if(mgr::variables::get<int>("max_lives") > 5 || mgr::variables::get<int>("max_lives") < 3)
         mgr::variables::set("max_lives", 3);
     mgr::variables::set("lives", mgr::variables::get<int>("max_lives"));
-
-    //  Load some samples in the asset manager.
-    mgr::assets<al_sample>::load<al_sample>("laser", al_sample("sfx/laser.wav"));
-    mgr::assets<al_sample>::load<al_sample>("shield", al_sample("sfx/shield.wav"));
-    mgr::assets<al_sample>::load<al_sample>("megumin", al_sample("sfx/megumin.wav"));
 }
 
 /*

@@ -100,9 +100,7 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
         event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)) notice::clear();
 
     //  Record input if enabled.
-    if(config::flags::record_input) {
-        //
-    }
+    if(config::flags::record_input) record_event(event);
 
     /* ************************************************************* */
     /* *** PROCESS EVENTS WHILE MENU IS OPENED ********************* */

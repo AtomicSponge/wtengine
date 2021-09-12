@@ -165,24 +165,25 @@ class input {
          * \brief Create the input queue for capturing events. 
          * Called during engine initialization.
          */
-        void create_input_event_queue(void);
+        static void create_input_event_queue(void);
 
         /*!
          * \brief Destroy the input queue.
          * Called during engine de-initialization.
          */
-        void destroy_input_event_queue(void);
+        static void destroy_input_event_queue(void);
 
         /*!
          * \brief Check the input queue for events.
          * Called during the main engine loop.
          * Passes any events to the input handler.
          */
-        void check_input_events(void);
+        static void check_input_events(void);
 
     private:
-        void record_event(const ALLEGRO_EVENT&);        //  Record input events.
-        void handle_input_event(const ALLEGRO_EVENT&);  //  Process input events
+        static void record_event(const ALLEGRO_EVENT&);        //  Record input events.
+        static void handle_input_event(const ALLEGRO_EVENT&);  //  Process input events.
+        static void save_input_recorder(void);                 //  Save input events.
 
         struct _lastkeypress {
             inline static int64_t timer = 0;
@@ -200,7 +201,7 @@ class input {
         > input_recorder;
         static std::vector<ALLEGRO_EVENT> event_recorder;
 
-        ALLEGRO_EVENT_QUEUE* input_event_queue;  //  Input event queue.
+        static ALLEGRO_EVENT_QUEUE* input_event_queue;  //  Input event queue.
         static bool initialized;  //  Restrict to one instance.
 };
 

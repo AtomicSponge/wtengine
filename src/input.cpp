@@ -21,6 +21,7 @@ std::vector<
     std::pair<const int64_t, const std::vector<ALLEGRO_EVENT>>
 > input::input_recorder;
 std::vector<ALLEGRO_EVENT> input::event_recorder;
+ALLEGRO_EVENT_QUEUE* input::input_event_queue;
 
 /*
  *
@@ -38,6 +39,7 @@ void input::toggle_input_recording(void) {
         //  Turn recording off
         config::_flags::record_input = false;
         //  Save vector to file
+        if(!input_recorder.empty()) save_input_recorder();
     } else {
         //  Turn recording on
         config::_flags::record_input = true;
@@ -83,7 +85,6 @@ void input::record_event(const ALLEGRO_EVENT& event) {
         event_recorder.clear();
     }
     event_recorder.push_back(event);
-
     last_tick = engine_time::check();
 }
 
@@ -581,6 +582,10 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
             break;  //  end ALLEGRO_EVENT_JOYSTICK_BUTTON_UP
         }  //  End switch(event.type)
     } //  End game event processing
+}
+
+void input::save_input_recorder(void) {
+    //
 }
 
 }  //  end namespace wte

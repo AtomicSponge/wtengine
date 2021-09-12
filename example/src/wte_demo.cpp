@@ -79,7 +79,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
         mgr::world::set_component<cmp::ai>(can_id)->enable();
         mgr::world::set_component<cmp::hitbox>(can_id)->make_solid();
         //  Play sound effect.
-        mgr::audio::sample::play("laser", "cannon_fire");
+        mgr::audio::sample::play(mgr::assets<al_sample>::get<al_sample>("laser"), "cannon_fire");
     };
     input::event::p1::ondown::action2 = []() {
         entity_id player_id = mgr::world::get_id("player");
@@ -99,7 +99,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
             mgr::world::set_component<cmp::hitbox>(shd_id)->make_solid();
             mgr::world::set_component<cmp::hitbox>(player_id)->make_fluid();
             //  Play sound effect.
-            mgr::audio::sample::play("shield", "shield_sound");
+            mgr::audio::sample::play(mgr::assets<al_sample>::get<al_sample>("shield"), "shield_sound");
         }
     };
 
@@ -481,7 +481,7 @@ void wte_demo::new_game(void) {
 
                 mgr::world::set_component<cmp::hitbox>(plr_id)->make_fluid();
 
-                mgr::audio::sample::play("megumin", "once");
+                mgr::audio::sample::play(mgr::assets<al_sample>::get<al_sample>("megumin"), "once");
                 mgr::variables::set<int>("lives", mgr::variables::get<int>("lives") - 1);
                 mgr::world::set_component<cmp::motion>(plr_id)->set_velocity(0.0f);
                 mgr::world::set_component<cmp::sprite>(plr_id)->set_cycle("death");
@@ -560,8 +560,6 @@ void wte_demo::new_game(void) {
                 //  Deal damage
                 mgr::messages::add(message("entities", msg.get_from(), msg.get_to(),
                     "damage", std::to_string(mgr::world::get_component<damage>(can_id)->dmg)));
-                //  Play the hit effect.
-                mgr::audio::sample::play("fx3", "once");
             }
         }
     );  //  End cannon message processing.
@@ -681,7 +679,7 @@ void wte_demo::new_game(void) {
                     //  Health check.  If asteroid's HP is <= 0, reward player with points and delete the entity.
                     if(mgr::world::get_component<health>(ast_id)->hp <= 0) {
                         mgr::messages::add(message("spawner", "delete", mgr::world::get_name(ast_id)));
-                        mgr::audio::sample::play("megumin", "once", 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.8f);
+                        mgr::audio::sample::play(mgr::assets<al_sample>::get<al_sample>("megumin"), "once", 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.8f);
 
                         mgr::variables::set("score",
                             (mgr::variables::get<int>("score") +
@@ -735,10 +733,10 @@ void wte_demo::new_game(void) {
         mgr::variables::set("max_lives", 3);
     mgr::variables::set("lives", mgr::variables::get<int>("max_lives"));
 
-    //  Load some samples in the audio manager.
-    mgr::audio::sample::load("sfx/laser.wav", "laser");
-    mgr::audio::sample::load("sfx/shield.wav", "shield");
-    mgr::audio::sample::load("sfx/megumin.wav", "megumin");
+    //  Load some samples in the asset manager.
+    mgr::assets<al_sample>::load<al_sample>("laser", al_sample("sfx/laser.wav"));
+    mgr::assets<al_sample>::load<al_sample>("shield", al_sample("sfx/shield.wav"));
+    mgr::assets<al_sample>::load<al_sample>("megumin", al_sample("sfx/megumin.wav"));
 }
 
 /*

@@ -93,55 +93,6 @@ class audio final : private manager<audio> {
          */
         struct sample {
             /*!
-            * \brief Load a sample.
-            * \param fname Sample filename.
-            * \param sname Sample reference name.
-            */
-            static void load(
-                const std::string& fname,
-                const std::string& sname
-            );
-
-            /*!
-            * \brief Unload a sample.
-            * \param sname Sample name or "all" for unload all samples.
-            */
-            static void unload(
-                const std::string& sname
-            );
-
-            /*!
-            * \brief Play a sample.
-            *
-            * When setting the playmode, passing "once" will play the sample once.
-            * Passing a reference name will play the sample in a loop.
-            * The sample can be stopped later using this reference name.
-            *
-            * \param sname Sample name.
-            * \param ref Playmode.
-            */
-            static void play(
-                const std::string& sname,
-                const std::string& ref
-            );
-
-            /*!
-            * \brief Play a sample.
-            * \param sname Sample name.
-            * \param ref Playmode.
-            * \param gain Gain value.  See allegro docs on al_play_sample for more info.
-            * \param pan Pan value.  See allegro docs on al_play_sample for more info.
-            * \param speed Speed value.  See allegro docs on al_play_sample for more info.
-            */
-            static void play(
-                const std::string& sname,
-                const std::string& ref,
-                const float& gain,
-                const float& pan,
-                const float& speed
-            );
-
-            /*!
             * \brief Play a sample.
             *
             * When setting the playmode, passing "once" will play the sample once.
@@ -304,8 +255,6 @@ class audio final : private manager<audio> {
         static ALLEGRO_AUDIO_STREAM* ambiance_stream;
         static ALLEGRO_AUDIO_STREAM* voice_stream;
 
-        //  Store a reference of loaded samples.
-        static std::map<std::string, ALLEGRO_SAMPLE*> sample_map;
         //  Store a reference of playing samples.
         static std::map<const std::string, ALLEGRO_SAMPLE_ID> sample_instances;
 };

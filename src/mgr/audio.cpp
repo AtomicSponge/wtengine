@@ -23,7 +23,6 @@ ALLEGRO_MIXER* audio::mixer_4 = NULL;
 ALLEGRO_AUDIO_STREAM* audio::music_stream = NULL;
 ALLEGRO_AUDIO_STREAM* audio::ambiance_stream = NULL;
 ALLEGRO_AUDIO_STREAM* audio::voice_stream = NULL;
-std::map<std::string, ALLEGRO_SAMPLE*> audio::sample_map;
 std::map<const std::string, ALLEGRO_SAMPLE_ID> audio::sample_instances;
 
 /*
@@ -70,12 +69,6 @@ void audio::initialize(void) {
         audio::music::unpause();
     });
     //  Mixer 2
-    cmds.add("load_sample", 2, [](const msg_args& args) {
-        audio::sample::load(args[0], args[1]);
-    });
-    cmds.add("unload_sample", 1, [](const msg_args& args) {
-        audio::sample::unload(args[0]);
-    });
     cmds.add("play_sample", 2, [](const msg_args& args) {
         float gain = 1.0f;
         float pan = ALLEGRO_AUDIO_PAN_NONE;
@@ -94,7 +87,7 @@ void audio::initialize(void) {
             if(speed <= 0.0f || speed > 2.0f) speed = 1.0f;
         }
 
-        audio::sample::play(args[0], args[1], gain, pan, speed);
+        //audio::sample::play(args[0], args[1], gain, pan, speed);
     });
     cmds.add("stop_sample", 1, [](const msg_args& args) {
         audio::sample::stop(args[0]);
@@ -146,13 +139,6 @@ void audio::de_init(void) {
         al_stop_sample(&sample_instance->second);
         sample_instances.erase(sample_instance);
         sample_instance = sample_instances.begin();
-    }
-
-    //  Check for and destroy all samples loaded in the map.
-    for(auto sample_iterator = sample_map.begin(); sample_iterator != sample_map.end();) {
-        al_destroy_sample(sample_iterator->second);
-        sample_map.erase(sample_iterator);
-        sample_iterator = sample_map.begin();
     }
 
     // Check for and unload music stream.
@@ -300,81 +286,6 @@ void audio::music::pause(void) {
  */
 void audio::music::unpause(void) {
     if(al_get_mixer_attached(mixer_1)) al_set_audio_stream_playing(music_stream, true);
-}
-
-/*
- *
- */
-void audio::sample::load(const std::string& fname, const std::string& sname) {
-    //  Insert sample into reference map
-    if(al_load_sample(fname.c_str()) != NULL)
-        sample_map.insert(std::make_pair(sname, al_load_sample(fname.c_str())));
-}
-
-/*
- *
- */
-void audio::sample::unload(const std::string& sname) {
-    //  Unload all samples.
-    if(sname == "all") {
-        //  First clear out the sample instances.
-        for(auto sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
-            al_stop_sample(&sample_instance->second);
-            sample_instances.erase(sample_instance);
-            sample_instance = sample_instances.begin();
-        }
-        //  Then unload all samples.
-        for(auto sample_iterator = sample_map.begin(); sample_iterator != sample_map.end();) {
-            al_destroy_sample(sample_iterator->second);
-            sample_map.erase(sample_iterator);
-            sample_iterator = sample_map.begin();
-        }
-        return;
-    }
-    //  Find the sample in the map and unload it.
-    auto sample_iterator = sample_map.find(sname);
-    if(sample_iterator != sample_map.end()) {
-        al_destroy_sample(sample_iterator->second);
-        sample_map.erase(sample_iterator);
-    }
-}
-
-/*
- *
- */
-void audio::sample::play(
-    const std::string& sname,
-    const std::string& ref
-) {
-    sample::play(sname, ref, 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.0f);
-}
-
-/*
- *
- */
-void audio::sample::play(
-    const std::string& sname,
-    const std::string& ref,
-    const float& gain,
-    const float& pan,
-    const float& speed
-) {
-    //  If sample name not found in map, end.
-    if(sample_map.find(sname) == sample_map.end()) return;
-
-    if(ref == "once") {
-        // Play the sample once.
-        al_play_sample((sample_map.find(sname))->second,
-                        gain, pan, speed, ALLEGRO_PLAYMODE_ONCE, NULL);
-    } else {
-        //  If the reference is already playing, end.
-        if(sample_instances.find(ref) != sample_instances.end()) return;
-        //  Store playing reference
-        ALLEGRO_SAMPLE_ID temp_sample_id;
-        if(al_play_sample((sample_map.find(sname))->second,
-                           gain, pan, speed, ALLEGRO_PLAYMODE_LOOP, &temp_sample_id))
-            sample_instances.insert(std::make_pair(ref, temp_sample_id));
-    }
 }
 
 /*

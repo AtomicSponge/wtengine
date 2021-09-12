@@ -181,7 +181,6 @@ void engine::process_new_game(const std::string& game_data) {
     mgr::audio::music::stop();
     mgr::audio::ambiance::stop();
     mgr::audio::voice::stop();
-    mgr::audio::sample::unload("all");
     mgr::audio::sample::clear_instances();
     
     //  Clear world and load starting entities.
@@ -217,7 +216,6 @@ void engine::process_end_game(void) {
     mgr::audio::music::stop();
     mgr::audio::ambiance::stop();
     mgr::audio::voice::stop();
-    mgr::audio::sample::unload("all");
     mgr::audio::sample::clear_instances();
 
     //  Call end game process.

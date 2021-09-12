@@ -24,6 +24,7 @@
 #include "wtengine/_globals/message.hpp"
 #include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
+#include "wtengine/mgr/assets.hpp"
 #include "wtengine/config.hpp"
 
 namespace wte {

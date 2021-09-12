@@ -86,8 +86,9 @@ void audio::initialize(void) {
             speed = std::stof(args[4]);
             if(speed <= 0.0f || speed > 2.0f) speed = 1.0f;
         }
-
-        //audio::sample::play(args[0], args[1], gain, pan, speed);
+        mgr::audio::sample::play(
+            mgr::assets<al_sample>::get<al_sample>(args[0]),
+            args[1], gain, pan, speed);
     });
     cmds.add("stop_sample", 1, [](const msg_args& args) {
         audio::sample::stop(args[0]);

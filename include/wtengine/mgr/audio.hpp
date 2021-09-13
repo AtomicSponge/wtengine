@@ -138,10 +138,10 @@ class audio final : private manager<audio> {
          */
         struct voice {
             /*!
-            * \brief Play an audio file.
-            * \param fname Filename to play.
+            * \brief Play an audio asset on the voice channel.
+            * \param audio Audio asset.
             */
-            static void play(const std::string& fname);
+            static void play(wte_asset<al_audio> audio);
 
             /*!
             * \brief Stop a playing audio file.
@@ -171,10 +171,10 @@ class audio final : private manager<audio> {
             static void loop(const std::string& arg);
 
             /*!
-            * \brief Play a file.
-            * \param fname Ambiance filename.
+            * \brief Play an audio asset on the ambiance channel.
+            * \param audio Audio asset.
             */
-            static void play(const std::string& fname);
+            static void play(wte_asset<al_audio> audio);
 
             /*!
             * \brief Stop playing ambiance.
@@ -241,8 +241,8 @@ class audio final : private manager<audio> {
 
         // Streams
         static wte_asset<al_audio> music_stream;
-        static ALLEGRO_AUDIO_STREAM* ambiance_stream;
-        static ALLEGRO_AUDIO_STREAM* voice_stream;
+        static wte_asset<al_audio> ambiance_stream;
+        static wte_asset<al_audio> voice_stream;
 
         //  Store a reference of playing samples.
         static std::map<const std::string, ALLEGRO_SAMPLE_ID> sample_instances;

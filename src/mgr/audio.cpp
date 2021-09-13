@@ -261,7 +261,11 @@ void audio::music::play(wte_asset<al_audio> audio) {
  *
  */
 void audio::music::stop(void) {
-    if(al_get_mixer_attached(mixer_1)) al_set_audio_stream_playing(**music_stream, false);
+    if(al_get_mixer_attached(mixer_1)) {
+        al_set_audio_stream_playing(**music_stream, false);
+        al_drain_audio_stream(**music_stream);
+        al_detach_audio_stream(**music_stream);
+    }
 }
 
 /*
@@ -352,7 +356,11 @@ void audio::voice::play(wte_asset<al_audio> audio) {
  *
  */
 void audio::voice::stop(void) {
-    if(al_get_mixer_attached(mixer_3)) al_set_audio_stream_playing(**voice_stream, false);
+    if(al_get_mixer_attached(mixer_3)) {
+        al_set_audio_stream_playing(**voice_stream, false);
+        al_drain_audio_stream(**voice_stream);
+        al_detach_audio_stream(**voice_stream);
+    }
 }
 
 /*
@@ -400,7 +408,11 @@ void audio::ambiance::play(wte_asset<al_audio> audio) {
  *
  */
 void audio::ambiance::stop(void) {
-    if(al_get_mixer_attached(mixer_4)) al_set_audio_stream_playing(**ambiance_stream, false);
+    if(al_get_mixer_attached(mixer_4)) {
+        al_set_audio_stream_playing(**ambiance_stream, false);
+        al_drain_audio_stream(**ambiance_stream);
+        al_detach_audio_stream(**ambiance_stream);
+    }
 }
 
 /*

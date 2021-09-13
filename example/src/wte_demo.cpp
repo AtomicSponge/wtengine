@@ -739,6 +739,8 @@ void wte_demo::new_game(void) {
     if(mgr::variables::get<int>("max_lives") > 5 || mgr::variables::get<int>("max_lives") < 3)
         mgr::variables::set("max_lives", 3);
     mgr::variables::set("lives", mgr::variables::get<int>("max_lives"));
+
+    mgr::audio::music::play(mgr::assets<al_audio>::get<al_audio>("music"));
 }
 
 /*

@@ -63,10 +63,10 @@ class audio final : private manager<audio> {
             static void loop(const std::string& arg);
 
             /*!
-            * \brief Play a music file.
-            * \param fname Music filename.
+            * \brief Play a music asset.
+            * \param audio Audio asset.
             */
-            static void play(const std::string& fname);
+            static void play(wte_asset<al_audio> audio);
 
             /*!
             * \brief Stop playing music.
@@ -240,7 +240,7 @@ class audio final : private manager<audio> {
         static ALLEGRO_MIXER* mixer_4;
 
         // Streams
-        static ALLEGRO_AUDIO_STREAM* music_stream;
+        static wte_asset<al_audio> music_stream;
         static ALLEGRO_AUDIO_STREAM* ambiance_stream;
         static ALLEGRO_AUDIO_STREAM* voice_stream;
 

@@ -91,6 +91,36 @@ void input::record_event(const ALLEGRO_EVENT& event) {
 /*
  *
  */
+const bool input::save_recorder(void) {
+    std::ostringstream oss;
+    {std::time_t t = std::time(nullptr);
+    std::tm tm = *std::localtime(&t);
+    oss << std::put_time(&tm, "%F%-H%M%S");}
+    std::string fname = oss.str() + ".inputrec";
+    std::ofstream dfile(fname, std::ios::binary | std::ofstream::trunc);
+    if(!dfile.good()) return false;
+
+    try {
+        for(auto& it: input_recorder) {
+            dfile.write(reinterpret_cast<const char*>(&it.first), it.first);
+            std::size_t num_events = it.second.size();
+            dfile.write(reinterpret_cast<const char*>(&num_events), num_events);
+            for(auto& e_it: it.second) {
+                dfile.write(reinterpret_cast<const char*>(sizeof(e_it)), sizeof(int32_t));
+                dfile.write(reinterpret_cast<const char*>(&e_it), sizeof(e_it));
+            }
+        }
+    } catch(...) {
+        dfile.close();
+        return false;
+    }
+    dfile.close();
+    return true;
+}
+
+/*
+ *
+ */
 void input::handle_event(const ALLEGRO_EVENT& event) { 
     //  Clear any active alerts or notices on input event
     if(alert::is_set() &&
@@ -582,32 +612,6 @@ void input::handle_event(const ALLEGRO_EVENT& event) {
             break;  //  end ALLEGRO_EVENT_JOYSTICK_BUTTON_UP
         }  //  End switch(event.type)
     } //  End game event processing
-}
-
-const bool input::save_recorder(void) {
-    //std::time_t t = std::time(nullptr);
-    //std::tm tm = *std::localtime(&t);
-    //std::put_time(&tm, "%F%T");
-    std::string fname = "someformat.inputrec";
-    std::ofstream dfile(fname, std::ios::binary | std::ofstream::trunc);
-    if(!dfile.good()) return false;
-
-    try {
-        for(auto& it: input_recorder) {
-            dfile.write(reinterpret_cast<const char*>(&it.first), it.first);
-            std::size_t num_events = it.second.size();
-            dfile.write(reinterpret_cast<const char*>(&num_events), num_events);
-            for(auto& e_it: it.second) {
-                dfile.write(reinterpret_cast<const char*>(sizeof(e_it)), sizeof(int32_t));
-                dfile.write(reinterpret_cast<const char*>(&e_it), sizeof(e_it));
-            }
-        }
-    } catch(...) {
-        dfile.close();
-        return false;
-    }
-    dfile.close();
-    return true;
 }
 
 }  //  end namespace wte

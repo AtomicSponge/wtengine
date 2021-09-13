@@ -17,6 +17,7 @@
 #include <functional>
 #include <fstream>
 #include <iomanip>
+#include <sstream>
 #include <ctime>
 #include <cmath>
 #include <stdexcept>

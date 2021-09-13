@@ -725,6 +725,8 @@ void wte_demo::new_game(void) {
         }  //  End asteroid spawner function.
     );
 
+    //  Load music for the demo into the asset manager.
+    mgr::assets<al_audio>::load<al_audio>("music", al_audio("music.ogg"));
     //  Load some samples in the asset manager.
     mgr::assets<al_sample>::load<al_sample>("laser", al_sample("sfx/laser.wav"));
     mgr::assets<al_sample>::load<al_sample>("shield", al_sample("sfx/shield.wav"));

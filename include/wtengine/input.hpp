@@ -38,6 +38,8 @@ namespace wte {
  * \brief Manage the input queue and process events.
  */
 class input {
+    friend class engine;
+
     public:
         virtual ~input() = default;             //!<  Default virtual destructor.
         input(const input&) = delete;           //!<  Delete copy constructor.
@@ -164,28 +166,12 @@ class input {
         };
 
     protected:
-        input();
-
-        /*!
-         * \brief Create the input queue for capturing events. 
-         * Called during engine initialization.
-         */
-        static void create_event_queue(void);
-
-        /*!
-         * \brief Destroy the input queue.
-         * Called during engine de-initialization.
-         */
-        static void destroy_event_queue(void);
-
-        /*!
-         * \brief Check the input queue for events.
-         * Called during the main engine loop.
-         * Passes any events to the input handler.
-         */
-        static void check_events(void);
+        input();  //!<  Constructor
 
     private:
+        static void create_event_queue(void);            //  Create the input queue.
+        static void destroy_event_queue(void);           //  Destroy the input queue.
+        static void check_events(void);                  //  Check the input queue for events.
         static void record_event(const ALLEGRO_EVENT&);  //  Record input events.
         static void handle_event(const ALLEGRO_EVENT&);  //  Process input events.
         static const bool save_recorder(void);           //  Save input events.

@@ -128,7 +128,7 @@ void audio::initialize(void) {
     cmds.add("set_volume_level", 2, [](const msg_args& args) {
         audio::set_level(std::stoi(args[0]), std::stof(args[1]));
     });
-};
+}
 
 /*
  *
@@ -170,7 +170,7 @@ void audio::de_init(void) {
 
     //  Unload main audio output.
     al_destroy_voice(voice);
-};
+}
 
 /*
  *
@@ -228,7 +228,7 @@ void audio::set_volume(void) {
         al_set_mixer_gain(mixer_4, config::volume::mix4);
     else
         al_set_mixer_gain(mixer_4, 0.5f);
-};
+}
 
 /*
  *

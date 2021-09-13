@@ -223,6 +223,32 @@ class al_sample final {
         ALLEGRO_SAMPLE* _al_sample;
 };
 
+/*!
+ * \class al_audio
+ * \brief Provides a wrapper to Allegro audio streams.
+ */
+class al_audio final {
+    public:
+        /*!
+         * \brief Load an audio asset.
+         * \param fname Audio file name.
+         */
+        inline al_audio(const std::string& fname) {
+            _al_audio = al_load_audio_stream(fname.c_str(), 4, 2048);
+        };
+
+        inline ~al_audio() = default;  //!<  Default destructor.
+
+        /*!
+         * \brief Get audio asset.
+         * \return Pointer to audio asset.
+         */
+        inline ALLEGRO_AUDIO_STREAM* operator*() { return _al_audio; };
+
+    private:
+        ALLEGRO_AUDIO_STREAM* _al_audio;
+};
+
 }  //  end namespace wte
 
 #endif

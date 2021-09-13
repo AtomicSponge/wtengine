@@ -59,7 +59,7 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
     al_register_event_source(main_event_queue, al_get_display_event_source(_display));
     al_register_event_source(main_event_queue, al_get_timer_event_source(main_timer));
 
-    create_input_event_queue();
+    input::create_event_queue();
 
     //  commands
     cmds.add("exit", 0, [this](const msg_args& args) {
@@ -120,7 +120,7 @@ engine::~engine() {
 
     al_destroy_timer(main_timer);
     al_destroy_event_queue(main_event_queue);
-    destroy_input_event_queue();
+    input::destroy_event_queue();
     destroy_display();
     al_inhibit_screensaver(false);
     al_uninstall_system();
@@ -249,7 +249,7 @@ void engine::do_game(void) {
         }
 
         //  Check for input.
-        check_input_events();
+        input::check_events();
 
         //  Pause / resume timer depending on if the game menu is opened.
         //  Also process the on_menu events.

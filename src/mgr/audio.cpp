@@ -53,7 +53,8 @@ void audio::initialize(void) {
     //  Map the audio commands.
     //  Mixer 1
     cmds.add("music_loop", 1, [](const msg_args& args) {
-        audio::music::loop(args[0]);
+        if(args[0] == "disable") audio::music::loop(false);
+        else audio::music::loop(true);
     });
     cmds.add("music_play", 1, [](const msg_args& args) {
         audio::music::play(mgr::assets<al_audio>::get<al_audio>(args[0]));
@@ -110,7 +111,8 @@ void audio::initialize(void) {
     });
     //  Mixer 4
     cmds.add("ambiance_loop", 1, [](const msg_args& args) {
-        audio::ambiance::loop(args[0]);
+        if(args[0] == "disable") audio::ambiance::loop(false);
+        else audio::ambiance::loop(true);
     });
     cmds.add("ambiance_play", 1, [](const msg_args& args) {
         audio::ambiance::play(mgr::assets<al_audio>::get<al_audio>(args[0]));
@@ -236,10 +238,10 @@ void audio::process_messages(const message_container& messages) { cmds.process_m
 /*
  *
  */
-void audio::music::loop(const std::string& arg) {
+void audio::music::loop(const bool& loop) {
     if(!al_get_mixer_attached(_mixer_1)) return;  //  Music not loaded, end.
-    if(arg == "enable") al_set_audio_stream_playmode(**music_stream, ALLEGRO_PLAYMODE_LOOP);
-    if(arg == "disable") al_set_audio_stream_playmode(**music_stream, ALLEGRO_PLAYMODE_ONCE);
+    if(loop) al_set_audio_stream_playmode(**music_stream, ALLEGRO_PLAYMODE_LOOP);
+    else al_set_audio_stream_playmode(**music_stream, ALLEGRO_PLAYMODE_ONCE);
 }
 
 /*
@@ -381,12 +383,10 @@ void audio::voice::unpause(void) {
 /*
  *
  */
-void audio::ambiance::loop(const std::string& arg) {
+void audio::ambiance::loop(const bool& loop) {
     if(!al_get_mixer_attached(_mixer_4)) return;  //  Ambiance not loaded, end.
-    if(arg == "enable")
-        al_set_audio_stream_playmode(**ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
-    if(arg == "disable")
-        al_set_audio_stream_playmode(**ambiance_stream, ALLEGRO_PLAYMODE_ONCE);
+    if(loop) al_set_audio_stream_playmode(**ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
+    else al_set_audio_stream_playmode(**ambiance_stream, ALLEGRO_PLAYMODE_ONCE);
 }
 
 /*

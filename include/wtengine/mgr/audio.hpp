@@ -58,9 +58,9 @@ class audio final : private manager<audio> {
         struct music {
             /*!
             * \brief Toggle music looping.
-            * \param arg "enable" or "disable"
+            * \param loop True to enable, false to disable.
             */
-            static void loop(const std::string& arg);
+            static void loop(const bool& loop);
 
             /*!
             * \brief Play a music asset.
@@ -166,9 +166,9 @@ class audio final : private manager<audio> {
         struct ambiance {
             /*!
             * \brief Toggle ambiance looping.
-            * \param arg "enable" or "disable"
+            * \param loop True to enable, false to disable.
             */
-            static void loop(const std::string& arg);
+            static void loop(const bool& loop);
 
             /*!
             * \brief Play an audio asset on the ambiance channel.

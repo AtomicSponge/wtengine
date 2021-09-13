@@ -202,6 +202,12 @@ class audio final : private manager<audio> {
             const float& l
         );
 
+        inline static const std::size_t mixer_main = 0;  //!<  Flag to reference main mixer.
+        inline static const std::size_t mixer_1 = 1;     //!<  Flag to reference mixer 1.
+        inline static const std::size_t mixer_2 = 2;     //!<  Flag to reference mixer 2.
+        inline static const std::size_t mixer_3 = 3;     //!<  Flag to reference mixer 3.
+        inline static const std::size_t mixer_4 = 4;     //!<  Flag to reference mixer 4.
+
     private:
         audio() = default;
         ~audio() = default;
@@ -233,11 +239,11 @@ class audio final : private manager<audio> {
         static ALLEGRO_VOICE* voice;
 
         //  Mixers
-        static ALLEGRO_MIXER* mixer_main;
-        static ALLEGRO_MIXER* mixer_1;
-        static ALLEGRO_MIXER* mixer_2;
-        static ALLEGRO_MIXER* mixer_3;
-        static ALLEGRO_MIXER* mixer_4;
+        static ALLEGRO_MIXER* _mixer_main;
+        static ALLEGRO_MIXER* _mixer_1;
+        static ALLEGRO_MIXER* _mixer_2;
+        static ALLEGRO_MIXER* _mixer_3;
+        static ALLEGRO_MIXER* _mixer_4;
 
         // Streams
         static wte_asset<al_audio> music_stream;

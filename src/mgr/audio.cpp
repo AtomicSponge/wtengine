@@ -253,6 +253,7 @@ void audio::music::play(wte_asset<al_audio> audio) {
     music_stream = audio;
     al_attach_audio_stream_to_mixer(**music_stream, mixer_1);
     al_set_audio_stream_playmode(**music_stream, ALLEGRO_PLAYMODE_LOOP);
+    al_rewind_audio_stream(**music_stream);
     al_set_audio_stream_playing(**music_stream, true);
 }
 
@@ -343,6 +344,7 @@ void audio::voice::play(wte_asset<al_audio> audio) {
     voice_stream = audio;
     al_attach_audio_stream_to_mixer(**voice_stream, mixer_3);
     al_set_audio_stream_playmode(**voice_stream, ALLEGRO_PLAYMODE_ONCE);
+    al_rewind_audio_stream(**voice_stream);
     al_set_audio_stream_playing(**voice_stream, true);
 }
 
@@ -390,6 +392,7 @@ void audio::ambiance::play(wte_asset<al_audio> audio) {
     ambiance_stream = audio;
     al_attach_audio_stream_to_mixer(**ambiance_stream, mixer_4);
     al_set_audio_stream_playmode(**ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
+    al_rewind_audio_stream(**ambiance_stream);
     al_set_audio_stream_playing(**ambiance_stream, true);
 }
 

@@ -83,7 +83,7 @@ const bool input::save_recorder(void) {
     std::ostringstream oss;
     {std::time_t t = std::time(nullptr);
     std::tm tm = *std::localtime(&t);
-    oss << std::put_time(&tm, "%F%_H%M%S");}
+    oss << std::put_time(&tm, "%F_%H%M%S");}
     std::string fname = oss.str() + ".inputrec";
     std::ofstream dfile(fname, std::ios::binary | std::ofstream::trunc);
     if(!dfile.good()) return false;

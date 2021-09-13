@@ -21,8 +21,8 @@ ALLEGRO_MIXER* audio::mixer_2 = NULL;
 ALLEGRO_MIXER* audio::mixer_3 = NULL;
 ALLEGRO_MIXER* audio::mixer_4 = NULL;
 wte_asset<al_audio> audio::music_stream;
-wte_asset<al_audio> audio::ambiance_stream = NULL;
-wte_asset<al_audio> audio::voice_stream = NULL;
+wte_asset<al_audio> audio::ambiance_stream;
+wte_asset<al_audio> audio::voice_stream;
 std::map<const std::string, ALLEGRO_SAMPLE_ID> audio::sample_instances;
 
 /*

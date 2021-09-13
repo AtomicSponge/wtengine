@@ -186,7 +186,7 @@ class input {
         static void check_events(void);
 
     private:
-        static void record_event(const ALLEGRO_EVENT&);        //  Record input events.
+        static void record_event(const ALLEGRO_EVENT&);  //  Record input events.
         static void handle_event(const ALLEGRO_EVENT&);  //  Process input events.
         static const bool save_recorder(void);           //  Save input events.
 

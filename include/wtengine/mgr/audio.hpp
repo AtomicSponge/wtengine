@@ -234,7 +234,6 @@ class audio final : private manager<audio> {
 
         static commands cmds;
 
-        /* Allegro objects used by audio manager */
         //  Main audio output
         static ALLEGRO_VOICE* voice;
 

@@ -56,7 +56,7 @@ void audio::initialize(void) {
         audio::music::loop(args[0]);
     });
     cmds.add("music_play", 1, [](const msg_args& args) {
-        //audio::music::play(args[0]);
+        audio::music::play(mgr::assets<al_audio>::get<al_audio>(args[0]));
     });
     cmds.add("music_stop", 0, [](const msg_args& args) {
         audio::music::stop();
@@ -97,7 +97,7 @@ void audio::initialize(void) {
     });
     //  Mixer 3
     cmds.add("voice_play", 1, [](const msg_args& args) {
-        //audio::voice::play(args[0]);
+        audio::voice::play(mgr::assets<al_audio>::get<al_audio>(args[0]));
     });
     cmds.add("voice_stop", 0, [](const msg_args& args) {
         audio::voice::stop();
@@ -113,7 +113,7 @@ void audio::initialize(void) {
         audio::ambiance::loop(args[0]);
     });
     cmds.add("ambiance_play", 1, [](const msg_args& args) {
-        //audio::ambiance::play(args[0]);
+        audio::ambiance::play(mgr::assets<al_audio>::get<al_audio>(args[0]));
     });
     cmds.add("ambiance_stop", 0, [](const msg_args& args) {
         audio::ambiance::stop();

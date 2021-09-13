@@ -235,6 +235,7 @@ class al_audio final {
          */
         inline al_audio(const std::string& fname) {
             _al_audio = al_load_audio_stream(fname.c_str(), 4, 2048);
+            al_set_audio_stream_playing(_al_audio, false);
         };
 
         inline ~al_audio() = default;  //!<  Default destructor.

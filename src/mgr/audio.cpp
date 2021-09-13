@@ -248,7 +248,10 @@ void audio::music::loop(const std::string& arg) {
  *
  */
 void audio::music::play(wte_asset<al_audio> audio) {
-    if(al_get_mixer_attached(mixer_1)) al_detach_mixer(mixer_1);
+    if(al_get_mixer_attached(mixer_1)) {
+        al_drain_audio_stream(**music_stream);
+        al_detach_audio_stream(**music_stream);
+    }
     music_stream = audio;
     al_attach_audio_stream_to_mixer(**music_stream, mixer_1);
     al_set_audio_stream_playmode(**music_stream, ALLEGRO_PLAYMODE_LOOP);

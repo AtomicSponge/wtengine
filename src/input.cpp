@@ -34,23 +34,6 @@ input::input() {
 /*
  *
  */
-void input::toggle_recording(void) {
-    if(config::flags::record_input) {
-        //  Turn recording off
-        config::_flags::record_input = false;
-        //  Save vector to file
-        if(!input_recorder.empty()) save_recorder();
-    } else {
-        //  Turn recording on
-        config::_flags::record_input = true;
-        event_recorder.clear();
-        input_recorder.clear();
-    }
-}
-
-/*
- *
- */
 void input::create_event_queue(void) {
     input_event_queue = al_create_event_queue();
     if(!input_event_queue) throw std::runtime_error("Failed to create input event queue!");
@@ -67,12 +50,17 @@ void input::destroy_event_queue(void) { al_destroy_event_queue(input_event_queue
 /*
  *
  */
-void input::check_events(void) {
-    bool queue_not_empty = true;
-    while(queue_not_empty) {
-        ALLEGRO_EVENT event;
-        queue_not_empty = al_get_next_event(input_event_queue, &event);
-        if(queue_not_empty) handle_event(event);
+void input::toggle_recording(void) {
+    if(config::flags::record_input) {
+        //  Turn recording off
+        config::_flags::record_input = false;
+        //  Save vector to file
+        if(!input_recorder.empty()) save_recorder();
+    } else {
+        //  Turn recording on
+        config::_flags::record_input = true;
+        event_recorder.clear();
+        input_recorder.clear();
     }
 }
 
@@ -116,6 +104,18 @@ const bool input::save_recorder(void) {
     }
     dfile.close();
     return true;
+}
+
+/*
+ *
+ */
+void input::check_events(void) {
+    bool queue_not_empty = true;
+    while(queue_not_empty) {
+        ALLEGRO_EVENT event;
+        queue_not_empty = al_get_next_event(input_event_queue, &event);
+        if(queue_not_empty) handle_event(event);
+    }
 }
 
 /*

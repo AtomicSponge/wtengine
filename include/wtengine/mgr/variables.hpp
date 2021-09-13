@@ -118,7 +118,7 @@ class variables final : private manager<variables> {
                     int32_t size;
                     dfile.read(reinterpret_cast<char*>(&size), sizeof(int32_t));
                     if(var == in_var) {  //  Found variable.
-                        if(std::is_same<std::string, T>::value) {
+                        if constexpr(std::is_same<std::string, T>::value) {
                             //  Variable is a string, read accordingly.
                             char* buffer = new char[size];
                             dfile.read(buffer, size);

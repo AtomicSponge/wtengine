@@ -10,10 +10,14 @@
 #ifndef WTE_INPUT_HPP
 #define WTE_INPUT_HPP
 
+#include <string>
 #include <vector>
 #include <map>
 #include <utility>
 #include <functional>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
 #include <cmath>
 #include <stdexcept>
 
@@ -183,7 +187,7 @@ class input {
     private:
         static void record_event(const ALLEGRO_EVENT&);        //  Record input events.
         static void handle_input_event(const ALLEGRO_EVENT&);  //  Process input events.
-        static void save_input_recorder(void);                 //  Save input events.
+        static const bool save_input_recorder(void);           //  Save input events.
 
         struct _lastkeypress {
             inline static int64_t timer = 0;

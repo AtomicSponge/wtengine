@@ -584,8 +584,27 @@ void input::handle_input_event(const ALLEGRO_EVENT& event) {
     } //  End game event processing
 }
 
-void input::save_input_recorder(void) {
-    //
+const bool input::save_input_recorder(void) {
+    //std::time_t t = std::time(nullptr);
+    //std::tm tm = *std::localtime(&t);
+    //std::put_time(&tm, "%F%T");
+    std::string fname = "someformat.inputrec";
+    std::ofstream dfile(fname, std::ios::binary | std::ofstream::trunc);
+    if(!dfile.good()) return false;
+
+    try {
+        for(auto& it: input_recorder) {
+            dfile.write(reinterpret_cast<const char*>(&it.first), it.first);
+            std::size_t num_events = it.second.size();
+            dfile.write(reinterpret_cast<const char*>(&num_events), num_events);
+            for(auto& e_it: it.second) {
+                //
+            }
+        }
+    } catch(...) {
+        return false;
+    }
+    return true;
 }
 
 }  //  end namespace wte

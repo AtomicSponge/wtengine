@@ -597,13 +597,13 @@ const bool input::save_input_recorder(void) {
             dfile.write(reinterpret_cast<const char*>(&it.first), it.first);
             std::size_t num_events = it.second.size();
             dfile.write(reinterpret_cast<const char*>(&num_events), num_events);
-            for(auto& e_it: it.second) {
-                //
-            }
+            for(auto& e_it: it.second) dfile.write(reinterpret_cast<const char*>(&e_it), sizeof(e_it));
         }
     } catch(...) {
+        dfile.close();
         return false;
     }
+    dfile.close();
     return true;
 }
 

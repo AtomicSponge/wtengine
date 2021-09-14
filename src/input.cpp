@@ -89,9 +89,9 @@ const bool input::save_recorder(void) {
 
     try {
         for(auto& it: input_recorder) {
-            dfile.write(reinterpret_cast<const char*>(&it.first), sizeof(it.first));
+            dfile.write(reinterpret_cast<const char*>(&it.first), sizeof(int64_t));
             const std::size_t num_events = it.second.size();
-            dfile.write(reinterpret_cast<const char*>(&num_events), sizeof(num_events));
+            dfile.write(reinterpret_cast<const char*>(&num_events), sizeof(std::size_t));
             for(auto& e_it: it.second) {
                 dfile.write(reinterpret_cast<const char*>(sizeof(e_it)), sizeof(int32_t));
                 dfile.write(reinterpret_cast<const char*>(&e_it), sizeof(e_it));

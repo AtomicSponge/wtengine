@@ -54,13 +54,12 @@ void input::toggle_recording(void) {
     if(config::flags::record_input) {
         //  Turn recording off
         config::_flags::record_input = false;
-        //  Save vector to file
         if(!input_recorder.empty()) save_recorder();
     } else {
         //  Turn recording on
-        config::_flags::record_input = true;
         event_recorder.clear();
         input_recorder.clear();
+        config::_flags::record_input = true;
     }
 }
 
@@ -81,17 +80,17 @@ void input::record_event(const ALLEGRO_EVENT& event) {
  */
 const bool input::save_recorder(void) {
     std::ostringstream oss;
-    {std::time_t t = std::time(nullptr);
-    std::tm tm = *std::localtime(&t);
+    {const std::time_t t = std::time(nullptr);
+    const std::tm tm = *std::localtime(&t);
     oss << std::put_time(&tm, "%F_%H%M%S");}
-    std::string fname = oss.str() + ".inputrec";
+    const std::string fname = oss.str() + ".inputrec";
     std::ofstream dfile(fname, std::ios::binary | std::ofstream::trunc);
     if(!dfile.good()) return false;
 
     try {
         for(auto& it: input_recorder) {
             dfile.write(reinterpret_cast<const char*>(&it.first), it.first);
-            std::size_t num_events = it.second.size();
+            const std::size_t num_events = it.second.size();
             dfile.write(reinterpret_cast<const char*>(&num_events), num_events);
             for(auto& e_it: it.second) {
                 dfile.write(reinterpret_cast<const char*>(sizeof(e_it)), sizeof(int32_t));

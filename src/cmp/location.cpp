@@ -14,7 +14,10 @@ namespace wte::cmp {
 /*
  *
  */
-location::location(const float& x, const float& y) : pos_x(x), pos_y(y) {};
+location::location(
+    const float& x,
+    const float& y
+) : pos_x(x), pos_y(y) {};
 
 /*
  *

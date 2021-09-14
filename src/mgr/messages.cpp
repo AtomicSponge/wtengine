@@ -161,9 +161,14 @@ const bool messages::load_script(const std::string& fname) {
  *
  */
 void messages::read(
-    ALLEGRO_FILE& file, int64_t& timer,
-    std::string& sys, std::string& to, std::string& from,
-    std::string& cmd, std::string& args) {
+    ALLEGRO_FILE& file,
+    int64_t& timer,
+    std::string& sys,
+    std::string& to,
+    std::string& from,
+    std::string& cmd,
+    std::string& args
+) {
     //  Read in timer value.
     al_fread(&file, &timer, sizeof(int64_t));
 

@@ -86,9 +86,10 @@ void audio::initialize(void) {
             speed = std::stof(args[4]);
             if(speed <= 0.0f || speed > 2.0f) speed = 1.0f;
         }
-        mgr::audio::sample::play(
+        audio::sample::play(
             mgr::assets<al_sample>::get<al_sample>(args[0]),
-            args[1], gain, pan, speed);
+            args[1], gain, pan, speed
+        );
     });
     cmds.add("sample_stop", 1, [](const msg_args& args) {
         audio::sample::stop(args[0]);
@@ -291,9 +292,7 @@ void audio::music::unpause(void) {
 void audio::sample::play(
     wte_asset<al_sample> sample,
     const std::string& ref
-) {
-    sample::play(sample, ref, 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.0f);
-}
+) { play(sample, ref, 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.0f); }
 
 /*
  *

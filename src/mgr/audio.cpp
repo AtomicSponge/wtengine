@@ -173,8 +173,9 @@ void audio::de_init(void) {
  *
  */
 void audio::set_level(const float& l) {
-    if(l >= 0.0f && l <= 1.0f) config::_volume::main = l;
-    else config::_volume::main = 0.0f;
+    (l >= 0.0f && l <= 1.0f ?
+        config::_volume::main = l :
+        config::_volume::main = 0.0f);
     set_volume();
 }
 
@@ -182,8 +183,9 @@ void audio::set_level(const float& l) {
  *
  */
 void audio::music::set_level(const float& l) {
-    if(l >= 0.0f && l <= 1.0f) config::_volume::music = l;
-    else config::_volume::music = 0.0f;
+    (l >= 0.0f && l <= 1.0f ?
+        config::_volume::music = l :
+        config::_volume::music = 0.0f);
     set_volume();
 }
 
@@ -191,8 +193,9 @@ void audio::music::set_level(const float& l) {
  *
  */
 void audio::sample::set_level(const float& l) {
-    if(l >= 0.0f && l <= 1.0f) config::_volume::sample = l;
-    else config::_volume::sample = 0.0f;
+    (l >= 0.0f && l <= 1.0f ?
+        config::_volume::sample = l :
+        config::_volume::sample = 0.0f);
     set_volume();
 }
 
@@ -200,8 +203,9 @@ void audio::sample::set_level(const float& l) {
  *
  */
 void audio::voice::set_level(const float& l) {
-    if(l >= 0.0f && l <= 1.0f) config::_volume::voice = l;
-    else config::_volume::voice = 0.0f;
+    (l >= 0.0f && l <= 1.0f ?
+        config::_volume::voice = l :
+        config::_volume::voice = 0.0f);
     set_volume();
 }
 
@@ -209,8 +213,9 @@ void audio::voice::set_level(const float& l) {
  *
  */
 void audio::ambiance::set_level(const float& l) {
-    if(l >= 0.0f && l <= 1.0f) config::_volume::ambiance = l;
-    else config::_volume::ambiance = 0.0f;
+    (l >= 0.0f && l <= 1.0f ?
+        config::_volume::ambiance = l :
+        config::_volume::ambiance = 0.0f);
     set_volume();
 }
 
@@ -218,26 +223,21 @@ void audio::ambiance::set_level(const float& l) {
  *
  */
 void audio::set_volume(void) {
-    if(config::volume::main >= 0.0f && config::volume::main <= 1.0f)
-        al_set_mixer_gain(_mixer_main, config::volume::main);
-    else
-        al_set_mixer_gain(_mixer_main, 0.5f);
-    if(config::volume::music >= 0.0f && config::volume::music <= 1.0f)
-        al_set_mixer_gain(_mixer_1, config::volume::music);
-    else
-        al_set_mixer_gain(_mixer_1, 0.5f);
-    if(config::volume::sample >= 0.0f && config::volume::sample <= 1.0f)
-        al_set_mixer_gain(_mixer_2, config::volume::sample);
-    else
-        al_set_mixer_gain(_mixer_2, 0.5f);
-    if(config::volume::voice >= 0.0f && config::volume::voice <= 1.0f)
-        al_set_mixer_gain(_mixer_3, config::volume::voice);
-    else
-        al_set_mixer_gain(_mixer_3, 0.5f);
-    if(config::volume::ambiance >= 0.0f && config::volume::ambiance <= 1.0f)
-        al_set_mixer_gain(_mixer_4, config::volume::ambiance);
-    else
-        al_set_mixer_gain(_mixer_4, 0.5f);
+    (config::volume::main >= 0.0f && config::volume::main <= 1.0f ?
+        al_set_mixer_gain(_mixer_main, config::volume::main) :
+        al_set_mixer_gain(_mixer_main, 0.5f));
+    (config::volume::music >= 0.0f && config::volume::music <= 1.0f ?
+        al_set_mixer_gain(_mixer_1, config::volume::music) :
+        al_set_mixer_gain(_mixer_1, 0.5f));
+    (config::volume::sample >= 0.0f && config::volume::sample <= 1.0f ?
+        al_set_mixer_gain(_mixer_2, config::volume::sample) :
+        al_set_mixer_gain(_mixer_2, 0.5f));
+    (config::volume::voice >= 0.0f && config::volume::voice <= 1.0f ?
+        al_set_mixer_gain(_mixer_3, config::volume::voice) :
+        al_set_mixer_gain(_mixer_3, 0.5f));
+    (config::volume::ambiance >= 0.0f && config::volume::ambiance <= 1.0f ?
+        al_set_mixer_gain(_mixer_4, config::volume::ambiance) :
+        al_set_mixer_gain(_mixer_4, 0.5f));
 }
 
 /*
@@ -250,8 +250,8 @@ void audio::process_messages(const message_container& messages) { cmds.process_m
  */
 void audio::music::loop(const bool& loop) {
     if(!al_get_mixer_attached(_mixer_1)) return;  //  Music not loaded, end.
-    if(loop) al_set_audio_stream_playmode(**music_stream, ALLEGRO_PLAYMODE_LOOP);
-    else al_set_audio_stream_playmode(**music_stream, ALLEGRO_PLAYMODE_ONCE);
+    (loop ? al_set_audio_stream_playmode(**music_stream, ALLEGRO_PLAYMODE_LOOP) :
+        al_set_audio_stream_playmode(**music_stream, ALLEGRO_PLAYMODE_ONCE));
 }
 
 /*
@@ -393,8 +393,8 @@ void audio::voice::unpause(void) {
  */
 void audio::ambiance::loop(const bool& loop) {
     if(!al_get_mixer_attached(_mixer_4)) return;  //  Ambiance not loaded, end.
-    if(loop) al_set_audio_stream_playmode(**ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
-    else al_set_audio_stream_playmode(**ambiance_stream, ALLEGRO_PLAYMODE_ONCE);
+    (loop ? al_set_audio_stream_playmode(**ambiance_stream, ALLEGRO_PLAYMODE_LOOP) :
+        al_set_audio_stream_playmode(**ambiance_stream, ALLEGRO_PLAYMODE_ONCE));
 }
 
 /*

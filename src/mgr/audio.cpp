@@ -182,8 +182,8 @@ void audio::set_level(const float& l) {
  *
  */
 void audio::music::set_level(const float& l) {
-    if(l >= 0.0f && l <= 1.0f) config::_volume::main = l;
-    else config::_volume::main = 0.0f;
+    if(l >= 0.0f && l <= 1.0f) config::_volume::music = l;
+    else config::_volume::music = 0.0f;
     set_volume();
 }
 
@@ -191,8 +191,8 @@ void audio::music::set_level(const float& l) {
  *
  */
 void audio::sample::set_level(const float& l) {
-    if(l >= 0.0f && l <= 1.0f) config::_volume::main = l;
-    else config::_volume::main = 0.0f;
+    if(l >= 0.0f && l <= 1.0f) config::_volume::sample = l;
+    else config::_volume::sample = 0.0f;
     set_volume();
 }
 
@@ -200,8 +200,8 @@ void audio::sample::set_level(const float& l) {
  *
  */
 void audio::voice::set_level(const float& l) {
-    if(l >= 0.0f && l <= 1.0f) config::_volume::main = l;
-    else config::_volume::main = 0.0f;
+    if(l >= 0.0f && l <= 1.0f) config::_volume::voice = l;
+    else config::_volume::voice = 0.0f;
     set_volume();
 }
 
@@ -209,8 +209,8 @@ void audio::voice::set_level(const float& l) {
  *
  */
 void audio::ambiance::set_level(const float& l) {
-    if(l >= 0.0f && l <= 1.0f) config::_volume::main = l;
-    else config::_volume::main = 0.0f;
+    if(l >= 0.0f && l <= 1.0f) config::_volume::ambiance = l;
+    else config::_volume::ambiance = 0.0f;
     set_volume();
 }
 

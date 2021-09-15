@@ -501,7 +501,7 @@ void wte_demo::new_game(void) {
             //  Reset player.
             if(msg.get_cmd() == "reset") {
                 config::flags::input_enabled = true;
-                config::controls::reset_pols();
+                input::reset_pols();
                 mgr::world::set_component<cmp::motion>(plr_id)->set_velocity(0.0f);
                 mgr::world::set_component<cmp::location>(plr_id)->set_x((float)((config::gfx::arena_w / 2) - 5));
                 mgr::world::set_component<cmp::location>(plr_id)->set_y((float)(config::gfx::arena_h - 40));

@@ -50,6 +50,42 @@ void input::destroy_event_queue(void) { al_destroy_event_queue(input_event_queue
 /*
  *
  */
+void input::reset_p1_pols(void) {
+    config::_controls::p1_pola_x = 0.0f;
+    config::_controls::p1_pola_y = 0.0f;
+    config::_controls::p1_polb_x = 0.0f;
+    config::_controls::p1_polb_y = 0.0f;
+    config::_controls::p1_polc_x = 0.0f;
+    config::_controls::p1_polc_y = 0.0f;
+    config::_controls::p1_throttle_left = 0.0f;
+    config::_controls::p1_throttle_right = 0.0f;
+}
+
+/*
+ *
+ */
+void input::reset_p2_pols(void) {
+    config::_controls::p2_pola_x = 0.0f;
+    config::_controls::p2_pola_y = 0.0f;
+    config::_controls::p2_polb_x = 0.0f;
+    config::_controls::p2_polb_y = 0.0f;
+    config::_controls::p2_polc_x = 0.0f;
+    config::_controls::p2_polc_y = 0.0f;
+    config::_controls::p2_throttle_left = 0.0f;
+    config::_controls::p2_throttle_right = 0.0f;
+}
+
+/*
+ *
+ */
+void input::reset_pols(void) {
+    reset_p1_pols();
+    reset_p2_pols();
+}
+
+/*
+ *
+ */
 void input::toggle_recording(void) {
     if(config::flags::record_input) {
         //  Turn recording off

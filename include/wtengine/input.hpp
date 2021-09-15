@@ -46,6 +46,21 @@ class input {
         void operator=(input const&) = delete;  //!<  Delete assignment operator.
 
         /*!
+         * \brief Reset P1 joystick polls.
+         */
+        static void reset_p1_pols(void);
+
+        /*!
+         * \brief Reset P2 joystick polls.
+         */
+        static void reset_p2_pols(void);
+
+        /*!
+         * \brief Reset P1 & P2 joystick polls.
+         */
+        static void reset_pols(void);
+
+        /*!
          * \brief Toggle input recording.
          */
         static void toggle_recording(void);

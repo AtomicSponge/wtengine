@@ -123,42 +123,6 @@ config::config() {
 /*
  *
  */
-void config::controls::reset_p1_pols(void) {
-    config::_controls::p1_pola_x = 0.0f;
-    config::_controls::p1_pola_y = 0.0f;
-    config::_controls::p1_polb_x = 0.0f;
-    config::_controls::p1_polb_y = 0.0f;
-    config::_controls::p1_polc_x = 0.0f;
-    config::_controls::p1_polc_y = 0.0f;
-    config::_controls::p1_throttle_left = 0.0f;
-    config::_controls::p1_throttle_right = 0.0f;
-}
-
-/*
- *
- */
-void config::controls::reset_p2_pols(void) {
-    config::_controls::p2_pola_x = 0.0f;
-    config::_controls::p2_pola_y = 0.0f;
-    config::_controls::p2_polb_x = 0.0f;
-    config::_controls::p2_polb_y = 0.0f;
-    config::_controls::p2_polc_x = 0.0f;
-    config::_controls::p2_polc_y = 0.0f;
-    config::_controls::p2_throttle_left = 0.0f;
-    config::_controls::p2_throttle_right = 0.0f;
-}
-
-/*
- *
- */
-void config::controls::reset_pols(void) {
-    reset_p1_pols();
-    reset_p2_pols();
-}
-
-/*
- *
- */
 const bool config::load(void) {
     std::ifstream dfile("settings.cfg", std::ios::binary);
     //  Data file doesn't exist, create one

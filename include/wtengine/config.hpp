@@ -176,21 +176,6 @@ class config {
             static const float& p2_polc_y;            //!<  Player 2 joystick C position Y.
             static const float& p2_throttle_left;     //!<  Player 2 throttle left.
             static const float& p2_throttle_right;    //!<  Player 2 throttle right.
-
-            /*!
-             * \brief Reset P1 joystick polls.
-             */
-            static void reset_p1_pols(void);
-
-            /*!
-             * \brief Reset P2 joystick polls.
-             */
-            static void reset_p2_pols(void);
-
-            /*!
-             * \brief Reset P1 & P2 joystick polls.
-             */
-            static void reset_pols(void);
         };
 
         /*!

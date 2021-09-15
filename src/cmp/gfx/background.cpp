@@ -32,24 +32,4 @@ background::background(
     const std::function<void(const entity_id&)>& func
 ) : gfx(bmp, l, func), pos_x(x), pos_y(y) {}
 
-/*
- *
- */
-void background::set_pos_x(const float& x) { pos_x = x; }
-
-/*
- *
- */
-void background::set_pos_y(const float& y) { pos_y = y; }
-
-/*
- *
- */
-const float background::get_pos_x(void) const { return pos_x; }
-
-/*
- *
- */
-const float background::get_pos_y(void) const { return pos_y; }
-
 }  //  end namespace wte::cmp

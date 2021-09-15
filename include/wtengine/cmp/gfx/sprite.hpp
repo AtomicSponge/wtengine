@@ -25,6 +25,10 @@
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/mgr/world.hpp"
 
+namespace wte::mgr {
+    class renderer;
+}
+
 namespace wte::cmp {
 
 /*!
@@ -32,6 +36,8 @@ namespace wte::cmp {
  * \brief Component for loading a sprite sheet and storing its animation frames.
  */
 class sprite final : public gfx {
+    friend class mgr::renderer;
+
     public:
         /*!
          * \brief Create a new Sprite component.
@@ -73,42 +79,6 @@ class sprite final : public gfx {
          * \return True if set, false if not.
          */
         const bool set_cycle(const std::string& name);
-
-        /*!
-         * \brief Get the sprite width.
-         * \return Sprite width.
-         */
-        const float get_sprite_width(void) const;
-
-        /*!
-         * \brief Get the sprite height.
-         * \return Sprite height.
-         */
-        const float get_sprite_height(void) const;
-
-        /*!
-         * \brief Get the X draw offset.
-         * \return X offset in pixels.
-         */
-        const float get_draw_offset_x(void) const;
-
-        /*!
-         * \brief Get the Y draw offset.
-         * \return Y offset in pixels.
-         */
-        const float get_draw_offset_y(void) const;
-
-        /*!
-         * \brief Get the sheet's X location for sprite drawing.
-         * \return Sprite sheet X location in pixels.
-         */
-        const float get_sprite_x(void) const;
-
-        /*!
-         * \brief Get the sheet's Y location for sprite drawing.
-         * \return Sprite sheet Y location in pixels.
-         */
-        const float get_sprite_y(void) const;
 
     private:
         //  Animation cycle index.

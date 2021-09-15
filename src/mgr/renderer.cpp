@@ -130,39 +130,39 @@ void renderer::render(void) {
 
         //  Draw each background by layer.
         for(auto& it: background_componenet_set) {
-            if(it.second->is_visible()) {
+            if(it.second->visible) {
                 float angle = 0.0f;
                 float center_x = 0.0f, center_y = 0.0f;
                 float destination_x = 0.0f, destination_y = 0.0f;
 
-                if(it.second->is_rotated()) {
-                    angle = it.second->get_direction();
+                if(it.second->rotated) {
+                    angle = it.second->direction;
                     center_x = (al_get_bitmap_width(it.second->get_bitmap()) / 2);
                     center_y = (al_get_bitmap_height(it.second->get_bitmap()) / 2);
 
-                    destination_x = it.second->get_pos_x() +
-                        (al_get_bitmap_width(it.second->get_bitmap()) * it.second->get_scale_factor_x() / 2);
-                    destination_y = it.second->get_pos_y() +
-                        (al_get_bitmap_height(it.second->get_bitmap()) * it.second->get_scale_factor_y() / 2);
+                    destination_x = it.second->pos_x +
+                        (al_get_bitmap_width(it.second->get_bitmap()) * it.second->scale_factor_x / 2);
+                    destination_y = it.second->pos_y +
+                        (al_get_bitmap_height(it.second->get_bitmap()) * it.second->scale_factor_y / 2);
                 } else {
-                        destination_x = it.second->get_pos_x();
-                        destination_y = it.second->get_pos_y();
+                        destination_x = it.second->pos_x;
+                        destination_y = it.second->pos_y;
                 }
 
                 if(it.second->draw_tinted())
                     al_draw_tinted_scaled_rotated_bitmap(
                         it.second->get_bitmap(), it.second->get_tint(),
                         center_x, center_y, destination_x, destination_y,
-                        it.second->get_scale_factor_x(),
-                        it.second->get_scale_factor_y(),
+                        it.second->scale_factor_x,
+                        it.second->scale_factor_y,
                         angle, 0
                     );
                 else
                     al_draw_scaled_rotated_bitmap(
                         it.second->get_bitmap(),
                         center_x, center_y, destination_x, destination_y,
-                        it.second->get_scale_factor_x(),
-                        it.second->get_scale_factor_y(),
+                        it.second->scale_factor_x,
+                        it.second->scale_factor_y,
                         angle, 0
                     );
             }
@@ -181,14 +181,14 @@ void renderer::render(void) {
 
         //  Draw each sprite in order.
         for(auto& it: sprite_componenet_set) {
-            if(it.second->is_visible()) {
+            if(it.second->visible) {
                 //  Get the current sprite frame.
                 ALLEGRO_BITMAP* temp_bitmap = al_create_sub_bitmap(
                     it.second->get_bitmap(),
-                    it.second->get_sprite_x(),
-                    it.second->get_sprite_y(),
-                    it.second->get_sprite_width(),
-                    it.second->get_sprite_height()
+                    it.second->sprite_x,
+                    it.second->sprite_y,
+                    it.second->sprite_width,
+                    it.second->sprite_height
                 );
 
                 try {
@@ -198,20 +198,20 @@ void renderer::render(void) {
                     cmp::const_comp_ptr<cmp::location> temp_get = mgr::world::get_component<cmp::location>(it.first);
 
                     //  Check if the sprite should be rotated.
-                    if(it.second->is_rotated()) {
-                        angle = it.second->get_direction();
+                    if(it.second->rotated) {
+                        angle = it.second->direction;
                         center_x = (al_get_bitmap_width(temp_bitmap) / 2);
                         center_y = (al_get_bitmap_height(temp_bitmap) / 2);
 
-                        destination_x = temp_get->get_x() +
-                            (al_get_bitmap_width(temp_bitmap) * it.second->get_scale_factor_x() / 2) +
-                            (it.second->get_draw_offset_x() * it.second->get_scale_factor_x());
-                        destination_y = temp_get->get_y() +
-                            (al_get_bitmap_height(temp_bitmap) * it.second->get_scale_factor_y() / 2) +
-                            (it.second->get_draw_offset_y() * it.second->get_scale_factor_y());
+                        destination_x = temp_get->pos_x +
+                            (al_get_bitmap_width(temp_bitmap) * it.second->scale_factor_x / 2) +
+                            (it.second->draw_offset_x * it.second->scale_factor_x);
+                        destination_y = temp_get->pos_y +
+                            (al_get_bitmap_height(temp_bitmap) * it.second->scale_factor_y / 2) +
+                            (it.second->draw_offset_y * it.second->scale_factor_y);
                     } else {
-                            destination_x = temp_get->get_x() + it.second->get_draw_offset_x();
-                            destination_y = temp_get->get_y() + it.second->get_draw_offset_y();
+                            destination_x = temp_get->pos_x + it.second->draw_offset_x;
+                            destination_y = temp_get->pos_y + it.second->draw_offset_y;
                     }
 
                     //  Draw the sprite.
@@ -219,15 +219,15 @@ void renderer::render(void) {
                         al_draw_tinted_scaled_rotated_bitmap(
                             temp_bitmap, it.second->get_tint(),
                             center_x, center_y, destination_x, destination_y,
-                            it.second->get_scale_factor_x(),
-                            it.second->get_scale_factor_y(),
+                            it.second->scale_factor_x,
+                            it.second->scale_factor_y,
                             angle, 0
                         );
                     else
                         al_draw_scaled_rotated_bitmap(
                             temp_bitmap, center_x, center_y, destination_x, destination_y,
-                            it.second->get_scale_factor_x(),
-                            it.second->get_scale_factor_y(),
+                            it.second->scale_factor_x,
+                            it.second->scale_factor_y,
                             angle, 0
                         );
                 } catch(...) { throw; }
@@ -287,39 +287,39 @@ void renderer::render(void) {
 
         //  Draw each overlay by layer.
         for(auto& it: overlay_componenet_set) {
-            if(it.second->is_visible()) {
+            if(it.second->visible) {
                 float angle = 0.0f;
                 float center_x = 0.0f, center_y = 0.0f;
                 float destination_x = 0.0f, destination_y = 0.0f;
 
-                if(it.second->is_rotated()) {
-                    angle = it.second->get_direction();
+                if(it.second->rotated) {
+                    angle = it.second->direction;
                     center_x = (al_get_bitmap_width(it.second->get_bitmap()) / 2);
                     center_y = (al_get_bitmap_height(it.second->get_bitmap()) / 2);
 
-                    destination_x = it.second->get_pos_x() +
-                        (al_get_bitmap_width(it.second->get_bitmap()) * it.second->get_scale_factor_x() / 2);
-                    destination_y = it.second->get_pos_y() +
-                        (al_get_bitmap_height(it.second->get_bitmap()) * it.second->get_scale_factor_y() / 2);
+                    destination_x = it.second->pos_x +
+                        (al_get_bitmap_width(it.second->get_bitmap()) * it.second->scale_factor_x / 2);
+                    destination_y = it.second->pos_y +
+                        (al_get_bitmap_height(it.second->get_bitmap()) * it.second->scale_factor_y / 2);
                 } else {
-                        destination_x = it.second->get_pos_x();
-                        destination_y = it.second->get_pos_y();
+                        destination_x = it.second->pos_x;
+                        destination_y = it.second->pos_y;
                 }
 
                 if(it.second->draw_tinted())
                     al_draw_tinted_scaled_rotated_bitmap(
                         it.second->get_bitmap(), it.second->get_tint(),
                         center_x, center_y, destination_x, destination_y,
-                        it.second->get_scale_factor_x(),
-                        it.second->get_scale_factor_y(),
+                        it.second->scale_factor_x,
+                        it.second->scale_factor_y,
                         angle, 0
                     );
                 else
                     al_draw_scaled_rotated_bitmap(
                         it.second->get_bitmap(),
                         center_x, center_y, destination_x, destination_y,
-                        it.second->get_scale_factor_x(),
-                        it.second->get_scale_factor_y(),
+                        it.second->scale_factor_x,
+                        it.second->scale_factor_y,
                         angle, 0
                     );
             }

@@ -16,14 +16,14 @@ namespace wte::cmp {
 
 /*!
  * \class location
- * \brief Store the x/y location of an entity in the arena.
+ * \brief Store the X/Y location of an entity in the arena.
  */
 class location final : public component {
     public:
         /*!
          * \brief Create a new Location component.
          * \param x Horizontal location of the entity.
-         * \param y Verticle location of the entity.
+         * \param y Vertical location of the entity.
          */
         location(
             const float& x,
@@ -32,44 +32,8 @@ class location final : public component {
 
         ~location() = default;  //!<  Default destructor.
 
-        /*!
-         * \brief Get X location.
-         * \return X location of entity.
-         */
-        const float get_x(void) const;
-
-        /*!
-         * \brief Get Y location.
-         * \return Y location of entity.
-         */
-        const float get_y(void) const;
-
-        /*!
-         * \brief Set X location.
-         * \param x New X location for entity.
-         */
-        void set_x(const float& x);
-
-        /*!
-         * \brief Set Y location.
-         * \param y New Y location for entity.
-         */
-        void set_y(const float& y);
-
-        /*!
-         * \brief Adjust X location.
-         * \param x X offset for entity.
-         */
-        void adjust_x(const float& x);
-
-        /*!
-         * \brief Adjust Y location.
-         * \param y Y offset for entity.
-         */
-        void adjust_y(const float& y);
-
-    private:
-        float pos_x, pos_y; //  X & Y location.
+        float pos_x;  //!<  Entity X location.
+        float pos_y;  //!<  Entity Y location.
 };
 
 } //  namespace wte::cmp

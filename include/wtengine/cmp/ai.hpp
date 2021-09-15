@@ -53,38 +53,19 @@ class ai final : public component {
 
         ~ai() = default;  //!<  Default destructor.
 
-        /*!
-         * \brief Check if the entity is enabled.
-         * \return True if enabled, false if not.
-         */
-        const bool status(void) const;
-
-        /*!
-         * \brief Set to enabled.
-         */
-        void enable(void);
-
-        /*!
-         * \brief Set to disabled.
-         */
-        void disable(void);
+        bool enabled;     //!<  Flag to enable or disable the entity.
 
     private:
         /*
          * Run enabled AI function wrapper.
          */
-        void run_enabled(
-            const entity_id& e_id
-        );
+        void run_enabled(const entity_id& e_id);
 
         /*
          * Run disabled AI function wrapper.
          */
-        void run_disabled(
-            const entity_id& e_id
-        );
+        void run_disabled(const entity_id& e_id);
 
-        bool enabled;  //  Enabled flag.
         const std::function<void(const entity_id&)> enabled_ai;   //  AI to run when enabled.
         const std::function<void(const entity_id&)> disabled_ai;  //  AI to run when disabled.
 };

@@ -35,24 +35,4 @@ void overlay::draw_text(
     al_draw_text(**overlay_font, color, x, y, f, txt.c_str());
 }
 
-/*
- *
- */
-void overlay::set_pos_x(const float& x) { pos_x = x; }
-
-/*
- *
- */
-void overlay::set_pos_y(const float& y) { pos_y = y; }
-
-/*
- *
- */
-const float overlay::get_pos_x(void) const { return pos_x; }
-
-/*
- *
- */
-const float overlay::get_pos_y(void) const { return pos_y; }
-
 }  //  end namespace wte::cmp

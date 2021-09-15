@@ -41,18 +41,18 @@ void colision::run(void) {
                  */
                 if(
                     it_a.first != it_b.first &&
-                    it_a.second->get_team() != it_b.second->get_team() &&
-                    temp_hitbox_a->is_solid() && temp_hitbox_b->is_solid()
+                    it_a.second->_team != it_b.second->_team &&
+                    temp_hitbox_a->solid && temp_hitbox_b->solid
                 ) {
                     //  Use AABB to test colision
                     if(
-                        temp_location_a->get_x() < temp_location_b->get_x() + temp_hitbox_b->get_width()
+                        temp_location_a->pos_x < temp_location_b->pos_x + temp_hitbox_b->width
                         && 
-                        temp_location_a->get_x() + temp_hitbox_a->get_width() > temp_location_b->get_x()
+                        temp_location_a->pos_x + temp_hitbox_a->width > temp_location_b->pos_x
                         &&
-                        temp_location_a->get_y() < temp_location_b->get_y() + temp_hitbox_b->get_height()
+                        temp_location_a->pos_y < temp_location_b->pos_y + temp_hitbox_b->height
                         && 
-                        temp_location_a->get_y() + temp_hitbox_a->get_height() > temp_location_b->get_y()
+                        temp_location_a->pos_y + temp_hitbox_a->height > temp_location_b->pos_y
                     ) {
                         //  Send a message that two entities colided.
                         //  Each entity will get a colision message.

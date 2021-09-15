@@ -64,33 +64,11 @@ class overlay final : public gfx {
             const int& f
         );
 
-        /*!
-         * \brief Set X position.
-         * \param x X position.
-         */
-        void set_pos_x(const float& x);
-
-        /*!
-         * \brief Set Y position.
-         * \param x Y position.
-         */
-        void set_pos_y(const float& y);
-
-        /*!
-         * \brief Get X position.
-         * \return X position.
-         */
-        const float get_pos_x(void) const;
-
-        /*!
-         * \brief Get Y position.
-         * \return Y position.
-         */
-        const float get_pos_y(void) const;
+        float pos_x;  //!<  X position of the overlay in the arena.
+        float pos_y;  //!<  Y position of the overlay in the arena.
 
     private:
         wte_asset<al_font> overlay_font;  //  Font for overlay.
-        float pos_x, pos_y;               //  X/Y position of overlay.
 };
 
 }  //  end namespace wte::cmp

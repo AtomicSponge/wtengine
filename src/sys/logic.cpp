@@ -26,7 +26,7 @@ void logic::run(void) {
     //  Process enabled or disabled ai
     for(auto& it: ai_components) {
         try {
-            if(it.second->status()) it.second->run_enabled(it.first);
+            if(it.second->enabled) it.second->run_enabled(it.first);
             else it.second->run_disabled(it.first);
         } catch(...) { throw; }
     }

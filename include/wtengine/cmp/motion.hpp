@@ -49,55 +49,9 @@ class motion final : public component {
 
         ~motion() = default;  //!<  Default destructor.
 
-        /*!
-         * \brief
-         */
-        void set_direction(const float& d);
-
-        /*!
-         * \brief
-         */
-        const float get_direction(void) const;
-
-        /*!
-         * \brief Set X velocity.
-         * \param xv X velocity.
-         */
-        void set_x_vel(const float& xv);
-
-        /*!
-         * \brief Set Y velocity.
-         * \param yv Y velocity.
-         */
-        void set_y_vel(const float& yv);
-
-        /*!
-         * \brief Get X velocity.
-         * \return X velocity.
-         */
-        const float get_x_vel(void) const;
-
-        /*!
-         * \brief Get Y velocity.
-         * \return Y velocity.
-         */
-        const float get_y_vel(void) const;
-
-        /*!
-         * \brief Set velocity for X & Y.
-         * \param v The new velocity value.
-         */
-        void set_velocity(const float& v);
-
-        /*!
-         * \brief Get velocity for X & Y.
-         * \return The velocity value.
-         */
-        const float get_velocity(void) const;
-
-    private:
-        float direction;        //  Angle of direction.
-        float x_vel, y_vel;     //  X & Y velocity.
+        float direction;  //!<  Angle of direction.
+        float x_vel;      //!<  X velocity.
+        float y_vel;      //!<  Y velocity.
 };
 
 }  //  end namespace wte::cmp

@@ -44,49 +44,9 @@ class hitbox final : public component {
 
         ~hitbox() = default;  //!<  Default destructor.
 
-        /*!
-         * \brief Get hitbox width.
-         * \return Width of hitbox.
-         */
-        const float get_width(void) const;
-
-        /*!
-         * \brief Get hitbox height.
-         * \return Height of hitbox.
-         */
-        const float get_height(void) const;
-
-        /*!
-         * \brief Set width of hitbox.
-         * \param w New width.
-         */
-        void set_width(const float& w);
-
-        /*!
-         * \brief Set height of hitbox.
-         * \param h New height.
-         */
-        void set_height(const float& h);
-
-        /*!
-         * \brief Check if solid.
-         * \return True if solid, false if not.
-         */
-        const bool is_solid(void) const;
-
-        /*!
-         * \brief Make entity solid (enable).
-         */
-        void make_solid(void);
-
-        /*!
-         * \brief Make entity fluid (disable).
-         */
-        void make_fluid(void);
-
-    private:
-        float width, height;    //  Width & height of hitbox.
-        bool solid;             //  Solid (enabled) flag.
+        float width;   //!<  Width of the hitbox.
+        float height;  //!<  Height of the hitbox.
+        bool solid;    //!<  Solid (enabled) flag.
 };
 
 }  //  end namespace wte::cmp

@@ -28,19 +28,4 @@ void ai::run_disabled(const entity_id& e_id) {
     try { disabled_ai(e_id); } catch(...) { throw; }
 }
 
-/*
- *
- */
-const bool ai::status(void) const { return enabled; }
-
-/*
- *
- */
-void ai::enable(void) { enabled = true; }
-
-/*
- *
- */
-void ai::disable(void) { enabled = false; }
-
 }  //  end namespace wte::cmp

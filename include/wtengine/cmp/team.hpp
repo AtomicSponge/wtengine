@@ -31,20 +31,7 @@ class team final : public component {
 
         ~team() = default;  //!<  Default destructor.
 
-        /*!
-         * \brief Get team.
-         * \return Team the entity is on.
-         */
-        const std::size_t get_team(void) const;
-
-        /*!
-         * \brief Set team
-         * \param t New team for the entity.
-         */
-        void set_team(const std::size_t& t);
-
-    private:
-        std::size_t this_team;  //  Team number.
+        std::size_t _team;  //!<  Team number.
 };
 
 }  //  end namespace wte::cmp

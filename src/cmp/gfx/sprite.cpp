@@ -71,34 +71,4 @@ const bool sprite::set_cycle(const std::string& name) {
     } else return false;
 }
 
-/*
- *
- */
-const float sprite::get_sprite_width(void) const { return sprite_width; }
-
-/*
- *
- */
-const float sprite::get_sprite_height(void) const { return sprite_height; }
-
-/*
- *
- */
-const float sprite::get_draw_offset_x(void) const { return draw_offset_x; }
-
-/*
- *
- */
-const float sprite::get_draw_offset_y(void) const { return draw_offset_y; }
-
-/*
- *
- */
-const float sprite::get_sprite_x(void) const { return sprite_x; }
-
-/*
- *
- */
-const float sprite::get_sprite_y(void) const { return sprite_y; }
-
 }  //  end namespace wte::cmp

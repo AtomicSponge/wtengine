@@ -79,69 +79,12 @@ class gfx : public component {
          */
         const bool draw_tinted(void) const;
 
-        /*!
-         * \brief Show the entity.
-         */
-        void show(void);
-
-        /*!
-         * \brief Hide the entity.
-         */
-        void hide(void);
-
-        /*!
-         * \brief Check if visible.
-         * \return True if visible, false if not.
-         */
-        const bool is_visible(void) const;
-
-        /*!
-         * \brief Set rotation.
-         * \param r True to draw rotated, false to not.
-         */
-        void set_rotation(const bool& r);
-
-        /*!
-         * \brief Check if should be drawn rotated.
-         * \return True if draw rotated, false if not.
-         */
-        const bool is_rotated(void) const;
-
-        /*!
-         * \brief Set direction of rotation.
-         * \param d Direction in radians.
-         */
-        void set_direction(const float& d);
-
-        /*!
-         * \brief Get direction of rotation.
-         * \return Direction in radians.
-         */
-        const float get_direction(void) const;
-
-        /*!
-         * \brief Set the X scale factor.
-         * \param sx New scale factor X value.
-         */
-        void set_scale_factor_x(const float& sx);
-
-        /*!
-         * \brief Set the Y scale factor.
-         * \param sy New scale factor Y value.
-         */
-        void set_scale_factor_y(const float& sy);
-
-        /*!
-         * \brief Get the X scale factor.
-         * \return scale_factor_x
-         */
-        const float get_scale_factor_x(void) const;
-
-        /*!
-         * \brief Get the Y scale factor.
-         * \return scale_factor_y
-         */
-        const float get_scale_factor_y(void) const;
+        std::size_t layer;     //!<  Layer position.
+        bool visible;          //!<  Flag to set visibility.
+        bool rotated;          //!<  Rotation flag.
+        float direction;       //!<  Direction to draw when rotated.
+        float scale_factor_x;  //!<  X scale factor.
+        float scale_factor_y;  //!<  Y scale factor.
 
     protected:
         /*!
@@ -165,14 +108,8 @@ class gfx : public component {
          */
         void run(const entity_id& e_id);
 
-        std::size_t layer;          //  Layer position.
         bool tint_set;              //  Flag to set tint.
-        bool visible;               //  Flag to set visibility.
         ALLEGRO_COLOR tint_color;   //  Color of tint.
-
-        float direction;    //  Direction to draw when rotated.
-        bool rotated;       //  Rotation flag.
-        float scale_factor_x, scale_factor_y;   //  X/Y scale factor.
 
         //  Animation function.
         const std::function<void(const entity_id&)> animate;

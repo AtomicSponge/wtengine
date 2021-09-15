@@ -27,8 +27,8 @@ void movement::run(void) {
             cmp::const_comp_ptr<cmp::location> temp_get = mgr::world::get_component<cmp::location>(it.first);
             cmp::comp_ptr<cmp::location> temp_set = mgr::world::set_component<cmp::location>(it.first);
 
-            temp_set->adjust_x(it.second->get_x_vel() * std::cos(it.second->get_direction()));
-            temp_set->adjust_y(it.second->get_y_vel() * std::sin(it.second->get_direction()));
+            temp_set->pos_x += (it.second->x_vel * std::cos(it.second->direction));
+            temp_set->pos_y += (it.second->y_vel * std::sin(it.second->direction));
         } catch(...) { throw; }
     }
 
@@ -39,11 +39,11 @@ void movement::run(void) {
             cmp::const_comp_ptr<cmp::location> temp_get = mgr::world::get_component<cmp::location>(it.first);
             cmp::comp_ptr<cmp::location> temp_set = mgr::world::set_component<cmp::location>(it.first);
 
-            if(temp_get->get_x() < it.second->get_min_x()) temp_set->set_x(it.second->get_min_x());
-            else if(temp_get->get_x() > it.second->get_max_x()) temp_set->set_x(it.second->get_max_x());
+            if(temp_get->pos_x < it.second->min_x) temp_set->pos_x = it.second->min_x;
+            else if(temp_get->pos_x > it.second->max_x) temp_set->pos_x = it.second->max_x;
 
-            if(temp_get->get_y() < it.second->get_min_y()) temp_set->set_y(it.second->get_min_y());
-            else if(temp_get->get_y() > it.second->get_max_y()) temp_set->set_y(it.second->get_max_y());
+            if(temp_get->pos_y < it.second->min_y) temp_set->pos_y = it.second->min_y;
+            else if(temp_get->pos_y > it.second->max_y) temp_set->pos_y = it.second->max_y;
         } catch(...) { throw; }
     }
 }

@@ -20,10 +20,13 @@ animate::animate() : system("animate") {}
  *
  */
 void animate::run(void) {
-    component_container<cmp::gfx> animation_components = mgr::world::set_components<cmp::gfx>();
+    component_container<cmp::gfx> animation_components =
+        mgr::world::set_components<cmp::gfx>();
 
     for(auto& it: animation_components)
-        if(it.second->visible) try { it.second->animate(it.first); } catch(...) { throw; }
+        try {
+            if(it.second->visible) it.second->animate(it.first);
+        } catch(...) { throw; }
 }
 
 }  //  end namespace wte::sys

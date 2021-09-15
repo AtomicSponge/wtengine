@@ -245,11 +245,11 @@ void renderer::render(void) {
                 mgr::world::get_components<cmp::hitbox>();
             
             for(auto& it: hitbox_components) {
-                if(it.second->is_solid()) {
+                if(it.second->solid) {
                     //  Select color based on team.
                     ALLEGRO_COLOR team_color;
                     try {
-                        switch(mgr::world::get_component<cmp::team>(it.first)->get_team()) {
+                        switch(mgr::world::get_component<cmp::team>(it.first)->_team) {
                             case 0: team_color = WTE_COLOR_GREEN; break;
                             case 1: team_color = WTE_COLOR_RED; break;
                             case 2: team_color = WTE_COLOR_BLUE; break;
@@ -258,15 +258,15 @@ void renderer::render(void) {
                     } catch(...) { team_color = WTE_COLOR_RED; }
                     //  Draw the hitbox.
                     ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap(
-                        it.second->get_width(),
-                        it.second->get_height());
+                        it.second->width,
+                        it.second->height);
                     al_set_target_bitmap(temp_bitmap);
                     al_clear_to_color(team_color);
                     al_set_target_bitmap(**arena_bitmap);
                     try {
                         al_draw_bitmap(temp_bitmap,
-                            mgr::world::get_component<cmp::location>(it.first)->get_x(),
-                            mgr::world::get_component<cmp::location>(it.first)->get_y(), 0);
+                            mgr::world::get_component<cmp::location>(it.first)->pos_x,
+                            mgr::world::get_component<cmp::location>(it.first)->pos_y, 0);
                     } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
                     al_destroy_bitmap(temp_bitmap);
                 }
@@ -423,7 +423,7 @@ void renderer::render(void) {
 
     //  Draw time if debug mode is enabled.
     #if WTE_DEBUG_MODE
-    const std::string timer_string = "Timer: " + std::to_string(engine_time::check_time());
+    const std::string timer_string = "Timer: " + std::to_string(engine_time::check());
     al_draw_text(**renderer_font, WTE_COLOR_YELLOW, config::gfx::screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     #endif
 

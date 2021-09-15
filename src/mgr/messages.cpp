@@ -211,7 +211,7 @@ void messages::read(
  *
  */
 void messages::log(const message& msg) {
-    debug_log_file << "PROC AT:  " << engine_time::check_time() << " | ";
+    debug_log_file << "PROC AT:  " << engine_time::check() << " | ";
     debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
     debug_log_file << "SYS:  " << msg.get_sys() << " | ";
     if((msg.get_to() != "") || (msg.get_from() != "")) {

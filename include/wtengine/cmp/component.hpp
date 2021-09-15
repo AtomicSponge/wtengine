@@ -12,9 +12,7 @@
 
 #include <memory>
 
-namespace wte {
-
-namespace cmp {
+namespace wte::cmp {
 
 /*!
  * \class component
@@ -56,8 +54,6 @@ using comp_ptr = std::shared_ptr<T>;
 template <typename T>
 using const_comp_ptr = std::shared_ptr<const T>;
 
-} //  namespace cmp
-
-} //  namespace wte
+}  //  end namespace wte::cmp
 
 #endif

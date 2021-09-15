@@ -129,7 +129,23 @@ void audio::initialize(void) {
     });
     //  General
     cmds.add("set_volume_level", 2, [](const msg_args& args) {
-        audio::set_level(std::stoi(args[0]), std::stof(args[1]));
+        switch(std::stoi(args[0])) {
+            case 0:
+                audio::set_level(std::stof(args[1]));
+                break;
+            case 1:
+                audio::music::set_level(std::stof(args[1]));
+                break;
+            case 2:
+                audio::sample::set_level(std::stof(args[1]));
+                break;
+            case 3:
+                audio::voice::set_level(std::stof(args[1]));
+                break;
+            case 4:
+                audio::ambiance::set_level(std::stof(args[1]));
+                break;
+        }
     });
 }
 
@@ -137,30 +153,10 @@ void audio::initialize(void) {
  *
  */
 void audio::de_init(void) {
-    //  Clear any left over sample instances.
-    for(auto sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
-        al_stop_sample(&sample_instance->second);
-        sample_instances.erase(sample_instance);
-        sample_instance = sample_instances.begin();
-    }
-
-    // Check for and unload music stream.
-    if(al_get_mixer_attached(_mixer_1)) {
-        al_drain_audio_stream(**music_stream);
-        al_detach_audio_stream(**music_stream);
-    }
-
-    // Check for and unload voice stream.
-    if(al_get_mixer_attached(_mixer_3)) {
-        al_drain_audio_stream(**voice_stream);
-        al_detach_audio_stream(**voice_stream);
-    }
-
-    // Check for and unload ambiance stream.
-    if(al_get_mixer_attached(_mixer_4)) {
-        al_drain_audio_stream(**ambiance_stream);
-        al_detach_audio_stream(**ambiance_stream);
-    }
+    audio::sample::clear_instances();
+    audio::music::stop();
+    audio::voice::stop();
+    audio::ambiance::stop();
 
     //  Unload all mixers.
     al_destroy_mixer(_mixer_1);
@@ -176,32 +172,45 @@ void audio::de_init(void) {
 /*
  *
  */
-void audio::set_level(
-    const std::size_t& m,
-    const float& l
-) {
-    switch(m) {
-        case mixer_main:
-            if(l >= 0.0f && l <= 1.0f) config::_volume::main = l;
-            else config::_volume::main = 0.0f;
-            break;
-        case mixer_1:
-            if(l >= 0.0f && l <= 1.0f) config::_volume::mix1 = l;
-            else config::_volume::mix1 = 0.0f;
-            break;
-        case mixer_2:
-            if(l >= 0.0f && l <= 1.0f) config::_volume::mix2 = l;
-            else config::_volume::mix2 = 0.0f;
-            break;
-        case mixer_3:
-            if(l >= 0.0f && l <= 1.0f) config::_volume::mix3 = l;
-            else config::_volume::mix3 = 0.0f;
-            break;
-        case mixer_4:
-            if(l >= 0.0f && l <= 1.0f) config::_volume::mix4 = l;
-            else config::_volume::mix4 = 0.0f;
-            break;
-    };
+void audio::set_level(const float& l) {
+    if(l >= 0.0f && l <= 1.0f) config::_volume::main = l;
+    else config::_volume::main = 0.0f;
+    set_volume();
+}
+
+/*
+ *
+ */
+void audio::music::set_level(const float& l) {
+    if(l >= 0.0f && l <= 1.0f) config::_volume::main = l;
+    else config::_volume::main = 0.0f;
+    set_volume();
+}
+
+/*
+ *
+ */
+void audio::sample::set_level(const float& l) {
+    if(l >= 0.0f && l <= 1.0f) config::_volume::main = l;
+    else config::_volume::main = 0.0f;
+    set_volume();
+}
+
+/*
+ *
+ */
+void audio::voice::set_level(const float& l) {
+    if(l >= 0.0f && l <= 1.0f) config::_volume::main = l;
+    else config::_volume::main = 0.0f;
+    set_volume();
+}
+
+/*
+ *
+ */
+void audio::ambiance::set_level(const float& l) {
+    if(l >= 0.0f && l <= 1.0f) config::_volume::main = l;
+    else config::_volume::main = 0.0f;
     set_volume();
 }
 

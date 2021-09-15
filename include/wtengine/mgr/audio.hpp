@@ -52,6 +52,12 @@ class audio final : private manager<audio> {
 
     public:
         /*!
+         * \brief Adjust a mixer's volume level.
+         * \param l Volume level to set.
+         */
+        static void set_level(const float& l);
+
+        /*!
          * \struct music
          * \brief Music commands.
          */
@@ -82,6 +88,12 @@ class audio final : private manager<audio> {
             * \brief Unpause music.
             */
             static void unpause(void);
+
+            /*!
+             * \brief Adjust a mixer's volume level.
+             * \param l Volume level to set.
+             */
+            static void set_level(const float& l);
         };
 
         /*!
@@ -130,6 +142,12 @@ class audio final : private manager<audio> {
             * \brief Claer all playing sample instances.
             */
             static void clear_instances(void);
+
+            /*!
+             * \brief Adjust a mixer's volume level.
+             * \param l Volume level to set.
+             */
+            static void set_level(const float& l);
         };
 
         /*!
@@ -157,6 +175,12 @@ class audio final : private manager<audio> {
             * \brief Resume playing audio file.
             */
             static void unpause(void);
+
+            /*!
+             * \brief Adjust a mixer's volume level.
+             * \param l Volume level to set.
+             */
+            static void set_level(const float& l);
         };
 
         /*!
@@ -190,23 +214,13 @@ class audio final : private manager<audio> {
             * \brief Resume playing ambiance.
             */
             static void unpause(void);
+
+            /*!
+             * \brief Adjust a mixer's volume level.
+             * \param l Volume level to set.
+             */
+            static void set_level(const float& l);
         };
-
-        /*!
-         * \brief Adjust a mixer's volume level.
-         * \param m Mixer to adjust.
-         * \param l Volume level to set.
-         */
-        static void set_level(
-            const std::size_t& m,
-            const float& l
-        );
-
-        inline static const std::size_t mixer_main = 0;  //!<  Flag to reference main mixer.
-        inline static const std::size_t mixer_1 = 1;     //!<  Flag to reference mixer 1.
-        inline static const std::size_t mixer_2 = 2;     //!<  Flag to reference mixer 2.
-        inline static const std::size_t mixer_3 = 3;     //!<  Flag to reference mixer 3.
-        inline static const std::size_t mixer_4 = 4;     //!<  Flag to reference mixer 4.
 
     private:
         audio() = default;

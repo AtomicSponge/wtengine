@@ -32,7 +32,6 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
     if(!al_init_image_addon()) throw std::runtime_error("Failed to load Allegro image addon!");
     if(!al_init_font_addon()) throw std::runtime_error("Failed to load Allegro font addon!");
     if(!al_install_audio()) throw std::runtime_error("Failed to load audio!");
-    if(!al_init_acodec_addon()) throw std::runtime_error("Failed to load Allegro audio addon!");
     al_install_joystick();
 
     //  Configure PhysFS.

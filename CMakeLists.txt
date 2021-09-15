@@ -46,7 +46,6 @@ find_package(PkgConfig REQUIRED)
     pkg_check_modules(ALLEGRO REQUIRED allegro_main-5)      #  Allegro main
     pkg_check_modules(ALLEGRO REQUIRED allegro_physfs-5)    #  PhysFS add-on
     pkg_check_modules(ALLEGRO REQUIRED allegro_audio-5)     #  Audio add-on
-    pkg_check_modules(ALLEGRO REQUIRED allegro_acodec-5)    #  Audio codec add-on
     pkg_check_modules(ALLEGRO REQUIRED allegro_font-5)      #  Font add-on
     pkg_check_modules(ALLEGRO REQUIRED allegro_image-5)     #  Image add-on
 

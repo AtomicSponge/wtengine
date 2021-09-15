@@ -12,6 +12,7 @@
 #include <numeric>
 
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_acodec.h>
 
 #include <wte_demo.hpp>
 #include <my_components.hpp>
@@ -23,8 +24,9 @@ using namespace wte;
  * Initialize game specific variables here.
  */
 wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
-    //  The engine doesn't use Allegro's primitives addon, so init it here.
+    //  Init Allegro addons that the engine does not use.
     al_init_primitives_addon();
+    al_init_acodec_addon();
 
     mgr::variables::reg<int>("score", 0);
     mgr::variables::reg<int>("hiscore", 0);

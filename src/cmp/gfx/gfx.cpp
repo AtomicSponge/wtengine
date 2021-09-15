@@ -25,11 +25,6 @@ animate(func) {}
 /*
  *
  */
-void gfx::run(const entity_id& e_id) { try { animate(e_id); } catch(...) { throw; } }
-
-/*
- *
- */
 void gfx::set_drawing(void) { al_set_target_bitmap(**internal_bitmap); }
 
 /*

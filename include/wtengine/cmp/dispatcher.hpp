@@ -51,14 +51,6 @@ class dispatcher final : public component {
         ~dispatcher() = default;
 
     private:
-        /*
-         * Run dispatcher function wrapper.
-         */
-        void proc_msg(
-            const entity_id& e_id,
-            const message& msg
-        );
-
         //  Message handler.
         const std::function<void(const entity_id&, const message&)> handle_msg;
 };

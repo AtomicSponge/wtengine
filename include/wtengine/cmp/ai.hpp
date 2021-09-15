@@ -56,16 +56,6 @@ class ai final : public component {
         bool enabled;     //!<  Flag to enable or disable the entity.
 
     private:
-        /*
-         * Run enabled AI function wrapper.
-         */
-        void run_enabled(const entity_id& e_id);
-
-        /*
-         * Run disabled AI function wrapper.
-         */
-        void run_disabled(const entity_id& e_id);
-
         const std::function<void(const entity_id&)> enabled_ai;   //  AI to run when enabled.
         const std::function<void(const entity_id&)> disabled_ai;  //  AI to run when disabled.
 };

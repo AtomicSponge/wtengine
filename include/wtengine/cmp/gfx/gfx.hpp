@@ -103,11 +103,6 @@ class gfx : public component {
         wte_asset<al_bitmap> internal_bitmap;
 
     private:
-        /*
-         * Run animaton function wrapper.
-         */
-        void run(const entity_id& e_id);
-
         bool tint_set;              //  Flag to set tint.
         ALLEGRO_COLOR tint_color;   //  Color of tint.
 

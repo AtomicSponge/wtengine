@@ -70,7 +70,7 @@ void systems::dispatch(void) {
         for(auto& m_it: temp_msgs) { for(auto& c_it: dispatch_components) {
             try {
                 if(m_it.get_to() == mgr::world::get_name(c_it.first)) {
-                    c_it.second->proc_msg(c_it.first, m_it);
+                    c_it.second->handle_msg(c_it.first, m_it);
                     break;  //  Found, stop checking dispatch components.
                 }
             } catch(const wte_exception& e) {

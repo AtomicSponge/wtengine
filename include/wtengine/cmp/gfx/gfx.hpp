@@ -20,6 +20,10 @@
 #include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/mgr/world.hpp"
 
+namespace wte::mgr {
+    class renderer;
+}
+
 namespace wte::sys {
     class animate;
 }
@@ -31,6 +35,7 @@ namespace wte::cmp {
  * \brief Interface class for components that display graphics.
  */
 class gfx : public component {
+    friend class mgr::renderer;
     friend class sys::animate;
 
     public:
@@ -49,12 +54,6 @@ class gfx : public component {
          * \brief Set drawing to the internal bitmap.
          */
         void set_drawing(void);
-
-        /*!
-         * \brief Return the internal bitmap.
-         * \return The internal bitmap.
-         */
-        ALLEGRO_BITMAP* get_bitmap(void) const;
 
         /*!
          * \brief Set a tint color.
@@ -100,7 +99,7 @@ class gfx : public component {
         );
 
         //!  Stores the bitmap used by the animator.
-        wte_asset<al_bitmap> internal_bitmap;
+        wte_asset<al_bitmap> _bitmap;
 
     private:
         bool tint_set;              //  Flag to set tint.

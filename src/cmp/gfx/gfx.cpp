@@ -18,19 +18,14 @@ gfx::gfx(
     wte_asset<al_bitmap> bmp,
     const std::size_t& l,
     const std::function<void(const entity_id&)>& func
-) : internal_bitmap(bmp), layer(l), tint_set(false), visible(true),
+) : _bitmap(bmp), layer(l), tint_set(false), visible(true),
 direction(0.0f), rotated(false), scale_factor_x(1.0f), scale_factor_y(1.0f),
 animate(func) {}
 
 /*
  *
  */
-void gfx::set_drawing(void) { al_set_target_bitmap(**internal_bitmap); }
-
-/*
- *
- */
-ALLEGRO_BITMAP* gfx::get_bitmap(void) const { return **internal_bitmap; }
+void gfx::set_drawing(void) { al_set_target_bitmap(**_bitmap); }
 
 /*
  *

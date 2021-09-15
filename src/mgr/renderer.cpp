@@ -137,13 +137,13 @@ void renderer::render(void) {
 
                 if(it.second->rotated) {
                     angle = it.second->direction;
-                    center_x = (al_get_bitmap_width(it.second->get_bitmap()) / 2);
-                    center_y = (al_get_bitmap_height(it.second->get_bitmap()) / 2);
+                    center_x = (al_get_bitmap_width(**it.second->_bitmap) / 2);
+                    center_y = (al_get_bitmap_height(**it.second->_bitmap) / 2);
 
                     destination_x = it.second->pos_x +
-                        (al_get_bitmap_width(it.second->get_bitmap()) * it.second->scale_factor_x / 2);
+                        (al_get_bitmap_width(**it.second->_bitmap) * it.second->scale_factor_x / 2);
                     destination_y = it.second->pos_y +
-                        (al_get_bitmap_height(it.second->get_bitmap()) * it.second->scale_factor_y / 2);
+                        (al_get_bitmap_height(**it.second->_bitmap) * it.second->scale_factor_y / 2);
                 } else {
                         destination_x = it.second->pos_x;
                         destination_y = it.second->pos_y;
@@ -151,7 +151,7 @@ void renderer::render(void) {
 
                 if(it.second->draw_tinted())
                     al_draw_tinted_scaled_rotated_bitmap(
-                        it.second->get_bitmap(), it.second->get_tint(),
+                        **it.second->_bitmap, it.second->get_tint(),
                         center_x, center_y, destination_x, destination_y,
                         it.second->scale_factor_x,
                         it.second->scale_factor_y,
@@ -159,7 +159,7 @@ void renderer::render(void) {
                     );
                 else
                     al_draw_scaled_rotated_bitmap(
-                        it.second->get_bitmap(),
+                        **it.second->_bitmap,
                         center_x, center_y, destination_x, destination_y,
                         it.second->scale_factor_x,
                         it.second->scale_factor_y,
@@ -184,7 +184,7 @@ void renderer::render(void) {
             if(it.second->visible) {
                 //  Get the current sprite frame.
                 ALLEGRO_BITMAP* temp_bitmap = al_create_sub_bitmap(
-                    it.second->get_bitmap(),
+                    **it.second->_bitmap,
                     it.second->sprite_x,
                     it.second->sprite_y,
                     it.second->sprite_width,
@@ -294,13 +294,13 @@ void renderer::render(void) {
 
                 if(it.second->rotated) {
                     angle = it.second->direction;
-                    center_x = (al_get_bitmap_width(it.second->get_bitmap()) / 2);
-                    center_y = (al_get_bitmap_height(it.second->get_bitmap()) / 2);
+                    center_x = (al_get_bitmap_width(**it.second->_bitmap) / 2);
+                    center_y = (al_get_bitmap_height(**it.second->_bitmap) / 2);
 
                     destination_x = it.second->pos_x +
-                        (al_get_bitmap_width(it.second->get_bitmap()) * it.second->scale_factor_x / 2);
+                        (al_get_bitmap_width(**it.second->_bitmap) * it.second->scale_factor_x / 2);
                     destination_y = it.second->pos_y +
-                        (al_get_bitmap_height(it.second->get_bitmap()) * it.second->scale_factor_y / 2);
+                        (al_get_bitmap_height(**it.second->_bitmap) * it.second->scale_factor_y / 2);
                 } else {
                         destination_x = it.second->pos_x;
                         destination_y = it.second->pos_y;
@@ -308,7 +308,7 @@ void renderer::render(void) {
 
                 if(it.second->draw_tinted())
                     al_draw_tinted_scaled_rotated_bitmap(
-                        it.second->get_bitmap(), it.second->get_tint(),
+                        **it.second->_bitmap, it.second->get_tint(),
                         center_x, center_y, destination_x, destination_y,
                         it.second->scale_factor_x,
                         it.second->scale_factor_y,
@@ -316,7 +316,7 @@ void renderer::render(void) {
                     );
                 else
                     al_draw_scaled_rotated_bitmap(
-                        it.second->get_bitmap(),
+                        **it.second->_bitmap,
                         center_x, center_y, destination_x, destination_y,
                         it.second->scale_factor_x,
                         it.second->scale_factor_y,

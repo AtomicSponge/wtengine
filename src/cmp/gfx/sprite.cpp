@@ -39,12 +39,8 @@ sprite::sprite(
     start_frame(0), stop_frame(0), current_frame(0), rate(rt)
 {
     if(rate == 0) rate = 1;
-    try {
-        sheet_width = internal_bitmap->get_width();
-        sheet_height = internal_bitmap->get_height();
-    } catch(...) {
-        throw wte_exception("Error creating sprite.  Cannot access asset.", "sprite", engine_time::check());
-    }
+    sheet_width = _bitmap->get_width();
+    sheet_height = _bitmap->get_height();
 }
 
 /*

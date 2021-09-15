@@ -259,16 +259,16 @@ void wte_demo::load_menus(void) {
         [](void){ return std::to_string(config::volume::main); },
         [](const std::string& val){ mgr::audio::set_level(std::stof(val)); });
     temp_menu.add_item<mnu::selection>("Music Volume:", vol_dvec, vol_vec,
-        [](void){ return std::to_string(config::volume::mix1); },
+        [](void){ return std::to_string(config::volume::music); },
         [](const std::string& val){ mgr::audio::music::set_level(std::stof(val)); });
     temp_menu.add_item<mnu::selection>("Effects Volume:", vol_dvec, vol_vec,
-        [](void){ return std::to_string(config::volume::mix2); },
+        [](void){ return std::to_string(config::volume::sample); },
         [](const std::string& val){ mgr::audio::sample::set_level(std::stof(val)); });
     temp_menu.add_item<mnu::selection>("Voice Volume:", vol_dvec, vol_vec,
-        [](void){ return std::to_string(config::volume::mix3); },
+        [](void){ return std::to_string(config::volume::voice); },
         [](const std::string& val){ mgr::audio::voice::set_level(std::stof(val)); });
     temp_menu.add_item<mnu::selection>("Ambiance Volume:", vol_dvec, vol_vec,
-        [](void){ return std::to_string(config::volume::mix4); },
+        [](void){ return std::to_string(config::volume::ambiance); },
         [](const std::string& val){ mgr::audio::ambiance::set_level(std::stof(val)); });
     temp_menu.add_item<mnu::apply>();
     temp_menu.add_item<mnu::action>("Return", "close_menu");

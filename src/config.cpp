@@ -22,10 +22,10 @@ const bool& config::flags::show_hitboxes = config::_flags::show_hitboxes;
 #endif
 
 const float& config::volume::main = config::_volume::main;
-const float& config::volume::mix1 = config::_volume::mix1;
-const float& config::volume::mix2 = config::_volume::mix2;
-const float& config::volume::mix3 = config::_volume::mix3;
-const float& config::volume::mix4 = config::_volume::mix4;
+const float& config::volume::music = config::_volume::music;
+const float& config::volume::sample = config::_volume::sample;
+const float& config::volume::voice = config::_volume::voice;
+const float& config::volume::ambiance = config::_volume::ambiance;
 
 const int& config::gfx::screen_w = config::_gfx::screen_w;
 const int& config::gfx::screen_h = config::_gfx::screen_h;
@@ -175,10 +175,10 @@ const bool config::load(void) {
         dfile.read(reinterpret_cast<char*>(&_gfx::scale_factor), sizeof _gfx::scale_factor);
         dfile.read(reinterpret_cast<char*>(&_gfx::menu_scale_factor), sizeof _gfx::menu_scale_factor);
         dfile.read(reinterpret_cast<char*>(&_volume::main), sizeof _volume::main);
-        dfile.read(reinterpret_cast<char*>(&_volume::mix1), sizeof _volume::mix1);
-        dfile.read(reinterpret_cast<char*>(&_volume::mix2), sizeof _volume::mix2);
-        dfile.read(reinterpret_cast<char*>(&_volume::mix3), sizeof _volume::mix3);
-        dfile.read(reinterpret_cast<char*>(&_volume::mix4), sizeof _volume::mix4);
+        dfile.read(reinterpret_cast<char*>(&_volume::music), sizeof _volume::music);
+        dfile.read(reinterpret_cast<char*>(&_volume::sample), sizeof _volume::sample);
+        dfile.read(reinterpret_cast<char*>(&_volume::voice), sizeof _volume::voice);
+        dfile.read(reinterpret_cast<char*>(&_volume::ambiance), sizeof _volume::ambiance);
         dfile.read(reinterpret_cast<char*>(&_controls::key_menu), sizeof _controls::key_menu);
         dfile.read(reinterpret_cast<char*>(&_controls::key_menu_select), sizeof _controls::key_menu_select);
 
@@ -260,10 +260,10 @@ const bool config::save(void) {
         dfile.write(reinterpret_cast<const char*>(&gfx::scale_factor), sizeof gfx::scale_factor);
         dfile.write(reinterpret_cast<const char*>(&gfx::menu_scale_factor), sizeof gfx::menu_scale_factor);
         dfile.write(reinterpret_cast<const char*>(&volume::main), sizeof volume::main);
-        dfile.write(reinterpret_cast<const char*>(&volume::mix1), sizeof volume::mix1);
-        dfile.write(reinterpret_cast<const char*>(&volume::mix2), sizeof volume::mix2);
-        dfile.write(reinterpret_cast<const char*>(&volume::mix3), sizeof volume::mix3);
-        dfile.write(reinterpret_cast<const char*>(&volume::mix4), sizeof volume::mix4);
+        dfile.write(reinterpret_cast<const char*>(&volume::music), sizeof volume::music);
+        dfile.write(reinterpret_cast<const char*>(&volume::sample), sizeof volume::sample);
+        dfile.write(reinterpret_cast<const char*>(&volume::voice), sizeof volume::voice);
+        dfile.write(reinterpret_cast<const char*>(&volume::ambiance), sizeof volume::ambiance);
         dfile.write(reinterpret_cast<const char*>(&controls::key_menu), sizeof controls::key_menu);
         dfile.write(reinterpret_cast<const char*>(&controls::key_menu_select), sizeof controls::key_menu_select);
         

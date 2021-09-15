@@ -63,10 +63,10 @@ class config {
          */
         struct volume {
             static const float& main;                 //!<  Main volume level.
-            static const float& mix1;                 //!<  Mix 1 volume level.
-            static const float& mix2;                 //!<  Mix 2 volume level.
-            static const float& mix3;                 //!<  Mix 3 volume level.
-            static const float& mix4;                 //!<  Mix 4 volume level.
+            static const float& music;                //!<  Mix 1 volume level.
+            static const float& sample;               //!<  Mix 2 volume level.
+            static const float& voice;                //!<  Mix 3 volume level.
+            static const float& ambiance;             //!<  Mix 4 volume level.
         };
 
         /*!
@@ -221,10 +221,10 @@ class config {
 
         struct _volume {
             inline static float main = 1.0f;
-            inline static float mix1 = 1.0f;
-            inline static float mix2 = 1.0f;
-            inline static float mix3 = 1.0f;
-            inline static float mix4 = 1.0f;
+            inline static float music = 1.0f;
+            inline static float sample = 1.0f;
+            inline static float voice = 1.0f;
+            inline static float ambiance = 1.0f;
         };
 
         struct _gfx {

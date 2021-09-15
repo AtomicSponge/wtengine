@@ -222,20 +222,20 @@ void audio::set_volume(void) {
         al_set_mixer_gain(_mixer_main, config::volume::main);
     else
         al_set_mixer_gain(_mixer_main, 0.5f);
-    if(config::volume::mix1 >= 0.0f && config::volume::mix1 <= 1.0f)
-        al_set_mixer_gain(_mixer_1, config::volume::mix1);
+    if(config::volume::music >= 0.0f && config::volume::music <= 1.0f)
+        al_set_mixer_gain(_mixer_1, config::volume::music);
     else
         al_set_mixer_gain(_mixer_1, 0.5f);
-    if(config::volume::mix2 >= 0.0f && config::volume::mix2 <= 1.0f)
-        al_set_mixer_gain(_mixer_2, config::volume::mix2);
+    if(config::volume::sample >= 0.0f && config::volume::sample <= 1.0f)
+        al_set_mixer_gain(_mixer_2, config::volume::sample);
     else
         al_set_mixer_gain(_mixer_2, 0.5f);
-    if(config::volume::mix3 >= 0.0f && config::volume::mix3 <= 1.0f)
-        al_set_mixer_gain(_mixer_3, config::volume::mix3);
+    if(config::volume::voice >= 0.0f && config::volume::voice <= 1.0f)
+        al_set_mixer_gain(_mixer_3, config::volume::voice);
     else
         al_set_mixer_gain(_mixer_3, 0.5f);
-    if(config::volume::mix4 >= 0.0f && config::volume::mix4 <= 1.0f)
-        al_set_mixer_gain(_mixer_4, config::volume::mix4);
+    if(config::volume::ambiance >= 0.0f && config::volume::ambiance <= 1.0f)
+        al_set_mixer_gain(_mixer_4, config::volume::ambiance);
     else
         al_set_mixer_gain(_mixer_4, 0.5f);
 }

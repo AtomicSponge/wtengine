@@ -258,10 +258,7 @@ void audio::music::loop(const bool& loop) {
  *
  */
 void audio::music::play(wte_asset<al_audio> audio) {
-    if(al_get_mixer_attached(_mixer_1)) {
-        al_drain_audio_stream(**music_stream);
-        al_detach_audio_stream(**music_stream);
-    }
+    music::stop();
     music_stream = audio;
     al_attach_audio_stream_to_mixer(**music_stream, _mixer_1);
     al_set_audio_stream_playmode(**music_stream, ALLEGRO_PLAYMODE_LOOP);
@@ -351,10 +348,7 @@ void audio::sample::clear_instances(void) {
  *
  */
 void audio::voice::play(wte_asset<al_audio> audio) {
-    if(al_get_mixer_attached(_mixer_3)) {
-        al_drain_audio_stream(**voice_stream);
-        al_detach_audio_stream(**voice_stream);
-    }
+    voice::stop();
     voice_stream = audio;
     al_attach_audio_stream_to_mixer(**voice_stream, _mixer_3);
     al_set_audio_stream_playmode(**voice_stream, ALLEGRO_PLAYMODE_ONCE);
@@ -401,10 +395,7 @@ void audio::ambiance::loop(const bool& loop) {
  *
  */
 void audio::ambiance::play(wte_asset<al_audio> audio) {
-    if(al_get_mixer_attached(_mixer_4)) {
-        al_drain_audio_stream(**ambiance_stream);
-        al_detach_audio_stream(**ambiance_stream);
-    }
+    ambiance::stop();
     ambiance_stream = audio;
     al_attach_audio_stream_to_mixer(**ambiance_stream, _mixer_4);
     al_set_audio_stream_playmode(**ambiance_stream, ALLEGRO_PLAYMODE_LOOP);

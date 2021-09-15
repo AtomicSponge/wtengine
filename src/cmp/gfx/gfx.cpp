@@ -18,9 +18,9 @@ gfx::gfx(
     wte_asset<al_bitmap> bmp,
     const std::size_t& l,
     const std::function<void(const entity_id&)>& func
-) : _bitmap(bmp), layer(l), tint_set(false), visible(true),
-direction(0.0f), rotated(false), scale_factor_x(1.0f), scale_factor_y(1.0f),
-animate(func) {}
+) : layer(l), visible(true), rotated(false), direction(0.0f),
+scale_factor_x(1.0f), scale_factor_y(1.0f),
+_bitmap(bmp), tinted(false), animate(func) {}
 
 /*
  *
@@ -32,7 +32,7 @@ void gfx::set_drawing(void) { al_set_target_bitmap(**_bitmap); }
  */
 void gfx::set_tint(const ALLEGRO_COLOR& c) {
     tint_color = c;
-    tint_set = true;
+    tinted = true;
 }
 
 /*
@@ -43,11 +43,6 @@ const ALLEGRO_COLOR gfx::get_tint(void) const { return tint_color; }
 /*
  *
  */
-void gfx::clear_tint(void) { tint_set = false; }
-
-/*
- *
- */
-const bool gfx::draw_tinted(void) const { return tint_set; }
+void gfx::clear_tint(void) { tinted = false; }
 
 }  //  end namespace wte::cmp

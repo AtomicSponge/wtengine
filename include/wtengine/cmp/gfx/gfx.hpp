@@ -72,12 +72,6 @@ class gfx : public component {
          */
         void clear_tint(void);
 
-        /*!
-         * \brief Check if the bitmap should be drawn tinted.
-         * \return True if tint set, false if tint cleared.
-         */
-        const bool draw_tinted(void) const;
-
         std::size_t layer;     //!<  Layer position.
         bool visible;          //!<  Flag to set visibility.
         bool rotated;          //!<  Rotation flag.
@@ -102,8 +96,8 @@ class gfx : public component {
         wte_asset<al_bitmap> _bitmap;
 
     private:
-        bool tint_set;              //  Flag to set tint.
-        ALLEGRO_COLOR tint_color;   //  Color of tint.
+        bool tinted;               //  Flag to set tint.
+        ALLEGRO_COLOR tint_color;  //  Color of tint.
 
         //  Animation function.
         const std::function<void(const entity_id&)> animate;

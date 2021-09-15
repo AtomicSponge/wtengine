@@ -149,7 +149,7 @@ void renderer::render(void) {
                         destination_y = it.second->pos_y;
                 }
 
-                if(it.second->draw_tinted())
+                if(it.second->tinted)
                     al_draw_tinted_scaled_rotated_bitmap(
                         **it.second->_bitmap, it.second->get_tint(),
                         center_x, center_y, destination_x, destination_y,
@@ -215,7 +215,7 @@ void renderer::render(void) {
                     }
 
                     //  Draw the sprite.
-                    if(it.second->draw_tinted())
+                    if(it.second->tinted)
                         al_draw_tinted_scaled_rotated_bitmap(
                             temp_bitmap, it.second->get_tint(),
                             center_x, center_y, destination_x, destination_y,
@@ -306,7 +306,7 @@ void renderer::render(void) {
                         destination_y = it.second->pos_y;
                 }
 
-                if(it.second->draw_tinted())
+                if(it.second->tinted)
                     al_draw_tinted_scaled_rotated_bitmap(
                         **it.second->_bitmap, it.second->get_tint(),
                         center_x, center_y, destination_x, destination_y,

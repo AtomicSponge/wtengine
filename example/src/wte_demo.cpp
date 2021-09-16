@@ -438,11 +438,10 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     e_id = mgr::world::new_entity();
     mgr::world::set_name(e_id, "player");
-    mgr::world::add_component<cmp::team>(e_id, 0);
     mgr::world::add_component<cmp::location>(e_id,
         (config::gfx::arena_w / 2) - 5,
          config::gfx::arena_h - 40);
-    mgr::world::add_component<cmp::hitbox>(e_id, 10, 10);
+    mgr::world::add_component<cmp::hitbox>(e_id, 10, 10, 0);
     mgr::world::add_component<cmp::bounding_box>(e_id, 12.0f, 0.0f,
         (float)(config::gfx::arena_w - 21),
         (float)(config::gfx::arena_h - 32));
@@ -535,9 +534,8 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     e_id = mgr::world::new_entity();
     mgr::world::set_name(e_id, "main_cannon");
-    mgr::world::add_component<cmp::team>(e_id, 0);
     mgr::world::add_component<cmp::location>(e_id, 0, 0);
-    mgr::world::add_component<cmp::hitbox>(e_id, 10, 200, false);
+    mgr::world::add_component<cmp::hitbox>(e_id, 10, 200, 0, false);
     mgr::world::set_component<cmp::hitbox>(e_id)->solid = false;
     mgr::world::add_component<damage>(e_id, 3);
 
@@ -579,9 +577,8 @@ void wte_demo::new_game(void) {
     /* ********************************* */
     e_id = mgr::world::new_entity();
     mgr::world::set_name(e_id, "shield");
-    mgr::world::add_component<cmp::team>(e_id, 0);
     mgr::world::add_component<cmp::location>(e_id, 0, 0);
-    mgr::world::add_component<cmp::hitbox>(e_id, 64, 64, false);
+    mgr::world::add_component<cmp::hitbox>(e_id, 64, 64, 0, false);
     mgr::world::set_component<cmp::hitbox>(e_id)->solid = false;
     mgr::world::add_component<energy>(e_id, 50, 100);
     mgr::world::add_component<damage>(e_id, 100);
@@ -656,9 +653,8 @@ void wte_demo::new_game(void) {
             if(temp_size > 8) temp_size = 8;
 
             mgr::world::set_name(e_id, "asteroid" + std::to_string(e_id));
-            mgr::world::add_component<cmp::team>(e_id, 1);
             mgr::world::add_component<cmp::location>(e_id, std::stof(args[1]), std::stof(args[2]));
-            mgr::world::add_component<cmp::hitbox>(e_id, (float)(temp_size * 16), (float)(temp_size * 16));
+            mgr::world::add_component<cmp::hitbox>(e_id, (float)(temp_size * 16), (float)(temp_size * 16), 1);
             mgr::world::add_component<health>(e_id, temp_size * 10, temp_size * 10);
             mgr::world::add_component<damage>(e_id, 10);
             mgr::world::add_component<size>(e_id, temp_size);

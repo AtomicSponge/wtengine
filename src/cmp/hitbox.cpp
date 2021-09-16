@@ -16,8 +16,9 @@ namespace wte::cmp {
  */
 hitbox::hitbox(
     const float& w,
-    const float& h
-) : width(w), height(h), solid(true) {}
+    const float& h,
+    const std::size_t& t
+) : width(w), height(h), team(t), solid(true) {}
 
 /*
  *
@@ -25,7 +26,8 @@ hitbox::hitbox(
 hitbox::hitbox(
     const float& w,
     const float& h,
+    const std::size_t& t,
     const bool& s
-) : width(w), height(h), solid(s) {}
+) : width(w), height(h), team(t), solid(s) {}
 
 }  //  end namespace wte::cmp

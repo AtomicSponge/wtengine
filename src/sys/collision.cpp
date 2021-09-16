@@ -20,19 +20,16 @@ colision::colision() : system("colision") {}
  *
  */
 void colision::run(void) {
-    const_component_container<cmp::team> team_components = mgr::world::get_components<cmp::team>();
+    const_component_container<cmp::hitbox> hitbox_components =
+        mgr::world::get_components<cmp::hitbox>();
 
-    for(auto& it_a: team_components) {
-        for(auto& it_b: team_components) {
+    for(auto& it_a: hitbox_components) {
+        for(auto& it_b: hitbox_components) {
             try {
                 cmp::const_comp_ptr<cmp::location> temp_location_a =
                     mgr::world::get_component<cmp::location>(it_a.first);
                 cmp::const_comp_ptr<cmp::location> temp_location_b =
                     mgr::world::get_component<cmp::location>(it_b.first);
-                cmp::const_comp_ptr<cmp::hitbox> temp_hitbox_a =
-                    mgr::world::get_component<cmp::hitbox>(it_a.first);
-                cmp::const_comp_ptr<cmp::hitbox> temp_hitbox_b =
-                    mgr::world::get_component<cmp::hitbox>(it_b.first);
 
                 /*
                  * Only test if:  Not the same entity.
@@ -41,18 +38,18 @@ void colision::run(void) {
                  */
                 if(
                     it_a.first != it_b.first &&
-                    it_a.second->_team != it_b.second->_team &&
-                    temp_hitbox_a->solid && temp_hitbox_b->solid
+                    it_a.second->team != it_b.second->team &&
+                    it_a.second->solid && it_b.second->solid
                 ) {
                     //  Use AABB to test colision
                     if(
-                        temp_location_a->pos_x < temp_location_b->pos_x + temp_hitbox_b->width
+                        temp_location_a->pos_x < temp_location_b->pos_x + it_b.second->width
                         && 
-                        temp_location_a->pos_x + temp_hitbox_a->width > temp_location_b->pos_x
+                        temp_location_a->pos_x + it_a.second->width > temp_location_b->pos_x
                         &&
-                        temp_location_a->pos_y < temp_location_b->pos_y + temp_hitbox_b->height
+                        temp_location_a->pos_y < temp_location_b->pos_y + it_b.second->height
                         && 
-                        temp_location_a->pos_y + temp_hitbox_a->height > temp_location_b->pos_y
+                        temp_location_a->pos_y + it_a.second->height > temp_location_b->pos_y
                     ) {
                         //  Send a message that two entities colided.
                         //  Each entity will get a colision message.

@@ -16,7 +16,6 @@
 #include "wtengine/cmp/hitbox.hpp"
 #include "wtengine/cmp/location.hpp"
 #include "wtengine/cmp/motion.hpp"
-#include "wtengine/cmp/team.hpp"
 
 //  Graphics components
 #include "wtengine/cmp/gfx/background.hpp"

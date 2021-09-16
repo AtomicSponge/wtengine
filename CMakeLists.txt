@@ -70,7 +70,6 @@ add_library(wtengine STATIC
     src/cmp/hitbox.cpp
     src/cmp/location.cpp
     src/cmp/motion.cpp
-    src/cmp/team.cpp
     src/mgr/audio.cpp
     src/mgr/menus.cpp
     src/mgr/messages.cpp

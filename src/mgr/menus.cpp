@@ -143,11 +143,11 @@ void menus::reset(void) {
 void menus::open_menu(const std::string& menu_id) {
     opened_menus.push(get_menu(menu_id));
     config::_flags::menu_opened = true;
-    menu_position = opened_menus.top()->items_cbegin();
+    menu_position = opened_menus.top()->_items.cbegin();
 
     //  Set default values for any menu settings objects.
-    for(auto& it: opened_menus.top()->get_items()) it->set_default();
-    for(auto& it: opened_menus.top()->get_items()) it->reset_to_default();
+    for(auto& it: opened_menus.top()->_items) it->set_default();
+    for(auto& it: opened_menus.top()->_items) it->reset_to_default();
 
     al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
     menu_buffer->destroy();
@@ -162,28 +162,28 @@ void menus::close_menu(void) {
     al_set_timer_count(menu_timer, 0);
     opened_menus.pop();
     if(opened_menus.empty()) config::_flags::menu_opened = false;
-    else menu_position = opened_menus.top()->items_cbegin();
+    else menu_position = opened_menus.top()->_items.cbegin();
 }
 
 /*
  *
  */
 void menus::menu_pos_up(void) {
-    if(menu_position != opened_menus.top()->items_cbegin()) menu_position--;
+    if(menu_position != opened_menus.top()->_items.cbegin()) menu_position--;
 }
 
 /*
  *
  */
 void menus::menu_pos_down(void) {
-    if(menu_position != --opened_menus.top()->items_cend()) menu_position++;
+    if(menu_position != --opened_menus.top()->_items.cend()) menu_position++;
 }
 
 /*
  *
  */
 void menus::menu_pos_start_left(void) {
-    if(menu_position != opened_menus.top()->items_cend()) {
+    if(menu_position != opened_menus.top()->_items.cend()) {
         is_button_left = true;
         scroll_option = true;
         last_tick = al_get_timer_count(menu_timer);
@@ -199,7 +199,7 @@ void menus::menu_pos_stop_left(void) { scroll_option = false; }
  *
  */
 void menus::menu_pos_start_right(void) {
-    if(menu_position != opened_menus.top()->items_cend()) {
+    if(menu_position != opened_menus.top()->_items.cend()) {
         is_button_left = false;
         scroll_option = true;
         last_tick = al_get_timer_count(menu_timer);
@@ -215,14 +215,14 @@ void menus::menu_pos_stop_right(void) { scroll_option = false; }
  *
  */
 void menus::menu_item_select(void) {
-    if(menu_position != opened_menus.top()->items_cend()) (*menu_position)->on_select();
+    if(menu_position != opened_menus.top()->_items.cend()) (*menu_position)->on_select();
     if(do_apply) {
-        for(auto& it: opened_menus.top()->get_items()) it->apply_setting();
+        for(auto& it: opened_menus.top()->_items) it->apply_setting();
         if(config::gfx::needs_reconfig) mgr::messages::add(message("system", "reconf_display", ""));
         do_apply = false;
     }
     if(do_cancel) {
-        for(auto& it: opened_menus.top()->get_items()) it->reset_to_default();
+        for(auto& it: opened_menus.top()->_items) it->reset_to_default();
         do_cancel = false;
     }
 }
@@ -277,8 +277,8 @@ void menus::render_menu(void) {
     float cursor_pos = 0.0f;
     std::size_t vcounter = 0;
     const float offset = menu_padding + font_size + menu_padding;
-    const float vpart = (menu_height - offset) / (opened_menus.top()->num_items() + 1);
-    for(auto& it: opened_menus.top()->get_items()) {
+    const float vpart = (menu_height - offset) / (opened_menus.top()->_items.size() + 1);
+    for(auto& it: opened_menus.top()->_items) {
         vcounter++;
         const float hpart = menu_width / (it->get_text().size() + 1);
         for(std::size_t i = 0; i < it->get_text().size(); i++)
@@ -289,13 +289,13 @@ void menus::render_menu(void) {
                 it->get_text()[i].c_str()
             );
         if(std::find(
-            opened_menus.top()->items_cbegin(),
-            opened_menus.top()->items_cend(),
+            opened_menus.top()->_items.cbegin(),
+            opened_menus.top()->_items.cend(),
             it) == menu_position) cursor_pos = (offset / 2) + (vpart * vcounter);
     }
 
     //  Render menu cursor.
-    if(opened_menus.top()->num_items() != 0) al_draw_bitmap(**cursor_bitmap, menu_padding, cursor_pos, 0);
+    if(opened_menus.top()->_items.size() != 0) al_draw_bitmap(**cursor_bitmap, menu_padding, cursor_pos, 0);
 }
 
 }  //  end namespace wte::mgr

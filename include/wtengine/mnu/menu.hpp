@@ -79,26 +79,6 @@ class menu {
          */
         const std::string get_id(void) const;
 
-        /*
-         * Get number of menu items.
-         */
-        const std::size_t num_items(void) const;
-
-        /*
-         * Get menu items start iterator.
-         */
-        item_citerator items_cbegin(void) const;
-
-        /*
-         * Get menu items end iterator.
-         */
-        item_citerator items_cend(void) const;
-
-        /*
-         * Get menu items.
-         */
-        const items get_items(void) const;
-
         const std::string id;
         std::string title;
         items _items;

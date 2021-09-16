@@ -43,12 +43,9 @@ void colision::run(void) {
                 ) {
                     //  Use AABB to test colision
                     if(
-                        temp_location_a->pos_x < temp_location_b->pos_x + it_b.second->width
-                        && 
-                        temp_location_a->pos_x + it_a.second->width > temp_location_b->pos_x
-                        &&
-                        temp_location_a->pos_y < temp_location_b->pos_y + it_b.second->height
-                        && 
+                        temp_location_a->pos_x < temp_location_b->pos_x + it_b.second->width &&
+                        temp_location_a->pos_x + it_a.second->width > temp_location_b->pos_x &&
+                        temp_location_a->pos_y < temp_location_b->pos_y + it_b.second->height &&
                         temp_location_a->pos_y + it_a.second->height > temp_location_b->pos_y
                     ) {
                         //  Send a message that two entities colided.

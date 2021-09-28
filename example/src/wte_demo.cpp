@@ -499,7 +499,7 @@ void wte_demo::new_game(void) {
                     //  Game over!
                     mgr::messages::add(message(engine_time::check() + 180, "system", "end_game", ""));
                     entity_id go_id = mgr::world::get_id("game_over_overlay");
-                    mgr::world::set_component<cmp::sprite>(go_id)->visible = true;
+                    mgr::world::set_component<cmp::overlay>(go_id)->visible = true;
                 } else {
                     std::string player_name = mgr::world::get_name(plr_id);
                     mgr::messages::add(

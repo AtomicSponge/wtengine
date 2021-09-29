@@ -67,6 +67,10 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
     target_compile_options(wte_demo PRIVATE "-DWTE_BUILD_DEBUG")
 endif()
 
+if(EMSCRIPTEN)
+    set(CMAKE_EXECUTABLE_SUFFIX ".html")
+endif()
+
 ########################################
 #
 #  Build Process

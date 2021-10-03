@@ -13,7 +13,7 @@ namespace wte::mgr {
 
 template <> bool world::manager<world>::initialized = false;
 
-entity_id world::entity_counter = WTE_ENTITY_START;
+entity_id world::entity_counter = ENTITY_START;
 world_container world::entity_vec;
 world_map world::_world;
 
@@ -21,7 +21,7 @@ world_map world::_world;
  *
  */
 void world::clear(void) {
-    entity_counter = WTE_ENTITY_START;
+    entity_counter = ENTITY_START;
     entity_vec.clear();
     _world.clear();
 }
@@ -32,11 +32,11 @@ void world::clear(void) {
 const entity_id world::new_entity(void) {
     entity_id next_id;
 
-    if(entity_counter == WTE_ENTITY_MAX) {  //  Counter hit max.
+    if(entity_counter == ENTITY_MAX) {  //  Counter hit max.
         bool test = false;
         //  Look for the first available ID.
-        for(next_id = WTE_ENTITY_START; !test; next_id++) {
-            if(next_id == WTE_ENTITY_MAX) return WTE_ENTITY_ERROR;  //  No available ID, error.
+        for(next_id = ENTITY_START; !test; next_id++) {
+            if(next_id == ENTITY_MAX) return ENTITY_ERROR;  //  No available ID, error.
             //  See if the new ID does not exist.
             test = (std::find_if(entity_vec.begin(), entity_vec.end(),
                                  [&next_id](const entity& e){ return e.first == next_id; })
@@ -50,8 +50,8 @@ const entity_id world::new_entity(void) {
     //  Set a new name.  Make sure name doesn't exist.
     std::string entity_name = "Entity" + std::to_string(next_id);
     bool test = false;
-    for(entity_id temp_id = WTE_ENTITY_START; !test; temp_id++) {
-        if(temp_id == WTE_ENTITY_MAX) return WTE_ENTITY_ERROR;  //  Couldn't name entity, error.
+    for(entity_id temp_id = ENTITY_START; !test; temp_id++) {
+        if(temp_id == ENTITY_MAX) return ENTITY_ERROR;  //  Couldn't name entity, error.
         //  See if the new name does not exist.
         test = (std::find_if(entity_vec.begin(), entity_vec.end(),
                              [&entity_name](const entity& e){ return e.second == entity_name; })
@@ -123,7 +123,7 @@ const entity_id world::get_id(const std::string& name) {
     auto n_it = std::find_if(entity_vec.begin(), entity_vec.end(),
                              [&name](const entity& e){ return e.second == name; });
     if(n_it != entity_vec.end()) return n_it->first;
-    return WTE_ENTITY_ERROR;
+    return ENTITY_ERROR;
 }
 
 /*

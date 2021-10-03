@@ -16,9 +16,10 @@ namespace wte::cmp {
  */
 sprite::sprite(
     wte_asset<al_bitmap> bmp,
+    const std::size_t& l,
     const float& sw, const float& sh,
     const float& dox, const float& doy,
-    const std::size_t& rt, const std::size_t& l) :
+    const std::size_t& rt) :
     gfx(bmp, l,[this](const entity_id& e_id) {
         //  Define sprite animation process.
         if(engine_time::check() % rate == 0) {

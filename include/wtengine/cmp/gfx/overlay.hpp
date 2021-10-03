@@ -32,17 +32,17 @@ class overlay final : public gfx {
          * \brief Create a new Overlay component.
          * \param bmp Bitmap asset to use.
          * \param font Font asset to use.
+         * \param l Layer for sorting.
          * \param x Horizontal location of the overlay in pixels.
          * \param y Vertical location of the overlay in pixels.
-         * \param l Layer for sorting.
          * \param func Function to define what is displayed in the overlay.
          */
         overlay(
             wte_asset<al_bitmap> bmp,
             wte_asset<al_font> font,
+            const std::size_t& l,
             const float& x,
             const float& y,
-            const std::size_t& l,
             const std::function<void(const entity_id&)>& func
         );
 
@@ -64,8 +64,8 @@ class overlay final : public gfx {
             const int& f
         );
 
-        float pos_x;  //!<  X position of the overlay in the arena.
-        float pos_y;  //!<  Y position of the overlay in the arena.
+        float pos_x;  //!<  X position.
+        float pos_y;  //!<  Y position.
 
     private:
         wte_asset<al_font> overlay_font;  //  Font for overlay.

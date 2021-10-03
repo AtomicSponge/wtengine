@@ -58,8 +58,8 @@ class background final : public gfx {
 
         ~background() = default;  //!<  Default destructor.
 
-        float pos_x;  //!<  X location of the background in the arena.
-        float pos_y;  //!<  Y location of the background in the arena.
+        float pos_x;  //!<  X position.
+        float pos_y;  //!<  Y position.
 };
 
 }  //  end namespace wte::cmp

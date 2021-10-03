@@ -67,7 +67,7 @@ void spawner::process_messages(const message_container& messages) {
 
         if(m_it.get_cmd() == "delete") {
             entity_id delete_entity_id = mgr::world::get_id(m_it.get_arg(0));
-            if(delete_entity_id != WTE_ENTITY_ERROR) {
+            if(delete_entity_id != mgr::world::ENTITY_ERROR) {
                 mgr::world::delete_entity(delete_entity_id);
             }
         }

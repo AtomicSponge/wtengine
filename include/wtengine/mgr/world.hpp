@@ -10,10 +10,6 @@
 #ifndef WTE_MGR_WORLD_HPP
 #define WTE_MGR_WORLD_HPP
 
-#define WTE_ENTITY_ERROR (0)
-#define WTE_ENTITY_START (1)
-#define WTE_ENTITY_MAX (std::numeric_limits<entity_id>::max())
-
 #include <string>
 #include <cstring>
 #include <vector>
@@ -330,6 +326,11 @@ class world final : private manager<world> {
             }
             return temp_components;
         };
+
+        inline static const entity_id ENTITY_ERROR = 0;  //!<  Entity error code.
+        inline static const entity_id ENTITY_START = 1;  //!<  Start of Entity counter.
+        inline static const entity_id ENTITY_MAX =       //!<  Entity max value.
+            std::numeric_limits<entity_id>::max();
 
     private:
         world() = default;

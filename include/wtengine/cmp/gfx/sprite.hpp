@@ -41,21 +41,21 @@ class sprite final : public gfx {
     public:
         /*!
          * \brief Create a new Sprite component.
+         * \param l Layer for sorting.
          * \param sw Sprite width.
          * \param sh Sprite height.
          * \param dox Horizontal draw offset in relation to entity location.
          * \param doy Verticle draw offset in relation to entity location.
          * \param rt Rate in engine timer ticks for animation.
-         * \param l Layer for sorting.
          */
         sprite(
             wte_asset<al_bitmap> bmp,
+            const std::size_t& l,
             const float& sw,
             const float& sh,
             const float& dox,
             const float& doy,
-            const std::size_t& rt,
-            const std::size_t& l
+            const std::size_t& rt
         );
 
         ~sprite() = default;  //!<  Default destructor.

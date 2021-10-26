@@ -105,10 +105,10 @@ class renderer final : private manager<renderer> {
             wte_asset<al_font> font
         );
 
-        static const std::size_t& fps;
-        static const time_point<system_clock>& last_render;
-        static const time_point<system_clock>& start_time;
-        static const duration& delta_time;
+        static const std::size_t& fps;                       //!<  Frames per second
+        static const time_point<system_clock>& last_render;  //!<  Time of last render
+        static const time_point<system_clock>& start_time;   //!<  Start time of renderer
+        static const duration& delta_time;                   //!<  Duration of last frame render
 
     private:
         renderer() = default;

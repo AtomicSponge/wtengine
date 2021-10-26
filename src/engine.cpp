@@ -271,12 +271,10 @@ void engine::do_game(void) {
         if(queue_not_empty && event.type == ALLEGRO_EVENT_TIMER) {
             //  Set the engine_time object to the current time.
             engine_time::set(al_get_timer_count(main_timer));
-
             //  Run all systems.
             mgr::systems::run();
             //  Process messages.
             mgr::systems::dispatch();
-
             //  Get any spawner messages and pass to handler.
             mgr::spawner::process_messages(mgr::messages::get("spawner"));
         }
@@ -284,10 +282,8 @@ void engine::do_game(void) {
 
         //  Run any untimed systems.
         mgr::systems::run_untimed();
-
         //  Render the screen.
         mgr::renderer::render();
-
         //  Get any system messages and pass to handler.
         cmds.process_messages(mgr::messages::get("system"));
         //  Send audio messages to the audio queue.
@@ -299,12 +295,10 @@ void engine::do_game(void) {
         if(event.type == ALLEGRO_EVENT_DISPLAY_SWITCH_OUT) {
             out_of_focus();
         }
-
         //  Check if display returns to focus.
         if(event.type == ALLEGRO_EVENT_DISPLAY_SWITCH_IN) {
             back_in_focus();
         }
-
         //  Force quit if the game window is closed.
         if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
             if(config::flags::game_started) process_end_game();

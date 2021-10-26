@@ -14,7 +14,7 @@ namespace wte::sys {
 /*
  *
  */
-animate::animate() : system("animate") {}
+animate::animate() : system("animate", true) {}
 
 /*
  *

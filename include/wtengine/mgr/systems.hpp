@@ -24,7 +24,9 @@
 #include "wtengine/sys/system.hpp"
 
 namespace wte {
-    class engine;
+
+class engine;
+
 }
 
 namespace wte::mgr {
@@ -47,9 +49,7 @@ class systems final : private manager<systems> {
          * \param new_system System to add.
          * \return True if added, false if not.
          */
-        static const bool add(
-            sys::system_uptr new_system
-        );
+        static const bool add(sys::system_uptr new_system);
 
     private:
         systems() = default;
@@ -74,6 +74,11 @@ class systems final : private manager<systems> {
          * \brief Run all systems.
          */
         static void run(void);
+
+        /*
+         * \brief Run all untimed systems.
+         */
+        static void run_untimed(void);
 
         /*
          * Process dispatcher components. 

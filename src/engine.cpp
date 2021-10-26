@@ -282,6 +282,9 @@ void engine::do_game(void) {
         }
         /* *** END GAME LOOP ******************************************************** */
 
+        //  Run any untimed systems.
+        mgr::systems::run_untimed();
+
         //  Render the screen.
         mgr::renderer::render();
 

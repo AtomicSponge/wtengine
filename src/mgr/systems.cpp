@@ -41,7 +41,7 @@ const bool systems::add(sys::system_uptr new_system) {
     if(finalized == true) return false;
 
     for(auto& it: _systems)
-        if((it)->get_name() == new_system->get_name()) return false;
+        if((it)->name == new_system->name) return false;
 
     _systems.push_back(std::move(new_system));
     return true;
@@ -52,7 +52,23 @@ const bool systems::add(sys::system_uptr new_system) {
  */
 void systems::run() {
     for(auto& it: _systems)
-        try { (it)->run(); } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
+        try { 
+            if((it)->timed) (it)->run();
+        } catch(const wte_exception& e) {
+            alert::set(e.what(), e.where(), e.when());
+        }
+}
+
+/*
+ *
+ */
+void systems::run_untimed() {
+    for(auto& it: _systems)
+        try { 
+            if(!(it)->timed) (it)->run();
+        } catch(const wte_exception& e) {
+            alert::set(e.what(), e.where(), e.when());
+        }
 }
 
 /*

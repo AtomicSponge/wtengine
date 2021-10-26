@@ -14,7 +14,7 @@ namespace wte::sys {
 /*
  *
  */
-movement::movement() : system("movement") {}
+movement::movement() : system("movement", true) {}
 
 /*
  *

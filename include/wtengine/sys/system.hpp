@@ -29,25 +29,22 @@ class system {
         system(const system&) = delete;          //!<  Delete copy constructor.
         void operator=(system const&) = delete;  //!<  Delete assignment operator.
 
-        /*!
-         * \brief Get the system name.
-         * \return System name.
-         */
-        const std::string get_name(void) const { return name; };
-
-        //!  Override this to create custom System run method
+        //!  Override this to create custom System run method.
         virtual void run(void) = 0;
+
+        const std::string name;  //!<  System name.
+        const bool timed;        //!<  Bind system to timer.
 
     protected:
         /*!
          * \brief Create a new System object.
-         * 
          * \param n System name.
+         * \param t Flag to bind to timer.
          */
-        system(const std::string& n) : name(n) {};
-
-        //!  Name of system.
-        const std::string name;
+        system(
+            const std::string& n,
+            const bool& t
+        ) : name(n), timed(t) {};
 };
 
 /*!

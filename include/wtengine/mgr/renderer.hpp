@@ -15,6 +15,7 @@
 #include <set>
 #include <iterator>
 #include <memory>
+#include <chrono>
 #include <stdexcept>
 #include <cassert>
 
@@ -40,6 +41,12 @@
 namespace wte {
     class display;
     class engine;
+
+    template <typename T>
+    using time_point = std::chrono::time_point<T>;
+
+    typedef std::chrono::system_clock system_clock;
+    typedef std::chrono::system_clock::duration duration;
 }
 
 namespace wte::mgr {
@@ -98,6 +105,11 @@ class renderer final : private manager<renderer> {
             wte_asset<al_font> font
         );
 
+        static const std::size_t& fps;
+        static const time_point<system_clock>& last_render;
+        static const time_point<system_clock>& start_time;
+        static const duration& delta_time;
+
     private:
         renderer() = default;
         ~renderer() = default;
@@ -132,7 +144,9 @@ class renderer final : private manager<renderer> {
         static wte_asset<al_bitmap> menu_bitmap;
         static wte_asset<al_font> renderer_font;
 
-        static std::size_t fps_counter, fps;
+        static std::size_t fps_counter, _fps;
+        static time_point<system_clock> _last_render, _start_time;
+        static duration _delta_time;
 
         static bool arena_created;
 

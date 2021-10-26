@@ -20,10 +20,18 @@ wte_asset<al_bitmap> renderer::arena_bitmap;
 wte_asset<al_bitmap> renderer::title_bitmap;
 wte_asset<al_bitmap> renderer::menu_bitmap;
 wte_asset<al_font> renderer::renderer_font;
-std::size_t renderer::fps_counter = 0, renderer::fps = 0;
+std::size_t renderer::fps_counter = 0, renderer::_fps = 0;
+time_point<system_clock> renderer::_last_render;
+time_point<system_clock> renderer::_start_time;
+duration renderer::_delta_time;
 bool renderer::arena_created = false;
 std::string renderer::title_screen_file;
 std::string renderer::background_file;
+
+const std::size_t& renderer::fps = renderer::_fps;
+const time_point<system_clock>& renderer::last_render = renderer::_last_render;
+const time_point<system_clock>& renderer::start_time = renderer::_start_time;
+const duration& renderer::delta_time = renderer::_delta_time;
 
 /*
  *
@@ -55,6 +63,9 @@ void renderer::initialize(void) {
     fps_event_queue = al_create_event_queue();
     al_register_event_source(fps_event_queue, al_get_timer_event_source(fps_timer));
     al_start_timer(fps_timer);
+
+    _start_time = _last_render = system_clock::now();
+    _delta_time = system_clock::now() - system_clock::now();
 }
 
 /*
@@ -97,7 +108,7 @@ void renderer::render(void) {
     //  Update fps on unique ticks only.
     const bool queue_not_empty = al_get_next_event(fps_event_queue, &fps_event);
     if(queue_not_empty && fps_event.type == ALLEGRO_EVENT_TIMER) {
-        fps = fps_counter;
+        _fps = fps_counter;
         fps_counter = 0;
         al_set_timer_count(fps_timer, 0);
     }
@@ -431,6 +442,8 @@ void renderer::render(void) {
      * Update the screen
      */
     al_flip_display();
+    _delta_time = system_clock::now() - _last_render;
+    _last_render = system_clock::now();
 }
 
 }  //  namespace wte::mgr

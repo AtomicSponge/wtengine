@@ -63,6 +63,6 @@ pkg-config --libs --exists wtengine
 
 -----
 
-#  Manual
+##  Manual
 
 https://github.com/wtfsystems/wtengine/wiki

@@ -50,9 +50,7 @@ class config {
             static const bool& game_started;          //!<  Flag to check if the game has started.
             static const bool& menu_opened;           //!<  Flag to check if the menu is opened.
             static const bool& record_input;          //!<  Flag to enable/disable input recording.
-            #if WTE_DEBUG_MODE
             static const bool& show_hitboxes;         //!<  Flag to enable/disable hitbox rendering.
-            #endif
             inline static bool draw_fps = true;       //!<  Flag to check if fps should be drawn.
             inline static bool input_enabled = true;  //!<  Flag to check if input is enabled.
         };
@@ -199,9 +197,7 @@ class config {
             inline static bool game_started = false;
             inline static bool menu_opened = true;
             inline static bool record_input = false;
-            #if WTE_DEBUG_MODE
             inline static bool show_hitboxes = false;
-            #endif
         };
 
         struct _volume {

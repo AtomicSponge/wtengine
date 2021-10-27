@@ -176,5 +176,4 @@ inline constexpr WTEBUILDOPTIONS wte_build_options;
 #define WTE_P2_KEY_ACTION8_DEFAULT      (0)
 #endif
 
-
 #endif

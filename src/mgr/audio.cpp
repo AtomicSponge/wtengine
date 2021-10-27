@@ -45,7 +45,7 @@ void audio::initialize(void) {
 
     //  Set number of samples.
     al_set_default_mixer(_mixer_2);
-    al_reserve_samples(WTE_MAX_PLAYING_SAMPLES);
+    al_reserve_samples(wte_build_options.max_playing_samples);
 
     //  Set volume levels.
     set_volume();

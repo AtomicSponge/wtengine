@@ -111,11 +111,9 @@ class messages final : private manager<messages> {
         /*
          * Write a message to the debug log file if debugging is enabled.
          */
-        #if WTE_DEBUG_MODE
         static void log(const message& msg);
 
         static std::ofstream debug_log_file;
-        #endif
 
         //  Vector of all messages to be processed
         static message_container _messages;

@@ -38,7 +38,6 @@
 #define WTE_DEBUG_MODE TRUE
 #else
 #define WTE_DEBUG_MODE FALSE
-#define NDEBUG
 #endif
 
 /*!
@@ -56,6 +55,14 @@
 #else
 #define WTE_USE_MAGIC_PINK TRUE
 #endif
+
+struct WTEBUILDOPTIONS {
+    constexpr static float ticks_per_sec = static_cast<float>(WTE_TICKS_PER_SECOND);
+    constexpr static bool debug_mode = static_cast<bool>(WTE_DEBUG_MODE);
+    constexpr static int max_playing_samples = static_cast<int>(WTE_MAX_PLAYING_SAMPLES);
+    constexpr static bool use_magic_pink = static_cast<bool>(WTE_USE_MAGIC_PINK);
+};
+inline constexpr WTEBUILDOPTIONS wte_build_options;
 
 #if WTE_USE_MAGIC_PINK
 #define WTE_MAGIC_PINK          (al_map_rgb(255,0,255))

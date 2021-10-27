@@ -15,26 +15,22 @@ template <> bool messages::manager<messages>::initialized = false;
 
 message_container messages::_messages;
 
-#if WTE_DEBUG_MODE
 std::ofstream messages::debug_log_file("wte_debug//messages.txt", std::ios::trunc);
-#endif
 
 /*
  * Start logging if debugging is enabled.
  */
 messages::messages() {
-    #if WTE_DEBUG_MODE
-    debug_log_file << "Logging messages..." << std::endl << std::endl;
-    #endif
+    if constexpr (wte_build_options.debug_mode) {
+        debug_log_file << "Logging messages..." << std::endl << std::endl;
+    }
 }
 
 /*
  * Close log file if debugging is enabled.
  */
 messages::~messages() {
-    #if WTE_DEBUG_MODE
-    debug_log_file.close();
-    #endif
+    if constexpr (wte_build_options.debug_mode) debug_log_file.close();
 }
 
 /*
@@ -58,10 +54,10 @@ void messages::prune(void) {
         //  End early if events are in the future.
         if(it->get_timer() > engine_time::check()) break;
         if(it->is_timed_event()) {
-            #if WTE_DEBUG_MODE
-            debug_log_file << "MESSAGE DELETED | ";
-            log(*it);
-            #endif
+            if constexpr (wte_build_options.debug_mode) {
+                debug_log_file << "MESSAGE DELETED | ";
+                log(*it);
+            }
             it = _messages.erase(it);
         }
         else it++;
@@ -79,10 +75,9 @@ const message_container messages::get(const std::string& sys) {
         if(it->get_timer() > engine_time::check()) break;
 
         if((it->get_timer() == -1 || it->get_timer() == engine_time::check()) && it->get_sys() == sys) {
-            #if WTE_DEBUG_MODE
             //  Log the message if debug mode is on
-            log(*it);
-            #endif
+            if constexpr (wte_build_options.debug_mode) log(*it);
+
             temp_messages.push_back(*it);  //  Add the message to the temp vector to be returned.
             it = _messages.erase(it);  //  Erase the message once processed.
         } else it++;  //  Message not processed, iterate to next.
@@ -206,7 +201,6 @@ void messages::read(
     }
 }
 
-#if WTE_DEBUG_MODE
 /*
  *
  */
@@ -227,6 +221,5 @@ void messages::log(const message& msg) {
     }
     debug_log_file << std::endl;
 }
-#endif
 
 }  //  end namespace wte::mgr

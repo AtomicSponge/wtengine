@@ -90,10 +90,8 @@ inline constexpr WTEBUILDOPTIONS wte_build_options;
 #ifndef WTE_KEY_MENU_SELECT_DEFAULT
 #define WTE_KEY_MENU_SELECT_DEFAULT     ALLEGRO_KEY_SPACE
 #endif
-#if WTE_DEBUG_MODE
-    #ifndef WTE_KEY_TOGGLE_HITBOX
-    #define WTE_KEY_TOGGLE_HITBOX       ALLEGRO_KEY_F2
-    #endif
+#ifndef WTE_KEY_TOGGLE_HITBOX
+#define WTE_KEY_TOGGLE_HITBOX       ALLEGRO_KEY_F2
 #endif
 
 /*

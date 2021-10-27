@@ -301,13 +301,12 @@ void input::handle_event(const ALLEGRO_EVENT& event) {
         /* *********************** */
         /////////////////////////////////////////////////////////////
         case ALLEGRO_EVENT_KEY_DOWN:
-            #if WTE_DEBUG_MODE
-            if(event.keyboard.keycode == WTE_KEY_TOGGLE_HITBOX) {
-                (config::flags::show_hitboxes ?
-                    config::_flags::show_hitboxes = false :
-                    config::_flags::show_hitboxes = true);
-            }
-            #endif
+            if constexpr (wte_build_options.debug_mode)
+                if(event.keyboard.keycode == WTE_KEY_TOGGLE_HITBOX) {
+                    (config::flags::show_hitboxes ?
+                        config::_flags::show_hitboxes = false :
+                        config::_flags::show_hitboxes = true);
+                }
             if(event.keyboard.keycode == config::controls::key_menu) config::_flags::menu_opened = true;
             if(config::flags::input_enabled) {
                 try {

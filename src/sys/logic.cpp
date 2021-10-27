@@ -14,7 +14,7 @@ namespace wte::sys {
 /*
  *
  */
-logic::logic() : system("logic", true) {};
+logic::logic() : system("logic") {};
 
 /*
  *

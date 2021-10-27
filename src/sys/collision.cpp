@@ -14,7 +14,7 @@ namespace wte::sys {
 /*
  *
  */
-colision::colision() : system("colision", true) {}
+colision::colision() : system("colision") {}
 
 /*
  *

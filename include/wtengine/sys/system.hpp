@@ -37,6 +37,14 @@ class system {
 
     protected:
         /*!
+         * \brief Create a new timed System object.
+         * \param n System name.
+         */
+        system(
+            const std::string& n
+        ) : name(n), timed(true) {};
+
+        /*!
          * \brief Create a new System object.
          * \param n System name.
          * \param t Flag to bind to timer.

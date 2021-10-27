@@ -10,13 +10,10 @@
 #ifndef WTE_EXCEPTION_HPP
 #define WTE_EXCEPTION_HPP
 
+#include <fstream>
 #include <exception>
 
 #include "wtengine/_globals/_defines.hpp"
-
-#if WTE_DEBUG_MODE
-#include <fstream>
-#endif
 
 namespace wte {
 
@@ -40,9 +37,7 @@ class wte_exception final : public std::exception {
             const char* loc,
             const int64_t& t
         ) : description(desc), location(loc), time(t) {
-            #if WTE_DEBUG_MODE
-            log_exception(desc, loc, t);
-            #endif
+            if constexpr (build_options.debug_mode) log_exception(desc, loc, t);
         };
 
         inline ~wte_exception() = default;  //!<  Default destructor.
@@ -76,7 +71,6 @@ class wte_exception final : public std::exception {
         const char* location;     //  Exception location.
         const int64_t time;       //  Time of exception.
 
-        #if WTE_DEBUG_MODE
         inline void log_exception(
             const char* desc,
             const char* loc,
@@ -90,7 +84,6 @@ class wte_exception final : public std::exception {
         };
 
         inline static std::ofstream exception_log_file;
-        #endif
 };
 
 }  //  end namespace wte

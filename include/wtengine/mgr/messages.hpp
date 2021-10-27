@@ -25,7 +25,9 @@
 #include "wtengine/mgr/manager.hpp"
 
 namespace wte {
-    class engine;
+
+class engine;
+
 }
 
 namespace wte::mgr {
@@ -47,9 +49,7 @@ class messages final : private manager<messages> {
          * 
          * \param msg Message to add.
          */
-        static void add(
-            const message& msg
-        );
+        static void add(const message& msg);
 
         /*!
          * \brief Load additional data into the message queue.
@@ -60,9 +60,7 @@ class messages final : private manager<messages> {
          * \param fname Filename to load.
          * \return True if loaded, false if not.
          */
-        static const bool load_script(
-            const std::string& fname
-        );
+        static const bool load_script(const std::string& fname);
 
     private:
         messages();
@@ -78,17 +76,13 @@ class messages final : private manager<messages> {
          * This is called when a new game is created.
          * Events are placed in order according to the timer value.
          */
-        static void load_file(
-            const std::string& fname
-        );
+        static void load_file(const std::string& fname);
 
         /*
          * Get messages based on their command.
          * Once events in the future are reached, break early.
          */
-        static const message_container get(
-            const std::string& sys
-        );
+        static const message_container get(const std::string& sys);
 
         /*
          * Deletes timed messages that were not processed.

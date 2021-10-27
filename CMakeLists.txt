@@ -97,15 +97,6 @@ add_library(wtengine STATIC
 #  Build Process
 #
 ########################################
-option(BUILD_MAGIC_PINK "Use magic pink for transparancey" ON)
-if(NOT BUILD_MAGIC_PINK)
-    target_compile_options(wtengine PRIVATE "-DWTE_NO_MAGIC_PINK")
-endif()
-
-if(CMAKE_BUILD_TYPE MATCHES Debug)
-    target_compile_options(wtengine PRIVATE "-DWTE_BUILD_DEBUG")
-endif()
-
 #  Set include folder for building
 target_include_directories(wtengine PRIVATE include)
 

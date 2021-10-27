@@ -114,10 +114,9 @@ class al_bitmap final {
 
             if(!_al_bitmap) return false;  //  Bitmap not loaded, fail.
 
-            #if WTE_USE_MAGIC_PINK
             //  Apply transparency if magic pink is enabled.
-            al_convert_mask_to_alpha(_al_bitmap, WTE_MAGIC_PINK);
-            #endif
+            if constexpr (wte_build_options.use_magic_pink)
+                al_convert_mask_to_alpha(_al_bitmap, WTE_MAGIC_PINK);
 
             return true;
         };

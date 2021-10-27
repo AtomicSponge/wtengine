@@ -301,7 +301,7 @@ void input::handle_event(const ALLEGRO_EVENT& event) {
         /* *********************** */
         /////////////////////////////////////////////////////////////
         case ALLEGRO_EVENT_KEY_DOWN:
-            if constexpr (wte_build_options.debug_mode)
+            if constexpr (build_options.debug_mode)
                 if(event.keyboard.keycode == WTE_KEY_TOGGLE_HITBOX) {
                     (config::flags::show_hitboxes ?
                         config::_flags::show_hitboxes = false :

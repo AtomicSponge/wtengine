@@ -21,7 +21,7 @@ std::ofstream messages::debug_log_file("wte_debug//messages.txt", std::ios::trun
  * Start logging if debugging is enabled.
  */
 messages::messages() {
-    if constexpr (wte_build_options.debug_mode) {
+    if constexpr (build_options.debug_mode) {
         debug_log_file << "Logging messages..." << std::endl << std::endl;
     }
 }
@@ -30,7 +30,7 @@ messages::messages() {
  * Close log file if debugging is enabled.
  */
 messages::~messages() {
-    if constexpr (wte_build_options.debug_mode) debug_log_file.close();
+    if constexpr (build_options.debug_mode) debug_log_file.close();
 }
 
 /*
@@ -54,7 +54,7 @@ void messages::prune(void) {
         //  End early if events are in the future.
         if(it->get_timer() > engine_time::check()) break;
         if(it->is_timed_event()) {
-            if constexpr (wte_build_options.debug_mode) {
+            if constexpr (build_options.debug_mode) {
                 debug_log_file << "MESSAGE DELETED | ";
                 log(*it);
             }
@@ -76,7 +76,7 @@ const message_container messages::get(const std::string& sys) {
 
         if((it->get_timer() == -1 || it->get_timer() == engine_time::check()) && it->get_sys() == sys) {
             //  Log the message if debug mode is on
-            if constexpr (wte_build_options.debug_mode) log(*it);
+            if constexpr (build_options.debug_mode) log(*it);
 
             temp_messages.push_back(*it);  //  Add the message to the temp vector to be returned.
             it = _messages.erase(it);  //  Erase the message once processed.

@@ -247,7 +247,7 @@ void renderer::render(void) {
             }
         }
 
-        if constexpr (wte_build_options.debug_mode) {
+        if constexpr (build_options.debug_mode) {
             /*
              * Draw hitboxes if enabled.  Use different colors for each team.
              */
@@ -431,7 +431,7 @@ void renderer::render(void) {
     }
 
     //  Draw time if debug mode is enabled.
-    if constexpr (wte_build_options.debug_mode) {
+    if constexpr (build_options.debug_mode) {
         const std::string timer_string = "Timer: " + std::to_string(engine_time::check());
         al_draw_text(**renderer_font, WTE_COLOR_YELLOW, config::gfx::screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     }

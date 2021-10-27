@@ -47,7 +47,7 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
     al_inhibit_screensaver(true);
 
     //  Configure main timer.
-    main_timer = al_create_timer(1.0f / wte_build_options.ticks_per_sec);
+    main_timer = al_create_timer(1.0f / build_options.ticks_per_sec);
     if(!main_timer) throw std::runtime_error("Failed to create timer!");
 
     //  Configure main event queue.

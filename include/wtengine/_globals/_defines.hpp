@@ -99,7 +99,7 @@ inline constexpr WTEBUILDOPTIONS build_options;
 #define WTE_KEY_MENU_SELECT_DEFAULT     ALLEGRO_KEY_SPACE
 #endif
 #ifndef WTE_KEY_TOGGLE_HITBOX
-#define WTE_KEY_TOGGLE_HITBOX       ALLEGRO_KEY_F2
+#define WTE_KEY_TOGGLE_HITBOX           ALLEGRO_KEY_F2
 #endif
 
 /*

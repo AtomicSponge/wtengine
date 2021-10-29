@@ -108,9 +108,9 @@ class renderer final : private manager<renderer> {
         );
 
         static const std::size_t& fps;                       //!<  Frames per second
-        static const time_point<system_clock>& last_render;  //!<  Time of last render
-        static const time_point<system_clock>& start_time;   //!<  Start time of renderer
-        static const duration& delta_time;                   //!<  Duration of last frame render
+        static const time_point<system_clock>& last_render;  //!<  Point in time last render began
+        static const time_point<system_clock>& start_time;   //!<  Point in time the renderer started
+        static const duration& delta_time;                   //!<  Time between frame renders
 
     private:
         renderer() = default;

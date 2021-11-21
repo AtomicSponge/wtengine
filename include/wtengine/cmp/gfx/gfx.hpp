@@ -20,23 +20,23 @@
 #include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/mgr/world.hpp"
 
-namespace wte::mgr {
+namespace wte::mgr::gfx {
     class renderer;
 }
 
-namespace wte::sys {
+namespace wte::sys::gfx {
     class animate;
 }
 
-namespace wte::cmp {
+namespace wte::cmp::gfx {
 
 /*!
  * \class gfx
  * \brief Interface class for components that display graphics.
  */
 class gfx : public component {
-    friend class mgr::renderer;
-    friend class sys::animate;
+    friend class mgr::gfx::renderer;
+    friend class sys::gfx::animate;
 
     public:
         virtual ~gfx() = default;

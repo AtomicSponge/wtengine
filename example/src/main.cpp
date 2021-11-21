@@ -18,10 +18,10 @@ int main(int argc, char **argv) {
     wte::engine::add_file_location("data.zip");
 
     //  Set the title screen.
-    wte::mgr::renderer::set_title_screen("title.bmp");
+    wte::mgr::gfx::renderer::set_title_screen("title.bmp");
 
     //  Set the size of the play area.
-    wte::mgr::renderer::set_arena_size(768, 1024);
+    wte::mgr::gfx::renderer::set_arena_size(768, 1024);
 
     //  Load settings.
     wte::config::load();

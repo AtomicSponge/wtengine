@@ -18,7 +18,7 @@
 
 #include "wtengine/cmp/gfx/gfx.hpp"
 
-namespace wte::cmp {
+namespace wte::cmp::gfx {
 
 /*!
  * \class background

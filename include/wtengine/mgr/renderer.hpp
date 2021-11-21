@@ -51,7 +51,7 @@ typedef std::chrono::system_clock::duration duration;
 
 }
 
-namespace wte::mgr {
+namespace wte::mgr::gfx {
 
 /*!
  * Container for an entity and component pair.  Used for sorting.
@@ -90,9 +90,7 @@ class renderer final : private manager<renderer> {
          * 
          * \param fname Filename of the title screen.
          */
-        static void set_title_screen(
-            const std::string& fname
-        );
+        static void set_title_screen(const std::string& fname);
 
         /*!
          * \brief Set the font to be used by the renderer.
@@ -103,9 +101,7 @@ class renderer final : private manager<renderer> {
          * 
          * \param fone Font asset to use.
          */
-        static void set_font(
-            wte_asset<al_font> font
-        );
+        static void set_font(wte_asset<al_font> font);
 
         static const std::size_t& fps;                       //!<  Frames per second
         static const time_point<system_clock>& last_render;  //!<  Point in time last render completed

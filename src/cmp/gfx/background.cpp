@@ -9,7 +9,7 @@
 
 #include "wtengine/cmp/gfx/background.hpp"
 
-namespace wte::cmp {
+namespace wte::cmp::gfx {
 
 /*
  *

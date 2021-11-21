@@ -12,7 +12,7 @@
 
 #include "wtengine/sys/system.hpp"
 
-namespace wte::sys {
+namespace wte::sys::gfx {
 
 /*!
  * \class animate

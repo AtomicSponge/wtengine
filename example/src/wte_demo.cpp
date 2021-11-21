@@ -86,7 +86,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
             mgr::world::get_component<cmp::hitbox>(can_id)->height;
 
         //  Turn the cannon on.
-        mgr::world::set_component<cmp::sprite>(can_id)->visible = true;
+        mgr::world::set_component<cmp::gfx::sprite>(can_id)->visible = true;
         mgr::world::set_component<cmp::ai>(can_id)->enabled = true;
         mgr::world::set_component<cmp::hitbox>(can_id)->solid = true;
         //  Play sound effect.
@@ -103,7 +103,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
 
         if(mgr::world::set_component<energy>(shd_id)->amt > 0) {
             //  Enable the shield.
-            mgr::world::set_component<cmp::sprite>(shd_id)->visible = true;
+            mgr::world::set_component<cmp::gfx::sprite>(shd_id)->visible = true;
             mgr::world::set_component<cmp::ai>(shd_id)->enabled = true;
             mgr::world::set_component<cmp::hitbox>(shd_id)->solid = true;
             mgr::world::set_component<cmp::hitbox>(player_id)->solid = false;
@@ -143,7 +143,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
     input::event::p1::onup::action1 = []() {
         //  Turn the cannon off.
         entity_id can_id = mgr::world::get_id("main_cannon");
-        mgr::world::set_component<cmp::sprite>(can_id)->visible = false;
+        mgr::world::set_component<cmp::gfx::sprite>(can_id)->visible = false;
         mgr::world::set_component<cmp::ai>(can_id)->enabled = false;
         mgr::world::set_component<cmp::hitbox>(can_id)->solid = false;
         //  Stop sound effect.
@@ -153,7 +153,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
         entity_id player_id = mgr::world::get_id("player");
         entity_id shd_id = mgr::world::get_id("shield");
         //  Disable shield.
-        mgr::world::set_component<cmp::sprite>(shd_id)->visible = false;
+        mgr::world::set_component<cmp::gfx::sprite>(shd_id)->visible = false;
         mgr::world::set_component<cmp::ai>(shd_id)->enabled = false;
         mgr::world::set_component<cmp::hitbox>(shd_id)->solid = false;
         mgr::world::set_component<cmp::hitbox>(player_id)->solid = true;
@@ -299,7 +299,7 @@ void wte_demo::load_systems(void) {
     mgr::systems::add(std::make_unique<sys::movement>());
     mgr::systems::add(std::make_unique<sys::colision>());
     mgr::systems::add(std::make_unique<sys::logic>());
-    mgr::systems::add(std::make_unique<sys::animate>());
+    mgr::systems::add(std::make_unique<sys::gfx::animate>());
 }
 
 /*
@@ -323,11 +323,11 @@ void wte_demo::new_game(void) {
             true
         )
     );
-    mgr::world::add_component<cmp::background>(e_id,
+    mgr::world::add_component<cmp::gfx::background>(e_id,
         mgr::assets<al_bitmap>::get<al_bitmap>("starfield"), layer::background, 0, 0,
         [](const entity_id& bkg_id) {
             //  Define the animation process for the starfield.
-            mgr::world::set_component<cmp::background>(bkg_id)->set_drawing();
+            mgr::world::set_component<cmp::gfx::background>(bkg_id)->set_drawing();
             al_clear_to_color(WTE_COLOR_BLACK);
 
             //  Move the stars.
@@ -387,18 +387,18 @@ void wte_demo::new_game(void) {
     e_id = mgr::world::new_entity();
     mgr::world::set_name(e_id, "score_overlay");
     mgr::assets<al_bitmap>::load<al_bitmap>("score_overlay", al_bitmap(200, 20, true));
-    mgr::world::add_component<cmp::overlay>(e_id,
+    mgr::world::add_component<cmp::gfx::overlay>(e_id,
         mgr::assets<al_bitmap>::get<al_bitmap>("score_overlay"),
         mgr::assets<al_font>::get<al_font>("wte_default_font"),
         layer::overlay, config::gfx::arena_h - 20, 0,
         [](const entity_id& ovr_id) {
             //  Define what gets displayed on the overlay.
-            mgr::world::set_component<cmp::overlay>(ovr_id)->set_drawing();
+            mgr::world::set_component<cmp::gfx::overlay>(ovr_id)->set_drawing();
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
-            mgr::world::set_component<cmp::overlay>(ovr_id)->draw_text("Score:  ", WTE_COLOR_WHITE, 110, 0, ALLEGRO_ALIGN_RIGHT);
-            mgr::world::set_component<cmp::overlay>(ovr_id)->draw_text(std::to_string(mgr::variables::get<int>("score")), WTE_COLOR_WHITE, 110, 0, ALLEGRO_ALIGN_LEFT);
-            mgr::world::set_component<cmp::overlay>(ovr_id)->draw_text("High Score:  ", WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_RIGHT);
-            mgr::world::set_component<cmp::overlay>(ovr_id)->draw_text(std::to_string(mgr::variables::get<int>("hiscore")), WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_LEFT);
+            mgr::world::set_component<cmp::gfx::overlay>(ovr_id)->draw_text("Score:  ", WTE_COLOR_WHITE, 110, 0, ALLEGRO_ALIGN_RIGHT);
+            mgr::world::set_component<cmp::gfx::overlay>(ovr_id)->draw_text(std::to_string(mgr::variables::get<int>("score")), WTE_COLOR_WHITE, 110, 0, ALLEGRO_ALIGN_LEFT);
+            mgr::world::set_component<cmp::gfx::overlay>(ovr_id)->draw_text("High Score:  ", WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_RIGHT);
+            mgr::world::set_component<cmp::gfx::overlay>(ovr_id)->draw_text(std::to_string(mgr::variables::get<int>("hiscore")), WTE_COLOR_WHITE, 110, 10, ALLEGRO_ALIGN_LEFT);
         }
     );  //  End score overlay drawing.
 
@@ -408,18 +408,18 @@ void wte_demo::new_game(void) {
     e_id = mgr::world::new_entity();
     mgr::world::set_name(e_id, "player_info_overlay");
     mgr::assets<al_bitmap>::load<al_bitmap>("player_info_overlay", al_bitmap(200, 20, true));
-    mgr::world::add_component<cmp::overlay>(e_id,
+    mgr::world::add_component<cmp::gfx::overlay>(e_id,
         mgr::assets<al_bitmap>::get<al_bitmap>("player_info_overlay"),
         mgr::assets<al_font>::get<al_font>("wte_default_font"), layer::overlay,
         config::gfx::arena_w - 200, config::gfx::arena_h - 20,
         [](const entity_id& ovr_id) {
             //  Define what gets displayed on the overlay.
             entity_id shd_id = mgr::world::get_id("shield");
-            mgr::world::set_component<cmp::overlay>(ovr_id)->set_drawing();
+            mgr::world::set_component<cmp::gfx::overlay>(ovr_id)->set_drawing();
             al_clear_to_color(WTE_COLOR_TRANSPARENT);
             al_draw_filled_rectangle((float)(120 - mgr::world::get_component<energy>(shd_id)->amt), 0, 120, 10, WTE_COLOR_YELLOW);
-            mgr::world::set_component<cmp::overlay>(ovr_id)->draw_text("Shield", WTE_COLOR_WHITE, 200, 0, ALLEGRO_ALIGN_RIGHT);
-            mgr::world::set_component<cmp::overlay>(ovr_id)->draw_text("Lives:  " + std::to_string(mgr::variables::get<int>("lives")), WTE_COLOR_WHITE, 200, 10, ALLEGRO_ALIGN_RIGHT);
+            mgr::world::set_component<cmp::gfx::overlay>(ovr_id)->draw_text("Shield", WTE_COLOR_WHITE, 200, 0, ALLEGRO_ALIGN_RIGHT);
+            mgr::world::set_component<cmp::gfx::overlay>(ovr_id)->draw_text("Lives:  " + std::to_string(mgr::variables::get<int>("lives")), WTE_COLOR_WHITE, 200, 10, ALLEGRO_ALIGN_RIGHT);
         }
     );  //  End info overlay drawing.
 
@@ -430,13 +430,13 @@ void wte_demo::new_game(void) {
     mgr::world::set_name(e_id, "game_over_overlay");
     mgr::assets<al_bitmap>::load<al_bitmap>("game_over_overlay", al_bitmap());
     mgr::assets<al_bitmap>::get<al_bitmap>("game_over_overlay")->load("game_over.bmp");
-    mgr::world::add_component<cmp::overlay>(e_id,
+    mgr::world::add_component<cmp::gfx::overlay>(e_id,
         mgr::assets<al_bitmap>::get<al_bitmap>("game_over_overlay"),
         mgr::assets<al_font>::get<al_font>("wte_default_font"),
         layer::overlay, (config::gfx::arena_w / 2) - 240, (config::gfx::arena_h / 2) - 66,
         [](const entity_id& ovr_id) {}
     );
-    mgr::world::set_component<cmp::overlay>(e_id)->visible = false;
+    mgr::world::set_component<cmp::gfx::overlay>(e_id)->visible = false;
 
     /* ********************************* */
     /* *** Player entity *************** */
@@ -455,11 +455,11 @@ void wte_demo::new_game(void) {
 
     mgr::assets<al_bitmap>::load<al_bitmap>("ship", al_bitmap());
     mgr::assets<al_bitmap>::get<al_bitmap>("ship")->load("ship.bmp");
-    mgr::world::add_component<cmp::sprite>(e_id, mgr::assets<al_bitmap>::get<al_bitmap>("ship"),
+    mgr::world::add_component<cmp::gfx::sprite>(e_id, mgr::assets<al_bitmap>::get<al_bitmap>("ship"),
                                            layer::player, 32.0f, 32.0f, -11.0f, 0.0f, 1);
-    mgr::world::set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
-    mgr::world::set_component<cmp::sprite>(e_id)->add_cycle("death", 4, 7);
-    mgr::world::set_component<cmp::sprite>(e_id)->set_cycle("main");
+    mgr::world::set_component<cmp::gfx::sprite>(e_id)->add_cycle("main", 0, 3);
+    mgr::world::set_component<cmp::gfx::sprite>(e_id)->add_cycle("death", 4, 7);
+    mgr::world::set_component<cmp::gfx::sprite>(e_id)->set_cycle("main");
 
     //  Player logic.
     mgr::world::add_component<cmp::ai>(e_id,
@@ -481,14 +481,14 @@ void wte_demo::new_game(void) {
                 config::flags::input_enabled = false;
                 //  Make sure cannon stops firing
                 entity_id cannon_id = mgr::world::get_id("main_cannon");
-                mgr::world::set_component<cmp::sprite>(cannon_id)->visible = false;
+                mgr::world::set_component<cmp::gfx::sprite>(cannon_id)->visible = false;
                 mgr::world::set_component<cmp::ai>(cannon_id)->enabled = false;
                 mgr::world::set_component<cmp::hitbox>(cannon_id)->solid = false;
                 mgr::audio::sample::stop("cannon_fire");
 
                 //  Just to make sure... turn shield off
                 entity_id shield_id = mgr::world::get_id("shield");
-                mgr::world::set_component<cmp::sprite>(shield_id)->visible = false;
+                mgr::world::set_component<cmp::gfx::sprite>(shield_id)->visible = false;
                 mgr::world::set_component<cmp::ai>(shield_id)->enabled = false;
                 mgr::world::set_component<cmp::hitbox>(shield_id)->solid = false;
                 mgr::audio::sample::stop("shield_sound");
@@ -499,12 +499,12 @@ void wte_demo::new_game(void) {
                 mgr::variables::set<int>("lives", mgr::variables::get<int>("lives") - 1);
                 mgr::world::set_component<cmp::motion>(plr_id)->x_vel = 0.0f;
                 mgr::world::set_component<cmp::motion>(plr_id)->y_vel = 0.0f;
-                mgr::world::set_component<cmp::sprite>(plr_id)->set_cycle("death");
+                mgr::world::set_component<cmp::gfx::sprite>(plr_id)->set_cycle("death");
                 if(mgr::variables::get<int>("lives") == 0) {
                     //  Game over!
                     mgr::messages::add(message(engine_time::check() + 180, "system", "end_game", ""));
                     entity_id go_id = mgr::world::get_id("game_over_overlay");
-                    mgr::world::set_component<cmp::overlay>(go_id)->visible = true;
+                    mgr::world::set_component<cmp::gfx::overlay>(go_id)->visible = true;
                 } else {
                     std::string player_name = mgr::world::get_name(plr_id);
                     mgr::messages::add(
@@ -523,7 +523,7 @@ void wte_demo::new_game(void) {
                 mgr::world::set_component<cmp::location>(plr_id)->pos_y = (float)(config::gfx::arena_h - 40);
                 mgr::world::set_component<health>(plr_id)->hp = mgr::world::get_component<health>(plr_id)->hp_max;
                 mgr::world::set_component<cmp::ai>(plr_id)->enabled = true;
-                mgr::world::set_component<cmp::sprite>(plr_id)->set_cycle("main");
+                mgr::world::set_component<cmp::gfx::sprite>(plr_id)->set_cycle("main");
                 mgr::world::set_component<cmp::hitbox>(plr_id)->solid = true;
             }
 
@@ -546,11 +546,11 @@ void wte_demo::new_game(void) {
 
     mgr::assets<al_bitmap>::load<al_bitmap>("cannon", al_bitmap());
     mgr::assets<al_bitmap>::get<al_bitmap>("cannon")->load("cannon.bmp");
-    mgr::world::add_component<cmp::sprite>(e_id, mgr::assets<al_bitmap>::get<al_bitmap>("cannon"),
+    mgr::world::add_component<cmp::gfx::sprite>(e_id, mgr::assets<al_bitmap>::get<al_bitmap>("cannon"),
                                            layer::player, 10.0f, 200.0f, 0.0f, 0.0f, 2);
-    mgr::world::set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 3);
-    mgr::world::set_component<cmp::sprite>(e_id)->set_cycle("main");
-    mgr::world::set_component<cmp::sprite>(e_id)->visible = false;
+    mgr::world::set_component<cmp::gfx::sprite>(e_id)->add_cycle("main", 0, 3);
+    mgr::world::set_component<cmp::gfx::sprite>(e_id)->set_cycle("main");
+    mgr::world::set_component<cmp::gfx::sprite>(e_id)->visible = false;
 
     //  Cannon logic.
     mgr::world::add_component<cmp::ai>(e_id,
@@ -590,11 +590,11 @@ void wte_demo::new_game(void) {
 
     mgr::assets<al_bitmap>::load<al_bitmap>("shield", al_bitmap());
     mgr::assets<al_bitmap>::get<al_bitmap>("shield")->load("shield.bmp");
-    mgr::world::add_component<cmp::sprite>(e_id, mgr::assets<al_bitmap>::get<al_bitmap>("shield"),
+    mgr::world::add_component<cmp::gfx::sprite>(e_id, mgr::assets<al_bitmap>::get<al_bitmap>("shield"),
                                            layer::player, 64.0f, 64.0f, 0.0f, 0.0f, 6);
-    mgr::world::set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 5);
-    mgr::world::set_component<cmp::sprite>(e_id)->set_cycle("main");
-    mgr::world::set_component<cmp::sprite>(e_id)->visible = false;
+    mgr::world::set_component<cmp::gfx::sprite>(e_id)->add_cycle("main", 0, 5);
+    mgr::world::set_component<cmp::gfx::sprite>(e_id)->set_cycle("main");
+    mgr::world::set_component<cmp::gfx::sprite>(e_id)->visible = false;
 
     //  Shield logic.
     mgr::world::add_component<cmp::ai>(e_id,
@@ -613,7 +613,7 @@ void wte_demo::new_game(void) {
 
             if(mgr::world::get_component<energy>(shd_id)->amt <= 0) {
                 //  Disable shield.
-                mgr::world::set_component<cmp::sprite>(shd_id)->visible = false;
+                mgr::world::set_component<cmp::gfx::sprite>(shd_id)->visible = false;
                 mgr::world::set_component<cmp::ai>(shd_id)->enabled = false;
                 mgr::world::set_component<cmp::hitbox>(player_entity)->solid = true;
                 //  Stop sound effect.
@@ -668,14 +668,14 @@ void wte_demo::new_game(void) {
             mgr::world::set_component<cmp::motion>(e_id)->x_vel = std::stof(args[4]);
             mgr::world::set_component<cmp::motion>(e_id)->y_vel = std::stof(args[4]);
 
-            mgr::world::add_component<cmp::sprite>(e_id, mgr::assets<al_bitmap>::get<al_bitmap>("asteroid"),
+            mgr::world::add_component<cmp::gfx::sprite>(e_id, mgr::assets<al_bitmap>::get<al_bitmap>("asteroid"),
                 layer::enemy, 16.0f, 16.0f, 0.0f, 0.0f, (int)(30 / std::stof(args[4])));
-            mgr::world::set_component<cmp::sprite>(e_id)->add_cycle("main", 0, 5);
-            mgr::world::set_component<cmp::sprite>(e_id)->set_cycle("main");
-            mgr::world::set_component<cmp::sprite>(e_id)->scale_factor_x = (float)temp_size;
-            mgr::world::set_component<cmp::sprite>(e_id)->scale_factor_y = (float)temp_size;
-            mgr::world::set_component<cmp::sprite>(e_id)->rotated = true;
-            mgr::world::set_component<cmp::sprite>(e_id)->direction = std::stof(args[3]) * (M_PI / 180);
+            mgr::world::set_component<cmp::gfx::sprite>(e_id)->add_cycle("main", 0, 5);
+            mgr::world::set_component<cmp::gfx::sprite>(e_id)->set_cycle("main");
+            mgr::world::set_component<cmp::gfx::sprite>(e_id)->scale_factor_x = (float)temp_size;
+            mgr::world::set_component<cmp::gfx::sprite>(e_id)->scale_factor_y = (float)temp_size;
+            mgr::world::set_component<cmp::gfx::sprite>(e_id)->rotated = true;
+            mgr::world::set_component<cmp::gfx::sprite>(e_id)->direction = std::stof(args[3]) * (M_PI / 180);
 
             //  Asteroid logic.
             mgr::world::add_component<cmp::ai>(e_id,

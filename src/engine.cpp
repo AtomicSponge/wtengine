@@ -144,7 +144,7 @@ void engine::wte_load(void) {
     //  Initialize managers that require it.
     mgr::audio::initialize();
     mgr::menus::initialize();
-    mgr::renderer::initialize();
+    mgr::gfx::renderer::initialize();
 
     //  Load user configured menus.
     load_menus();
@@ -156,7 +156,7 @@ void engine::wte_load(void) {
 void engine::wte_unload(void) {
     mgr::audio::de_init();
     mgr::menus::de_init();
-    mgr::renderer::de_init();
+    mgr::gfx::renderer::de_init();
 }
 
 /*
@@ -283,7 +283,7 @@ void engine::do_game(void) {
         //  Run any untimed systems.
         mgr::systems::run_untimed();
         //  Render the screen.
-        mgr::renderer::render();
+        mgr::gfx::renderer::render();
         //  Get any system messages and pass to handler.
         cmds.process_messages(mgr::messages::get("system"));
         //  Send audio messages to the audio queue.

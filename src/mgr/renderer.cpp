@@ -9,7 +9,7 @@
 
 #include "wtengine/mgr/renderer.hpp"
 
-namespace wte::mgr {
+namespace wte::mgr::gfx {
 
 template <> bool renderer::manager<renderer>::initialized = false;
 
@@ -131,12 +131,12 @@ void renderer::render(void) {
         /*
          * Draw the backgrounds.
          */
-        const const_component_container<cmp::background> background_components =
-            mgr::world::get_components<cmp::background>();
+        const const_component_container<cmp::gfx::background> background_components =
+            mgr::world::get_components<cmp::gfx::background>();
 
         //  Sort the background layers.
-        std::multiset<entity_component_pair<cmp::background>,
-            comparator<entity_component_pair<cmp::background>>> background_componenet_set(
+        std::multiset<entity_component_pair<cmp::gfx::background>,
+            comparator<entity_component_pair<cmp::gfx::background>>> background_componenet_set(
             background_components.begin(), background_components.end());
 
         //  Draw each background by layer.
@@ -182,12 +182,12 @@ void renderer::render(void) {
         /*
          * Draw the sprites.
          */
-        const const_component_container<cmp::sprite> sprite_components =
-            mgr::world::get_components<cmp::sprite>();
+        const const_component_container<cmp::gfx::sprite> sprite_components =
+            mgr::world::get_components<cmp::gfx::sprite>();
 
         //  Sort the sprite components.
-        std::multiset<entity_component_pair<cmp::sprite>,
-            comparator<entity_component_pair<cmp::sprite>>> sprite_componenet_set(
+        std::multiset<entity_component_pair<cmp::gfx::sprite>,
+            comparator<entity_component_pair<cmp::gfx::sprite>>> sprite_componenet_set(
             sprite_components.begin(), sprite_components.end());
 
         //  Draw each sprite in order.
@@ -286,12 +286,12 @@ void renderer::render(void) {
         /*
          * Draw the overlays.
          */
-        const const_component_container<cmp::overlay> overlay_components =
-            mgr::world::get_components<cmp::overlay>();
+        const const_component_container<cmp::gfx::overlay> overlay_components =
+            mgr::world::get_components<cmp::gfx::overlay>();
 
         //  Sort the overlay layers.
-        std::multiset<entity_component_pair<cmp::overlay>,
-            comparator<entity_component_pair<cmp::overlay>>> overlay_componenet_set(
+        std::multiset<entity_component_pair<cmp::gfx::overlay>,
+            comparator<entity_component_pair<cmp::gfx::overlay>>> overlay_componenet_set(
             overlay_components.begin(), overlay_components.end());
 
         //  Draw each overlay by layer.

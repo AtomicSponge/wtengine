@@ -15,6 +15,9 @@
 namespace wte::mgr {
     class spawner;
     class systems;
+}
+
+namespace wte::mgr::gfx {
     class renderer;
 }
 
@@ -33,7 +36,7 @@ class alert final {
     friend class input;
     friend class mgr::spawner;
     friend class mgr::systems;
-    friend class mgr::renderer;
+    friend class mgr::gfx::renderer;
 
     public:
         alert() = delete;                       //!<  Delete constructor.

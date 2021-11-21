@@ -18,7 +18,7 @@
 #include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
 
-namespace wte::mgr {
+namespace wte::mgr::gfx {
     class renderer;
 }
 
@@ -32,7 +32,7 @@ namespace wte {
  */
 class notice final {
     friend class input;
-    friend class mgr::renderer;
+    friend class mgr::gfx::renderer;
 
     public:
         notice() = delete;                       //!<  Delete constructor.

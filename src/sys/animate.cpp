@@ -9,7 +9,7 @@
 
 #include "wtengine/sys/animate.hpp"
 
-namespace wte::sys {
+namespace wte::sys::gfx {
 
 /*
  *
@@ -20,8 +20,8 @@ animate::animate() : system("animate") {}
  *
  */
 void animate::run(void) {
-    component_container<cmp::gfx> animation_components =
-        mgr::world::set_components<cmp::gfx>();
+    component_container<cmp::gfx::gfx> animation_components =
+        mgr::world::set_components<cmp::gfx::gfx>();
 
     for(auto& it: animation_components)
         try {

@@ -19,6 +19,9 @@
 namespace wte::mgr {
     class audio;
     class menus;
+}
+
+namespace wte::mgr::gfx {
     class renderer;
 }
 
@@ -34,7 +37,7 @@ class config {
     friend class input;
     friend class mgr::audio;
     friend class mgr::menus;
-    friend class mgr::renderer;
+    friend class mgr::gfx::renderer;
 
     public:
         virtual ~config() = default;                  //!<  Default virtual destructor.

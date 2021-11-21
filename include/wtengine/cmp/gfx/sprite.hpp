@@ -25,18 +25,18 @@
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/mgr/world.hpp"
 
-namespace wte::mgr {
+namespace wte::mgr::gfx {
     class renderer;
 }
 
-namespace wte::cmp {
+namespace wte::cmp::gfx {
 
 /*!
  * \class sprite
  * \brief Component for loading a sprite sheet and storing its animation frames.
  */
 class sprite final : public gfx {
-    friend class mgr::renderer;
+    friend class mgr::gfx::renderer;
 
     public:
         /*!

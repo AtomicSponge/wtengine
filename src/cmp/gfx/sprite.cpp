@@ -9,7 +9,7 @@
 
 #include "wtengine/cmp/gfx/sprite.hpp"
 
-namespace wte::cmp {
+namespace wte::cmp::gfx {
 
 /*
  *

@@ -48,6 +48,10 @@ namespace wte::mnu {
     class apply;
 }
 
+namespace wte::mgr::gfx {
+    class renderer;
+}
+
 namespace wte::mgr {
 
 /*!
@@ -58,7 +62,7 @@ class menus final : private manager<menus> {
     friend class wte::mnu::apply;
     friend class wte::engine;
     friend class wte::input;
-    friend class renderer;
+    friend class wte::mgr::gfx::renderer;
 
     public:
         /*!

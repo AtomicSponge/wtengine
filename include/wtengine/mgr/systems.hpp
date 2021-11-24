@@ -55,31 +55,14 @@ class systems final : private manager<systems> {
         systems() = default;
         ~systems() = default;
 
-        /*
-         * Clear the system manager and allow systems to be loaded again.
-         */
+        //  Clear the system manager and allow systems to be loaded again.
         static void clear(void);
-
-        /*
-         * Set finalized flag to prevent additional systems from being loaded.
-         */
-        static void finalize(void);
-
-        /*
-         * Check if systems were loaded into the manager.
-         */
+        //  Check if systems were loaded into the manager.
         static const bool empty(void);
-
-        /*
-         * \brief Run all systems.
-         */
+        //  Run all systems.
         static void run(void);
-
-        /*
-         * \brief Run all untimed systems.
-         */
+        //  Run all untimed systems.
         static void run_untimed(void);
-
         /*
          * Process dispatcher components. 
          * Get messages for the entities and pass to each.
@@ -88,7 +71,8 @@ class systems final : private manager<systems> {
         static void dispatch(void);
 
         // Store the vector of systems.
-        static std::vector<sys::system_uptr> _systems;
+        static std::vector<sys::system_uptr> _systems_timed;
+        static std::vector<sys::system_uptr> _systems_untimed;
         //  Flag to disallow loading of additional systems.
         static bool finalized;
 };

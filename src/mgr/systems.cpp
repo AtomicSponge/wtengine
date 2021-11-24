@@ -13,26 +13,23 @@ namespace wte::mgr {
 
 template <> bool systems::manager<systems>::initialized = false;
 
-std::vector<sys::system_uptr> systems::_systems;
+std::vector<sys::system_uptr> systems::_systems_timed;
+std::vector<sys::system_uptr> systems::_systems_untimed;
 bool systems::finalized = false;
 
 /*
  *
  */
 void systems::clear(void) {
-    _systems.clear();
+    _systems_timed.clear();
+    _systems_untimed.clear();
     finalized = false;
 }
 
 /*
  *
  */
-void systems::finalize(void) { finalized = true; }
-
-/*
- *
- */
-const bool systems::empty(void) { return _systems.empty(); }
+const bool systems::empty(void) { return (_systems_timed.empty() && _systems_untimed.empty()); }
 
 /*
  *
@@ -40,10 +37,15 @@ const bool systems::empty(void) { return _systems.empty(); }
 const bool systems::add(sys::system_uptr new_system) {
     if(finalized == true) return false;
 
-    for(auto& it: _systems)
-        if((it)->name == new_system->name) return false;
-
-    _systems.push_back(std::move(new_system));
+    if(new_system->timed) {
+        for(auto& it: _systems_timed)
+            if((it)->name == new_system->name) return false;
+        _systems_timed.push_back(std::move(new_system));
+    } else {
+        for(auto& it: _systems_untimed)
+            if((it)->name == new_system->name) return false;
+        _systems_untimed.push_back(std::move(new_system));
+    }
     return true;
 }
 
@@ -51,9 +53,9 @@ const bool systems::add(sys::system_uptr new_system) {
  *
  */
 void systems::run() {
-    for(auto& it: _systems)
+    for(auto& it: _systems_timed)
         try { 
-            if((it)->timed) (it)->run();
+            (it)->run();
         } catch(const wte_exception& e) {
             alert::set(e.what(), e.where(), e.when());
         }
@@ -63,9 +65,9 @@ void systems::run() {
  *
  */
 void systems::run_untimed() {
-    for(auto& it: _systems)
+    for(auto& it: _systems_untimed)
         try { 
-            if(!(it)->timed) (it)->run();
+            (it)->run();
         } catch(const wte_exception& e) {
             alert::set(e.what(), e.where(), e.when());
         }

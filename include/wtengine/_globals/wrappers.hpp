@@ -30,7 +30,7 @@ class al_bitmap final {
         /*!
          * \brief Creates a null bitmap that preserves its data.
          */
-        inline al_bitmap() : _al_bitmap(NULL), nopreserve(false) {};
+        al_bitmap();
 
         /*!
          * \brief Set bitmap preservation.
@@ -41,23 +41,17 @@ class al_bitmap final {
          *
          * \param p Preservation flag.
          */
-        inline al_bitmap(
-            const bool& p
-        ) : _al_bitmap(NULL), nopreserve(p) {};
+        al_bitmap(const bool& p);
 
         /*!
          * \brief Creates a bitmap of w x h that preserves its data.
          * \param w Width in pixels.
          * \param h Hieght in pixels.
          */
-        inline al_bitmap(
+        al_bitmap(
             const int& w,
             const int& h
-        ) : _al_bitmap(NULL), nopreserve(false) {
-            assert(w > 0 && h > 0);
-            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            _al_bitmap = al_create_bitmap(w, h);
-        };
+        );
 
         /*!
          * \brief Creates a bitmap of w x h and set the preservation flag.
@@ -65,90 +59,55 @@ class al_bitmap final {
          * \param h Hieght in pixels.
          * \param p Preservation flag.
          */
-        inline al_bitmap(
+        al_bitmap(
             const int& w,
             const int& h,
             const bool& p
-        ) : _al_bitmap(NULL), nopreserve(p) {
-            assert(w > 0 && h > 0);
-            if(nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            _al_bitmap = al_create_bitmap(w, h);
-        };
+        );
 
-        inline ~al_bitmap() = default;  //!<  Default destructor.
+        ~al_bitmap() = default;  //!<  Default destructor.
 
         /*!
          * \brief Return a pointer to the internal Allegro bitmap.
          * \return Allegro bitmap pointer.
          */
-        inline ALLEGRO_BITMAP* operator*() { return _al_bitmap; };
+        ALLEGRO_BITMAP* operator*() { return _al_bitmap; };
 
         /*!
          * \brief Check if the bitmap should be converted when the screen is updated.
          * \return True if it should be converted, false if not.
          */
-        inline const bool isconverted(void) const { return nopreserve; };
+        const bool isconverted(void) const;
 
         /*!
          * \brief Load a bitmap from file.
          * \param fname Filename to load.
          * \return True if loaded, false on error.
          */
-        inline const bool load(
-            const std::string& fname
-        ) {
-            //  Load the file.
-            ALLEGRO_FILE* file;
-            file = al_fopen(fname.c_str(), "rb");
-            if(!file) {  //  File not found, fail.
-                al_fclose(file);
-                return false;
-            }
-
-            if(nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            _al_bitmap =
-                al_load_bitmap_f(file, fname.substr(fname.find("."), fname.length()).c_str());
-            al_fclose(file);
-
-            if(!_al_bitmap) return false;  //  Bitmap not loaded, fail.
-
-            //  Apply transparency if magic pink is enabled.
-            if constexpr (build_options.use_magic_pink)
-                al_convert_mask_to_alpha(_al_bitmap, WTE_MAGIC_PINK);
-
-            return true;
-        };
+        const bool load(const std::string& fname);
 
         /*!
          * \brief Copy a bitmap from an existing one.
          * \param temp_bmp Bitmap to copy.
          */
-        inline void clone(
-            ALLEGRO_BITMAP* temp_bmp
-        ) {
-            if(nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-            else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            _al_bitmap = al_clone_bitmap(temp_bmp);
-        };
+        void clone(ALLEGRO_BITMAP* temp_bmp);
 
         /*!
          * \brief Destroy the internal bitmap.
          */
-        inline void destroy(void) { al_destroy_bitmap(_al_bitmap); };
+        void destroy(void);
 
         /*!
          * \brief Get bitmap width.
          * \return Bitmap width.
          */
-        inline const int get_width(void) const { return al_get_bitmap_width(_al_bitmap); };
+        const int get_width(void) const;
 
         /*!
          * \brief Get bitmap height.
          * \return Bitmap height.
          */
-        inline const int get_height(void) const { return al_get_bitmap_height(_al_bitmap); };
+        const int get_height(void) const;
 
     private:
         ALLEGRO_BITMAP* _al_bitmap;  //  Internal Allegro bitmap.
@@ -164,10 +123,7 @@ class al_font final {
         /*!
          * \brief Create a font asset using Allegro's default font.
          */
-        inline al_font() {
-            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            _al_font = al_create_builtin_font();
-        };
+        al_font();
 
         /*!
          * \brief Create a font asset from file.
@@ -175,22 +131,19 @@ class al_font final {
          * \param size Font size.  See Allegro docs on fonts.
          * \param flags Font flags.  See Allegro docs on fonts.
          */
-        inline al_font(
+        al_font(
             const std::string& fname,
             const int& size,
             const int& flags
-        ) {
-            al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-            _al_font = al_load_font(fname.c_str(), size, flags);
-        };
+        );
 
-        inline ~al_font() = default;  //!<  Default destructor.
+        ~al_font() = default;  //!<  Default destructor.
 
         /*!
          * \brief Get font asset.
          * \return Pointer to font asset.
          */
-        inline ALLEGRO_FONT* operator*() { return _al_font; };
+        ALLEGRO_FONT* operator*() { return _al_font; };
 
     private:
         ALLEGRO_FONT* _al_font;
@@ -206,17 +159,15 @@ class al_sample final {
          * \brief Load a sample asset.
          * \param fname Sample file name.
          */
-        inline al_sample(const std::string& fname) {
-            _al_sample = al_load_sample(fname.c_str());
-        };
+        al_sample(const std::string& fname);
 
-        inline ~al_sample() = default;  //!<  Default destructor.
+        ~al_sample() = default;  //!<  Default destructor.
 
         /*!
          * \brief Get sample asset.
          * \return Pointer to sample asset.
          */
-        inline ALLEGRO_SAMPLE* operator*() { return _al_sample; };
+        ALLEGRO_SAMPLE* operator*() { return _al_sample; };
 
     private:
         ALLEGRO_SAMPLE* _al_sample;
@@ -232,18 +183,15 @@ class al_audio final {
          * \brief Load an audio asset.
          * \param fname Audio file name.
          */
-        inline al_audio(const std::string& fname) {
-            _al_audio = al_load_audio_stream(fname.c_str(), 4, 2048);
-            al_set_audio_stream_playing(_al_audio, false);
-        };
+        al_audio(const std::string& fname);
 
-        inline ~al_audio() = default;  //!<  Default destructor.
+        ~al_audio() = default;  //!<  Default destructor.
 
         /*!
          * \brief Get audio asset.
          * \return Pointer to audio asset.
          */
-        inline ALLEGRO_AUDIO_STREAM* operator*() { return _al_audio; };
+        ALLEGRO_AUDIO_STREAM* operator*() { return _al_audio; };
 
     private:
         ALLEGRO_AUDIO_STREAM* _al_audio;

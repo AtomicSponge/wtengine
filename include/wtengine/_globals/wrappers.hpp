@@ -193,6 +193,36 @@ class al_audio final {
          */
         ALLEGRO_AUDIO_STREAM* operator*() { return _al_audio; };
 
+        /*!
+         * \brief Set the play speed of the audio asset.
+         * \param speed New speed value.
+         */
+        void set_speed(const float& speed);
+
+        /*!
+         * \brief Get the play speed of the audio asset.
+         * \return Current play speed value.
+         */
+        const float get_speed(void) const;
+        
+        /*!
+         * \brief Get the frequency.
+         * \return Frequency of the audio asset.
+         */
+        const unsigned int get_frequency(void) const;
+        
+        /*!
+         * \brief Get the length of the audio asset.
+         * \return The length in seconds.
+         */
+        const double get_length(void) const;
+        
+        /*!
+         * \brief Check if the audio asset is being played.
+         * \return True if being played, else false.
+         */
+        const bool is_playing(void) const;
+
     private:
         ALLEGRO_AUDIO_STREAM* _al_audio;
 };

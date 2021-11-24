@@ -138,4 +138,29 @@ al_audio::al_audio(const std::string& fname) {
     al_set_audio_stream_playing(_al_audio, false);
 }
 
+/*
+ *
+ */
+void al_audio::set_speed(const float& speed) { al_set_audio_stream_speed(_al_audio, speed); }
+
+/*
+ *
+ */
+const unsigned int al_audio::get_frequency(void) const { return al_get_audio_stream_frequency(_al_audio); }
+
+/*
+ *
+ */
+const double al_audio::get_length(void) const { return al_get_audio_stream_length_secs(_al_audio); }
+
+/*
+ *
+ */
+const float al_audio::get_speed(void) const { return al_get_audio_stream_speed(_al_audio); }
+
+/*
+ *
+ */
+const bool al_audio::is_playing(void) const { return al_get_audio_stream_playing(_al_audio); }
+
 }  //  end namespace wte

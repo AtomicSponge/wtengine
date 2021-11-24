@@ -7,7 +7,7 @@
  * \date 2019-2021
  */
 
-#include "wtengine/cmp/gfx/background.hpp"
+#include "wtengine/cmp/background.hpp"
 
 namespace wte::cmp::gfx {
 

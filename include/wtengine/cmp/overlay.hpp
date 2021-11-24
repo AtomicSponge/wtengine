@@ -17,7 +17,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 
-#include "wtengine/cmp/gfx/gfx.hpp"
+#include "wtengine/cmp/gfx.hpp"
 
 namespace wte::cmp::gfx {
 

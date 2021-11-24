@@ -18,7 +18,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
-#include "wtengine/cmp/gfx/gfx.hpp"
+#include "wtengine/cmp/gfx.hpp"
 
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/engine_time.hpp"

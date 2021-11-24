@@ -7,7 +7,7 @@
  * \date 2019-2021
  */
 
-#include "wtengine/cmp/gfx/sprite.hpp"
+#include "wtengine/cmp/sprite.hpp"
 
 namespace wte::cmp::gfx {
 

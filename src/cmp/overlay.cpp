@@ -7,7 +7,7 @@
  * \date 2019-2021
  */
 
-#include "wtengine/cmp/gfx/overlay.hpp"
+#include "wtengine/cmp/overlay.hpp"
 
 namespace wte::cmp::gfx {
 

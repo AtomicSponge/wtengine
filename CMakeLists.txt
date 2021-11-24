@@ -60,16 +60,16 @@ add_library(wtengine STATIC
     src/_globals/engine_time.cpp
     src/_globals/message.cpp
     src/_globals/notice.cpp
-    src/cmp/gfx/gfx.cpp
-    src/cmp/gfx/background.cpp
-    src/cmp/gfx/overlay.cpp
-    src/cmp/gfx/sprite.cpp
     src/cmp/ai.cpp
+    src/cmp/background.cpp
     src/cmp/bounding_box.cpp
     src/cmp/dispatcher.cpp
+    src/cmp/gfx.cpp
     src/cmp/hitbox.cpp
     src/cmp/location.cpp
     src/cmp/motion.cpp
+    src/cmp/overlay.cpp
+    src/cmp/sprite.cpp
     src/mgr/audio.cpp
     src/mgr/menus.cpp
     src/mgr/messages.cpp

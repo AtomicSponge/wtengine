@@ -31,7 +31,6 @@ namespace wte {
  * Used internally by the engine only.  Use notice class instead.
  */
 class alert final {
-    friend class commands;
     friend class engine;
     friend class input;
     friend class mgr::spawner;
@@ -45,43 +44,23 @@ class alert final {
         void operator=(alert const&) = delete;  //!<  Delete assignment operator.
 
     private:
-        /*
-         * Set the alert text and flag there is an alert.
-         */
+        //  Set the alert text and flag there is an alert.
         static void set(
             const std::string& a,
             const std::string& l,
             const int64_t& t
         );
-
-        /*
-         * Return the alert.
-         */
+        //  Return the alert.
         static const std::string get(void);
-
-        /*
-         * Return the alert description.
-         */
+        //  Return the alert description.
         static const std::string get_text(void);
-
-        /*
-         * Return the alert location.
-         */
+        //  Return the alert location.
         static const std::string get_location(void);
-
-        /*
-         * Return the alert time.
-         */
+        //  Return the alert time.
         static const int64_t get_time(void);
-
-        /*
-         * Check to see if an alert is set.
-         */
+        //  Check to see if an alert is set.
         static const bool is_set(void);
-
-        /*
-         * Clear the alert.
-         */
+        //  Clear the alert.
         static void clear(void);
 
         static std::string alert_text;      //  The alert display text.

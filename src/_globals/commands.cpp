@@ -30,17 +30,10 @@ void commands::process_messages(
     const message_container& messages
 ) {
     for(auto& it: messages) {
-        try { 
-            auto res = _commands.find(it.get_cmd());
-            if(res != _commands.end()) {
-                //  Check to make sure there are enough arguments to run the command.
-                if(it.num_args() >= res->second.first) res->second.second(it.get_args());
-                else {  //  Command not found
-                    std::string err_msg = "Error processing command: " + it.get_cmd();
-                    throw wte_exception(err_msg.c_str(), "command processor", engine_time::check());
-                }
-            }
-        } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
+        auto res = _commands.find(it.get_cmd());
+        //  Check to make sure there are enough arguments to run the command.
+        if(res != _commands.end() && it.num_args() >= res->second.first)
+            res->second.second(it.get_args());
     }
 }
 

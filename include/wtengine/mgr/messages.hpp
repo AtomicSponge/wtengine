@@ -66,32 +66,22 @@ class messages final : private manager<messages> {
         messages();
         ~messages();
 
-        /*
-         * Clear the message queue.
-         */
+        //  Clear the message queue.
         static void clear(void);
-
         /*
          * Load a new data file into the message queue.
          * This is called when a new game is created.
          * Events are placed in order according to the timer value.
          */
         static void load_file(const std::string& fname);
-
         /*
          * Get messages based on their command.
          * Once events in the future are reached, break early.
          */
         static const message_container get(const std::string& sys);
-
-        /*
-         * Deletes timed messages that were not processed.
-         */
+        //  Deletes timed messages that were not processed.
         static void prune(void);
-
-        /*
-         * Read a message from file.
-         */
+        //  Read a message from file.
         static void read(
             ALLEGRO_FILE& file,
             int64_t& timer,
@@ -101,10 +91,7 @@ class messages final : private manager<messages> {
             std::string& cmd,
             std::string& args
         );
-
-        /*
-         * Write a message to the debug log file if debugging is enabled.
-         */
+        //  Write a message to the debug log file if debugging is enabled.
         static void log(const message& msg);
 
         static std::ofstream debug_log_file;

@@ -61,9 +61,7 @@ class spawner final : private manager<spawner> {
         spawner() = default;
         ~spawner() = default;
 
-        /*
-         * Takes spawner messages and processes.
-         */
+        //  Takes spawner messages and processes.
         static void process_messages(const message_container& messages);
 
         static std::map<

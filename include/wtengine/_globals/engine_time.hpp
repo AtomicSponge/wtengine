@@ -39,9 +39,7 @@ class engine_time final {
          * This is called once during the game loop in class wte_main
          * and when starting/stopping the game.
          */
-        static void set(
-            const int64_t& t
-        );
+        static void set(const int64_t& t);
 
         static int64_t current_time;  //  Track game timer
 };

@@ -221,9 +221,7 @@ class variables final : private manager<variables> {
         variables() = default;
         ~variables() = default;
 
-        /*
-         * Verify valid data type.
-         */
+        //  Verify valid data type.
         template <typename T>
         inline static void verify(void) {
             static_assert(

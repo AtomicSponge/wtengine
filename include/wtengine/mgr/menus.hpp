@@ -138,36 +138,20 @@ class menus final : private manager<menus> {
          * Also creates the default main menu and in-game menu.
          */
         static void initialize(void);
-
-        /*
-         * Destories the internal objects.
-         */
+        //  Destories the internal objects.
         static void de_init(void);
-
-        /*
-         * Adds a menu to the stack if none are opened, then processes the menus.
-         */
+        //  Adds a menu to the stack if none are opened, then processes the menus.
         static void run(void);
-
         /*
          * Renders the active menu from the top of the stack. 
          * This is called from within the renderer.
          */
         static void render_menu(void);
-
-        /*
-         * Clear the stack of opened menus.
-         */
+        //  Clear the stack of opened menus.
         static void reset(void);
-
-        /*
-         * Add a menu to the opened stack.
-         */
+        //  Add a menu to the opened stack.
         static void open_menu(const std::string& menu_id);
-
-        /*
-         * Close the current opened menu.
-         */
+        //  Close the current opened menu.
         static void close_menu(void);
 
         /* *************************************** */

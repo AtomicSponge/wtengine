@@ -225,24 +225,13 @@ class audio final : private manager<audio> {
         audio() = default;
         ~audio() = default;
 
-        /* 
-         * Sets up the various Allegro objects for the audio manager to use.
-         */
+        //  Sets up the various Allegro objects for the audio manager to use.
         static void initialize(void);
-
-        /* 
-         * Destroies the Allegro objects used by the manager.
-         */
+        //  Destroies the Allegro objects used by the manager.
         static void de_init(void);
-
-        /*
-         * Process audio manager messages
-         */
+        //  Process audio manager messages
         static void process_messages(const message_container& messages);
-
-        /*
-         * Set volume levels based on engine cfg settings.
-         */
+        //  Set volume levels based on engine cfg settings.
         static void set_volume(void);
 
         static commands cmds;

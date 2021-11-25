@@ -93,9 +93,7 @@ class message final {
          * \param m Object to compare to.
          * \return True if less than, false if greater than.
          */
-        const bool operator<(
-            const message& m
-        ) const;
+        const bool operator<(const message& m) const;
 
         /*!
          * \brief Get timer value.
@@ -144,9 +142,7 @@ class message final {
          * \param pos The position in the argument vector.
          * \return The argument string by position.
          */
-        const std::string get_arg(
-            const std::size_t& pos
-        ) const;
+        const std::string get_arg(const std::size_t& pos) const;
 
         /*!
          * \brief Check if the event is synced to the timer.
@@ -155,12 +151,8 @@ class message final {
         const bool is_timed_event(void) const;
 
     private:
-        /*
-         * Split arguments into a vector of strings.
-         */
-        void split_args(
-            const std::string& a
-        );
+        //  Split arguments into a vector of strings.
+        void split_args(const std::string& a);
 
         int64_t timer;      //  Timer value that the message will be processed at
         std::string sys;    //  System that will process the message

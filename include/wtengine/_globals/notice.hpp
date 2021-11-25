@@ -44,9 +44,7 @@ class notice final {
          * \brief Set the notice and flag that its set.
          * \param n Notice to display.
          */
-        static void set(
-            const std::string& n
-        );
+        static void set(const std::string& n);
 
         /*!
          * \brief Return the notice.
@@ -79,24 +77,13 @@ class notice final {
         static void set_notice_bg_color(const ALLEGRO_COLOR& c);
 
     private:
-        /*
-         * Clear the notice.
-         */
+        //  Clear the notice.
         static void clear(void);
-
-        /*
-         * Get the notice font.
-         */
+        //  Get the notice font.
         static const wte_asset<al_font> get_notice_font(void);
-
-        /*
-         * Get the notice font color.
-         */
+        //  Get the notice font color.
         static const ALLEGRO_COLOR get_notice_font_color(void);
-
-        /*
-         * Get the notice background color.
-         */
+        //  Get the notice background color.
         static const ALLEGRO_COLOR get_notice_bg_color(void);
 
         static std::string notice_text;          //  The notice display text.

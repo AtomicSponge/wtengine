@@ -15,10 +15,7 @@
 #include <utility>
 #include <functional>
 
-#include "wtengine/_globals/alert.hpp"
-#include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/message.hpp"
-#include "wtengine/_globals/wte_exception.hpp"
 
 namespace wte {
 
@@ -48,9 +45,7 @@ class commands final {
          * \brief Process a list of messages.
          * \param messages List of messages to process.
          */
-        void process_messages(
-            const message_container& messages
-        );
+        void process_messages(const message_container& messages);
 
     private:
         //  Container for commands.

@@ -112,19 +112,11 @@ class renderer final : private manager<renderer> {
         renderer() = default;
         ~renderer() = default;
 
-        /* 
-         * Configures the internal objects for the render manager to use.
-         */
+        //  Configures the internal objects for the render manager to use.
         static void initialize(void);
-
-        /* 
-         * Destories the internal objects.
-         */
+        //  Destories the internal objects.
         static void de_init(void);
-
-        /*
-         * Draw the game screen.
-         */
+        //  Draw the game screen.
         static void render(void);
 
         template <typename T> struct comparator {

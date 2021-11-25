@@ -336,10 +336,7 @@ class world final : private manager<world> {
         world() = default;
         ~world() = default;
 
-        /*
-         * Clear the entity manager.
-         */
-        static void clear(void);
+        static void clear(void);  //  Clear the entity manager.
 
         static entity_id entity_counter;    //  Last Entity ID used.
         static world_container entity_vec;  //  Container for all entities.

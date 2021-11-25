@@ -33,6 +33,8 @@ typedef std::vector<item_sptr>::const_iterator item_citerator;
 /*!
  * \class menu
  * \brief Class for defining a menu.
+ *
+ * NOTE:  This will be deprecated in the future.
  */
 class menu {
     friend class wte::mgr::menus;

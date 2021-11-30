@@ -750,7 +750,7 @@ void wte_demo::new_game(void) {
         mgr::variables::set("max_lives", 3);
     mgr::variables::set("lives", mgr::variables::get<int>("max_lives"));
 
-    mgr::audio::music::play(mgr::assets<al_audio>::get<al_audio>("music"));
+    mgr::audio::music::a::play(mgr::assets<al_audio>::get<al_audio>("music"));
 }
 
 /*
@@ -765,7 +765,7 @@ void wte_demo::end_game(void) {
  * On menu open.
  */
 void wte_demo::on_menu_open(void) {
-    mgr::audio::music::pause();
+    mgr::audio::music::a::pause();
     mgr::audio::ambiance::pause();
 }
 
@@ -773,6 +773,6 @@ void wte_demo::on_menu_open(void) {
  * On menu close.
  */
 void wte_demo::on_menu_close(void) {
-    mgr::audio::music::unpause();
+    mgr::audio::music::a::unpause();
     mgr::audio::ambiance::unpause();
 }

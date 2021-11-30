@@ -61,32 +61,63 @@ class audio final : private manager<audio> {
          * \brief Music commands.
          */
         struct music {
-            /*!
-            * \brief Toggle music looping.
-            * \param loop True to enable, false to disable.
-            */
-            static void loop(const bool& loop);
+            struct a {
+                /*!
+                 * \brief Toggle music looping.
+                 * \param loop True to enable, false to disable.
+                 */
+                static void loop(const bool& loop);
 
-            /*!
-            * \brief Play a music asset.
-            * \param audio Audio asset.
-            */
-            static void play(wte_asset<al_audio> audio);
+                /*!
+                 * \brief Play a music asset.
+                 * \param audio Audio asset.
+                 */
+                static void play(wte_asset<al_audio> audio);
 
-            /*!
-            * \brief Stop playing music.
-            */
-            static void stop(void);
+                /*!
+                 * \brief Stop playing music.
+                 */
+                static void stop(void);
 
-            /*!
-            * \brief Pause music.
-            */
-            static void pause(void);
+                /*!
+                 * \brief Pause music.
+                 */
+                static void pause(void);
 
-            /*!
-            * \brief Unpause music.
-            */
-            static void unpause(void);
+                /*!
+                 * \brief Unpause music.
+                 */
+                static void unpause(void);
+            };
+
+            struct b {
+                /*!
+                 * \brief Toggle music looping.
+                 * \param loop True to enable, false to disable.
+                 */
+                static void loop(const bool& loop);
+
+                /*!
+                 * \brief Play a music asset.
+                 * \param audio Audio asset.
+                 */
+                static void play(wte_asset<al_audio> audio);
+
+                /*!
+                 * \brief Stop playing music.
+                 */
+                static void stop(void);
+
+                /*!
+                 * \brief Pause music.
+                 */
+                static void pause(void);
+
+                /*!
+                 * \brief Unpause music.
+                 */
+                static void unpause(void);
+            };
 
             /*!
              * \brief Adjust a mixer's volume level.
@@ -242,12 +273,15 @@ class audio final : private manager<audio> {
         //  Mixers
         static ALLEGRO_MIXER* _mixer_main;
         static ALLEGRO_MIXER* _mixer_1;
+        static ALLEGRO_MIXER* _mixer_1_a;
+        static ALLEGRO_MIXER* _mixer_1_b;
         static ALLEGRO_MIXER* _mixer_2;
         static ALLEGRO_MIXER* _mixer_3;
         static ALLEGRO_MIXER* _mixer_4;
 
         // Streams
-        static wte_asset<al_audio> music_stream;
+        static wte_asset<al_audio> music_stream_a;
+        static wte_asset<al_audio> music_stream_b;
         static wte_asset<al_audio> ambiance_stream;
         static wte_asset<al_audio> voice_stream;
 

@@ -177,7 +177,8 @@ void engine::process_new_game(const std::string& game_data) {
     if(mgr::systems::empty()) throw std::runtime_error("No systems have been loaded!");
 
     //  Stop audio manager from playing sounds.
-    mgr::audio::music::stop();
+    mgr::audio::music::a::stop();
+    mgr::audio::music::b::stop();
     mgr::audio::ambiance::stop();
     mgr::audio::voice::stop();
     mgr::audio::sample::clear_instances();
@@ -212,7 +213,8 @@ void engine::process_end_game(void) {
     engine_time::set(al_get_timer_count(main_timer));
 
     //  Stop audio manager from playing sounds.
-    mgr::audio::music::stop();
+    mgr::audio::music::a::stop();
+    mgr::audio::music::b::stop();
     mgr::audio::ambiance::stop();
     mgr::audio::voice::stop();
     mgr::audio::sample::clear_instances();

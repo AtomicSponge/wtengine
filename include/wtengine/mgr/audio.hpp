@@ -51,7 +51,7 @@ class audio final : private manager<audio> {
 
     public:
         /*!
-         * \brief Adjust a mixer's volume level.
+         * \brief Adjust main mixer volume level.
          * \param l Volume level to set.
          */
         static void set_level(const float& l);
@@ -61,6 +61,10 @@ class audio final : private manager<audio> {
          * \brief Music commands.
          */
         struct music {
+            /*!
+             * \struct a
+             * \brief Music track A
+             */
             struct a {
                 /*!
                  * \brief Toggle music looping.
@@ -88,8 +92,18 @@ class audio final : private manager<audio> {
                  * \brief Unpause music.
                  */
                 static void unpause(void);
+
+                /*!
+                 * \brief Adjust music track A mixer volume level.
+                 * \param l Volume level to set.
+                 */
+                static void set_level(const float& l);
             };
 
+            /*!
+             * \struct b
+             * \brief Music track B
+             */
             struct b {
                 /*!
                  * \brief Toggle music looping.
@@ -117,10 +131,16 @@ class audio final : private manager<audio> {
                  * \brief Unpause music.
                  */
                 static void unpause(void);
+
+                /*!
+                 * \brief Adjust music track B mixer volume level.
+                 * \param l Volume level to set.
+                 */
+                static void set_level(const float& l);
             };
 
             /*!
-             * \brief Adjust a mixer's volume level.
+             * \brief Adjust the music mixer volume level.
              * \param l Volume level to set.
              */
             static void set_level(const float& l);
@@ -174,7 +194,7 @@ class audio final : private manager<audio> {
             static void clear_instances(void);
 
             /*!
-             * \brief Adjust a mixer's volume level.
+             * \brief Adjust the sample mixer volume level.
              * \param l Volume level to set.
              */
             static void set_level(const float& l);
@@ -207,7 +227,7 @@ class audio final : private manager<audio> {
             static void unpause(void);
 
             /*!
-             * \brief Adjust a mixer's volume level.
+             * \brief Adjust the voice mixer volume level.
              * \param l Volume level to set.
              */
             static void set_level(const float& l);
@@ -246,7 +266,7 @@ class audio final : private manager<audio> {
             static void unpause(void);
 
             /*!
-             * \brief Adjust a mixer's volume level.
+             * \brief Adjust the ambiance mixer volume level.
              * \param l Volume level to set.
              */
             static void set_level(const float& l);

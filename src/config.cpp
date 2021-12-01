@@ -17,12 +17,12 @@ const bool& config::flags::is_running = config::_flags::is_running;
 const bool& config::flags::game_started = config::_flags::game_started;
 const bool& config::flags::menu_opened = config::_flags::menu_opened;
 const bool& config::flags::record_input = config::_flags::record_input;
-#if WTE_DEBUG_MODE
 const bool& config::flags::show_hitboxes = config::_flags::show_hitboxes;
-#endif
 
 const float& config::volume::main = config::_volume::main;
 const float& config::volume::music = config::_volume::music;
+const float& config::volume::music_a = config::_volume::music_a;
+const float& config::volume::music_b = config::_volume::music_b;
 const float& config::volume::sample = config::_volume::sample;
 const float& config::volume::voice = config::_volume::voice;
 const float& config::volume::ambiance = config::_volume::ambiance;
@@ -140,6 +140,8 @@ const bool config::load(void) {
         dfile.read(reinterpret_cast<char*>(&_gfx::menu_scale_factor), sizeof _gfx::menu_scale_factor);
         dfile.read(reinterpret_cast<char*>(&_volume::main), sizeof _volume::main);
         dfile.read(reinterpret_cast<char*>(&_volume::music), sizeof _volume::music);
+        dfile.read(reinterpret_cast<char*>(&_volume::music_a), sizeof _volume::music_a);
+        dfile.read(reinterpret_cast<char*>(&_volume::music_b), sizeof _volume::music_b);
         dfile.read(reinterpret_cast<char*>(&_volume::sample), sizeof _volume::sample);
         dfile.read(reinterpret_cast<char*>(&_volume::voice), sizeof _volume::voice);
         dfile.read(reinterpret_cast<char*>(&_volume::ambiance), sizeof _volume::ambiance);
@@ -225,6 +227,8 @@ const bool config::save(void) {
         dfile.write(reinterpret_cast<const char*>(&gfx::menu_scale_factor), sizeof gfx::menu_scale_factor);
         dfile.write(reinterpret_cast<const char*>(&volume::main), sizeof volume::main);
         dfile.write(reinterpret_cast<const char*>(&volume::music), sizeof volume::music);
+        dfile.write(reinterpret_cast<const char*>(&volume::music_a), sizeof volume::music_a);
+        dfile.write(reinterpret_cast<const char*>(&volume::music_b), sizeof volume::music_b);
         dfile.write(reinterpret_cast<const char*>(&volume::sample), sizeof volume::sample);
         dfile.write(reinterpret_cast<const char*>(&volume::voice), sizeof volume::voice);
         dfile.write(reinterpret_cast<const char*>(&volume::ambiance), sizeof volume::ambiance);

@@ -212,6 +212,26 @@ void audio::music::set_level(const float& l) {
 /*
  *
  */
+void audio::music::a::set_level(const float& l) {
+    (l >= 0.0f && l <= 1.0f ?
+        config::_volume::music_a = l :
+        config::_volume::music_a = 0.0f);
+    set_volume();
+}
+
+/*
+ *
+ */
+void audio::music::b::set_level(const float& l) {
+    (l >= 0.0f && l <= 1.0f ?
+        config::_volume::music_b = l :
+        config::_volume::music_b = 0.0f);
+    set_volume();
+}
+
+/*
+ *
+ */
 void audio::sample::set_level(const float& l) {
     (l >= 0.0f && l <= 1.0f ?
         config::_volume::sample = l :

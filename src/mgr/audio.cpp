@@ -269,6 +269,12 @@ void audio::set_volume(void) {
     (config::volume::music >= 0.0f && config::volume::music <= 1.0f ?
         al_set_mixer_gain(_mixer_1, config::volume::music) :
         al_set_mixer_gain(_mixer_1, 0.5f));
+    (config::volume::music_a >= 0.0f && config::volume::music_a <= 1.0f ?
+        al_set_mixer_gain(_mixer_1_a, config::volume::music_a) :
+        al_set_mixer_gain(_mixer_1_a, 0.5f));
+    (config::volume::music_b >= 0.0f && config::volume::music_b <= 1.0f ?
+        al_set_mixer_gain(_mixer_1_b, config::volume::music_b) :
+        al_set_mixer_gain(_mixer_1_b, 0.5f));
     (config::volume::sample >= 0.0f && config::volume::sample <= 1.0f ?
         al_set_mixer_gain(_mixer_2, config::volume::sample) :
         al_set_mixer_gain(_mixer_2, 0.5f));

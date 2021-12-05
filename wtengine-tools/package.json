@@ -2,16 +2,16 @@
   "name": "@wtfsystems/wtengine-tools",
   "version": "0.0.1",
   "description": "wtengine",
-  "main": "index.js",
   "scripts": {
-    "test": "test"
+    "buildscript": "buildscript.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wtfsystems/wtengine.git"
   },
   "keywords": [
-    "engine"
+    "WtEngine",
+    "tools"
   ],
   "author": "Matthew Evans",
   "license": "MIT",

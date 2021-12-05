@@ -18,7 +18,6 @@
 
 namespace wte::mgr {
     class audio;
-    class menus;
 }
 
 namespace wte::mgr::gfx {
@@ -36,7 +35,6 @@ class config {
     friend class engine;
     friend class input;
     friend class mgr::audio;
-    friend class mgr::menus;
     friend class mgr::gfx::renderer;
 
     public:
@@ -84,7 +82,6 @@ class config {
             static const std::size_t& vsync;          //!<  Vsync setting.
             static const std::size_t& display_mode;   //!<  Display mode setting.
             static const float& scale_factor;         //!<  Arena scale factor.
-            static const float& menu_scale_factor;    //!<  Menu scale factor.
             static const bool& needs_reconfig;        //!<  Flag gfx reconfig.
         };
 
@@ -94,7 +91,6 @@ class config {
          */
         struct controls {
             static const int& key_menu;               //!<  Open menu key.
-            static const int& key_menu_select;        //!<  Select menu item key.
 
             /*
              * Player 1 keyboard
@@ -221,13 +217,11 @@ class config {
             inline static std::size_t vsync = 2;
             inline static std::size_t display_mode = 0;
             inline static float scale_factor = 1.0f;
-            inline static float menu_scale_factor = 1.0f;
             inline static bool needs_reconfig = false;
         };
 
         struct _controls {
             inline static int key_menu = WTE_KEY_MENU_DEFAULT;
-            inline static int key_menu_select = WTE_KEY_MENU_SELECT_DEFAULT;
 
             /*
              * Player 1 keyboard

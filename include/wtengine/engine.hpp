@@ -86,8 +86,6 @@ class engine : public config, public display, public input {
         );
 
         /* These function members are overridden in the derived class */
-        //!  Define this to implement custom menu layout.
-        virtual void load_menus(void) = 0;
         //!  Define this to load all systems to be used by the game.
         virtual void load_systems(void) = 0;
         //!  Define what gets loaded when a game starts.

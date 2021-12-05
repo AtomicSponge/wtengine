@@ -34,11 +34,9 @@ const int& config::gfx::arena_h = config::_gfx::arena_h;
 const std::size_t& config::gfx::vsync = config::_gfx::vsync;
 const std::size_t& config::gfx::display_mode = config::_gfx::display_mode;
 const float& config::gfx::scale_factor = config::_gfx::scale_factor;
-const float& config::gfx::menu_scale_factor = config::_gfx::menu_scale_factor;
 const bool& config::gfx::needs_reconfig = config::_gfx::needs_reconfig;
 
 const int& config::controls::key_menu = config::_controls::key_menu;
-const int& config::controls::key_menu_select = config::_controls::key_menu_select;
 
 const int& config::controls::p1_key_up = config::_controls::p1_key_up;
 const int& config::controls::p1_key_down = config::_controls::p1_key_down;
@@ -137,7 +135,6 @@ const bool config::load(void) {
         dfile.read(reinterpret_cast<char*>(&_gfx::vsync), sizeof _gfx::vsync);
         dfile.read(reinterpret_cast<char*>(&_gfx::display_mode), sizeof _gfx::display_mode);
         dfile.read(reinterpret_cast<char*>(&_gfx::scale_factor), sizeof _gfx::scale_factor);
-        dfile.read(reinterpret_cast<char*>(&_gfx::menu_scale_factor), sizeof _gfx::menu_scale_factor);
         dfile.read(reinterpret_cast<char*>(&_volume::main), sizeof _volume::main);
         dfile.read(reinterpret_cast<char*>(&_volume::music), sizeof _volume::music);
         dfile.read(reinterpret_cast<char*>(&_volume::music_a), sizeof _volume::music_a);
@@ -146,7 +143,6 @@ const bool config::load(void) {
         dfile.read(reinterpret_cast<char*>(&_volume::voice), sizeof _volume::voice);
         dfile.read(reinterpret_cast<char*>(&_volume::ambiance), sizeof _volume::ambiance);
         dfile.read(reinterpret_cast<char*>(&_controls::key_menu), sizeof _controls::key_menu);
-        dfile.read(reinterpret_cast<char*>(&_controls::key_menu_select), sizeof _controls::key_menu_select);
 
         dfile.read(reinterpret_cast<char*>(&_controls::p1_key_up), sizeof _controls::p1_key_up);
         dfile.read(reinterpret_cast<char*>(&_controls::p1_key_down), sizeof _controls::p1_key_down);
@@ -224,7 +220,6 @@ const bool config::save(void) {
         dfile.write(reinterpret_cast<const char*>(&gfx::vsync), sizeof gfx::vsync);
         dfile.write(reinterpret_cast<const char*>(&gfx::display_mode), sizeof gfx::display_mode);
         dfile.write(reinterpret_cast<const char*>(&gfx::scale_factor), sizeof gfx::scale_factor);
-        dfile.write(reinterpret_cast<const char*>(&gfx::menu_scale_factor), sizeof gfx::menu_scale_factor);
         dfile.write(reinterpret_cast<const char*>(&volume::main), sizeof volume::main);
         dfile.write(reinterpret_cast<const char*>(&volume::music), sizeof volume::music);
         dfile.write(reinterpret_cast<const char*>(&volume::music_a), sizeof volume::music_a);
@@ -233,7 +228,6 @@ const bool config::save(void) {
         dfile.write(reinterpret_cast<const char*>(&volume::voice), sizeof volume::voice);
         dfile.write(reinterpret_cast<const char*>(&volume::ambiance), sizeof volume::ambiance);
         dfile.write(reinterpret_cast<const char*>(&controls::key_menu), sizeof controls::key_menu);
-        dfile.write(reinterpret_cast<const char*>(&controls::key_menu_select), sizeof controls::key_menu_select);
         
         dfile.write(reinterpret_cast<const char*>(&controls::p1_key_up), sizeof controls::p1_key_up);
         dfile.write(reinterpret_cast<const char*>(&controls::p1_key_down), sizeof controls::p1_key_down);

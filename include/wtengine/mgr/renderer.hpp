@@ -33,7 +33,6 @@
 #include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/cmp/_components.hpp"
-#include "wtengine/mgr/menus.hpp"
 #include "wtengine/mgr/world.hpp"
 #include "wtengine/config.hpp"
 #include "wtengine/display.hpp"
@@ -131,7 +130,6 @@ class renderer final : private manager<renderer> {
 
         static wte_asset<al_bitmap> arena_bitmap;
         static wte_asset<al_bitmap> title_bitmap;
-        static wte_asset<al_bitmap> menu_bitmap;
         static wte_asset<al_font> renderer_font;
 
         static std::size_t fps_counter, _fps;

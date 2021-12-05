@@ -60,7 +60,7 @@ namespace wte {
 
 /*!
  * \struct WTEBUILDOPTIONS
- * \brief 
+ * \brief Build options
  */
 struct WTEBUILDOPTIONS {
     constexpr static float ticks_per_sec = static_cast<float>(WTE_TICKS_PER_SECOND);

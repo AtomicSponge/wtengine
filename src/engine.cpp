@@ -70,22 +70,13 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
     });
     cmds.add("new_game", 1, [this](const msg_args& args) {
         if(!config::flags::game_started) {
-            mgr::menus::reset();
             process_new_game(args[0]);
         }
     });
     cmds.add("end_game", 0, [this](const msg_args& args) {
         if(config::flags::game_started) {
             process_end_game();
-            mgr::menus::reset();
         }
-    });
-    cmds.add("open_menu", 1, [this](const msg_args& args) {
-        mgr::menus::open_menu(args[0]);
-    });
-    cmds.add("close_menu", 1, [this](const msg_args& args) {
-        if(args[0] == "all") mgr::menus::reset();
-        else mgr::menus::close_menu();
     });
     cmds.add("reconf_display", 0, [this](const msg_args& args) {
         const bool timer_running = al_get_timer_started(main_timer);
@@ -143,11 +134,7 @@ void engine::wte_load(void) {
 
     //  Initialize managers that require it.
     mgr::audio::initialize();
-    mgr::menus::initialize();
     mgr::gfx::renderer::initialize();
-
-    //  Load user configured menus.
-    load_menus();
 }
 
 /*
@@ -155,7 +142,6 @@ void engine::wte_load(void) {
  */
 void engine::wte_unload(void) {
     mgr::audio::de_init();
-    mgr::menus::de_init();
     mgr::gfx::renderer::de_init();
 }
 
@@ -246,7 +232,7 @@ void engine::do_game(void) {
     while(config::flags::is_running) {
         if(!config::flags::game_started) {            //  Game not running.
             al_stop_timer(main_timer);                //  Make sure the timer isn't.
-            config::_flags::menu_opened = true;   //  And force the menu manager.
+            config::_flags::menu_opened = true;       //  And force menus.
         }
 
         //  Check for input.
@@ -262,9 +248,6 @@ void engine::do_game(void) {
             on_menu_close();
             al_resume_timer(main_timer);
         }
-
-        //  Game menu is opened, run the menu manager.
-        if(config::flags::menu_opened) mgr::menus::run();
 
         /* *** GAME LOOP ************************************************************ */
         ALLEGRO_EVENT event;

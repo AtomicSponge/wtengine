@@ -19,8 +19,6 @@ class wte_demo final : public wte::engine {
         ~wte_demo();
 
     private:
-        //  Define this to implement custom menu layout
-        void load_menus(void) override;
         //  Define this to load all systems to be used by the game
         void load_systems(void) override;
         //  Define what gets loaded when a game starts

@@ -13,7 +13,6 @@
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/wrappers.hpp"
 
-#include "wtengine/mnu/_items.hpp"
 #include "wtengine/cmp/_components.hpp"
 #include "wtengine/sys/_systems.hpp"
 #include "wtengine/mgr/_managers.hpp"

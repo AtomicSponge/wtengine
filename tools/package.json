@@ -1,6 +1,6 @@
 {
-  "name": "@wtfsystems/wtengine",
-  "version": "0.0.7",
+  "name": "@wtfsystems/wtengine-tools",
+  "version": "0.0.1",
   "description": "wtengine",
   "main": "index.js",
   "scripts": {

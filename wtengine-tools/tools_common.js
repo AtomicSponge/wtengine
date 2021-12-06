@@ -2,7 +2,6 @@
  * 
  * @author Matthew Evans
  * @module wtfsystems/wtengine-tools
- * @version 0.0.2
  * @see README.md
  * @copyright MIT see LICENSE.md
  * 

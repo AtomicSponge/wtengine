@@ -9,22 +9,16 @@
  */
 
 const fs = require('fs')
-const csv = require('csv-parse')
 const { exit } = require('process')
+const { confirmPrompt, scriptError } = require('./tools_common')
+const csv = require('csv-parse')
 
-/**
- * Display an error message and exit script.
- * @param {String} message Message to display.
- */
-const scriptError = (message) => {
-    console.log(`Error:  ${message}`)
-    console.log(`Exiting...`)
-    exit(-1)
-}
+confirmPrompt('test?')
 
 /**
  * Parse a CSV file.
  * @param {String} csvFile 
+ * @returns {Object} 
  */
 const readCSVData = (csvFile) => {
     return csvFile
@@ -33,6 +27,7 @@ const readCSVData = (csvFile) => {
 /**
  * Build a game script file.
  * @param {Object} data 
+ * @returns {Object} 
  */
 const buildScriptFile = (data) => {
     return data

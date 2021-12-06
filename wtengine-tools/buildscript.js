@@ -8,10 +8,10 @@
  */
 
 const fs = require('fs')
-const { confirmPrompt, scriptError } = require('./tools_common')
 const csv = require('csv-parse')
+const { confirmPrompt, scriptError } = require('./tools_common')
 
-confirmPrompt('test?')
+if(!confirmPrompt('test?')) scriptError('flagrant error')
 
 /**
  * Parse a CSV file.
@@ -39,7 +39,7 @@ const args = process.argv.slice(2)
 if(args[0] === undefined) scriptError('Please specify an input file.')
 if(!fs.existsSync(args[0])) scriptError('Input file does not exist.')
 if(args[1] === undefined) scriptError('Please specify an output file.')
-if(fs.existsSync(args[1]) && !confirmPrompt(`Output file ${args[1]} exists, overwrite?`))
+if(fs.existsSync(args[1]) && !confirmPrompt(`Output file '${args[1]}' exists, overwrite?`))
     scriptError('Output file already exists.')
 
 const inData = readCSVData(args[0])

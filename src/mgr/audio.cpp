@@ -181,6 +181,8 @@ void audio::de_init(void) {
     audio::ambiance::stop();
 
     //  Unload all mixers.
+    al_destroy_mixer(_mixer_1_a);
+    al_destroy_mixer(_mixer_1_b);
     al_destroy_mixer(_mixer_1);
     al_destroy_mixer(_mixer_2);
     al_destroy_mixer(_mixer_3);

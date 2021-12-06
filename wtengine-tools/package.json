@@ -1,7 +1,7 @@
 {
   "name": "@wtfsystems/wtengine-tools",
   "version": "0.0.1",
-  "description": "wtengine",
+  "description": "WtEngine Tools",
   "scripts": {
     "buildscript": "buildscript.js"
   },

@@ -137,8 +137,6 @@ const bool config::load(void) {
         dfile.read(reinterpret_cast<char*>(&_gfx::scale_factor), sizeof _gfx::scale_factor);
         dfile.read(reinterpret_cast<char*>(&_volume::main), sizeof _volume::main);
         dfile.read(reinterpret_cast<char*>(&_volume::music), sizeof _volume::music);
-        dfile.read(reinterpret_cast<char*>(&_volume::music_a), sizeof _volume::music_a);
-        dfile.read(reinterpret_cast<char*>(&_volume::music_b), sizeof _volume::music_b);
         dfile.read(reinterpret_cast<char*>(&_volume::sample), sizeof _volume::sample);
         dfile.read(reinterpret_cast<char*>(&_volume::voice), sizeof _volume::voice);
         dfile.read(reinterpret_cast<char*>(&_volume::ambiance), sizeof _volume::ambiance);
@@ -222,8 +220,6 @@ const bool config::save(void) {
         dfile.write(reinterpret_cast<const char*>(&gfx::scale_factor), sizeof gfx::scale_factor);
         dfile.write(reinterpret_cast<const char*>(&volume::main), sizeof volume::main);
         dfile.write(reinterpret_cast<const char*>(&volume::music), sizeof volume::music);
-        dfile.write(reinterpret_cast<const char*>(&volume::music_a), sizeof volume::music_a);
-        dfile.write(reinterpret_cast<const char*>(&volume::music_b), sizeof volume::music_b);
         dfile.write(reinterpret_cast<const char*>(&volume::sample), sizeof volume::sample);
         dfile.write(reinterpret_cast<const char*>(&volume::voice), sizeof volume::voice);
         dfile.write(reinterpret_cast<const char*>(&volume::ambiance), sizeof volume::ambiance);

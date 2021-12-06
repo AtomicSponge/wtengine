@@ -61,7 +61,7 @@ void audio::initialize(void) {
 
     //  Map the audio commands.
     //  Mixer 1
-    cmds.add("music_loop", 2, [](const msg_args& args) {
+    cmds.add("music-loop", 2, [](const msg_args& args) {
         if(args[0] == "a") {
             if(args[1] == "disable") audio::music::a::loop(false);
             else audio::music::a::loop(true);
@@ -71,26 +71,26 @@ void audio::initialize(void) {
             else audio::music::b::loop(true);
         }
     });
-    cmds.add("music_play", 2, [](const msg_args& args) {
+    cmds.add("music-play", 2, [](const msg_args& args) {
         if(args[0] == "a")
             audio::music::a::play(mgr::assets<al_audio>::get<al_audio>(args[1]));
         if(args[0] == "b")
             audio::music::b::play(mgr::assets<al_audio>::get<al_audio>(args[1]));
     });
-    cmds.add("music_stop", 1, [](const msg_args& args) {
+    cmds.add("music-stop", 1, [](const msg_args& args) {
         if(args[0] == "a") audio::music::a::stop();
         if(args[0] == "b") audio::music::b::stop();
     });
-    cmds.add("music_pause", 1, [](const msg_args& args) {
+    cmds.add("music-pause", 1, [](const msg_args& args) {
         if(args[0] == "a") audio::music::a::pause();
         if(args[0] == "b") audio::music::b::pause();
     });
-    cmds.add("music_unpause", 1, [](const msg_args& args) {
+    cmds.add("music-unpause", 1, [](const msg_args& args) {
         if(args[0] == "a") audio::music::a::unpause();
         if(args[0] == "b") audio::music::a::unpause();
     });
     //  Mixer 2
-    cmds.add("sample_play", 2, [](const msg_args& args) {
+    cmds.add("sample-play", 2, [](const msg_args& args) {
         float gain = 1.0f;
         float pan = ALLEGRO_AUDIO_PAN_NONE;
         float speed = 1.0f;
@@ -112,44 +112,44 @@ void audio::initialize(void) {
             args[1], gain, pan, speed
         );
     });
-    cmds.add("sample_stop", 1, [](const msg_args& args) {
+    cmds.add("sample-stop", 1, [](const msg_args& args) {
         audio::sample::stop(args[0]);
     });
-    cmds.add("sample_clear_instances", 0, [](const msg_args& args) {
+    cmds.add("sample-clear-instances", 0, [](const msg_args& args) {
         audio::sample::clear_instances();
     });
     //  Mixer 3
-    cmds.add("voice_play", 1, [](const msg_args& args) {
+    cmds.add("voice-play", 1, [](const msg_args& args) {
         audio::voice::play(mgr::assets<al_audio>::get<al_audio>(args[0]));
     });
-    cmds.add("voice_stop", 0, [](const msg_args& args) {
+    cmds.add("voice-stop", 0, [](const msg_args& args) {
         audio::voice::stop();
     });
-    cmds.add("voice_pause", 0, [](const msg_args& args) {
+    cmds.add("voice-pause", 0, [](const msg_args& args) {
         audio::voice::pause();
     });
-    cmds.add("voice_unpause", 0, [](const msg_args& args) {
+    cmds.add("voice-unpause", 0, [](const msg_args& args) {
         audio::voice::unpause();
     });
     //  Mixer 4
-    cmds.add("ambiance_loop", 1, [](const msg_args& args) {
+    cmds.add("ambiance-loop", 1, [](const msg_args& args) {
         if(args[0] == "disable") audio::ambiance::loop(false);
         else audio::ambiance::loop(true);
     });
-    cmds.add("ambiance_play", 1, [](const msg_args& args) {
+    cmds.add("ambiance-play", 1, [](const msg_args& args) {
         audio::ambiance::play(mgr::assets<al_audio>::get<al_audio>(args[0]));
     });
-    cmds.add("ambiance_stop", 0, [](const msg_args& args) {
+    cmds.add("ambiance-stop", 0, [](const msg_args& args) {
         audio::ambiance::stop();
     });
-    cmds.add("ambiance_pause", 0, [](const msg_args& args) {
+    cmds.add("ambiance-pause", 0, [](const msg_args& args) {
         audio::ambiance::pause();
     });
-    cmds.add("ambiance_unpause", 0, [](const msg_args& args) {
+    cmds.add("ambiance-unpause", 0, [](const msg_args& args) {
         audio::ambiance::unpause();
     });
     //  General
-    cmds.add("set_volume_level", 2, [](const msg_args& args) {
+    cmds.add("set-volume-level", 2, [](const msg_args& args) {
         switch(std::stoi(args[0])) {
             case 0:
                 audio::set_level(std::stof(args[1]));

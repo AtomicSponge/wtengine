@@ -68,17 +68,17 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
     cmds.add("alert", 2, [this](const msg_args& args) {
         alert::set(args[0], args[1], engine_time::check());
     });
-    cmds.add("new_game", 1, [this](const msg_args& args) {
+    cmds.add("new-game", 1, [this](const msg_args& args) {
         if(!config::flags::game_started) {
             process_new_game(args[0]);
         }
     });
-    cmds.add("end_game", 0, [this](const msg_args& args) {
+    cmds.add("end-game", 0, [this](const msg_args& args) {
         if(config::flags::game_started) {
             process_end_game();
         }
     });
-    cmds.add("reconf_display", 0, [this](const msg_args& args) {
+    cmds.add("reconf-display", 0, [this](const msg_args& args) {
         const bool timer_running = al_get_timer_started(main_timer);
         //  Make sure the timer isn't running and unregister the display.
         if(timer_running) al_stop_timer(main_timer);
@@ -90,11 +90,11 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
         al_pause_event_queue(main_event_queue, false);
         if(timer_running) al_resume_timer(main_timer);
     });
-    cmds.add("fps_counter", 1, [this](const msg_args& args) {
+    cmds.add("fps-counter", 1, [this](const msg_args& args) {
         if(args[0] == "on") config::flags::draw_fps = true;
         if(args[0] == "off") config::flags::draw_fps = false;
     });
-    cmds.add("load_script", 1, [this](const msg_args& args) {
+    cmds.add("load-script", 1, [this](const msg_args& args) {
         if(config::flags::game_started && args[0] != "") {
             if(!mgr::messages::load_script(args[0]))
                 alert::set("Error loading script:  " + args[0], "engine", engine_time::check());

@@ -2,7 +2,7 @@
  * WTEngine | File:  location.hpp
  * 
  * \author Matthew Evans
- * \version 0.7
+ * \version 0.71
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2021
  */

@@ -9,10 +9,11 @@
  */
 
 const fs = require('fs')
+const csv = require('csv-parse')
 
 const buildScriptFile = () => {}
 
-const readCSVData = () => {}
+const readCSVData = (csvFile) => {}
 
 /*
  * Main script

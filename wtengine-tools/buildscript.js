@@ -22,20 +22,39 @@ const scriptError = (message) => {
     exit(-1)
 }
 
-const readCSVData = (csvFile) => {}
+/**
+ * Parse a CSV file.
+ * @param {String} csvFile 
+ */
+const readCSVData = (csvFile) => {
+    return csvFile
+}
 
-const buildScriptFile = (filename, data) => {}
+/**
+ * Build a game script file.
+ * @param {Object} data 
+ */
+const buildScriptFile = (data) => {
+    return data
+}
 
 /*
  * Main script
  */
+const args = process.argv.slice(2)
 
-let args = process.argv.slice(2)
-
-if(args[0] === undefined) scriptError('no infile')
-if(args[1] === undefined) scriptError('no outfile')
+if(args[0] === undefined) scriptError('Please specify an input file.')
+if(!fs.existsSync(args[0])) scriptError('Input file does not exist.')
+if(args[1] === undefined) scriptError('Please specify an output file.')
+if(fs.existsSync(args[1])) {
+    exit(0)
+}
 
 const inData = readCSVData(args[0])
-const outData = buildScriptFile(args[1], inData)
+const outData = buildScriptFile(inData)
 
-// save data...
+try {
+    fs.writeFileSync(args[1], outData)
+} catch(error) { scriptError(error) }
+
+console.log('Done!')

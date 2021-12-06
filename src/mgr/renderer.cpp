@@ -351,31 +351,6 @@ void renderer::render(void) {
     }
 
     /*
-     * Render notices.
-     */
-    if(notice::is_set()) {
-        const int font_size = al_get_font_line_height(**notice::get_notice_font());
-        ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap((notice::get().length() * font_size) + (font_size * 2), font_size + (font_size * 2));
-        al_set_target_bitmap(temp_bitmap);
-        al_clear_to_color(notice::get_notice_bg_color());
-
-        al_draw_text(**notice::get_notice_font(), notice::get_notice_font_color(),
-            (al_get_bitmap_width(temp_bitmap) / 2), 10,
-            ALLEGRO_ALIGN_CENTER, notice::get().c_str());
-
-        al_set_target_backbuffer(al_get_current_display());
-        al_draw_scaled_bitmap(
-            temp_bitmap, 0, 0,
-            al_get_bitmap_width(temp_bitmap), al_get_bitmap_height(temp_bitmap),
-            (config::gfx::screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * config::gfx::scale_factor) / 2),
-            (config::gfx::screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * config::gfx::scale_factor) / 2),
-            al_get_bitmap_width(temp_bitmap) * config::gfx::scale_factor,
-            al_get_bitmap_height(temp_bitmap) * config::gfx::scale_factor, 0
-        );
-        al_destroy_bitmap(temp_bitmap);
-    }
-
-    /*
      * Render alerts.
      */
     if(alert::is_set()) {

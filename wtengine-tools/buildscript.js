@@ -12,6 +12,10 @@ const fs = require('fs')
 const csv = require('csv-parse')
 const { exit } = require('process')
 
+/**
+ * Display an error message and exit script.
+ * @param {String} message Message to display.
+ */
 const scriptError = (message) => {
     console.log(`Error:  ${message}`)
     console.log(`Exiting...`)

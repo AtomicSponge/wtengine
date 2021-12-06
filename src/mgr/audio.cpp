@@ -55,6 +55,8 @@ void audio::initialize(void) {
     al_reserve_samples(build_options.max_playing_samples);
 
     //  Set volume levels.
+    config::_volume::music_a = 1.0f;
+    config::_volume::music_b = 1.0f;
     set_volume();
 
     //  Map the audio commands.

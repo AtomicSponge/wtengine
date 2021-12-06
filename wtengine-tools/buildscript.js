@@ -2,7 +2,7 @@
  * 
  * @author Matthew Evans
  * @module wtfsystems/wtengine-tools
- * @version 0.0.1
+ * @version 0.0.2
  * @see README.md
  * @copyright MIT see LICENSE.md
  * 
@@ -22,9 +22,9 @@ const scriptError = (message) => {
     exit(-1)
 }
 
-const buildScriptFile = () => {}
-
 const readCSVData = (csvFile) => {}
+
+const buildScriptFile = (filename, data) => {}
 
 /*
  * Main script
@@ -34,3 +34,8 @@ let args = process.argv.slice(2)
 
 if(args[0] === undefined) scriptError('no infile')
 if(args[1] === undefined) scriptError('no outfile')
+
+const inData = readCSVData(args[0])
+const outData = buildScriptFile(args[1], inData)
+
+// save data...

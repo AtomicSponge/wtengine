@@ -46,7 +46,7 @@ const inData = readCSVData(args[0])
 const outData = buildScriptFile(inData)
 
 try {
-    fs.writeFileSync(args[1], outData)
+    //fs.writeFileSync(args[1], outData)
 } catch(error) { scriptError(error) }
 
 console.log('Done!')

@@ -8,7 +8,6 @@
  */
 
 const readline = require('readline')
-const { stdin, stdout, exit } = require('process')
 
 /**
  * Display an error message and exit script.
@@ -16,7 +15,7 @@ const { stdin, stdout, exit } = require('process')
  */
 const scriptError = (message) => {
     console.log(`Error:  ${message}  Exiting...`)
-    exit(-1)
+    process.exit(-1)
 }
 exports.scriptError = scriptError
 
@@ -26,11 +25,15 @@ exports.scriptError = scriptError
  * @returns {boolean}
  */
 const confirmPrompt = (message) => {
-    const rl = readline.createInterface({ input: stdin, output: stdout })
-    rl.question(`${message} [Y/n] `, (res) => {
-        console.log(res)
+    let confRes = false
+    const rl = readline.createInterface({
+        input: process.stdin, output: process.stdout
     })
-    rl.close()
-    return true
+    rl.question(`${message} [Y/n] `, (res) => {
+        if(res[0] === 'n' || res[0] === 'N') confRes = false
+        else confRes = true
+        rl.close()
+    })
+    return confRes
 }
 exports.confirmPrompt = confirmPrompt

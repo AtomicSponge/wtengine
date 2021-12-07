@@ -33,6 +33,8 @@ sudo make install
 
 See the section on [engine tools](https://github.com/wtfsystems/wtengine/tree/master/wtengine-tools#readme)
 
+[NPM Package](https://www.npmjs.com/package/@wtfsystems/wtengine-tools)
+
 -----
 
 ## Example Game

@@ -2,13 +2,14 @@
   "name": "@wtfsystems/wtengine-tools",
   "preferGlobal": true,
   "version": "0.0.3",
-  "description": "WtEngine Command Line Tools",
+  "description": "WtEngine CLI Tools",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wtfsystems/wtengine.git"
   },
   "keywords": [
     "WtEngine",
+    "cli",
     "tools",
     "gamedev"
   ],

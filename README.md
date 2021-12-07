@@ -29,6 +29,12 @@ sudo make install
 
 -----
 
+## Engine Tools
+
+See the section on [engine tools](https://github.com/wtfsystems/wtengine/tree/master/wtengine-tools#readme)
+
+-----
+
 ## Example Game
 
 Requires the library to be installed to build.

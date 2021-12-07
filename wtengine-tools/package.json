@@ -27,8 +27,8 @@
   },
   "files": [
     "_common.js",
-    "wte-mkscript.js",
     "LICENSE.md",
-    "README.md"
+    "README.md",
+    "wte-mkscript.js"
   ]
 }

@@ -15,7 +15,7 @@ const readline = require('readline')
  */
 const scriptError = (message) => {
     console.log(`Error:  ${message}  Exiting...`)
-    process.exit(-1)
+    process.exit(0)
 }
 exports.scriptError = scriptError
 

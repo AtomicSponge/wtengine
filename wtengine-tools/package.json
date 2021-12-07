@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "description": "WtEngine Tools",
   "scripts": {
-    "buildscript": "buildscript.js"
+    "wte-mkscript": "node buildscript.js"
   },
   "repository": {
     "type": "git",

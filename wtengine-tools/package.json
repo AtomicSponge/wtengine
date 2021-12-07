@@ -22,11 +22,11 @@
     "csv": "^6.0.4"
   },
   "bin": {
-    "wte-mkscript": "./buildscript.js"
+    "wte-mkscript": "./wte-mkscript.js"
   },
   "files": [
     "_common.js",
-    "buildscript.js",
+    "wte-mkscript.js",
     "LICENSE.md",
     "README.md"
   ]

@@ -8,17 +8,18 @@
  */
 
 const fs = require('fs')
-const csv = require('csv-parse')
+const { parse } = require('csv/sync')
 const { confirmPrompt, scriptError } = require('./tools_common')
 
-if(!confirmPrompt('test?')) scriptError('flagrant error')
+//if(!confirmPrompt('test?')) scriptError('flagrant error')
 
 /**
  * Parse a CSV file.
- * @param {String} csvFile 
+ * @param {String} csvFilename 
  * @returns {Object} 
  */
-const readCSVData = (csvFile) => {
+const readCSVData = (csvFilename) => {
+    const records = parse(csvFilename)
     return csvFile
 }
 
@@ -43,6 +44,7 @@ if(fs.existsSync(args[1]) && !confirmPrompt(`Output file '${args[1]}' exists, ov
     scriptError('Output file already exists.')
 
 const inData = readCSVData(args[0])
+console.log(inData)
 const outData = buildScriptFile(inData)
 
 try {

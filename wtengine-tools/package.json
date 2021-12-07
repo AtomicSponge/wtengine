@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "description": "WtEngine Command Line Tools",
   "bin": {
-    "wte-mkscript": "node buildscript.js"
+    "wte-mkscript": "./buildscript.js"
   },
   "repository": {
     "type": "git",

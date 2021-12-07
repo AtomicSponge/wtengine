@@ -9,6 +9,12 @@
 
 const readline = require('readline')
 
+const showScriptInfo = () => {
+    console.log(`wtengine-tools`)
+    console.log(`https://www.wtfsystems.net/`)
+}
+exports.showScriptInfo = showScriptInfo
+
 /**
  * Display an error message and exit script.
  * @param {String} message Message to display.
@@ -37,9 +43,3 @@ const confirmPrompt = (message) => {
     return confRes
 }
 exports.confirmPrompt = confirmPrompt
-
-const showInfo = () => {
-    console.log(process.env.npm_package_name)
-    console.log(process.env.npm_package_version)
-}
-exports.showInfo = showInfo

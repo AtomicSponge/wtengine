@@ -10,9 +10,9 @@
 
 const fs = require('fs')
 const { parse } = require('csv/sync')
-const { showInfo, confirmPrompt, scriptError } = require('./_common')
+const { showScriptInfo, confirmPrompt, scriptError } = require('./_common')
 
-showInfo()
+showScriptInfo()
 
 //if(!confirmPrompt('test?')) scriptError('flagrant error')
 

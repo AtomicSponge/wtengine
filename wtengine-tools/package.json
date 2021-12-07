@@ -1,5 +1,6 @@
 {
   "name": "@wtfsystems/wtengine-tools",
+  "preferGlobal": true,
   "version": "0.0.2",
   "description": "WtEngine Command Line Tools",
   "repository": {
@@ -23,7 +24,7 @@
   "bin": {
     "wte-mkscript": "./buildscript.js"
   },
-  "files" : [
+  "files": [
     "_common.js",
     "buildscript.js",
     "LICENSE.md",

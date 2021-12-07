@@ -28,6 +28,8 @@ const readCSVData = (csvFilename) => {
  * @returns {Object} 
  */
 const buildScriptFile = (gameData) => {
+    //  verify 6 columns
+    //  time / sys / to / from / cmd / args
     return gameData
 }
 

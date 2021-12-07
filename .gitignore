@@ -2,12 +2,15 @@
 package-lock.json
 node_modules/
 
+*.code-workspace
 .vscode/
+
+.comment_updater.config
+.bakignore
 *_bak/
+
 assets/
 build/
 docs/
 
-.bakignore
-.comment_updater.config
-*.code-workspace
+*.csv

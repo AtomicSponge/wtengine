@@ -16,20 +16,19 @@ const { confirmPrompt, scriptError } = require('./tools_common')
 /**
  * Parse a CSV file.
  * @param {String} csvFilename 
- * @returns {Object} 
+ * @returns {Object} Parsed CSV file
  */
 const readCSVData = (csvFilename) => {
-    const records = parse(csvFilename)
-    return csvFile
+    return parse(fs.readFileSync(csvFilename))
 }
 
 /**
  * Build a game script file.
- * @param {Object} data 
+ * @param {Object} gameData 
  * @returns {Object} 
  */
-const buildScriptFile = (data) => {
-    return data
+const buildScriptFile = (gameData) => {
+    return gameData
 }
 
 /*
@@ -44,8 +43,8 @@ if(fs.existsSync(args[1]) && !confirmPrompt(`Output file '${args[1]}' exists, ov
     scriptError('Output file already exists.')
 
 const inData = readCSVData(args[0])
-console.log(inData)
 const outData = buildScriptFile(inData)
+console.log(outData)
 
 try {
     //fs.writeFileSync(args[1], outData)

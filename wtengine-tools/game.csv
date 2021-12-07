@@ -1,0 +1,3 @@
+20,audio,,,play_music,music.ogg
+50,system,,,load_script,spawn_asteroids.sdf
+250,system,,,load_script,background_control.sdf

@@ -2,9 +2,6 @@
   "name": "@wtfsystems/wtengine-tools",
   "version": "0.0.2",
   "description": "WtEngine Command Line Tools",
-  "bin": {
-    "wte-mkscript": "./buildscript.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wtfsystems/wtengine.git"
@@ -22,6 +19,9 @@
   "homepage": "https://github.com/wtfsystems/wtengine#readme",
   "dependencies": {
     "csv": "^6.0.4"
+  },
+  "bin": {
+    "wte-mkscript": "./buildscript.js"
   },
   "files" : [
     "_common.js",

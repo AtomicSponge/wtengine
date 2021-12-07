@@ -44,12 +44,16 @@ if(args[1] === undefined) scriptError('Please specify an output file.')
 if(fs.existsSync(args[1]) && !confirmPrompt(`Output file '${args[1]}' exists, overwrite?`))
     scriptError(`Output file '${args[1]}' already exists.`)
 
-const inData = readCSVData(args[0])
+const inFile = args[0]
+const outFile = args[1]
+
+const inData = readCSVData(inFile)
 const outData = buildScriptFile(inData)
 console.log(outData)
 
 try {
-    //fs.writeFileSync(args[1], outData)
+    //fs.writeFileSync(outFile, outData)
+    console.log(`Wrote data file '${outFile}'`)
 } catch(error) { scriptError(error) }
 
 console.log('Done!')

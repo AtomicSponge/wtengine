@@ -1,8 +1,8 @@
 {
   "name": "@wtfsystems/wtengine-tools",
   "version": "0.0.2",
-  "description": "WtEngine Tools",
-  "scripts": {
+  "description": "WtEngine Command Line Tools",
+  "bin": {
     "wte-mkscript": "node buildscript.js"
   },
   "repository": {
@@ -11,7 +11,8 @@
   },
   "keywords": [
     "WtEngine",
-    "tools"
+    "tools",
+    "gamedev"
   ],
   "author": "Matthew Evans",
   "license": "MIT",
@@ -21,5 +22,11 @@
   "homepage": "https://github.com/wtfsystems/wtengine#readme",
   "dependencies": {
     "csv": "^6.0.4"
-  }
+  },
+  "files" : [
+    "_common.js",
+    "buildscript.js",
+    "LICENSE.md",
+    "README.md"
+  ]
 }

@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
  * 
  * @author Matthew Evans
@@ -9,7 +10,7 @@
 
 const fs = require('fs')
 const { parse } = require('csv/sync')
-const { confirmPrompt, scriptError } = require('./tools_common')
+const { confirmPrompt, scriptError } = require('./_common')
 
 //if(!confirmPrompt('test?')) scriptError('flagrant error')
 

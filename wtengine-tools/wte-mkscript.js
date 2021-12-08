@@ -46,9 +46,9 @@ const buildScriptFile = (outFile, gameData) => {
 
         row = row.slice(1)
         row.forEach(column => {
-            const len = column.length
+            const len = column.length + 1
             const tempBuffer = Buffer.alloc(len)
-            tempBuffer.write(column)
+            tempBuffer.write(column + "\x00")
             tempBlob.push({ size: len, data: tempBuffer })
         })
 

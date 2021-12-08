@@ -9,7 +9,7 @@
  */
 
 const fs = require('fs')
-const Buffer = require('buffer')
+const { Buffer } = require('buffer')
 const { parse } = require('csv/sync')
 const { showScriptInfo, confirmPrompt, scriptError } = require('./_common')
 
@@ -39,17 +39,16 @@ const buildScriptFile = (outFile, gameData) => {
         if(row.length !== 6) scriptError(`Row ${rowCounter} incorrect length.`)
         let tempBlob = []
 
-        // timer - always same size
-        //{const tempBuffer = Buffer.alloc(1)
-        //tempBuffer.write(row[0])
-        //tempBlob.push({ size: 0, data: tempBuffer })}
+        //  Convert the timer value (int32)
+        {const tempBuffer = Buffer.from(new Int32Array([row[0]]))
+        tempBlob.push({ size: 4, data: tempBuffer })}
 
+        //  Convert remaining items (all newline termed strings)
         row = row.slice(1)
         row.forEach(column => {
-            //const len = column.length + 1
-            //const tempBuffer = Buffer.alloc(len)
-            //tempBuffer.write(column + '\x00')
-            //tempBlob.push({ size: len, data: tempBuffer })
+            const len = column.length + 1
+            const tempBuffer = Buffer.from(column + '\x00')
+            tempBlob.push({ size: len, data: tempBuffer })
         })
 
         dataBlob.push(tempBlob)
@@ -62,10 +61,12 @@ const buildScriptFile = (outFile, gameData) => {
     })
 
     //  Build buffer
-    //let dataBuffer = Buffer.alloc(bufferSize)
+    let dataBuffer = Buffer.alloc(bufferSize)
     dataBlob.forEach(row => {
-        //row.forEach(column => { dataBuffer += column.data })
+        row.forEach(column => { dataBuffer += column.data })
     })
+
+    console.log(dataBuffer)
 
     //  Write buffer
     try {
@@ -82,6 +83,7 @@ const args = process.argv.slice(2)
 if(args[0] === undefined) scriptError('Please specify an input file.')
 if(!fs.existsSync(args[0])) scriptError(`Input file '${args[0]}' does not exist.`)
 if(args[1] === undefined) scriptError('Please specify an output file.')
+if(args[1].split('.')[1] === undefined) args[1] = args[1] + '.sdf'
 if(fs.existsSync(args[1]) && !confirmPrompt(`Output file '${args[1]}' exists, overwrite?`))
     scriptError(`Output file '${args[1]}' already exists.`)
 

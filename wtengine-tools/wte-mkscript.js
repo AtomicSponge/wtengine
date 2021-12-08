@@ -71,18 +71,21 @@ const buildScriptFile = (outFile, gameData) => {
         dataBlob.push(tempBlob)
     })
 
+    //  Calc size
     let bufferSize = Number(0)
     dataBlob.forEach(row => {
         row.forEach(column => { bufferSize += column.size })
     })
 
+    //  Build buffer
     let dataBuffer = Buffer.alloc(bufferSize)
     dataBlob.forEach(row => {
         //row.forEach(column => { dataBuffer += column.data })
     })
 
+    //  Write buffer
     try {
-        //fs.writeFileSync(outFile, dataBuffer)
+        fs.writeFileSync(outFile, dataBuffer)
         console.log(`Wrote data file '${outFile}'`)
     } catch(error) { scriptError(error) }
 }

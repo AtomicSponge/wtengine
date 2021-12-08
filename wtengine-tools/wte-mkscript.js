@@ -33,42 +33,53 @@ const readCSVData = (csvFilename) => {
  */
 const buildScriptFile = (outFile, gameData) => {
     let dataBlob = []
-    let rowCounter = 0
+    let rowCounter = Number(0)
     gameData.forEach(row => {
         rowCounter++
         if(row.length !== 6) scriptError(`Row ${rowCounter} incorrect length.`)
         let tempBlob = []
-        // timer
+        // timer - awalys same size
         {const tempBuffer = Buffer.alloc(1)
         tempBuffer.write(row[0])
-        tempBlob.push(tempBuffer)}
+        tempBlob.push({ size: 0, data: tempBuffer })}
         // sys
-        {const tempBuffer = Buffer.alloc(1)
+        {const len = 0
+        const tempBuffer = Buffer.alloc(1)
         tempBuffer.write(row[1])
-        tempBlob.push(tempBuffer)}
+        tempBlob.push({ size: len, data: tempBuffer })}
         // to
-        {const tempBuffer = Buffer.alloc(1)
+        {const len = 0
+        const tempBuffer = Buffer.alloc(1)
         tempBuffer.write(row[2])
-        tempBlob.push(tempBuffer)}
+        tempBlob.push({ size: len, data: tempBuffer })}
         // from
-        {const tempBuffer = Buffer.alloc(1)
+        {const len = 0
+        const tempBuffer = Buffer.alloc(1)
         tempBuffer.write(row[3])
-        tempBlob.push(tempBuffer)}
+        tempBlob.push({ size: len, data: tempBuffer })}
         // cmd
-        {const tempBuffer = Buffer.alloc(1)
+        {const len = 0
+        const tempBuffer = Buffer.alloc(1)
         tempBuffer.write(row[4])
-        tempBlob.push(tempBuffer)}
+        tempBlob.push({ size: len, data: tempBuffer })}
         // args
-        {const tempBuffer = Buffer.alloc(1)
+        {const len = 0
+        const tempBuffer = Buffer.alloc(1)
         tempBuffer.write(row[5])
-        tempBlob.push(tempBuffer)}
+        tempBlob.push({ size: len, data: tempBuffer })}
 
         dataBlob.push(tempBlob)
     })
 
-    const size = 100  //  calc data blob size
-    let dataBuffer = Buffer.alloc(size)
-    //  write blob to buffer
+    let bufferSize = Number(0)
+    dataBlob.forEach(row => {
+        row.forEach(column => { bufferSize += column.size })
+    })
+
+    let dataBuffer = Buffer.alloc(bufferSize)
+    dataBlob.forEach(row => {
+        //row.forEach(column => { dataBuffer += column.data })
+    })
 
     try {
         //fs.writeFileSync(outFile, dataBuffer)

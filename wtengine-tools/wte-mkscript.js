@@ -31,8 +31,12 @@ const readCSVData = (csvFilename) => {
  * @returns {Object} 
  */
 const buildScriptFile = (gameData) => {
-    //  verify 6 columns
-    //  time / sys / to / from / cmd / args
+    let test = Buffer.alloc(10)
+    gameData.forEach(row => {
+        row.forEach(column => {
+            console.log(column)
+        })
+    })
     return gameData
 }
 

@@ -9,9 +9,9 @@
 
 const readline = require('readline')
 
-const showScriptInfo = () => {
-    console.log(`wtengine-tools`)
-    console.log(`https://www.wtfsystems.net/`)
+const showScriptInfo = (scriptName) => {
+    console.log(`\nwtengine-tools > ${scriptName}`)
+    console.log(`https://www.wtfsystems.net/\n`)
 }
 exports.showScriptInfo = showScriptInfo
 

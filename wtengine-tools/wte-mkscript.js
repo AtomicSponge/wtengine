@@ -13,7 +13,7 @@ const Buffer = require('buffer')
 const { parse } = require('csv/sync')
 const { showScriptInfo, confirmPrompt, scriptError } = require('./_common')
 
-showScriptInfo()
+showScriptInfo('wte-mkscript')
 
 //if(!confirmPrompt('test?')) scriptError('flagrant error')
 
@@ -40,16 +40,16 @@ const buildScriptFile = (outFile, gameData) => {
         let tempBlob = []
 
         // timer - always same size
-        {const tempBuffer = Buffer.alloc(1)
-        tempBuffer.write(row[0])
-        tempBlob.push({ size: 0, data: tempBuffer })}
+        //{const tempBuffer = Buffer.alloc(1)
+        //tempBuffer.write(row[0])
+        //tempBlob.push({ size: 0, data: tempBuffer })}
 
         row = row.slice(1)
         row.forEach(column => {
-            const len = column.length + 1
-            const tempBuffer = Buffer.alloc(len)
-            tempBuffer.write(column + '\x00')
-            tempBlob.push({ size: len, data: tempBuffer })
+            //const len = column.length + 1
+            //const tempBuffer = Buffer.alloc(len)
+            //tempBuffer.write(column + '\x00')
+            //tempBlob.push({ size: len, data: tempBuffer })
         })
 
         dataBlob.push(tempBlob)
@@ -62,15 +62,15 @@ const buildScriptFile = (outFile, gameData) => {
     })
 
     //  Build buffer
-    let dataBuffer = Buffer.alloc(bufferSize)
+    //let dataBuffer = Buffer.alloc(bufferSize)
     dataBlob.forEach(row => {
         //row.forEach(column => { dataBuffer += column.data })
     })
 
     //  Write buffer
     try {
-        fs.writeFileSync(outFile, dataBuffer)
-        console.log(`Wrote data file '${outFile}'`)
+        //fs.writeFileSync(outFile, dataBuffer)
+        console.log(`Wrote data file '${outFile}'.`)
     } catch(error) { scriptError(error) }
 }
 
@@ -85,10 +85,15 @@ if(args[1] === undefined) scriptError('Please specify an output file.')
 if(fs.existsSync(args[1]) && !confirmPrompt(`Output file '${args[1]}' exists, overwrite?`))
     scriptError(`Output file '${args[1]}' already exists.`)
 
-const inFile = args[0]
-const outFile = args[1]
+let gameData = undefined
+switch(args[0].split('.')[1].toLowerCase()) {
+    case 'csv':
+        gameData = readCSVData(args[0])
+        break
+    default:
+        scriptError(`File format '${args[0].split('.')[1]}' not supported.`)
+}
 
-const gameData = readCSVData(inFile)
-buildScriptFile(outFile, gameData)
-
+if(gameData === undefined) scriptError('Error generating binary object gameData.')
+buildScriptFile(args[1], gameData)
 console.log('Done!')

@@ -9,6 +9,7 @@
  */
 
 const fs = require('fs')
+const Buffer = require('buffer')
 const { parse } = require('csv/sync')
 const { showScriptInfo, confirmPrompt, scriptError } = require('./_common')
 
@@ -31,15 +32,38 @@ const readCSVData = (csvFilename) => {
  * @param {Object} gameData 
  */
 const buildScriptFile = (outFile, gameData) => {
-    let test = Buffer.alloc(10)
+    let dataBlob = []
+    let rowCounter = 0
     gameData.forEach(row => {
-        row.forEach(column => {
-            console.log(column)
-        })
+        rowCounter++
+        if(row.length !== 6) scriptError(`Row ${rowCounter} incorrent length.`)
+        let tempBuffer = Buffer()
+        // timer
+        tempBuffer.alloc(1)
+        tempBuffer.write(row[0])
+        // sys
+        tempBuffer.alloc(1)
+        tempBuffer.write(row[1])
+        // to
+        tempBuffer.alloc(1)
+        tempBuffer.write(row[2])
+        // from
+        tempBuffer.alloc(1)
+        tempBuffer.write(row[3])
+        // cmd
+        tempBuffer.alloc(1)
+        tempBuffer.write(row[4])
+        // args
+        tempBuffer.alloc(1)
+        tempBuffer.write(row[5])
     })
 
+    const size = 100  //  calc data blob size
+    let dataBuffer = Buffer.alloc(size)
+    //  write blob to buffer
+
     try {
-        //fs.writeFileSync(outFile, outData)
+        //fs.writeFileSync(outFile, dataBuffer)
         console.log(`Wrote data file '${outFile}'`)
     } catch(error) { scriptError(error) }
 }

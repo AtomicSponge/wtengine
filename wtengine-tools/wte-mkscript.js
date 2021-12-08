@@ -32,38 +32,23 @@ const readCSVData = (csvFilename) => {
  * @param {Object} gameData 
  */
 const buildScriptFile = (outFile, gameData) => {
-    let dataBlob = []
     let rowCounter = Number(0)
+    let dataBuffer = Buffer.alloc(0)
     gameData.forEach(row => {
         rowCounter++
         if(row.length !== 6) scriptError(`Row ${rowCounter} incorrect length.`)
         let tempBlob = []
 
         //  Convert the timer value (int32)
-        {const tempBuffer = Buffer.from(new Int32Array([row[0]]))
-        tempBlob.push({ size: 4, data: tempBuffer })}
+        const tempBufferA = Buffer.from(new Int32Array([row[0]]))
 
-        //  Convert remaining items (all newline termed strings)
-        row = row.slice(1)
-        row.forEach(column => {
-            const len = column.length + 1
-            const tempBuffer = Buffer.from(column + '\x00')
-            tempBlob.push({ size: len, data: tempBuffer })
-        })
+        //  Convert remaining items (newline termed strings)
+        const tempBufferB = Buffer.from(
+            row[1] + '\x00' + row[2] + '\x00' + row[3] + '\x00' +
+            row[4] + '\x00' + row[5] + '\x00'
+        )
 
-        dataBlob.push(tempBlob)
-    })
-
-    //  Calc size
-    let bufferSize = Number(0)
-    dataBlob.forEach(row => {
-        row.forEach(column => { bufferSize += column.size })
-    })
-
-    //  Build buffer
-    let dataBuffer = Buffer.alloc(bufferSize)
-    dataBlob.forEach(row => {
-        row.forEach(column => { dataBuffer += column.data })
+        dataBuffer = Buffer.concat([dataBuffer, Buffer.concat([tempBufferA, tempBufferB])])
     })
 
     console.log(dataBuffer)

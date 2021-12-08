@@ -39,7 +39,7 @@ const buildScriptFile = (outFile, gameData) => {
         if(row.length !== 6) scriptError(`Row ${rowCounter} incorrect length.`)
         let tempBlob = []
 
-        // timer - awalys same size
+        // timer - always same size
         {const tempBuffer = Buffer.alloc(1)
         tempBuffer.write(row[0])
         tempBlob.push({ size: 0, data: tempBuffer })}
@@ -48,7 +48,7 @@ const buildScriptFile = (outFile, gameData) => {
         row.forEach(column => {
             const len = column.length + 1
             const tempBuffer = Buffer.alloc(len)
-            tempBuffer.write(column + "\x00")
+            tempBuffer.write(column + '\x00')
             tempBlob.push({ size: len, data: tempBuffer })
         })
 

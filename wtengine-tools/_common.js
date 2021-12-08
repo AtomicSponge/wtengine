@@ -10,8 +10,8 @@
 const readline = require('readline')
 
 const showScriptInfo = (scriptName) => {
-    console.log(`\nwtengine-tools > ${scriptName}`)
-    console.log(`https://www.wtfsystems.net/\n`)
+    process.stdout.write(`\nwtengine-tools > ${scriptName}\n`)
+    process.stdout.write(`https://www.wtfsystems.net/\n\n`)
 }
 exports.showScriptInfo = showScriptInfo
 
@@ -20,7 +20,7 @@ exports.showScriptInfo = showScriptInfo
  * @param {String} message Message to display.
  */
 const scriptError = (message) => {
-    console.log(`Error:  ${message}  Exiting...`)
+    process.stdout.write(`Error:  ${message}  Exiting...\n`)
     process.exit(0)
 }
 exports.scriptError = scriptError

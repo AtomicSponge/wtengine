@@ -32,31 +32,26 @@ const readCSVData = (csvFilename) => {
  * @param {Object} gameData 
  */
 const buildScriptFile = (outFile, gameData) => {
-    let rowCounter = Number(0)
-    let dataBuffer = Buffer.alloc(0)
+    let rowCounter = Number(0)        //  Row counter for error reporting
+    let dataBuffer = Buffer.alloc(0)  //  Buffer to store binary file
     gameData.forEach(row => {
         rowCounter++
         if(row.length !== 6) scriptError(`Row ${rowCounter} incorrect length.`)
-        let tempBlob = []
 
-        //  Convert the timer value (int32)
-        const tempBufferA = Buffer.from(new Int32Array([row[0]]))
-
-        //  Convert remaining items (newline termed strings)
-        const tempBufferB = Buffer.from(
-            row[1] + '\x00' + row[2] + '\x00' + row[3] + '\x00' +
-            row[4] + '\x00' + row[5] + '\x00'
-        )
-
-        dataBuffer = Buffer.concat([dataBuffer, Buffer.concat([tempBufferA, tempBufferB])])
+        //  Write each message:  timer / sys / to / from / cmd / args
+        dataBuffer = Buffer.concat([dataBuffer, Buffer.concat([
+            Buffer.from(new Int32Array([row[0]])),
+            Buffer.from(
+                row[1] + '\x00' + row[2] + '\x00' + row[3] + '\x00' +
+                row[4] + '\x00' + row[5] + '\x00'
+            )
+        ])])
     })
-
-    console.log(dataBuffer)
 
     //  Write buffer
     try {
-        //fs.writeFileSync(outFile, dataBuffer)
-        console.log(`Wrote data file '${outFile}'.`)
+        fs.writeFileSync(outFile, dataBuffer)
+        process.stdout.write(`Wrote data file '${outFile}' - ${rowCounter} commands\n`)
     } catch(error) { scriptError(error) }
 }
 
@@ -82,5 +77,7 @@ switch(args[0].split('.')[1].toLowerCase()) {
 }
 
 if(gameData === undefined) scriptError('Error generating binary object gameData.')
+
+process.stdout.write(`Generating game data file '${args[1]}', one moment...\n`)
 buildScriptFile(args[1], gameData)
-console.log('Done!')
+process.stdout.write('Done!\n')

@@ -44,27 +44,27 @@ const buildScriptFile = (outFile, gameData) => {
         tempBlob.push({ size: 0, data: tempBuffer })}
         // sys
         {const len = 0
-        const tempBuffer = Buffer.alloc(1)
+        const tempBuffer = Buffer.alloc(len)
         tempBuffer.write(row[1])
         tempBlob.push({ size: len, data: tempBuffer })}
         // to
         {const len = 0
-        const tempBuffer = Buffer.alloc(1)
+        const tempBuffer = Buffer.alloc(len)
         tempBuffer.write(row[2])
         tempBlob.push({ size: len, data: tempBuffer })}
         // from
         {const len = 0
-        const tempBuffer = Buffer.alloc(1)
+        const tempBuffer = Buffer.alloc(len)
         tempBuffer.write(row[3])
         tempBlob.push({ size: len, data: tempBuffer })}
         // cmd
         {const len = 0
-        const tempBuffer = Buffer.alloc(1)
+        const tempBuffer = Buffer.alloc(len)
         tempBuffer.write(row[4])
         tempBlob.push({ size: len, data: tempBuffer })}
         // args
         {const len = 0
-        const tempBuffer = Buffer.alloc(1)
+        const tempBuffer = Buffer.alloc(len)
         tempBuffer.write(row[5])
         tempBlob.push({ size: len, data: tempBuffer })}
 

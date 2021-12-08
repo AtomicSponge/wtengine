@@ -36,7 +36,7 @@ const buildScriptFile = (outFile, gameData) => {
     let rowCounter = 0
     gameData.forEach(row => {
         rowCounter++
-        if(row.length !== 6) scriptError(`Row ${rowCounter} incorrent length.`)
+        if(row.length !== 6) scriptError(`Row ${rowCounter} incorrect length.`)
         let tempBuffer = Buffer()
         // timer
         tempBuffer.alloc(1)

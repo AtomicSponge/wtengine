@@ -9,6 +9,10 @@
 
 const readline = require('readline')
 
+/**
+ * Display script title & info.
+ * @param {String} scriptName 
+ */
 const showScriptInfo = (scriptName) => {
     process.stdout.write(`\nwtengine-tools > ${scriptName}\n`)
     process.stdout.write(`https://www.wtfsystems.net/\n\n`)
@@ -26,7 +30,7 @@ const scriptError = (message) => {
 exports.scriptError = scriptError
 
 /**
- * Confirmation prompt
+ * Confirmation prompt (wip)
  * @param {String} message 
  * @returns {boolean}
  */

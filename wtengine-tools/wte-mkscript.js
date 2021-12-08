@@ -37,25 +37,24 @@ const buildScriptFile = (outFile, gameData) => {
     gameData.forEach(row => {
         rowCounter++
         if(row.length !== 6) scriptError(`Row ${rowCounter} incorrect length.`)
-        let tempBuffer = Buffer()
         // timer
-        tempBuffer.alloc(1)
-        tempBuffer.write(row[0])
+        {const tempBuffer = Buffer.alloc(1)
+        tempBuffer.write(row[0])}
         // sys
-        tempBuffer.alloc(1)
-        tempBuffer.write(row[1])
+        {const tempBuffer = Buffer.alloc(1)
+        tempBuffer.write(row[1])}
         // to
-        tempBuffer.alloc(1)
-        tempBuffer.write(row[2])
+        {const tempBuffer = Buffer.alloc(1)
+        tempBuffer.write(row[2])}
         // from
-        tempBuffer.alloc(1)
-        tempBuffer.write(row[3])
+        {const tempBuffer = Buffer.alloc(1)
+        tempBuffer.write(row[3])}
         // cmd
-        tempBuffer.alloc(1)
-        tempBuffer.write(row[4])
+        {const tempBuffer = Buffer.alloc(1)
+        tempBuffer.write(row[4])}
         // args
-        tempBuffer.alloc(1)
-        tempBuffer.write(row[5])
+        {const tempBuffer = Buffer.alloc(1)
+        tempBuffer.write(row[5])}
     })
 
     const size = 100  //  calc data blob size

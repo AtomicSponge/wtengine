@@ -27,17 +27,21 @@ const readCSVData = (csvFilename) => {
 
 /**
  * Build a game script file.
+ * @param {String} outFile 
  * @param {Object} gameData 
- * @returns {Object} 
  */
-const buildScriptFile = (gameData) => {
+const buildScriptFile = (outFile, gameData) => {
     let test = Buffer.alloc(10)
     gameData.forEach(row => {
         row.forEach(column => {
             console.log(column)
         })
     })
-    return gameData
+
+    try {
+        //fs.writeFileSync(outFile, outData)
+        console.log(`Wrote data file '${outFile}'`)
+    } catch(error) { scriptError(error) }
 }
 
 /*
@@ -54,13 +58,7 @@ if(fs.existsSync(args[1]) && !confirmPrompt(`Output file '${args[1]}' exists, ov
 const inFile = args[0]
 const outFile = args[1]
 
-const inData = readCSVData(inFile)
-const outData = buildScriptFile(inData)
-console.log(outData)
-
-try {
-    //fs.writeFileSync(outFile, outData)
-    console.log(`Wrote data file '${outFile}'`)
-} catch(error) { scriptError(error) }
+const gameData = readCSVData(inFile)
+buildScriptFile(outFile, gameData)
 
 console.log('Done!')

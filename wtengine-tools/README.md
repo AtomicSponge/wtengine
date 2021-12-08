@@ -8,6 +8,6 @@ WIP
 
 -----
 
-| Command | Description |
-| --- | --- |
-| wte-mkscript | Build game script from CSV | 
+| Command | Usage | Description |
+| ------- | ----- | ----------- |
+| __wte-mkscript__ | *wte-mkscript [input_file] [output_file]* | Build game script from CSV | 

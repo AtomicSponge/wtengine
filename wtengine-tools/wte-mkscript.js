@@ -54,7 +54,7 @@ const args = process.argv.slice(2)
 if(args[0] === undefined) scriptError('Please specify an input file.')
 if(!fs.existsSync(args[0])) scriptError(`Input file '${args[0]}' does not exist.`)
 if(args[1] === undefined) scriptError('Please specify an output file.')
-if(args[1].split('.')[1] === undefined) args[1] = args[1] + '.sdf'
+if(args[1].split('.')[1] === undefined) args[1] += '.sdf'
 if(fs.existsSync(args[1]) && !confirmPrompt(`Output file '${args[1]}' exists, overwrite?`))
     scriptError(`Output file '${args[1]}' already exists.`)
 

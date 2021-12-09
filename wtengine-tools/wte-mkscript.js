@@ -31,6 +31,7 @@ if(fs.existsSync(args[1]) && !confirmPrompt(`Output file '${args[1]}' exists, ov
 /*
  * Parse the input file
  */
+process.stdout.write(`Parsing data file '${args[0]}'...\n`)
 let gameData = undefined
 switch(args[0].split('.')[1].toLowerCase()) {
     case 'csv':
@@ -41,11 +42,10 @@ switch(args[0].split('.')[1].toLowerCase()) {
 }
 if(gameData === undefined) scriptError('Error generating binary object gameData.')
 
-process.stdout.write(`Generating game data file '${args[1]}', one moment...\n`)
-
 /*
  * Generate the data file buffer
  */
+process.stdout.write(`Generating game data file '${args[1]}', one moment...\n`)
 let rowCounter = Number(0)        //  Row counter for error reporting
 let dataBuffer = Buffer.alloc(0)  //  Buffer to store binary file
 gameData.forEach(row => {

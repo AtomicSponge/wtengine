@@ -17,6 +17,9 @@ const { showScriptInfo, confirmPrompt, scriptError } = require('./_common')
 
 showScriptInfo('wte-mkscript')
 
+/*
+ * Process command arguments
+ */
 const args = process.argv.slice(2)
 if(args[0] === undefined) scriptError('Please specify an input file.')
 if(!fs.existsSync(args[0])) scriptError(`Input file '${args[0]}' does not exist.`)
@@ -25,6 +28,9 @@ if(args[1].split('.')[1] === undefined) args[1] += '.sdf'
 if(fs.existsSync(args[1]) && !confirmPrompt(`Output file '${args[1]}' exists, overwrite?`))
     scriptError(`Output file '${args[1]}' already exists.`)
 
+/*
+ * Parse the input file
+ */
 let gameData = undefined
 switch(args[0].split('.')[1].toLowerCase()) {
     case 'csv':
@@ -37,6 +43,9 @@ if(gameData === undefined) scriptError('Error generating binary object gameData.
 
 process.stdout.write(`Generating game data file '${args[1]}', one moment...\n`)
 
+/*
+ * Generate the data file buffer
+ */
 let rowCounter = Number(0)        //  Row counter for error reporting
 let dataBuffer = Buffer.alloc(0)  //  Buffer to store binary file
 gameData.forEach(row => {
@@ -53,7 +62,9 @@ gameData.forEach(row => {
     ])])
 })
 
-//  Write buffer
+/*
+ * Write the data file buffer to file
+ */
 try {
     fs.writeFileSync(args[1], dataBuffer)
     process.stdout.write(`Wrote data file '${args[1]}' - ${rowCounter} commands\n`)

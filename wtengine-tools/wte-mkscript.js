@@ -40,12 +40,12 @@ switch(args[0].split('.')[1].toLowerCase()) {
     default:
         scriptError(`File format '${args[0].split('.')[1]}' not supported.`)
 }
-if(gameData === undefined) scriptError('Error parsing game data file.')
+if(gameData === undefined) scriptError('Error parsing game data.')
 
 /*
  * Generate the data file buffer
  */
-process.stdout.write(`Generating game data file '${args[1]}', one moment...\n`)
+process.stdout.write(`Generating game data, one moment...\n`)
 let rowCounter = Number(0)        //  Row counter for error reporting
 let dataBuffer = Buffer.alloc(0)  //  Buffer to store binary file
 gameData.forEach(row => {

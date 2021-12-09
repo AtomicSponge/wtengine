@@ -40,7 +40,7 @@ switch(args[0].split('.')[1].toLowerCase()) {
     default:
         scriptError(`File format '${args[0].split('.')[1]}' not supported.`)
 }
-if(gameData === undefined) scriptError('Error generating binary object gameData.')
+if(gameData === undefined) scriptError('Error parsing game data file.')
 
 /*
  * Generate the data file buffer

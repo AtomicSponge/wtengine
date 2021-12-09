@@ -18,15 +18,6 @@ showScriptInfo('wte-mkscript')
 //if(!confirmPrompt('test?')) scriptError('flagrant error')
 
 /**
- * Parse a CSV file.
- * @param {String} csvFilename 
- * @returns {Object} Parsed CSV file
- */
-const readCSVData = (csvFilename) => {
-    return parse(fs.readFileSync(csvFilename))
-}
-
-/**
  * Build a game script file.
  * @param {String} outFile 
  * @param {Object} gameData 
@@ -70,12 +61,11 @@ if(fs.existsSync(args[1]) && !confirmPrompt(`Output file '${args[1]}' exists, ov
 let gameData = undefined
 switch(args[0].split('.')[1].toLowerCase()) {
     case 'csv':
-        gameData = readCSVData(args[0])
+        gameData = parse(fs.readFileSync(args[0]))
         break
     default:
         scriptError(`File format '${args[0].split('.')[1]}' not supported.`)
 }
-
 if(gameData === undefined) scriptError('Error generating binary object gameData.')
 
 process.stdout.write(`Generating game data file '${args[1]}', one moment...\n`)

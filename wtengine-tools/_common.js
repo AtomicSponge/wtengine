@@ -32,7 +32,7 @@ exports.scriptError = scriptError
 /**
  * Confirmation prompt (wip)
  * @param {String} message 
- * @returns {boolean}
+ * @returns {boolean} True if 'yes', else false
  */
 const confirmPrompt = (message) => {
     let confRes = false

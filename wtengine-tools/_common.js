@@ -7,7 +7,7 @@
  * 
  */
 
-const readline = require('readline')
+const readline = require('readline/promises')
 
 /**
  * Display script title & info.
@@ -35,15 +35,16 @@ exports.scriptError = scriptError
  * @returns {boolean} True if 'yes', else false
  */
 const confirmPrompt = (message) => {
-    let confRes = false
     const rl = readline.createInterface({
         input: process.stdin, output: process.stdout
     })
-    rl.question(`${message} [Y/n] `, (res) => {
-        if(res[0] === 'n' || res[0] === 'N') confRes = false
-        else confRes = true
-        rl.close()
-    })
-    return confRes
+    let conf = false
+    {(async () => {
+        const res = await rl.question(`${message} [Y/n] `)
+        if(res[0] === 'N' || res[0] === 'n') conf = false
+        else conf = true
+    })()}
+    rl.close()
+    return conf
 }
 exports.confirmPrompt = confirmPrompt

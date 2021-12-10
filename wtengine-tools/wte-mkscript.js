@@ -13,8 +13,6 @@ const { Buffer } = require('buffer')
 const { parse } = require('csv/sync')
 const { showScriptInfo, confirmPrompt, scriptError } = require('./_common')
 
-//if(!confirmPrompt('test?')) scriptError('flagrant error')
-
 showScriptInfo('wte-mkscript')
 
 /*

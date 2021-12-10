@@ -232,6 +232,10 @@ void engine::do_game(void) {
     while(config::flags::is_running) {
         input::check_events();  //  Check for input.
         
+        if(!config::flags::game_started) {       //  Game not running.
+            al_stop_timer(main_timer);           //  Make sure the timer isn't.
+            config::_flags::menu_opened = true;  //  And force menus
+        }
         //  Pause / resume timer depending on if the game menu is opened.
         //  Also process the on_menu events.
         if(config::flags::menu_opened && al_get_timer_started(main_timer)) {
@@ -241,10 +245,6 @@ void engine::do_game(void) {
         if(!config::flags::menu_opened && !al_get_timer_started(main_timer)) {
             on_menu_close();
             al_resume_timer(main_timer);
-        }
-        if(!config::flags::game_started) {       //  Game not running.
-            al_stop_timer(main_timer);           //  Make sure the timer isn't.
-            config::_flags::menu_opened = true;  //  And force menus
         }
 
         //  Get any system messages and pass to handler.

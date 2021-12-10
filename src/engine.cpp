@@ -230,14 +230,8 @@ void engine::do_game(void) {
 
     /* *** ENGINE LOOP ************************************************************ */
     while(config::flags::is_running) {
-        if(!config::flags::game_started) {            //  Game not running.
-            al_stop_timer(main_timer);                //  Make sure the timer isn't.
-            config::_flags::menu_opened = true;       //  And force menus.
-        }
-
-        //  Check for input.
-        input::check_events();
-
+        input::check_events();  //  Check for input.
+        
         //  Pause / resume timer depending on if the game menu is opened.
         //  Also process the on_menu events.
         if(config::flags::menu_opened && al_get_timer_started(main_timer)) {
@@ -248,10 +242,19 @@ void engine::do_game(void) {
             on_menu_close();
             al_resume_timer(main_timer);
         }
+        if(!config::flags::game_started) {       //  Game not running.
+            al_stop_timer(main_timer);           //  Make sure the timer isn't.
+            config::_flags::menu_opened = true;  //  And force menus
+        }
 
-        /* *** GAME LOOP ************************************************************ */
+        //  Get any system messages and pass to handler.
+        cmds.process_messages(mgr::messages::get("system"));
+        //  Send audio messages to the audio queue.
+        mgr::audio::process_messages(mgr::messages::get("audio"));
+
         ALLEGRO_EVENT event;
         const bool queue_not_empty = al_get_next_event(main_event_queue, &event);
+        /* *** GAME LOOP ************************************************************ */
         //  Call our game logic update on timer events.  Timer is only running when the game is running.
         if(queue_not_empty && event.type == ALLEGRO_EVENT_TIMER) {
             //  Set the engine_time object to the current time.
@@ -263,18 +266,11 @@ void engine::do_game(void) {
             //  Get any spawner messages and pass to handler.
             mgr::spawner::process_messages(mgr::messages::get("spawner"));
         }
-        /* *** END GAME LOOP ******************************************************** */
-
         //  Run any untimed systems.
-        mgr::systems::run_untimed();
+        if(config::flags::game_started) mgr::systems::run_untimed();
+        /* *** END GAME LOOP ******************************************************** */
         //  Render the screen.
         mgr::gfx::renderer::render();
-        //  Get any system messages and pass to handler.
-        cmds.process_messages(mgr::messages::get("system"));
-        //  Send audio messages to the audio queue.
-        mgr::audio::process_messages(mgr::messages::get("audio"));
-        //  Delete timed messages that were not processed.
-        mgr::messages::prune();
 
         //  Check if display looses focus.
         if(event.type == ALLEGRO_EVENT_DISPLAY_SWITCH_OUT) {
@@ -289,6 +285,9 @@ void engine::do_game(void) {
             if(config::flags::game_started) process_end_game();
             config::_flags::is_running = false;
         }
+
+        //  Delete timed messages that were not processed.
+        mgr::messages::prune();
     }
     /* *** END ENGINE LOOP ******************************************************** */
 

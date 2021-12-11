@@ -163,7 +163,7 @@ void input::check_events(void) {
                 config::_flags::menu_opened = false :
                 config::_flags::menu_opened = true);
         capture_state(event);
-        if(config::flags::game_started) handle_event(event);
+        if(config::flags::game_started) handle_game_event(event);
     }
 }
 
@@ -180,7 +180,7 @@ void input::capture_state(const ALLEGRO_EVENT& event) {
 /*
  *
  */
-void input::handle_event(const ALLEGRO_EVENT& event) {
+void input::handle_game_event(const ALLEGRO_EVENT& event) {
     //  Record input if enabled.
     if(config::flags::record_input) record_event(event);
 

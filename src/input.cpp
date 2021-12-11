@@ -156,9 +156,9 @@ void input::check_events(void) {
         //  Clear any active alerts on input event
         if(alert::is_set() &&
             (event.type == ALLEGRO_EVENT_KEY_DOWN ||
-                event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)) alert::clear();
+             event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)) alert::clear();
         if(event.type == ALLEGRO_EVENT_KEY_DOWN &&
-            event.keyboard.keycode == config::controls::key_menu)
+           event.keyboard.keycode == config::controls::key_menu)
             (config::_flags::menu_opened ?
                 config::_flags::menu_opened = false :
                 config::_flags::menu_opened = true);

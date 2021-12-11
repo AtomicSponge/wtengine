@@ -30,7 +30,7 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
     //  Initialize additional Allegro components.
     if(!al_init_image_addon()) throw std::runtime_error("Failed to load Allegro image addon!");
     if(!al_init_font_addon()) throw std::runtime_error("Failed to load Allegro font addon!");
-    if(!al_install_audio()) throw std::runtime_error("Failed to load audio!");
+    config::_flags::audio_installed = al_install_audio();
     //  Input detection.
     config::_flags::keyboard_detected = al_install_keyboard();
     config::_flags::mouse_detected = al_install_mouse();

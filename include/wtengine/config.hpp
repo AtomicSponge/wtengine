@@ -55,6 +55,7 @@ class config {
             static const bool& mouse_detected;        //!<  Flag to check if a mouse is detected.
             static const bool& joystick_detected;     //!<  Flag to check if a joystick is detected.
             static const bool& touch_detected;        //!<  Flag to check if touch input is detected.
+            static const bool& audio_installed;       //!<  Flag to check if audio was installed.
             static const bool& show_hitboxes;         //!<  Flag to enable/disable hitbox rendering.
             inline static bool draw_fps = true;       //!<  Flag to check if fps should be drawn.
             inline static bool input_enabled = true;  //!<  Flag to check if input is enabled.
@@ -206,6 +207,7 @@ class config {
             inline static bool mouse_detected = false;
             inline static bool joystick_detected = false;
             inline static bool touch_detected = false;
+            inline static bool audio_installed = false;
             inline static bool show_hitboxes = false;
         };
 

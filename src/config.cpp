@@ -19,6 +19,7 @@ const bool& config::flags::menu_opened = config::_flags::menu_opened;
 const bool& config::flags::record_input = config::_flags::record_input;
 const bool& config::flags::mouse_detected = config::_flags::mouse_detected;
 const bool& config::flags::joystick_detected = config::_flags::joystick_detected;
+const bool& config::flags::touch_detected = config::_flags::touch_detected;
 const bool& config::flags::show_hitboxes = config::_flags::show_hitboxes;
 
 const float& config::volume::main = config::_volume::main;

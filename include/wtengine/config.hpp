@@ -91,6 +91,16 @@ class config {
         };
 
         /*!
+         * \struct states
+         * \brief Input States.
+         */
+        struct states {
+            static const ALLEGRO_MOUSE_STATE& mouse;
+            static const ALLEGRO_TOUCH_STATE& last_touch;
+            static const ALLEGRO_TOUCH_INPUT_STATE& touches;
+        };
+
+        /*!
          * \struct controls
          * \brief Control binding settings.
          */
@@ -228,6 +238,12 @@ class config {
             inline static std::size_t display_mode = 0;
             inline static float scale_factor = 1.0f;
             inline static bool needs_reconfig = false;
+        };
+
+        struct _states {
+            inline static ALLEGRO_MOUSE_STATE mouse;
+            inline static ALLEGRO_TOUCH_STATE last_touch;
+            inline static ALLEGRO_TOUCH_INPUT_STATE touches;
         };
 
         struct _controls {

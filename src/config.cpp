@@ -41,6 +41,10 @@ const std::size_t& config::gfx::display_mode = config::_gfx::display_mode;
 const float& config::gfx::scale_factor = config::_gfx::scale_factor;
 const bool& config::gfx::needs_reconfig = config::_gfx::needs_reconfig;
 
+const ALLEGRO_MOUSE_STATE& config::states::mouse = config::_states::mouse;
+const ALLEGRO_TOUCH_STATE& config::states::last_touch = config::_states::last_touch;
+const ALLEGRO_TOUCH_INPUT_STATE& config::states::touches = config::_states::touches;
+
 const int& config::controls::key_menu = config::_controls::key_menu;
 
 const int& config::controls::p1_key_up = config::_controls::p1_key_up;

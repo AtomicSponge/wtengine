@@ -40,7 +40,7 @@ engine::engine(const int& argc, char** const& argv, const std::string& title) : 
     //  Configure PhysFS.
     if(!PHYSFS_init(argv[0])) throw std::runtime_error("Failed to load PhysFS!");
     if(file_locations.empty()) throw std::runtime_error("Need to configure locations for PhysFS!");
-    for(auto & it : file_locations) PHYSFS_mount(it.c_str(), NULL, 1);
+    for(auto& it: file_locations) PHYSFS_mount(it.c_str(), NULL, 1);
     al_set_physfs_file_interface();
 
     //  Configure display.  Called from wte_display class.

@@ -173,6 +173,34 @@ void input::handle_event(const ALLEGRO_EVENT& event) {
 
     switch(event.type) {
     /* *********************** */
+    /* *** Mouse events ****** */
+    /* *********************** */
+    case ALLEGRO_EVENT_MOUSE_AXES:
+        break;
+    case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+        break;
+    case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+        break;
+    case ALLEGRO_EVENT_MOUSE_WARPED:
+        break;
+    case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
+        break;
+    case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
+        break;
+
+    /* *********************** */
+    /* *** Touch events ****** */
+    /* *********************** */
+    case ALLEGRO_EVENT_TOUCH_BEGIN:
+        break;
+    case ALLEGRO_EVENT_TOUCH_END:
+        break;
+    case ALLEGRO_EVENT_TOUCH_MOVE:
+        break;
+    case ALLEGRO_EVENT_TOUCH_CANCEL:
+        break;
+
+    /* *********************** */
     /* *** Keyboard events *** */
     /* *********************** */
     /////////////////////////////////////////////////////////////

@@ -40,10 +40,12 @@ void input::create_event_queue(void) {
 
     if(config::flags::keyboard_detected)
         al_register_event_source(input_event_queue, al_get_keyboard_event_source());
-    if(config::flags::mouse_detected) {}
+    if(config::flags::mouse_detected)
+        al_register_event_source(input_event_queue, al_get_mouse_event_source());
     if(config::flags::joystick_detected)
         al_register_event_source(input_event_queue, al_get_joystick_event_source());
-    if(config::flags::touch_detected) {}
+    if(config::flags::touch_detected)
+        al_register_event_source(input_event_queue, al_get_touch_input_event_source());
 }
 
 /*

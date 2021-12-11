@@ -256,34 +256,40 @@ void engine::do_game(void) {
         mgr::audio::process_messages(mgr::messages::get("audio"));
 
         ALLEGRO_EVENT event;
-        const bool queue_not_empty = al_get_next_event(main_event_queue, &event);
-        /* *** GAME LOOP ************************************************************ */
-        //  Call our game logic update on timer events.  Timer is only running when the game is running.
-        if(queue_not_empty && event.type == ALLEGRO_EVENT_TIMER) {
-            //  Set the engine_time object to the current time.
-            engine_time::set(al_get_timer_count(main_timer));
-            //  Run all systems.
-            mgr::systems::run();
-            //  Process messages.
-            mgr::systems::dispatch();
-            //  Get any spawner messages and pass to handler.
-            mgr::spawner::process_messages(mgr::messages::get("spawner"));
+        if(al_get_next_event(main_event_queue, &event)) {
+            switch(event.type) {
+            //  Call our game logic update on timer events.
+            //  Timer is only running when the game is running.
+            case ALLEGRO_EVENT_TIMER:
+                //  Set the engine_time object to the current time.
+                engine_time::set(al_get_timer_count(main_timer));
+                //  Run all systems.
+                mgr::systems::run();
+                //  Process messages.
+                mgr::systems::dispatch();
+                //  Get any spawner messages and pass to handler.
+                mgr::spawner::process_messages(mgr::messages::get("spawner"));
+                break;
+
+            //  Check if display looses focus.
+            case ALLEGRO_EVENT_DISPLAY_SWITCH_OUT:
+                out_of_focus();
+                break;
+            //  Check if display returns to focus.
+            case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
+                back_in_focus();
+                break;
+            //  Force quit if the game window is closed.
+            case ALLEGRO_EVENT_DISPLAY_CLOSE:
+                if(config::flags::game_started) process_end_game();
+                config::_flags::is_running = false;
+                break;
+            }
         }
+
         mgr::systems::run_untimed();  //  Run any untimed systems.
-        /* *** END GAME LOOP ******************************************************** */
         mgr::gfx::renderer::render();  //  Render the screen.
-
         mgr::messages::prune();  //  Delete unprocessed timed messages.
-
-        //  Check if display looses focus.
-        if(event.type == ALLEGRO_EVENT_DISPLAY_SWITCH_OUT) out_of_focus();
-        //  Check if display returns to focus.
-        if(event.type == ALLEGRO_EVENT_DISPLAY_SWITCH_IN) back_in_focus();
-        //  Force quit if the game window is closed.
-        if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-            if(config::flags::game_started) process_end_game();
-            config::_flags::is_running = false;
-        }
     }
     /* *** END ENGINE LOOP ******************************************************** */
 

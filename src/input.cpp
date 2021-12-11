@@ -151,21 +151,18 @@ const bool input::save_recorder(void) {
  *
  */
 void input::check_events(void) {
-    while(queue_not_empty) {
-        ALLEGRO_EVENT event;
-        const bool queue_not_empty = al_get_next_event(input_event_queue, &event);
-        if(queue_not_empty) {
-            //  Clear any active alerts on input event
-            if(alert::is_set() &&
-                (event.type == ALLEGRO_EVENT_KEY_DOWN ||
-                 event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)) alert::clear();
-            if(event.type == ALLEGRO_EVENT_KEY_DOWN &&
-               event.keyboard.keycode == config::controls::key_menu)
-                (config::_flags::menu_opened ?
-                    config::_flags::menu_opened = false :
-                    config::_flags::menu_opened = true);
-            if(config::flags::game_started) handle_event(event);
-        }
+    ALLEGRO_EVENT event;
+    while(al_get_next_event(input_event_queue, &event)) {
+        //  Clear any active alerts on input event
+        if(alert::is_set() &&
+            (event.type == ALLEGRO_EVENT_KEY_DOWN ||
+                event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)) alert::clear();
+        if(event.type == ALLEGRO_EVENT_KEY_DOWN &&
+            event.keyboard.keycode == config::controls::key_menu)
+            (config::_flags::menu_opened ?
+                config::_flags::menu_opened = false :
+                config::_flags::menu_opened = true);
+        if(config::flags::game_started) handle_event(event);
     }
 }
 

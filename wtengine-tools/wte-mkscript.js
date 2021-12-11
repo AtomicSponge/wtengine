@@ -38,17 +38,18 @@ switch(args[0].split('.')[1].toLowerCase()) {
     default:
         scriptError(`File format '${args[0].split('.')[1]}' not supported.`)
 }
-if(gameData === undefined) scriptError('Error parsing game data.')
+if(gameData === undefined || !(gameData instanceof Array))
+    scriptError('Parsing game data failed.')
 
 /*
  * Generate the data file buffer
  */
-process.stdout.write(`Generating game data, one moment...\n`)
+process.stdout.write(`Generating game data...\n`)
 let rowCounter = Number(0)        //  Row counter for error reporting
 let dataBuffer = Buffer.alloc(0)  //  Buffer to store binary file
 gameData.forEach(row => {
     rowCounter++
-    if(row.length !== 6) scriptError(`Row ${rowCounter} incorrect length.`)
+    if(row.length !== 6) scriptError(`Row ${rowCounter}: incorrect length.`)
 
     //  Write each message:  timer / sys / to / from / cmd / args
     dataBuffer = Buffer.concat([dataBuffer, Buffer.concat([
@@ -61,11 +62,13 @@ gameData.forEach(row => {
 })
 
 /*
- * Write the data file buffer to file
+ * Write out the data file buffer
  */
 try {
     fs.writeFileSync(args[1], dataBuffer)
-    process.stdout.write(`Wrote data file '${args[1]}' - ${rowCounter} commands\n`)
+    process.stdout.write(
+        `\nWrote data file '${args[1]}'\n${rowCounter} total commands.\n\n`)
 } catch(error) { scriptError(error) }
 
 process.stdout.write('Done!\n')
+process.exit(0)

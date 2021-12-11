@@ -171,7 +171,10 @@ void input::check_events(void) {
  *
  */
 void input::capture_state(const ALLEGRO_EVENT& event) {
-    //
+    switch(event.type) {
+    case ALLEGRO_EVENT_MOUSE_AXES:
+        break;
+    }
 }
 
 /*

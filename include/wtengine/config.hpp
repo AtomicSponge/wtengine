@@ -95,9 +95,10 @@ class config {
          * \brief Input States.
          */
         struct states {
-            static const ALLEGRO_MOUSE_STATE& mouse;
-            static const ALLEGRO_TOUCH_STATE& last_touch;
-            static const ALLEGRO_TOUCH_INPUT_STATE& touches;
+            static const ALLEGRO_MOUSE_STATE& mouse;          //<!  Mouse input state.
+            static const ALLEGRO_TOUCH_STATE& first_touch;    //<!  First touch input state.
+            static const ALLEGRO_TOUCH_STATE& last_touch;     //<!  Last touch input state.
+            static const ALLEGRO_TOUCH_INPUT_STATE& touches;  //<!  Array of Allegro touch states.
         };
 
         /*!
@@ -242,6 +243,7 @@ class config {
 
         struct _states {
             inline static ALLEGRO_MOUSE_STATE mouse;
+            inline static ALLEGRO_TOUCH_STATE first_touch;
             inline static ALLEGRO_TOUCH_STATE last_touch;
             inline static ALLEGRO_TOUCH_INPUT_STATE touches;
         };

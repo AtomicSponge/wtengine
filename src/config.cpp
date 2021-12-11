@@ -42,6 +42,7 @@ const float& config::gfx::scale_factor = config::_gfx::scale_factor;
 const bool& config::gfx::needs_reconfig = config::_gfx::needs_reconfig;
 
 const ALLEGRO_MOUSE_STATE& config::states::mouse = config::_states::mouse;
+const ALLEGRO_TOUCH_STATE& config::states::first_touch = config::_states::first_touch;
 const ALLEGRO_TOUCH_STATE& config::states::last_touch = config::_states::last_touch;
 const ALLEGRO_TOUCH_INPUT_STATE& config::states::touches = config::_states::touches;
 

@@ -162,8 +162,16 @@ void input::check_events(void) {
             (config::_flags::menu_opened ?
                 config::_flags::menu_opened = false :
                 config::_flags::menu_opened = true);
+        capture_state(event);
         if(config::flags::game_started) handle_event(event);
     }
+}
+
+/*
+ *
+ */
+void input::capture_state(const ALLEGRO_EVENT& event) {
+    //
 }
 
 /*

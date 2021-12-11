@@ -231,10 +231,10 @@ void engine::do_game(void) {
     config::_flags::game_started = false;
     config::_flags::menu_opened = true;
 
-    /* *** ENGINE LOOP ************************************************************ */
     while(config::flags::is_running) {
+        /* *** START ENGINE LOOP ******************************************** */
         input::check_events();  //  Check for input.
-        
+
         if(!config::flags::game_started) {       //  Game not running.
             al_stop_timer(main_timer);           //  Make sure the timer isn't.
             config::_flags::menu_opened = true;  //  And force menus
@@ -290,8 +290,8 @@ void engine::do_game(void) {
         mgr::systems::run_untimed();   //  Run any untimed systems.
         mgr::gfx::renderer::render();  //  Render the screen.
         mgr::messages::prune();        //  Delete unprocessed timed messages.
+        /* *** END ENGINE LOOP ********************************************** */
     }
-    /* *** END ENGINE LOOP ******************************************************** */
 
     wte_unload();
 }

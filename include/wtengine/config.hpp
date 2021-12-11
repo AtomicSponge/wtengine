@@ -51,6 +51,7 @@ class config {
             static const bool& game_started;          //!<  Flag to check if the game has started.
             static const bool& menu_opened;           //!<  Flag to check if the menu is opened.
             static const bool& record_input;          //!<  Flag to enable/disable input recording.
+            static const bool& keyboard_detected;     //!<  Flag to check if a keyboard is detected.
             static const bool& mouse_detected;        //!<  Flag to check if a mouse is detected.
             static const bool& joystick_detected;     //!<  Flag to check if a joystick is detected.
             static const bool& touch_detected;        //!<  Flag to check if touch input is detected.
@@ -201,6 +202,7 @@ class config {
             inline static bool game_started = false;
             inline static bool menu_opened = true;
             inline static bool record_input = false;
+            inline static bool keyboard_detected = false;
             inline static bool mouse_detected = false;
             inline static bool joystick_detected = false;
             inline static bool touch_detected = false;

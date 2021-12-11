@@ -17,6 +17,7 @@ const bool& config::flags::is_running = config::_flags::is_running;
 const bool& config::flags::game_started = config::_flags::game_started;
 const bool& config::flags::menu_opened = config::_flags::menu_opened;
 const bool& config::flags::record_input = config::_flags::record_input;
+const bool& config::flags::keyboard_detected = config::_flags::keyboard_detected;
 const bool& config::flags::mouse_detected = config::_flags::mouse_detected;
 const bool& config::flags::joystick_detected = config::_flags::joystick_detected;
 const bool& config::flags::touch_detected = config::_flags::touch_detected;

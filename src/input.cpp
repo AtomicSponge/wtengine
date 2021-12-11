@@ -151,10 +151,9 @@ const bool input::save_recorder(void) {
  *
  */
 void input::check_events(void) {
-    bool queue_not_empty = true;
     while(queue_not_empty) {
         ALLEGRO_EVENT event;
-        queue_not_empty = al_get_next_event(input_event_queue, &event);
+        const bool queue_not_empty = al_get_next_event(input_event_queue, &event);
         if(queue_not_empty) {
             //  Clear any active alerts on input event
             if(alert::is_set() &&

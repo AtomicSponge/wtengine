@@ -287,9 +287,9 @@ void engine::do_game(void) {
             }
         }
 
-        mgr::systems::run_untimed();  //  Run any untimed systems.
+        mgr::systems::run_untimed();   //  Run any untimed systems.
         mgr::gfx::renderer::render();  //  Render the screen.
-        mgr::messages::prune();  //  Delete unprocessed timed messages.
+        mgr::messages::prune();        //  Delete unprocessed timed messages.
     }
     /* *** END ENGINE LOOP ******************************************************** */
 

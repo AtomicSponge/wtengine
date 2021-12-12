@@ -172,36 +172,14 @@ void input::check_events(void) {
  *
  */
 void input::capture_state(const ALLEGRO_EVENT& event) {
-    switch(event.type) {
-    /* *********************** */
-    /* *** Mouse state ******* */
-    /* *********************** */
-    case ALLEGRO_EVENT_MOUSE_AXES:
-        break;
-    case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-        break;
-    case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-        break;
-    case ALLEGRO_EVENT_MOUSE_WARPED:
-        break;
-    case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
-        break;
-    case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
-        break;
-
-    /* *********************** */
-    /* *** Touch state ******* */
-    /* *********************** */
-    case ALLEGRO_EVENT_TOUCH_BEGIN:
-        break;
-    case ALLEGRO_EVENT_TOUCH_END:
-        break;
-    case ALLEGRO_EVENT_TOUCH_MOVE:
-        break;
-    case ALLEGRO_EVENT_TOUCH_CANCEL:
-        break;
-    //  End state updates
-    }
+    if(config::flags::keyboard_detected)
+        al_get_keyboard_state(&config::_states::keyboard);
+    if(config::flags::mouse_detected)
+        al_get_mouse_state(&config::_states::mouse);
+    //if(config::flags::joystick_detected)
+        //al_get_joystick_state(&config::_states::joystick);
+    if(config::flags::touch_detected)
+        al_get_touch_input_state(&config::_states::touches);
 }
 
 /*

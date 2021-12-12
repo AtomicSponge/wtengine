@@ -63,9 +63,13 @@ void display::create_display(void) {
 
     //  Check if a display mode is set.
     if(config::gfx::display_mode == 1) {
-        al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_FULLSCREEN_WINDOW);
+        (build_options.wte_opengl_latest ?
+            al_set_new_display_flags(ALLEGRO_OPENGL_3_0 | ALLEGRO_FULLSCREEN_WINDOW):
+            al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_FULLSCREEN_WINDOW));
     } else {
-        al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_WINDOWED);
+        (build_options.wte_opengl_latest ?
+            al_set_new_display_flags(ALLEGRO_OPENGL_3_0 | ALLEGRO_WINDOWED):
+            al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_WINDOWED));
         screen_w = (int)ceil(config::gfx::arena_w * config::gfx::scale_factor);
         screen_h = (int)ceil(config::gfx::arena_h * config::gfx::scale_factor);
     }
@@ -79,7 +83,9 @@ void display::create_display(void) {
 
     //  Display failed to load, try a fallback.
     if(!_display) {
-        al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_WINDOWED);
+        (build_options.wte_opengl_latest ?
+            al_set_new_display_flags(ALLEGRO_OPENGL_3_0 | ALLEGRO_WINDOWED):
+            al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_WINDOWED));
         _display = al_create_display(config::gfx::arena_w,
                                      config::gfx::arena_h);
         if(!_display) throw std::runtime_error("Failed to configure display!");

@@ -9,8 +9,9 @@ __WTEngine__ is a cross-platform game engine written in C++17 and based on [ECS]
  - [PhysicsFS](https://www.icculus.org/physfs/)
  - [OpenGL](https://www.opengl.org/) *(not yet implemented)*
 
-### API Documentation:
-https://www.wtfsystems.net/docs/wtengine/index.html
+### Documentation:
+[API](https://www.wtfsystems.net/docs/wtengine/index.html)
+[Manual](https://github.com/wtfsystems/wtengine/wiki)
 
 For an example of the engine in action, see the [demo game code](https://github.com/wtfsystems/wtengine/blob/master/example/src/wte_demo.cpp).
 
@@ -37,16 +38,6 @@ See the section on [engine tools](https://github.com/wtfsystems/wtengine/tree/ma
 
 [NPM Package](https://www.npmjs.com/package/@wtfsystems/wtengine-tools)
 
-## Example Game
-
-Requires the library to be installed to build.
-
-```
-cd example
-cmake .
-make
-```
-
 ## Troubleshooting
 
 ### pkg-config can't find wtengine
@@ -62,7 +53,3 @@ You can verify pkg-config can locate the engine by:
 ```
 pkg-config --libs --exists wtengine 
 ```
-
-##  Manual
-
-https://github.com/wtfsystems/wtengine/wiki

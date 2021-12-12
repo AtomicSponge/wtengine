@@ -67,6 +67,8 @@ add_executable(wte_demo
     src/main.cpp
     src/wte_demo.cpp)
 
+target_compile_options(wte_demo PRIVATE "-DWTE_ENABLE_MAGIC_PINK")
+
 if(CMAKE_BUILD_TYPE MATCHES Debug)
     target_compile_options(wte_demo PRIVATE "-DWTE_BUILD_DEBUG")
 endif()

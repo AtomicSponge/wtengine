@@ -56,10 +56,10 @@
 /*!
  * Enable magic pink for transparency if WTE_NO_MAGIC_PINK is not defined.
  */
-#ifdef WTE_NO_MAGIC_PINK
-#define WTE_USE_MAGIC_PINK FALSE
-#else
+#ifdef WTE_ENABLE_MAGIC_PINK
 #define WTE_USE_MAGIC_PINK TRUE
+#else
+#define WTE_USE_MAGIC_PINK FALSE
 #endif
 
 namespace wte {
@@ -79,12 +79,8 @@ inline constexpr WTEBUILDOPTIONS build_options;
 
 }
 
-#if WTE_USE_MAGIC_PINK
-#define WTE_MAGIC_PINK          (al_map_rgb(255,0,255))
-#endif
-
 //  Define some colors for use in the engine.
-#ifndef WTE_NO_COLORS
+#define WTE_MAGIC_PINK          (al_map_rgb(255,0,255))
 #define WTE_COLOR_BLACK         (al_map_rgb(0,0,0))
 #define WTE_COLOR_RED           (al_map_rgb(255,0,0))
 #define WTE_COLOR_GREEN         (al_map_rgb(0,255,0))
@@ -96,7 +92,7 @@ inline constexpr WTEBUILDOPTIONS build_options;
 #define WTE_COLOR_DARKPURPLE    (al_map_rgb(48,25,52))
 #define WTE_COLOR_WHITE         (al_map_rgb(255,255,255))
 #define WTE_COLOR_TRANSPARENT   (al_map_rgba(0,0,0,0))
-#endif
+
 
 //  Define default keys
 #ifndef WTE_KEY_MENU_DEFAULT

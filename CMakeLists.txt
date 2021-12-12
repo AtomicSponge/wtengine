@@ -49,6 +49,10 @@ find_package(PkgConfig REQUIRED)
     pkg_check_modules(ALLEGRO REQUIRED allegro_font-5)      #  Font add-on
     pkg_check_modules(ALLEGRO REQUIRED allegro_image-5)     #  Image add-on
 
+#  Check for OpenGL
+find_package(OpenGL REQUIRED)
+find_package(GLUT REQUIRED)
+
 ########################################
 #
 #  Configure Sources
@@ -92,10 +96,10 @@ add_library(wtengine STATIC
 #
 ########################################
 #  Set include folder for building
-target_include_directories(wtengine PRIVATE include)
+target_include_directories(wtengine PRIVATE include ${OPENGL_INCLUDE_DIRS}  ${GLUT_INCLUDE_DIRS})
 
 #  Link libraries
-target_link_libraries(wtengine PRIVATE ${ALLEGRO_LIBRARIES})
+target_link_libraries(wtengine PRIVATE ${ALLEGRO_LIBRARIES} ${OPENGL_LIBRARIES} ${GLUT_LIBRARY})
 
 #  Set the build target
 set_target_properties(wtengine PROPERTIES

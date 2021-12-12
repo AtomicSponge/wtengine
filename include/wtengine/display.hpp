@@ -11,6 +11,7 @@
 #define WTE_DISPLAY_HPP
 
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_opengl.h>
 
 #include <cmath>
 #include <string>

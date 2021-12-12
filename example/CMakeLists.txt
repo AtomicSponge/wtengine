@@ -54,6 +54,10 @@ find_package(PkgConfig REQUIRED)
     #  Check for WTEngine
     pkg_check_modules(WTENGINE REQUIRED IMPORTED_TARGET wtengine)
 
+#  Check for OpenGL
+find_package(OpenGL REQUIRED)
+find_package(GLUT REQUIRED)
+
 ########################################
 #
 #  Configure Sources
@@ -77,7 +81,8 @@ endif()
 #
 ########################################
 #  Set include folder for building
-target_include_directories(wte_demo PRIVATE include)
+target_include_directories(wte_demo PRIVATE include
+    ${OPENGL_INCLUDE_DIRS}  ${GLUT_INCLUDE_DIRS})
 
 #  Link libraries
 target_link_libraries(wte_demo PUBLIC
@@ -90,7 +95,8 @@ target_link_libraries(wte_demo PUBLIC
     PkgConfig::ALLEGRO_ACODEC
     PkgConfig::ALLEGRO_FONT
     PkgConfig::ALLEGRO_IMAGE
-    PkgConfig::ALLEGRO_PRIMV)
+    PkgConfig::ALLEGRO_PRIMV
+    ${OPENGL_LIBRARIES} ${GLUT_LIBRARY})
 
 #  Set the build target
 set_target_properties(wte_demo PROPERTIES

@@ -95,7 +95,7 @@ class config {
          * \brief Input States.
          */
         struct states {
-            static const ALLEGRO_KEYBOARD_STATE& keyboard;     //<!  Keyboard input state.
+            static const ALLEGRO_KEYBOARD_STATE& keyboard;    //<!  Keyboard input state.
             static const ALLEGRO_MOUSE_STATE& mouse;          //<!  Mouse input state.
             static const ALLEGRO_TOUCH_INPUT_STATE& touches;  //<!  Array of Allegro touch states.
             static const ALLEGRO_TOUCH_STATE& first_touch;    //<!  First touch input state.

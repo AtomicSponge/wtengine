@@ -163,15 +163,15 @@ void input::check_events(void) {
             (config::flags::menu_opened ?
                 config::_flags::menu_opened = false :
                 config::_flags::menu_opened = true);
-        capture_state(event);
-        if(config::flags::game_started) handle_game_event(event);
+        capture_states(event);
+        if(config::flags::game_started) game_handlers(event);
     }
 }
 
 /*
  *
  */
-void input::capture_state(const ALLEGRO_EVENT& event) {
+void input::capture_states(const ALLEGRO_EVENT& event) {
     if(config::flags::keyboard_detected)
         al_get_keyboard_state(&config::_states::keyboard);
     if(config::flags::mouse_detected)
@@ -185,7 +185,7 @@ void input::capture_state(const ALLEGRO_EVENT& event) {
 /*
  *
  */
-void input::handle_game_event(const ALLEGRO_EVENT& event) {
+void input::game_handlers(const ALLEGRO_EVENT& event) {
     //  Record input if enabled.
     if(config::flags::record_input) record_event(event);
 

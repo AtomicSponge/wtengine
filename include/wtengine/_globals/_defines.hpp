@@ -69,7 +69,7 @@ namespace wte {
  * \brief Build options
  */
 struct WTEBUILDOPTIONS {
-    constexpr static bool wte_opengl_latest = static_cast<bool>(WTE_OPENGL_LATEST);
+    constexpr static bool opengl_latest = static_cast<bool>(WTE_OPENGL_LATEST);
     constexpr static float ticks_per_sec = static_cast<float>(WTE_TICKS_PER_SECOND);
     constexpr static bool debug_mode = static_cast<bool>(WTE_DEBUG_MODE);
     constexpr static int max_playing_samples = static_cast<int>(WTE_MAX_PLAYING_SAMPLES);

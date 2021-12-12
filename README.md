@@ -30,15 +30,11 @@ Then to install the library run:
 sudo make install
 ```
 
------
-
 ## Engine Tools
 
 See the section on [engine tools](https://github.com/wtfsystems/wtengine/tree/master/wtengine-tools#readme)
 
 [NPM Package](https://www.npmjs.com/package/@wtfsystems/wtengine-tools)
-
------
 
 ## Example Game
 
@@ -53,8 +49,6 @@ make
 No install process, just run the created *wte_demo* executable.
 
 A compiled demo for Windows can be found in the [releases](https://github.com/wtfsystems/releases) repository.  Binary data to play the demo is included.
-
------
 
 ## Troubleshooting
 
@@ -71,8 +65,6 @@ You can verify pkg-config can locate the engine by:
 ```
 pkg-config --libs --exists wtengine 
 ```
-
------
 
 ##  Manual
 

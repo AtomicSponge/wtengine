@@ -46,10 +46,6 @@ cmake .
 make
 ```
 
-No install process, just run the created *wte_demo* executable.
-
-A compiled demo for Windows can be found in the [releases](https://github.com/wtfsystems/releases) repository.  Binary data to play the demo is included.
-
 ## Troubleshooting
 
 ### pkg-config can't find wtengine

@@ -183,13 +183,14 @@ class input {
         input();  //!<  Constructor
 
     private:
-        static void create_event_queue(void);              //  Create the input queue.
-        static void destroy_event_queue(void);             //  Destroy the input queue.
-        static void check_events(void);                    //  Check the input queue for events.
-        static void record_event(const ALLEGRO_EVENT&);    //  Record input events.
-        static void capture_states(const ALLEGRO_EVENT&);  //  Capture input states.
-        static void game_handlers(const ALLEGRO_EVENT&);   //  Process input events.
-        static const bool save_recorder(void);             //  Save input events.
+        static void create_event_queue(void);                 //  Create the input queue.
+        static void destroy_event_queue(void);                //  Destroy the input queue.
+        static void check_events(void);                       //  Check the input queue for events.
+        static void record_event(const ALLEGRO_EVENT&);       //  Record input events.
+        static void capture_states(const ALLEGRO_EVENT&);     //  Capture input states.
+        static void run_handlers(const ALLEGRO_EVENT&);       //  Process input events.
+        static void run_game_handlers(const ALLEGRO_EVENT&);  //  Process in-game input events.
+        static const bool save_recorder(void);                //  Save input events.
 
         struct _lastkeypress {
             inline static int64_t timer = 0;

@@ -164,7 +164,9 @@ void input::check_events(void) {
                 config::_flags::menu_opened = false :
                 config::_flags::menu_opened = true);
         capture_states(event);
-        if(config::flags::game_started) game_handlers(event);
+        (config::flags::game_started ?
+            run_game_handlers(event):
+            run_handlers(event));
     }
 }
 
@@ -185,7 +187,14 @@ void input::capture_states(const ALLEGRO_EVENT& event) {
 /*
  *
  */
-void input::game_handlers(const ALLEGRO_EVENT& event) {
+void input::run_handlers(const ALLEGRO_EVENT& event) {
+    //
+}
+
+/*
+ *
+ */
+void input::run_game_handlers(const ALLEGRO_EVENT& event) {
     //  Record input if enabled.
     if(config::flags::record_input) record_event(event);
 

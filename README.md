@@ -13,8 +13,8 @@ __WTEngine__ is a cross-platform game engine written in C++17 and based on [ECS]
     - [CMake](https://cmake.org)
 
 ### Documentation:
- - [API](https://www.wtfsystems.net/docs/wtengine/index.html)
  - [Manual](https://github.com/wtfsystems/wtengine/wiki)
+ - [API](https://www.wtfsystems.net/docs/wtengine/index.html)
 
 For an example of the engine in action, see the [demo game code](https://github.com/wtfsystems/wtengine/blob/master/example/src/wte_demo.cpp).
 

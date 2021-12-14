@@ -52,9 +52,10 @@ gameData.forEach(row => {
     if(row.length !== 6) scriptError(`Row ${rowCounter}: incorrect length.`)
 
     //  Write each message:  timer / sys / to / from / cmd / args
+    const timerBuffer = Buffer.alloc(8)
+    timerBuffer.writeBigInt64LE(BigInt.asIntN(64, row[0]))
     dataBuffer = Buffer.concat([dataBuffer, Buffer.concat([
-        Buffer.from(new Int32Array([row[0]])),
-        Buffer.from(
+        timerBuffer, Buffer.from(
             row[1] + '\x00' + row[2] + '\x00' + row[3] + '\x00' +
             row[4] + '\x00' + row[5] + '\x00'
         )

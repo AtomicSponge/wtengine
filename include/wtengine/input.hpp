@@ -69,13 +69,11 @@ class input {
          * \brief Input event macros.
          */
         struct event {
-
             /*!
              * \struct p1
              * \brief Player 1 input events.
              */
             struct p1 {
-
                 /*!
                  * \struct ondown
                  * \brief Player 1 on down events.
@@ -120,7 +118,6 @@ class input {
              * \brief Player 2 input events.
              */
             struct p2 {
-
                 /*!
                  * \struct ondown
                  * \brief Player 2 on down events.

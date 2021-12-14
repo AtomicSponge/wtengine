@@ -65,6 +65,14 @@ class input {
         static void toggle_recording(void);
 
         /*!
+         * \brief 
+         */
+        static void add_handler(
+            const bool& global,
+            const std::function<void(void)>& handle
+        );
+
+        /*!
          * \struct event
          * \brief Input event macros.
          */

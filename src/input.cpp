@@ -164,10 +164,10 @@ void input::check_events(void) {
                 config::_flags::menu_opened = false :
                 config::_flags::menu_opened = true);
         capture_states(event);
-        run_handlers(event);
+        run_handlers(event);                //  Run global input handlers
         (config::flags::game_started ?
-            run_game_handlers(event):
-            run_non_game_handlers(event));
+            run_game_handlers(event):       //  Run game-only input handlers
+            run_non_game_handlers(event));  //  Run non-game input handlers
     }
 }
 
@@ -183,6 +183,16 @@ void input::capture_states(const ALLEGRO_EVENT& event) {
         //al_get_joystick_state(&config::_states::joystick);
     if(config::flags::touch_detected)
         al_get_touch_input_state(&config::_states::touches);
+}
+
+/*
+ *
+ */
+void input::add_handler(
+    const bool& global,
+    const std::function<void(void)>& handle
+) {
+    //
 }
 
 /*

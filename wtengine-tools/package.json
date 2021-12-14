@@ -1,7 +1,7 @@
 {
   "name": "@wtfsystems/wtengine-tools",
   "preferGlobal": true,
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "WtEngine CLI Tools",
   "repository": {
     "type": "git",

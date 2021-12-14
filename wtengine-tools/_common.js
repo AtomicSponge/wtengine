@@ -31,20 +31,16 @@ exports.scriptError = scriptError
 
 /**
  * Confirmation prompt (wip)
- * @param {String} message 
+ * @param {String} message Message to display.
  * @returns {boolean} True if 'yes', else false
  */
-const confirmPrompt = (message) => {
+const confirmPrompt = async (message) => {
     const rl = readline.createInterface({
         input: process.stdin, output: process.stdout
     })
-    let conf = false
-    {(async () => {
-        const res = await rl.question(`${message} [Y/n] `)
-        if(res[0] === 'N' || res[0] === 'n') conf = false
-        else conf = true
-    })()}
+    const res = await rl.question(`${message} [Y/n] `)
     rl.close()
-    return conf
+    if(res[0] === 'N' || res[0] === 'n') return false
+    return true
 }
 exports.confirmPrompt = confirmPrompt

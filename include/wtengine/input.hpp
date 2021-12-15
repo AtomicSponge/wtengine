@@ -66,30 +66,41 @@ class input {
         static void toggle_recording(void);
 
         /*!
-         * \brief Add an input handler.
-         * \param handle 
+         * \brief Add a keyboard input handler.
          * \param keycode 
-         * \param button 
+         * \param handle 
          * \param global 
          * \return True if added, else false.
          */
-        static const bool add_handler(
+        static const bool add_key_handler(
+            const int& keycode,
             const std::function<void(void)>& handle,
-            const std::optional<int>& keycode,
-            const std::optional<int>& button,
+            const std::optional<bool>& global
+        );
+
+        /*!
+         * \brief Add a keyboard input handler.
+         * \param button 
+         * \param handle 
+         * \param global 
+         * \return True if added, else false.
+         */
+        static const bool add_button_handler(
+            const int& button,
+            const std::function<void(void)>& handle,
             const std::optional<bool>& global
         );
 
         /*!
          * \brief Add a mouse input handler.
-         * \param handle 
          * \param event 
+         * \param handle 
          * \param global 
          * \return True if added, else false.
          */
         static const bool add_mouse_handler(
-            const std::function<void(void)>& handle,
             const unsigned int& event,
+            const std::function<void(void)>& handle,
             const std::optional<bool>& global
         );
 

@@ -197,18 +197,31 @@ void input::capture_states(const ALLEGRO_EVENT& event) {
 /*
  *
  */
-const bool input::add_handler(
+const bool input::add_key_handler(
+    const int& keycode,
     const std::function<void(void)>& handle,
-    const std::optional<int>& keycode,
-    const std::optional<int>& button,
     const std::optional<bool>& global
 ) {
     if(global) {
-        if(keycode) {}
-        if(button) {}
+        //
     } else {
-        if(keycode) {}
-        if(button) {}
+        //
+    }
+    return false;
+}
+
+/*
+ *
+ */
+const bool input::add_button_handler(
+    const int& button,
+    const std::function<void(void)>& handle,
+    const std::optional<bool>& global
+) {
+    if(global) {
+        //
+    } else {
+        //
     }
     return false;
 }
@@ -217,8 +230,8 @@ const bool input::add_handler(
  *
  */
 const bool input::add_mouse_handler(
-    const std::function<void(void)>& handle,
     const unsigned int& event,
+    const std::function<void(void)>& handle,
     const std::optional<bool>& global
 ) {
     if(global) {

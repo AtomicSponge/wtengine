@@ -14,6 +14,7 @@
 #include <vector>
 #include <map>
 #include <utility>
+#include <optional>
 #include <functional>
 #include <fstream>
 #include <iomanip>
@@ -74,9 +75,10 @@ class input {
          */
         static const bool add_handler(
             const bool& global,
-            const int& keycode,
-            const int& button,
-            const std::function<void(void)>& handle
+            const std::function<void(void)>& handle,
+            const std::optional<int>& keycode,
+            const std::optional<int>& button,
+            const std::optional<unsigned int>& event
         );
 
         /*!

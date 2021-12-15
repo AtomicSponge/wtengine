@@ -28,13 +28,15 @@ class handlers {
     friend class engine;
 
     public:
-        //
+        virtual ~handlers() = default;             //!<  Default virtual destructor.
+        handlers(const handlers&) = delete;        //!<  Delete copy constructor.
+        void operator=(handlers const&) = delete;  //!<  Delete assignment operator.
 
     protected:
-        //
+        handlers();  //!<  Constructor
 
     private:
-        //
+        static bool initialized;  //  Restrict to one instance.
 };
 
 }  //  end namespace wte

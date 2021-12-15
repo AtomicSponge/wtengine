@@ -105,6 +105,19 @@ class input {
         );
 
         /*!
+         * \brief Add a touch input handler.
+         * \param event 
+         * \param handle 
+         * \param global 
+         * \return True if added, else false.
+         */
+        static const bool add_touch_handler(
+            const unsigned int& event,
+            const std::function<void(void)>& handle,
+            const std::optional<bool>& global
+        );
+
+        /*!
          * \struct event
          * \brief Input event macros.
          */

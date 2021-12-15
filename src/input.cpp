@@ -245,6 +245,22 @@ const bool input::add_mouse_handler(
 /*
  *
  */
+const bool input::add_touch_handler(
+    const unsigned int& event,
+    const std::function<void(void)>& handle,
+    const std::optional<bool>& global
+) {
+    if(global) {
+        //
+    } else {
+        //
+    }
+    return false;
+}
+
+/*
+ *
+ */
 void input::run_handlers(const ALLEGRO_EVENT& event) {
     //
 }

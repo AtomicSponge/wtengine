@@ -91,7 +91,27 @@ class input {
              * \brief Mouse events.
              */
             struct mouse {
-                //
+                /*!
+                 * \struct ondown
+                 * \brief Mouse button on down events.
+                 */
+                struct ondown {
+                    static std::function<void(const int&, const int&, const int&,
+                        const int&, const unsigned int&, const float&)> left;
+                    static std::function<void(const int&, const int&, const int&,
+                        const int&, const unsigned int&, const float&)> right;
+                };
+
+                /*!
+                 * \struct onup
+                 * \brief Mouse button on up events.
+                 */
+                struct onup {
+                    static std::function<void(const int&, const int&, const int&,
+                        const int&, const unsigned int&, const float&)> left;
+                    static std::function<void(const int&, const int&, const int&,
+                        const int&, const unsigned int&, const float&)> right;
+                };
             };
 
             /*!

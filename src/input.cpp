@@ -11,6 +11,15 @@
 
 namespace wte {
 
+std::function<void(const int&, const int&, const int&,
+    const int&, const unsigned int&, const float&)> input::event::mouse::ondown::left;
+std::function<void(const int&, const int&, const int&,
+    const int&, const unsigned int&, const float&)> input::event::mouse::ondown::right;
+std::function<void(const int&, const int&, const int&,
+    const int&, const unsigned int&, const float&)> input::event::mouse::onup::left;
+std::function<void(const int&, const int&, const int&,
+    const int&, const unsigned int&, const float&)> input::event::mouse::onup::right;
+
 bool input::initialized = false;
 const int64_t& input::lastkeypress::timer = input::_lastkeypress::timer;
 const int& input::lastkeypress::key = input::_lastkeypress::key;

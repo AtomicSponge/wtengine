@@ -67,71 +67,6 @@ class input : public handlers {
         static void toggle_recording(void);
 
         /*!
-         * \brief Add a keyboard input handler.
-         * \param keycode 
-         * \param handle 
-         * \param global 
-         * \return True if added, else false.
-         */
-        static const bool add_key_handler(
-            const int& keycode,
-            const std::function<void(void)>& handle,
-            const std::optional<bool>& global
-        );
-
-        /*!
-         * \brief Add a button input handler.
-         * \param button 
-         * \param handle 
-         * \param global 
-         * \return True if added, else false.
-         */
-        static const bool add_button_handler(
-            const int& button,
-            const std::function<void(void)>& handle,
-            const std::optional<bool>& global
-        );
-
-        /*!
-         * \brief Add a joystick input handler.
-         * \param joystick 
-         * \param handle 
-         * \param global 
-         * \return True if added, else false.
-         */
-        static const bool add_joystick_handler(
-            const int& joystick,
-            const std::function<void(void)>& handle,
-            const std::optional<bool>& global
-        );
-
-        /*!
-         * \brief Add a mouse input handler.
-         * \param event 
-         * \param handle 
-         * \param global 
-         * \return True if added, else false.
-         */
-        static const bool add_mouse_handler(
-            const unsigned int& event,
-            const std::function<void(void)>& handle,
-            const std::optional<bool>& global
-        );
-
-        /*!
-         * \brief Add a touch input handler.
-         * \param event 
-         * \param handle 
-         * \param global 
-         * \return True if added, else false.
-         */
-        static const bool add_touch_handler(
-            const unsigned int& event,
-            const std::function<void(void)>& handle,
-            const std::optional<bool>& global
-        );
-
-        /*!
          * \struct event
          * \brief Input event macros.
          */
@@ -283,15 +218,13 @@ class input : public handlers {
         input();  //!<  Constructor
 
     private:
-        static void create_event_queue(void);                     //  Create the input queue.
-        static void destroy_event_queue(void);                    //  Destroy the input queue.
-        static void record_event(const ALLEGRO_EVENT&);           //  Record input events.
-        static const bool save_recorder(void);                    //  Save input events.
-        static const bool check_events(void);                     //  Check the input queue for events.
-        static void capture_states(const ALLEGRO_EVENT&);         //  Capture input states.
-        static void run_handlers(const ALLEGRO_EVENT&);           //  Process global input events.
-        static void run_non_game_handlers(const ALLEGRO_EVENT&);  //  Process out-of-game input events.
-        static void run_game_handlers(const ALLEGRO_EVENT&);      //  Process in-game input events.
+        static void create_event_queue(void);                 //  Create the input queue.
+        static void destroy_event_queue(void);                //  Destroy the input queue.
+        static void record_event(const ALLEGRO_EVENT&);       //  Record input events.
+        static const bool save_recorder(void);                //  Save input events.
+        static const bool check_events(void);                 //  Check the input queue for events.
+        static void capture_states(const ALLEGRO_EVENT&);     //  Capture input states.
+        static void run_game_handlers(const ALLEGRO_EVENT&);  //  Process in-game input events.
 
         struct _lastkeypress {
             inline static int64_t timer = 0;
@@ -301,22 +234,6 @@ class input : public handlers {
         struct _lastbuttonpress {
             inline static int64_t timer = 0;
             inline static int button = 0;
-        };
-
-        struct global_handlers {
-            // keyboard
-            // mouse
-            // buttons
-            // joysticks
-            // touch
-        };
-
-        struct non_game_handlers {
-            // keyboard
-            // mouse
-            // buttons
-            // joysticks
-            // touch
         };
 
         static int64_t last_tick;

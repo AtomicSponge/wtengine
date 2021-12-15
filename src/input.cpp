@@ -188,11 +188,19 @@ void input::capture_states(const ALLEGRO_EVENT& event) {
 /*
  *
  */
-void input::add_handler(
+const bool input::add_handler(
     const bool& global,
+    const int& keycode,
+    const int& button,
     const std::function<void(void)>& handle
 ) {
-    //
+    if(global) {
+        if(keycode != NULL) {}
+        if(button != NULL) {}
+    } else {
+        if(keycode != NULL) {}
+        if(button != NULL) {}
+    }
 }
 
 /*

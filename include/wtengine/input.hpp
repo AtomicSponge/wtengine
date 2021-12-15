@@ -67,8 +67,10 @@ class input {
         /*!
          * \brief 
          */
-        static void add_handler(
+        static const bool add_handler(
             const bool& global,
+            const int& keycode,
+            const int& button,
             const std::function<void(void)>& handle
         );
 

@@ -131,7 +131,10 @@ class handlers {
         };
 
     protected:
-        inline handlers() {};  //!<  Constructor
+        inline handlers() {
+            if(initialized == true) throw std::runtime_error("Handlers instance already running!");
+            initialized = true;
+        };
 
         //  Process global input events.
         inline static void run_handlers(const ALLEGRO_EVENT&) {};

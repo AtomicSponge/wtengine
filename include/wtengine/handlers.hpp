@@ -131,7 +131,7 @@ class handlers {
         };
 
     protected:
-        handlers();  //!<  Constructor
+        inline handlers() {};  //!<  Constructor
 
         //  Process global input events.
         inline static void run_handlers(const ALLEGRO_EVENT&) {};

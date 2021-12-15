@@ -17,7 +17,6 @@
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/config.hpp"
-#include "wtengine/states.hpp"
 
 namespace wte {
 
@@ -26,8 +25,6 @@ namespace wte {
  * \brief Input handlers.
  */
 class handlers {
-    friend class states;
-
     public:
         virtual ~handlers() = default;             //!<  Default virtual destructor.
         handlers(const handlers&) = delete;        //!<  Delete copy constructor.

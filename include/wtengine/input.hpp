@@ -79,7 +79,7 @@ class input {
         );
 
         /*!
-         * \brief Add a keyboard input handler.
+         * \brief Add a button input handler.
          * \param button 
          * \param handle 
          * \param global 

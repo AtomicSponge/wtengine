@@ -71,12 +71,10 @@ const entity_id world::new_entity(void) {
 const bool world::delete_entity(const entity_id& e_id) {
     auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),
                              [&e_id](const entity& e){ return e.first == e_id; });
-    if(e_it != entity_vec.end()) {
-        _world.erase(e_id);     //  Remove all associated componenets.
-        entity_vec.erase(e_it);  //  Delete the entity.
-        return true;
-    }
-    return false;
+    if(e_it == entity_vec.end()) return false;
+    _world.erase(e_id);      //  Remove all associated componenets.
+    entity_vec.erase(e_it);  //  Delete the entity.
+    return true;
 }
 
 /*
@@ -94,10 +92,12 @@ const bool world::entity_exists(const entity_id& e_id) {
 const std::string world::get_name(const entity_id& e_id) {
     auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),
                              [&e_id](const entity& e){ return e.first == e_id; });
-    if(e_it != entity_vec.end()) return e_it->second;
-    //  Not found, throw error.
-    std::string err_str = "Entity " + std::to_string(e_id) + " does not exist";
-    throw wte_exception(err_str.c_str(), "world", engine_time::check());
+    if(e_it == entity_vec.end()) {
+        //  Not found, throw error.
+        std::string err_str = "Entity " + std::to_string(e_id) + " does not exist";
+        throw wte_exception(err_str.c_str(), "world", engine_time::check());
+    }
+    return e_it->second;
 }
 
 /*
@@ -109,11 +109,9 @@ const bool world::set_name(const entity_id& e_id, const std::string& name) {
     if(n_it != entity_vec.end()) return false;  //  Entity with the new name exists, error.
     auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),
                              [&e_id](const entity& e){ return e.first == e_id; });
-    if(e_it != entity_vec.end()) {
-        e_it->second = name;
-        return true;  //  New name set.
-    }
-    return false;  //  Didn't find entity_id, error.
+    if(e_it == entity_vec.end()) return false;  //  Didn't find entity_id, error.
+    e_it->second = name;
+    return true;
 }
 
 /*
@@ -122,8 +120,8 @@ const bool world::set_name(const entity_id& e_id, const std::string& name) {
 const entity_id world::get_id(const std::string& name) {
     auto n_it = std::find_if(entity_vec.begin(), entity_vec.end(),
                              [&name](const entity& e){ return e.second == name; });
-    if(n_it != entity_vec.end()) return n_it->first;
-    return ENTITY_ERROR;
+    if(n_it == entity_vec.end()) return ENTITY_ERROR;
+    return n_it->first;
 }
 
 /*

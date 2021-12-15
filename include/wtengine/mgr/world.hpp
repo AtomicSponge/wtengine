@@ -211,9 +211,7 @@ class world final : private manager<world> {
          * \return Return false if no components were deleted.
          */
         template <typename T>
-        inline static const bool delete_component(
-            const entity_id& e_id
-        ) {
+        inline static const bool delete_component(const entity_id& e_id) {
             auto results = _world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
@@ -234,9 +232,7 @@ class world final : private manager<world> {
          * \return Return false if it does not.
          */
         template <typename T>
-        inline static const bool has_component(
-            const entity_id& e_id
-        ) {
+        inline static const bool has_component(const entity_id& e_id) {
             const auto results = _world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
@@ -254,9 +250,7 @@ class world final : private manager<world> {
          * \exception wte_exception Component not found.
          */
         template <typename T>
-        inline static const std::shared_ptr<T> set_component(
-            const entity_id& e_id
-        ) {
+        inline static const std::shared_ptr<T> set_component(const entity_id& e_id) {
             const auto results = _world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
@@ -276,9 +270,7 @@ class world final : private manager<world> {
          * \exception wte_exception Component not found.
          */
         template <typename T>
-        inline static const std::shared_ptr<const T> get_component(
-            const entity_id& e_id
-        ) {
+        inline static const std::shared_ptr<const T> get_component(const entity_id& e_id) {
             const auto results = _world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {

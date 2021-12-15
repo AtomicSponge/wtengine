@@ -25,7 +25,8 @@ namespace wte {
  * \brief Manage the input queue and process events.
  */
 class handlers {
-    friend class engine;
+    //friend class engine;
+    friend class input;
 
     public:
         virtual ~handlers() = default;             //!<  Default virtual destructor.

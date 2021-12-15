@@ -65,7 +65,12 @@ class input {
         static void toggle_recording(void);
 
         /*!
-         * \brief 
+         * \brief Add an input handler.
+         * \param global 
+         * \param keycode 
+         * \param button 
+         * \param handle 
+         * \return 
          */
         static const bool add_handler(
             const bool& global,

@@ -31,6 +31,7 @@
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/config.hpp"
 #include "wtengine/handlers.hpp"
+#include "wtengine/states.hpp"
 
 namespace wte {
 
@@ -38,7 +39,7 @@ namespace wte {
  * \class input
  * \brief Manage the input queue and process events.
  */
-class input : public handlers {
+class input : public handlers, public states {
     friend class engine;
 
     public:

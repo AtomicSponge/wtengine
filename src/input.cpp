@@ -159,7 +159,7 @@ const bool input::save_recorder(void) {
 /*
  *
  */
-void input::check_events(void) {
+const bool input::check_events(void) {
     ALLEGRO_EVENT event;
     while(al_get_next_event(input_event_queue, &event)) {
         //  Clear any active alerts on input event
@@ -178,6 +178,7 @@ void input::check_events(void) {
             run_game_handlers(event):       //  Run game-only input handlers
             run_non_game_handlers(event));  //  Run non-game input handlers
     }
+    return true;
 }
 
 /*

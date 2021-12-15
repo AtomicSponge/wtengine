@@ -201,17 +201,30 @@ const bool input::add_handler(
     const std::function<void(void)>& handle,
     const std::optional<int>& keycode,
     const std::optional<int>& button,
-    const std::optional<unsigned int>& event,
     const std::optional<bool>& global
 ) {
     if(global) {
         if(keycode) {}
         if(button) {}
-        if(event) {}
     } else {
         if(keycode) {}
         if(button) {}
-        if(event) {}
+    }
+    return false;
+}
+
+/*
+ *
+ */
+const bool input::add_mouse_handler(
+    const std::function<void(void)>& handle,
+    const unsigned int& event,
+    const std::optional<bool>& global
+) {
+    if(global) {
+        //
+    } else {
+        //
     }
     return false;
 }

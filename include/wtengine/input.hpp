@@ -67,17 +67,29 @@ class input {
 
         /*!
          * \brief Add an input handler.
-         * \param global 
+         * \param handle 
          * \param keycode 
          * \param button 
-         * \param handle 
-         * \return 
+         * \param global 
+         * \return True if added, else false.
          */
         static const bool add_handler(
             const std::function<void(void)>& handle,
             const std::optional<int>& keycode,
             const std::optional<int>& button,
-            const std::optional<unsigned int>& event,
+            const std::optional<bool>& global
+        );
+
+        /*!
+         * \brief Add a mouse input handler.
+         * \param handle 
+         * \param event 
+         * \param global 
+         * \return True if added, else false.
+         */
+        static const bool add_mouse_handler(
+            const std::function<void(void)>& handle,
+            const unsigned int& event,
             const std::optional<bool>& global
         );
 

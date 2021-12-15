@@ -289,6 +289,20 @@ class input {
             inline static int button = 0;
         };
 
+        struct global_handlers {
+            // keyboard
+            // mouse
+            // joystick
+            // touch
+        };
+
+        struct non_game_handlers {
+            // keyboard
+            // mouse
+            // joystick
+            // touch
+        };
+
         static int64_t last_tick;
         static std::vector<
             std::pair<const int64_t, const std::vector<ALLEGRO_EVENT>>

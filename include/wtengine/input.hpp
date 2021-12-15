@@ -87,6 +87,22 @@ class input {
          */
         struct event {
             /*!
+             * \struct mouse
+             * \brief Mouse events.
+             */
+            struct mouse {
+                //
+            };
+
+            /*!
+             * \struct touch
+             * \brief Touch events.
+             */
+            struct touch {
+                //
+            };
+
+            /*!
              * \struct p1
              * \brief Player 1 input events.
              */

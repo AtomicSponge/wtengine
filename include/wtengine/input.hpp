@@ -92,6 +92,19 @@ class input {
         );
 
         /*!
+         * \brief Add a joystick input handler.
+         * \param joystick 
+         * \param handle 
+         * \param global 
+         * \return True if added, else false.
+         */
+        static const bool add_joystick_handler(
+            const int& joystick,
+            const std::function<void(void)>& handle,
+            const std::optional<bool>& global
+        );
+
+        /*!
          * \brief Add a mouse input handler.
          * \param event 
          * \param handle 
@@ -292,14 +305,16 @@ class input {
         struct global_handlers {
             // keyboard
             // mouse
-            // joystick
+            // buttons
+            // joysticks
             // touch
         };
 
         struct non_game_handlers {
             // keyboard
             // mouse
-            // joystick
+            // buttons
+            // joysticks
             // touch
         };
 

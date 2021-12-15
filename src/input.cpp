@@ -230,6 +230,22 @@ const bool input::add_button_handler(
 /*
  *
  */
+const bool input::add_joystick_handler(
+    const int& joystick,
+    const std::function<void(void)>& handle,
+    const std::optional<bool>& global
+) {
+    if(global) {
+        //
+    } else {
+        //
+    }
+    return false;
+}
+
+/*
+ *
+ */
 const bool input::add_mouse_handler(
     const unsigned int& event,
     const std::function<void(void)>& handle,

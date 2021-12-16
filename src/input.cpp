@@ -173,10 +173,10 @@ const bool input::check_events(void) {
                 config::_flags::menu_opened = false :
                 config::_flags::menu_opened = true);
         capture_states(event);
-        run_handlers(event);                //  Run global input handlers
+        handlers::run_handlers(event);                //  Run global input handlers
         (config::flags::game_started ?
             run_game_handlers(event):       //  Run game-only input handlers
-            run_non_game_handlers(event));  //  Run non-game input handlers
+            handlers::run_non_game_handlers(event));  //  Run non-game input handlers
     }
     return true;
 }

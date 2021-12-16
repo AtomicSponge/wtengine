@@ -26,6 +26,7 @@
 
 #include "wtengine/config.hpp"
 #include "wtengine/display.hpp"
+#include "wtengine/handlers.hpp"
 #include "wtengine/input.hpp"
 
 #include "wtengine/_globals/_defines.hpp"
@@ -43,7 +44,7 @@ namespace wte {
  * Sets up various system objects used by the engine.
  * Contains the main game loop and members for managing the game and engine.
  */
-class engine : public config, public display, public input {
+class engine : public config, public display, public input, public handlers {
     public:
         /*!
          * \brief Unloads the game engine.

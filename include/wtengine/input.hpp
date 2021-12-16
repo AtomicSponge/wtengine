@@ -14,7 +14,6 @@
 #include <vector>
 #include <map>
 #include <utility>
-#include <optional>
 #include <functional>
 #include <fstream>
 #include <iomanip>
@@ -38,7 +37,7 @@ namespace wte {
  * \class input
  * \brief Manage the input queue and process events.
  */
-class input : public handlers {
+class input {
     friend class engine;
 
     public:

@@ -10,6 +10,9 @@
 #ifndef WTE_HANDLERS_HPP
 #define WTE_HANDLERS_HPP
 
+#include <optional>
+#include <functional>
+
 #include <allegro5/allegro.h>
 
 #include "wtengine/_globals/_defines.hpp"
@@ -25,6 +28,8 @@ namespace wte {
  * \brief Input handlers.
  */
 class handlers {
+    friend class input;
+
     public:
         virtual ~handlers() = default;             //!<  Default virtual destructor.
         handlers(const handlers&) = delete;        //!<  Delete copy constructor.
@@ -158,7 +163,7 @@ class handlers {
         };
 
     private:
-        static bool initialized;  //  Restrict to one instance.
+        inline static bool initialized = false;  //  Restrict to one instance.
 };
 
 }  //  end namespace wte

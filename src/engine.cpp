@@ -20,8 +20,8 @@ bool engine::initialized = false;
 /*
  *
  */
-engine::engine(const int& argc, char** const& argv, const std::string& title) : display(title) {
-    if(initialized == true) throw std::runtime_error(get_window_title() + " already running!");
+engine::engine(const int& argc, char** const& argv) {
+    if(initialized == true) throw std::runtime_error(display::window_title + " already running!");
     initialized = true;
 
     //  Initialize Allegro.

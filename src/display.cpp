@@ -11,6 +11,7 @@
 
 namespace wte {
 
+std::string display::window_title = "WtEngine";
 bool display::initialized = false;
 
 ALLEGRO_DISPLAY* display::_display;
@@ -18,7 +19,7 @@ ALLEGRO_DISPLAY* display::_display;
 /*
  *
  */
-display::display(const std::string& title) : window_title(title) {
+display::display() {
     if(initialized == true) throw std::runtime_error("Display instance already running!");
     initialized = true;
 }
@@ -26,7 +27,7 @@ display::display(const std::string& title) : window_title(title) {
 /*
  *
  */
-const std::string display::get_window_title(void) const { return window_title; }
+void display::set_window_title(const std::string& title) { window_title = title; }
 
 /*
  *

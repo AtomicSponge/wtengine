@@ -79,13 +79,8 @@ class engine : public config, public display, public handlers, public input {
          * 
          * \param argc Command line arguments.
          * \param argv Command line arguments count.
-         * \param title Window title.
          */
-        engine(
-            const int& argc,
-            char** const& argv,
-            const std::string& title
-        );
+        engine(const int& argc, char** const& argv);
 
         /* These function members are overridden in the derived class */
         //!  Define this to load all systems to be used by the game.

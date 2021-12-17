@@ -30,7 +30,7 @@ namespace layer {
  * Game's constructor.
  * Initialize game specific variables here.
  */
-wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv, "WTE Demo") {
+wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
     //  Init Allegro addons that the engine does not use.
     al_init_primitives_addon();
     al_init_acodec_addon();

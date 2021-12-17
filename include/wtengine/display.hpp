@@ -39,10 +39,10 @@ class display {
         void operator=(display const&) = delete;  //!<  Delete assignment operator.
 
         /*!
-         * \brief Get the window title.
-         * \return Window title as string.
+         * \brief Set the window title.
+         * \param title Window title.
          */
-        const std::string get_window_title(void) const;
+        static void set_window_title(const std::string& title);
 
         /*!
          * \brief Set the display mode.
@@ -57,11 +57,7 @@ class display {
         static void set_scale_factor(const float& f);
 
     protected:
-        /*!
-         * \brief Display constructor.
-         * \param title Window title.
-         */
-        display(const std::string& title);
+        display();
 
     private:
         /*
@@ -81,7 +77,7 @@ class display {
 
         static ALLEGRO_DISPLAY* _display;  //  Allegro object for the display.
 
-        const std::string window_title;    //  Title for application window.
+        static std::string window_title;    //  Title for application window.
         static bool initialized;           //  Restrict to one instance.
 
         class al_bitmap_converter final {

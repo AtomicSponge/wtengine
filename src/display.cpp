@@ -13,7 +13,6 @@ namespace wte {
 
 std::string display::window_title = "WtEngine";
 bool display::initialized = false;
-
 ALLEGRO_DISPLAY* display::_display;
 
 /*

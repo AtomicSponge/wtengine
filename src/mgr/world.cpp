@@ -14,7 +14,7 @@ namespace wte::mgr {
 template <> bool world::manager<world>::initialized = false;
 
 entity_id world::entity_counter = ENTITY_START;
-world_container world::entity_vec;
+entities world::entity_vec;
 world_map world::_world;
 
 /*
@@ -127,7 +127,7 @@ const entity_id world::get_id(const std::string& name) {
 /*
  *
  */
-const world_container world::get_entities(void) { return entity_vec; }
+const entities world::get_entities(void) { return entity_vec; }
 
 /*
  *

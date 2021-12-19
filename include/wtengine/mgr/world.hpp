@@ -44,10 +44,10 @@ namespace wte {
     typedef std::pair<entity_id, std::string> entity;
 
     /*!
-    * \typedef std::vector<entity> world_container
+    * \typedef std::vector<entity> entities
     * Container for storing a group of entity references.
     */
-    typedef std::vector<entity> world_container;
+    typedef std::vector<entity> entities;
 
     /*!
     * \typedef std::vector<cmp::component_sptr> entity_container
@@ -153,7 +153,7 @@ class world final : private manager<world> {
          * 
          * \return Returns a vector of all entity IDs and names.
          */
-        static const world_container get_entities(void);
+        static const entities get_entities(void);
 
         /*!
          * \brief Set all components related to an entity.
@@ -331,7 +331,7 @@ class world final : private manager<world> {
         static void clear(void);  //  Clear the entity manager.
 
         static entity_id entity_counter;    //  Last Entity ID used.
-        static world_container entity_vec;  //  Container for all entities.
+        static entities entity_vec;  //  Container for all entities.
         static world_map _world;            //  Container for all components.
 };
 

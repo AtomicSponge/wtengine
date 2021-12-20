@@ -40,50 +40,38 @@ class wte_exception final : public std::exception {
             if constexpr (build_options.debug_mode) log_exception(desc, loc, t);
         };
 
-        inline ~wte_exception() = default;  //!<  Default destructor.
+        ~wte_exception() = default;  //!<  Default destructor.
 
         /*!
          * \brief Returns the description of the thrown exception.
          * \return Description of thrown exception.
          */
-        inline const char* what() const noexcept override {
-            return description;
-        };
+        const char* what() const noexcept override;
 
         /*!
          * \brief Return the location the exception occured.
          * \return Location of thrown exception.
          */
-        inline const char* where() const noexcept {
-            return location;
-        };
+        const char* where() const noexcept;
 
         /*!
          * \brief Return the time the exception occured.
          * \return Time of thrown exception.
          */
-        inline const int64_t when() const noexcept {
-            return time;
-        };
+        const int64_t when() const noexcept;
 
     private:
         const char* description;  //  Exception description.
         const char* location;     //  Exception location.
         const int64_t time;       //  Time of exception.
 
-        inline void log_exception(
+        void log_exception(
             const char* desc,
             const char* loc,
             const int64_t& t
-        ) {
-            exception_log_file.open("wte_debug//exception_log.txt", std::ios::app);
-            exception_log_file << "Time: " << t << "\t";
-            exception_log_file << "Location: " << loc << "\t";
-            exception_log_file << "Description: " << desc << std::endl;
-            exception_log_file.close();
-        };
+        );
 
-        inline static std::ofstream exception_log_file;
+        static std::ofstream exception_log_file;
 };
 
 }  //  end namespace wte

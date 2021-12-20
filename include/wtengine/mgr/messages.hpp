@@ -82,7 +82,11 @@ class messages final : private manager<messages> {
          * Get messages based on their command.
          * Once events in the future are reached, break early.
          */
-        static const message_container get(const std::string& sys);
+        static const message_container get(const std::string& sys) {
+            if constexpr (build_options.debug_mode) return _get_debug(sys); else return _get(sys);
+        };
+        static const message_container _get(const std::string& sys);        //  Normal get
+        static const message_container _get_debug(const std::string& sys);  //  Debug get
         //  Deletes timed messages that were not processed.
         inline static void prune(void) {
             if constexpr (build_options.debug_mode) _prune_debug(); else _prune();

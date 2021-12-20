@@ -328,13 +328,11 @@ void renderer::render(void) {
         al_destroy_bitmap(temp_bitmap);
     }
 
-    //  Framerate and timer rendering.
     //  Draw frame rate.
     if(config::flags::draw_fps) {
         const std::string fps_string = "FPS: " + std::to_string(fps);
         al_draw_text(**renderer_font, WTE_COLOR_YELLOW, config::gfx::screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
-
     //  Draw time if debug mode is enabled.
     if(build_options.debug_mode) {
         const std::string timer_string = "Timer: " + std::to_string(engine_time::check());

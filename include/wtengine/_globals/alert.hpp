@@ -25,10 +25,7 @@ namespace wte {
 
 /*!
  * \class alert
- * \brief Allows the engine to set an alert to be displayed to the screen.
- * 
- * Alerts are cleared after the player presses a button.
- * Used internally by the engine only.  Use notice class instead.
+ * \brief Allows the engine to set an alert.  Internal use only.
  */
 class alert final {
     friend class engine;

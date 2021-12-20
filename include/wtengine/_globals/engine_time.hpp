@@ -34,13 +34,8 @@ class engine_time final {
         static const int64_t check(void);
 
     private:
-        /*
-         * Sets the internal timer.
-         * This is called once during the game loop in class wte_main
-         * and when starting/stopping the game.
-         */
+        //  Sets the internal timer. Called internally by engine.
         static void set(const int64_t& t);
-
         static int64_t current_time;  //  Track game timer
 };
 

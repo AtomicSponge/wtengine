@@ -64,13 +64,12 @@ class wte_exception final : public std::exception {
         const char* description;  //  Exception description.
         const char* location;     //  Exception location.
         const int64_t time;       //  Time of exception.
-
+        //  Log exception to file when debugging is enabled.
         void log_exception(
             const char* desc,
             const char* loc,
             const int64_t& t
         );
-
         static std::ofstream exception_log_file;
 };
 

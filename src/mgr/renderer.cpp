@@ -117,17 +117,13 @@ void renderer::render(void) {
     al_set_target_backbuffer(al_get_current_display());
     al_clear_to_color(WTE_COLOR_BLACK);
 
-    /*
-     * Render world if the game is running.
-     */
+    //  Render world if the game is running.
     if(config::flags::game_started) {
         //  Set drawing to the arena bitmap.
         al_set_target_bitmap(**arena_bitmap);
         al_clear_to_color(WTE_COLOR_BLACK);
 
-        /*
-         * Draw the backgrounds.
-         */
+        //  Draw the backgrounds.
         const const_component_container<cmp::gfx::background> background_components =
             mgr::world::get_components<cmp::gfx::background>();
 
@@ -176,9 +172,7 @@ void renderer::render(void) {
             }
         }
 
-        /*
-         * Draw the sprites.
-         */
+        //  Draw the sprites.
         const const_component_container<cmp::gfx::sprite> sprite_components =
             mgr::world::get_components<cmp::gfx::sprite>();
 
@@ -244,14 +238,10 @@ void renderer::render(void) {
             }
         }
 
-        /*
-         * Draw hitboxes if enabled.  Use different colors for each team.
-         */
-        if(config::flags::show_hitboxes) draw_hitboxes();
+        //  Draw hitboxes if debug is enabled.
+        if(build_options.debug_mode && config::flags::show_hitboxes) draw_hitboxes();
 
-        /*
-         * Draw the overlays.
-         */
+        //  Draw the overlays.
         const const_component_container<cmp::gfx::overlay> overlay_components =
             mgr::world::get_components<cmp::gfx::overlay>();
 
@@ -310,18 +300,14 @@ void renderer::render(void) {
             (config::gfx::screen_h / 2) - (config::gfx::arena_h * config::gfx::scale_factor / 2),
             config::gfx::arena_w * config::gfx::scale_factor,
             config::gfx::arena_h * config::gfx::scale_factor, 0);
-    } else {
-        /*
-         * Game is not running - draw the title screen.
-         */
+    } else {  //  Game is not running
+        //  Draw the title screen.
         al_draw_scaled_bitmap(**title_bitmap, 0, 0,
             title_bitmap->get_width(), title_bitmap->get_height(),
             0, 0, config::gfx::screen_w, config::gfx::screen_h, 0);
     }
 
-    /*
-     * Render alerts.
-     */
+    //  Render alerts.
     if(alert::is_set()) {
         const int font_size = al_get_font_line_height(**renderer_font);
         ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap((alert::get().length() * font_size) + (font_size * 2), font_size + (font_size * 2));
@@ -344,9 +330,7 @@ void renderer::render(void) {
         al_destroy_bitmap(temp_bitmap);
     }
 
-    /*
-     * Framerate and timer rendering.
-     */
+    //  Framerate and timer rendering.
     //  Draw frame rate.
     if(config::flags::draw_fps) {
         const std::string fps_string = "FPS: " + std::to_string(fps);
@@ -359,9 +343,7 @@ void renderer::render(void) {
         al_draw_text(**renderer_font, WTE_COLOR_YELLOW, config::gfx::screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     }
 
-    /*
-     * Update the screen
-     */
+    //  Update the screen & delta time.
     al_flip_display();
     _delta_time = system_clock::now() - _last_render;
     _last_render = system_clock::now();

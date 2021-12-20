@@ -82,7 +82,7 @@ class messages final : private manager<messages> {
          * Get messages based on their command.
          * Once events in the future are reached, break early.
          */
-        static const message_container get(const std::string& sys) {
+        inline static const message_container get(const std::string& sys) {
             if constexpr (build_options.debug_mode) return _get_debug(sys); else return _get(sys);
         };
         static const message_container _get(const std::string& sys);        //  Normal get

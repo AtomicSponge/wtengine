@@ -70,7 +70,6 @@ class messages final : private manager<messages> {
             }
         };
         inline ~messages() { if constexpr (build_options.debug_mode) debug_log_file.close(); };
-
         //  Clear the message queue.
         static void clear(void);
         /*
@@ -88,8 +87,8 @@ class messages final : private manager<messages> {
         inline static void prune(void) {
             if constexpr (build_options.debug_mode) _prune_debug(); else _prune();
         };
-        static void _prune(void);
-        static void _prune_debug(void);
+        static void _prune(void);        //  Normal prune
+        static void _prune_debug(void);  //  Debug prune
         //  Read a message from file.
         static void read(
             ALLEGRO_FILE& file,
@@ -102,9 +101,7 @@ class messages final : private manager<messages> {
         );
         //  Write a message to the debug log file if debugging is enabled.
         static void log(const message& msg);
-
-        static std::ofstream debug_log_file;
-
+        static std::ofstream debug_log_file;  //  For message logging
         //  Vector of all messages to be processed
         static message_container _messages;
 };

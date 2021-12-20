@@ -290,9 +290,7 @@ void renderer::render(void) {
             }
         }
 
-        /*
-         * Draw the arena bitmap to the screen.
-         */
+        //  Draw the arena bitmap to the screen.
         al_set_target_backbuffer(al_get_current_display());
         al_draw_scaled_bitmap(
             **arena_bitmap, 0, 0, config::gfx::arena_w, config::gfx::arena_h,

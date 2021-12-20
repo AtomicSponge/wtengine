@@ -17,23 +17,6 @@ message_container messages::_messages;
 std::ofstream messages::debug_log_file;
 
 /*
- * Start logging if debugging is enabled.
- */
-messages::messages() {
-    if constexpr (build_options.debug_mode) {
-        debug_log_file.open("wte_debug//messages.txt", std::ios::trunc);
-        debug_log_file << "Logging messages..." << std::endl << std::endl;
-    }
-}
-
-/*
- * Close log file if debugging is enabled.
- */
-messages::~messages() {
-    if constexpr (build_options.debug_mode) debug_log_file.close();
-}
-
-/*
  *
  */
 void messages::clear(void) { _messages.clear(); }

@@ -63,8 +63,13 @@ class messages final : private manager<messages> {
         static const bool load_script(const std::string& fname);
 
     private:
-        messages();
-        ~messages();
+        inline messages() {
+            if constexpr (build_options.debug_mode) {
+                debug_log_file.open("wte_debug//messages.txt", std::ios::trunc);
+                debug_log_file << "Logging messages..." << std::endl << std::endl;
+            }
+        };
+        inline ~messages() { if constexpr (build_options.debug_mode) debug_log_file.close(); };
 
         //  Clear the message queue.
         static void clear(void);

@@ -32,15 +32,26 @@ void messages::add(const message& msg) {
 /*
  *
  */
-void messages::prune(void) {
+void messages::_prune(void) {
+    for(auto it = _messages.begin(); it != _messages.end();) {
+        //  End early if events are in the future.
+        if(it->get_timer() > engine_time::check()) break;
+        if(it->is_timed_event()) it = _messages.erase(it);
+        else it++;
+    }
+}
+
+/*
+ *
+ */
+void messages::_prune_debug(void) {
+    if(!build_options.debug_mode) return;
     for(auto it = _messages.begin(); it != _messages.end();) {
         //  End early if events are in the future.
         if(it->get_timer() > engine_time::check()) break;
         if(it->is_timed_event()) {
-            if constexpr (build_options.debug_mode) {
-                debug_log_file << "MESSAGE DELETED | ";
-                log(*it);
-            }
+            debug_log_file << "MESSAGE DELETED | ";
+            log(*it);
             it = _messages.erase(it);
         }
         else it++;
@@ -188,6 +199,7 @@ void messages::read(
  *
  */
 void messages::log(const message& msg) {
+    if(!build_options.debug_mode) return;
     debug_log_file << "PROC AT:  " << engine_time::check() << " | ";
     debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
     debug_log_file << "SYS:  " << msg.get_sys() << " | ";

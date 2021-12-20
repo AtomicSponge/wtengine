@@ -85,7 +85,11 @@ class messages final : private manager<messages> {
          */
         static const message_container get(const std::string& sys);
         //  Deletes timed messages that were not processed.
-        static void prune(void);
+        inline static void prune(void) {
+            if constexpr (build_options.debug_mode) _prune_debug(); else _prune();
+        };
+        static void _prune(void);
+        static void _prune_debug(void);
         //  Read a message from file.
         static void read(
             ALLEGRO_FILE& file,

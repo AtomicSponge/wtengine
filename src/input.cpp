@@ -239,7 +239,7 @@ void input::run_game_handlers(const ALLEGRO_EVENT& event) {
         //  Record last key pressed.
         _lastkeypress::timer = engine_time::check();
         _lastkeypress::key = event.keyboard.keycode;
-        if(event.keyboard.keycode == WTE_KEY_TOGGLE_HITBOX) {
+        if(build_options.debug_mode && event.keyboard.keycode == WTE_KEY_TOGGLE_HITBOX) {
             (config::flags::show_hitboxes ?
                 config::_flags::show_hitboxes = false :
                 config::_flags::show_hitboxes = true);

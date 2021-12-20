@@ -244,41 +244,10 @@ void renderer::render(void) {
             }
         }
 
-        if constexpr (build_options.debug_mode) {
-            /*
-             * Draw hitboxes if enabled.  Use different colors for each team.
-             */
-            if(config::flags::show_hitboxes) {
-                const const_component_container<cmp::hitbox> hitbox_components =
-                    mgr::world::get_components<cmp::hitbox>();
-                
-                for(auto& it: hitbox_components) {
-                    if(it.second->solid) {
-                        //  Select color based on team.
-                        ALLEGRO_COLOR team_color;
-                        switch(it.second->team) {
-                            case 0: team_color = WTE_COLOR_GREEN; break;
-                            case 1: team_color = WTE_COLOR_RED; break;
-                            case 2: team_color = WTE_COLOR_BLUE; break;
-                            default: team_color = WTE_COLOR_YELLOW;
-                        }
-                        //  Draw the hitbox.
-                        ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap(
-                            it.second->width,
-                            it.second->height);
-                        al_set_target_bitmap(temp_bitmap);
-                        al_clear_to_color(team_color);
-                        al_set_target_bitmap(**arena_bitmap);
-                        try {
-                            al_draw_bitmap(temp_bitmap,
-                                mgr::world::get_component<cmp::location>(it.first)->pos_x,
-                                mgr::world::get_component<cmp::location>(it.first)->pos_y, 0);
-                        } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
-                        al_destroy_bitmap(temp_bitmap);
-                    }
-                }
-            }
-        }
+        /*
+         * Draw hitboxes if enabled.  Use different colors for each team.
+         */
+        if(config::flags::show_hitboxes) draw_hitboxes();
 
         /*
          * Draw the overlays.
@@ -385,7 +354,7 @@ void renderer::render(void) {
     }
 
     //  Draw time if debug mode is enabled.
-    if constexpr (build_options.debug_mode) {
+    if(build_options.debug_mode) {
         const std::string timer_string = "Timer: " + std::to_string(engine_time::check());
         al_draw_text(**renderer_font, WTE_COLOR_YELLOW, config::gfx::screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     }

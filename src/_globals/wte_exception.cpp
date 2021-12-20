@@ -11,6 +11,8 @@
 
 namespace wte {
 
+std::ofstream wte_exception::exception_log_file;
+
 /*
  *
  */

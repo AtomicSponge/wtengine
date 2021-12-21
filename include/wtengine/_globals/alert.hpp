@@ -13,6 +13,7 @@
 #include <string>
 
 namespace wte::mgr {
+    class messages;
     class spawner;
     class systems;
 }
@@ -30,6 +31,7 @@ namespace wte {
 class alert final {
     friend class engine;
     friend class input;
+    friend class mgr::messages;
     friend class mgr::spawner;
     friend class mgr::systems;
     friend class mgr::gfx::renderer;

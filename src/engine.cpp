@@ -266,7 +266,7 @@ void engine::do_game(void) {
                 //  Run all systems.
                 mgr::systems::run();
                 //  Process messages.
-                mgr::systems::dispatch();
+                mgr::messages::dispatch();
                 //  Get any spawner messages and pass to handler.
                 mgr::spawner::process_messages(mgr::messages::get("spawner"));
                 break;

@@ -14,13 +14,13 @@
 
 #include "wtengine/cmp/component.hpp"
 
+#include "wtengine/_globals/alert.hpp"
+#include "wtengine/_globals/message.hpp"
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mgr/world.hpp"
-#include "wtengine/_globals/message.hpp"
-#include "wtengine/_globals/alert.hpp"
 
 namespace wte::mgr {
-    class systems;
+    class messages;
 }
 
 namespace wte::cmp {
@@ -32,7 +32,7 @@ namespace wte::cmp {
  * Define message processing in handle_msg lambda.
  */
 class dispatcher final : public component {
-    friend class mgr::systems;
+    friend class mgr::messages;
 
     public:
         /*!

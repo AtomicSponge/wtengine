@@ -19,15 +19,17 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_physfs.h>
 
-#include "wtengine/_globals/_defines.hpp"
-#include "wtengine/_globals/engine_time.hpp"
-#include "wtengine/_globals/message.hpp"
 #include "wtengine/mgr/manager.hpp"
 
+#include "wtengine/_globals/_defines.hpp"
+#include "wtengine/_globals/alert.hpp"
+#include "wtengine/_globals/engine_time.hpp"
+#include "wtengine/_globals/message.hpp"
+#include "wtengine/cmp/dispatcher.hpp"
+#include "wtengine/mgr/world.hpp"
+
 namespace wte {
-
-class engine;
-
+    class engine;
 }
 
 namespace wte::mgr {
@@ -72,6 +74,12 @@ class messages final : private manager<messages> {
         inline ~messages() { if constexpr (build_options.debug_mode) debug_log_file.close(); };
         //  Clear the message queue.
         static void clear(void);
+        /*
+         * Process dispatcher components. 
+         * Get messages for the entities and pass to each.
+         * Keeps checking for responces and will process as well.
+         */
+        static void dispatch(void);
         /*
          * Load a new data file into the message queue.
          * This is called when a new game is created.

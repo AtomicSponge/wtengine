@@ -37,16 +37,14 @@
 #include "wtengine/display.hpp"
 
 namespace wte {
+    class display;
+    class engine;
 
-class display;
-class engine;
+    template <typename T>
+    using time_point = std::chrono::time_point<T>;
 
-template <typename T>
-using time_point = std::chrono::time_point<T>;
-
-typedef std::chrono::system_clock system_clock;
-typedef std::chrono::system_clock::duration duration;
-
+    typedef std::chrono::system_clock system_clock;
+    typedef std::chrono::system_clock::duration duration;
 }
 
 namespace wte::mgr::gfx {

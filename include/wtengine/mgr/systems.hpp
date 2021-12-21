@@ -19,14 +19,10 @@
 
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
-#include "wtengine/mgr/messages.hpp"
-#include "wtengine/mgr/world.hpp"
 #include "wtengine/sys/system.hpp"
 
 namespace wte {
-
-class engine;
-
+    class engine;
 }
 
 namespace wte::mgr {
@@ -63,12 +59,6 @@ class systems final : private manager<systems> {
         static void run(void);
         //  Run all untimed systems.
         static void run_untimed(void);
-        /*
-         * Process dispatcher components. 
-         * Get messages for the entities and pass to each.
-         * Keeps checking for responces and will process as well.
-         */
-        static void dispatch(void);
 
         // Store the vector of systems.
         static std::vector<sys::system_uptr> _systems_timed;

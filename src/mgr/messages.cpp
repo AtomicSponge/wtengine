@@ -32,6 +32,32 @@ void messages::add(const message& msg) {
 /*
  *
  */
+void messages::dispatch(void) {
+    component_container<cmp::dispatcher> dispatch_components =
+        mgr::world::set_components<cmp::dispatcher>();
+
+    while(true) {  //  Infinite loop to verify all current messages are processed.
+        message_container temp_msgs = get("entities");
+        if(temp_msgs.empty()) break;  //  No messages, end while(true) loop.
+
+        //  For all messages, check each dispatch component.
+        for(auto& m_it: temp_msgs) { for(auto& c_it: dispatch_components) {
+            try {
+                if(m_it.get_to() == mgr::world::get_name(c_it.first)) {
+                    c_it.second->handle_msg(c_it.first, m_it);
+                    break;  //  Found, stop checking dispatch components.
+                }
+            } catch(const wte_exception& e) {
+                alert::set(e.what(), e.where(), e.when());
+                break;
+            } catch(...) { break; }
+        }}  //  End double for
+    }
+}
+
+/*
+ *
+ */
 void messages::_prune(void) {
     for(auto it = _messages.begin(); it != _messages.end();) {
         //  End early if events are in the future.

@@ -20,7 +20,8 @@ namespace wte::mgr {
  * 
  * These are restricted to a single instance.
  */
-template <class derived> class manager {
+template <class derived>
+class manager {
     public:
         virtual ~manager() = default;             //!<  Default virtual destructor.
         manager(const manager&) = delete;         //!<  Delete copy constructor.

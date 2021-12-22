@@ -11,8 +11,6 @@
 
 namespace wte {
 
-std::ofstream wte_exception::exception_log_file;
-
 /*
  *
  */
@@ -36,8 +34,7 @@ void wte_exception::log_exception(
     const char* loc,
     const int64_t& t
 ) {
-    if(!build_options.debug_mode) return;
-    exception_log_file.open("wte_debug//exception_log.txt", std::ios::app);
+    std::ofstream exception_log_file("wte_debug//exception_log.txt", std::ios::app);
     exception_log_file << "Time: " << t << "\t";
     exception_log_file << "Location: " << loc << "\t";
     exception_log_file << "Description: " << desc << std::endl;

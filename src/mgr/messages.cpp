@@ -62,8 +62,7 @@ void messages::_prune(void) {
     for(auto it = _messages.begin(); it != _messages.end();) {
         //  End early if events are in the future.
         if(it->get_timer() > engine_time::check()) break;
-        if(it->is_timed_event()) it = _messages.erase(it);
-        else it++;
+        it = _messages.erase(it);
     }
 }
 
@@ -71,16 +70,12 @@ void messages::_prune(void) {
  *
  */
 void messages::_prune_debug(void) {
-    if(!build_options.debug_mode) return;
     for(auto it = _messages.begin(); it != _messages.end();) {
         //  End early if events are in the future.
         if(it->get_timer() > engine_time::check()) break;
-        if(it->is_timed_event()) {
-            debug_log_file << "MESSAGE DELETED | ";
-            log(*it);
-            it = _messages.erase(it);
-        }
-        else it++;
+        debug_log_file << "MESSAGE DELETED | ";
+        log(*it);
+        it = _messages.erase(it);
     }
 }
 
@@ -105,7 +100,6 @@ const message_container messages::_get(const std::string& sys) {
  */
 const message_container messages::_get_debug(const std::string& sys) {
     message_container temp_messages;
-    if(!build_options.debug_mode) return temp_messages;
     for(auto it = _messages.begin(); it != _messages.end();) {
         //  End early if events are in the future
         if(it->get_timer() > engine_time::check()) break;

@@ -70,7 +70,6 @@ class wte_exception final : public std::exception {
             const char* loc,
             const int64_t& t
         );
-        static std::ofstream exception_log_file;
 };
 
 }  //  end namespace wte

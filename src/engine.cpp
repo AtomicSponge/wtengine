@@ -250,11 +250,6 @@ void engine::do_game(void) {
             al_resume_timer(main_timer);
         }
 
-        //  Get any system messages and pass to handler.
-        cmds.process_messages(mgr::messages::get("system"));
-        //  Send audio messages to the audio queue.
-        mgr::audio::process_messages(mgr::messages::get("audio"));
-
         ALLEGRO_EVENT event;
         if(al_get_next_event(main_event_queue, &event)) {
             switch(event.type) {
@@ -270,7 +265,6 @@ void engine::do_game(void) {
                 //  Get any spawner messages and pass to handler.
                 mgr::spawner::process_messages(mgr::messages::get("spawner"));
                 break;
-
             //  Check if display looses focus.
             case ALLEGRO_EVENT_DISPLAY_SWITCH_OUT:
                 out_of_focus();
@@ -284,12 +278,21 @@ void engine::do_game(void) {
                 if(config::flags::game_started) process_end_game();
                 config::_flags::is_running = false;
                 break;
+            //  Window has been resized.
+            case ALLEGRO_EVENT_DISPLAY_RESIZE:
+                //
+                break;
             }
         }
 
+        //  Get any system messages and pass to handler.
+        cmds.process_messages(mgr::messages::get("system"));
+        //  Send audio messages to the audio queue.
+        mgr::audio::process_messages(mgr::messages::get("audio"));
+
         mgr::systems::run_untimed();   //  Run any untimed systems.
         mgr::gfx::renderer::render();  //  Render the screen.
-        mgr::messages::prune();        //  Delete unprocessed timed messages.
+        mgr::messages::prune();        //  Delete unprocessed messages.
         /* *** END ENGINE LOOP ********************************************** */
     }
 

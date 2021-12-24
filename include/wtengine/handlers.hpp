@@ -23,6 +23,29 @@
 
 namespace wte {
 
+enum handler_scope { GLOBAL, NONGAME, GAME };
+enum handler_type { KEYBOARD, MOUSE, JOYSTICK, TOUCH };
+
+/*!
+ * \class handler
+ * \brief Input handler.
+ * \tparam S
+ * \tparam T
+ */
+template <size_t S, size_t T>
+class handler {
+    friend class handlers;
+
+    public:
+        handler() = default;
+        handler(const handler&) = delete;         //!<  Delete copy constructor.
+        void operator=(handler const&) = delete;  //!<  Delete assignment operator.
+        ~handler() = default;
+
+    private:
+        std::function<void(void)> handle;
+};
+
 /*!
  * \class handlers
  * \brief Input handlers.
@@ -36,102 +59,13 @@ class handlers {
         void operator=(handlers const&) = delete;  //!<  Delete assignment operator.
 
         /*!
-         * \brief Add a keyboard input handler.
-         * \param keycode 
-         * \param handle 
-         * \param global 
-         * \return True if added, else false.
+         * \brief Add handler
+         * \return false
          */
-        inline static const bool add_key_handler(
-            const int& keycode,
-            const std::function<void(void)>& handle,
-            const std::optional<bool>& global
+        template <size_t S, size_t T>
+        inline static const bool add_handler(
+            const handler<S,T>& handle
         ) {
-            if(global) {
-                //
-            } else {
-                //
-            }
-            return false;
-        };
-
-        /*!
-         * \brief Add a button input handler.
-         * \param button 
-         * \param handle 
-         * \param global 
-         * \return True if added, else false.
-         */
-        inline static const bool add_button_handler(
-            const int& button,
-            const std::function<void(void)>& handle,
-            const std::optional<bool>& global
-        ) {
-            if(global) {
-                //
-            } else {
-                //
-            }
-            return false;
-        };
-
-        /*!
-         * \brief Add a joystick input handler.
-         * \param joystick 
-         * \param handle 
-         * \param global 
-         * \return True if added, else false.
-         */
-        inline static const bool add_joystick_handler(
-            const int& joystick,
-            const std::function<void(void)>& handle,
-            const std::optional<bool>& global
-        ) {
-            if(global) {
-                //
-            } else {
-                //
-            }
-            return false;
-        };
-
-        /*!
-         * \brief Add a mouse input handler.
-         * \param event 
-         * \param handle 
-         * \param global 
-         * \return True if added, else false.
-         */
-        inline static const bool add_mouse_handler(
-            const unsigned int& event,
-            const std::function<void(void)>& handle,
-            const std::optional<bool>& global
-        ) {
-            if(global) {
-                //
-            } else {
-                //
-            }
-            return false;
-        };
-
-        /*!
-         * \brief Add a touch input handler.
-         * \param event 
-         * \param handle 
-         * \param global 
-         * \return True if added, else false.
-         */
-        inline static const bool add_touch_handler(
-            const unsigned int& event,
-            const std::function<void(void)>& handle,
-            const std::optional<bool>& global
-        ) {
-            if(global) {
-                //
-            } else {
-                //
-            }
             return false;
         };
 
@@ -145,22 +79,6 @@ class handlers {
         inline static void run_handlers(const ALLEGRO_EVENT&) {};
         //  Process out-of-game input events.
         inline static void run_non_game_handlers(const ALLEGRO_EVENT&) {};
-
-        struct global_handlers {
-            // keyboard
-            // mouse
-            // buttons
-            // joysticks
-            // touch
-        };
-
-        struct non_game_handlers {
-            // keyboard
-            // mouse
-            // buttons
-            // joysticks
-            // touch
-        };
 
     private:
         inline static bool initialized = false;  //  Restrict to one instance.

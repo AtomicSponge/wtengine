@@ -28,6 +28,8 @@ typedef std::vector<std::string> msg_args;
  */
 class message final {
     public:
+        message() = delete;  //!<  Delete default constructor.
+
         /*!
          * \brief Create a non-timed message.
          * \param s System.

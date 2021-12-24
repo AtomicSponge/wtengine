@@ -94,26 +94,19 @@ class world final : private manager<world> {
     public:
         /*!
          * \brief Create a new entity by name, using the next available ID.
-         * 
-         * Throw error if there is no room for entities.
-         * 
          * \return The newly created entity ID.  WTE_ENTITY_ERROR on fail.
          */
         static const entity_id new_entity(void);
 
         /*!
          * \brief Delete entity by ID.
-         * 
          * \param e_id The entity ID to delete.
          * \return Return true on success, false if entity does not exist.
          */
         static const bool delete_entity(const entity_id& e_id);
 
         /*!
-         * \brief Check if an entity exists.
-         * 
-         * Check the entity vector by ID and return result.
-         * 
+         * \brief Check if an entity exists by ID.
          * \param e_id The entity ID to check.
          * \return Return true if found, return false if not found.
          */
@@ -121,7 +114,6 @@ class world final : private manager<world> {
 
         /*!
          * \brief Get entity name.
-         * 
          * \param e_id Entity ID to get name for.
          * \return Entity name string.
          * \exception wte_exception Entity does not exist.
@@ -130,7 +122,6 @@ class world final : private manager<world> {
 
         /*!
          * \brief Set the entity name.
-         * 
          * \param e_id Entity ID to set.
          * \param name Entity name to set.
          * \return True if set, false on error.
@@ -142,7 +133,6 @@ class world final : private manager<world> {
 
         /*!
          * \brief Get entity ID by name.
-         * 
          * \param name Name to search.
          * \return Entity ID, WTE_ENTITY_ERROR if not found.
          */
@@ -150,14 +140,12 @@ class world final : private manager<world> {
 
         /*!
          * \brief Get the entity reference vector.
-         * 
          * \return Returns a vector of all entity IDs and names.
          */
         static const entities get_entities(void);
 
         /*!
          * \brief Set all components related to an entity.
-         * 
          * \param e_id Entity ID to set components for.
          * \return Returns a container of components based by entity ID.
          * \exception wte_exception Entity does not exist.
@@ -166,7 +154,6 @@ class world final : private manager<world> {
 
         /*!
          * \brief Get all components related to an entity.
-         * 
          * \param e_id Entity ID to get components for.
          * \return Returns a constant container of components based by entity ID.
          * \exception wte_exception Entity does not exist.
@@ -174,10 +161,7 @@ class world final : private manager<world> {
         static const const_entity_container get_entity(const entity_id& e_id);
 
         /*!
-         * \brief Add a new component to an entity.
-         * 
-         * Entities can only have a single compoenent of each type.
-         * 
+         * \brief Add a component to an entity.
          * \tparam T Component type to add.
          * \param e_id Entity ID to add a component to.
          * \param args List of parameters to pass to component constructor.
@@ -204,7 +188,6 @@ class world final : private manager<world> {
 
         /*!
          * \brief Delete a component by type for an entity.
-         * 
          * \tparam T Component type to delete.
          * \param e_id Entity ID to delete component from.
          * \return Return true if a component was deleted.
@@ -225,7 +208,6 @@ class world final : private manager<world> {
 
         /*!
          * \brief Check if an entity has a component by type.
-         * 
          * \tparam T Component type to check.
          * \param e_id The entity ID to check.
          * \return Return true if the entity has the component.
@@ -243,7 +225,6 @@ class world final : private manager<world> {
 
         /*!
          * \brief Set the value of a component by type for an entity.
-         * 
          * \tparam T Component type to search.
          * \param e_id The entity ID to search.
          * \return Return the component.
@@ -263,7 +244,6 @@ class world final : private manager<world> {
 
         /*!
          * \brief Read the value of a component by type for an entity.
-         * 
          * \tparam T Component type to search.
          * \param e_id The entity ID to search.
          * \return Return the component.
@@ -282,10 +262,7 @@ class world final : private manager<world> {
         };
 
         /*!
-         * \brief Set all components for a particulair type.
-         * 
-         * This will return a container of modifiable components casted to their type.
-         * 
+         * \brief Return a 'set' container for all components for a particulair type.
          * \tparam T Component type to search.
          * \return Returns a container of components of all the same type.
          */
@@ -301,10 +278,7 @@ class world final : private manager<world> {
         };
 
         /*!
-         * \brief Get all components for a particulair type.
-         * 
-         * This will return a container of non-modifiable components casted to their type.
-         * 
+         * \brief Return a 'get' container for all components for a particulair type.
          * \tparam T Component type to search.
          * \return Returns a constant container of components of all the same type.
          */
@@ -327,12 +301,10 @@ class world final : private manager<world> {
     private:
         world() = default;
         ~world() = default;
-
         static void clear(void);  //  Clear the entity manager.
-
-        static entity_id entity_counter;    //  Last Entity ID used.
-        static entities entity_vec;  //  Container for all entities.
-        static world_map _world;            //  Container for all components.
+        static entity_id entity_counter;  //  Last Entity ID used.
+        static entities entity_vec;       //  Container for all entities.
+        static world_map _world;          //  Container for all components.
 };
 
 }  //  namespace wte::mgr

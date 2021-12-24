@@ -75,12 +75,11 @@ class handlers {
             initialized = true;
         };
 
-        //  Process global input events.
-        inline static void run_handlers(const ALLEGRO_EVENT&) {};
-        //  Process out-of-game input events.
-        inline static void run_non_game_handlers(const ALLEGRO_EVENT&) {};
-
     private:
+        inline static void run_handlers(const ALLEGRO_EVENT&) {
+            //
+        };
+
         inline static bool initialized = false;  //  Restrict to one instance.
 };
 

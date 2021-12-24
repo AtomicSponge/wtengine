@@ -64,7 +64,7 @@ class handlers {
          */
         template <size_t S, size_t T>
         inline static const bool add_handler(
-            const handler<S,T>& handle
+            const handler<S, T>& handle
         ) {
             return false;
         };
@@ -76,7 +76,7 @@ class handlers {
         };
 
     private:
-        inline static void run_handlers(const ALLEGRO_EVENT&) {
+        inline static void run_handlers(const ALLEGRO_EVENT& event) {
             //
         };
 

@@ -161,6 +161,7 @@ class al_sample final {
          */
         al_sample(const std::string& fname);
 
+        al_sample() = delete;    //!<  Delete default constructor.
         ~al_sample() = default;  //!<  Default destructor.
 
         /*!
@@ -185,6 +186,7 @@ class al_audio final {
          */
         al_audio(const std::string& fname);
 
+        al_audio() = delete;    //!<  Delete default constructor.
         ~al_audio() = default;  //!<  Default destructor.
 
         /*!

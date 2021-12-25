@@ -11,6 +11,12 @@
 
 namespace wte {
 
+const ALLEGRO_KEYBOARD_STATE& input::states::keyboard = input::_states::keyboard;
+const ALLEGRO_MOUSE_STATE& input::states::mouse = input::_states::mouse;
+const ALLEGRO_TOUCH_INPUT_STATE& input::states::touches = input::_states::touches;
+const ALLEGRO_TOUCH_STATE& input::states::first_touch = input::_states::first_touch;
+const ALLEGRO_TOUCH_STATE& input::states::last_touch = input::_states::last_touch;
+
 std::function<void(const int&, const int&, const int&,
     const int&, const unsigned int&, const float&)> input::event::mouse::ondown::left;
 std::function<void(const int&, const int&, const int&,
@@ -162,6 +168,7 @@ const bool input::save_recorder(void) {
 const bool input::check_events(void) {
     ALLEGRO_EVENT event;
     while(al_get_next_event(input_event_queue, &event)) {
+        capture_states(event);
         //  Clear any active alerts on input event
         if(alert::is_set() &&
             (event.type == ALLEGRO_EVENT_KEY_DOWN ||
@@ -172,8 +179,10 @@ const bool input::check_events(void) {
             (config::flags::menu_opened ?
                 config::_flags::menu_opened = false :
                 config::_flags::menu_opened = true);
-        capture_states(event);
+        //  Record input if enabled.
+        if(config::flags::record_input) record_event(event);
         handlers::run_handlers(event);
+        run_game_handlers(event);  //  todo: remove
     }
     return true;
 }
@@ -183,22 +192,19 @@ const bool input::check_events(void) {
  */
 void input::capture_states(const ALLEGRO_EVENT& event) {
     if(config::flags::keyboard_detected)
-        al_get_keyboard_state(&config::_states::keyboard);
+        al_get_keyboard_state(&input::_states::keyboard);
     if(config::flags::mouse_detected)
-        al_get_mouse_state(&config::_states::mouse);
+        al_get_mouse_state(&input::_states::mouse);
     //if(config::flags::joystick_detected)
-        //al_get_joystick_state(&config::_states::joystick);
+        //al_get_joystick_state(&input::_states::joystick);
     if(config::flags::touch_detected)
-        al_get_touch_input_state(&config::_states::touches);
+        al_get_touch_input_state(&input::_states::touches);
 }
 
 /*
  *
  */
 void input::run_game_handlers(const ALLEGRO_EVENT& event) {
-    //  Record input if enabled.
-    if(config::flags::record_input) record_event(event);
-
     switch(event.type) {
     /* *********************** */
     /* *** Mouse events ****** */

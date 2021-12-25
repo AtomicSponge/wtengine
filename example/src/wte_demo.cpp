@@ -160,6 +160,8 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
         //  Stop sound effect.
         mgr::audio::sample::stop("shield_sound");
     };
+
+    mgr::messages::add(message("system", "new-game", "game.sdf"));
 }
 
 /*

@@ -25,10 +25,10 @@ namespace wte {
 
 enum handler_scope { GLOBAL, NONGAME, GAME };
 
-using KeyHandler = std::function<void(int)>;     //!<  ...
-using ButtonHandler = std::function<void(int)>;  //!<  ...
+using key_handler = std::function<void(int)>;     //!<  ...
+using button_handler = std::function<void(int)>;  //!<  ...
 
-using HandlerTypes = std::variant<KeyHandler, ButtonHandler>;
+using handler_types = std::variant<key_handler, button_handler>;
 
 /*!
  * \class handler
@@ -40,13 +40,13 @@ class handler {
     friend class handlers;
 
     public:
-        handler(const HandlerTypes& h) : handle(h) {};
+        handler(const handler_types& h) : handle(h) {};
         handler(const handler&) = delete;         //!<  Delete copy constructor.
         void operator=(handler const&) = delete;  //!<  Delete assignment operator.
         ~handler() = default;
 
     private:
-        HandlerTypes handle;
+        handler_types handle;
 };
 
 /*!

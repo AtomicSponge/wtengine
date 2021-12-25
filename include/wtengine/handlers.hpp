@@ -10,7 +10,7 @@
 #ifndef WTE_HANDLERS_HPP
 #define WTE_HANDLERS_HPP
 
-#include <optional>
+#include <variant>
 #include <functional>
 
 #include <allegro5/allegro.h>
@@ -32,12 +32,18 @@ enum handler_type { KEYBOARD, MOUSE, JOYSTICK, TOUCH };
  * \tparam S
  * \tparam T
  */
+
+using KeyHandler = std::function<void(int)>;     //!<  ...
+using ButtonHandler = std::function<void(int)>;  //!<  ...
+
+using HandlerTypes = std::variant<KeyHandler, ButtonHandler>;
+
 template <size_t S, size_t T>
 class handler {
     friend class handlers;
 
     public:
-        handler() = default;
+        handler(const HandlerTypes& h) {};
         handler(const handler&) = delete;         //!<  Delete copy constructor.
         void operator=(handler const&) = delete;  //!<  Delete assignment operator.
         ~handler() = default;

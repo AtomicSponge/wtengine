@@ -24,7 +24,6 @@
 namespace wte {
 
 enum handler_scope { GLOBAL, NONGAME, GAME };
-enum handler_type { KEYBOARD, MOUSE, JOYSTICK, TOUCH };
 
 using KeyHandler = std::function<void(int)>;     //!<  ...
 using ButtonHandler = std::function<void(int)>;  //!<  ...
@@ -35,9 +34,8 @@ using HandlerTypes = std::variant<KeyHandler, ButtonHandler>;
  * \class handler
  * \brief Input handler.
  * \tparam S
- * \tparam T
  */
-template <size_t S, size_t T>
+template <size_t S>
 class handler {
     friend class handlers;
 
@@ -67,9 +65,9 @@ class handlers {
          * \brief Add handler
          * \return false
          */
-        template <size_t S, size_t T>
+        template <size_t S>
         inline static const bool add_handler(
-            const handler<S, T>& handle
+            const handler<S>& handle
         ) {
             return false;
         };

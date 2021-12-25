@@ -40,7 +40,13 @@ class handler {
     friend class handlers;
 
     public:
+        /*!
+         * \brief Create a new handler.
+         * \param h New handle function.
+         */
         handler(const handler_types& h) : handle(h) {};
+
+        handler() = delete;                       //!<  Delete default constructor.
         handler(const handler&) = delete;         //!<  Delete copy constructor.
         void operator=(handler const&) = delete;  //!<  Delete assignment operator.
         ~handler() = default;
@@ -80,6 +86,17 @@ class handlers {
 
     private:
         inline static void run_handlers(const ALLEGRO_EVENT& event) {
+            //
+            (config::flags::game_started ?
+                run_game_handlers(event) :
+                run_non_game_handlers(event));
+        };
+
+        inline static void run_game_handlers(const ALLEGRO_EVENT& event) {
+            //
+        };
+
+        inline static void run_non_game_handlers(const ALLEGRO_EVENT& event) {
             //
         };
 

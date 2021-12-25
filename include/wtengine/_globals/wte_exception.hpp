@@ -40,6 +40,7 @@ class wte_exception final : public std::exception {
             if constexpr (build_options.debug_mode) log_exception(desc, loc, t);
         };
 
+        wte_exception() = delete;    //!<  Delete default constructor.
         ~wte_exception() = default;  //!<  Default destructor.
 
         /*!

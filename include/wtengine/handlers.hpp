@@ -49,7 +49,7 @@ class handler {
         handler() = delete;                       //!<  Delete default constructor.
         handler(const handler&) = delete;         //!<  Delete copy constructor.
         void operator=(handler const&) = delete;  //!<  Delete assignment operator.
-        ~handler() = default;
+        ~handler() = default;                     //!<  Default destructor.
 
     private:
         handler_types handle;
@@ -80,7 +80,7 @@ class handlers {
 
     protected:
         inline handlers() {
-            if(initialized == true) throw std::runtime_error("Handlers instance already running!");
+            if(initialized) throw std::runtime_error("Handlers instance already running!");
             initialized = true;
         };
 

@@ -14,19 +14,6 @@ namespace wte::cmp {
 /*
  *
  */
-motion::motion(void) : direction(0), x_vel(0.0f), y_vel(0.0f) {}
-
-/*
- *
- */
-motion::motion(
-    const float& d,
-    const float& v
-) : direction(d), x_vel(v), y_vel(0.0f) {}
-
-/*
- *
- */
 motion::motion(
     const float& d,
     const float& xv,

@@ -36,6 +36,7 @@ class bounding_box final : public component {
             const float& ry
         );
 
+        bounding_box() = delete;    //!<  Delete default constructor.
         ~bounding_box() = default;  //!<  Default destructor.
 
         float min_x;  //!<  Top left X position of bounding box.

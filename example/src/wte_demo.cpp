@@ -335,7 +335,7 @@ void wte_demo::new_game(void) {
         (float)(config::gfx::arena_w - 21),
         (float)(config::gfx::arena_h - 32));
     mgr::world::add_component<health>(e_id, 1, 1);
-    mgr::world::add_component<cmp::motion>(e_id);
+    mgr::world::add_component<cmp::motion>(e_id, 0.0f, 0.0f, 0.0f);
 
     mgr::assets<al_bitmap>::load<al_bitmap>("ship", al_bitmap());
     mgr::assets<al_bitmap>::get<al_bitmap>("ship")->load("ship.bmp");
@@ -547,7 +547,7 @@ void wte_demo::new_game(void) {
             mgr::world::add_component<health>(e_id, temp_size * 10, temp_size * 10);
             mgr::world::add_component<damage>(e_id, 10);
             mgr::world::add_component<size>(e_id, temp_size);
-            mgr::world::add_component<cmp::motion>(e_id);
+            mgr::world::add_component<cmp::motion>(e_id, 0.0f, 0.0f, 0.0f);
             mgr::world::set_component<cmp::motion>(e_id)->direction = std::stof(args[3]) * (M_PI / 180);
             mgr::world::set_component<cmp::motion>(e_id)->x_vel = std::stof(args[4]);
             mgr::world::set_component<cmp::motion>(e_id)->y_vel = std::stof(args[4]);

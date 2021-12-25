@@ -46,6 +46,7 @@ class overlay final : public gfx {
             const std::function<void(const entity_id&)>& func
         );
 
+        overlay() = delete;    //!<  Delete default constructor.
         ~overlay() = default;  //!<  Default destructor.
 
         /*!

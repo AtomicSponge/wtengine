@@ -30,6 +30,7 @@ class location final : public component {
             const float& y
         );
 
+        location() = delete;    //!<  Delete default constructor.
         ~location() = default;  //!<  Default destructor.
 
         float pos_x;  //!<  Entity X location.

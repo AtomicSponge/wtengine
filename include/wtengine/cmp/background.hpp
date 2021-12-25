@@ -56,6 +56,7 @@ class background final : public gfx {
             const std::function<void(const entity_id&)>& func
         );
 
+        background() = delete;    //!<  Delete default constructor.
         ~background() = default;  //!<  Default destructor.
 
         float pos_x;  //!<  X position.

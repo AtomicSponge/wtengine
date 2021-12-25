@@ -39,14 +39,10 @@ class dispatcher final : public component {
          * \brief Create a new Dispatcher component.
          * \param func Function to define message processing.
          */
-        dispatcher(
-            const std::function<void(const entity_id&, const message&)>& func
-        );
+        dispatcher(const std::function<void(const entity_id&, const message&)>& func);
 
-        /*!
-         * \brief Dispatched destructor.
-         */
-        ~dispatcher() = default;
+        dispatcher() = delete;    //!<  Delete default constructor.
+        ~dispatcher() = default;  //!<  Default destructor.
 
     private:
         //  Message handler.

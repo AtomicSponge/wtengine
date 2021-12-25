@@ -33,7 +33,7 @@ class al_bitmap final {
         al_bitmap();
 
         /*!
-         * \brief Set bitmap preservation.
+         * \brief Create a null bitmap and set bitmap preservation.
          *
          * Set the nopreserve flag to true to create a bitmap that does not preserve its data
          * when the screen is reset.  This is to increase performance when drawing.

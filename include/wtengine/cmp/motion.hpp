@@ -21,21 +21,6 @@ namespace wte::cmp {
 class motion final : public component {
     public:
         /*!
-         * \brief Create a new Motion component.
-         */
-        motion(void);
-
-        /*!
-         * \brief Create a new Motion component with set direction and velocity.
-         * \param d Direction in radians.
-         * \param v Velocity for X and Y.
-         */
-        motion(
-            const float& d,
-            const float& v
-        );
-
-        /*!
          * \brief Create a new Motion component with set direction and velocity.
          * \param d Direction in radians.
          * \param xv X velocity.
@@ -47,6 +32,7 @@ class motion final : public component {
             const float& yv
         );
 
+        motion() = delete;    //!<  Delete default constructor.
         ~motion() = default;  //!<  Default destructor.
 
         float direction;  //!<  Angle of direction.

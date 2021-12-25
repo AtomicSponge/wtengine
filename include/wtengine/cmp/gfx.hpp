@@ -39,7 +39,8 @@ class gfx : public component {
     friend class sys::gfx::animate;
 
     public:
-        virtual ~gfx() = default;
+        gfx() = delete;            //!<  Delete default constructor.
+        virtual ~gfx() = default;  //!<  Default virtual destructor.
 
         /*!
          * \brief Overload < operator to sort by layer value.

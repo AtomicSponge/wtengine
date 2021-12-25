@@ -26,18 +26,17 @@ namespace wte {
 enum handler_scope { GLOBAL, NONGAME, GAME };
 enum handler_type { KEYBOARD, MOUSE, JOYSTICK, TOUCH };
 
+using KeyHandler = std::function<void(int)>;     //!<  ...
+using ButtonHandler = std::function<void(int)>;  //!<  ...
+
+using HandlerTypes = std::variant<KeyHandler, ButtonHandler>;
+
 /*!
  * \class handler
  * \brief Input handler.
  * \tparam S
  * \tparam T
  */
-
-using KeyHandler = std::function<void(int)>;     //!<  ...
-using ButtonHandler = std::function<void(int)>;  //!<  ...
-
-using HandlerTypes = std::variant<KeyHandler, ButtonHandler>;
-
 template <size_t S, size_t T>
 class handler {
     friend class handlers;

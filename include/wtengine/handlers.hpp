@@ -42,13 +42,13 @@ class handler {
     friend class handlers;
 
     public:
-        handler(const HandlerTypes& h) {};
+        handler(const HandlerTypes& h) : handle(h) {};
         handler(const handler&) = delete;         //!<  Delete copy constructor.
         void operator=(handler const&) = delete;  //!<  Delete assignment operator.
         ~handler() = default;
 
     private:
-        std::function<void(void)> handle;
+        HandlerTypes handle;
 };
 
 /*!

@@ -13,14 +13,19 @@
 #include <variant>
 #include <functional>
 
+#include <allegro5/allegro.h>
+
 namespace wte {
 
-enum handler_scope { GLOBAL, NONGAME, GAME };
+enum handler_scopes { GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES };
 
-using key_handler = std::function<void(int)>;     //!<  ...
-using button_handler = std::function<void(int)>;  //!<  ...
+using key_handler = std::function<void(int, ALLEGRO_DISPLAY*)>;
+using mouse_axes_event = std::function<void(int, int, int, int, int, int, int, float, ALLEGRO_DISPLAY*)>;
+using mouse_button_event = std::function<void(int, int, int, int, unsigned int, float, ALLEGRO_DISPLAY*)>;
+using joy_axis_handler = std::function<void(int, int, float, ALLEGRO_JOYSTICK*)>;
+using joy_button_handler = std::function<void(int, ALLEGRO_JOYSTICK*)>;  //!<  ...
 
-using handler_types = std::variant<key_handler, button_handler>;
+using handler_types = std::variant<key_handler, mouse_axes_event, mouse_button_event, joy_axis_handler, joy_button_handler>;
 
 /*!
  * \class handler

@@ -16,8 +16,6 @@ const ALLEGRO_MOUSE_STATE& input::states::mouse = input::_states::mouse;
 const ALLEGRO_TOUCH_INPUT_STATE& input::states::touches = input::_states::touches;
 const ALLEGRO_TOUCH_STATE& input::states::first_touch = input::_states::first_touch;
 const ALLEGRO_TOUCH_STATE& input::states::last_touch = input::_states::last_touch;
-
-bool input::initialized = false;
 const int64_t& input::lastkeypress::timer = input::_lastkeypress::timer;
 const int& input::lastkeypress::key = input::_lastkeypress::key;
 const int64_t& input::lastbuttonpress::timer = input::_lastbuttonpress::timer;
@@ -28,6 +26,7 @@ std::vector<
 > input::input_recorder;
 std::vector<ALLEGRO_EVENT> input::event_recorder;
 ALLEGRO_EVENT_QUEUE* input::input_event_queue;
+bool input::initialized = false;
 
 /*
  *

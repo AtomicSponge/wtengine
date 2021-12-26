@@ -25,10 +25,10 @@ handlers::handlers() {
  *
  */
 void handlers::run(const ALLEGRO_EVENT& event) {
-    run_handlers<GLOBAL>(event);
+    run_handlers<GLOBAL_HANDLES>(event);
     (config::flags::game_started ?
-        run_handlers<GAME>(event) :
-        run_handlers<NONGAME>(event));
+        run_handlers<GAME_HANDLES>(event) :
+        run_handlers<NONGAME_HANDLES>(event));
 }
 
 }  //  end namespace wte

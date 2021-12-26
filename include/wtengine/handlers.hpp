@@ -18,51 +18,11 @@
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/engine_time.hpp"
+#include "wtengine/_globals/handler.hpp"
 #include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/config.hpp"
 
 namespace wte {
-
-enum handler_scope { GLOBAL, NONGAME, GAME };
-
-using key_handler = std::function<void(int)>;     //!<  ...
-using button_handler = std::function<void(int)>;  //!<  ...
-
-using handler_types = std::variant<key_handler, button_handler>;
-
-/*!
- * \class handler
- * \brief Input handler.
- * \tparam S
- */
-template <size_t S>
-class handler {
-    friend class handlers;
-
-    public:
-        /*!
-         * \brief Create a new handler.
-         * \param h New handle function.
-         */
-        handler(const handler_types& h) : handle(h) {};
-
-        handler() = delete;                       //!<  Delete default constructor.
-        handler(const handler&) = delete;         //!<  Delete copy constructor.
-        void operator=(handler const&) = delete;  //!<  Delete assignment operator.
-        ~handler() = default;                     //!<  Default destructor.
-
-    private:
-        handler_types handle;
-};
-
-/*!
- * \brief Add handler
- * \return false
- */
-template <size_t S>
-inline static void add_input_handler(const handler<S>& handle) {
-    //
-};
 
 /*!
  * \class handlers

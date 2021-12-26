@@ -10,7 +10,8 @@
 #ifndef WTE_HANDLER_HPP
 #define WTE_HANDLER_HPP
 
-#endif
+#include <variant>
+#include <functional>
 
 namespace wte {
 
@@ -56,3 +57,5 @@ inline static void add_input_handler(const handler<S>& handle) {
 };
 
 }  //  end namespace wte
+
+#endif

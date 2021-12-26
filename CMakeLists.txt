@@ -88,6 +88,7 @@ add_library(wtengine STATIC
     src/sys/movement.cpp
     src/config.cpp
     src/display.cpp
+    src/handlers.cpp
     src/input.cpp
     src/engine.cpp)
 

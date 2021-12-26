@@ -79,18 +79,10 @@ class handlers {
         void operator=(handlers const&) = delete;  //!<  Delete assignment operator.
 
     protected:
-        inline handlers() {
-            if(initialized) throw std::runtime_error("Handlers instance already running!");
-            initialized = true;
-        };
+        handlers();
 
     private:
-        inline static void run(const ALLEGRO_EVENT& event) {
-            run_handlers<GLOBAL>(event);
-            (config::flags::game_started ?
-                run_handlers<GAME>(event) :
-                run_handlers<NONGAME>(event));
-        };
+        static void run(const ALLEGRO_EVENT& event);
 
         template <size_t S>
         inline static void run_handlers(const ALLEGRO_EVENT& event) {

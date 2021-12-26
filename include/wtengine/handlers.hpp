@@ -30,13 +30,19 @@ namespace wte {
  */
 class handlers {
     friend class input;
-    template <size_t S>
-    friend void add_input_handler(const handler<S>& handle);
 
     public:
         virtual ~handlers() = default;             //!<  Default virtual destructor.
         handlers(const handlers&) = delete;        //!<  Delete copy constructor.
         void operator=(handlers const&) = delete;  //!<  Delete assignment operator.
+
+        /*!
+         * \brief Add handler
+         */
+        template <size_t S>
+        inline static void add(const handler<S>& handle) {
+            //
+        };
 
     protected:
         handlers();

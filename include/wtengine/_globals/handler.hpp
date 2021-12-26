@@ -52,15 +52,6 @@ class handler {
         handler_types handle;
 };
 
-/*!
- * \brief Add handler
- * \return false
- */
-template <size_t S>
-inline static void add_input_handler(const handler<S>& handle) {
-    //
-};
-
 }  //  end namespace wte
 
 #endif

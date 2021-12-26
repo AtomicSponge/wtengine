@@ -56,27 +56,27 @@ class handler {
 };
 
 /*!
+ * \brief Add handler
+ * \return false
+ */
+template <size_t S>
+inline static void add_input_handler(const handler<S>& handle) {
+    //
+};
+
+/*!
  * \class handlers
  * \brief Input handlers.
  */
 class handlers {
     friend class input;
+    template <size_t S>
+    friend void add_input_handler(const handler<S>& handle);
 
     public:
         virtual ~handlers() = default;             //!<  Default virtual destructor.
         handlers(const handlers&) = delete;        //!<  Delete copy constructor.
         void operator=(handlers const&) = delete;  //!<  Delete assignment operator.
-
-        /*!
-         * \brief Add handler
-         * \return false
-         */
-        template <size_t S>
-        inline static const bool add_handler(
-            const handler<S>& handle
-        ) {
-            return false;
-        };
 
     protected:
         inline handlers() {

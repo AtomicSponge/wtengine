@@ -181,7 +181,7 @@ const bool input::check_events(void) {
                 config::_flags::menu_opened = true);
         //  Record input if enabled.
         if(config::flags::record_input) record_event(event);
-        handlers::run_handlers(event);
+        handlers::run(event);
         run_game_handlers(event);  //  todo: remove
     }
     return true;

@@ -85,19 +85,54 @@ class handlers {
         };
 
     private:
-        inline static void run_handlers(const ALLEGRO_EVENT& event) {
-            //
+        inline static void run(const ALLEGRO_EVENT& event) {
+            run_handlers<GLOBAL>(event);
             (config::flags::game_started ?
-                run_game_handlers(event) :
-                run_non_game_handlers(event));
+                run_handlers<GAME>(event) :
+                run_handlers<NONGAME>(event));
         };
 
-        inline static void run_game_handlers(const ALLEGRO_EVENT& event) {
-            //
-        };
+        template <size_t S>
+        inline static void run_handlers(const ALLEGRO_EVENT& event) {
+            switch(event.type) {
+            //  Keyboard events
+            case ALLEGRO_EVENT_KEY_DOWN:
+                break;
+            case ALLEGRO_EVENT_KEY_UP:
+                break;
 
-        inline static void run_non_game_handlers(const ALLEGRO_EVENT& event) {
-            //
+            //  Mouse events
+            case ALLEGRO_EVENT_MOUSE_AXES:
+                break;
+            case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+                break;
+            case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+                break;
+            case ALLEGRO_EVENT_MOUSE_WARPED:
+                break;
+            case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
+                break;
+            case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
+                break;
+
+            //  Joystick events
+            case ALLEGRO_EVENT_JOYSTICK_AXIS:
+                break;
+            case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
+                break;
+            case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
+                break;
+
+            //  Touch events
+            case ALLEGRO_EVENT_TOUCH_BEGIN:
+                break;
+            case ALLEGRO_EVENT_TOUCH_END:
+                break;
+            case ALLEGRO_EVENT_TOUCH_MOVE:
+                break;
+            case ALLEGRO_EVENT_TOUCH_CANCEL:
+                break;
+            }
         };
 
         inline static bool initialized = false;  //  Restrict to one instance.

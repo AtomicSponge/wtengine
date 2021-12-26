@@ -127,7 +127,7 @@ class handlers {
             }
         };
 
-        inline static bool initialized = false;  //  Restrict to one instance.
+        static bool initialized;  //  Restrict to one instance.
 };
 
 }  //  end namespace wte

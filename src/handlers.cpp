@@ -11,6 +11,8 @@
 
 namespace wte {
 
+bool handlers::initialized = false;
+
 /*
  *
  */

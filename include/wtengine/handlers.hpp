@@ -75,9 +75,15 @@ class handlers {
          * \tparam S Scope
          * \param handle Handler
          */
-        template <size_t S>
+        template <size_t S, size_t IDX>
         inline static void add(const handler_types& handle) {
-            //
+            static_assert(IDX < 15, "Invalid Event Index");
+            static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
+                "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
+
+            if constexpr (S == GLOBAL_HANDLES) _global_handlers[IDX] = handle;
+            if constexpr (S == NONGAME_HANDLES) _game_handlers[IDX] = handle;
+            if constexpr (S == GAME_HANDLES) _non_game_handlers[IDX] = handle;
         };
 
     protected:
@@ -88,6 +94,9 @@ class handlers {
 
         template <size_t S>
         inline static void run_handlers(const ALLEGRO_EVENT& event) {
+            static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
+                "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
+
             switch(event.type) {
             //  Keyboard events
             case ALLEGRO_EVENT_KEY_DOWN:
@@ -129,9 +138,9 @@ class handlers {
             }
         };
 
-        std::array<handler_types, 15> global_handlers;
-        std::array<handler_types, 15> game_handlers;
-        std::array<handler_types, 15> non_game_handlers;
+        static std::array<handler_types, 15> _global_handlers;
+        static std::array<handler_types, 15> _game_handlers;
+        static std::array<handler_types, 15> _non_game_handlers;
 
         static bool initialized;  //  Restrict to one instance.
 };

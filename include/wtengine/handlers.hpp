@@ -10,7 +10,7 @@
 #ifndef WTE_HANDLERS_HPP
 #define WTE_HANDLERS_HPP
 
-#include <map>
+#include <array>
 #include <utility>
 #include <variant>
 #include <functional>
@@ -43,6 +43,13 @@ using touch_cancel = std::function<void(int, float, float, float, float, bool, A
 namespace wte {
 
 enum handler_scopes { GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES };
+enum handler_events {
+    WTE_EVENT_KEY_DOWN, WTE_EVENT_KEY_UP,
+    WTE_EVENT_MOUSE_AXES, WTE_EVENT_MOUSE_BUTTON_DOWN, WTE_EVENT_MOUSE_BUTTON_UP,
+    WTE_EVENT_MOUSE_WARPED, WTE_EVENT_MOUSE_ENTER_DISPLAY, WTE_EVENT_MOUSE_LEAVE_DISPLAY,
+    WTE_EVENT_JOYSTICK_AXIS, WTE_EVENT_JOYSTICK_BUTTON_DOWN, WTE_EVENT_JOYSTICK_BUTTON_UP,
+    WTE_EVENT_TOUCH_BEGIN, WTE_EVENT_TOUCH_END, WTE_EVENT_TOUCH_MOVE, WTE_EVENT_TOUCH_CANCEL
+};
 
 using handler_types = std::variant<
     handler::key, handler::mouse_axes, handler::mouse_button,
@@ -122,7 +129,9 @@ class handlers {
             }
         };
 
-        std::map<int, handler_types> _handlers;
+        std::array<handler_types, 15> global_handlers;
+        std::array<handler_types, 15> game_handlers;
+        std::array<handler_types, 15> non_game_handlers;
 
         static bool initialized;  //  Restrict to one instance.
 };

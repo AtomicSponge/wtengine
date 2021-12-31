@@ -47,13 +47,13 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
     /*
      * Set up input handling
      */
-    input::event::p1::ondown::up = []() {
+    handlers::add(key_handler [](int key, ALLEGRO_DISPLAY* display) {
         entity_id player_id = mgr::world::get_id("player");
         const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
         mgr::world::set_component<cmp::motion>(player_id)->direction = rad;
         mgr::world::set_component<cmp::motion>(player_id)->x_vel = 5.0f;
         mgr::world::set_component<cmp::motion>(player_id)->y_vel = 5.0f;
-    };
+    });
     input::event::p1::ondown::down = []() {
         entity_id player_id = mgr::world::get_id("player");
         const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
@@ -160,8 +160,6 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
         //  Stop sound effect.
         mgr::audio::sample::stop("shield_sound");
     };
-
-    mgr::messages::add(message("system", "new-game", "game.sdf"));
 }
 
 /*

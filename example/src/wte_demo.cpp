@@ -45,9 +45,9 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
     mgr::variables::load<int>("hiscore");
 
     /*
-     * Set up input handling
+     * Set up input handling - WIP
      */
-    handlers::add(key_handler [](int key, ALLEGRO_DISPLAY* display) {
+    /*handlers::add(key_handler [](int key, ALLEGRO_DISPLAY* display) {
         entity_id player_id = mgr::world::get_id("player");
         const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
         mgr::world::set_component<cmp::motion>(player_id)->direction = rad;
@@ -159,7 +159,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
         mgr::world::set_component<cmp::hitbox>(player_id)->solid = true;
         //  Stop sound effect.
         mgr::audio::sample::stop("shield_sound");
-    };
+    };*/
 }
 
 /*

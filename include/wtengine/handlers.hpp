@@ -71,13 +71,14 @@ class handlers {
         void operator=(handlers const&) = delete;  //!<  Delete assignment operator.
 
         /*!
-         * \brief Add handler
-         * \tparam S Scope
-         * \param handle Handler
+         * \brief Add an input handler.
+         * \tparam S Handler scope.
+         * \tparam IDX Handler event index.
+         * \param handle Input handler.
          */
         template <size_t S, size_t IDX>
         inline static void add(const handler_types& handle) {
-            static_assert(IDX < 15, "Invalid Event Index");
+            static_assert(IDX < 15, "Invalid Handler Event Index");
             static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
                 "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
 
@@ -91,12 +92,9 @@ class handlers {
 
     private:
         static void run(const ALLEGRO_EVENT& event);
-
+        
         template <size_t S>
         inline static void run_handlers(const ALLEGRO_EVENT& event) {
-            static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
-                "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
-
             switch(event.type) {
             //  Keyboard events
             case ALLEGRO_EVENT_KEY_DOWN:

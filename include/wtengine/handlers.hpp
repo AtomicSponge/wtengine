@@ -25,7 +25,7 @@
 
 namespace wte::handler {
 
-using key = std::function<void(int, ALLEGRO_DISPLAY*)>;
+using key = std::function<void(const int&, ALLEGRO_DISPLAY*)>;
 using mouse_axes = std::function<void(
     const int&, const int&, const int&, const int&, const int&,
     const int&, const int&, const float&, ALLEGRO_DISPLAY*)>;
@@ -98,9 +98,21 @@ class handlers {
             static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
                 "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
 
-            if constexpr (S == GLOBAL_HANDLES) _global_handlers[IDX] = handle;
-            if constexpr (S == NONGAME_HANDLES) _game_handlers[IDX] = handle;
-            if constexpr (S == GAME_HANDLES) _non_game_handlers[IDX] = handle;
+            if constexpr (S == GLOBAL_HANDLES)
+                constexpr auto adder { [](
+                    const std::array<handler_types, 15>& _global_handlers,
+                    const handler_types& handle
+                ) constexpr { _global_handlers[IDX] = handle; }(_global_handlers, handle) };
+            if constexpr (S == GAME_HANDLES)
+                constexpr auto adder { [](
+                    const std::array<handler_types, 15>& _game_handlers,
+                    const handler_types& handle
+                ) constexpr { _game_handlers[IDX] = handle; }(_game_handlers, handle) };
+            if constexpr (S == NONGAME_HANDLES)
+                constexpr auto adder { [](
+                    const std::array<handler_types, 15>& _non_game_handlers,
+                    const handler_types& handle
+                ) constexpr { _non_game_handlers[IDX] = handle; }(_non_game_handlers, handle) };
         };
 
     protected:
@@ -115,19 +127,31 @@ class handlers {
             //  Keyboard events
             case ALLEGRO_EVENT_KEY_DOWN:
                 if constexpr (S == GLOBAL_HANDLES &&
-                    !_global_handlers[WTE_EVENT_KEY_DOWN].valueless_by_exception()) {}
+                    !_game_handlers[WTE_EVENT_KEY_DOWN].valueless_by_exception())
+                    std::get<handler::key>(_global_handlers[WTE_EVENT_KEY_DOWN])(
+                        event.keyboard.keycode, event.keyboard.display);
                 if constexpr (S == NONGAME_HANDLES &&
-                    !_global_handlers[WTE_EVENT_KEY_DOWN].valueless_by_exception()) {}
+                    !_game_handlers[WTE_EVENT_KEY_DOWN].valueless_by_exception())
+                    std::get<handler::key>(_game_handlers[WTE_EVENT_KEY_DOWN])(
+                        event.keyboard.keycode, event.keyboard.display);
                 if constexpr (S == GAME_HANDLES &&
-                    !_global_handlers[WTE_EVENT_KEY_DOWN].valueless_by_exception()) {}
+                    !_non_game_handlers[WTE_EVENT_KEY_DOWN].valueless_by_exception())
+                    std::get<handler::key>(_non_game_handlers[WTE_EVENT_KEY_DOWN])(
+                        event.keyboard.keycode, event.keyboard.display);
                 break;
             case ALLEGRO_EVENT_KEY_UP:
                 if constexpr (S == GLOBAL_HANDLES &&
-                    !_global_handlers[WTE_EVENT_KEY_UP].valueless_by_exception()) {}
+                    !_global_handlers[WTE_EVENT_KEY_UP].valueless_by_exception())
+                    std::get<handler::key>(_global_handlers[WTE_EVENT_KEY_UP])(
+                        event.keyboard.keycode, event.keyboard.display);
                 if constexpr (S == NONGAME_HANDLES &&
-                    !_global_handlers[WTE_EVENT_KEY_UP].valueless_by_exception()) {}
+                    !_game_handlers[WTE_EVENT_KEY_UP].valueless_by_exception())
+                    std::get<handler::key>(_game_handlers[WTE_EVENT_KEY_UP])(
+                        event.keyboard.keycode, event.keyboard.display);
                 if constexpr (S == GAME_HANDLES &&
-                    !_global_handlers[WTE_EVENT_KEY_UP].valueless_by_exception()) {}
+                    !_non_game_handlers[WTE_EVENT_KEY_UP].valueless_by_exception())
+                    std::get<handler::key>(_non_game_handlers[WTE_EVENT_KEY_UP])(
+                        event.keyboard.keycode, event.keyboard.display);
                 break;
 
             //  Mouse events

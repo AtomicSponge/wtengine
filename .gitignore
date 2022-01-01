@@ -1,6 +1,4 @@
-.npmignore
-package-lock.json
-node_modules/
+wtengine-tools/
 
 *.code-workspace
 .vscode/

@@ -51,6 +51,27 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
         if(key == ALLEGRO_KEY_SPACE) mgr::messages::add(message("system", "new-game", "game.sdf"));
     };
     handlers::add<NONGAME_HANDLES, WTE_EVENT_KEY_DOWN>(start_game);;
+
+    handler::key player_input_key_down = [](const int& key, ALLEGRO_DISPLAY* display) {
+        if(key == config::controls::p1_key_up) {}
+        if(key == config::controls::p1_key_down) {}
+        if(key == config::controls::p1_key_left) {}
+        if(key == config::controls::p1_key_right) {}
+        if(key == config::controls::p1_key_action1) {}
+        if(key == config::controls::p1_key_action2) {}
+    };
+    handlers::add<GAME_HANDLES, WTE_EVENT_KEY_DOWN>(player_input_key_down);;
+
+    handler::key player_input_key_up = [](const int& key, ALLEGRO_DISPLAY* display) {
+        if(key == config::controls::p1_key_up) {}
+        if(key == config::controls::p1_key_down) {}
+        if(key == config::controls::p1_key_left) {}
+        if(key == config::controls::p1_key_right) {}
+        if(key == config::controls::p1_key_action1) {}
+        if(key == config::controls::p1_key_action2) {}
+    };
+    handlers::add<GAME_HANDLES, WTE_EVENT_KEY_UP>(player_input_key_up);;
+
     /*handlers::add(key_handler [](int key, ALLEGRO_DISPLAY* display) {
         entity_id player_id = mgr::world::get_id("player");
         const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);

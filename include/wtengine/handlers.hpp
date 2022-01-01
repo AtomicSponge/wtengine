@@ -26,17 +26,33 @@
 namespace wte::handler {
 
 using key = std::function<void(int, ALLEGRO_DISPLAY*)>;
-using mouse_axes = std::function<void(int, int, int, int, int, int, int, float, ALLEGRO_DISPLAY*)>;
-using mouse_button = std::function<void(int, int, int, int, unsigned int, float, ALLEGRO_DISPLAY*)>;
-using mouse_warped = std::function<void(int, int, int, int, int, int, int, float, ALLEGRO_DISPLAY*)>;
-using mouse_enter_display = std::function<void(int, int, int, int, ALLEGRO_DISPLAY*)>;
-using mouse_leave_display = std::function<void(int, int, int, int, ALLEGRO_DISPLAY*)>;
-using joy_axis = std::function<void(int, int, float, ALLEGRO_JOYSTICK*)>;
-using joy_button = std::function<void(int, ALLEGRO_JOYSTICK*)>;
-using touch_begin = std::function<void(int, float, float, float, float, bool, ALLEGRO_DISPLAY*)>;
-using touch_end = std::function<void(int, float, float, float, float, bool, ALLEGRO_DISPLAY*)>;
-using touch_move = std::function<void(int, float, float, float, float, bool, ALLEGRO_DISPLAY*)>;
-using touch_cancel = std::function<void(int, float, float, float, float, bool, ALLEGRO_DISPLAY*)>;
+using mouse_axes = std::function<void(
+    const int&, const int&, const int&, const int&, const int&,
+    const int&, const int&, const float&, ALLEGRO_DISPLAY*)>;
+using mouse_button = std::function<void(
+    const int&, const int&, const int&, const int&,
+    const unsigned int&, const float&, ALLEGRO_DISPLAY*)>;
+using mouse_warped = std::function<void(
+    const int&, const int&, const int&, const int&, const int&,
+    const int&, const int&, const float&, ALLEGRO_DISPLAY*)>;
+using mouse_enter_display = std::function<void(
+    const int&, const int&, const int&, const int&, ALLEGRO_DISPLAY*)>;
+using mouse_leave_display = std::function<void(
+    const int&, const int&, const int&, const int&, ALLEGRO_DISPLAY*)>;
+using joy_axis = std::function<void(const int&, const int&, const float&, ALLEGRO_JOYSTICK*)>;
+using joy_button = std::function<void(const int&, ALLEGRO_JOYSTICK*)>;
+using touch_begin = std::function<void(
+    const int&, const float&, const float&, const float&,
+    const float&, const bool&, ALLEGRO_DISPLAY*)>;
+using touch_end = std::function<void(
+    const int&, const float&, const float&, const float&,
+    const float&, const bool&, ALLEGRO_DISPLAY*)>;
+using touch_move = std::function<void(
+    const int&, const float&, const float&, const float&,
+    const float&, const bool&, ALLEGRO_DISPLAY*)>;
+using touch_cancel = std::function<void(
+    const int&, const float&, const float&, const float&,
+    const float&, const bool&, ALLEGRO_DISPLAY*)>;
 
 }
 

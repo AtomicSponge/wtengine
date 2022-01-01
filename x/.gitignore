@@ -1,0 +1,7 @@
+package-lock.json
+node_modules/
+
+.vscode/
+
+.bakignore
+*_bak/

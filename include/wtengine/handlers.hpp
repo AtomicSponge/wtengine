@@ -136,9 +136,9 @@ class handlers {
             }
         };
 
-        static std::array<handler_types, 15> _global_handlers;
-        static std::array<handler_types, 15> _game_handlers;
-        static std::array<handler_types, 15> _non_game_handlers;
+        inline static std::array<handler_types, 15> _global_handlers;
+        inline static std::array<handler_types, 15> _game_handlers;
+        inline static std::array<handler_types, 15> _non_game_handlers;
 
         static bool initialized;  //  Restrict to one instance.
 };

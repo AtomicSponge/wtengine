@@ -47,7 +47,8 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
     /*
      * Set up input handling - WIP
      */
-    //handlers::add<NONGAME_HANDLES, WTE_EVENT_KEY_DOWN>();;
+    handler::key key_down = [](int key, ALLEGRO_DISPLAY* display) {};
+    handlers::add<NONGAME_HANDLES, WTE_EVENT_KEY_DOWN>(key_down);;
     /*handlers::add(key_handler [](int key, ALLEGRO_DISPLAY* display) {
         entity_id player_id = mgr::world::get_id("player");
         const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);

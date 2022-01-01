@@ -47,8 +47,10 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
     /*
      * Set up input handling - WIP
      */
-    handler::key key_down = [](int key, ALLEGRO_DISPLAY* display) {};
-    handlers::add<NONGAME_HANDLES, WTE_EVENT_KEY_DOWN>(key_down);;
+    handler::key start_game = [](int key, ALLEGRO_DISPLAY* display) {
+        if(key == ALLEGRO_KEY_SPACE) mgr::messages::add(message("system", "new-game", "game.sdf"));
+    };
+    handlers::add<NONGAME_HANDLES, WTE_EVENT_KEY_DOWN>(start_game);;
     /*handlers::add(key_handler [](int key, ALLEGRO_DISPLAY* display) {
         entity_id player_id = mgr::world::get_id("player");
         const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
@@ -162,8 +164,6 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
         //  Stop sound effect.
         mgr::audio::sample::stop("shield_sound");
     };*/
-
-    mgr::messages::add(message("system", "new-game", "game.sdf"));
 }
 
 /*

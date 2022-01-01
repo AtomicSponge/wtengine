@@ -47,144 +47,130 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
     /*
      * Set up input handling - WIP
      */
-    handler::key start_game = [](int key, ALLEGRO_DISPLAY* display) {
+    handler::key start_game = [](const int& key, ALLEGRO_DISPLAY* display) {
         if(key == ALLEGRO_KEY_SPACE) mgr::messages::add(message("system", "new-game", "game.sdf"));
     };
     handlers::add<NONGAME_HANDLES, WTE_EVENT_KEY_DOWN>(start_game);;
 
     handler::key player_input_key_down = [](const int& key, ALLEGRO_DISPLAY* display) {
-        if(key == config::controls::p1_key_up) {}
-        if(key == config::controls::p1_key_down) {}
-        if(key == config::controls::p1_key_left) {}
-        if(key == config::controls::p1_key_right) {}
-        if(key == config::controls::p1_key_action1) {}
-        if(key == config::controls::p1_key_action2) {}
+        if(key == config::controls::p1_key_up) {
+            entity_id player_id = mgr::world::get_id("player");
+            const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
+            mgr::world::set_component<cmp::motion>(player_id)->direction = rad;
+            mgr::world::set_component<cmp::motion>(player_id)->x_vel = 5.0f;
+            mgr::world::set_component<cmp::motion>(player_id)->y_vel = 5.0f;
+        }
+        if(key == config::controls::p1_key_down) {
+            entity_id player_id = mgr::world::get_id("player");
+            const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
+            mgr::world::set_component<cmp::motion>(player_id)->direction = rad;
+            mgr::world::set_component<cmp::motion>(player_id)->x_vel = 5.0f;
+            mgr::world::set_component<cmp::motion>(player_id)->y_vel = 5.0f;
+        }
+        if(key == config::controls::p1_key_left) {
+            entity_id player_id = mgr::world::get_id("player");
+            const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
+            mgr::world::set_component<cmp::motion>(player_id)->direction = rad;
+            mgr::world::set_component<cmp::motion>(player_id)->x_vel = 5.0f;
+            mgr::world::set_component<cmp::motion>(player_id)->y_vel = 5.0f;
+        }
+        if(key == config::controls::p1_key_right) {
+            entity_id player_id = mgr::world::get_id("player");
+            const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
+            mgr::world::set_component<cmp::motion>(player_id)->direction = rad;
+            mgr::world::set_component<cmp::motion>(player_id)->x_vel = 5.0f;
+            mgr::world::set_component<cmp::motion>(player_id)->y_vel = 5.0f;
+        }
+        if(key == config::controls::p1_key_action1) {
+            entity_id player_id = mgr::world::get_id("player");
+            entity_id can_id = mgr::world::get_id("main_cannon");
+            //  Set the cannon's location to match the player.
+            mgr::world::set_component<cmp::location>(can_id)->pos_x = 
+                mgr::world::get_component<cmp::location>(player_id)->pos_x;
+            mgr::world::set_component<cmp::location>(can_id)->pos_y = 
+                mgr::world::get_component<cmp::location>(player_id)->pos_y -
+                mgr::world::get_component<cmp::hitbox>(can_id)->height;
+
+            //  Turn the cannon on.
+            mgr::world::set_component<cmp::gfx::sprite>(can_id)->visible = true;
+            mgr::world::set_component<cmp::ai>(can_id)->enabled = true;
+            mgr::world::set_component<cmp::hitbox>(can_id)->solid = true;
+            //  Play sound effect.
+            mgr::audio::sample::play(mgr::assets<al_sample>::get<al_sample>("laser"), "cannon_fire");
+        }
+        if(key == config::controls::p1_key_action2) {
+            entity_id player_id = mgr::world::get_id("player");
+            entity_id shd_id = mgr::world::get_id("shield");
+            //  Set the shield's location to match the player
+            mgr::world::set_component<cmp::location>(shd_id)->pos_x =
+                mgr::world::get_component<cmp::location>(player_id)->pos_x - 28.0f;
+            mgr::world::set_component<cmp::location>(shd_id)->pos_y =
+                mgr::world::get_component<cmp::location>(player_id)->pos_y - 16.0f;
+
+            if(mgr::world::set_component<energy>(shd_id)->amt > 0) {
+                //  Enable the shield.
+                mgr::world::set_component<cmp::gfx::sprite>(shd_id)->visible = true;
+                mgr::world::set_component<cmp::ai>(shd_id)->enabled = true;
+                mgr::world::set_component<cmp::hitbox>(shd_id)->solid = true;
+                mgr::world::set_component<cmp::hitbox>(player_id)->solid = false;
+                //  Play sound effect.
+                mgr::audio::sample::play(mgr::assets<al_sample>::get<al_sample>("shield"), "shield_sound");
+            }
+        }
     };
     handlers::add<GAME_HANDLES, WTE_EVENT_KEY_DOWN>(player_input_key_down);;
 
     handler::key player_input_key_up = [](const int& key, ALLEGRO_DISPLAY* display) {
-        if(key == config::controls::p1_key_up) {}
-        if(key == config::controls::p1_key_down) {}
-        if(key == config::controls::p1_key_left) {}
-        if(key == config::controls::p1_key_right) {}
-        if(key == config::controls::p1_key_action1) {}
-        if(key == config::controls::p1_key_action2) {}
-    };
-    handlers::add<GAME_HANDLES, WTE_EVENT_KEY_UP>(player_input_key_up);;
-
-    /*handlers::add(key_handler [](int key, ALLEGRO_DISPLAY* display) {
-        entity_id player_id = mgr::world::get_id("player");
-        const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
-        mgr::world::set_component<cmp::motion>(player_id)->direction = rad;
-        mgr::world::set_component<cmp::motion>(player_id)->x_vel = 5.0f;
-        mgr::world::set_component<cmp::motion>(player_id)->y_vel = 5.0f;
-    });
-    input::event::p1::ondown::down = []() {
-        entity_id player_id = mgr::world::get_id("player");
-        const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
-        mgr::world::set_component<cmp::motion>(player_id)->direction = rad;
-        mgr::world::set_component<cmp::motion>(player_id)->x_vel = 5.0f;
-        mgr::world::set_component<cmp::motion>(player_id)->y_vel = 5.0f;
-    };
-    input::event::p1::ondown::left = []() {
-        entity_id player_id = mgr::world::get_id("player");
-        const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
-        mgr::world::set_component<cmp::motion>(player_id)->direction = rad;
-        mgr::world::set_component<cmp::motion>(player_id)->x_vel = 5.0f;
-        mgr::world::set_component<cmp::motion>(player_id)->y_vel = 5.0f;
-    };
-    input::event::p1::ondown::right = []() {
-        entity_id player_id = mgr::world::get_id("player");
-        const float rad = std::atan2(config::controls::p1_polc_y, config::controls::p1_polc_x);
-        mgr::world::set_component<cmp::motion>(player_id)->direction = rad;
-        mgr::world::set_component<cmp::motion>(player_id)->x_vel = 5.0f;
-        mgr::world::set_component<cmp::motion>(player_id)->y_vel = 5.0f;
-    };
-    input::event::p1::ondown::action1 = []() {
-        entity_id player_id = mgr::world::get_id("player");
-        entity_id can_id = mgr::world::get_id("main_cannon");
-        //  Set the cannon's location to match the player.
-        mgr::world::set_component<cmp::location>(can_id)->pos_x = 
-            mgr::world::get_component<cmp::location>(player_id)->pos_x;
-        mgr::world::set_component<cmp::location>(can_id)->pos_y = 
-            mgr::world::get_component<cmp::location>(player_id)->pos_y -
-            mgr::world::get_component<cmp::hitbox>(can_id)->height;
-
-        //  Turn the cannon on.
-        mgr::world::set_component<cmp::gfx::sprite>(can_id)->visible = true;
-        mgr::world::set_component<cmp::ai>(can_id)->enabled = true;
-        mgr::world::set_component<cmp::hitbox>(can_id)->solid = true;
-        //  Play sound effect.
-        mgr::audio::sample::play(mgr::assets<al_sample>::get<al_sample>("laser"), "cannon_fire");
-    };
-    input::event::p1::ondown::action2 = []() {
-        entity_id player_id = mgr::world::get_id("player");
-        entity_id shd_id = mgr::world::get_id("shield");
-        //  Set the shield's location to match the player
-        mgr::world::set_component<cmp::location>(shd_id)->pos_x =
-            mgr::world::get_component<cmp::location>(player_id)->pos_x - 28.0f;
-        mgr::world::set_component<cmp::location>(shd_id)->pos_y =
-            mgr::world::get_component<cmp::location>(player_id)->pos_y - 16.0f;
-
-        if(mgr::world::set_component<energy>(shd_id)->amt > 0) {
-            //  Enable the shield.
-            mgr::world::set_component<cmp::gfx::sprite>(shd_id)->visible = true;
-            mgr::world::set_component<cmp::ai>(shd_id)->enabled = true;
-            mgr::world::set_component<cmp::hitbox>(shd_id)->solid = true;
-            mgr::world::set_component<cmp::hitbox>(player_id)->solid = false;
-            //  Play sound effect.
-            mgr::audio::sample::play(mgr::assets<al_sample>::get<al_sample>("shield"), "shield_sound");
+        if(key == config::controls::p1_key_up) {
+            entity_id player_id = mgr::world::get_id("player");
+            if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f) {
+                mgr::world::set_component<cmp::motion>(player_id)->x_vel = 0.0f;
+                mgr::world::set_component<cmp::motion>(player_id)->y_vel = 0.0f;
+            }
+        }
+        if(key == config::controls::p1_key_down) {
+            entity_id player_id = mgr::world::get_id("player");
+            if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f) {
+                mgr::world::set_component<cmp::motion>(player_id)->x_vel = 0.0f;
+                mgr::world::set_component<cmp::motion>(player_id)->y_vel = 0.0f;
+            }
+        }
+        if(key == config::controls::p1_key_left) {
+            entity_id player_id = mgr::world::get_id("player");
+            if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f) {
+                mgr::world::set_component<cmp::motion>(player_id)->x_vel = 0.0f;
+                mgr::world::set_component<cmp::motion>(player_id)->y_vel = 0.0f;
+            }
+        }
+        if(key == config::controls::p1_key_right) {
+            entity_id player_id = mgr::world::get_id("player");
+            if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f) {
+                mgr::world::set_component<cmp::motion>(player_id)->x_vel = 0.0f;
+                mgr::world::set_component<cmp::motion>(player_id)->y_vel = 0.0f;
+            }
+        }
+        if(key == config::controls::p1_key_action1) {
+            //  Turn the cannon off.
+            entity_id can_id = mgr::world::get_id("main_cannon");
+            mgr::world::set_component<cmp::gfx::sprite>(can_id)->visible = false;
+            mgr::world::set_component<cmp::ai>(can_id)->enabled = false;
+            mgr::world::set_component<cmp::hitbox>(can_id)->solid = false;
+            //  Stop sound effect.
+            mgr::audio::sample::stop("cannon_fire");
+        }
+        if(key == config::controls::p1_key_action2) {
+            entity_id player_id = mgr::world::get_id("player");
+            entity_id shd_id = mgr::world::get_id("shield");
+            //  Disable shield.
+            mgr::world::set_component<cmp::gfx::sprite>(shd_id)->visible = false;
+            mgr::world::set_component<cmp::ai>(shd_id)->enabled = false;
+            mgr::world::set_component<cmp::hitbox>(shd_id)->solid = false;
+            mgr::world::set_component<cmp::hitbox>(player_id)->solid = true;
+            //  Stop sound effect.
+            mgr::audio::sample::stop("shield_sound");
         }
     };
-
-    input::event::p1::onup::up = []() {
-        entity_id player_id = mgr::world::get_id("player");
-        if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f) {
-            mgr::world::set_component<cmp::motion>(player_id)->x_vel = 0.0f;
-            mgr::world::set_component<cmp::motion>(player_id)->y_vel = 0.0f;
-        }
-    };
-    input::event::p1::onup::down = []() {
-        entity_id player_id = mgr::world::get_id("player");
-        if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f) {
-            mgr::world::set_component<cmp::motion>(player_id)->x_vel = 0.0f;
-            mgr::world::set_component<cmp::motion>(player_id)->y_vel = 0.0f;
-        }
-    };
-    input::event::p1::onup::left = []() {
-        entity_id player_id = mgr::world::get_id("player");
-        if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f) {
-            mgr::world::set_component<cmp::motion>(player_id)->x_vel = 0.0f;
-            mgr::world::set_component<cmp::motion>(player_id)->y_vel = 0.0f;
-        }
-    };
-    input::event::p1::onup::right = []() {
-        entity_id player_id = mgr::world::get_id("player");
-        if(config::controls::p1_polc_x == 0.0f && config::controls::p1_polc_y == 0.0f) {
-            mgr::world::set_component<cmp::motion>(player_id)->x_vel = 0.0f;
-            mgr::world::set_component<cmp::motion>(player_id)->y_vel = 0.0f;
-        }
-    };
-    input::event::p1::onup::action1 = []() {
-        //  Turn the cannon off.
-        entity_id can_id = mgr::world::get_id("main_cannon");
-        mgr::world::set_component<cmp::gfx::sprite>(can_id)->visible = false;
-        mgr::world::set_component<cmp::ai>(can_id)->enabled = false;
-        mgr::world::set_component<cmp::hitbox>(can_id)->solid = false;
-        //  Stop sound effect.
-        mgr::audio::sample::stop("cannon_fire");
-    };
-    input::event::p1::onup::action2 = []() {
-        entity_id player_id = mgr::world::get_id("player");
-        entity_id shd_id = mgr::world::get_id("shield");
-        //  Disable shield.
-        mgr::world::set_component<cmp::gfx::sprite>(shd_id)->visible = false;
-        mgr::world::set_component<cmp::ai>(shd_id)->enabled = false;
-        mgr::world::set_component<cmp::hitbox>(shd_id)->solid = false;
-        mgr::world::set_component<cmp::hitbox>(player_id)->solid = true;
-        //  Stop sound effect.
-        mgr::audio::sample::stop("shield_sound");
-    };*/
+    handlers::add<GAME_HANDLES, WTE_EVENT_KEY_UP>(player_input_key_up);
 }
 
 /*

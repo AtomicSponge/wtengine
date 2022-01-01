@@ -85,6 +85,7 @@ class handlers {
         virtual ~handlers() = default;             //!<  Default virtual destructor.
         handlers(const handlers&) = delete;        //!<  Delete copy constructor.
         void operator=(handlers const&) = delete;  //!<  Delete assignment operator.
+
         friend void add_handler(const handler_types& handle);
 
     protected:

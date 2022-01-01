@@ -85,35 +85,7 @@ class handlers {
         virtual ~handlers() = default;             //!<  Default virtual destructor.
         handlers(const handlers&) = delete;        //!<  Delete copy constructor.
         void operator=(handlers const&) = delete;  //!<  Delete assignment operator.
-
-        /*!
-         * \brief Add an input handler.
-         * \tparam S Handler scope.
-         * \tparam IDX Handler event index.
-         * \param handle Input handler.
-         */
-        template <size_t S, size_t IDX>
-        inline static void add(const handler_types& handle) {
-            static_assert(IDX < 15, "Invalid Handler Event Index");
-            static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
-                "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
-
-            if constexpr (S == GLOBAL_HANDLES)
-                constexpr auto adder { [](
-                    const std::array<handler_types, 15>& _global_handlers,
-                    const handler_types& handle
-                ) constexpr { _global_handlers[IDX] = handle; }(_global_handlers, handle) };
-            if constexpr (S == GAME_HANDLES)
-                constexpr auto adder { [](
-                    const std::array<handler_types, 15>& _game_handlers,
-                    const handler_types& handle
-                ) constexpr { _game_handlers[IDX] = handle; }(_game_handlers, handle) };
-            if constexpr (S == NONGAME_HANDLES)
-                constexpr auto adder { [](
-                    const std::array<handler_types, 15>& _non_game_handlers,
-                    const handler_types& handle
-                ) constexpr { _non_game_handlers[IDX] = handle; }(_non_game_handlers, handle) };
-        };
+        friend void add_handler(const handler_types& handle);
 
     protected:
         handlers();
@@ -193,6 +165,35 @@ class handlers {
         inline static std::array<handler_types, 15> _non_game_handlers;
 
         static bool initialized;  //  Restrict to one instance.
+};
+
+/*!
+ * \brief Add an input handler.
+ * \tparam S Handler scope.
+ * \tparam IDX Handler event index.
+ * \param handle Input handler.
+ */
+template <size_t S, size_t IDX>
+inline static void add_handler(const handler_types& handle) {
+    static_assert(IDX < 15, "Invalid Handler Event Index");
+    static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
+        "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
+
+    if constexpr (S == GLOBAL_HANDLES)
+        constexpr auto adder { [](
+            const std::array<handler_types, 15>& _global_handlers,
+            const handler_types& handle
+        ) constexpr { _global_handlers[IDX] = handle; }(handlers::_global_handlers, handle) };
+    if constexpr (S == GAME_HANDLES)
+        constexpr auto adder { [](
+            const std::array<handler_types, 15>& _game_handlers,
+            const handler_types& handle
+        ) constexpr { _game_handlers[IDX] = handle; }(handlers::_game_handlers, handle) };
+    if constexpr (S == NONGAME_HANDLES)
+        constexpr auto adder { [](
+            const std::array<handler_types, 15>& _non_game_handlers,
+            const handler_types& handle
+        ) constexpr { _non_game_handlers[IDX] = handle; }(handlers::_non_game_handlers, handle) };
 };
 
 }  //  end namespace wte

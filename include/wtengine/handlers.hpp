@@ -108,14 +108,26 @@ class handlers {
 
     private:
         static void run(const ALLEGRO_EVENT& event);
-        
+
         template <size_t S>
         inline static void run_handlers(const ALLEGRO_EVENT& event) {
             switch(event.type) {
             //  Keyboard events
             case ALLEGRO_EVENT_KEY_DOWN:
+                if constexpr (S == GLOBAL_HANDLES &&
+                    !_global_handlers[WTE_EVENT_KEY_DOWN].valueless_by_exception()) {}
+                if constexpr (S == NONGAME_HANDLES &&
+                    !_global_handlers[WTE_EVENT_KEY_DOWN].valueless_by_exception()) {}
+                if constexpr (S == GAME_HANDLES &&
+                    !_global_handlers[WTE_EVENT_KEY_DOWN].valueless_by_exception()) {}
                 break;
             case ALLEGRO_EVENT_KEY_UP:
+                if constexpr (S == GLOBAL_HANDLES &&
+                    !_global_handlers[WTE_EVENT_KEY_UP].valueless_by_exception()) {}
+                if constexpr (S == NONGAME_HANDLES &&
+                    !_global_handlers[WTE_EVENT_KEY_UP].valueless_by_exception()) {}
+                if constexpr (S == GAME_HANDLES &&
+                    !_global_handlers[WTE_EVENT_KEY_UP].valueless_by_exception()) {}
                 break;
 
             //  Mouse events

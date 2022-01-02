@@ -50,7 +50,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
     handler::key start_game = [](const int& key, ALLEGRO_DISPLAY* display) {
         if(key == ALLEGRO_KEY_SPACE) mgr::messages::add(message("system", "new-game", "game.sdf"));
     };
-    add_handler<NONGAME_HANDLES, WTE_EVENT_KEY_DOWN>(start_game);;
+    add_handler<NONGAME_HANDLES, WTE_EVENT_KEY_DOWN>(start_game);
 
     handler::key player_input_key_down = [](const int& key, ALLEGRO_DISPLAY* display) {
         if(key == config::controls::p1_key_up) {
@@ -118,7 +118,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
             }
         }
     };
-    add_handler<GAME_HANDLES, WTE_EVENT_KEY_DOWN>(player_input_key_down);;
+    add_handler<GAME_HANDLES, WTE_EVENT_KEY_DOWN>(player_input_key_down);
 
     handler::key player_input_key_up = [](const int& key, ALLEGRO_DISPLAY* display) {
         if(key == config::controls::p1_key_up) {

@@ -86,7 +86,8 @@ class handlers {
         handlers(const handlers&) = delete;        //!<  Delete copy constructor.
         void operator=(handlers const&) = delete;  //!<  Delete assignment operator.
 
-        friend void add_handler(const handler_types& handle);
+        template <size_t S, size_t IDX>
+        friend constexpr void add_handler(const handler_types& handle);
 
     protected:
         handlers();
@@ -175,7 +176,7 @@ class handlers {
  * \param handle Input handler.
  */
 template <size_t S, size_t IDX>
-inline static void add_handler(const handler_types& handle) {
+inline constexpr void add_handler(const handler_types& handle) {
     static_assert(IDX < 15, "Invalid Handler Event Index");
     static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
         "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");

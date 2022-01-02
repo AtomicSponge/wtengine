@@ -95,6 +95,51 @@ class handlers {
     private:
         static void run(const ALLEGRO_EVENT& event);
 
+        inline static void test_run(const ALLEGRO_EVENT& event) {
+            switch(event.type) {
+            //  Keyboard events
+            case ALLEGRO_EVENT_KEY_DOWN:
+                std::get<handler::key>(_non_game_handlers[WTE_EVENT_KEY_DOWN])(
+                        event.keyboard.keycode, event.keyboard.display);
+                break;
+            case ALLEGRO_EVENT_KEY_UP:
+                
+                break;
+
+            //  Mouse events
+            case ALLEGRO_EVENT_MOUSE_AXES:
+                break;
+            case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+                break;
+            case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+                break;
+            case ALLEGRO_EVENT_MOUSE_WARPED:
+                break;
+            case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
+                break;
+            case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
+                break;
+
+            //  Joystick events
+            case ALLEGRO_EVENT_JOYSTICK_AXIS:
+                break;
+            case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
+                break;
+            case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
+                break;
+
+            //  Touch events
+            case ALLEGRO_EVENT_TOUCH_BEGIN:
+                break;
+            case ALLEGRO_EVENT_TOUCH_END:
+                break;
+            case ALLEGRO_EVENT_TOUCH_MOVE:
+                break;
+            case ALLEGRO_EVENT_TOUCH_CANCEL:
+                break;
+            }
+        }
+
         template <size_t S>
         inline static void run_handlers(const ALLEGRO_EVENT& event) {
             switch(event.type) {

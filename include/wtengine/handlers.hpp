@@ -181,7 +181,7 @@ inline constexpr void add_handler(const handler_types& handle) {
     static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
         "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
 
-    if constexpr (S == GLOBAL_HANDLES)
+    /*if constexpr (S == GLOBAL_HANDLES)
         constexpr auto adder { [](
             const std::array<handler_types, 15>& _global_handlers,
             const handler_types& handle
@@ -195,7 +195,11 @@ inline constexpr void add_handler(const handler_types& handle) {
         constexpr auto adder { [](
             const std::array<handler_types, 15>& _non_game_handlers,
             const handler_types& handle
-        ) constexpr { _non_game_handlers[IDX] = handle; }(handlers::_non_game_handlers, handle) };
+        ) constexpr { _non_game_handlers[IDX] = handle; }(handlers::_non_game_handlers, handle) };*/
+    
+    if constexpr (S == GLOBAL_HANDLES) handlers::_global_handlers[IDX] = handle;
+    if constexpr (S == GAME_HANDLES) handlers::_game_handlers[IDX] = handle;
+    if constexpr (S == NONGAME_HANDLES) handlers::_non_game_handlers[IDX] = handle;
 };
 
 }  //  end namespace wte

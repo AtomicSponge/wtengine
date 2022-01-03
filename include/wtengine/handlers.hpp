@@ -100,7 +100,7 @@ class handlers {
             switch(event.type) {
             //  Keyboard events
             case ALLEGRO_EVENT_KEY_DOWN:
-                //if constexpr (std::holds_alternative<handler::key>(_global_handlers[WTE_EVENT_KEY_DOWN]))
+                //if constexpr (std::holds_alternative<handler::key>(_temp_global[WTE_EVENT_KEY_DOWN]))
                 std::get<handler::key>(_global_handlers[WTE_EVENT_KEY_DOWN])(
                     event.keyboard.keycode, event.keyboard.display);
                 break;
@@ -235,17 +235,13 @@ class handlers {
             }
         };
 
-        inline constexpr std::array<handler_types, 15>& bulder(std::array<handler_types, 15>& temp) {
-            return temp;
-        }
-
-        inline static std::array<handler_types, 15> _global_handlers;
-        inline static std::array<handler_types, 15> _game_handlers;
-        inline static std::array<handler_types, 15> _non_game_handlers;
+        inline static std::array<handler_types, 15> _temp_global;
+        inline static std::array<handler_types, 15> _temp_game;
+        inline static std::array<handler_types, 15> _temp_non_game;
         
-        //inline static constexpr std::array<handler_types, 15> _global_handlers;
-        //inline static constexpr std::array<handler_types, 15> _game_handlers;
-        //inline static constexpr std::array<handler_types, 15> _non_game_handlers;
+        inline static const std::array<handler_types, 15> _global_handlers = _temp_global;
+        inline static const std::array<handler_types, 15> _game_handlers = _temp_game;
+        inline static const std::array<handler_types, 15> _non_game_handlers = _temp_non_game;
 
         static bool initialized;  //  Restrict to one instance.
 };
@@ -262,9 +258,9 @@ inline constexpr void add_handler(const handler_types& handle) {
     static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
         "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
     
-    if constexpr (S == GLOBAL_HANDLES) handlers::_global_handlers[IDX] = handle;
-    if constexpr (S == GAME_HANDLES) handlers::_game_handlers[IDX] = handle;
-    if constexpr (S == NONGAME_HANDLES) handlers::_non_game_handlers[IDX] = handle;
+    if constexpr (S == GLOBAL_HANDLES) handlers::_temp_global[IDX] = handle;
+    if constexpr (S == GAME_HANDLES) handlers::_temp_game[IDX] = handle;
+    if constexpr (S == NONGAME_HANDLES) handlers::_temp_non_game[IDX] = handle;
 };
 
 }  //  end namespace wte

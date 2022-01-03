@@ -78,7 +78,11 @@ class handlers {
     friend class input;
 
     public:
-        handlers() = default;
+        inline handlers() {
+            static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
+                "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
+        };
+
         ~handlers() = default;                     //!<  Default destructor.
         handlers(const handlers&) = delete;        //!<  Delete copy constructor.
         void operator=(handlers const&) = delete;  //!<  Delete assignment operator.
@@ -91,25 +95,15 @@ class handlers {
         template <size_t IDX>
         inline constexpr void add(const handler_types& handle) {
             static_assert(IDX < 15, "Invalid Handler Event Index");
-            static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
-                "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
-            if constexpr (S == GLOBAL_HANDLES) handlers::_temp_global[IDX] = handle;
-            if constexpr (S == GAME_HANDLES) handlers::_temp_game[IDX] = handle;
-            if constexpr (S == NONGAME_HANDLES) handlers::_temp_non_game[IDX] = handle;
+            _temp_handlers[IDX] = handle;
         };
 
     private:
-        inline static std::array<handler_types, 15> _temp_global;
-        inline static std::array<handler_types, 15> _temp_game;
-        inline static std::array<handler_types, 15> _temp_non_game;
-
+        inline static std::array<handler_types, 15> _temp_handlers;
         inline constexpr std::array<handler_types, 15>& builder(std::array<handler_types, 15>& temp) {
             return temp;
         };
-        
-        inline static const std::array<handler_types, 15> _global_handlers = builder(_temp_global);
-        inline static const std::array<handler_types, 15> _game_handlers = builder(_temp_game);
-        inline static const std::array<handler_types, 15> _non_game_handlers = builder(_temp_non_game);
+        inline static const std::array<handler_types, 15> _handlers = builder(_temp_handlers);
 
         static bool initialized;  //  Restrict to one instance.
 };

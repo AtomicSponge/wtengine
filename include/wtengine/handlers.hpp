@@ -79,6 +79,7 @@ using handler_types = std::variant<
  * \class handlers
  * \brief Input handlers.
  */
+template <size_t S>
 class handlers {
     friend class input;
 
@@ -87,180 +88,41 @@ class handlers {
         handlers(const handlers&) = delete;        //!<  Delete copy constructor.
         void operator=(handlers const&) = delete;  //!<  Delete assignment operator.
 
-        template <size_t S, size_t IDX>
-        friend constexpr void add_handler(const handler_types& handle);
+        /*!
+         * \brief Add an input handler.
+         * \tparam S Handler scope.
+         * \tparam IDX Handler event index.
+         * \param handle Input handler.
+         */
+        template <size_t IDX>
+        inline constexpr void add(const handler_types& handle) {
+            static_assert(IDX < 15, "Invalid Handler Event Index");
+            static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
+                "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
+            
+            if constexpr (S == GLOBAL_HANDLES) handlers::_temp_global[IDX] = handle;
+            if constexpr (S == GAME_HANDLES) handlers::_temp_game[IDX] = handle;
+            if constexpr (S == NONGAME_HANDLES) handlers::_temp_non_game[IDX] = handle;
+        };
 
     protected:
         handlers();
 
     private:
-        static void run(const ALLEGRO_EVENT& event);
-
-        inline static void run_global(const ALLEGRO_EVENT& event) {
-            switch(event.type) {
-            //  Keyboard events
-            case ALLEGRO_EVENT_KEY_DOWN:
-                //if constexpr (std::holds_alternative<handler::key>(_temp_global[WTE_EVENT_KEY_DOWN]))
-                std::get<handler::key>(_global_handlers[WTE_EVENT_KEY_DOWN])(
-                    event.keyboard.keycode, event.keyboard.display);
-                break;
-            case ALLEGRO_EVENT_KEY_UP:
-                std::get<handler::key>(_global_handlers[WTE_EVENT_KEY_UP])(
-                    event.keyboard.keycode, event.keyboard.display);
-                break;
-
-            //  Mouse events
-            case ALLEGRO_EVENT_MOUSE_AXES:
-                break;
-            case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-                break;
-            case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-                break;
-            case ALLEGRO_EVENT_MOUSE_WARPED:
-                break;
-            case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
-                break;
-            case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
-                break;
-
-            //  Joystick events
-            case ALLEGRO_EVENT_JOYSTICK_AXIS:
-                break;
-            case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-                break;
-            case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-                break;
-
-            //  Touch events
-            case ALLEGRO_EVENT_TOUCH_BEGIN:
-                break;
-            case ALLEGRO_EVENT_TOUCH_END:
-                break;
-            case ALLEGRO_EVENT_TOUCH_MOVE:
-                break;
-            case ALLEGRO_EVENT_TOUCH_CANCEL:
-                break;
-            }
-        };
-
-        inline static void run_game(const ALLEGRO_EVENT& event) {
-            switch(event.type) {
-            //  Keyboard events
-            case ALLEGRO_EVENT_KEY_DOWN:
-                std::get<handler::key>(_game_handlers[WTE_EVENT_KEY_DOWN])(
-                    event.keyboard.keycode, event.keyboard.display);
-                break;
-            case ALLEGRO_EVENT_KEY_UP:
-                std::get<handler::key>(_game_handlers[WTE_EVENT_KEY_UP])(
-                    event.keyboard.keycode, event.keyboard.display);
-                break;
-
-            //  Mouse events
-            case ALLEGRO_EVENT_MOUSE_AXES:
-                break;
-            case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-                break;
-            case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-                break;
-            case ALLEGRO_EVENT_MOUSE_WARPED:
-                break;
-            case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
-                break;
-            case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
-                break;
-
-            //  Joystick events
-            case ALLEGRO_EVENT_JOYSTICK_AXIS:
-                break;
-            case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-                break;
-            case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-                break;
-
-            //  Touch events
-            case ALLEGRO_EVENT_TOUCH_BEGIN:
-                break;
-            case ALLEGRO_EVENT_TOUCH_END:
-                break;
-            case ALLEGRO_EVENT_TOUCH_MOVE:
-                break;
-            case ALLEGRO_EVENT_TOUCH_CANCEL:
-                break;
-            }
-        };
-
-        inline static void run_non_game(const ALLEGRO_EVENT& event) {
-            switch(event.type) {
-            //  Keyboard events
-            case ALLEGRO_EVENT_KEY_DOWN:
-                std::get<handler::key>(_non_game_handlers[WTE_EVENT_KEY_DOWN])(
-                    event.keyboard.keycode, event.keyboard.display);
-                break;
-            case ALLEGRO_EVENT_KEY_UP:
-                std::get<handler::key>(_non_game_handlers[WTE_EVENT_KEY_UP])(
-                    event.keyboard.keycode, event.keyboard.display);
-                break;
-
-            //  Mouse events
-            case ALLEGRO_EVENT_MOUSE_AXES:
-                break;
-            case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-                break;
-            case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-                break;
-            case ALLEGRO_EVENT_MOUSE_WARPED:
-                break;
-            case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
-                break;
-            case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
-                break;
-
-            //  Joystick events
-            case ALLEGRO_EVENT_JOYSTICK_AXIS:
-                break;
-            case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-                break;
-            case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-                break;
-
-            //  Touch events
-            case ALLEGRO_EVENT_TOUCH_BEGIN:
-                break;
-            case ALLEGRO_EVENT_TOUCH_END:
-                break;
-            case ALLEGRO_EVENT_TOUCH_MOVE:
-                break;
-            case ALLEGRO_EVENT_TOUCH_CANCEL:
-                break;
-            }
-        };
 
         inline static std::array<handler_types, 15> _temp_global;
         inline static std::array<handler_types, 15> _temp_game;
         inline static std::array<handler_types, 15> _temp_non_game;
+
+        inline constexpr std::array<handler_types, 15>& test(std::array<handler_types, 15>& temp) {
+            return temp;
+        };
         
-        inline static const std::array<handler_types, 15> _global_handlers = _temp_global;
+        inline static const std::array<handler_types, 15> _global_handlers = test(_temp_global);
         inline static const std::array<handler_types, 15> _game_handlers = _temp_game;
         inline static const std::array<handler_types, 15> _non_game_handlers = _temp_non_game;
 
         static bool initialized;  //  Restrict to one instance.
-};
-
-/*!
- * \brief Add an input handler.
- * \tparam S Handler scope.
- * \tparam IDX Handler event index.
- * \param handle Input handler.
- */
-template <size_t S, size_t IDX>
-inline constexpr void add_handler(const handler_types& handle) {
-    static_assert(IDX < 15, "Invalid Handler Event Index");
-    static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
-        "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
-    
-    if constexpr (S == GLOBAL_HANDLES) handlers::_temp_global[IDX] = handle;
-    if constexpr (S == GAME_HANDLES) handlers::_temp_game[IDX] = handle;
-    if constexpr (S == NONGAME_HANDLES) handlers::_temp_non_game[IDX] = handle;
 };
 
 }  //  end namespace wte

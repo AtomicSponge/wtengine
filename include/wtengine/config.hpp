@@ -33,7 +33,6 @@ namespace wte {
 class config {
     friend class display;
     friend class engine;
-    friend class handlers;
     friend class input;
     friend class mgr::audio;
     friend class mgr::gfx::renderer;

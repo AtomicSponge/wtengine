@@ -103,13 +103,13 @@ class handlers {
         inline static std::array<handler_types, 15> _temp_game;
         inline static std::array<handler_types, 15> _temp_non_game;
 
-        inline constexpr std::array<handler_types, 15>& test(std::array<handler_types, 15>& temp) {
+        inline constexpr std::array<handler_types, 15>& builder(std::array<handler_types, 15>& temp) {
             return temp;
         };
         
-        inline static const std::array<handler_types, 15> _global_handlers = test(_temp_global);
-        inline static const std::array<handler_types, 15> _game_handlers = _temp_game;
-        inline static const std::array<handler_types, 15> _non_game_handlers = _temp_non_game;
+        inline static const std::array<handler_types, 15> _global_handlers = builder(_temp_global);
+        inline static const std::array<handler_types, 15> _game_handlers = builder(_temp_game);
+        inline static const std::array<handler_types, 15> _non_game_handlers = builder(_temp_non_game);
 
         static bool initialized;  //  Restrict to one instance.
 };

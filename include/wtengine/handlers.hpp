@@ -11,18 +11,12 @@
 #define WTE_HANDLERS_HPP
 
 #include <array>
-#include <utility>
 #include <variant>
-#include <algorithm>
 #include <functional>
 
 #include <allegro5/allegro.h>
 
 #include "wtengine/_globals/_defines.hpp"
-#include "wtengine/_globals/alert.hpp"
-#include "wtengine/_globals/engine_time.hpp"
-#include "wtengine/_globals/wte_exception.hpp"
-#include "wtengine/config.hpp"
 
 namespace wte::handler {
 
@@ -91,7 +85,6 @@ class handlers {
 
         /*!
          * \brief Add an input handler.
-         * \tparam S Handler scope.
          * \tparam IDX Handler event index.
          * \param handle Input handler.
          */
@@ -100,14 +93,12 @@ class handlers {
             static_assert(IDX < 15, "Invalid Handler Event Index");
             static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
                 "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
-            
             if constexpr (S == GLOBAL_HANDLES) handlers::_temp_global[IDX] = handle;
             if constexpr (S == GAME_HANDLES) handlers::_temp_game[IDX] = handle;
             if constexpr (S == NONGAME_HANDLES) handlers::_temp_non_game[IDX] = handle;
         };
 
     private:
-
         inline static std::array<handler_types, 15> _temp_global;
         inline static std::array<handler_types, 15> _temp_game;
         inline static std::array<handler_types, 15> _temp_non_game;

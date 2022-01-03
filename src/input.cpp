@@ -173,17 +173,17 @@ const bool input::check_events(void) {
         if(config::flags::record_input) record_event(event);
         //handlers::run(event);
 
-        /*
+        
         switch(event.type) {
         //  Keyboard events
         case ALLEGRO_EVENT_KEY_DOWN:
             //if constexpr (std::holds_alternative<handler::key>(_global_handlers[WTE_EVENT_KEY_DOWN]))
-            std::get<handler::key>(_global_handlers[WTE_EVENT_KEY_DOWN])(
+            std::get<handler::key>(handlers<NONGAME_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
                 event.keyboard.keycode, event.keyboard.display);
             break;
         case ALLEGRO_EVENT_KEY_UP:
-            std::get<handler::key>(_global_handlers[WTE_EVENT_KEY_UP])(
-                event.keyboard.keycode, event.keyboard.display);
+            //std::get<handler::key>(_global_handlers[WTE_EVENT_KEY_UP])(
+                //event.keyboard.keycode, event.keyboard.display);
             break;
 
         //  Mouse events
@@ -218,7 +218,6 @@ const bool input::check_events(void) {
         case ALLEGRO_EVENT_TOUCH_CANCEL:
             break;
         }
-        */
     }
     return true;
 }

@@ -84,7 +84,8 @@ class handlers {
     friend class input;
 
     public:
-        virtual ~handlers() = default;             //!<  Default virtual destructor.
+        handlers() = default;
+        ~handlers() = default;                     //!<  Default destructor.
         handlers(const handlers&) = delete;        //!<  Delete copy constructor.
         void operator=(handlers const&) = delete;  //!<  Delete assignment operator.
 
@@ -104,9 +105,6 @@ class handlers {
             if constexpr (S == GAME_HANDLES) handlers::_temp_game[IDX] = handle;
             if constexpr (S == NONGAME_HANDLES) handlers::_temp_non_game[IDX] = handle;
         };
-
-    protected:
-        handlers();
 
     private:
 

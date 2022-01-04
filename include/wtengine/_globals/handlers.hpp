@@ -108,7 +108,7 @@ class handlers {
             temp_handlers[IDX] = handle;
         };
 
-        //inline constexpr h_table builder(void) { return temp_handlers; };
+        inline constexpr h_table& builder(h_table& temp) { return temp; };
 
         inline static const h_table _handlers = temp_handlers;
 

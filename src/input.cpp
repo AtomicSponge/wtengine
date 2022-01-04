@@ -173,51 +173,51 @@ const bool input::check_events(void) {
         if(config::flags::record_input) record_event(event);
         //handlers::run(event);
 
-        
-        switch(event.type) {
-        //  Keyboard events
-        case ALLEGRO_EVENT_KEY_DOWN:
-            //if constexpr (std::holds_alternative<handler::key>(_global_handlers[WTE_EVENT_KEY_DOWN]))
-            std::get<handler::key>(handlers<NONGAME_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
-                event.keyboard.keycode, event.keyboard.display);
-            break;
-        case ALLEGRO_EVENT_KEY_UP:
-            //std::get<handler::key>(_global_handlers[WTE_EVENT_KEY_UP])(
-                //event.keyboard.keycode, event.keyboard.display);
-            break;
+        if(!config::flags::game_started)
+            switch(event.type) {
+            //  Keyboard events
+            case ALLEGRO_EVENT_KEY_DOWN:
+                //if constexpr (std::holds_alternative<handler::key>(_global_handlers[WTE_EVENT_KEY_DOWN]))
+                std::get<handler::key>(handlers<NONGAME_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
+                    event.keyboard.keycode, event.keyboard.display);
+                break;
+            case ALLEGRO_EVENT_KEY_UP:
+                //std::get<handler::key>(_global_handlers[WTE_EVENT_KEY_UP])(
+                    //event.keyboard.keycode, event.keyboard.display);
+                break;
 
-        //  Mouse events
-        case ALLEGRO_EVENT_MOUSE_AXES:
-            break;
-        case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-            break;
-        case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-            break;
-        case ALLEGRO_EVENT_MOUSE_WARPED:
-            break;
-        case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
-            break;
-        case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
-            break;
+            //  Mouse events
+            case ALLEGRO_EVENT_MOUSE_AXES:
+                break;
+            case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+                break;
+            case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+                break;
+            case ALLEGRO_EVENT_MOUSE_WARPED:
+                break;
+            case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
+                break;
+            case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
+                break;
 
-        //  Joystick events
-        case ALLEGRO_EVENT_JOYSTICK_AXIS:
-            break;
-        case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-            break;
-        case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-            break;
+            //  Joystick events
+            case ALLEGRO_EVENT_JOYSTICK_AXIS:
+                break;
+            case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
+                break;
+            case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
+                break;
 
-        //  Touch events
-        case ALLEGRO_EVENT_TOUCH_BEGIN:
-            break;
-        case ALLEGRO_EVENT_TOUCH_END:
-            break;
-        case ALLEGRO_EVENT_TOUCH_MOVE:
-            break;
-        case ALLEGRO_EVENT_TOUCH_CANCEL:
-            break;
-        }
+            //  Touch events
+            case ALLEGRO_EVENT_TOUCH_BEGIN:
+                break;
+            case ALLEGRO_EVENT_TOUCH_END:
+                break;
+            case ALLEGRO_EVENT_TOUCH_MOVE:
+                break;
+            case ALLEGRO_EVENT_TOUCH_CANCEL:
+                break;
+            }
     }
     return true;
 }

@@ -71,11 +71,14 @@ using handler_types = std::variant<
 
 /*!
  * \class handlers
+ * \tparam S Handler scope.
  * \brief Input handlers.
  */
 template <size_t S>
 class handlers {
     friend class input;
+
+    using h_table = std::array<handler_types, 15>;
 
     public:
         handlers() = delete;                       //!<  Delete constructor.
@@ -93,15 +96,22 @@ class handlers {
             static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
                 "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
             static_assert(IDX < 15, "Invalid Handler Event Index");
-            _temp_handlers[IDX] = handle;
+            temp_handlers[IDX] = handle;
         };
 
     private:
-        inline static std::array<handler_types, 15> _temp_handlers;
-        inline constexpr std::array<handler_types, 15>& builder(std::array<handler_types, 15>& temp) {
-            return temp;
+        inline static h_table temp_handlers;
+
+        template <size_t... IDX>
+        inline constexpr h_table builder(void) {
+            return add;
         };
-        inline static const std::array<handler_types, 15> _handlers = builder(_temp_handlers);
+
+        inline constexpr h_table builder(void) {
+            return builder(h_table{});
+        };
+
+        inline static const h_table _handlers = builder();
 
         static bool initialized;  //  Restrict to one instance.
 };

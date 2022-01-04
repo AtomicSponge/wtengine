@@ -96,22 +96,21 @@ class handlers {
             static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
                 "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
             static_assert(IDX < 15, "Invalid Handler Event Index");
+            //builder<IDX>(handle);
             temp_handlers[IDX] = handle;
         };
 
     private:
         inline static h_table temp_handlers;
 
-        template <size_t... IDX>
-        inline constexpr h_table builder(void) {
-            return add;
+        template <size_t IDX>
+        inline constexpr void builder(const handler_types& handle) {
+            temp_handlers[IDX] = handle;
         };
 
-        inline constexpr h_table builder(void) {
-            return builder(h_table{});
-        };
+        //inline constexpr h_table builder(void) { return temp_handlers; };
 
-        inline static const h_table _handlers = builder();
+        inline static const h_table _handlers = temp_handlers;
 
         static bool initialized;  //  Restrict to one instance.
 };

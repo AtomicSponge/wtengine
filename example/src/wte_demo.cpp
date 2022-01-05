@@ -395,7 +395,7 @@ void wte_demo::new_game(void) {
                 mgr::world::set_component<cmp::gfx::sprite>(plr_id)->set_cycle("death");
                 if(mgr::variables::get<int>("lives") == 0) {
                     //  Game over!
-                    mgr::messages::add(message(engine_time::check() + 180, "system", "end_game", ""));
+                    mgr::messages::add(message(engine_time::check() + 180, "system", "end-game", ""));
                     entity_id go_id = mgr::world::get_id("game_over_overlay");
                     mgr::world::set_component<cmp::gfx::overlay>(go_id)->visible = true;
                 } else {

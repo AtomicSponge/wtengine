@@ -84,7 +84,7 @@ class input {
         input();  //!<  Constructor
 
     private:
-        inline static void run_handles(const ALLEGRO_EVENT& event) {
+        inline static constexpr void run_handles(const ALLEGRO_EVENT& event) {
             switch(event.type) {
             //  Keyboard events
             case ALLEGRO_EVENT_KEY_DOWN:

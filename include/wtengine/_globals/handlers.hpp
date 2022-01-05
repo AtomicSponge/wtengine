@@ -96,6 +96,7 @@ class handlers {
         inline constexpr static void add(const handler_types& handle) {
             check<IDX>(handle);
             _handlers[IDX] = handle;
+            href_table[IDX] = true;
         };
 
     private:
@@ -108,6 +109,8 @@ class handlers {
                 static_assert(IDX == WTE_EVENT_KEY_DOWN || WTE_EVENT_KEY_UP,
                 "Event Index must be a Key Event");
         };
+
+        inline static constexpr std::array<bool, WTE_EVENT_MAX> href_table = { false };
 
         inline static h_table _handlers;
 };

@@ -46,21 +46,6 @@ class input {
         void operator=(input const&) = delete;  //!<  Delete assignment operator.
 
         /*!
-         * \brief Reset P1 joystick polls.
-         */
-        static void reset_p1_pols(void);
-
-        /*!
-         * \brief Reset P2 joystick polls.
-         */
-        static void reset_p2_pols(void);
-
-        /*!
-         * \brief Reset P1 & P2 joystick polls.
-         */
-        static void reset_pols(void);
-
-        /*!
          * \brief Toggle input recording.
          */
         static void toggle_recording(void);
@@ -99,6 +84,149 @@ class input {
         input();  //!<  Constructor
 
     private:
+        inline static void run_handles(const ALLEGRO_EVENT& event) {
+            switch(event.type) {
+            //  Keyboard events
+            case ALLEGRO_EVENT_KEY_DOWN:
+                //std::get<handler::key>(handlers<GLOBAL_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
+                    //event.keyboard.keycode, event.keyboard.display);
+                break;
+            case ALLEGRO_EVENT_KEY_UP:
+                //std::get<handler::key>(handlers<GLOBAL_HANDLES>::_handlers[WTE_EVENT_KEY_UP])(
+                    //event.keyboard.keycode, event.keyboard.display);
+                break;
+
+            //  Mouse events
+            case ALLEGRO_EVENT_MOUSE_AXES:
+                break;
+            case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+                break;
+            case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+                break;
+            case ALLEGRO_EVENT_MOUSE_WARPED:
+                break;
+            case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
+                break;
+            case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
+                break;
+
+            //  Joystick events
+            case ALLEGRO_EVENT_JOYSTICK_AXIS:
+                break;
+            case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
+                break;
+            case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
+                break;
+
+            //  Touch events
+            case ALLEGRO_EVENT_TOUCH_BEGIN:
+                break;
+            case ALLEGRO_EVENT_TOUCH_END:
+                break;
+            case ALLEGRO_EVENT_TOUCH_MOVE:
+                break;
+            case ALLEGRO_EVENT_TOUCH_CANCEL:
+                break;
+            }
+            if(config::flags::game_started)
+                switch(event.type) {
+                //  Keyboard events
+                case ALLEGRO_EVENT_KEY_DOWN:
+                    std::get<handler::key>(handlers<GAME_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
+                        event.keyboard.keycode, event.keyboard.display);
+                    break;
+                case ALLEGRO_EVENT_KEY_UP:
+                    std::get<handler::key>(handlers<GAME_HANDLES>::_handlers[WTE_EVENT_KEY_UP])(
+                        event.keyboard.keycode, event.keyboard.display);
+                    break;
+
+                //  Mouse events
+                case ALLEGRO_EVENT_MOUSE_AXES:
+                    //if(std::holds_alternative<handler::mouse_axes>(handlers<GAME_HANDLES>::_handlers[WTE_EVENT_MOUSE_AXES]))
+                    /*std::get<handler::mouse_axes>(handlers<GAME_HANDLES>::_handlers[WTE_EVENT_MOUSE_AXES])(
+                        event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
+                        event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
+                        event.mouse.pressure, event.mouse.display);*/
+                    break;
+                case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+                    break;
+                case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+                    break;
+                case ALLEGRO_EVENT_MOUSE_WARPED:
+                    /*std::get<handler::mouse_warped>(handlers<GAME_HANDLES>::_handlers[WTE_EVENT_MOUSE_WARPED])(
+                        event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
+                        event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
+                        event.mouse.pressure, event.mouse.display);*/
+                    break;
+                case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
+                    break;
+                case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
+                    break;
+
+                //  Joystick events
+                case ALLEGRO_EVENT_JOYSTICK_AXIS:
+                    break;
+                case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
+                    break;
+                case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
+                    break;
+
+                //  Touch events
+                case ALLEGRO_EVENT_TOUCH_BEGIN:
+                    break;
+                case ALLEGRO_EVENT_TOUCH_END:
+                    break;
+                case ALLEGRO_EVENT_TOUCH_MOVE:
+                    break;
+                case ALLEGRO_EVENT_TOUCH_CANCEL:
+                    break;
+                }
+            else
+                switch(event.type) {
+                //  Keyboard events
+                case ALLEGRO_EVENT_KEY_DOWN:
+                    std::get<handler::key>(handlers<NONGAME_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
+                        event.keyboard.keycode, event.keyboard.display);
+                    break;
+                case ALLEGRO_EVENT_KEY_UP:
+                    std::get<handler::key>(handlers<NONGAME_HANDLES>::_handlers[WTE_EVENT_KEY_UP])(
+                        event.keyboard.keycode, event.keyboard.display);
+                    break;
+
+                //  Mouse events
+                case ALLEGRO_EVENT_MOUSE_AXES:
+                    break;
+                case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+                    break;
+                case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+                    break;
+                case ALLEGRO_EVENT_MOUSE_WARPED:
+                    break;
+                case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
+                    break;
+                case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
+                    break;
+
+                //  Joystick events
+                case ALLEGRO_EVENT_JOYSTICK_AXIS:
+                    break;
+                case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
+                    break;
+                case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
+                    break;
+
+                //  Touch events
+                case ALLEGRO_EVENT_TOUCH_BEGIN:
+                    break;
+                case ALLEGRO_EVENT_TOUCH_END:
+                    break;
+                case ALLEGRO_EVENT_TOUCH_MOVE:
+                    break;
+                case ALLEGRO_EVENT_TOUCH_CANCEL:
+                    break;
+                }
+        };
+
         static void create_event_queue(void);                 //  Create the input queue.
         static void destroy_event_queue(void);                //  Destroy the input queue.
         static void record_event(const ALLEGRO_EVENT&);       //  Record input events.

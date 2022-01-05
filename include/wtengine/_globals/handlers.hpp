@@ -23,13 +23,13 @@ namespace wte::handler {
 using key = std::function<void(const int&, ALLEGRO_DISPLAY*)>;
 using mouse_axes = std::function<void(
     const int&, const int&, const int&, const int&, const int&,
-    const int&, const int&, const float&, ALLEGRO_DISPLAY*)>;
+    const int&, const int&, const int&, const float&, ALLEGRO_DISPLAY*)>;
 using mouse_button = std::function<void(
     const int&, const int&, const int&, const int&,
     const unsigned int&, const float&, ALLEGRO_DISPLAY*)>;
 using mouse_warped = std::function<void(
     const int&, const int&, const int&, const int&, const int&,
-    const int&, const int&, const float&, ALLEGRO_DISPLAY*)>;
+    const int&, const int&, const int&, const float&, ALLEGRO_DISPLAY*)>;
 using mouse_enter_display = std::function<void(
     const int&, const int&, const int&, const int&, ALLEGRO_DISPLAY*)>;
 using mouse_leave_display = std::function<void(
@@ -101,9 +101,8 @@ class handlers {
         };
 
     private:
+        inline static void check(void) {};
         inline static h_table _handlers;
-
-        static bool initialized;  //  Restrict to one instance.
 };
 
 }  //  end namespace wte

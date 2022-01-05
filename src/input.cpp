@@ -34,6 +34,9 @@ bool input::initialized = false;
 input::input() {
     if(initialized == true) throw std::runtime_error("Input instance already running!");
     initialized = true;
+    handlers<GLOBAL_HANDLES>::check();
+    handlers<GAME_HANDLES>::check();
+    handlers<NONGAME_HANDLES>::check();
 }
 
 /*
@@ -57,42 +60,6 @@ void input::create_event_queue(void) {
  *
  */
 void input::destroy_event_queue(void) { al_destroy_event_queue(input_event_queue); }
-
-/*
- *
- */
-void input::reset_p1_pols(void) {
-    config::_controls::p1_pola_x = 0.0f;
-    config::_controls::p1_pola_y = 0.0f;
-    config::_controls::p1_polb_x = 0.0f;
-    config::_controls::p1_polb_y = 0.0f;
-    config::_controls::p1_polc_x = 0.0f;
-    config::_controls::p1_polc_y = 0.0f;
-    config::_controls::p1_throttle_left = 0.0f;
-    config::_controls::p1_throttle_right = 0.0f;
-}
-
-/*
- *
- */
-void input::reset_p2_pols(void) {
-    config::_controls::p2_pola_x = 0.0f;
-    config::_controls::p2_pola_y = 0.0f;
-    config::_controls::p2_polb_x = 0.0f;
-    config::_controls::p2_polb_y = 0.0f;
-    config::_controls::p2_polc_x = 0.0f;
-    config::_controls::p2_polc_y = 0.0f;
-    config::_controls::p2_throttle_left = 0.0f;
-    config::_controls::p2_throttle_right = 0.0f;
-}
-
-/*
- *
- */
-void input::reset_pols(void) {
-    reset_p1_pols();
-    reset_p2_pols();
-}
 
 /*
  *
@@ -171,96 +138,7 @@ const bool input::check_events(void) {
                 config::_flags::menu_opened = true);
         //  Record input if enabled.
         if(config::flags::record_input) record_event(event);
-        //handlers::run(event);
-
-        if(config::flags::game_started)
-            switch(event.type) {
-            //  Keyboard events
-            case ALLEGRO_EVENT_KEY_DOWN:
-                std::get<handler::key>(handlers<GAME_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
-                    event.keyboard.keycode, event.keyboard.display);
-                break;
-            case ALLEGRO_EVENT_KEY_UP:
-                std::get<handler::key>(handlers<GAME_HANDLES>::_handlers[WTE_EVENT_KEY_UP])(
-                    event.keyboard.keycode, event.keyboard.display);
-                break;
-
-            //  Mouse events
-            case ALLEGRO_EVENT_MOUSE_AXES:
-                break;
-            case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-                break;
-            case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-                break;
-            case ALLEGRO_EVENT_MOUSE_WARPED:
-                break;
-            case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
-                break;
-            case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
-                break;
-
-            //  Joystick events
-            case ALLEGRO_EVENT_JOYSTICK_AXIS:
-                break;
-            case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-                break;
-            case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-                break;
-
-            //  Touch events
-            case ALLEGRO_EVENT_TOUCH_BEGIN:
-                break;
-            case ALLEGRO_EVENT_TOUCH_END:
-                break;
-            case ALLEGRO_EVENT_TOUCH_MOVE:
-                break;
-            case ALLEGRO_EVENT_TOUCH_CANCEL:
-                break;
-            }
-        else
-            switch(event.type) {
-            //  Keyboard events
-            case ALLEGRO_EVENT_KEY_DOWN:
-                std::get<handler::key>(handlers<NONGAME_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
-                    event.keyboard.keycode, event.keyboard.display);
-                break;
-            case ALLEGRO_EVENT_KEY_UP:
-                std::get<handler::key>(handlers<NONGAME_HANDLES>::_handlers[WTE_EVENT_KEY_UP])(
-                    event.keyboard.keycode, event.keyboard.display);
-                break;
-
-            //  Mouse events
-            case ALLEGRO_EVENT_MOUSE_AXES:
-                break;
-            case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-                break;
-            case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-                break;
-            case ALLEGRO_EVENT_MOUSE_WARPED:
-                break;
-            case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
-                break;
-            case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
-                break;
-
-            //  Joystick events
-            case ALLEGRO_EVENT_JOYSTICK_AXIS:
-                break;
-            case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-                break;
-            case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-                break;
-
-            //  Touch events
-            case ALLEGRO_EVENT_TOUCH_BEGIN:
-                break;
-            case ALLEGRO_EVENT_TOUCH_END:
-                break;
-            case ALLEGRO_EVENT_TOUCH_MOVE:
-                break;
-            case ALLEGRO_EVENT_TOUCH_CANCEL:
-                break;
-            }
+        run_handles(event);
     }
     return true;
 }

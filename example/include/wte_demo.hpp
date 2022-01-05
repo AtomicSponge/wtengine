@@ -29,6 +29,12 @@ class wte_demo final : public wte::engine {
         void on_menu_open(void) override;
         //  On menu close
         void on_menu_close(void) override;
+
+        struct player_pols {
+            inline static float x = 0.0f;
+            inline static float y = 0.0f;
+            inline static void reset(void) { x = y = 0.0f; };
+        };
 };
 
 #endif

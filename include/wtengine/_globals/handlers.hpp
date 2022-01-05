@@ -59,7 +59,8 @@ enum handler_events {
     WTE_EVENT_MOUSE_AXES, WTE_EVENT_MOUSE_BUTTON_DOWN, WTE_EVENT_MOUSE_BUTTON_UP,
     WTE_EVENT_MOUSE_WARPED, WTE_EVENT_MOUSE_ENTER_DISPLAY, WTE_EVENT_MOUSE_LEAVE_DISPLAY,
     WTE_EVENT_JOYSTICK_AXIS, WTE_EVENT_JOYSTICK_BUTTON_DOWN, WTE_EVENT_JOYSTICK_BUTTON_UP,
-    WTE_EVENT_TOUCH_BEGIN, WTE_EVENT_TOUCH_END, WTE_EVENT_TOUCH_MOVE, WTE_EVENT_TOUCH_CANCEL
+    WTE_EVENT_TOUCH_BEGIN, WTE_EVENT_TOUCH_END, WTE_EVENT_TOUCH_MOVE, WTE_EVENT_TOUCH_CANCEL,
+    WTE_EVENT_MAX
 };
 
 using handler_types = std::variant<
@@ -78,7 +79,7 @@ template <size_t S>
 class handlers {
     friend class input;
 
-    using h_table = std::array<handler_types, 15>;
+    using h_table = std::array<handler_types, WTE_EVENT_MAX>;
 
     public:
         handlers() = delete;                       //!<  Delete constructor.
@@ -95,22 +96,12 @@ class handlers {
         inline constexpr static void add(const handler_types& handle) {
             static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
                 "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
-            static_assert(IDX < 15, "Invalid Handler Event Index");
-            //builder<IDX>(handle);
-            temp_handlers[IDX] = handle;
+            static_assert(IDX < WTE_EVENT_MAX, "Invalid Handler Event Index");
+            _handlers[IDX] = handle;
         };
 
     private:
-        inline static h_table temp_handlers;
-
-        template <size_t IDX>
-        inline constexpr void builder(const handler_types& handle) {
-            temp_handlers[IDX] = handle;
-        };
-
-        inline constexpr h_table& builder(h_table& temp) { return temp; };
-
-        inline static const h_table _handlers = temp_handlers;
+        inline static h_table _handlers;
 
         static bool initialized;  //  Restrict to one instance.
 };

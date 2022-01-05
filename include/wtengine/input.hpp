@@ -88,14 +88,14 @@ class input {
             switch(event.type) {
             //  Keyboard events
             case ALLEGRO_EVENT_KEY_DOWN:
-                if (std::holds_alternative<handler::key>(handlers<GLOBAL_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN]))
-                std::get<handler::key>(handlers<GLOBAL_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
-                    event.keyboard.keycode, event.keyboard.display);
+                if(handlers<GLOBAL_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN].index() == 0)
+                    std::get<handler::key>(handlers<GLOBAL_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
+                        event.keyboard.keycode, event.keyboard.display);
                 break;
             case ALLEGRO_EVENT_KEY_UP:
-                if (std::holds_alternative<handler::key>(handlers<GLOBAL_HANDLES>::_handlers[WTE_EVENT_KEY_UP]))
-                std::get<handler::key>(handlers<GLOBAL_HANDLES>::_handlers[WTE_EVENT_KEY_UP])(
-                    event.keyboard.keycode, event.keyboard.display);
+                if(handlers<GLOBAL_HANDLES>::_handlers[WTE_EVENT_KEY_UP].index() == 0)
+                    std::get<handler::key>(handlers<GLOBAL_HANDLES>::_handlers[WTE_EVENT_KEY_UP])(
+                        event.keyboard.keycode, event.keyboard.display);
                 break;
 
             //  Mouse events
@@ -134,12 +134,14 @@ class input {
                 switch(event.type) {
                 //  Keyboard events
                 case ALLEGRO_EVENT_KEY_DOWN:
-                    std::get<handler::key>(handlers<GAME_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
-                        event.keyboard.keycode, event.keyboard.display);
+                    if(handlers<GAME_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN].index() == 0)
+                        std::get<handler::key>(handlers<GAME_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
+                            event.keyboard.keycode, event.keyboard.display);
                     break;
                 case ALLEGRO_EVENT_KEY_UP:
-                    std::get<handler::key>(handlers<GAME_HANDLES>::_handlers[WTE_EVENT_KEY_UP])(
-                        event.keyboard.keycode, event.keyboard.display);
+                    if(handlers<GAME_HANDLES>::_handlers[WTE_EVENT_KEY_UP].index() == 0)
+                        std::get<handler::key>(handlers<GAME_HANDLES>::_handlers[WTE_EVENT_KEY_UP])(
+                            event.keyboard.keycode, event.keyboard.display);
                     break;
 
                 //  Mouse events
@@ -187,12 +189,14 @@ class input {
                 switch(event.type) {
                 //  Keyboard events
                 case ALLEGRO_EVENT_KEY_DOWN:
-                    std::get<handler::key>(handlers<NONGAME_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
-                        event.keyboard.keycode, event.keyboard.display);
+                    if(handlers<NONGAME_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN].index() == 0)
+                        std::get<handler::key>(handlers<NONGAME_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
+                            event.keyboard.keycode, event.keyboard.display);
                     break;
                 case ALLEGRO_EVENT_KEY_UP:
-                    std::get<handler::key>(handlers<NONGAME_HANDLES>::_handlers[WTE_EVENT_KEY_UP])(
-                        event.keyboard.keycode, event.keyboard.display);
+                    if(handlers<NONGAME_HANDLES>::_handlers[WTE_EVENT_KEY_UP].index() == 0)
+                        std::get<handler::key>(handlers<NONGAME_HANDLES>::_handlers[WTE_EVENT_KEY_UP])(
+                            event.keyboard.keycode, event.keyboard.display);
                     break;
 
                 //  Mouse events

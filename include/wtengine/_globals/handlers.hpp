@@ -94,16 +94,19 @@ class handlers {
          */
         template <size_t IDX>
         inline constexpr static void add(const handler_types& handle) {
-            check<IDX>();
+            check<IDX>(handle);
             _handlers[IDX] = handle;
         };
 
     private:
         template <size_t IDX>
-        inline constexpr static void check(void) {
+        inline constexpr static void check(const handler_types& handle) {
             static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
                 "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
             static_assert(IDX < WTE_EVENT_MAX, "Invalid Handler Event Index");
+            if(std::holds_alternative<handler::key>(handle))
+                static_assert(IDX == WTE_EVENT_KEY_DOWN || WTE_EVENT_KEY_UP,
+                "Event Index must be a Key Event");
         };
 
         inline static h_table _handlers;

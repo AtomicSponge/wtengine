@@ -101,7 +101,6 @@ class handlers {
         };
 
     private:
-        inline static void check(void) {};
         inline static h_table _handlers;
 };
 

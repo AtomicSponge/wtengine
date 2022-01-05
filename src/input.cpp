@@ -34,9 +34,6 @@ bool input::initialized = false;
 input::input() {
     if(initialized == true) throw std::runtime_error("Input instance already running!");
     initialized = true;
-    handlers<GLOBAL_HANDLES>::check();
-    handlers<GAME_HANDLES>::check();
-    handlers<NONGAME_HANDLES>::check();
 }
 
 /*

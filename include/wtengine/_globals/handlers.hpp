@@ -40,7 +40,7 @@ using touch = std::function<void(
 
 namespace wte {
 
-enum handler_scopes { GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES };
+enum handler_scopes { WTE_GLOBAL_HANDLES, WTE_NONGAME_HANDLES, WTE_GAME_HANDLES };
 enum handler_events {
     WTE_EVENT_KEY_DOWN, WTE_EVENT_KEY_UP,
     WTE_EVENT_MOUSE_AXES, WTE_EVENT_MOUSE_BUTTON_DOWN, WTE_EVENT_MOUSE_BUTTON_UP,
@@ -90,15 +90,15 @@ class handlers {
         inline constexpr static void add(const handler_types& handle) {
             check<IDX>(handle);
             _handlers[IDX] = handle;
-            if constexpr (S == GLOBAL_HANDLES) _global_hreg[IDX] = true;
-            if constexpr (S == NONGAME_HANDLES) _game_hreg[IDX] = true;
-            if constexpr (S == GAME_HANDLES) _nongame_hreg[IDX] = true;
+            if constexpr (S == WTE_GLOBAL_HANDLES) _global_hreg[IDX] = true;
+            if constexpr (S == WTE_NONGAME_HANDLES) _game_hreg[IDX] = true;
+            if constexpr (S == WTE_GAME_HANDLES) _nongame_hreg[IDX] = true;
         };
 
     private:
         template <size_t IDX>
         inline constexpr static void check(const handler_types& handle) {
-            static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
+            static_assert(S == WTE_GLOBAL_HANDLES || S == WTE_NONGAME_HANDLES || S == WTE_GAME_HANDLES,
                 "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
             static_assert(IDX < WTE_EVENT_MAX, "Invalid Handler Event Index");
             if(std::holds_alternative<handler::key>(handle))

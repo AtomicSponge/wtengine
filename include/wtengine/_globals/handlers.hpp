@@ -13,6 +13,7 @@
 #include <array>
 #include <variant>
 #include <functional>
+#include <algorithm>
 
 #include <allegro5/allegro.h>
 
@@ -83,6 +84,7 @@ class handlers {
         inline constexpr static void add(const handler_types& handle) {
             check<IDX>(handle);
             _handlers[IDX] = handle;
+            _handler_register[IDX] = true;
         };
 
     private:
@@ -113,13 +115,10 @@ class handlers {
                 static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
                     IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
                     "Event Index must be a Touch Event");*/
-            _handler_register[IDX] = true;
         };
 
-        template <size_t... IDX>
-        struct _register {
-            const static bool set = false;
-        };
+        /*template <size_t... IDX>
+        struct _register {};
 
         template <size_t I, size_t... IDX>
         struct make_register : make_register<I - 1, I - 1, IDX...>{};
@@ -131,16 +130,18 @@ class handlers {
 
         template <size_t... IDX>
         inline constexpr static b_table register_handler(_register<IDX...>) {
-            return { check_register(IDX)... };
+            return {{ check_register(IDX)... }};
         };
 
         inline constexpr static b_table register_handlers(void) {
             return register_handler(make_register<WTE_EVENT_MAX>{});
-        };
+        };*/
+
+        constexpr static b_table register_handlers(void) { return _handler_register; };
 
         inline static h_table _handlers;
-        inline constexpr static b_table _handler_register = {false};
-        inline constexpr static b_table _href = register_handlers();
+        constexpr static b_table _handler_register = {false};
+        constexpr static b_table _href = register_handlers();
 };
 
 }  //  end namespace wte

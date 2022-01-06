@@ -104,7 +104,7 @@ class handlers {
             if(std::holds_alternative<handler::key>(handle))
                 static_assert(IDX == WTE_EVENT_KEY_DOWN || IDX == WTE_EVENT_KEY_UP,
                     "Event Index must be a Key Up or Down Event");
-            /*else if(std::holds_alternative<handler::mouse_axes>(handle))
+            else if(std::holds_alternative<handler::mouse_axes>(handle))
                 static_assert(IDX == WTE_EVENT_MOUSE_AXES || IDX == WTE_EVENT_MOUSE_WARPED,
                     "Event Index must be a Mouse Axes or Warped Event");
             else if(std::holds_alternative<handler::mouse_button>(handle))
@@ -122,7 +122,7 @@ class handlers {
             else if(std::holds_alternative<handler::touch>(handle))
                 static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
                     IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
-                    "Event Index must be a Touch Event");*/
+                    "Event Index must be a Touch Event");
         };
 
         inline static h_table _handlers;

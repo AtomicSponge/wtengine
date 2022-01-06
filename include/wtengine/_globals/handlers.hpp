@@ -80,6 +80,7 @@ class handlers {
     friend class input;
 
     using h_table = std::array<handler_types, WTE_EVENT_MAX>;
+    using b_table = std::array<bool, WTE_EVENT_MAX>;
 
     public:
         handlers() = delete;                       //!<  Delete constructor.
@@ -96,7 +97,6 @@ class handlers {
         inline constexpr static void add(const handler_types& handle) {
             check<IDX>(handle);
             _handlers[IDX] = handle;
-            href_table[IDX] = true;
         };
 
     private:
@@ -108,11 +108,25 @@ class handlers {
             if(std::holds_alternative<handler::key>(handle))
                 static_assert(IDX == WTE_EVENT_KEY_DOWN || WTE_EVENT_KEY_UP,
                 "Event Index must be a Key Event");
+            handler_register<IDX>::set = true;
         };
 
-        inline static constexpr std::array<bool, WTE_EVENT_MAX> href_table = { false };
+        template <size_t... IDX>
+        struct handler_register {
+            inline static bool set = false;
+        };
+
+        template <size_t... IDX>
+        inline constexpr static b_table register_handler(handler_register<IDX...>) {
+            return { handler_register<IDX...>::set };
+        };
+
+        inline constexpr static b_table register_handlers(void) {
+            return handler_register(b_table<WTE_EVENT_MAX>{});
+        };
 
         inline static h_table _handlers;
+        inline constexpr static b_table _href = register_handlers();
 };
 
 }  //  end namespace wte

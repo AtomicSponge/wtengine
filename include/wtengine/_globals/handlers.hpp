@@ -118,9 +118,6 @@ class handlers {
 
         template <size_t... IDX>
         struct _register {
-            //_register() : set(false) {};
-            //_register(const bool& b) : set(b) {};
-            //~_register() = default;
             static bool set;
         };
 
@@ -130,7 +127,7 @@ class handlers {
         template <size_t... IDX>
         struct make_register<0, IDX...> : _register<IDX...>{};
 
-        inline static constexpr bool check_register(const char IDX) { return _register<IDX>::set; };
+        inline static constexpr bool check_register(const size_t IDX) { return _register<IDX>::set; };
 
         template <size_t... IDX>
         inline constexpr static b_table register_handler(_register<IDX...>) {

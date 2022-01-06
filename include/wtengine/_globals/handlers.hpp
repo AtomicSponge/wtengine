@@ -57,6 +57,13 @@ using handler_types = std::variant<
     handler::touch
 >;
 
+using b_table = std::array<bool, WTE_EVENT_MAX>;
+constexpr b_table register_handler(const b_table t) { return t; };
+
+b_table _global_hreg = { false };
+b_table _game_hreg = { false };
+b_table _nongame_hreg = { false };
+
 /*!
  * \class handlers
  * \tparam S Handler scope.
@@ -67,7 +74,6 @@ class handlers {
     friend class input;
 
     using h_table = std::array<handler_types, WTE_EVENT_MAX>;
-    using b_table = std::array<bool, WTE_EVENT_MAX>;
 
     public:
         handlers() = delete;                       //!<  Delete constructor.
@@ -84,7 +90,9 @@ class handlers {
         inline constexpr static void add(const handler_types& handle) {
             check<IDX>(handle);
             _handlers[IDX] = handle;
-            _handler_register[IDX] = true;
+            if constexpr (S == GLOBAL_HANDLES) _global_hreg[IDX] = true;
+            if constexpr (S == NONGAME_HANDLES) _game_hreg[IDX] = true;
+            if constexpr (S == GAME_HANDLES) _nongame_hreg[IDX] = true;
         };
 
     private:
@@ -117,32 +125,12 @@ class handlers {
                     "Event Index must be a Touch Event");*/
         };
 
-        /*template <size_t... IDX>
-        struct _register {};
-
-        template <size_t I, size_t... IDX>
-        struct make_register : make_register<I - 1, I - 1, IDX...>{};
-
-        template <size_t... IDX>
-        struct make_register<0, IDX...> : _register<IDX...>{};
-
-        inline static constexpr bool check_register(const size_t IDX) { return _handler_register[IDX]; };
-
-        template <size_t... IDX>
-        inline constexpr static b_table register_handler(_register<IDX...>) {
-            return {{ check_register(IDX)... }};
-        };
-
-        inline constexpr static b_table register_handlers(void) {
-            return register_handler(make_register<WTE_EVENT_MAX>{});
-        };*/
-
-        constexpr static b_table register_handlers(void) { return _handler_register; };
-
         inline static h_table _handlers;
-        constexpr static b_table _handler_register = {false};
-        constexpr static b_table _href = register_handlers();
 };
+
+constexpr b_table global_hreg = register_handler(_global_hreg);
+constexpr b_table game_hreg = register_handler(_game_hreg);
+constexpr b_table nongame_hreg = register_handler(_nongame_hreg);
 
 }  //  end namespace wte
 

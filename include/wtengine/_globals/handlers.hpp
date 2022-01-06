@@ -118,7 +118,10 @@ class handlers {
 
         template <size_t... IDX>
         struct _register {
-            inline static bool set = false;
+            //_register() : set(false) {};
+            //_register(const bool& b) : set(b) {};
+            //~_register() = default;
+            static bool set;
         };
 
         template <size_t I, size_t... IDX>

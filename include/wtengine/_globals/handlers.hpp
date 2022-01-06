@@ -27,12 +27,7 @@ using mouse_axes = std::function<void(
 using mouse_button = std::function<void(
     const int&, const int&, const int&, const int&,
     const unsigned int&, const float&, ALLEGRO_DISPLAY*)>;
-using mouse_warped = std::function<void(
-    const int&, const int&, const int&, const int&, const int&,
-    const int&, const int&, const int&, const float&, ALLEGRO_DISPLAY*)>;
-using mouse_enter_display = std::function<void(
-    const int&, const int&, const int&, const int&, ALLEGRO_DISPLAY*)>;
-using mouse_leave_display = std::function<void(
+using mouse_display = std::function<void(
     const int&, const int&, const int&, const int&, ALLEGRO_DISPLAY*)>;
 using joy_axis = std::function<void(const int&, const int&, const float&, ALLEGRO_JOYSTICK*)>;
 using joy_button = std::function<void(const int&, ALLEGRO_JOYSTICK*)>;
@@ -55,9 +50,10 @@ enum handler_events {
 };
 
 using handler_types = std::variant<
-    handler::key, handler::mouse_axes, handler::mouse_button,
-    handler::mouse_warped, handler::mouse_enter_display, handler::mouse_leave_display,
-    handler::joy_axis, handler::joy_button, handler::touch
+    handler::key,
+    handler::mouse_axes, handler::mouse_button, handler::mouse_display,
+    handler::joy_axis, handler::joy_button,
+    handler::touch
 >;
 
 /*!
@@ -97,28 +93,22 @@ class handlers {
             static_assert(IDX < WTE_EVENT_MAX, "Invalid Handler Event Index");
             if(std::holds_alternative<handler::key>(handle))
                 static_assert(IDX == WTE_EVENT_KEY_DOWN || IDX == WTE_EVENT_KEY_UP,
-                    "Event Index must be a Key Event");
+                    "Event Index must be a Key Up or Down Event");
             else if(std::holds_alternative<handler::mouse_axes>(handle))
-                static_assert(IDX == WTE_EVENT_MOUSE_AXES,
-                    "Event Index must be a Mouse Axes Event");
+                static_assert(IDX == WTE_EVENT_MOUSE_AXES || IDX == WTE_EVENT_MOUSE_WARPED,
+                    "Event Index must be a Mouse Axes or Warped Event");
             else if(std::holds_alternative<handler::mouse_button>(handle))
                 static_assert(IDX == WTE_EVENT_MOUSE_BUTTON_DOWN || IDX == WTE_EVENT_MOUSE_BUTTON_UP,
-                    "Event Index must be a Mouse Button Event");
-            else if(std::holds_alternative<handler::mouse_warped>(handle))
-                static_assert(IDX == WTE_EVENT_MOUSE_WARPED,
-                    "Event Index must be a Mouse Warped Event");
-            else if(std::holds_alternative<handler::mouse_enter_display>(handle))
-                static_assert(IDX == WTE_EVENT_MOUSE_ENTER_DISPLAY,
-                    "Event Index must be a Mouse Enter Display Event");
-            else if(std::holds_alternative<handler::mouse_leave_display>(handle))
-                static_assert(IDX == WTE_EVENT_MOUSE_LEAVE_DISPLAY,
-                    "Event Index must be a Mouse Leave Display Event");
+                    "Event Index must be a Mouse Button Up or Down Event");
+            else if(std::holds_alternative<handler::mouse_display>(handle))
+                static_assert(IDX == WTE_EVENT_MOUSE_ENTER_DISPLAY || IDX == WTE_EVENT_MOUSE_LEAVE_DISPLAY,
+                    "Event Index must be a Mouse Enter or Leave Display Event");
             else if(std::holds_alternative<handler::joy_axis>(handle))
                 static_assert(IDX == WTE_EVENT_JOYSTICK_AXIS,
                     "Event Index must be a Joystick Axes Event");
             else if(std::holds_alternative<handler::joy_button>(handle))
                 static_assert(IDX == WTE_EVENT_JOYSTICK_BUTTON_DOWN || IDX == WTE_EVENT_JOYSTICK_BUTTON_UP,
-                    "Event Index must be a Joystick Button Event");
+                    "Event Index must be a Joystick Button Up or Down Event");
             else if(std::holds_alternative<handler::touch>(handle))
                 static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
                     IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,

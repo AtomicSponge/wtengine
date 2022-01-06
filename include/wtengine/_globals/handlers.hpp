@@ -122,11 +122,11 @@ class handlers {
         template <size_t... IDX>
         struct make_register<0, IDX...> : _register<IDX...>{};
 
-        constexpr bool check_register(bool r) { return r; };
+        inline static constexpr bool check_register(const char IDX) { return _register<IDX>::set; };
 
         template <size_t... IDX>
         inline constexpr static b_table register_handler(_register<IDX...>) {
-            return { check_register(_register<IDX...>::set) };
+            return { check_register(IDX)... };
         };
 
         inline constexpr static b_table register_handlers(void) {

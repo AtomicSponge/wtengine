@@ -44,8 +44,8 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
     mgr::variables::load<int>("max_lives");
     mgr::variables::load<int>("hiscore");
 
-    handler::key tester = [](const int& key, ALLEGRO_DISPLAY* display) {};
-    handlers<GLOBAL_HANDLES>::add<WTE_EVENT_KEY_DOWN>(tester);
+    //handler::key tester = [](const int& key, ALLEGRO_DISPLAY* display) {};
+    //handlers<GLOBAL_HANDLES>::add<WTE_EVENT_KEY_DOWN>(tester);
 
     /*
      * Set up input handling - WIP

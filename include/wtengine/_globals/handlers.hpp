@@ -108,21 +108,19 @@ class handlers {
             if(std::holds_alternative<handler::key>(handle))
                 static_assert(IDX == WTE_EVENT_KEY_DOWN || WTE_EVENT_KEY_UP,
                 "Event Index must be a Key Event");
-            handler_register<IDX>::set = true;
+            _register<IDX>::set = true;
         };
 
         template <size_t... IDX>
-        struct handler_register {
-            inline static bool set = false;
-        };
+        struct _register { inline static bool set = false; };
 
         template <size_t... IDX>
-        inline constexpr static b_table register_handler(handler_register<IDX...>) {
-            return { handler_register<IDX...>::set };
+        inline constexpr static b_table register_handler(_register<IDX...>) {
+            return { _register<IDX...>::set };
         };
 
         inline constexpr static b_table register_handlers(void) {
-            return handler_register(b_table<WTE_EVENT_MAX>{});
+            return register_handler(_register<WTE_EVENT_MAX>{});
         };
 
         inline static h_table _handlers;

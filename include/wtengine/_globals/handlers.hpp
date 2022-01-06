@@ -112,15 +112,25 @@ class handlers {
         };
 
         template <size_t... IDX>
-        struct _register { inline static bool set = false; };
+        struct _register {
+            inline static bool set = false;
+        };
+
+        template <size_t I, size_t... IDX>
+        struct make_register : make_register<I - 1, I - 1, IDX...>{};
+
+        template <size_t... IDX>
+        struct make_register<0, IDX...> : _register<IDX...>{};
+
+        constexpr bool check_register(bool r) { return r; };
 
         template <size_t... IDX>
         inline constexpr static b_table register_handler(_register<IDX...>) {
-            return { _register<IDX...>::set };
+            return { check_register(_register<IDX...>::set) };
         };
 
         inline constexpr static b_table register_handlers(void) {
-            return register_handler(_register<WTE_EVENT_MAX>{});
+            return register_handler(make_register<WTE_EVENT_MAX>{});
         };
 
         inline static h_table _handlers;

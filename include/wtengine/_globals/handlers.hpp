@@ -94,7 +94,7 @@ class handlers {
             if(std::holds_alternative<handler::key>(handle))
                 static_assert(IDX == WTE_EVENT_KEY_DOWN || IDX == WTE_EVENT_KEY_UP,
                     "Event Index must be a Key Up or Down Event");
-            else if(std::holds_alternative<handler::mouse_axes>(handle))
+            /*else if(std::holds_alternative<handler::mouse_axes>(handle))
                 static_assert(IDX == WTE_EVENT_MOUSE_AXES || IDX == WTE_EVENT_MOUSE_WARPED,
                     "Event Index must be a Mouse Axes or Warped Event");
             else if(std::holds_alternative<handler::mouse_button>(handle))
@@ -112,13 +112,13 @@ class handlers {
             else if(std::holds_alternative<handler::touch>(handle))
                 static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
                     IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
-                    "Event Index must be a Touch Event");
-            _register<IDX>::set = true;
+                    "Event Index must be a Touch Event");*/
+            _handler_register[IDX] = true;
         };
 
         template <size_t... IDX>
         struct _register {
-            static bool set;
+            const static bool set = false;
         };
 
         template <size_t I, size_t... IDX>
@@ -127,7 +127,7 @@ class handlers {
         template <size_t... IDX>
         struct make_register<0, IDX...> : _register<IDX...>{};
 
-        inline static constexpr bool check_register(const size_t IDX) { return _register<IDX>::set; };
+        inline static constexpr bool check_register(const size_t IDX) { return _handler_register[IDX]; };
 
         template <size_t... IDX>
         inline constexpr static b_table register_handler(_register<IDX...>) {
@@ -139,6 +139,7 @@ class handlers {
         };
 
         inline static h_table _handlers;
+        inline constexpr static b_table _handler_register = {false};
         inline constexpr static b_table _href = register_handlers();
 };
 

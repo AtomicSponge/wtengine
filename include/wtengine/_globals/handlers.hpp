@@ -58,12 +58,11 @@ using handler_types = std::variant<
 >;
 
 enum handler_register { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
-
 using reg_table = std::array<handler_register, WTE_EVENT_MAX>;
 
-constexpr reg_table _global_hreg = { WTE_HANDLER_NOTSET };
-constexpr reg_table _game_hreg = { WTE_HANDLER_NOTSET };
-constexpr reg_table _nongame_hreg = { WTE_HANDLER_NOTSET };
+constexpr reg_table global_hreg = { WTE_HANDLER_NOTSET };
+constexpr reg_table game_hreg = { WTE_HANDLER_NOTSET };
+constexpr reg_table nongame_hreg = { WTE_HANDLER_NOTSET };
 
 /*!
  * \class handlers
@@ -91,9 +90,9 @@ class handlers {
         inline constexpr static void add(const handler_types& handle) {
             //check<IDX>(handle);
             _handlers[IDX] = handle;
-            if constexpr (S == WTE_GLOBAL_HANDLES) _global_hreg[IDX] = WTE_HANDLER_SET;
-            if constexpr (S == WTE_GAME_HANDLES) _game_hreg[IDX] = WTE_HANDLER_SET;
-            if constexpr (S == WTE_NONGAME_HANDLES) _nongame_hreg[IDX] = WTE_HANDLER_SET;
+            if constexpr (S == WTE_GLOBAL_HANDLES) global_hreg[IDX] = WTE_HANDLER_SET;
+            if constexpr (S == WTE_GAME_HANDLES) game_hreg[IDX] = WTE_HANDLER_SET;
+            if constexpr (S == WTE_NONGAME_HANDLES) nongame_hreg[IDX] = WTE_HANDLER_SET;
         };
 
     private:

@@ -92,8 +92,8 @@ class handlers {
             //check<IDX>(handle);
             _handlers[IDX] = handle;
             if constexpr (S == WTE_GLOBAL_HANDLES) _global_hreg[IDX] = WTE_HANDLER_SET;
-            if constexpr (S == WTE_NONGAME_HANDLES) _game_hreg[IDX] = WTE_HANDLER_SET;
-            if constexpr (S == WTE_GAME_HANDLES) _nongame_hreg[IDX] = WTE_HANDLER_SET;
+            if constexpr (S == WTE_GAME_HANDLES) _game_hreg[IDX] = WTE_HANDLER_SET;
+            if constexpr (S == WTE_NONGAME_HANDLES) _nongame_hreg[IDX] = WTE_HANDLER_SET;
         };
 
     private:

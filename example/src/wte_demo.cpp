@@ -53,7 +53,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
     handler::key start_game = [](const int& key, ALLEGRO_DISPLAY* display) {
         if(key == ALLEGRO_KEY_SPACE) mgr::messages::add(message("system", "new-game", "game.sdf"));
     };
-    handlers<NONGAME_HANDLES>::add<WTE_EVENT_KEY_DOWN>(start_game);
+    handlers<WTE_NONGAME_HANDLES>::add<WTE_EVENT_KEY_DOWN>(start_game);
 
     handler::key player_input_key_down = [](const int& key, ALLEGRO_DISPLAY* display) {
         if(key == config::controls::p1_key_up) {
@@ -121,7 +121,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
             }
         }
     };
-    handlers<GAME_HANDLES>::add<WTE_EVENT_KEY_DOWN>(player_input_key_down);
+    handlers<WTE_GAME_HANDLES>::add<WTE_EVENT_KEY_DOWN>(player_input_key_down);
 
     handler::key player_input_key_up = [](const int& key, ALLEGRO_DISPLAY* display) {
         if(key == config::controls::p1_key_up) {
@@ -173,7 +173,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
             mgr::audio::sample::stop("shield_sound");
         }
     };
-    handlers<GAME_HANDLES>::add<WTE_EVENT_KEY_UP>(player_input_key_up);
+    handlers<WTE_GAME_HANDLES>::add<WTE_EVENT_KEY_UP>(player_input_key_up);
 }
 
 /*

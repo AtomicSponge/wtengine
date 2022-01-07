@@ -88,12 +88,12 @@ class input {
             switch(event.type) {
             //  Keyboard events
             case ALLEGRO_EVENT_KEY_DOWN:
-                if constexpr (global_hreg[WTE_EVENT_KEY_DOWN])
+                if constexpr (_global_hreg[WTE_EVENT_KEY_DOWN] == WTE_HANDLER_SET)
                     std::get<handler::key>(handlers<WTE_GLOBAL_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
                         event.keyboard.keycode, event.keyboard.display);
                 break;
             case ALLEGRO_EVENT_KEY_UP:
-                if constexpr (global_hreg[WTE_EVENT_KEY_UP])
+                if constexpr (_global_hreg[WTE_EVENT_KEY_UP] == WTE_HANDLER_SET)
                     std::get<handler::key>(handlers<WTE_GLOBAL_HANDLES>::_handlers[WTE_EVENT_KEY_UP])(
                         event.keyboard.keycode, event.keyboard.display);
                 break;
@@ -134,12 +134,12 @@ class input {
                 switch(event.type) {
                 //  Keyboard events
                 case ALLEGRO_EVENT_KEY_DOWN:
-                    if constexpr (game_hreg[WTE_EVENT_KEY_DOWN])
+                    if constexpr (_game_hreg[WTE_EVENT_KEY_DOWN] == WTE_HANDLER_SET)
                         std::get<handler::key>(handlers<WTE_GAME_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
                             event.keyboard.keycode, event.keyboard.display);
                     break;
                 case ALLEGRO_EVENT_KEY_UP:
-                    if constexpr (game_hreg[WTE_EVENT_KEY_UP])
+                    if constexpr (_game_hreg[WTE_EVENT_KEY_UP] == WTE_HANDLER_SET)
                         std::get<handler::key>(handlers<WTE_GAME_HANDLES>::_handlers[WTE_EVENT_KEY_UP])(
                             event.keyboard.keycode, event.keyboard.display);
                     break;
@@ -189,12 +189,12 @@ class input {
                 switch(event.type) {
                 //  Keyboard events
                 case ALLEGRO_EVENT_KEY_DOWN:
-                    if constexpr (nongame_hreg[WTE_EVENT_KEY_DOWN])
+                    if constexpr (_nongame_hreg[WTE_EVENT_KEY_DOWN])
                         std::get<handler::key>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
                             event.keyboard.keycode, event.keyboard.display);
                     break;
                 case ALLEGRO_EVENT_KEY_UP:
-                    if constexpr (nongame_hreg[WTE_EVENT_KEY_UP])
+                    if constexpr (_nongame_hreg[WTE_EVENT_KEY_UP])
                         std::get<handler::key>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_KEY_UP])(
                             event.keyboard.keycode, event.keyboard.display);
                     break;

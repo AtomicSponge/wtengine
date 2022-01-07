@@ -57,12 +57,13 @@ using handler_types = std::variant<
     handler::touch
 >;
 
-using b_table = std::array<bool, WTE_EVENT_MAX>;
-constexpr b_table register_handler(const b_table t) { return t; };
+enum handler_register { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
-b_table _global_hreg = { false };
-b_table _game_hreg = { false };
-b_table _nongame_hreg = { false };
+using reg_table = std::array<handler_register, WTE_EVENT_MAX>;
+
+constexpr reg_table _global_hreg = { WTE_HANDLER_NOTSET };
+constexpr reg_table _game_hreg = { WTE_HANDLER_NOTSET };
+constexpr reg_table _nongame_hreg = { WTE_HANDLER_NOTSET };
 
 /*!
  * \class handlers
@@ -88,18 +89,18 @@ class handlers {
          */
         template <size_t IDX>
         inline constexpr static void add(const handler_types& handle) {
-            check<IDX>(handle);
+            //check<IDX>(handle);
             _handlers[IDX] = handle;
-            if constexpr (S == WTE_GLOBAL_HANDLES) _global_hreg[IDX] = true;
-            if constexpr (S == WTE_NONGAME_HANDLES) _game_hreg[IDX] = true;
-            if constexpr (S == WTE_GAME_HANDLES) _nongame_hreg[IDX] = true;
+            if constexpr (S == WTE_GLOBAL_HANDLES) _global_hreg[IDX] = WTE_HANDLER_SET;
+            if constexpr (S == WTE_NONGAME_HANDLES) _game_hreg[IDX] = WTE_HANDLER_SET;
+            if constexpr (S == WTE_GAME_HANDLES) _nongame_hreg[IDX] = WTE_HANDLER_SET;
         };
 
     private:
         template <size_t IDX>
         inline constexpr static void check(const handler_types& handle) {
             static_assert(S == WTE_GLOBAL_HANDLES || S == WTE_NONGAME_HANDLES || S == WTE_GAME_HANDLES,
-                "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
+                "Scope must be one of the following: WTE_GLOBAL_HANDLES, WTE_NONGAME_HANDLES, WTE_GAME_HANDLES");
             static_assert(IDX < WTE_EVENT_MAX, "Invalid Handler Event Index");
             if(std::holds_alternative<handler::key>(handle))
                 static_assert(IDX == WTE_EVENT_KEY_DOWN || IDX == WTE_EVENT_KEY_UP,
@@ -127,10 +128,6 @@ class handlers {
 
         inline static h_table _handlers;
 };
-
-constexpr b_table global_hreg = register_handler(_global_hreg);
-constexpr b_table game_hreg = register_handler(_game_hreg);
-constexpr b_table nongame_hreg = register_handler(_nongame_hreg);
 
 }  //  end namespace wte
 

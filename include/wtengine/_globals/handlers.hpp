@@ -27,7 +27,7 @@ using mouse_axes = std::function<void(
     const int&, const int&, const int&, const float&, ALLEGRO_DISPLAY*)>;
 using mouse_button = std::function<void(
     const int&, const int&, const int&, const int&,
-    const unsigned int&, const float&, ALLEGRO_DISPLAY*)>;
+    const unsigned int&, ALLEGRO_DISPLAY*)>;
 using mouse_display = std::function<void(
     const int&, const int&, const int&, const int&, ALLEGRO_DISPLAY*)>;
 using joy_axis = std::function<void(const int&, const int&, const float&, ALLEGRO_JOYSTICK*)>;

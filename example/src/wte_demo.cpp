@@ -50,12 +50,11 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
     /*
      * Set up input handling - WIP
      */
-    handler::key start_game = [](const int& key, ALLEGRO_DISPLAY* display) {
+    handlers<WTE_NONGAME_HANDLES>::add<handler::key, WTE_EVENT_KEY_DOWN>([](const int& key, ALLEGRO_DISPLAY* display) {
         if(key == ALLEGRO_KEY_SPACE) mgr::messages::add(message("system", "new-game", "game.sdf"));
-    };
-    handlers<WTE_NONGAME_HANDLES>::add<WTE_EVENT_KEY_DOWN>(start_game);
+    });
 
-    handler::key player_input_key_down = [](const int& key, ALLEGRO_DISPLAY* display) {
+    handlers<WTE_GAME_HANDLES>::add<handler::key, WTE_EVENT_KEY_DOWN>([](const int& key, ALLEGRO_DISPLAY* display) {
         if(key == config::controls::p1_key_up) {
             entity_id player_id = mgr::world::get_id("player");
             const float rad = std::atan2(player_pols::y, player_pols::x);
@@ -120,10 +119,9 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
                 mgr::audio::sample::play(mgr::assets<al_sample>::get<al_sample>("shield"), "shield_sound");
             }
         }
-    };
-    handlers<WTE_GAME_HANDLES>::add<WTE_EVENT_KEY_DOWN>(player_input_key_down);
+    });
 
-    handler::key player_input_key_up = [](const int& key, ALLEGRO_DISPLAY* display) {
+    handlers<WTE_GAME_HANDLES>::add<handler::key, WTE_EVENT_KEY_UP>([](const int& key, ALLEGRO_DISPLAY* display) {
         if(key == config::controls::p1_key_up) {
             entity_id player_id = mgr::world::get_id("player");
             if(player_pols::x == 0.0f && player_pols::y == 0.0f) {
@@ -172,8 +170,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
             //  Stop sound effect.
             mgr::audio::sample::stop("shield_sound");
         }
-    };
-    handlers<WTE_GAME_HANDLES>::add<WTE_EVENT_KEY_UP>(player_input_key_up);
+    });
 }
 
 /*

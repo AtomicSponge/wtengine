@@ -64,10 +64,10 @@ constexpr reg_table game_hreg = { WTE_HANDLER_NOTSET };
 constexpr reg_table nongame_hreg = { WTE_HANDLER_NOTSET };
 
 template <size_t S>
-constexpr void register_handler(const size_t& IDX) {
-    if constexpr (S == WTE_GLOBAL_HANDLES) global_hreg[IDX] = WTE_HANDLER_SET;
-    if constexpr (S == WTE_GAME_HANDLES) game_hreg[IDX] = WTE_HANDLER_SET;
-    if constexpr (S == WTE_NONGAME_HANDLES) nongame_hreg[IDX] = WTE_HANDLER_SET;
+constexpr void register_handler(const size_t& idx) {
+    if constexpr (S == WTE_GLOBAL_HANDLES) global_hreg[idx] = WTE_HANDLER_SET;
+    if constexpr (S == WTE_GAME_HANDLES) game_hreg[idx] = WTE_HANDLER_SET;
+    if constexpr (S == WTE_NONGAME_HANDLES) nongame_hreg[idx] = WTE_HANDLER_SET;
 };
 
 /*!
@@ -89,41 +89,41 @@ class handlers {
 
         /*!
          * \brief Add an input handler.
-         * \tparam IDX Handler event index.
+         * \tparam T Handler type.
          * \param handle Input handler.
          */
-        template <size_t IDX>
-        inline constexpr static void add(const handler_types& handle) {
-            //check<IDX>(handle);
+        template <typename T, size_t IDX>
+        inline static void add(const T& handle) {
+            check<T, IDX>();
             _handlers[IDX] = handle;
             register_handler<S>(IDX);
         };
 
     private:
-        template <size_t IDX>
-        inline constexpr static void check(const handler_types& handle) {
+        template <typename T, size_t IDX>
+        inline constexpr static void check(void) {
             static_assert(S == WTE_GLOBAL_HANDLES || S == WTE_NONGAME_HANDLES || S == WTE_GAME_HANDLES,
                 "Scope must be one of the following: WTE_GLOBAL_HANDLES, WTE_NONGAME_HANDLES, WTE_GAME_HANDLES");
             static_assert(IDX < WTE_EVENT_MAX, "Invalid Handler Event Index");
-            if(std::holds_alternative<handler::key>(handle))
+            if constexpr (std::is_same<T, handler::key>::value)
                 static_assert(IDX == WTE_EVENT_KEY_DOWN || IDX == WTE_EVENT_KEY_UP,
                     "Event Index must be a Key Up or Down Event");
-            else if(std::holds_alternative<handler::mouse_axis>(handle))
+            else if constexpr (std::is_same<T, handler::mouse_axis>::value)
                 static_assert(IDX == WTE_EVENT_MOUSE_AXES || IDX == WTE_EVENT_MOUSE_WARPED,
                     "Event Index must be a Mouse Axes or Warped Event");
-            else if(std::holds_alternative<handler::mouse_button>(handle))
+            else if constexpr (std::is_same<T, handler::mouse_button>::value)
                 static_assert(IDX == WTE_EVENT_MOUSE_BUTTON_DOWN || IDX == WTE_EVENT_MOUSE_BUTTON_UP,
                     "Event Index must be a Mouse Button Up or Down Event");
-            else if(std::holds_alternative<handler::mouse_display>(handle))
+            else if constexpr (std::is_same<T, handler::mouse_display>::value)
                 static_assert(IDX == WTE_EVENT_MOUSE_ENTER_DISPLAY || IDX == WTE_EVENT_MOUSE_LEAVE_DISPLAY,
                     "Event Index must be a Mouse Enter or Leave Display Event");
-            else if(std::holds_alternative<handler::joystick_axis>(handle))
+            else if constexpr (std::is_same<T, handler::joystick_axis>::value)
                 static_assert(IDX == WTE_EVENT_JOYSTICK_AXIS,
                     "Event Index must be a Joystick Axes Event");
-            else if(std::holds_alternative<handler::joystick_button>(handle))
+            else if constexpr (std::is_same<T, handler::joystick_button>::value)
                 static_assert(IDX == WTE_EVENT_JOYSTICK_BUTTON_DOWN || IDX == WTE_EVENT_JOYSTICK_BUTTON_UP,
                     "Event Index must be a Joystick Button Up or Down Event");
-            else if(std::holds_alternative<handler::touch>(handle))
+            else if constexpr (std::is_same<T, handler::touch>::value)
                 static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
                     IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
                     "Event Index must be a Touch Event");

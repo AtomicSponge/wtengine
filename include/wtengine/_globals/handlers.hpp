@@ -63,11 +63,11 @@ constexpr reg_table global_hreg = { WTE_HANDLER_NOTSET };
 constexpr reg_table game_hreg = { WTE_HANDLER_NOTSET };
 constexpr reg_table nongame_hreg = { WTE_HANDLER_NOTSET };
 
-template <size_t S>
-constexpr void register_handler(const size_t& idx) {
-    if constexpr (S == WTE_GLOBAL_HANDLES) global_hreg[idx] = WTE_HANDLER_SET;
-    if constexpr (S == WTE_GAME_HANDLES) game_hreg[idx] = WTE_HANDLER_SET;
-    if constexpr (S == WTE_NONGAME_HANDLES) nongame_hreg[idx] = WTE_HANDLER_SET;
+template <size_t S, size_t IDX>
+constexpr void register_handler(void) {
+    if constexpr (S == WTE_GLOBAL_HANDLES) global_hreg[IDX] = WTE_HANDLER_SET;
+    if constexpr (S == WTE_GAME_HANDLES) game_hreg[IDX] = WTE_HANDLER_SET;
+    if constexpr (S == WTE_NONGAME_HANDLES) nongame_hreg[IDX] = WTE_HANDLER_SET;
 };
 
 /*!
@@ -94,7 +94,7 @@ class handlers {
         inline static void add(const T& handle) {
             check<T, IDX>();
             _handlers[IDX] = handle;
-            register_handler<S>(IDX);
+            register_handler<S, IDX>();
         };
 
     private:

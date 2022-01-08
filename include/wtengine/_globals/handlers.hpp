@@ -79,8 +79,6 @@ template <size_t S>
 class handlers {
     friend class input;
 
-    using h_table = std::array<handler_types, WTE_EVENT_MAX>;
-
     public:
         handlers() = delete;                       //!<  Delete constructor.
         ~handlers() = delete;                      //!<  Delete destructor.
@@ -129,7 +127,7 @@ class handlers {
                     "Event Index must be a Touch Event");
         };
 
-        inline static h_table _handlers;
+        inline static std::array<handler_types, WTE_EVENT_MAX> _handlers;
 };
 
 }  //  end namespace wte

@@ -59,9 +59,14 @@ using handler_types = std::variant<
 enum handler_register { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 using reg_table = std::array<handler_register, WTE_EVENT_MAX>;
 
-constexpr reg_table global_hreg = { WTE_HANDLER_NOTSET };
-constexpr reg_table game_hreg = { WTE_HANDLER_NOTSET };
-constexpr reg_table nongame_hreg = { WTE_HANDLER_NOTSET };
+constexpr reg_table builder() {
+    reg_table temp = {};
+    return temp;
+}
+
+constexpr reg_table global_hreg = builder();
+constexpr reg_table game_hreg = builder();
+constexpr reg_table nongame_hreg = builder();
 
 template <size_t S, size_t IDX>
 constexpr void register_handler(void) {

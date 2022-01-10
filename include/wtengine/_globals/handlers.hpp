@@ -56,11 +56,11 @@ using handler_types = std::variant<
     handler::touch
 >;
 
-enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
+enum handler_register { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
 template <size_t S>
-struct handler_register {
-    handler_registers status;
+struct handler_registers {
+    //handler_registers status;
 };
 
 /*!
@@ -72,7 +72,7 @@ template <size_t S>
 class handlers {
     friend class input;
 
-    using reg_table = std::array<handler_register<S>, WTE_EVENT_MAX>;
+    using reg_table = std::array<handler_register, WTE_EVENT_MAX>;
 
     public:
         handlers() = delete;                       //!<  Delete constructor.
@@ -124,11 +124,11 @@ class handlers {
 
         template <size_t IDX>
         inline constexpr static bool is_set() {
-            return (_registery[IDX].status == WTE_HANDLER_SET ? true : false);
+            return (_registery[IDX] == WTE_HANDLER_SET ? true : false);
         };
 
         inline constexpr static reg_table builder() {
-            return {};
+            return { WTE_HANDLER_NOTSET };
         };
 
         inline static std::array<handler_types, WTE_EVENT_MAX> _handlers;

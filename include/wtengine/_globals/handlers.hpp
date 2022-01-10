@@ -128,7 +128,9 @@ class handlers {
         };
 
         inline constexpr static reg_table builder() {
-            return { WTE_HANDLER_NOTSET };
+            reg_table temp = { WTE_HANDLER_NOTSET };
+            if(true) temp[0] = WTE_HANDLER_SET;
+            return {};
         };
 
         inline static std::array<handler_types, WTE_EVENT_MAX> _handlers;

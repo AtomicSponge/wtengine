@@ -63,9 +63,6 @@ struct handler_register {
     handler_registers status;
 };
 
-template <size_t S>
-using reg_table = std::array<handler_register<S>, WTE_EVENT_MAX>;
-
 /*!
  * \class handlers
  * \tparam S Handler scope.
@@ -74,6 +71,8 @@ using reg_table = std::array<handler_register<S>, WTE_EVENT_MAX>;
 template <size_t S>
 class handlers {
     friend class input;
+
+    using reg_table = std::array<handler_register<S>, WTE_EVENT_MAX>;
 
     public:
         handlers() = delete;                       //!<  Delete constructor.
@@ -128,12 +127,12 @@ class handlers {
             return (_registery[IDX].status == WTE_HANDLER_SET ? true : false);
         };
 
-        inline constexpr static reg_table<S> builder() {
+        inline constexpr static reg_table builder() {
             return {};
         };
 
         inline static std::array<handler_types, WTE_EVENT_MAX> _handlers;
-        inline constexpr static reg_table<S> _registery = builder();
+        inline constexpr static reg_table _registery = builder();
 };
 
 }  //  end namespace wte

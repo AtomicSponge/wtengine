@@ -136,7 +136,13 @@ class handlers {
                     "Event Index must be a Touch Event");
         };
 
+        template <size_t IDX>
+        inline constexpr static bool set() {
+            return (_registery[IDX].status == WTE_HANDLER_SET ? true : false);
+        };
+
         inline static std::array<handler_types, WTE_EVENT_MAX> _handlers;
+        inline constexpr static reg_table<S> _registery = {};
 };
 
 constexpr reg_table<WTE_GLOBAL_HANDLES> global_hreg = builder<WTE_GLOBAL_HANDLES>();

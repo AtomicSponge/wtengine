@@ -141,8 +141,12 @@ class handlers {
             return (_registery[IDX].status == WTE_HANDLER_SET ? true : false);
         };
 
+        inline constexpr static reg_table<S> builder() {
+            return {};
+        };
+
         inline static std::array<handler_types, WTE_EVENT_MAX> _handlers;
-        inline constexpr static reg_table<S> _registery = {};
+        inline constexpr static reg_table<S> _registery = builder();
 };
 
 constexpr reg_table<WTE_GLOBAL_HANDLES> global_hreg = builder<WTE_GLOBAL_HANDLES>();

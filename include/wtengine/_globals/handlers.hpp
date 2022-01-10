@@ -72,15 +72,11 @@ constexpr reg_table<S> builder() {
     return temp;
 }
 
-constexpr reg_table<WTE_GLOBAL_HANDLES> global_hreg = builder<WTE_GLOBAL_HANDLES>();
-constexpr reg_table<WTE_GAME_HANDLES> nongame_hreg = builder<WTE_GAME_HANDLES>();
-constexpr reg_table<WTE_NONGAME_HANDLES> game_hreg = builder<WTE_NONGAME_HANDLES>();
-
 template <size_t S, size_t IDX>
 constexpr void register_handler(void) {
-    if constexpr (S == WTE_GLOBAL_HANDLES) global_hreg[IDX] = WTE_HANDLER_SET;
-    if constexpr (S == WTE_GAME_HANDLES) game_hreg[IDX] = WTE_HANDLER_SET;
-    if constexpr (S == WTE_NONGAME_HANDLES) nongame_hreg[IDX] = WTE_HANDLER_SET;
+    //if constexpr (S == WTE_GLOBAL_HANDLES) global_hreg[IDX] = WTE_HANDLER_SET;
+    //if constexpr (S == WTE_GAME_HANDLES) game_hreg[IDX] = WTE_HANDLER_SET;
+    //if constexpr (S == WTE_NONGAME_HANDLES) nongame_hreg[IDX] = WTE_HANDLER_SET;
 };
 
 /*!
@@ -142,6 +138,10 @@ class handlers {
 
         inline static std::array<handler_types, WTE_EVENT_MAX> _handlers;
 };
+
+constexpr reg_table<WTE_GLOBAL_HANDLES> global_hreg = builder<WTE_GLOBAL_HANDLES>();
+constexpr reg_table<WTE_GAME_HANDLES> nongame_hreg = builder<WTE_GAME_HANDLES>();
+constexpr reg_table<WTE_NONGAME_HANDLES> game_hreg = builder<WTE_NONGAME_HANDLES>();
 
 }  //  end namespace wte
 

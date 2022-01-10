@@ -89,7 +89,7 @@ class handlers {
         inline constexpr static void add(const T& handle) {
             check<T, IDX>();
             _handlers[IDX] = handle;
-            //register_handler<S, IDX>();
+            register_handler<IDX>();
         };
 
     private:
@@ -122,6 +122,9 @@ class handlers {
                     "Event Index must be a Touch Event");
         };
 
+        template <size_t IDX>
+        inline constexpr static void register_handler(void) {};
+        
         template <size_t IDX>
         inline constexpr static bool is_set() {
             return (_registery[IDX] == WTE_HANDLER_SET ? true : false);

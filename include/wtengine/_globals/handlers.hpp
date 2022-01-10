@@ -39,7 +39,7 @@ using touch = std::function<void(
 
 namespace wte {
 
-enum handler_scopes { WTE_GLOBAL_HANDLES, WTE_NONGAME_HANDLES, WTE_GAME_HANDLES };
+enum handler_scopes { WTE_GLOBAL_HANDLES, WTE_GAME_HANDLES, WTE_NONGAME_HANDLES };
 enum handler_events {
     WTE_EVENT_KEY_DOWN, WTE_EVENT_KEY_UP,
     WTE_EVENT_MOUSE_AXES, WTE_EVENT_MOUSE_BUTTON_DOWN, WTE_EVENT_MOUSE_BUTTON_UP,
@@ -56,17 +56,25 @@ using handler_types = std::variant<
     handler::touch
 >;
 
-enum handler_register { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
-using reg_table = std::array<handler_register, WTE_EVENT_MAX>;
+enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
-constexpr reg_table builder() {
-    reg_table temp = {};
+template <size_t S>
+struct handler_register {
+    handler_registers status;
+};
+
+template <size_t S>
+using reg_table = std::array<handler_register<S>, WTE_EVENT_MAX>;
+
+template <size_t S>
+constexpr reg_table<S> builder() {
+    reg_table<S> temp = {};
     return temp;
 }
 
-constexpr reg_table global_hreg = builder();
-constexpr reg_table game_hreg = builder();
-constexpr reg_table nongame_hreg = builder();
+constexpr reg_table<WTE_GLOBAL_HANDLES> global_hreg = builder<WTE_GLOBAL_HANDLES>();
+constexpr reg_table<WTE_GAME_HANDLES> nongame_hreg = builder<WTE_GAME_HANDLES>();
+constexpr reg_table<WTE_NONGAME_HANDLES> game_hreg = builder<WTE_NONGAME_HANDLES>();
 
 template <size_t S, size_t IDX>
 constexpr void register_handler(void) {
@@ -96,7 +104,7 @@ class handlers {
          * \param handle Input handler.
          */
         template <typename T, size_t IDX>
-        inline static void add(const T& handle) {
+        inline constexpr static void add(const T& handle) {
             check<T, IDX>();
             _handlers[IDX] = handle;
             register_handler<S, IDX>();

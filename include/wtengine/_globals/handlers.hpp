@@ -58,13 +58,22 @@ using handler_types = std::variant<
 
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
+template <size_t R>
+struct _register {};
+
+template <>
+struct _register<WTE_HANDLER_SET> : std::true_type {};
+
+template <>
+struct _register<WTE_HANDLER_NOTSET> : std::false_type {};
+
 /*!
  * \class handlers
  * \tparam S Handler scope.
  * \brief Input handlers.
  */
 template <size_t S, size_t IDX>
-class handlers {
+class handlers : _register<WTE_HANDLER_SET> {
     friend class input;
 
     public:

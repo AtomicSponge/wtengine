@@ -58,42 +58,31 @@ using handler_types = std::variant<
 
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
-template <size_t S>
-struct handler_register {
-    //handler_registers status;
-};
-
 /*!
  * \class handlers
  * \tparam S Handler scope.
  * \brief Input handlers.
  */
-template <size_t S>
+template <size_t S, size_t IDX, typename T>
 class handlers {
     friend class input;
 
-    using reg_table = std::array<handler_registers, WTE_EVENT_MAX>;
-
     public:
-        handlers() = delete;                       //!<  Delete constructor.
+        constexpr handlers(const T& handle) {
+            check();
+            _handle = handle;
+            // register set
+        };
+
         ~handlers() = delete;                      //!<  Delete destructor.
         handlers(const handlers&) = delete;        //!<  Delete copy constructor.
         void operator=(handlers const&) = delete;  //!<  Delete assignment operator.
 
-        /*!
-         * \brief Add an input handler.
-         * \tparam T Handler type.
-         * \param handle Input handler.
-         */
-        template <typename T, size_t IDX>
-        inline constexpr static void add(const T& handle) {
-            check<T, IDX>();
-            _handlers[IDX] = handle;
-            register_handler<IDX>();
+    private:
+        handlers() {
+            // register not set
         };
 
-    private:
-        template <typename T, size_t IDX>
         inline constexpr static void check(void) {
             static_assert(S == WTE_GLOBAL_HANDLES || S == WTE_NONGAME_HANDLES || S == WTE_GAME_HANDLES,
                 "Scope must be one of the following: WTE_GLOBAL_HANDLES, WTE_NONGAME_HANDLES, WTE_GAME_HANDLES");
@@ -122,22 +111,24 @@ class handlers {
                     "Event Index must be a Touch Event");
         };
 
-        template <size_t IDX>
         inline constexpr static void register_handler(void) {};
         
-        template <size_t IDX>
         inline constexpr static bool is_set() {
-            return (_registery[IDX] == WTE_HANDLER_SET ? true : false);
+            //return (_registery[IDX] == WTE_HANDLER_SET) ? true : false;
+            return false;
         };
 
-        inline constexpr static reg_table builder() {
-            reg_table temp = { WTE_HANDLER_NOTSET };
-            if(true) temp[0] = WTE_HANDLER_SET;
-            return {};
-        };
+        inline static handler_types _handle;
+};
 
-        inline static std::array<handler_types, WTE_EVENT_MAX> _handlers;
-        inline constexpr static reg_table _registery = builder();
+/*!
+ * \brief Add an input handler.
+ * \tparam T Handler type.
+ * \param handle Input handler.
+ */
+template <size_t S, size_t IDX, typename T>
+inline constexpr static void add_handle(const T& handle) {
+    //
 };
 
 }  //  end namespace wte

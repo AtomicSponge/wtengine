@@ -85,7 +85,7 @@ class input {
 
     private:
         inline static constexpr void run_handles(const ALLEGRO_EVENT& event) {
-            switch(event.type) {
+            /*switch(event.type) {
             //  Keyboard events
             case ALLEGRO_EVENT_KEY_DOWN:
                 if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_KEY_DOWN>::is_set())
@@ -368,7 +368,7 @@ class input {
                     std::get<handler::touch>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_TOUCH_CANCEL])(
                         event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                     break;
-                }
+                }*/
         };
 
         static void create_event_queue(void);                 //  Create the input queue.

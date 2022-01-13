@@ -20,6 +20,9 @@
 
 namespace wte::handler {
 
+/*
+ *
+ */
 using key = std::function<void(const int&, ALLEGRO_DISPLAY*)>;
 using mouse_axis = std::function<void(
     const int&, const int&, const int&, const int&, const int&,
@@ -39,7 +42,14 @@ using touch = std::function<void(
 
 namespace wte {
 
+/*
+ *
+ */
 enum handler_scopes { WTE_GLOBAL_HANDLES, WTE_GAME_HANDLES, WTE_NONGAME_HANDLES };
+
+/*
+ *
+ */
 enum handler_events {
     WTE_EVENT_KEY_DOWN, WTE_EVENT_KEY_UP,
     WTE_EVENT_MOUSE_AXES, WTE_EVENT_MOUSE_BUTTON_DOWN, WTE_EVENT_MOUSE_BUTTON_UP,
@@ -49,6 +59,9 @@ enum handler_events {
     WTE_EVENT_MAX
 };
 
+/*
+ *
+ */
 using handler_types = std::variant<
     handler::key,
     handler::mouse_axis, handler::mouse_button, handler::mouse_display,
@@ -56,6 +69,9 @@ using handler_types = std::variant<
     handler::touch
 >;
 
+/*
+ *
+ */
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
 //  Handler template
@@ -79,7 +95,7 @@ class handlers<S, IDX, WTE_HANDLER_SET> {
     friend class input;
 
     public:
-        handlers() = delete;
+        handlers() = delete;                       //!<  Delete constructor.
         ~handlers() = delete;                      //!<  Delete destructor.
         handlers(const handlers&) = delete;        //!<  Delete copy constructor.
         void operator=(handlers const&) = delete;  //!<  Delete assignment operator.

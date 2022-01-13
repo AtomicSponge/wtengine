@@ -93,7 +93,7 @@ class handlers<S, IDX, WTE_HANDLER_NOTSET> {
  * \brief Input handlers.
  */
 template <size_t S, size_t IDX>
-class handlers<S, IDX, WTE_HANDLER_SET> : std::true_type {
+class handlers<S, IDX, WTE_HANDLER_SET> {
     friend class input;
 
     public:

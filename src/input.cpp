@@ -135,7 +135,10 @@ const bool input::check_events(void) {
                 config::_flags::menu_opened = true);
         //  Record input if enabled.
         if(config::flags::record_input) record_event(event);
-        run_handles(event);
+        run_handles<WTE_GLOBAL_HANDLES>(event);
+        (config::flags::game_started ?
+            run_handles<WTE_GAME_HANDLES>(event) :
+            run_handles<WTE_NONGAME_HANDLES>(event));
     }
     return true;
 }

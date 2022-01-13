@@ -75,17 +75,13 @@ using handler_types = std::variant<
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
 //  Handler template
-template <size_t S, size_t IDX, size_t R = WTE_HANDLER_SET>
-class handlers {};
-
-//  Handler specialization - not set
-template <size_t S, size_t IDX>
-class handlers<S, IDX, WTE_HANDLER_NOTSET> {
+template <size_t S, size_t IDX, size_t R = WTE_HANDLER_NOTSET>
+class handlers {
+    friend class input;
     private:
         inline constexpr static bool is_set() { return false; };
 };
 
-//  Handler specialization - is set
 /*!
  * \class handlers
  * \tparam S Handler scope.
@@ -147,6 +143,9 @@ class handlers<S, IDX, WTE_HANDLER_SET> {
 
         inline static handler_types _handle;
 };
+
+template <size_t S, size_t IDX>
+using handle = handlers<S, IDX, WTE_HANDLER_SET>;
 
 }  //  end namespace wte
 

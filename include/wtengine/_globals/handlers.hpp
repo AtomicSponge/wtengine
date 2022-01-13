@@ -52,7 +52,9 @@ enum handler_scopes {
 };
 
 /*!
- * Handler events
+ * Handler events.
+ * These corospond to the various Allegro events.
+ * See https://liballeg.org/a5docs/trunk/events.html for more info.
  */
 enum handler_events {
     WTE_EVENT_KEY_DOWN,              //!<  Event key down.
@@ -72,7 +74,7 @@ enum handler_events {
     WTE_EVENT_TOUCH_BEGIN,           //!<  Event touch input begin.
     WTE_EVENT_TOUCH_END,             //!<  Event touch input end.
     WTE_EVENT_TOUCH_MOVE,            //!<  Event touch input moves.
-    WTE_EVENT_TOUCH_CANCEL,          //!<  Event touch input canceld.
+    WTE_EVENT_TOUCH_CANCEL,          //!<  Event touch input canceled.
 
     WTE_EVENT_MAX
 };

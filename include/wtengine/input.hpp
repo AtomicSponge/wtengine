@@ -101,8 +101,8 @@ class input {
 
             //  Mouse events
             case ALLEGRO_EVENT_MOUSE_AXES:
-                if constexpr (handlers<S, WTE_EVENT_MOUSE_AXES>::is_set())
-                std::get<handler::mouse_axis>(handlers<S, WTE_EVENT_MOUSE_AXES>::_handle)(
+                if constexpr (handlers<S, WTE_EVENT_MOUSE_AXIS>::is_set())
+                std::get<handler::mouse_axis>(handlers<S, WTE_EVENT_MOUSE_AXIS>::_handle)(
                     event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                     event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
                     event.mouse.pressure, event.mouse.display);

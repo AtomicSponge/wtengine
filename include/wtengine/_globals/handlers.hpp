@@ -46,35 +46,35 @@ namespace wte {
  * Handler scopes
  */
 enum handler_scopes {
-    WTE_GLOBAL_HANDLES,  //!<
-    WTE_GAME_HANDLES,    //!<
-    WTE_NONGAME_HANDLES  //!<
+    WTE_GLOBAL_HANDLES,  //!<  Global input handles that are always active.
+    WTE_GAME_HANDLES,    //!<  In-game input handles.
+    WTE_NONGAME_HANDLES  //!<  Out-of-game input handles.
 };
 
 /*!
  * Handler events
  */
 enum handler_events {
-    WTE_EVENT_KEY_DOWN,              //!<
-    WTE_EVENT_KEY_UP,                //!<
+    WTE_EVENT_KEY_DOWN,              //!<  Event key down.
+    WTE_EVENT_KEY_UP,                //!<  Event key up.
 
-    WTE_EVENT_MOUSE_AXES,            //!<
-    WTE_EVENT_MOUSE_BUTTON_DOWN,     //!<
-    WTE_EVENT_MOUSE_BUTTON_UP,       //!<
-    WTE_EVENT_MOUSE_WARPED,          //!<
-    WTE_EVENT_MOUSE_ENTER_DISPLAY,   //!<
-    WTE_EVENT_MOUSE_LEAVE_DISPLAY,   //!<
+    WTE_EVENT_MOUSE_AXIS,            //!<  Event mouse axis.
+    WTE_EVENT_MOUSE_BUTTON_DOWN,     //!<  Event mouse button down.
+    WTE_EVENT_MOUSE_BUTTON_UP,       //!<  Event mouse button up.
+    WTE_EVENT_MOUSE_WARPED,          //!<  Event mouse warped.
+    WTE_EVENT_MOUSE_ENTER_DISPLAY,   //!<  Event mouse enters display.
+    WTE_EVENT_MOUSE_LEAVE_DISPLAY,   //!<  Event mouse leaves display.
 
-    WTE_EVENT_JOYSTICK_AXIS,         //!<
-    WTE_EVENT_JOYSTICK_BUTTON_DOWN,  //!<
-    WTE_EVENT_JOYSTICK_BUTTON_UP,    //!<
+    WTE_EVENT_JOYSTICK_AXIS,         //!<  Event joystick axis.
+    WTE_EVENT_JOYSTICK_BUTTON_DOWN,  //!<  Event joystick button down.
+    WTE_EVENT_JOYSTICK_BUTTON_UP,    //!<  Event joystick button up.
 
-    WTE_EVENT_TOUCH_BEGIN,           //!<
-    WTE_EVENT_TOUCH_END,             //!<
-    WTE_EVENT_TOUCH_MOVE,            //!<
-    WTE_EVENT_TOUCH_CANCEL,          //!<
+    WTE_EVENT_TOUCH_BEGIN,           //!<  Event touch input begin.
+    WTE_EVENT_TOUCH_END,             //!<  Event touch input end.
+    WTE_EVENT_TOUCH_MOVE,            //!<  Event touch input moves.
+    WTE_EVENT_TOUCH_CANCEL,          //!<  Event touch input canceld.
 
-    WTE_EVENT_MAX                    //!<
+    WTE_EVENT_MAX
 };
 
 //  Variant for storing the different handles
@@ -132,7 +132,7 @@ class handlers<S, IDX, WTE_HANDLER_SET> {
                 static_assert(IDX == WTE_EVENT_KEY_DOWN || IDX == WTE_EVENT_KEY_UP,
                     "Event Index must be a Key Up or Down Event");
             else if constexpr (std::is_same<T, handler::mouse_axis>::value)
-                static_assert(IDX == WTE_EVENT_MOUSE_AXES || IDX == WTE_EVENT_MOUSE_WARPED,
+                static_assert(IDX == WTE_EVENT_MOUSE_AXIS || IDX == WTE_EVENT_MOUSE_WARPED,
                     "Event Index must be a Mouse Axes or Warped Event");
             else if constexpr (std::is_same<T, handler::mouse_button>::value)
                 static_assert(IDX == WTE_EVENT_MOUSE_BUTTON_DOWN || IDX == WTE_EVENT_MOUSE_BUTTON_UP,

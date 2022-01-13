@@ -58,13 +58,16 @@ using handler_types = std::variant<
 
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
+//  Handler template
 template <size_t S, size_t IDX, size_t R>
 class handlers {};
 
+//  Handler specialization - not set
 template <size_t S, size_t IDX>
 class handlers<S, IDX, WTE_HANDLER_NOTSET> {};
 
 
+//  Handler specialization - is set
 /*!
  * \class handlers
  * \tparam S Handler scope.
@@ -81,6 +84,11 @@ class handlers<S, IDX, WTE_HANDLER_SET> {
         handlers(const handlers&) = delete;        //!<  Delete copy constructor.
         void operator=(handlers const&) = delete;  //!<  Delete assignment operator.
 
+        /*!
+         * \brief Add a handler.
+         * \tparam T Handler type.
+         * \param handle Handle as a function expression.
+         */
         template <typename T>
         inline constexpr static void add(const T& handle) {
             check<T>();

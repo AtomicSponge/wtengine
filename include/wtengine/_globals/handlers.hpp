@@ -63,13 +63,20 @@ struct _register {
     using status = handler_registers;
 };
 
+template <size_t S, size_t IDX, size_t R>
+class handlers {};
+
+template <size_t S, size_t IDX>
+class handlers<S, IDX, WTE_HANDLER_NOTSET> {};
+
+
 /*!
  * \class handlers
  * \tparam S Handler scope.
  * \brief Input handlers.
  */
 template <size_t S, size_t IDX>
-class handlers {
+class handlers<S, IDX, WTE_HANDLER_SET> {
     friend class input;
 
     public:
@@ -82,7 +89,7 @@ class handlers {
         inline constexpr static void add(const T& handle) {
             check<T>();
             _handle = handle;
-            //  set
+            //
         };
 
     private:

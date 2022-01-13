@@ -68,6 +68,7 @@ class handlers<S, IDX, WTE_HANDLER_NOTSET> {};
 /*!
  * \class handlers
  * \tparam S Handler scope.
+ * \tparam IDX Event index.
  * \brief Input handlers.
  */
 template <size_t S, size_t IDX>

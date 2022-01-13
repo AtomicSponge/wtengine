@@ -88,53 +88,53 @@ class input {
             switch(event.type) {
             //  Keyboard events
             case ALLEGRO_EVENT_KEY_DOWN:
-                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_KEY_DOWN>::is_set())
-                std::get<handler::key>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_KEY_DOWN>::_handle)(
+                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_KEY_DOWN, WTE_HANDLER_SET>::is_set())
+                std::get<handler::key>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_KEY_DOWN, WTE_HANDLER_SET>::_handle)(
                     event.keyboard.keycode, event.keyboard.display);
                 break;
             case ALLEGRO_EVENT_KEY_UP:
-                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_KEY_UP>::is_set())
-                std::get<handler::key>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_KEY_UP>::_handle)(
+                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_KEY_UP, WTE_HANDLER_SET>::is_set())
+                std::get<handler::key>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_KEY_UP, WTE_HANDLER_SET>::_handle)(
                     event.keyboard.keycode, event.keyboard.display);
                 break;
 
             //  Mouse events
             case ALLEGRO_EVENT_MOUSE_AXES:
-                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_AXES>::is_set())
-                std::get<handler::mouse_axis>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_AXES>::_handle)(
+                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_AXES, WTE_HANDLER_SET>::is_set())
+                std::get<handler::mouse_axis>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_AXES, WTE_HANDLER_SET>::_handle)(
                     event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                     event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
                     event.mouse.pressure, event.mouse.display);
                 break;
             case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_BUTTON_DOWN>::is_set())
-                std::get<handler::mouse_button>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_BUTTON_DOWN>::_handle)(
+                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_BUTTON_DOWN, WTE_HANDLER_SET>::is_set())
+                std::get<handler::mouse_button>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_BUTTON_DOWN, WTE_HANDLER_SET>::_handle)(
                     event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                     event.mouse.button, event.mouse.display);
                 break;
             case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_BUTTON_UP>::is_set())
-                std::get<handler::mouse_button>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_BUTTON_UP>::_handle)(
+                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_BUTTON_UP, WTE_HANDLER_SET>::is_set())
+                std::get<handler::mouse_button>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_BUTTON_UP, WTE_HANDLER_SET>::_handle)(
                     event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                     event.mouse.button, event.mouse.display);
                 break;
             case ALLEGRO_EVENT_MOUSE_WARPED:
-                if constexpr (handlers<WTE_GLOBAL_HANDLES>::is_set<WTE_EVENT_MOUSE_WARPED>())
-                std::get<handler::mouse_axis>(handlers<WTE_GLOBAL_HANDLES>::_handlers[WTE_EVENT_MOUSE_WARPED])(
+                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_WARPED, WTE_HANDLER_SET>::is_set())
+                std::get<handler::mouse_axis>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_WARPED, WTE_HANDLER_SET>::_handle)(
                     event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                     event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
                     event.mouse.pressure, event.mouse.display);
                 break;
             case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
-                if constexpr (handlers<WTE_GLOBAL_HANDLES>::is_set<WTE_EVENT_MOUSE_ENTER_DISPLAY>())
-                std::get<handler::mouse_axis>(handlers<WTE_GLOBAL_HANDLES>::_handlers[WTE_EVENT_MOUSE_ENTER_DISPLAY])(
+                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_ENTER_DISPLAY, WTE_HANDLER_SET>::is_set())
+                std::get<handler::mouse_axis>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_ENTER_DISPLAY, WTE_HANDLER_SET>::_handle)(
                     event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                     event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
                     event.mouse.pressure, event.mouse.display);
                 break;
             case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
-                if constexpr (handlers<WTE_GLOBAL_HANDLES>::is_set<WTE_EVENT_MOUSE_LEAVE_DISPLAY>())
-                std::get<handler::mouse_axis>(handlers<WTE_GLOBAL_HANDLES>::_handlers[WTE_EVENT_MOUSE_LEAVE_DISPLAY])(
+                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_LEAVE_DISPLAY, WTE_HANDLER_SET>::is_set())
+                std::get<handler::mouse_axis>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_MOUSE_LEAVE_DISPLAY, WTE_HANDLER_SET>::_handle)(
                     event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                     event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
                     event.mouse.pressure, event.mouse.display);
@@ -142,233 +142,43 @@ class input {
 
             //  Joystick events
             case ALLEGRO_EVENT_JOYSTICK_AXIS:
-                if constexpr (handlers<WTE_GLOBAL_HANDLES>::is_set<WTE_EVENT_JOYSTICK_AXIS>())
-                std::get<handler::joystick_axis>(handlers<WTE_GLOBAL_HANDLES>::_handlers[WTE_EVENT_JOYSTICK_AXIS])(
+                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_JOYSTICK_AXIS, WTE_HANDLER_SET>::is_set())
+                std::get<handler::joystick_axis>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_JOYSTICK_AXIS, WTE_HANDLER_SET>::_handle)(
                     event.joystick.stick, event.joystick.axis, event.joystick.pos, event.joystick.id);
                 break;
             case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-                if constexpr (handlers<WTE_GLOBAL_HANDLES>::is_set<WTE_EVENT_JOYSTICK_BUTTON_DOWN>())
-                std::get<handler::joystick_button>(handlers<WTE_GLOBAL_HANDLES>::_handlers[WTE_EVENT_JOYSTICK_BUTTON_DOWN])(
+                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_JOYSTICK_BUTTON_DOWN, WTE_HANDLER_SET>::is_set())
+                std::get<handler::joystick_button>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_JOYSTICK_BUTTON_DOWN, WTE_HANDLER_SET>::_handle)(
                     event.joystick.button, event.joystick.id);
                 break;
             case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-                if constexpr (handlers<WTE_GLOBAL_HANDLES>::is_set<WTE_EVENT_JOYSTICK_BUTTON_UP>())
-                std::get<handler::joystick_button>(handlers<WTE_GLOBAL_HANDLES>::_handlers[WTE_EVENT_JOYSTICK_BUTTON_UP])(
+                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_JOYSTICK_BUTTON_UP, WTE_HANDLER_SET>::is_set())
+                std::get<handler::joystick_button>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_JOYSTICK_BUTTON_UP, WTE_HANDLER_SET>::_handle)(
                     event.joystick.button, event.joystick.id);
                 break;
 
             //  Touch events
             case ALLEGRO_EVENT_TOUCH_BEGIN:
-                if constexpr (handlers<WTE_GLOBAL_HANDLES>::is_set<WTE_EVENT_TOUCH_BEGIN>())
-                std::get<handler::touch>(handlers<WTE_GLOBAL_HANDLES>::_handlers[WTE_EVENT_TOUCH_BEGIN])(
+                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_TOUCH_BEGIN, WTE_HANDLER_SET>::is_set())
+                std::get<handler::touch>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_TOUCH_BEGIN, WTE_HANDLER_SET>::_handle)(
                     event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                 break;
             case ALLEGRO_EVENT_TOUCH_END:
-                if constexpr (handlers<WTE_GLOBAL_HANDLES>::is_set<WTE_EVENT_TOUCH_END>())
-                std::get<handler::touch>(handlers<WTE_GLOBAL_HANDLES>::_handlers[WTE_EVENT_TOUCH_END])(
+                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_TOUCH_END, WTE_HANDLER_SET>::is_set())
+                std::get<handler::touch>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_TOUCH_END, WTE_HANDLER_SET>::_handle)(
                     event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                 break;
             case ALLEGRO_EVENT_TOUCH_MOVE:
-                if constexpr (handlers<WTE_GLOBAL_HANDLES>::is_set<WTE_EVENT_TOUCH_MOVE>())
-                std::get<handler::touch>(handlers<WTE_GLOBAL_HANDLES>::_handlers[WTE_EVENT_TOUCH_MOVE])(
+                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_TOUCH_MOVE, WTE_HANDLER_SET>::is_set())
+                std::get<handler::touch>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_TOUCH_MOVE, WTE_HANDLER_SET>::_handle)(
                     event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                 break;
             case ALLEGRO_EVENT_TOUCH_CANCEL:
-                if constexpr (handlers<WTE_GLOBAL_HANDLES>::is_set<WTE_EVENT_TOUCH_CANCEL>())
-                std::get<handler::touch>(handlers<WTE_GLOBAL_HANDLES>::_handlers[WTE_EVENT_TOUCH_CANCEL])(
+                if constexpr (handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_TOUCH_CANCEL, WTE_HANDLER_SET>::is_set())
+                std::get<handler::touch>(handlers<WTE_GLOBAL_HANDLES, WTE_EVENT_TOUCH_CANCEL, WTE_HANDLER_SET>::_handle)(
                     event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                 break;
             }
-            if(config::flags::game_started)
-                switch(event.type) {
-                //  Keyboard events
-                case ALLEGRO_EVENT_KEY_DOWN:
-                    if constexpr (handlers<WTE_GAME_HANDLES>::is_set<WTE_EVENT_KEY_DOWN>())
-                    std::get<handler::key>(handlers<WTE_GAME_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
-                        event.keyboard.keycode, event.keyboard.display);
-                    break;
-                case ALLEGRO_EVENT_KEY_UP:
-                    if constexpr (handlers<WTE_GAME_HANDLES>::is_set<WTE_EVENT_KEY_UP>())
-                    std::get<handler::key>(handlers<WTE_GAME_HANDLES>::_handlers[WTE_EVENT_KEY_UP])(
-                        event.keyboard.keycode, event.keyboard.display);
-                    break;
-
-                //  Mouse events
-                case ALLEGRO_EVENT_MOUSE_AXES:
-                    if constexpr (handlers<WTE_GAME_HANDLES>::is_set<WTE_EVENT_MOUSE_AXES>())
-                    std::get<handler::mouse_axis>(handlers<WTE_GAME_HANDLES>::_handlers[WTE_EVENT_MOUSE_AXES])(
-                        event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
-                        event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
-                        event.mouse.pressure, event.mouse.display);
-                    break;
-                case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-                    if constexpr (handlers<WTE_GAME_HANDLES>::is_set<WTE_EVENT_MOUSE_BUTTON_DOWN>())
-                    std::get<handler::mouse_button>(handlers<WTE_GAME_HANDLES>::_handlers[WTE_EVENT_MOUSE_BUTTON_DOWN])(
-                        event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
-                        event.mouse.button, event.mouse.display);
-                    break;
-                case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-                    if constexpr (handlers<WTE_GAME_HANDLES>::is_set<WTE_EVENT_MOUSE_BUTTON_UP>())
-                    std::get<handler::mouse_button>(handlers<WTE_GAME_HANDLES>::_handlers[WTE_EVENT_MOUSE_BUTTON_UP])(
-                        event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
-                        event.mouse.button, event.mouse.display);
-                    break;
-                case ALLEGRO_EVENT_MOUSE_WARPED:
-                    if constexpr (handlers<WTE_GAME_HANDLES>::is_set<WTE_EVENT_MOUSE_WARPED>())
-                    std::get<handler::mouse_axis>(handlers<WTE_GAME_HANDLES>::_handlers[WTE_EVENT_MOUSE_WARPED])(
-                        event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
-                        event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
-                        event.mouse.pressure, event.mouse.display);
-                    break;
-                case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
-                    if constexpr (handlers<WTE_GAME_HANDLES>::is_set<WTE_EVENT_MOUSE_ENTER_DISPLAY>())
-                    std::get<handler::mouse_axis>(handlers<WTE_GAME_HANDLES>::_handlers[WTE_EVENT_MOUSE_ENTER_DISPLAY])(
-                        event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
-                        event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
-                        event.mouse.pressure, event.mouse.display);
-                    break;
-                case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
-                    if constexpr (handlers<WTE_GAME_HANDLES>::is_set<WTE_EVENT_MOUSE_LEAVE_DISPLAY>())
-                    std::get<handler::mouse_axis>(handlers<WTE_GAME_HANDLES>::_handlers[WTE_EVENT_MOUSE_LEAVE_DISPLAY])(
-                        event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
-                        event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
-                        event.mouse.pressure, event.mouse.display);
-                    break;
-
-                //  Joystick events
-                case ALLEGRO_EVENT_JOYSTICK_AXIS:
-                    if constexpr (handlers<WTE_GAME_HANDLES>::is_set<WTE_EVENT_JOYSTICK_AXIS>())
-                    std::get<handler::joystick_axis>(handlers<WTE_GAME_HANDLES>::_handlers[WTE_EVENT_JOYSTICK_AXIS])(
-                        event.joystick.stick, event.joystick.axis, event.joystick.pos, event.joystick.id);
-                    break;
-                case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-                    if constexpr (handlers<WTE_GAME_HANDLES>::is_set<WTE_EVENT_JOYSTICK_BUTTON_DOWN>())
-                    std::get<handler::joystick_button>(handlers<WTE_GAME_HANDLES>::_handlers[WTE_EVENT_JOYSTICK_BUTTON_DOWN])(
-                        event.joystick.button, event.joystick.id);
-                    break;
-                case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-                    if constexpr (handlers<WTE_GAME_HANDLES>::is_set<WTE_EVENT_JOYSTICK_BUTTON_UP>())
-                    std::get<handler::joystick_button>(handlers<WTE_GAME_HANDLES>::_handlers[WTE_EVENT_JOYSTICK_BUTTON_UP])(
-                        event.joystick.button, event.joystick.id);
-                    break;
-
-                //  Touch events
-                case ALLEGRO_EVENT_TOUCH_BEGIN:
-                    if constexpr (handlers<WTE_GAME_HANDLES>::is_set<WTE_EVENT_TOUCH_BEGIN>())
-                    std::get<handler::touch>(handlers<WTE_GAME_HANDLES>::_handlers[WTE_EVENT_TOUCH_BEGIN])(
-                        event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
-                    break;
-                case ALLEGRO_EVENT_TOUCH_END:
-                    if constexpr (handlers<WTE_GAME_HANDLES>::is_set<WTE_EVENT_TOUCH_END>())
-                    std::get<handler::touch>(handlers<WTE_GAME_HANDLES>::_handlers[WTE_EVENT_TOUCH_END])(
-                        event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
-                    break;
-                case ALLEGRO_EVENT_TOUCH_MOVE:
-                    if constexpr (handlers<WTE_GAME_HANDLES>::is_set<WTE_EVENT_TOUCH_MOVE>())
-                    std::get<handler::touch>(handlers<WTE_GAME_HANDLES>::_handlers[WTE_EVENT_TOUCH_MOVE])(
-                        event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
-                    break;
-                case ALLEGRO_EVENT_TOUCH_CANCEL:
-                    if constexpr (handlers<WTE_GAME_HANDLES>::is_set<WTE_EVENT_TOUCH_CANCEL>())
-                    std::get<handler::touch>(handlers<WTE_GAME_HANDLES>::_handlers[WTE_EVENT_TOUCH_CANCEL])(
-                        event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
-                    break;
-                }
-            else
-                switch(event.type) {
-                //  Keyboard events
-                case ALLEGRO_EVENT_KEY_DOWN:
-                    if constexpr (handlers<WTE_NONGAME_HANDLES>::is_set<WTE_EVENT_KEY_DOWN>())
-                    std::get<handler::key>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_KEY_DOWN])(
-                        event.keyboard.keycode, event.keyboard.display);
-                    break;
-                case ALLEGRO_EVENT_KEY_UP:
-                    if constexpr (handlers<WTE_NONGAME_HANDLES>::is_set<WTE_EVENT_KEY_UP>())
-                    std::get<handler::key>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_KEY_UP])(
-                        event.keyboard.keycode, event.keyboard.display);
-                    break;
-
-                //  Mouse events
-                case ALLEGRO_EVENT_MOUSE_AXES:
-                    if constexpr (handlers<WTE_NONGAME_HANDLES>::is_set<WTE_EVENT_MOUSE_AXES>())
-                    std::get<handler::mouse_axis>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_MOUSE_AXES])(
-                        event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
-                        event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
-                        event.mouse.pressure, event.mouse.display);
-                    break;
-                case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-                    if constexpr (handlers<WTE_NONGAME_HANDLES>::is_set<WTE_EVENT_MOUSE_BUTTON_DOWN>())
-                    std::get<handler::mouse_button>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_MOUSE_BUTTON_DOWN])(
-                        event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
-                        event.mouse.button, event.mouse.display);
-                    break;
-                case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-                    if constexpr (handlers<WTE_NONGAME_HANDLES>::is_set<WTE_EVENT_MOUSE_BUTTON_UP>())
-                    std::get<handler::mouse_button>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_MOUSE_BUTTON_UP])(
-                        event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
-                        event.mouse.button, event.mouse.display);
-                    break;
-                case ALLEGRO_EVENT_MOUSE_WARPED:
-                    if constexpr (handlers<WTE_NONGAME_HANDLES>::is_set<WTE_EVENT_MOUSE_WARPED>())
-                    std::get<handler::mouse_axis>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_MOUSE_WARPED])(
-                        event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
-                        event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
-                        event.mouse.pressure, event.mouse.display);
-                    break;
-                case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
-                    if constexpr (handlers<WTE_NONGAME_HANDLES>::is_set<WTE_EVENT_MOUSE_ENTER_DISPLAY>())
-                    std::get<handler::mouse_axis>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_MOUSE_ENTER_DISPLAY])(
-                        event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
-                        event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
-                        event.mouse.pressure, event.mouse.display);
-                    break;
-                case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
-                    if constexpr (handlers<WTE_NONGAME_HANDLES>::is_set<WTE_EVENT_MOUSE_LEAVE_DISPLAY>())
-                    std::get<handler::mouse_axis>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_MOUSE_LEAVE_DISPLAY])(
-                        event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
-                        event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
-                        event.mouse.pressure, event.mouse.display);
-                    break;
-
-                //  Joystick events
-                case ALLEGRO_EVENT_JOYSTICK_AXIS:
-                    if constexpr (handlers<WTE_NONGAME_HANDLES>::is_set<WTE_EVENT_JOYSTICK_AXIS>())
-                    std::get<handler::joystick_axis>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_JOYSTICK_AXIS])(
-                        event.joystick.stick, event.joystick.axis, event.joystick.pos, event.joystick.id);
-                    break;
-                case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-                    if constexpr (handlers<WTE_NONGAME_HANDLES>::is_set<WTE_EVENT_JOYSTICK_BUTTON_DOWN>())
-                    std::get<handler::joystick_button>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_JOYSTICK_BUTTON_DOWN])(
-                        event.joystick.button, event.joystick.id);
-                    break;
-                case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-                    if constexpr (handlers<WTE_NONGAME_HANDLES>::is_set<WTE_EVENT_JOYSTICK_BUTTON_UP>())
-                    std::get<handler::joystick_button>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_JOYSTICK_BUTTON_UP])(
-                        event.joystick.button, event.joystick.id);
-                    break;
-
-                //  Touch events
-                case ALLEGRO_EVENT_TOUCH_BEGIN:
-                    if constexpr (handlers<WTE_NONGAME_HANDLES>::is_set<WTE_EVENT_TOUCH_BEGIN>())
-                    std::get<handler::touch>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_TOUCH_BEGIN])(
-                        event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
-                    break;
-                case ALLEGRO_EVENT_TOUCH_END:
-                    if constexpr (handlers<WTE_NONGAME_HANDLES>::is_set<WTE_EVENT_TOUCH_END>())
-                    std::get<handler::touch>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_TOUCH_END])(
-                        event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
-                    break;
-                case ALLEGRO_EVENT_TOUCH_MOVE:
-                    if constexpr (handlers<WTE_NONGAME_HANDLES>::is_set<WTE_EVENT_TOUCH_MOVE>())
-                    std::get<handler::touch>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_TOUCH_MOVE])(
-                        event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
-                    break;
-                case ALLEGRO_EVENT_TOUCH_CANCEL:
-                    if constexpr (handlers<WTE_NONGAME_HANDLES>::is_set<WTE_EVENT_TOUCH_CANCEL>())
-                    std::get<handler::touch>(handlers<WTE_NONGAME_HANDLES>::_handlers[WTE_EVENT_TOUCH_CANCEL])(
-                        event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
-                    break;
-                }
         };
 
         static void create_event_queue(void);                 //  Create the input queue.

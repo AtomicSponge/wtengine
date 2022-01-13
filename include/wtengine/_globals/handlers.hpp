@@ -75,13 +75,15 @@ using handler_types = std::variant<
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
 //  Handler template
-template <size_t S, size_t IDX, size_t R>
+template <size_t S, size_t IDX, size_t R = WTE_HANDLER_SET>
 class handlers {};
 
 //  Handler specialization - not set
 template <size_t S, size_t IDX>
-class handlers<S, IDX, WTE_HANDLER_NOTSET> {};
-
+class handlers<S, IDX, WTE_HANDLER_NOTSET> {
+    private:
+        inline constexpr static bool is_set() { return false; };
+};
 
 //  Handler specialization - is set
 /*!
@@ -91,7 +93,7 @@ class handlers<S, IDX, WTE_HANDLER_NOTSET> {};
  * \brief Input handlers.
  */
 template <size_t S, size_t IDX>
-class handlers<S, IDX, WTE_HANDLER_SET> {
+class handlers<S, IDX, WTE_HANDLER_SET> : std::true_type {
     friend class input;
 
     public:
@@ -140,6 +142,8 @@ class handlers<S, IDX, WTE_HANDLER_SET> {
                     IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
                     "Event Index must be a Touch Event");
         };
+
+        inline constexpr static bool is_set() { return true; };
 
         inline static handler_types _handle;
 };

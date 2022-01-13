@@ -42,26 +42,42 @@ using touch = std::function<void(
 
 namespace wte {
 
-/*
- *
+/*!
+ * Handler scopes
  */
-enum handler_scopes { WTE_GLOBAL_HANDLES, WTE_GAME_HANDLES, WTE_NONGAME_HANDLES };
-
-/*
- *
- */
-enum handler_events {
-    WTE_EVENT_KEY_DOWN, WTE_EVENT_KEY_UP,
-    WTE_EVENT_MOUSE_AXES, WTE_EVENT_MOUSE_BUTTON_DOWN, WTE_EVENT_MOUSE_BUTTON_UP,
-    WTE_EVENT_MOUSE_WARPED, WTE_EVENT_MOUSE_ENTER_DISPLAY, WTE_EVENT_MOUSE_LEAVE_DISPLAY,
-    WTE_EVENT_JOYSTICK_AXIS, WTE_EVENT_JOYSTICK_BUTTON_DOWN, WTE_EVENT_JOYSTICK_BUTTON_UP,
-    WTE_EVENT_TOUCH_BEGIN, WTE_EVENT_TOUCH_END, WTE_EVENT_TOUCH_MOVE, WTE_EVENT_TOUCH_CANCEL,
-    WTE_EVENT_MAX
+enum handler_scopes {
+    WTE_GLOBAL_HANDLES,  //!<
+    WTE_GAME_HANDLES,    //!<
+    WTE_NONGAME_HANDLES  //!<
 };
 
-/*
- *
+/*!
+ * Handler events
  */
+enum handler_events {
+    WTE_EVENT_KEY_DOWN,              //!<
+    WTE_EVENT_KEY_UP,                //!<
+
+    WTE_EVENT_MOUSE_AXES,            //!<
+    WTE_EVENT_MOUSE_BUTTON_DOWN,     //!<
+    WTE_EVENT_MOUSE_BUTTON_UP,       //!<
+    WTE_EVENT_MOUSE_WARPED,          //!<
+    WTE_EVENT_MOUSE_ENTER_DISPLAY,   //!<
+    WTE_EVENT_MOUSE_LEAVE_DISPLAY,   //!<
+
+    WTE_EVENT_JOYSTICK_AXIS,         //!<
+    WTE_EVENT_JOYSTICK_BUTTON_DOWN,  //!<
+    WTE_EVENT_JOYSTICK_BUTTON_UP,    //!<
+
+    WTE_EVENT_TOUCH_BEGIN,           //!<
+    WTE_EVENT_TOUCH_END,             //!<
+    WTE_EVENT_TOUCH_MOVE,            //!<
+    WTE_EVENT_TOUCH_CANCEL,          //!<
+
+    WTE_EVENT_MAX                    //!<
+};
+
+//  Variant for storing the different handles
 using handler_types = std::variant<
     handler::key,
     handler::mouse_axis, handler::mouse_button, handler::mouse_display,
@@ -69,9 +85,6 @@ using handler_types = std::variant<
     handler::touch
 >;
 
-/*
- *
- */
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
 //  Handler template

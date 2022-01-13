@@ -122,7 +122,7 @@ class renderer final : private manager<renderer> {
         };
 
         inline static void draw_hitboxes(void) {
-            if constexpr (build_options.debug_mode) {
+            if constexpr (build_options::debug_mode) {
                 const const_component_container<cmp::hitbox> hitbox_components =
                     mgr::world::get_components<cmp::hitbox>();
 

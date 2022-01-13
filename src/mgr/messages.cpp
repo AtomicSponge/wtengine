@@ -231,7 +231,7 @@ void messages::read(
  *
  */
 void messages::log(const message& msg) {
-    if(!build_options.debug_mode) return;
+    if(!build_options::debug_mode) return;
     debug_log_file << "PROC AT:  " << engine_time::check() << " | ";
     debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
     debug_log_file << "SYS:  " << msg.get_sys() << " | ";

@@ -66,12 +66,12 @@ class messages final : private manager<messages> {
 
     private:
         inline messages() {
-            if constexpr (build_options.debug_mode) {
+            if constexpr (build_options::debug_mode) {
                 debug_log_file.open("wte_debug//messages.txt", std::ios::trunc);
                 debug_log_file << "Logging messages..." << std::endl << std::endl;
             }
         };
-        inline ~messages() { if constexpr (build_options.debug_mode) debug_log_file.close(); };
+        inline ~messages() { if constexpr (build_options::debug_mode) debug_log_file.close(); };
         //  Clear the message queue.
         static void clear(void);
         /*
@@ -91,13 +91,13 @@ class messages final : private manager<messages> {
          * Once events in the future are reached, break early.
          */
         inline static const message_container get(const std::string& sys) {
-            if constexpr (build_options.debug_mode) return _get_debug(sys); else return _get(sys);
+            if constexpr (build_options::debug_mode) return _get_debug(sys); else return _get(sys);
         };
         static const message_container _get(const std::string& sys);        //  Normal get
         static const message_container _get_debug(const std::string& sys);  //  Debug get
         //  Deletes timed messages that were not processed.
         inline static void prune(void) {
-            if constexpr (build_options.debug_mode) _prune_debug(); else _prune();
+            if constexpr (build_options::debug_mode) _prune_debug(); else _prune();
         };
         static void _prune(void);        //  Normal prune
         static void _prune_debug(void);  //  Debug prune

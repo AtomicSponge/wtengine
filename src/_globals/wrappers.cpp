@@ -72,7 +72,7 @@ const bool al_bitmap::load(const std::string& fname) {
 
     if(!_al_bitmap) return false;  //  Bitmap not loaded, fail.
     //  Apply transparency if magic pink is enabled.
-    if(build_options.use_magic_pink) al_convert_mask_to_alpha(_al_bitmap, WTE_MAGIC_PINK);
+    if(build_options::use_magic_pink) al_convert_mask_to_alpha(_al_bitmap, WTE_MAGIC_PINK);
     return true;
 }
 

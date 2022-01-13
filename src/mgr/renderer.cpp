@@ -239,7 +239,7 @@ void renderer::render(void) {
         }
 
         //  Draw hitboxes if debug is enabled.
-        if(build_options.debug_mode && config::flags::show_hitboxes) draw_hitboxes();
+        if(build_options::debug_mode && config::flags::show_hitboxes) draw_hitboxes();
 
         //  Draw the overlays.
         const const_component_container<cmp::gfx::overlay> overlay_components =
@@ -334,7 +334,7 @@ void renderer::render(void) {
         al_draw_text(**renderer_font, WTE_COLOR_YELLOW, config::gfx::screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
     //  Draw time if debug mode is enabled.
-    if(build_options.debug_mode) {
+    if(build_options::debug_mode) {
         const std::string timer_string = "Timer: " + std::to_string(engine_time::check());
         al_draw_text(**renderer_font, WTE_COLOR_YELLOW, config::gfx::screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     }

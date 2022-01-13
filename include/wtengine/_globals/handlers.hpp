@@ -58,11 +58,6 @@ using handler_types = std::variant<
 
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
-template <size_t R>
-struct _register {
-    using status = handler_registers;
-};
-
 template <size_t S, size_t IDX, size_t R>
 class handlers {};
 
@@ -89,7 +84,6 @@ class handlers<S, IDX, WTE_HANDLER_SET> {
         inline constexpr static void add(const T& handle) {
             check<T>();
             _handle = handle;
-            //
         };
 
     private:
@@ -120,11 +114,6 @@ class handlers<S, IDX, WTE_HANDLER_SET> {
                 static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
                     IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
                     "Event Index must be a Touch Event");
-        };
-        
-        inline constexpr static bool is_set() {
-            //return (_registery[IDX] == WTE_HANDLER_SET) ? true : false;
-            return false;
         };
 
         inline static handler_types _handle;

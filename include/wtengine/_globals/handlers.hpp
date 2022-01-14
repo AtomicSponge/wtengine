@@ -90,18 +90,15 @@ using handler_types = std::variant<
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
 //  Handler template
-template <size_t S, size_t IDX, size_t R = WTE_HANDLER_NOTSET>
+template <size_t S, size_t IDX, auto R = WTE_HANDLER_NOTSET>
 class handlers {
     friend class input;
     private:
         inline constexpr static bool is_set() { return false; };
 };
 
-/*!
- * \class handlers
- * \tparam S Handler scope.
- * \tparam IDX Event index.
- * \brief Input handlers.
+/*
+ * Handlers class - not directly used
  */
 template <size_t S, size_t IDX>
 class handlers<S, IDX, WTE_HANDLER_SET> {
@@ -159,6 +156,12 @@ class handlers<S, IDX, WTE_HANDLER_SET> {
         inline static handler_types _handle;
 };
 
+/*!
+ * \typedef handle
+ * \tparam S Handler scope.
+ * \tparam IDX Event index.
+ * \brief Used to add an input handle.
+ */
 template <size_t S, size_t IDX>
 using handle = handlers<S, IDX, WTE_HANDLER_SET>;
 

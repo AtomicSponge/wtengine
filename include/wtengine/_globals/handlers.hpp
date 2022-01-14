@@ -89,12 +89,25 @@ using handler_types = std::variant<
 
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
+template <size_t S, size_t IDX>
+class _register {
+    public:
+        constexpr _register(size_t R) : _reg(R) {};
+        ~_register() = delete;
+        _register(const _register&) = delete;
+        void operator=(_register const&) = delete;
+        constexpr bool is_set() { return (_reg == WTE_HANDLER_NOTSET ? false : true); };
+    private:
+        const size_t _reg;
+};
+
 //  Handler template
 template <size_t S, size_t IDX, auto R = WTE_HANDLER_NOTSET>
 class handlers {
     friend class input;
     private:
-        inline constexpr static bool is_set() { return false; };
+        //inline constexpr static bool is_set() { return false; };
+        constexpr static bool is_set() { return (R == WTE_HANDLER_NOTSET ? false : true); };
 };
 
 /*
@@ -105,10 +118,10 @@ class handlers<S, IDX, WTE_HANDLER_SET> {
     friend class input;
 
     public:
-        handlers() = delete;                       //!<  Delete constructor.
-        ~handlers() = delete;                      //!<  Delete destructor.
-        handlers(const handlers&) = delete;        //!<  Delete copy constructor.
-        void operator=(handlers const&) = delete;  //!<  Delete assignment operator.
+        handlers() = delete;                       //  Delete constructor.
+        ~handlers() = delete;                      //  Delete destructor.
+        handlers(const handlers&) = delete;        //  Delete copy constructor.
+        void operator=(handlers const&) = delete;  //  Delete assignment operator.
 
         /*!
          * \brief Add a handler.
@@ -151,7 +164,7 @@ class handlers<S, IDX, WTE_HANDLER_SET> {
                     "Event Index must be a Touch Event");
         };
 
-        inline constexpr static bool is_set() { return true; };
+        //inline constexpr static bool is_set() { return true; };
 
         inline static handler_types _handle;
 };

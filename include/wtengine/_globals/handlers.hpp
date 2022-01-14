@@ -90,19 +90,10 @@ using handler_types = std::variant<
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
 template <size_t S, size_t IDX>
-class _register {
-    public:
-        constexpr _register(size_t R) : _reg(R) {};
-        ~_register() = delete;
-        _register(const _register&) = delete;
-        void operator=(_register const&) = delete;
-        constexpr bool is_set() { return (_reg == WTE_HANDLER_NOTSET ? false : true); };
-    private:
-        const size_t _reg;
-};
+struct _register {};
 
 //  Handler template
-template <size_t S, size_t IDX, auto R = WTE_HANDLER_NOTSET>
+template <size_t S, size_t IDX, size_t R = WTE_HANDLER_NOTSET>
 class handlers {
     friend class input;
     private:

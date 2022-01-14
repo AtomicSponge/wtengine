@@ -89,8 +89,10 @@ using handler_types = std::variant<
 
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
-template <size_t S, size_t IDX, size_t... Rs>
-struct _register {};
+template <size_t S, size_t R, size_t... IDXs>
+struct _register {
+    using status = handler_registers;
+};
 
 //  Handler template
 template <size_t S, size_t IDX, size_t R = WTE_HANDLER_NOTSET>

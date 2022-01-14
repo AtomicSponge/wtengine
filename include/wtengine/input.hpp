@@ -84,7 +84,7 @@ class input {
         input();  //!<  Constructor
 
     private:
-        template <size_t S>
+        template <handler_scopes S>
         inline static constexpr void run_handles(const ALLEGRO_EVENT& event) {
             switch(event.type) {
             //  Keyboard events

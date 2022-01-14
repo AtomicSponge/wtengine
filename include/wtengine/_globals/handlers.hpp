@@ -89,24 +89,23 @@ using handler_types = std::variant<
 
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
-template <size_t S, size_t R, size_t... IDXs>
+template <handler_scopes S, handler_registers R, handler_events... IDX>
 struct _register {
     using status = handler_registers;
 };
 
-//  Handler template
-template <size_t S, size_t IDX, size_t R = WTE_HANDLER_NOTSET>
-class handlers {
+//  Handlers template
+template <handler_scopes S, handler_events IDX, handler_registers R = WTE_HANDLER_NOTSET>
+class handlers : _register<S, R, IDX> {
     friend class input;
     private:
-        //inline constexpr static bool is_set() { return false; };
-        constexpr static bool is_set() { return (R == WTE_HANDLER_NOTSET ? false : true); };
+        inline constexpr static bool is_set() { return false; };
 };
 
 /*
- * Handlers class - not directly used
+ * Handlers specialization - not directly used
  */
-template <size_t S, size_t IDX>
+template <handler_scopes S, handler_events IDX>
 class handlers<S, IDX, WTE_HANDLER_SET> {
     friend class input;
 
@@ -157,8 +156,6 @@ class handlers<S, IDX, WTE_HANDLER_SET> {
                     "Event Index must be a Touch Event");
         };
 
-        //inline constexpr static bool is_set() { return true; };
-
         inline static handler_types _handle;
 };
 
@@ -168,7 +165,7 @@ class handlers<S, IDX, WTE_HANDLER_SET> {
  * \tparam IDX Event index.
  * \brief Used to add an input handle.
  */
-template <size_t S, size_t IDX>
+template <handler_scopes S, handler_events IDX>
 using handle = handlers<S, IDX, WTE_HANDLER_SET>;
 
 }  //  end namespace wte

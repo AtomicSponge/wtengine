@@ -89,24 +89,20 @@ using handler_types = std::variant<
 
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
-template <handler_scopes S, handler_registers R, handler_events... IDX>
+template <handler_registers R>
 struct _register {
-    using status = handler_registers;
+    constexpr static handler_registers status = R;
 };
 
 //  Handlers template
-template <handler_scopes S, handler_events IDX, handler_registers R = WTE_HANDLER_NOTSET>
-class handlers : _register<S, R, IDX> {
-    friend class input;
-    private:
-        inline constexpr static bool is_set() { return false; };
-};
+template <handler_scopes S, handler_events IDX>
+class handlers {};
 
 /*
  * Handlers specialization - not directly used
  */
 template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, WTE_HANDLER_SET> {
+class handlers {
     friend class input;
 
     public:
@@ -165,8 +161,8 @@ class handlers<S, IDX, WTE_HANDLER_SET> {
  * \tparam IDX Event index.
  * \brief Used to add an input handle.
  */
-template <handler_scopes S, handler_events IDX>
-using handle = handlers<S, IDX, WTE_HANDLER_SET>;
+//template <handler_scopes S, handler_events IDX>
+//using handle = handlers<S, IDX, WTE_HANDLER_SET>;
 
 }  //  end namespace wte
 

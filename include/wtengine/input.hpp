@@ -86,12 +86,12 @@ class input {
     private:
         template <handler_scopes S>
         inline static constexpr void run_handles(const ALLEGRO_EVENT& event) {
-            switch(event.type) {
+            /*switch(event.type) {
             //  Keyboard events
             case ALLEGRO_EVENT_KEY_DOWN:
                 //if constexpr (handlers<S, WTE_EVENT_KEY_DOWN>::is_set())
                 if constexpr (_register<S, WTE_EVENT_KEY_DOWN>::is_set())
-                std::get<handler::key>(handle<S, WTE_EVENT_KEY_DOWN>::_handle)(
+                std::get<handler::key>(handlers<S>::_handle<WTE_EVENT_KEY_DOWN>)(
                     event.keyboard.keycode, event.keyboard.display);
                 break;
             case ALLEGRO_EVENT_KEY_UP:
@@ -180,7 +180,7 @@ class input {
                 std::get<handler::touch>(handle<S, WTE_EVENT_TOUCH_CANCEL>::_handle)(
                     event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                 break;
-            }
+            }*/
         };
 
         static void create_event_queue(void);                 //  Create the input queue.

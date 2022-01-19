@@ -64,14 +64,14 @@
 
 namespace wte {
 
-template <class T, template <class...> class Primary>
+template <template <typename...> class Primary, typename T>
 struct is_specilization_of : std::false_type {};
 
-template <template <class...> class Primary, class... Args>
-struct is_specilization_of<Primary<Args...>, Primary> : std::true_type {};
+template <template <typename...> class Primary, typename... Args>
+struct is_specilization_of<Primary, Primary<Args...>> : std::true_type {};
 
-template <class T, template <class...> class Primary>
-inline constexpr bool is_specilization_of_v = is_specilization_of<T, Primary>::value;
+template <template <typename...> class Primary, typename T>
+inline constexpr bool is_specilization_of_v = is_specilization_of<Primary, T>::value;
 
 /*!
  * \struct build_options

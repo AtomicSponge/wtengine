@@ -89,8 +89,7 @@ class input {
             /*switch(event.type) {
             //  Keyboard events
             case ALLEGRO_EVENT_KEY_DOWN:
-                //if constexpr (handlers<S, WTE_EVENT_KEY_DOWN>::is_set())
-                if constexpr (_register<S, WTE_EVENT_KEY_DOWN>::is_set())
+                if constexpr (is_specilization_of_v<_register<WTE_HANDLER_SET>, handlers<S, WTE_EVENT_KEY_DOWN>>)
                 std::get<handler::key>(handlers<S>::_handle<WTE_EVENT_KEY_DOWN>)(
                     event.keyboard.keycode, event.keyboard.display);
                 break;

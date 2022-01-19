@@ -97,7 +97,7 @@ struct _register {
 /*
  *
  */
-template <handler_scopes S>
+template <handler_scopes S, handler_events IDX>
 class handlers {
     friend class input;
 
@@ -112,14 +112,14 @@ class handlers {
          * \tparam T Handler type.
          * \param handle Handle as a function expression.
          */
-        template <handler_events IDX, typename T>
+        template <typename T>
         inline constexpr static void add(const T& handle) {
-            check<IDX, T>();
-            _handle<IDX> = handle;
+            check<T>();
+            _handle = handle;
         };
 
     private:
-        template <handler_events IDX, typename T>
+        template <typename T>
         inline constexpr static void check(void) {
             static_assert(S == WTE_GLOBAL_HANDLES || S == WTE_NONGAME_HANDLES || S == WTE_GAME_HANDLES,
                 "Scope must be one of the following: WTE_GLOBAL_HANDLES, WTE_NONGAME_HANDLES, WTE_GAME_HANDLES");
@@ -148,7 +148,6 @@ class handlers {
                     "Event Index must be a Touch Event");
         };
 
-        template <handler_events IDX>
         inline static handler_types _handle;
 };
 

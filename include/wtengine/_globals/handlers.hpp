@@ -95,7 +95,7 @@ struct _register {
 };
 
 /*
- * Handlers specialization - not directly used
+ *
  */
 template <handler_scopes S>
 class handlers {

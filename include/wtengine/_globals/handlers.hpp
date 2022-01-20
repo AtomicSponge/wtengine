@@ -95,7 +95,13 @@ struct _register {
 };
 
 template <handler_scopes S, handler_events IDX, handler_registers R = WTE_HANDLER_NOTSET>
-class handlers : _register<R> {
+class handlers : _register<R> {};
+
+/*
+ *
+ */
+template <handler_scopes S, handler_events IDX>
+class handlers<S, IDX, WTE_HANDLER_SET> : _register<WTE_HANDLER_SET> {
     friend class input;
 
     public:
@@ -103,14 +109,7 @@ class handlers : _register<R> {
         ~handlers() = delete;                      //  Delete destructor.
         handlers(const handlers&) = delete;        //  Delete copy constructor.
         void operator=(handlers const&) = delete;  //  Delete assignment operator.
-};
 
-/*
- *
- */
-template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, WTE_HANDLER_SET> : _register<WTE_HANDLER_SET> {
-    public:
         /*!
          * \brief Add a handler.
          * \tparam T Handler type.
@@ -123,11 +122,6 @@ class handlers<S, IDX, WTE_HANDLER_SET> : _register<WTE_HANDLER_SET> {
         };
 
     private:
-        template <typename T>
-        inline constexpr static const T get(void) {
-            return std::get<T>(_handle);
-        };
-
         template <typename T>
         inline constexpr static void check(void) {
             static_assert(S == WTE_GLOBAL_HANDLES || S == WTE_NONGAME_HANDLES || S == WTE_GAME_HANDLES,

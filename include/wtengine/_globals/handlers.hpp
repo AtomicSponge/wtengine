@@ -95,13 +95,7 @@ struct _register {
 };
 
 template <handler_scopes S, handler_events IDX, handler_registers R = WTE_HANDLER_NOTSET>
-class handlers : _register<R> {};
-
-/*
- *
- */
-template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, WTE_HANDLER_SET> : _register<WTE_HANDLER_SET> {
+class handlers : _register<R> {
     friend class input;
 
     public:
@@ -109,7 +103,14 @@ class handlers<S, IDX, WTE_HANDLER_SET> : _register<WTE_HANDLER_SET> {
         ~handlers() = delete;                      //  Delete destructor.
         handlers(const handlers&) = delete;        //  Delete copy constructor.
         void operator=(handlers const&) = delete;  //  Delete assignment operator.
+};
 
+/*
+ *
+ */
+template <handler_scopes S, handler_events IDX>
+class handlers<S, IDX, WTE_HANDLER_SET> : _register<WTE_HANDLER_SET> {
+    public:
         /*!
          * \brief Add a handler.
          * \tparam T Handler type.

@@ -124,6 +124,11 @@ class handlers<S, IDX, WTE_HANDLER_SET> : _register<WTE_HANDLER_SET> {
 
     private:
         template <typename T>
+        inline constexpr static void get(void) {
+            return std::get<T>(_handle);
+        };
+
+        template <typename T>
         inline constexpr static void check(void) {
             static_assert(S == WTE_GLOBAL_HANDLES || S == WTE_NONGAME_HANDLES || S == WTE_GAME_HANDLES,
                 "Scope must be one of the following: WTE_GLOBAL_HANDLES, WTE_NONGAME_HANDLES, WTE_GAME_HANDLES");

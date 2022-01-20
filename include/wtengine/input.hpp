@@ -86,21 +86,21 @@ class input {
     private:
         template <handler_scopes S>
         inline static constexpr void run_handles(const ALLEGRO_EVENT& event) {
-            /*switch(event.type) {
+            switch(event.type) {
             //  Keyboard events
             case ALLEGRO_EVENT_KEY_DOWN:
-                if constexpr (is_specilization_of_v<_register<WTE_HANDLER_SET>, handlers<S, WTE_EVENT_KEY_DOWN>>)
-                std::get<handler::key>(handlers<S>::_handle<WTE_EVENT_KEY_DOWN>)(
-                    event.keyboard.keycode, event.keyboard.display);
+                //if constexpr (is_specilization_of_v<_register<WTE_HANDLER_SET>, handlers<S, WTE_EVENT_KEY_DOWN>>)
+                //handle<S, WTE_EVENT_KEY_DOWN>::get<handler::key>()(
+                    //event.keyboard.keycode, event.keyboard.display);
                 break;
-            case ALLEGRO_EVENT_KEY_UP:
+            /*case ALLEGRO_EVENT_KEY_UP:
                 if constexpr (handlers<S, WTE_EVENT_KEY_UP>::is_set())
                 std::get<handler::key>(handle<S, WTE_EVENT_KEY_UP>::_handle)(
                     event.keyboard.keycode, event.keyboard.display);
-                break;
+                break;*/
 
             //  Mouse events
-            case ALLEGRO_EVENT_MOUSE_AXES:
+            /*case ALLEGRO_EVENT_MOUSE_AXES:
                 if constexpr (handlers<S, WTE_EVENT_MOUSE_AXIS>::is_set())
                 std::get<handler::mouse_axis>(handle<S, WTE_EVENT_MOUSE_AXIS>::_handle)(
                     event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
@@ -178,8 +178,8 @@ class input {
                 if constexpr (handlers<S, WTE_EVENT_TOUCH_CANCEL>::is_set())
                 std::get<handler::touch>(handle<S, WTE_EVENT_TOUCH_CANCEL>::_handle)(
                     event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
-                break;
-            }*/
+                break;*/
+            }
         };
 
         static void create_event_queue(void);                 //  Create the input queue.

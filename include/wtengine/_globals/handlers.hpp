@@ -124,7 +124,7 @@ class handlers<S, IDX, WTE_HANDLER_SET> : _register<WTE_HANDLER_SET> {
 
     private:
         template <typename T>
-        inline constexpr static void get(void) {
+        inline constexpr static const T get(void) {
             return std::get<T>(_handle);
         };
 

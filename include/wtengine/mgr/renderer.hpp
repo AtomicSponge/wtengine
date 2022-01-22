@@ -115,12 +115,14 @@ class renderer final : private manager<renderer> {
         //  Draw the game screen.
         static void render(void);
 
+        //  For sorting.
         template <typename T> struct comparator {
             const bool operator() (const T& a, const T& b) const {
                 return *a.second < *b.second;
             }
         };
 
+        //  Draw hitboxes if debug mode is enabled.
         inline static void draw_hitboxes(void) {
             if constexpr (build_options::debug_mode) {
                 const const_component_container<cmp::hitbox> hitbox_components =
@@ -156,7 +158,7 @@ class renderer final : private manager<renderer> {
 
         //  Draw time if debug mode is enabled.
         inline static void draw_timer(void) {
-            if(build_options::debug_mode) {
+            if constexpr (build_options::debug_mode) {
                 const std::string timer_string = "Timer: " + std::to_string(engine_time::check());
                 al_draw_text(**renderer_font, WTE_COLOR_YELLOW, config::gfx::screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
             }

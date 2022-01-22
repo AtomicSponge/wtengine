@@ -154,6 +154,14 @@ class renderer final : private manager<renderer> {
             }
         };
 
+        //  Draw time if debug mode is enabled.
+        inline static void draw_timer(void) {
+            if(build_options::debug_mode) {
+                const std::string timer_string = "Timer: " + std::to_string(engine_time::check());
+                al_draw_text(**renderer_font, WTE_COLOR_YELLOW, config::gfx::screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
+            }
+        };
+
         static ALLEGRO_TIMER* fps_timer;
         static ALLEGRO_EVENT_QUEUE* fps_event_queue;
         static ALLEGRO_EVENT fps_event;

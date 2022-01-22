@@ -10,6 +10,8 @@
 #ifndef WTE_GLOBAL_DEFINES_HPP
 #define WTE_GLOBAL_DEFINES_HPP
 
+#include <type_traits>
+
 //  Enable math defines for entire engine.
 #ifndef _USE_MATH_DEFINES
 #define _USE_MATH_DEFINES

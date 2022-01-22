@@ -333,11 +333,7 @@ void renderer::render(void) {
         const std::string fps_string = "FPS: " + std::to_string(fps);
         al_draw_text(**renderer_font, WTE_COLOR_YELLOW, config::gfx::screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
-    //  Draw time if debug mode is enabled.
-    if(build_options::debug_mode) {
-        const std::string timer_string = "Timer: " + std::to_string(engine_time::check());
-        al_draw_text(**renderer_font, WTE_COLOR_YELLOW, config::gfx::screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
-    }
+    draw_timer();
 
     //  Update the screen & delta time.
     al_flip_display();

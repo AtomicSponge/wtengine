@@ -60,16 +60,13 @@ class display {
         display();
 
     private:
-        //  Configure the display.
-        void create_display(void);
-        //  Destroy the display.
-        void destroy_display(void);
-        //  Reconfigure the display.
-        void reconf_display(void);
-
+        void create_display(void);         //  Configure the display.
+        void destroy_display(void);        //  Destroy the display.
+        void reconf_display(void);         //  Reconfigure the display.
         static std::string window_title;   //  Title for application window.
         static bool initialized;           //  Restrict to one instance.
         static ALLEGRO_DISPLAY* _display;  //  Allegro object for the display.
+        constexpr static bool opengl_latest = build_options.opengl_latest;
 
         class al_bitmap_converter final {
             public:

@@ -285,6 +285,8 @@ class audio final : private manager<audio> {
         //  Set volume levels based on engine cfg settings.
         static void set_volume(void);
 
+        constexpr static int max_playing_samples = build_options.max_playing_samples;
+        
         static commands cmds;
 
         //  Main audio output

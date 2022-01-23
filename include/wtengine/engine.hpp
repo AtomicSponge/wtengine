@@ -135,6 +135,8 @@ class engine : public config, public display, public input {
         static std::vector<std::string> file_locations;
         //  Restrict to one instance of the engine running.
         static bool initialized;
+
+        constexpr static float ticks_per_sec = build_options.ticks_per_sec;
 };
 
 }  //  end namespace wte

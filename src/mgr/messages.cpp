@@ -58,30 +58,6 @@ void messages::dispatch(void) {
 /*
  *
  */
-void messages::_prune(void) {
-    for(auto it = _messages.begin(); it != _messages.end();) {
-        //  End early if events are in the future.
-        if(it->get_timer() > engine_time::check()) break;
-        it = _messages.erase(it);
-    }
-}
-
-/*
- *
- */
-void messages::_prune_debug(void) {
-    for(auto it = _messages.begin(); it != _messages.end();) {
-        //  End early if events are in the future.
-        if(it->get_timer() > engine_time::check()) break;
-        debug_log_file << "MESSAGE DELETED | ";
-        log(*it);
-        it = _messages.erase(it);
-    }
-}
-
-/*
- *
- */
 const message_container messages::get(const std::string& sys) {
     message_container temp_messages;
     for(auto it = _messages.begin(); it != _messages.end();) {

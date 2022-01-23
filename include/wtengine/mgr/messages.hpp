@@ -93,10 +93,16 @@ class messages final : private manager<messages> {
         static const message_container get(const std::string& sys);
         //  Deletes timed messages that were not processed.
         inline static void prune(void) {
-            if constexpr (build_options.debug_mode) _prune_debug(); else _prune();
+            for(auto it = _messages.begin(); it != _messages.end();) {
+                //  End early if events are in the future.
+                if(it->get_timer() > engine_time::check()) break;
+                if constexpr (build_options.debug_mode) {
+                    debug_log_file << "MESSAGE DELETED | ";
+                    log(*it);
+                }
+                it = _messages.erase(it);
+            }
         };
-        static void _prune(void);        //  Normal prune
-        static void _prune_debug(void);  //  Debug prune
         //  Read a message from file.
         static void read(
             ALLEGRO_FILE& file,

@@ -80,11 +80,11 @@ inline constexpr bool is_specilization_of_v = is_specilization_of<Primary, T>::v
  * \brief Build options
  */
 struct wte_build_options {
-    inline constexpr static bool opengl_latest = static_cast<bool>(WTE_OPENGL_LATEST);
-    inline constexpr static float ticks_per_sec = static_cast<float>(WTE_TICKS_PER_SECOND);
-    inline constexpr static bool debug_mode = static_cast<bool>(WTE_DEBUG_MODE);
-    inline constexpr static int max_playing_samples = static_cast<int>(WTE_MAX_PLAYING_SAMPLES);
-    inline constexpr static bool use_magic_pink = static_cast<bool>(WTE_USE_MAGIC_PINK);
+    constexpr static bool opengl_latest = static_cast<bool>(WTE_OPENGL_LATEST);
+    constexpr static float ticks_per_sec = static_cast<float>(WTE_TICKS_PER_SECOND);
+    constexpr static bool debug_mode = static_cast<bool>(WTE_DEBUG_MODE);
+    constexpr static int max_playing_samples = static_cast<int>(WTE_MAX_PLAYING_SAMPLES);
+    constexpr static bool use_magic_pink = static_cast<bool>(WTE_USE_MAGIC_PINK);
 };
 inline constexpr wte_build_options build_options;
 

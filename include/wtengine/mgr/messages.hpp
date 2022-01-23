@@ -115,22 +115,23 @@ class messages final : private manager<messages> {
         );
         //  Write a message to the debug log file if debugging is enabled.
         inline static void log(const message& msg) {
-            if constexpr (!build_options.debug_mode) return;
-            debug_log_file << "PROC AT:  " << engine_time::check() << " | ";
-            debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
-            debug_log_file << "SYS:  " << msg.get_sys() << " | ";
-            if((msg.get_to() != "") || (msg.get_from() != "")) {
-                debug_log_file << "TO:  " << msg.get_to() << " | ";
-                debug_log_file << "FROM:  " << msg.get_from() << " | ";
+            if constexpr (build_options.debug_mode) {
+                debug_log_file << "PROC AT:  " << engine_time::check() << " | ";
+                debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
+                debug_log_file << "SYS:  " << msg.get_sys() << " | ";
+                if((msg.get_to() != "") || (msg.get_from() != "")) {
+                    debug_log_file << "TO:  " << msg.get_to() << " | ";
+                    debug_log_file << "FROM:  " << msg.get_from() << " | ";
+                }
+                debug_log_file << "CMD:  " << msg.get_cmd() << " | ";
+                debug_log_file << "ARGS:  ";
+                msg_args arglist = msg.get_args();
+                for(auto i = arglist.begin(); i != arglist.end(); i++) {
+                    debug_log_file << *i;
+                    if(std::next(i, 1) != arglist.end()) debug_log_file << ";";
+                }
+                debug_log_file << std::endl;
             }
-            debug_log_file << "CMD:  " << msg.get_cmd() << " | ";
-            debug_log_file << "ARGS:  ";
-            msg_args arglist = msg.get_args();
-            for(auto i = arglist.begin(); i != arglist.end(); i++) {
-                debug_log_file << *i;
-                if(std::next(i, 1) != arglist.end()) debug_log_file << ";";
-            }
-            debug_log_file << std::endl;
         };
         static std::ofstream debug_log_file;  //  For message logging
         //  Vector of all messages to be processed

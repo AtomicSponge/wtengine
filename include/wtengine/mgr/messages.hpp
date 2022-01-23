@@ -41,7 +41,6 @@ namespace wte::mgr {
 class messages final : private manager<messages> {
     friend class wte::engine;
     friend class systems;
-    friend class menus;
 
     public:
         /*!

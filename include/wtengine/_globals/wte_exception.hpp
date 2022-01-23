@@ -37,7 +37,7 @@ class wte_exception final : public std::exception {
             const char* loc,
             const int64_t& t
         ) : description(desc), location(loc), time(t) {
-            if constexpr (build_options::debug_mode) log_exception(desc, loc, t);
+            if constexpr (build_options.debug_mode) log_exception(desc, loc, t);
         };
 
         wte_exception() = delete;    //!<  Delete default constructor.

@@ -239,7 +239,7 @@ void renderer::render(void) {
         }
 
         //  Draw hitboxes if debug is enabled.
-        if(build_options::debug_mode && config::flags::show_hitboxes) draw_hitboxes();
+        if(build_options.debug_mode && config::flags::show_hitboxes) draw_hitboxes();
 
         //  Draw the overlays.
         const const_component_container<cmp::gfx::overlay> overlay_components =

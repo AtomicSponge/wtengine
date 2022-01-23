@@ -52,7 +52,7 @@ void audio::initialize(void) {
 
     //  Set number of samples.
     al_set_default_mixer(_mixer_2);
-    al_reserve_samples(build_options::max_playing_samples);
+    al_reserve_samples(build_options.max_playing_samples);
 
     //  Set volume levels.
     config::_volume::music_a = 1.0f;

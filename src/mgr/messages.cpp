@@ -82,23 +82,7 @@ void messages::_prune_debug(void) {
 /*
  *
  */
-const message_container messages::_get(const std::string& sys) {
-    message_container temp_messages;
-    for(auto it = _messages.begin(); it != _messages.end();) {
-        //  End early if events are in the future
-        if(it->get_timer() > engine_time::check()) break;
-        if((it->get_timer() == -1 || it->get_timer() == engine_time::check()) && it->get_sys() == sys) {
-            temp_messages.push_back(*it);  //  Add the message to the temp vector to be returned.
-            it = _messages.erase(it);  //  Erase the message once processed.
-        } else it++;  //  Message not processed, iterate to next.
-    }
-    return temp_messages;
-}
-
-/*
- *
- */
-const message_container messages::_get_debug(const std::string& sys) {
+const message_container messages::get(const std::string& sys) {
     message_container temp_messages;
     for(auto it = _messages.begin(); it != _messages.end();) {
         //  End early if events are in the future

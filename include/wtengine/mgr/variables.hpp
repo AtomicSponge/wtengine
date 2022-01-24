@@ -68,11 +68,11 @@ class variables final : private manager<variables> {
 
                 //  Write variable value.
                 {int32_t tempi;
-                if constexpr(std::is_same<std::string, T>::value)
+                if constexpr (std::is_same_v<std::string, T>)
                     tempi = std::strlen(std::any_cast<const std::string>(tempv).c_str()) + 1;
                 else tempi = sizeof(T);
                 dfile.write(reinterpret_cast<const char*>(&tempi), sizeof(int32_t));
-                if(std::is_same<std::string, T>::value)  //  Variable is a string.
+                if constexpr (std::is_same_v<std::string, T>)  //  Variable is a string.
                     dfile.write(std::any_cast<const std::string>(tempv).c_str(), tempi);
                 else  //  Handle simple variables.
                     dfile.write(reinterpret_cast<const char*>(&tempv), tempi);}
@@ -118,7 +118,7 @@ class variables final : private manager<variables> {
                     int32_t size;
                     dfile.read(reinterpret_cast<char*>(&size), sizeof(int32_t));
                     if(var == in_var) {  //  Found variable.
-                        if constexpr(std::is_same<std::string, T>::value) {
+                        if constexpr (std::is_same_v<std::string, T>) {
                             //  Variable is a string, read accordingly.
                             char* buffer = new char[size];
                             dfile.read(buffer, size);

@@ -14,4 +14,4 @@ docs/
 *.csv
 *.sdf
 
-FUNDING.yml
+.github/FUNDING.yml

@@ -90,8 +90,8 @@ class input {
             //  Keyboard events
             case ALLEGRO_EVENT_KEY_DOWN:
                 //if constexpr (is_specilization_of_v<_register<WTE_HANDLER_SET>, handlers<S, WTE_EVENT_KEY_DOWN>>)
-                std::get<handler::key>(handle<S, WTE_EVENT_KEY_DOWN>::_handle)(
-                    event.keyboard.keycode, event.keyboard.display);
+                //std::get<handler::key>(handle<S, WTE_EVENT_KEY_DOWN>::_handle)(
+                    //event.keyboard.keycode, event.keyboard.display);
                 break;
             /*case ALLEGRO_EVENT_KEY_UP:
                 if constexpr (handlers<S, WTE_EVENT_KEY_UP>::is_set())

@@ -94,14 +94,14 @@ struct _register {
     constexpr static handler_registers status = R;
 };
 
-template <handler_scopes S, handler_events IDX, handler_registers R = WTE_HANDLER_NOTSET>
-class handlers : _register<R> {};
+template <handler_scopes S, handler_events IDX>
+class handlers : _register<WTE_HANDLER_NOTSET> {};
 
 /*
  *
  */
 template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, WTE_HANDLER_SET> : _register<WTE_HANDLER_SET> {
+class handlers : _register<WTE_HANDLER_SET> {
     friend class input;
 
     public:

@@ -151,6 +151,10 @@ class handlers : private _register<S, IDX, R> {
                     "Event Index must be a Touch Event");
         };
 
+        constexpr static const bool is_set(void) {
+            return _register<S, IDX, R>::is_set();
+        };
+
         inline static handler_types _handle;
 };
 

@@ -101,7 +101,7 @@ struct _register {
  *
  */
 template <handler_scopes S, handler_events IDX, handler_registers R = WTE_HANDLER_NOTSET>
-class handlers : private _register<S, IDX, R> {
+class handlers {//: private _register<S, IDX, R> {
     friend class input;
 
     public:
@@ -151,8 +151,13 @@ class handlers : private _register<S, IDX, R> {
                     "Event Index must be a Touch Event");
         };
 
-        constexpr static const bool is_set(void) {
+        /*constexpr static const bool is_set(void) {
             return _register<S, IDX, R>::is_set();
+        };*/
+
+        constexpr static handler_registers status = R;
+        constexpr static const bool is_set(void) {
+            return (status == WTE_HANDLER_SET ? true : false);
         };
 
         inline static handler_types _handle;

@@ -91,17 +91,14 @@ enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
 template <handler_registers R>
 struct _register {
-    constexpr static handler_registers status = R;
+    using status = handler_registers;
 };
-
-//template <handler_scopes S, handler_events IDX>
-//class handlers : _register<WTE_HANDLER_NOTSET> {};
 
 /*
  *
  */
-template <handler_scopes S, handler_events IDX>
-class handlers : _register<WTE_HANDLER_SET> {
+template <handler_scopes S, handler_events IDX, handler_registers R = WTE_HANDLER_NOTSET>
+class handlers : _register<R> {
     friend class input;
 
     public:
@@ -160,8 +157,8 @@ class handlers : _register<WTE_HANDLER_SET> {
  * \tparam IDX Event index.
  * \brief Used to add an input handle.
  */
-//template <handler_scopes S, handler_events IDX>
-//using handle = handlers<S, IDX, WTE_HANDLER_SET>;
+template <handler_scopes S, handler_events IDX>
+using handle = handlers<S, IDX, WTE_HANDLER_SET>;
 
 }  //  end namespace wte
 

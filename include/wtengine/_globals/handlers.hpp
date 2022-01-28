@@ -89,7 +89,7 @@ using handler_types = std::variant<
 
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
-template <handler_scopes S, handler_events IDX, handler_registers R = WTE_HANDLER_NOTSET>
+template <handler_scopes S, handler_events IDX, handler_registers R>
 struct _register {
     constexpr static handler_registers status = R;
     constexpr static const bool is_set(void) {
@@ -162,9 +162,6 @@ class handlers : private _register<S, IDX, R> {
  */
 template <handler_scopes S, handler_events IDX>
 using handle = handlers<S, IDX, WTE_HANDLER_SET>;
-
-template <handler_scopes S, handler_events IDX>
-using is_handle_set = _register<S, IDX>;
 
 }  //  end namespace wte
 

@@ -89,19 +89,25 @@ using handler_types = std::variant<
 
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
-template <handler_scopes S, handler_events IDX, handler_registers R>
-struct _register {
-    constexpr static handler_registers status = R;
-    constexpr static const bool is_set(void) {
-        return (status == WTE_HANDLER_SET ? true : false);
-    };
+template <handler_registers R>
+struct _register { constexpr static handler_registers status = R; };
+
+//  wip:  need to calc below
+template <handler_scopes S, handler_events IDX, handler_registers R = WTE_HANDLER_NOTSET>
+class handlers : private _register<R> {};
+
+template <handler_scopes S, handler_events IDX>
+class handlers<S, IDX, WTE_HANDLER_NOTSET> {
+    friend class input;
+    private:
+        inline constexpr static bool is_set = false;
 };
 
 /*
  *
  */
-template <handler_scopes S, handler_events IDX, handler_registers R = WTE_HANDLER_NOTSET>
-class handlers {//: private _register<S, IDX, R> {
+template <handler_scopes S, handler_events IDX>
+class handlers<S, IDX, WTE_HANDLER_SET> {
     friend class input;
 
     public:
@@ -151,14 +157,7 @@ class handlers {//: private _register<S, IDX, R> {
                     "Event Index must be a Touch Event");
         };
 
-        /*constexpr static const bool is_set(void) {
-            return _register<S, IDX, R>::is_set();
-        };*/
-
-        constexpr static handler_registers status = R;
-        constexpr static const bool is_set(void) {
-            return (status == WTE_HANDLER_SET ? true : false);
-        };
+        inline constexpr static bool is_set = true;
 
         inline static handler_types _handle;
 };

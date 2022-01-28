@@ -89,16 +89,19 @@ using handler_types = std::variant<
 
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
-template <handler_registers R>
+template <handler_scopes S, handler_events IDX, handler_registers R = WTE_HANDLER_NOTSET>
 struct _register {
-    using status = handler_registers;
+    constexpr static handler_registers status = R;
+    constexpr static const bool is_set(void) {
+        return (status == WTE_HANDLER_SET ? true : false);
+    };
 };
 
 /*
  *
  */
 template <handler_scopes S, handler_events IDX, handler_registers R = WTE_HANDLER_NOTSET>
-class handlers : _register<R> {
+class handlers : private _register<S, IDX, R> {
     friend class input;
 
     public:
@@ -113,14 +116,14 @@ class handlers : _register<R> {
          * \param handle Handle as a function expression.
          */
         template <typename T>
-        inline constexpr static void add(const T& handle) {
+        constexpr static void add(const T& handle) {
             check<T>();
             _handle = handle;
         };
 
     private:
         template <typename T>
-        inline constexpr static void check(void) {
+        constexpr static void check(void) {
             static_assert(S == WTE_GLOBAL_HANDLES || S == WTE_NONGAME_HANDLES || S == WTE_GAME_HANDLES,
                 "Scope must be one of the following: WTE_GLOBAL_HANDLES, WTE_NONGAME_HANDLES, WTE_GAME_HANDLES");
             static_assert(IDX < WTE_EVENT_MAX, "Invalid Handler Event Index");
@@ -159,6 +162,9 @@ class handlers : _register<R> {
  */
 template <handler_scopes S, handler_events IDX>
 using handle = handlers<S, IDX, WTE_HANDLER_SET>;
+
+template <handler_scopes S, handler_events IDX>
+using is_handle_set = _register<S, IDX>;
 
 }  //  end namespace wte
 

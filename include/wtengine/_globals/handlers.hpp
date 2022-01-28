@@ -100,7 +100,7 @@ template <handler_scopes S, handler_events IDX>
 class handlers<S, IDX, WTE_HANDLER_NOTSET> {
     friend class input;
     private:
-        inline constexpr static bool is_set = false;
+        constexpr static bool is_set = false;
 };
 
 /*
@@ -157,7 +157,7 @@ class handlers<S, IDX, WTE_HANDLER_SET> {
                     "Event Index must be a Touch Event");
         };
 
-        inline constexpr static bool is_set = true;
+        constexpr static bool is_set = true;
 
         inline static handler_types _handle;
 };

@@ -16,11 +16,10 @@ namespace wte::mgr {
 
 /*!
  * \class manager
- * \brief Extend this to create a new engine manager.
- * 
- * These are restricted to a single instance.
+ * \brief Manager base class, restricted to one instance.
+ * \tparam D Manager that is deriving the class.
  */
-template <class derived>
+template <class D>
 class manager {
     public:
         virtual ~manager() = default;             //!<  Default virtual destructor.

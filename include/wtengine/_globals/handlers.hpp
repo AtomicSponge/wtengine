@@ -90,18 +90,22 @@ using handler_types = std::variant<
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
 template <handler_registers R>
-struct _register { constexpr static handler_registers status = R; };
+struct _register { using status = handler_registers; };
 
 //  wip:  need to calc below
 template <handler_scopes S, handler_events IDX, handler_registers R = WTE_HANDLER_NOTSET>
-class handlers : private _register<R> {};
-
-template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, WTE_HANDLER_NOTSET> {
+class handlers : private _register<R> {
     friend class input;
     private:
         constexpr static bool is_set = false;
 };
+
+/*template <handler_scopes S, handler_events IDX>
+class handlers<S, IDX, WTE_HANDLER_NOTSET> {
+    friend class input;
+    private:
+        constexpr static bool is_set = false;
+};*/
 
 /*
  *

@@ -120,60 +120,58 @@ class handlers<S, IDX, WTE_HANDLER_SET> {
         handlers(const handlers&) = delete;        //  Delete copy constructor.
         void operator=(handlers const&) = delete;  //  Delete assignment operator.
 
-        /*!
-         * \brief Add a handler.
-         * \tparam T Handler type.
-         * \param handle Handle as a function expression.
-         */
-        template <typename T>
-        constexpr static void add(const T& handle) {
-            check<T>();
-            _handle = handle;
-        };
+        friend void add_handle(const handler_types& handle);
 
     private:
-        template <typename T>
-        constexpr static void check(void) {
-            static_assert(S == WTE_GLOBAL_HANDLES || S == WTE_NONGAME_HANDLES || S == WTE_GAME_HANDLES,
-                "Scope must be one of the following: WTE_GLOBAL_HANDLES, WTE_NONGAME_HANDLES, WTE_GAME_HANDLES");
-            static_assert(IDX < WTE_EVENT_MAX, "Invalid Handler Event Index");
-            if constexpr (std::is_same_v<T, handler::key>)
-                static_assert(IDX == WTE_EVENT_KEY_DOWN || IDX == WTE_EVENT_KEY_UP,
-                    "Event Index must be a Key Up or Down Event");
-            else if constexpr (std::is_same_v<T, handler::mouse_axis>)
-                static_assert(IDX == WTE_EVENT_MOUSE_AXIS || IDX == WTE_EVENT_MOUSE_WARPED,
-                    "Event Index must be a Mouse Axes or Warped Event");
-            else if constexpr (std::is_same_v<T, handler::mouse_button>)
-                static_assert(IDX == WTE_EVENT_MOUSE_BUTTON_DOWN || IDX == WTE_EVENT_MOUSE_BUTTON_UP,
-                    "Event Index must be a Mouse Button Up or Down Event");
-            else if constexpr (std::is_same_v<T, handler::mouse_display>)
-                static_assert(IDX == WTE_EVENT_MOUSE_ENTER_DISPLAY || IDX == WTE_EVENT_MOUSE_LEAVE_DISPLAY,
-                    "Event Index must be a Mouse Enter or Leave Display Event");
-            else if constexpr (std::is_same_v<T, handler::joystick_axis>)
-                static_assert(IDX == WTE_EVENT_JOYSTICK_AXIS,
-                    "Event Index must be a Joystick Axes Event");
-            else if constexpr (std::is_same_v<T, handler::joystick_button>)
-                static_assert(IDX == WTE_EVENT_JOYSTICK_BUTTON_DOWN || IDX == WTE_EVENT_JOYSTICK_BUTTON_UP,
-                    "Event Index must be a Joystick Button Up or Down Event");
-            else if constexpr (std::is_same_v<T, handler::touch>)
-                static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
-                    IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
-                    "Event Index must be a Touch Event");
-        };
-
         constexpr static bool is_set = true;
 
-        inline static handler_types _handle;
+        static handler_types _handle;
 };
 
 /*!
- * \typedef handle
+ * \brief Used to add an input handle.
  * \tparam S Handler scope.
  * \tparam IDX Event index.
- * \brief Used to add an input handle.
+ * \tparam T Handler type.
+ * \param handle Input handler function expression.
  */
-template <handler_scopes S, handler_events IDX>
-using handle = handlers<S, IDX, WTE_HANDLER_SET>;
+template <handler_scopes S, handler_events IDX, class T>
+void add_handle(const handler_types& handle) {
+    static_assert(S == WTE_GLOBAL_HANDLES || S == WTE_NONGAME_HANDLES || S == WTE_GAME_HANDLES,
+        "Scope must be one of the following: WTE_GLOBAL_HANDLES, WTE_NONGAME_HANDLES, WTE_GAME_HANDLES");
+    static_assert(IDX < WTE_EVENT_MAX, "Invalid Handler Event Index");
+    static_assert(std::is_same_v<T, handler::key> ||
+        std::is_same_v<T, handler::mouse_axis> ||
+        std::is_same_v<T, handler::mouse_button> ||
+        std::is_same_v<T, handler::mouse_display> ||
+        std::is_same_v<T, handler::joystick_axis> ||
+        std::is_same_v<T, handler::joystick_button> ||
+        std::is_same_v<T, handler::touch>,
+        "Type must be a valid handler");
+    if constexpr (std::is_same_v<T, handler::key>)
+        static_assert(IDX == WTE_EVENT_KEY_DOWN || IDX == WTE_EVENT_KEY_UP,
+            "Event Index must be a Key Up or Down Event");
+    else if constexpr (std::is_same_v<T, handler::mouse_axis>)
+        static_assert(IDX == WTE_EVENT_MOUSE_AXIS || IDX == WTE_EVENT_MOUSE_WARPED,
+            "Event Index must be a Mouse Axes or Warped Event");
+    else if constexpr (std::is_same_v<T, handler::mouse_button>)
+        static_assert(IDX == WTE_EVENT_MOUSE_BUTTON_DOWN || IDX == WTE_EVENT_MOUSE_BUTTON_UP,
+            "Event Index must be a Mouse Button Up or Down Event");
+    else if constexpr (std::is_same_v<T, handler::mouse_display>)
+        static_assert(IDX == WTE_EVENT_MOUSE_ENTER_DISPLAY || IDX == WTE_EVENT_MOUSE_LEAVE_DISPLAY,
+            "Event Index must be a Mouse Enter or Leave Display Event");
+    else if constexpr (std::is_same_v<T, handler::joystick_axis>)
+        static_assert(IDX == WTE_EVENT_JOYSTICK_AXIS,
+            "Event Index must be a Joystick Axes Event");
+    else if constexpr (std::is_same_v<T, handler::joystick_button>)
+        static_assert(IDX == WTE_EVENT_JOYSTICK_BUTTON_DOWN || IDX == WTE_EVENT_JOYSTICK_BUTTON_UP,
+            "Event Index must be a Joystick Button Up or Down Event");
+    else if constexpr (std::is_same_v<T, handler::touch>)
+        static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
+            IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
+            "Event Index must be a Touch Event");
+    handlers<S, IDX, WTE_HANDLER_SET>::_handle = handle;
+};
 
 }  //  end namespace wte
 

@@ -11,7 +11,7 @@
 
 namespace wte::mgr {
 
-template <> bool spawner::manager<spawner>::initialized = false;
+template <> bool manager<spawner>::initialized = false;
 
 std::map<
     const std::string,

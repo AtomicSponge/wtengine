@@ -199,7 +199,7 @@ class assets final : private manager<assets<>> {
         ...> _assets;
 };
 
-template <> inline bool assets<>::manager<assets<>>::initialized = false;
+template <> inline bool manager<assets<>>::initialized = false;
 
 }  //  end namespace wte::mgr
 

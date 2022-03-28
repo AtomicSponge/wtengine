@@ -11,7 +11,7 @@
 
 namespace wte::mgr {
 
-template <> bool messages::manager<messages>::initialized = false;
+template <> bool manager<messages>::initialized = false;
 
 message_container messages::_messages;
 std::ofstream messages::debug_log_file;

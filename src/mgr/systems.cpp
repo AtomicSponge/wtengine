@@ -11,7 +11,7 @@
 
 namespace wte::mgr {
 
-template <> bool systems::manager<systems>::initialized = false;
+template <> bool manager<systems>::initialized = false;
 
 std::vector<sys::system_uptr> systems::_systems_timed;
 std::vector<sys::system_uptr> systems::_systems_untimed;

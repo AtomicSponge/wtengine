@@ -11,7 +11,7 @@
 
 namespace wte::mgr {
 
-template <> bool world::manager<world>::initialized = false;
+template <> bool manager<world>::initialized = false;
 
 entity_id world::entity_counter = ENTITY_START;
 entities world::entity_vec;

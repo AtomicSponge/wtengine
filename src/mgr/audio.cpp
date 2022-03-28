@@ -11,7 +11,7 @@
 
 namespace wte::mgr {
 
-template <> bool audio::manager<audio>::initialized = false;
+template <> bool manager<audio>::initialized = false;
 
 commands audio::cmds;
 ALLEGRO_VOICE* audio::voice = NULL;

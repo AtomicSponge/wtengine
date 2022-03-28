@@ -11,7 +11,7 @@
 
 namespace wte::mgr::gfx {
 
-template <> bool renderer::manager<renderer>::initialized = false;
+template <> bool manager<renderer>::initialized = false;
 
 ALLEGRO_TIMER* renderer::fps_timer = NULL;
 ALLEGRO_EVENT_QUEUE* renderer::fps_event_queue = NULL;

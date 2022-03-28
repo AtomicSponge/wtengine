@@ -11,7 +11,7 @@
 
 namespace wte::mgr {
 
-template <> bool variables::manager<variables>::initialized = false;
+template <> bool manager<variables>::initialized = false;
 
 std::string variables::data_file_name = "game.cfg";
 std::map<const std::string, std::any> variables::_map;

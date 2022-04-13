@@ -93,12 +93,12 @@ template <handler_registers R>
 struct _register { using status = handler_registers; };
 
 //  wip:  need to calc below
-template <handler_scopes S, handler_events IDX, handler_registers R = WTE_HANDLER_NOTSET>
+/*template <handler_scopes S, handler_events IDX, handler_registers R = WTE_HANDLER_NOTSET>
 class handlers : private _register<R> {
     friend class input;
     private:
         constexpr static bool is_set = false;
-};
+};*/
 
 /*template <handler_scopes S, handler_events IDX>
 class handlers<S, IDX, WTE_HANDLER_NOTSET> {
@@ -111,18 +111,19 @@ class handlers<S, IDX, WTE_HANDLER_NOTSET> {
  *
  */
 template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, WTE_HANDLER_SET> {
+class handlers {
     friend class input;
 
     public:
-        handlers() = delete;                       //  Delete constructor.
-        ~handlers() = delete;                      //  Delete destructor.
+        ~handlers() = default;                     //  Default destructor.
         handlers(const handlers&) = delete;        //  Delete copy constructor.
         void operator=(handlers const&) = delete;  //  Delete assignment operator.
 
         friend void add_handle(const handler_types& handle);
 
     private:
+        inline constexpr handlers() {};
+
         constexpr static bool is_set = true;
 
         static handler_types _handle;
@@ -136,7 +137,7 @@ class handlers<S, IDX, WTE_HANDLER_SET> {
  * \param handle Input handler function expression.
  */
 template <handler_scopes S, handler_events IDX, class T>
-void add_handle(const handler_types& handle) {
+constexpr void add_handle(const handler_types& handle) {
     static_assert(S == WTE_GLOBAL_HANDLES || S == WTE_NONGAME_HANDLES || S == WTE_GAME_HANDLES,
         "Scope must be one of the following: WTE_GLOBAL_HANDLES, WTE_NONGAME_HANDLES, WTE_GAME_HANDLES");
     static_assert(IDX < WTE_EVENT_MAX, "Invalid Handler Event Index");
@@ -170,7 +171,7 @@ void add_handle(const handler_types& handle) {
         static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
-    handlers<S, IDX, WTE_HANDLER_SET>::_handle = handle;
+    handlers<S, IDX>::_handle = handle;
 };
 
 }  //  end namespace wte

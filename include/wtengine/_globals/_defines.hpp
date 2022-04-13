@@ -81,6 +81,12 @@ inline constexpr wte_build_options build_options;
 
 }
 
+#ifdef WTE_USE_KEYBOARD
+#define _USE_KEYBOARD TRUE
+#else
+#define _USE_KEYBOARD FALSE
+#endif
+
 //  Define some colors for use in the engine.
 #define WTE_MAGIC_PINK          (al_map_rgb(255,0,255))
 #define WTE_COLOR_BLACK         (al_map_rgb(0,0,0))

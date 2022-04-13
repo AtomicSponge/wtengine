@@ -182,6 +182,13 @@ class input {
             }
         };
 
+        inline static constexpr void process_handlers(const ALLEGRO_EVENT& event) {
+            run_handles<WTE_GLOBAL_HANDLES>(event);
+            (config::flags::game_started ?
+                run_handles<WTE_GAME_HANDLES>(event) :
+                run_handles<WTE_NONGAME_HANDLES>(event));
+        };
+
         static void create_event_queue(void);                 //  Create the input queue.
         static void destroy_event_queue(void);                //  Destroy the input queue.
         static void record_event(const ALLEGRO_EVENT&);       //  Record input events.

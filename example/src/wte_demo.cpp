@@ -9,6 +9,8 @@
  * This extends the engine object to define a custom game.
  */
 
+#define WTE_USE_KEYBOARD
+
 #include <numeric>
 
 #include <allegro5/allegro_primitives.h>
@@ -47,6 +49,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
     /*
      * Set up input handling - WIP
      */
+    /*
     add_handle<WTE_NONGAME_HANDLES, WTE_EVENT_KEY_DOWN, handler::key>([](const int& key, ALLEGRO_DISPLAY* display) {
         //if(key == ALLEGRO_KEY_SPACE) {
             mgr::messages::add(message("system", "new-game", "game.sdf"));
@@ -169,7 +172,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
             //  Stop sound effect.
             mgr::audio::sample::stop("shield_sound");
         }
-    });
+    });*/
 }
 
 /*

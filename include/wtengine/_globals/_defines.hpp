@@ -81,6 +81,7 @@ inline constexpr wte_build_options build_options;
 
 }
 
+//  wip - input usage flags
 #ifdef WTE_USE_KEYBOARD
 #define _USE_KEYBOARD TRUE
 #else

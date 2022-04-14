@@ -130,12 +130,14 @@ const bool input::check_events(void) {
         //  Toggle menus
         if(event.type == ALLEGRO_EVENT_KEY_DOWN &&
            event.keyboard.keycode == config::controls::key_menu)
-            (config::flags::menu_opened ?
-                config::_flags::menu_opened = false :
-                config::_flags::menu_opened = true);
+            config::_flags::menu_opened = !config::flags::menu_opened;
         //  Record input if enabled.
         if(config::flags::record_input) record_event(event);
-        process_handlers(event);
+        //process_handlers(event);
+        run_handles<WTE_GLOBAL_HANDLES>(event);
+        (config::flags::game_started ?
+            run_handles<WTE_GAME_HANDLES>(event) :
+            run_handles<WTE_NONGAME_HANDLES>(event));
     }
     return true;
 }

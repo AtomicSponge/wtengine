@@ -88,7 +88,7 @@ class input {
         inline static constexpr void run_handles(const ALLEGRO_EVENT& event) {
             switch(event.type) {
             //  Keyboard events
-            case ALLEGRO_EVENT_KEY_DOWN:
+            /*case ALLEGRO_EVENT_KEY_DOWN:
                 if constexpr (handlers<S, WTE_EVENT_KEY_DOWN>::is_set)
                 std::get<handler::key>(handlers<S, WTE_EVENT_KEY_DOWN>::_handle)(
                     event.keyboard.keycode, event.keyboard.display);
@@ -97,7 +97,7 @@ class input {
                 if constexpr (handlers<S, WTE_EVENT_KEY_UP>::is_set)
                 std::get<handler::key>(handlers<S, WTE_EVENT_KEY_UP>::_handle)(
                     event.keyboard.keycode, event.keyboard.display);
-                break;
+                break;*/
 
             //  Mouse events
             /*case ALLEGRO_EVENT_MOUSE_AXES:
@@ -180,13 +180,6 @@ class input {
                     event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                 break;*/
             }
-        };
-
-        inline static constexpr void process_handlers(const ALLEGRO_EVENT& event) {
-            run_handles<WTE_GLOBAL_HANDLES>(event);
-            (config::flags::game_started ?
-                run_handles<WTE_GAME_HANDLES>(event) :
-                run_handles<WTE_NONGAME_HANDLES>(event));
         };
 
         static void create_event_queue(void);                 //  Create the input queue.

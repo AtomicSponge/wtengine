@@ -86,18 +86,18 @@ class input {
     private:
         template <handler_scopes S>
         inline static constexpr void run_handles(const ALLEGRO_EVENT& event) {
-            switch(event.type) {
             //  Keyboard events
-            /*case ALLEGRO_EVENT_KEY_DOWN:
-                if constexpr (handlers<S, WTE_EVENT_KEY_DOWN>::is_set)
-                std::get<handler::key>(handlers<S, WTE_EVENT_KEY_DOWN>::_handle)(
-                    event.keyboard.keycode, event.keyboard.display);
-                break;
-            case ALLEGRO_EVENT_KEY_UP:
-                if constexpr (handlers<S, WTE_EVENT_KEY_UP>::is_set)
-                std::get<handler::key>(handlers<S, WTE_EVENT_KEY_UP>::_handle)(
-                    event.keyboard.keycode, event.keyboard.display);
-                break;*/
+            if constexpr (false) {
+                if(event.type == ALLEGRO_EVENT_KEY_DOWN)
+                    std::get<handler::key>(handlers<S, WTE_EVENT_KEY_DOWN>::_handle)(
+                            event.keyboard.keycode, event.keyboard.display);
+            }
+            if constexpr (false) {
+                if(event.type == ALLEGRO_EVENT_KEY_UP)
+                    std::get<handler::key>(handlers<S, WTE_EVENT_KEY_UP>::_handle)(
+                            event.keyboard.keycode, event.keyboard.display);
+            }
+        };
 
             //  Mouse events
             /*case ALLEGRO_EVENT_MOUSE_AXES:
@@ -179,8 +179,6 @@ class input {
                 std::get<handler::touch>(handle<S, WTE_EVENT_TOUCH_CANCEL>::_handle)(
                     event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                 break;*/
-            }
-        };
 
         static void create_event_queue(void);                 //  Create the input queue.
         static void destroy_event_queue(void);                //  Destroy the input queue.

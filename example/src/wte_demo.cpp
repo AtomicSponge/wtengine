@@ -9,8 +9,6 @@
  * This extends the engine object to define a custom game.
  */
 
-#define WTE_USE_KEYBOARD
-
 #include <numeric>
 
 #include <allegro5/allegro_primitives.h>

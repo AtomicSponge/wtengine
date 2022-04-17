@@ -1,0 +1,26 @@
+{
+  "name": "wtengine",
+  "version": "0.7.1",
+  "description": "wtengine",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wtfsystems/wtengine.git"
+  },
+  "keywords": [
+    "engine",
+    "gamedev"
+  ],
+  "author": "Matthew Evans",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wtfsystems/wtengine/issues"
+  },
+  "homepage": "https://github.com/wtfsystems/wtengine#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "inquirer": "^8.2.2",
+    "shelljs": "^0.8.5"
+  }
+}

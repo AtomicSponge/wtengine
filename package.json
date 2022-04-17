@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/wtfsystems/wtengine#readme",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "wte-config": "scripts/wte-config.js",
+    "wte-build": "scripts/wte-build.js"
   },
   "dependencies": {
     "inquirer": "^8.2.2",

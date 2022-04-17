@@ -11,6 +11,7 @@
     "gamedev"
   ],
   "author": "Matthew Evans",
+  "url": "https://www.wtfsystems.net",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wtfsystems/wtengine/issues"
@@ -18,9 +19,11 @@
   "homepage": "https://github.com/wtfsystems/wtengine#readme",
   "scripts": {
     "wte-config": "scripts/wte-config.js",
-    "wte-build": "scripts/wte-build.js"
+    "wte-build": "scripts/wte-build.js",
+    "wte-mkscript": "scripts/wte-mkscript.js"
   },
   "dependencies": {
+    "csv": "^6.0.5",
     "inquirer": "^8.2.2",
     "shelljs": "^0.8.5"
   }

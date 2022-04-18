@@ -6,10 +6,7 @@
  * @copyright MIT see LICENSE.md
  */
 
-/**
- * 
- */
-const checkApps = [ 'cmake', 'git' ]
+const config = require('./_config')
 
 const wtf = require('./_common')
 const fs = require('fs')
@@ -20,7 +17,7 @@ const shell = require('shelljs')
 const nodePath = (shell.which('node').toString())
 shell.config.execPath = nodePath
 
-checkApps.forEach((appCheck) => {
+config.checkApps.forEach((appCheck) => {
     if(shell.which(appCheck)) console.log(`${appCheck} found.`)
     else wtf.scriptError(`${appCheck} not found.`)
 })

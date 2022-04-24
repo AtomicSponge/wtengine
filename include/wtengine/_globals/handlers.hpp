@@ -89,23 +89,11 @@ using handler_types = std::variant<
 
 enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 
+/*
+ *
+ */
 template <handler_registers R>
 struct _register { using status = handler_registers; };
-
-//  wip:  need to calc below
-/*template <handler_scopes S, handler_events IDX, handler_registers R = WTE_HANDLER_NOTSET>
-class handlers : private _register<R> {
-    friend class input;
-    private:
-        constexpr static bool is_set = false;
-};*/
-
-/*template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, WTE_HANDLER_NOTSET> {
-    friend class input;
-    private:
-        constexpr static bool is_set = false;
-};*/
 
 /*
  *
@@ -115,17 +103,15 @@ class handlers {
     friend class input;
 
     public:
-        ~handlers() = default;                     //  Default destructor.
+        handlers() = delete;
+        ~handlers() = delete;                      //  Delete destructor.
         handlers(const handlers&) = delete;        //  Delete copy constructor.
         void operator=(handlers const&) = delete;  //  Delete assignment operator.
 
         friend void add_handle(const handler_types& handle);
 
     private:
-        inline constexpr handlers() {};
-
-        constexpr static bool is_set = true;
-
+        //_register<R> is_set;
         static handler_types _handle;
 };
 

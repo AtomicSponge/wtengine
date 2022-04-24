@@ -16,3 +16,5 @@ const shell = require('shelljs')
 //  Set path to node for shelljs
 const nodePath = (shell.which('node').toString())
 shell.config.execPath = nodePath
+
+wtf.confirmPrompt('test')

@@ -16,3 +16,5 @@ const config = require('./_config')
 //  Set path to node for shelljs
 const nodePath = (shell.which('node').toString())
 shell.config.execPath = nodePath
+
+process.stdout.write('done')

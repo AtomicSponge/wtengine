@@ -19,6 +19,6 @@ const nodePath = (shell.which('node').toString())
 shell.config.execPath = nodePath
 
 config.checkApps.forEach((appCheck) => {
-    if(shell.which(appCheck)) console.log(`${appCheck} found.`)
+    if(shell.which(appCheck)) process.stdout.write(`${appCheck} found.`)
     else wtf.scriptError(`${appCheck} not found.`)
 })

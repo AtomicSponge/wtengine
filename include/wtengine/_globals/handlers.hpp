@@ -92,8 +92,8 @@ enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 /*
  *
  */
-template <handler_registers R>
-struct _register { using status = handler_registers; };
+template <bool R>
+struct _register {};
 
 /*
  *

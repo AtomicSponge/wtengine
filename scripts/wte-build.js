@@ -6,12 +6,13 @@
  * @copyright MIT see LICENSE.md
  */
 
-const config = require('./_config')
-
 const wtf = require('./_common')
 const fs = require('fs')
 const path = require('path')
 const shell = require('shelljs')
+
+const settings = require('../settings')
+const config = require('./_config')
 
 //  Set path to node for shelljs
 const nodePath = (shell.which('node').toString())

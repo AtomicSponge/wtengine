@@ -23,6 +23,24 @@ const showScriptInfo = (scriptName) => {
 exports.showScriptInfo = showScriptInfo
 
 /**
+ * 
+ * @returns 
+ */
+const checkSettings = () => {
+    return false
+}
+exports.checkSettings = checkSettings
+
+/**
+ * 
+ * @returns 
+ */
+const createSettings = () => {
+    return false
+}
+exports.createSettings = createSettings
+
+/**
  * Display an error message and exit script.
  * @param {String} message Message to display.
  */

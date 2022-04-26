@@ -7,7 +7,9 @@
  * 
  */
 
+const fs = require('fs')
 const inquirer = require('inquirer')
+
 const package = require('../package.json')
 
 /**
@@ -33,12 +35,23 @@ exports.checkSettings = checkSettings
 
 /**
  * 
- * @returns 
  */
 const createSettings = () => {
-    return false
+    fs.copyFile(`${__dirname}/_default_settings.json`, `${__dirname}/../settings.json`, fs.constants.COPYFILE_EXCL, (err) => {
+        throw err
+    })
 }
 exports.createSettings = createSettings
+
+/**
+ * 
+ * @param {*} settings 
+ * @returns 
+ */
+const saveSettings = (settings) => {
+    return false
+}
+exports.saveSettings = saveSettings
 
 /**
  * Display an error message and exit script.

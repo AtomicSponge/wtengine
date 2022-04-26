@@ -6,15 +6,23 @@
  * @copyright MIT see LICENSE.md
  */
  
-const config = require('./_config')
-
 const wtf = require('./_common')
 const fs = require('fs')
 const path = require('path')
 const shell = require('shelljs')
 
+const config = require('./_config')
+
 //  Set path to node for shelljs
 const nodePath = (shell.which('node').toString())
 shell.config.execPath = nodePath
 
-wtf.confirmPrompt('test')
+try {
+    wtf.createSettings()
+} catch (err) {
+    wtf.scriptError(`Error creating settings:  ${err}`)
+}
+
+wtf.checkSettings()
+
+const settings = require('../settings')

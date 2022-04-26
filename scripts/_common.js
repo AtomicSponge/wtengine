@@ -35,11 +35,16 @@ exports.checkSettings = checkSettings
 
 /**
  * 
+ * @throws 
  */
 const createSettings = () => {
-    fs.copyFile(`${__dirname}/_default_settings.json`, `${__dirname}/../settings.json`, fs.constants.COPYFILE_EXCL, (err) => {
-        throw err
-    })
+    fs.copyFile(
+        `${__dirname}/_default_settings.json`,
+        `${__dirname}/../settings.json`,
+        fs.constants.COPYFILE_EXCL, (err) => {
+            throw err
+        }
+    )
 }
 exports.createSettings = createSettings
 

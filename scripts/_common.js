@@ -12,10 +12,14 @@ const inquirer = require('inquirer')
 
 const package = require('../package.json')
 
+/**
+ * 
+ */
 const constants = {
     defSetLocation: `${__dirname}/_default_settings.json`,
     setLocation: `${__dirname}/../settings.json`,
 }
+exports.constants = constants
 
 /**
  * Display script title & info.

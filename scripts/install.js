@@ -18,6 +18,7 @@ const nodePath = (shell.which('node').toString())
 shell.config.execPath = nodePath
 
 wtf.createSettings()
-wtf.checkSettings()
+if(!wtf.checkSettings()) wtf.scriptError(
+    `Unable to access 'settings.json'.  Verify you have access to write to this file`)
 
 const settings = require('../settings')

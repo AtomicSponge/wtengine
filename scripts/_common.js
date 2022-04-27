@@ -38,7 +38,7 @@ exports.showScriptInfo = showScriptInfo
  * @returns 
  */
 const checkSettings = () => {
-    fs.access( constants.setLocation, fs.constants.W_OK, (err) => {
+    fs.access(constants.setLocation, fs.constants.W_OK, (err) => {
         return false
     })
     return true

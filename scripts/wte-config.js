@@ -17,4 +17,4 @@ const config = require('./_config')
 const nodePath = (shell.which('node').toString())
 shell.config.execPath = nodePath
 
-process.stdout.write('done')
+process.stdout.write('Done!')

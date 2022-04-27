@@ -23,3 +23,5 @@ if(!wtf.checkSettings()) wtf.scriptError(
     `Unable to access 'settings.json'.  Verify you have access to write to this file`)
 
 const settings = require('../settings')
+
+require('child_process').fork(`${__dirname}/wte-config.js`)

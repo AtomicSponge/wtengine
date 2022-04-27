@@ -17,12 +17,7 @@ const config = require('./_config')
 const nodePath = (shell.which('node').toString())
 shell.config.execPath = nodePath
 
-try {
-    wtf.createSettings()
-} catch (err) {
-    wtf.scriptError(`Error creating settings:  ${err}`)
-}
-
+wtf.createSettings()
 wtf.checkSettings()
 
 const settings = require('../settings')

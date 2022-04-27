@@ -12,6 +12,11 @@ const inquirer = require('inquirer')
 
 const package = require('../package.json')
 
+const constants = {
+    defSetLocation: `${__dirname}/_default_settings.json`,
+    setLocation: `${__dirname}/../settings.json`,
+}
+
 /**
  * Display script title & info.
  * @param {String} scriptName 
@@ -29,7 +34,10 @@ exports.showScriptInfo = showScriptInfo
  * @returns 
  */
 const checkSettings = () => {
-    return false
+    fs.access( constants.setLocation, fs.constants.W_OK, (err) => {
+        return false
+    })
+    return true
 }
 exports.checkSettings = checkSettings
 
@@ -38,11 +46,9 @@ exports.checkSettings = checkSettings
  * @throws 
  */
 const createSettings = () => {
-    fs.copyFile(
-        `${__dirname}/_default_settings.json`,
-        `${__dirname}/../settings.json`,
+    fs.copyFile(constants.defSetLocation, constants.setLocation,
         fs.constants.COPYFILE_EXCL, (err) => {
-            throw err
+            scriptError(`Error creating settings:  ${err}`)
         }
     )
 }

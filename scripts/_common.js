@@ -52,7 +52,8 @@ exports.checkSettings = checkSettings
 const createSettings = () => {
     fs.copyFile(constants.defSetLocation, constants.setLocation,
         fs.constants.COPYFILE_EXCL, (err) => {
-            scriptError(`Unable to create 'settings.json' file:  ${err}`)
+            if(err != null || err != undefined)
+                scriptError(`Unable to create 'settings.json' file:  ${err}`)
         }
     )
 }

@@ -9,6 +9,7 @@
 const fs = require('fs')
 const path = require('path')
 const shell = require('shelljs')
+const inquirer = require('inquirer')
 
 const settings = require('../settings')
 const config = require('./_config')
@@ -17,4 +18,4 @@ const config = require('./_config')
 const nodePath = (shell.which('node').toString())
 shell.config.execPath = nodePath
 
-process.stdout.write('Done!')
+process.stdout.write('Config Done!')

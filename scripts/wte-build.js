@@ -10,6 +10,7 @@ const wtf = require('./_common')
 const fs = require('fs')
 const path = require('path')
 const shell = require('shelljs')
+const inquirer = require('inquirer')
 
 const settings = require('../settings')
 const config = require('./_config')

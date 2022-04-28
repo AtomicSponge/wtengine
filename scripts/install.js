@@ -23,3 +23,5 @@ if(!wtf.checkSettings()) wtf.scriptError(
     `Unable to access 'settings.json'.  Verify you have write access.`)
 
 require('child_process').fork(`${__dirname}/wte-config.js`)
+
+process.stdout.write('Install Done!')

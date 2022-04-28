@@ -6,6 +6,7 @@
  * @copyright MIT see LICENSE.md
  */
 
+const wtf = require('./_common')
 const fs = require('fs')
 const path = require('path')
 const shell = require('shelljs')

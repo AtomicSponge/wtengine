@@ -19,6 +19,7 @@ const config = require('./_config')
 const nodePath = (shell.which('node').toString())
 shell.config.execPath = nodePath
 
+process.stdout.write('Checking for necessary programs...')
 config.checkApps.forEach((appCheck) => {
     if(shell.which(appCheck)) process.stdout.write(`${appCheck} found.`)
     else wtf.scriptError(`${appCheck} not found.`)

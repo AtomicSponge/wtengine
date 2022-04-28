@@ -34,8 +34,8 @@ const showScriptInfo = (scriptName) => {
 exports.showScriptInfo = showScriptInfo
 
 /**
- * 
- * @returns 
+ * Verify write access to engine settings file.
+ * @returns True if
  */
 const checkSettings = () => {
     fs.access(constants.setLocation, fs.constants.W_OK, (err) => {
@@ -46,8 +46,8 @@ const checkSettings = () => {
 exports.checkSettings = checkSettings
 
 /**
- * 
- * @throws 
+ * Create user engine settings file.
+ * @throws Throws error on fail and exists running script.
  */
 const createSettings = () => {
     fs.copyFile(constants.defSetLocation, constants.setLocation,
@@ -60,7 +60,7 @@ const createSettings = () => {
 exports.createSettings = createSettings
 
 /**
- * 
+ * Save engine settings.
  * @param {*} settings 
  * @returns 
  */

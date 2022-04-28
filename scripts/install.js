@@ -17,5 +17,5 @@ if(!wtf.checkSettings()) wtf.scriptError(
     `Unable to access 'settings.json'.  Verify you have write access.`)
 process.stdout.write('File created successfully.\n\n')
 
-if(wtf.confirmPrompt('Run wtengine configuration?'))
+if(wtf.confirmPrompt('Run WTEngine configuration?'))
     require('child_process').fork(`${__dirname}/wte-config.js`)

@@ -1,3 +1,6 @@
 {
-    "checkApps": [ "cmake", "git" ]
+    "checkApps": [ "cmake", "git" ],
+    "gitURLs": {
+        "allegro": "https://github.com/liballeg/allegro5"
+    }
 }

@@ -13,7 +13,7 @@ const inquirer = require('inquirer')
 const package = require('../package.json')
 
 /**
- * 
+ * Constants
  */
 const constants = {
     defSetLocation: `${__dirname}/_default_settings.json`,
@@ -35,7 +35,7 @@ exports.showScriptInfo = showScriptInfo
 
 /**
  * Verify write access to engine settings file.
- * @returns True if
+ * @returns True if writable, else false.
  */
 const checkSettings = () => {
     fs.access(constants.setLocation, fs.constants.W_OK, (err) => {

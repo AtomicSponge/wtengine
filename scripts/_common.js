@@ -35,7 +35,7 @@ exports.showScriptInfo = showScriptInfo
 
 /**
  * Verify write access to engine settings file.
- * @returns True if writable, else false.
+ * @returns {boolean} True if writable, else false.
  */
 const checkSettings = () => {
     fs.access(constants.setLocation, fs.constants.W_OK, (err) => {
@@ -47,7 +47,7 @@ exports.checkSettings = checkSettings
 
 /**
  * Create user engine settings file.
- * On fail, exits running script.
+ * On fail, display error and exit running script.
  */
 const createSettings = () => {
     try {
@@ -61,7 +61,7 @@ exports.createSettings = createSettings
 /**
  * Save engine settings.
  * @param {JSON} settings Settings as JSON object.
- * On fail, exists running script.
+ * On fail, display error and exit running script.
  */
 const saveSettings = (settings) => {
     try {
@@ -86,11 +86,11 @@ exports.scriptError = scriptError
  * Confirmation prompt (wip)
  * @param {String} message Message to display.
  * @param {boolean} dvalue Default answer (Y - true | N - false)
- * @returns {boolean} True if 'yes', else false
+ * @returns {boolean} True if default answer, else false
  */
-const confirmPrompt = (message, dvalue) => {
+const confirmPrompt = async (message, dvalue) => {
     if(dvalue === undefined) dvalue = true
-    return inquirer.prompt([{
+    return await inquirer.prompt([{
         default: dvalue,
         name: 'conf',
         type: 'confirm',

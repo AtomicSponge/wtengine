@@ -47,7 +47,7 @@ exports.checkSettings = checkSettings
 
 /**
  * Create user engine settings file.
- * On fail, exists running script.
+ * On fail, exits running script.
  */
 const createSettings = () => {
     try {

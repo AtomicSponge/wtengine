@@ -60,11 +60,15 @@ exports.createSettings = createSettings
 
 /**
  * Save engine settings.
- * @param {*} settings 
- * @returns 
+ * @param {JSON} settings Settings as JSON object.
+ * On fail, exists running script.
  */
 const saveSettings = (settings) => {
-    return false
+    try {
+        fs.writeFileSync(constants.setLocation, JSON.stringify(settings))
+    } catch (err) {
+        scriptError(err)
+    }
 }
 exports.saveSettings = saveSettings
 

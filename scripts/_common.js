@@ -50,7 +50,7 @@ exports.checkSettings = checkSettings
  * @throws Throws error on fail and exists running script.
  */
 const createSettings = () => {
-    fs.copyFile(constants.defSetLocation, constants.setLocation,
+    fs.copyFileSync(constants.defSetLocation, constants.setLocation,
         fs.constants.COPYFILE_EXCL, (err) => {
             if(err != null || err != undefined)
                 scriptError(`Unable to create 'settings.json' file:  ${err}`)

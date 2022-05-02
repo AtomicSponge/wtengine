@@ -55,8 +55,8 @@ process.stdout.write(`${gameData.length} rows read.\n\n`)
  * Generate the data file buffer
  */
 process.stdout.write(`Generating game data file '${args[1]}'...\n`)
-let rowCounter = Number(0)        //  Row counter for error reporting
-let dataBuffer = Buffer.alloc(0)  //  Buffer to store binary file
+var rowCounter = Number(0)        //  Row counter for error reporting
+var dataBuffer = Buffer.alloc(0)  //  Buffer to store binary file
 gameData.forEach(row => {
     rowCounter++
     if(row.length !== 6) wtf.scriptError(`Row ${rowCounter}: incorrect length.`)

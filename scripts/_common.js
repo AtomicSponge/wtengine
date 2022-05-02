@@ -12,14 +12,10 @@ const inquirer = require('inquirer')
 
 const package = require('../package.json')
 
-/**
- * Constants
- */
 const constants = {
-    defSetLocation: `${__dirname}/_default_settings.json`,
-    setLocation: `${__dirname}/../settings.json`,
+    DEFAULT_LOCATION: `${__dirname}/_default_settings.json`,
+    SETTINGS_LOCATION: `${__dirname}/../settings.json`,
 }
-exports.constants = constants
 
 /**
  * Display script title & info.
@@ -38,7 +34,7 @@ exports.showScriptInfo = showScriptInfo
  * @returns {boolean} True if writable, else false.
  */
 const checkSettings = () => {
-    fs.access(constants.setLocation, fs.constants.W_OK, (err) => {
+    fs.access(constants.SETTINGS_LOCATION, fs.constants.W_OK, (err) => {
         return false
     })
     return true
@@ -51,7 +47,7 @@ exports.checkSettings = checkSettings
  */
 const createSettings = () => {
     try {
-        fs.copyFileSync(constants.defSetLocation, constants.setLocation, fs.constants.COPYFILE_EXCL)
+        fs.copyFileSync(constants.DEFAULT_LOCATION, constants.SETTINGS_LOCATION, fs.constants.COPYFILE_EXCL)
     } catch (err) {
         scriptError(err)
     }
@@ -65,7 +61,7 @@ exports.createSettings = createSettings
  */
 const saveSettings = (settings) => {
     try {
-        fs.writeFileSync(constants.setLocation, JSON.stringify(settings))
+        fs.writeFileSync(constants.SETTINGS_LOCATION, JSON.stringify(settings))
     } catch (err) {
         scriptError(err)
     }
@@ -90,11 +86,13 @@ exports.scriptError = scriptError
  */
 const confirmPrompt = async (message, dvalue) => {
     if(dvalue === undefined) dvalue = true
-    return await inquirer.prompt([{
+    inquirer.prompt([{
         default: dvalue,
         name: 'conf',
         type: 'confirm',
-        message: `\x1b[33m${message}\x1b[89m\x1b[0m`
+        message: `\x1b[33m${message}\x1b[89m`
     }]).then(res => { return res.conf })
+    process.stdout.write(`\x1b[0m\n\n`)
+    return true
 }
 exports.confirmPrompt = confirmPrompt

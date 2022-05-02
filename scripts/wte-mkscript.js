@@ -28,17 +28,28 @@ if(fs.existsSync(args[1]) && !wtf.confirmPrompt(`Output file '${args[1]}' exists
 /*
  * Parse the input file
  */
-process.stdout.write(`Parsing data file '${args[0]}'...\n`)
-let gameData = undefined
+process.stdout.write(`Parsing data file '${args[0]}'...\n\n`)
+var gameData = undefined
 switch(args[0].split('.')[1].toLowerCase()) {
+    /* CSV file data */
     case 'csv':
         gameData = csv.parse(fs.readFileSync(args[0]))
         break
+    /* JSON file data */
+    case 'json':
+        gameData = []
+        {let tempData = fs.readFileSync(args[0])
+        tempData = JSON.parse(tempData)
+        Object.keys(tempData).forEach(key => { gameData.push(tempData[key]) })}
+        break
+    /* Unsupported file types */
     default:
         wtf.scriptError(`File format '${args[0].split('.')[1]}' not supported.`)
 }
 if(gameData === undefined || !(gameData instanceof Array))
     wtf.scriptError('Parsing game data failed.')
+process.stdout.write(`Parsed datafile '${args[0]}.'\n`)
+process.stdout.write(`${gameData.length} rows read.\n\n`)
 
 /*
  * Generate the data file buffer

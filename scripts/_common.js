@@ -14,6 +14,7 @@ const package = require('../package.json')
 
 const constants = {
     SETTINGS_LOCATION: `${__dirname}/../settings.json`,
+    SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.js`
 }
 
 /**
@@ -32,7 +33,7 @@ exports.showScriptInfo = showScriptInfo
  * Display an error message and exit script.
  * @param {String} message Message to display.
  */
- const scriptError = (message) => {
+const scriptError = (message) => {
     process.stdout.write(`\x1b[31mError:  ${message}  Exiting...\x1b[89m\x1b[0m\n`)
     process.exit(0)
 }
@@ -45,7 +46,7 @@ exports.scriptError = scriptError
  * @returns {boolean} True if default answer, else false
  */
 const confirmPrompt = async (message, dvalue) => {
-    if(dvalue === undefined) dvalue = true
+    if(dvalue == undefined) dvalue = true
     inquirer.prompt([{
         default: dvalue,
         name: 'conf',
@@ -59,11 +60,22 @@ exports.confirmPrompt = confirmPrompt
 
 /**
  * Verify write access to engine settings file.
- * @returns {boolean} True if writable, else false.
+ * @param {String} permissions File permissions to check, 'rwx' format.
+ * Passing nothing checks if the file simply exists.
+ * @returns {boolean} True if permission checks succeded.
+ * On fail, displays a script error and exit.
  */
-const checkSettings = () => {
-    fs.access(constants.SETTINGS_LOCATION, fs.constants.W_OK, (err) => {
-        return false
+const checkSettings = (permissions) => {
+    let checkFlags = []
+    if(permissions == undefined) checkFlags.push(fs.constants.F_OK)
+    if(permissions.includes("r") || permissions.includes("R")) checkFlags.push(fs.constants.R_OK)
+    if(permissions.includes("w") || permissions.includes("W")) checkFlags.push(fs.constants.W_OK)
+    if(permissions.includes("x") || permissions.includes("X")) checkFlags.push(fs.constants.X_OK)
+
+    if(checkFlags.length == 0) scriptError(`Unable to check settings file!  No proper tests requested!`)
+
+    checkFlags.forEach(fFlag => {
+        fs.access(constants.SETTINGS_LOCATION, fFlag, (err) => { scriptError(err) })
     })
     return true
 }
@@ -72,6 +84,7 @@ exports.checkSettings = checkSettings
 /**
  * Save engine settings.
  * @param {JSON} settings Settings as JSON object.
+ * @returns {boolean} True if settings saved.
  * On fail, display error and exit running script.
  */
 const saveSettings = (settings) => {
@@ -80,6 +93,7 @@ const saveSettings = (settings) => {
     } catch (err) {
         scriptError(err)
     }
+    return true
 }
 exports.saveSettings = saveSettings
 
@@ -88,6 +102,7 @@ exports.saveSettings = saveSettings
  * @returns 
  */
 const checkSystem = () => {
+    require('child_process').fork(constants.SYSCHECK_SCRIPT)
     return false
 }
 exports.checkSystem = checkSystem

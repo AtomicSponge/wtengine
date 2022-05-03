@@ -29,7 +29,7 @@ if(fs.existsSync(args[1]) && !wtf.confirmPrompt(`Output file '${args[1]}' exists
  * Parse the input file
  */
 process.stdout.write(`Parsing data file '${args[0]}'...\n\n`)
-var gameData = undefined
+var gameData = null
 switch(args[0].split('.')[1].toLowerCase()) {
     /* CSV file data */
     case 'csv':
@@ -46,7 +46,7 @@ switch(args[0].split('.')[1].toLowerCase()) {
     default:
         wtf.scriptError(`File format '${args[0].split('.')[1]}' not supported.`)
 }
-if(gameData === undefined || !(gameData instanceof Array))
+if(gameData == null || !(gameData instanceof Array))
     wtf.scriptError('Parsing game data failed.')
 process.stdout.write(`Parsed datafile '${args[0]}.'\n`)
 process.stdout.write(`${gameData.length} rows read.\n\n`)

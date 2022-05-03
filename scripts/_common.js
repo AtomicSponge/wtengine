@@ -13,7 +13,6 @@ const inquirer = require('inquirer')
 const package = require('../package.json')
 
 const constants = {
-    DEFAULT_LOCATION: `${__dirname}/_default_settings.json`,
     SETTINGS_LOCATION: `${__dirname}/../settings.json`,
 }
 
@@ -30,49 +29,10 @@ const showScriptInfo = (scriptName) => {
 exports.showScriptInfo = showScriptInfo
 
 /**
- * Verify write access to engine settings file.
- * @returns {boolean} True if writable, else false.
- */
-const checkSettings = () => {
-    fs.access(constants.SETTINGS_LOCATION, fs.constants.W_OK, (err) => {
-        return false
-    })
-    return true
-}
-exports.checkSettings = checkSettings
-
-/**
- * Create user engine settings file.
- * On fail, display error and exit running script.
- */
-const createSettings = () => {
-    try {
-        fs.copyFileSync(constants.DEFAULT_LOCATION, constants.SETTINGS_LOCATION, fs.constants.COPYFILE_EXCL)
-    } catch (err) {
-        scriptError(err)
-    }
-}
-exports.createSettings = createSettings
-
-/**
- * Save engine settings.
- * @param {JSON} settings Settings as JSON object.
- * On fail, display error and exit running script.
- */
-const saveSettings = (settings) => {
-    try {
-        fs.writeFileSync(constants.SETTINGS_LOCATION, JSON.stringify(settings))
-    } catch (err) {
-        scriptError(err)
-    }
-}
-exports.saveSettings = saveSettings
-
-/**
  * Display an error message and exit script.
  * @param {String} message Message to display.
  */
-const scriptError = (message) => {
+ const scriptError = (message) => {
     process.stdout.write(`\x1b[31mError:  ${message}  Exiting...\x1b[89m\x1b[0m\n`)
     process.exit(0)
 }
@@ -96,3 +56,38 @@ const confirmPrompt = async (message, dvalue) => {
     return true
 }
 exports.confirmPrompt = confirmPrompt
+
+/**
+ * Verify write access to engine settings file.
+ * @returns {boolean} True if writable, else false.
+ */
+const checkSettings = () => {
+    fs.access(constants.SETTINGS_LOCATION, fs.constants.W_OK, (err) => {
+        return false
+    })
+    return true
+}
+exports.checkSettings = checkSettings
+
+/**
+ * Save engine settings.
+ * @param {JSON} settings Settings as JSON object.
+ * On fail, display error and exit running script.
+ */
+const saveSettings = (settings) => {
+    try {
+        fs.writeFileSync(constants.SETTINGS_LOCATION, JSON.stringify(settings))
+    } catch (err) {
+        scriptError(err)
+    }
+}
+exports.saveSettings = saveSettings
+
+/**
+ * 
+ * @returns 
+ */
+const checkSystem = () => {
+    return false
+}
+exports.checkSystem = checkSystem

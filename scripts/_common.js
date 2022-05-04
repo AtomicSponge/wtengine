@@ -8,9 +8,11 @@
  */
 
 const fs = require('fs')
+const shell = require('shelljs')
 const inquirer = require('inquirer')
 
 const package = require('../package.json')
+const config = require('./_config.json')
 
 const constants = {
     SETTINGS_LOCATION: `${__dirname}/../settings.json`,
@@ -34,7 +36,7 @@ exports.showScriptInfo = showScriptInfo
  * @param {String} message Message to display.
  */
 const scriptError = (message) => {
-    process.stdout.write(`\x1b[31mError:  ${message}  Exiting...\x1b[89m\x1b[0m\n`)
+    process.stdout.write(`\x1b[31mError:  ${message}  Exiting...\x1b[0m\n`)
     process.exit(0)
 }
 exports.scriptError = scriptError
@@ -51,7 +53,7 @@ const confirmPrompt = async (message, dvalue) => {
         default: dvalue,
         name: 'conf',
         type: 'confirm',
-        message: `\x1b[33m${message}\x1b[89m`
+        message: `\x1b[33m${message}\x1b[0m`
     }]).then(res => { return res.conf })
     process.stdout.write(`\x1b[0m\n\n`)
     return true
@@ -98,7 +100,22 @@ const saveSettings = (settings) => {
 exports.saveSettings = saveSettings
 
 /**
- * 
+ * Check for necessary applications.
+ * @returns {boolean} True if all apps are found.
+ * On not found, displays a script error and exit.
+ */
+const checkApps = () => {
+    process.stdout.write(`Checking for necessary applications...\n`)
+    config.checkApps.forEach((appCheck) => {
+        if(shell.which(appCheck)) process.stdout.write(`\x1b[32m${appCheck} found.\x1b[0m\n`)
+        else scriptError(`${appCheck} not found.`)
+    })
+    return true
+}
+exports.checkApps = checkApps
+
+/**
+ * WIP
  * @returns 
  */
 const checkSystem = () => {

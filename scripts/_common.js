@@ -15,8 +15,9 @@ const package = require('../package.json')
 const config = require('./_config.json')
 
 const constants = {
-    SETTINGS_LOCATION: `${__dirname}/../settings.json`,
-    SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.js`
+    CONFIG_SCRIPT:     `${__dirname}/wte-config.js`,
+    SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.js`,
+    SETTINGS_LOCATION: `${__dirname}/../settings.json`
 }
 
 /**
@@ -118,8 +119,18 @@ exports.checkApps = checkApps
  * WIP
  * @returns 
  */
-const checkSystem = () => {
+const runSysCheck = () => {
     require('child_process').fork(constants.SYSCHECK_SCRIPT)
     return false
 }
-exports.checkSystem = checkSystem
+exports.runSysCheck = runSysCheck
+
+/**
+ * WIP
+ * @returns 
+ */
+ const runConfig = () => {
+    require('child_process').fork(constants.CONFIG_SCRIPT)
+    return false
+}
+exports.runConfig = runConfig

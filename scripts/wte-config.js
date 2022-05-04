@@ -7,11 +7,11 @@
  */
 
 const wtf = require('./_common')
+const config = require('./_config')
+
 const fs = require('fs')
 const path = require('path')
 const shell = require('shelljs')
 const inquirer = require('inquirer')
-
-const config = require('./_config')
 
 process.stdout.write('Config Done!')

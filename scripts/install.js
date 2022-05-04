@@ -7,6 +7,7 @@
  */
  
 const wtf = require('./_common')
+const config = require('./_config')
 
 process.stdout.write('WTEngine Install\n\n')
 process.stdout.write(`Creating engine settings file...\n`)

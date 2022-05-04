@@ -16,3 +16,5 @@ const shell = require('shelljs')
 const inquirer = require('inquirer')
 
 wtf.checkApps()
+
+process.stdout.write(`Build done!\n`)

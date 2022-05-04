@@ -21,7 +21,8 @@
     "postinstall": "scripts/install.js",
     "wte-config": "scripts/wte-config.js",
     "wte-build": "scripts/wte-build.js",
-    "wte-mkscript": "scripts/wte-mkscript.js"
+    "wte-mkscript": "scripts/wte-mkscript.js",
+    "wte-syscheck": "scripts/wte-syscheck.js"
   },
   "dependencies": {
     "csv": "^6.0.5",

@@ -15,8 +15,8 @@ const package = require('../package.json')
 const config = require('./_config.json')
 
 const constants = {
-    CONFIG_SCRIPT:     `${__dirname}/wte-config.js`,
-    SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.js`,
+    CONFIG_SCRIPT:     `npm run wte-config`,
+    SYSCHECK_SCRIPT:   `npm run wte-syscheck`,
     SETTINGS_LOCATION: `${__dirname}/../settings.json`
 }
 
@@ -38,7 +38,7 @@ exports.showScriptInfo = showScriptInfo
  */
 const scriptError = (message) => {
     process.stdout.write(`\x1b[31mError:  ${message}  Exiting...\x1b[0m\n`)
-    process.exit(0)
+    throw new Error(message)
 }
 exports.scriptError = scriptError
 
@@ -119,18 +119,20 @@ exports.checkApps = checkApps
  * WIP
  * @returns 
  */
-const runSysCheck = () => {
-    require('child_process').fork(constants.SYSCHECK_SCRIPT)
-    return false
+const runSysCheckScript = () => {
+    let res = shell.exec(constants.SYSCHECK_SCRIPT, { async: false })
+    if(res.stderr != "") return false
+    return true
 }
-exports.runSysCheck = runSysCheck
+exports.runSysCheckScript = runSysCheckScript
 
 /**
  * WIP
  * @returns 
  */
- const runConfig = () => {
-    require('child_process').fork(constants.CONFIG_SCRIPT)
-    return false
+const runConfigScript = () => {
+    let res = shell.exec(constants.CONFIG_SCRIPT, { async: false })
+    if(res.stderr != "") return false
+    return true
 }
-exports.runConfig = runConfig
+exports.runConfigScript = runConfigScript

@@ -7,17 +7,17 @@
  */
  
 const wtf = require('./_common')
-const config = require('./_config')
 
 process.stdout.write(`WTEngine Install\n\n`)
-process.stdout.write(`Creating engine settings file...\n`)
 
 //  Run system check
 if(wtf.confirmPrompt('Run WTEngine system check?'))
-    wtf.runSysCheck()
+    if(!wtf.runSysCheckScript())
+        wtf.scriptError(`Problems running system check.\nPlease resolve issues then re-run install.`)
 
 //  Run config
 if(wtf.confirmPrompt('Run WTEngine configuration?'))
-    wtf.runConfig()
+    if(!wtf.runConfigScript())
+        wtf.scriptError(`Problems running configuration.\nPlease resolve issues then re-run install.`)
 
 process.stdout.write(`Install done!\n`)

@@ -14,4 +14,4 @@ const path = require('path')
 const shell = require('shelljs')
 const inquirer = require('inquirer')
 
-process.stdout.write('Config Done!\n')
+process.stdout.write('Config Done!\n\n')

@@ -20,4 +20,4 @@ if(wtf.confirmPrompt('Run WTEngine configuration?'))
     if(!wtf.runConfigScript())
         wtf.scriptError(`Problems running configuration.\nPlease resolve issues then re-run install.`)
 
-process.stdout.write(`Install done!\n`)
+process.stdout.write(`Install done!\n\n`)

@@ -17,4 +17,4 @@ const inquirer = require('inquirer')
 
 wtf.checkApps()
 
-process.stdout.write(`Build done!\n`)
+process.stdout.write(`Build done!\n\n`)

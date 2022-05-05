@@ -13,4 +13,4 @@ const config = require('./_config')
 
 wtf.checkApps()
 
-process.stdout.write(`System check done!\n`)
+process.stdout.write(`System check done!\n\n`)

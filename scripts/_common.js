@@ -38,7 +38,7 @@ exports.showScriptInfo = showScriptInfo
  */
 const scriptError = (message) => {
     process.stdout.write(`\x1b[31mError:  ${message}  Exiting...\x1b[0m\n`)
-    throw new Error(message)
+    process.exit(1)
 }
 exports.scriptError = scriptError
 
@@ -121,7 +121,7 @@ exports.checkApps = checkApps
  */
 const runSysCheckScript = () => {
     let res = shell.exec(constants.SYSCHECK_SCRIPT, { async: false })
-    if(res.stderr != "") return false
+    if(res.code > 0) return false
     return true
 }
 exports.runSysCheckScript = runSysCheckScript
@@ -132,7 +132,7 @@ exports.runSysCheckScript = runSysCheckScript
  */
 const runConfigScript = () => {
     let res = shell.exec(constants.CONFIG_SCRIPT, { async: false })
-    if(res.stderr != "") return false
+    if(res.code > 0) return false
     return true
 }
 exports.runConfigScript = runConfigScript

@@ -14,4 +14,6 @@ const path = require('path')
 const shell = require('shelljs')
 const inquirer = require('inquirer')
 
+process.stdout.write(`${wtf.constants.CYAN}WTEngine Configuration Utility${wtf.constants.CLEAR}\n\n`)
+
 process.stdout.write('Config Done!\n\n')

@@ -8,7 +8,7 @@
  
 const wtf = require('./_common')
 
-process.stdout.write(`WTEngine Install\n\n`)
+process.stdout.write(`${wtf.constants.CYAN}WTEngine Install${wtf.constants.CLEAR}\n\n`)
 
 //  Run system check
 if(wtf.confirmPrompt('Run WTEngine system check?'))

@@ -15,6 +15,6 @@ const path = require('path')
 const shell = require('shelljs')
 const inquirer = require('inquirer')
 
-wtf.checkApps()
+process.stdout.write(`${wtf.constants.CYAN}WTEngine Build Utility${wtf.constants.CLEAR}\n\n`)
 
 process.stdout.write(`Build done!\n\n`)

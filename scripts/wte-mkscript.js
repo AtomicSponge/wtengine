@@ -12,7 +12,7 @@ const fs = require('fs')
 const { Buffer } = require('buffer')
 const csv = require('csv/sync')
 
-wtf.showScriptInfo(path.basename(__filename, path.extname(__filename)))
+process.stdout.write(`${wtf.constants.CYAN}WTEngine Script Utility${wtf.constants.CLEAR}\n\n`)
 
 /*
  * Process command arguments

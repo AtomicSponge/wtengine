@@ -7,37 +7,32 @@
  * 
  */
 
+const config = require('./_config.json')
+
 const fs = require('fs')
 const shell = require('shelljs')
 const inquirer = require('inquirer')
 
-const package = require('../package.json')
-const config = require('./_config.json')
-
 const constants = {
     CONFIG_SCRIPT:     `npm run wte-config`,
     SYSCHECK_SCRIPT:   `npm run wte-syscheck`,
-    SETTINGS_LOCATION: `${__dirname}/../settings.json`
+    SETTINGS_LOCATION: `${__dirname}/../settings.json`,
+    
+    /* font colors */
+    RED: `\x1b[31m`,
+    GREEN: `\x1b[32m`,
+    YELLOW: `\x1b[33m`,
+    CYAN: `\x1b[36m`,
+    CLEAR: `\x1b[0m`
 }
-
-/**
- * Display script title & info.
- * @param {String} scriptName 
- */
-const showScriptInfo = (scriptName) => {
-    process.stdout.write(`\x1b[37m${package.name} > v${package.version} > \x1b[89m`)
-    process.stdout.write(`\x1b[97m${scriptName}\x1b[39m\n`)
-    process.stdout.write(`\x1b[36m\x1b[4m${package.url}\x1b[24m\x1b[89m\n`)
-    process.stdout.write(`\x1b[0m\n`)
-}
-exports.showScriptInfo = showScriptInfo
+exports.constants = constants
 
 /**
  * Display an error message and exit script.
  * @param {String} message Message to display.
  */
 const scriptError = (message) => {
-    process.stdout.write(`\x1b[31mError:  ${message}  Exiting...\x1b[0m\n`)
+    process.stdout.write(`${constants.RED}Error:  ${message}  Exiting...${constants.CLEAR}\n`)
     process.exit(1)
 }
 exports.scriptError = scriptError
@@ -50,14 +45,15 @@ exports.scriptError = scriptError
  */
 const confirmPrompt = async (message, dvalue) => {
     if(dvalue == undefined) dvalue = true
-    inquirer.prompt([{
+    const prompt = inquirer.prompt([{
         default: dvalue,
         name: 'conf',
         type: 'confirm',
-        message: `\x1b[33m${message}\x1b[0m`
-    }]).then(res => { return res.conf })
-    process.stdout.write(`\x1b[0m\n\n`)
-    return true
+        message: `${constants.YELLOW}${message}`
+    }])
+    process.stdout.write(`${constants.CLEAR}\n`)
+    const res = await prompt.then(res => { return res.conf })
+    return res
 }
 exports.confirmPrompt = confirmPrompt
 
@@ -108,7 +104,7 @@ exports.saveSettings = saveSettings
 const checkApps = () => {
     process.stdout.write(`Checking for necessary applications...\n`)
     config.checkApps.forEach((appCheck) => {
-        if(shell.which(appCheck)) process.stdout.write(`\x1b[32m${appCheck} found.\x1b[0m\n`)
+        if(shell.which(appCheck)) process.stdout.write(`${constants.GREEN}${appCheck} found.${constants.CLEAR}\n`)
         else scriptError(`${appCheck} not found.`)
     })
     return true

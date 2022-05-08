@@ -30,7 +30,7 @@ const constants = {
     CONFIG_SCRIPT:     `npm run wte-config`,
     SYSCHECK_SCRIPT:   `npm run wte-syscheck`,
     SETTINGS_LOCATION: `${__dirname}/../settings.json`,
-    
+
     /* Font colors */
     RED:    `\x1b[31m`,
     GREEN:  `\x1b[32m`,
@@ -96,12 +96,34 @@ const checkSettings = (permissions) => {
 exports.checkSettings = checkSettings
 
 /**
+ * Load engine settings.
+ * @returns {JSON} Settings JSON object.
+ * On fail, display error and exit running script.
+ */
+const loadSettings = () => {
+    try {
+        const settings = fs.readFileSync(constants.SETTINGS_LOCATION)
+        return JSON.parse(settings)
+    } catch (err) {
+        scriptError(err)
+    }
+}
+exports.loadSettings = loadSettings
+
+/**
  * Save engine settings.
  * @param {JSON} settings Settings as JSON object.
  * @returns {boolean} True if settings saved.
  * On fail, display error and exit running script.
  */
 const saveSettings = (settings) => {
+    let oldSettings = null
+    try {
+        oldSettings = JSON.parse(fs.readFileSync(constants.SETTINGS_LOCATION))
+    } catch (err) {}
+
+    if(oldSettings != null) settings = oldSettings.concat(settings)
+
     try {
         fs.writeFileSync(constants.SETTINGS_LOCATION, JSON.stringify(settings))
     } catch (err) {

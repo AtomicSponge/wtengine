@@ -1,7 +1,0 @@
-{
-    "checkApps": [ "cmake", "git" ],
-    "gitURLs": {
-        "allegro": "https://github.com/liballeg/allegro5",
-        "physfs": "https://github.com/icculus/physfs"
-    }
-}

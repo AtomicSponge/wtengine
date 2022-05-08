@@ -7,7 +7,6 @@
  */
 
 const wtf = require('./_common')
-const config = require('./_config')
 //const settings = require('../settings')
 
 const fs = require('fs')

@@ -9,7 +9,6 @@
  */
 
 const wtf = require('./_common')
-const config = require('./_config')
 
 process.stdout.write(`${wtf.constants.CYAN}WTEngine System Check Utility${wtf.constants.CLEAR}\n\n`)
 

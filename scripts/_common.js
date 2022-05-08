@@ -7,12 +7,25 @@
  * 
  */
 
-const config = require('./_config.json')
-
 const fs = require('fs')
 const shell = require('shelljs')
 const inquirer = require('inquirer')
 
+/**
+ * Configuration settings
+ */
+const config = {
+    checkApps: [ "cmake", "git" ],
+    gitURLs: {
+        "allegro": "https://github.com/liballeg/allegro5",
+        "physfs": "https://github.com/icculus/physfs"
+    }
+}
+exports.config = config
+
+/**
+ * Constants
+ */
 const constants = {
     CONFIG_SCRIPT:     `npm run wte-config`,
     SYSCHECK_SCRIPT:   `npm run wte-syscheck`,
@@ -21,8 +34,8 @@ const constants = {
     /* Font colors */
     RED:    `\x1b[31m`,
     GREEN:  `\x1b[32m`,
-    BLUE:   `\x1b[34m`,
     YELLOW: `\x1b[33m`,
+    BLUE:   `\x1b[34m`,
     CYAN:   `\x1b[36m`,
     DIM:    `\x1b[2m`,
     CLEAR:  `\x1b[0m`

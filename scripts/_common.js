@@ -120,7 +120,7 @@ const checkApps = () => {
     process.stdout.write(`Checking for necessary applications...\n`)
     config.checkApps.forEach((appCheck) => {
         if(shell.which(appCheck)) process.stdout.write(`${constants.GREEN}  > '${appCheck}' found.${constants.CLEAR}\n`)
-        else scriptError(`${appCheck} not found.`)
+        else scriptError(`'${appCheck}' not found.`)
     })
     process.stdout.write(`${constants.CLEAR}\n`)
     return true

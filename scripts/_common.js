@@ -117,6 +117,7 @@ exports.loadSettings = loadSettings
  * On fail, display error and exit running script.
  */
 const saveSettings = (settings) => {
+    if(!(settings instanceof Object)) scriptError(`Settings format not valid.`)
     let oldSettings = null
     try {
         oldSettings = JSON.parse(fs.readFileSync(constants.SETTINGS_LOCATION))

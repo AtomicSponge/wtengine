@@ -97,15 +97,14 @@ exports.checkSettings = checkSettings
 
 /**
  * Load engine settings.
- * @returns {JSON} Settings JSON object.
- * On fail, display error and exit running script.
+ * @returns {JSON} Settings JSON object.  False on fail.
  */
 const loadSettings = () => {
     try {
         const settings = fs.readFileSync(constants.SETTINGS_LOCATION)
         return JSON.parse(settings)
     } catch (err) {
-        scriptError(err)
+        return false
     }
 }
 exports.loadSettings = loadSettings
@@ -118,12 +117,9 @@ exports.loadSettings = loadSettings
  */
 const saveSettings = (settings) => {
     if(!(settings instanceof Object)) scriptError(`Settings format not valid.`)
-    let oldSettings = null
-    try {
-        oldSettings = JSON.parse(fs.readFileSync(constants.SETTINGS_LOCATION))
-    } catch (err) {}
 
-    if(oldSettings != null) settings = oldSettings.concat(settings)
+    const oldSettings = loadSettings()
+    if(oldSettings) settings = oldSettings.concat(settings)
 
     try {
         fs.writeFileSync(constants.SETTINGS_LOCATION, JSON.stringify(settings))

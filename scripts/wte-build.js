@@ -7,7 +7,6 @@
  */
 
 const wtf = require('./_common')
-//const settings = require('../settings')
 
 const fs = require('fs')
 const path = require('path')

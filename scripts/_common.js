@@ -114,8 +114,8 @@ const checkApps = () => {
 exports.checkApps = checkApps
 
 /**
- * WIP
- * @returns 
+ * Run the system check script.
+ * @returns {boolean} True if the script was successful, else false.
  */
 const runSysCheckScript = () => {
     let res = shell.exec(constants.SYSCHECK_SCRIPT, { async: false })
@@ -125,8 +125,8 @@ const runSysCheckScript = () => {
 exports.runSysCheckScript = runSysCheckScript
 
 /**
- * WIP
- * @returns 
+ * Run the configuration script.
+ * @returns {boolean} True if the script was successful, else false.
  */
 const runConfigScript = () => {
     let res = shell.exec(constants.CONFIG_SCRIPT, { async: false })

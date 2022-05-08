@@ -15,4 +15,4 @@ process.stdout.write(`${wtf.constants.CYAN}WTEngine System Check Utility${wtf.co
 
 wtf.checkApps()
 
-process.stdout.write(`System check done!\n\n`)
+process.stdout.write(`${wtf.constants.DIM}${wtf.constants.CYAN}System check done!${wtf.constants.CLEAR}\n\n`)

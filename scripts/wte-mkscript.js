@@ -85,5 +85,5 @@ try {
     process.stdout.write(`Size: ${Buffer.byteLength(dataBuffer, 'utf8')} bytes.\n\n`)
 } catch(error) { wtf.scriptError(error) }
 
-process.stdout.write('Done!\n\n')
+process.stdout.write(`${wtf.constants.DIM}${wtf.constants.CYAN}Script conversion done!${wtf.constants.CLEAR}\n\n`)
 process.exit(0)

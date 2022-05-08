@@ -18,12 +18,14 @@ const constants = {
     SYSCHECK_SCRIPT:   `npm run wte-syscheck`,
     SETTINGS_LOCATION: `${__dirname}/../settings.json`,
     
-    /* font colors */
-    RED: `\x1b[31m`,
-    GREEN: `\x1b[32m`,
+    /* Font colors */
+    RED:    `\x1b[31m`,
+    GREEN:  `\x1b[32m`,
+    BLUE:   `\x1b[34m`,
     YELLOW: `\x1b[33m`,
-    CYAN: `\x1b[36m`,
-    CLEAR: `\x1b[0m`
+    CYAN:   `\x1b[36m`,
+    DIM:    `\x1b[2m`,
+    CLEAR:  `\x1b[0m`
 }
 exports.constants = constants
 

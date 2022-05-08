@@ -16,4 +16,4 @@ const inquirer = require('inquirer')
 
 process.stdout.write(`${wtf.constants.CYAN}WTEngine Configuration Utility${wtf.constants.CLEAR}\n\n`)
 
-process.stdout.write('Config Done!\n\n')
+process.stdout.write(`${wtf.constants.DIM}${wtf.constants.CYAN}Config Done!${wtf.constants.CLEAR}\n\n`)

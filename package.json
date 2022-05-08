@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "csv": "^6.0.5",
-    "inquirer": "^8.2.2",
+    "inquirer": "^8.2.4",
     "shelljs": "^0.8.5"
   }
 }

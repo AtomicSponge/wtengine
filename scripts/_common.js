@@ -123,6 +123,7 @@ const saveSettings = (settings) => {
 
     try {
         fs.writeFileSync(constants.SETTINGS_LOCATION, JSON.stringify(settings))
+        process.stdout.write(`${constants.GREEN}Settings saved.${constants.CLEAR}\n`)
     } catch (err) {
         scriptError(err)
     }

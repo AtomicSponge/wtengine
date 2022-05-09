@@ -18,7 +18,7 @@ const actions = {
      * @param {JSON} settings 
      */
     doSetup: () => {
-        const settings = {}
+        var settings = {}
         return settings
     },
 

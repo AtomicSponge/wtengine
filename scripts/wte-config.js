@@ -7,19 +7,45 @@
  */
 
 const wtf = require('./_common')
-
-const fs = require('fs')
-const path = require('path')
-const shell = require('shelljs')
 const inquirer = require('inquirer')
 
+/**
+ * Script actions.
+ */
+const actions = {
+    /**
+     * Run initial setup.
+     * @param {JSON} settings 
+     */
+    doSetup: () => {
+        const settings = {}
+        return settings
+    },
+
+    /**
+     * Edit existing settings.
+     * @param {JSON} settings 
+     */
+    doEdit: (settings) => {
+        return settings
+    }
+}
+
+/*
+ * Main script
+ */
 process.stdout.write(`${wtf.constants.CYAN}WTEngine Configuration Utility${wtf.constants.CLEAR}\n\n`)
 
-const settings = wtf.loadSettings()
+var settings = wtf.loadSettings()
 if(!settings) {
     process.stdout.write(`No settings file found, running setup...\n`)
+    settings = actions.doSetup()
+    wtf.saveSettings(settings)
 } else {
-    process.stdout.write(`settings exist... do other stuff\n`)
+    process.stdout.write(`Editing existing settings...\n`)
+    oldSettings = settings
+    settings = actions.doEdit(settings)
+    if((oldSettings !== settings) && wtf.confirmPrompt(`Save changes?`)) wtf.saveSettings(settings)
 }
 
 process.stdout.write(`${wtf.constants.DIM}${wtf.constants.CYAN}Config Done!${wtf.constants.CLEAR}\n\n`)

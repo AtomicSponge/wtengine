@@ -10,12 +10,19 @@ const wtf = require('./_common')
 const inquirer = require('inquirer')
 
 /**
+ * Script menus.
+ */
+const menus = {
+    //
+}
+
+/**
  * Script actions.
  */
 const actions = {
     /**
      * Run initial setup.
-     * @param {JSON} settings 
+     * @returns {JSON} New settings object
      */
     doSetup: () => {
         var settings = {}
@@ -24,7 +31,8 @@ const actions = {
 
     /**
      * Edit existing settings.
-     * @param {JSON} settings 
+     * @param {JSON} settings JSON object of new settings
+     * @returns {JSON} Modified settings object
      */
     doEdit: (settings) => {
         return settings

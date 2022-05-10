@@ -58,9 +58,19 @@ exports.scriptError = scriptError
  * @param {boolean} dvalue Default answer (Y - true | N - false)
  * @returns {boolean} True if default answer, else false
  */
-const confirmPrompt = async (message, dvalue) => {
+const confirmPrompt = (message, dvalue) => {
     if(dvalue == undefined) dvalue = true
-    const prompt = inquirer.prompt([{
+    return (async () => {
+        const prompt = await inquirer.prompt([{
+            default: dvalue,
+            name: 'conf',
+            type: 'confirm',
+            message: `${constants.YELLOW}${message}`
+        }]).then(res => { return res.conf })
+        console.log(prompt)
+        return prompt
+    })()
+    /*const prompt = inquirer.prompt([{
         default: dvalue,
         name: 'conf',
         type: 'confirm',
@@ -68,7 +78,7 @@ const confirmPrompt = async (message, dvalue) => {
     }])
     process.stdout.write(`${constants.CLEAR}\n`)
     const res = await prompt.then(res => { return res.conf })
-    return res
+    return res*/
 }
 exports.confirmPrompt = confirmPrompt
 

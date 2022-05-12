@@ -87,13 +87,13 @@ class input {
         template <handler_scopes S>
         inline static void run_handles(const ALLEGRO_EVENT& event) {
             //  Keyboard events
-            if constexpr (false) {
+            /*if constexpr (handlers<S, WTE_EVENT_KEY_DOWN>::registered) {
                 if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
                     std::get<handler::key>(handlers<S, WTE_EVENT_KEY_DOWN>::_handle)(
                             event.keyboard.keycode, event.keyboard.display);
                     return;
                 }
-            }
+            }*/
             if constexpr (false) {
                 if(event.type == ALLEGRO_EVENT_KEY_UP) {
                     std::get<handler::key>(handlers<S, WTE_EVENT_KEY_UP>::_handle)(

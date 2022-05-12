@@ -61,7 +61,7 @@ exports.scriptError = scriptError
 const confirmPrompt = (message, dvalue) => {
     if(dvalue == undefined) dvalue = true
     return (async () => {
-        const prompt = await inquirer.prompt([{
+        const prompt = inquirer.prompt([{
             default: dvalue,
             name: 'conf',
             type: 'confirm',

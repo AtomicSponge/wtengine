@@ -92,8 +92,8 @@ enum handler_registers { WTE_HANDLER_SET, WTE_HANDLER_NOTSET };
 /*
  *
  */
-template <bool R>
-struct _register {};
+//template <handler_registers R>
+//struct _register {};
 
 /*
  *
@@ -111,7 +111,8 @@ class handlers {
         friend void add_handle(const handler_types& handle);
 
     private:
-        //_register<R> is_set;
+        template <handler_registers R = WTE_HANDLER_NOTSET>
+        using registered = handler_registers;
         static handler_types _handle;
 };
 
@@ -158,6 +159,7 @@ constexpr void add_handle(const handler_types& handle) {
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
     handlers<S, IDX>::_handle = handle;
+    handlers<S, IDX>::_register = WTE_HANDLER_SET;
 };
 
 }  //  end namespace wte

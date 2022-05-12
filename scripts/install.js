@@ -7,8 +7,23 @@
  */
  
 const wtf = require('./_common')
+const inquirer = require('inquirer')
 
 process.stdout.write(`${wtf.constants.CYAN}WTEngine Install${wtf.constants.CLEAR}\n\n`)
+
+const res = (async function () {
+    const res = await inquirer.prompt([{
+        name: 'conf',
+        type: 'confirm',
+        message: `${wtf.constants.YELLOW}TEST`
+    }]).then(res => { return res.conf })
+    //await res.resolve()
+    //console.log(res)
+    return res
+})()
+console.log(res)
+
+process.exit(0)
 
 //  Run system check
 if(wtf.confirmPrompt('Run WTEngine system check?'))

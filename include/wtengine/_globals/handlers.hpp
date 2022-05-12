@@ -159,7 +159,7 @@ constexpr void add_handle(const handler_types& handle) {
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
     handlers<S, IDX>::_handle = handle;
-    handlers<S, IDX>::_register = WTE_HANDLER_SET;
+    handlers<S, IDX>::registered = WTE_HANDLER_SET;
 };
 
 }  //  end namespace wte

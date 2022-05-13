@@ -122,12 +122,12 @@ class handlers {
  * \tparam T Handler type.
  * \param handle Input handler function expression.
  */
-template <handler_scopes S, handler_events IDX, class T>
+template <handler_scopes S, handler_events IDX>
 constexpr void add_handle(const handler_types& handle) {
     static_assert(S == WTE_GLOBAL_HANDLES || S == WTE_NONGAME_HANDLES || S == WTE_GAME_HANDLES,
         "Scope must be one of the following: WTE_GLOBAL_HANDLES, WTE_NONGAME_HANDLES, WTE_GAME_HANDLES");
     static_assert(IDX < WTE_EVENT_MAX, "Invalid Handler Event Index");
-    static_assert(std::is_same_v<T, handler::key> ||
+    /*static_assert(std::is_same_v<T, handler::key> ||
         std::is_same_v<T, handler::mouse_axis> ||
         std::is_same_v<T, handler::mouse_button> ||
         std::is_same_v<T, handler::mouse_display> ||
@@ -156,7 +156,7 @@ constexpr void add_handle(const handler_types& handle) {
     else if constexpr (std::is_same_v<T, handler::touch>)
         static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
-            "Event Index must be a Touch Event");
+            "Event Index must be a Touch Event");*/
     handlers<S, IDX>::_handle = handle;
 };
 

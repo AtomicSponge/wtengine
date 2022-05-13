@@ -110,8 +110,9 @@ class handlers {
 
         friend void add_handle(const handler_types& handle);
 
-    private:
-        static handler_types _handle;
+    //protected:
+        static constexpr bool is_set = false;
+        inline static handler_types _handle;
 };
 
 /*!

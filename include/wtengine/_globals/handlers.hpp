@@ -91,7 +91,7 @@ using handler_types = std::variant<
 constexpr std::array<std::array<bool, WTE_HANDLER_EVENT_MAX>, WTE_HANDLER_SCOPES_MAX> handler_registers = { false };
 
 template <handler_scopes S, handler_events IDX>
-constexpr void _register() { /*handler_registers[S][IDX] = true;*/ };
+constexpr void _register(void) { /*handler_registers[S][IDX] = true;*/ };
 
 /*
  *

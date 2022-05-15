@@ -104,6 +104,18 @@ class gfx : public component {
         const std::function<void(const entity_id&)> animate;
 };
 
+/*!
+ * \class g2d
+ * \brief Interface class for 2d graphics.
+ */
+class g2d : public gfx {};
+
+/*!
+ * \class g3d
+ * \brief Interface class for 3d graphics.
+ */
+class g3d : public gfx {};
+
 }  //  end namespace wte::cmp
 
 #endif

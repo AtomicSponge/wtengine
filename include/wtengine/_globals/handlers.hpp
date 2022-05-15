@@ -99,10 +99,9 @@ constexpr void _register() { /*handler_registers[S][IDX] = true;*/ };
 template <handler_scopes S, handler_events IDX>
 class handlers final {
     friend class input;
-    friend constexpr void add_handle(const handler_types& handle);
 
     public:
-        handlers() = delete;
+        handlers() = delete;                       //  Delete constructor.
         ~handlers() = delete;                      //  Delete destructor.
         handlers(const handlers&) = delete;        //  Delete copy constructor.
         void operator=(handlers const&) = delete;  //  Delete assignment operator.

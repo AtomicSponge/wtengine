@@ -92,14 +92,14 @@ using handler_types = std::variant<
  *
  */
 template <handler_scopes S, handler_events IDX, bool R = false>
-class handlers final {
+class handler_register {
     friend class input;
 
     public:
-        handlers() = delete;                       //  Delete constructor.
-        ~handlers() = delete;                      //  Delete destructor.
-        handlers(const handlers&) = delete;        //  Delete copy constructor.
-        void operator=(handlers const&) = delete;  //  Delete assignment operator.
+        handler_register() = delete;                         //  Delete constructor.
+        ~handler_register() = delete;                        //  Delete destructor.
+        handler_register(const handler_register&) = delete;  //  Delete copy constructor.
+        void operator=(handler_register const&) = delete;    //  Delete assignment operator.
     
     private:
         constexpr static bool is_set = R;
@@ -109,10 +109,15 @@ class handlers final {
  *
  */
 template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, true> {
+class handler_register<S, IDX, true> {
     friend class input;
 
     public:
+        handler_register() = delete;                         //  Delete constructor.
+        ~handler_register() = delete;                        //  Delete destructor.
+        handler_register(const handler_register&) = delete;  //  Delete copy constructor.
+        void operator=(handler_register const&) = delete;    //  Delete assignment operator.
+
         /*!
          * \brief Used to add an input handle.
          * \tparam S Handler scope.
@@ -160,7 +165,11 @@ class handlers<S, IDX, true> {
 
     private:
         inline static handler_types _handle;
+        constexpr static bool is_set = true;
 };
+
+template <handler_scopes S, handler_events IDX>
+using handlers = handler_register<S, IDX, true>;
 
 }  //  end namespace wte
 

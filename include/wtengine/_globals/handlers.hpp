@@ -93,12 +93,6 @@ constexpr std::array<std::array<bool, WTE_HANDLER_EVENT_MAX>, WTE_HANDLER_SCOPES
 template <handler_scopes S, handler_events IDX>
 constexpr void _register() { /*handler_registers[S][IDX] = true;*/ };
 
-template <handler_scopes S, handler_events IDX>
-class handlers;
-
-template <handler_scopes S, handler_events IDX>
-constexpr void add_handle(const handler_types& handle);
-
 /*
  *
  */

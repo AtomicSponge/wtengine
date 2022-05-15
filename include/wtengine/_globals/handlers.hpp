@@ -88,15 +88,10 @@ using handler_types = std::variant<
     handler::touch
 >;
 
-constexpr std::array<std::array<bool, WTE_HANDLER_EVENT_MAX>, WTE_HANDLER_SCOPES_MAX> handler_registers = { false };
-
-template <handler_scopes S, handler_events IDX>
-constexpr void _register(void) { /*handler_registers[S][IDX] = true;*/ };
-
 /*
  *
  */
-template <handler_scopes S, handler_events IDX>
+template <handler_scopes S, handler_events IDX, bool R = false>
 class handlers final {
     friend class input;
 
@@ -105,7 +100,19 @@ class handlers final {
         ~handlers() = delete;                      //  Delete destructor.
         handlers(const handlers&) = delete;        //  Delete copy constructor.
         void operator=(handlers const&) = delete;  //  Delete assignment operator.
+    
+    private:
+        constexpr static bool is_set = R;
+};
 
+/*
+ *
+ */
+template <handler_scopes S, handler_events IDX>
+class handlers<S, IDX, true> {
+    friend class input;
+
+    public:
         /*!
          * \brief Used to add an input handle.
          * \tparam S Handler scope.
@@ -148,7 +155,6 @@ class handlers final {
                 static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
                     IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
                     "Event Index must be a Touch Event");
-            _register<S, IDX>();
             _handle = handle;
         };
 

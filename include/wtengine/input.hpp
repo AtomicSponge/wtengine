@@ -89,6 +89,7 @@ class input {
             //  Keyboard events
             if constexpr (handlers<S, WTE_EVENT_KEY_DOWN>::is_set) {
                 if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
+                    //  update gets below to use expansion, starting at idx = 1
                     std::get<handler::key>(handlers<S, WTE_EVENT_KEY_DOWN>::_handle)(
                             event.keyboard.keycode, event.keyboard.display);
                     return;

@@ -88,35 +88,21 @@ using handler_types = std::variant<
     handler::touch
 >;
 
-/*
- *
- */
-template <handler_scopes S, handler_events IDX, bool R = false>
-class handler_register {
-    friend class input;
-
-    public:
-        handler_register() = delete;                         //  Delete constructor.
-        ~handler_register() = delete;                        //  Delete destructor.
-        handler_register(const handler_register&) = delete;  //  Delete copy constructor.
-        void operator=(handler_register const&) = delete;    //  Delete assignment operator.
-    
-    private:
-        constexpr static bool is_set = R;
-};
+template <std::size_t... Handlers>
+struct registers {};
 
 /*
  *
  */
 template <handler_scopes S, handler_events IDX>
-class handler_register<S, IDX, true> {
+class handlers {
     friend class input;
 
     public:
-        handler_register() = delete;                         //  Delete constructor.
-        ~handler_register() = delete;                        //  Delete destructor.
-        handler_register(const handler_register&) = delete;  //  Delete copy constructor.
-        void operator=(handler_register const&) = delete;    //  Delete assignment operator.
+        handlers() = delete;                         //  Delete constructor.
+        ~handlers() = delete;                        //  Delete destructor.
+        handlers(const handlers&) = delete;  //  Delete copy constructor.
+        void operator=(handlers const&) = delete;    //  Delete assignment operator.
 
         /*!
          * \brief Used to add an input handle.
@@ -167,9 +153,6 @@ class handler_register<S, IDX, true> {
         inline static handler_types _handle;
         constexpr static bool is_set = true;
 };
-
-template <handler_scopes S, handler_events IDX>
-using handlers = handler_register<S, IDX, true>;
 
 }  //  end namespace wte
 

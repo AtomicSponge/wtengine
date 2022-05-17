@@ -89,13 +89,16 @@ using handler_types = std::variant<
 >;
 
 /*
- *
+ * wip
  */
 template <std::size_t... Handlers>
 struct registers {};
 
+template <std::size_t IDX, std::size_t... Handlers>
+struct build_registers : build_registers<IDX - 1, IDX - 1, Handlers...> {};
+
 /*
- *
+ * Handlers template
  */
 template <handler_scopes S, handler_events IDX, std::size_t... Handlers>
 class handlers {
@@ -115,10 +118,10 @@ class handlers {
 };
 
 /*
- *
+ * Initial handler template used for empty state
  */
 template <handler_scopes S, handler_events IDX>
-class handlers<S,IDX, 0> {
+class handlers<S, IDX, 0> {
     friend class input;
 
     public:
@@ -128,7 +131,7 @@ class handlers<S,IDX, 0> {
         void operator=(handlers const&) = delete;    //  Delete assignment operator.
     
     private:
-        constexpr static bool is_set = false;
+        constexpr static bool is_set = false;  //  change to idx calc
 };
 
 /*!
@@ -173,6 +176,7 @@ constexpr void add_handler(const handler_types& handle) {
         static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
+    handlers<S, IDX, 1>::add(handle);  //  calc next idx
 };
 
 }  //  end namespace wte

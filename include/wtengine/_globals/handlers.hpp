@@ -88,6 +88,9 @@ using handler_types = std::variant<
     handler::touch
 >;
 
+/*
+ *
+ */
 template <std::size_t... Handlers>
 struct registers {};
 
@@ -104,12 +107,6 @@ class handlers {
         handlers(const handlers&) = delete;          //  Delete copy constructor.
         void operator=(handlers const&) = delete;    //  Delete assignment operator.
 
-        /*!
-         * \brief Used to add an input handle.
-         * \tparam S Handler scope.
-         * \tparam IDX Event index.
-         * \param handle Input handler function expression.
-         */
         static void add(const handler_types& handle) { _handle = handle; };
 
     private:
@@ -117,6 +114,9 @@ class handlers {
         constexpr static bool is_set = true;
 };
 
+/*
+ *
+ */
 template <handler_scopes S, handler_events IDX>
 class handlers<S,IDX, 0> {
     friend class input;
@@ -131,6 +131,13 @@ class handlers<S,IDX, 0> {
         constexpr static bool is_set = false;
 };
 
+/*!
+ * \brief Used to add an input handle.
+ * \tparam S Handler scope.
+ * \tparam IDX Event index.
+ * \tparam T Handler type.
+ * \param handle Input handler function expression.
+ */
 template <handler_scopes S, handler_events IDX, class T>
 constexpr void add_handler(const handler_types& handle) {
     static_assert(S == WTE_GLOBAL_HANDLES || S == WTE_NONGAME_HANDLES || S == WTE_GAME_HANDLES,

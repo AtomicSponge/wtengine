@@ -98,40 +98,40 @@ template <std::size_t IDX, std::size_t... Handlers>
 struct build_registers : build_registers<IDX - 1, IDX - 1, Handlers...> {};
 
 /*
- * Handlers template
+ * Handlers Template class
+ * Stores each input handler.
  */
 template <handler_scopes S, handler_events IDX, std::size_t... Handlers>
 class handlers {
     friend class input;
 
     public:
-        handlers() = delete;                         //  Delete constructor.
-        ~handlers() = delete;                        //  Delete destructor.
-        handlers(const handlers&) = delete;          //  Delete copy constructor.
-        void operator=(handlers const&) = delete;    //  Delete assignment operator.
+        handlers() = delete;                       //  Delete constructor.
+        ~handlers() = delete;                      //  Delete destructor.
+        handlers(const handlers&) = delete;        //  Delete copy constructor.
+        void operator=(handlers const&) = delete;  //  Delete assignment operator.
 
         static void add(const handler_types& handle) { _handle = handle; };
 
     private:
         inline static handler_types _handle;
-        constexpr static bool is_set = true;
 };
 
 /*
- * Initial handler template used for empty state
+ * Initial handler template used to check if handlers were defined.
  */
 template <handler_scopes S, handler_events IDX>
 class handlers<S, IDX, 0> {
     friend class input;
 
     public:
-        handlers() = delete;                         //  Delete constructor.
-        ~handlers() = delete;                        //  Delete destructor.
-        handlers(const handlers&) = delete;          //  Delete copy constructor.
-        void operator=(handlers const&) = delete;    //  Delete assignment operator.
+        handlers() = delete;                       //  Delete constructor.
+        ~handlers() = delete;                      //  Delete destructor.
+        handlers(const handlers&) = delete;        //  Delete copy constructor.
+        void operator=(handlers const&) = delete;  //  Delete assignment operator.
     
     private:
-        constexpr static bool is_set = false;  //  change to idx calc
+        constexpr static bool is_set = []{ return (1 > 0 ? true : false); };
 };
 
 /*!

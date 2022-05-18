@@ -97,11 +97,13 @@ struct registers {};
 template <std::size_t IDX, std::size_t... Handlers>
 struct build_registers : build_registers<IDX - 1, IDX - 1, Handlers...> {};
 
+constexpr std::size_t calc_registers(void) { return 0; };
+
 /*
  * Handlers Template class
  * Stores each input handler.
  */
-template <handler_scopes S, handler_events IDX, std::size_t... Handlers>
+template <handler_scopes S, handler_events IDX, std::size_t Handlers>
 class handlers {
     friend class input;
 
@@ -115,23 +117,6 @@ class handlers {
 
     private:
         inline static handler_types _handle;
-};
-
-/*
- * Initial handler template used to check if handlers were defined.
- */
-template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, 0> {
-    friend class input;
-
-    public:
-        handlers() = delete;                       //  Delete constructor.
-        ~handlers() = delete;                      //  Delete destructor.
-        handlers(const handlers&) = delete;        //  Delete copy constructor.
-        void operator=(handlers const&) = delete;  //  Delete assignment operator.
-    
-    private:
-        constexpr static bool is_set = []{ return (1 > 0 ? true : false); };
 };
 
 /*!

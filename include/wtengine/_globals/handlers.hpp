@@ -97,8 +97,6 @@ struct registers {};
 template <std::size_t IDX, std::size_t... Handlers>
 struct build_registers : build_registers<IDX - 1, IDX - 1, Handlers...> {};
 
-constexpr std::size_t calc_registers(void) { return 0; };
-
 /*
  * Handlers Template class
  * Stores each input handler.
@@ -163,6 +161,12 @@ constexpr void add_handler(const handler_types& handle) {
             "Event Index must be a Touch Event");
     handlers<S, IDX, 1>::add(handle);  //  calc next idx
 };
+
+template <handler_scopes S, handler_events IDX>
+constexpr std::size_t calc_registers(void) { return 0; };
+
+template <handler_scopes S, handler_events IDX>
+constexpr static bool handlers_set = []{ return (calc_registers<S, IDX>() > 0 ? true : false); }();
 
 }  //  end namespace wte
 

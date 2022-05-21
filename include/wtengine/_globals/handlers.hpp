@@ -161,7 +161,7 @@ constexpr void add_handler(const handler_types& handle) {
 };
 
 template <handler_scopes S, handler_events IDX>
-constexpr inline static std::size_t registers_size = []{ return std::tuple_size<decltype(handler_regiser<S, IDX>)>::value; }();
+constexpr inline static std::size_t registers_size = []{ return std::tuple_size_v<decltype(handler_regiser<S, IDX>)>; }();
 
 template <handler_scopes S, handler_events IDX>
 constexpr inline static bool handlers_set = []{ return (registers_size<S, IDX> > 0 ? true : false); }();

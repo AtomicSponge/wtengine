@@ -11,6 +11,7 @@
 #define WTE_HANDLERS_HPP
 
 #include <array>
+#include <tuple>
 #include <variant>
 #include <functional>
 
@@ -91,17 +92,14 @@ using handler_types = std::variant<
 /*
  * wip
  */
-template <std::size_t... Handlers>
-struct registers {};
-
-template <std::size_t IDX, std::size_t... Handlers>
-struct build_registers : build_registers<IDX - 1, IDX - 1, Handlers...> {};
+template <handler_scopes S, handler_events IDX, class... Handlers>
+struct std::tuple<Handlers...> handler_regiser;
 
 /*
  * Handlers Template class
  * Stores each input handler.
  */
-template <handler_scopes S, handler_events IDX, std::size_t Handlers>
+template <handler_scopes S, handler_events IDX>
 class handlers {
     friend class input;
 
@@ -159,14 +157,14 @@ constexpr void add_handler(const handler_types& handle) {
         static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
-    handlers<S, IDX, 1>::add(handle);  //  calc next idx
+    handlers<S, IDX>::add(handle);
 };
 
 template <handler_scopes S, handler_events IDX>
-constexpr std::size_t calc_registers(void) { return 0; };
+constexpr inline static std::size_t registers_size = []{ return std::tuple_size<decltype(handler_regiser<S, IDX>)>::value; }();
 
 template <handler_scopes S, handler_events IDX>
-constexpr static bool handlers_set = []{ return (calc_registers<S, IDX>() > 0 ? true : false); }();
+constexpr inline static bool handlers_set = []{ return (registers_size<S, IDX> > 0 ? true : false); }();
 
 }  //  end namespace wte
 

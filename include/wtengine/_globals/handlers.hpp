@@ -93,7 +93,7 @@ using handler_types = std::variant<
  * wip
  */
 template <handler_scopes S, handler_events IDX, class... Handlers>
-struct std::tuple<Handlers...> handler_regiser;
+std::tuple<Handlers...> handler_regiser;
 
 /*
  * Handlers Template class

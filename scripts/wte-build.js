@@ -13,6 +13,6 @@ const path = require('path')
 const shell = require('shelljs')
 const inquirer = require('inquirer')
 
-process.stdout.write(`${wtf.constants.CYAN}WTEngine Build Utility${wtf.constants.CLEAR}\n\n`)
+process.stdout.write(`${wtf.colors.CYAN}WTEngine Build Utility${wtf.colors.CLEAR}\n\n`)
 
-process.stdout.write(`${wtf.constants.DIM}${wtf.constants.CYAN}Build done!${wtf.constants.CLEAR}\n\n`)
+process.stdout.write(`${wtf.colors.DIM}${wtf.colors.CYAN}Build done!${wtf.colors.CLEAR}\n\n`)

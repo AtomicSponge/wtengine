@@ -9,13 +9,13 @@
 const wtf = require('./_common')
 const inquirer = require('inquirer')
 
-process.stdout.write(`${wtf.constants.CYAN}WTEngine Install${wtf.constants.CLEAR}\n\n`)
+process.stdout.write(`${wtf.colors.CYAN}WTEngine Install${wtf.colors.CLEAR}\n\n`)
 
 const res = (async function () {
     const res = await inquirer.prompt([{
         name: 'conf',
         type: 'confirm',
-        message: `${wtf.constants.YELLOW}TEST`
+        message: `${wtf.colors.YELLOW}TEST`
     }]).then(res => { return res.conf })
     //await res.resolve()
     //console.log(res)
@@ -35,4 +35,4 @@ if(wtf.confirmPrompt('Run WTEngine configuration?'))
     if(!wtf.runConfigScript())
         wtf.scriptError(`Problems running configuration.\nPlease resolve issues then re-run install.`)
 
-process.stdout.write(`${wtf.constants.DIM}${wtf.constants.CYAN}Install done!${wtf.constants.CLEAR}\n\n`)
+process.stdout.write(`${wtf.colors.DIM}${wtf.colors.CYAN}Install done!${wtf.colors.CLEAR}\n\n`)

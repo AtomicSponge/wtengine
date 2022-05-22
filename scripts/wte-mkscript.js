@@ -13,7 +13,7 @@ const fs = require('fs')
 const { Buffer } = require('buffer')
 const csv = require('csv/sync')
 
-process.stdout.write(`${wtf.constants.CYAN}WTEngine Script Utility${wtf.constants.CLEAR}\n\n`)
+process.stdout.write(`${wtf.colors.CYAN}WTEngine Script Utility${wtf.colors.CLEAR}\n\n`)
 
 /*
  * Process command arguments
@@ -86,5 +86,5 @@ try {
     process.stdout.write(`Size: ${Buffer.byteLength(dataBuffer, 'utf8')} bytes.\n\n`)
 } catch(error) { wtf.scriptError(error) }
 
-process.stdout.write(`${wtf.constants.DIM}${wtf.constants.CYAN}Script conversion done!${wtf.constants.CLEAR}\n\n`)
+process.stdout.write(`${wtf.colors.DIM}${wtf.colors.CYAN}Script conversion done!${wtf.colors.CLEAR}\n\n`)
 process.exit(0)

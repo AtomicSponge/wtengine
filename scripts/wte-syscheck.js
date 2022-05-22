@@ -10,8 +10,8 @@
 
 const wtf = require('./_common')
 
-process.stdout.write(`${wtf.constants.CYAN}WTEngine System Check Utility${wtf.constants.CLEAR}\n\n`)
+process.stdout.write(`${wtf.colors.CYAN}WTEngine System Check Utility${wtf.colors.CLEAR}\n\n`)
 
 wtf.checkApps()
 
-process.stdout.write(`${wtf.constants.DIM}${wtf.constants.CYAN}System check done!${wtf.constants.CLEAR}\n\n`)
+process.stdout.write(`${wtf.colors.DIM}${wtf.colors.CYAN}System check done!${wtf.colors.CLEAR}\n\n`)

@@ -42,7 +42,7 @@ const actions = {
 /*
  * Main script
  */
-process.stdout.write(`${wtf.constants.CYAN}WTEngine Configuration Utility${wtf.constants.CLEAR}\n\n`)
+process.stdout.write(`${wtf.colors.CYAN}WTEngine Configuration Utility${wtf.colors.CLEAR}\n\n`)
 
 var settings = wtf.loadSettings()
 if(!settings) {
@@ -56,4 +56,4 @@ if(!settings) {
     if((oldSettings !== settings) && wtf.confirmPrompt(`Save changes?`)) wtf.saveSettings(settings)
 }
 
-process.stdout.write(`${wtf.constants.DIM}${wtf.constants.CYAN}Config Done!${wtf.constants.CLEAR}\n\n`)
+process.stdout.write(`${wtf.colors.DIM}${wtf.colors.CYAN}Config Done!${wtf.colors.CLEAR}\n\n`)

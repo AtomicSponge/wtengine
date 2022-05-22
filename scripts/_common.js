@@ -30,7 +30,13 @@ const constants = {
     CONFIG_SCRIPT:     `npm run wte-config`,
     SYSCHECK_SCRIPT:   `npm run wte-syscheck`,
     SETTINGS_LOCATION: `${__dirname}/../settings.json`,
+}
+exports.constants = constants
 
+/**
+ * Font colors
+ */
+const colors = {
     /* Font colors */
     RED:    `\x1b[31m`,
     GREEN:  `\x1b[32m`,
@@ -40,14 +46,14 @@ const constants = {
     DIM:    `\x1b[2m`,
     CLEAR:  `\x1b[0m`
 }
-exports.constants = constants
+exports.colors = colors
 
 /**
  * Display an error message and exit script.
  * @param {String} message Message to display.
  */
 const scriptError = (message) => {
-    process.stdout.write(`${constants.RED}Error:  ${message}  Exiting...${constants.CLEAR}\n`)
+    process.stdout.write(`${colors.RED}Error:  ${message}  Exiting...${colors.CLEAR}\n`)
     process.exit(1)
 }
 exports.scriptError = scriptError
@@ -65,7 +71,7 @@ const confirmPrompt = (message, dvalue) => {
             default: dvalue,
             name: 'conf',
             type: 'confirm',
-            message: `${constants.YELLOW}${message}`
+            message: `${colors.YELLOW}${message}`
         }]).then(res => { return res.conf })
         console.log(prompt)
         return prompt
@@ -74,9 +80,9 @@ const confirmPrompt = (message, dvalue) => {
         default: dvalue,
         name: 'conf',
         type: 'confirm',
-        message: `${constants.YELLOW}${message}`
+        message: `${colors.YELLOW}${message}`
     }])
-    process.stdout.write(`${constants.CLEAR}\n`)
+    process.stdout.write(`${colors.CLEAR}\n`)
     const res = await prompt.then(res => { return res.conf })
     return res*/
 }
@@ -133,7 +139,7 @@ const saveSettings = (settings) => {
 
     try {
         fs.writeFileSync(constants.SETTINGS_LOCATION, JSON.stringify(settings))
-        process.stdout.write(`${constants.GREEN}Settings saved.${constants.CLEAR}\n`)
+        process.stdout.write(`${colors.GREEN}Settings saved.${colors.CLEAR}\n`)
     } catch (err) {
         scriptError(err)
     }
@@ -149,10 +155,10 @@ exports.saveSettings = saveSettings
 const checkApps = () => {
     process.stdout.write(`Checking for necessary applications...\n`)
     config.checkApps.forEach((appCheck) => {
-        if(shell.which(appCheck)) process.stdout.write(`${constants.GREEN}  > '${appCheck}' found.${constants.CLEAR}\n`)
+        if(shell.which(appCheck)) process.stdout.write(`${colors.GREEN}  > '${appCheck}' found.${colors.CLEAR}\n`)
         else scriptError(`'${appCheck}' not found.`)
     })
-    process.stdout.write(`${constants.CLEAR}\n`)
+    process.stdout.write(`${colors.CLEAR}\n`)
     return true
 }
 exports.checkApps = checkApps

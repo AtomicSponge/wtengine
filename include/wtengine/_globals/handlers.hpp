@@ -50,7 +50,6 @@ enum handler_scopes {
     WTE_GLOBAL_HANDLES,     //!<  Global input handles that are always active.
     WTE_GAME_HANDLES,       //!<  In-game input handles.
     WTE_NONGAME_HANDLES,    //!<  Out-of-game input handles.
-    WTE_HANDLER_SCOPES_MAX
 };
 
 /*!

@@ -109,7 +109,7 @@ class handlers {
         handlers(const handlers&) = delete;        //  Delete copy constructor.
         void operator=(handlers const&) = delete;  //  Delete assignment operator.
 
-        static void add(const handler_types& handle) { _handle = handle; };
+        inline static void add(const handler_types& handle) { _handle = handle; };
 
     private:
         inline static handler_types _handle;
@@ -160,9 +160,11 @@ constexpr void add_handler(const handler_types& handle) {
     handlers<S, IDX>::add(handle);
 };
 
+//  Calculate register size
 template <handler_scopes S, handler_events IDX>
 constexpr inline static std::size_t register_size = []{ return std::tuple_size_v<decltype(handler_regiser<S, IDX>)>; }();
 
+//  Flag to check if handlers were set
 template <handler_scopes S, handler_events IDX>
 constexpr inline static bool handlers_set = []{ return (register_size<S, IDX> > 0 ? true : false); }();
 

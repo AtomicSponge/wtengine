@@ -108,10 +108,11 @@ class handlers {
         handlers(const handlers&) = delete;        //  Delete copy constructor.
         void operator=(handlers const&) = delete;  //  Delete assignment operator.
 
+        //  Create a new handler
         inline handlers(const handler_types& handle) : _handle(handle) {};
 
     private:
-        handler_types _handle;
+        handler_types _handle;  //  Store handler
 };
 
 /*!

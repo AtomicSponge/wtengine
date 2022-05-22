@@ -93,7 +93,7 @@ using handler_types = std::variant<
  * wip
  */
 template <handler_scopes S, handler_events IDX, class... Handlers>
-inline static std::tuple<Handlers...> handler_regiser = {};
+inline static std::tuple<Handlers...> _handler_regiser = {};
 
 /*
  * Handlers class
@@ -157,16 +157,16 @@ constexpr void add_handler(const handler_types& handle) {
         static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
-    handler_regiser<S, IDX> = std::tuple_cat(handler_regiser<S, IDX>, std::make_tuple(handlers(handle)));
+    _handler_regiser<S, IDX> = std::tuple_cat(_handler_regiser<S, IDX>, std::make_tuple(handlers(handle)));
 };
 
 //  Calculate register size
 template <handler_scopes S, handler_events IDX>
-constexpr inline static std::size_t register_size = []{ return std::tuple_size_v<decltype(handler_regiser<S, IDX>)>; }();
+constexpr inline static std::size_t _handler_register_size = []{ return std::tuple_size_v<decltype(_handler_regiser<S, IDX>)>; }();
 
 //  Flag to check if handlers were set
 template <handler_scopes S, handler_events IDX>
-constexpr inline static bool handlers_set = []{ return (register_size<S, IDX> > 0); }();
+constexpr inline static bool handlers_set = []{ return (_handler_register_size<S, IDX> > 0); }();
 
 }  //  end namespace wte
 

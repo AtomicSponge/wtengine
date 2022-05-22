@@ -37,7 +37,6 @@ exports.constants = constants
  * Font colors
  */
 const colors = {
-    /* Font colors */
     RED:    `\x1b[31m`,
     GREEN:  `\x1b[32m`,
     YELLOW: `\x1b[33m`,

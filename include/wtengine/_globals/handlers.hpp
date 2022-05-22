@@ -93,26 +93,25 @@ using handler_types = std::variant<
  * wip
  */
 template <handler_scopes S, handler_events IDX, class... Handlers>
-std::tuple<Handlers...> handler_regiser;
+inline static std::tuple<Handlers...> handler_regiser = {};
 
 /*
- * Handlers Template class
- * Stores each input handler.
+ * Handlers class
+ * Stores an input handler.
  */
-template <handler_scopes S, handler_events IDX>
 class handlers {
     friend class input;
 
     public:
-        handlers() = delete;                       //  Delete constructor.
-        ~handlers() = delete;                      //  Delete destructor.
+        handlers() = delete;                       //  Delete default constructor.
+        ~handlers() = default;                     //  Default destructor.
         handlers(const handlers&) = delete;        //  Delete copy constructor.
         void operator=(handlers const&) = delete;  //  Delete assignment operator.
 
-        inline static void add(const handler_types& handle) { _handle = handle; };
+        inline handlers(const handler_types& handle) : _handle(handle) {};
 
     private:
-        inline static handler_types _handle;
+        handler_types _handle;
 };
 
 /*!
@@ -157,7 +156,7 @@ constexpr void add_handler(const handler_types& handle) {
         static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
-    handlers<S, IDX>::add(handle);
+    handler_regiser<S, IDX> = std::tuple_cat(handler_regiser<S, IDX>, std::make_tuple(handlers(handle)));
 };
 
 //  Calculate register size
@@ -166,7 +165,7 @@ constexpr inline static std::size_t register_size = []{ return std::tuple_size_v
 
 //  Flag to check if handlers were set
 template <handler_scopes S, handler_events IDX>
-constexpr inline static bool handlers_set = []{ return (register_size<S, IDX> > 0 ? true : false); }();
+constexpr inline static bool handlers_set = []{ return (register_size<S, IDX> > 0); }();
 
 }  //  end namespace wte
 

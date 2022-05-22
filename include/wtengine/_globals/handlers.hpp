@@ -166,7 +166,7 @@ constexpr inline static std::size_t _handler_register_size = []{ return std::tup
 
 //  Flag to check if handlers were set
 template <handler_scopes S, handler_events IDX>
-constexpr inline static bool handlers_set = []{ return (_handler_register_size<S, IDX> > 0); }();
+constexpr inline static bool _handlers_set = []{ return (_handler_register_size<S, IDX> > 0); }();
 
 }  //  end namespace wte
 

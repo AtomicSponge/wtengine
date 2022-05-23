@@ -96,7 +96,7 @@ template <handler_scopes S, handler_events IDX, class... Handlers>
 inline static std::tuple<Handlers...> _handler_regiser;
 
 /*
- * Handlers class
+ * Handlers template class
  * Stores an input handler.
  */
 template <handler_scopes S, handler_events IDX, std::size_t Counter>

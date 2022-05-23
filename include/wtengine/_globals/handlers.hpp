@@ -92,10 +92,10 @@ using handler_types = std::variant<
  * Handler Register - compile time tuple for indexing
  * Creates a counter for handlers of similar types
  */
-//template <handler_scopes S, handler_events IDX, class... Handlers>
-//inline static std::tuple<Handlers...> _handler_regiser;
-template <handler_scopes S, handler_events IDX>
-inline static std::tuple<> _handler_regiser;
+template <handler_scopes S, handler_events IDX, class... Handlers>
+inline static std::tuple<Handlers...> _handler_regiser;
+//template <handler_scopes S, handler_events IDX>
+//inline static std::tuple<> _handler_regiser;
 
 /*
  * Handlers template class
@@ -171,9 +171,9 @@ constexpr void add_handler(const handler_types& handle) {
     //  Get the register size for the current handler type
     constexpr std::size_t current_counter = []{ return std::tuple_size_v<decltype(_handler_regiser<S, IDX>)>; }();
     //  Use the size as the counter index
-    handlers<S, IDX, current_counter>::add(handle);
+    handlers<S, IDX, []{ return std::tuple_size_v<decltype(_handler_regiser<S, IDX>)>; }()>::add(handle);
     //  Add a bool to the register to increment its size
-    _tuple_push_front(true, _handler_regiser<S, IDX>);
+    _handler_regiser<S, IDX> = _tuple_push_front(true, _handler_regiser<S, IDX>);
 };
 
 //  Calculate register size

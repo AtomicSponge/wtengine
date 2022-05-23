@@ -116,7 +116,7 @@ class handlers {
 };
 
 template <typename T, typename Tuple>
-constexpr inline auto _tuple_push_front(const T& t, const Tuple& tuple) {
+constexpr auto _tuple_push_front(const T& t, const Tuple& tuple) {
     return std::tuple_cat(std::make_tuple(t), tuple);
 }
 

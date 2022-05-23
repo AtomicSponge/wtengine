@@ -89,7 +89,7 @@ using handler_types = std::variant<
 >;
 
 /*
- * Handler Register - compile time tuple for indexing
+ * Handler Register - compile time vector for indexing
  * Creates a counter for handlers of similar types
  */
 template <handler_scopes S, handler_events IDX>

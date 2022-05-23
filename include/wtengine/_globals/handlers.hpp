@@ -10,9 +10,8 @@
 #ifndef WTE_HANDLERS_HPP
 #define WTE_HANDLERS_HPP
 
-#include <array>
-#include <tuple>
 #include <variant>
+#include <type_traits>
 #include <functional>
 
 #include <allegro5/allegro.h>
@@ -91,8 +90,8 @@ using handler_types = std::variant<
 /*
  * Handler Register
  */
-template <handler_scopes S, handler_events IDX>
-inline static bool _handler_regiser = false;
+template <handler_scopes S, handler_events IDX, bool B>
+inline static std::bool_constant<B> _handler_regiser;
 
 /*
  * Handlers template class

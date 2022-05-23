@@ -95,8 +95,8 @@ using handler_types = std::variant<
 template <handler_scopes S, handler_events IDX>
 constexpr inline static std::vector<bool> _handler_regiser;
 
-template <typename A>
-constexpr inline void _increment_vector(A vec) { vec.push_back(true); };
+template <typename VEC>
+constexpr inline void _increment_vector(VEC vec) { vec.push_back(true); };
 
 template <typename VEC>
 constexpr inline auto _get_vector_size(VEC vec) { return vec.size(); };

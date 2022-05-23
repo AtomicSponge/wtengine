@@ -99,20 +99,21 @@ inline static std::tuple<Handlers...> _handler_regiser;
  * Handlers class
  * Stores an input handler.
  */
+template <handler_scopes S, handler_events IDX, std::size_t Counter>
 class handlers {
     friend class input;
 
     public:
-        handlers() = delete;                       //  Delete default constructor.
-        ~handlers() = default;                     //  Default destructor.
+        handlers() = delete;                       //  Delete constructor.
+        ~handlers() = delete;                      //  Delete destructor.
         handlers(const handlers&) = delete;        //  Delete copy constructor.
         void operator=(handlers const&) = delete;  //  Delete assignment operator.
 
         //  Create a new handler
-        inline handlers(const handler_types& handle) : _handle(handle) {};
+        inline static void add(const handler_types& handle) { _handle = handle; };
 
     private:
-        handler_types _handle;  //  Store handler
+        inline static handler_types _handle;  //  Store handler
 };
 
 template <typename T, typename Tuple>
@@ -162,8 +163,8 @@ constexpr void add_handler(const handler_types& handle) {
         static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
-    //_tuple_push_front(handlers(handle), _handler_regiser<S, IDX>);
-    _tuple_push_front(0, _handler_regiser<S, IDX>);
+    handlers<S, IDX, 0>::add(handle);
+    _tuple_push_front([]{ return std::tuple_size_v<decltype(_handler_regiser<S, IDX>)>; }(), _handler_regiser<S, IDX>);
 };
 
 //  Calculate register size

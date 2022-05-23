@@ -92,7 +92,7 @@ using handler_types = std::variant<
  * Handler Register
  */
 template <handler_scopes S, handler_events IDX>
-inline static bool _handler_regiser;
+inline static bool _handler_regiser = false;
 
 /*
  * Handlers template class

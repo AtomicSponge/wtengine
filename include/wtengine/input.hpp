@@ -94,7 +94,7 @@ class input {
                     return;
                 }
             }
-            /*if constexpr (_handlers_set<S, WTE_EVENT_KEY_DOWN>) {
+            if constexpr (_handlers_set<S, WTE_EVENT_KEY_DOWN>) {
                 if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
                     std::get<handler::key>(handlers<S, WTE_EVENT_KEY_DOWN>::_handle)(
                             event.keyboard.keycode, event.keyboard.display);
@@ -214,7 +214,7 @@ class input {
                         event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                     return;
                 }
-            }*/
+            }
         };
 
         static void create_event_queue(void);                 //  Create the input queue.

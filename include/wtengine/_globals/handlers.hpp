@@ -92,10 +92,14 @@ using handler_types = std::variant<
  * Handler Register - compile time tuple for indexing
  * Creates a counter for handlers of similar types
  */
-template <handler_scopes S, handler_events IDX, class... Handlers>
-inline static std::tuple<Handlers...> _handler_regiser;
-//template <handler_scopes S, handler_events IDX>
-//inline static std::tuple<> _handler_regiser;
+template <handler_scopes S, handler_events IDX>
+constexpr inline static std::vector<bool> _handler_regiser;
+
+template <typename A>
+constexpr inline void _increment_vector(A vec) { vec.push_back(true); };
+
+template <typename VEC>
+constexpr inline auto _get_vector_size(VEC vec) { return vec.size(); };
 
 /*
  * Handlers template class
@@ -117,14 +121,6 @@ class handlers {
     private:
         inline static handler_types _handle;  //  Store handler
 };
-
-/*
- * Add a value to the front of a tuple.
- */
-template <typename T, typename Tuple>
-constexpr auto _tuple_push_front(const T& t, const Tuple& tuple) {
-    return std::tuple_cat(std::make_tuple(t), tuple);
-}
 
 /*!
  * \brief Used to add an input handle.
@@ -168,17 +164,16 @@ constexpr void add_handler(const handler_types& handle) {
         static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
-    //  Get the register size for the current handler type
-    constexpr std::size_t current_counter = []{ return std::tuple_size_v<decltype(_handler_regiser<S, IDX>)>; }();
-    //  Use the size as the counter index
-    handlers<S, IDX, []{ return std::tuple_size_v<decltype(_handler_regiser<S, IDX>)>; }()>::add(handle);
+    //  Add handler using regiser size as its counter
+    handlers<S, IDX, []{ return _get_vector_size(_handler_regiser<S, IDX>); }()>::add(handle);
     //  Add a bool to the register to increment its size
-    _handler_regiser<S, IDX> = _tuple_push_front(true, _handler_regiser<S, IDX>);
+    _increment_vector(_handler_regiser<S, IDX>);
+
 };
 
 //  Calculate register size
 template <handler_scopes S, handler_events IDX>
-constexpr inline static std::size_t _handler_register_size = []{ return std::tuple_size_v<decltype(_handler_regiser<S, IDX>)>; }();
+constexpr inline static std::size_t _handler_register_size = []{ return _get_vector_size(_handler_regiser<S, IDX>); }();
 
 //  Flag to check if handlers were set
 template <handler_scopes S, handler_events IDX>

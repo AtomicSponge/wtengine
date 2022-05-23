@@ -51,7 +51,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
         if(key == ALLEGRO_KEY_SPACE) mgr::messages::add(message("system", "new-game", "game.sdf"));
     });
 
-    /*add_handle<WTE_GAME_HANDLES, WTE_EVENT_KEY_DOWN, handler::key>([](const int& key, ALLEGRO_DISPLAY* display) {
+    add_handler<WTE_GAME_HANDLES, WTE_EVENT_KEY_DOWN, handler::key>([](const int& key, ALLEGRO_DISPLAY* display) {
         if(key == config::controls::p1_key_up) {
             entity_id player_id = mgr::world::get_id("player");
             const float rad = std::atan2(player_pols::y, player_pols::x);
@@ -118,7 +118,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
         }
     });
 
-    add_handle<WTE_GAME_HANDLES, WTE_EVENT_KEY_UP, handler::key>([](const int& key, ALLEGRO_DISPLAY* display) {
+    add_handler<WTE_GAME_HANDLES, WTE_EVENT_KEY_UP, handler::key>([](const int& key, ALLEGRO_DISPLAY* display) {
         if(key == config::controls::p1_key_up) {
             entity_id player_id = mgr::world::get_id("player");
             if(player_pols::x == 0.0f && player_pols::y == 0.0f) {
@@ -167,7 +167,7 @@ wte_demo::wte_demo(int argc, char **argv) : engine(argc, argv) {
             //  Stop sound effect.
             mgr::audio::sample::stop("shield_sound");
         }
-    });*/
+    });
 }
 
 /*

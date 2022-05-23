@@ -89,10 +89,11 @@ using handler_types = std::variant<
 >;
 
 /*
- * wip
+ * Handler Register
+ * Stores individual handles based on scope and type.
  */
 template <handler_scopes S, handler_events IDX, class... Handlers>
-inline static std::tuple<Handlers...> _handler_regiser = {};
+inline static std::tuple<Handlers...> _handler_regiser;
 
 /*
  * Handlers class
@@ -113,6 +114,11 @@ class handlers {
     private:
         handler_types _handle;  //  Store handler
 };
+
+template <typename T, typename Tuple>
+constexpr inline auto _tuple_push_front(const T& t, const Tuple& tuple) {
+    return std::tuple_cat(std::make_tuple(t), tuple);
+}
 
 /*!
  * \brief Used to add an input handle.
@@ -156,7 +162,8 @@ constexpr void add_handler(const handler_types& handle) {
         static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
-    _handler_regiser<S, IDX> = std::tuple_cat(_handler_regiser<S, IDX>, std::make_tuple(handlers(handle)));
+    //_tuple_push_front(handlers(handle), _handler_regiser<S, IDX>);
+    _tuple_push_front(0, _handler_regiser<S, IDX>);
 };
 
 //  Calculate register size

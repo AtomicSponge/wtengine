@@ -99,7 +99,7 @@ template <typename VEC>
 constexpr inline void _increment_vector(VEC vec) { vec.push_back(true); };
 
 template <typename VEC>
-constexpr inline auto _get_vector_size(VEC vec) { return vec.size(); };
+constexpr inline std::size_t _get_vector_size(VEC vec) { return vec.size(); };
 
 /*
  * Handlers template class

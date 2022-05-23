@@ -85,12 +85,12 @@ class input {
 
     private:
         template <handler_scopes S>
-        inline static void run_handles(const ALLEGRO_EVENT& event) {
+        constexpr inline static void run_handles(const ALLEGRO_EVENT& event) {
             //  Keyboard events
             if constexpr (_handlers_set<S, WTE_EVENT_KEY_DOWN>) {
                 if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
-                    //std::get<handler::key>(handlers<S, WTE_EVENT_KEY_DOWN, 0>::_handle)(
-                            //event.keyboard.keycode, event.keyboard.display);
+                    std::get<handler::key>(handlers<S, WTE_EVENT_KEY_DOWN, 0>::_handle)(
+                            event.keyboard.keycode, event.keyboard.display);
                     return;
                 }
             }

@@ -163,8 +163,9 @@ constexpr void add_handler(const handler_types& handle) {
         static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
-    handlers<S, IDX, 0>::add(handle);
-    _tuple_push_front([]{ return std::tuple_size_v<decltype(_handler_regiser<S, IDX>)>; }(), _handler_regiser<S, IDX>);
+    constexpr std::size_t current_counter = []{ return std::tuple_size_v<decltype(_handler_regiser<S, IDX>)>; }();
+    handlers<S, IDX, current_counter>::add(handle);
+    _tuple_push_front(true, _handler_regiser<S, IDX>);
 };
 
 //  Calculate register size

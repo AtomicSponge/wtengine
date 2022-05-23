@@ -116,6 +116,9 @@ class handlers {
         inline static handler_types _handle;  //  Store handler
 };
 
+/*
+ * Add a value to the front of a tuple.
+ */
 template <typename T, typename Tuple>
 constexpr auto _tuple_push_front(const T& t, const Tuple& tuple) {
     return std::tuple_cat(std::make_tuple(t), tuple);
@@ -163,8 +166,11 @@ constexpr void add_handler(const handler_types& handle) {
         static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
+    //  Get the register size for the current handler type
     constexpr std::size_t current_counter = []{ return std::tuple_size_v<decltype(_handler_regiser<S, IDX>)>; }();
+    //  Use the size as the counter index
     handlers<S, IDX, current_counter>::add(handle);
+    //  Add a bool to the register to increment its size
     _tuple_push_front(true, _handler_regiser<S, IDX>);
 };
 

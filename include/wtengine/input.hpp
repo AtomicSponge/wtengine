@@ -89,7 +89,7 @@ class input {
             //  Keyboard events
             if constexpr (_handlers_set<S, WTE_EVENT_KEY_DOWN>) {
                 if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
-                    std::get<handler::key>(handlers<S, WTE_EVENT_KEY_DOWN, 0>::_handle)(
+                    std::get<handler::key>(handlers<S, WTE_EVENT_KEY_DOWN>::_handle)(
                             event.keyboard.keycode, event.keyboard.display);
                     return;
                 }

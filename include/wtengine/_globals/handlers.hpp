@@ -89,23 +89,16 @@ using handler_types = std::variant<
 >;
 
 /*
- * Handler Register - compile time vector for indexing
- * Creates a counter for handlers of similar types
+ * Handler Register
  */
 template <handler_scopes S, handler_events IDX>
-constexpr inline static std::vector<bool> _handler_regiser;
-
-template <typename VEC>
-constexpr inline void _increment_vector(VEC vec) { vec.push_back(true); };
-
-template <typename VEC>
-constexpr inline std::size_t _get_vector_size(VEC vec) { return vec.size(); };
+inline static bool _handler_regiser;
 
 /*
  * Handlers template class
  * Stores an input handler.
  */
-template <handler_scopes S, handler_events IDX, std::size_t Counter>
+template <handler_scopes S, handler_events IDX>
 class handlers {
     friend class input;
 
@@ -165,19 +158,12 @@ constexpr void add_handler(const handler_types& handle) {
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
     //  Add handler using regiser size as its counter
-    handlers<S, IDX, []{ return _get_vector_size(_handler_regiser<S, IDX>); }()>::add(handle);
-    //  Add a bool to the register to increment its size
-    _increment_vector(_handler_regiser<S, IDX>);
-
+    handlers<S, IDX>::add(handle);
 };
-
-//  Calculate register size
-template <handler_scopes S, handler_events IDX>
-constexpr inline static std::size_t _handler_register_size = []{ return _get_vector_size(_handler_regiser<S, IDX>); }();
 
 //  Flag to check if handlers were set
 template <handler_scopes S, handler_events IDX>
-constexpr inline static bool _handlers_set = []{ return (_handler_register_size<S, IDX> > 0); }();
+constexpr inline static bool _handlers_set = false;
 
 }  //  end namespace wte
 

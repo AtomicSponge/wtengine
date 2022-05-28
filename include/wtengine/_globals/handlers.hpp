@@ -100,7 +100,7 @@ constexpr bool _handler_register = false;
 template <handler_scopes S, handler_events IDX, bool B = _handler_register<S, IDX>>
 class handlers {};
 
-//  Handler is set
+//  Handler is not set
 template <handler_scopes S, handler_events IDX>
 class handlers<S, IDX, false> {
     friend class input;
@@ -108,7 +108,7 @@ class handlers<S, IDX, false> {
         constexpr inline static bool is_set = false;
 };
 
-//  Handler is not set
+//  Handler is set
 template <handler_scopes S, handler_events IDX>
 class handlers<S, IDX, true> {
     friend class input;

@@ -90,15 +90,27 @@ using handler_types = std::variant<
 /*
  * Handler Register
  */
-template <handler_scopes S, handler_events IDX, bool B>
-inline static std::bool_constant<B> _handler_regiser;
+template <handler_scopes S, handler_events IDX>
+constexpr bool _handler_register = false;
 
 /*
  * Handlers template class
  * Stores an input handler.
  */
+template <handler_scopes S, handler_events IDX, bool B = _handler_register<S, IDX>>
+class handlers {};
+
+//  Handler is set
 template <handler_scopes S, handler_events IDX>
-class handlers {
+class handlers<S, IDX, false> {
+    friend class input;
+    private:
+        constexpr inline static bool is_set = false;
+};
+
+//  Handler is not set
+template <handler_scopes S, handler_events IDX>
+class handlers<S, IDX, true> {
     friend class input;
 
     public:
@@ -112,6 +124,7 @@ class handlers {
 
     private:
         inline static handler_types _handle;  //  Store handler
+        constexpr inline static bool is_set = true;
 };
 
 /*!
@@ -157,12 +170,9 @@ constexpr void add_handler(const handler_types& handle) {
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
     //  Add handler using regiser size as its counter
+    //_handler_register<S, IDX>::set();
     handlers<S, IDX>::add(handle);
 };
-
-//  Flag to check if handlers were set
-template <handler_scopes S, handler_events IDX>
-constexpr inline static bool _handlers_set = false;
 
 }  //  end namespace wte
 

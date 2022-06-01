@@ -91,11 +91,11 @@ using handler_types = std::variant<
  * Handler Register
  */
 template <handler_scopes S, handler_events IDX>
-constexpr bool _toggle_register(void) { return false; };
-
-template <handler_scopes S, handler_events IDX>
 struct _handler_register {
-    constexpr static bool is_set = []{ return _toggle_register<S, IDX>(); }();
+    constexpr static void toggle(void) {};
+    //constexpr static bool _status(void) { return true; };
+    constexpr static bool _status(void) { return false; };
+    constexpr static bool is_set = []{ return _status(); }();
 };
 
 /*
@@ -175,7 +175,7 @@ constexpr void add_handler(const handler_types& handle) {
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
     //  Add handler using regiser size as its counter
-    _toggle_register<S, IDX>();
+    _handler_register<S, IDX>::toggle();
     handlers<S, IDX>::add(handle);
 };
 

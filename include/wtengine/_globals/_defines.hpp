@@ -76,6 +76,12 @@ struct wte_build_options {
     inline constexpr static bool debug_mode = static_cast<bool>(WTE_DEBUG_MODE);
     inline constexpr static int max_playing_samples = static_cast<int>(WTE_MAX_PLAYING_SAMPLES);
     inline constexpr static bool use_magic_pink = static_cast<bool>(WTE_USE_MAGIC_PINK);
+
+    //  Input options
+    inline constexpr static bool keyboard_enabled = static_cast<bool>(true);
+    inline constexpr static bool mouse_enabled = static_cast<bool>(true);
+    inline constexpr static bool joystick_enabled = static_cast<bool>(true);
+    inline constexpr static bool touch_enabled = static_cast<bool>(true);
 };
 inline constexpr wte_build_options build_options;
 

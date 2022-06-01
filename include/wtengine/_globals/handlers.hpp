@@ -174,7 +174,6 @@ constexpr void add_handler(const handler_types& handle) {
         static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
-    //  Add handler using regiser size as its counter
     _handler_register<S, IDX>::toggle();
     handlers<S, IDX>::add(handle);
 };

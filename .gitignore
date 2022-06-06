@@ -7,7 +7,7 @@ package-lock.json
 *.code-workspace
 .vscode/
 
-.comment_updater.config
+.comment_updater_config.json
 .bakignore
 *_bak/
 

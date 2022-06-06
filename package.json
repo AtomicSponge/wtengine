@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/wtfsystems/wtengine#readme",
   "scripts": {
-    "postinstall": "scripts/install.js",
+    "postinstall": "scripts/install.js"
+  },
+  "bin": {
     "wte-config": "scripts/wte-config.js",
     "wte-build": "scripts/wte-build.js",
     "wte-mkscript": "scripts/wte-mkscript.js",

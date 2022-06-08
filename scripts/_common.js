@@ -58,6 +58,40 @@ const scriptError = (message) => {
 exports.scriptError = scriptError
 
 /**
+ * Converts script arguments from array to object
+ * @param {Array} args Argument array
+ * @param {Object} commands Object representing a list of commands
+ * @returns {Object} Argument object
+ */
+ const parseArgs = (args, commands) => {
+    _args = {}
+    //  Build the object using supplied command names
+    commands.forEach(command => {
+        (command.name.includes('=') ?
+            _args[command.name] = null : _args[command.name] = false)
+    })
+    //  Now parse the arguments
+    args.forEach(arg => {
+        var matchMe = null
+        var newVal = null
+        if(arg.includes('=')) {
+            matchMe = arg.substring(0, arg.indexOf('='))
+            newVal = arg.substring(arg.indexOf('=') + 1)
+        } else {
+            matchMe = arg
+            newVal = true
+        }
+        commands.forEach(command => {
+            command.flags.replace(/\s+/g, '').split(',').forEach(item => {
+                if(item == matchMe) _args[command.name] = newVal
+            })
+        })
+    })
+    return _args
+}
+exports.parseArgs = parseArgs
+
+/**
  * Confirmation prompt (wip)
  * @param {String} message Message to display.
  * @param {boolean} dvalue Default answer (Y - true | N - false)

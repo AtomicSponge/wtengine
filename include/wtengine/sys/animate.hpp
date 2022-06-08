@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  animate.hpp
+ * wtengine | File:  animate.hpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

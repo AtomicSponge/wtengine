@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  wte_exception.cpp
+ * wtengine | File:  wte_exception.cpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

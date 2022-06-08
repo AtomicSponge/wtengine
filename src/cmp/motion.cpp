@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  motion.cpp
+ * wtengine | File:  motion.cpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

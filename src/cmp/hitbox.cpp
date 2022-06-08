@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  hitbox.cpp
+ * wtengine | File:  hitbox.cpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  overlay.hpp
+ * wtengine | File:  overlay.hpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

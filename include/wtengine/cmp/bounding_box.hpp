@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  bounding_box.hpp
+ * wtengine | File:  bounding_box.hpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

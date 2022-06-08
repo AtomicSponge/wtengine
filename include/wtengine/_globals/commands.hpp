@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  commands.hpp
+ * wtengine | File:  commands.hpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

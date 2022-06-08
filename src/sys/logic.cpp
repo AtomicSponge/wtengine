@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  logic.cpp
+ * wtengine | File:  logic.cpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  background.cpp
+ * wtengine | File:  background.cpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

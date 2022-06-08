@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  audio.cpp
+ * wtengine | File:  audio.cpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  wte_asset.hpp
+ * wtengine | File:  wte_asset.hpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

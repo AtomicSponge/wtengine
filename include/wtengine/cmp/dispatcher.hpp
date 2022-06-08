@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  dispatcher.hpp
+ * wtengine | File:  dispatcher.hpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

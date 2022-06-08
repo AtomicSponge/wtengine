@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  logic.hpp
+ * wtengine | File:  logic.hpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

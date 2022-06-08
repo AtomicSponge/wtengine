@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  gfx.cpp
+ * wtengine | File:  gfx.cpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  spawner.cpp
+ * wtengine | File:  spawner.cpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

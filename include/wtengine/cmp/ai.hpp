@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  ai.hpp
+ * wtengine | File:  ai.hpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

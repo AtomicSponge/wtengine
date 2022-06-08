@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  component.hpp
+ * wtengine | File:  component.hpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

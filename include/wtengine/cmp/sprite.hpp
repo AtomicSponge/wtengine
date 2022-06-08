@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  sprite.hpp
+ * wtengine | File:  sprite.hpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

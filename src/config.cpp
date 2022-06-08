@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  config.cpp
+ * wtengine | File:  config.cpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

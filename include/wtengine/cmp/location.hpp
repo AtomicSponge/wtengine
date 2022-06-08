@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  location.hpp
+ * wtengine | File:  location.hpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

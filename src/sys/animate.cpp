@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  animate.cpp
+ * wtengine | File:  animate.cpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

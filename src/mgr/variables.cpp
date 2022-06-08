@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  variables.cpp
+ * wtengine | File:  variables.cpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

@@ -1,5 +1,5 @@
 /*!
- * WTEngine | File:  wrappers.hpp
+ * wtengine | File:  wrappers.hpp
  * 
  * \author Matthew Evans
  * \version 0.7.1

@@ -30,6 +30,8 @@ const constants = {
     CONFIG_SCRIPT:     `npm run wte-config`,
     SYSCHECK_SCRIPT:   `npm run wte-syscheck`,
     SETTINGS_LOCATION: `${__dirname}/../settings.json`,
+    LOG_FILE: ``,
+    LOG_LOCATION: ``
 }
 exports.constants = constants
 
@@ -48,6 +50,23 @@ const colors = {
 exports.colors = colors
 
 /**
+ * Create an object with the current date and time that can be easily referenced.
+ * @returns {Object} A date object with the current date and time.
+ */
+const getDate = () => {
+    const _date = {}
+    const date = new Date()
+    _date.month = date.getMonth()
+    _date.day = date.getDate()
+    _date.year = date.getFullYear()
+    _date.hour = date.getHours()
+    _date.minutes = date.getMinutes()
+    _date.seconds = date.getSeconds()
+    return _date
+}
+exports.getDate = getDate
+
+/**
  * Display an error message and exit script.
  * @param {String} message Message to display.
  */
@@ -58,10 +77,32 @@ const scriptError = (message) => {
 exports.scriptError = scriptError
 
 /**
- * Converts script arguments from array to object
- * @param {Array} args Argument array
- * @param {Object} commands Object representing a list of commands
- * @returns {Object} Argument object
+ * Clears the log file.
+ */
+const clearLog = () => {
+    try {
+        fs.unlinkSync(`${constants.LOG_LOCATION}/${constants.LOG_FILE}`)
+    } catch (err) {}
+}
+exports.clearLog = clearLog
+
+/**
+ * Write a message to the log file.
+ * @param {String} message String to write.
+ * @throws Error on fail then exits script.
+ */
+const writeLog = (message) => {
+    try {
+        fs.appendFileSync(`${constants.LOG_LOCATION}/${constants.LOG_FILE}`, message)
+    } catch (err) { scriptError(err) }
+}
+exports.writeLog = writeLog
+
+/**
+ * Converts script arguments from array to object.
+ * @param {Array} args Argument array.
+ * @param {Object} commands Object representing a list of commands.
+ * @returns {Object} Argument object.
  */
  const parseArgs = (args, commands) => {
     _args = {}

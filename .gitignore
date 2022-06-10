@@ -8,8 +8,8 @@ package-lock.json
 .vscode/
 
 .comment_updater_config.json
-.bakignore
-*_bak/
+.localbak_config.json
+*_backup/
 
 assets/
 build/

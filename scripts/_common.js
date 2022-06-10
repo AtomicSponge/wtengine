@@ -27,8 +27,8 @@ exports.config = config
  * Constants
  */
 const constants = {
-    CONFIG_SCRIPT:     `npm run wte-config`,
-    SYSCHECK_SCRIPT:   `npm run wte-syscheck`,
+    CONFIG_SCRIPT:     `npx wte-config`,
+    SYSCHECK_SCRIPT:   `npx wte-syscheck`,
     SETTINGS_LOCATION: `${__dirname}/../settings.json`,
     LOG_FILE: ``,
     LOG_LOCATION: ``

@@ -167,7 +167,6 @@ exports.confirmPrompt = confirmPrompt
  * Verify write access to engine settings file.
  * @param {String} permissions File permissions to check, 'rwx' format.
  * Passing nothing checks if the file simply exists.
- * @returns {boolean} True if permission checks succeded.
  * On fail, displays a script error and exit.
  */
 const checkSettings = (permissions) => {
@@ -182,7 +181,6 @@ const checkSettings = (permissions) => {
     checkFlags.forEach(fFlag => {
         fs.access(constants.SETTINGS_LOCATION, fFlag, (err) => { scriptError(err) })
     })
-    return true
 }
 exports.checkSettings = checkSettings
 
@@ -203,7 +201,6 @@ exports.loadSettings = loadSettings
 /**
  * Save engine settings.
  * @param {JSON} settings Settings as JSON object.
- * @returns {boolean} True if settings saved.
  * On fail, display error and exit running script.
  */
 const saveSettings = (settings) => {
@@ -218,13 +215,11 @@ const saveSettings = (settings) => {
     } catch (err) {
         scriptError(err)
     }
-    return true
 }
 exports.saveSettings = saveSettings
 
 /**
  * Check for necessary applications.
- * @returns {boolean} True if all apps are found.
  * On not found, displays a script error and exit.
  */
 const checkApps = () => {
@@ -234,7 +229,6 @@ const checkApps = () => {
         else scriptError(`'${appCheck}' not found.`)
     })
     process.stdout.write(`${colors.CLEAR}\n`)
-    return true
 }
 exports.checkApps = checkApps
 

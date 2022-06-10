@@ -8,7 +8,8 @@
  */
 
 const fs = require('fs')
-const shell = require('shelljs')
+const { exec } = require('child_process')
+const commandExistsSync = require('command-exists').sync
 const inquirer = require('inquirer')
 
 /**
@@ -229,7 +230,7 @@ exports.saveSettings = saveSettings
 const checkApps = () => {
     process.stdout.write(`Checking for necessary applications...\n`)
     config.checkApps.forEach((appCheck) => {
-        if(shell.which(appCheck)) process.stdout.write(`${colors.GREEN}  > '${appCheck}' found.${colors.CLEAR}\n`)
+        if(commandExistsSync(appCheck)) process.stdout.write(`${colors.GREEN}  > '${appCheck}' found.${colors.CLEAR}\n`)
         else scriptError(`'${appCheck}' not found.`)
     })
     process.stdout.write(`${colors.CLEAR}\n`)
@@ -242,8 +243,8 @@ exports.checkApps = checkApps
  * @returns {boolean} True if the script was successful, else false.
  */
 const runSysCheckScript = () => {
-    let res = shell.exec(constants.SYSCHECK_SCRIPT, { async: false })
-    if(res.code > 0) return false
+    /*exec(constants.SYSCHECK_SCRIPT, { async: false })
+    if(res.code > 0) return false*/
     return true
 }
 exports.runSysCheckScript = runSysCheckScript
@@ -253,8 +254,8 @@ exports.runSysCheckScript = runSysCheckScript
  * @returns {boolean} True if the script was successful, else false.
  */
 const runConfigScript = () => {
-    let res = shell.exec(constants.CONFIG_SCRIPT, { async: false })
-    if(res.code > 0) return false
+    /*exec(constants.CONFIG_SCRIPT, { async: false })
+    if(res.code > 0) return false*/
     return true
 }
 exports.runConfigScript = runConfigScript

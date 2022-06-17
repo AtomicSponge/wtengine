@@ -8,7 +8,7 @@
  */
 
 const fs = require('fs')
-const { exec } = require('child_process')
+const spawnSync = require('child_process').spawnSync
 const commandExistsSync = require('command-exists').sync
 const inquirer = require('inquirer')
 
@@ -28,8 +28,8 @@ exports.config = config
  * Constants
  */
 const constants = {
-    CONFIG_SCRIPT:     `npx wte-config`,
-    SYSCHECK_SCRIPT:   `npx wte-syscheck`,
+    CONFIG_SCRIPT:     `${__dirname}/wte-config`,
+    SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.js`,
     SETTINGS_LOCATION: `${__dirname}/../settings.json`,
     LOG_FILE: ``,
     LOG_LOCATION: ``
@@ -237,8 +237,8 @@ exports.checkApps = checkApps
  * @returns {boolean} True if the script was successful, else false.
  */
 const runSysCheckScript = () => {
-    /*exec(constants.SYSCHECK_SCRIPT, { async: false })
-    if(res.code > 0) return false*/
+    const res = spawnSync(constants.SYSCHECK_SCRIPT)
+    if(res.error) return false
     return true
 }
 exports.runSysCheckScript = runSysCheckScript
@@ -247,9 +247,9 @@ exports.runSysCheckScript = runSysCheckScript
  * Run the configuration script.
  * @returns {boolean} True if the script was successful, else false.
  */
-const runConfigScript = () => {
-    /*exec(constants.CONFIG_SCRIPT, { async: false })
-    if(res.code > 0) return false*/
+const runConfigScript = async () => {
+    const res = spawnSync(constants.CONFIG_SCRIPT)
+    if(res.error) return false
     return true
 }
 exports.runConfigScript = runConfigScript

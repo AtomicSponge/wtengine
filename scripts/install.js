@@ -11,7 +11,7 @@ const inquirer = require('inquirer')
 
 process.stdout.write(`${wtf.colors.CYAN}WTEngine Install${wtf.colors.CLEAR}\n\n`)
 
-const res = (async function () {
+/*const res = (async function () {
     const res = await inquirer.prompt([{
         name: 'conf',
         type: 'confirm',
@@ -21,6 +21,9 @@ const res = (async function () {
     //console.log(res)
     return res
 })()
+console.log(res)*/
+
+const res = wtf.runSysCheckScript()
 console.log(res)
 
 process.exit(0)

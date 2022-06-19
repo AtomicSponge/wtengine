@@ -11,26 +11,9 @@ import 'inquirer'
  
 process.stdout.write(`${wtf.colors.CYAN}WTEngine Install${wtf.colors.CLEAR}\n\n`)
 
-/*const res = (async function () {
-    const res = await inquirer.prompt([{
-        name: 'conf',
-        type: 'confirm',
-        message: `${wtf.colors.YELLOW}TEST`
-    }]).then(res => { return res.conf })
-    //await res.resolve()
-    //console.log(res)
-    return res
-})()
-console.log(res)*/
-
-const res = await wtf.runSysCheckScript()
-//console.log(res)
-
-process.exit(0)
-
 //  Run system check
-if(wtf.confirmPrompt('Run WTEngine system check?'))
-    if(!wtf.runSysCheckScript())
+if(await wtf.confirmPrompt('Run WTEngine system check?'))
+    if(!await wtf.runSysCheckScript())
         wtf.scriptError(`Problems running system check.\nPlease resolve issues then re-run install.`)
 
 //  Run config

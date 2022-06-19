@@ -134,32 +134,19 @@ const parseArgs = (args, commands) => {
 exports.parseArgs = parseArgs
 
 /**
- * Confirmation prompt (wip)
+ * Confirmation prompt
  * @param {String} message Message to display.
  * @param {boolean} dvalue Default answer (Y - true | N - false)
  * @returns {boolean} True if default answer, else false
  */
-const confirmPrompt = (message, dvalue) => {
+const confirmPrompt = async (message, dvalue) => {
     if(dvalue == undefined) dvalue = true
-    return (async () => {
-        const prompt = inquirer.prompt([{
-            default: dvalue,
-            name: 'conf',
-            type: 'confirm',
-            message: `${colors.YELLOW}${message}`
-        }]).then(res => { return res.conf })
-        console.log(prompt)
-        return prompt
-    })()
-    /*const prompt = inquirer.prompt([{
+    return await inquirer.prompt([{
         default: dvalue,
         name: 'conf',
         type: 'confirm',
         message: `${colors.YELLOW}${message}`
-    }])
-    process.stdout.write(`${colors.CLEAR}\n`)
-    const res = await prompt.then(res => { return res.conf })
-    return res*/
+    }]).then(res => { return res.conf })
 }
 exports.confirmPrompt = confirmPrompt
 

@@ -12,13 +12,6 @@ const spawn = require('child_process').spawn
 const commandExistsSync = require('command-exists').sync
 const inquirer = require('inquirer')
 
-//import 'fs'
-//import { spawn } from 'child_process'
-//import commandExistsSync from 'command-exists'
-//import 'inquirer'
-
-//const wtf = {}
-
 /**
  * Configuration settings
  */
@@ -286,5 +279,3 @@ const runConfigScript = async () => {
     else return false
 }
 exports.runConfigScript = runConfigScript
-
-//export default wtf

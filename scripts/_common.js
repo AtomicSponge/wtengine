@@ -8,7 +8,7 @@
  */
 
 const fs = require('fs')
-const spawnSync = require('child_process').spawnSync
+const spawn = require('child_process').spawn
 const commandExistsSync = require('command-exists').sync
 const inquirer = require('inquirer')
 
@@ -225,7 +225,8 @@ exports.saveSettings = saveSettings
 const checkApps = () => {
     process.stdout.write(`Checking for necessary applications...\n`)
     config.checkApps.forEach((appCheck) => {
-        if(commandExistsSync(appCheck)) process.stdout.write(`${colors.GREEN}  > '${appCheck}' found.${colors.CLEAR}\n`)
+        if(commandExistsSync(appCheck))
+            process.stdout.write(`${colors.GREEN}  > '${appCheck}' found.${colors.CLEAR}\n`)
         else scriptError(`'${appCheck}' not found.`)
     })
     process.stdout.write(`${colors.CLEAR}\n`)
@@ -233,13 +234,32 @@ const checkApps = () => {
 exports.checkApps = checkApps
 
 /**
+ * 
+ * @param {*} process 
+ * @returns 
+ */
+const onProcessExit = (process) => {
+    return new Promise((resolve, reject) => {
+        process.once('exit', (error) => {
+            if(error) resolve(true)
+            else reject(false)
+        })
+        process.once('error', (error) => {
+            reject(error)
+        })
+    })
+}
+exports.onProcessExit = onProcessExit
+
+/**
  * Run the system check script.
  * @returns {boolean} True if the script was successful, else false.
  */
-const runSysCheckScript = () => {
-    const res = spawnSync(constants.SYSCHECK_SCRIPT)
-    if(res.error) return false
-    return true
+const runSysCheckScript = async () => {
+    const proc = spawn(constants.SYSCHECK_SCRIPT,
+                       {stdio: [process.stdin, process.stdout, process.stderr]})
+    if(await onProcessExit(proc) === true) return true
+    else return false
 }
 exports.runSysCheckScript = runSysCheckScript
 
@@ -248,8 +268,9 @@ exports.runSysCheckScript = runSysCheckScript
  * @returns {boolean} True if the script was successful, else false.
  */
 const runConfigScript = async () => {
-    const res = spawnSync(constants.CONFIG_SCRIPT)
-    if(res.error) return false
-    return true
+    const proc = spawn(constants.CONFIG_SCRIPT,
+                       {stdio: [process.stdin, process.stdout, process.stderr]})
+    if(await onProcessExit(proc) === true) return true
+    else return false
 }
 exports.runConfigScript = runConfigScript

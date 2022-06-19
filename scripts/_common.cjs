@@ -28,8 +28,8 @@ exports.config = config
  * Constants
  */
 const constants = {
-    CONFIG_SCRIPT:     `${__dirname}/wte-config`,
-    SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.js`,
+    CONFIG_SCRIPT:     `${__dirname}/wte-config.mjs`,
+    SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.mjs`,
     SETTINGS_LOCATION: `${__dirname}/../settings.json`,
     LOG_FILE: ``,
     LOG_LOCATION: ``

@@ -17,15 +17,14 @@
     "url": "https://github.com/wtfsystems/wtengine/issues"
   },
   "homepage": "https://github.com/wtfsystems/wtengine#readme",
-  "type": "module",
   "scripts": {
-    "postinstall": "scripts/install.js"
+    "postinstall": "scripts/install.mjs"
   },
   "bin": {
-    "wte-config": "scripts/wte-config.js",
-    "wte-build": "scripts/wte-build.js",
+    "wte-config": "scripts/wte-config.mjs",
+    "wte-build": "scripts/wte-build.mjs",
     "wte-mkscript": "scripts/wte-mkscript.cjs",
-    "wte-syscheck": "scripts/wte-syscheck.js"
+    "wte-syscheck": "scripts/wte-syscheck.mjs"
   },
   "dependencies": {
     "command-exists": "^1.2.9",

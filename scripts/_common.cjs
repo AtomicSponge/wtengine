@@ -246,18 +246,18 @@ const checkApps = () => {
 exports.checkApps = checkApps
 
 /**
- * 
- * @param {*} process 
- * @returns 
+ * Wait for a process to exit and return the result.
+ * @param {Object} process The process object to watch.
+ * @returns {Promise} A fulfilled promise with the result.
  */
 const onProcessExit = (process) => {
     return new Promise((resolve, reject) => {
-        process.once('exit', (error) => {
-            if(error) reject(false)
-            else resolve(true)
+        process.once('exit', (code) => {
+            if(code === 0) resolve(true)
+            else reject(false)
         })
         process.once('error', (error) => {
-            reject(error)
+            reject(false)
         })
     })
 }

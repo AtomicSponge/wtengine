@@ -230,7 +230,7 @@ exports.checkApps = checkApps
  * @param {Object} process The process object to watch.
  * @returns {Promise} A fulfilled promise with the result.
  */
-const onProcessExit = (process) => {
+const onProcessExit = async (process) => {
     return new Promise((resolve, reject) => {
         process.once('exit', (code) => {
             if(code === 0) resolve(true)

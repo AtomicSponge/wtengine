@@ -8,7 +8,8 @@
  * 
  */
 
-const wtf = require('./_common')
+//const wtf = require('./_common')
+import wtf from './_common.cjs'
 
 process.stdout.write(`${wtf.colors.CYAN}WTEngine System Check Utility${wtf.colors.CLEAR}\n\n`)
 

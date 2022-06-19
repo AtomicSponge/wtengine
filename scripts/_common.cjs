@@ -12,6 +12,13 @@ const spawn = require('child_process').spawn
 const commandExistsSync = require('command-exists').sync
 const inquirer = require('inquirer')
 
+//import 'fs'
+//import { spawn } from 'child_process'
+//import commandExistsSync from 'command-exists'
+//import 'inquirer'
+
+//const wtf = {}
+
 /**
  * Configuration settings
  */
@@ -105,7 +112,7 @@ exports.writeLog = writeLog
  * @param {Object} commands Object representing a list of commands.
  * @returns {Object} Argument object.
  */
- const parseArgs = (args, commands) => {
+const parseArgs = (args, commands) => {
     _args = {}
     //  Build the object using supplied command names
     commands.forEach(command => {
@@ -279,3 +286,5 @@ const runConfigScript = async () => {
     else return false
 }
 exports.runConfigScript = runConfigScript
+
+//export default wtf

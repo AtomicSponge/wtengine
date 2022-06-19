@@ -17,6 +17,7 @@
     "url": "https://github.com/wtfsystems/wtengine/issues"
   },
   "homepage": "https://github.com/wtfsystems/wtengine#readme",
+  "type": "module",
   "scripts": {
     "postinstall": "scripts/install.js"
   },

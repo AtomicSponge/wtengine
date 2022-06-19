@@ -6,7 +6,7 @@
  * @copyright MIT see LICENSE.md
  */
 
-const wtf = require('./_common')
+const wtf = require('./_common.cjs')
 
 const path = require('path')
 const fs = require('fs')

@@ -24,7 +24,7 @@
   "bin": {
     "wte-config": "scripts/wte-config.js",
     "wte-build": "scripts/wte-build.js",
-    "wte-mkscript": "scripts/wte-mkscript.js",
+    "wte-mkscript": "scripts/wte-mkscript.cjs",
     "wte-syscheck": "scripts/wte-syscheck.js"
   },
   "dependencies": {

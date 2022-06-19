@@ -6,8 +6,8 @@
  * @copyright MIT see LICENSE.md
  */
 
-const wtf = require('./_common')
-const inquirer = require('inquirer')
+ import wtf from './_common.cjs'
+ import 'inquirer'
 
 /**
  * Script menus.

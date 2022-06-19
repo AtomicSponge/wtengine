@@ -6,12 +6,8 @@
  * @copyright MIT see LICENSE.md
  */
 
-const wtf = require('./_common')
-
-const fs = require('fs')
-const path = require('path')
-const shell = require('shelljs')
-const inquirer = require('inquirer')
+import wtf from './_common.cjs'
+import 'inquirer'
 
 process.stdout.write(`${wtf.colors.CYAN}WTEngine Build Utility${wtf.colors.CLEAR}\n\n`)
 

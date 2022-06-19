@@ -10,7 +10,7 @@ import wtf from './_common.cjs'
 import 'inquirer'
  
 process.stdout.write(`${wtf.colors.CYAN}WTEngine Install${wtf.colors.CLEAR}\n\n`)
- 
+
 /*const res = (async function () {
     const res = await inquirer.prompt([{
         name: 'conf',

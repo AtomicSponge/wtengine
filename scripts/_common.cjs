@@ -253,8 +253,8 @@ exports.checkApps = checkApps
 const onProcessExit = (process) => {
     return new Promise((resolve, reject) => {
         process.once('exit', (error) => {
-            if(error) resolve(true)
-            else reject(false)
+            if(error) reject(false)
+            else resolve(true)
         })
         process.once('error', (error) => {
             reject(error)

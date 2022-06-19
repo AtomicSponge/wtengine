@@ -24,7 +24,7 @@ process.stdout.write(`${wtf.colors.CYAN}WTEngine Install${wtf.colors.CLEAR}\n\n`
 console.log(res)*/
 
 const res = await wtf.runSysCheckScript()
-console.log(res)
+//console.log(res)
 
 process.exit(0)
 

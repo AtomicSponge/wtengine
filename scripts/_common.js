@@ -220,16 +220,21 @@ exports.saveSettings = saveSettings
 
 /**
  * Check for necessary applications.
- * On not found, displays a script error and exit.
+ * @returns True on success, else false
  */
 const checkApps = () => {
     process.stdout.write(`Checking for necessary applications...\n`)
+    var failed = false
     config.checkApps.forEach((appCheck) => {
-        if(commandExistsSync(appCheck))
+        if(commandExistsSync(appCheck)) {
             process.stdout.write(`${colors.GREEN}  > '${appCheck}' found.${colors.CLEAR}\n`)
-        else scriptError(`'${appCheck}' not found.`)
+        } else {
+            process.stdout.write(`${colors.RED}  > '${appCheck}' not found.${colors.CLEAR}\n`)
+            failed = true
+        }
     })
     process.stdout.write(`${colors.CLEAR}\n`)
+    return !failed
 }
 exports.checkApps = checkApps
 

@@ -17,8 +17,8 @@ if(await wtf.confirmPrompt('Run WTEngine system check?'))
         wtf.scriptError(`Problems running system check.\nPlease resolve issues then re-run install.`)
 
 //  Run config
-if(wtf.confirmPrompt('Run WTEngine configuration?'))
-    if(!wtf.runConfigScript())
+if(await wtf.confirmPrompt('Run WTEngine configuration?'))
+    if(!await wtf.runConfigScript())
         wtf.scriptError(`Problems running configuration.\nPlease resolve issues then re-run install.`)
 
 process.stdout.write(`${wtf.colors.DIM}${wtf.colors.CYAN}Install done!${wtf.colors.CLEAR}\n\n`)

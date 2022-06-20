@@ -59,7 +59,7 @@ exports.colors = colors
 const scriptTitle = (title) => {
     process.stdout.write(`${colors.CYAN}${title}${colors.CLEAR} --- `)
     process.stdout.write(`${colors.CYAN}${constants.APP_NAME}${colors.CLEAR} - `)
-    process.stdout.write(`${colors.CYAN}${constants.APP_VERSION}${colors.CLEAR}\n`)
+    process.stdout.write(`${colors.CYAN}ver ${constants.APP_VERSION}${colors.CLEAR}\n`)
     process.stdout.write(`${colors.DIM}${colors.YELLOW}${constants.APP_URL}${colors.CLEAR}\n`)
     process.stdout.write(`\n`)
 }

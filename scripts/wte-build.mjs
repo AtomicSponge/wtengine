@@ -9,15 +9,30 @@
 import wtf from './_common.cjs'
 import 'inquirer'
 
+/**
+ * Build functions
+ */
 const build = {
+    /**
+     * Build the engine
+     */
     engine: () => {
         wtf.config.gitURLs.forEach(gitURL => {
             wtf.runCommand(`git clone ${gitURL.url}`, { cwd: wtf.constants.WORK_FOLDER })
         })
     },
-    project: () => {}
+
+    /**
+     * Build the project
+     */
+    project: () => {
+        //
+    }
 }
 
+/*
+ * Main script
+ */
 process.stdout.write(`${wtf.colors.CYAN}WTEngine Build Utility${wtf.colors.CLEAR}\n\n`)
 
 const args = wtf.parseArgs(process.argv, [

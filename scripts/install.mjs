@@ -11,6 +11,8 @@ import 'inquirer'
  
 process.stdout.write(`${wtf.colors.CYAN}WTEngine Install${wtf.colors.CLEAR}\n\n`)
 
+//if(wtf.checkSettings()) process.exit(0)
+
 //  Run system check
 if(await wtf.confirmPrompt('Run WTEngine system check?'))
     if(!await wtf.runSysCheckScript())
@@ -18,7 +20,7 @@ if(await wtf.confirmPrompt('Run WTEngine system check?'))
 
 //  Run config
 if(await wtf.confirmPrompt('Run WTEngine configuration?'))
-    if(!await wtf.runConfigScript())
+    if(!await wtf.runConfigScript(['--nosyscheck']))
         wtf.scriptError(`Problems running configuration.\nPlease resolve issues then re-run install.`)
 
 process.stdout.write(`${wtf.colors.DIM}${wtf.colors.CYAN}Install done!${wtf.colors.CLEAR}\n\n`)

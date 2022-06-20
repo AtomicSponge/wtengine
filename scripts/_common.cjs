@@ -30,7 +30,7 @@ exports.config = config
 const constants = {
     CONFIG_SCRIPT:     `${__dirname}/wte-config.mjs`,
     SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.mjs`,
-    SETTINGS_LOCATION: `${__dirname}/../settings.json`,
+    SETTINGS_FILE: `${__dirname}/../settings.json`,
     LOG_FILE: ``,
     LOG_LOCATION: ``
 }
@@ -151,22 +151,24 @@ const confirmPrompt = async (message, dvalue) => {
 exports.confirmPrompt = confirmPrompt
 
 /**
- * Verify write access to engine settings file.
+ * Verify access to engine settings file.
  * @param {String} permissions File permissions to check, 'rwx' format.
  * Passing nothing checks if the file simply exists.
  * On fail, displays a script error and exit.
  */
 const checkSettings = (permissions) => {
     let checkFlags = []
-    if(permissions == undefined) checkFlags.push(fs.constants.F_OK)
-    if(permissions.includes("r") || permissions.includes("R")) checkFlags.push(fs.constants.R_OK)
-    if(permissions.includes("w") || permissions.includes("W")) checkFlags.push(fs.constants.W_OK)
-    if(permissions.includes("x") || permissions.includes("X")) checkFlags.push(fs.constants.X_OK)
+    if(permissions === undefined) checkFlags.push(fs.constants.F_OK)
+    else {
+        if(permissions.includes("r") || permissions.includes("R")) checkFlags.push(fs.constants.R_OK)
+        if(permissions.includes("w") || permissions.includes("W")) checkFlags.push(fs.constants.W_OK)
+        if(permissions.includes("x") || permissions.includes("X")) checkFlags.push(fs.constants.X_OK)
+    }
 
     if(checkFlags.length == 0) scriptError(`Unable to check settings file!  No proper tests requested!`)
 
     checkFlags.forEach(fFlag => {
-        fs.access(constants.SETTINGS_LOCATION, fFlag, (err) => { scriptError(err) })
+        fs.accessSync(constants.SETTINGS_FILE, fFlag, (err) => { scriptError(err) })
     })
 }
 exports.checkSettings = checkSettings
@@ -177,7 +179,7 @@ exports.checkSettings = checkSettings
  */
 const loadSettings = () => {
     try {
-        const settings = fs.readFileSync(constants.SETTINGS_LOCATION)
+        const settings = fs.readFileSync(constants.SETTINGS_FILE)
         return JSON.parse(settings)
     } catch (err) {
         return false
@@ -197,7 +199,7 @@ const saveSettings = (settings) => {
     if(oldSettings) settings = oldSettings.concat(settings)
 
     try {
-        fs.writeFileSync(constants.SETTINGS_LOCATION, JSON.stringify(settings))
+        fs.writeFileSync(constants.SETTINGS_FILE, JSON.stringify(settings))
         process.stdout.write(`${colors.GREEN}Settings saved.${colors.CLEAR}\n`)
     } catch (err) {
         scriptError(err)
@@ -211,17 +213,17 @@ exports.saveSettings = saveSettings
  */
 const checkApps = () => {
     process.stdout.write(`Checking for necessary applications...\n`)
-    var failed = false
+    var result = true
     config.checkApps.forEach((appCheck) => {
         if(commandExistsSync(appCheck)) {
             process.stdout.write(`${colors.GREEN}  > '${appCheck}' found.${colors.CLEAR}\n`)
         } else {
             process.stdout.write(`${colors.RED}  > '${appCheck}' not found.${colors.CLEAR}\n`)
-            failed = true
+            result = false
         }
     })
     process.stdout.write(`${colors.CLEAR}\n`)
-    return !failed
+    return result
 }
 exports.checkApps = checkApps
 
@@ -247,8 +249,8 @@ exports.onProcessExit = onProcessExit
  * Run the system check script.
  * @returns {boolean} True if the script was successful, else false.
  */
-const runSysCheckScript = async () => {
-    const proc = spawn(constants.SYSCHECK_SCRIPT,
+const runSysCheckScript = async (args) => {
+    const proc = spawn(constants.SYSCHECK_SCRIPT, args,
                        {stdio: [process.stdin, process.stdout, process.stderr]})
     if(await onProcessExit(proc) === true) return true
     else return false
@@ -259,8 +261,8 @@ exports.runSysCheckScript = runSysCheckScript
  * Run the configuration script.
  * @returns {boolean} True if the script was successful, else false.
  */
-const runConfigScript = async () => {
-    const proc = spawn(constants.CONFIG_SCRIPT,
+const runConfigScript = async (args) => {
+    const proc = spawn(constants.CONFIG_SCRIPT, args,
                        {stdio: [process.stdin, process.stdout, process.stderr]})
     if(await onProcessExit(proc) === true) return true
     else return false

@@ -6,8 +6,8 @@
  * @copyright MIT see LICENSE.md
  */
 
- import wtf from './_common.cjs'
- import 'inquirer'
+import wtf from './_common.cjs'
+import 'inquirer'
 
 /**
  * Script menus.
@@ -44,16 +44,22 @@ const actions = {
  */
 process.stdout.write(`${wtf.colors.CYAN}WTEngine Configuration Utility${wtf.colors.CLEAR}\n\n`)
 
+const args = wtf.parseArgs(process.argv, [{ name: 'nosyscheck', flags: '--nosyscheck' }])
+
 var settings = wtf.loadSettings()
 if(!settings) {
     process.stdout.write(`No settings file found, running setup...\n`)
+    if(!args.nosyscheck) if(await wtf.confirmPrompt(`Run a system check first?`)) {
+        if(!await wtf.runSysCheckScript())
+            wtf.scriptError(`Problems running system check.\nPlease resolve issues then re-run config.`)
+    }
     settings = actions.doSetup()
     wtf.saveSettings(settings)
 } else {
     process.stdout.write(`Editing existing settings...\n`)
-    oldSettings = settings
+    const oldSettings = settings
     settings = actions.doEdit(settings)
-    if((oldSettings !== settings) && wtf.confirmPrompt(`Save changes?`)) wtf.saveSettings(settings)
+    if((oldSettings !== settings) && await wtf.confirmPrompt(`Save changes?`)) wtf.saveSettings(settings)
 }
 
 process.stdout.write(`${wtf.colors.DIM}${wtf.colors.CYAN}Config Done!${wtf.colors.CLEAR}\n\n`)

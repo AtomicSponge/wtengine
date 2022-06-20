@@ -151,10 +151,9 @@ const confirmPrompt = async (message, dvalue) => {
 exports.confirmPrompt = confirmPrompt
 
 /**
- * Verify access to engine settings file.
+ * Verify access to engine settings file.  Passing nothing checks if the file simply exists.
  * @param {String} permissions File permissions to check, 'rwx' format.
- * Passing nothing checks if the file simply exists.
- * On fail, displays a script error and exit.
+ * @returns {boolean} True if tests succeded, else false
  */
 const checkSettings = (permissions) => {
     let checkFlags = []
@@ -167,9 +166,11 @@ const checkSettings = (permissions) => {
 
     if(checkFlags.length == 0) scriptError(`Unable to check settings file!  No proper tests requested!`)
 
+    var result = true
     checkFlags.forEach(fFlag => {
-        fs.accessSync(constants.SETTINGS_FILE, fFlag, (err) => { scriptError(err) })
+        fs.accessSync(constants.SETTINGS_FILE, fFlag, (err) => { result = false })
     })
+    return result
 }
 exports.checkSettings = checkSettings
 
@@ -247,6 +248,7 @@ exports.onProcessExit = onProcessExit
 
 /**
  * Run the system check script.
+ * @param {Array} args Process arguments as an array.
  * @returns {boolean} True if the script was successful, else false.
  */
 const runSysCheckScript = async (args) => {
@@ -259,6 +261,7 @@ exports.runSysCheckScript = runSysCheckScript
 
 /**
  * Run the configuration script.
+ * @param {Array} args Process arguments as an array.
  * @returns {boolean} True if the script was successful, else false.
  */
 const runConfigScript = async (args) => {

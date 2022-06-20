@@ -20,7 +20,7 @@ const inquirer = require('inquirer')
 const config = {
     checkApps: [ "cmake", "git" ],
     gitURLs: [
-        { name: "allegro", url: "https://github.com/liballeg/allegro5" },
+        { name: "allegro5", url: "https://github.com/liballeg/allegro5" },
         { name: "physfs", url: "https://github.com/icculus/physfs" }
     ]
 }
@@ -58,7 +58,8 @@ exports.colors = colors
 
 const scriptTitle = (title) => {
     process.stdout.write(`${colors.CYAN}${title}${colors.CLEAR} --- `)
-    process.stdout.write(`${colors.CYAN}${constants.APP_NAME} - ${constants.APP_VERSION}${colors.CLEAR}\n`)
+    process.stdout.write(`${colors.CYAN}${constants.APP_NAME}${colors.CLEAR} - `)
+    process.stdout.write(`${colors.CYAN}${constants.APP_VERSION}${colors.CLEAR}\n`)
     process.stdout.write(`${colors.DIM}${colors.YELLOW}${constants.APP_URL}${colors.CLEAR}\n`)
     process.stdout.write(`\n`)
 }
@@ -163,6 +164,33 @@ const confirmPrompt = async (message, dvalue) => {
     }]).then(res => { return res.conf })
 }
 exports.confirmPrompt = confirmPrompt
+
+/**
+ * Check if a folder exists
+ * @param {String} folder 
+ * @returns {boolean} True if the folder exists, else false.
+ */
+const checkFolder = (folder) => {
+    try { fs.accessSync(folder) } catch (err) { return false }
+    return true
+}
+exports.checkFolder = checkFolder
+
+/**
+ * Check if a folder exists, then create it if one does not
+ * @param {String} folder 
+ * @throws Error on fail then exits script
+ */
+const makeFolder = (folder) => {
+    try {
+        fs.accessSync(folder)
+    } catch (err) {
+        try {
+            fs.mkdirSync(folder)
+        } catch (err) { scriptError(err) }
+    }
+}
+exports.makeFolder = makeFolder
 
 /**
  * Verify access to engine settings file.  Passing nothing checks if the file simply exists.

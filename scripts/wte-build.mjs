@@ -33,7 +33,7 @@ const build = {
 /*
  * Main script
  */
-process.stdout.write(`${wtf.colors.CYAN}WTEngine Build Utility${wtf.colors.CLEAR}\n\n`)
+wtf.scriptTitle(`WTEngine Build Utility`)
 
 const args = wtf.parseArgs(process.argv, [
     { name: 'buildEngine', flags: '--buildengine' },

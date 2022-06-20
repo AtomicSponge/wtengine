@@ -7,6 +7,7 @@
  * 
  */
 
+const package = require('../package.json')
 const fs = require('fs')
 const spawn  = require('child_process').spawn
 const execSync  = require('child_process').execSync
@@ -29,6 +30,9 @@ exports.config = config
  * Constants
  */
 const constants = {
+    APP_NAME: package.name,
+    APP_VERSION: package.version,
+    APP_URL: package.url,
     CONFIG_SCRIPT:     `${__dirname}/wte-config.mjs`,
     SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.mjs`,
     SETTINGS_FILE: `${__dirname}/../settings.json`,
@@ -51,6 +55,14 @@ const colors = {
     CLEAR:  `\x1b[0m`
 }
 exports.colors = colors
+
+const scriptTitle = (title) => {
+    process.stdout.write(`${colors.CYAN}${title}${colors.CLEAR} --- `)
+    process.stdout.write(`${colors.CYAN}${constants.APP_NAME} - ${constants.APP_VERSION}${colors.CLEAR}\n`)
+    process.stdout.write(`${colors.DIM}${colors.YELLOW}${constants.APP_URL}${colors.CLEAR}\n`)
+    process.stdout.write(`\n`)
+}
+exports.scriptTitle = scriptTitle
 
 /**
  * Create an object with the current date and time that can be easily referenced.

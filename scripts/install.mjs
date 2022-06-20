@@ -9,7 +9,7 @@
 import wtf from './_common.cjs'
 import 'inquirer'
  
-process.stdout.write(`${wtf.colors.CYAN}WTEngine Install${wtf.colors.CLEAR}\n\n`)
+wtf.scriptTitle(`WTEngine Install`)
 
 //  Run system check
 if(!wtf.checkSettings() && await wtf.confirmPrompt('Run WTEngine system check?'))

@@ -42,7 +42,7 @@ const actions = {
 /*
  * Main script
  */
-process.stdout.write(`${wtf.colors.CYAN}WTEngine Configuration Utility${wtf.colors.CLEAR}\n\n`)
+wtf.scriptTitle(`WTEngine Configuration Utility`)
 
 const args = wtf.parseArgs(process.argv, [{ name: 'nosyscheck', flags: '--nosyscheck' }])
 

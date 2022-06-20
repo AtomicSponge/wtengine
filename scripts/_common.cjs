@@ -8,7 +8,8 @@
  */
 
 const fs = require('fs')
-const spawn = require('child_process').spawn
+const spawn  = require('child_process').spawn
+const execSync  = require('child_process').execSync
 const commandExistsSync = require('command-exists').sync
 const inquirer = require('inquirer')
 
@@ -17,10 +18,10 @@ const inquirer = require('inquirer')
  */
 const config = {
     checkApps: [ "cmake", "git" ],
-    gitURLs: {
-        "allegro": "https://github.com/liballeg/allegro5",
-        "physfs": "https://github.com/icculus/physfs"
-    }
+    gitURLs: [
+        { name: "allegro", url: "https://github.com/liballeg/allegro5" },
+        { name: "physfs", url: "https://github.com/icculus/physfs" }
+    ]
 }
 exports.config = config
 
@@ -31,7 +32,7 @@ const constants = {
     CONFIG_SCRIPT:     `${__dirname}/wte-config.mjs`,
     SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.mjs`,
     SETTINGS_FILE: `${__dirname}/../settings.json`,
-    WORK_FOLDER: `${__dirname}/wte-temp`,
+    WORK_FOLDER: `${__dirname}/../wte-temp`,
     LOG_FILE: ``,
     LOG_LOCATION: ``
 }
@@ -272,3 +273,20 @@ const runConfigScript = async (args) => {
     else return false
 }
 exports.runConfigScript = runConfigScript
+
+/**
+ * Run a system command.
+ * @param {String} cmd Command to run.
+ * @param {Object} opts Additional options.
+ * @returns {boolean} True if the command was successful, else false.
+ */
+const runCommand = (cmd, opts) => {
+    opts = opts || {}
+    opts.cwd = opts.cwd || __dirname
+    opts.env = opts.env || ''
+    try {
+        execSync(cmd, { cwd: opts.cwd, env: opts.env, windowsHide: true })
+    } catch (err) { return false }
+    return true
+}
+exports.runCommand = runCommand

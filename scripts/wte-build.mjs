@@ -6,7 +6,7 @@
  * @copyright MIT see LICENSE.md
  */
 
-import wtf, { scriptError, writeLog } from './_common.cjs'
+import wtf from './_common.cjs'
 import 'inquirer'
 
 wtf.constants.LOG_FILE = 'wte-build.log'

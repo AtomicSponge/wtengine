@@ -31,6 +31,7 @@ const constants = {
     CONFIG_SCRIPT:     `${__dirname}/wte-config.mjs`,
     SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.mjs`,
     SETTINGS_FILE: `${__dirname}/../settings.json`,
+    WORK_FOLDER: `${__dirname}/wte-temp`,
     LOG_FILE: ``,
     LOG_LOCATION: ``
 }

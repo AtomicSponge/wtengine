@@ -9,8 +9,8 @@
 
 const package = require('../package.json')
 const fs = require('fs')
+const exec  = require('child_process').exec
 const spawn  = require('child_process').spawn
-const execSync  = require('child_process').execSync
 const commandExistsSync = require('command-exists').sync
 const inquirer = require('inquirer')
 
@@ -218,7 +218,8 @@ const checkSettings = (permissions) => {
 
     var result = true
     checkFlags.forEach(fFlag => {
-        fs.accessSync(constants.SETTINGS_FILE, fFlag, (err) => { result = false })
+        try { fs.accessSync(constants.SETTINGS_FILE, fFlag)
+        } catch (err) { result = false }
     })
     return result
 }
@@ -302,6 +303,7 @@ exports.onProcessExit = onProcessExit
  * @returns {boolean} True if the script was successful, else false.
  */
 const runSysCheckScript = async (args) => {
+    process.stdout.write(`\n`)
     const proc = spawn(constants.SYSCHECK_SCRIPT, args,
                        {stdio: [process.stdin, process.stdout, process.stderr]})
     if(await onProcessExit(proc) === true) return true
@@ -315,6 +317,7 @@ exports.runSysCheckScript = runSysCheckScript
  * @returns {boolean} True if the script was successful, else false.
  */
 const runConfigScript = async (args) => {
+    process.stdout.write(`\n`)
     const proc = spawn(constants.CONFIG_SCRIPT, args,
                        {stdio: [process.stdin, process.stdout, process.stderr]})
     if(await onProcessExit(proc) === true) return true
@@ -324,17 +327,18 @@ exports.runConfigScript = runConfigScript
 
 /**
  * Run a system command.
+ * Waits for the command to complete but does not show output.
  * @param {String} cmd Command to run.
  * @param {Object} opts Additional options.
  * @returns {boolean} True if the command was successful, else false.
  */
-const runCommand = (cmd, opts) => {
+const runCommand = async (cmd, opts) => {
     opts = opts || {}
-    opts.cwd = opts.cwd || __dirname
-    opts.env = opts.env || ''
-    try {
-        execSync(cmd, { cwd: opts.cwd, env: opts.env, windowsHide: true })
-    } catch (err) { return false }
-    return true
+    opts.cwd = opts.cwd || process.cwd()
+    opts.env = opts.env || process.env
+    opts.timeout = opts.timeout || 0
+    const proc = exec(cmd, { cwd: opts.cwd, env: opts.env, windowsHide: true })
+    if(await onProcessExit(proc) === true) return true
+    else return false
 }
 exports.runCommand = runCommand

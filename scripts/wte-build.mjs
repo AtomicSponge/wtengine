@@ -25,14 +25,14 @@ const workers = {
             if(wtf.checkFolder(`${wtf.constants.WORK_FOLDER}/${gitJob.name}`)) {
                 process.stdout.write(`Making sure ${gitJob.name} is up to date...  `)
                 resA.push(wtf.runCommand(`git pull`, { cwd: `${wtf.constants.WORK_FOLDER}/${gitJob.name}` }))
-                if(!resA[resA.length-1]) writeLog(`${gitJob.name} failed`)
-                process.stdout.write(`OK!\n`)
+                if(!resA[resA.length-1]) process.stdout.write(`ERROR!\n`)
+                else process.stdout.write(`OK!\n`)
             }
             else {
                 process.stdout.write(`Downloading ${gitJob.name} from ${gitJob.url}...  `)
                 resA.push(wtf.runCommand(`git clone ${gitJob.url}`, { cwd: wtf.constants.WORK_FOLDER }))
-                if(!resA[resA.length-1]) writeLog(`${gitJob.name} failed`)
-                process.stdout.write(`OK!\n`)
+                if(!resA[resA.length-1]) process.stdout.write(`ERROR!\n`)
+                else process.stdout.write(`OK!\n`)
             }
         })
         var res = true

@@ -9,10 +9,16 @@
 import wtf from './_common.cjs'
 import 'inquirer'
  
+//  Already installed, skip
+if(wtf.checkSettings()) {
+    process.stdout.write(`Previous install detected, skipping...\n`)
+    process.exit(0)
+}
+
 wtf.scriptTitle(`WTEngine Install`)
 
 //  Run system check
-if(!wtf.checkSettings() && await wtf.confirmPrompt('Run WTEngine system check?'))
+if(await wtf.confirmPrompt('Run WTEngine system check?'))
     if(!await wtf.runSysCheckScript())
         wtf.scriptError(`Problems running system check.\nPlease resolve issues then re-run install.`)
 

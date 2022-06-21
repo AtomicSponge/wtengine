@@ -56,17 +56,21 @@ const colors = {
 }
 exports.colors = colors
 
+/**
+ * Show script info
+ * @param {String} title Script title to use
+ */
 const scriptTitle = (title) => {
-    process.stdout.write(`${colors.CYAN}${title}${colors.CLEAR} --- `)
-    process.stdout.write(`${colors.CYAN}${constants.APP_NAME}${colors.CLEAR} - `)
-    process.stdout.write(`${colors.CYAN}ver ${constants.APP_VERSION}${colors.CLEAR}\n`)
+    process.stdout.write(`${colors.CYAN}${title}${colors.CLEAR} - `)
+    process.stdout.write(`${colors.DIM}${colors.CYAN}${constants.APP_NAME}${colors.CLEAR} - `)
+    process.stdout.write(`${colors.DIM}${colors.CYAN}ver ${constants.APP_VERSION}${colors.CLEAR}\n`)
     process.stdout.write(`${colors.DIM}${colors.YELLOW}${constants.APP_URL}${colors.CLEAR}\n`)
     process.stdout.write(`\n`)
 }
 exports.scriptTitle = scriptTitle
 
 /**
- * Create an object with the current date and time that can be easily referenced.
+ * Create an object with the current date and time that can easily be referenced.
  * @returns {Object} A date object with the current date and time.
  */
 const getDate = () => {
@@ -94,8 +98,10 @@ exports.scriptError = scriptError
 
 /**
  * Clears the log file.
+ * Will exit script if the log filename was not set.
  */
 const clearLog = () => {
+    if(constants.LOG_FILE === '') scriptError(`Must set a log file in the script first!`)
     try {
         fs.unlinkSync(`${constants.LOG_LOCATION}/${constants.LOG_FILE}`)
     } catch (err) {}
@@ -104,10 +110,12 @@ exports.clearLog = clearLog
 
 /**
  * Write a message to the log file.
+ * Will exit script if the log filename was not set.
  * @param {String} message String to write.
  * @throws Error on fail then exits script.
  */
 const writeLog = (message) => {
+    if(constants.LOG_FILE === '') scriptError(`Must set a log file in the script first!`)
     try {
         fs.appendFileSync(`${constants.LOG_LOCATION}/${constants.LOG_FILE}`, message)
     } catch (err) { scriptError(err) }

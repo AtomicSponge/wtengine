@@ -37,8 +37,8 @@ const constants = {
     SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.mjs`,
     SETTINGS_FILE: `${__dirname}/../settings.json`,
     WORK_FOLDER: `${__dirname}/../wte-temp`,
-    LOG_FILE: ``,
-    LOG_LOCATION: ``
+    LOG_LOCATION: `${__dirname}/../wte-logs`,
+    LOG_FILE: ``  //  Set by script
 }
 exports.constants = constants
 

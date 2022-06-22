@@ -341,7 +341,7 @@ exports.runConfigScript = runConfigScript
  * Waits for the command to complete but does not show output.
  * @param {String} cmd Command to run.
  * @param {Object} opts Additional options.
- * @param {boolean} log If true, log the result of the command to the log file.
+ * @param {boolean} log Log the result of the command to the log file.  Defaults to true.
  * @returns {boolean} True if the command was successful, else false.
  */
 const runCommand = async (cmd, opts, log) => {
@@ -349,9 +349,10 @@ const runCommand = async (cmd, opts, log) => {
     opts.cwd = opts.cwd || process.cwd()
     opts.env = opts.env || process.env
     opts.timeout = opts.timeout || 0
+    log = log || true
     const proc = exec(cmd, { cwd: opts.cwd, env: opts.env, windowsHide: true },
         (error, stdout, stderr) => {
-            if(log) {
+            if(log) { // todo: format better
                 writeLog(stdout)
                 writeLog(stderr)
             }

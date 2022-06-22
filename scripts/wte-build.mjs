@@ -22,7 +22,7 @@ const workers = {
         await wtf.asyncForEach(wtf.config.gitURLs, async (gitJob) => {
             if(wtf.checkFolder(`${wtf.constants.WORK_FOLDER}/${gitJob.name}`)) {
                 process.stdout.write(`Making sure ${gitJob.name} is up to date...  `)
-                resA.push(await wtf.runCommand(`git pull`, { cwd: `${wtf.constants.WORK_FOLDER}/${gitJob.name}` }, true))
+                resA.push(await wtf.runCommand(`git pull`, { cwd: `${wtf.constants.WORK_FOLDER}/${gitJob.name}` }))
                 if(!resA[resA.length-1]) process.stdout.write(`ERROR!\n`)
                 else process.stdout.write(`OK!\n`)
             }

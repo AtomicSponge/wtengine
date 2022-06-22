@@ -280,6 +280,17 @@ const checkApps = () => {
 exports.checkApps = checkApps
 
 /**
+ * Async version of array's forEach
+ * @param {Array} array Array to iterate
+ * @param {Function} callback Callback function
+ */
+const asyncForEach = async (array, callback) => {
+    for(let index = 0; index < array.length; index++)
+        await callback(array[index], index, array)
+}
+exports.asyncForEach = asyncForEach
+
+/**
  * Wait for a process to exit and return the result.
  * @param {Object} process The process object to watch.
  * @returns {Promise} A fulfilled promise with the result.
@@ -305,7 +316,7 @@ exports.onProcessExit = onProcessExit
 const runSysCheckScript = async (args) => {
     process.stdout.write(`\n`)
     const proc = spawn(constants.SYSCHECK_SCRIPT, args,
-                       {stdio: [process.stdin, process.stdout, process.stderr]})
+                       { stdio: [ process.stdin, process.stdout, process.stderr ] })
     if(await onProcessExit(proc) === true) return true
     else return false
 }
@@ -319,7 +330,7 @@ exports.runSysCheckScript = runSysCheckScript
 const runConfigScript = async (args) => {
     process.stdout.write(`\n`)
     const proc = spawn(constants.CONFIG_SCRIPT, args,
-                       {stdio: [process.stdin, process.stdout, process.stderr]})
+                       { stdio: [ process.stdin, process.stdout, process.stderr ] })
     if(await onProcessExit(proc) === true) return true
     else return false
 }
@@ -332,12 +343,19 @@ exports.runConfigScript = runConfigScript
  * @param {Object} opts Additional options.
  * @returns {boolean} True if the command was successful, else false.
  */
-const runCommand = async (cmd, opts) => {
+const runCommand = async (cmd, opts, log) => {
     opts = opts || {}
     opts.cwd = opts.cwd || process.cwd()
     opts.env = opts.env || process.env
     opts.timeout = opts.timeout || 0
-    const proc = exec(cmd, { cwd: opts.cwd, env: opts.env, windowsHide: true })
+    const proc = exec(cmd, { cwd: opts.cwd, env: opts.env, windowsHide: true },
+        (error, stdout, stderr) => {
+            if(log) {
+                writeLog(stdout)
+                writeLog(stderr)
+            }
+        }
+    )
     if(await onProcessExit(proc) === true) return true
     else return false
 }

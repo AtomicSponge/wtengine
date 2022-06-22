@@ -341,6 +341,7 @@ exports.runConfigScript = runConfigScript
  * Waits for the command to complete but does not show output.
  * @param {String} cmd Command to run.
  * @param {Object} opts Additional options.
+ * @param {boolean} log If true, log the result of the command to the log file.
  * @returns {boolean} True if the command was successful, else false.
  */
 const runCommand = async (cmd, opts, log) => {

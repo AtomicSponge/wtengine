@@ -54,6 +54,8 @@ const build = {
 
         //  Download necessary repos or check for updates.
         if(!await workers.runGit()) wtf.scriptError(`Error!  One or more repos failed to download!`)
+
+        wtf.writeLog(`Engine Build Process completed at ${new Date().toString()}`)
     },
 
     /**
@@ -64,6 +66,8 @@ const build = {
         wtf.clearLog()
         wtf.writeLog(`WTEngine Build Script\n`)
         wtf.writeLog(`Starting Project Build Process at ${new Date().toString()}\n\n`)
+
+        wtf.writeLog(`Project Build Process completed at ${new Date().toString()}`)
     }
 }
 

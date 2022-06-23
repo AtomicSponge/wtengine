@@ -49,7 +49,11 @@ const build = {
     engine: async () => {
         wtf.constants.LOG_FILE = 'wte-build-engine.log'
         wtf.clearLog()
-        if(!await workers.runGit()) scriptError(`Error!  One or more repos failed to download!`)
+        wtf.writeLog(`WTEngine Build Script\n`)
+        wtf.writeLog(`Starting Engine Build Process at ${new Date().toString()}\n\n`)
+
+        //  Download necessary repos or check for updates.
+        if(!await workers.runGit()) wtf.scriptError(`Error!  One or more repos failed to download!`)
     },
 
     /**
@@ -58,6 +62,8 @@ const build = {
     project: async () => {
         wtf.constants.LOG_FILE = 'wte-build-project.log'
         wtf.clearLog()
+        wtf.writeLog(`WTEngine Build Script\n`)
+        wtf.writeLog(`Starting Project Build Process at ${new Date().toString()}\n\n`)
     }
 }
 
@@ -70,6 +76,8 @@ wtf.scriptTitle(`WTEngine Build Utility`)
 const args = wtf.parseArgs(process.argv, [
     { name: 'buildEngine', flags: '--buildengine' },
 ])
+
+if(!wtf.checkSettings()) scriptError(`No 'settings.json' file found!  Run 'npx wte-config' first!`)
 
 const settings = wtf.loadSettings()
 if(args.buildEngine) await build.engine()

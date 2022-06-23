@@ -70,23 +70,6 @@ const scriptTitle = (title) => {
 exports.scriptTitle = scriptTitle
 
 /**
- * Create an object with the current date and time that can easily be referenced.
- * @returns {Object} A date object with the current date and time.
- */
-const getDate = () => {
-    const _date = {}
-    const date = new Date()
-    _date.month = date.getMonth()
-    _date.day = date.getDate()
-    _date.year = date.getFullYear()
-    _date.hour = date.getHours()
-    _date.minutes = date.getMinutes()
-    _date.seconds = date.getSeconds()
-    return _date
-}
-exports.getDate = getDate
-
-/**
  * Display an error message and exit script.
  * @param {String} message Message to display.
  */
@@ -352,9 +335,9 @@ const runCommand = async (cmd, opts, log) => {
     log = log || true
     const proc = exec(cmd, { cwd: opts.cwd, env: opts.env, windowsHide: true },
         (error, stdout, stderr) => {
-            if(log) { // todo: format better
-                writeLog(stdout)
-                writeLog(stderr)
+            if(log) {
+                writeLog(`Running command:  ${cmd}\nDirectory:  ${opts.cwd}\n`)
+                writeLog(`Output:  ${stdout}Errors:  ${stderr}\n\n`)
             }
         }
     )

@@ -32,6 +32,14 @@ Then to install the library run:
 sudo make install
 ```
 
+-----
+
+## Demo
+
+[Demo game](https://github.com/wtfsystems/wte_demo_01)
+
+-----
+
 ## Troubleshooting
 
 ### pkg-config can't find wtengine

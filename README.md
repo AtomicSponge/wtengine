@@ -13,7 +13,7 @@ __WTEngine__ is a cross-platform game engine written in C++17 and based on [ECS]
 ### Documentation:
  - [Manual](https://github.com/wtfsystems/wtengine/wiki)
  - [API](https://www.wtfsystems.net/docs/wtengine/index.html)
- - [Example game](https://github.com/wtfsystems/wtengine/blob/master/example/src/wte_demo.cpp)
+ - [Example game](https://github.com/wtfsystems/wte_demo_01/blob/master/src/wte_demo.cpp)
 
 -----
 
@@ -31,12 +31,6 @@ Then to install the library run:
 ```
 sudo make install
 ```
-
------
-
-## Demo
-
-[Demo game](https://github.com/wtfsystems/wte_demo_01)
 
 -----
 

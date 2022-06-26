@@ -11,7 +11,6 @@ const package = require('../package.json')
 const fs = require('fs')
 const exec  = require('child_process').exec
 const spawn  = require('child_process').spawn
-const commandExistsSync = require('command-exists').sync
 const inquirer = require('inquirer')
 
 /**
@@ -241,26 +240,6 @@ const saveSettings = (settings) => {
     }
 }
 exports.saveSettings = saveSettings
-
-/**
- * Check for necessary applications.
- * @returns True on success, else false
- */
-const checkApps = () => {
-    process.stdout.write(`Checking for necessary applications...\n`)
-    var result = true
-    config.checkApps.forEach((appCheck) => {
-        if(commandExistsSync(appCheck)) {
-            process.stdout.write(`${colors.GREEN}  > '${appCheck}' found.${colors.CLEAR}\n`)
-        } else {
-            process.stdout.write(`${colors.RED}  > '${appCheck}' not found.${colors.CLEAR}\n`)
-            result = false
-        }
-    })
-    process.stdout.write(`${colors.CLEAR}\n`)
-    return result
-}
-exports.checkApps = checkApps
 
 /**
  * Async version of array's forEach

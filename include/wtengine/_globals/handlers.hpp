@@ -91,8 +91,13 @@ using handler_types = std::variant<
  * Handler Register
  */
 template <handler_scopes S, handler_events IDX>
+inline static void toggle_register(void) {
+    //
+};
+
+template <handler_scopes S, handler_events IDX>
 struct _handler_register {
-    constexpr static void toggle(void) {};
+    constexpr static void _toggle(void) {};
     //constexpr static bool _status(void) { return true; };
     constexpr static bool _status(void) { return false; };
     constexpr static bool is_set = []{ return _status(); }();
@@ -102,12 +107,17 @@ struct _handler_register {
  * Handlers template class
  * Stores an input handler.
  */
-template <handler_scopes S, handler_events IDX, bool R = _handler_register<S, IDX>::is_set>
-class handlers {};
+//  Handler is not set
+template <handler_scopes S, handler_events IDX, class Enabled = void>
+class handlers {
+    friend class input;
+    private:
+        constexpr inline static bool is_set = false;
+};
 
 //  Handler is set
 template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, true> {
+class handlers<S, IDX, typename std::enable_if_t<_handler_register<S, IDX>::is_set>> {
     friend class input;
 
     public:
@@ -122,14 +132,6 @@ class handlers<S, IDX, true> {
     private:
         inline static handler_types _handle;  //  Store handler
         constexpr inline static bool is_set = true;
-};
-
-//  Handler is not set
-template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, false> {
-    friend class input;
-    private:
-        constexpr inline static bool is_set = false;
 };
 
 /*!
@@ -174,7 +176,7 @@ constexpr void add_handler(const handler_types& handle) {
         static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
-    _handler_register<S, IDX>::toggle();
+    toggle_register<S, IDX>();
     handlers<S, IDX>::add(handle);
 };
 

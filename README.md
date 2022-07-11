@@ -1,6 +1,6 @@
 #  What the Engine?
 
-__WTEngine__ is a cross-platform game engine written in C++17 and based on [ECS](https://en.wikipedia.org/wiki/Entity_component_system) design.
+__WTEngine__ is a cross-platform game engine written in C++17 and based on [ECS](https://en.wikipedia.org/wiki/Entity_component_system) design.  Currently in alpha and is my learning meta programming project 🤣😎
 
 ### Requirements
  - __Libraries__:

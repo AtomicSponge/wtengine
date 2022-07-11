@@ -209,7 +209,7 @@ class input {
                         event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                     break;
             }
-            }
+            }  //  end switch
         };
 
         static void create_event_queue(void);                 //  Create the input queue.

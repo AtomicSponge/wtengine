@@ -99,8 +99,9 @@ template <handler_scopes S, handler_events IDX>
 struct _handler_register {
     constexpr static void _toggle(void) {};
     //constexpr static bool _status(void) { return true; };
-    constexpr static bool _status(void) { return false; };
-    constexpr static bool is_set = []{ return _status(); }();
+    template <bool B = false>
+    constexpr static bool _status(void) { return B; };
+    //constexpr static bool is_set = []{ return _status(); }();
 };
 
 /*
@@ -117,7 +118,7 @@ class handlers {
 
 //  Handler is set
 template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, typename std::enable_if_t<_handler_register<S, IDX>::is_set>> {
+class handlers<S, IDX, typename std::enable_if_t<_handler_register<S, IDX>>> {
     friend class input;
 
     public:

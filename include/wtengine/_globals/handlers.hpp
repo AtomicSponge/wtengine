@@ -91,17 +91,14 @@ using handler_types = std::variant<
  * Handler Register
  */
 template <handler_scopes S, handler_events IDX>
-inline static void toggle_register(void) {
-    //
+struct _handler_register {
+    constexpr static void toggle(void) {};
+    constexpr static bool is_set = true;
 };
 
 template <handler_scopes S, handler_events IDX>
-struct _handler_register {
-    constexpr static void _toggle(void) {};
-    //constexpr static bool _status(void) { return true; };
-    template <bool B = false>
-    constexpr static bool _status(void) { return B; };
-    //constexpr static bool is_set = []{ return _status(); }();
+inline constexpr void toggle_register(void) {
+    _handler_register<S, IDX>::toggle();
 };
 
 /*
@@ -118,7 +115,7 @@ class handlers {
 
 //  Handler is set
 template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, typename std::enable_if_t<_handler_register<S, IDX>>> {
+class handlers<S, IDX, typename std::enable_if_t<_handler_register<S, IDX>::is_set>> {
     friend class input;
 
     public:
@@ -177,7 +174,8 @@ constexpr void add_handler(const handler_types& handle) {
         static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
-    toggle_register<S, IDX>();
+    //toggle_register<S, IDX>();
+    _handler_register<S, IDX>::toggle();
     handlers<S, IDX>::add(handle);
 };
 

@@ -96,7 +96,6 @@ template <handler_scopes S, handler_events IDX, typename Enabled = std::false_ty
 class handlers {
     friend class input;
     private:
-        inline static handler_types _handle;
         constexpr inline static bool is_set = false;
 };
 

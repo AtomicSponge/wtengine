@@ -88,25 +88,11 @@ using handler_types = std::variant<
 >;
 
 /*
- * Handler Register
- */
-template <handler_scopes S, handler_events IDX>
-struct _handler_register {
-    constexpr static void toggle(void) {};
-    constexpr static bool is_set = true;
-};
-
-template <handler_scopes S, handler_events IDX>
-inline constexpr void toggle_register(void) {
-    _handler_register<S, IDX>::toggle();
-};
-
-/*
  * Handlers template class
  * Stores an input handler.
  */
 //  Handler is not set
-template <handler_scopes S, handler_events IDX, class Enabled = void>
+template <handler_scopes S, handler_events IDX, typename Enabled = std::false_type>
 class handlers {
     friend class input;
     private:
@@ -116,7 +102,7 @@ class handlers {
 
 //  Handler is set
 template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, typename std::true_type> {
+class handlers<S, IDX, typename std::enable_if_t<std::is_member_function_pointer_v<decltype(&handlers<S, IDX>::add)>>> {
     friend class input;
 
     public:

@@ -90,7 +90,7 @@ class input {
             if constexpr (handlers<S, WTE_EVENT_KEY_DOWN>::is_set) {
                 static_assert(build_options.keyboard_enabled, "Keyboard not enabled in build options.");
                 if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
-                    std::get<handler::key>(handlers<S, WTE_EVENT_KEY_DOWN>::_handle)(
+                    std::get<handler::key>(handlers<S, WTE_EVENT_KEY_DOWN>::get())(
                         event.keyboard.keycode, event.keyboard.display);
                     return;
                 }
@@ -98,7 +98,7 @@ class input {
             if constexpr (handlers<S, WTE_EVENT_KEY_UP>::is_set) {
                 static_assert(build_options.keyboard_enabled, "Keyboard not enabled in build options.");
                 if(event.type == ALLEGRO_EVENT_KEY_UP) {
-                    std::get<handler::key>(handlers<S, WTE_EVENT_KEY_UP>::_handle)(
+                    std::get<handler::key>(handlers<S, WTE_EVENT_KEY_UP>::get())(
                         event.keyboard.keycode, event.keyboard.display);
                     return;
                 }
@@ -108,7 +108,7 @@ class input {
             if constexpr (handlers<S, WTE_EVENT_MOUSE_AXIS>::is_set) {
                 static_assert(build_options.mouse_enabled, "Mouse not enabled in build options.");
                 if(event.type == ALLEGRO_EVENT_MOUSE_AXES) {
-                    std::get<handler::mouse_axis>(handlers<S, WTE_EVENT_MOUSE_AXIS>::_handle)(
+                    std::get<handler::mouse_axis>(handlers<S, WTE_EVENT_MOUSE_AXIS>::get())(
                         event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                         event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
                         event.mouse.pressure, event.mouse.display);
@@ -118,7 +118,7 @@ class input {
             if constexpr (handlers<S, WTE_EVENT_MOUSE_BUTTON_DOWN>::is_set) {
                 static_assert(build_options.mouse_enabled, "Mouse not enabled in build options.");
                 if(event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
-                    std::get<handler::mouse_button>(handlers<S, WTE_EVENT_MOUSE_BUTTON_DOWN>::_handle)(
+                    std::get<handler::mouse_button>(handlers<S, WTE_EVENT_MOUSE_BUTTON_DOWN>::get())(
                         event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                         event.mouse.button, event.mouse.display);
                     return;
@@ -127,7 +127,7 @@ class input {
             if constexpr (handlers<S, WTE_EVENT_MOUSE_BUTTON_UP>::is_set) {
                 static_assert(build_options.mouse_enabled, "Mouse not enabled in build options.");
                 if(event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-                    std::get<handler::mouse_button>(handlers<S, WTE_EVENT_MOUSE_BUTTON_UP>::_handle)(
+                    std::get<handler::mouse_button>(handlers<S, WTE_EVENT_MOUSE_BUTTON_UP>::get())(
                         event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                         event.mouse.button, event.mouse.display);
                     return;
@@ -136,7 +136,7 @@ class input {
             if constexpr (handlers<S, WTE_EVENT_MOUSE_WARPED>::is_set) {
                 static_assert(build_options.mouse_enabled, "Mouse not enabled in build options.");
                 if(event.type == ALLEGRO_EVENT_MOUSE_WARPED) {
-                    std::get<handler::mouse_axis>(handlers<S, WTE_EVENT_MOUSE_WARPED>::_handle)(
+                    std::get<handler::mouse_axis>(handlers<S, WTE_EVENT_MOUSE_WARPED>::get())(
                         event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                         event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
                         event.mouse.pressure, event.mouse.display);
@@ -146,7 +146,7 @@ class input {
             if constexpr (handlers<S, WTE_EVENT_MOUSE_ENTER_DISPLAY>::is_set) {
                 static_assert(build_options.mouse_enabled, "Mouse not enabled in build options.");
                 if(event.type == ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY) {
-                    std::get<handler::mouse_axis>(handlers<S, WTE_EVENT_MOUSE_ENTER_DISPLAY>::_handle)(
+                    std::get<handler::mouse_axis>(handlers<S, WTE_EVENT_MOUSE_ENTER_DISPLAY>::get())(
                         event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                         event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
                         event.mouse.pressure, event.mouse.display);
@@ -156,7 +156,7 @@ class input {
             if constexpr (handlers<S, WTE_EVENT_MOUSE_LEAVE_DISPLAY>::is_set) {
                 static_assert(build_options.mouse_enabled, "Mouse not enabled in build options.");
                 if(event.type == ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY) {
-                    std::get<handler::mouse_axis>(handlers<S, WTE_EVENT_MOUSE_LEAVE_DISPLAY>::_handle)(
+                    std::get<handler::mouse_axis>(handlers<S, WTE_EVENT_MOUSE_LEAVE_DISPLAY>::get())(
                         event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                         event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
                         event.mouse.pressure, event.mouse.display);
@@ -168,7 +168,7 @@ class input {
             if constexpr (handlers<S, WTE_EVENT_JOYSTICK_AXIS>::is_set) {
                 static_assert(build_options.joystick_enabled, "Joystick not enabled in build options.");
                 if(event.type == ALLEGRO_EVENT_JOYSTICK_AXIS) {
-                    std::get<handler::joystick_axis>(handlers<S, WTE_EVENT_JOYSTICK_AXIS>::_handle)(
+                    std::get<handler::joystick_axis>(handlers<S, WTE_EVENT_JOYSTICK_AXIS>::get())(
                         event.joystick.stick, event.joystick.axis, event.joystick.pos, event.joystick.id);
                     return;
                 }
@@ -176,7 +176,7 @@ class input {
             if constexpr (handlers<S, WTE_EVENT_JOYSTICK_BUTTON_DOWN>::is_set) {
                 static_assert(build_options.joystick_enabled, "Joystick not enabled in build options.");
                 if(event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN) {
-                    std::get<handler::joystick_button>(handlers<S, WTE_EVENT_JOYSTICK_BUTTON_DOWN>::_handle)(
+                    std::get<handler::joystick_button>(handlers<S, WTE_EVENT_JOYSTICK_BUTTON_DOWN>::get())(
                         event.joystick.button, event.joystick.id);
                     return;
                 }
@@ -184,7 +184,7 @@ class input {
             if constexpr (handlers<S, WTE_EVENT_JOYSTICK_BUTTON_UP>::is_set) {
                 static_assert(build_options.joystick_enabled, "Joystick not enabled in build options.");
                 if(event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_UP) {
-                    std::get<handler::joystick_button>(handlers<S, WTE_EVENT_JOYSTICK_BUTTON_UP>::_handle)(
+                    std::get<handler::joystick_button>(handlers<S, WTE_EVENT_JOYSTICK_BUTTON_UP>::get())(
                         event.joystick.button, event.joystick.id);
                     return;
                 }
@@ -194,7 +194,7 @@ class input {
             if constexpr (handlers<S, WTE_EVENT_TOUCH_BEGIN>::is_set) {
                 static_assert(build_options.touch_enabled, "Touch not enabled in build options.");
                 if(event.type == ALLEGRO_EVENT_TOUCH_BEGIN) {
-                    std::get<handler::touch>(handlers<S, WTE_EVENT_TOUCH_BEGIN>::_handle)(
+                    std::get<handler::touch>(handlers<S, WTE_EVENT_TOUCH_BEGIN>::get())(
                         event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                     return;
                 }
@@ -202,7 +202,7 @@ class input {
             if constexpr (handlers<S, WTE_EVENT_TOUCH_END>::is_set) {
                 static_assert(build_options.touch_enabled, "Touch not enabled in build options.");
                 if(event.type == ALLEGRO_EVENT_TOUCH_END) {
-                    std::get<handler::touch>(handlers<S, WTE_EVENT_TOUCH_END>::_handle)(
+                    std::get<handler::touch>(handlers<S, WTE_EVENT_TOUCH_END>::get())(
                         event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                     return;
                 }
@@ -210,7 +210,7 @@ class input {
             if constexpr (handlers<S, WTE_EVENT_TOUCH_MOVE>::is_set) {
                 static_assert(build_options.touch_enabled, "Touch not enabled in build options.");
                 if(event.type == ALLEGRO_EVENT_TOUCH_MOVE) {
-                    std::get<handler::touch>(handlers<S, WTE_EVENT_TOUCH_MOVE>::_handle)(
+                    std::get<handler::touch>(handlers<S, WTE_EVENT_TOUCH_MOVE>::get())(
                         event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                     return;
                 }
@@ -218,7 +218,7 @@ class input {
             if constexpr (handlers<S, WTE_EVENT_TOUCH_CANCEL>::is_set) {
                 static_assert(build_options.touch_enabled, "Touch not enabled in build options.");
                 if(event.type == ALLEGRO_EVENT_TOUCH_CANCEL) {
-                    std::get<handler::touch>(handlers<S, WTE_EVENT_TOUCH_CANCEL>::_handle)(
+                    std::get<handler::touch>(handlers<S, WTE_EVENT_TOUCH_CANCEL>::get())(
                         event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                     return;
                 }

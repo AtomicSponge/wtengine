@@ -100,7 +100,7 @@ class handlers {
 
 //  Handler is set
 template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, typename std::enable_if_t<std::is_member_function_pointer_v<decltype(&handlers<S, IDX>::add)>>> {
+class handlers<S, IDX, typename std::enable_if_t<std::is_member_function_pointer_v<decltype(&handlers<S, IDX>::get)>>> {
     public:
         handlers() = delete;                       //  Delete constructor.
         ~handlers() = delete;                      //  Delete destructor.

@@ -110,12 +110,13 @@ template <handler_scopes S, handler_events IDX, class Enabled = void>
 class handlers {
     friend class input;
     private:
+        inline static handler_types _handle;
         constexpr inline static bool is_set = false;
 };
 
 //  Handler is set
 template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, typename std::enable_if_t<_handler_register<S, IDX>::is_set>> {
+class handlers<S, IDX, typename std::true_type> {
     friend class input;
 
     public:
@@ -175,8 +176,8 @@ constexpr void add_handler(const handler_types& handle) {
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
     //toggle_register<S, IDX>();
-    _handler_register<S, IDX>::toggle();
-    handlers<S, IDX>::add(handle);
+    //_handler_register<S, IDX>::toggle();
+    handlers<S, IDX, std::true_type>::add(handle);
 };
 
 }  //  end namespace wte

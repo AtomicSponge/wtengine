@@ -100,7 +100,9 @@ class handlers {
 
 //  Handler is set
 template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, typename std::enable_if_t<std::is_member_function_pointer_v<decltype(&handlers<S, IDX>::get)>>> {
+class handlers<S, IDX, typename std::enable_if_t<std::is_member_function_pointer_v<decltype(&handlers<S, IDX>::add)>>> {
+    friend class input;
+
     public:
         handlers() = delete;                       //  Delete constructor.
         ~handlers() = delete;                      //  Delete destructor.
@@ -109,8 +111,6 @@ class handlers<S, IDX, typename std::enable_if_t<std::is_member_function_pointer
 
         //  Create a new handler
         inline static void add(const handler_types& handle) { _handle = handle; };
-        //  Get the handler
-        inline static const handler_types& get() { return _handle; };
 
         constexpr inline static bool is_set = true;
 

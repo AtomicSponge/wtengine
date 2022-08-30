@@ -23,7 +23,12 @@ namespace wte {
 
 class logger final {
     public:
-        void add(const log_item& log_me);
+        /*!
+         * \brief Add an item to the logger.
+         * \param log_me Item to add.
+         * \return True on success, else false.
+         */
+        const bool add(const log_item& log_me);
 
     private:
         void run(void) {};

@@ -14,8 +14,13 @@ namespace wte {
 /*
  *
  */
-void logger::add(const log_item& log_me) {
-    _error_queue.push(log_me);
+const bool logger::add(const log_item& log_me) {
+    try {
+        _error_queue.push(log_me);
+    } catch {
+        return false;
+    }
+    return true;
 }
 
 /*

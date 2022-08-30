@@ -1,8 +1,8 @@
 /*!
- * wtengine | File:  wte_exception.cpp
+ * wtengine | File:  wte_exceptions.cpp
  * 
  * \author Matthew Evans
- * \version 0.7.1
+ * \version 0.7.2
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2022
  */

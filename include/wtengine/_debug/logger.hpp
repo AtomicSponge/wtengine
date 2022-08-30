@@ -33,7 +33,7 @@ class logger final {
          */
         static const bool add(const log_item& log_me);
 
-        static const bool& is_running;
+        static const bool& is_running;  //!<  Flag to see if the logger is running.
 
     private:
         logger() = default;

@@ -25,6 +25,10 @@ const bool logger::add(const log_item& log_me) {
     return true;
 }
 
+void logger::start(void) {
+    //
+}
+
 /*
  *
  */

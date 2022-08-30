@@ -7,6 +7,8 @@
  * \date 2019-2022
  */
 
+#ifdef WTE_DEBUG_MODE
+
 namespace wte {
 
 /*
@@ -26,3 +28,5 @@ void logger::run(void) {
 }
 
 }  //  end namespace wte
+
+#endif  //  WTE_DEBUG_MODE

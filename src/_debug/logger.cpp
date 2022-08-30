@@ -30,6 +30,7 @@ const bool logger::add(const log_item& log_me) {
  */
 void logger::start(void) {
     if(_is_running == true) return;
+    future_obj = exit_signal.get_future();
     std::thread th([&]() { run(); });
     th.detach();
     _is_running = true;
@@ -48,7 +49,7 @@ void logger::stop(void) {
  *
  */
 void logger::run(void) {
-    while(_is_running) {
+    while(future_obj.wait_for(std::chrono::milliseconds(0)) == std::future_status::timeout) {
         //  todo:  process queue
     }
 }

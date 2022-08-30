@@ -56,6 +56,7 @@ class logger final {
         static bool _is_running;
 
         std::promise<void> exit_signal;
+        std::future<void> future_obj;
 }
 
 #else  // not WTE_DEBUG_MODE

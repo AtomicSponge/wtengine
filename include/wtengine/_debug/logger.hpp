@@ -68,7 +68,7 @@ class logger final {
         inline logger() = default;
         inline ~logger() = default;
 
-        inline static bool _is_running = false;
+        inline static const bool _is_running = false;
 }
 
 #endif  //  WTE_DEBUG_MODE

@@ -21,6 +21,9 @@ namespace wte {
 
 #ifdef WTE_DEBUG_MODE
 
+/*!
+ * \class
+ */
 class logger final {
     public:
         logger(const logger&) = delete;          //!<  Delete copy constructor.
@@ -47,6 +50,9 @@ class logger final {
 
 #else  // not WTE_DEBUG_MODE
 
+/*!
+ * \class
+ */
 class logger final {
     public:
         logger(const logger&) = delete;          //!<  Delete copy constructor.

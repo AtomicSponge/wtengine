@@ -26,7 +26,16 @@ const bool logger::add(const log_item& log_me) {
 }
 
 void logger::start(void) {
-    //
+    if(_is_running == true) return;
+    std::thread th([&]() { run(); });
+    th.detach();
+    _is_running = true;
+}
+
+void logger::stop(void) {
+    exit_signal.set_value();
+    _is_running = false;
+    exit_signal = std::promise<void>();
 }
 
 /*

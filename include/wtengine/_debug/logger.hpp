@@ -14,6 +14,9 @@
 #include <string>
 #include <stack>
 #include <exception>
+#include <thread>
+#include <future>
+#include <chrono>
 
 #include "wtengine/_globals/wte_exceptions.hpp"
 
@@ -48,6 +51,8 @@ class logger final {
 
         static std::stack<log_item> _error_queue;
         static bool _is_running;
+
+        std::promise<void> exit_signal;
 }
 
 #else  // not WTE_DEBUG_MODE

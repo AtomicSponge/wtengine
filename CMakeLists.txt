@@ -59,7 +59,7 @@ find_package(GLUT REQUIRED)
 #
 ########################################
 add_library(wtengine STATIC 
-    src/_globals/alert.cpp
+    src/_debug/alert.cpp
     src/_globals/commands.cpp
     src/_globals/engine_time.cpp
     src/_globals/message.cpp

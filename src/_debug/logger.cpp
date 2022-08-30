@@ -11,6 +11,8 @@
 
 namespace wte {
 
+const bool& logger::is_running = logger::_is_running;
+
 /*
  *
  */

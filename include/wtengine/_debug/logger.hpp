@@ -31,13 +31,15 @@ class logger final {
          * \param log_me Item to add.
          * \return True on success, else false.
          */
-        const bool add(const log_item& log_me);
+        static const bool add(const log_item& log_me);
+
+        static const bool& is_running;
 
     private:
         logger() = default;
         ~logger() = default;
 
-        void run(void) {};
+        static void run(void) {};
 
         static std::stack<log_item> _error_queue;
         static bool _is_running;
@@ -56,9 +58,11 @@ class logger final {
          * \param log_me Item to add.
          * \return False.
          */
-        inline const bool add(const log_item& log_me) {
+        inline static const bool add(const log_item& log_me) {
             return false;
         };
+
+        inline static const bool& is_running = _is_running;
 
     private:
         inline logger() = default;

@@ -49,7 +49,7 @@ void logger::stop(void) {
  */
 void logger::run(void) {
     while(_is_running) {
-        //
+        //  todo:  process queue
     }
 }
 

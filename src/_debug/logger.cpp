@@ -57,7 +57,14 @@ void logger::stop(void) {
  */
 void logger::run(void) {
     while(future_obj.wait_for(std::chrono::milliseconds(0)) == std::future_status::timeout) {
-        //  todo:  process queue
+        //  Run this as a loop until the thread stops.
+        if(!_error_queue.empty()) {
+            log_item temp_log_item = mystack.top();
+            mystack.pop();
+
+            //  Process item
+        }
+
     }
 }
 

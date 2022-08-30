@@ -102,14 +102,13 @@ class handlers {
 template <handler_scopes S, handler_events IDX>
 class handlers<S, IDX, typename std::enable_if_t<std::is_member_function_pointer_v<decltype(&handlers<S, IDX>::add)>>> {
     friend class input;
+    friend constexpr void add_handler(const handler_types& handle);
 
     public:
         handlers() = delete;                       //  Delete constructor.
         ~handlers() = delete;                      //  Delete destructor.
         handlers(const handlers&) = delete;        //  Delete copy constructor.
         void operator=(handlers const&) = delete;  //  Delete assignment operator.
-
-        friend constexpr void add_handler(const handler_types& handle);
 
         //  Create a new handler
         //inline static void add(const handler_types& handle) { _handle = handle; };

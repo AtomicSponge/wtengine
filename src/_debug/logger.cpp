@@ -25,6 +25,9 @@ const bool logger::add(const log_item& log_me) {
     return true;
 }
 
+/*
+ *
+ */
 void logger::start(void) {
     if(_is_running == true) return;
     std::thread th([&]() { run(); });
@@ -32,6 +35,9 @@ void logger::start(void) {
     _is_running = true;
 }
 
+/*
+ *
+ */
 void logger::stop(void) {
     exit_signal.set_value();
     _is_running = false;

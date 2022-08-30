@@ -40,12 +40,12 @@ class logger final {
         static const bool add(const log_item& log_me);
 
         /*!
-         * \brief
+         * \brief Start the logger.
          */
         static void start(void);
 
         /*!
-         * \brief
+         * \brief Stop the logger.
          */
         static void stop(void);
 

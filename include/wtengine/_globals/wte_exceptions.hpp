@@ -18,10 +18,11 @@
 namespace wte {
 
 class log_item final {
-    inline log_item(const char& d, const char& l) :
-        description(d), location(l) {
-            time = 42;
-        }
+    public:
+        inline log_item(const char& d, const char& l) :
+            description(d), location(l) {
+                time = 42;
+        };
 
     private:
         const char* description;  //  Exception description.

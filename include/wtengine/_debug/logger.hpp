@@ -10,8 +10,6 @@
 #ifndef WTE_LOGGER_HPP
 #define WTE_LOGGER_HPP
 
-#ifdef WTE_DEBUG_MODE
-
 #include <fstream>
 #include <string>
 #include <stack>
@@ -20,6 +18,8 @@
 #include "wtengine/_globals/wte_exceptions.hpp"
 
 namespace wte {
+
+#ifdef WTE_DEBUG_MODE
 
 class logger final {
     public:
@@ -42,8 +42,6 @@ class logger final {
         static std::stack<log_item> _error_queue;
         static bool _is_running;
 }
-
-}  //  end namespace wte
 
 #else  // not WTE_DEBUG_MODE
 
@@ -70,5 +68,7 @@ class logger final {
 }
 
 #endif  //  WTE_DEBUG_MODE
+
+}  //  end namespace wte
 
 #endif  //  WTE_LOGGER_HPP

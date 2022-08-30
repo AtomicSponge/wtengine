@@ -23,9 +23,11 @@ namespace wte {
 
 class logger final {
     public:
-        const void add(const log_item& log_me);
+        void add(const log_item& log_me);
 
     private:
+        void run(void) {};
+
         std::stack<log_item> _error_queue;
 }
 

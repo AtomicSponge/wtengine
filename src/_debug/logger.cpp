@@ -9,7 +9,17 @@
 
 namespace wte {
 
-const void logger::add(const log_item& log_me) {
+/*
+ *
+ */
+void logger::add(const log_item& log_me) {
+    _error_queue.push(log_me);
+}
+
+/*
+ *
+ */
+void logger::run(void) {
     //
 }
 

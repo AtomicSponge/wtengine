@@ -129,4 +129,13 @@ void display::reconf_display(void) {
     config::_gfx::needs_reconfig = false;
 }
 
+/*
+ *
+ */
+void display::resize_display(const int& width, const int& height) {
+    al_resize_display(_display, width, height);
+    if(!al_acknowledge_resize(_display))
+        throw std::runtime_error("Failed to resize display!");
+}
+
 }  //  end namespace wte

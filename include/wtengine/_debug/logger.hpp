@@ -7,10 +7,10 @@
  * \date 2019-2022
  */
 
-#ifdef WTE_DEBUG_MODE
-
 #ifndef WTE_LOGGER_HPP
 #define WTE_LOGGER_HPP
+
+#ifdef WTE_DEBUG_MODE
 
 #include <fstream>
 #include <string>
@@ -45,6 +45,6 @@ class logger final {
 
 }  //  end namespace wte
 
-#endif  //  WTE_LOGGER_HPP
-
 #endif  //  WTE_DEBUG_MODE
+
+#endif  //  WTE_LOGGER_HPP

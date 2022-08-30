@@ -34,6 +34,9 @@ class logger final {
         const bool add(const log_item& log_me);
 
     private:
+        logger() = default;
+        ~logger() = default;
+
         void run(void) {};
 
         static std::stack<log_item> _error_queue;

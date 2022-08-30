@@ -23,6 +23,9 @@ namespace wte {
 
 class logger final {
     public:
+        logger(const logger&) = delete;          //!<  Delete copy constructor.
+        void operator=(logger const&) = delete;  //!<  Delete assignment operator.
+
         /*!
          * \brief Add an item to the logger.
          * \param log_me Item to add.

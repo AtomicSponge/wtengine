@@ -44,6 +44,11 @@ class logger final {
          */
         static void start(void);
 
+        /*!
+         * \brief
+         */
+        static void stop(void);
+
         static const bool& is_running;  //!<  Flag to see if the logger is running.
 
     private:

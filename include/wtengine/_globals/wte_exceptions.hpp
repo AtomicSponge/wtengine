@@ -18,6 +18,15 @@
 namespace wte {
 
 /*!
+ * \class wte_runtime_error
+ * \brief Throws an internal engine exception.
+ *
+ * Throws both std::runtime_error and logs if enabled.
+ */
+class wte_runtime_error final : public std::runtime_error {
+};
+
+/*!
  * \class wte_exception
  * \brief Throws an internal engine exception.
  *

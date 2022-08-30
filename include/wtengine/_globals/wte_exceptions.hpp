@@ -17,6 +17,18 @@
 
 namespace wte {
 
+class log_item final {
+    inline log_item(const char& d, const char& l) :
+        description(d), location(l) {
+            time = 42;
+        }
+
+    private:
+        const char* description;  //  Exception description.
+        const char* location;     //  Exception location.
+        const int64_t time;       //  Time of exception.
+};
+
 /*!
  * \class wte_runtime_error
  * \brief Throws an internal engine exception.

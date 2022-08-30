@@ -9,6 +9,8 @@
 
 namespace wte {
 
-
+const void logger::add(const log_item& log_me) {
+    //
+}
 
 }  //  end namespace wte

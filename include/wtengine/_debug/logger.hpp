@@ -21,15 +21,9 @@
 
 namespace wte {
 
-struct log_item final {
-    const char* description;  //  Exception description.
-    const char* location;     //  Exception location.
-    const int64_t time;       //  Time of exception.
-};
-
 class logger final {
     public:
-        const void add(const std::string& message)
+        const void add(const log_item& log_me);
 
     private:
         std::stack<log_item> _error_queue;

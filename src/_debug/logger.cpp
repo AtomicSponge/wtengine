@@ -20,7 +20,9 @@ void logger::add(const log_item& log_me) {
  *
  */
 void logger::run(void) {
-    //
+    while(_is_running) {
+        //
+    }
 }
 
 }  //  end namespace wte

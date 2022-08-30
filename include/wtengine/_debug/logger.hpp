@@ -28,7 +28,8 @@ class logger final {
     private:
         void run(void) {};
 
-        std::stack<log_item> _error_queue;
+        static std::stack<log_item> _error_queue;
+        static bool _is_running;
 }
 
 }  //  end namespace wte

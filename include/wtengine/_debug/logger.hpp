@@ -48,7 +48,7 @@ class logger final {
 
     private:
         logger() = default;
-        ~logger() = default;
+        void ~logger(void);
 
         static void run(void) {};
 

@@ -16,6 +16,13 @@ const bool& logger::is_running = logger::_is_running = false;
 /*
  *
  */
+void logger::~logger(void) {
+    stop();
+}
+
+/*
+ *
+ */
 const bool logger::add(const log_item& log_me) {
     try {
         _error_queue.push(log_me);

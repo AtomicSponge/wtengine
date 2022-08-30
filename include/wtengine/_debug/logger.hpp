@@ -7,6 +7,8 @@
  * \date 2019-2022
  */
 
+#ifdef WTE_DEBUG_MODE
+
 #ifndef WTE_LOGGER_HPP
 #define WTE_LOGGER_HPP
 
@@ -19,14 +21,22 @@
 
 namespace wte {
 
+struct log_item final {
+    const char* description;  //  Exception description.
+    const char* location;     //  Exception location.
+    const int64_t time;       //  Time of exception.
+};
+
 class logger final {
     public:
-        //
+        const void add(const std::string& message)
 
     private:
-        std::stack<string> _error_queue;
+        std::stack<log_item> _error_queue;
 }
 
 }  //  end namespace wte
 
-#endif
+#endif  //  WTE_LOGGER_HPP
+
+#endif  //  WTE_DEBUG_MODE

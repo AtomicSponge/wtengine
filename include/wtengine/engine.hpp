@@ -28,9 +28,9 @@
 #include "wtengine/display.hpp"
 #include "wtengine/input.hpp"
 
+#include "wtengine/_debug/alert.hpp"
 #include "wtengine/_debug/logger.hpp"
 #include "wtengine/_globals/_defines.hpp"
-#include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/commands.hpp"
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/mgr/_managers.hpp"

@@ -25,9 +25,9 @@
 
 #include "wtengine/mgr/manager.hpp"
 
+#include "wtengine/_debug/alert.hpp"
 #include "wtengine/_debug/exceptions.hpp"
 #include "wtengine/_globals/_defines.hpp"
-#include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/_globals/wte_asset.hpp"

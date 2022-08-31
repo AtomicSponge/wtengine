@@ -17,7 +17,7 @@
 
 #include "wtengine/mgr/manager.hpp"
 
-#include "wtengine/_globals/alert.hpp"
+#include "wtengine/_debug/alert.hpp"
 #include "wtengine/_globals/message.hpp"
 #include "wtengine/mgr/world.hpp"
 

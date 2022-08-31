@@ -18,6 +18,10 @@ const bool& logger::is_running = logger::_is_running = false;
  */
 logger::logger() {
     // create new log file
+    try {
+        log_file("fjkdlsjfkdj.log");
+        log_file << "New log\n\n";
+    } catch {}
 }
 
 /*
@@ -25,6 +29,7 @@ logger::logger() {
  */
 logger::~logger() {
     stop();
+    log_file.close();
 }
 
 /*
@@ -44,12 +49,16 @@ const bool logger::add(const log_item& log_me) {
 /*
  *
  */
-void logger::start(void) {
-    if(_is_running == true) return;
-    future_obj = exit_signal.get_future();
-    std::thread th([&]() { run(); });
-    th.detach();
-    _is_running = true;
+const bool logger::start(void) {
+    if(_is_running == true) return false;
+    try {
+        future_obj = exit_signal.get_future();
+        std::thread th([&]() { run(); });
+        th.detach();
+    } catch {
+        return false;
+    }
+    return _is_running = true;
 }
 
 /*
@@ -68,13 +77,16 @@ void logger::run(void) {
     while(future_obj.wait_for(std::chrono::milliseconds(0)) == std::future_status::timeout) {
         //  Run this as a loop until the thread stops.
         if(!_error_queue.empty()) {
+            //  Get next item
             log_item temp_log_item = mystack.top();
+
+            //  Mutex pop the stack
             log_lock.lock();
             mystack.pop();
             log_lock.unlock();
 
             //  Process item
-            std::string write_message = 
+            log_file <<
                 "Description:  " + std::to_string(temp_log_item.description) + "\n" +
                 "Location:  " + std::to_string(temp_log_item.location) + "\n" +
                 "Time:  " + std::to_string(temp_log_item.time) + "\n\n";

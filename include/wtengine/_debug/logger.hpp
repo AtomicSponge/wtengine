@@ -42,8 +42,9 @@ class logger final {
 
         /*!
          * \brief Start the logger.
+         * \return True if started, false if not.
          */
-        static void start(void);
+        static const bool start(void);
 
         /*!
          * \brief Stop the logger.
@@ -60,6 +61,8 @@ class logger final {
 
         static std::stack<exception_item> _error_queue;
         static bool _is_running;
+
+        std::ofstream log_file;
 
         std::promise<void> exit_signal;
         std::future<void> future_obj;

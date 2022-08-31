@@ -38,7 +38,7 @@ class logger final {
          * \param log_me Item to add.
          * \return True on success, else false.
          */
-        static const bool add(const log_item& log_me);
+        static const bool add(const exception_item& log_me);
 
         /*!
          * \brief Start the logger.
@@ -54,11 +54,11 @@ class logger final {
 
     private:
         logger() = default;
-        void ~logger(void);
+        ~logger();
 
         static void run(void) {};
 
-        static std::stack<log_item> _error_queue;
+        static std::stack<exception_item> _error_queue;
         static bool _is_running;
 
         std::promise<void> exit_signal;

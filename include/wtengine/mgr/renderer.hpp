@@ -25,12 +25,12 @@
 
 #include "wtengine/mgr/manager.hpp"
 
+#include "wtengine/_debug/wte_exceptions.hpp"
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
-#include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/cmp/_components.hpp"
 #include "wtengine/mgr/world.hpp"
 #include "wtengine/config.hpp"

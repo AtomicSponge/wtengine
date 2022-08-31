@@ -103,6 +103,10 @@ engine::engine(const int& argc, char** const& argv) {
                 alert::set("Error loading script:  " + args[0], "engine", engine_time::check());
         }
     });
+
+    #ifdef WTE_DEBUG_MODE
+    logger::start();
+    #endif
 }
 
 /*

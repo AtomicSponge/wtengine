@@ -20,14 +20,12 @@ namespace wte {
 
 class logger;
 
-class log_item final {
+class exception_item final {
     friend class logger;
 
     public:
-        inline log_item(const char& d, const char& l) :
-            description(d), location(l) {
-                time = 42;
-        };
+        inline exception_item(const char* d, const char* l) :
+            description(d), location(l), time(42) {};
 
     private:
         const char* description;  //  Exception description.

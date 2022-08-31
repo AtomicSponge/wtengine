@@ -16,7 +16,7 @@ const bool& logger::is_running = logger::_is_running = false;
 /*
  *
  */
-void logger::~logger(void) {
+logger::~logger() {
     stop();
 }
 

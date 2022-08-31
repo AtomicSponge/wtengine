@@ -23,8 +23,8 @@
 
 #include "wtengine/mgr/manager.hpp"
 
+#include "wtengine/_debug/wte_exceptions.hpp"
 #include "wtengine/_globals/engine_time.hpp"
-#include "wtengine/_globals/wte_exception.hpp"
 #include "wtengine/cmp/component.hpp"
 
 namespace wte {

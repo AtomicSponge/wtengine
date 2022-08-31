@@ -61,11 +61,11 @@ find_package(GLUT REQUIRED)
 add_library(wtengine STATIC 
     src/_debug/alert.cpp
     src/_debug/logger.cpp
+    src/_debug/wte_exceptions.cpp
     src/_globals/commands.cpp
     src/_globals/engine_time.cpp
     src/_globals/message.cpp
     src/_globals/wrappers.cpp
-    src/_globals/wte_exceptions.cpp
     src/cmp/ai.cpp
     src/cmp/background.cpp
     src/cmp/bounding_box.cpp

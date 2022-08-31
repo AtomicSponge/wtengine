@@ -64,7 +64,7 @@ class logger final {
         std::promise<void> exit_signal;
         std::future<void> future_obj;
         std::mutex log_lock;
-}
+};
 
 #else  // not WTE_DEBUG_MODE
 
@@ -93,7 +93,7 @@ class logger final {
         inline ~logger() = default;
 
         inline static const bool _is_running = false;
-}
+};
 
 #endif  //  WTE_DEBUG_MODE
 

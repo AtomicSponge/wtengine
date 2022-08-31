@@ -16,6 +16,13 @@ const bool& logger::is_running = logger::_is_running = false;
 /*
  *
  */
+logger::logger() {
+    // create new log file
+}
+
+/*
+ *
+ */
 logger::~logger() {
     stop();
 }
@@ -68,9 +75,9 @@ void logger::run(void) {
 
             //  Process item
             std::string write_message = 
-                std::to_string(temp_log_item.description) +
-                std::to_string(temp_log_item.location) +
-                std::to_string(temp_log_item.time);
+                "Description:  " + std::to_string(temp_log_item.description) + "\n" +
+                "Location:  " + std::to_string(temp_log_item.location) + "\n" +
+                "Time:  " + std::to_string(temp_log_item.time) + "\n\n";
         }
 
     }

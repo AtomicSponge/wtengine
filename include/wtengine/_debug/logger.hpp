@@ -53,7 +53,7 @@ class logger final {
         static const bool& is_running;  //!<  Flag to see if the logger is running.
 
     private:
-        logger() = default;
+        logger();
         ~logger();
 
         static void run(void) {};

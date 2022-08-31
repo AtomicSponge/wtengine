@@ -25,7 +25,7 @@
 
 #include "wtengine/mgr/manager.hpp"
 
-#include "wtengine/_debug/wte_exceptions.hpp"
+#include "wtengine/_debug/exceptions.hpp"
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/engine_time.hpp"
@@ -149,7 +149,7 @@ class renderer final : private manager<renderer> {
                             al_draw_bitmap(temp_bitmap,
                                 mgr::world::get_component<cmp::location>(it.first)->pos_x,
                                 mgr::world::get_component<cmp::location>(it.first)->pos_y, 0);
-                        } catch(const wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
+                        } catch(const exception& e) { alert::set(e.what(), e.where(), e.when()); }
                         al_destroy_bitmap(temp_bitmap);
                     }
                 }

@@ -34,30 +34,30 @@ class exception_item final {
 };
 
 /*!
- * \class wte_runtime_error
+ * \class runtime_error
  * \brief Throws an internal engine exception.
  *
  * Throws both std::runtime_error and logs if enabled.
  */
-class wte_runtime_error final : public std::runtime_error {
+class runtime_error final : public std::runtime_error {
 };
 
 /*!
- * \class wte_exception
+ * \class exception
  * \brief Throws an internal engine exception.
  *
  * Exceptions thrown this way will be displayed as an alert in the engine. \n
  * If debugging is enabled, they will also be logged to file.
  */
-class wte_exception final : public std::exception {
+class exception final : public std::exception {
     public:
         /*!
-         * \brief Create a wte_exception.
+         * \brief Create a wte exception.
          * \param desc Description of thrown exception.
          * \param loc Location exception was thrown.
          * \param t Time exception was thrown.
          */
-        inline wte_exception(
+        inline exception(
             const char* desc,
             const char* loc,
             const int64_t& t
@@ -65,8 +65,8 @@ class wte_exception final : public std::exception {
             if constexpr (build_options.debug_mode) log_exception(desc, loc, t);
         };
 
-        wte_exception() = delete;    //!<  Delete default constructor.
-        ~wte_exception() = default;  //!<  Default destructor.
+        exception() = delete;    //!<  Delete default constructor.
+        ~exception() = default;  //!<  Default destructor.
 
         /*!
          * \brief Returns the description of the thrown exception.

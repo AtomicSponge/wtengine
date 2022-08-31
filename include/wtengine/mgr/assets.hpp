@@ -19,7 +19,7 @@
 
 #include "wtengine/mgr/manager.hpp"
 
-#include "wtengine/_debug/wte_exceptions.hpp"
+#include "wtengine/_debug/exceptions.hpp"
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/engine_time.hpp"
@@ -102,10 +102,10 @@ class assets final : private manager<assets<>> {
                 return get_impl<T, 0, Types...>::get(label);
             } catch(std::out_of_range& e) {
                 std::string err_msg = "Could not get asset: " + label;
-                throw wte_exception(err_msg.c_str(), "assets", engine_time::check());
+                throw exception(err_msg.c_str(), "assets", engine_time::check());
             } catch(...) {
                 std::string err_msg = "Error reading asset: " + label;
-                throw wte_exception(err_msg.c_str(), "assets", engine_time::check());
+                throw exception(err_msg.c_str(), "assets", engine_time::check());
             }
         };
 

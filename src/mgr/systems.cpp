@@ -56,7 +56,7 @@ void systems::run() {
     for(auto& it: _systems_timed)
         try { 
             (it)->run();
-        } catch(const wte_exception& e) {
+        } catch(const exception& e) {
             alert::set(e.what(), e.where(), e.when());
         }
 }
@@ -68,7 +68,7 @@ void systems::run_untimed() {
     for(auto& it: _systems_untimed)
         try { 
             (it)->run();
-        } catch(const wte_exception& e) {
+        } catch(const exception& e) {
             alert::set(e.what(), e.where(), e.when());
         }
 }

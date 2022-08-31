@@ -24,7 +24,7 @@
 
 #include <allegro5/allegro.h>
 
-#include "wtengine/_debug/wte_exceptions.hpp"
+#include "wtengine/_debug/exceptions.hpp"
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/engine_time.hpp"

@@ -47,7 +47,7 @@ void messages::dispatch(void) {
                     c_it.second->handle_msg(c_it.first, m_it);
                     break;  //  Found, stop checking dispatch components.
                 }
-            } catch(const wte_exception& e) {
+            } catch(const exception& e) {
                 alert::set(e.what(), e.where(), e.when());
                 break;
             } catch(...) { break; }

@@ -23,7 +23,7 @@
 
 #include "wtengine/mgr/manager.hpp"
 
-#include "wtengine/_debug/wte_exceptions.hpp"
+#include "wtengine/_debug/exceptions.hpp"
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/cmp/component.hpp"
 
@@ -239,7 +239,7 @@ class world final : private manager<world> {
                     return std::static_pointer_cast<T>(it->second);
             }
             std::string err_str = "Entity: " + std::to_string(e_id) + " - Component not found";
-            throw wte_exception(err_str.c_str(), "world", engine_time::check());
+            throw exception(err_str.c_str(), "world", engine_time::check());
         };
 
         /*!
@@ -258,7 +258,7 @@ class world final : private manager<world> {
                     return std::static_pointer_cast<const T>(it->second);
             }
             std::string err_str = "Entity: " + std::to_string(e_id) + " - Component not found";
-            throw wte_exception(err_str.c_str(), "world", engine_time::check());
+            throw exception(err_str.c_str(), "world", engine_time::check());
         };
 
         /*!

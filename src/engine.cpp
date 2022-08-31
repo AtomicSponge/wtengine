@@ -179,7 +179,7 @@ void engine::process_new_game(const std::string& game_data) {
     //  Clear world and load starting entities.
     mgr::world::clear();
     
-    try { new_game(); } catch(wte_exception& e) {
+    try { new_game(); } catch(exception& e) {
         //  Failed to create new game, abort.
         alert::set(e.what(), e.where(), e.when());
         config::_flags::menu_opened = true;
@@ -213,7 +213,7 @@ void engine::process_end_game(void) {
     mgr::audio::sample::clear_instances();
 
     //  Call end game process.
-    try { end_game(); } catch(wte_exception& e) { alert::set(e.what(), e.where(), e.when()); }
+    try { end_game(); } catch(exception& e) { alert::set(e.what(), e.where(), e.when()); }
 
     //  Clear managers.
     mgr::world::clear();

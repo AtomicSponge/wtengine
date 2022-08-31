@@ -18,7 +18,11 @@
 
 namespace wte {
 
+class logger;
+
 class log_item final {
+    friend class logger;
+
     public:
         inline log_item(const char& d, const char& l) :
             description(d), location(l) {

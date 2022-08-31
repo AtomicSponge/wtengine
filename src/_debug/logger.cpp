@@ -65,6 +65,10 @@ void logger::run(void) {
             mystack.pop();
 
             //  Process item
+            std::string write_message = 
+                std::to_string(temp_log_item.description) +
+                std::to_string(temp_log_item.location) +
+                std::to_string(temp_log_item.time);
         }
 
     }

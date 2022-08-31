@@ -25,7 +25,7 @@ class exception_item final {
 
     public:
         inline exception_item(const char* d, const char* l) :
-            description(d), location(l), time(42) {};
+            description(d), location(l), time(engine_time::check()) {};
 
     private:
         const char* description;  //  Exception description.

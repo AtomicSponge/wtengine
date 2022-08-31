@@ -25,7 +25,9 @@ void logger::~logger(void) {
  */
 const bool logger::add(const log_item& log_me) {
     try {
+        log_lock.lock();
         _error_queue.push(log_me);
+        log_lock.unlock();
     } catch {
         return false;
     }

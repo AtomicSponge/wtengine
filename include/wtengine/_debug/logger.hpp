@@ -16,6 +16,7 @@
 #include <exception>
 #include <thread>
 #include <future>
+#include <mutex>
 #include <chrono>
 
 #include "wtengine/_globals/wte_exceptions.hpp"
@@ -62,6 +63,7 @@ class logger final {
 
         std::promise<void> exit_signal;
         std::future<void> future_obj;
+        std::mutex log_lock;
 }
 
 #else  // not WTE_DEBUG_MODE

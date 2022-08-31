@@ -62,7 +62,9 @@ void logger::run(void) {
         //  Run this as a loop until the thread stops.
         if(!_error_queue.empty()) {
             log_item temp_log_item = mystack.top();
+            log_lock.lock();
             mystack.pop();
+            log_lock.unlock();
 
             //  Process item
             std::string write_message = 

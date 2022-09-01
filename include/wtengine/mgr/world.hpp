@@ -239,7 +239,7 @@ class world final : private manager<world> {
                     return std::static_pointer_cast<T>(it->second);
             }
             std::string err_str = "Entity: " + std::to_string(e_id) + " - Component not found";
-            throw exception(err_str.c_str(), "world", engine_time::check());
+            throw exception(exception_item(err_str, "World", 4));
         };
 
         /*!
@@ -258,7 +258,7 @@ class world final : private manager<world> {
                     return std::static_pointer_cast<const T>(it->second);
             }
             std::string err_str = "Entity: " + std::to_string(e_id) + " - Component not found";
-            throw exception(err_str.c_str(), "world", engine_time::check());
+            throw exception(exception_item(err_str, "World", 4));
         };
 
         /*!

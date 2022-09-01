@@ -94,8 +94,8 @@ const std::string world::get_name(const entity_id& e_id) {
                              [&e_id](const entity& e){ return e.first == e_id; });
     if(e_it == entity_vec.end()) {
         //  Not found, throw error.
-        std::string err_str = "Entity " + std::to_string(e_id) + " does not exist";
-        throw exception(err_str.c_str(), "world", engine_time::check());
+        throw exception(
+            exception_item("Entity " + std::to_string(e_id) + " does not exist", "World", 4));
     }
     return e_it->second;
 }
@@ -134,8 +134,8 @@ const entities world::get_entities(void) { return entity_vec; }
  */
 const entity_container world::set_entity(const entity_id& e_id) {
     if(!entity_exists(e_id)) {
-        std::string err_str = "Entity " + std::to_string(e_id) + " does not exist";
-        throw exception(err_str.c_str(), "world", engine_time::check());
+        throw exception(
+            exception_item("Entity " + std::to_string(e_id) + " does not exist", "World", 4));
     }
 
     entity_container temp_container;
@@ -152,8 +152,8 @@ const entity_container world::set_entity(const entity_id& e_id) {
  */
 const const_entity_container world::get_entity(const entity_id& e_id) {
     if(!entity_exists(e_id)) {
-        std::string err_str = "Entity " + std::to_string(e_id) + " does not exist";
-        throw exception(err_str.c_str(), "world", engine_time::check());
+        throw exception(
+            exception_item("Entity " + std::to_string(e_id) + " does not exist", "World", 4));
     }
 
     const_entity_container temp_container;

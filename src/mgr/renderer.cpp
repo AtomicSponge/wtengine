@@ -305,29 +305,6 @@ void renderer::render(void) {
             0, 0, config::gfx::screen_w, config::gfx::screen_h, 0);
     }
 
-    //  Render alerts.
-    if(alert::is_set()) {
-        const int font_size = al_get_font_line_height(**renderer_font);
-        ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap((alert::get().length() * font_size) + (font_size * 2), font_size + (font_size * 2));
-        al_set_target_bitmap(temp_bitmap);
-        al_clear_to_color(WTE_COLOR_RED);
-
-        al_draw_text(**renderer_font, WTE_COLOR_WHITE,
-            (al_get_bitmap_width(temp_bitmap) / 2), 10,
-            ALLEGRO_ALIGN_CENTER, alert::get().c_str());
-
-        al_set_target_backbuffer(al_get_current_display());
-        al_draw_scaled_bitmap(
-            temp_bitmap, 0, 0,
-            al_get_bitmap_width(temp_bitmap), al_get_bitmap_height(temp_bitmap),
-            (config::gfx::screen_w / 2) - std::floor((al_get_bitmap_width(temp_bitmap) * config::gfx::scale_factor) / 2),
-            (config::gfx::screen_h / 2) - std::floor((al_get_bitmap_height(temp_bitmap) * config::gfx::scale_factor) / 2),
-            al_get_bitmap_width(temp_bitmap) * config::gfx::scale_factor,
-            al_get_bitmap_height(temp_bitmap) * config::gfx::scale_factor, 0
-        );
-        al_destroy_bitmap(temp_bitmap);
-    }
-
     //  Draw frame rate.
     if(config::flags::draw_fps) {
         const std::string fps_string = "FPS: " + std::to_string(fps);

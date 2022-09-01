@@ -48,7 +48,7 @@ void messages::dispatch(void) {
                     break;  //  Found, stop checking dispatch components.
                 }
             } catch(const exception& e) {
-                alert::set(e.what(), e.where(), e.when());
+                throw e;
                 break;
             } catch(...) { break; }
         }}  //  End double for

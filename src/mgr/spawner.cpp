@@ -59,9 +59,7 @@ void spawner::process_messages(const message_container& messages) {
                     entity_id e_id = mgr::world::new_entity();
                     try {
                         s_it->second.second(e_id, m_it.get_args());
-                    } catch(...) { 
-                        alert::set("Error spawning entity " + m_it.get_arg(0), "spawner", engine_time::check());
-                    }
+                    } catch(const exception& e) { throw e; }
                 }
         }
 

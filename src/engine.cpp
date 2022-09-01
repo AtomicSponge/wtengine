@@ -68,9 +68,6 @@ engine::engine(const int& argc, char** const& argv) {
         if(config::flags::game_started) process_end_game();
         config::_flags::is_running = false;
     });
-    cmds.add("alert", 2, [this](const msg_args& args) {
-        alert::set(args[0], args[1], engine_time::check());
-    });
     cmds.add("new-game", 1, [this](const msg_args& args) {
         if(!config::flags::game_started) {
             process_new_game(args[0]);
@@ -99,8 +96,10 @@ engine::engine(const int& argc, char** const& argv) {
     });
     cmds.add("load-script", 1, [this](const msg_args& args) {
         if(config::flags::game_started && args[0] != "") {
-            if(!mgr::messages::load_script(args[0]))
-                alert::set("Error loading script:  " + args[0], "engine", engine_time::check());
+            try {
+                if(!mgr::messages::load_script(args[0]))
+                    throw exception(exception_item("Error loading script:  " + args[0], "engine", 2));
+            } catch(const exception& e) { throw e; }
         }
     });
 
@@ -167,7 +166,7 @@ void engine::process_new_game(const std::string& game_data) {
     //  Load systems and prevent further systems from being loaded.
     load_systems();
     mgr::systems::finalized = true;
-    if(mgr::systems::empty()) throw std::runtime_error("No systems have been loaded!");
+    if(mgr::systems::empty()) throw runtime_error(exception_item("No systems have been loaded!", "Engine", 2));
 
     //  Stop audio manager from playing sounds.
     mgr::audio::music::a::stop();
@@ -181,8 +180,8 @@ void engine::process_new_game(const std::string& game_data) {
     
     try { new_game(); } catch(exception& e) {
         //  Failed to create new game, abort.
-        alert::set(e.what(), e.where(), e.when());
         config::_flags::menu_opened = true;
+        throw e;
         return;
     }
 
@@ -213,8 +212,7 @@ void engine::process_end_game(void) {
     mgr::audio::sample::clear_instances();
 
     //  Call end game process.
-    try { end_game(); } catch(exception& e) { alert::set(e.what(), e.where(), e.when()); }
-
+    try { end_game(); } catch(const exception& e) { throw e; }
     //  Clear managers.
     mgr::world::clear();
     mgr::systems::clear();

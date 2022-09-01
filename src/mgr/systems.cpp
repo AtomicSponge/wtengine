@@ -56,9 +56,7 @@ void systems::run() {
     for(auto& it: _systems_timed)
         try { 
             (it)->run();
-        } catch(const exception& e) {
-            alert::set(e.what(), e.where(), e.when());
-        }
+        } catch(const exception& e) { throw e; }
 }
 
 /*

@@ -32,7 +32,7 @@ class manager {
          * \exception runtime_error Manager is already running.
          */
         manager() {
-            if(initialized == true) throw runtime_error("An instance of this manager is already running!");
+            if(initialized == true) throw runtime_error(exception_item("An instance of this manager is already running!", "System error", 3));
             initialized = true;
         };
 

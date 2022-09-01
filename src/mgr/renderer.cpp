@@ -9,9 +9,9 @@
 
 #include "wtengine/mgr/renderer.hpp"
 
-namespace wte::mgr::gfx {
+template <> bool wte::mgr::manager<wte::mgr::gfx::renderer>::initialized = false;
 
-template <> bool manager<renderer>::initialized = false;
+namespace wte::mgr::gfx {
 
 ALLEGRO_TIMER* renderer::fps_timer = NULL;
 ALLEGRO_EVENT_QUEUE* renderer::fps_event_queue = NULL;

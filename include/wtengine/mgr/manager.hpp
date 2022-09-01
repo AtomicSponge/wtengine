@@ -10,7 +10,7 @@
 #ifndef WTE_MGR_MANAGER_HPP
 #define WTE_MGR_MANAGER_HPP
 
-#include <stdexcept>
+#include "wtengine/_debug/exceptions.hpp"
 
 namespace wte::mgr {
 
@@ -32,7 +32,7 @@ class manager {
          * \exception runtime_error Manager is already running.
          */
         manager() {
-            if(initialized == true) throw std::runtime_error("An instance of this manager is already running!");
+            if(initialized == true) throw runtime_error("An instance of this manager is already running!");
             initialized = true;
         };
 

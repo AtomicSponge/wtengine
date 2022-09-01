@@ -14,7 +14,6 @@
 
 #include "wtengine/cmp/component.hpp"
 
-#include "wtengine/_globals/alert.hpp"
 #include "wtengine/_globals/message.hpp"
 #include "wtengine/mgr/messages.hpp"
 #include "wtengine/mgr/world.hpp"

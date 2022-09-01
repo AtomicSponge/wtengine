@@ -25,6 +25,10 @@ namespace wte {
 
 class logger;
 
+/*!
+ * \class
+ */
+
 class exception_item final {
     friend class logger;
     friend class runtime_error;

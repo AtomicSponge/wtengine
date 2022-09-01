@@ -17,7 +17,6 @@
 
 #include "wtengine/mgr/manager.hpp"
 
-#include "wtengine/_debug/alert.hpp"
 #include "wtengine/_debug/exceptions.hpp"
 #include "wtengine/sys/system.hpp"
 

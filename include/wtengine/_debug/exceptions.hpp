@@ -48,7 +48,9 @@ class runtime_error final : public std::exception {
         };
 
         runtime_error() = delete;    //!<  Delete default constructor.
-        ~runtime_error() = default;  //!<  Default destructor.
+        inline virtual ~runtime_error() {
+            std::exit(item.code);
+        };
 
         /*!
          * \brief Returns the description of the thrown exception.

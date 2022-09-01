@@ -24,7 +24,7 @@ namespace wte {
  * Log an exception to file
  */
 inline void log_exception(const exception_item& item) {
-    //logger::add(item);
+    logger::add(item);
 };
 
 /*!
@@ -39,7 +39,7 @@ class runtime_error final : public std::exception {
          * \brief
          */
         inline runtime_error(const exception_item& i) : item(i) {
-            if constexpr (build_options.debug_mode) log_exception(item);
+            if constexpr (build_options.debug_mode) log_exception(i);
         };
 
         /*!
@@ -90,7 +90,7 @@ class exception final : public std::exception {
          * \param t Time exception was thrown.
          */
         inline exception(const exception_item& i) : item(i) {
-            //if constexpr (build_options.debug_mode) log_exception(i);
+            if constexpr (build_options.debug_mode) log_exception(i);
         };
 
         exception() = delete;    //!<  Delete default constructor.

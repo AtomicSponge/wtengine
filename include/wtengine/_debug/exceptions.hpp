@@ -10,6 +10,7 @@
 #ifndef WTE_EXCEPTION_HPP
 #define WTE_EXCEPTION_HPP
 
+#include <string>
 #include <fstream>
 #include <exception>
 
@@ -26,8 +27,8 @@ class exception_item final {
     friend class exception;
 
     public:
-        inline exception_item(const char* d, const char* l, const uint& c) :
-            description(d), location(l), code(c), time(engine_time::check()) {};
+        inline exception_item(const std::string& d, const std::string& l, const uint& c) :
+            description(d.c_str()), location(l.c_str()), code(c), time(engine_time::check()) {};
 
     private:
         const char* description;  //  Exception description.

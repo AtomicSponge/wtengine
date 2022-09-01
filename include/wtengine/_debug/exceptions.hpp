@@ -56,19 +56,19 @@ class runtime_error final : public std::exception {
          * \brief Returns the description of the thrown exception.
          * \return Description of thrown exception.
          */
-        const char* what() const noexcept override { return item.description; };
+        inline const char* what() const noexcept override { return item.description; };
 
         /*!
          * \brief Return the location the exception occured.
          * \return Location of thrown exception.
          */
-        const char* where() const noexcept{ return item.location; };
+        inline const char* where() const noexcept{ return item.location; };
 
         /*!
          * \brief Return the time the exception occured.
          * \return Time of thrown exception.
          */
-        const int64_t when() const noexcept { return item.time; };
+        inline const int64_t when() const noexcept { return item.time; };
 
     private:
         const exception_item item;
@@ -102,19 +102,19 @@ class exception final : public std::exception {
          * \brief Returns the description of the thrown exception.
          * \return Description of thrown exception.
          */
-        const char* what() const noexcept override { return item.description; };
+        inline const char* what() const noexcept override { return item.description; };
 
         /*!
          * \brief Return the location the exception occured.
          * \return Location of thrown exception.
          */
-        const char* where() const noexcept{ return item.location; };
+        inline const char* where() const noexcept{ return item.location; };
 
         /*!
          * \brief Return the time the exception occured.
          * \return Time of thrown exception.
          */
-        const int64_t when() const noexcept { return item.time; };
+        inline const int64_t when() const noexcept { return item.time; };
 
     private:
         const exception_item item;

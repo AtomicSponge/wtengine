@@ -40,6 +40,9 @@ class exception_item final {
         const int64_t time;       //  Time of exception.
 };
 
+/*
+ * Log an exception to file
+ */
 inline void log_exception(const exception_item& item) {
     //logger::add(item);
 };

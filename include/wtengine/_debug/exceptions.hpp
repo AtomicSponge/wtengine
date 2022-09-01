@@ -43,9 +43,7 @@ class exception_item final {
  */
 class runtime_error final : public std::exception {
     public:
-        inline runtime_error(const exception_item& item) :
-            description(item.description)
-        {
+        inline runtime_error(const exception_item& i) : item(i) {
             if constexpr (build_options.debug_mode) log_exception(item);
         };
 
@@ -56,10 +54,22 @@ class runtime_error final : public std::exception {
          * \brief Returns the description of the thrown exception.
          * \return Description of thrown exception.
          */
-        const char* what() const noexcept override;
+        const char* what() const noexcept override { return item.description; };
+
+        /*!
+         * \brief Return the location the exception occured.
+         * \return Location of thrown exception.
+         */
+        const char* where() const noexcept{ return item.location; };
+
+        /*!
+         * \brief Return the time the exception occured.
+         * \return Time of thrown exception.
+         */
+        const int64_t when() const noexcept { return item.time; };
 
     private:
-        const char* description;  //  Exception description.
+        const exception_item item;
         //  Log exception to file when debugging is enabled.
         inline void log_exception(const exception_item& item) {};
 };
@@ -79,9 +89,8 @@ class exception final : public std::exception {
          * \param loc Location exception was thrown.
          * \param t Time exception was thrown.
          */
-        inline exception(const exception_item& item) :
-            description(item.description), location(item.location), time(item.time) {
-            if constexpr (build_options.debug_mode) log_exception(item);
+        inline exception(const exception_item& i) : item(i) {
+            //if constexpr (build_options.debug_mode) log_exception(i);
         };
 
         exception() = delete;    //!<  Delete default constructor.
@@ -91,26 +100,26 @@ class exception final : public std::exception {
          * \brief Returns the description of the thrown exception.
          * \return Description of thrown exception.
          */
-        const char* what() const noexcept override;
+        const char* what() const noexcept override { return item.description; };
 
         /*!
          * \brief Return the location the exception occured.
          * \return Location of thrown exception.
          */
-        const char* where() const noexcept;
+        const char* where() const noexcept{ return item.location; };
 
         /*!
          * \brief Return the time the exception occured.
          * \return Time of thrown exception.
          */
-        const int64_t when() const noexcept;
+        const int64_t when() const noexcept { return item.time; };
 
     private:
-        const char* description;  //  Exception description.
-        const char* location;     //  Exception location.
-        const int64_t time;       //  Time of exception.
+        const exception_item item;
         //  Log exception to file when debugging is enabled.
-        void log_exception(const exception_item& item);
+        inline void log_exception() {
+            //logger::add(item);
+        };
 };
 
 }  //  end namespace wte

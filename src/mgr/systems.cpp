@@ -66,9 +66,7 @@ void systems::run_untimed() {
     for(auto& it: _systems_untimed)
         try { 
             (it)->run();
-        } catch(const exception& e) {
-            alert::set(e.what(), e.where(), e.when());
-        }
+        } catch(const exception& e) { throw e; }
 }
 
 }  //  end namespace wte::mgr

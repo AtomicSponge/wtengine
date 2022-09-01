@@ -123,10 +123,6 @@ const bool input::check_events(void) {
     ALLEGRO_EVENT event;
     while(al_get_next_event(input_event_queue, &event)) {
         capture_states(event);
-        //  Clear any active alerts on input event
-        if(alert::is_set() &&
-            (event.type == ALLEGRO_EVENT_KEY_DOWN ||
-             event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN)) alert::clear();
         //  Toggle menus
         if(event.type == ALLEGRO_EVENT_KEY_DOWN &&
            event.keyboard.keycode == config::controls::key_menu)

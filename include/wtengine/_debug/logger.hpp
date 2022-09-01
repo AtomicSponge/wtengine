@@ -19,9 +19,30 @@
 #include <mutex>
 #include <chrono>
 
-#include "wtengine/_globals/wte_exceptions.hpp"
+#include "wtengine/_globals/engine_time.hpp"
 
 namespace wte {
+
+class logger;
+
+class exception_item final {
+    friend class logger;
+    friend class runtime_error;
+    friend class exception;
+
+    public:
+        /*!
+         * \brief
+         */
+        inline exception_item(const std::string& d, const std::string& l, const uint& c) :
+            description(d.c_str()), location(l.c_str()), code(c), time(engine_time::check()) {};
+
+    private:
+        const char* description;  //  Exception description.
+        const char* location;     //  Exception location.
+        const uint& code;         //  Code of error
+        const int64_t time;       //  Time of exception.
+};
 
 #ifdef WTE_DEBUG_MODE
 
@@ -75,6 +96,12 @@ class logger final {
  * \class
  */
 class logger final {
+    private:
+        inline logger() = default;
+        inline ~logger() = default;
+
+        inline static const bool _is_running = false;
+
     public:
         logger(const logger&) = delete;          //!<  Delete copy constructor.
         void operator=(logger const&) = delete;  //!<  Delete assignment operator.
@@ -85,17 +112,11 @@ class logger final {
          * \param log_me Item to add.
          * \return False.
          */
-        inline static const bool add(const log_item& log_me) {
+        inline static const bool add(const exception_item& log_me) {
             return false;
         };
 
         inline static const bool& is_running = _is_running;
-
-    private:
-        inline logger() = default;
-        inline ~logger() = default;
-
-        inline static const bool _is_running = false;
 };
 
 #endif  //  WTE_DEBUG_MODE

@@ -27,14 +27,21 @@ class exception_item final {
     friend class exception;
 
     public:
+        /*!
+         * \brief
+         */
         inline exception_item(const std::string& d, const std::string& l, const uint& c) :
             description(d.c_str()), location(l.c_str()), code(c), time(engine_time::check()) {};
 
     private:
         const char* description;  //  Exception description.
         const char* location;     //  Exception location.
-        const uint& code;
+        const uint& code;         //  Code of error
         const int64_t time;       //  Time of exception.
+};
+
+inline void log_exception(const exception_item& item) {
+    //logger::add(item);
 };
 
 /*!
@@ -42,11 +49,19 @@ class exception_item final {
  * \brief Throws an internal engine exception that terminates the application.
  */
 class runtime_error final : public std::exception {
+    friend void log_exception(const exception_item& item);
+
     public:
+        /*!
+         * \brief
+         */
         inline runtime_error(const exception_item& i) : item(i) {
             if constexpr (build_options.debug_mode) log_exception(item);
         };
 
+        /*!
+         * \brief
+         */
         runtime_error() = delete;    //!<  Delete default constructor.
         inline virtual ~runtime_error() {
             std::exit(item.code);
@@ -71,9 +86,7 @@ class runtime_error final : public std::exception {
         inline const int64_t when() const noexcept { return item.time; };
 
     private:
-        const exception_item item;
-        //  Log exception to file when debugging is enabled.
-        inline void log_exception(const exception_item& item) {};
+        const exception_item item;  //  Store the exception item.
 };
 
 /*!
@@ -84,6 +97,8 @@ class runtime_error final : public std::exception {
  * If debugging is enabled, they will also be logged to file.
  */
 class exception final : public std::exception {
+    friend void log_exception(const exception_item& item);
+
     public:
         /*!
          * \brief Create a wte exception.
@@ -117,11 +132,8 @@ class exception final : public std::exception {
         inline const int64_t when() const noexcept { return item.time; };
 
     private:
-        const exception_item item;
+        const exception_item item;  //  Store the exception item.
         //  Log exception to file when debugging is enabled.
-        inline void log_exception() {
-            //logger::add(item);
-        };
 };
 
 }  //  end namespace wte

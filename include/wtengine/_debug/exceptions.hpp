@@ -39,7 +39,25 @@ class exception_item final {
  *
  * Throws both std::runtime_error and logs if enabled.
  */
-class runtime_error final : public std::runtime_error {
+class runtime_error final : public std::exception {
+    public:
+        inline runtime_error(const char* desc) : description(desc) {
+            if constexpr (build_options.debug_mode) log_exception(desc);
+        };
+
+        runtime_error() = delete;    //!<  Delete default constructor.
+        ~runtime_error() = default;  //!<  Default destructor.
+
+        /*!
+         * \brief Returns the description of the thrown exception.
+         * \return Description of thrown exception.
+         */
+        const char* what() const noexcept override;
+
+    private:
+        const char* description;  //  Exception description.
+        //  Log exception to file when debugging is enabled.
+        inline void log_exception(const char* desc) {};
 };
 
 /*!

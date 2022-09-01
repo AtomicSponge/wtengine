@@ -21,7 +21,9 @@ logger::logger() {
     try {
         log_file("fjkdlsjfkdj.log");
         log_file << "New log\n\n";
-    } catch {}
+    } catch {
+        throw runtime_error("Error creating log file!");
+    }
 }
 
 /*

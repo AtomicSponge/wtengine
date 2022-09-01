@@ -35,9 +35,7 @@ class exception_item final {
 
 /*!
  * \class runtime_error
- * \brief Throws an internal engine exception.
- *
- * Throws both std::runtime_error and logs if enabled.
+ * \brief Throws an internal engine exception that terminates the application.
  */
 class runtime_error final : public std::exception {
     public:

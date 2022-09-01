@@ -22,14 +22,17 @@ class logger;
 
 class exception_item final {
     friend class logger;
+    friend class runtime_error;
+    friend class exception;
 
     public:
-        inline exception_item(const char* d, const char* l) :
-            description(d), location(l), time(engine_time::check()) {};
+        inline exception_item(const char* d, const char* l, const uint& c) :
+            description(d), location(l), code(c), time(engine_time::check()) {};
 
     private:
         const char* description;  //  Exception description.
         const char* location;     //  Exception location.
+        const uint& code;
         const int64_t time;       //  Time of exception.
 };
 
@@ -39,8 +42,10 @@ class exception_item final {
  */
 class runtime_error final : public std::exception {
     public:
-        inline runtime_error(const char* desc) : description(desc) {
-            if constexpr (build_options.debug_mode) log_exception(desc);
+        inline runtime_error(const exception_item& item) :
+            description(item.description)
+        {
+            if constexpr (build_options.debug_mode) log_exception(item);
         };
 
         runtime_error() = delete;    //!<  Delete default constructor.
@@ -55,7 +60,7 @@ class runtime_error final : public std::exception {
     private:
         const char* description;  //  Exception description.
         //  Log exception to file when debugging is enabled.
-        inline void log_exception(const char* desc) {};
+        inline void log_exception(const exception_item& item) {};
 };
 
 /*!
@@ -73,12 +78,9 @@ class exception final : public std::exception {
          * \param loc Location exception was thrown.
          * \param t Time exception was thrown.
          */
-        inline exception(
-            const char* desc,
-            const char* loc,
-            const int64_t& t
-        ) : description(desc), location(loc), time(t) {
-            if constexpr (build_options.debug_mode) log_exception(desc, loc, t);
+        inline exception(const exception_item& item) :
+            description(item.description), location(item.location), time(item.time) {
+            if constexpr (build_options.debug_mode) log_exception(item);
         };
 
         exception() = delete;    //!<  Delete default constructor.
@@ -107,11 +109,7 @@ class exception final : public std::exception {
         const char* location;     //  Exception location.
         const int64_t time;       //  Time of exception.
         //  Log exception to file when debugging is enabled.
-        void log_exception(
-            const char* desc,
-            const char* loc,
-            const int64_t& t
-        );
+        void log_exception(const exception_item& item);
 };
 
 }  //  end namespace wte

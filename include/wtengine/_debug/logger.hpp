@@ -10,8 +10,10 @@
 #ifndef WTE_LOGGER_HPP
 #define WTE_LOGGER_HPP
 
-#include <fstream>
 #include <string>
+#include <iostream>
+#include <iomanip>
+#include <ctime>
 #include <stack>
 #include <exception>
 #include <thread>

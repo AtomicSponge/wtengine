@@ -19,7 +19,8 @@ const bool& logger::is_running = logger::_is_running = false;
 logger::logger() {
     // create new log file
     try {
-        log_file("fjkdlsjfkdj.log");
+        log_file("wte-logs\exception_log_" +
+            std::put_time(&tm, "%d-%m-%Y_%H-%M-%S") + ".log");
         log_file << "New log\n\n";
     } catch {
         throw runtime_error("Error creating log file!");

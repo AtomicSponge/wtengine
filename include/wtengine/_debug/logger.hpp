@@ -87,11 +87,12 @@ class logger final {
         static std::stack<exception_item> _error_queue;
         static bool _is_running;
 
-        std::ofstream log_file;
+        static std::ofstream log_file;
 
-        std::promise<void> exit_signal;
-        std::future<void> future_obj;
-        std::mutex log_lock;
+        static std::promise<void> exit_signal;
+        static std::future<void> future_obj;
+
+        static std::mutex log_mtx;
 };
 
 #else  // not WTE_DEBUG_MODE

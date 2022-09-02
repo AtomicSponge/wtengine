@@ -39,9 +39,9 @@ logger::~logger() {
  */
 const bool logger::add(const log_item& log_me) {
     try {
-        log_lock.lock();
+        log_mtx.lock();
         _error_queue.push(log_me);
-        log_lock.unlock();
+        log_mtx.unlock();
     } catch {
         return false;
     }
@@ -83,9 +83,9 @@ void logger::run(void) {
             log_item temp_log_item = mystack.top();
 
             //  Mutex pop the stack
-            log_lock.lock();
+            log_mtx.lock();
             mystack.pop();
-            log_lock.unlock();
+            log_mtx.unlock();
 
             //  Process item
             log_file <<

@@ -20,6 +20,7 @@
 #include <algorithm>
 #include <limits>
 #include <memory>
+#include <mutex>
 
 #include "wtengine/mgr/manager.hpp"
 
@@ -182,7 +183,9 @@ class world final : private manager<world> {
                 if(typeid(*it).name() == typeid(T).name()) return false;
             }
 
+            world_mtx.lock();
             _world.insert(std::make_pair(e_id, std::make_shared<T>(args...)));
+            world_mtx.unlock();
             return true;
         };
 
@@ -195,11 +198,15 @@ class world final : private manager<world> {
          */
         template <typename T>
         inline static const bool delete_component(const entity_id& e_id) {
+            world_mtx.lock();
             auto results = _world.equal_range(e_id);
+            world_mtx.unlock();
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second)) {
+                    world_mtx.lock();
                     it = _world.erase(it);
+                    world_mtx.unlock();
                     return true;
                 }
             }
@@ -215,7 +222,9 @@ class world final : private manager<world> {
          */
         template <typename T>
         inline static const bool has_component(const entity_id& e_id) {
+            world_mtx.lock();
             const auto results = _world.equal_range(e_id);
+            world_mtx.unlock();
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second)) return true;
@@ -232,14 +241,17 @@ class world final : private manager<world> {
          */
         template <typename T>
         inline static const std::shared_ptr<T> set_component(const entity_id& e_id) {
+            world_mtx.lock();
             const auto results = _world.equal_range(e_id);
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second))
                     return std::static_pointer_cast<T>(it->second);
             }
-            std::string err_str = "Entity: " + std::to_string(e_id) + " - Component not found";
-            throw exception(exception_item(err_str, "World", 4));
+            world_mtx.unlock();
+
+            throw exception(
+                exception_item("Entity: " + std::to_string(e_id) + " - Component not found", "World", 4));
         };
 
         /*!
@@ -257,8 +269,8 @@ class world final : private manager<world> {
                 if(std::dynamic_pointer_cast<T>(it->second))
                     return std::static_pointer_cast<const T>(it->second);
             }
-            std::string err_str = "Entity: " + std::to_string(e_id) + " - Component not found";
-            throw exception(exception_item(err_str, "World", 4));
+            throw exception(
+                exception_item("Entity: " + std::to_string(e_id) + " - Component not found", "World", 4));
         };
 
         /*!
@@ -301,10 +313,14 @@ class world final : private manager<world> {
     private:
         world() = default;
         ~world() = default;
+
         static void clear(void);  //  Clear the entity manager.
+
         static entity_id entity_counter;  //  Last Entity ID used.
         static entities entity_vec;       //  Container for all entities.
         static world_map _world;          //  Container for all components.
+
+        static std::mutex world_mtx;
 };
 
 }  //  namespace wte::mgr

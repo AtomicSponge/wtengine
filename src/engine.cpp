@@ -103,9 +103,7 @@ engine::engine(const int& argc, char** const& argv) {
         }
     });
 
-    #ifdef WTE_DEBUG_MODE
-    logger::start();
-    #endif
+    if(build_options.debug_mode) logger::start();
 }
 
 /*
@@ -120,6 +118,8 @@ engine::~engine() {
     destroy_display();
     al_inhibit_screensaver(false);
     al_uninstall_system();
+
+    if(build_options.debug_mode) logger::stop();
 
     initialized = false;
 }

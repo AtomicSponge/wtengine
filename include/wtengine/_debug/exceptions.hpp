@@ -29,7 +29,9 @@ inline void log_exception(const exception_item& item) {
 
 /*!
  * \class runtime_error
- * \brief Throws an internal engine exception that terminates the application.
+ * \brief Throws an engine runtime error.
+ *
+ * Exceptions thrown this way will terminate the engine.
  */
 class runtime_error final : public std::exception {
     friend void log_exception(const exception_item& item);
@@ -76,7 +78,7 @@ class runtime_error final : public std::exception {
  * \class exception
  * \brief Throws an internal engine exception.
  *
- * Exceptions thrown this way will be displayed as an alert in the engine. \n
+ * Exceptions thrown this way will not terminate the engine. \n
  * If debugging is enabled, they will also be logged to file.
  */
 class exception final : public std::exception {

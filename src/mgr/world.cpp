@@ -17,6 +17,9 @@ entity_id world::entity_counter = ENTITY_START;
 entities world::entity_vec;
 world_map world::_world;
 
+std::mutex world::entity_mtx;
+std::mutex world::world_mtx;
+
 /*
  *
  */

@@ -121,6 +121,9 @@ class logger final {
             return false;
         };
 
+        inline static const bool start(void) { return false; };
+        inline static void stop(void) {};
+
         inline static const bool& is_running = _is_running;
 };
 

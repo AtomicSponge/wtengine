@@ -111,15 +111,15 @@ class logger final {
             return false;
         };
 
-        inline static const bool start(void) { return false; };
-        static void run(void) {};
-        inline static void stop(void) {};
-
         inline static const bool is_running = false;
 
     private:
         inline logger() = default;
         inline ~logger() = default;
+
+        inline static const bool start(void) { return false; };
+        static void run(void) {};
+        inline static void stop(void) {};
 
         inline static const bool _is_running = false;
 };

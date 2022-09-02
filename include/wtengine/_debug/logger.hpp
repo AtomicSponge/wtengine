@@ -23,6 +23,7 @@
 
 namespace wte {
 
+class engine;
 class logger;
 
 /*!
@@ -54,6 +55,8 @@ class exception_item final {
  * \class
  */
 class logger final {
+    friend class engine;
+
     public:
         logger(const logger&) = delete;          //!<  Delete copy constructor.
         void operator=(logger const&) = delete;  //!<  Delete assignment operator.
@@ -65,24 +68,15 @@ class logger final {
          */
         static const bool add(const exception_item& log_me);
 
-        /*!
-         * \brief Start the logger.
-         * \return True if started, false if not.
-         */
-        static const bool start(void);
-
-        /*!
-         * \brief Stop the logger.
-         */
-        static void stop(void);
-
         static const bool& is_running;  //!<  Flag to see if the logger is running.
 
     private:
         logger();
         ~logger();
 
-        static void run(void) {};
+        static const bool start(void);
+        static void run(void);
+        static void stop(void);
 
         static std::stack<exception_item> _error_queue;
         static bool _is_running;
@@ -101,11 +95,7 @@ class logger final {
  * \class
  */
 class logger final {
-    private:
-        inline logger() = default;
-        inline ~logger() = default;
-
-        inline static const bool _is_running = false;
+    friend class engine;
 
     public:
         logger(const logger&) = delete;          //!<  Delete copy constructor.
@@ -122,9 +112,16 @@ class logger final {
         };
 
         inline static const bool start(void) { return false; };
+        static void run(void) {};
         inline static void stop(void) {};
 
-        inline static const bool& is_running = _is_running;
+        inline static const bool is_running = false;
+
+    private:
+        inline logger() = default;
+        inline ~logger() = default;
+
+        inline static const bool _is_running = false;
 };
 
 #endif  //  WTE_DEBUG_MODE

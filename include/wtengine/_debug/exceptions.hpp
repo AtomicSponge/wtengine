@@ -118,7 +118,6 @@ class exception final : public std::exception {
 
     private:
         const exception_item item;  //  Store the exception item.
-        //  Log exception to file when debugging is enabled.
 };
 
 }  //  end namespace wte

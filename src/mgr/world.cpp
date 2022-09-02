@@ -25,11 +25,13 @@ std::mutex world::world_mtx;
  */
 void world::clear(void) {
     entity_counter = ENTITY_START;
+
     entity_mtx.lock();
-    entity_vec.clear();
+    entity_vec.clear();     //  Clear entities vector
     entity_mtx.unlock();
+
     world_mtx.lock();
-    _world.clear();
+    _world.clear();         //  Clear the world block
     world_mtx.unlock();
 }
 
@@ -87,9 +89,11 @@ const bool world::delete_entity(const entity_id& e_id) {
                              [&e_id](const entity& e){ return e.first == e_id; });
     if(e_it == entity_vec.end()) return false;
     entity_mtx.unlock();
+
     world_mtx.lock();
     _world.erase(e_id);      //  Remove all associated componenets.
     world_mtx.unlock();
+
     entity_mtx.lock();
     entity_vec.erase(e_it);  //  Delete the entity.
     entity_mtx.unlock();

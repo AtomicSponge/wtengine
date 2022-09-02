@@ -21,15 +21,19 @@ bool engine::initialized = false;
  *
  */
 engine::engine(const int& argc, char** const& argv) {
-    if(initialized == true) throw std::runtime_error(display::window_title + " already running!");
+    if(initialized == true) throw runtime_error(
+        exception_item(display::window_title + " already running!", "Main engine", 1));
     initialized = true;
 
     //  Initialize Allegro.
-    if(!al_init()) throw std::runtime_error("Allegro failed to load!");
+    if(!al_init()) throw runtime_error(
+        exception_item("Allegro failed to load!", "Main engine", 1));
 
     //  Initialize additional Allegro components.
-    if(!al_init_image_addon()) throw std::runtime_error("Failed to load Allegro image addon!");
-    if(!al_init_font_addon()) throw std::runtime_error("Failed to load Allegro font addon!");
+    if(!al_init_image_addon()) throw runtime_error(
+        exception_item("Failed to load Allegro image addon!", "Main engine", 1));
+    if(!al_init_font_addon()) throw runtime_error(
+        exception_item("Failed to load Allegro font addon!", "Main engine", 1));
     config::_flags::audio_installed = al_install_audio();
     //  Input detection.
     config::_flags::keyboard_detected = al_install_keyboard();
@@ -38,8 +42,10 @@ engine::engine(const int& argc, char** const& argv) {
     config::_flags::touch_detected = al_install_touch_input();
 
     //  Configure PhysFS.
-    if(!PHYSFS_init(argv[0])) throw std::runtime_error("Failed to load PhysFS!");
-    if(file_locations.empty()) throw std::runtime_error("Need to configure locations for PhysFS!");
+    if(!PHYSFS_init(argv[0])) throw runtime_error(
+        exception_item("Failed to load PhysFS!", "Main engine", 1));
+    if(file_locations.empty()) throw runtime_error(
+        exception_item("Need to configure locations for PhysFS!", "Main engine", 1));
     for(auto& it: file_locations) PHYSFS_mount(it.c_str(), NULL, 1);
     al_set_physfs_file_interface();
 
@@ -51,11 +57,13 @@ engine::engine(const int& argc, char** const& argv) {
 
     //  Configure main timer.
     main_timer = al_create_timer(1.0f / ticks_per_sec);
-    if(!main_timer) throw std::runtime_error("Failed to create timer!");
+    if(!main_timer) throw runtime_error(
+        exception_item("Failed to create timer!", "Main engine", 1));
 
     //  Configure main event queue.
     main_event_queue = al_create_event_queue();
-    if(!main_event_queue) throw std::runtime_error("Failed to create main event queue!");
+    if(!main_event_queue) throw runtime_error(
+        exception_item("Failed to create main event queue!", "Main engine", 1));
 
     //  Register event sources.
     al_register_event_source(main_event_queue, al_get_display_event_source(_display));
@@ -166,7 +174,8 @@ void engine::process_new_game(const std::string& game_data) {
     //  Load systems and prevent further systems from being loaded.
     load_systems();
     mgr::systems::finalized = true;
-    if(mgr::systems::empty()) throw runtime_error(exception_item("No systems have been loaded!", "Engine", 2));
+    if(mgr::systems::empty()) throw runtime_error(
+        exception_item("No systems have been loaded!", "Main Engine", 1));
 
     //  Stop audio manager from playing sounds.
     mgr::audio::music::a::stop();

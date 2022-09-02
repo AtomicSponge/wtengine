@@ -28,6 +28,7 @@
 #include "wtengine/display.hpp"
 #include "wtengine/input.hpp"
 
+#include "wtengine/_debug/exceptions.hpp"
 #include "wtengine/_debug/logger.hpp"
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/commands.hpp"

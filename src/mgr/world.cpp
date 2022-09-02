@@ -23,7 +23,9 @@ world_map world::_world;
 void world::clear(void) {
     entity_counter = ENTITY_START;
     entity_vec.clear();
+    world_mtx.lock();
     _world.clear();
+    world_mtx.unlock();
 }
 
 /*
@@ -72,7 +74,9 @@ const bool world::delete_entity(const entity_id& e_id) {
     auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),
                              [&e_id](const entity& e){ return e.first == e_id; });
     if(e_it == entity_vec.end()) return false;
+    world_mtx.lock();
     _world.erase(e_id);      //  Remove all associated componenets.
+    world_mtx.unlock();
     entity_vec.erase(e_it);  //  Delete the entity.
     return true;
 }
@@ -139,7 +143,9 @@ const entity_container world::set_entity(const entity_id& e_id) {
     }
 
     entity_container temp_container;
+    world_mtx.lock();
     const auto results = _world.equal_range(e_id);
+    world_mtx.unlock();
 
     for(auto it = results.first; it != results.second; it++) {
         temp_container.emplace_back(cmp::component_sptr((*it).second));
@@ -157,7 +163,9 @@ const const_entity_container world::get_entity(const entity_id& e_id) {
     }
 
     const_entity_container temp_container;
+    world_mtx.lock();
     const auto results = _world.equal_range(e_id);
+    world_mtx.unlock();
 
     for(auto it = results.first; it != results.second; it++) {
         temp_container.emplace_back(cmp::component_csptr((*it).second));

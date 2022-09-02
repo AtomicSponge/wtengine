@@ -282,10 +282,12 @@ class world final : private manager<world> {
         inline static const component_container<T> set_components(void) {
             component_container<T> temp_components;
 
+            world_mtx.lock();
             for(auto& it: _world) {
                 if(std::dynamic_pointer_cast<T>(it.second))
                     temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
             }
+            world_mtx.unlock();
             return temp_components;
         };
 
@@ -298,10 +300,12 @@ class world final : private manager<world> {
         inline static const const_component_container<T> get_components(void) {
             const_component_container<T> temp_components;
 
+            world_mtx.lock();
             for(auto& it: _world) {
                 if(std::dynamic_pointer_cast<T>(it.second))
                     temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
             }
+            world_mtx.unlock();
             return temp_components;
         };
 
@@ -320,6 +324,7 @@ class world final : private manager<world> {
         static entities entity_vec;       //  Container for all entities.
         static world_map _world;          //  Container for all components.
 
+        static std::mutex entity_mtx;
         static std::mutex world_mtx;
 };
 

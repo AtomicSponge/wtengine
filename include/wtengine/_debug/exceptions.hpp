@@ -38,16 +38,18 @@ class runtime_error final : public std::exception {
 
     public:
         /*!
-         * \brief
+         * \brief Create a new runtime error object.
+         * \param i An exception item object.
          */
         inline runtime_error(const exception_item& i) : item(i) {
             if constexpr (build_options.debug_mode) log_exception(i);
         };
 
-        /*!
-         * \brief
-         */
         runtime_error() = delete;    //!<  Delete default constructor.
+
+        /*!
+         * \brief Terminate engine after handling exception.
+         */
         inline virtual ~runtime_error() {
             std::exit(item.code);
         };
@@ -87,9 +89,7 @@ class exception final : public std::exception {
     public:
         /*!
          * \brief Create a wte exception.
-         * \param desc Description of thrown exception.
-         * \param loc Location exception was thrown.
-         * \param t Time exception was thrown.
+         * \param i An exception item object.
          */
         inline exception(const exception_item& i) : item(i) {
             if constexpr (build_options.debug_mode) log_exception(i);

@@ -24,7 +24,7 @@ namespace wte {
  * Log an exception to file
  */
 inline void log_exception(const exception_item& item) {
-    logger::add(item);
+    //logger::add(item);
 };
 
 /*!

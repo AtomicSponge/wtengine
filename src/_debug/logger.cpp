@@ -38,7 +38,7 @@ logger::~logger() {
 /*
  *
  */
-const bool logger::add(const log_item& log_me) {
+const bool logger::add(const exception_item& log_me) {
     try {
         log_mtx.lock();
         _error_queue.push(log_me);

@@ -19,8 +19,8 @@ const bool& logger::is_running = logger::_is_running = false;
 logger::logger() {
     // create new log file
     try {
-        log_file("wte-logs\exception_log_" +
-            std::put_time(&tm, "%d-%m-%Y_%H-%M-%S") + ".log");
+        log_file.open("wte-logs\exception_log_" +
+            std::put_time(&tm, "%d-%m-%Y_%H-%M-%S") + ".log", ios::out | ios::trunc);
         log_file << "New log\n\n";
     } catch {
         throw runtime_error("Error creating log file!");
@@ -92,7 +92,8 @@ void logger::run(void) {
             log_file <<
                 "Description:  " + std::to_string(temp_log_item.description) + "\n" +
                 "Location:  " + std::to_string(temp_log_item.location) + "\n" +
-                "Time:  " + std::to_string(temp_log_item.time) + "\n\n";
+                "Time:  " + std::to_string(temp_log_item.time) + "\n";
+                "Code:  " + std::to_string(temp_log_item.code) + "\n\n";
         }
 
     }

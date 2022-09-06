@@ -73,8 +73,21 @@ class logger final {
         static const bool& is_running;  //!<  Flag to see if the logger is running.
 
     private:
-        logger();
-        ~logger();
+        logger() {
+            // create new log file
+            try {
+                log_file.open("wte-logs\exception_log_" +
+                    std::put_time(&tm, "%d-%m-%Y_%H-%M-%S") + ".log", ios::out | ios::trunc);
+                log_file << "New log\n\n";
+            } catch {
+                throw runtime_error("Error creating log file!");
+            }
+        };
+
+        ~logger() {
+            stop();
+            log_file.close();
+        };
 
         static const bool start(void);
         static void run(void);

@@ -7,8 +7,6 @@
  * \date 2019-2022
  */
 
-#if WTE_DEBUG_MODE  //  True if debug mode is enabled
-
 namespace wte {
 
 const bool& logger::is_running = logger::_is_running = false;
@@ -100,5 +98,3 @@ void logger::run(void) {
 }
 
 }  //  end namespace wte
-
-#endif  //  WTE_DEBUG_MODE

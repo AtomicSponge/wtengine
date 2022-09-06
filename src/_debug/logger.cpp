@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifdef WTE_DEBUG_MODE
+#if WTE_DEBUG_MODE  //  True if debug mode is enabled
 
 namespace wte {
 

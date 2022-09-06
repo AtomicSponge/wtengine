@@ -51,7 +51,7 @@ class exception_item final {
         const int64_t time;       //  Time of exception.
 };
 
-#ifdef WTE_DEBUG_MODE
+#if WTE_DEBUG_MODE  //  Debug mode set if true
 
 /*!
  * \class

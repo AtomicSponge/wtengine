@@ -68,12 +68,21 @@ class logger final {
          * \param log_me Item to add.
          * \return True on success, else false.
          */
-        static const bool add(const exception_item& log_me);
+        inline static const bool add(const exception_item& log_me) {
+            try {
+                log_mtx.lock();
+                _error_queue.push(log_me);
+                log_mtx.unlock();
+            } catch {
+                return false;
+            }
+            return true;
+        };
 
         static const bool& is_running;  //!<  Flag to see if the logger is running.
 
     private:
-        logger() {
+        inline logger() {
             // create new log file
             try {
                 log_file.open("wte-logs\exception_log_" +
@@ -84,14 +93,51 @@ class logger final {
             }
         };
 
-        ~logger() {
+        inline ~logger() {
             stop();
             log_file.close();
         };
 
-        static const bool start(void);
-        static void run(void);
-        static void stop(void);
+        inline static const bool start(void) {
+            if(_is_running == true) return false;
+            try {
+                future_obj = exit_signal.get_future();
+                std::thread th([&]() { run(); });
+                th.detach();
+            } catch {
+                return false;
+            }
+            return _is_running = true;
+        };
+
+        inline static void run(void) {
+            while(future_obj.wait_for(std::chrono::milliseconds(0)) == std::future_status::timeout) {
+                //  Run this as a loop until the thread stops.
+                if(!_error_queue.empty()) {
+                    //  Get next item
+                    log_item temp_log_item = mystack.top();
+
+                    //  Mutex pop the stack
+                    log_mtx.lock();
+                    mystack.pop();
+                    log_mtx.unlock();
+
+                    //  Process item
+                    log_file <<
+                        "Description:  " + std::to_string(temp_log_item.description) + "\n" +
+                        "Location:  " + std::to_string(temp_log_item.location) + "\n" +
+                        "Time:  " + std::to_string(temp_log_item.time) + "\n";
+                        "Code:  " + std::to_string(temp_log_item.code) + "\n\n";
+                }
+
+            }
+        };
+
+        inline static void stop(void) {
+            exit_signal.set_value();
+            _is_running = false;
+            exit_signal = std::promise<void>();
+        };
 
         static std::stack<exception_item> _error_queue;
         static bool _is_running;

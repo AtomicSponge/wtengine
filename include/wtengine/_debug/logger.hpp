@@ -79,7 +79,7 @@ class logger final {
             return true;
         };
 
-        static const bool& is_running;  //!<  Flag to see if the logger is running.
+        static const bool& is_running = _is_running;  //!<  Flag to see if the logger is running.
 
     private:
         inline logger() {

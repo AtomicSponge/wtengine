@@ -59,34 +59,12 @@ class exception_item final {
 class logger final {
     friend class engine;
 
-    public:
-        logger(const logger&) = delete;          //!<  Delete copy constructor.
-        void operator=(logger const&) = delete;  //!<  Delete assignment operator.
-
-        /*!
-         * \brief Add an item to the logger.
-         * \param log_me Item to add.
-         * \return True on success, else false.
-         */
-        inline static const bool add(const exception_item& log_me) {
-            try {
-                log_mtx.lock();
-                _error_queue.push(log_me);
-                log_mtx.unlock();
-            } catch {
-                return false;
-            }
-            return true;
-        };
-
-        inline static const bool& is_running = _is_running;  //!<  Flag to see if the logger is running.
-
     private:
         inline logger() {
             // create new log file
             try {
                 log_file.open("wte-logs\exception_log_" +
-                    std::put_time(&tm, "%d-%m-%Y_%H-%M-%S") + ".log", ios::out | ios::trunc);
+                    std::put_time(&tm, "%d-%m-%Y_%H-%M-%S") + ".log", std::ios::out | std::ios::trunc);
                 log_file << "New log\n\n";
             } catch {
                 throw runtime_error("Error creating log file!");
@@ -148,6 +126,28 @@ class logger final {
         inline static std::future<void> future_obj;
 
         inline static std::mutex log_mtx;
+
+    public:
+        logger(const logger&) = delete;          //!<  Delete copy constructor.
+        void operator=(logger const&) = delete;  //!<  Delete assignment operator.
+
+        /*!
+         * \brief Add an item to the logger.
+         * \param log_me Item to add.
+         * \return True on success, else false.
+         */
+        inline static const bool add(const exception_item& log_me) {
+            try {
+                log_mtx.lock();
+                _error_queue.push(log_me);
+                log_mtx.unlock();
+            } catch {
+                return false;
+            }
+            return true;
+        };
+
+        inline static const bool& is_running = _is_running;  //!<  Flag to see if the logger is running.
 };
 
 #else  // not WTE_DEBUG_MODE

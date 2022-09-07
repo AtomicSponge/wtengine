@@ -79,7 +79,7 @@ class logger final {
             return true;
         };
 
-        static const bool& is_running = _is_running;  //!<  Flag to see if the logger is running.
+        inline static const bool& is_running = _is_running;  //!<  Flag to see if the logger is running.
 
     private:
         inline logger() {
@@ -139,15 +139,15 @@ class logger final {
             exit_signal = std::promise<void>();
         };
 
-        static std::stack<exception_item> _error_queue;
-        static bool _is_running;
+        inline static std::stack<exception_item> _error_queue;
+        inline static bool _is_running;
 
-        static std::ofstream log_file;
+        inline static std::ofstream log_file;
 
-        static std::promise<void> exit_signal;
-        static std::future<void> future_obj;
+        inline static std::promise<void> exit_signal;
+        inline static std::future<void> future_obj;
 
-        static std::mutex log_mtx;
+        inline static std::mutex log_mtx;
 };
 
 #else  // not WTE_DEBUG_MODE

@@ -20,11 +20,38 @@
 
 namespace wte {
 
+/*!
+ * \class
+ */
+class exception_item final {
+    friend class logger;
+    friend class runtime_error;
+    friend class exception;
+
+    public:
+        /*!
+         * \brief
+         */
+        inline exception_item(const std::string& d, const std::string& l, const uint& c) :
+            description(d.c_str()), location(l.c_str()), code(c), time(engine_time::check()) {};
+
+    private:
+        const char* description;  //  Exception description.
+        const char* location;     //  Exception location.
+        const uint code;          //  Code of error
+        const int64_t time;       //  Time of exception.
+};
+
 /*
  * Log an exception to file
  */
-inline void log_exception(const exception_item& item) {
-    logger::add(item);
+inline void log_exception(
+    const std::string& d,
+    const std::string& l,
+    const uint& c,
+    const int64_t& t)
+{
+    logger::add(d, l, c, t);
 };
 
 /*!

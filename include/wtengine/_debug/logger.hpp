@@ -28,29 +28,6 @@ namespace wte {
 class engine;
 class logger;
 
-/*!
- * \class
- */
-
-class exception_item final {
-    friend class logger;
-    friend class runtime_error;
-    friend class exception;
-
-    public:
-        /*!
-         * \brief
-         */
-        inline exception_item(const std::string& d, const std::string& l, const uint& c) :
-            description(d.c_str()), location(l.c_str()), code(c), time(engine_time::check()) {};
-
-    private:
-        const char* description;  //  Exception description.
-        const char* location;     //  Exception location.
-        const uint& code;         //  Code of error
-        const int64_t time;       //  Time of exception.
-};
-
 #if WTE_DEBUG_MODE  //  Debug mode set if true
 
 /*!
@@ -136,7 +113,12 @@ class logger final {
          * \param log_me Item to add.
          * \return True on success, else false.
          */
-        inline static const bool add(const exception_item& log_me) {
+        inline static const bool add(
+            const std::string& description,
+            const std::string& location,
+            const uint& code,
+            const int64_t& time)
+        {
             try {
                 log_mtx.lock();
                 _error_queue.push(log_me);
@@ -168,7 +150,12 @@ class logger final {
          * \param log_me Item to add.
          * \return False.
          */
-        inline static const bool add(const exception_item& log_me) {
+        inline static const bool add(
+            const std::string& description,
+            const std::string& location,
+            const uint& code,
+            const int64_t& time)
+        {
             return false;
         };
 

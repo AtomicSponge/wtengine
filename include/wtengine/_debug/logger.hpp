@@ -49,7 +49,7 @@ class logger final {
                     std::put_time(&tm, "%d-%m-%Y_%H-%M-%S") + ".log", std::ios::out | std::ios::trunc);
                 log_file << "New log\n\n";
             } catch {
-                throw runtime_error("Error creating log file!");
+                throw std::runtime_error("Error creating log file!");
             }
         };
 

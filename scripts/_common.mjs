@@ -19,6 +19,9 @@ const __dirname = dirname(__filename)
 
 const wtf = {}
 
+let appInfo = fs.readFileSync('../package.json')
+appInfo = JSON.parse(appInfo)
+
 /**
  * Configuration settings
  */
@@ -35,9 +38,9 @@ wtf.config = config
  * Constants
  */
 const constants = {
-    APP_NAME: 'test',//info.name,
-    APP_VERSION: 'test',//info.version,
-    APP_URL: 'test',//info.url,
+    APP_NAME: `${appInfo['name']}`,
+    APP_VERSION: `${appInfo['version']}`,
+    APP_URL: `${appInfo['url']}`,
     CONFIG_SCRIPT:     `${__dirname}/wte-config.mjs`,
     SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.mjs`,
     SETTINGS_FILE: `${__dirname}/../settings.json`,
@@ -117,7 +120,7 @@ wtf.writeLog = writeLog
  * @returns {Object} Argument object.
  */
 const parseArgs = (args, commands) => {
-    _args = {}
+    let _args = {}
     //  Build the object using supplied command names
     commands.forEach(command => {
         (command.name.includes('=') ?

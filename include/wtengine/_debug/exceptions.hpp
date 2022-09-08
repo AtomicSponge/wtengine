@@ -69,7 +69,8 @@ class runtime_error final : public std::exception {
          * \param i An exception item object.
          */
         inline runtime_error(const exception_item& i) : item(i) {
-            if constexpr (build_options.debug_mode) log_exception(i.description, i.location, i.code, i.time);
+            if constexpr (build_options.debug_mode) log_exception(
+                i.description, i.location, i.code, i.time);
         };
 
         runtime_error() = delete;    //!<  Delete default constructor.
@@ -119,7 +120,8 @@ class exception final : public std::exception {
          * \param i An exception item object.
          */
         inline exception(const exception_item& i) : item(i) {
-            if constexpr (build_options.debug_mode) log_exception(i.description, i.location, i.code, i.time);
+            if constexpr (build_options.debug_mode) log_exception(
+                i.description, i.location, i.code, i.time);
         };
 
         exception() = delete;    //!<  Delete default constructor.

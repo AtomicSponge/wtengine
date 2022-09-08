@@ -29,6 +29,8 @@ namespace wte {
 class engine;
 class logger;
 
+void log_exception(const std::string& d, const std::string& l, const uint& c, const int64_t& t);
+
 #if WTE_DEBUG_MODE  //  Debug mode set if true
 
 /*!
@@ -36,6 +38,7 @@ class logger;
  */
 class logger final {
     friend class engine;
+    friend void log_exception(const std::string& d, const std::string& l, const uint& c, const int64_t& t);
 
     private:
         inline logger() {
@@ -52,6 +55,20 @@ class logger final {
         inline ~logger() {
             stop();
             log_file.close();
+        };
+
+        inline static const bool add(
+            const std::string& d, const std::string& l,
+            const uint& c, const int64_t& t)
+        {
+            try {
+                log_mtx.lock();
+                _error_queue.push(std::make_tuple(d, l, c, t));
+                log_mtx.unlock();
+            } catch {
+                return false;
+            }
+            return true;
         };
 
         inline static const bool start(void) {
@@ -111,30 +128,6 @@ class logger final {
         logger(const logger&) = delete;          //!<  Delete copy constructor.
         void operator=(logger const&) = delete;  //!<  Delete assignment operator.
 
-        /*!
-         * \brief Add an item to the logger.
-         * \param d Exception description.
-         * \param l Exception location.
-         * \param c Exception code.
-         * \param t Exception time.
-         * \return True on success, else false.
-         */
-        inline static const bool add(
-            const std::string& d,
-            const std::string& l,
-            const uint& c,
-            const int64_t& t)
-        {
-            try {
-                log_mtx.lock();
-                _error_queue.push(std::make_tuple(d, l, c, t));
-                log_mtx.unlock();
-            } catch {
-                return false;
-            }
-            return true;
-        };
-
         inline static const bool& is_running = _is_running;  //!<  Flag to see if the logger is running.
 };
 
@@ -145,40 +138,27 @@ class logger final {
  */
 class logger final {
     friend class engine;
-
-    public:
-        logger(const logger&) = delete;          //!<  Delete copy constructor.
-        void operator=(logger const&) = delete;  //!<  Delete assignment operator.
-
-        /*!
-         * \brief Add an item to the logger.
-         * Non-debug mode that just fails.
-         * \param d Exception description.
-         * \param l Exception location.
-         * \param c Exception code.
-         * \param t Exception time.
-         * \return False.
-         */
-        inline static const bool add(
-            const std::string& d,
-            const std::string& l,
-            const uint& c,
-            const int64_t& t)
-        {
-            return false;
-        };
-
-        inline static const bool is_running = false;
+    friend void log_exception(const std::string& d, const std::string& l, const uint& c, const int64_t& t);
 
     private:
         inline logger() = default;
         inline ~logger() = default;
 
+        inline static const bool add(
+            const std::string& d, const std::string& l,
+            const uint& c, const int64_t& t) { return false; };
+        
         inline static const bool start(void) { return false; };
         static void run(void) {};
         inline static void stop(void) {};
 
         inline static const bool _is_running = false;
+
+    public:
+        logger(const logger&) = delete;          //!<  Delete copy constructor.
+        void operator=(logger const&) = delete;  //!<  Delete assignment operator.
+
+        inline static const bool is_running = false;
 };
 
 #endif  //  WTE_DEBUG_MODE

@@ -34,7 +34,8 @@ void log_exception(const std::string& d, const std::string& l, const uint& c, co
 #if WTE_DEBUG_MODE  //  Debug mode set if true
 
 /*!
- * \class
+ * \class logger
+ * \brief Logs exceptions to file.  This option is built when the engine is in debug mode.
  */
 class logger final {
     friend class engine;
@@ -134,7 +135,8 @@ class logger final {
 #else  // not WTE_DEBUG_MODE
 
 /*!
- * \class
+ * \class logger
+ * \brief Skip logging.  This option is built when the engine is NOT in debug mode.
  */
 class logger final {
     friend class engine;

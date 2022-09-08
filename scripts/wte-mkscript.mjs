@@ -6,12 +6,12 @@
  * @copyright MIT see LICENSE.md
  */
 
-const wtf = require('./_common.cjs')
+import wtf from './_common.mjs'
 
-const path = require('path')
-const fs = require('fs')
-const { Buffer } = require('buffer')
-const csv = require('csv/sync')
+import 'path'
+import fs from 'fs'
+import Buffer from 'buffer'
+import * as csv from 'csv/sync'
 
 wtf.scriptTitle(`WTEngine Script Utility`)
 

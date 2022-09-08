@@ -71,7 +71,7 @@ class logger final {
                 //  Run this as a loop until the thread stops.
                 if(!_error_queue.empty()) {
                     //  Get next item
-                    log_item temp_log_item = mystack.top();
+                    auto log_item = mystack.top();
 
                     //  Mutex pop the stack
                     log_mtx.lock();
@@ -80,10 +80,10 @@ class logger final {
 
                     //  Process item
                     log_file <<
-                        "Description:  " + std::to_string(temp_log_item.description) + "\n" +
-                        "Location:  " + std::to_string(temp_log_item.location) + "\n" +
-                        "Time:  " + std::to_string(temp_log_item.time) + "\n";
-                        "Code:  " + std::to_string(temp_log_item.code) + "\n\n";
+                        "Description:  " + std::get<0>(log_item) + "\n" +
+                        "Location:  " + std::get<1>(log_item) + "\n" +
+                        "Time:  " + std::to_string(std::get<2>(log_item)) + "\n";
+                        "Code:  " + std::to_string(std::get<3>(log_item)) + "\n\n";
                 }
 
             }

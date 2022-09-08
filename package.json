@@ -1,6 +1,6 @@
 {
   "name": "@wtfsystems/wtengine",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "wtengine",
   "repository": {
     "type": "git",
@@ -17,18 +17,19 @@
     "url": "https://github.com/wtfsystems/wtengine/issues"
   },
   "homepage": "https://github.com/wtfsystems/wtengine#readme",
+  "type": "module",
   "scripts": {
     "postinstall": "scripts/install.mjs"
   },
   "bin": {
     "wte-config": "scripts/wte-config.mjs",
     "wte-build": "scripts/wte-build.mjs",
-    "wte-mkscript": "scripts/wte-mkscript.cjs",
+    "wte-mkscript": "scripts/wte-mkscript.mjs",
     "wte-syscheck": "scripts/wte-syscheck.mjs"
   },
   "dependencies": {
     "command-exists": "^1.2.9",
-    "csv": "^6.1.3",
-    "inquirer": "^8.2.4"
+    "csv": "^6.2.0",
+    "inquirer": "^9.1.1"
   }
 }

@@ -7,11 +7,17 @@
  * 
  */
 
-const package = require('../package.json')
-const fs = require('fs')
-const exec  = require('child_process').exec
-const spawn  = require('child_process').spawn
-const inquirer = require('inquirer')
+import fs from 'fs'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+import exec from 'child_process'
+import spawn from 'child_process'
+import inquirer from 'inquirer'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+const wtf = {}
 
 /**
  * Configuration settings
@@ -23,15 +29,15 @@ const config = {
         { name: "physfs", url: "https://github.com/icculus/physfs" }
     ]
 }
-exports.config = config
+wtf.config = config
 
 /**
  * Constants
  */
 const constants = {
-    APP_NAME: package.name,
-    APP_VERSION: package.version,
-    APP_URL: package.url,
+    APP_NAME: 'test',//info.name,
+    APP_VERSION: 'test',//info.version,
+    APP_URL: 'test',//info.url,
     CONFIG_SCRIPT:     `${__dirname}/wte-config.mjs`,
     SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.mjs`,
     SETTINGS_FILE: `${__dirname}/../settings.json`,
@@ -39,7 +45,7 @@ const constants = {
     LOG_LOCATION: `${__dirname}/../wte-logs`,
     LOG_FILE: ``  //  Set by script
 }
-exports.constants = constants
+wtf.constants = constants
 
 /**
  * Font colors
@@ -53,7 +59,7 @@ const colors = {
     DIM:    `\x1b[2m`,
     CLEAR:  `\x1b[0m`
 }
-exports.colors = colors
+wtf.colors = colors
 
 /**
  * Show script info
@@ -66,7 +72,7 @@ const scriptTitle = (title) => {
     process.stdout.write(`${colors.DIM}${colors.YELLOW}${constants.APP_URL}${colors.CLEAR}\n`)
     process.stdout.write(`\n`)
 }
-exports.scriptTitle = scriptTitle
+wtf.scriptTitle = scriptTitle
 
 /**
  * Display an error message and exit script.
@@ -76,7 +82,7 @@ const scriptError = (message) => {
     process.stdout.write(`${colors.RED}Error:  ${message}  Exiting...${colors.CLEAR}\n`)
     process.exit(1)
 }
-exports.scriptError = scriptError
+wtf.scriptError = scriptError
 
 /**
  * Clears the log file.
@@ -88,7 +94,7 @@ const clearLog = () => {
         fs.unlinkSync(`${constants.LOG_LOCATION}/${constants.LOG_FILE}`)
     } catch (err) {}
 }
-exports.clearLog = clearLog
+wtf.clearLog = clearLog
 
 /**
  * Write a message to the log file.
@@ -102,7 +108,7 @@ const writeLog = (message) => {
         fs.appendFileSync(`${constants.LOG_LOCATION}/${constants.LOG_FILE}`, message)
     } catch (err) { scriptError(err) }
 }
-exports.writeLog = writeLog
+wtf.writeLog = writeLog
 
 /**
  * Converts script arguments from array to object.
@@ -136,7 +142,7 @@ const parseArgs = (args, commands) => {
     })
     return _args
 }
-exports.parseArgs = parseArgs
+wtf.parseArgs = parseArgs
 
 /**
  * Confirmation prompt
@@ -153,7 +159,7 @@ const confirmPrompt = async (message, dvalue) => {
         message: `${colors.YELLOW}${message}`
     }]).then(res => { return res.conf })
 }
-exports.confirmPrompt = confirmPrompt
+wtf.confirmPrompt = confirmPrompt
 
 /**
  * Check if a folder exists
@@ -164,7 +170,7 @@ const checkFolder = (folder) => {
     try { fs.accessSync(folder) } catch (err) { return false }
     return true
 }
-exports.checkFolder = checkFolder
+wtf.checkFolder = checkFolder
 
 /**
  * Check if a folder exists, then create it if one does not
@@ -180,7 +186,7 @@ const makeFolder = (folder) => {
         } catch (err) { scriptError(err) }
     }
 }
-exports.makeFolder = makeFolder
+wtf.makeFolder = makeFolder
 
 /**
  * Verify access to engine settings file.  Passing nothing checks if the file simply exists.
@@ -205,7 +211,7 @@ const checkSettings = (permissions) => {
     })
     return result
 }
-exports.checkSettings = checkSettings
+wtf.checkSettings = checkSettings
 
 /**
  * Load engine settings.
@@ -219,7 +225,7 @@ const loadSettings = () => {
         return false
     }
 }
-exports.loadSettings = loadSettings
+wtf.loadSettings = loadSettings
 
 /**
  * Save engine settings.
@@ -239,7 +245,7 @@ const saveSettings = (settings) => {
         scriptError(err)
     }
 }
-exports.saveSettings = saveSettings
+wtf.saveSettings = saveSettings
 
 /**
  * Async version of array's forEach
@@ -250,7 +256,7 @@ const asyncForEach = async (array, callback) => {
     for(let index = 0; index < array.length; index++)
         await callback(array[index], index, array)
 }
-exports.asyncForEach = asyncForEach
+wtf.asyncForEach = asyncForEach
 
 /**
  * Wait for a process to exit and return the result.
@@ -268,7 +274,7 @@ const onProcessExit = async (process) => {
         })
     })
 }
-exports.onProcessExit = onProcessExit
+wtf.onProcessExit = onProcessExit
 
 /**
  * Run the system check script.
@@ -282,7 +288,7 @@ const runSysCheckScript = async (args) => {
     if(await onProcessExit(proc) === true) return true
     else return false
 }
-exports.runSysCheckScript = runSysCheckScript
+wtf.runSysCheckScript = runSysCheckScript
 
 /**
  * Run the configuration script.
@@ -296,7 +302,7 @@ const runConfigScript = async (args) => {
     if(await onProcessExit(proc) === true) return true
     else return false
 }
-exports.runConfigScript = runConfigScript
+wtf.runConfigScript = runConfigScript
 
 /**
  * Run a system command.
@@ -323,4 +329,6 @@ const runCommand = async (cmd, opts, log) => {
     if(await onProcessExit(proc) === true) return true
     else return false
 }
-exports.runCommand = runCommand
+wtf.runCommand = runCommand
+
+export default wtf

@@ -9,7 +9,7 @@
  */
 
 import commandExists from 'command-exists'
-import wtf from './_common.cjs'
+import wtf from './_common.mjs'
 
 const workers = {
     /**

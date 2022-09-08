@@ -6,7 +6,7 @@
  * @copyright MIT see LICENSE.md
  */
  
-import wtf from './_common.cjs'
+import wtf from './_common.mjs'
 import 'inquirer'
  
 //  Already installed, skip

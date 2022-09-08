@@ -15,6 +15,7 @@
 #include <iomanip>
 #include <ctime>
 #include <stack>
+#include <tuple>
 #include <exception>
 #include <thread>
 #include <future>
@@ -94,7 +95,9 @@ class logger final {
             exit_signal = std::promise<void>();
         };
 
-        inline static std::stack<exception_item> _error_queue;
+        inline static std::stack<
+            std::tuple<std::string, std::string, uint, int64_t>
+        > _error_queue;
         inline static bool _is_running;
 
         inline static std::ofstream log_file;
@@ -110,18 +113,21 @@ class logger final {
 
         /*!
          * \brief Add an item to the logger.
-         * \param log_me Item to add.
+         * \param d Exception description.
+         * \param l Exception location.
+         * \param c Exception code.
+         * \param t Exception time.
          * \return True on success, else false.
          */
         inline static const bool add(
-            const std::string& description,
-            const std::string& location,
-            const uint& code,
-            const int64_t& time)
+            const std::string& d,
+            const std::string& l,
+            const uint& c,
+            const int64_t& t)
         {
             try {
                 log_mtx.lock();
-                _error_queue.push(log_me);
+                _error_queue.push(std::make_tuple(d, l, c, t));
                 log_mtx.unlock();
             } catch {
                 return false;
@@ -147,14 +153,17 @@ class logger final {
         /*!
          * \brief Add an item to the logger.
          * Non-debug mode that just fails.
-         * \param log_me Item to add.
+         * \param d Exception description.
+         * \param l Exception location.
+         * \param c Exception code.
+         * \param t Exception time.
          * \return False.
          */
         inline static const bool add(
-            const std::string& description,
-            const std::string& location,
-            const uint& code,
-            const int64_t& time)
+            const std::string& d,
+            const std::string& l,
+            const uint& c,
+            const int64_t& t)
         {
             return false;
         };

@@ -89,11 +89,11 @@ class logger final {
                 //  Run this as a loop until the thread stops.
                 if(!_error_queue.empty()) {
                     //  Get next item
-                    auto log_item = mystack.top();
+                    auto log_item = _error_queue.top();
 
                     //  Mutex pop the stack
                     log_mtx.lock();
-                    mystack.pop();
+                    _error_queue.pop();
                     log_mtx.unlock();
 
                     //  Process item

@@ -21,7 +21,7 @@ exception_item::exception_item(const std::string& d, const std::string& l, const
  *
  */
 runtime_error::runtime_error(const exception_item& i) : item(i) {
-    if constexpr (build_options.debug_mode) logger::add(
+    if constexpr (build_options.debug_mode) logger_add(
         i.description, i.location, i.code, i.time);
 }
 
@@ -49,7 +49,7 @@ runtime_error::~runtime_error() { std::exit(item.code); }
  *
  */
 exception::exception(const exception_item& i) : item(i) {
-    if constexpr (build_options.debug_mode) logger::add(
+    if constexpr (build_options.debug_mode) logger_add(
         i.description, i.location, i.code, i.time);
 }
 

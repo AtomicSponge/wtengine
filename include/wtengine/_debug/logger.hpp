@@ -27,6 +27,7 @@
 namespace wte {
 
 class engine;
+class logger;
 
 #if WTE_DEBUG_MODE  //  Debug mode set if true
 
@@ -76,7 +77,6 @@ class logger final {
  */
 class logger final {
     friend class engine;
-    friend void log_exception(const std::string& d, const std::string& l, const uint& c, const int64_t& t);
 
     private:
         logger() = default;
@@ -100,6 +100,20 @@ class logger final {
 };
 
 #endif  //  WTE_DEBUG_MODE
+
+inline const bool logger_add(
+    const std::string& d, const std::string& l,
+    const uint& c, const int64_t& t)
+{
+    if constexpr (build_options.debug_mode) {
+        try {
+            logger::add(d, l, c, t);
+        } catch (const exception& e) {
+            return false;
+        }
+        return true;
+    } else return false;
+}
 
 }  //  end namespace wte
 

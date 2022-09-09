@@ -69,7 +69,7 @@ void logger::stop(void) {
     exit_signal = std::promise<void>();
 }
 
-const bool add(
+const bool logger::add(
     const std::string& d, const std::string& l,
     const uint& c, const int64_t& t)
 {
@@ -85,11 +85,11 @@ const bool add(
 
 #else  // not WTE_DEBUG_MODE
 
-const bool start(void) { return false; }
-void run(void) {}
-void stop(void) {}
+const bool logger::start(void) { return false; }
+void logger::run(void) {}
+void logger::stop(void) {}
 
-static const bool add(
+const bool logger::add(
     const std::string& d, const std::string& l,
     const uint& c, const int64_t& t) { return false; }
 

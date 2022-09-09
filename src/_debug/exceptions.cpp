@@ -7,6 +7,8 @@
  * \date 2019-2022
  */
 
+#include "wtengine/_debug/exceptions.hpp"
+
 namespace wte {
 
 /*
@@ -26,7 +28,7 @@ runtime_error::runtime_error(const exception_item& i) : item(i) {
 /*
  *
  */
-const char* runtime_error::what() const noexcept override { return item.description; }
+const char* runtime_error::what() const noexcept { return item.description; }
 
 /*
  *
@@ -41,7 +43,12 @@ const int64_t runtime_error::when() const noexcept { return item.time; }
 /*
  *
  */
-exception(const exception_item& i) : item(i) {
+runtime_error::~runtime_error() { std::exit(item.code); }
+
+/*
+ *
+ */
+exception::exception(const exception_item& i) : item(i) {
     if constexpr (build_options.debug_mode) logger::add(
         i.description, i.location, i.code, i.time);
 }
@@ -50,16 +57,16 @@ exception(const exception_item& i) : item(i) {
 /*
  *
  */
-const char* what() const noexcept override { return item.description; }
+const char* exception::what() const noexcept { return item.description; }
 
 /*
  *
  */
-const char* where() const noexcept { return item.location; };
+const char* exception::where() const noexcept { return item.location; };
 
 /*
  *
  */
-const int64_t when() const noexcept { return item.time; };
+const int64_t exception::when() const noexcept { return item.time; };
 
 }  //  end namespace wte

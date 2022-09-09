@@ -60,9 +60,7 @@ class runtime_error final : public std::exception {
         /*!
          * \brief Terminate engine after handling exception.
          */
-        virtual ~runtime_error() {
-            std::exit(item.code);
-        };
+        virtual ~runtime_error();
 
         /*!
          * \brief Returns the description of the thrown exception.

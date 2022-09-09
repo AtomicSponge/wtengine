@@ -13,6 +13,9 @@ namespace wte {
 
 #if WTE_DEBUG_MODE  //  Debug mode set if true
 
+/*
+ *
+ */
 logger::logger() {
     // create new log file
     try {
@@ -24,11 +27,17 @@ logger::logger() {
     }
 }
 
+/*
+ *
+ */
 logger::~logger() {
     stop();
     log_file.close();
 }
 
+/*
+ *
+ */
 const bool logger::start(void) {
     if(_is_running == true) return false;
     try {
@@ -41,6 +50,9 @@ const bool logger::start(void) {
     return _is_running = true;
 }
 
+/*
+ *
+ */
 void logger::run(void) {
     while(future_obj.wait_for(std::chrono::milliseconds(0)) == std::future_status::timeout) {
         //  Run this as a loop until the thread stops.
@@ -63,12 +75,18 @@ void logger::run(void) {
     }
 }
 
+/*
+ *
+ */
 void logger::stop(void) {
     exit_signal.set_value();
     _is_running = false;
     exit_signal = std::promise<void>();
 }
 
+/*
+ *
+ */
 const bool logger::add(
     const std::string& d, const std::string& l,
     const uint& c, const int64_t& t)
@@ -85,10 +103,24 @@ const bool logger::add(
 
 #else  // not WTE_DEBUG_MODE
 
+/*
+ *
+ */
 const bool logger::start(void) { return false; }
+
+/*
+ *
+ */
 void logger::run(void) {}
+
+/*
+ *
+ */
 void logger::stop(void) {}
 
+/*
+ *
+ */
 const bool logger::add(
     const std::string& d, const std::string& l,
     const uint& c, const int64_t& t) { return false; }

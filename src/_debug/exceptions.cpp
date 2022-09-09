@@ -53,7 +53,6 @@ exception::exception(const exception_item& i) : item(i) {
         i.description, i.location, i.code, i.time);
 }
 
-
 /*
  *
  */

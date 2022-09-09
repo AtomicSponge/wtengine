@@ -19,7 +19,6 @@
 
 namespace wte {
 
-class logger;
 const bool logger_add(
     const std::string& d, const std::string& l,
     const uint& c, const int64_t& t);

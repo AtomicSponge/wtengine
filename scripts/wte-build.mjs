@@ -7,6 +7,7 @@
  */
 
 import wtf from './_common.mjs'
+import exec from 'child_process'
 import 'inquirer'
 
 /**
@@ -36,6 +37,20 @@ const workers = {
         var res = true
         resA.forEach(gitRes => { if(gitRes === false) res = false; return })
         return res
+    },
+
+    /**
+     * 
+     */
+    buildEngine: async () => {
+        `cmake --build ${ENGINE_LOCATION}/wte-build --config Debug --target all --`
+    },
+
+    /**
+     * 
+     */
+    buildEngineDebug: async () => {
+        `cmake --build ${ENGINE_LOCATION}/wte-build-debug --config Release --target all --`
     }
 }
 
@@ -79,12 +94,18 @@ wtf.scriptTitle(`WTEngine Build Utility`)
 //  Parse command line arguments
 const args = wtf.parseArgs(process.argv, [
     { name: 'buildEngine', flags: '--buildengine' },
+    { name: 'buildProject', flags: '--buildproject' }
 ])
 
 if(!wtf.checkSettings()) scriptError(`No 'settings.json' file found!  Run 'npx wte-config' first!`)
 
 const settings = wtf.loadSettings()
-if(args.buildEngine) await build.engine()
-else await build.project()
+
+if(args.buildEngine || args.buildProject) {
+    if(args.buildEngine) await build.engine()
+    if(args.buildProject) await build.project()
+} else {
+    //option
+}
 
 process.stdout.write(`${wtf.colors.DIM}${wtf.colors.CYAN}Build done!${wtf.colors.CLEAR}\n\n`)

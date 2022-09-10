@@ -41,6 +41,7 @@ const constants = {
     APP_NAME: `${appInfo['name']}`,
     APP_VERSION: `${appInfo['version']}`,
     APP_URL: `${appInfo['url']}`,
+    ENGINE_LOCATION:    `${__dirname}/..`,
     CONFIG_SCRIPT:     `${__dirname}/wte-config.mjs`,
     SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.mjs`,
     SETTINGS_FILE: `${__dirname}/../settings.json`,

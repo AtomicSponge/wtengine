@@ -288,12 +288,12 @@ wtf.asyncForEach = asyncForEach
     log = log || false
     return new Promise((resolve, reject) => {
         process.once('exit', (code) => {
-            if(log) writeLog(`Return code:  ${code}\n`)
+            if(log && files.LOG_FILE !== '') writeLog(`Return code:  ${code}\n`)
             if(code === 0) resolve(true)
             else resolve(false)
         })
         process.once('error', (error) => {
-            if(log) writeLog(`Error:  ${error}\n`)
+            if(log && files.LOG_FILE !== '') writeLog(`Error:  ${error}\n`)
             reject(error)
         })
     })
@@ -315,7 +315,7 @@ wtf.onProcessExit = onProcessExit
     opts.timeout = opts.timeout || 0
     log = log || false
 
-    if(files.LOG_FILE !== '' && log === true) writeLog(`Running command:  ${cmd}\n`)
+    if(log && files.LOG_FILE !== '') writeLog(`Running command:  ${cmd}\n`)
 
     const proc = exec(cmd, { cwd: opts.cwd, env: opts.env, windowsHide: true })
     if(await onProcessExit(proc, log).catch(err => { return false }) === true) return true
@@ -332,6 +332,7 @@ const runSysCheckScript = async (args) => {
     process.stdout.write(`\n`)
     const proc = spawn(files.SYSCHECK_SCRIPT, args,
                        { stdio: [ process.stdin, process.stdout, process.stderr ] })
+    //
     if(await onProcessExit(proc) === true) return true
     else return false
 }

@@ -20,15 +20,15 @@ const workers = {
     runGit: async () => {
         var resA = []
         await wtf.asyncForEach(wtf.config.gitURLs, async (gitJob) => {
-            if(wtf.checkFolder(`${wtf.constants.WORK_FOLDER}/${gitJob.name}`)) {
+            if(wtf.checkFolder(`${wtf.paths.ENGINE_WORK_LOCATION}/${gitJob.name}`)) {
                 process.stdout.write(`Making sure ${gitJob.name} is up to date...  `)
-                resA.push(wtf.runCommand(`git pull`, { cwd: `${wtf.constants.WORK_FOLDER}/${gitJob.name}` }))
+                resA.push(wtf.runCommand(`git pull`, { cwd: `${wtf.paths.ENGINE_WORK_LOCATION}/${gitJob.name}` }))
                 if(!resA[resA.length-1]) process.stdout.write(`${wtf.colors.RED}ERROR!${wtf.colors.CLEAR}\n`)
                 else process.stdout.write(`${wtf.colors.GREEN}OK!${wtf.colors.CLEAR}\n`)
             }
             else {
                 process.stdout.write(`Downloading ${gitJob.name} from ${gitJob.url}...  `)
-                resA.push(wtf.runCommand(`git clone ${gitJob.url}`, { cwd: wtf.constants.WORK_FOLDER }))
+                resA.push(wtf.runCommand(`git clone ${gitJob.url}`, { cwd: wtf.paths.ENGINE_WORK_LOCATION }))
                 if(!resA[resA.length-1]) process.stdout.write(`${wtf.colors.RED}ERROR!${wtf.colors.CLEAR}\n`)
                 else process.stdout.write(`${wtf.colors.GREEN}OK!${wtf.colors.CLEAR}\n`)
             }
@@ -43,11 +43,12 @@ const workers = {
      */
     buildEngine: async (debugMode) => {
         let runCmd = ``
-        if(debugMode) runCmd = `cmake --build /wtf-build --config Debug --target all --`
-        else runCmd =  `cmake --build /wtf-build --config Debug --target all`
+        if(debugMode) runCmd = `cmake --build ${wtf.paths.ENGINE_BUILD_DEBUG_LOCATION} --config Debug --target all --`
+        else runCmd =  `cmake --build ${wtf.paths.ENGINE_BUILD_LOCATION} --config Release --target all --`
         //runCmd = `ls`
         
-        wtf.runCommand(runCmd, { cwd: `${wtf.constants.ENGINE_ROOT_LOCATION}/` }, true)
+        if(!await wtf.runCommand(runCmd, { cwd: `${wtf.constants.ENGINE_ROOT_LOCATION}/` }, true))
+            wtf.scriptError(`Warning!  Build command failed!`)
     },
 
     /**
@@ -64,7 +65,7 @@ const build = {
      * Build the engine
      */
     engine: async (debugMode) => {
-        wtf.constants.LOG_FILE = 'wte-build-engine.log'
+        wtf.files.LOG_FILE = 'wte-build-engine.log'
         wtf.clearLog()
         wtf.writeLog(`WTEngine Build Script\n`)
         wtf.writeLog(`Starting Engine Build Process at ${new Date().toString()}\n\n`)
@@ -75,14 +76,14 @@ const build = {
 
         await workers.buildEngine(debugMode)
 
-        wtf.writeLog(`Engine Build Process completed at ${new Date().toString()}`)
+        wtf.writeLog(`\nEngine Build Process completed at ${new Date().toString()}`)
     },
 
     /**
      * Build the project
      */
     project: async (debugMode) => {
-        wtf.constants.LOG_FILE = 'wte-build-project.log'
+        wtf.files.LOG_FILE = 'wte-build-project.log'
         wtf.clearLog()
         wtf.writeLog(`WTEngine Build Script\n`)
         wtf.writeLog(`Starting Project Build Process at ${new Date().toString()}\n\n`)
@@ -90,7 +91,7 @@ const build = {
 
         await workers.buildProject(debugMode)
 
-        wtf.writeLog(`Project Build Process completed at ${new Date().toString()}`)
+        wtf.writeLog(`\nProject Build Process completed at ${new Date().toString()}`)
     }
 }
 

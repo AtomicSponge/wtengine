@@ -41,12 +41,7 @@ const constants = {
     APP_NAME: `${appInfo['name']}`,
     APP_VERSION: `${appInfo['version']}`,
     APP_URL: `${appInfo['url']}`,
-    ENGINE_ROOT_LOCATION:  `${__dirname}/..`,
-    CONFIG_SCRIPT:     `${__dirname}/wte-config.mjs`,
-    SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.mjs`,
-    SETTINGS_FILE: `${__dirname}/../settings.json`,
-    WORK_FOLDER: `${__dirname}/../wte-temp`,
-    LOG_FILE: ``  //  Set by script
+    ENGINE_ROOT_LOCATION:  __dirname.substring(0, __dirname.lastIndexOf(`/`)),
 }
 wtf.constants = constants
 
@@ -56,10 +51,22 @@ wtf.constants = constants
 const paths = {
     ENGINE_BUILD_LOCATION: `${constants.ENGINE_ROOT_LOCATION}/wte-build`,
     ENGINE_BUILD_DEBUG_LOCATION: `${constants.ENGINE_ROOT_LOCATION}/wte-build-debug`,
+    ENGINE_WORK_LOCATION: `${constants.ENGINE_ROOT_LOCATION}/wte-temp`,
     ENGINE_LOG_LOCATION: `${constants.ENGINE_ROOT_LOCATION}/wte-logs`,
     ENGINE_TEMP_LOCATION: `${constants.ENGINE_ROOT_LOCATION}/wte-temp`
 }
 wtf.paths = paths
+
+/**
+ * Files
+ */
+const files = {
+    CONFIG_SCRIPT:     `${__dirname}/wte-config.mjs`,
+    SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.mjs`,
+    SETTINGS_FILE: `${constants.ENGINE_ROOT_LOCATION}/settings.json`,
+    LOG_FILE: ``  //  Set by script
+}
+wtf.files = files
 
 /**
  * Font colors
@@ -103,9 +110,9 @@ wtf.scriptError = scriptError
  * Will exit script if the log filename was not set.
  */
 const clearLog = () => {
-    if(constants.LOG_FILE === '') scriptError(`Must set a log file in the script first!`)
+    if(files.LOG_FILE === '') scriptError(`Must set a log file in the script first!`)
     try {
-        fs.unlinkSync(`${paths.ENGINE_LOG_LOCATION}/${constants.LOG_FILE}`)
+        fs.unlinkSync(`${paths.ENGINE_LOG_LOCATION}/${files.LOG_FILE}`)
     } catch (err) {}
 }
 wtf.clearLog = clearLog
@@ -117,9 +124,9 @@ wtf.clearLog = clearLog
  * @throws Error on fail then exits script.
  */
 const writeLog = (message) => {
-    if(constants.LOG_FILE === '') scriptError(`Must set a log file in the script first!`)
+    if(files.LOG_FILE === '') scriptError(`Must set a log file in the script first!`)
     try {
-        fs.appendFileSync(`${paths.ENGINE_LOG_LOCATION}/${constants.LOG_FILE}`, message)
+        fs.appendFileSync(`${paths.ENGINE_LOG_LOCATION}/${files.LOG_FILE}`, message)
     } catch (err) { scriptError(err) }
 }
 wtf.writeLog = writeLog
@@ -220,7 +227,7 @@ const checkSettings = (permissions) => {
 
     var result = true
     checkFlags.forEach(fFlag => {
-        try { fs.accessSync(constants.SETTINGS_FILE, fFlag)
+        try { fs.accessSync(files.SETTINGS_FILE, fFlag)
         } catch (err) { result = false }
     })
     return result
@@ -233,7 +240,7 @@ wtf.checkSettings = checkSettings
  */
 const loadSettings = () => {
     try {
-        const settings = fs.readFileSync(constants.SETTINGS_FILE)
+        const settings = fs.readFileSync(files.SETTINGS_FILE)
         return JSON.parse(settings)
     } catch (err) {
         return false
@@ -253,7 +260,7 @@ const saveSettings = (settings) => {
     if(oldSettings) settings = oldSettings.concat(settings)
 
     try {
-        fs.writeFileSync(constants.SETTINGS_FILE, JSON.stringify(settings))
+        fs.writeFileSync(files.SETTINGS_FILE, JSON.stringify(settings))
         process.stdout.write(`${colors.GREEN}Settings saved.${colors.CLEAR}\n`)
     } catch (err) {
         scriptError(err)
@@ -307,7 +314,7 @@ wtf.onProcessExit = onProcessExit
     opts.timeout = opts.timeout || 0
     log = log || false
 
-    if(constants.LOG_FILE !== '' && log === true) writeLog(`Running command:  ${cmd}\n`)
+    if(files.LOG_FILE !== '' && log === true) writeLog(`Running command:  ${cmd}\n`)
 
     const proc = exec(cmd, { cwd: opts.cwd, env: opts.env, windowsHide: true })
     if(await onProcessExit(proc, log).catch(err => { return false }) === true) return true
@@ -322,7 +329,7 @@ wtf.runCommand = runCommand
  */
 const runSysCheckScript = async (args) => {
     process.stdout.write(`\n`)
-    const proc = spawn(constants.SYSCHECK_SCRIPT, args,
+    const proc = spawn(files.SYSCHECK_SCRIPT, args,
                        { stdio: [ process.stdin, process.stdout, process.stderr ] })
     if(await onProcessExit(proc) === true) return true
     else return false
@@ -336,7 +343,7 @@ wtf.runSysCheckScript = runSysCheckScript
  */
 const runConfigScript = async (args) => {
     process.stdout.write(`\n`)
-    const proc = spawn(constants.CONFIG_SCRIPT, args,
+    const proc = spawn(files.CONFIG_SCRIPT, args,
                        { stdio: [ process.stdin, process.stdout, process.stderr ] })
     if(await onProcessExit(proc) === true) return true
     else return false

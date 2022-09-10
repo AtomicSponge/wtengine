@@ -7,7 +7,6 @@
  */
 
 import wtf from './_common.mjs'
-import exec from 'child_process'
 import 'inquirer'
 
 /**
@@ -43,14 +42,14 @@ const workers = {
      * 
      */
     buildEngine: async () => {
-        `cmake --build ${ENGINE_LOCATION}/wte-build --config Debug --target all --`
+        runCommand(`cmake --build ${ENGINE_LOCATION}/wte-build --config Debug --target all`)
     },
 
     /**
      * 
      */
     buildEngineDebug: async () => {
-        `cmake --build ${ENGINE_LOCATION}/wte-build-debug --config Release --target all --`
+        runCommand(`cmake --build ${ENGINE_LOCATION}/wte-build-debug --config Release --target all --`)
     }
 }
 

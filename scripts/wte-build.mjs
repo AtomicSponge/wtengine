@@ -69,7 +69,7 @@ const build = {
         wtf.clearLog()
         wtf.writeLog(`WTEngine Build Script\n`)
         wtf.writeLog(`Starting Engine Build Process at ${new Date().toString()}\n\n`)
-        if(debugMode) wtf.writeLog(`Building debug mode!\n\n`)
+        if(debugMode) wtf.writeLog(`ALERT!  Building engine debug mode!\n\n`)
 
         //  Download necessary repos or check for updates.
         if(!await workers.runGit()) wtf.scriptError(`Error!  One or more repos failed to download!`)
@@ -87,7 +87,7 @@ const build = {
         wtf.clearLog()
         wtf.writeLog(`WTEngine Build Script\n`)
         wtf.writeLog(`Starting Project Build Process at ${new Date().toString()}\n\n`)
-        if(debugMode) wtf.writeLog(`Building debug mode!\n\n`)
+        if(debugMode) wtf.writeLog(`ALERT!  Building project debug mode!\n\n`)
 
         await workers.buildProject(debugMode)
 

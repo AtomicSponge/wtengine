@@ -9,6 +9,22 @@
 import wtf from './_common.mjs'
 import 'inquirer'
 
+/*
+ * Start script, set global variables
+ */
+wtf.scriptTitle(`WTEngine Build Utility`)
+
+//  Parse command line arguments
+const args = wtf.parseArgs(process.argv, [
+    { name: 'buildEngine', flags: '--buildengine' },
+    { name: 'buildProject', flags: '--buildproject' },
+    { name: 'debugMode', flags: '--debug' },
+])
+
+if(!wtf.checkSettings()) scriptError(`No 'settings.json' file found!  Run 'npx wte-config' first!`)
+
+const settings = wtf.loadSettings()
+
 /**
  * Build script workers
  */
@@ -41,9 +57,9 @@ const workers = {
     /**
      * 
      */
-    buildEngine: async (debugMode) => {
+    buildEngine: async () => {
         let runCmd = ``
-        if(debugMode) runCmd = `cmake --build ${wtf.paths.ENGINE_BUILD_DEBUG_LOCATION} --config Debug --target all --`
+        if(args.debugMode) runCmd = `cmake --build ${wtf.paths.ENGINE_BUILD_DEBUG_LOCATION} --config Debug --target all --`
         else runCmd =  `cmake --build ${wtf.paths.ENGINE_BUILD_LOCATION} --config Release --target all --`
         //runCmd = `ls`
         
@@ -54,7 +70,7 @@ const workers = {
     /**
      * 
      */
-    buildProject: async (debugMode) => {}
+    buildProject: async () => {}
 }
 
 /**
@@ -64,17 +80,17 @@ const build = {
     /**
      * Build the engine
      */
-    engine: async (debugMode) => {
+    engine: async () => {
         wtf.files.LOG_FILE = 'wte-build-engine.log'
         wtf.clearLog()
         wtf.writeLog(`WTEngine Build Script\n`)
         wtf.writeLog(`Starting Engine Build Process at ${new Date().toString()}\n\n`)
-        if(debugMode) wtf.writeLog(`ALERT!  Building engine debug mode!\n\n`)
+        if(args.debugMode) wtf.writeLog(`ALERT!  Building engine debug mode!\n\n`)
 
         //  Download necessary repos or check for updates.
         if(!await workers.runGit()) wtf.scriptError(`Error!  One or more repos failed to download!`)
 
-        await workers.buildEngine(debugMode)
+        await workers.buildEngine()
 
         wtf.writeLog(`\nEngine Build Process completed at ${new Date().toString()}`)
     },
@@ -82,38 +98,25 @@ const build = {
     /**
      * Build the project
      */
-    project: async (debugMode) => {
+    project: async () => {
         wtf.files.LOG_FILE = 'wte-build-project.log'
         wtf.clearLog()
         wtf.writeLog(`WTEngine Build Script\n`)
         wtf.writeLog(`Starting Project Build Process at ${new Date().toString()}\n\n`)
-        if(debugMode) wtf.writeLog(`ALERT!  Building project debug mode!\n\n`)
+        if(args.debugMode) wtf.writeLog(`ALERT!  Building project debug mode!\n\n`)
 
-        await workers.buildProject(debugMode)
+        await workers.buildProject()
 
         wtf.writeLog(`\nProject Build Process completed at ${new Date().toString()}`)
     }
 }
 
 /*
- * Main script
+ * Run script
  */
-wtf.scriptTitle(`WTEngine Build Utility`)
-
-//  Parse command line arguments
-const args = wtf.parseArgs(process.argv, [
-    { name: 'buildEngine', flags: '--buildengine' },
-    { name: 'buildProject', flags: '--buildproject' },
-    { name: 'debugMode', flags: '--debug' },
-])
-
-if(!wtf.checkSettings()) scriptError(`No 'settings.json' file found!  Run 'npx wte-config' first!`)
-
-const settings = wtf.loadSettings()
-
 if(args.buildEngine || args.buildProject) {
-    if(args.buildEngine) await build.engine(args.debugMode)
-    if(args.buildProject) await build.project(args.debugMode)
+    if(args.buildEngine) await build.engine()
+    if(args.buildProject) await build.project()
 } else {
     //option
 }

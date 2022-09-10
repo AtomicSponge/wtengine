@@ -41,11 +41,7 @@ const constants = {
     APP_NAME: `${appInfo['name']}`,
     APP_VERSION: `${appInfo['version']}`,
     APP_URL: `${appInfo['url']}`,
-    ENGINE_ROOT_LOCATION:    `${__dirname}/..`,
-    ENGINE_BUILD_LOCATION: `${wtf.constants.ENGINE_ROOT_LOCATION}/wte-build`,
-    ENGINE_BUILD_DEBUG_LOCATION: `${wtf.constants.ENGINE_ROOT_LOCATION}/wte-build-debug`,
-    ENGINE_LOG_LOCATION: `${wtf.constants.ENGINE_ROOT_LOCATION}/wte-logs`,
-    ENGINE_TEMP_LOCATION: `${wtf.constants.ENGINE_ROOT_LOCATION}/wte-temp`,
+    ENGINE_ROOT_LOCATION:  `${__dirname}/..`,
     CONFIG_SCRIPT:     `${__dirname}/wte-config.mjs`,
     SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.mjs`,
     SETTINGS_FILE: `${__dirname}/../settings.json`,
@@ -54,6 +50,17 @@ const constants = {
     LOG_FILE: ``  //  Set by script
 }
 wtf.constants = constants
+
+/**
+ * Folder paths
+ */
+const paths = {
+    ENGINE_BUILD_LOCATION: `${constants.ENGINE_ROOT_LOCATION}/wte-build`,
+    ENGINE_BUILD_DEBUG_LOCATION: `${constants.ENGINE_ROOT_LOCATION}/wte-build-debug`,
+    ENGINE_LOG_LOCATION: `${constants.ENGINE_ROOT_LOCATION}/wte-logs`,
+    ENGINE_TEMP_LOCATION: `${constants.ENGINE_ROOT_LOCATION}/wte-temp`
+}
+wtf.paths = paths
 
 /**
  * Font colors

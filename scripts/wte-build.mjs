@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * @author Matthew Evans
- * @module wtfsystems/wtengine
+ * @module wtfsystems/wtfngine
  * @see README.md
  * @copyright MIT see LICENSE.md
  */
@@ -23,14 +23,14 @@ const workers = {
             if(wtf.checkFolder(`${wtf.constants.WORK_FOLDER}/${gitJob.name}`)) {
                 process.stdout.write(`Making sure ${gitJob.name} is up to date...  `)
                 resA.push(wtf.runCommand(`git pull`, { cwd: `${wtf.constants.WORK_FOLDER}/${gitJob.name}` }))
-                if(!resA[resA.length-1]) process.stdout.write(`${wte.colors.RED}ERROR!${wte.colors.CLEAR}\n`)
-                else process.stdout.write(`${wte.colors.GREEN}OK!${wte.colors.CLEAR}\n`)
+                if(!resA[resA.length-1]) process.stdout.write(`${wtf.colors.RED}ERROR!${wtf.colors.CLEAR}\n`)
+                else process.stdout.write(`${wtf.colors.GREEN}OK!${wtf.colors.CLEAR}\n`)
             }
             else {
                 process.stdout.write(`Downloading ${gitJob.name} from ${gitJob.url}...  `)
                 resA.push(wtf.runCommand(`git clone ${gitJob.url}`, { cwd: wtf.constants.WORK_FOLDER }))
-                if(!resA[resA.length-1]) process.stdout.write(`${wte.colors.RED}ERROR!${wte.colors.CLEAR}\n`)
-                else process.stdout.write(`${wte.colors.GREEN}OK!${wte.colors.CLEAR}\n`)
+                if(!resA[resA.length-1]) process.stdout.write(`${wtf.colors.RED}ERROR!${wtf.colors.CLEAR}\n`)
+                else process.stdout.write(`${wtf.colors.GREEN}OK!${wtf.colors.CLEAR}\n`)
             }
         })
         var res = true
@@ -43,8 +43,8 @@ const workers = {
      */
     buildEngine: async (debugMode) => {
         let runCmd = ``
-        if(debugMode) runCmd = `cmake --build /wte-build --config Debug --target all`
-        else runCmd =  `cmake --build /wte-build --config Debug --target all`
+        if(debugMode) runCmd = `cmake --build /wtf-build --config Debug --target all`
+        else runCmd =  `cmake --build /wtf-build --config Debug --target all`
         
         wtf.runCommand(runCmd, { env: `${wtf.constants.ENGINE_ROOT_LOCATION}/` }, true)
     },
@@ -63,9 +63,9 @@ const build = {
      * Build the engine
      */
     engine: async (debugMode) => {
-        wtf.constants.LOG_FILE = 'wte-build-engine.log'
+        wtf.constants.LOG_FILE = 'wtf-build-engine.log'
         wtf.clearLog()
-        wtf.writeLog(`WTEngine Build Script\n`)
+        wtf.writeLog(`wtfngine Build Script\n`)
         wtf.writeLog(`Starting Engine Build Process at ${new Date().toString()}\n\n`)
 
         //  Download necessary repos or check for updates.
@@ -80,9 +80,9 @@ const build = {
      * Build the project
      */
     project: async (debugMode) => {
-        wtf.constants.LOG_FILE = 'wte-build-project.log'
+        wtf.constants.LOG_FILE = 'wtf-build-project.log'
         wtf.clearLog()
-        wtf.writeLog(`WTEngine Build Script\n`)
+        wtf.writeLog(`wtfngine Build Script\n`)
         wtf.writeLog(`Starting Project Build Process at ${new Date().toString()}\n\n`)
 
         await workers.buildProject(debugMode)
@@ -94,7 +94,7 @@ const build = {
 /*
  * Main script
  */
-wtf.scriptTitle(`WTEngine Build Utility`)
+wtf.scriptTitle(`wtfngine Build Utility`)
 
 //  Parse command line arguments
 const args = wtf.parseArgs(process.argv, [
@@ -103,7 +103,7 @@ const args = wtf.parseArgs(process.argv, [
     { name: 'debugMode', flags: '--debug' },
 ])
 
-if(!wtf.checkSettings()) scriptError(`No 'settings.json' file found!  Run 'npx wte-config' first!`)
+if(!wtf.checkSettings()) scriptError(`No 'settings.json' file found!  Run 'npx wtf-config' first!`)
 
 const settings = wtf.loadSettings()
 

@@ -285,7 +285,7 @@ wtf.asyncForEach = asyncForEach
  * @returns {Promise} A fulfilled promise with the result.
  */
  const onProcessExit = async (process, log) => {
-    log = log || false
+    log = log || true
     return new Promise((resolve, reject) => {
         process.once('exit', (code) => {
             if(log && files.LOG_FILE !== '') writeLog(`Return code:  ${code}\n`)
@@ -313,7 +313,7 @@ wtf.onProcessExit = onProcessExit
     opts.cwd = opts.cwd || process.cwd()
     opts.env = opts.env || process.env
     opts.timeout = opts.timeout || 0
-    log = log || false
+    log = log || true
 
     if(log && files.LOG_FILE !== '') writeLog(`Running command:  ${cmd}\n`)
 

@@ -25,6 +25,8 @@ if(!wtf.checkSettings()) scriptError(`No 'settings.json' file found!  Run 'npx w
 
 const settings = wtf.loadSettings()
 
+settings.CMAKE_LOCATION = `/usr/bin/cmake`
+
 /**
  * Build script workers
  */
@@ -58,14 +60,14 @@ const workers = {
      * 
      */
     buildEngine: async () => {
-        let runCmd = ``
-        if(args.debugMode) runCmd = `cmake --build ${wtf.paths.ENGINE_BUILD_DEBUG_LOCATION} --config Debug --target all --`
-        else runCmd =  `cmake --build ${wtf.paths.ENGINE_BUILD_LOCATION} --config Release --target all --`
+        let runCmd = `${settings.CMAKE_LOCATION} --build ${wtf.paths.ENGINE_BUILD_DEBUG_LOCATION} --config __CHANGE__ --target all --`
+        if(args.debugMode) runCmd = runCmd.replace(`__CHANGE__`, `Debug`)
+        else runCmd = runCmd.replace(`__CHANGE__`, `Release`)
 
-        if(args.debugMode) process.stdout.write(`\n\nStarting engine debug build... `)
-        else process.stdout.write(`\n\nStarting engine build... `)
+        if(args.debugMode) process.stdout.write(`\nStarting engine debug build... `)
+        else process.stdout.write(`\nStarting engine build... `)
 
-        if(!await wtf.runCommand(runCmd, { cwd: `${wtf.constants.ENGINE_ROOT_LOCATION}/` }, true))
+        if(!await wtf.runCommand(runCmd, { cwd: `${wtf.constants.ENGINE_ROOT_LOCATION}` }))
             wtf.scriptError(`Build command failed!`)
         process.stdout.write(`${wtf.colors.GREEN}Done!${wtf.colors.CLEAR}\n`)
     },

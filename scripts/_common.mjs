@@ -278,18 +278,51 @@ wtf.asyncForEach = asyncForEach
  * @param {Object} process The process object to watch.
  * @returns {Promise} A fulfilled promise with the result.
  */
-const onProcessExit = async (process) => {
+ const onProcessExit = async (process, log) => {
+    log = log || false
     return new Promise((resolve, reject) => {
         process.once('exit', (code) => {
+            if(log) process.stdout.write(`\nReturn codde:  ${code}\n`)
             if(code === 0) resolve(true)
             else reject(false)
         })
         process.once('error', (error) => {
-            reject(false)
+            if(log) process.stdout.write(`\nError:  ${error}\n`)
+            reject(error)
         })
     })
 }
 wtf.onProcessExit = onProcessExit
+
+/**
+ * Run a system command.
+ * Waits for the command to complete but does not show output.
+ * @param {String} cmd Command to run.
+ * @param {Object} opts Additional options.
+ * @param {boolean} log Log the result of the command to the log file.  Defaults to true.
+ * @returns {boolean} True if the command was successful, else false.
+ */
+ const runCommand = async (cmd, opts, log) => {
+    opts = opts || {}
+    opts.cwd = opts.cwd || process.cwd()
+    opts.env = opts.env || process.env
+    opts.timeout = opts.timeout || 0
+    log = log || false
+    const proc = exec(cmd, { cwd: opts.cwd, env: opts.env, windowsHide: true },
+        (error, stdout, stderr) => {
+            if(log) {
+                writeLog(`Running command:  ${cmd}\nDirectory:  ${opts.cwd}\n`)
+                writeLog(`Output:  ${stdout}Errors:  ${stderr}\n\n`)
+            }
+        }
+    )
+    if(await onProcessExit(proc, log).catch(error => {
+        if(log) process.stdout.write(`Error:  ${error}`)
+            return false
+        }) === true) return true
+    else return false
+}
+wtf.runCommand = runCommand
 
 /**
  * Run the system check script.
@@ -318,32 +351,5 @@ const runConfigScript = async (args) => {
     else return false
 }
 wtf.runConfigScript = runConfigScript
-
-/**
- * Run a system command.
- * Waits for the command to complete but does not show output.
- * @param {String} cmd Command to run.
- * @param {Object} opts Additional options.
- * @param {boolean} log Log the result of the command to the log file.  Defaults to true.
- * @returns {boolean} True if the command was successful, else false.
- */
-const runCommand = async (cmd, opts, log) => {
-    opts = opts || {}
-    opts.cwd = opts.cwd || process.cwd()
-    opts.env = opts.env || process.env
-    opts.timeout = opts.timeout || 0
-    log = log || true
-    const proc = exec(cmd, { cwd: opts.cwd, env: opts.env, windowsHide: true },
-        (error, stdout, stderr) => {
-            if(log) {
-                writeLog(`Running command:  ${cmd}\nDirectory:  ${opts.cwd}\n`)
-                writeLog(`Output:  ${stdout}Errors:  ${stderr}\n\n`)
-            }
-        }
-    )
-    if(await onProcessExit(proc) === true) return true
-    else return false
-}
-wtf.runCommand = runCommand
 
 export default wtf

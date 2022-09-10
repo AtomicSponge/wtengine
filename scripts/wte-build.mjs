@@ -43,10 +43,10 @@ const workers = {
      */
     buildEngine: async (debugMode) => {
         let runCmd = ``
-        if(debugMode) runCmd = `cmake --build /wtf-build --config Debug --target all`
+        if(debugMode) runCmd = `cmake --build /wtf-build --config Debug --target all --`
         else runCmd =  `cmake --build /wtf-build --config Debug --target all`
         
-        wtf.runCommand(runCmd, { env: `${wtf.constants.ENGINE_ROOT_LOCATION}/` }, true)
+        wtf.runCommand(runCmd, { cwd: `${wtf.constants.ENGINE_ROOT_LOCATION}/` }, true)
     },
 
     /**

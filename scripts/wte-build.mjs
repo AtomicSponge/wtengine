@@ -41,13 +41,18 @@ const workers = {
     /**
      * 
      */
-    buildEngine: async (debug) => {
+    buildEngine: async (debugMode) => {
         let runCmd = ``
-        if(debug) runCmd = `cmake --build ${wtf.constants.ENGINE_LOCATION}/wte-build --config Debug --target all`
+        if(debugMode) runCmd = `cmake --build ${wtf.constants.ENGINE_LOCATION}/wte-build --config Debug --target all`
         else runCmd =  `cmake --build ${wtf.constants.ENGINE_LOCATION}/wte-build --config Debug --target all`
         
         wtf.runCommand(runCmd, {}, true)
-    }
+    },
+
+    /**
+     * 
+     */
+    buildProject: async (debugMode) => {}
 }
 
 /**
@@ -57,7 +62,7 @@ const build = {
     /**
      * Build the engine
      */
-    engine: async (debugmode) => {
+    engine: async (debugMode) => {
         wtf.constants.LOG_FILE = 'wte-build-engine.log'
         wtf.clearLog()
         wtf.writeLog(`WTEngine Build Script\n`)
@@ -66,7 +71,7 @@ const build = {
         //  Download necessary repos or check for updates.
         if(!await workers.runGit()) wtf.scriptError(`Error!  One or more repos failed to download!`)
 
-        workers.buildEngine(debugmode)
+        workers.buildEngine(debugMode)
 
         wtf.writeLog(`Engine Build Process completed at ${new Date().toString()}`)
     },
@@ -74,11 +79,13 @@ const build = {
     /**
      * Build the project
      */
-    project: async (debugmode) => {
+    project: async (debugMode) => {
         wtf.constants.LOG_FILE = 'wte-build-project.log'
         wtf.clearLog()
         wtf.writeLog(`WTEngine Build Script\n`)
         wtf.writeLog(`Starting Project Build Process at ${new Date().toString()}\n\n`)
+
+        workers.buildProject(debugMode)
 
         wtf.writeLog(`Project Build Process completed at ${new Date().toString()}`)
     }
@@ -93,7 +100,7 @@ wtf.scriptTitle(`WTEngine Build Utility`)
 const args = wtf.parseArgs(process.argv, [
     { name: 'buildEngine', flags: '--buildengine' },
     { name: 'buildProject', flags: '--buildproject' },
-    { name: 'debugmode', flags: '--debug' },
+    { name: 'debugMode', flags: '--debug' },
 ])
 
 if(!wtf.checkSettings()) scriptError(`No 'settings.json' file found!  Run 'npx wte-config' first!`)
@@ -101,8 +108,8 @@ if(!wtf.checkSettings()) scriptError(`No 'settings.json' file found!  Run 'npx w
 const settings = wtf.loadSettings()
 
 if(args.buildEngine || args.buildProject) {
-    if(args.buildEngine) await build.engine(args.debugmode)
-    if(args.buildProject) await build.project(args.debugmode)
+    if(args.buildEngine) await build.engine(args.debugMode)
+    if(args.buildProject) await build.project(args.debugMode)
 } else {
     //option
 }

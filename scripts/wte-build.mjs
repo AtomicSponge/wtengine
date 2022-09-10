@@ -45,6 +45,7 @@ const workers = {
         let runCmd = ``
         if(debugMode) runCmd = `cmake --build /wtf-build --config Debug --target all --`
         else runCmd =  `cmake --build /wtf-build --config Debug --target all`
+        //runCmd = `ls`
         
         wtf.runCommand(runCmd, { cwd: `${wtf.constants.ENGINE_ROOT_LOCATION}/` }, true)
     },
@@ -67,6 +68,7 @@ const build = {
         wtf.clearLog()
         wtf.writeLog(`wtfngine Build Script\n`)
         wtf.writeLog(`Starting Engine Build Process at ${new Date().toString()}\n\n`)
+        if(debugMode) wtf.writeLog(`Building debug mode!\n\n`)
 
         //  Download necessary repos or check for updates.
         if(!await workers.runGit()) wtf.scriptError(`Error!  One or more repos failed to download!`)
@@ -84,6 +86,7 @@ const build = {
         wtf.clearLog()
         wtf.writeLog(`wtfngine Build Script\n`)
         wtf.writeLog(`Starting Project Build Process at ${new Date().toString()}\n\n`)
+        if(debugMode) wtf.writeLog(`Building debug mode!\n\n`)
 
         await workers.buildProject(debugMode)
 
@@ -103,7 +106,7 @@ const args = wtf.parseArgs(process.argv, [
     { name: 'debugMode', flags: '--debug' },
 ])
 
-if(!wtf.checkSettings()) scriptError(`No 'settings.json' file found!  Run 'npx wtf-config' first!`)
+if(!wtf.checkSettings()) scriptError(`No 'settings.json' file found!  Run 'npx wte-config' first!`)
 
 const settings = wtf.loadSettings()
 

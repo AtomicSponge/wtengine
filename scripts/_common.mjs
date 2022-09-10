@@ -283,8 +283,7 @@ wtf.asyncForEach = asyncForEach
     return new Promise((resolve, reject) => {
         process.once('exit', (code) => {
             if(log) process.stdout.write(`\nReturn codde:  ${code}\n`)
-            if(code === 0) resolve(true)
-            else reject(false)
+            resolve(true)
         })
         process.once('error', (error) => {
             if(log) process.stdout.write(`\nError:  ${error}\n`)
@@ -308,18 +307,15 @@ wtf.onProcessExit = onProcessExit
     opts.env = opts.env || process.env
     opts.timeout = opts.timeout || 0
     log = log || false
-    const proc = exec(cmd, { cwd: opts.cwd, env: opts.env, windowsHide: true },
-        (error, stdout, stderr) => {
-            if(log) {
-                writeLog(`Running command:  ${cmd}\nDirectory:  ${opts.cwd}\n`)
-                writeLog(`Output:  ${stdout}Errors:  ${stderr}\n\n`)
-            }
-        }
-    )
+
+    if(constants.LOG_FILE !== '' && log === true) writeLog(`Running command:  ${cmd}\n`)
+    const proc = exec(cmd, { cwd: opts.cwd, env: opts.env, windowsHide: true })
     if(await onProcessExit(proc, log).catch(error => {
-        if(log) process.stdout.write(`Error:  ${error}`)
+        if(log){
+            process.stdout.write(`Error:  ${error}`)
             return false
-        }) === true) return true
+        }
+    }) === true) return true
     else return false
 }
 wtf.runCommand = runCommand

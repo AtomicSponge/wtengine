@@ -61,10 +61,13 @@ const workers = {
         let runCmd = ``
         if(args.debugMode) runCmd = `cmake --build ${wtf.paths.ENGINE_BUILD_DEBUG_LOCATION} --config Debug --target all --`
         else runCmd =  `cmake --build ${wtf.paths.ENGINE_BUILD_LOCATION} --config Release --target all --`
-        //runCmd = `ls`
-        
+
+        if(args.debugMode) process.stdout.write(`\n\nStarting engine debug build... `)
+        else process.stdout.write(`\n\nStarting engine build... `)
+
         if(!await wtf.runCommand(runCmd, { cwd: `${wtf.constants.ENGINE_ROOT_LOCATION}/` }, true))
-            wtf.scriptError(`Warning!  Build command failed!`)
+            wtf.scriptError(`Build command failed!`)
+        process.stdout.write(`${wtf.colors.GREEN}Done!${wtf.colors.CLEAR}\n`)
     },
 
     /**

@@ -289,7 +289,8 @@ wtf.asyncForEach = asyncForEach
     return new Promise((resolve, reject) => {
         process.once('exit', (code) => {
             if(log) writeLog(`Return code:  ${code}\n`)
-            resolve(true)
+            if(code === 0) resolve(true)
+            else resolve(false)
         })
         process.once('error', (error) => {
             if(log) writeLog(`Error:  ${error}\n`)

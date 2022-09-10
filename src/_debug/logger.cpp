@@ -19,7 +19,7 @@ namespace wte {
 logger::logger() {
     // create new log file
     try {
-        log_file.open("wte-logs\exception_log_" +
+        log_file.open("exception_log_" +
             std::put_time(&tm, "%d-%m-%Y_%H-%M-%S") + ".log", std::ios::out | std::ios::trunc);
         log_file << "New log\n\n";
     } catch {

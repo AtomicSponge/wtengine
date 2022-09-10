@@ -44,12 +44,15 @@ const actions = {
  */
 wtf.scriptTitle(`WTEngine Configuration Utility`)
 
-const args = wtf.parseArgs(process.argv, [{ name: 'nosyscheck', flags: '--nosyscheck' }])
+const args = wtf.parseArgs(process.argv, [
+    { name: 'noSyscheck', flags: '--nosyscheck' },
+    { name: 'clearCache', flags: '--clearcache' }
+])
 
 var settings = wtf.loadSettings()
 if(!settings) {
     process.stdout.write(`No settings file found, running setup...\n`)
-    if(!args.nosyscheck) if(await wtf.confirmPrompt(`Run a system check first?`)) {
+    if(!args.noSyscheck) if(await wtf.confirmPrompt(`Run a system check first?`)) {
         if(!await wtf.runSysCheckScript())
             wtf.scriptError(`Problems running system check.\nPlease resolve issues then re-run config.`)
     }

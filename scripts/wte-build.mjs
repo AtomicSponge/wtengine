@@ -41,15 +41,12 @@ const workers = {
     /**
      * 
      */
-    buildEngine: async () => {
-        runCommand(`cmake --build ${ENGINE_LOCATION}/wte-build --config Debug --target all`)
-    },
-
-    /**
-     * 
-     */
-    buildEngineDebug: async () => {
-        runCommand(`cmake --build ${ENGINE_LOCATION}/wte-build-debug --config Release --target all --`)
+    buildEngine: async (debug) => {
+        let runCmd = ``
+        if(debug) runCmd = `cmake --build ${wtf.constants.ENGINE_LOCATION}/wte-build --config Debug --target all`
+        else runCmd =  `cmake --build ${wtf.constants.ENGINE_LOCATION}/wte-build --config Debug --target all`
+        
+        wtf.runCommand(runCmd, {}, true)
     }
 }
 
@@ -60,7 +57,7 @@ const build = {
     /**
      * Build the engine
      */
-    engine: async () => {
+    engine: async (debugmode) => {
         wtf.constants.LOG_FILE = 'wte-build-engine.log'
         wtf.clearLog()
         wtf.writeLog(`WTEngine Build Script\n`)
@@ -69,13 +66,15 @@ const build = {
         //  Download necessary repos or check for updates.
         if(!await workers.runGit()) wtf.scriptError(`Error!  One or more repos failed to download!`)
 
+        workers.buildEngine(debugmode)
+
         wtf.writeLog(`Engine Build Process completed at ${new Date().toString()}`)
     },
 
     /**
      * Build the project
      */
-    project: async () => {
+    project: async (debugmode) => {
         wtf.constants.LOG_FILE = 'wte-build-project.log'
         wtf.clearLog()
         wtf.writeLog(`WTEngine Build Script\n`)
@@ -93,7 +92,8 @@ wtf.scriptTitle(`WTEngine Build Utility`)
 //  Parse command line arguments
 const args = wtf.parseArgs(process.argv, [
     { name: 'buildEngine', flags: '--buildengine' },
-    { name: 'buildProject', flags: '--buildproject' }
+    { name: 'buildProject', flags: '--buildproject' },
+    { name: 'debugmode', flags: '--debug' },
 ])
 
 if(!wtf.checkSettings()) scriptError(`No 'settings.json' file found!  Run 'npx wte-config' first!`)
@@ -101,8 +101,8 @@ if(!wtf.checkSettings()) scriptError(`No 'settings.json' file found!  Run 'npx w
 const settings = wtf.loadSettings()
 
 if(args.buildEngine || args.buildProject) {
-    if(args.buildEngine) await build.engine()
-    if(args.buildProject) await build.project()
+    if(args.buildEngine) await build.engine(args.debugmode)
+    if(args.buildProject) await build.project(args.debugmode)
 } else {
     //option
 }

@@ -64,9 +64,9 @@ const build = {
      * Build the engine
      */
     engine: async (debugMode) => {
-        wtf.constants.LOG_FILE = 'wtf-build-engine.log'
+        wtf.constants.LOG_FILE = 'wte-build-engine.log'
         wtf.clearLog()
-        wtf.writeLog(`wtfngine Build Script\n`)
+        wtf.writeLog(`WTEngine Build Script\n`)
         wtf.writeLog(`Starting Engine Build Process at ${new Date().toString()}\n\n`)
         if(debugMode) wtf.writeLog(`Building debug mode!\n\n`)
 
@@ -82,9 +82,9 @@ const build = {
      * Build the project
      */
     project: async (debugMode) => {
-        wtf.constants.LOG_FILE = 'wtf-build-project.log'
+        wtf.constants.LOG_FILE = 'wte-build-project.log'
         wtf.clearLog()
-        wtf.writeLog(`wtfngine Build Script\n`)
+        wtf.writeLog(`WTEngine Build Script\n`)
         wtf.writeLog(`Starting Project Build Process at ${new Date().toString()}\n\n`)
         if(debugMode) wtf.writeLog(`Building debug mode!\n\n`)
 
@@ -97,7 +97,7 @@ const build = {
 /*
  * Main script
  */
-wtf.scriptTitle(`wtfngine Build Utility`)
+wtf.scriptTitle(`WTEngine Build Utility`)
 
 //  Parse command line arguments
 const args = wtf.parseArgs(process.argv, [

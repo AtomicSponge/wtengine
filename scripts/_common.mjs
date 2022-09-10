@@ -46,7 +46,6 @@ const constants = {
     SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.mjs`,
     SETTINGS_FILE: `${__dirname}/../settings.json`,
     WORK_FOLDER: `${__dirname}/../wte-temp`,
-    LOG_LOCATION: `${__dirname}/../wte-logs`,
     LOG_FILE: ``  //  Set by script
 }
 wtf.constants = constants
@@ -106,7 +105,7 @@ wtf.scriptError = scriptError
 const clearLog = () => {
     if(constants.LOG_FILE === '') scriptError(`Must set a log file in the script first!`)
     try {
-        fs.unlinkSync(`${constants.LOG_LOCATION}/${constants.LOG_FILE}`)
+        fs.unlinkSync(`${paths.ENGINE_LOG_LOCATION}/${constants.LOG_FILE}`)
     } catch (err) {}
 }
 wtf.clearLog = clearLog
@@ -120,7 +119,7 @@ wtf.clearLog = clearLog
 const writeLog = (message) => {
     if(constants.LOG_FILE === '') scriptError(`Must set a log file in the script first!`)
     try {
-        fs.appendFileSync(`${constants.LOG_LOCATION}/${constants.LOG_FILE}`, message)
+        fs.appendFileSync(`${paths.ENGINE_LOG_LOCATION}/${constants.LOG_FILE}`, message)
     } catch (err) { scriptError(err) }
 }
 wtf.writeLog = writeLog
@@ -282,11 +281,11 @@ wtf.asyncForEach = asyncForEach
     log = log || false
     return new Promise((resolve, reject) => {
         process.once('exit', (code) => {
-            if(log) process.stdout.write(`\nReturn codde:  ${code}\n`)
+            if(log) writeLog(`Return code:  ${code}\n`)
             resolve(true)
         })
         process.once('error', (error) => {
-            if(log) process.stdout.write(`\nError:  ${error}\n`)
+            if(log) writeLog(`Error:  ${error}\n`)
             reject(error)
         })
     })
@@ -309,13 +308,9 @@ wtf.onProcessExit = onProcessExit
     log = log || false
 
     if(constants.LOG_FILE !== '' && log === true) writeLog(`Running command:  ${cmd}\n`)
+
     const proc = exec(cmd, { cwd: opts.cwd, env: opts.env, windowsHide: true })
-    if(await onProcessExit(proc, log).catch(error => {
-        if(log){
-            process.stdout.write(`Error:  ${error}`)
-            return false
-        }
-    }) === true) return true
+    if(await onProcessExit(proc, log).catch(err => { return false }) === true) return true
     else return false
 }
 wtf.runCommand = runCommand

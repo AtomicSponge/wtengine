@@ -38,9 +38,9 @@ wtf.config = config
  * Constants
  */
 const constants = {
-    APP_NAME: `${appInfo['name']}`,
-    APP_VERSION: `${appInfo['version']}`,
-    APP_URL: `${appInfo['url']}`,
+    APP_NAME:              `${appInfo['name']}`,
+    APP_VERSION:           `${appInfo['version']}`,
+    APP_URL:               `${appInfo['url']}`,
     ENGINE_ROOT_LOCATION:  __dirname.substring(0, __dirname.lastIndexOf(`/`)),
 }
 wtf.constants = constants
@@ -49,11 +49,11 @@ wtf.constants = constants
  * Folder paths
  */
 const paths = {
-    ENGINE_BUILD_LOCATION: `${constants.ENGINE_ROOT_LOCATION}/wte-build`,
+    ENGINE_BUILD_LOCATION:       `${constants.ENGINE_ROOT_LOCATION}/wte-build`,
     ENGINE_BUILD_DEBUG_LOCATION: `${constants.ENGINE_ROOT_LOCATION}/wte-build-debug`,
-    ENGINE_WORK_LOCATION: `${constants.ENGINE_ROOT_LOCATION}/wte-temp`,
-    ENGINE_LOG_LOCATION: `${constants.ENGINE_ROOT_LOCATION}/wte-logs`,
-    ENGINE_TEMP_LOCATION: `${constants.ENGINE_ROOT_LOCATION}/wte-temp`
+    ENGINE_WORK_LOCATION:        `${constants.ENGINE_ROOT_LOCATION}/wte-temp`,
+    ENGINE_LOG_LOCATION:         `${constants.ENGINE_ROOT_LOCATION}/wte-logs`,
+    ENGINE_TEMP_LOCATION:        `${constants.ENGINE_ROOT_LOCATION}/wte-temp`
 }
 wtf.paths = paths
 
@@ -61,10 +61,10 @@ wtf.paths = paths
  * Files
  */
 const files = {
-    CONFIG_SCRIPT:     `${__dirname}/wte-config.mjs`,
-    SYSCHECK_SCRIPT:   `${__dirname}/wte-syscheck.mjs`,
-    SETTINGS_FILE: `${constants.ENGINE_ROOT_LOCATION}/settings.json`,
-    LOG_FILE: ``  //  Set by script
+    CONFIG_SCRIPT:    `${__dirname}/wte-config.mjs`,
+    SYSCHECK_SCRIPT:  `${__dirname}/wte-syscheck.mjs`,
+    SETTINGS_FILE:    `${constants.ENGINE_ROOT_LOCATION}/settings.json`,
+    LOG_FILE: ``      //  Set by script
 }
 wtf.files = files
 
@@ -72,13 +72,13 @@ wtf.files = files
  * Font colors
  */
 const colors = {
-    RED:    `\x1b[31m`,
-    GREEN:  `\x1b[32m`,
-    YELLOW: `\x1b[33m`,
-    BLUE:   `\x1b[34m`,
-    CYAN:   `\x1b[36m`,
-    DIM:    `\x1b[2m`,
-    CLEAR:  `\x1b[0m`
+    RED:     `\x1b[31m`,
+    GREEN:   `\x1b[32m`,
+    YELLOW:  `\x1b[33m`,
+    BLUE:    `\x1b[34m`,
+    CYAN:    `\x1b[36m`,
+    DIM:     `\x1b[2m`,
+    CLEAR:   `\x1b[0m`
 }
 wtf.colors = colors
 

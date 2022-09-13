@@ -100,7 +100,7 @@ class handlers {
 
 //  Handler is set - wip
 template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, typename std::enable_if_t<std::is_member_function_pointer_v<decltype(&handlers<S, IDX>::add)>>> {
+class handlers<S, IDX, typename std::true_type> {
     friend class input;
     friend constexpr void add_handler(const handler_types& handle);
 
@@ -109,9 +109,6 @@ class handlers<S, IDX, typename std::enable_if_t<std::is_member_function_pointer
         ~handlers() = delete;                      //  Delete destructor.
         handlers(const handlers&) = delete;        //  Delete copy constructor.
         void operator=(handlers const&) = delete;  //  Delete assignment operator.
-
-        //  Create a new handler
-        //inline static void add(const handler_types& handle) { _handle = handle; };
 
         constexpr inline static bool is_set = true;
 
@@ -161,7 +158,6 @@ constexpr void add_handler(const handler_types& handle) {
         static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
-    //handlers<S, IDX>::add(handle);
     handlers<S, IDX>::_handle = handle;
 };
 

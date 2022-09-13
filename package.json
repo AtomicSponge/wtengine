@@ -19,7 +19,8 @@
   "homepage": "https://github.com/wtfsystems/wtengine#readme",
   "type": "module",
   "scripts": {
-    "postinstall": "scripts/install.mjs"
+    "postinstall": "scripts/install.mjs",
+    "test": "scripts/wte-syscheck.mjs"
   },
   "bin": {
     "wte-config": "scripts/wte-config.mjs",

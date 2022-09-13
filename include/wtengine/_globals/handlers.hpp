@@ -111,7 +111,7 @@ class handlers {
 
 //  Handler is set - wip
 template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, typename std::enable_if<handler_register<S, IDX>::enabled == true>> {
+class handlers<S, IDX, typename std::enable_if<handler_register<S, IDX>::enabled>> {
     friend class input;
     friend constexpr void add_handler(const handler_types& handle);
 

@@ -103,7 +103,7 @@ struct handler_register {
  * Stores an input handler.
  */
 //  Handler is not set
-template <handler_scopes S, handler_events IDX, typename Enabled = std::false_type>
+template <handler_scopes S, handler_events IDX, typename Enabled = void>
 class handlers {
     public:
         constexpr inline static bool is_set = false;
@@ -123,7 +123,7 @@ class handlers<S, IDX, typename std::enable_if<handler_register<S, IDX>::enabled
 
         constexpr inline static bool is_set = true;
 
-    private:
+    //private:
         inline static handler_types _handle;  //  Store handler
 };
 

@@ -104,13 +104,8 @@ struct handler_register {
  */
 //  Handler is not set
 template <handler_scopes S, handler_events IDX, typename Enabled = void>
-class handlers {
-    public:
-        handlers() = delete;                          //  Delete constructor.
-        ~handlers() = delete;                         //  Delete destructor.
-        handlers(const handlers&) = delete;           //  Delete copy constructor.
-        void operator=(handlers const&) = delete;     //  Delete assignment operator.
-        constexpr inline static bool is_set = false;  //  Disable handler.
+struct handlers {
+    constexpr inline static bool is_set = false;  //  Disable handler.
 };
 
 //  Handler is set

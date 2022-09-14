@@ -99,29 +99,32 @@ struct handler_register {
 };
 
 /*
- * Handlers template class
+ * Handlers template class - wip
  * Stores an input handler.
  */
 //  Handler is not set
 template <handler_scopes S, handler_events IDX, typename Enabled = void>
 class handlers {
     public:
-        constexpr inline static bool is_set = false;
+        handlers() = delete;                          //  Delete constructor.
+        ~handlers() = delete;                         //  Delete destructor.
+        handlers(const handlers&) = delete;           //  Delete copy constructor.
+        void operator=(handlers const&) = delete;     //  Delete assignment operator.
+        constexpr inline static bool is_set = false;  //  Disable handler.
 };
 
-//  Handler is set - wip
+//  Handler is set
 template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, typename std::enable_if<handler_register<S, IDX>::enabled>> {
+class handlers<S, IDX, typename std::enable_if<handler_register<S, IDX>::enabled == true>> {
     friend class input;
     friend constexpr void add_handler(const handler_types& handle);
 
     public:
-        handlers() = delete;                       //  Delete constructor.
-        ~handlers() = delete;                      //  Delete destructor.
-        handlers(const handlers&) = delete;        //  Delete copy constructor.
-        void operator=(handlers const&) = delete;  //  Delete assignment operator.
-
-        constexpr inline static bool is_set = true;
+        handlers() = delete;                         //  Delete constructor.
+        ~handlers() = delete;                        //  Delete destructor.
+        handlers(const handlers&) = delete;          //  Delete copy constructor.
+        void operator=(handlers const&) = delete;    //  Delete assignment operator.
+        constexpr inline static bool is_set = true;  //  Enable handler.
 
     //private:
         inline static handler_types _handle;  //  Store handler

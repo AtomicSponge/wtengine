@@ -60,7 +60,7 @@ class runtime_error final : public std::exception {
         runtime_error() = delete;    //!<  Delete default constructor.
 
         /*!
-         * \brief Terminate engine after handling exception.
+         * \brief Terminates engine after handling exception.
          */
         virtual ~runtime_error();
 
@@ -101,8 +101,8 @@ class exception final : public std::exception {
          */
         exception(const exception_item& i);
 
-        exception() = delete;    //!<  Delete default constructor.
-        ~exception() = default;  //!<  Default destructor.
+        exception() = delete;            //!<  Delete default constructor.
+        virtual ~exception() = default;  //!<  Default virtual destructor.
 
         /*!
          * \brief Returns the description of the thrown exception.

@@ -93,9 +93,13 @@ using handler_types = std::variant<
  */
 template <handler_scopes S, handler_events IDX>
 struct handler_register {
-    constexpr handler_register() : enabled(false) {};
-    constexpr handler_register(const bool& e) : enabled(e) {};
-    bool enabled;
+    template <bool B = false>
+    constexpr handler_register() {};
+    template <bool B = true>
+    constexpr handler_register(const bool& b) {};
+
+    template <bool B>
+    constexpr static bool value = [](){ return B; };
 };
 
 /*
@@ -110,7 +114,7 @@ struct handlers {
 
 //  Handler is set
 template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, typename std::enable_if<handler_register<S, IDX>::enabled == true>> {
+class handlers<S, IDX, typename std::enable_if<handler_register<S, IDX>::value == true>> {
     friend class input;
     friend constexpr void add_handler(const handler_types& handle);
 

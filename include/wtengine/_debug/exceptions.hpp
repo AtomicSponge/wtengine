@@ -24,7 +24,8 @@ const bool logger_add(
     const uint& c, const int64_t& t);
 
 /*!
- * \class
+ * \class exception_item
+ * \brief Creates an info object that can be passed to the engine exceptions.
  */
 class exception_item final {
     friend class runtime_error;

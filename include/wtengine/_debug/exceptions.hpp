@@ -35,6 +35,7 @@ class exception_item final {
          * \brief
          */
         exception_item(const std::string& d, const std::string& l, const uint& c);
+        exception_item(const std::string& d, const std::string& l);
 
     private:
         const char* description;  //  Exception description.
@@ -55,7 +56,7 @@ class runtime_error final : public std::exception {
          * \brief Create a new runtime error object.
          * \param i An exception item object.
          */
-        runtime_error(const exception_item& i);
+        runtime_error(const exception_item& i) : item(i) {};
 
         runtime_error() = delete;    //!<  Delete default constructor.
 

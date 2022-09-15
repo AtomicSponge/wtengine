@@ -20,10 +20,8 @@ exception_item::exception_item(const std::string& d, const std::string& l, const
 /*
  *
  */
-runtime_error::runtime_error(const exception_item& i) : item(i) {
-    if constexpr (build_options.debug_mode) logger_add(
-        i.description, i.location, i.code, i.time);
-}
+exception_item::exception_item(const std::string& d, const std::string& l) :
+    description(d.c_str()), location(l.c_str()), code(0), time(engine_time::check()) {};
 
 /*
  *

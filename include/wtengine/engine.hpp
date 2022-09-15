@@ -11,6 +11,7 @@
 #define WTE_ENGINE_HPP
 
 #include <ctime>
+#include <iostream>
 #include <string>
 #include <vector>
 #include <map>

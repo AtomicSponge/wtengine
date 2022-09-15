@@ -21,19 +21,25 @@ bool engine::initialized = false;
  *
  */
 engine::engine(const int& argc, char** const& argv) {
+    std::cout << "Starting wtengine... ";
     if(initialized == true) throw runtime_error(
         exception_item(display::window_title + " already running!", "Main engine", 1));
     initialized = true;
+    std::cout << "OK!\n";
 
+    std::cout << "Loading Allegro Game Library... ";
     //  Initialize Allegro.
     if(!al_init()) throw runtime_error(
         exception_item("Allegro failed to load!", "Main engine", 1));
+    std::cout << "OK!\n";
 
     //  Initialize additional Allegro components.
+    std::cout << "Loading Allegro add-ons... ";
     if(!al_init_image_addon()) throw runtime_error(
         exception_item("Failed to load Allegro image addon!", "Main engine", 1));
     if(!al_init_font_addon()) throw runtime_error(
         exception_item("Failed to load Allegro font addon!", "Main engine", 1));
+    std::cout << "OK!\n";
     config::_flags::audio_installed = al_install_audio();
     //  Input detection.
     config::_flags::keyboard_detected = al_install_keyboard();
@@ -42,28 +48,33 @@ engine::engine(const int& argc, char** const& argv) {
     config::_flags::touch_detected = al_install_touch_input();
 
     //  Configure PhysFS.
+    std::cout << "Loading PhysicsFS... ";
     if(!PHYSFS_init(argv[0])) throw runtime_error(
-        exception_item("Failed to load PhysFS!", "Main engine", 1));
+        exception_item("Failed to load PhysicsFS!", "Main engine", 1));
     if(file_locations.empty()) throw runtime_error(
         exception_item("Need to configure locations for PhysFS!", "Main engine", 1));
     for(auto& it: file_locations) PHYSFS_mount(it.c_str(), NULL, 1);
     al_set_physfs_file_interface();
+    std::cout << "OK!\n";
 
     //  Configure display.  Called from wte_display class.
+    std::cout << "Configuring display... ";
     create_display();
+    std::cout << "OK!\n";
 
     //  Disable pesky screensavers.
     al_inhibit_screensaver(true);
 
+    std::cout << "Creating main timer and event queue... ";
     //  Configure main timer.
     main_timer = al_create_timer(1.0f / ticks_per_sec);
     if(!main_timer) throw runtime_error(
         exception_item("Failed to create timer!", "Main engine", 1));
-
     //  Configure main event queue.
     main_event_queue = al_create_event_queue();
     if(!main_event_queue) throw runtime_error(
         exception_item("Failed to create main event queue!", "Main engine", 1));
+    std::cout << "OK!\n";
 
     //  Register event sources.
     al_register_event_source(main_event_queue, al_get_display_event_source(_display));
@@ -85,18 +96,6 @@ engine::engine(const int& argc, char** const& argv) {
         if(config::flags::game_started) {
             process_end_game();
         }
-    });
-    cmds.add("reconf-display", 0, [this](const msg_args& args) {
-        const bool timer_running = al_get_timer_started(main_timer);
-        //  Make sure the timer isn't running and unregister the display.
-        if(timer_running) al_stop_timer(main_timer);
-        al_pause_event_queue(main_event_queue, true);
-        al_unregister_event_source(main_event_queue, al_get_display_event_source(_display));
-        reconf_display();  //  Reload the display.
-        //  Register display event source and resume timer if it was running.
-        al_register_event_source(main_event_queue, al_get_display_event_source(_display));
-        al_pause_event_queue(main_event_queue, false);
-        if(timer_running) al_resume_timer(main_timer);
     });
     cmds.add("fps-counter", 1, [this](const msg_args& args) {
         if(args[0] == "on") config::flags::draw_fps = true;

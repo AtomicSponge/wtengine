@@ -120,18 +120,6 @@ void display::destroy_display(void) { al_destroy_display(_display); }
 /*
  *
  */
-void display::reconf_display(void) {
-    al_bitmap_converter::backup_bitmaps();
-    destroy_display();
-    create_display();
-    al_convert_memory_bitmaps();
-    al_bitmap_converter::reload_bitmaps();
-    config::_gfx::needs_reconfig = false;
-}
-
-/*
- *
- */
 void display::resize_display(const int& width, const int& height) {
     al_resize_display(_display, width, height);
     if(!al_acknowledge_resize(_display))

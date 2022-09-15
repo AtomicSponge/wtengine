@@ -30,18 +30,22 @@ class exception_item final {
     friend class runtime_error;
     friend class exception;
 
-    public:
-        /*!
-         * \brief
-         */
-        exception_item(const std::string& d, const std::string& l, const uint& c);
-        exception_item(const std::string& d, const std::string& l);
-
     private:
         const char* description;  //  Exception description.
         const char* location;     //  Exception location.
         const uint code;          //  Code of error
         const int64_t time;       //  Time of exception.
+    
+    public:
+        /*!
+         * \brief Create a new exception item.
+         */
+        exception_item(const std::string& d, const std::string& l, const uint& c);
+
+        /*!
+         * \brief Create a new exception item with the code value of zero.
+         */
+        exception_item(const std::string& d, const std::string& l);
 };
 
 /*!
@@ -51,6 +55,9 @@ class exception_item final {
  * Exceptions thrown this way will terminate the engine.
  */
 class runtime_error final : public std::exception {
+    private:
+        const exception_item item;  //  Store the exception item.
+    
     public:
         /*!
          * \brief Create a new runtime error object.
@@ -82,9 +89,6 @@ class runtime_error final : public std::exception {
          * \return Time of thrown exception.
          */
         const int64_t when() const noexcept;
-
-    private:
-        const exception_item item;  //  Store the exception item.
 };
 
 /*!
@@ -95,6 +99,9 @@ class runtime_error final : public std::exception {
  * If debugging is enabled, they will also be logged to file.
  */
 class exception final : public std::exception {
+    private:
+        const exception_item item;  //  Store the exception item.
+    
     public:
         /*!
          * \brief Create a wte exception.
@@ -122,9 +129,6 @@ class exception final : public std::exception {
          * \return Time of thrown exception.
          */
         const int64_t when() const noexcept;
-
-    private:
-        const exception_item item;  //  Store the exception item.
 };
 
 }  //  end namespace wte

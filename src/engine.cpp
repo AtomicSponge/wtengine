@@ -117,6 +117,7 @@ engine::engine(const int& argc, char** const& argv) {
  *
  */
 engine::~engine() {
+    std::cout << "Stopping wtengine... ";
     PHYSFS_deinit();
 
     al_destroy_timer(main_timer);
@@ -129,6 +130,7 @@ engine::~engine() {
     if(build_options.debug_mode) logger::stop();
 
     initialized = false;
+    std::cout << "Done!\n\n";
 }
 
 /*

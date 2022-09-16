@@ -88,33 +88,18 @@ using handler_types = std::variant<
 >;
 
 /*
- * Hander register
- * Checks if the register was defined
- */
-template <handler_scopes S, handler_events IDX>
-struct handler_register {
-    template <bool B = false>
-    constexpr handler_register() {};
-    template <bool B = true>
-    constexpr handler_register(const bool& b) {};
-
-    template <bool B>
-    constexpr static bool value = [](){ return B; };
-};
-
-/*
  * Handlers template class - wip
  * Stores an input handler.
  */
 //  Handler is not set
-template <handler_scopes S, handler_events IDX, typename Enabled = void>
+template <handler_scopes S, handler_events IDX, bool ENABLED = false>
 struct handlers {
     constexpr inline static bool is_set = false;  //  Disable handler.
 };
 
 //  Handler is set
 template <handler_scopes S, handler_events IDX>
-class handlers<S, IDX, typename std::enable_if<handler_register<S, IDX>::value == true>> {
+class handlers<S, IDX, true> {
     friend class input;
     friend constexpr void add_handler(const handler_types& handle);
 
@@ -171,8 +156,8 @@ constexpr void add_handler(const handler_types& handle) {
         static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
             IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
-    handler_register<S, IDX>(true);
-    handlers<S, IDX>::_handle = handle;
+    //handler_register<S, IDX>::value = true;
+    handlers<S, IDX, true>::_handle = handle;
 };
 
 }  //  end namespace wte

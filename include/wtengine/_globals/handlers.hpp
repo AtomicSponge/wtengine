@@ -102,18 +102,8 @@ struct handler_register {
  * Stores an input handler.
  */
 template <handler_scopes S, handler_events IDX>
-class handlers {
-    friend class input;
-    friend constexpr void add_handler(const handler_types& handle);
-
-    public:
-        handlers() = delete;                         //  Delete constructor.
-        ~handlers() = delete;                        //  Delete destructor.
-        handlers(const handlers&) = delete;          //  Delete copy constructor.
-        void operator=(handlers const&) = delete;    //  Delete assignment operator.
-
-    private:
-        inline static handler_types _handle;  //  Store handler
+struct handlers {
+    inline static handler_types _handle;
 };
 
 /*!

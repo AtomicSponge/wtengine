@@ -87,9 +87,7 @@ using handler_types = std::variant<
     handler::touch
 >;
 
-/*
- * wip
- */
+//  Registers to check if a handler is set - wip
 template <handler_scopes S, handler_events IDX>
 struct handler_register {
     template <typename Flag>
@@ -100,10 +98,7 @@ struct handler_register {
     constexpr static bool is_set = false;
 };
 
-/*
- * Handlers template class.
- * Stores an input handler.
- */
+//  Template class to store handlers
 template <handler_scopes S, handler_events IDX>
 struct handlers { inline static handler_types _handle; };
 

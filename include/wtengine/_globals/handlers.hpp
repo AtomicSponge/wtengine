@@ -46,9 +46,9 @@ namespace wte {
  * Handler scopes
  */
 enum handler_scopes {
-    WTE_GLOBAL_HANDLES,     //!<  Global input handles that are always active.
-    WTE_GAME_HANDLES,       //!<  In-game input handles.
-    WTE_NONGAME_HANDLES,    //!<  Out-of-game input handles.
+    GLOBAL_HANDLES,     //!<  Global input handles that are always active.
+    GAME_HANDLES,       //!<  In-game input handles.
+    NONGAME_HANDLES,    //!<  Out-of-game input handles.
 };
 
 /*!
@@ -57,26 +57,26 @@ enum handler_scopes {
  * See https://liballeg.org/a5docs/trunk/events.html for more info.
  */
 enum handler_events {
-    WTE_EVENT_KEY_DOWN,              //!<  Event key down.
-    WTE_EVENT_KEY_UP,                //!<  Event key up.
+    EVENT_KEY_DOWN,              //!<  Event key down.
+    EVENT_KEY_UP,                //!<  Event key up.
 
-    WTE_EVENT_MOUSE_AXIS,            //!<  Event mouse axis.
-    WTE_EVENT_MOUSE_BUTTON_DOWN,     //!<  Event mouse button down.
-    WTE_EVENT_MOUSE_BUTTON_UP,       //!<  Event mouse button up.
-    WTE_EVENT_MOUSE_WARPED,          //!<  Event mouse warped.
-    WTE_EVENT_MOUSE_ENTER_DISPLAY,   //!<  Event mouse enters display.
-    WTE_EVENT_MOUSE_LEAVE_DISPLAY,   //!<  Event mouse leaves display.
+    EVENT_MOUSE_AXIS,            //!<  Event mouse axis.
+    EVENT_MOUSE_BUTTON_DOWN,     //!<  Event mouse button down.
+    EVENT_MOUSE_BUTTON_UP,       //!<  Event mouse button up.
+    EVENT_MOUSE_WARPED,          //!<  Event mouse warped.
+    EVENT_MOUSE_ENTER_DISPLAY,   //!<  Event mouse enters display.
+    EVENT_MOUSE_LEAVE_DISPLAY,   //!<  Event mouse leaves display.
 
-    WTE_EVENT_JOYSTICK_AXIS,         //!<  Event joystick axis.
-    WTE_EVENT_JOYSTICK_BUTTON_DOWN,  //!<  Event joystick button down.
-    WTE_EVENT_JOYSTICK_BUTTON_UP,    //!<  Event joystick button up.
+    EVENT_JOYSTICK_AXIS,         //!<  Event joystick axis.
+    EVENT_JOYSTICK_BUTTON_DOWN,  //!<  Event joystick button down.
+    EVENT_JOYSTICK_BUTTON_UP,    //!<  Event joystick button up.
 
-    WTE_EVENT_TOUCH_BEGIN,           //!<  Event touch input begin.
-    WTE_EVENT_TOUCH_END,             //!<  Event touch input end.
-    WTE_EVENT_TOUCH_MOVE,            //!<  Event touch input moves.
-    WTE_EVENT_TOUCH_CANCEL,          //!<  Event touch input canceled.
+    EVENT_TOUCH_BEGIN,           //!<  Event touch input begin.
+    EVENT_TOUCH_END,             //!<  Event touch input end.
+    EVENT_TOUCH_MOVE,            //!<  Event touch input moves.
+    EVENT_TOUCH_CANCEL,          //!<  Event touch input canceled.
 
-    WTE_HANDLER_EVENT_MAX
+    HANDLER_EVENT_MAX
 };
 
 //  Variant for storing the different handles
@@ -90,7 +90,7 @@ using handler_types = std::variant<
 template <handler_scopes S, handler_events IDX>
 struct handler_register {
     template <typename Flag>
-    constexpr static const bool set_flag(const Flag status_flag) {
+    constexpr static const bool set_flag(const Flag& status_flag) {
         if constexpr (status_flag) return true;
         else return false;
     }
@@ -115,9 +115,9 @@ struct handlers {
  */
 template <handler_scopes S, handler_events IDX, class T>
 constexpr void add_handler(const handler_types& handle) {
-    static_assert(S == WTE_GLOBAL_HANDLES || S == WTE_NONGAME_HANDLES || S == WTE_GAME_HANDLES,
-        "Scope must be one of the following: WTE_GLOBAL_HANDLES, WTE_NONGAME_HANDLES, WTE_GAME_HANDLES");
-    static_assert(IDX < WTE_HANDLER_EVENT_MAX, "Invalid Handler Event Index");
+    static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
+        "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
+    static_assert(IDX < HANDLER_EVENT_MAX, "Invalid Handler Event Index");
     static_assert(std::is_same_v<T, handler::key> ||
         std::is_same_v<T, handler::mouse_axis> ||
         std::is_same_v<T, handler::mouse_button> ||
@@ -127,27 +127,28 @@ constexpr void add_handler(const handler_types& handle) {
         std::is_same_v<T, handler::touch>,
         "Type must be a valid handler");
     if constexpr (std::is_same_v<T, handler::key>)
-        static_assert(IDX == WTE_EVENT_KEY_DOWN || IDX == WTE_EVENT_KEY_UP,
+        static_assert(IDX == EVENT_KEY_DOWN || IDX == EVENT_KEY_UP,
             "Event Index must be a Key Up or Down Event");
     else if constexpr (std::is_same_v<T, handler::mouse_axis>)
-        static_assert(IDX == WTE_EVENT_MOUSE_AXIS || IDX == WTE_EVENT_MOUSE_WARPED,
+        static_assert(IDX == EVENT_MOUSE_AXIS || IDX == EVENT_MOUSE_WARPED,
             "Event Index must be a Mouse Axes or Warped Event");
     else if constexpr (std::is_same_v<T, handler::mouse_button>)
-        static_assert(IDX == WTE_EVENT_MOUSE_BUTTON_DOWN || IDX == WTE_EVENT_MOUSE_BUTTON_UP,
+        static_assert(IDX == EVENT_MOUSE_BUTTON_DOWN || IDX == EVENT_MOUSE_BUTTON_UP,
             "Event Index must be a Mouse Button Up or Down Event");
     else if constexpr (std::is_same_v<T, handler::mouse_display>)
-        static_assert(IDX == WTE_EVENT_MOUSE_ENTER_DISPLAY || IDX == WTE_EVENT_MOUSE_LEAVE_DISPLAY,
+        static_assert(IDX == EVENT_MOUSE_ENTER_DISPLAY || IDX == EVENT_MOUSE_LEAVE_DISPLAY,
             "Event Index must be a Mouse Enter or Leave Display Event");
     else if constexpr (std::is_same_v<T, handler::joystick_axis>)
-        static_assert(IDX == WTE_EVENT_JOYSTICK_AXIS,
+        static_assert(IDX == EVENT_JOYSTICK_AXIS,
             "Event Index must be a Joystick Axes Event");
     else if constexpr (std::is_same_v<T, handler::joystick_button>)
-        static_assert(IDX == WTE_EVENT_JOYSTICK_BUTTON_DOWN || IDX == WTE_EVENT_JOYSTICK_BUTTON_UP,
+        static_assert(IDX == EVENT_JOYSTICK_BUTTON_DOWN || IDX == EVENT_JOYSTICK_BUTTON_UP,
             "Event Index must be a Joystick Button Up or Down Event");
     else if constexpr (std::is_same_v<T, handler::touch>)
-        static_assert(IDX == WTE_EVENT_TOUCH_BEGIN || IDX == WTE_EVENT_TOUCH_END ||
-            IDX == WTE_EVENT_TOUCH_MOVE || IDX == WTE_EVENT_TOUCH_CANCEL,
+        static_assert(IDX == EVENT_TOUCH_BEGIN || IDX == EVENT_TOUCH_END ||
+            IDX == EVENT_TOUCH_MOVE || IDX == EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
+    handler_register<S, IDX>::set_flag(std::true_type());
     handlers<S, IDX>::_handle = handle;
 };
 

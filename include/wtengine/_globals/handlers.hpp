@@ -105,9 +105,7 @@ struct handler_register {
  * Stores an input handler.
  */
 template <handler_scopes S, handler_events IDX>
-struct handlers {
-    inline static handler_types _handle;
-};
+struct handlers { inline static handler_types _handle; };
 
 /*!
  * \brief Used to add an input handle.

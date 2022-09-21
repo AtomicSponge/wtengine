@@ -79,24 +79,55 @@ enum handler_events {
     HANDLER_EVENT_MAX
 };
 
-//  Variant for storing the different handles
+/*!
+ * Handler types.
+ * Used to define which function type to choose for the handler.
+ */
 using handler_types = std::variant<
-    handler::key,
-    handler::mouse_axis, handler::mouse_button, handler::mouse_display,
-    handler::joystick_axis, handler::joystick_button,
-    handler::touch
+    handler::key,              //!<  Keyboard event type.
+    handler::mouse_axis,       //!<  Mouse axis event type.
+    handler::mouse_button,     //!<  Mouse button event type.
+    handler::mouse_display,    //!<  Mouse display event type.
+    handler::joystick_axis,    //!<  Mouse axis event type.
+    handler::joystick_button,  //!<  Joystick button event type.
+    handler::touch             //!<  Touch event type.
 >;
 
-//  Registers to check if a handler is set - wip
-template <handler_scopes S, handler_events IDX>
-struct handler_register {
-    //template <typename Flag = std::false_type>
-    constexpr static bool is_set = false;
+//  Template structs to store handlers
+template <handler_scopes, handler_events, typename T = std::void_t<>>
+struct handlers : std::false_type { inline static handler_types _handle; };
+
+template <handler_scopes S, handler_events IDX, typename T>
+struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::key>>> : std::true_type {
+    inline static handler_types _handle;
 };
 
-//  Template class to store handlers
-template <handler_scopes S, handler_events IDX>
-struct handlers { inline static handler_types _handle; };
+template <handler_scopes S, handler_events IDX, typename T>
+struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::mouse_axis>>> : std::true_type {
+    inline static handler_types _handle;
+};
+template <handler_scopes S, handler_events IDX, typename T>
+struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::mouse_button>>> : std::true_type {
+    inline static handler_types _handle;
+};
+template <handler_scopes S, handler_events IDX, typename T>
+struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::mouse_display>>> : std::true_type {
+    inline static handler_types _handle;
+};
+
+template <handler_scopes S, handler_events IDX, typename T>
+struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::joystick_axis>>> : std::true_type {
+    inline static handler_types _handle;
+};
+template <handler_scopes S, handler_events IDX, typename T>
+struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::joystick_button>>> : std::true_type {
+    inline static handler_types _handle;
+};
+
+template <handler_scopes S, handler_events IDX, typename T>
+struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::touch>>> : std::true_type {
+    inline static handler_types _handle;
+};
 
 /*!
  * \brief Used to add an input handle.
@@ -105,7 +136,7 @@ struct handlers { inline static handler_types _handle; };
  * \tparam T Handler type.
  * \param handle Input handler function expression.
  */
-template <handler_scopes S, handler_events IDX, class T>
+template <handler_scopes S, handler_events IDX, typename T>
 constexpr void add_handler(const handler_types& handle) {
     static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
         "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
@@ -140,8 +171,7 @@ constexpr void add_handler(const handler_types& handle) {
         static_assert(IDX == EVENT_TOUCH_BEGIN || IDX == EVENT_TOUCH_END ||
             IDX == EVENT_TOUCH_MOVE || IDX == EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
-    handler_register<S, IDX>::set_flag(std::true_type());
-    handlers<S, IDX>::_handle = handle;
+    handlers<S, IDX, T>::_handle = handle;
 };
 
 }  //  end namespace wte

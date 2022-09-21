@@ -178,7 +178,10 @@ class world final : private manager<world> {
             if(!entity_exists(e_id)) return false;
 
             //  Check derived types of existing components, make sure one does not already exist.
+            entity_mtx.lock();
             const auto check_entity = get_entity(e_id);
+            entity_mtx.unlock();
+
             for(auto& it: check_entity) {
                 if(typeid(*it).name() == typeid(T).name()) return false;
             }
@@ -243,12 +246,12 @@ class world final : private manager<world> {
         inline static const std::shared_ptr<T> set_component(const entity_id& e_id) {
             world_mtx.lock();
             const auto results = _world.equal_range(e_id);
+            world_mtx.unlock();
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second))
                     return std::static_pointer_cast<T>(it->second);
             }
-            world_mtx.unlock();
 
             throw exception(
                 exception_item("Entity: " + std::to_string(e_id) + " - Component not found", "World", 4));
@@ -263,7 +266,9 @@ class world final : private manager<world> {
          */
         template <typename T>
         inline static const std::shared_ptr<const T> get_component(const entity_id& e_id) {
+            world_mtx.lock();
             const auto results = _world.equal_range(e_id);
+            world_mtx.unlock();
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second))

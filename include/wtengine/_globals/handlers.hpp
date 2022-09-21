@@ -90,11 +90,7 @@ using handler_types = std::variant<
 //  Registers to check if a handler is set - wip
 template <handler_scopes S, handler_events IDX>
 struct handler_register {
-    template <typename Flag>
-    constexpr static const bool set_flag(const Flag& status_flag) {
-        if constexpr (status_flag) return true;
-        else return false;
-    }
+    //template <typename Flag = std::false_type>
     constexpr static bool is_set = false;
 };
 

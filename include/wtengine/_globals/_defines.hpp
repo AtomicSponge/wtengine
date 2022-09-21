@@ -79,9 +79,9 @@ struct wte_build_options {
 
     //  Input options
     inline constexpr static bool keyboard_enabled = static_cast<bool>(true);
-    inline constexpr static bool mouse_enabled = static_cast<bool>(true);
-    inline constexpr static bool joystick_enabled = static_cast<bool>(true);
-    inline constexpr static bool touch_enabled = static_cast<bool>(true);
+    inline constexpr static bool mouse_enabled = static_cast<bool>(false);
+    inline constexpr static bool joystick_enabled = static_cast<bool>(false);
+    inline constexpr static bool touch_enabled = static_cast<bool>(false);
 };
 inline constexpr wte_build_options build_options;
 

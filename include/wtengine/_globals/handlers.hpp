@@ -93,37 +93,37 @@ using handler_types = std::variant<
 
 //  Template structs to store handlers
 template <handler_scopes, handler_events, typename T = std::void_t<>>
-struct handlers : std::false_type { inline static handler_types _handle; };
+struct handlers { inline static handler_types _handle; };
 
 template <handler_scopes S, handler_events IDX, typename T>
-struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::key>>> : std::true_type {
+struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::key>>> {
     inline static handler_types _handle = [](const int& key, ALLEGRO_DISPLAY* display) {};
 };
 
 template <handler_scopes S, handler_events IDX, typename T>
-struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::mouse_axis>>> : std::true_type {
+struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::mouse_axis>>> {
     inline static handler_types _handle;
 };
 template <handler_scopes S, handler_events IDX, typename T>
-struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::mouse_button>>> : std::true_type {
+struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::mouse_button>>> {
     inline static handler_types _handle;
 };
 template <handler_scopes S, handler_events IDX, typename T>
-struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::mouse_display>>> : std::true_type {
-    inline static handler_types _handle;
-};
-
-template <handler_scopes S, handler_events IDX, typename T>
-struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::joystick_axis>>> : std::true_type {
-    inline static handler_types _handle;
-};
-template <handler_scopes S, handler_events IDX, typename T>
-struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::joystick_button>>> : std::true_type {
+struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::mouse_display>>> {
     inline static handler_types _handle;
 };
 
 template <handler_scopes S, handler_events IDX, typename T>
-struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::touch>>> : std::true_type {
+struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::joystick_axis>>> {
+    inline static handler_types _handle;
+};
+template <handler_scopes S, handler_events IDX, typename T>
+struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::joystick_button>>> {
+    inline static handler_types _handle;
+};
+
+template <handler_scopes S, handler_events IDX, typename T>
+struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::touch>>> {
     inline static handler_types _handle;
 };
 

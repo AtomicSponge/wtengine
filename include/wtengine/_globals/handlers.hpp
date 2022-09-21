@@ -20,9 +20,7 @@
 
 namespace wte::handler {
 
-/*
- *
- */
+//  Define the handler types
 using key = std::function<void(const int&, ALLEGRO_DISPLAY*)>;
 using mouse_axis = std::function<void(
     const int&, const int&, const int&, const int&, const int&,

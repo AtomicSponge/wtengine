@@ -82,7 +82,7 @@ enum handler_events {
  * Used to define which function type to choose for the handler.
  */
 using handler_types = std::variant<
-    handler::key,              //!<  Keyboard event type.
+    handler::key,              //!<  Keyboard event type.  Signature:  const int& key, ALLEGRO_DISPLAY* display
     handler::mouse_axis,       //!<  Mouse axis event type.
     handler::mouse_button,     //!<  Mouse button event type.
     handler::mouse_display,    //!<  Mouse display event type.

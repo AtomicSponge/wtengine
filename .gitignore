@@ -9,7 +9,7 @@ package-lock.json
 
 .comment_updater_config.json
 .localbak_config.json
-*_backup/
+*.backup/
 
 assets/
 build/

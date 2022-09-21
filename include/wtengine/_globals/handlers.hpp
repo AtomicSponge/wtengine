@@ -82,7 +82,7 @@ enum handler_events {
  * Used to define which function type to choose for the handler.
  */
 using handler_types = std::variant<
-    handler::key,              //!<  Keyboard event type.  Signature:  const int& key, ALLEGRO_DISPLAY* display
+    handler::key,              //!<  Keyboard event type.
     handler::mouse_axis,       //!<  Mouse axis event type.
     handler::mouse_button,     //!<  Mouse button event type.
     handler::mouse_display,    //!<  Mouse display event type.
@@ -102,29 +102,34 @@ struct handlers<S, IDX, handler::key> {
 
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::mouse_axis> {
-    inline static handler_types _handle = []() {};
+    inline static handler_types _handle = [](const int&, const int&, const int&, const int&,
+        const int&, const int&, const int&, const int&, const float&, ALLEGRO_DISPLAY*) {};
 };
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::mouse_button> {
-    inline static handler_types _handle = []() {};
+    inline static handler_types _handle = [](const int&, const int&,
+        const int&, const int&, const unsigned int&, ALLEGRO_DISPLAY*) {};
 };
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::mouse_display> {
-    inline static handler_types _handle = []() {};
+    inline static handler_types _handle = [](const int&, const int&,
+        const int&, const int&, ALLEGRO_DISPLAY*) {};
 };
 
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::joystick_axis> {
-    inline static handler_types _handle = []() {};
+    inline static handler_types _handle = [](const int&, const int&,
+        const float&, ALLEGRO_JOYSTICK*) {};
 };
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::joystick_button> {
-    inline static handler_types _handle = []() {};
+    inline static handler_types _handle = [](const int&, ALLEGRO_JOYSTICK*) {};
 };
 
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::touch> {
-    inline static handler_types _handle = []() {};
+    inline static handler_types _handle = [](const int&, const float&, const float&,
+        const float&, const float&, const bool&, ALLEGRO_DISPLAY*) {};
 };
 
 /*!

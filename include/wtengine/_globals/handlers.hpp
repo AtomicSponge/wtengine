@@ -97,7 +97,7 @@ struct handlers : std::false_type { inline static handler_types _handle; };
 
 template <handler_scopes S, handler_events IDX, typename T>
 struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::key>>> : std::true_type {
-    inline static handler_types _handle;
+    inline static handler_types _handle = [](const int& key, ALLEGRO_DISPLAY* display) {};
 };
 
 template <handler_scopes S, handler_events IDX, typename T>

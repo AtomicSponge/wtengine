@@ -86,7 +86,7 @@ class input {
         template <handler_scopes S>
         constexpr inline static void run_handles(const ALLEGRO_EVENT& event) {
             //  Keyboard events
-            if(build_options.keyboard_enabled) {
+            if constexpr (build_options.keyboard_enabled) {
                 if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
                     std::get<handler::key>(handlers<S, EVENT_KEY_DOWN, handler::key>::_handle)(
                         event.keyboard.keycode, event.keyboard.display);
@@ -100,7 +100,7 @@ class input {
             }
 
             //  Mouse events
-            if(build_options.mouse_enabled) {
+            if constexpr (build_options.mouse_enabled) {
                 if(event.type == ALLEGRO_EVENT_MOUSE_AXES) {
                     std::get<handler::mouse_axis>(handlers<S, EVENT_MOUSE_AXIS, handler::mouse_axis>::_handle)(
                         event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
@@ -144,7 +144,7 @@ class input {
             }
 
             //  Joystick events
-            if(build_options.joystick_enabled) {
+            if constexpr (build_options.joystick_enabled) {
                 if(event.type == ALLEGRO_EVENT_JOYSTICK_AXIS) {
                     std::get<handler::joystick_axis>(handlers<S, EVENT_JOYSTICK_AXIS, handler::joystick_axis>::_handle)(
                         event.joystick.stick, event.joystick.axis, event.joystick.pos, event.joystick.id);
@@ -163,7 +163,7 @@ class input {
             }
 
             //  Touch events
-            if(build_options.touch_enabled) {
+            if constexpr (build_options.touch_enabled) {
                 if(event.type == ALLEGRO_EVENT_TOUCH_BEGIN) {
                     std::get<handler::touch>(handlers<S, EVENT_TOUCH_BEGIN, handler::touch>::_handle)(
                         event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);

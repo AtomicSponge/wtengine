@@ -102,29 +102,29 @@ struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::key>>> {
 
 template <handler_scopes S, handler_events IDX, typename T>
 struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::mouse_axis>>> {
-    inline static handler_types _handle;
+    inline static handler_types _handle = []() {};
 };
 template <handler_scopes S, handler_events IDX, typename T>
 struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::mouse_button>>> {
-    inline static handler_types _handle;
+    inline static handler_types _handle = []() {};
 };
 template <handler_scopes S, handler_events IDX, typename T>
 struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::mouse_display>>> {
-    inline static handler_types _handle;
+    inline static handler_types _handle = []() {};
 };
 
 template <handler_scopes S, handler_events IDX, typename T>
 struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::joystick_axis>>> {
-    inline static handler_types _handle;
+    inline static handler_types _handle = []() {};
 };
 template <handler_scopes S, handler_events IDX, typename T>
 struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::joystick_button>>> {
-    inline static handler_types _handle;
+    inline static handler_types _handle = []() {};
 };
 
 template <handler_scopes S, handler_events IDX, typename T>
 struct handlers<S, IDX, std::enable_if<std::is_same_v<T, handler::touch>>> {
-    inline static handler_types _handle;
+    inline static handler_types _handle = []() {};
 };
 
 /*!

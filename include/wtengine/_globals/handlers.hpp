@@ -11,8 +11,6 @@
 #define WTE_HANDLERS_HPP
 
 #include <variant>
-#include <type_traits>
-#include <functional>
 
 #include <allegro5/allegro.h>
 

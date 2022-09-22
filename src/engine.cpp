@@ -110,7 +110,7 @@ engine::engine(const int& argc, char** const& argv) {
         }
     });
 
-    if(build_options.debug_mode) logger::start();
+    //if(build_options.debug_mode) logger::start();
 }
 
 /*
@@ -127,7 +127,7 @@ engine::~engine() {
     al_inhibit_screensaver(false);
     al_uninstall_system();
 
-    if(build_options.debug_mode) logger::stop();
+    //if(build_options.debug_mode) logger::stop();
 
     initialized = false;
     std::cout << "Done!\n\n";
@@ -302,7 +302,6 @@ void engine::do_game(void) {
         //  Send audio messages to the audio queue.
         mgr::audio::process_messages(mgr::messages::get("audio"));
 
-        mgr::systems::run_untimed();   //  Run any untimed systems.
         mgr::gfx::renderer::render();  //  Render the screen.
         mgr::messages::prune();        //  Delete unprocessed messages.
         /* *** END ENGINE LOOP ********************************************** */

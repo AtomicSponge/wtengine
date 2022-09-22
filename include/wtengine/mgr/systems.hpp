@@ -56,12 +56,9 @@ class systems final : private manager<systems> {
         static const bool empty(void);
         //  Run all systems.
         static void run(void);
-        //  Run all untimed systems.
-        static void run_untimed(void);
 
         // Store the vector of systems.
-        static std::vector<sys::system_uptr> _systems_timed;
-        static std::vector<sys::system_uptr> _systems_untimed;
+        static std::vector<sys::system_uptr> _systems;
         //  Flag to disallow loading of additional systems.
         static bool finalized;
 };

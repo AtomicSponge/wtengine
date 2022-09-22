@@ -21,11 +21,10 @@ bool engine::initialized = false;
  *
  */
 engine::engine(const int& argc, char** const& argv) {
-    std::cout << "Starting wtengine... ";
+    std::cout << "Starting wtengine...\n";
     if(initialized == true) throw runtime_error(
         exception_item(display::window_title + " already running!", "Main engine", 1));
     initialized = true;
-    std::cout << "OK!\n";
 
     std::cout << "Loading Allegro Game Library... ";
     //  Initialize Allegro.
@@ -111,6 +110,7 @@ engine::engine(const int& argc, char** const& argv) {
     });
 
     //if(build_options.debug_mode) logger::start();
+    std::cout << "Engine started successfully!\n\n";
 }
 
 /*

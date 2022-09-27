@@ -317,26 +317,16 @@ wtf.onProcessExit = onProcessExit
 
     if(log && files.LOG_FILE !== '') writeLog(`Running command:  ${cmd}\n`)
 
-    //const proc = exec(cmd, { cwd: opts.cwd, env: opts.env, windowsHide: true })
-    //if(await onProcessExit(proc, log).catch(err => { return false }) === true) return true
-    //else return false
-
-    const proc = await exec(cmd, (error, stdout, stderr) => {
+    var res = false
+    await exec(cmd, (error, stdout, stderr) => {
         if(log && files.LOG_FILE !== '') {
             if(error) writeLog(`Error:  ${error}\n${stderr}`)
             writeLog(`\nstdout:  ${stdout}\n\n`)
         }
+        if(error) res = false
+        else res = true
     })
-    if(await new Promise((resolve, reject) => {
-        proc.once('exit', (code) => {
-            if(log && files.LOG_FILE !== '') writeLog(`Return code:  ${code}\n`)
-            if(code === 0) resolve(true)
-            else resolve(false)
-        })
-        proc.once('error', (error) => { reject(error) })
-    }) === true) return true
-    else return false
-    
+    return res    
 }
 wtf.runCommand = runCommand
 

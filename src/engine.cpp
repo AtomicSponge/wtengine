@@ -164,6 +164,7 @@ void engine::wte_unload(void) {
  *
  */
 void engine::process_new_game(const std::string& game_data) {
+    std::cout << "Starting new game... ";
     std::srand(std::time(nullptr));  //  Seed random, using time.
 
     //  Make sure the menu isn't opened.
@@ -202,6 +203,7 @@ void engine::process_new_game(const std::string& game_data) {
     config::_flags::game_started = true;
     config::flags::input_enabled = true;
     al_start_timer(main_timer);
+    std::cout << "Starting new game... DONE!";
 }
 
 /*

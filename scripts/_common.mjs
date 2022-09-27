@@ -284,15 +284,15 @@ wtf.asyncForEach = asyncForEach
  * @param {Object} process The process object to watch.
  * @returns {Promise} A fulfilled promise with the result.
  */
- const onProcessExit = async (process, log) => {
+ const onProcessExit = async (proc, log) => {
     log = log || true
     return new Promise((resolve, reject) => {
-        process.once('exit', (code) => {
+        proc.once('exit', (code) => {
             if(log && files.LOG_FILE !== '') writeLog(`Return code:  ${code}\n`)
             if(code === 0) resolve(true)
             else resolve(false)
         })
-        process.once('error', (error) => {
+        proc.once('error', (error) => {
             if(log && files.LOG_FILE !== '') writeLog(`Error:  ${error}\n`)
             reject(error)
         })
@@ -317,9 +317,26 @@ wtf.onProcessExit = onProcessExit
 
     if(log && files.LOG_FILE !== '') writeLog(`Running command:  ${cmd}\n`)
 
-    const proc = exec(cmd, { cwd: opts.cwd, env: opts.env, windowsHide: true })
-    if(await onProcessExit(proc, log).catch(err => { return false }) === true) return true
+    //const proc = exec(cmd, { cwd: opts.cwd, env: opts.env, windowsHide: true })
+    //if(await onProcessExit(proc, log).catch(err => { return false }) === true) return true
+    //else return false
+
+    const proc = await exec(cmd, (error, stdout, stderr) => {
+        if(log && files.LOG_FILE !== '') {
+            if(error) writeLog(`Error:  ${error}\n${stderr}`)
+            writeLog(`\nstdout:  ${stdout}\n\n`)
+        }
+    })
+    if(await new Promise((resolve, reject) => {
+        proc.once('exit', (code) => {
+            if(log && files.LOG_FILE !== '') writeLog(`Return code:  ${code}\n`)
+            if(code === 0) resolve(true)
+            else resolve(false)
+        })
+        proc.once('error', (error) => { reject(error) })
+    }) === true) return true
     else return false
+    
 }
 wtf.runCommand = runCommand
 

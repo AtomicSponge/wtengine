@@ -318,16 +318,12 @@ wtf.onProcessExit = onProcessExit
     if(log && files.LOG_FILE !== '') writeLog(`Running command:  ${cmd}\n`)
 
     var res = false
-    const proc = exec(cmd, opts)
-    return await new Promise ((resolve, reject) => {
-        proc.once('exit', (code) => {
-            if(code === 0) resolve(true)
-            else resolve(false)
-        })
-        proc.once('error', (error) => {
-            reject(false)
-        })
+    exec(cmd, opts, (error, stdout, stderr) => {
+        console.log({'out': stdout})
+        if(error) res = false
+        else res = true
     })
+    return res
 }
 wtf.runCommand = runCommand
 

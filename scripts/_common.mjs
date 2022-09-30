@@ -285,7 +285,7 @@ wtf.asyncForEach = asyncForEach
  * @returns {Promise} A fulfilled promise with the result.
  */
  const onProcessExit = async (proc, log) => {
-    log = log || true
+    log = log || false
     return new Promise((resolve, reject) => {
         proc.once('exit', (code) => {
             if(log && files.LOG_FILE !== '') writeLog(`Return code:  ${code}\n`)
@@ -318,15 +318,16 @@ wtf.onProcessExit = onProcessExit
     if(log && files.LOG_FILE !== '') writeLog(`Running command:  ${cmd}\n`)
 
     var res = false
-    await exec(cmd, (error, stdout, stderr) => {
-        if(log && files.LOG_FILE !== '') {
-            if(error) writeLog(`Error:  ${error}\n${stderr}`)
-            writeLog(`\nstdout:  ${stdout}\n\n`)
-        }
-        if(error) res = false
-        else res = true
+    const proc = exec(cmd, opts)
+    return await new Promise ((resolve, reject) => {
+        proc.once('exit', (code) => {
+            if(code === 0) resolve(true)
+            else resolve(false)
+        })
+        proc.once('error', (error) => {
+            reject(false)
+        })
     })
-    return res    
 }
 wtf.runCommand = runCommand
 

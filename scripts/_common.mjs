@@ -280,27 +280,6 @@ const asyncForEach = async (array, callback) => {
 wtf.asyncForEach = asyncForEach
 
 /**
- * Wait for a process to exit and return the result.
- * @param {Object} process The process object to watch.
- * @returns {Promise} A fulfilled promise with the result.
- */
- const onProcessExit = async (proc, log) => {
-    log = log || false
-    return new Promise((resolve, reject) => {
-        proc.once('exit', (code) => {
-            if(log && files.LOG_FILE !== '') writeLog(`Return code:  ${code}\n`)
-            if(code === 0) resolve(true)
-            else resolve(false)
-        })
-        proc.once('error', (error) => {
-            if(log && files.LOG_FILE !== '') writeLog(`Error:  ${error}\n`)
-            reject(error)
-        })
-    })
-}
-wtf.onProcessExit = onProcessExit
-
-/**
  * Run a system command.
  * Waits for the command to complete but does not show output.
  * @param {String} cmd Command to run.
@@ -326,6 +305,27 @@ wtf.onProcessExit = onProcessExit
     return res
 }
 wtf.runCommand = runCommand
+
+/**
+ * Wait for a process to exit and return the result.
+ * @param {Object} process The process object to watch.
+ * @returns {Promise} A fulfilled promise with the result.
+ */
+ const onProcessExit = async (proc, log) => {
+    log = log || false
+    return new Promise((resolve, reject) => {
+        proc.once('exit', (code) => {
+            if(log && files.LOG_FILE !== '') writeLog(`Return code:  ${code}\n`)
+            if(code === 0) resolve(true)
+            else resolve(false)
+        })
+        proc.once('error', (error) => {
+            if(log && files.LOG_FILE !== '') writeLog(`Error:  ${error}\n`)
+            reject(error)
+        })
+    })
+}
+wtf.onProcessExit = onProcessExit
 
 /**
  * Run the system check script.

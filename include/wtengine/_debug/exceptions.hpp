@@ -69,7 +69,13 @@ class runtime_error final : public std::exception {
          * \brief Create a new runtime error object.
          * \param i An exception item object.
          */
-        runtime_error(const exception_item& i) : item(i) {};
+        inline runtime_error(const exception_item& i) : item(i) {};
+
+        /*!
+         * \brief Create a new runtime error object.  Sets the location to Engine and code to 1.
+         * \param d An exception description.
+         */
+        inline runtime_error(const std::string& d) : item(exception_item(d, "Engine", 1)) {};
 
         runtime_error() = delete;    //!<  Delete default constructor.
 

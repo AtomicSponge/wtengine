@@ -49,7 +49,7 @@ const bool logger::start(void) {
         std::thread th([&]() { run(); });
         th.detach();
     } catch {
-        return false;
+        throw wte::runtime_error("Unable to start logger!");
     }
     return _is_running = true;
 }

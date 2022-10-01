@@ -28,7 +28,7 @@ exception_item::exception_item(const std::string& d, const std::string& l) :
  */
 engine_error::engine_error(const std::string& d) : item(exception_item(d.c_str(), "Engine", 1)) {
     if constexpr (build_options.debug_mode) logger_add(
-        d, "Engine", 1, engine_time::check());
+        item.description, item.location, item.code, item.time);
 }
 
 /*

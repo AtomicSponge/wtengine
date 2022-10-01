@@ -122,7 +122,7 @@ const std::string world::get_name(const entity_id& e_id) {
     entity_mtx.unlock();
     if(e_it == entity_vec.end()) {
         //  Not found, throw error.
-        throw exception(
+        throw engine_exception(
             exception_item("Entity " + std::to_string(e_id) + " does not exist", "World", 4));
     }
     return e_it->second;
@@ -173,7 +173,7 @@ const entities world::get_entities(void) {
  */
 const entity_container world::set_entity(const entity_id& e_id) {
     if(!entity_exists(e_id)) {
-        throw exception(
+        throw engine_exception(
             exception_item("Entity " + std::to_string(e_id) + " does not exist", "World", 4));
     }
 
@@ -193,7 +193,7 @@ const entity_container world::set_entity(const entity_id& e_id) {
  */
 const const_entity_container world::get_entity(const entity_id& e_id) {
     if(!entity_exists(e_id)) {
-        throw exception(
+        throw engine_exception(
             exception_item("Entity " + std::to_string(e_id) + " does not exist", "World", 4));
     }
 

@@ -59,7 +59,7 @@ void spawner::process_messages(const message_container& messages) {
                     entity_id e_id = mgr::world::new_entity();
                     try {
                         s_it->second.second(e_id, m_it.get_args());
-                    } catch(const exception& e) { throw e; }
+                    } catch(const std::exception& e) { throw e; }
                 }
         }
 

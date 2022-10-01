@@ -101,10 +101,10 @@ class assets final : private manager<assets<>> {
                 return get_impl<T, 0, Types...>::get(label);
             } catch(std::out_of_range& e) {
                 std::string err_msg = "Could not get asset: " + label;
-                throw exception(exception_item(err_msg, "Assets", 4));
+                throw engine_exception(exception_item(err_msg, "Assets", 4));
             } catch(...) {
                 std::string err_msg = "Error reading asset: " + label;
-                throw exception(exception_item(err_msg, "Assets", 4));
+                throw engine_exception(exception_item(err_msg, "Assets", 4));
             }
         };
 

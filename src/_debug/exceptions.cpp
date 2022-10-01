@@ -26,21 +26,7 @@ exception_item::exception_item(const std::string& d, const std::string& l) :
 /*
  *
  */
-exception_item::exception_item(const std::string& d) :
-    description(d.c_str()), location("Engine"), code(10), time(engine_time::check()) {};
-
-/*
- *
- */
-runtime_error::runtime_error(const exception_item& i) : item(i) {
-    if constexpr (build_options.debug_mode) logger_add(
-        i.description, i.location, i.code, i.time);
-}
-
-/*
- *
- */
-runtime_error::runtime_error(const std::string& d) : item(exception_item(d.c_str(), "Engine", 1)) {
+engine_error::engine_error(const std::string& d) : item(exception_item(d.c_str(), "Engine", 1)) {
     if constexpr (build_options.debug_mode) logger_add(
         d, "Engine", 1, engine_time::check());
 }
@@ -48,27 +34,27 @@ runtime_error::runtime_error(const std::string& d) : item(exception_item(d.c_str
 /*
  *
  */
-const char* runtime_error::what() const noexcept { return item.description; }
+const char* engine_error::what() const noexcept { return item.description; }
 
 /*
  *
  */
-const char* runtime_error::where() const noexcept { return item.location; }
+const char* engine_error::where() const noexcept { return item.location; }
 
 /*
  *
  */
-const int64_t runtime_error::when() const noexcept { return item.time; }
+const int64_t engine_error::when() const noexcept { return item.time; }
 
 /*
  *
  */
-runtime_error::~runtime_error() { std::exit(item.code); }
+engine_error::~engine_error() { std::exit(item.code); }
 
 /*
  *
  */
-exception::exception(const exception_item& i) : item(i) {
+engine_exception::engine_exception(const exception_item& i) : item(i) {
     if constexpr (build_options.debug_mode) logger_add(
         i.description, i.location, i.code, i.time);
 }
@@ -76,16 +62,16 @@ exception::exception(const exception_item& i) : item(i) {
 /*
  *
  */
-const char* exception::what() const noexcept { return item.description; }
+const char* engine_exception::what() const noexcept { return item.description; }
 
 /*
  *
  */
-const char* exception::where() const noexcept { return item.location; };
+const char* engine_exception::where() const noexcept { return item.location; };
 
 /*
  *
  */
-const int64_t exception::when() const noexcept { return item.time; };
+const int64_t engine_exception::when() const noexcept { return item.time; };
 
 }  //  end namespace wte

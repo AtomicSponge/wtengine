@@ -148,7 +148,7 @@ class renderer final : private manager<renderer> {
                             al_draw_bitmap(temp_bitmap,
                                 mgr::world::get_component<cmp::location>(it.first)->pos_x,
                                 mgr::world::get_component<cmp::location>(it.first)->pos_y, 0);
-                        } catch(const exception& e) { throw e; }
+                        } catch(const std::exception& e) { throw e; }
                         al_destroy_bitmap(temp_bitmap);
                     }
                 }

@@ -28,8 +28,8 @@ const bool logger_add(
  * \brief Creates an info object that can be passed to the engine exceptions.
  */
 class exception_item final {
-    friend class runtime_error;
-    friend class exception;
+    friend class engine_error;
+    friend class engine_exception;
 
     private:
         const char* description;  //  Exception description.
@@ -48,10 +48,7 @@ class exception_item final {
          */
         exception_item(const std::string& d, const std::string& l);
 
-        /*!
-         * \brief Create a new exception item with the code value of 10 and location of Engine.
-         */
-        exception_item(const std::string& d);
+        exception_item() = delete;  //!<  Delete default constructor.
 };
 
 /*!
@@ -60,29 +57,23 @@ class exception_item final {
  *
  * Exceptions thrown this way will terminate the engine.
  */
-class runtime_error final : public std::exception {
+class engine_error final : public std::exception {
     private:
         const exception_item item;  //  Store the exception item.
 
     public:
         /*!
-         * \brief Create a new runtime error object.
-         * \param i An exception item object.
-         */
-        runtime_error(const exception_item& i);
-
-        /*!
          * \brief Create a new runtime error object.  Sets the location to Engine and code to 1.
          * \param d An exception description.
          */
-        inline runtime_error(const std::string& d);
+        engine_error(const std::string& d);
 
-        runtime_error() = delete;    //!<  Delete default constructor.
+        engine_error() = delete;    //!<  Delete default constructor.
 
         /*!
          * \brief Terminates engine after handling exception.
          */
-        virtual ~runtime_error();
+        virtual ~engine_error();
 
         /*!
          * \brief Returns the description of the thrown exception.
@@ -110,7 +101,7 @@ class runtime_error final : public std::exception {
  * Exceptions thrown this way will not terminate the engine. \n
  * If debugging is enabled, they will also be logged to file.
  */
-class exception final : public std::exception {
+class engine_exception final : public std::exception {
     private:
         const exception_item item;  //  Store the exception item.
     
@@ -119,10 +110,10 @@ class exception final : public std::exception {
          * \brief Create a wte exception.
          * \param i An exception item object.
          */
-        exception(const exception_item& i);
+        engine_exception(const exception_item& i);
 
-        exception() = delete;            //!<  Delete default constructor.
-        virtual ~exception() = default;  //!<  Default virtual destructor.
+        engine_exception() = delete;            //!<  Delete default constructor.
+        virtual ~engine_exception() = default;  //!<  Default virtual destructor.
 
         /*!
          * \brief Returns the description of the thrown exception.

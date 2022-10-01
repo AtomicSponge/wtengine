@@ -47,7 +47,7 @@ void systems::run() {
     for(auto& it: _systems)
         try { 
             (it)->run();
-        } catch(const exception& e) { throw e; }
+        } catch(const std::exception& e) { throw e; }
 }
 
 }  //  end namespace wte::mgr

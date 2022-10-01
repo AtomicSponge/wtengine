@@ -47,7 +47,7 @@ void messages::dispatch(void) {
                     c_it.second->handle_msg(c_it.first, m_it);
                     break;  //  Found, stop checking dispatch components.
                 }
-            } catch(const exception& e) {
+            } catch(const std::exception& e) {
                 throw e;
                 break;
             } catch(...) { break; }

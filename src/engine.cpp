@@ -22,22 +22,18 @@ bool engine::initialized = false;
  */
 engine::engine(const int& argc, char** const& argv) {
     std::cout << "Starting wtengine...\n";
-    if(initialized == true) throw runtime_error(
-        exception_item(display::window_title + " already running!", "Main engine", 1));
+    if(initialized == true) throw engine_error(display::window_title + " already running!");
     initialized = true;
 
     std::cout << "Loading Allegro Game Library... ";
     //  Initialize Allegro.
-    if(!al_init()) throw runtime_error(
-        exception_item("Allegro failed to load!", "Main engine", 1));
+    if(!al_init()) throw engine_error("Allegro failed to load!");
     std::cout << "OK!\n";
 
     //  Initialize additional Allegro components.
     std::cout << "Loading Allegro add-ons... ";
-    if(!al_init_image_addon()) throw runtime_error(
-        exception_item("Failed to load Allegro image addon!", "Main engine", 1));
-    if(!al_init_font_addon()) throw runtime_error(
-        exception_item("Failed to load Allegro font addon!", "Main engine", 1));
+    if(!al_init_image_addon()) throw engine_error("Failed to load Allegro image addon!");
+    if(!al_init_font_addon()) throw engine_error("Failed to load Allegro font addon!");
     std::cout << "OK!\n";
     config::_flags::audio_installed = al_install_audio();
     //  Input detection.
@@ -48,10 +44,8 @@ engine::engine(const int& argc, char** const& argv) {
 
     //  Configure PhysFS.
     std::cout << "Loading PhysicsFS... ";
-    if(!PHYSFS_init(argv[0])) throw runtime_error(
-        exception_item("Failed to load PhysicsFS!", "Main engine", 1));
-    if(file_locations.empty()) throw runtime_error(
-        exception_item("Need to configure locations for PhysFS!", "Main engine", 1));
+    if(!PHYSFS_init(argv[0])) throw engine_error("Failed to load PhysicsFS!");
+    if(file_locations.empty()) throw engine_error("Need to configure locations for PhysFS!");
     for(auto& it: file_locations) PHYSFS_mount(it.c_str(), NULL, 1);
     al_set_physfs_file_interface();
     std::cout << "OK!\n";
@@ -67,12 +61,10 @@ engine::engine(const int& argc, char** const& argv) {
     std::cout << "Creating main timer and event queue... ";
     //  Configure main timer.
     main_timer = al_create_timer(1.0f / ticks_per_sec);
-    if(!main_timer) throw runtime_error(
-        exception_item("Failed to create timer!", "Main engine", 1));
+    if(!main_timer) throw engine_error("Failed to create timer!");
     //  Configure main event queue.
     main_event_queue = al_create_event_queue();
-    if(!main_event_queue) throw runtime_error(
-        exception_item("Failed to create main event queue!", "Main engine", 1));
+    if(!main_event_queue) throw engine_error("Failed to create main event queue!");
     std::cout << "OK!\n";
 
     //  Register event sources.
@@ -104,8 +96,8 @@ engine::engine(const int& argc, char** const& argv) {
         if(config::flags::game_started && args[0] != "") {
             try {
                 if(!mgr::messages::load_script(args[0]))
-                    throw exception(exception_item("Error loading script:  " + args[0], "engine", 2));
-            } catch(const exception& e) { throw e; }
+                    throw engine_exception(exception_item("Error loading script:  " + args[0], "engine", 2));
+            } catch(const std::exception& e) { throw e; }
         }
     });
 
@@ -176,8 +168,7 @@ void engine::process_new_game(const std::string& game_data) {
     //  Load systems and prevent further systems from being loaded.
     load_systems();
     mgr::systems::finalized = true;
-    if(mgr::systems::empty()) throw runtime_error(
-        exception_item("No systems have been loaded!", "Main Engine", 1));
+    if(mgr::systems::empty()) throw engine_error("No systems have been loaded!");
 
     //  Stop audio manager from playing sounds.
     mgr::audio::music::a::stop();
@@ -189,7 +180,7 @@ void engine::process_new_game(const std::string& game_data) {
     //  Clear world and load starting entities.
     mgr::world::clear();
     
-    try { new_game(); } catch(exception& e) {
+    try { new_game(); } catch(std::exception& e) {
         //  Failed to create new game, abort.
         config::_flags::menu_opened = true;
         throw e;
@@ -224,7 +215,7 @@ void engine::process_end_game(void) {
     mgr::audio::sample::clear_instances();
 
     //  Call end game process.
-    try { end_game(); } catch(const exception& e) { throw e; }
+    try { end_game(); } catch(const std::exception& e) { throw e; }
     //  Clear managers.
     mgr::world::clear();
     mgr::systems::clear();

@@ -108,7 +108,7 @@ inline const bool logger_add(
     if constexpr (build_options.debug_mode) {
         try {
             logger::add(d, l, c, t);
-        } catch (const exception& e) {
+        } catch (const std::exception& e) {
             return false;
         }
         return true;

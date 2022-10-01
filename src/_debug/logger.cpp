@@ -18,9 +18,9 @@ namespace wte {
  */
 logger::logger() {
     // create new log file
-    std::time_t t std::time(nullptr);
-    std::tm tm = *std::localtime(&t);
     try {
+        std::time_t t std::time(nullptr);
+        std::tm tm = *std::localtime(&t);
         log_file.open("exception_log_" +
             std::put_time(&tm, "%d-%m-%Y_%H-%M-%S") + ".log.csv", std::ios::out | std::ios::trunc);
         log_file << "New log:  " + std::put_time(&tm, "%d-%m-%Y_%H-%M-%S") + "\n";

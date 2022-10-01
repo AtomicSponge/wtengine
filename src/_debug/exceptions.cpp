@@ -32,6 +32,22 @@ exception_item::exception_item(const std::string& d) :
 /*
  *
  */
+runtime_error::runtime_error(const exception_item& i) : item(i) {
+    if constexpr (build_options.debug_mode) logger_add(
+        i.description, i.location, i.code, i.time);
+}
+
+/*
+ *
+ */
+runtime_error::runtime_error(const std::string& d) : item(exception_item(d.c_str(), "Engine", 1)) {
+    if constexpr (build_options.debug_mode) logger_add(
+        d, "Engine", 1, engine_time::check());
+}
+
+/*
+ *
+ */
 const char* runtime_error::what() const noexcept { return item.description; }
 
 /*

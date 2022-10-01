@@ -44,9 +44,14 @@ class exception_item final {
         exception_item(const std::string& d, const std::string& l, const uint& c);
 
         /*!
-         * \brief Create a new exception item with the code value of zero.
+         * \brief Create a new exception item with the code value of 10.
          */
         exception_item(const std::string& d, const std::string& l);
+
+        /*!
+         * \brief Create a new exception item with the code value of 10 and location of Engine.
+         */
+        exception_item(const std::string& d);
 };
 
 /*!

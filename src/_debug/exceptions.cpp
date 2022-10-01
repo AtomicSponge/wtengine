@@ -26,6 +26,12 @@ exception_item::exception_item(const std::string& d, const std::string& l) :
 /*
  *
  */
+exception_item::exception_item(const std::string& d) :
+    description(d.c_str()), location("Engine"), code(10), time(engine_time::check()) {};
+
+/*
+ *
+ */
 const char* runtime_error::what() const noexcept { return item.description; }
 
 /*

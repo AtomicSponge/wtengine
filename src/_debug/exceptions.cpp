@@ -21,7 +21,7 @@ exception_item::exception_item(const std::string& d, const std::string& l, const
  *
  */
 exception_item::exception_item(const std::string& d, const std::string& l) :
-    description(d.c_str()), location(l.c_str()), code(0), time(engine_time::check()) {};
+    description(d.c_str()), location(l.c_str()), code(10), time(engine_time::check()) {};
 
 /*
  *

@@ -18,10 +18,14 @@ namespace wte {
  */
 logger::logger() {
     // create new log file
+    std::time_t t std::time(nullptr);
+    std::tm tm = *std::localtime(&t);
     try {
         log_file.open("exception_log_" +
-            std::put_time(&tm, "%d-%m-%Y_%H-%M-%S") + ".log", std::ios::out | std::ios::trunc);
-        log_file << "New log\n\n";
+            std::put_time(&tm, "%d-%m-%Y_%H-%M-%S") + ".log.csv", std::ios::out | std::ios::trunc);
+        log_file << "New log:  " + std::put_time(&tm, "%d-%m-%Y_%H-%M-%S") + "\n";
+        log_file << "Description, Location, Time, Code\n\n"
+
     } catch {
         throw wte::runtime_error("Error creating log file!");
     }
@@ -67,10 +71,10 @@ void logger::run(void) {
 
             //  Process item
             log_file <<
-                "Description:  " + std::get<0>(log_item) + "\n" +
-                "Location:  " + std::get<1>(log_item) + "\n" +
-                "Time:  " + std::to_string(std::get<2>(log_item)) + "\n";
-                "Code:  " + std::to_string(std::get<3>(log_item)) + "\n\n";
+                std::get<0>(log_item) + ", " +
+                std::get<1>(log_item) + ", " +
+                std::to_string(std::get<2>(log_item)) + ", ";
+                std::to_string(std::get<3>(log_item)) + "\n";
         }
     }
 }

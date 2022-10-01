@@ -63,7 +63,7 @@ class exception_item final {
 class runtime_error final : public std::exception {
     private:
         const exception_item item;  //  Store the exception item.
-    
+
     public:
         /*!
          * \brief Create a new runtime error object.

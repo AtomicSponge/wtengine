@@ -155,46 +155,46 @@ void engine::wte_unload(void) {
 /*
  *
  */
-void engine::process_new_game(const std::string& game_data) {
+void engine::process_new_game(const std::string& game_script) {
     std::cout << "Starting new game... ";
-    std::srand(std::time(nullptr));  //  Seed random, using time.
+    try {
+        std::srand(std::time(nullptr));  //  Seed random, using time.
 
-    //  Make sure the menu isn't opened.
-    config::_flags::menu_opened = false;
+        //  Make sure the menu isn't opened.
+        config::_flags::menu_opened = false;
 
-    //  Load a new message data file.
-    if(!game_data.empty()) mgr::messages::load_file(game_data);
+        //  Load a new message data file.
+        if(!game_script.empty()) mgr::messages::load_file(game_script);
 
-    //  Load systems and prevent further systems from being loaded.
-    load_systems();
-    mgr::systems::finalized = true;
-    if(mgr::systems::empty()) throw engine_error("No systems have been loaded!");
+        //  Load systems and prevent further systems from being loaded.
+        load_systems();
+        mgr::systems::finalized = true;
+        if(mgr::systems::empty()) throw engine_error("\nError! No systems have been loaded!");
 
-    //  Stop audio manager from playing sounds.
-    mgr::audio::music::a::stop();
-    mgr::audio::music::b::stop();
-    mgr::audio::ambiance::stop();
-    mgr::audio::voice::stop();
-    mgr::audio::sample::clear_instances();
-    
-    //  Clear world and load starting entities.
-    mgr::world::clear();
-    
-    try { new_game(); } catch(std::exception& e) {
-        //  Failed to create new game, abort.
-        config::_flags::menu_opened = true;
-        throw e;
-        return;
+        //  Stop audio manager from playing sounds.
+        mgr::audio::music::a::stop();
+        mgr::audio::music::b::stop();
+        mgr::audio::ambiance::stop();
+        mgr::audio::voice::stop();
+        mgr::audio::sample::clear_instances();
+        
+        //  Clear world and load starting entities.
+        mgr::world::clear();
+        
+        //  Run custom game setup
+        new_game();
+
+        //  Restart the timer at zero.
+        al_stop_timer(main_timer);
+        al_set_timer_count(main_timer, 0);
+        engine_time::set(al_get_timer_count(main_timer));
+        config::_flags::game_started = true;
+        config::flags::input_enabled = true;
+        al_start_timer(main_timer);
+    } catch(std::exception& e) {
+        throw engine_error("\nError!  Unable to start new game!");
     }
-
-    //  Restart the timer at zero.
-    al_stop_timer(main_timer);
-    al_set_timer_count(main_timer, 0);
-    engine_time::set(al_get_timer_count(main_timer));
-    config::_flags::game_started = true;
-    config::flags::input_enabled = true;
-    al_start_timer(main_timer);
-    std::cout << "Starting new game... DONE!";
+    std::cout << "DONE!\n";
 }
 
 /*

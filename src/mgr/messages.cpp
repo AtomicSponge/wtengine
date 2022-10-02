@@ -157,32 +157,37 @@ void messages::read(
     //  each charecter, ending if we reach null termed or eof.
     while(true) {
         const char ch = al_fgetc(&file);
-        if(ch == EOF) break;  //  End loop if eof.
+        //if(ch == EOF) break;  //  End loop if eof.
         if(ch == '\0') break;  //  End loop if null terminated.
+        if(ch == EOF) throw engine_error("bad messages");
         sys += ch;
     }
     while(true) {
         const char ch = al_fgetc(&file);
-        if(ch == EOF) break;  //  End loop if eof.
+        //if(ch == EOF) break;  //  End loop if eof.
         if(ch == '\0') break;  //  End loop if null terminated.
+        if(ch == EOF) throw engine_error("bad messages");
         to += ch;
     }
     while(true) {
         const char ch = al_fgetc(&file);
-        if(ch == EOF) break;  //  End loop if eof.
+        //if(ch == EOF) break;  //  End loop if eof.
         if(ch == '\0') break;  //  End loop if null terminated.
+        if(ch == EOF) throw engine_error("bad messages");
         from += ch;
     }
     while(true) {
         const char ch = al_fgetc(&file);
-        if(ch == EOF) break;  //  End loop if eof.
+        //if(ch == EOF) break;  //  End loop if eof.
         if(ch == '\0') break;  //  End loop if null terminated.
+        if(ch == EOF) throw engine_error("bad messages");
         cmd += ch;
     }
     while(true) {
         const char ch = al_fgetc(&file);
-        if(ch == EOF) break;  //  End loop if eof.
+        //if(ch == EOF) break;  //  End loop if eof.
         if(ch == '\0') break;  //  End loop if null terminated.
+        if(ch == EOF) throw engine_error("bad messages");
         args += ch;
     }
 }

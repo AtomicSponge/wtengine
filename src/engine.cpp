@@ -169,7 +169,7 @@ void engine::process_new_game(const std::string& game_script) {
         //  Load systems and prevent further systems from being loaded.
         load_systems();
         mgr::systems::finalized = true;
-        if(mgr::systems::empty()) throw engine_error("\nError! No systems have been loaded!");
+        if(mgr::systems::empty()) throw engine_error("Error!  No systems have been loaded!");
 
         //  Stop audio manager from playing sounds.
         mgr::audio::music::a::stop();
@@ -192,7 +192,7 @@ void engine::process_new_game(const std::string& game_script) {
         config::flags::input_enabled = true;
         al_start_timer(main_timer);
     } catch(std::exception& e) {
-        throw engine_error("\nError!  Unable to start new game!");
+        throw engine_error("Error!  Unable to start new game!");
     }
     std::cout << "DONE!\n";
 }

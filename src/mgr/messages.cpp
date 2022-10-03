@@ -83,7 +83,7 @@ void messages::load_file(const std::string& fname) {
     //  File not found, error.
     if(!file) {
         al_fclose(file);
-        throw std::runtime_error("Error loading game data!");
+        throw std::runtime_error("Can not load game data!");
     }
 
     //  Loop through the entire data file loading into the queue.
@@ -94,7 +94,11 @@ void messages::load_file(const std::string& fname) {
         std::string sys, to, from, cmd, args;
 
         //  Read the message from file.
-        read(*file, timer, sys, to, from, cmd, args);
+        try{
+            read(*file, timer, sys, to, from, cmd, args);
+        } catch(const std::exception& e) {
+            throw engine_error("Unable to read game data file!");
+        }
 
         //  Add message to queue.  Ignore incomplete messages.
         if(sys != "" && cmd != "") _messages.push_back(message(timer, sys, to, from, cmd, args));
@@ -157,37 +161,47 @@ void messages::read(
     //  each charecter, ending if we reach null termed or eof.
     while(true) {
         const char ch = al_fgetc(&file);
-        //if(ch == EOF) break;  //  End loop if eof.
         if(ch == '\0') break;  //  End loop if null terminated.
-        if(ch == EOF) throw engine_error("Bad message file format!");
+        if(ch == EOF) {
+            throw engine_exception("Bad message file format!", "Messages", 2);
+            return;
+        }
         sys += ch;
     }
     while(true) {
         const char ch = al_fgetc(&file);
-        //if(ch == EOF) break;  //  End loop if eof.
         if(ch == '\0') break;  //  End loop if null terminated.
-        if(ch == EOF) throw engine_error("Bad message file format!");
+        if(ch == EOF) {
+            throw engine_exception("Bad message file format!", "Messages", 2);
+            return;
+        }
         to += ch;
     }
     while(true) {
         const char ch = al_fgetc(&file);
-        //if(ch == EOF) break;  //  End loop if eof.
         if(ch == '\0') break;  //  End loop if null terminated.
-        if(ch == EOF) throw engine_error("Bad message file format!");
+        if(ch == EOF) {
+            throw engine_exception("Bad message file format!", "Messages", 2);
+            return;
+        }
         from += ch;
     }
     while(true) {
         const char ch = al_fgetc(&file);
-        //if(ch == EOF) break;  //  End loop if eof.
         if(ch == '\0') break;  //  End loop if null terminated.
-        if(ch == EOF) throw engine_error("Bad message file format!");
+        if(ch == EOF) {
+            throw engine_exception("Bad message file format!", "Messages", 2);
+            return;
+        }
         cmd += ch;
     }
     while(true) {
         const char ch = al_fgetc(&file);
-        //if(ch == EOF) break;  //  End loop if eof.
         if(ch == '\0') break;  //  End loop if null terminated.
-        if(ch == EOF) throw engine_error("Bad message file format!");
+        if(ch == EOF) {
+            throw engine_exception("Bad message file format!", "Messages", 2);
+            return;
+        }
         args += ch;
     }
 }

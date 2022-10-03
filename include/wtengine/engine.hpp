@@ -123,6 +123,7 @@ class engine : public config, public display, public input {
         /*
          * Call to end the game.
          * Clears out the entities and systems and runs user defined end process.
+         * If passed true, skips the custom game cleanup.
          */
         void process_end_game(const bool& force);
 

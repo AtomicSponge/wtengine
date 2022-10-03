@@ -83,7 +83,7 @@ void messages::load_file(const std::string& fname) {
     //  File not found, error.
     if(!file) {
         al_fclose(file);
-        throw std::runtime_error("Can not load game data!");
+        throw engine_error("Can not load game data!");
     }
 
     //  Loop through the entire data file loading into the queue.

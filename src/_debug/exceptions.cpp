@@ -83,6 +83,8 @@ const int64_t engine_exception::when() const noexcept { return item.time; };
 engine_exception::~engine_exception() {
     std::cout << "WARNING:  ";
     std::cout << item.description << std::endl;
+    std::cout << "AT:  ";
+    std::cout << item.time << std::endl;
 }
 
 }  //  end namespace wte

@@ -202,8 +202,8 @@ void engine::process_new_game(const std::string& game_script) {
  *
  */
 void engine::process_end_game(void) {
+    std::cout << "Ending game... ";
     try {
-        std::cout << "Ending game... ";
         al_stop_timer(main_timer);
         config::_flags::game_started = false;
         config::flags::input_enabled = true;

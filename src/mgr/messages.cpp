@@ -159,35 +159,35 @@ void messages::read(
         const char ch = al_fgetc(&file);
         //if(ch == EOF) break;  //  End loop if eof.
         if(ch == '\0') break;  //  End loop if null terminated.
-        if(ch == EOF) throw engine_error("bad messages");
+        if(ch == EOF) throw engine_error("Bad message file format!");
         sys += ch;
     }
     while(true) {
         const char ch = al_fgetc(&file);
         //if(ch == EOF) break;  //  End loop if eof.
         if(ch == '\0') break;  //  End loop if null terminated.
-        if(ch == EOF) throw engine_error("bad messages");
+        if(ch == EOF) throw engine_error("Bad message file format!");
         to += ch;
     }
     while(true) {
         const char ch = al_fgetc(&file);
         //if(ch == EOF) break;  //  End loop if eof.
         if(ch == '\0') break;  //  End loop if null terminated.
-        if(ch == EOF) throw engine_error("bad messages");
+        if(ch == EOF) throw engine_error("Bad message file format!");
         from += ch;
     }
     while(true) {
         const char ch = al_fgetc(&file);
         //if(ch == EOF) break;  //  End loop if eof.
         if(ch == '\0') break;  //  End loop if null terminated.
-        if(ch == EOF) throw engine_error("bad messages");
+        if(ch == EOF) throw engine_error("Bad message file format!");
         cmd += ch;
     }
     while(true) {
         const char ch = al_fgetc(&file);
         //if(ch == EOF) break;  //  End loop if eof.
         if(ch == '\0') break;  //  End loop if null terminated.
-        if(ch == EOF) throw engine_error("bad messages");
+        if(ch == EOF) throw engine_error("Bad message file format!");
         args += ch;
     }
 }

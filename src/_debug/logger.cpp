@@ -100,6 +100,7 @@ const bool logger::add(
         _error_queue.push(std::make_tuple(d, l, c, t));
         log_mtx.unlock();
     } catch {
+        throw engine_exception("Issue adding exception to log queue!", "Logger", 2);
         return false;
     }
     return true;

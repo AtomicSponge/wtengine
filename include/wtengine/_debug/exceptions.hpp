@@ -10,6 +10,7 @@
 #ifndef WTE_EXCEPTION_HPP
 #define WTE_EXCEPTION_HPP
 
+#include <iostream>
 #include <string>
 #include <fstream>
 #include <exception>
@@ -112,8 +113,12 @@ class engine_exception final : public std::exception {
          */
         engine_exception(const exception_item& i);
 
-        engine_exception() = delete;            //!<  Delete default constructor.
-        virtual ~engine_exception() = default;  //!<  Default virtual destructor.
+        engine_exception() = delete;  //!<  Delete default constructor.
+
+        /*!
+         * \brief Prints exception to console.
+         */
+        virtual ~engine_exception();
 
         /*!
          * \brief Returns the description of the thrown exception.

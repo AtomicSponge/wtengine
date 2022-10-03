@@ -49,7 +49,10 @@ const int64_t engine_error::when() const noexcept { return item.time; }
 /*
  *
  */
-engine_error::~engine_error() { std::exit(item.code); }
+engine_error::~engine_error() {
+    std::cout << item.description << std::endl;
+    std::exit(item.code);
+}
 
 /*
  *
@@ -73,5 +76,12 @@ const char* engine_exception::where() const noexcept { return item.location; };
  *
  */
 const int64_t engine_exception::when() const noexcept { return item.time; };
+
+/*
+ *
+ */
+engine_exception::~engine_exception() {
+    std::cout << item.description << std::endl;
+}
 
 }  //  end namespace wte

@@ -75,7 +75,7 @@ engine::engine(const int& argc, char** const& argv) {
 
     //  commands
     cmds.add("exit", 0, [this](const msg_args& args) {
-        if(config::flags::game_started) process_end_game();
+        if(config::flags::game_started) process_end_game(false);
         config::_flags::is_running = false;
     });
     cmds.add("new-game", 1, [this](const msg_args& args) {
@@ -85,7 +85,7 @@ engine::engine(const int& argc, char** const& argv) {
     });
     cmds.add("end-game", 0, [this](const msg_args& args) {
         if(config::flags::game_started) {
-            process_end_game();
+            process_end_game(false);
         }
     });
     cmds.add("fps-counter", 1, [this](const msg_args& args) {
@@ -199,7 +199,7 @@ void engine::process_new_game(const std::string& game_script) {
 /*
  *
  */
-void engine::process_end_game(void) {
+void engine::process_end_game(const bool& force) {
     std::cout << "Ending game... ";
     try {
         al_stop_timer(main_timer);
@@ -216,7 +216,7 @@ void engine::process_end_game(void) {
         mgr::audio::sample::clear_instances();
 
         //  Call custom end game process.
-        end_game();
+        if(!force) end_game();
 
         //  Clear managers.
         mgr::world::clear();
@@ -287,7 +287,7 @@ void engine::do_game(void) {
                 break;
             //  Force quit if the game window is closed.
             case ALLEGRO_EVENT_DISPLAY_CLOSE:
-                if(config::flags::game_started) process_end_game();
+                if(config::flags::game_started) process_end_game(true);
                 config::_flags::is_running = false;
                 break;
             //  Window has been resized.

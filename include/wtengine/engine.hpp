@@ -124,7 +124,7 @@ class engine : public config, public display, public input {
          * Call to end the game.
          * Clears out the entities and systems and runs user defined end process.
          */
-        void process_end_game(void);
+        void process_end_game(const bool& force);
 
         //  Internal commands for the engine.
         static commands cmds;

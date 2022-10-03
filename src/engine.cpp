@@ -181,7 +181,7 @@ void engine::process_new_game(const std::string& game_script) {
         //  Clear world and load starting entities.
         mgr::world::clear();
         
-        //  Run custom game setup
+        //  Call custom start game process
         new_game();
 
         //  Restart the timer at zero.
@@ -191,7 +191,8 @@ void engine::process_new_game(const std::string& game_script) {
         config::_flags::game_started = true;
         config::flags::input_enabled = true;
         al_start_timer(main_timer);
-    } catch(std::exception& e) {
+    } catch(const std::exception& e) {
+        std::cout << e.what() << "\n";
         throw engine_error("Error!  Unable to start new game!");
     }
     std::cout << "DONE!\n";
@@ -201,28 +202,36 @@ void engine::process_new_game(const std::string& game_script) {
  *
  */
 void engine::process_end_game(void) {
-    al_stop_timer(main_timer);
-    config::_flags::game_started = false;
-    config::flags::input_enabled = true;
-    al_set_timer_count(main_timer, 0);
-    engine_time::set(al_get_timer_count(main_timer));
+    try {
+        std::cout << "Ending game... ";
+        al_stop_timer(main_timer);
+        config::_flags::game_started = false;
+        config::flags::input_enabled = true;
+        al_set_timer_count(main_timer, 0);
+        engine_time::set(al_get_timer_count(main_timer));
 
-    //  Stop audio manager from playing sounds.
-    mgr::audio::music::a::stop();
-    mgr::audio::music::b::stop();
-    mgr::audio::ambiance::stop();
-    mgr::audio::voice::stop();
-    mgr::audio::sample::clear_instances();
+        //  Stop audio manager from playing sounds.
+        mgr::audio::music::a::stop();
+        mgr::audio::music::b::stop();
+        mgr::audio::ambiance::stop();
+        mgr::audio::voice::stop();
+        mgr::audio::sample::clear_instances();
 
-    //  Call end game process.
-    try { end_game(); } catch(const std::exception& e) { throw e; }
-    //  Clear managers.
-    mgr::world::clear();
-    mgr::systems::clear();
-    mgr::messages::clear();
+        //  Call custom end game process.
+        end_game();
 
-    //  Open the menus.
-    config::_flags::menu_opened = true;
+        //  Clear managers.
+        mgr::world::clear();
+        mgr::systems::clear();
+        mgr::messages::clear();
+
+        //  Open the menus.
+        config::_flags::menu_opened = true;
+    } catch(const std::exception& e) {
+        std::cout << e.what() << "\n";
+        throw engine_error("Error!  Problems ending game!");
+    }
+    std::cout << "DONE!\n";
 }
 
 /*

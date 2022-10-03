@@ -31,6 +31,6 @@
   "dependencies": {
     "command-exists": "^1.2.9",
     "csv": "^6.2.0",
-    "inquirer": "^9.1.1"
+    "inquirer": "^9.1.2"
   }
 }

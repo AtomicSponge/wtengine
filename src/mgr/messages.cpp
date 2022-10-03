@@ -93,15 +93,14 @@ void messages::load_file(const std::string& fname) {
         int64_t timer = -1;
         std::string sys, to, from, cmd, args;
 
-        //  Read the message from file.
         try{
+            //  Read the message from file.
             read(*file, timer, sys, to, from, cmd, args);
+            //  Add message to queue.  Ignore incomplete messages.
+            if(sys != "" && cmd != "") _messages.push_back(message(timer, sys, to, from, cmd, args));
         } catch(const std::exception& e) {
             throw engine_error("Unable to read game data file!");
         }
-
-        //  Add message to queue.  Ignore incomplete messages.
-        if(sys != "" && cmd != "") _messages.push_back(message(timer, sys, to, from, cmd, args));
     }
     al_fclose(file);
 
@@ -129,14 +128,14 @@ const bool messages::load_script(const std::string& fname) {
         int64_t timer = -1;
         std::string sys, to, from, cmd, args;
 
-        //  Read the message from file.
-        read(*file, timer, sys, to, from, cmd, args);
-
-        //  Add the current time to the timer value.
-        if(timer != -1) timer += engine_time::check();
-
-        //  Add message to queue.  Ignore incomplete messages.  Sort while adding.
-        if(sys != "" && cmd != "") add(message(timer, sys, to, from, cmd, args));
+        try {
+            //  Read the message from file.
+            read(*file, timer, sys, to, from, cmd, args);
+            //  Add the current time to the timer value.
+            if(timer != -1) timer += engine_time::check();
+            //  Add message to queue.  Ignore incomplete messages.  Sort while adding.
+            if(sys != "" && cmd != "") add(message(timer, sys, to, from, cmd, args));
+        } catch(const std::exception& e) { throw e; }
     }
     al_fclose(file);
     return true;

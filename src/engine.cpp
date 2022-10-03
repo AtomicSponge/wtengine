@@ -189,10 +189,7 @@ void engine::process_new_game(const std::string& game_script) {
         config::_flags::game_started = true;
         config::flags::input_enabled = true;
         al_start_timer(main_timer);
-    } catch(const std::exception& e) {
-        std::cout << e.what() << "\n";
-        throw engine_error("Error!  Unable to start new game!");
-    }
+    } catch(const std::exception& e) { throw e; }
     std::cout << "DONE!\n";
 }
 
@@ -225,10 +222,7 @@ void engine::process_end_game(const bool& force) {
 
         //  Open the menus.
         config::_flags::menu_opened = true;
-    } catch(const std::exception& e) {
-        std::cout << e.what() << "\n";
-        throw engine_error("Error!  Problems ending game!");
-    }
+    } catch(const std::exception& e) { throw e; }
     std::cout << "DONE!\n";
 }
 

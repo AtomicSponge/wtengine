@@ -73,9 +73,9 @@ engine::engine(const int& argc, char** const& argv) {
 
     input::create_event_queue();
 
-    //  commands
+    //  Main engine commands.
     cmds.add("exit", 0, [this](const msg_args& args) {
-        if(config::flags::game_started) process_end_game(false);
+        if(config::flags::game_started) process_end_game(true);
         config::_flags::is_running = false;
     });
     cmds.add("new-game", 1, [this](const msg_args& args) {

@@ -44,6 +44,7 @@ const int64_t engine_error::when() const noexcept { return item.time; }
  *
  */
 engine_error::~engine_error() {
+    std::cout << "ERROR:  ";
     std::cout << item.description << std::endl;
     std::exit(item.code);
 }

@@ -27,7 +27,7 @@ logger::logger() {
         log_file << "Description, Location, Time, Code\n\n"
 
     } catch {
-        throw wte::runtime_error("Error creating log file!");
+        throw engine_error("Error creating log file!");
     }
 }
 
@@ -49,7 +49,7 @@ const bool logger::start(void) {
         std::thread th([&]() { run(); });
         th.detach();
     } catch {
-        throw wte::runtime_error("Unable to start logger!");
+        throw engine_error("Unable to start logger!");
     }
     return _is_running = true;
 }

@@ -38,18 +38,10 @@ class exception_item final {
         const uint code;          //  Code of error
         const int64_t time;       //  Time of exception.
     
-    public:
-        /*!
-         * \brief Create a new exception item.
-         */
+        exception_item() = delete;    //  Delete default constructor.
+        ~exception_item() = default;  //  Default destructor.
+        //Create a new exception item.
         exception_item(const std::string& d, const std::string& l, const uint& c);
-
-        /*!
-         * \brief Create a new exception item with the code value of 10.
-         */
-        exception_item(const std::string& d, const std::string& l);
-
-        exception_item() = delete;  //!<  Delete default constructor.
 };
 
 /*!
@@ -108,10 +100,12 @@ class engine_exception final : public std::exception {
     
     public:
         /*!
-         * \brief Create a wte exception.
-         * \param i An exception item object.
+         * \brief Create an engine exception.
+         * \param d Description of exception.
+         * \param l Location in engine of exception.
+         * \param c Code of exception.
          */
-        engine_exception(const exception_item& i);
+        engine_exception(const std::string& d, const std::string& l, const uint& c);
 
         engine_exception() = delete;  //!<  Delete default constructor.
 

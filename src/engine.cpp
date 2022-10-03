@@ -95,7 +95,7 @@ engine::engine(const int& argc, char** const& argv) {
     cmds.add("load-script", 1, [this](const msg_args& args) {
         if(config::flags::game_started && args[0] != "") {
             if(!mgr::messages::load_script(args[0]))
-                throw engine_exception(exception_item("Error loading script:  " + args[0], "engine", 2));
+                throw engine_exception("Error loading script:  " + args[0], "engine", 2);
         }
     });
 

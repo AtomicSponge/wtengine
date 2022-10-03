@@ -20,12 +20,6 @@ exception_item::exception_item(const std::string& d, const std::string& l, const
 /*
  *
  */
-exception_item::exception_item(const std::string& d, const std::string& l) :
-    description(d.c_str()), location(l.c_str()), code(10), time(engine_time::check()) {};
-
-/*
- *
- */
 engine_error::engine_error(const std::string& d) : item(exception_item(d.c_str(), "Engine", 1)) {
     if constexpr (build_options.debug_mode) logger_add(
         item.description, item.location, item.code, item.time);
@@ -57,9 +51,10 @@ engine_error::~engine_error() {
 /*
  *
  */
-engine_exception::engine_exception(const exception_item& i) : item(i) {
+engine_exception::engine_exception(const std::string& d, const std::string& l, const uint& c) :
+item(exception_item(d, l, c)) {
     if constexpr (build_options.debug_mode) logger_add(
-        i.description, i.location, i.code, i.time);
+        item.description, item.location, item.code, item.time);
 }
 
 /*

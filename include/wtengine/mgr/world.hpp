@@ -254,7 +254,7 @@ class world final : private manager<world> {
             }
 
             throw engine_exception(
-                exception_item("Entity: " + std::to_string(e_id) + " - Component not found", "World", 4));
+                "Entity: " + std::to_string(e_id) + " - Component not found", "World", 4);
         };
 
         /*!
@@ -275,7 +275,7 @@ class world final : private manager<world> {
                     return std::static_pointer_cast<const T>(it->second);
             }
             throw engine_exception(
-                exception_item("Entity: " + std::to_string(e_id) + " - Component not found", "World", 4));
+                "Entity: " + std::to_string(e_id) + " - Component not found", "World", 4);
         };
 
         /*!

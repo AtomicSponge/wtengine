@@ -167,7 +167,7 @@ void engine::process_new_game(const std::string& game_script) {
         //  Load systems and prevent further systems from being loaded.
         load_systems();
         mgr::systems::finalized = true;
-        if(mgr::systems::empty()) throw engine_error("Error!  No systems have been loaded!");
+        if(mgr::systems::empty()) throw engine_error("No systems have been loaded!");
 
         //  Stop audio manager from playing sounds.
         mgr::audio::music::a::stop();

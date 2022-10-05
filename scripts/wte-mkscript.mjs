@@ -10,7 +10,7 @@ import wtf from './_common.mjs'
 
 import 'path'
 import fs from 'fs'
-import Buffer from 'buffer'
+import { Buffer } from 'buffer'
 import * as csv from 'csv/sync'
 
 wtf.scriptTitle(`WTEngine Script Utility`)

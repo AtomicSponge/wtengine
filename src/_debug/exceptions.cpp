@@ -79,6 +79,9 @@ const int64_t engine_exception::when() const noexcept { return item.time; };
 engine_exception::~engine_exception() {
     std::cout << "WARNING:  ";
     std::cout << item.description << std::endl;
+    std::cout << "CODE:  ";
+    std::cout << item.code;
+    std::cout << "\t";
     std::cout << "AT:  ";
     std::cout << item.time << std::endl;
 }

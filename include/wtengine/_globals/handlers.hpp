@@ -158,7 +158,7 @@ constexpr void add_handler(const std::function<void()>& handle) {
             IDX == EVENT_TOUCH_MOVE || IDX == EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
         handler::touch<S, IDX>_handle = handle;
-    }
+    } else static_assert(true, "add_handler used incorrectly.");
 };
 
 }  //  end namespace wte

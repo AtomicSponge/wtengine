@@ -126,38 +126,38 @@ constexpr void add_handler(const std::function<void()>& handle) {
     if constexpr (std::is_same_v<T, handler::key>) {
         static_assert(IDX == EVENT_KEY_DOWN || IDX == EVENT_KEY_UP,
             "Event Index must be a Key Up or Down Event");
-        handler::key<S, IDX>_handler = handle;
+        handler::key<S, IDX>_handle = handle;
     }
     else if constexpr (std::is_same_v<T, handler::mouse_axis>) {
         static_assert(IDX == EVENT_MOUSE_AXIS || IDX == EVENT_MOUSE_WARPED,
             "Event Index must be a Mouse Axes or Warped Event");
-        handler::mouse_axis<S, IDX>_handler = handle;
+        handler::mouse_axis<S, IDX>_handle = handle;
     }
     else if constexpr (std::is_same_v<T, handler::mouse_button>) {
         static_assert(IDX == EVENT_MOUSE_BUTTON_DOWN || IDX == EVENT_MOUSE_BUTTON_UP,
             "Event Index must be a Mouse Button Up or Down Event");
-        handler::mouse_button<S, IDX>_handler = handle;
+        handler::mouse_button<S, IDX>_handle = handle;
     }
     else if constexpr (std::is_same_v<T, handler::mouse_display>) {
         static_assert(IDX == EVENT_MOUSE_ENTER_DISPLAY || IDX == EVENT_MOUSE_LEAVE_DISPLAY,
             "Event Index must be a Mouse Enter or Leave Display Event");
-        handler::mouse_display<S, IDX>_handler = handle;
+        handler::mouse_display<S, IDX>_handle = handle;
     }
     else if constexpr (std::is_same_v<T, handler::joystick_axis>) {
         static_assert(IDX == EVENT_JOYSTICK_AXIS,
             "Event Index must be a Joystick Axes Event");
-        handler::joystick_axis<S, IDX>_handler = handle;
+        handler::joystick_axis<S, IDX>_handle = handle;
     }
     else if constexpr (std::is_same_v<T, handler::joystick_button>) {
         static_assert(IDX == EVENT_JOYSTICK_BUTTON_DOWN || IDX == EVENT_JOYSTICK_BUTTON_UP,
             "Event Index must be a Joystick Button Up or Down Event");
-        handler::joystick_button<S, IDX>_handler = handle;
+        handler::joystick_button<S, IDX>_handle = handle;
     }
     else if constexpr (std::is_same_v<T, handler::touch>) {
         static_assert(IDX == EVENT_TOUCH_BEGIN || IDX == EVENT_TOUCH_END ||
             IDX == EVENT_TOUCH_MOVE || IDX == EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
-        handler::touch<S, IDX>_handler = handle;
+        handler::touch<S, IDX>_handle = handle;
     }
 };
 

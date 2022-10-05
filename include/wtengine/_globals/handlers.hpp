@@ -10,29 +10,21 @@
 #ifndef WTE_HANDLERS_HPP
 #define WTE_HANDLERS_HPP
 
-#include <variant>
-
 #include <allegro5/allegro.h>
 
 #include "wtengine/_globals/_defines.hpp"
 
 namespace wte::handler {
 
-//  Define the handler types
-using key = std::function<void(const int&, ALLEGRO_DISPLAY*)>;
-using mouse_axis = std::function<void(
-    const int&, const int&, const int&, const int&, const int&,
-    const int&, const int&, const int&, const float&, ALLEGRO_DISPLAY*)>;
-using mouse_button = std::function<void(
-    const int&, const int&, const int&, const int&,
-    const unsigned int&, ALLEGRO_DISPLAY*)>;
-using mouse_display = std::function<void(
-    const int&, const int&, const int&, const int&, ALLEGRO_DISPLAY*)>;
-using joystick_axis = std::function<void(const int&, const int&, const float&, ALLEGRO_JOYSTICK*)>;
-using joystick_button = std::function<void(const int&, ALLEGRO_JOYSTICK*)>;
-using touch = std::function<void(
-    const int&, const float&, const float&, const float&,
-    const float&, const bool&, ALLEGRO_DISPLAY*)>;
+enum handler_types {
+    key,              //!<  Keyboard event type.
+    mouse_axis,       //!<  Mouse axis event type.
+    mouse_button,     //!<  Mouse button event type.
+    mouse_display,    //!<  Mouse display event type.
+    joystick_axis,    //!<  Mouse axis event type.
+    joystick_button,  //!<  Joystick button event type.
+    touch             //!<  Touch event type.
+};
 
 }
 
@@ -75,59 +67,45 @@ enum handler_events {
     HANDLER_EVENT_MAX
 };
 
-/*!
- * Handler types.
- * Used to define which function type to choose for the handler.
- */
-using handler_types = std::variant<
-    handler::key,              //!<  Keyboard event type.
-    handler::mouse_axis,       //!<  Mouse axis event type.
-    handler::mouse_button,     //!<  Mouse button event type.
-    handler::mouse_display,    //!<  Mouse display event type.
-    handler::joystick_axis,    //!<  Mouse axis event type.
-    handler::joystick_button,  //!<  Joystick button event type.
-    handler::touch             //!<  Touch event type.
->;
-
 //  Template structs to store handlers
-template <handler_scopes, handler_events, typename T>
+template <handler_scopes, handler_events, handler::handler_types T>
 struct handlers {};
 
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::key> {
-    inline static handler_types _handle = [](const int&, ALLEGRO_DISPLAY*) {};
+    inline static auto _handle = ([](const int&, ALLEGRO_DISPLAY*){});
 };
 
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::mouse_axis> {
-    inline static handler_types _handle = [](const int&, const int&, const int&, const int&,
-        const int&, const int&, const int&, const int&, const float&, ALLEGRO_DISPLAY*) {};
+    inline static auto _handle = ([](const int&, const int&, const int&, const int&,
+        const int&, const int&, const int&, const int&, const float&, ALLEGRO_DISPLAY*){});
 };
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::mouse_button> {
-    inline static handler_types _handle = [](const int&, const int&,
-        const int&, const int&, const unsigned int&, ALLEGRO_DISPLAY*) {};
+    inline static auto _handle = ([](const int&, const int&,
+        const int&, const int&, const unsigned int&, ALLEGRO_DISPLAY*){});
 };
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::mouse_display> {
-    inline static handler_types _handle = [](const int&, const int&,
-        const int&, const int&, ALLEGRO_DISPLAY*) {};
+    inline static auto _handle = ([](const int&, const int&,
+        const int&, const int&, ALLEGRO_DISPLAY*){});
 };
 
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::joystick_axis> {
-    inline static handler_types _handle = [](const int&, const int&,
-        const float&, ALLEGRO_JOYSTICK*) {};
+    inline static auto _handle = ([](const int&, const int&,
+        const float&, ALLEGRO_JOYSTICK*){});
 };
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::joystick_button> {
-    inline static handler_types _handle = [](const int&, ALLEGRO_JOYSTICK*) {};
+    inline static auto _handle = ([](const int&, ALLEGRO_JOYSTICK*){});
 };
 
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::touch> {
-    inline static handler_types _handle = [](const int&, const float&, const float&,
-        const float&, const float&, const bool&, ALLEGRO_DISPLAY*) {};
+    inline static auto _handle = ([](const int&, const float&, const float&,
+        const float&, const float&, const bool&, ALLEGRO_DISPLAY*){});
 };
 
 /*!
@@ -137,8 +115,8 @@ struct handlers<S, IDX, handler::touch> {
  * \tparam T Handler type.
  * \param handle Input handler function expression.
  */
-template <handler_scopes S, handler_events IDX, typename T>
-constexpr void add_handler(const handler_types& handle) {
+template <handler_scopes S, handler_events IDX, handler::handler_types T>
+constexpr void add_handler(const handler::handler_types& handle) {
     static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
         "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
     static_assert(IDX < HANDLER_EVENT_MAX, "Invalid Handler Event Index");

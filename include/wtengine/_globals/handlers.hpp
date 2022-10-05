@@ -16,15 +16,13 @@
 
 namespace wte::handler {
 
-enum handler_types {
-    key,              //!<  Keyboard event type.
-    mouse_axis,       //!<  Mouse axis event type.
-    mouse_button,     //!<  Mouse button event type.
-    mouse_display,    //!<  Mouse display event type.
-    joystick_axis,    //!<  Mouse axis event type.
-    joystick_button,  //!<  Joystick button event type.
-    touch             //!<  Touch event type.
-};
+struct key {};
+struct mouse_axis {};
+struct mouse_button {};
+struct mouse_display {};
+struct joystick_axis {};
+struct joystick_button {};
+struct touch {};
 
 }
 
@@ -68,7 +66,7 @@ enum handler_events {
 };
 
 //  Template structs to store handlers
-template <handler_scopes, handler_events, handler::handler_types T>
+template <handler_scopes, handler_events, typename T>
 struct handlers {};
 
 template <handler_scopes S, handler_events IDX>
@@ -115,8 +113,8 @@ struct handlers<S, IDX, handler::touch> {
  * \tparam T Handler type.
  * \param handle Input handler function expression.
  */
-template <handler_scopes S, handler_events IDX, handler::handler_types T>
-constexpr void add_handler(const handler::handler_types& handle) {
+template <handler_scopes S, handler_events IDX, typename T, typename F>
+constexpr void add_handler(F&& handle) {
     static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
         "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
     static_assert(IDX < HANDLER_EVENT_MAX, "Invalid Handler Event Index");

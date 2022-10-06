@@ -77,6 +77,10 @@ enum handler_events {
     HANDLER_EVENT_MAX
 };
 
+}
+
+namespace wte {
+
 /*!
  * Handler types.
  * Used to define which function type to choose for the handler.
@@ -97,7 +101,7 @@ struct handlers {};
 
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::key> {
-    inline static handler_types _handle;
+    inline static handler_types _handle = [](const int&, ALLEGRO_DISPLAY*) {};
 };
 
 template <handler_scopes S, handler_events IDX>
@@ -139,8 +143,8 @@ struct handlers<S, IDX, handler::touch> {
  * \tparam T Handler type.
  * \param handle Input handler function expression.
  */
-template <handler_scopes S, handler_events IDX, typename T>
-constexpr void add_handler(const handler_types& handle) {
+template <handler_scopes S, handler_events IDX, typename T, typename F>
+constexpr void add_handler(F&& handle) {
     static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
         "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
     static_assert(IDX < HANDLER_EVENT_MAX, "Invalid Handler Event Index");

@@ -143,8 +143,8 @@ struct handlers<S, IDX, handler::touch> {
  * \tparam T Handler type.
  * \param handle Input handler function expression.
  */
-template <handler_scopes S, handler_events IDX, typename T, typename F>
-constexpr void add_handler(F&& handle) {
+template <handler_scopes S, handler_events IDX, typename T>
+constexpr void add_handler(const handler_types& handle) {
     static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
         "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
     static_assert(IDX < HANDLER_EVENT_MAX, "Invalid Handler Event Index");

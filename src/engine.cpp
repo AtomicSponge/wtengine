@@ -291,13 +291,14 @@ void engine::do_game(void) {
             }
         }
 
+        //  Render the screen.
+        mgr::gfx::renderer::render();
         //  Get any system messages and pass to handler.
         cmds.process_messages(mgr::messages::get("system"));
         //  Send audio messages to the audio queue.
         mgr::audio::process_messages(mgr::messages::get("audio"));
-
-        mgr::gfx::renderer::render();  //  Render the screen.
-        mgr::messages::prune();        //  Delete unprocessed messages.
+        //  Delete unprocessed messages.
+        mgr::messages::prune();
         /* *** END ENGINE LOOP ********************************************** */
     }
 

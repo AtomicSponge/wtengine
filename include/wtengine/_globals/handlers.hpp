@@ -10,11 +10,31 @@
 #ifndef WTE_HANDLERS_HPP
 #define WTE_HANDLERS_HPP
 
-#include <functional>
+#include <variant>
 
 #include <allegro5/allegro.h>
 
 #include "wtengine/_globals/_defines.hpp"
+
+namespace wte::handler {
+
+//  Define the handler types
+using key = std::function<void(const int&, ALLEGRO_DISPLAY*)>;
+using mouse_axis = std::function<void(
+    const int&, const int&, const int&, const int&, const int&,
+    const int&, const int&, const int&, const float&, ALLEGRO_DISPLAY*)>;
+using mouse_button = std::function<void(
+    const int&, const int&, const int&, const int&,
+    const unsigned int&, ALLEGRO_DISPLAY*)>;
+using mouse_display = std::function<void(
+    const int&, const int&, const int&, const int&, ALLEGRO_DISPLAY*)>;
+using joystick_axis = std::function<void(const int&, const int&, const float&, ALLEGRO_JOYSTICK*)>;
+using joystick_button = std::function<void(const int&, ALLEGRO_JOYSTICK*)>;
+using touch = std::function<void(
+    const int&, const float&, const float&, const float&,
+    const float&, const bool&, ALLEGRO_DISPLAY*)>;
+
+}
 
 namespace wte {
 
@@ -55,53 +75,60 @@ enum handler_events {
     HANDLER_EVENT_MAX
 };
 
-}
+/*!
+ * Handler types.
+ * Used to define which function type to choose for the handler.
+ */
+using handler_types = std::variant<
+    handler::key,              //!<  Keyboard event type.
+    handler::mouse_axis,       //!<  Mouse axis event type.
+    handler::mouse_button,     //!<  Mouse button event type.
+    handler::mouse_display,    //!<  Mouse display event type.
+    handler::joystick_axis,    //!<  Mouse axis event type.
+    handler::joystick_button,  //!<  Joystick button event type.
+    handler::touch             //!<  Touch event type.
+>;
 
-namespace wte::handler {
+//  Template structs to store handlers
+template <handler_scopes, handler_events, typename T>
+struct handlers {};
 
 template <handler_scopes S, handler_events IDX>
-struct key {
-    inline static auto _handle = ([](const int&, ALLEGRO_DISPLAY*){});
+struct handlers<S, IDX, handler::key> {
+    inline static auto _handle = [](const int&, ALLEGRO_DISPLAY*) {};
 };
 
 template <handler_scopes S, handler_events IDX>
-struct mouse_axis {
-    inline static auto _handle = ([](const int&, const int&, const int&, const int&,
-        const int&, const int&, const int&, const int&, const float&, ALLEGRO_DISPLAY*){});
+struct handlers<S, IDX, handler::mouse_axis> {
+    inline static auto _handle = [](const int&, const int&, const int&, const int&,
+        const int&, const int&, const int&, const int&, const float&, ALLEGRO_DISPLAY*) {};
+};
+template <handler_scopes S, handler_events IDX>
+struct handlers<S, IDX, handler::mouse_button> {
+    inline static auto _handle = [](const int&, const int&,
+        const int&, const int&, const unsigned int&, ALLEGRO_DISPLAY*) {};
+};
+template <handler_scopes S, handler_events IDX>
+struct handlers<S, IDX, handler::mouse_display> {
+    inline static auto _handle = [](const int&, const int&,
+        const int&, const int&, ALLEGRO_DISPLAY*) {};
 };
 
 template <handler_scopes S, handler_events IDX>
-struct mouse_button {
-    inline static auto _handle = ([](const int&, const int&,
-        const int&, const int&, const unsigned int&, ALLEGRO_DISPLAY*){});
+struct handlers<S, IDX, handler::joystick_axis> {
+    inline static auto _handle = [](const int&, const int&,
+        const float&, ALLEGRO_JOYSTICK*) {};
+};
+template <handler_scopes S, handler_events IDX>
+struct handlers<S, IDX, handler::joystick_button> {
+    inline static auto _handle = [](const int&, ALLEGRO_JOYSTICK*) {};
 };
 
 template <handler_scopes S, handler_events IDX>
-struct mouse_display {
-    inline static auto _handle = ([](const int&, const int&,
-        const int&, const int&, ALLEGRO_DISPLAY*){});
+struct handlers<S, IDX, handler::touch> {
+    inline static auto _handle = [](const int&, const float&, const float&,
+        const float&, const float&, const bool&, ALLEGRO_DISPLAY*) {};
 };
-
-template <handler_scopes S, handler_events IDX>
-struct joystick_axis {
-    inline static auto _handle = ([](const int&, const int&,
-        const float&, ALLEGRO_JOYSTICK*){});
-};
-
-template <handler_scopes S, handler_events IDX>
-struct joystick_button {
-    inline static auto _handle = ([](const int&, ALLEGRO_JOYSTICK*){});
-};
-
-template <handler_scopes S, handler_events IDX>
-struct touch {
-    inline static auto _handle = ([](const int&, const float&, const float&,
-        const float&, const float&, const bool&, ALLEGRO_DISPLAY*){});
-};
-
-}
-
-namespace wte {
 
 /*!
  * \brief Used to add an input handle.
@@ -110,8 +137,8 @@ namespace wte {
  * \tparam T Handler type.
  * \param handle Input handler function expression.
  */
-template <handler_scopes S, handler_events IDX, class T, typename F>
-constexpr void add_handler(F&& handle) {
+template <handler_scopes S, handler_events IDX, typename T>
+constexpr void add_handler(const handler_types& handle) {
     static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
         "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
     static_assert(IDX < HANDLER_EVENT_MAX, "Invalid Handler Event Index");
@@ -123,42 +150,29 @@ constexpr void add_handler(F&& handle) {
         std::is_same_v<T, handler::joystick_button> ||
         std::is_same_v<T, handler::touch>,
         "Type must be a valid handler");
-    if constexpr (std::is_same_v<T, handler::key>) {
+    if constexpr (std::is_same_v<T, handler::key>)
         static_assert(IDX == EVENT_KEY_DOWN || IDX == EVENT_KEY_UP,
             "Event Index must be a Key Up or Down Event");
-        handler::key<S, IDX>_handle = handle;
-    }
-    else if constexpr (std::is_same_v<T, handler::mouse_axis>) {
+    else if constexpr (std::is_same_v<T, handler::mouse_axis>)
         static_assert(IDX == EVENT_MOUSE_AXIS || IDX == EVENT_MOUSE_WARPED,
             "Event Index must be a Mouse Axes or Warped Event");
-        handler::mouse_axis<S, IDX>_handle = handle;
-    }
-    else if constexpr (std::is_same_v<T, handler::mouse_button>) {
+    else if constexpr (std::is_same_v<T, handler::mouse_button>)
         static_assert(IDX == EVENT_MOUSE_BUTTON_DOWN || IDX == EVENT_MOUSE_BUTTON_UP,
             "Event Index must be a Mouse Button Up or Down Event");
-        handler::mouse_button<S, IDX>_handle = handle;
-    }
-    else if constexpr (std::is_same_v<T, handler::mouse_display>) {
+    else if constexpr (std::is_same_v<T, handler::mouse_display>)
         static_assert(IDX == EVENT_MOUSE_ENTER_DISPLAY || IDX == EVENT_MOUSE_LEAVE_DISPLAY,
             "Event Index must be a Mouse Enter or Leave Display Event");
-        handler::mouse_display<S, IDX>_handle = handle;
-    }
-    else if constexpr (std::is_same_v<T, handler::joystick_axis>) {
+    else if constexpr (std::is_same_v<T, handler::joystick_axis>)
         static_assert(IDX == EVENT_JOYSTICK_AXIS,
             "Event Index must be a Joystick Axes Event");
-        handler::joystick_axis<S, IDX>_handle = handle;
-    }
-    else if constexpr (std::is_same_v<T, handler::joystick_button>) {
+    else if constexpr (std::is_same_v<T, handler::joystick_button>)
         static_assert(IDX == EVENT_JOYSTICK_BUTTON_DOWN || IDX == EVENT_JOYSTICK_BUTTON_UP,
             "Event Index must be a Joystick Button Up or Down Event");
-        handler::joystick_button<S, IDX>_handle = handle;
-    }
-    else if constexpr (std::is_same_v<T, handler::touch>) {
+    else if constexpr (std::is_same_v<T, handler::touch>)
         static_assert(IDX == EVENT_TOUCH_BEGIN || IDX == EVENT_TOUCH_END ||
             IDX == EVENT_TOUCH_MOVE || IDX == EVENT_TOUCH_CANCEL,
             "Event Index must be a Touch Event");
-        handler::touch<S, IDX>_handle = handle;
-    } else static_assert(true, "add_handler used incorrectly.");
+    handlers<S, IDX, T>::_handle = handle;
 };
 
 }  //  end namespace wte

@@ -88,12 +88,12 @@ class input {
             //  Keyboard events
             if constexpr (build_options.keyboard_enabled) {
                 if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
-                    handlers<S, EVENT_KEY_DOWN, handler::key>::_handle(
+                    std::get<handler::key>(handlers<S, EVENT_KEY_DOWN, handler::key>::_handle)(
                         event.keyboard.keycode, event.keyboard.display);
                     return;
                 }
                 if(event.type == ALLEGRO_EVENT_KEY_UP) {
-                    handlers<S, EVENT_KEY_UP, handler::key>::_handle(
+                    std::get<handler::key>(handlers<S, EVENT_KEY_UP, handler::key>::_handle)(
                         event.keyboard.keycode, event.keyboard.display);
                     return;
                 }
@@ -102,40 +102,40 @@ class input {
             //  Mouse events
             if constexpr (build_options.mouse_enabled) {
                 if(event.type == ALLEGRO_EVENT_MOUSE_AXES) {
-                    handlers<S, EVENT_MOUSE_AXIS, handler::mouse_axis>::_handle(
+                    std::get<handler::mouse_axis>(handlers<S, EVENT_MOUSE_AXIS, handler::mouse_axis>::_handle)(
                         event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                         event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
                         event.mouse.pressure, event.mouse.display);
                     return;
                 }
                 if(event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
-                    handlers<S, EVENT_MOUSE_BUTTON_DOWN, handler::mouse_button>::_handle(
+                    std::get<handler::mouse_button>(handlers<S, EVENT_MOUSE_BUTTON_DOWN, handler::mouse_button>::_handle)(
                         event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                         event.mouse.button, event.mouse.display);
                     return;
                 }
                 if(event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-                    handlers<S, EVENT_MOUSE_BUTTON_UP, handler::mouse_button>::_handle(
+                    std::get<handler::mouse_button>(handlers<S, EVENT_MOUSE_BUTTON_UP, handler::mouse_button>::_handle)(
                         event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                         event.mouse.button, event.mouse.display);
                     return;
                 }
                 if(event.type == ALLEGRO_EVENT_MOUSE_WARPED) {
-                    handlers<S, EVENT_MOUSE_WARPED, handler::mouse_axis>::_handle(
+                    std::get<handler::mouse_axis>(handlers<S, EVENT_MOUSE_WARPED, handler::mouse_axis>::_handle)(
                         event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                         event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
                         event.mouse.pressure, event.mouse.display);
                     return;
                 }
                 if(event.type == ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY) {
-                    handlers<S, EVENT_MOUSE_ENTER_DISPLAY, handler::mouse_axis>::_handle(
+                    std::get<handler::mouse_axis>(handlers<S, EVENT_MOUSE_ENTER_DISPLAY, handler::mouse_axis>::_handle)(
                         event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                         event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
                         event.mouse.pressure, event.mouse.display);
                     return;
                 }
                 if(event.type == ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY) {
-                    handlers<S, EVENT_MOUSE_LEAVE_DISPLAY, handler::mouse_axis>::_handle(
+                    std::get<handler::mouse_axis>(handlers<S, EVENT_MOUSE_LEAVE_DISPLAY, handler::mouse_axis>::_handle)(
                         event.mouse.x, event.mouse.y, event.mouse.z, event.mouse.w,
                         event.mouse.dx, event.mouse.dy, event.mouse.dz, event.mouse.dw,
                         event.mouse.pressure, event.mouse.display);
@@ -146,17 +146,17 @@ class input {
             //  Joystick events
             if constexpr (build_options.joystick_enabled) {
                 if(event.type == ALLEGRO_EVENT_JOYSTICK_AXIS) {
-                    handlers<S, EVENT_JOYSTICK_AXIS, handler::joystick_axis>::_handle(
+                    std::get<handler::joystick_axis>(handlers<S, EVENT_JOYSTICK_AXIS, handler::joystick_axis>::_handle)(
                         event.joystick.stick, event.joystick.axis, event.joystick.pos, event.joystick.id);
                     return;
                 }
                 if(event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN) {
-                    handlers<S, EVENT_JOYSTICK_BUTTON_DOWN, handler::joystick_button>::_handle(
+                    std::get<handler::joystick_button>(handlers<S, EVENT_JOYSTICK_BUTTON_DOWN, handler::joystick_button>::_handle)(
                         event.joystick.button, event.joystick.id);
                     return;
                 }
                 if(event.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_UP) {
-                    handlers<S, EVENT_JOYSTICK_BUTTON_UP, handler::joystick_button>::_handle(
+                    std::get<handler::joystick_button>(handlers<S, EVENT_JOYSTICK_BUTTON_UP, handler::joystick_button>::_handle)(
                         event.joystick.button, event.joystick.id);
                     return;
                 }
@@ -165,22 +165,22 @@ class input {
             //  Touch events
             if constexpr (build_options.touch_enabled) {
                 if(event.type == ALLEGRO_EVENT_TOUCH_BEGIN) {
-                    handlers<S, EVENT_TOUCH_BEGIN, handler::touch>::_handle(
+                    std::get<handler::touch>(handlers<S, EVENT_TOUCH_BEGIN, handler::touch>::_handle)(
                         event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                     return;
                 }
                 if(event.type == ALLEGRO_EVENT_TOUCH_END) {
-                    handlers<S, EVENT_TOUCH_END, handler::touch>::_handle(
+                    std::get<handler::touch>(handlers<S, EVENT_TOUCH_END, handler::touch>::_handle)(
                         event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                     return;
                 }
                 if(event.type == ALLEGRO_EVENT_TOUCH_MOVE) {
-                    handlers<S, EVENT_TOUCH_MOVE, handler::touch>::_handle(
+                    std::get<handler::touch>(handlers<S, EVENT_TOUCH_MOVE, handler::touch>::_handle)(
                         event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                     return;
                 }
                 if(event.type == ALLEGRO_EVENT_TOUCH_CANCEL) {
-                    handlers<S, EVENT_TOUCH_CANCEL, handler::touch>::_handle(
+                    std::get<handler::touch>(handlers<S, EVENT_TOUCH_CANCEL, handler::touch>::_handle)(
                         event.touch.id, event.touch.x, event.touch.y, event.touch.dx, event.touch.dy, event.touch.primary, event.touch.display);
                     return;
                 }

@@ -97,38 +97,38 @@ struct handlers {};
 
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::key> {
-    inline static auto _handle = [](const int&, ALLEGRO_DISPLAY*) {};
+    inline static handler_types _handle;
 };
 
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::mouse_axis> {
-    inline static auto _handle = [](const int&, const int&, const int&, const int&,
+    inline static handler_types _handle = [](const int&, const int&, const int&, const int&,
         const int&, const int&, const int&, const int&, const float&, ALLEGRO_DISPLAY*) {};
 };
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::mouse_button> {
-    inline static auto _handle = [](const int&, const int&,
+    inline static handler_types _handle = [](const int&, const int&,
         const int&, const int&, const unsigned int&, ALLEGRO_DISPLAY*) {};
 };
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::mouse_display> {
-    inline static auto _handle = [](const int&, const int&,
+    inline static handler_types _handle = [](const int&, const int&,
         const int&, const int&, ALLEGRO_DISPLAY*) {};
 };
 
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::joystick_axis> {
-    inline static auto _handle = [](const int&, const int&,
+    inline static handler_types _handle = [](const int&, const int&,
         const float&, ALLEGRO_JOYSTICK*) {};
 };
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::joystick_button> {
-    inline static auto _handle = [](const int&, ALLEGRO_JOYSTICK*) {};
+    inline static handler_types _handle = [](const int&, ALLEGRO_JOYSTICK*) {};
 };
 
 template <handler_scopes S, handler_events IDX>
 struct handlers<S, IDX, handler::touch> {
-    inline static auto _handle = [](const int&, const float&, const float&,
+    inline static handler_types _handle = [](const int&, const float&, const float&,
         const float&, const float&, const bool&, ALLEGRO_DISPLAY*) {};
 };
 

@@ -28,6 +28,14 @@ set(CMAKE_CXX_FLAGS "-Wall")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
+option(WTE_REQUIRE_OPENGL_LATEST, "Require OpenGL 2.0" ON)
+option(WTE_BUILD_DEBUG, "Build engine debug mode" OFF)
+option(WTE_ENABLE_MAGIC_PINK, "Enable using magic pink transparency" OFF)
+option(WTE_DISABLE_KEYBOARD, "" OFF)
+option(WTE_DISABLE_MOUSE, "" OFF)
+option(WTE_DISABLE_JOYSTICK, "" OFF)
+option(WTE_DISABLE_TOUCH, "" OFF)
+
 #  Set build variables
 #list(APPEND WTE_BUILD_LIST "-DWTE_REQUIRE_OPENGL_LATEST")
 #list(APPEND WTE_BUILD_LIST "-DWTE_BUILD_DEBUG")

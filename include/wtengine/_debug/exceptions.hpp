@@ -15,14 +15,11 @@
 #include <fstream>
 #include <exception>
 
+#include "wtengine/_debug/logger.hpp"
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/engine_time.hpp"
 
 namespace wte {
-
-const bool logger_add(
-    const std::string& d, const std::string& l,
-    const uint& c, const int64_t& t);
 
 /*!
  * \class exception_item

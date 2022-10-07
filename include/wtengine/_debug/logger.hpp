@@ -22,7 +22,6 @@
 #include <mutex>
 #include <chrono>
 
-#include "wtengine/_debug/exceptions.hpp"
 #include "wtengine/_globals/engine_time.hpp"
 
 namespace wte {
@@ -70,6 +69,18 @@ class logger final {
         static const bool& is_running;  //!<  Flag to see if the logger is running.
 };
 
+inline const bool logger_add(
+    const std::string& d, const std::string& l,
+    const uint& c, const int64_t& t)
+{
+    try {
+        logger::add(d, l, c, t);
+    } catch (const std::exception& e) { 
+        return false;
+    }
+    return true;
+}
+
 #else  // not WTE_DEBUG_MODE
 
 /*!
@@ -100,22 +111,14 @@ class logger final {
         static const bool is_running = false;
 };
 
-#endif  //  WTE_DEBUG_MODE
-
 inline const bool logger_add(
     const std::string& d, const std::string& l,
     const uint& c, const int64_t& t)
 {
-    if constexpr (build_options.debug_mode) {
-        try {
-            logger::add(d, l, c, t);
-        } catch (const std::exception& e) { 
-            throw e;
-            return false;
-        }
-        return true;
-    } else return false;
+    return false;
 }
+
+#endif  //  WTE_DEBUG_MODE
 
 }  //  end namespace wte
 

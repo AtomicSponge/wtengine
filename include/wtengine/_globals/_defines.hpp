@@ -64,6 +64,30 @@
 #define WTE_USE_MAGIC_PINK FALSE
 #endif
 
+#ifdef WTE_DISABLE_KEYBOARD
+#define WTE_USE_KEYBOARD FALSE
+#else
+#define WTE_USE_KEYBOARD TRUE
+#endif
+
+#ifdef WTE_DISABLE_MOUSE
+#define WTE_USE_MOUSE FALSE
+#else
+#define WTE_USE_MOUSE TRUE
+#endif
+
+#ifdef WTE_DISABLE_JOYSTICK
+#define WTE_USE_JOYSTICK FALSE
+#else
+#define WTE_USE_JOYSTICK TRUE
+#endif
+
+#ifdef WTE_DISABLE_TOUCH
+#define WTE_USE_TOUCH FALSE
+#else
+#define WTE_USE_TOUCH TRUE
+#endif
+
 namespace wte {
 
 /*!
@@ -78,10 +102,10 @@ struct wte_build_options {
     inline constexpr static bool use_magic_pink = static_cast<bool>(WTE_USE_MAGIC_PINK);
 
     //  Input options
-    inline constexpr static bool keyboard_enabled = static_cast<bool>(true);
-    inline constexpr static bool mouse_enabled = static_cast<bool>(true);
-    inline constexpr static bool joystick_enabled = static_cast<bool>(true);
-    inline constexpr static bool touch_enabled = static_cast<bool>(true);
+    inline constexpr static bool keyboard_enabled = static_cast<bool>(WTE_USE_KEYBOARD);
+    inline constexpr static bool mouse_enabled = static_cast<bool>(WTE_USE_MOUSE);
+    inline constexpr static bool joystick_enabled = static_cast<bool>(WTE_USE_JOYSTICK);
+    inline constexpr static bool touch_enabled = static_cast<bool>(WTE_USE_TOUCH);
 };
 inline constexpr wte_build_options build_options;
 

@@ -23,6 +23,7 @@ logger::logger() {
         std::ostringstream date_stream;
         date_stream << std::put_time(std::localtime(&t), "%d-%m-%Y_%H-%M-%S");
         std::string date = date_stream.str();
+        std::cout << "Logging exceptions to:  exception_log_" + date + ".log.csv";
         log_file.open("exception_log_" + date + ".log.csv", std::ios::out | std::ios::trunc);
         log_file << "New log:  " + date + "\n";
         log_file << "Description, Location, Time, Code\n\n";

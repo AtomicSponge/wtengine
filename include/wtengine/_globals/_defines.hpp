@@ -64,24 +64,36 @@
 #define WTE_USE_MAGIC_PINK FALSE
 #endif
 
+/*!
+ * Toggle keyboard building
+ */
 #ifdef WTE_DISABLE_KEYBOARD
 #define WTE_USE_KEYBOARD FALSE
 #else
 #define WTE_USE_KEYBOARD TRUE
 #endif
 
+/*!
+ * Toggle mouse building
+ */
 #ifdef WTE_DISABLE_MOUSE
 #define WTE_USE_MOUSE FALSE
 #else
 #define WTE_USE_MOUSE TRUE
 #endif
 
+/*!
+ * Toggle joystick building
+ */
 #ifdef WTE_DISABLE_JOYSTICK
 #define WTE_USE_JOYSTICK FALSE
 #else
 #define WTE_USE_JOYSTICK TRUE
 #endif
 
+/*!
+ * Toggle touch building
+ */
 #ifdef WTE_DISABLE_TOUCH
 #define WTE_USE_TOUCH FALSE
 #else

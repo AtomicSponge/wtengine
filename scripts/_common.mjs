@@ -296,14 +296,14 @@ wtf.asyncForEach = asyncForEach
 
     if(log && files.LOG_FILE !== '') writeLog(`Running command:  ${cmd}\n`)
 
-    const proc = exec(cmd, opts)
     return await new Promise ((resolve, reject) => {
-        proc.once('exit', (code) => {
-            if(code === 0) resolve(true)
-            else resolve(false)
-        })
-        proc.once('error', (error) => {
-            reject(false)
+        const proc = exec(cmd, opts, (error, stdout, stderr) => {
+            if(log && files.LOG_FILE !== '') {
+                if(stdout != ``) writeLog(`Output:  ${stdout}`)
+                if(stderr != ``) writeLog(`Output:  ${stderr}`)
+            }
+            if(error) resolve(false)
+            resolve(true)
         })
     })
 }

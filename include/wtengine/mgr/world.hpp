@@ -178,17 +178,17 @@ class world final : private manager<world> {
             if(!entity_exists(e_id)) return false;
 
             //  Check derived types of existing components, make sure one does not already exist.
-            entity_mtx.lock();
+            //entity_mtx.lock();
             const auto check_entity = get_entity(e_id);
-            entity_mtx.unlock();
+            //entity_mtx.unlock();
 
             for(auto& it: check_entity) {
                 if(typeid(*it).name() == typeid(T).name()) return false;
             }
 
-            world_mtx.lock();
+            //world_mtx.lock();
             _world.insert(std::make_pair(e_id, std::make_shared<T>(args...)));
-            world_mtx.unlock();
+            //world_mtx.unlock();
             return true;
         };
 
@@ -201,15 +201,15 @@ class world final : private manager<world> {
          */
         template <typename T>
         inline static const bool delete_component(const entity_id& e_id) {
-            world_mtx.lock();
+            //world_mtx.lock();
             auto results = _world.equal_range(e_id);
-            world_mtx.unlock();
+            //world_mtx.unlock();
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second)) {
-                    world_mtx.lock();
+                    //world_mtx.lock();
                     it = _world.erase(it);
-                    world_mtx.unlock();
+                    //world_mtx.unlock();
                     return true;
                 }
             }
@@ -225,9 +225,9 @@ class world final : private manager<world> {
          */
         template <typename T>
         inline static const bool has_component(const entity_id& e_id) {
-            world_mtx.lock();
+            //world_mtx.lock();
             const auto results = _world.equal_range(e_id);
-            world_mtx.unlock();
+            //world_mtx.unlock();
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second)) return true;
@@ -244,9 +244,9 @@ class world final : private manager<world> {
          */
         template <typename T>
         inline static const std::shared_ptr<T> set_component(const entity_id& e_id) {
-            world_mtx.lock();
+            //world_mtx.lock();
             const auto results = _world.equal_range(e_id);
-            world_mtx.unlock();
+            //world_mtx.unlock();
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second))
@@ -266,9 +266,9 @@ class world final : private manager<world> {
          */
         template <typename T>
         inline static const std::shared_ptr<const T> get_component(const entity_id& e_id) {
-            world_mtx.lock();
+            //world_mtx.lock();
             const auto results = _world.equal_range(e_id);
-            world_mtx.unlock();
+            //world_mtx.unlock();
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second))
@@ -287,12 +287,12 @@ class world final : private manager<world> {
         inline static const component_container<T> set_components(void) {
             component_container<T> temp_components;
 
-            world_mtx.lock();
+            //world_mtx.lock();
             for(auto& it: _world) {
                 if(std::dynamic_pointer_cast<T>(it.second))
                     temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
             }
-            world_mtx.unlock();
+            //world_mtx.unlock();
             return temp_components;
         };
 
@@ -305,12 +305,12 @@ class world final : private manager<world> {
         inline static const const_component_container<T> get_components(void) {
             const_component_container<T> temp_components;
 
-            world_mtx.lock();
+            //world_mtx.lock();
             for(auto& it: _world) {
                 if(std::dynamic_pointer_cast<T>(it.second))
                     temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
             }
-            world_mtx.unlock();
+            //world_mtx.unlock();
             return temp_components;
         };
 

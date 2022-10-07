@@ -28,6 +28,15 @@ set(CMAKE_CXX_FLAGS "-Wall")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
+#  Set build variables
+#list(APPEND WTE_BUILD_LIST "-DWTE_REQUIRE_OPENGL_LATEST")
+#list(APPEND WTE_BUILD_LIST "-DWTE_BUILD_DEBUG")
+list(APPEND WTE_BUILD_LIST "-DWTE_ENABLE_MAGIC_PINK")
+#list(APPEND WTE_BUILD_LIST "-DWTE_DISABLE_KEYBOARD")
+#list(APPEND WTE_BUILD_LIST "-DWTE_DISABLE_MOUSE")
+#list(APPEND WTE_BUILD_LIST "-DWTE_DISABLE_JOYSTICK")
+#list(APPEND WTE_BUILD_LIST "-DWTE_DISABLE_TOUCH")
+
 ########################################
 #
 #  Library Detection
@@ -103,7 +112,7 @@ target_include_directories(wtengine PRIVATE include ${OPENGL_INCLUDE_DIRS}  ${GL
 target_link_libraries(wtengine PRIVATE ${ALLEGRO_LIBRARIES} ${OPENGL_LIBRARIES} ${GLUT_LIBRARY})
 
 #  Set complie options
-target_compile_options(wtengine PRIVATE "-DWTE_ENABLE_MAGIC_PINK")
+target_compile_options(wtengine PRIVATE ${WTE_BUILD_LIST})
 
 #  Set the build target
 set_target_properties(wtengine PROPERTIES

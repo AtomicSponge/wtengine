@@ -20,7 +20,6 @@
 #include <sstream>
 #include <ctime>
 #include <cmath>
-#include <stdexcept>
 
 #include <allegro5/allegro.h>
 

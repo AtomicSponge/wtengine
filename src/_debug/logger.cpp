@@ -19,14 +19,15 @@ namespace wte {
 logger::logger() {
     // create new log file
     try {
-        std::time_t t std::time(nullptr);
-        std::tm tm = *std::localtime(&t);
-        log_file.open("exception_log_" +
-            std::put_time(&tm, "%d-%m-%Y_%H-%M-%S") + ".log.csv", std::ios::out | std::ios::trunc);
-        log_file << "New log:  " + std::put_time(&tm, "%d-%m-%Y_%H-%M-%S") + "\n";
-        log_file << "Description, Location, Time, Code\n\n"
+        std::time_t t = std::time(nullptr);
+        std::ostringstream date_stream;
+        date_stream << std::put_time(std::localtime(&t), "%d-%m-%Y_%H-%M-%S");
+        std::string date = date_stream.str();
+        log_file.open("exception_log_" + date + ".log.csv", std::ios::out | std::ios::trunc);
+        log_file << "New log:  " + date + "\n";
+        log_file << "Description, Location, Time, Code\n\n";
 
-    } catch {
+    } catch(const std::exception& e) {
         throw engine_error("Error creating log file!");
     }
 }
@@ -48,7 +49,7 @@ const bool logger::start(void) {
         future_obj = exit_signal.get_future();
         std::thread th([&]() { run(); });
         th.detach();
-    } catch {
+    } catch(const std::exception& e) {
         throw engine_error("Unable to start logger!");
     }
     return _is_running = true;
@@ -99,7 +100,7 @@ const bool logger::add(
         log_mtx.lock();
         _error_queue.push(std::make_tuple(d, l, c, t));
         log_mtx.unlock();
-    } catch {
+    } catch(const std::exception& e) {
         throw engine_exception("Issue adding exception to log queue!", "Logger", 2);
         return false;
     }

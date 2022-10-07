@@ -102,6 +102,9 @@ target_include_directories(wtengine PRIVATE include ${OPENGL_INCLUDE_DIRS}  ${GL
 #  Link libraries
 target_link_libraries(wtengine PRIVATE ${ALLEGRO_LIBRARIES} ${OPENGL_LIBRARIES} ${GLUT_LIBRARY})
 
+#  Set complie options
+target_compile_options(wtengine PRIVATE "-DWTE_ENABLE_MAGIC_PINK")
+
 #  Set the build target
 set_target_properties(wtengine PROPERTIES
     VERSION ${PROJECT_VERSION}

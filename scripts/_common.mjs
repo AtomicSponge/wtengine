@@ -294,11 +294,11 @@ wtf.asyncForEach = asyncForEach
     opts.timeout = opts.timeout || 0
     log = log || true
 
-    if(log && files.LOG_FILE !== '') writeLog(`Running command:  ${cmd}\n`)
+    if(log) writeLog(`Running command:  ${cmd}\n`)
 
     return await new Promise ((resolve, reject) => {
         const proc = exec(cmd, opts, (error, stdout, stderr) => {
-            if(log && files.LOG_FILE !== '') {
+            if(log) {
                 if(stdout != ``) writeLog(`Output:  ${stdout}\n`)
                 if(stderr != ``) writeLog(`Output:  ${stderr}\n`)
             }
@@ -318,12 +318,12 @@ wtf.runCommand = runCommand
     log = log || false
     return new Promise((resolve, reject) => {
         proc.once('exit', (code) => {
-            if(log && files.LOG_FILE !== '') writeLog(`Return code:  ${code}\n`)
+            if(log) writeLog(`Return code:  ${code}\n`)
             if(code === 0) resolve(true)
             else resolve(false)
         })
         proc.once('error', (error) => {
-            if(log && files.LOG_FILE !== '') writeLog(`Error:  ${error}\n`)
+            if(log) writeLog(`Error:  ${error}\n`)
             reject(error)
         })
     })

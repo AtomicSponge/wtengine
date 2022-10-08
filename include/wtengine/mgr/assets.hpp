@@ -25,11 +25,6 @@
 #include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
 
-namespace wte {
-    class display;
-    //class al_bitmap_converter;
-}
-
 namespace wte::mgr {
 
 /*!

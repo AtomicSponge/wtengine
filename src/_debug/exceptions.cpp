@@ -81,8 +81,7 @@ engine_exception::~engine_exception() {
     std::cout << item.description << std::endl;
     std::cout << "CODE:  ";
     std::cout << item.code;
-    std::cout << "\t";
-    std::cout << "AT:  ";
+    std::cout << "\tAT:  ";
     std::cout << item.time << std::endl;
 }
 

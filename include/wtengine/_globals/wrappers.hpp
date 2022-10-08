@@ -26,6 +26,10 @@ namespace wte {
  * \brief Provides a wrapper to Allegro bitmaps.
  */
 class al_bitmap final {
+    private:
+        ALLEGRO_BITMAP* _al_bitmap;  //  Internal Allegro bitmap.
+        bool nopreserve;             //  Preservation flag.
+
     public:
         /*!
          * \brief Creates a null bitmap that preserves its data.
@@ -108,10 +112,6 @@ class al_bitmap final {
          * \return Bitmap height.
          */
         const int get_height(void) const;
-
-    private:
-        ALLEGRO_BITMAP* _al_bitmap;  //  Internal Allegro bitmap.
-        bool nopreserve;             //  Preservation flag.
 };
 
 /*!
@@ -119,6 +119,9 @@ class al_bitmap final {
  * \brief Provides a wrapper to Allegro fonts.
  */
 class al_font final {
+    private:
+        ALLEGRO_FONT* _al_font;
+
     public:
         /*!
          * \brief Create a font asset using Allegro's default font.
@@ -144,9 +147,6 @@ class al_font final {
          * \return Pointer to font asset.
          */
         ALLEGRO_FONT* operator*() { return _al_font; };
-
-    private:
-        ALLEGRO_FONT* _al_font;
 };
 
 /*!
@@ -154,6 +154,9 @@ class al_font final {
  * \brief Provides a wrapper to Allegro samples.
  */
 class al_sample final {
+    private:
+        ALLEGRO_SAMPLE* _al_sample;
+
     public:
         /*!
          * \brief Load a sample asset.
@@ -169,9 +172,6 @@ class al_sample final {
          * \return Pointer to sample asset.
          */
         ALLEGRO_SAMPLE* operator*() { return _al_sample; };
-
-    private:
-        ALLEGRO_SAMPLE* _al_sample;
 };
 
 /*!
@@ -179,6 +179,9 @@ class al_sample final {
  * \brief Provides a wrapper to Allegro audio streams.
  */
 class al_audio final {
+    private:
+        ALLEGRO_AUDIO_STREAM* _al_audio;
+
     public:
         /*!
          * \brief Load an audio asset.
@@ -224,9 +227,6 @@ class al_audio final {
          * \return True if being played, else false.
          */
         const bool is_playing(void) const;
-
-    private:
-        ALLEGRO_AUDIO_STREAM* _al_audio;
 };
 
 }  //  end namespace wte

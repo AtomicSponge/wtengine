@@ -1,7 +1,0 @@
-/home/matthew/Projects/wtfsystems/wtengine/wte-build/CMakeFiles/wtengine.dir
-/home/matthew/Projects/wtfsystems/wtengine/wte-build/CMakeFiles/edit_cache.dir
-/home/matthew/Projects/wtfsystems/wtengine/wte-build/CMakeFiles/rebuild_cache.dir
-/home/matthew/Projects/wtfsystems/wtengine/wte-build/CMakeFiles/list_install_components.dir
-/home/matthew/Projects/wtfsystems/wtengine/wte-build/CMakeFiles/install.dir
-/home/matthew/Projects/wtfsystems/wtengine/wte-build/CMakeFiles/install/local.dir
-/home/matthew/Projects/wtfsystems/wtengine/wte-build/CMakeFiles/install/strip.dir

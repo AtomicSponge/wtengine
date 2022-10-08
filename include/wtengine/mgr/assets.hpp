@@ -39,9 +39,6 @@ namespace wte::mgr {
  */
 template <typename... Types>
 class assets final : private manager<assets<>> {
-    friend class wte::display;
-    //friend class wte::al_bitmap_converter;
-
     public:
         /*!
          * \brief Load an existing asset.

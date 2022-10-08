@@ -112,7 +112,6 @@ class al_bitmap final {
     private:
         ALLEGRO_BITMAP* _al_bitmap;  //  Internal Allegro bitmap.
         bool nopreserve;             //  Preservation flag.
-        constexpr static bool use_magic_pink = build_options.use_magic_pink;
 };
 
 /*!

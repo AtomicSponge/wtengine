@@ -56,15 +56,6 @@
 #endif
 
 /*!
- * Enable magic pink for transparency if WTE_NO_MAGIC_PINK is not defined.
- */
-#ifdef WTE_ENABLE_MAGIC_PINK
-#define WTE_USE_MAGIC_PINK TRUE
-#else
-#define WTE_USE_MAGIC_PINK FALSE
-#endif
-
-/*!
  * Toggle keyboard building
  */
 #ifdef WTE_DISABLE_KEYBOARD
@@ -111,7 +102,6 @@ struct wte_build_options {
     inline constexpr static float ticks_per_sec = static_cast<float>(WTE_TICKS_PER_SECOND);
     inline constexpr static bool debug_mode = static_cast<bool>(WTE_DEBUG_MODE);
     inline constexpr static int max_playing_samples = static_cast<int>(WTE_MAX_PLAYING_SAMPLES);
-    inline constexpr static bool use_magic_pink = static_cast<bool>(WTE_USE_MAGIC_PINK);
 
     //  Input options
     inline constexpr static bool keyboard_enabled = static_cast<bool>(WTE_USE_KEYBOARD);
@@ -124,7 +114,6 @@ inline constexpr wte_build_options build_options;
 }
 
 //  Define some colors for use in the engine.
-#define WTE_MAGIC_PINK          (al_map_rgb(255,0,255))
 #define WTE_COLOR_BLACK         (al_map_rgb(0,0,0))
 #define WTE_COLOR_RED           (al_map_rgb(255,0,0))
 #define WTE_COLOR_GREEN         (al_map_rgb(0,255,0))

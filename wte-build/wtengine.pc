@@ -1,0 +1,12 @@
+prefix=/usr/local
+exec_prefix=/usr/local
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: wtengine
+Description: WTEngine Game Engine
+Version: 0.7.3
+
+Requires:
+Libs: -L${libdir} -lwtengine
+Cflags: -I${includedir}

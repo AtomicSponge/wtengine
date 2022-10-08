@@ -63,10 +63,7 @@ const workers = {
         if(args.debugMode) process.stdout.write(`\nStarting engine debug build... `)
         else process.stdout.write(`\nStarting engine build... `)
 
-        let runCmd = `${settings.CMAKE_LOCATION} --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=__SET_DEBUG__ -S${wtf.constants.ENGINE_ROOT_LOCATION} -B___SET_PATH___`
-
-        if(args.debugMode) runCmd = runCmd.replace(`__SET_DEBUG__`, `Debug`)
-        else runCmd = runCmd.replace(`__SET_DEBUG__`, `Release`)
+        let runCmd = `${settings.CMAKE_LOCATION} --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -S${wtf.constants.ENGINE_ROOT_LOCATION} -B___SET_PATH___`
 
         if(args.debugMode) runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_DEBUG_LOCATION)
         else runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_LOCATION)
@@ -74,10 +71,7 @@ const workers = {
         if(!await wtf.runCommand(runCmd, { cwd: `${wtf.constants.ENGINE_ROOT_LOCATION}` }))
             wtf.scriptError(`Build command failed!`)
 
-        runCmd = `${settings.CMAKE_LOCATION} --build ___SET_PATH___ --config __SET_DEBUG__ --target all --`
-
-        if(args.debugMode) runCmd = runCmd.replace(`__SET_DEBUG__`, `Debug`)
-        else runCmd = runCmd.replace(`__SET_DEBUG__`, `Release`)
+        runCmd = `${settings.CMAKE_LOCATION} --build ___SET_PATH___ --config Release --target all --`
 
         if(args.debugMode) runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_DEBUG_LOCATION)
         else runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_LOCATION)

@@ -60,6 +60,9 @@ const workers = {
      * 
      */
     buildEngine: async () => {
+        if(args.debugMode) process.stdout.write(`\nStarting engine debug build... `)
+        else process.stdout.write(`\nStarting engine build... `)
+
         let runCmd = `${settings.CMAKE_LOCATION} --no-warn-unused-cli DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=__SET_DEBUG__ -DCMAKE_C_COMPILER:FILEPATH=/usr/bin/gcc -DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/g++ -S${wtf.constants.ENGINE_ROOT_LOCATION} -B___SET_PATH___`
 
         if(args.debugMode) runCmd = runCmd.replace(`__SET_DEBUG__`, `Debug`)
@@ -68,8 +71,17 @@ const workers = {
         if(args.debugMode) runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_DEBUG_LOCATION)
         else runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_LOCATION)
 
-        if(args.debugMode) process.stdout.write(`\nStarting engine debug build... `)
-        else process.stdout.write(`\nStarting engine build... `)
+        if(!await wtf.runCommand(runCmd, { cwd: `${wtf.constants.ENGINE_ROOT_LOCATION}` }))
+            wtf.scriptError(`Build command failed!`)
+        process.stdout.write(`${wtf.colors.GREEN}Done!${wtf.colors.CLEAR}\n`)
+
+        runCmd = `${settings.CMAKE_LOCATION} --build ___SET_PATH___ --config __SET_DEBUG__ --target all --`
+
+        if(args.debugMode) runCmd = runCmd.replace(`__SET_DEBUG__`, `Debug`)
+        else runCmd = runCmd.replace(`__SET_DEBUG__`, `Release`)
+
+        if(args.debugMode) runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_DEBUG_LOCATION)
+        else runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_LOCATION)
 
         if(!await wtf.runCommand(runCmd, { cwd: `${wtf.constants.ENGINE_ROOT_LOCATION}` }))
             wtf.scriptError(`Build command failed!`)

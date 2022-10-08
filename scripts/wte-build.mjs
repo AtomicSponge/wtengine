@@ -60,10 +60,13 @@ const workers = {
      * 
      */
     buildEngine: async () => {
-        let runCmd = `${settings.CMAKE_LOCATION} --no-warn-unused-cli DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_C_COMPILER:FILEPATH=/usr/bin/gcc -DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/g++ -S${wtf.constants.ENGINE_ROOT_LOCATION} -B${wtf.paths.ENGINE_BUILD_LOCATION}`
+        let runCmd = `${settings.CMAKE_LOCATION} --no-warn-unused-cli DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=__SET_DEBUG__ -DCMAKE_C_COMPILER:FILEPATH=/usr/bin/gcc -DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/g++ -S${wtf.constants.ENGINE_ROOT_LOCATION} -B___SET_PATH___`
 
-        //if(args.debugMode) runCmd = runCmd.replace(`__CHANGE__`, `Debug`)
-        //else runCmd = runCmd.replace(`__CHANGE__`, `Release`)
+        if(args.debugMode) runCmd = runCmd.replace(`__SET_DEBUG__`, `Debug`)
+        else runCmd = runCmd.replace(`__SET_DEBUG__`, `Release`)
+
+        if(args.debugMode) runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_DEBUG_LOCATION)
+        else runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_LOCATION)
 
         if(args.debugMode) process.stdout.write(`\nStarting engine debug build... `)
         else process.stdout.write(`\nStarting engine build... `)

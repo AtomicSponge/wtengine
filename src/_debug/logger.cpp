@@ -18,19 +18,14 @@ namespace wte {
  */
 logger::logger() {
     // create new log file
-    try {
-        std::time_t t = std::time(nullptr);
-        std::ostringstream date_stream;
-        date_stream << std::put_time(std::localtime(&t), "%d-%m-%Y_%H-%M-%S");
-        std::string date = date_stream.str();
-        std::cout << "Logging exceptions to:  exception_log_" + date + ".log.csv";
-        log_file.open("exception_log_" + date + ".log.csv", std::ios::out | std::ios::trunc);
-        log_file << "New log:  " + date + "\n";
-        log_file << "Description, Location, Time, Code\n\n";
-
-    } catch(const std::exception& e) {
-        throw engine_error("Error creating log file!");
-    }
+    std::time_t t = std::time(nullptr);
+    std::ostringstream date_stream;
+    date_stream << std::put_time(std::localtime(&t), "%d-%m-%Y_%H-%M-%S");
+    std::string date = date_stream.str();
+    std::cout << "Logging exceptions to:  exception_log_" + date + ".log.csv";
+    log_file.open("exception_log_" + date + ".log.csv", std::ios::out | std::ios::trunc);
+    log_file << "New log:  " + date + "\n";
+    log_file << "Description, Location, Time, Code\n\n";
 }
 
 /*
@@ -46,13 +41,9 @@ logger::~logger() {
  */
 const bool logger::start(void) {
     if(_is_running == true) return false;
-    try {
-        future_obj = exit_signal.get_future();
-        std::thread th([&]() { run(); });
-        th.detach();
-    } catch(const std::exception& e) {
-        throw engine_error("Unable to start logger!");
-    }
+    future_obj = exit_signal.get_future();
+    std::thread th([&]() { run(); });
+    th.detach();
     return _is_running = true;
 }
 
@@ -93,19 +84,13 @@ void logger::stop(void) {
 /*
  *
  */
-const bool logger::add(
+const void logger::add(
     const std::string& d, const std::string& l,
     const uint& c, const int64_t& t)
 {
-    try {
-        log_mtx.lock();
-        _error_queue.push(std::make_tuple(d, l, c, t));
-        log_mtx.unlock();
-    } catch(const std::exception& e) {
-        throw engine_exception("Issue adding exception to log queue!", "Logger", 2);
-        return false;
-    }
-    return true;
+    log_mtx.lock();
+    _error_queue.push(std::make_tuple(d, l, c, t));
+    log_mtx.unlock();
 }
 
 #else  // not WTE_DEBUG_MODE
@@ -128,9 +113,9 @@ void logger::stop(void) {}
 /*
  *
  */
-const bool logger::add(
+const void logger::add(
     const std::string& d, const std::string& l,
-    const uint& c, const int64_t& t) { return false; }
+    const uint& c, const int64_t& t) {}
 
 #endif  //  WTE_DEBUG_MODE
 

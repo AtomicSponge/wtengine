@@ -62,7 +62,7 @@ class logger final {
         logger(const logger&) = delete;          //!<  Delete copy constructor.
         void operator=(logger const&) = delete;  //!<  Delete assignment operator.
 
-        static const bool add(
+        static const void add(
             const std::string& d, const std::string& l,
             const uint& c, const int64_t& t);
 
@@ -104,7 +104,7 @@ class logger final {
         logger(const logger&) = delete;          //!<  Delete copy constructor.
         void operator=(logger const&) = delete;  //!<  Delete assignment operator.
 
-        static const bool add(
+        static const void add(
             const std::string& d, const std::string& l,
             const uint& c, const int64_t& t);
 

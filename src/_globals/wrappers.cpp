@@ -14,12 +14,7 @@ namespace wte {
 /*
  *
  */
-al_bitmap::al_bitmap() : _al_bitmap(NULL), nopreserve(false) {}
-
-/*
- *
- */
-al_bitmap::al_bitmap(const bool& p) : _al_bitmap(NULL), nopreserve(p) {}
+al_bitmap::al_bitmap() : _al_bitmap(NULL) {}
 
 /*
  *
@@ -27,30 +22,11 @@ al_bitmap::al_bitmap(const bool& p) : _al_bitmap(NULL), nopreserve(p) {}
 al_bitmap::al_bitmap(
     const int& w,
     const int& h
-) : _al_bitmap(NULL), nopreserve(false) {
+) : _al_bitmap(NULL) {
     assert(w > 0 && h > 0);
     al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
     _al_bitmap = al_create_bitmap(w, h);
 }
-
-/*
- *
- */
-al_bitmap::al_bitmap(
-    const int& w,
-    const int& h,
-    const bool& p
-) : _al_bitmap(NULL), nopreserve(p) {
-    assert(w > 0 && h > 0);
-    if(nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-    else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
-    _al_bitmap = al_create_bitmap(w, h);
-}
-
-/*
- *
- */
-const bool al_bitmap::isconverted(void) const { return nopreserve; }
 
 /*
  *
@@ -64,8 +40,7 @@ const bool al_bitmap::load(const std::string& fname) {
         return false;
     }
 
-    if(nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-    else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
     _al_bitmap =
         al_load_bitmap_f(file, fname.substr(fname.find("."), fname.length()).c_str());
     al_fclose(file);
@@ -78,8 +53,7 @@ const bool al_bitmap::load(const std::string& fname) {
  *
  */
 void al_bitmap::clone(ALLEGRO_BITMAP* temp_bmp) {
-    if(nopreserve) al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-    else al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+    al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
     _al_bitmap = al_clone_bitmap(temp_bmp);
 }
 

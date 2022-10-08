@@ -28,24 +28,12 @@ namespace wte {
 class al_bitmap final {
     private:
         ALLEGRO_BITMAP* _al_bitmap;  //  Internal Allegro bitmap.
-        bool nopreserve;             //  Preservation flag.
 
     public:
         /*!
          * \brief Creates a null bitmap that preserves its data.
          */
         al_bitmap();
-
-        /*!
-         * \brief Create a null bitmap and set bitmap preservation.
-         *
-         * Set the nopreserve flag to true to create a bitmap that does not preserve its data
-         * when the screen is reset.  This is to increase performance when drawing.
-         * See Allegro docs on graphics routines for more info.
-         *
-         * \param p Preservation flag.
-         */
-        al_bitmap(const bool& p);
 
         /*!
          * \brief Creates a bitmap of w x h that preserves its data.
@@ -57,18 +45,6 @@ class al_bitmap final {
             const int& h
         );
 
-        /*!
-         * \brief Creates a bitmap of w x h and set the preservation flag.
-         * \param w Width in pixels.
-         * \param h Hieght in pixels.
-         * \param p Preservation flag.
-         */
-        al_bitmap(
-            const int& w,
-            const int& h,
-            const bool& p
-        );
-
         ~al_bitmap() = default;  //!<  Default destructor.
 
         /*!
@@ -76,12 +52,6 @@ class al_bitmap final {
          * \return Allegro bitmap pointer.
          */
         ALLEGRO_BITMAP* operator*() { return _al_bitmap; };
-
-        /*!
-         * \brief Check if the bitmap should be converted when the screen is updated.
-         * \return True if it should be converted, false if not.
-         */
-        const bool isconverted(void) const;
 
         /*!
          * \brief Load a bitmap from file.

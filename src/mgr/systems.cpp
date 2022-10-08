@@ -32,17 +32,6 @@ const bool systems::empty(void) { return (_systems.empty()); }
 /*
  *
  */
-const bool systems::add(sys::system_uptr new_system) {
-    if(finalized == true) return false;
-    for(auto& it: _systems)
-        if((it)->name == new_system->name) return false;
-    _systems.push_back(std::move(new_system));
-    return true;
-}
-
-/*
- *
- */
 void systems::run() {
     for(auto& it: _systems)
         try { 

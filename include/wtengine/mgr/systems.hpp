@@ -44,7 +44,14 @@ class systems final : private manager<systems> {
          * \param new_system System to add.
          * \return True if added, false if not.
          */
-        static const bool add(sys::system_uptr new_system);
+        template <typename T, typename... Args>
+        static const bool add(Args... args) {
+            if(finalized == true) return false;
+            for(auto& it: _systems)
+                if(typeid(*it) == typeid(T)) return false;
+            _systems.push_back(std::make_unique<T>(args...));
+            return true;
+        };
 
     private:
         systems() = default;

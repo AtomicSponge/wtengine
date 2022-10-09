@@ -7,7 +7,7 @@
  */
 
 import wtf from './_common.mjs'
-import 'inquirer'
+import inquirer from 'inquirer'
 
 /*
  * Start script, set global variables
@@ -142,7 +142,14 @@ if(args.buildEngine || args.buildProject) {
     if(args.buildEngine) await build.engine()
     if(args.buildProject) await build.project()
 } else {
-    //option
+    const buildRes = await inquirer.prompt([{
+        name: 'buildselect',
+        type: 'rawlist',
+        message: `${wtf.colors.YELLOW}Build engine or project?`,
+        choices: [ `Engine`, "Project" ]
+    }])
+    if(buildRes.buildselect == `Engine`) await build.engine()
+    if(buildRes.buildselect == `Project`) await build.project()
 }
 
 process.stdout.write(`${wtf.colors.DIM}${wtf.colors.CYAN}Build done!${wtf.colors.CLEAR}\n\n`)

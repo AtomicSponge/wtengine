@@ -60,24 +60,32 @@ const workers = {
      * 
      */
     buildEngine: async () => {
-        if(args.debugMode) process.stdout.write(`\nStarting engine debug build... `)
-        else process.stdout.write(`\nStarting engine build... `)
-
+        //  Set up cmake project
+        process.stdout.write(`\nConfiguring project... `)
         let runCmd = `${settings.CMAKE_LOCATION} --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -S${wtf.constants.ENGINE_ROOT_LOCATION} -B___SET_PATH___`
 
+        //  Set output path (normal or debug)
         if(args.debugMode) runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_DEBUG_LOCATION)
         else runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_LOCATION)
 
+        //  Set the debug flag if on
         if(args.debugMode) runCmd += ` -DWTE_BUILD_DEBUG:BOOL=ON`
 
+        //  Run the command
         if(!await wtf.runCommand(runCmd, { cwd: `${wtf.constants.ENGINE_ROOT_LOCATION}` }))
             wtf.scriptError(`Build command failed!`)
+        process.stdout.write(`${wtf.colors.GREEN}Done!${wtf.colors.CLEAR}\n`)
 
+        //  Run the build
+        if(args.debugMode) process.stdout.write(`Starting engine debug build... `)
+        else process.stdout.write(`\nStarting engine build... `)
         runCmd = `${settings.CMAKE_LOCATION} --build ___SET_PATH___ --config Release --target all --`
 
+        //  Set output path (normal or debug)
         if(args.debugMode) runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_DEBUG_LOCATION)
         else runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_LOCATION)
 
+        //  Run the command
         if(!await wtf.runCommand(runCmd, { cwd: `${wtf.constants.ENGINE_ROOT_LOCATION}` }))
             wtf.scriptError(`Build command failed!`)
         process.stdout.write(`${wtf.colors.GREEN}Done!${wtf.colors.CLEAR}\n`)

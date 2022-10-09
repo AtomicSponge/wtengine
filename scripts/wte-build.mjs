@@ -68,6 +68,8 @@ const workers = {
         if(args.debugMode) runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_DEBUG_LOCATION)
         else runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_LOCATION)
 
+        if(args.debugMode) runCmd += ` -DWTE_BUILD_DEBUG:BOOL=ON`
+
         if(!await wtf.runCommand(runCmd, { cwd: `${wtf.constants.ENGINE_ROOT_LOCATION}` }))
             wtf.scriptError(`Build command failed!`)
 

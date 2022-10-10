@@ -56,16 +56,28 @@ if(args.clearCache) {
         fileList.forEach(item => {
             var ignoreMatch = false
             ignoreList.forEach(ignore => { if(item.name == ignore) ignoreMatch = true; return })
-            if(item.isDirectory()) return // delete the dir
-            if(item.isFile()) return // delete the file
+            if(ignoreMatch) return
+            if(item.isDirectory()) fs.rmdirSync(`${location}/${item.name}`, { recursive: true })
+            if(item.isFile()) fs.rmSync(`${location}/${item.name}`)
         })
     }
 
+    const clearRes = await inquirer.prompt([{
+        name: 'clearselect',
+        type: 'rawlist',
+        message: `${wtf.colors.YELLOW}Clear which cache folder?`,
+        choices: [ `Engine Build`, `Engine Build Debug`, `Logs`, `Temp`, `All` ]
+    }])
+
     const ignoreList = [ `README.md`, `.gitignore` ]
-    wipeFiles(wtf.paths.ENGINE_BUILD_LOCATION, ignoreList)
-    wipeFiles(wtf.paths.ENGINE_BUILD_DEBUG_LOCATION, ignoreList)
-    wipeFiles(wtf.paths.ENGINE_LOG_LOCATION, ignoreList)
-    wipeFiles(wtf.paths.ENGINE_TEMP_LOCATION, ignoreList)
+    if(clearRes.clearselect == `Engine Build` || clearRes.clearselect == `All`)
+        wipeFiles(wtf.paths.ENGINE_BUILD_LOCATION, ignoreList)
+    if(clearRes.clearselect == `Engine Build Debug` || clearRes.clearselect == `All`)
+        wipeFiles(wtf.paths.ENGINE_BUILD_DEBUG_LOCATION, ignoreList)
+    if(clearRes.clearselect == `Logs` || clearRes.clearselect == `All`)
+        wipeFiles(wtf.paths.ENGINE_LOG_LOCATION, ignoreList)
+    if(clearRes.clearselect == `Temp` || clearRes.clearselect == `All`)
+        wipeFiles(wtf.paths.ENGINE_TEMP_LOCATION, ignoreList)
 
     process.exit(0)
 }

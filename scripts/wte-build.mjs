@@ -39,15 +39,15 @@ const workers = {
     runGit: async () => {
         var resA = []
         await wtf.asyncForEach(wtf.config.gitURLs, async (gitJob) => {
-            if(wtf.checkFolder(`${wtf.paths.ENGINE_WORK_LOCATION}/${gitJob.name}`)) {
+            if(wtf.checkFolder(`${wtf.paths.ENGINE_TEMP_LOCATION}/${gitJob.name}`)) {
                 process.stdout.write(`Making sure ${gitJob.name} is up to date...  `)
-                resA.push(await wtf.runCommand(`git pull`, { cwd: `${wtf.paths.ENGINE_WORK_LOCATION}/${gitJob.name}` }))
+                resA.push(await wtf.runCommand(`git pull`, { cwd: `${wtf.paths.ENGINE_TEMP_LOCATION}/${gitJob.name}` }))
                 if(!resA[resA.length-1]) process.stdout.write(`${wtf.colors.RED}ERROR!${wtf.colors.CLEAR}\n`)
                 else process.stdout.write(`${wtf.colors.GREEN}OK!${wtf.colors.CLEAR}\n`)
             }
             else {
                 process.stdout.write(`Downloading ${gitJob.name} from ${gitJob.url}...  `)
-                resA.push(await wtf.runCommand(`git clone ${gitJob.url}`, { cwd: wtf.paths.ENGINE_WORK_LOCATION }))
+                resA.push(await wtf.runCommand(`git clone ${gitJob.url}`, { cwd: wtf.paths.ENGINE_TEMP_LOCATION }))
                 if(!resA[resA.length-1]) process.stdout.write(`${wtf.colors.RED}ERROR!${wtf.colors.CLEAR}\n`)
                 else process.stdout.write(`${wtf.colors.GREEN}OK!${wtf.colors.CLEAR}\n`)
             }

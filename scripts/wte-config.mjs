@@ -7,7 +7,7 @@
  */
 
 import wtf from './_common.mjs'
-import 'inquirer'
+import inquirer from 'inquirer'
 
 /**
  * Script menus.

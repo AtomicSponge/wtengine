@@ -28,6 +28,12 @@ set(CMAKE_CXX_FLAGS "-Wall")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
+if(EMSCRIPTEN)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s USE_GLFW=3 -s ASSERTIONS=1 -s WASM=1 -s ASYNCIFY")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_GLFW=3 -s ASSERTIONS=1 -s WASM=1 -s ASYNCIFY")
+    set(CMAKE_EXECUTABLE_SUFFIX ".html")
+endif(EMSCRIPTEN)
+
 #  Check command line options
 option(WTE_REQUIRE_OPENGL_LATEST, "Require OpenGL 3.0" ON)
 option(WTE_BUILD_DEBUG, "Build engine debug mode" OFF)

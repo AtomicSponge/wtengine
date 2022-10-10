@@ -19,7 +19,37 @@ std::ofstream messages::debug_log_file;
 /*
  *
  */
+messages::messages() {
+    if constexpr (build_options.debug_mode) {
+        debug_log_file.open("wte_debug_logged_messages.txt", std::ios::trunc);
+        debug_log_file << "Logging messages..." << std::endl << std::endl;
+    }
+}
+
+/*
+ *
+ */
+messages::~messages() { if constexpr (build_options.debug_mode) debug_log_file.close(); }
+
+/*
+ *
+ */
 void messages::clear(void) { _messages.clear(); }
+
+/*
+ *
+ */
+void messages::prune(void) {
+    for(auto it = _messages.begin(); it != _messages.end();) {
+        //  End early if events are in the future.
+        if(it->get_timer() > engine_time::check()) break;
+        if constexpr (build_options.debug_mode) {
+            debug_log_file << "MESSAGE DELETED | ";
+            log(*it);
+        }
+        it = _messages.erase(it);
+    }
+}
 
 /*
  *
@@ -27,6 +57,29 @@ void messages::clear(void) { _messages.clear(); }
 void messages::add(const message& msg) {
     _messages.insert(_messages.begin(), msg);
     if(msg.is_timed_event()) std::sort(_messages.begin(), _messages.end());
+}
+
+/*
+ *
+ */
+void messages::log(const message& msg) {
+    if constexpr (build_options.debug_mode) {
+        debug_log_file << "PROC AT:  " << engine_time::check() << " | ";
+        debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
+        debug_log_file << "SYS:  " << msg.get_sys() << " | ";
+        if((msg.get_to() != "") || (msg.get_from() != "")) {
+            debug_log_file << "TO:  " << msg.get_to() << " | ";
+            debug_log_file << "FROM:  " << msg.get_from() << " | ";
+        }
+        debug_log_file << "CMD:  " << msg.get_cmd() << " | ";
+        debug_log_file << "ARGS:  ";
+        msg_args arglist = msg.get_args();
+        for(auto i = arglist.begin(); i != arglist.end(); i++) {
+            debug_log_file << *i;
+            if(std::next(i, 1) != arglist.end()) debug_log_file << ";";
+        }
+        debug_log_file << std::endl;
+    }
 }
 
 /*

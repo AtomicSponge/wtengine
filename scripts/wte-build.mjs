@@ -69,10 +69,11 @@ const workers = {
         //  Set additional parameters for the build
         if(settings.useNinja) runCmd += " -G Ninja"
         if(args.debugMode) runCmd += ` -DWTE_BUILD_DEBUG:BOOL=ON`
-        if(settings.noBuildKeyboard)  runCmd += ` -DWTE_DISABLE_KEYBOARD:BOOL=ON`
-        if(settings.noBuildMouse)  runCmd += ` -DWTE_DISABLE_MOUSE:BOOL=ON`
-        if(settings.noBuildJoystick)  runCmd += ` -DWTE_DISABLE_JOYSTICK:BOOL=ON`
-        if(settings.noBuildTouch)  runCmd += ` -DWTE_DISABLE_TOUCH:BOOL=ON`
+        if(settings.noBuildKeyboard) runCmd += ` -DWTE_DISABLE_KEYBOARD:BOOL=ON`
+        if(settings.noBuildMouse) runCmd += ` -DWTE_DISABLE_MOUSE:BOOL=ON`
+        if(settings.noBuildJoystick) runCmd += ` -DWTE_DISABLE_JOYSTICK:BOOL=ON`
+        if(settings.noBuildTouch) runCmd += ` -DWTE_DISABLE_TOUCH:BOOL=ON`
+        if(settings.oldOpenGL) runCmd += ` -DWTE_REQUIRE_OPENGL_LATEST:BOOL=OFF`
 
         //  Run the command
         if(!await wtf.runCommand(runCmd, { cwd: `${wtf.constants.ENGINE_ROOT_LOCATION}` }))

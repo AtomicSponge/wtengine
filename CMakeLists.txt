@@ -29,7 +29,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 #  Check command line options
-option(WTE_REQUIRE_OPENGL_LATEST, "Require OpenGL 2.0" ON)
+option(WTE_REQUIRE_OPENGL_LATEST, "Require OpenGL 3.0" ON)
 option(WTE_BUILD_DEBUG, "Build engine debug mode" OFF)
 option(WTE_DISABLE_KEYBOARD, "Disable building keyboard input" OFF)
 option(WTE_DISABLE_MOUSE, "Disable building mouse input" OFF)

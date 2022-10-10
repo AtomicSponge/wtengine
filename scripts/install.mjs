@@ -7,8 +7,8 @@
  */
  
 import wtf from './_common.mjs'
-import 'inquirer'
- 
+import inquirer from 'inquirer'
+
 //  Already installed, skip
 if(wtf.checkSettings()) {
     process.stdout.write(`Previous install detected, skipping...\n`)

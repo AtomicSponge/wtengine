@@ -50,6 +50,9 @@ const args = wtf.parseArgs(process.argv, [
     { name: 'clearCache', flags: '--clearcache' }
 ])
 
+/*
+ * Claer cache option - deletes cache files then exits
+ */
 if(args.clearCache) {
     const wipeFiles = (location, ignoreList) => {
         const fileList = fs.readdirSync(location, { withFileTypes: 'true' })

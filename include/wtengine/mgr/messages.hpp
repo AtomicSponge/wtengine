@@ -42,31 +42,10 @@ class messages final : private manager<messages> {
     friend class wte::engine;
     friend class systems;
 
-    public:
-        /*!
-         * \brief Adds a message object to the start of the msg_queue vector.
-         * 
-         * Then sorts if it's a timed event.
-         * 
-         * \param msg Message to add.
-         */
-        static void add(const message& msg);
-
-        /*!
-         * \brief Load additional data into the message queue.
-         * 
-         * Can be called by a system message to load additional game data.
-         * Note the timer value used for scripts is adjusted by the game timer.
-         * 
-         * \param fname Filename to load.
-         * \return True if loaded, false if not.
-         */
-        static const bool load_script(const std::string& fname);
-
     private:
         inline messages() {
             if constexpr (build_options.debug_mode) {
-                debug_log_file.open("wte_debug//messages.txt", std::ios::trunc);
+                debug_log_file.open("wte_debug_logged_messages.txt", std::ios::trunc);
                 debug_log_file << "Logging messages..." << std::endl << std::endl;
             }
         };
@@ -135,6 +114,27 @@ class messages final : private manager<messages> {
         static std::ofstream debug_log_file;  //  For message logging
         //  Vector of all messages to be processed
         static message_container _messages;
+
+    public:
+        /*!
+         * \brief Adds a message object to the start of the msg_queue vector.
+         * 
+         * Then sorts if it's a timed event.
+         * 
+         * \param msg Message to add.
+         */
+        static void add(const message& msg);
+
+        /*!
+         * \brief Load additional data into the message queue.
+         * 
+         * Can be called by a system message to load additional game data.
+         * Note the timer value used for scripts is adjusted by the game timer.
+         * 
+         * \param fname Filename to load.
+         * \return True if loaded, false if not.
+         */
+        static const bool load_script(const std::string& fname);
 };
 
 }  //  end namespace wte::mgr

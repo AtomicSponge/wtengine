@@ -82,6 +82,7 @@ if(args.clearCache) {
     if(clearRes.clearselect == `Temp` || clearRes.clearselect == `All`)
         wipeFiles(wtf.paths.ENGINE_TEMP_LOCATION, ignoreList)
 
+    process.stdout.write(`${wtf.colors.DIM}${wtf.colors.CYAN}Done!${wtf.colors.CLEAR}\n\n`)
     process.exit(0)
 }
 

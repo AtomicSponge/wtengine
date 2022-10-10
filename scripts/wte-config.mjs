@@ -86,6 +86,7 @@ if(args.clearCache) {
     process.exit(0)
 }
 
+//  Load settings
 var settings = wtf.loadSettings()
 if(!settings) {
     process.stdout.write(`No settings file found, running setup...\n`)

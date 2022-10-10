@@ -35,9 +35,9 @@ if(EMSCRIPTEN)
     set(CMAKE_EXECUTABLE_SUFFIX ".html")
 endif()
 
-#  Check command line options
+#  Check command line options - WIP
 option(WTE_REQUIRE_OPENGL_LATEST, "Require OpenGL 3.0" ON)
-option(WTE_BUILD_DEBUG, "Build engine debug mode" OFF)
+option(WTE_BUILD_DEBUG, "Build engine debug mode" ON)
 option(WTE_DISABLE_KEYBOARD, "Disable building keyboard input" OFF)
 option(WTE_DISABLE_MOUSE, "Disable building mouse input" OFF)
 option(WTE_DISABLE_JOYSTICK, "Disable building joystick input" OFF)
@@ -62,6 +62,8 @@ endif()
 if(WTE_DISABLE_TOUCH)
     list(APPEND WTE_BUILD_LIST "-DWTE_DISABLE_TOUCH")
 endif()
+
+list(APPEND WTE_BUILD_LIST "-DWTE_BUILD_DEBUG")
 
 #  Set tick rate if defined
 if(DEFINED WTE_TICKS_PER_SECOND)

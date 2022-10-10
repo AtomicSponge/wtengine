@@ -85,9 +85,6 @@ class engine : public config, public display, public input {
         //  Restrict to one instance of the engine running.
         static bool initialized;
 
-        //  Engine tick rate.
-        constexpr static float ticks_per_sec = build_options.ticks_per_sec;
-
     protected:
         /*!
          * \brief Create a new instance of the game engine.

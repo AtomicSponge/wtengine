@@ -60,7 +60,7 @@ engine::engine(const int& argc, char** const& argv) {
 
     std::cout << "Creating main timer and event queue... ";
     //  Configure main timer.
-    main_timer = al_create_timer(1.0f / ticks_per_sec);
+    main_timer = al_create_timer(1.0f / build_options.ticks_per_sec);
     if(!main_timer) throw engine_error("Failed to create timer!");
     //  Configure main event queue.
     main_event_queue = al_create_event_queue();
@@ -99,7 +99,7 @@ engine::engine(const int& argc, char** const& argv) {
         }
     });
 
-    //if(build_options.debug_mode) logger::start();
+    if constexpr (build_options.debug_mode) logger::start();
     std::cout << "Engine started successfully!\n\n";
 }
 
@@ -117,7 +117,7 @@ engine::~engine() {
     al_inhibit_screensaver(false);
     al_uninstall_system();
 
-    //if(build_options.debug_mode) logger::stop();
+    if constexpr (build_options.debug_mode) logger::stop();
 
     initialized = false;
     std::cout << "Done!\n\n";

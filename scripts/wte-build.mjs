@@ -66,9 +66,13 @@ const workers = {
         if(args.debugMode) runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_DEBUG_LOCATION)
         else runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_LOCATION)
 
-        //  Set the debug flag if on
-        if(args.debugMode) runCmd += ` -DWTE_BUILD_DEBUG:BOOL=ON`
+        //  Set additional parameters for the build
         if(settings.useNinja) runCmd += " -G Ninja"
+        if(args.debugMode) runCmd += ` -DWTE_BUILD_DEBUG:BOOL=ON`
+        if(settings.noBuildKeyboard)  runCmd += ` -DWTE_DISABLE_KEYBOARD:BOOL=ON`
+        if(settings.noBuildMouse)  runCmd += ` -DWTE_DISABLE_MOUSE:BOOL=ON`
+        if(settings.noBuildJoystick)  runCmd += ` -DWTE_DISABLE_JOYSTICK:BOOL=ON`
+        if(settings.noBuildTouch)  runCmd += ` -DWTE_DISABLE_TOUCH:BOOL=ON`
 
         //  Run the command
         if(!await wtf.runCommand(runCmd, { cwd: `${wtf.constants.ENGINE_ROOT_LOCATION}` }))

@@ -25,9 +25,6 @@ const args = wtf.parseArgs(process.argv, [
 if(!wtf.checkSettings()) scriptError(`No 'settings.json' file found!  Run 'npx wte-config' first!`)
 const settings = wtf.loadSettings()
 
-settings.CMAKE_LOCATION = `/usr/bin/cmake`  // testing
-settings.useNinja = true
-
 /**
  * Build script workers
  */

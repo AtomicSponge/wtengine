@@ -21,11 +21,11 @@ const args = wtf.parseArgs(process.argv, [
     { name: 'debugMode', flags: '--debug' },
 ])
 
+//  Load settings
 if(!wtf.checkSettings()) scriptError(`No 'settings.json' file found!  Run 'npx wte-config' first!`)
-
 const settings = wtf.loadSettings()
 
-settings.CMAKE_LOCATION = `/usr/bin/cmake`
+settings.CMAKE_LOCATION = `/usr/bin/cmake`  // testing
 
 /**
  * Build script workers
@@ -57,7 +57,7 @@ const workers = {
     },
 
     /**
-     * 
+     * Runs the process of building the engine
      */
     buildEngine: async () => {
         //  Set up cmake project
@@ -92,7 +92,7 @@ const workers = {
     },
 
     /**
-     * 
+     * Runs the process of building the project
      */
     buildProject: async () => {}
 }

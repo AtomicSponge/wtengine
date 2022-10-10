@@ -21,6 +21,7 @@
 #include <type_traits>
 #include <stdexcept>
 
+#include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/mgr/renderer.hpp"
 
@@ -67,7 +68,6 @@ class display {
         static std::string window_title;   //  Title for application window.
         static bool initialized;           //  Restrict to one instance.
         static ALLEGRO_DISPLAY* _display;  //  Allegro object for the display.
-        constexpr static bool opengl_latest = build_options.opengl_latest;
 };
 
 }  //  end namespace wte

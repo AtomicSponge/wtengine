@@ -68,7 +68,7 @@ if(args.clearCache) {
     const clearRes = await inquirer.prompt([{
         name: 'clearselect',
         type: 'rawlist',
-        message: `${wtf.colors.YELLOW}Clear which cache folder?`,
+        message: `${wtf.colors.YELLOW}Clear which cache folder?${wtf.colors.CLEAR}`,
         choices: [ `Engine Build`, `Engine Build Debug`, `Logs`, `Temp`, `All` ]
     }])
 

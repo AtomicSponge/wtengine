@@ -26,6 +26,7 @@ if(!wtf.checkSettings()) scriptError(`No 'settings.json' file found!  Run 'npx w
 const settings = wtf.loadSettings()
 
 settings.CMAKE_LOCATION = `/usr/bin/cmake`  // testing
+settings.useNinja = true
 
 /**
  * Build script workers
@@ -70,6 +71,7 @@ const workers = {
 
         //  Set the debug flag if on
         if(args.debugMode) runCmd += ` -DWTE_BUILD_DEBUG:BOOL=ON`
+        if(settings.useNinja) runCmd += " -G Ninja"
 
         //  Run the command
         if(!await wtf.runCommand(runCmd, { cwd: `${wtf.constants.ENGINE_ROOT_LOCATION}` }))

@@ -6,6 +6,7 @@
  * @copyright MIT see LICENSE.md
  */
 
+import fs from 'fs'
 import wtf from './_common.mjs'
 import inquirer from 'inquirer'
 
@@ -48,6 +49,26 @@ const args = wtf.parseArgs(process.argv, [
     { name: 'noSyscheck', flags: '--nosyscheck' },
     { name: 'clearCache', flags: '--clearcache' }
 ])
+
+if(args.clearCache) {
+    const wipeFiles = (location, ignoreList) => {
+        const fileList = fs.readdirSync(location, { withFileTypes: 'true' })
+        fileList.forEach(item => {
+            var ignoreMatch = false
+            ignoreList.forEach(ignore => { if(item.name == ignore) ignoreMatch = true; return })
+            if(item.isDirectory()) return // delete the dir
+            if(item.isFile()) return // delete the file
+        })
+    }
+
+    const ignoreList = [ `README.md`, `.gitignore` ]
+    wipeFiles(wtf.paths.ENGINE_BUILD_LOCATION, ignoreList)
+    wipeFiles(wtf.paths.ENGINE_BUILD_DEBUG_LOCATION, ignoreList)
+    wipeFiles(wtf.paths.ENGINE_LOG_LOCATION, ignoreList)
+    wipeFiles(wtf.paths.ENGINE_TEMP_LOCATION, ignoreList)
+
+    process.exit(0)
+}
 
 var settings = wtf.loadSettings()
 if(!settings) {

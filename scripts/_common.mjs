@@ -51,7 +51,6 @@ wtf.constants = constants
 const paths = {
     ENGINE_BUILD_LOCATION:       `${constants.ENGINE_ROOT_LOCATION}/wte-build`,
     ENGINE_BUILD_DEBUG_LOCATION: `${constants.ENGINE_ROOT_LOCATION}/wte-build-debug`,
-    ENGINE_WORK_LOCATION:        `${constants.ENGINE_ROOT_LOCATION}/wte-temp`,
     ENGINE_LOG_LOCATION:         `${constants.ENGINE_ROOT_LOCATION}/wte-logs`,
     ENGINE_TEMP_LOCATION:        `${constants.ENGINE_ROOT_LOCATION}/wte-temp`
 }

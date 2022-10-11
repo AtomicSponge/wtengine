@@ -21,7 +21,12 @@ std::ofstream messages::debug_log_file;
  */
 messages::messages() {
     if constexpr (build_options.debug_mode) {
-        debug_log_file.open("wte_debug_logged_messages.txt", std::ios::trunc);
+        std::time_t t = std::time(nullptr);
+        std::ostringstream date_stream;
+        date_stream << std::put_time(std::localtime(&t), "%d-%m-%Y_%H-%M-%S");
+        std::string date = date_stream.str();
+        std::cout << "Logging messages to:  messages_" + date + ".log.txt";
+        debug_log_file.open("messages_" + date + ".log.txt", std::ios::trunc);
         debug_log_file << "Logging messages..." << std::endl << std::endl;
     }
 }

@@ -33,7 +33,6 @@ class system {
         virtual void run(void) = 0;
 
         const std::string name;  //!<  System name.
-        const bool timed;        //!<  Bind system to timer.
 
     protected:
         /*!
@@ -42,17 +41,7 @@ class system {
          */
         system(
             const std::string& n
-        ) : name(n), timed(true) {};
-
-        /*!
-         * \brief Create a new System object.
-         * \param n System name.
-         * \param t Flag to bind to timer.
-         */
-        system(
-            const std::string& n,
-            const bool& t
-        ) : name(n), timed(t) {};
+        ) : name(n) {};
 };
 
 /*!

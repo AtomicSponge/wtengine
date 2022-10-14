@@ -19,7 +19,9 @@
 namespace wte::handler {
 
 /*!
- * Handler types
+ * Handler function template definitions.
+ * These corospond to the various Allegro events.
+ * See https://liballeg.org/a5docs/trunk/events.html for more info.
  */
 using key = std::function<void(const int&, ALLEGRO_DISPLAY*)>;
 using mouse_axis = std::function<void(
@@ -41,7 +43,8 @@ using touch = std::function<void(
 namespace wte {
 
 /*!
- * Handler scopes
+ * Handler scopes.
+ * Defines when the handlers are to be used.
  */
 enum handler_scopes {
     GLOBAL_HANDLES,     //!<  Global input handles that are always active.
@@ -51,8 +54,7 @@ enum handler_scopes {
 
 /*!
  * Handler events.
- * These corospond to the various Allegro events.
- * See https://liballeg.org/a5docs/trunk/events.html for more info.
+ * Select the event action.
  */
 enum handler_events {
     EVENT_KEY_DOWN,              //!<  Event key down.
@@ -83,14 +85,14 @@ namespace wte {
 
 /*!
  * Handler types.
- * Used to define which function type to choose for the handler.
+ * Defines which function type to choose for the handler.
  */
 using handler_types = std::variant<
     handler::key,              //!<  Keyboard event type.
     handler::mouse_axis,       //!<  Mouse axis event type.
     handler::mouse_button,     //!<  Mouse button event type.
     handler::mouse_display,    //!<  Mouse display event type.
-    handler::joystick_axis,    //!<  Mouse axis event type.
+    handler::joystick_axis,    //!<  Joystick axis event type.
     handler::joystick_button,  //!<  Joystick button event type.
     handler::touch             //!<  Touch event type.
 >;

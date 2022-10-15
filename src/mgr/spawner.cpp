@@ -56,8 +56,8 @@ const bool spawner::spawn(const std::string& name, const msg_args& args) {
             try {
                 it->second.second(e_id, args);
             } catch(const std::exception& e) { throw e; }
+            return true;
         }
-        return true;
     }
     return false;
 }

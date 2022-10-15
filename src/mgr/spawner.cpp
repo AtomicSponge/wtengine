@@ -48,6 +48,23 @@ const bool spawner::remove(const std::string& name) {
 /*
  *
  */
+const bool spawner::spawn(const std::string& name, const msg_args& args) {
+    auto it = spawns.find(name);
+    if(it != spawns.end()) {
+        if(args.size() == it->second.first) {
+            entity_id e_id = mgr::world::new_entity();
+            try {
+                it->second.second(e_id, args);
+            } catch(const std::exception& e) { throw e; }
+        }
+        return true;
+    }
+    return false;
+}
+
+/*
+ *
+ */
 void spawner::process_messages(const message_container& messages) {
     for(auto& m_it: messages) {
         if(m_it.get_cmd() == "new") {

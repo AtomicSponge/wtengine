@@ -53,8 +53,17 @@ class spawner final : private manager<spawner> {
         /*!
          * \brief Delete a spawn.
          * \param name Name of spawn to delete.
+         * \return True if removed, else false.
          */
         static const bool remove(const std::string& name);
+
+        /*!
+         * \brief Spawn entity.
+         * \param name Name of entity to spawn.
+         * \param args Arguments to entity creation.
+         * \return True if spawned, else false.
+         */
+        static const bool spawn(const std::string& name, const msg_args& args);
 
     private:
         spawner() = default;

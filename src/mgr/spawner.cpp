@@ -52,9 +52,8 @@ const bool spawner::spawn(const std::string& name, const msg_args& args) {
     auto it = spawns.find(name);
     if(it != spawns.end()) {
         if(args.size() == it->second.first) {
-            entity_id e_id = mgr::world::new_entity();
             try {
-                it->second.second(e_id, args);
+                it->second.second(mgr::world::new_entity(), args);
             } catch(const std::exception& e) { throw e; }
             return true;
         }
@@ -73,9 +72,8 @@ void spawner::process_messages(const message_container& messages) {
                 //  Make sure the number of arguments match what's expected.
                 //  Note that we do not count the first argument.
                 if(m_it.num_args() == s_it->second.first + 1) {
-                    entity_id e_id = mgr::world::new_entity();
                     try {
-                        s_it->second.second(e_id, m_it.get_args());
+                        s_it->second.second(mgr::world::new_entity(), m_it.get_args());
                     } catch(const std::exception& e) { throw e; }
                 }
         }

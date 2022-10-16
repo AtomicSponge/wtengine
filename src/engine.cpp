@@ -237,22 +237,23 @@ void engine::do_game(void) {
     config::_flags::game_started = false;
     config::_flags::menu_opened = true;
 
+    /*
+     * Start Engine Loop
+     */
     while(config::flags::is_running) {
-        /* *** START ENGINE LOOP ******************************************** */
         input::check_events();  //  Check for input.
 
         if(!config::flags::game_started) {       //  Game not running.
             al_stop_timer(main_timer);           //  Make sure the timer isn't.
             config::_flags::menu_opened = true;  //  And force menus
         }
-        //  Pause / resume timer depending on if the game menu is opened.
-        //  Also process the on_menu events.
+        //  Pause / resume timer check.  Also process the on_pause events.
         if(config::flags::menu_opened && al_get_timer_started(main_timer)) {
             al_stop_timer(main_timer);
-            on_menu_open();
+            on_engine_pause();
         }
         if(!config::flags::menu_opened && !al_get_timer_started(main_timer)) {
-            on_menu_close();
+            on_engine_unpause();
             al_resume_timer(main_timer);
         }
 
@@ -299,8 +300,10 @@ void engine::do_game(void) {
         mgr::audio::process_messages(mgr::messages::get("audio"));
         //  Delete unprocessed messages.
         mgr::messages::prune();
-        /* *** END ENGINE LOOP ********************************************** */
     }
+    /*
+     * End Engine Loop
+     */
 
     wte_unload();
 }

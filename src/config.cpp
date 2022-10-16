@@ -126,7 +126,7 @@ config::config() {
 /*
  *
  */
-const bool config::load(void) {
+bool config::load(void) {
     std::ifstream dfile("settings.cfg", std::ios::binary);
     //  Data file doesn't exist, create one
     if(!dfile.good()) {
@@ -214,7 +214,7 @@ const bool config::load(void) {
 /*
  *
  */
-const bool config::save(void) {
+bool config::save(void) {
     std::ofstream dfile("settings.cfg", std::ios::binary | std::ofstream::trunc);
     if(!dfile.good()) return false;
 

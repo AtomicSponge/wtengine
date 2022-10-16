@@ -89,7 +89,7 @@ void input::record_event(const ALLEGRO_EVENT& event) {
 /*
  *
  */
-const bool input::save_recorder(void) {
+bool input::save_recorder(void) {
     std::ostringstream oss;
     {const std::time_t t = std::time(nullptr);
     const std::tm tm = *std::localtime(&t);
@@ -119,7 +119,7 @@ const bool input::save_recorder(void) {
 /*
  *
  */
-const bool input::check_events(void) {
+bool input::check_events(void) {
     ALLEGRO_EVENT event;
     while(al_get_next_event(input_event_queue, &event)) {
         capture_states(event);

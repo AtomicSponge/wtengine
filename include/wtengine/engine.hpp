@@ -105,9 +105,9 @@ class engine : public config, public display, public input {
         //!  Define what happens at the end of a game.
         virtual void end_game(void) = 0;
         //!  Optional:  On menu open.
-        virtual void on_menu_open(void) {};
+        virtual void on_engine_pause(void) {};
         //!  Optional:  On menu close.
-        virtual void on_menu_close(void) {};
+        virtual void on_engine_unpause(void) {};
         //!  Optional:  Window out of focus handler.
         virtual void out_of_focus(void) {};
         //!  Optional:  Window back in focus handler.

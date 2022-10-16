@@ -186,13 +186,13 @@ class config {
          * \brief Load engine config settings from file.
          * \return False on fail, true on success.
          */
-        static const bool load(void);
+        static bool load(void);
 
         /*!
          * \brief Save engine config settings to file.
          * \return False on fail, true on success.
          */
-        static const bool save(void);
+        static bool save(void);
 
     protected:
         config();

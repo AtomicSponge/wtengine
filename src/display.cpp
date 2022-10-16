@@ -52,7 +52,7 @@ void display::create_display(void) {
 
     //  Configure vsync options.  Gfx driver may override this.
     //  0 - System decides | 1 - VSync on | 2 - VSync off
-    if(config::gfx::vsync >= 0 || config::gfx::vsync <= 2) {
+    if(config::gfx::vsync >= 0 && config::gfx::vsync <= 2) {
         al_set_new_display_option(ALLEGRO_VSYNC, config::gfx::vsync, ALLEGRO_SUGGEST);
     } else {
         al_set_new_display_option(ALLEGRO_VSYNC, 0, ALLEGRO_SUGGEST);

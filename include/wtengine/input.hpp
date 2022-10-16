@@ -186,12 +186,12 @@ class input {
             }
         };
 
-        static void create_event_queue(void);                 //  Create the input queue.
-        static void destroy_event_queue(void);                //  Destroy the input queue.
-        static void record_event(const ALLEGRO_EVENT&);       //  Record input events.
-        static const bool save_recorder(void);                //  Save input events.
-        static const bool check_events(void);                 //  Check the input queue for events.
-        static void capture_states(const ALLEGRO_EVENT&);     //  Capture input states.
+        static void create_event_queue(void);                //  Create the input queue.
+        static void destroy_event_queue(void);               //  Destroy the input queue.
+        static void record_event(const ALLEGRO_EVENT&);      //  Record input events.
+        static bool save_recorder(void);                     //  Save input events.
+        static bool check_events(void);                      //  Check the input queue for events.
+        static void capture_states(const ALLEGRO_EVENT&);    //  Capture input states.
         static void run_game_handler(const ALLEGRO_EVENT&);  //  Process in-game input events.
 
         struct _states {

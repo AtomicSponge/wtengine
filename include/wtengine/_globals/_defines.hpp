@@ -128,90 +128,90 @@ inline constexpr wte_build_options build_options;
 
 
 //  Define default keys
-#ifndef WTE_KEY_MENU_DEFAULT
+#if !defined(WTE_KEY_MENU_DEFAULT)
 #define WTE_KEY_MENU_DEFAULT            ALLEGRO_KEY_ESCAPE
 #endif
-#ifndef WTE_KEY_TOGGLE_HITBOX
+#if !defined(WTE_KEY_TOGGLE_HITBOX)
 #define WTE_KEY_TOGGLE_HITBOX           ALLEGRO_KEY_F2
 #endif
 
 /*
  * Player 1 keyboard inputs
  */
-#ifndef WTE_P1_KEY_UP_DEFAULT
+#if !defined(WTE_P1_KEY_UP_DEFAULT)
 #define WTE_P1_KEY_UP_DEFAULT           ALLEGRO_KEY_W
 #endif
-#ifndef WTE_P1_KEY_DOWN_DEFAULT
+#if !defined(WTE_P1_KEY_DOWN_DEFAULT)
 #define WTE_P1_KEY_DOWN_DEFAULT         ALLEGRO_KEY_S
 #endif
-#ifndef WTE_P1_KEY_LEFT_DEFAULT
+#if !defined(WTE_P1_KEY_LEFT_DEFAULT)
 #define WTE_P1_KEY_LEFT_DEFAULT         ALLEGRO_KEY_A
 #endif
-#ifndef WTE_P1_KEY_RIGHT_DEFAULT
+#if !defined(WTE_P1_KEY_RIGHT_DEFAULT)
 #define WTE_P1_KEY_RIGHT_DEFAULT        ALLEGRO_KEY_D
 #endif
-#ifndef WTE_P1_KEY_ACTION1_DEFAULT
+#if !defined(WTE_P1_KEY_ACTION1_DEFAULT)
 #define WTE_P1_KEY_ACTION1_DEFAULT      ALLEGRO_KEY_RCTRL
 #endif
-#ifndef WTE_P1_KEY_ACTION2_DEFAULT
+#if !defined(WTE_P1_KEY_ACTION2_DEFAULT)
 #define WTE_P1_KEY_ACTION2_DEFAULT      ALLEGRO_KEY_ALTGR
 #endif
-#ifndef WTE_P1_KEY_ACTION3_DEFAULT
+#if !defined(WTE_P1_KEY_ACTION3_DEFAULT)
 #define WTE_P1_KEY_ACTION3_DEFAULT      (0)
 #endif
-#ifndef WTE_P1_KEY_ACTION4_DEFAULT
+#if !defined(WTE_P1_KEY_ACTION4_DEFAULT)
 #define WTE_P1_KEY_ACTION4_DEFAULT      (0)
 #endif
-#ifndef WTE_P1_KEY_ACTION5_DEFAULT
+#if !defined(WTE_P1_KEY_ACTION5_DEFAULT)
 #define WTE_P1_KEY_ACTION5_DEFAULT      (0)
 #endif
-#ifndef WTE_P1_KEY_ACTION6_DEFAULT
+#if !defined(WTE_P1_KEY_ACTION6_DEFAULT)
 #define WTE_P1_KEY_ACTION6_DEFAULT      (0)
 #endif
-#ifndef WTE_P1_KEY_ACTION7_DEFAULT
+#if !defined(WTE_P1_KEY_ACTION7_DEFAULT)
 #define WTE_P1_KEY_ACTION7_DEFAULT      (0)
 #endif
-#ifndef WTE_P1_KEY_ACTION8_DEFAULT
+#if !defined(WTE_P1_KEY_ACTION8_DEFAULT)
 #define WTE_P1_KEY_ACTION8_DEFAULT      (0)
 #endif
 
 /*
  * Player 2 keyboard inputs
  */
-#ifndef WTE_P2_KEY_UP_DEFAULT
+#if !defined(WTE_P2_KEY_UP_DEFAULT)
 #define WTE_P2_KEY_UP_DEFAULT           ALLEGRO_KEY_UP
 #endif
-#ifndef WTE_P2_KEY_DOWN_DEFAULT
+#if !defined(WTE_P2_KEY_DOWN_DEFAULT)
 #define WTE_P2_KEY_DOWN_DEFAULT         ALLEGRO_KEY_DOWN
 #endif
-#ifndef WTE_P2_KEY_LEFT_DEFAULT
+#if !defined(WTE_P2_KEY_LEFT_DEFAULT)
 #define WTE_P2_KEY_LEFT_DEFAULT         ALLEGRO_KEY_LEFT
 #endif
-#ifndef WTE_P2_KEY_RIGHT_DEFAULT
+#if !defined(WTE_P2_KEY_RIGHT_DEFAULT)
 #define WTE_P2_KEY_RIGHT_DEFAULT        ALLEGRO_KEY_RIGHT
 #endif
-#ifndef WTE_P2_KEY_ACTION1_DEFAULT
+#if !defined(WTE_P2_KEY_ACTION1_DEFAULT)
 #define WTE_P2_KEY_ACTION1_DEFAULT      ALLEGRO_KEY_LCTRL
 #endif
-#ifndef WTE_P2_KEY_ACTION2_DEFAULT
+#if !defined(WTE_P2_KEY_ACTION2_DEFAULT)
 #define WTE_P2_KEY_ACTION2_DEFAULT      ALLEGRO_KEY_ALT
 #endif
-#ifndef WTE_P2_KEY_ACTION3_DEFAULT
+#if !defined(WTE_P2_KEY_ACTION3_DEFAULT)
 #define WTE_P2_KEY_ACTION3_DEFAULT      (0)
 #endif
-#ifndef WTE_P2_KEY_ACTION4_DEFAULT
+#if !defined(WTE_P2_KEY_ACTION4_DEFAULT)
 #define WTE_P2_KEY_ACTION4_DEFAULT      (0)
 #endif
-#ifndef WTE_P2_KEY_ACTION5_DEFAULT
+#if !defined(WTE_P2_KEY_ACTION5_DEFAULT)
 #define WTE_P2_KEY_ACTION5_DEFAULT      (0)
 #endif
-#ifndef WTE_P2_KEY_ACTION6_DEFAULT
+#if !defined(WTE_P2_KEY_ACTION6_DEFAULT)
 #define WTE_P2_KEY_ACTION6_DEFAULT      (0)
 #endif
-#ifndef WTE_P2_KEY_ACTION7_DEFAULT
+#if !defined(WTE_P2_KEY_ACTION7_DEFAULT)
 #define WTE_P2_KEY_ACTION7_DEFAULT      (0)
 #endif
-#ifndef WTE_P2_KEY_ACTION8_DEFAULT
+#if !defined(WTE_P2_KEY_ACTION8_DEFAULT)
 #define WTE_P2_KEY_ACTION8_DEFAULT      (0)
 #endif
 

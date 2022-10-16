@@ -49,18 +49,6 @@ class input {
         static void toggle_recording(void);
 
         /*!
-         * \struct states
-         * \brief Input States.
-         */
-        struct states {
-            static const ALLEGRO_KEYBOARD_STATE& keyboard;    //<!  Keyboard input state.
-            static const ALLEGRO_MOUSE_STATE& mouse;          //<!  Mouse input state.
-            static const ALLEGRO_TOUCH_INPUT_STATE& touches;  //<!  Array of Allegro touch states.
-            static const ALLEGRO_TOUCH_STATE& first_touch;    //<!  First touch input state.
-            static const ALLEGRO_TOUCH_STATE& last_touch;     //<!  Last touch input state.
-        };
-
-        /*!
          * \struct lastkeypress
          * \brief Record last key press.
          */
@@ -191,17 +179,7 @@ class input {
         static void record_event(const ALLEGRO_EVENT&);      //  Record input events.
         static bool save_recorder(void);                     //  Save input events.
         static bool check_events(void);                      //  Check the input queue for events.
-        static void capture_states(const ALLEGRO_EVENT&);    //  Capture input states.
         static void run_game_handler(const ALLEGRO_EVENT&);  //  Process in-game input events.
-
-        struct _states {
-            inline static ALLEGRO_KEYBOARD_STATE keyboard;
-            inline static ALLEGRO_MOUSE_STATE mouse;
-            //inline static ALLEGRO_JOYSTICK_STATE joystick;
-            inline static ALLEGRO_TOUCH_INPUT_STATE touches;
-            inline static ALLEGRO_TOUCH_STATE first_touch;
-            inline static ALLEGRO_TOUCH_STATE last_touch;
-        };
 
         struct _lastkeypress {
             inline static int64_t timer = 0;

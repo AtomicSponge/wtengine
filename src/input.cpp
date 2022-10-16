@@ -11,11 +11,6 @@
 
 namespace wte {
 
-const ALLEGRO_KEYBOARD_STATE& input::states::keyboard = input::_states::keyboard;
-const ALLEGRO_MOUSE_STATE& input::states::mouse = input::_states::mouse;
-const ALLEGRO_TOUCH_INPUT_STATE& input::states::touches = input::_states::touches;
-const ALLEGRO_TOUCH_STATE& input::states::first_touch = input::_states::first_touch;
-const ALLEGRO_TOUCH_STATE& input::states::last_touch = input::_states::last_touch;
 const int64_t& input::lastkeypress::timer = input::_lastkeypress::timer;
 const int& input::lastkeypress::key = input::_lastkeypress::key;
 const int64_t& input::lastbuttonpress::timer = input::_lastbuttonpress::timer;
@@ -122,7 +117,6 @@ bool input::save_recorder(void) {
 bool input::check_events(void) {
     ALLEGRO_EVENT event;
     while(al_get_next_event(input_event_queue, &event)) {
-        capture_states(event);
         //  Toggle menus
         if(event.type == ALLEGRO_EVENT_KEY_DOWN &&
            event.keyboard.keycode == config::controls::key_menu)
@@ -135,20 +129,6 @@ bool input::check_events(void) {
             run_handles<NONGAME_HANDLES>(event));
     }
     return true;
-}
-
-/*
- *
- */
-void input::capture_states(const ALLEGRO_EVENT& event) {
-    if(config::flags::keyboard_detected)
-        al_get_keyboard_state(&input::_states::keyboard);
-    if(config::flags::mouse_detected)
-        al_get_mouse_state(&input::_states::mouse);
-    //if(config::flags::joystick_detected)
-        //al_get_joystick_state(&input::_states::joystick);
-    if(config::flags::touch_detected)
-        al_get_touch_input_state(&input::_states::touches);
 }
 
 }  //  end namespace wte

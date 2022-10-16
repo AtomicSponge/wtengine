@@ -116,7 +116,7 @@ class renderer final : private manager<renderer> {
 
         //  For sorting.
         template <typename T> struct comparator {
-            const bool operator() (const T& a, const T& b) const {
+            bool operator() (const T& a, const T& b) const {
                 return *a.second < *b.second;
             }
         };

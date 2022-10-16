@@ -81,7 +81,7 @@ class engine_error final : public std::exception {
          * \brief Return the time the exception occured.
          * \return Time of thrown exception.
          */
-        const int64_t when() const noexcept;
+        int64_t when() const noexcept;
 };
 
 /*!
@@ -127,7 +127,7 @@ class engine_exception final : public std::exception {
          * \brief Return the time the exception occured.
          * \return Time of thrown exception.
          */
-        const int64_t when() const noexcept;
+        int64_t when() const noexcept;
 };
 
 }  //  end namespace wte

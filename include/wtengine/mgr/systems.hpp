@@ -45,7 +45,7 @@ class systems final : private manager<systems> {
          * \return True if added, false if not.
          */
         template <typename T, typename... Args>
-        static const bool add(Args... args) {
+        static bool add(Args... args) {
             if(finalized == true) return false;
             for(auto& it: _systems)
                 if(typeid(*it) == typeid(T)) return false;
@@ -60,7 +60,7 @@ class systems final : private manager<systems> {
         //  Clear the system manager and allow systems to be loaded again.
         static void clear(void);
         //  Check if systems were loaded into the manager.
-        static const bool empty(void);
+        static bool empty(void);
         //  Run all systems.
         static void run(void);
 

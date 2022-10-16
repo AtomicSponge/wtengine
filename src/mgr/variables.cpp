@@ -36,7 +36,7 @@ bool variables::clear_save(void) {
 /*
  *
  */
-const bool variables::isreg(const std::string& var) {
+bool variables::isreg(const std::string& var) {
     auto it = _map.find(var);
     if(it != _map.end()) return true;
     return false;
@@ -45,7 +45,7 @@ const bool variables::isreg(const std::string& var) {
 /*
  *
  */
-const bool variables::del(const std::string& var) {
+bool variables::del(const std::string& var) {
     auto it = _map.find(var);
     if(it != _map.end()) {
         _map.erase(it);

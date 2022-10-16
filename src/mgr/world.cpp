@@ -38,7 +38,7 @@ void world::clear(void) {
 /*
  *
  */
-const entity_id world::new_entity(void) {
+entity_id world::new_entity(void) {
     entity_id next_id;
 
     if(entity_counter == ENTITY_MAX) {  //  Counter hit max.
@@ -83,7 +83,7 @@ const entity_id world::new_entity(void) {
 /*
  *
  */
-const bool world::delete_entity(const entity_id& e_id) {
+bool world::delete_entity(const entity_id& e_id) {
     //entity_mtx.lock();
     auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),
                              [&e_id](const entity& e){ return e.first == e_id; });
@@ -103,7 +103,7 @@ const bool world::delete_entity(const entity_id& e_id) {
 /*
  *
  */
-const bool world::entity_exists(const entity_id& e_id) {
+bool world::entity_exists(const entity_id& e_id) {
     //entity_mtx.lock();
     const bool result = (std::find_if(entity_vec.begin(), entity_vec.end(),
         [&e_id](const entity& e){ return e.first == e_id; })
@@ -131,7 +131,7 @@ const std::string world::get_name(const entity_id& e_id) {
 /*
  *
  */
-const bool world::set_name(const entity_id& e_id, const std::string& name) {
+bool world::set_name(const entity_id& e_id, const std::string& name) {
     //entity_mtx.lock();
     auto n_it = std::find_if(entity_vec.begin(), entity_vec.end(),
                              [&name](const entity& e){ return e.second == name; });
@@ -149,7 +149,7 @@ const bool world::set_name(const entity_id& e_id, const std::string& name) {
 /*
  *
  */
-const entity_id world::get_id(const std::string& name) {
+entity_id world::get_id(const std::string& name) {
     //entity_mtx.lock();
     auto n_it = std::find_if(entity_vec.begin(), entity_vec.end(),
                              [&name](const entity& e){ return e.second == name; });

@@ -47,7 +47,7 @@ class gfx : public component {
          * \param a Object to compare to.
          * \return True if <, false if >
          */
-        const bool operator<(const gfx& a) const {
+        bool operator<(const gfx& a) const {
             return layer < a.layer;
         };
 

@@ -43,7 +43,7 @@ class assets final : private manager<assets<>> {
          * \return True if loaded.  False if not.
          */
         template <typename T>
-        inline static const bool load(
+        inline static bool load(
             const std::string& label,
             const wte_asset<T> obj
         ) {
@@ -58,7 +58,7 @@ class assets final : private manager<assets<>> {
          * \return True if loaded.  False if not.
          */
         template <typename T>
-        inline static const bool load(
+        inline static bool load(
             const std::string& label,
             const T& obj
         ) {
@@ -72,7 +72,7 @@ class assets final : private manager<assets<>> {
          * \return True if removed, false if not.
          */
         template <typename T>
-        inline static const bool unload(
+        inline static bool unload(
             const std::string& label
         ) {
             return unload_impl<T, 0, Types...>::unload(label);
@@ -113,7 +113,7 @@ class assets final : private manager<assets<>> {
          */
         template <typename T, size_t idx, typename U, typename... Ts>
         struct load_impl {
-            inline static const bool load(
+            inline static bool load(
                 const std::string& label,
                 const wte_asset<T>& obj
             ) {
@@ -124,7 +124,7 @@ class assets final : private manager<assets<>> {
 
         template <typename T, size_t idx, typename... Ts>
         struct load_impl<T, idx, T, Ts...> {
-            inline static const bool load(
+            inline static bool load(
                 const std::string& label,
                 const wte_asset<T>& obj
             ) {
@@ -136,7 +136,7 @@ class assets final : private manager<assets<>> {
 
         template <typename T, size_t idx, typename U, typename... Ts>
         struct unload_impl {
-            inline static const bool unload(
+            inline static bool unload(
                 const std::string& label
             ) {
                 static_assert((sizeof ...(Ts)) > 0, "Asset template type error.");
@@ -146,7 +146,7 @@ class assets final : private manager<assets<>> {
 
         template <typename T, size_t idx, typename... Ts>
         struct unload_impl<T, idx, T, Ts...> {
-            inline static const bool unload(
+            inline static bool unload(
                 const std::string& label
             ) {
                 auto it = std::get<idx>(assets::_assets).find(label);

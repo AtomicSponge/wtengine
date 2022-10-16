@@ -94,7 +94,7 @@ class logger final {
         logger() = default;
         ~logger() = default;
         
-        static const bool start(void);
+        static bool start(void);
         static void run(void);
         static void stop(void);
 
@@ -104,14 +104,14 @@ class logger final {
         logger(const logger&) = delete;          //!<  Delete copy constructor.
         void operator=(logger const&) = delete;  //!<  Delete assignment operator.
 
-        static const void add(
+        static void add(
             const std::string& d, const std::string& l,
             const uint& c, const int64_t& t);
 
         static const bool is_running = false;
 };
 
-inline const bool logger_add(
+inline bool logger_add(
     const std::string& d, const std::string& l,
     const uint& c, const int64_t& t)
 {

@@ -103,7 +103,7 @@ class messages final : private manager<messages> {
          * \param fname Filename to load.
          * \return True if loaded, false if not.
          */
-        static const bool load_script(const std::string& fname);
+        static bool load_script(const std::string& fname);
 };
 
 }  //  end namespace wte::mgr

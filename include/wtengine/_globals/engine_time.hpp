@@ -31,7 +31,7 @@ class engine_time final {
          * \brief Check the internal engine timer.
          * \return Timer value.
          */
-        static const int64_t check(void);
+        static int64_t check(void);
 
     private:
         //  Sets the internal timer. Called internally by engine.

@@ -97,21 +97,21 @@ class world final : private manager<world> {
          * \brief Create a new entity by name, using the next available ID.
          * \return The newly created entity ID.  WTE_ENTITY_ERROR on fail.
          */
-        static const entity_id new_entity(void);
+        static entity_id new_entity(void);
 
         /*!
          * \brief Delete entity by ID.
          * \param e_id The entity ID to delete.
          * \return Return true on success, false if entity does not exist.
          */
-        static const bool delete_entity(const entity_id& e_id);
+        static bool delete_entity(const entity_id& e_id);
 
         /*!
          * \brief Check if an entity exists by ID.
          * \param e_id The entity ID to check.
          * \return Return true if found, return false if not found.
          */
-        static const bool entity_exists(const entity_id& e_id);
+        static bool entity_exists(const entity_id& e_id);
 
         /*!
          * \brief Get entity name.
@@ -127,7 +127,7 @@ class world final : private manager<world> {
          * \param name Entity name to set.
          * \return True if set, false on error.
          */
-        static const bool set_name(
+        static bool set_name(
             const entity_id& e_id,
             const std::string& name
         );
@@ -137,7 +137,7 @@ class world final : private manager<world> {
          * \param name Name to search.
          * \return Entity ID, WTE_ENTITY_ERROR if not found.
          */
-        static const entity_id get_id(const std::string& name);
+        static entity_id get_id(const std::string& name);
 
         /*!
          * \brief Get the entity reference vector.
@@ -171,7 +171,7 @@ class world final : private manager<world> {
          * \return Return true on success.
          */
         template <typename T, typename... Args>
-        inline static const bool add_component(
+        inline static bool add_component(
             const entity_id& e_id,
             Args... args
         ) {
@@ -200,7 +200,7 @@ class world final : private manager<world> {
          * \return Return false if no components were deleted.
          */
         template <typename T>
-        inline static const bool delete_component(const entity_id& e_id) {
+        inline static bool delete_component(const entity_id& e_id) {
             //world_mtx.lock();
             auto results = _world.equal_range(e_id);
             //world_mtx.unlock();
@@ -224,7 +224,7 @@ class world final : private manager<world> {
          * \return Return false if it does not.
          */
         template <typename T>
-        inline static const bool has_component(const entity_id& e_id) {
+        inline static bool has_component(const entity_id& e_id) {
             //world_mtx.lock();
             const auto results = _world.equal_range(e_id);
             //world_mtx.unlock();

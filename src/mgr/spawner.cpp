@@ -23,7 +23,7 @@ std::map<
 /*
  *
  */
-const bool spawner::add(
+bool spawner::add(
     const std::string& name,
     const std::size_t& num_args,
     const std::function<void(const entity_id&, const msg_args&)>& func
@@ -35,7 +35,7 @@ const bool spawner::add(
 /*
  *
  */
-const bool spawner::remove(const std::string& name) {
+bool spawner::remove(const std::string& name) {
     auto it = std::find_if(spawns.begin(), spawns.end(),
                            [&name](const auto& e){ return e.first == name; });
     if(it != spawns.end()) {
@@ -48,7 +48,7 @@ const bool spawner::remove(const std::string& name) {
 /*
  *
  */
-const bool spawner::spawn(const std::string& name, const msg_args& args) {
+bool spawner::spawn(const std::string& name, const msg_args& args) {
     auto it = spawns.find(name);
     if(it != spawns.end()) {
         if(args.size() == it->second.first) {

@@ -44,7 +44,7 @@ class spawner final : private manager<spawner> {
          * \param func Function for creating the entity.
          * \return True if inserted into the spawn map, false if not.
          */
-        static const bool add(
+        static bool add(
             const std::string& name,
             const std::size_t& num_args,
             const std::function<void(const entity_id&, const msg_args&)>& func
@@ -55,7 +55,7 @@ class spawner final : private manager<spawner> {
          * \param name Name of spawn to delete.
          * \return True if removed, else false.
          */
-        static const bool remove(const std::string& name);
+        static bool remove(const std::string& name);
 
         /*!
          * \brief Spawn entity.
@@ -63,7 +63,7 @@ class spawner final : private manager<spawner> {
          * \param args Arguments to entity creation.
          * \return True if spawned, else false.
          */
-        static const bool spawn(const std::string& name, const msg_args& args);
+        static bool spawn(const std::string& name, const msg_args& args);
 
     private:
         spawner() = default;

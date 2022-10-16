@@ -152,7 +152,7 @@ class variables final : private manager<variables> {
          * \return False on fail, true on success.
          */
         template <typename T>
-        inline static const bool reg(
+        inline static bool reg(
             const std::string& var,
             const T& val
         ) {
@@ -166,14 +166,14 @@ class variables final : private manager<variables> {
          * \param var Variable name.
          * \return True if it is, false if not.
          */
-        static const bool isreg(const std::string& var);
+        static bool isreg(const std::string& var);
 
         /*!
          * \brief Delete a variable.
          * \param var Variable name.
          * \return True if deleted, false if not.
          */
-        static const bool del(const std::string& var);
+        static bool del(const std::string& var);
 
         /*!
          * \brief Set a variable's value.

@@ -27,7 +27,7 @@ void systems::clear(void) {
 /*
  *
  */
-const bool systems::empty(void) { return (_systems.empty()); }
+bool systems::empty(void) { return (_systems.empty()); }
 
 /*
  *

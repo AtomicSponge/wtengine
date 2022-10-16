@@ -47,7 +47,7 @@ sprite::sprite(
 /*
  *
  */
-const bool sprite::add_cycle(
+bool sprite::add_cycle(
     const std::string& name,
     const std::size_t& start,
     const std::size_t& stop
@@ -59,7 +59,7 @@ const bool sprite::add_cycle(
 /*
  *
  */
-const bool sprite::set_cycle(const std::string& name) {
+bool sprite::set_cycle(const std::string& name) {
     auto it = cycles.find(name);
     if(it != cycles.end()) {
         start_frame = it->second.first;

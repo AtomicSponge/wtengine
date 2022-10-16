@@ -38,7 +38,7 @@ const char* engine_error::where() const noexcept { return item.location; }
 /*
  *
  */
-const int64_t engine_error::when() const noexcept { return item.time; }
+int64_t engine_error::when() const noexcept { return item.time; }
 
 /*
  *
@@ -71,7 +71,7 @@ const char* engine_exception::where() const noexcept { return item.location; };
 /*
  *
  */
-const int64_t engine_exception::when() const noexcept { return item.time; };
+int64_t engine_exception::when() const noexcept { return item.time; };
 
 /*
  *

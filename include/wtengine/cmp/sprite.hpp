@@ -68,7 +68,7 @@ class sprite final : public gfx {
          * \param stop End cell of cycle.
          * \return True if created, false if not.
          */
-        const bool add_cycle(
+        bool add_cycle(
             const std::string& name,
             const std::size_t& start,
             const std::size_t& stop
@@ -79,7 +79,7 @@ class sprite final : public gfx {
          * \param name Name of cycle to set.
          * \return True if set, false if not.
          */
-        const bool set_cycle(const std::string& name);
+        bool set_cycle(const std::string& name);
 
     private:
         //  Animation cycle index.

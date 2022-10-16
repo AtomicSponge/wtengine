@@ -98,7 +98,7 @@ const void logger::add(
 /*
  *
  */
-const bool logger::start(void) { return false; }
+bool logger::start(void) { return false; }
 
 /*
  *
@@ -113,7 +113,7 @@ void logger::stop(void) {}
 /*
  *
  */
-const void logger::add(
+void logger::add(
     const std::string& d, const std::string& l,
     const uint& c, const int64_t& t) {}
 

@@ -16,7 +16,7 @@ int64_t engine_time::current_time = 0;
 /*
  *
  */
-const std::int64_t engine_time::check(void) { return current_time; };
+std::int64_t engine_time::check(void) { return current_time; };
 
 /*
  *

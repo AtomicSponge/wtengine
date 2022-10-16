@@ -169,7 +169,7 @@ void messages::load_file(const std::string& fname) {
 /*
  *
  */
-const bool messages::load_script(const std::string& fname) {
+bool messages::load_script(const std::string& fname) {
     //  Open data file - read binary mode.
     ALLEGRO_FILE* file;
     file = al_fopen(fname.c_str(), "rb");

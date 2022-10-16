@@ -25,7 +25,7 @@
 #define FALSE (0)
 #endif
 
-#ifdef WTE_REQUIRE_OPENGL_LATEST
+#if !defined(WTE_REQUIRE_OPENGL_LATEST)
 #define WTE_OPENGL_LATEST TRUE
 #else
 #define WTE_OPENGL_LATEST FALSE
@@ -35,14 +35,14 @@
  * Set the timer rate.
  * Number of ticks per second as a float.
  */
-#ifndef WTE_TICKS_PER_SECOND
+#if !defined(WTE_TICKS_PER_SECOND)
 #define WTE_TICKS_PER_SECOND (60.0f)
 #endif
 
 /*!
  * Enable debug mode
  */
-#ifdef WTE_BUILD_DEBUG
+#if defined(WTE_BUILD_DEBUG)
 #define WTE_DEBUG_MODE TRUE
 #else
 #define WTE_DEBUG_MODE FALSE
@@ -51,14 +51,14 @@
 /*!
  * Set max number of playing samples.
  */
-#ifndef WTE_MAX_PLAYING_SAMPLES
+#if !defined(WTE_MAX_PLAYING_SAMPLES)
 #define WTE_MAX_PLAYING_SAMPLES (8)
 #endif
 
 /*!
  * Toggle keyboard building
  */
-#ifdef WTE_DISABLE_KEYBOARD
+#if defined(WTE_DISABLE_KEYBOARD)
 #define WTE_USE_KEYBOARD FALSE
 #else
 #define WTE_USE_KEYBOARD TRUE
@@ -67,7 +67,7 @@
 /*!
  * Toggle mouse building
  */
-#ifdef WTE_DISABLE_MOUSE
+#if defined(WTE_DISABLE_MOUSE)
 #define WTE_USE_MOUSE FALSE
 #else
 #define WTE_USE_MOUSE TRUE
@@ -76,7 +76,7 @@
 /*!
  * Toggle joystick building
  */
-#ifdef WTE_DISABLE_JOYSTICK
+#if defined(WTE_DISABLE_JOYSTICK)
 #define WTE_USE_JOYSTICK FALSE
 #else
 #define WTE_USE_JOYSTICK TRUE
@@ -85,7 +85,7 @@
 /*!
  * Toggle touch building
  */
-#ifdef WTE_DISABLE_TOUCH
+#if defined(WTE_DISABLE_TOUCH)
 #define WTE_USE_TOUCH FALSE
 #else
 #define WTE_USE_TOUCH TRUE

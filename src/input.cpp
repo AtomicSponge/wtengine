@@ -38,13 +38,13 @@ void input::create_event_queue(void) {
     input_event_queue = al_create_event_queue();
     if(!input_event_queue) throw std::runtime_error("Failed to create input event queue!");
 
-    if(config::flags::keyboard_detected)
+    if(build_options.keyboard_enabled && config::flags::keyboard_detected)
         al_register_event_source(input_event_queue, al_get_keyboard_event_source());
-    if(config::flags::mouse_detected)
+    if(build_options.mouse_enabled && config::flags::mouse_detected)
         al_register_event_source(input_event_queue, al_get_mouse_event_source());
-    if(config::flags::joystick_detected)
+    if(build_options.joystick_enabled && config::flags::joystick_detected)
         al_register_event_source(input_event_queue, al_get_joystick_event_source());
-    if(config::flags::touch_detected)
+    if(build_options.touch_enabled && config::flags::touch_detected)
         al_register_event_source(input_event_queue, al_get_touch_input_event_source());
 }
 

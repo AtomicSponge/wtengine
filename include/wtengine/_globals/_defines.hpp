@@ -13,15 +13,15 @@
 #include <type_traits>
 
 //  Enable math defines for entire engine.
-#ifndef _USE_MATH_DEFINES
+#if !defined(_USE_MATH_DEFINES)
 #define _USE_MATH_DEFINES
 #endif
 
 //  Define true & false for macro use.
-#ifndef TRUE
+#if !defined(TRUE)
 #define TRUE (1)
 #endif
-#ifndef FALSE
+#if !defined(FALSE)
 #define FALSE (0)
 #endif
 
@@ -213,6 +213,13 @@ inline constexpr wte_build_options build_options;
 #endif
 #ifndef WTE_P2_KEY_ACTION8_DEFAULT
 #define WTE_P2_KEY_ACTION8_DEFAULT      (0)
+#endif
+
+/*
+ * Error checking
+ */
+#if !WTE_USE_KEYBOARD && !WTE_USE_MOUSE && !WTE_USE_JOYSTICK && !WTE_USE_TOUCH
+#error Must define at least one input device to be used
 #endif
 
 #endif

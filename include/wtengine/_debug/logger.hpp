@@ -38,6 +38,16 @@ class logger;
 class logger final {
     friend class engine;
 
+    public:
+        logger(const logger&) = delete;          //!<  Delete copy constructor.
+        void operator=(logger const&) = delete;  //!<  Delete assignment operator.
+
+        static const void add(
+            const std::string& d, const std::string& l,
+            const uint& c, const int64_t& t);
+
+        static const bool& is_running;  //!<  Flag to see if the logger is running.
+
     private:
         logger();
         ~logger();
@@ -57,16 +67,6 @@ class logger final {
         static std::future<void> future_obj;
 
         static std::mutex log_mtx;
-
-    public:
-        logger(const logger&) = delete;          //!<  Delete copy constructor.
-        void operator=(logger const&) = delete;  //!<  Delete assignment operator.
-
-        static const void add(
-            const std::string& d, const std::string& l,
-            const uint& c, const int64_t& t);
-
-        static const bool& is_running;  //!<  Flag to see if the logger is running.
 };
 
 inline const bool logger_add(
@@ -90,16 +90,6 @@ inline const bool logger_add(
 class logger final {
     friend class engine;
 
-    private:
-        logger() = default;
-        ~logger() = default;
-        
-        static bool start(void);
-        static void run(void);
-        static void stop(void);
-
-        static const bool _is_running = false;
-
     public:
         logger(const logger&) = delete;          //!<  Delete copy constructor.
         void operator=(logger const&) = delete;  //!<  Delete assignment operator.
@@ -109,6 +99,16 @@ class logger final {
             const uint& c, const int64_t& t);
 
         static const bool is_running = false;
+
+    private:
+        logger() = default;
+        ~logger() = default;
+        
+        static bool start(void);
+        static void run(void);
+        static void stop(void);
+
+        static const bool _is_running = false;
 };
 
 inline bool logger_add(

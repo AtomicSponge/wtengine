@@ -35,7 +35,7 @@ class commands final {
          * \param func Lambda expression to run.
          * \return True on sucess, false on fail.
          */
-        const bool add(
+        bool add(
             const std::string& cmd,
             const std::size_t& nargs,
             const std::function<void(const msg_args&)>& func

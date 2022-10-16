@@ -14,7 +14,7 @@ namespace wte {
 /*
  *
  */
-const bool commands::add(
+bool commands::add(
     const std::string& cmd,
     const std::size_t& nargs,
     const std::function<void(const msg_args&)>& func

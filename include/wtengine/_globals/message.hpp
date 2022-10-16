@@ -95,13 +95,13 @@ class message final {
          * \param m Object to compare to.
          * \return True if less than, false if greater than.
          */
-        const bool operator<(const message& m) const;
+        bool operator<(const message& m) const;
 
         /*!
          * \brief Get timer value.
          * \return The value of timer.
          */
-        const int64_t get_timer(void) const;
+        int64_t get_timer(void) const;
 
         /*!
          * \brief Get system value.
@@ -131,7 +131,7 @@ class message final {
          * \brief Get number of arguments.
          * \return The number of arguments.
          */
-        const std::size_t num_args(void) const;
+        std::size_t num_args(void) const;
 
         /*!
          * \brief Get the arguments split into a vector.
@@ -150,7 +150,7 @@ class message final {
          * \brief Check if the event is synced to the timer.
          * \return Returns false if the timer value is -1, else true.
          */
-        const bool is_timed_event(void) const;
+        bool is_timed_event(void) const;
 
     private:
         //  Split arguments into a vector of strings.

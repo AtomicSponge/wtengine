@@ -38,7 +38,7 @@ timer(e), sys(s), to(t), from(f), cmd(c) { split_args(a); }
 /*
  *
  */
-const bool message::operator<(const message& m) const { return timer < m.timer; }
+bool message::operator<(const message& m) const { return timer < m.timer; }
 
 /*
  *
@@ -58,7 +58,7 @@ void message::split_args(const std::string& a) {
 /*
  *
  */
-const int64_t message::get_timer(void) const { return timer; }
+int64_t message::get_timer(void) const { return timer; }
 
 /*
  *
@@ -83,7 +83,7 @@ const std::string message::get_cmd(void) const { return cmd; }
 /*
  *
  */
-const std::size_t message::num_args(void) const { return args.size(); }
+std::size_t message::num_args(void) const { return args.size(); }
 
 /*
  *
@@ -101,7 +101,7 @@ const std::string message::get_arg(const std::size_t& pos) const {
 /*
  *
  */
-const bool message::is_timed_event(void) const {
+bool message::is_timed_event(void) const {
     if(timer == -1) return false;
     else return true;
 }

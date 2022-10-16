@@ -31,7 +31,7 @@ al_bitmap::al_bitmap(
 /*
  *
  */
-const bool al_bitmap::load(const std::string& fname) {
+bool al_bitmap::load(const std::string& fname) {
     //  Load the file.
     ALLEGRO_FILE* file;
     file = al_fopen(fname.c_str(), "rb");
@@ -65,12 +65,12 @@ void al_bitmap::destroy(void) { al_destroy_bitmap(_al_bitmap); }
 /*
  *
  */
-const int al_bitmap::get_width(void) const { return al_get_bitmap_width(_al_bitmap); }
+int al_bitmap::get_width(void) const { return al_get_bitmap_width(_al_bitmap); }
 
 /*
  *
  */
-const int al_bitmap::get_height(void) const { return al_get_bitmap_height(_al_bitmap); }
+int al_bitmap::get_height(void) const { return al_get_bitmap_height(_al_bitmap); }
 
 /*
  *
@@ -115,21 +115,21 @@ void al_audio::set_speed(const float& speed) { al_set_audio_stream_speed(_al_aud
 /*
  *
  */
-const unsigned int al_audio::get_frequency(void) const { return al_get_audio_stream_frequency(_al_audio); }
+unsigned int al_audio::get_frequency(void) const { return al_get_audio_stream_frequency(_al_audio); }
 
 /*
  *
  */
-const double al_audio::get_length(void) const { return al_get_audio_stream_length_secs(_al_audio); }
+double al_audio::get_length(void) const { return al_get_audio_stream_length_secs(_al_audio); }
 
 /*
  *
  */
-const float al_audio::get_speed(void) const { return al_get_audio_stream_speed(_al_audio); }
+float al_audio::get_speed(void) const { return al_get_audio_stream_speed(_al_audio); }
 
 /*
  *
  */
-const bool al_audio::is_playing(void) const { return al_get_audio_stream_playing(_al_audio); }
+bool al_audio::is_playing(void) const { return al_get_audio_stream_playing(_al_audio); }
 
 }  //  end namespace wte

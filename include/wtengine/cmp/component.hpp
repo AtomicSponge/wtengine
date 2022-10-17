@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_CMP_COMPONENT_HPP
+#if !defined(WTE_CMP_COMPONENT_HPP)
 #define WTE_CMP_COMPONENT_HPP
 
 #include <memory>

@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_CMP_SPRITE_HPP
+#if !defined(WTE_CMP_SPRITE_HPP)
 #define WTE_CMP_SPRITE_HPP
 
 #include <string>

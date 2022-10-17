@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_EXCEPTION_HPP
+#if !defined(WTE_EXCEPTION_HPP)
 #define WTE_EXCEPTION_HPP
 
 #include <iostream>

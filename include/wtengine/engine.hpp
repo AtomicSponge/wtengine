@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_ENGINE_HPP
+#if !defined(WTE_ENGINE_HPP)
 #define WTE_ENGINE_HPP
 
 #include <ctime>

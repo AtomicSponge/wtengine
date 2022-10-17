@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_MGR_MANAGERS_HPP
+#if !defined(WTE_MGR_MANAGERS_HPP)
 #define WTE_MGR_MANAGERS_HPP
 
 #include "wtengine/mgr/assets.hpp"

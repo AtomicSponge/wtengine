@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_LOGGER_HPP
+#if !defined(WTE_LOGGER_HPP)
 #define WTE_LOGGER_HPP
 
 #include <string>

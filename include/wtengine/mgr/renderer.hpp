@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_MGR_RENDERER_HPP
+#if !defined(WTE_MGR_RENDERER_HPP)
 #define WTE_MGR_RENDERER_HPP
 
 #include <string>

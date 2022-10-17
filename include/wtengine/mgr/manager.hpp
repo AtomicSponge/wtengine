@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_MGR_MANAGER_HPP
+#if !defined(WTE_MGR_MANAGER_HPP)
 #define WTE_MGR_MANAGER_HPP
 
 #include "wtengine/_debug/exceptions.hpp"

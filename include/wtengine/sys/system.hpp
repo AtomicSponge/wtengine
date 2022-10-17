@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_SYS_SYSTEM_HPP
+#if !defined(WTE_SYS_SYSTEM_HPP)
 #define WTE_SYS_SYSTEM_HPP
 
 #include <string>

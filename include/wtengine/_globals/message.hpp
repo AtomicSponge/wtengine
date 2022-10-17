@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_MSG_MESSAGE_HPP
+#if !defined(WTE_MSG_MESSAGE_HPP)
 #define WTE_MSG_MESSAGE_HPP
 
 #include <string>

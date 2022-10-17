@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_CMP_BOUNDING_BOX_HPP
+#if !defined(WTE_CMP_BOUNDING_BOX_HPP)
 #define WTE_CMP_BOUNDING_BOX_HPP
 
 #include "wtengine/cmp/component.hpp"

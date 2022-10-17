@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_SYSTEMS_HPP
+#if !defined(WTE_SYSTEMS_HPP)
 #define WTE_SYSTEMS_HPP
 
 #include "wtengine/sys/animate.hpp"

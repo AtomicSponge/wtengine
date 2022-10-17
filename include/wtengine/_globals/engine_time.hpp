@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_ENGINE_TIME_HPP
+#if !defined(WTE_ENGINE_TIME_HPP)
 #define WTE_ENGINE_TIME_HPP
 
 #include <cstdint>

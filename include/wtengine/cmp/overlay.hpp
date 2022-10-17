@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_CMP_OVERLAY_HPP
+#if !defined(WTE_CMP_OVERLAY_HPP)
 #define WTE_CMP_OVERLAY_HPP
 
 #include <string>

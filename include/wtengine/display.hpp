@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_DISPLAY_HPP
+#if !defined(WTE_DISPLAY_HPP)
 #define WTE_DISPLAY_HPP
 
 #include <allegro5/allegro.h>

@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_CMP_AI_HPP
+#if !defined(WTE_CMP_AI_HPP)
 #define WTE_CMP_AI_HPP
 
 #include <functional>

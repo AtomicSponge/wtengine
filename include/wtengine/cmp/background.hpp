@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_CMP_BACKGROUND_HPP
+#if !defined(WTE_CMP_BACKGROUND_HPP)
 #define WTE_CMP_BACKGROUND_HPP
 
 #include <string>

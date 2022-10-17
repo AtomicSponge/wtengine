@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_COMPONENTS_HPP
+#if !defined(WTE_COMPONENTS_HPP)
 #define WTE_COMPONENTS_HPP
 
 #include "wtengine/cmp/ai.hpp"

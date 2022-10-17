@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_SYS_COLISION_HPP
+#if !defined(WTE_SYS_COLISION_HPP)
 #define WTE_SYS_COLISION_HPP
 
 #include "wtengine/sys/system.hpp"

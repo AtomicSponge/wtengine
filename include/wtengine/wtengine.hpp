@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_MAIN_INCLUDE_HPP
+#if !defined(WTE_MAIN_INCLUDE_HPP)
 #define WTE_MAIN_INCLUDE_HPP
 
 #include "wtengine/_globals/_defines.hpp"

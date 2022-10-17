@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_HANDLERS_HPP
+#if !defined(WTE_HANDLERS_HPP)
 #define WTE_HANDLERS_HPP
 
 #include <variant>

@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_ASSET_HPP
+#if !defined(WTE_ASSET_HPP)
 #define WTE_ASSET_HPP
 
 #include <memory>

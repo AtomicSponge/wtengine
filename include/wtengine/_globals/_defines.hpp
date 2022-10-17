@@ -7,7 +7,7 @@
  * \date 2019-2022
  */
 
-#ifndef WTE_GLOBAL_DEFINES_HPP
+#if !defined(WTE_GLOBAL_DEFINES_HPP)
 #define WTE_GLOBAL_DEFINES_HPP
 
 #include <type_traits>

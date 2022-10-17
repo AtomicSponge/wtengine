@@ -12,6 +12,8 @@
 
 #include <type_traits>
 
+#include <allegro5/allegro.h>
+
 //  Enable math defines for entire engine.
 #if !defined(_USE_MATH_DEFINES)
     #define _USE_MATH_DEFINES

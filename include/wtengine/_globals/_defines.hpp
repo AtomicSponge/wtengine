@@ -135,14 +135,12 @@ inline constexpr wte_build_options build_options;
 #define WTE_KEY_TOGGLE_HITBOX           ALLEGRO_KEY_F2
 #endif
 
-
-
 /*
  * Define keyboard keys for use in the engine.
  * These just map to the Allegro defines.
  */
 /*
-if !define(WTE_KEY_A)
+if !define(WTE_USE_KEYBOARD && WTE_KEY_A)
 #define WTE_KEY_A ALLEGRO_KEY_A
 #endif
 #define WTE_KEY_B ALLEGRO_KEY_B
@@ -279,8 +277,6 @@ if !define(WTE_KEY_A)
 #define WTE_KEYMOD_ACCENT3 ALLEGRO_KEYMOD_ACCENT3
 #define WTE_KEYMOD_ACCENT4 ALLEGRO_KEYMOD_ACCENT4
 */
-
-
 
 /*
  * Player 1 keyboard inputs

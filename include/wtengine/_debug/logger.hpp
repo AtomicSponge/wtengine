@@ -111,9 +111,8 @@ class logger final {
         static const bool _is_running = false;
 };
 
-inline bool logger_add(
-    const std::string& d, const std::string& l,
-    const uint& c, const int64_t& t)
+template <typename... Args>
+inline bool logger_add(Args... args)
 {
     return false;
 }

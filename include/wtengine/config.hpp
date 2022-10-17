@@ -95,142 +95,6 @@ class config {
          * \brief Control binding settings.
          */
         struct controls {
-            static const int& key_menu;               //!<  Open menu key.
-
-            /*
-             * Player 1 keyboard
-             */
-            static const int& p1_key_up;              //!<  Player 1 input up key.
-            static const int& p1_key_down;            //!<  Player 1 input down key.
-            static const int& p1_key_left;            //!<  Player 1 input left key.
-            static const int& p1_key_right;           //!<  Player 1 input right key.
-            static const int& p1_key_action1;         //!<  Player 1 input action 1 key.
-            static const int& p1_key_action2;         //!<  Player 1 input action 2 key.
-            static const int& p1_key_action3;         //!<  Player 1 input action 3 key.
-            static const int& p1_key_action4;         //!<  Player 1 input action 4 key.
-            static const int& p1_key_action5;         //!<  Player 1 input action 5 key.
-            static const int& p1_key_action6;         //!<  Player 1 input action 6 key.
-            static const int& p1_key_action7;         //!<  Player 1 input action 7 key.
-            static const int& p1_key_action8;         //!<  Player 1 input action 8 key.
-
-            /*
-             * Player 1 joystick
-             */
-            static const int& p1_button_up;           //!<  Player 1 input button up.
-            static const int& p1_button_down;         //!<  Player 1 input button down.
-            static const int& p1_button_left;         //!<  Player 1 input button left.
-            static const int& p1_button_right;        //!<  Player 1 input button right.
-            static const int& p1_button_action1;      //!<  Player 1 input button action 1.
-            static const int& p1_button_action2;      //!<  Player 1 input button action 2.
-            static const int& p1_button_action3;      //!<  Player 1 input button action 3.
-            static const int& p1_button_action4;      //!<  Player 1 input button action 4.
-            static const int& p1_button_action5;      //!<  Player 1 input button action 5.
-            static const int& p1_button_action6;      //!<  Player 1 input button action 6.
-            static const int& p1_button_action7;      //!<  Player 1 input button action 7.
-            static const int& p1_button_action8;      //!<  Player 1 input button action 8.
-            static const int& p1_button_start;        //!<  Player 1 input button start.
-            static const int& p1_button_select;       //!<  Player 1 input button select.
-            static const float& p1_pola_x;            //!<  Player 1 joystick A position X.
-            static const float& p1_pola_y;            //!<  Player 1 joystick A position Y.
-            static const float& p1_polb_x;            //!<  Player 1 joystick B position X.
-            static const float& p1_polb_y;            //!<  Player 1 joystick B position Y.
-            static const float& p1_polc_x;            //!<  Player 1 joystick C position X.
-            static const float& p1_polc_y;            //!<  Player 1 joystick C position Y.
-            static const float& p1_throttle_left;     //!<  Player 1 throttle left.
-            static const float& p1_throttle_right;    //!<  Player 1 throttle right.
-
-            /*
-             * Player 2 keyboard
-             */
-            static const int& p2_key_up;              //!<  Player 2 input up key.
-            static const int& p2_key_down;            //!<  Player 2 input down key.
-            static const int& p2_key_left;            //!<  Player 2 input left key.
-            static const int& p2_key_right;           //!<  Player 2 input right key.
-            static const int& p2_key_action1;         //!<  Player 2 input action 1 key.
-            static const int& p2_key_action2;         //!<  Player 2 input action 2 key.
-            static const int& p2_key_action3;         //!<  Player 2 input action 3 key.
-            static const int& p2_key_action4;         //!<  Player 2 input action 4 key.
-            static const int& p2_key_action5;         //!<  Player 2 input action 5 key.
-            static const int& p2_key_action6;         //!<  Player 2 input action 6 key.
-            static const int& p2_key_action7;         //!<  Player 2 input action 7 key.
-            static const int& p2_key_action8;         //!<  Player 2 input action 8 key.
-
-            /*
-             * Player 2 joystick
-             */
-            static const int& p2_button_up;           //!<  Player 2 input button up.
-            static const int& p2_button_down;         //!<  Player 2 input button down.
-            static const int& p2_button_left;         //!<  Player 2 input button left.
-            static const int& p2_button_right;        //!<  Player 2 input button right.
-            static const int& p2_button_action1;      //!<  Player 2 input button action 1.
-            static const int& p2_button_action2;      //!<  Player 2 input button action 2.
-            static const int& p2_button_action3;      //!<  Player 2 input button action 3.
-            static const int& p2_button_action4;      //!<  Player 2 input button action 4.
-            static const int& p2_button_action5;      //!<  Player 2 input button action 5.
-            static const int& p2_button_action6;      //!<  Player 2 input button action 6.
-            static const int& p2_button_action7;      //!<  Player 2 input button action 7.
-            static const int& p2_button_action8;      //!<  Player 2 input button action 8.
-            static const int& p2_button_start;        //!<  Player 2 input button start.
-            static const int& p2_button_select;       //!<  Player 2 input button select.
-            static const float& p2_pola_x;            //!<  Player 2 joystick A position X.
-            static const float& p2_pola_y;            //!<  Player 2 joystick A position Y.
-            static const float& p2_polb_x;            //!<  Player 2 joystick B position X.
-            static const float& p2_polb_y;            //!<  Player 2 joystick B position Y.
-            static const float& p2_polc_x;            //!<  Player 2 joystick C position X.
-            static const float& p2_polc_y;            //!<  Player 2 joystick C position Y.
-            static const float& p2_throttle_left;     //!<  Player 2 throttle left.
-            static const float& p2_throttle_right;    //!<  Player 2 throttle right.
-        };
-
-        /*!
-         * \brief Load engine config settings from file.
-         * \return False on fail, true on success.
-         */
-        static bool load(void);
-
-        /*!
-         * \brief Save engine config settings to file.
-         * \return False on fail, true on success.
-         */
-        static bool save(void);
-
-    protected:
-        config();
-
-    private:
-        struct _flags {
-            inline static bool is_running = true;
-            inline static bool game_started = false;
-            inline static bool menu_opened = true;
-            inline static bool record_input = false;
-            inline static bool keyboard_detected = false;
-            inline static bool mouse_detected = false;
-            inline static bool joystick_detected = false;
-            inline static bool touch_detected = false;
-            inline static bool audio_installed = false;
-            inline static bool show_hitboxes = false;
-        };
-
-        struct _volume {
-            inline static float main = 1.0f;
-            inline static float music = 1.0f;
-            inline static float music_a = 1.0f;
-            inline static float music_b = 1.0f;
-            inline static float sample = 1.0f;
-            inline static float voice = 1.0f;
-            inline static float ambiance = 1.0f;
-        };
-
-        struct _gfx {
-            inline static int screen_w = 0, screen_h = 0;
-            inline static int arena_w = 0, arena_h = 0;
-            inline static std::size_t vsync = 2;
-            inline static std::size_t display_mode = 0;
-            inline static float scale_factor = 1.0f;
-            inline static bool needs_reconfig = false;
-        };
-
-        struct _controls {
             inline static int key_menu = WTE_KEY_MENU_DEFAULT;
 
             /*
@@ -316,6 +180,54 @@ class config {
             inline static float p2_polc_y = 0.0f;
             inline static float p2_throttle_left = 0.0f;
             inline static float p2_throttle_right = 0.0f;
+        };
+
+        /*!
+         * \brief Load engine config settings from file.
+         * \return False on fail, true on success.
+         */
+        static bool load(void);
+
+        /*!
+         * \brief Save engine config settings to file.
+         * \return False on fail, true on success.
+         */
+        static bool save(void);
+
+    protected:
+        config();
+
+    private:
+        struct _flags {
+            inline static bool is_running = true;
+            inline static bool game_started = false;
+            inline static bool menu_opened = true;
+            inline static bool record_input = false;
+            inline static bool keyboard_detected = false;
+            inline static bool mouse_detected = false;
+            inline static bool joystick_detected = false;
+            inline static bool touch_detected = false;
+            inline static bool audio_installed = false;
+            inline static bool show_hitboxes = false;
+        };
+
+        struct _volume {
+            inline static float main = 1.0f;
+            inline static float music = 1.0f;
+            inline static float music_a = 1.0f;
+            inline static float music_b = 1.0f;
+            inline static float sample = 1.0f;
+            inline static float voice = 1.0f;
+            inline static float ambiance = 1.0f;
+        };
+
+        struct _gfx {
+            inline static int screen_w = 0, screen_h = 0;
+            inline static int arena_w = 0, arena_h = 0;
+            inline static std::size_t vsync = 2;
+            inline static std::size_t display_mode = 0;
+            inline static float scale_factor = 1.0f;
+            inline static bool needs_reconfig = false;
         };
 
         static bool initialized;  //  Restrict to one instance.

@@ -2,7 +2,7 @@
  * wtengine | File:  exceptions.cpp
  * 
  * \author Matthew Evans
- * \version 0.7.3
+ * \version 0.7.4
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2022
  */

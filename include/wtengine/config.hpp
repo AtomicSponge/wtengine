@@ -101,18 +101,18 @@ class config {
             /*
              * Player 1 keyboard
              */
-            inline static int p1_key_up = WTE_P1_KEY_UP_DEFAULT;
-            inline static int p1_key_down = WTE_P1_KEY_DOWN_DEFAULT;
-            inline static int p1_key_left = WTE_P1_KEY_LEFT_DEFAULT;
-            inline static int p1_key_right = WTE_P1_KEY_RIGHT_DEFAULT;
-            inline static int p1_key_action1 = WTE_P1_KEY_ACTION1_DEFAULT;
-            inline static int p1_key_action2 = WTE_P1_KEY_ACTION2_DEFAULT;
-            inline static int p1_key_action3 = WTE_P1_KEY_ACTION3_DEFAULT;
-            inline static int p1_key_action4 = WTE_P1_KEY_ACTION4_DEFAULT;
-            inline static int p1_key_action5 = WTE_P1_KEY_ACTION5_DEFAULT;
-            inline static int p1_key_action6 = WTE_P1_KEY_ACTION6_DEFAULT;
-            inline static int p1_key_action7 = WTE_P1_KEY_ACTION7_DEFAULT;
-            inline static int p1_key_action8 = WTE_P1_KEY_ACTION8_DEFAULT;
+            inline static int p1_key_up = 0;
+            inline static int p1_key_down = 0;
+            inline static int p1_key_left = 0;
+            inline static int p1_key_right = 0;
+            inline static int p1_key_action1 = 0;
+            inline static int p1_key_action2 = 0;
+            inline static int p1_key_action3 = 0;
+            inline static int p1_key_action4 = 0;
+            inline static int p1_key_action5 = 0;
+            inline static int p1_key_action6 = 0;
+            inline static int p1_key_action7 = 0;
+            inline static int p1_key_action8 = 0;
 
             /*
              * Player 1 joystick
@@ -143,18 +143,18 @@ class config {
             /*
              * Player 2 keyboard
              */
-            inline static int p2_key_up = WTE_P2_KEY_UP_DEFAULT;
-            inline static int p2_key_down = WTE_P2_KEY_DOWN_DEFAULT;
-            inline static int p2_key_left = WTE_P2_KEY_LEFT_DEFAULT;
-            inline static int p2_key_right = WTE_P2_KEY_RIGHT_DEFAULT;
-            inline static int p2_key_action1 = WTE_P2_KEY_ACTION1_DEFAULT;
-            inline static int p2_key_action2 = WTE_P2_KEY_ACTION2_DEFAULT;
-            inline static int p2_key_action3 = WTE_P2_KEY_ACTION3_DEFAULT;
-            inline static int p2_key_action4 = WTE_P2_KEY_ACTION4_DEFAULT;
-            inline static int p2_key_action5 = WTE_P2_KEY_ACTION5_DEFAULT;
-            inline static int p2_key_action6 = WTE_P2_KEY_ACTION6_DEFAULT;
-            inline static int p2_key_action7 = WTE_P2_KEY_ACTION7_DEFAULT;
-            inline static int p2_key_action8 = WTE_P2_KEY_ACTION8_DEFAULT;
+            inline static int p2_key_up = 0;
+            inline static int p2_key_down = 0;
+            inline static int p2_key_left = 0;
+            inline static int p2_key_right = 0;
+            inline static int p2_key_action1 = 0;
+            inline static int p2_key_action2 = 0;
+            inline static int p2_key_action3 = 0;
+            inline static int p2_key_action4 = 0;
+            inline static int p2_key_action5 = 0;
+            inline static int p2_key_action6 = 0;
+            inline static int p2_key_action7 = 0;
+            inline static int p2_key_action8 = 0;
 
             /*
              * Player 2 joystick

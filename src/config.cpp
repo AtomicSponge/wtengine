@@ -45,7 +45,7 @@ const bool& config::gfx::needs_reconfig = config::_gfx::needs_reconfig;
  *
  */
 config::config() {
-    if(initialized == true) throw std::runtime_error("Config instance already running!");
+    if(initialized == true) throw engine_error("Config instance already running!");
     initialized = true;
 }
 

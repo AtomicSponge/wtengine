@@ -19,7 +19,7 @@ ALLEGRO_DISPLAY* display::_display;
  *
  */
 display::display() {
-    if(initialized == true) throw std::runtime_error("Display instance already running!");
+    if(initialized == true) throw engine_error("Display instance already running!");
     initialized = true;
 }
 
@@ -88,7 +88,7 @@ void display::create_display(void) {
             al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_WINDOWED));
         _display = al_create_display(config::gfx::arena_w,
                                      config::gfx::arena_h);
-        if(!_display) throw std::runtime_error("Failed to configure display!");
+        if(!_display) throw engine_error("Failed to configure display!");
         config::_gfx::display_mode = 0;
         config::_gfx::scale_factor = 1.0f;
         screen_w = config::gfx::arena_w;
@@ -123,7 +123,7 @@ void display::destroy_display(void) { al_destroy_display(_display); }
 void display::resize_display(const int& width, const int& height) {
     al_resize_display(_display, width, height);
     if(!al_acknowledge_resize(_display))
-        throw std::runtime_error("Failed to resize display!");
+        throw engine_error("Failed to resize display!");
 }
 
 }  //  end namespace wte

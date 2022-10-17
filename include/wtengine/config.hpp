@@ -14,6 +14,7 @@
 
 #include <fstream>
 
+#include "wtengine/_debug/exceptions.hpp"
 #include "wtengine/_globals/_defines.hpp"
 
 namespace wte::mgr {

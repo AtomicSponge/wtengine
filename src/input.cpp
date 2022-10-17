@@ -27,7 +27,7 @@ bool input::initialized = false;
  *
  */
 input::input() {
-    if(initialized == true) throw std::runtime_error("Input instance already running!");
+    if(initialized == true) throw engine_error("Input instance already running!");
     initialized = true;
 }
 
@@ -36,7 +36,7 @@ input::input() {
  */
 void input::create_event_queue(void) {
     input_event_queue = al_create_event_queue();
-    if(!input_event_queue) throw std::runtime_error("Failed to create input event queue!");
+    if(!input_event_queue) throw engine_error("Failed to create input event queue!");
 
     if(build_options.keyboard_enabled && config::flags::keyboard_detected)
         al_register_event_source(input_event_queue, al_get_keyboard_event_source());

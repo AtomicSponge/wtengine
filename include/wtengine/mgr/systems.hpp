@@ -47,8 +47,10 @@ class systems final : private manager<systems> {
         template <typename T, typename... Args>
         static bool add(Args... args) {
             if(finalized == true) return false;
-            for(auto& it: _systems)
-                if(typeid(*it) == typeid(T)) return false;
+            for(auto& it: _systems) {
+                auto& r = *it.get();
+                if(typeid(r) == typeid(T)) return false;
+            }
             _systems.push_back(std::make_unique<T>(args...));
             return true;
         };

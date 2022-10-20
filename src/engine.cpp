@@ -88,11 +88,11 @@ engine::engine(const int& argc, char** const& argv) {
             process_end_game(false);
         }
     });
-    cmds.add("fps-counter", 1, [this](const msg_args& args) {
+    cmds.add("fps-counter", 1, [](const msg_args& args) {
         if(args[0] == "on") config::flags::draw_fps = true;
         if(args[0] == "off") config::flags::draw_fps = false;
     });
-    cmds.add("load-script", 1, [this](const msg_args& args) {
+    cmds.add("load-script", 1, [](const msg_args& args) {
         if(config::flags::game_started && args[0] != "") {
             if(!mgr::messages::load_script(args[0]))
                 throw engine_exception("Error loading script:  " + args[0], "engine", 2);

@@ -178,18 +178,14 @@ class world final : private manager<world> {
             if(!entity_exists(e_id)) return false;
 
             //  Check derived types of existing components, make sure one does not already exist.
-            //entity_mtx.lock();
             const auto check_entity = get_entity(e_id);
-            //entity_mtx.unlock();
 
             for(auto& it: check_entity) {
                 auto& r = *it.get();
                 if(typeid(r).name() == typeid(T).name()) return false;
             }
 
-            //world_mtx.lock();
             _world.insert(std::make_pair(e_id, std::make_shared<T>(args...)));
-            //world_mtx.unlock();
             return true;
         };
 
@@ -202,15 +198,11 @@ class world final : private manager<world> {
          */
         template <typename T>
         inline static bool delete_component(const entity_id& e_id) {
-            //world_mtx.lock();
             auto results = _world.equal_range(e_id);
-            //world_mtx.unlock();
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second)) {
-                    //world_mtx.lock();
                     it = _world.erase(it);
-                    //world_mtx.unlock();
                     return true;
                 }
             }
@@ -226,12 +218,11 @@ class world final : private manager<world> {
          */
         template <typename T>
         inline static bool has_component(const entity_id& e_id) {
-            //world_mtx.lock();
             const auto results = _world.equal_range(e_id);
-            //world_mtx.unlock();
 
             for(auto it = results.first; it != results.second; it++) {
-                if(std::dynamic_pointer_cast<T>(it->second)) return true;
+                if(std::dynamic_pointer_cast<T>(it->second))
+                    return true;
             }
             return false;
         };
@@ -245,9 +236,7 @@ class world final : private manager<world> {
          */
         template <typename T>
         inline static const std::shared_ptr<T> set_component(const entity_id& e_id) {
-            //world_mtx.lock();
             const auto results = _world.equal_range(e_id);
-            //world_mtx.unlock();
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second))
@@ -267,14 +256,13 @@ class world final : private manager<world> {
          */
         template <typename T>
         inline static const std::shared_ptr<const T> get_component(const entity_id& e_id) {
-            //world_mtx.lock();
             const auto results = _world.equal_range(e_id);
-            //world_mtx.unlock();
 
             for(auto it = results.first; it != results.second; it++) {
                 if(std::dynamic_pointer_cast<T>(it->second))
                     return std::static_pointer_cast<const T>(it->second);
             }
+
             throw engine_exception(
                 "Entity: " + std::to_string(e_id) + " - Component not found", "World", 4);
         };
@@ -288,12 +276,10 @@ class world final : private manager<world> {
         inline static const component_container<T> set_components(void) {
             component_container<T> temp_components;
 
-            //world_mtx.lock();
             for(auto& it: _world) {
                 if(std::dynamic_pointer_cast<T>(it.second))
                     temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
             }
-            //world_mtx.unlock();
             return temp_components;
         };
 
@@ -306,12 +292,10 @@ class world final : private manager<world> {
         inline static const const_component_container<T> get_components(void) {
             const_component_container<T> temp_components;
 
-            //world_mtx.lock();
             for(auto& it: _world) {
                 if(std::dynamic_pointer_cast<T>(it.second))
                     temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
             }
-            //world_mtx.unlock();
             return temp_components;
         };
 
@@ -329,9 +313,6 @@ class world final : private manager<world> {
         static entity_id entity_counter;  //  Last Entity ID used.
         static entities entity_vec;       //  Container for all entities.
         static world_map _world;          //  Container for all components.
-
-        static std::mutex entity_mtx;
-        static std::mutex world_mtx;
 };
 
 }  //  namespace wte::mgr

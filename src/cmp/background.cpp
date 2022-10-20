@@ -19,7 +19,7 @@ background::background(
     const std::size_t& l,
     const float& x,
     const float& y
-) : gfx(bmp, l, [this](const entity_id& e_id) {}), pos_x(x), pos_y(y) {}
+) : gfx(bmp, l, [](const entity_id& e_id) {}), pos_x(x), pos_y(y) {}
 
 /*
  *

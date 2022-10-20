@@ -183,7 +183,8 @@ class world final : private manager<world> {
             //entity_mtx.unlock();
 
             for(auto& it: check_entity) {
-                if(typeid(*it).name() == typeid(T).name()) return false;
+                auto& r = *it.get();
+                if(typeid(r).name() == typeid(T).name()) return false;
             }
 
             //world_mtx.lock();

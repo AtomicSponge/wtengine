@@ -15,11 +15,6 @@ const int64_t& input::lastkeypress::timer = input::_lastkeypress::timer;
 const int& input::lastkeypress::key = input::_lastkeypress::key;
 const int64_t& input::lastbuttonpress::timer = input::_lastbuttonpress::timer;
 const int& input::lastbuttonpress::button = input::_lastbuttonpress::button;
-int64_t input::last_tick = 0;
-std::vector<
-    std::pair<const int64_t, const std::vector<ALLEGRO_EVENT>>
-> input::input_recorder;
-std::vector<ALLEGRO_EVENT> input::event_recorder;
 ALLEGRO_EVENT_QUEUE* input::input_event_queue;
 bool input::initialized = false;
 
@@ -60,11 +55,8 @@ void input::toggle_recording(void) {
     if(config::flags::record_input) {
         //  Turn recording off
         config::_flags::record_input = false;
-        if(!input_recorder.empty()) save_recorder();
     } else {
         //  Turn recording on
-        event_recorder.clear();
-        input_recorder.clear();
         config::_flags::record_input = true;
     }
 }
@@ -73,42 +65,7 @@ void input::toggle_recording(void) {
  *
  */
 void input::record_event(const ALLEGRO_EVENT& event) { 
-    if(engine_time::check() > last_tick && !event_recorder.empty())  {
-        input_recorder.push_back(std::make_pair(last_tick, event_recorder));
-        event_recorder.clear();
-    }
-    event_recorder.push_back(event);
-    last_tick = engine_time::check();
-}
-
-/*
- *
- */
-bool input::save_recorder(void) {
-    std::ostringstream oss;
-    {const std::time_t t = std::time(nullptr);
-    const std::tm tm = *std::localtime(&t);
-    oss << std::put_time(&tm, "%F_%H%M%S");}
-    const std::string fname = oss.str() + ".inputrec";
-    std::ofstream dfile(fname, std::ios::binary | std::ofstream::trunc);
-    if(!dfile.good()) return false;
-
-    try {
-        for(auto& it: input_recorder) {
-            dfile.write(reinterpret_cast<const char*>(&it.first), sizeof(int64_t));
-            const std::size_t num_events = it.second.size();
-            dfile.write(reinterpret_cast<const char*>(&num_events), sizeof(std::size_t));
-            for(auto& e_it: it.second) {
-                dfile.write(reinterpret_cast<const char*>(sizeof(e_it)), sizeof(int32_t));
-                dfile.write(reinterpret_cast<const char*>(&e_it), sizeof(e_it));
-            }
-        }
-    } catch(...) {
-        dfile.close();
-        return false;
-    }
-    dfile.close();
-    return true;
+    // write to file
 }
 
 /*

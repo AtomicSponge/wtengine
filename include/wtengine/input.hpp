@@ -177,7 +177,6 @@ class input {
         static void create_event_queue(void);                //  Create the input queue.
         static void destroy_event_queue(void);               //  Destroy the input queue.
         static void record_event(const ALLEGRO_EVENT&);      //  Record input events.
-        static bool save_recorder(void);                     //  Save input events.
         static bool check_events(void);                      //  Check the input queue for events.
         static void run_game_handler(const ALLEGRO_EVENT&);  //  Process in-game input events.
 
@@ -190,12 +189,6 @@ class input {
             inline static int64_t timer = 0;
             inline static int button = 0;
         };
-
-        static int64_t last_tick;
-        static std::vector<
-            std::pair<const int64_t, const std::vector<ALLEGRO_EVENT>>
-        > input_recorder;
-        static std::vector<ALLEGRO_EVENT> event_recorder;
 
         static ALLEGRO_EVENT_QUEUE* input_event_queue;  //  Input event queue.
         static bool initialized;  //  Restrict to one instance.

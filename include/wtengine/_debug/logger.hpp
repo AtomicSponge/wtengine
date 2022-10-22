@@ -59,7 +59,10 @@ class logger final {
         static std::stack<
             std::tuple<std::string, std::string, uint, int64_t>
         > _error_queue;
-        static bool _is_running;
+
+        inline static bool _is_running = ([]{
+            return if(future_obj.wait_for(std::chrono::milliseconds(0)) == std::future_status::timeout);
+        });
 
         static std::ofstream log_file;
 

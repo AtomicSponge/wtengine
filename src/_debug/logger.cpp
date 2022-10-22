@@ -13,6 +13,8 @@ namespace wte {
 
 #if WTE_DEBUG_MODE  //  Debug mode set if true
 
+const bool& logger::is_running = logger::_is_running;
+
 /*
  *
  */

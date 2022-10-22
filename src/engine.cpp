@@ -37,10 +37,14 @@ engine::engine(const int& argc, char** const& argv) {
     std::cout << "OK!\n";
     config::_flags::audio_installed = al_install_audio();
     //  Input detection.
-    config::_flags::keyboard_detected = al_install_keyboard();
-    config::_flags::mouse_detected = al_install_mouse();
-    config::_flags::joystick_detected = al_install_joystick();
-    config::_flags::touch_detected = al_install_touch_input();
+    if constexpr (build_options.keyboard_enabled)
+        config::_flags::keyboard_installed = al_install_keyboard();
+    if constexpr (build_options.mouse_enabled)
+        config::_flags::mouse_installed = al_install_mouse();
+    if constexpr (build_options.joystick_enabled)    
+        config::_flags::joystick_installed = al_install_joystick();
+    if constexpr (build_options.touch_enabled)
+        config::_flags::touch_installed = al_install_touch_input();
 
     //  Configure PhysFS.
     std::cout << "Loading PhysicsFS... ";

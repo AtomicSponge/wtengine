@@ -117,16 +117,13 @@ bool input::save_recorder(void) {
 bool input::check_events(void) {
     ALLEGRO_EVENT event;
     while(al_get_next_event(input_event_queue, &event)) {
-        //  Toggle menus
-        if(event.type == ALLEGRO_EVENT_KEY_DOWN &&
-           event.keyboard.keycode == config::controls::key_menu)
-            config::_flags::menu_opened = !config::flags::menu_opened;
         //  Record input if enabled.
         if(config::flags::record_input) record_event(event);
-        run_handles<GLOBAL_HANDLES>(event);
+        //  Run the handles
+        run_handles<GLOBAL_HANDLES>(event);        //  Run global handles
         (config::flags::game_started ?
-            run_handles<GAME_HANDLES>(event) :
-            run_handles<NONGAME_HANDLES>(event));
+            run_handles<GAME_HANDLES>(event) :     //  Run game handles
+            run_handles<NONGAME_HANDLES>(event));  //  Run non-game handles
     }
     return true;
 }

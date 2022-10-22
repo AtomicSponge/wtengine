@@ -79,9 +79,12 @@ bool input::check_events(void) {
         if(config::flags::record_input) record_event(engine_time::check(), event);
         //  Run the handles
         run_handles<GLOBAL_HANDLES>(event);        //  Run global handles
-        (config::flags::engine_started ?
-            run_handles<GAME_HANDLES>(event) :     //  Run game handles
-            run_handles<NONGAME_HANDLES>(event));  //  Run non-game handles
+        if(config::flags::engine_started) {
+            if(config::flags::input_enabled)
+                run_handles<GAME_HANDLES>(event);  //  Run game handles
+        } else {
+            run_handles<NONGAME_HANDLES>(event);   //  Run non-game handles
+        }
     }
     return true;
 }

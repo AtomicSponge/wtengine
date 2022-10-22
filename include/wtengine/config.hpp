@@ -52,10 +52,10 @@ class config {
             static const bool& engine_started;        //!<  Flag to check if the engine is running.
             static const bool& engine_paused;         //!<  Flag to check if the engine if paused.
             static const bool& record_input;          //!<  Flag to enable/disable input recording.
-            static const bool& keyboard_installed;     //!<  Flag to check if a keyboard is installed.
-            static const bool& mouse_installed;        //!<  Flag to check if a mouse is installed.
-            static const bool& joystick_installed;     //!<  Flag to check if a joystick is installed.
-            static const bool& touch_installed;        //!<  Flag to check if touch input is installed.
+            static const bool& keyboard_installed;    //!<  Flag to check if a keyboard is installed.
+            static const bool& mouse_installed;       //!<  Flag to check if a mouse is installed.
+            static const bool& joystick_installed;    //!<  Flag to check if a joystick is installed.
+            static const bool& touch_installed;       //!<  Flag to check if touch input is installed.
             static const bool& audio_installed;       //!<  Flag to check if audio was installed.
             static const bool& show_hitboxes;         //!<  Flag to enable/disable hitbox rendering.
             inline static bool draw_fps = true;       //!<  Flag to check if fps should be drawn.

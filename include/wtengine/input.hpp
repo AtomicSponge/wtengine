@@ -16,10 +16,8 @@
 #include <utility>
 #include <functional>
 #include <fstream>
-#include <iomanip>
 #include <sstream>
 #include <ctime>
-#include <cmath>
 
 #include <allegro5/allegro.h>
 

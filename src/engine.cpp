@@ -191,7 +191,6 @@ void engine::process_new_game(const std::string& game_script) {
         config::flags::input_enabled = true;
         al_start_timer(main_timer);
     } catch(const std::exception& e) { throw e; }
-    std::cout << "DONE!\n";
 }
 
 /*
@@ -221,7 +220,6 @@ void engine::process_end_game(const bool& force) {
         mgr::systems::clear();
         mgr::messages::clear();
     } catch(const std::exception& e) { throw e; }
-    std::cout << "DONE!\n";
 }
 
 /*

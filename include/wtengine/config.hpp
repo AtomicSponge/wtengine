@@ -49,8 +49,8 @@ class config {
          */
         struct flags {
             static const bool& is_running;            //!<  Flag to check if the game is running.
+            static const bool& engine_paused;         //!<  Flag to check if the engine if paused.
             static const bool& game_started;          //!<  Flag to check if the game has started.
-            static const bool& menu_opened;           //!<  Flag to check if the menu is opened.
             static const bool& record_input;          //!<  Flag to enable/disable input recording.
             static const bool& keyboard_detected;     //!<  Flag to check if a keyboard is detected.
             static const bool& mouse_detected;        //!<  Flag to check if a mouse is detected.
@@ -201,8 +201,8 @@ class config {
     private:
         struct _flags {
             inline static bool is_running = true;
+            inline static bool engine_paused = false;
             inline static bool game_started = false;
-            inline static bool menu_opened = true;
             inline static bool record_input = false;
             inline static bool keyboard_detected = false;
             inline static bool mouse_detected = false;

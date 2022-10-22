@@ -158,9 +158,6 @@ void engine::process_new_game(const std::string& game_script) {
     try {
         std::srand(std::time(nullptr));  //  Seed random, using time.
 
-        //  Make sure the menu isn't opened.
-        config::_flags::menu_opened = false;
-
         //  Load a new message data file.
         if(!game_script.empty()) mgr::messages::load_file(game_script);
 
@@ -219,9 +216,6 @@ void engine::process_end_game(const bool& force) {
         mgr::world::clear();
         mgr::systems::clear();
         mgr::messages::clear();
-
-        //  Open the menus.
-        config::_flags::menu_opened = true;
     } catch(const std::exception& e) { throw e; }
     std::cout << "DONE!\n";
 }
@@ -235,7 +229,7 @@ void engine::do_game(void) {
     //  Set default states.
     config::_flags::is_running = true;
     config::_flags::game_started = false;
-    config::_flags::menu_opened = true;
+    config::_flags::engine_paused = false;
 
     /*
      * Start Engine Loop
@@ -243,18 +237,18 @@ void engine::do_game(void) {
     while(config::flags::is_running) {
         input::check_events();  //  Check for input.
 
-        if(!config::flags::game_started) {       //  Game not running.
-            al_stop_timer(main_timer);           //  Make sure the timer isn't.
-            config::_flags::menu_opened = true;  //  And force menus
-        }
-        //  Pause / resume timer check.  Also process the on_pause events.
-        if(config::flags::menu_opened && al_get_timer_started(main_timer)) {
-            al_stop_timer(main_timer);
-            on_engine_pause();
-        }
-        if(!config::flags::menu_opened && !al_get_timer_started(main_timer)) {
-            on_engine_unpause();
-            al_resume_timer(main_timer);
+        //  Game not running, make sure the timer isn't.
+        if(!config::flags::game_started) al_stop_timer(main_timer);
+        else {
+            //  Pause / resume timer check.  Also process the on_pause events.
+            if(config::flags::engine_paused && al_get_timer_started(main_timer)) {
+                al_stop_timer(main_timer);
+                on_engine_pause();
+            }
+            if(!config::flags::engine_paused && !al_get_timer_started(main_timer)) {
+                on_engine_unpause();
+                al_resume_timer(main_timer);
+            }
         }
 
         ALLEGRO_EVENT event;

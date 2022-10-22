@@ -298,7 +298,6 @@ void engine::do_game(void) {
     /*
      * End Engine Loop
      */
-
     wte_unload();
 }
 

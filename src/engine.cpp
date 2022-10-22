@@ -102,6 +102,12 @@ engine::engine(const int& argc, char** const& argv) {
                 throw engine_exception("Error loading script:  " + args[0], "engine", 2);
         }
     });
+    cmds.add("enable-input", 0, [](const msg_args& args){
+        config::flags::input_enabled = true;
+    });
+    cmds.add("disable-input", 0, [](const msg_args& args){
+        config::flags::input_enabled = false;
+    });
 
     if constexpr (build_options.debug_mode) logger::start();
     std::cout << "Engine started successfully!\n\n";

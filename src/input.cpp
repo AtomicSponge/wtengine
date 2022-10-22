@@ -11,10 +11,6 @@
 
 namespace wte {
 
-const int64_t& input::lastkeypress::timer = input::_lastkeypress::timer;
-const int& input::lastkeypress::key = input::_lastkeypress::key;
-const int64_t& input::lastbuttonpress::timer = input::_lastbuttonpress::timer;
-const int& input::lastbuttonpress::button = input::_lastbuttonpress::button;
 ALLEGRO_EVENT_QUEUE* input::input_event_queue;
 std::ofstream input::input_event_file;
 bool input::initialized = false;

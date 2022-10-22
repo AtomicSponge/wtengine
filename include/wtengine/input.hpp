@@ -48,24 +48,6 @@ class input {
          */
         static void toggle_recording(void);
 
-        /*!
-         * \struct lastkeypress
-         * \brief Record last key press.
-         */
-        struct lastkeypress {
-            static const int64_t& timer;  //!<  Time the key was pressed.
-            static const int& key;        //!<  Keycode of key pressed.
-        };
-
-        /*!
-         * \struct lastbuttonpress
-         * \brief Record last button press.
-         */
-        struct lastbuttonpress {
-            static const int64_t& timer;  //!<  Time the button was pressed.
-            static const int& button;     //!<  Button code of button pressed.
-        };
-
     protected:
         input();  //!<  Constructor
 
@@ -179,16 +161,6 @@ class input {
         static void record_event(const int64_t&, const ALLEGRO_EVENT&);      //  Record input events.
         static bool check_events(void);                      //  Check the input queue for events.
         static void run_game_handler(const ALLEGRO_EVENT&);  //  Process in-game input events.
-
-        struct _lastkeypress {
-            inline static int64_t timer = 0;
-            inline static int key = 0;
-        };
-
-        struct _lastbuttonpress {
-            inline static int64_t timer = 0;
-            inline static int button = 0;
-        };
 
         static ALLEGRO_EVENT_QUEUE* input_event_queue;  //  Input event queue.
         static std::ofstream input_event_file;

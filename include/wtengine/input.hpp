@@ -156,13 +156,15 @@ class input {
 
         static void create_event_queue(void);                //  Create the input queue.
         static void destroy_event_queue(void);               //  Destroy the input queue.
-        static void record_event(const int64_t&, const ALLEGRO_EVENT&);      //  Record input events.
+        static void record_event(                            //  Record input events.
+            const int64_t&,
+            const ALLEGRO_EVENT&);
         static bool check_events(void);                      //  Check the input queue for events.
         static void run_game_handler(const ALLEGRO_EVENT&);  //  Process in-game input events.
 
         static ALLEGRO_EVENT_QUEUE* input_event_queue;  //  Input event queue.
-        static std::ofstream input_event_file;
-        static bool initialized;  //  Restrict to one instance.
+        static std::ofstream input_event_file;          //  Event record file.
+        static bool initialized;                        //  Restrict to one instance.
 };
 
 }  //  end namespace wte

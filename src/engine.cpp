@@ -108,6 +108,11 @@ engine::engine(const int& argc, char** const& argv) {
     cmds.add("disable-input", 0, [](const msg_args& args){
         config::flags::input_enabled = false;
     });
+    cmds.add("resize-display", 2, [this](const msg_args& args){
+        display::resize_display(
+            std::atoi(args[0].c_str()),
+            std::atoi(args[1].c_str()));
+    });
 
     if constexpr (build_options.debug_mode) logger::start();
     std::cout << "Engine started successfully!\n\n";

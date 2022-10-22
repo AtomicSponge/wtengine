@@ -118,7 +118,7 @@ void renderer::render(void) {
     al_clear_to_color(WTE_COLOR_BLACK);
 
     //  Render world if the game is running.
-    if(config::flags::game_started) {
+    if(config::flags::engine_started) {
         //  Set drawing to the arena bitmap.
         al_set_target_bitmap(**arena_bitmap);
         al_clear_to_color(WTE_COLOR_BLACK);

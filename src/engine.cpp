@@ -75,16 +75,16 @@ engine::engine(const int& argc, char** const& argv) {
 
     //  Main engine commands.
     cmds.add("exit", 0, [this](const msg_args& args) {
-        if(config::flags::game_started) process_end_game(true);
+        if(config::flags::engine_started) process_end_game(true);
         config::_flags::is_running = false;
     });
     cmds.add("new-game", 1, [this](const msg_args& args) {
-        if(!config::flags::game_started) {
+        if(!config::flags::engine_started) {
             process_new_game(args[0]);
         }
     });
     cmds.add("end-game", 0, [this](const msg_args& args) {
-        if(config::flags::game_started) {
+        if(config::flags::engine_started) {
             process_end_game(false);
         }
     });
@@ -93,7 +93,7 @@ engine::engine(const int& argc, char** const& argv) {
         if(args[0] == "off") config::flags::draw_fps = false;
     });
     cmds.add("load-script", 1, [](const msg_args& args) {
-        if(config::flags::game_started && args[0] != "") {
+        if(config::flags::engine_started && args[0] != "") {
             if(!mgr::messages::load_script(args[0]))
                 throw engine_exception("Error loading script:  " + args[0], "engine", 2);
         }
@@ -183,7 +183,7 @@ void engine::process_new_game(const std::string& game_script) {
         al_stop_timer(main_timer);
         al_set_timer_count(main_timer, 0);
         engine_time::set(al_get_timer_count(main_timer));
-        config::_flags::game_started = true;
+        config::_flags::engine_started = true;
         config::flags::input_enabled = true;
         al_start_timer(main_timer);
     } catch(const std::exception& e) { throw e; }
@@ -197,7 +197,7 @@ void engine::process_end_game(const bool& force) {
     std::cout << "Ending game... ";
     try {
         al_stop_timer(main_timer);
-        config::_flags::game_started = false;
+        config::_flags::engine_started = false;
         config::flags::input_enabled = true;
         al_set_timer_count(main_timer, 0);
         engine_time::set(al_get_timer_count(main_timer));
@@ -228,7 +228,7 @@ void engine::do_game(void) {
 
     //  Set default states.
     config::_flags::is_running = true;
-    config::_flags::game_started = false;
+    config::_flags::engine_started = false;
     config::_flags::engine_paused = false;
 
     /*
@@ -238,7 +238,7 @@ void engine::do_game(void) {
         input::check_events();  //  Check for input.
 
         //  Game not running, make sure the timer isn't.
-        if(!config::flags::game_started) al_stop_timer(main_timer);
+        if(!config::flags::engine_started) al_stop_timer(main_timer);
         else {
             //  Pause / resume timer check.  Also process the on_pause events.
             if(config::flags::engine_paused && al_get_timer_started(main_timer)) {
@@ -276,7 +276,7 @@ void engine::do_game(void) {
                 break;
             //  Force quit if the game window is closed.
             case ALLEGRO_EVENT_DISPLAY_CLOSE:
-                if(config::flags::game_started) process_end_game(true);
+                if(config::flags::engine_started) process_end_game(true);
                 config::_flags::is_running = false;
                 break;
             //  Window has been resized.

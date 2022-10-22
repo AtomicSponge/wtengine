@@ -59,7 +59,7 @@ class config {
             static const bool& audio_installed;       //!<  Flag to check if audio was installed.
             static const bool& show_hitboxes;         //!<  Flag to enable/disable hitbox rendering.
             inline static bool draw_fps = true;       //!<  Flag to check if fps should be drawn.
-            inline static bool input_enabled = true;  //!<  Flag to check if input is enabled.
+            inline static bool input_enabled = true;  //!<  Flag to check if game input is enabled.
         };
 
         /*!

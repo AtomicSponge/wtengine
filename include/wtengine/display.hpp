@@ -46,12 +46,6 @@ class display {
         static void set_window_title(const std::string& title);
 
         /*!
-         * \brief Set the display mode.
-         * \param m Display mode value.
-         */
-        static void set_display_mode(const std::size_t& m);
-
-        /*!
          * \brief Set the scale factor.
          * \param f Scale factor value.
          */

@@ -31,17 +31,8 @@ void display::set_window_title(const std::string& title) { window_title = title;
 /*
  *
  */
-void display::set_display_mode(const std::size_t& m) {
-    config::_gfx::display_mode = m;
-    config::_gfx::needs_reconfig = true;
-}
-
-/*
- *
- */
 void display::set_scale_factor(const float& f) {
     config::_gfx::scale_factor = f;
-    config::_gfx::needs_reconfig = true;
 }
 
 /*

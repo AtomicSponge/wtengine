@@ -42,7 +42,6 @@ const int& config::gfx::arena_h = config::_gfx::arena_h;
 const std::size_t& config::gfx::vsync = config::_gfx::vsync;
 const std::size_t& config::gfx::display_mode = config::_gfx::display_mode;
 const float& config::gfx::scale_factor = config::_gfx::scale_factor;
-const bool& config::gfx::needs_reconfig = config::_gfx::needs_reconfig;
 
 /*
  *

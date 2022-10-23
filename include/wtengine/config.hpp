@@ -91,7 +91,6 @@ class config {
             static const std::size_t& vsync;          //!<  Vsync setting.
             static const std::size_t& display_mode;   //!<  Display mode setting.
             static const float& scale_factor;         //!<  Arena scale factor.
-            static const bool& needs_reconfig;        //!<  Flag gfx reconfig.
         };
 
         /*!
@@ -234,7 +233,6 @@ class config {
             inline static std::size_t vsync = 2;
             inline static std::size_t display_mode = 0;
             inline static float scale_factor = 1.0f;
-            inline static bool needs_reconfig = false;
         };
 
         static bool initialized;  //  Restrict to one instance.

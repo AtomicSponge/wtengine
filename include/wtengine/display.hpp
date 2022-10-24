@@ -51,6 +51,12 @@ class display {
          */
         static void set_scale_factor(const float& f);
 
+        /*!
+         * \brief Change the display mode.  Requires engine restart.
+         * \param m New display mode.
+         */
+        static void set_display_mode(const std::size_t& m);
+
     protected:
         display();
 

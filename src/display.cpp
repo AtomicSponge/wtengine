@@ -38,6 +38,14 @@ void display::set_scale_factor(const float& f) {
 /*
  *
  */
+void display::set_display_mode(const std::size_t& m) {
+    if(m > 1) m = 1;
+    config::_gfx::display_mode = m;
+}
+
+/*
+ *
+ */
 void display::create_display(void) {
     al_reset_new_display_options();
 

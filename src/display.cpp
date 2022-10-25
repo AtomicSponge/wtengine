@@ -129,8 +129,8 @@ void display::destroy_display(void) { al_destroy_display(_display); }
 /*
  *
  */
-void display::resize_display(const int& width, const int& height) {
-    al_resize_display(_display, width, height);
+void display::resize_display(void) {
+    al_resize_display(_display, config::gfx::screen_w, config::gfx::screen_h);
     if(!al_acknowledge_resize(_display))
         throw engine_error("Failed to resize display!");
 }

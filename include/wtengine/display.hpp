@@ -76,8 +76,7 @@ class display {
     private:
         void create_display(void);         //  Configure the display.
         void destroy_display(void);        //  Destroy the display.
-        void resize_display(               //  Resize the display.
-            const int& width, const int& height);
+        void resize_display(void);         //  Resize the display.
         static std::string window_title;   //  Title for application window.
         static bool initialized;           //  Restrict to one instance.
         static ALLEGRO_DISPLAY* _display;  //  Allegro object for the display.

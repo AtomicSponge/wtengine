@@ -342,8 +342,8 @@ void renderer::render(void) {
         al_set_target_backbuffer(al_get_current_display());
         al_draw_scaled_bitmap(
             **arena_bitmap, 0, 0, config::gfx::arena_w, config::gfx::arena_h,
-            (config::gfx::screen_w / 2) - (config::gfx::arena_w * config::gfx::scale_factor / 2),
-            (config::gfx::screen_h / 2) - (config::gfx::arena_h * config::gfx::scale_factor / 2),
+            (config::gfx::screen_w - (config::gfx::arena_w * config::gfx::scale_factor)) / 2,
+            (config::gfx::screen_h - (config::gfx::arena_h * config::gfx::scale_factor)) / 2,
             config::gfx::arena_w * config::gfx::scale_factor,
             config::gfx::arena_h * config::gfx::scale_factor, 0);
     } else {  //  Game is not running

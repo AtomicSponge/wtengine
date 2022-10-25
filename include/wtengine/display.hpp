@@ -49,7 +49,7 @@ class display {
          * \brief Set the scale factor.
          * \param f Scale factor value.
          */
-        static void set_scale_factor(const float& f);
+        static void set_scale_factor(float f);
 
         /*!
          * \brief Change the display mode.  Requires engine restart.

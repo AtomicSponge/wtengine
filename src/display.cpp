@@ -31,7 +31,7 @@ void display::set_window_title(const std::string& title) { window_title = title;
 /*
  *
  */
-void display::set_scale_factor(const float& f) {
+void display::set_scale_factor(float f) {
     //  add error checking
     config::_gfx::scale_factor = f;
 }

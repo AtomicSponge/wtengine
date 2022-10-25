@@ -62,6 +62,14 @@ void display::set_screen_size(int w, int h) {
 /*
  *
  */
+void display::set_vsync(std::size_t v) {
+    if(v > 2) v = 0;
+    config::_gfx::vsync = v;
+}
+
+/*
+ *
+ */
 void display::create_display(void) {
     al_reset_new_display_options();
 

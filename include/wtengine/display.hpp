@@ -64,6 +64,12 @@ class display {
          */
         static void set_screen_size(int w, int h);
 
+        /*!
+         * \brief Set the vsync setting.
+         * \param v New vsync setting.
+         */
+        static void set_vsync(std::size_t v);
+
     protected:
         display();
 

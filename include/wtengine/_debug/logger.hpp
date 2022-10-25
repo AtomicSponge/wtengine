@@ -61,7 +61,8 @@ class logger final {
         > _error_queue;
 
         inline static bool _is_running = ([]{
-            return if(future_obj.wait_for(std::chrono::milliseconds(0)) == std::future_status::timeout);
+            //return if(future_obj.wait_for(std::chrono::milliseconds(0)) == std::future_status::timeout);
+            return true;
         });
 
         static std::ofstream log_file;

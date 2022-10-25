@@ -109,7 +109,8 @@ engine::engine(const int& argc, char** const& argv) {
         config::flags::input_enabled = false;
     });
     cmds.add("resize-display", 2, [](const msg_args& args){
-        set_screen_size(std::stoi(args[0]), std::stoi(args[1]));
+        display::set_screen_size(std::stoi(args[0]), std::stoi(args[1]));
+        display::resize_display();
     });
     cmds.add("display-mode", 1, [](const msg_args& args){
         display::set_display_mode(std::stoul(args[0], NULL, 0));

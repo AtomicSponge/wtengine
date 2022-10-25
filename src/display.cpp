@@ -57,7 +57,6 @@ void display::set_screen_size(int w, int h) {
     if(h < 1) h = 1;
     config::_gfx::screen_w = w;
     config::_gfx::screen_h = h;
-    resize_display();
 }
 
 /*

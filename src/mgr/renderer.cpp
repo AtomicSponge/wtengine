@@ -37,6 +37,7 @@ const duration& renderer::delta_time = renderer::_delta_time;
  */
 void renderer::initialize(void) {
     //  Create the arena bitmap.
+    if(config::gfx::screen_w == 0 || config::gfx::screen_h == 0) throw std::runtime_error("Screen size not defined!");
     if(config::gfx::arena_w == 0 || config::gfx::arena_h == 0) throw std::runtime_error("Arena size not defined!");
     arena_bitmap = make_asset(al_bitmap(config::gfx::arena_w, config::gfx::arena_h));
     //  Add reference to Asset manager so bitmap can be reloaded.

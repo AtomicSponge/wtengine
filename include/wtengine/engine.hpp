@@ -45,6 +45,60 @@ namespace wte {
  * Contains the main game loop and members for managing the game and engine.
  */
 class engine : public config, public display, public input {
+    public:
+        /*!
+         * \brief Unloads the game engine.
+         * 
+         * Frees up instance, set initialized flag to false.
+         */
+        ~engine();
+
+        engine(const engine&) = delete;          //!<  Delete copy constructor.
+        void operator=(engine const&) = delete;  //!<  Delete assignment operator.
+
+        /*!
+         * \brief Add file path to provide to PhysFS.
+         * 
+         * This should be called during engine initialization before the main object is created.
+         * 
+         * \param flocation File location to add to PhysFS.
+         */
+        static void add_file_location(const std::string& flocation);
+
+        /*!
+         * \brief The main engine loop.
+         */
+        void do_game(void);
+
+    protected:
+        /*!
+         * \brief Create a new instance of the game engine.
+         * 
+         * Force single instance, set initialized flag to true.
+         * Throws a runtime error if another instance is called.
+         * 
+         * \param argc Command line arguments.
+         * \param argv Command line arguments count.
+         */
+        engine(const int& argc, char** const& argv);
+
+        /* These function members are overridden in the derived class */
+        //!  Define this to load all systems to be used by the game.
+        virtual void load_systems(void) = 0;
+        //!  Define what gets loaded when a game starts.
+        virtual void new_game(void) = 0;
+        //!  Define what happens at the end of a game.
+        virtual void end_game(void) = 0;
+        //!  Optional:  On menu open.
+        virtual void on_engine_pause(void) {};
+        //!  Optional:  On menu close.
+        virtual void on_engine_unpause(void) {};
+        //!  Optional:  Window out of focus handler.
+        virtual void out_of_focus(void) {};
+        //!  Optional:  Window back in focus handler.
+        virtual void back_in_focus(void) {};
+        /* *** End overridden function members *** */
+
     private:
         /*
          * Load the engine's managers.
@@ -83,60 +137,6 @@ class engine : public config, public display, public input {
         static std::vector<std::string> file_locations;
         //  Restrict to one instance of the engine running.
         static bool initialized;
-
-    protected:
-        /*!
-         * \brief Create a new instance of the game engine.
-         * 
-         * Force single instance, set initialized flag to true.
-         * Throws a runtime error if another instance is called.
-         * 
-         * \param argc Command line arguments.
-         * \param argv Command line arguments count.
-         */
-        engine(const int& argc, char** const& argv);
-
-        /* These function members are overridden in the derived class */
-        //!  Define this to load all systems to be used by the game.
-        virtual void load_systems(void) = 0;
-        //!  Define what gets loaded when a game starts.
-        virtual void new_game(void) = 0;
-        //!  Define what happens at the end of a game.
-        virtual void end_game(void) = 0;
-        //!  Optional:  On menu open.
-        virtual void on_engine_pause(void) {};
-        //!  Optional:  On menu close.
-        virtual void on_engine_unpause(void) {};
-        //!  Optional:  Window out of focus handler.
-        virtual void out_of_focus(void) {};
-        //!  Optional:  Window back in focus handler.
-        virtual void back_in_focus(void) {};
-        /* *** End overridden function members *** */
-
-    public:
-        /*!
-         * \brief Unloads the game engine.
-         * 
-         * Frees up instance, set initialized flag to false.
-         */
-        ~engine();
-
-        engine(const engine&) = delete;          //!<  Delete copy constructor.
-        void operator=(engine const&) = delete;  //!<  Delete assignment operator.
-
-        /*!
-         * \brief Add file path to provide to PhysFS.
-         * 
-         * This should be called during engine initialization before the main object is created.
-         * 
-         * \param flocation File location to add to PhysFS.
-         */
-        static void add_file_location(const std::string& flocation);
-
-        /*!
-         * \brief The main engine loop.
-         */
-        void do_game(void);
 };
 
 }  //  end namespace wte

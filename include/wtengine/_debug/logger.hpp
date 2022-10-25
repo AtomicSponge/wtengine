@@ -46,8 +46,6 @@ class logger final {
             const std::string& d, const std::string& l,
             const uint& c, const int64_t& t);
 
-        static const bool& is_running;  //!<  Flag to see if the logger is running.
-
     private:
         logger();
         ~logger();
@@ -59,11 +57,6 @@ class logger final {
         static std::stack<
             std::tuple<std::string, std::string, uint, int64_t>
         > _error_queue;
-
-        inline static bool _is_running = ([]{
-            //return if(future_obj.wait_for(std::chrono::milliseconds(0)) == std::future_status::timeout);
-            return true;
-        });
 
         static std::ofstream log_file;
 
@@ -102,8 +95,6 @@ class logger final {
             const std::string& d, const std::string& l,
             const uint& c, const int64_t& t);
 
-        static const bool is_running = false;
-
     private:
         logger() = default;
         ~logger() = default;
@@ -111,8 +102,6 @@ class logger final {
         static bool start(void);
         static void run(void);
         static void stop(void);
-
-        static const bool _is_running = false;
 };
 
 template <typename... Args>

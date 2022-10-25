@@ -32,15 +32,26 @@ void display::set_window_title(const std::string& title) { window_title = title;
  *
  */
 void display::set_scale_factor(const float& f) {
+    //  add error checking
     config::_gfx::scale_factor = f;
 }
 
 /*
  *
  */
-void display::set_display_mode(const std::size_t& m) {
+void display::set_display_mode(std::size_t m) {
     if(m > 1) m = 1;
     config::_gfx::display_mode = m;
+}
+
+/*
+ *
+ */
+void display::set_screen_size(int w, int h) {
+    if(w < 1) w = 1;
+    if(h < 1) h = 1;
+    config::_gfx::screen_w = w;
+    config::_gfx::screen_h = h;
 }
 
 /*
@@ -57,9 +68,6 @@ void display::create_display(void) {
         al_set_new_display_option(ALLEGRO_VSYNC, 0, ALLEGRO_SUGGEST);
     }
 
-    int screen_w = config::gfx::arena_w;
-    int screen_h = config::gfx::arena_h;
-
     //  Check if a display mode is set.
     if(config::gfx::display_mode == 1) {
         (build_options.opengl_latest ?
@@ -69,29 +77,21 @@ void display::create_display(void) {
         (build_options.opengl_latest ?
             al_set_new_display_flags(ALLEGRO_OPENGL_3_0 | ALLEGRO_WINDOWED):
             al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_WINDOWED));
-        screen_w = (int)ceil(config::gfx::arena_w * config::gfx::scale_factor);
-        screen_h = (int)ceil(config::gfx::arena_h * config::gfx::scale_factor);
     }
 
     //  Create the display.  Full screen windowed defaults to the display resolution.
-    _display = al_create_display(screen_w, screen_h);
-    if(config::gfx::display_mode == 1) {
-        screen_w = al_get_display_width(_display);
-        screen_h = al_get_display_height(_display);
-    }
+    _display = al_create_display(config::gfx::screen_w, config::gfx::screen_h);
 
     //  Display failed to load, try a fallback.
     if(!_display) {
         (build_options.opengl_latest ?
             al_set_new_display_flags(ALLEGRO_OPENGL_3_0 | ALLEGRO_WINDOWED):
             al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_WINDOWED));
-        _display = al_create_display(config::gfx::arena_w,
-                                     config::gfx::arena_h);
+        _display = al_create_display(config::gfx::screen_w,
+                                     config::gfx::screen_h);
         if(!_display) throw engine_error("Failed to configure display!");
         config::_gfx::display_mode = 0;
         config::_gfx::scale_factor = 1.0f;
-        screen_w = config::gfx::arena_w;
-        screen_h = config::gfx::arena_h;
     }
 
     //  Set window title.
@@ -106,9 +106,6 @@ void display::create_display(void) {
         al_destroy_bitmap(icon_bitmap);
     }
     al_fclose(file);
-
-    config::_gfx::screen_w = screen_w;
-    config::_gfx::screen_h = screen_h;
 }
 
 /*

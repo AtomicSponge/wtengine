@@ -55,7 +55,14 @@ class display {
          * \brief Change the display mode.  Requires engine restart.
          * \param m New display mode.
          */
-        static void set_display_mode(const std::size_t& m);
+        static void set_display_mode(std::size_t m);
+
+        /*!
+         * \brief Set the screen size.
+         * \param w Screen width.
+         * \param h Screen height.
+         */
+        static void set_screen_size(int w, int h);
 
     protected:
         display();

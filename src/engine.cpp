@@ -115,7 +115,7 @@ engine::engine(const int& argc, char** const& argv) {
     cmds.add("display-mode", 1, [](const msg_args& args){
         display::set_display_mode(std::stoul(args[0], NULL, 0));
     });
-    cmds.add("scale_factor", 1, [](const msg_args& args){
+    cmds.add("scale-factor", 1, [](const msg_args& args){
         display::set_scale_factor(std::stof(args[0]));
     });
 

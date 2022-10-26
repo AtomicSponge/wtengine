@@ -97,6 +97,9 @@ class engine : public config, public display, public input {
         virtual void out_of_focus(void) {};
         //!  Optional:  Window back in focus handler.
         virtual void back_in_focus(void) {};
+
+        virtual void pre_resize_display(void) {};
+        virtual void post_resize_display(void) {};
         /* *** End overridden function members *** */
 
     private:

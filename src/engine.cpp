@@ -296,7 +296,7 @@ void engine::do_game(void) {
                 break;
             //  Window has been resized.
             case ALLEGRO_EVENT_DISPLAY_RESIZE:
-                //
+                al_acknowledge_resize(_display);
                 break;
             }
         }

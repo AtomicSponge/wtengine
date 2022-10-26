@@ -89,17 +89,17 @@ class engine : public config, public display, public input {
         virtual void new_game(void) = 0;
         //!  Define what happens at the end of a game.
         virtual void end_game(void) = 0;
-        //!  Optional:  On menu open.
+        //!  Optional:  On engine pause handler.
         virtual void on_engine_pause(void) {};
-        //!  Optional:  On menu close.
+        //!  Optional:  On engine unpause handler.
         virtual void on_engine_unpause(void) {};
         //!  Optional:  Window out of focus handler.
         virtual void out_of_focus(void) {};
         //!  Optional:  Window back in focus handler.
         virtual void back_in_focus(void) {};
-        //!  Optional:  Before resizing display acknolegement.
+        //!  Optional:  Before resizing display acknolegement handler.
         virtual void pre_resize_display(void) {};
-        //!  Optional:  After resizing display acknolegement.
+        //!  Optional:  After resizing display acknolegement handler.
         virtual void post_resize_display(void) {};
         /* *** End overridden function members *** */
 

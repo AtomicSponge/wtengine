@@ -233,6 +233,8 @@ void engine::process_end_game(const bool& force) {
         mgr::systems::clear();
         mgr::messages::clear();
     } catch(const std::exception& e) { throw e; }
+
+    default_state();  //  Call after an end game process.
 }
 
 /*
@@ -260,6 +262,8 @@ void engine::do_game(void) {
     config::_flags::engine_started = false;
     config::_flags::engine_paused = false;
 
+    default_state();  //  Call at start of engine loop.
+
     /*
      * Start Engine Loop
      */
@@ -267,7 +271,9 @@ void engine::do_game(void) {
         input::check_events();  //  Check for input.
 
         //  Game not running, make sure the timer isn't.
-        if(!config::flags::engine_started) al_stop_timer(main_timer);
+        if(!config::flags::engine_started) {
+            al_stop_timer(main_timer);
+        }
         else {
             //  Pause / resume timer check.  Also process the on_pause events.
             if(config::flags::engine_paused && al_get_timer_started(main_timer)) {

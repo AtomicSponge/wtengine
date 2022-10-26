@@ -49,6 +49,9 @@ void display::set_display_mode(std::size_t m) {
     config::_gfx::display_mode = m;
 }
 
+/*
+ *
+ */
 void display::set_screen_size(int w, int h) {
     if(w < 1) w = 1;
     if(h < 1) h = 1;

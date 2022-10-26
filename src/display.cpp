@@ -49,14 +49,24 @@ void display::set_display_mode(std::size_t m) {
     config::_gfx::display_mode = m;
 }
 
-/*
- *
- */
 void display::set_screen_size(int w, int h) {
     if(w < 1) w = 1;
     if(h < 1) h = 1;
     config::_gfx::screen_w = w;
     config::_gfx::screen_h = h;
+}
+
+/*
+ *
+ */
+void display::resize_display(int w, int h) {
+    if(w < 1) w = 1;
+    if(h < 1) h = 1;
+    config::_gfx::screen_w = w;
+    config::_gfx::screen_h = h;
+    al_resize_display(_display, config::gfx::screen_w, config::gfx::screen_h);
+    if(!al_acknowledge_resize(_display))
+        throw engine_error("Failed to resize display!");
 }
 
 /*
@@ -125,14 +135,5 @@ void display::create_display(void) {
  *
  */
 void display::destroy_display(void) { al_destroy_display(_display); }
-
-/*
- *
- */
-void display::resize_display(void) {
-    al_resize_display(_display, config::gfx::screen_w, config::gfx::screen_h);
-    if(!al_acknowledge_resize(_display))
-        throw engine_error("Failed to resize display!");
-}
 
 }  //  end namespace wte

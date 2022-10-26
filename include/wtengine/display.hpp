@@ -58,7 +58,7 @@ class display {
         static void set_display_mode(std::size_t m);
 
         /*!
-         * \brief Set the screen size.  Call resize after to change the size.
+         * \brief Set the screen size.  Call during engine setup.
          * \param w Screen width.
          * \param h Screen height.
          */
@@ -71,9 +71,11 @@ class display {
         static void set_vsync(std::size_t v);
 
         /*!
-         * \brief Resize the display.  Call after setting a new screen size.
+         * \brief Resize the display.
+         * \param w Screen width.
+         * \param h Screen height.
          */
-        static void resize_display(void);
+        static void resize_display(int w, int h);
 
     protected:
         display();

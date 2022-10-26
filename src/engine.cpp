@@ -102,20 +102,19 @@ engine::engine(const int& argc, char** const& argv) {
                 throw engine_exception("Error loading script:  " + args[0], "engine", 2);
         }
     });
-    cmds.add("enable-input", 0, [](const msg_args& args){
+    cmds.add("enable-input", 0, [](const msg_args& args) {
         config::flags::input_enabled = true;
     });
-    cmds.add("disable-input", 0, [](const msg_args& args){
+    cmds.add("disable-input", 0, [](const msg_args& args) {
         config::flags::input_enabled = false;
     });
-    cmds.add("resize-display", 2, [](const msg_args& args){
-        display::set_screen_size(std::stoi(args[0]), std::stoi(args[1]));
-        display::resize_display();
+    cmds.add("resize-display", 2, [](const msg_args& args) {
+        display::resize_display(std::stoi(args[0]), std::stoi(args[1]));
     });
-    cmds.add("display-mode", 1, [](const msg_args& args){
+    cmds.add("display-mode", 1, [](const msg_args& args) {
         display::set_display_mode(std::stoul(args[0], NULL, 0));
     });
-    cmds.add("scale-factor", 1, [](const msg_args& args){
+    cmds.add("scale-factor", 1, [](const msg_args& args) {
         display::set_scale_factor(std::stof(args[0]));
     });
 

@@ -235,10 +235,16 @@ void engine::process_end_game(const bool& force) {
     } catch(const std::exception& e) { throw e; }
 }
 
+/*
+ *
+ */
 void engine::pause(void) {
     config::_flags::engine_paused = true;
 }
 
+/*
+ *
+ */
 void engine::unpause(void) {
     config::_flags::engine_paused = false;
 }

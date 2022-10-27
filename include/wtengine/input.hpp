@@ -42,9 +42,14 @@ class input {
         void operator=(input const&) = delete;  //!<  Delete assignment operator.
 
         /*!
-         * \brief Toggle input recording.
+         * \brief Start input recording.
          */
-        static void toggle_recording(void);
+        static void start_recording(void);
+
+        /*!
+         * \brief Stop input recording.
+         */
+        static void stop_recording(void);
 
         static ALLEGRO_EVENT_QUEUE* input_event_queue;  //!<  Input event queue.
 

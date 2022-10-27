@@ -48,16 +48,17 @@ void input::destroy_event_queue(void) { al_destroy_event_queue(input_event_queue
 /*
  *
  */
-void input::toggle_recording(void) {
-    if(config::flags::record_input) {
-        //  Turn recording off
-        if(input_event_file.is_open()) input_event_file.close();
-        config::_flags::record_input = false;
-    } else {
-        //  Turn recording on
-        input_event_file.open("input_events", std::ios::binary | std::ofstream::app);
-        config::_flags::record_input = true;
-    }
+void input::start_recording(void) {
+    input_event_file.open("input_events", std::ios::binary | std::ofstream::app);
+    config::_flags::record_input = true;
+}
+
+/*
+ *
+ */
+void input::stop_recording(void) {
+    if(input_event_file.is_open()) input_event_file.close();
+    config::_flags::record_input = false;
 }
 
 /*

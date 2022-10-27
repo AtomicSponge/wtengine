@@ -15,7 +15,6 @@ bool config::initialized = false;
 
 const bool& config::flags::is_running = config::_flags::is_running;
 const bool& config::flags::engine_started = config::_flags::engine_started;
-const bool& config::flags::engine_paused = config::_flags::engine_paused;
 const bool& config::flags::record_input = config::_flags::record_input;
 const bool& config::flags::keyboard_installed = config::_flags::keyboard_installed;
 const bool& config::flags::mouse_installed = config::_flags::mouse_installed;

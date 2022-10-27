@@ -48,17 +48,17 @@ class config {
          * \brief Engine flags.
          */
         struct flags {
-            static const bool& is_running;            //!<  Flag for if the program itself is running.
-            static const bool& engine_started;        //!<  Flag to check if the engine is running.
-            static const bool& engine_paused;         //!<  Flag to check if the engine if paused.
-            static const bool& record_input;          //!<  Flag to enable/disable input recording.
-            static const bool& keyboard_installed;    //!<  Flag to check if a keyboard is installed.
-            static const bool& mouse_installed;       //!<  Flag to check if a mouse is installed.
-            static const bool& joystick_installed;    //!<  Flag to check if a joystick is installed.
-            static const bool& touch_installed;       //!<  Flag to check if touch input is installed.
-            static const bool& audio_installed;       //!<  Flag to check if audio was installed.
-            inline static bool draw_fps = true;       //!<  Flag to check if fps should be drawn.
-            inline static bool input_enabled = true;  //!<  Flag to check if game input is enabled.
+            static const bool& is_running;             //!<  Flag for if the program itself is running.
+            static const bool& engine_started;         //!<  Flag to check if the engine is running.
+            inline static bool engine_paused = false;  //!<  Flag to check if the engine if paused.
+            static const bool& record_input;           //!<  Flag to enable/disable input recording.
+            static const bool& keyboard_installed;     //!<  Flag to check if a keyboard is installed.
+            static const bool& mouse_installed;        //!<  Flag to check if a mouse is installed.
+            static const bool& joystick_installed;     //!<  Flag to check if a joystick is installed.
+            static const bool& touch_installed;        //!<  Flag to check if touch input is installed.
+            static const bool& audio_installed;        //!<  Flag to check if audio was installed.
+            inline static bool draw_fps = true;        //!<  Flag to check if fps should be drawn.
+            inline static bool input_enabled = true;   //!<  Flag to check if game input is enabled.
 
             #if WTE_DEBUG_MODE
             static const bool& show_hitboxes;         //!<  Flag to enable/disable hitbox rendering.
@@ -204,7 +204,6 @@ class config {
         struct _flags {
             inline static bool is_running = true;
             inline static bool engine_started = false;
-            inline static bool engine_paused = false;
             inline static bool record_input = false;
             inline static bool keyboard_installed = false;
             inline static bool mouse_installed = false;

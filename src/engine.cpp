@@ -240,27 +240,13 @@ void engine::process_end_game(const bool& force) {
 /*
  *
  */
-void engine::pause(void) {
-    config::_flags::engine_paused = true;
-}
-
-/*
- *
- */
-void engine::unpause(void) {
-    config::_flags::engine_paused = false;
-}
-
-/*
- *
- */
 void engine::do_game(void) {
     wte_load();
 
     //  Set default states.
     config::_flags::is_running = true;
     config::_flags::engine_started = false;
-    config::_flags::engine_paused = false;
+    config::flags::engine_paused = false;
 
     default_state();  //  Call at start of engine loop.
 

@@ -70,16 +70,6 @@ class engine : public config, public display, public input {
          */
         void do_game(void);
 
-        /*!
-         * \brief Pause the engine.
-         */
-        static void pause(void);
-        
-        /*!
-         * \brief Unpause the engine.
-         */
-        static void unpause(void);
-
     protected:
         /*!
          * \brief Create a new instance of the game engine.

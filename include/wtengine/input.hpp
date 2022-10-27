@@ -46,6 +46,8 @@ class input {
          */
         static void toggle_recording(void);
 
+        static ALLEGRO_EVENT_QUEUE* input_event_queue;  //!<  Input event queue.
+
     protected:
         input();  //!<  Constructor
 
@@ -162,7 +164,6 @@ class input {
         static bool check_events(void);                      //  Check the input queue for events.
         static void run_game_handler(const ALLEGRO_EVENT&);  //  Process in-game input events.
 
-        static ALLEGRO_EVENT_QUEUE* input_event_queue;  //  Input event queue.
         static std::ofstream input_event_file;          //  Event record file.
         static bool initialized;                        //  Restrict to one instance.
 };

@@ -54,8 +54,8 @@ class input {
         /*!
          * \brief Define custom input events.
          */
-        inline static std::function<void(const ALLEGRO_EVENT& event)> custom_input_events = 
-            ([](const ALLEGRO_EVENT& event){});
+        inline static std::function<void(ALLEGRO_EVENT& event)> custom_input_events = 
+            ([](ALLEGRO_EVENT& event){});
 
     protected:
         input();  //!<  Constructor

@@ -128,7 +128,6 @@ inline constexpr wte_build_options build_options;
 #define WTE_COLOR_WHITE         (al_map_rgb(255,255,255))
 #define WTE_COLOR_TRANSPARENT   (al_map_rgba(0,0,0,0))
 
-
 //  Define default keys
 #if !defined(WTE_KEY_MENU_DEFAULT)
     #define WTE_KEY_MENU_DEFAULT            ALLEGRO_KEY_ESCAPE

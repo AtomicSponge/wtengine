@@ -51,6 +51,9 @@ class input {
          */
         static void stop_recording(void);
 
+        /*!
+         * \brief Define custom input events.
+         */
         inline static std::function<void(const ALLEGRO_EVENT& event)> custom_input_events = 
             ([](const ALLEGRO_EVENT& event){});
 

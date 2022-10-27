@@ -51,6 +51,9 @@ class input {
          */
         static void stop_recording(void);
 
+        inline static std::function<void(const ALLEGRO_EVENT& event)> custom_input_events = 
+            ([](const ALLEGRO_EVENT& event){});
+
     protected:
         input();  //!<  Constructor
 
@@ -164,7 +167,7 @@ class input {
         static void record_event(                            //  Record input events.
             const int64_t&,
             const ALLEGRO_EVENT&);
-        static bool check_events(void);                      //  Check the input queue for events.
+        static void check_events(void);                      //  Check the input queue for events.
         static void run_game_handler(const ALLEGRO_EVENT&);  //  Process in-game input events.
 
         static ALLEGRO_EVENT_QUEUE* input_event_queue;  //  Input event queue.

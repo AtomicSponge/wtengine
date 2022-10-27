@@ -73,7 +73,7 @@ void input::record_event(const int64_t& time, const ALLEGRO_EVENT& event) {
 /*
  *
  */
-bool input::check_events(void) {
+void input::check_events(void) {
     ALLEGRO_EVENT event;
     while(al_get_next_event(input_event_queue, &event)) {
         //  Record input if enabled.
@@ -86,8 +86,8 @@ bool input::check_events(void) {
         } else {
             run_handles<NONGAME_HANDLES>(event);   //  Run non-game handles
         }
+        custom_input_events(event);
     }
-    return true;
 }
 
 }  //  end namespace wte

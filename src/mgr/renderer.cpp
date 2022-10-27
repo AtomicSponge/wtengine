@@ -362,6 +362,8 @@ void renderer::render(void) {
     }
     if constexpr (build_options.debug_mode) draw_timer();
 
+    render_gui();
+
     //  Update the screen & delta time.
     al_flip_display();
     _delta_time = system_clock::now() - _last_render;

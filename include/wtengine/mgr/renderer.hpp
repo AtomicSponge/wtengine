@@ -14,6 +14,7 @@
 #include <utility>
 #include <set>
 #include <iterator>
+#include <functional>
 #include <memory>
 #include <chrono>
 #include <stdexcept>
@@ -97,6 +98,11 @@ class renderer final : private manager<renderer> {
          * \param fone Font asset to use.
          */
         static void set_font(wte_asset<al_font> font);
+
+        /*!
+         * \brief Define custom gui rendering.
+         */
+        inline static std::function<void(void)> render_gui =  ([](){});
 
         static const std::size_t& fps;                       //!<  Frames per second
         static const time_point<system_clock>& last_render;  //!<  Point in time last render completed

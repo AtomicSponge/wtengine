@@ -126,7 +126,12 @@ add_library(wtengine STATIC
     src/config.cpp
     src/display.cpp
     src/input.cpp
-    src/engine.cpp)
+    src/engine.cpp
+    src/imgui/imgui_draw.cpp
+    src/imgui/imgui_impl_allegro5.cpp
+    src/imgui/imgui_tables.cpp
+    src/imgui/imgui_widgets.cpp
+    src/imgui/imgui.cpp)
 
 ########################################
 #
@@ -163,7 +168,7 @@ install(TARGETS wtengine LIBRARY
 #  Now install the headers, preserving subfolders
 install(DIRECTORY include/
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-    FILES_MATCHING PATTERN "*.hpp")
+    FILES_MATCHING PATTERN "*.hpp" PATTERN "*.h")
 
 #  Create pkg-config and install
 configure_file(wtengine.pc.in wtengine.pc @ONLY)

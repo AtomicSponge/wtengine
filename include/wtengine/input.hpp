@@ -27,6 +27,9 @@
 #include "wtengine/_globals/handlers.hpp"
 #include "wtengine/config.hpp"
 
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_allegro5.h"
+
 namespace wte {
 
 /*!

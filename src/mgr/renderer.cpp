@@ -366,6 +366,7 @@ void renderer::render(void) {
     }
     if constexpr (build_options.debug_mode) draw_timer();
 
+    //  Render Dear ImGui
     render_gui();
     ImGui::Render();
     ImGui_ImplAllegro5_RenderDrawData(ImGui::GetDrawData());

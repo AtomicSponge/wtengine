@@ -75,12 +75,6 @@ engine::engine(const int& argc, char** const& argv) {
     al_register_event_source(main_event_queue, al_get_display_event_source(_display));
     al_register_event_source(main_event_queue, al_get_timer_event_source(main_timer));
 
-    //  Initialize Dear ImGui
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    ImGui::StyleColorsDark();
-
     //  Create the input event queue
     input::create_event_queue();
 
@@ -135,10 +129,6 @@ engine::engine(const int& argc, char** const& argv) {
 engine::~engine() {
     std::cout << "Stopping wtengine... ";
     PHYSFS_deinit();
-
-    //  Shut down Dear ImGui
-    ImGui_ImplAllegro5_Shutdown();
-    ImGui::DestroyContext();
 
     al_destroy_timer(main_timer);
     al_destroy_event_queue(main_event_queue);

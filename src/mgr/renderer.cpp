@@ -65,6 +65,10 @@ void renderer::initialize(void) {
 
     _start_time = _last_render = system_clock::now();
     _delta_time = system_clock::now() - system_clock::now();
+
+    //  Start the Dear ImGui render frame
+    ImGui_ImplAllegro5_NewFrame();
+    ImGui::NewFrame();
 }
 
 /*
@@ -362,6 +366,9 @@ void renderer::render(void) {
     }
     if constexpr (build_options.debug_mode) draw_timer();
 
+    ImGui::Render();
+    ImGui_ImplAllegro5_RenderDrawData(ImGui::GetDrawData());
+    
     //  Update the screen & delta time.
     al_flip_display();
     _delta_time = system_clock::now() - _last_render;

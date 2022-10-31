@@ -204,6 +204,7 @@ void engine::process_new_game(const std::string& game_script) {
         al_set_timer_count(main_timer, 0);
         engine_time::set(al_get_timer_count(main_timer));
         config::_flags::engine_started = true;
+        config::flags::engine_paused = false;
         al_start_timer(main_timer);
     } catch(const std::exception& e) { throw e; }
 }

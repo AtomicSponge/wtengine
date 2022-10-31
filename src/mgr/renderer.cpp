@@ -65,10 +65,6 @@ void renderer::initialize(void) {
 
     _start_time = _last_render = system_clock::now();
     _delta_time = system_clock::now() - system_clock::now();
-
-    //  Start the Dear ImGui render frame
-    ImGui_ImplAllegro5_NewFrame();
-    ImGui::NewFrame();
 }
 
 /*
@@ -369,7 +365,7 @@ void renderer::render(void) {
     //  Render Dear ImGui
     if constexpr (build_options.use_imgui) {
         draw_gui();
-        ImGui::Render();
+        //ImGui::Render();
         ImGui_ImplAllegro5_RenderDrawData(ImGui::GetDrawData());
     }
     

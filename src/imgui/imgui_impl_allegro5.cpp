@@ -1,9 +1,3 @@
- * wtengine | File:  imgui_impl_allegro5.cpp
- * 
- * \author Matthew Evans
- * \version 0.8.0
- * \copyright See LICENSE.md for copyright information.
- * \date 2019-2022
 // dear imgui: Renderer + Platform Backend for Allegro 5
 // (Info: Allegro 5 is a cross-platform general purpose library for handling windows, inputs, graphics, etc.)
 

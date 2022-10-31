@@ -100,8 +100,6 @@ class engine : public config, public display, public input {
         virtual void out_of_focus(void) {};
         //!  Optional:  Window back in focus handler.
         virtual void back_in_focus(void) {};
-        //!  Optional:  Run on the engine's default state.
-        virtual void default_state(void) {};
         /* *** End overridden function members *** */
 
     private:

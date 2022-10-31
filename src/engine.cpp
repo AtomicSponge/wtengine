@@ -254,10 +254,7 @@ void engine::do_game(void) {
         input::check_events();  //  Check for input.
 
         //  Game not running, make sure the timer isn't.
-        if(!config::flags::engine_started) {
-            al_stop_timer(main_timer);
-            default_state();
-        }
+        if(!config::flags::engine_started) al_stop_timer(main_timer);
         else {
             //  Pause / resume timer check.  Also process the on_pause events.
             if(config::flags::engine_paused && al_get_timer_started(main_timer)) {

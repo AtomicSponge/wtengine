@@ -86,7 +86,6 @@ void input::check_events(void) {
         } else {
             run_handles<NONGAME_HANDLES>(event);   //  Run non-game handles
         }
-        custom_input_events(event);
     }
 }
 

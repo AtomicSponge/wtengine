@@ -99,11 +99,6 @@ class renderer final : private manager<renderer> {
          */
         static void set_font(wte_asset<al_font> font);
 
-        /*!
-         * \brief Define custom gui rendering.
-         */
-        inline static std::function<void(void)> render_gui =  ([](){});
-
         static const std::size_t& fps;                       //!<  Frames per second
         static const time_point<system_clock>& last_render;  //!<  Point in time last render completed
         static const time_point<system_clock>& start_time;   //!<  Point in time the renderer started

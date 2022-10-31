@@ -77,8 +77,6 @@ class display {
          */
         static void resize_display(int w, int h);
 
-        static ALLEGRO_DISPLAY* _display;   //!<  Allegro object for the display.
-
     protected:
         display();
 
@@ -87,6 +85,8 @@ class display {
         static void destroy_display(void);  //  Destroy the display.
         static std::string window_title;    //  Title for application window.
         static bool initialized;            //  Restrict to one instance.
+
+        static ALLEGRO_DISPLAY* _display;   //  Allegro object for the display.
 };
 
 }  //  end namespace wte

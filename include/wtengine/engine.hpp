@@ -97,10 +97,6 @@ class engine : public config, public display, public input {
         virtual void out_of_focus(void) {};
         //!  Optional:  Window back in focus handler.
         virtual void back_in_focus(void) {};
-        //!  Optional:  Before resizing display acknolegement handler.
-        virtual void pre_resize_display(void) {};
-        //!  Optional:  After resizing display acknolegement handler.
-        virtual void post_resize_display(void) {};
         //!  Optional:  Run on the engine's default state.
         virtual void default_state(void) {};
         /* *** End overridden function members *** */

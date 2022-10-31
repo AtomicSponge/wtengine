@@ -1,3 +1,9 @@
+ * wtengine | File:  imgui_widgets.cpp
+ * 
+ * \author Matthew Evans
+ * \version 0.8.0
+ * \copyright See LICENSE.md for copyright information.
+ * \date 2019-2022
 // dear imgui, v1.89 WIP
 // (widgets code)
 

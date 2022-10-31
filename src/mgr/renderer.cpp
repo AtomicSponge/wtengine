@@ -363,10 +363,7 @@ void renderer::render(void) {
     if constexpr (build_options.debug_mode) draw_timer();
 
     //  Render Dear ImGui
-    if constexpr (build_options.use_imgui) {
-        draw_gui();
-        ImGui_ImplAllegro5_RenderDrawData(ImGui::GetDrawData());
-    }
+    if constexpr (build_options.use_imgui) draw_gui();
     
     //  Update the screen & delta time.
     al_flip_display();

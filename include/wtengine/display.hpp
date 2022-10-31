@@ -25,8 +25,10 @@
 #include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/mgr/renderer.hpp"
 
+#if WTE_USE_IMGUI
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_allegro5.h"
+#endif
 
 namespace wte {
 

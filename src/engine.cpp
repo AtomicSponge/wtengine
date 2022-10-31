@@ -297,9 +297,11 @@ void engine::do_game(void) {
                 break;
             //  Window has been resized.
             case ALLEGRO_EVENT_DISPLAY_RESIZE:
-                ImGui_ImplAllegro5_InvalidateDeviceObjects();
+                if constexpr (build_options.use_imgui)
+                    ImGui_ImplAllegro5_InvalidateDeviceObjects();
                 al_acknowledge_resize(_display);
-                ImGui_ImplAllegro5_CreateDeviceObjects();
+                if constexpr (build_options.use_imgui)
+                    ImGui_ImplAllegro5_CreateDeviceObjects();
                 break;
             }
         }

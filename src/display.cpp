@@ -133,21 +133,25 @@ void display::create_display(void) {
     }
     al_fclose(file);
 
-    //  Configure Dear ImGui
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    ImGui::StyleColorsDark();
-    ImGui_ImplAllegro5_Init(_display);
+    if constexpr (build_options.use_imgui) {
+        //  Configure Dear ImGui
+        IMGUI_CHECKVERSION();
+        ImGui::CreateContext();
+        ImGuiIO& io = ImGui::GetIO(); (void)io;
+        ImGui::StyleColorsDark();
+        ImGui_ImplAllegro5_Init(_display);
+    }
 }
 
 /*
  *
  */
 void display::destroy_display(void) { 
-    //  Shut down Dear ImGui
-    ImGui_ImplAllegro5_Shutdown();
-    ImGui::DestroyContext();
+    if constexpr (build_options.use_imgui) {
+        //  Shut down Dear ImGui
+        ImGui_ImplAllegro5_Shutdown();
+        ImGui::DestroyContext();
+    }
 
     al_destroy_display(_display);
 }

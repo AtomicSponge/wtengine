@@ -365,7 +365,6 @@ void renderer::render(void) {
     //  Render Dear ImGui
     if constexpr (build_options.use_imgui) {
         draw_gui();
-        //ImGui::Render();
         ImGui_ImplAllegro5_RenderDrawData(ImGui::GetDrawData());
     }
     

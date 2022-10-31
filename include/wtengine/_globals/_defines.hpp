@@ -39,6 +39,12 @@
     #define WTE_USE_IMGUI FALSE
 #endif
 
+#if !defined(WTE_IMGUI_LIGHTMODE)
+    #define WTE_IMGUI_DARKMODE TRUE
+#else
+    #define WTE_IMGUI_DARKMODE FALSE
+#endif
+
 /*!
  * Set the timer rate.
  * Number of ticks per second as a float.

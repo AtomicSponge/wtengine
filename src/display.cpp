@@ -138,7 +138,11 @@ void display::create_display(void) {
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGuiIO& io = ImGui::GetIO(); (void)io;
+        #if WTE_IMGUI_DARKMODE
         ImGui::StyleColorsDark();
+        #else
+        ImGui::StyleColorsLight();
+        #endif
         ImGui_ImplAllegro5_Init(_display);
     }
 }

@@ -107,6 +107,8 @@ class renderer final : private manager<renderer> {
         static const time_point<system_clock>& start_time;   //!<  Point in time the renderer started
         static const duration& delta_time;                   //!<  Time between frame renders
 
+        inline static std::function<void(void)> render_gui =  ([](){});
+
     private:
         renderer() = default;
         ~renderer() = default;

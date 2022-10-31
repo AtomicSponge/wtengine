@@ -35,6 +35,9 @@
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/mgr/_managers.hpp"
 
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_allegro5.h"
+
 namespace wte {
 
 /*!

@@ -132,6 +132,9 @@ void display::create_display(void) {
         al_destroy_bitmap(icon_bitmap);
     }
     al_fclose(file);
+
+    //  Attach Dear ImGui to the display
+    ImGui_ImplAllegro5_Init(_display);
 }
 
 /*

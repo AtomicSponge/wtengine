@@ -33,6 +33,12 @@
     #define WTE_OPENGL_LATEST FALSE
 #endif
 
+#if !defined(WTE_DISABLE_IMGUI)
+    #define WTE_USE_IMGUI TRUE
+#else
+    #define WTE_USE_IMGUI FALSE
+#endif
+
 /*!
  * Set the timer rate.
  * Number of ticks per second as a float.
@@ -60,37 +66,37 @@
 /*!
  * Toggle keyboard building
  */
-#if defined(WTE_DISABLE_KEYBOARD)
-    #define WTE_USE_KEYBOARD FALSE
-#else
+#if !defined(WTE_DISABLE_KEYBOARD)
     #define WTE_USE_KEYBOARD TRUE
+#else
+    #define WTE_USE_KEYBOARD FALSE
 #endif
 
 /*!
  * Toggle mouse building
  */
-#if defined(WTE_DISABLE_MOUSE)
-    #define WTE_USE_MOUSE FALSE
-#else
+#if !defined(WTE_DISABLE_MOUSE)
     #define WTE_USE_MOUSE TRUE
+#else
+    #define WTE_USE_MOUSE FALSE
 #endif
 
 /*!
  * Toggle joystick building
  */
-#if defined(WTE_DISABLE_JOYSTICK)
-    #define WTE_USE_JOYSTICK FALSE
-#else
+#if !defined(WTE_DISABLE_JOYSTICK)
     #define WTE_USE_JOYSTICK TRUE
+#else
+    #define WTE_USE_JOYSTICK FALSE
 #endif
 
 /*!
  * Toggle touch building
  */
-#if defined(WTE_DISABLE_TOUCH)
-    #define WTE_USE_TOUCH FALSE
-#else
+#if !defined(WTE_DISABLE_TOUCH)
     #define WTE_USE_TOUCH TRUE
+#else
+    #define WTE_USE_TOUCH FALSE
 #endif
 
 namespace wte {
@@ -101,6 +107,7 @@ namespace wte {
  */
 struct wte_build_options {
     inline constexpr static bool opengl_latest = static_cast<bool>(WTE_OPENGL_LATEST);
+    inline constexpr static bool use_imgui = static_cast<bool>(WTE_USE_IMGUI);
     inline constexpr static float ticks_per_sec = static_cast<float>(WTE_TICKS_PER_SECOND);
     inline constexpr static bool debug_mode = static_cast<bool>(WTE_DEBUG_MODE);
     inline constexpr static int max_playing_samples = static_cast<int>(WTE_MAX_PLAYING_SAMPLES);

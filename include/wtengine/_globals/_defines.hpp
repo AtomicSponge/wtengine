@@ -27,6 +27,15 @@
     #define FALSE (0)
 #endif
 
+/*!
+ * Enable debug mode
+ */
+#if defined(WTE_BUILD_DEBUG)
+    #define WTE_DEBUG_MODE TRUE
+#else
+    #define WTE_DEBUG_MODE FALSE
+#endif
+
 #if !defined(WTE_REQUIRE_OPENGL_LATEST)
     #define WTE_OPENGL_LATEST TRUE
 #else
@@ -51,15 +60,6 @@
  */
 #if !defined(WTE_TICKS_PER_SECOND)
     #define WTE_TICKS_PER_SECOND (60.0f)
-#endif
-
-/*!
- * Enable debug mode
- */
-#if defined(WTE_BUILD_DEBUG)
-    #define WTE_DEBUG_MODE TRUE
-#else
-    #define WTE_DEBUG_MODE FALSE
 #endif
 
 /*!
@@ -112,10 +112,11 @@ namespace wte {
  * \brief Build options
  */
 struct wte_build_options {
+    inline constexpr static bool debug_mode = static_cast<bool>(WTE_DEBUG_MODE);
     inline constexpr static bool opengl_latest = static_cast<bool>(WTE_OPENGL_LATEST);
     inline constexpr static bool use_imgui = static_cast<bool>(WTE_USE_IMGUI);
+    inline constexpr static bool imgui_darkmode = static_cast<bool>(WTE_IMGUI_DARKMODE);
     inline constexpr static float ticks_per_sec = static_cast<float>(WTE_TICKS_PER_SECOND);
-    inline constexpr static bool debug_mode = static_cast<bool>(WTE_DEBUG_MODE);
     inline constexpr static int max_playing_samples = static_cast<int>(WTE_MAX_PLAYING_SAMPLES);
 
     //  Input options

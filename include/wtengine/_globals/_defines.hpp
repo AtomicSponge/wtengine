@@ -36,18 +36,27 @@
     #define WTE_DEBUG_MODE FALSE
 #endif
 
+/*!
+ * Require OpenGL 3.0
+ */
 #if !defined(WTE_REQUIRE_OPENGL_LATEST)
     #define WTE_OPENGL_LATEST TRUE
 #else
     #define WTE_OPENGL_LATEST FALSE
 #endif
 
+/*!
+ * Disable Dear ImGui
+ */
 #if !defined(WTE_DISABLE_IMGUI)
     #define WTE_USE_IMGUI TRUE
 #else
     #define WTE_USE_IMGUI FALSE
 #endif
 
+/*!
+ * Toggle Dear ImGui Lightmode
+ */
 #if !defined(WTE_IMGUI_LIGHTMODE)
     #define WTE_IMGUI_DARKMODE TRUE
 #else

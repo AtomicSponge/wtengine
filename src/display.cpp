@@ -33,11 +33,6 @@ void display::set_window_title(const std::string& title) { window_title = title;
  */
 void display::set_scale_factor(float f) {
     if(f < 0.5f || f > 2.0f) f = 1.0f;
-    if(f != 0.5f ||
-       f != 0.75f ||
-       f != 1.0f ||
-       f != 1.5f ||
-       f != 2.0f) f = 1.0f;
     config::_gfx::scale_factor = f;
 }
 

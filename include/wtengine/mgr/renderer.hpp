@@ -139,7 +139,7 @@ class renderer final : private manager<renderer> {
         static ALLEGRO_EVENT_QUEUE* fps_event_queue;
         static ALLEGRO_EVENT fps_event;
 
-        static wte_asset<al_bitmap> arena_bitmap;
+        static wte_asset<al_bitmap> viewport_bitmap;
         static wte_asset<al_bitmap> title_bitmap;
         static wte_asset<al_font> renderer_font;
 

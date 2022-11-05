@@ -16,7 +16,7 @@ namespace wte::mgr::gfx {
 ALLEGRO_TIMER* renderer::fps_timer = NULL;
 ALLEGRO_EVENT_QUEUE* renderer::fps_event_queue = NULL;
 ALLEGRO_EVENT renderer::fps_event;
-wte_asset<al_bitmap> renderer::arena_bitmap;
+wte_asset<al_bitmap> renderer::viewport_bitmap;
 wte_asset<al_bitmap> renderer::title_bitmap;
 wte_asset<al_font> renderer::renderer_font;
 std::size_t renderer::fps_counter = 0, renderer::_fps = 0;
@@ -40,9 +40,9 @@ void renderer::initialize(void) {
     if(config::gfx::screen_w == 0 || config::gfx::screen_h == 0) throw std::runtime_error("Screen size not defined!");
     if(config::gfx::viewport_w == 0 || config::gfx::viewport_h == 0) throw std::runtime_error("Arena size not defined!");
     //  Create the arena bitmap.
-    arena_bitmap = make_asset(al_bitmap(config::gfx::viewport_w, config::gfx::viewport_h));
+    viewport_bitmap = make_asset(al_bitmap(config::gfx::viewport_w, config::gfx::viewport_h));
     //  Add reference to Asset manager so bitmap can be reloaded.
-    mgr::assets<al_bitmap>::load<al_bitmap>("wte_renderer_arena_bitmap", arena_bitmap);
+    mgr::assets<al_bitmap>::load<al_bitmap>("wte_renderer_arena_bitmap", viewport_bitmap);
     arena_created = true;
 
     //  Set the overlay's font to the system default.
@@ -120,7 +120,7 @@ void renderer::draw_hitboxes(void) {
                     it.second->height);
                 al_set_target_bitmap(temp_bitmap);
                 al_clear_to_color(team_color);
-                al_set_target_bitmap(**arena_bitmap);
+                al_set_target_bitmap(**viewport_bitmap);
                 try {
                     al_draw_bitmap(temp_bitmap,
                         mgr::world::get_component<cmp::location>(it.first)->pos_x,
@@ -168,7 +168,7 @@ void renderer::render(void) {
     //  Render world if the game is running.
     if(config::flags::engine_started) {
         //  Set drawing to the arena bitmap.
-        al_set_target_bitmap(**arena_bitmap);
+        al_set_target_bitmap(**viewport_bitmap);
         al_clear_to_color(WTE_COLOR_BLACK);
 
         //  Draw the backgrounds.
@@ -340,12 +340,12 @@ void renderer::render(void) {
             }
         }
 
-        //  Draw the arena bitmap to the screen.
+        //  Draw the viewport bitmap to the screen.
         al_set_target_backbuffer(al_get_current_display());
         al_draw_scaled_bitmap(
-            **arena_bitmap, 0, 0, config::gfx::viewport_w, config::gfx::viewport_h,
-            (config::gfx::screen_w - (config::gfx::viewport_w * config::gfx::scale_factor)) / 2,
-            (config::gfx::screen_h - (config::gfx::viewport_h * config::gfx::scale_factor)) / 2,
+            **viewport_bitmap, 0, 0, config::gfx::viewport_w, config::gfx::viewport_h,
+            (config::gfx::screen_w / 2) - (config::gfx::viewport_w * config::gfx::scale_factor / 2),
+            (config::gfx::screen_h / 2) - (config::gfx::viewport_h * config::gfx::scale_factor / 2),
             config::gfx::viewport_w * config::gfx::scale_factor,
             config::gfx::viewport_h * config::gfx::scale_factor, 0);
     } else {  //  Game is not running

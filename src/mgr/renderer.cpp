@@ -38,9 +38,9 @@ const duration& renderer::delta_time = renderer::_delta_time;
 void renderer::initialize(void) {
     //  Check that screen and arena sizes were defined.
     if(config::gfx::screen_w == 0 || config::gfx::screen_h == 0) throw std::runtime_error("Screen size not defined!");
-    if(config::gfx::arena_w == 0 || config::gfx::arena_h == 0) throw std::runtime_error("Arena size not defined!");
+    if(config::gfx::viewport_w == 0 || config::gfx::viewport_h == 0) throw std::runtime_error("Arena size not defined!");
     //  Create the arena bitmap.
-    arena_bitmap = make_asset(al_bitmap(config::gfx::arena_w, config::gfx::arena_h));
+    arena_bitmap = make_asset(al_bitmap(config::gfx::viewport_w, config::gfx::viewport_h));
     //  Add reference to Asset manager so bitmap can be reloaded.
     mgr::assets<al_bitmap>::load<al_bitmap>("wte_renderer_arena_bitmap", arena_bitmap);
     arena_created = true;
@@ -78,11 +78,11 @@ void renderer::de_init(void) {
 /*
  *
  */
-void renderer::set_arena_size(const int& w, const int& h) {
+void renderer::set_viewport_size(const int& w, const int& h) {
     assert(w > 0 && h > 0);
     if(!arena_created) {
-        config::_gfx::arena_w = w;
-        config::_gfx::arena_h = h;
+        config::_gfx::viewport_w = w;
+        config::_gfx::viewport_h = h;
     }
 }
 
@@ -343,11 +343,11 @@ void renderer::render(void) {
         //  Draw the arena bitmap to the screen.
         al_set_target_backbuffer(al_get_current_display());
         al_draw_scaled_bitmap(
-            **arena_bitmap, 0, 0, config::gfx::arena_w, config::gfx::arena_h,
-            (config::gfx::screen_w - (config::gfx::arena_w * config::gfx::scale_factor)) / 2,
-            (config::gfx::screen_h - (config::gfx::arena_h * config::gfx::scale_factor)) / 2,
-            config::gfx::arena_w * config::gfx::scale_factor,
-            config::gfx::arena_h * config::gfx::scale_factor, 0);
+            **arena_bitmap, 0, 0, config::gfx::viewport_w, config::gfx::viewport_h,
+            (config::gfx::screen_w - (config::gfx::viewport_w * config::gfx::scale_factor)) / 2,
+            (config::gfx::screen_h - (config::gfx::viewport_h * config::gfx::scale_factor)) / 2,
+            config::gfx::viewport_w * config::gfx::scale_factor,
+            config::gfx::viewport_h * config::gfx::scale_factor, 0);
     } else {  //  Game is not running
         //  Draw the title screen.
         al_draw_scaled_bitmap(**title_bitmap, 0, 0,

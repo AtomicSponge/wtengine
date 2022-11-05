@@ -86,8 +86,8 @@ class config {
         struct gfx {
             static const int& screen_w;               //!<  Screen width.
             static const int& screen_h;               //!<  Screen height.
-            static const int& arena_w;                //!<  Arena width.
-            static const int& arena_h;                //!<  Arena height.
+            static const int& viewport_w;             //!<  Viewport width.
+            static const int& viewport_h;             //!<  Viewport height.
             static const std::size_t& vsync;          //!<  Vsync setting.
             static const std::size_t& display_mode;   //!<  Display mode setting.
             static const float& scale_factor;         //!<  Arena scale factor.
@@ -228,7 +228,7 @@ class config {
 
         struct _gfx {
             inline static int screen_w = 0, screen_h = 0;
-            inline static int arena_w = 0, arena_h = 0;
+            inline static int viewport_w = 0, viewport_h = 0;
             inline static std::size_t vsync = 2;
             inline static std::size_t display_mode = 0;
             inline static float scale_factor = 1.0f;

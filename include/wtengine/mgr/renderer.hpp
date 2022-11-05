@@ -71,15 +71,15 @@ class renderer final : private manager<renderer> {
 
     public:
         /*!
-         * \brief Set the arena size.
+         * \brief Set the viewport size.
          * 
          * Once the renderer has been initialized it can not be changed.
          * This should be called during engine initialization before the main object is created.
          * 
-         * \param w Arena width in pixels.
-         * \param h Arena height in pixels.
+         * \param w Viewport width in pixels.
+         * \param h Viewport height in pixels.
          */
-        static void set_arena_size(
+        static void set_viewport_size(
             const int& w,
             const int& h
         );

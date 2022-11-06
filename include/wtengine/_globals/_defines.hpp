@@ -138,6 +138,13 @@ inline constexpr wte_build_options build_options;
 
 }
 
+/*
+ * Error checking
+ */
+#if !WTE_USE_KEYBOARD && !WTE_USE_MOUSE && !WTE_USE_JOYSTICK && !WTE_USE_TOUCH
+    #error Must define at least one input device to be used
+#endif
+
 //  Define some colors for use in the engine.
 #define WTE_COLOR_BLACK         (al_map_rgb(0,0,0))
 #define WTE_COLOR_RED           (al_map_rgb(255,0,0))
@@ -160,10 +167,14 @@ inline constexpr wte_build_options build_options;
 #endif
 
 /*
- * Error checking
+ * More Allegro re-defines.
  */
-#if !WTE_USE_KEYBOARD && !WTE_USE_MOUSE && !WTE_USE_JOYSTICK && !WTE_USE_TOUCH
-    #error Must define at least one input device to be used
+#if !defined(WTF_DISPLAY_MODE)
+    #define WTF_DISPLAY_MODE ALLEGRO_DISPLAY_MODE
+#endif
+
+#if !defined(WTF_PIXEL_FORMAT_ANY)
+    #define WTF_PIXEL_FORMAT_ANY ALLEGRO_PIXEL_FORMAT_ANY
 #endif
 
 /*

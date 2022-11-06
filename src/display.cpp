@@ -152,4 +152,26 @@ void display::destroy_display(void) {
     al_destroy_display(_display);
 }
 
+/*
+ *
+ */
+void display::add_res_check(WTF_DISPLAY_MODE mode) {
+    check_res.insert(check_res.begin(), mode);
+}
+
+/*
+ *
+ */
+const display_results display::get_available_res(void) {
+    display_results results;
+    for(auto& it : check_res) {
+        if(al_get_display_mode(al_get_num_display_modes() - 1, &it) != NULL) {
+            std::string res_str = std::to_string(it.width) + "x" + std::to_string(it.height);
+            results.push_back(std::map<std::string, std::pair<int, int>>
+                {{res_str, std::make_pair(it.width, it.height)}});
+        }
+    }
+    return results;
+}
+
 }  //  end namespace wte

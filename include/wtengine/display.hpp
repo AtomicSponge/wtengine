@@ -105,6 +105,7 @@ class display {
 
         static ALLEGRO_DISPLAY* _display;   //  Allegro object for the display.
 
+        //  Default list of resolutions the engine will check for
         inline static std::vector<WTF_DISPLAY_MODE> check_res = {
             // 4:3
             WTF_DISPLAY_MODE { 1280, 960, WTF_PIXEL_FORMAT_ANY, 0 },

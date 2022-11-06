@@ -32,6 +32,10 @@
 
 namespace wte {
 
+/*!
+ * \struct WTE_DISPLAY_RESOLUTION
+ * \brief Represents a display resolution option.
+ */
 typedef struct WTE_DISPLAY_RESOLUTION {
     std::string label;
     int width;

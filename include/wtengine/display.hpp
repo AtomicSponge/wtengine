@@ -32,7 +32,13 @@
 
 namespace wte {
 
-typedef std::vector<std::map<std::string, std::pair<int, int>>> display_results;
+typedef struct WTE_DISPLAY_RESOLUTION {
+    std::string label;
+    int width;
+    int height;
+} WTE_DISPLAY_RESOLUTION;
+
+typedef std::vector<WTE_DISPLAY_RESOLUTION> display_results;
 
 /*!
  * \class display

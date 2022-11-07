@@ -10,6 +10,8 @@
 #if !defined(WTE_GLOBAL_DEFINES_HPP)
 #define WTE_GLOBAL_DEFINES_HPP
 
+#include <string>
+#include <vector>
 #include <type_traits>
 
 #include <allegro5/allegro.h>
@@ -135,6 +137,29 @@ struct wte_build_options {
     inline constexpr static bool touch_enabled = static_cast<bool>(WTE_USE_TOUCH);
 };
 inline constexpr wte_build_options build_options;
+
+typedef struct WTF_DISPLAY_MODE {
+    std::string label;
+    int width;
+    int height;
+} WTF_DISPLAY_MODE;
+
+inline std::vector<WTF_DISPLAY_MODE> wtf_display_modes = {
+    // 4:3
+    WTF_DISPLAY_MODE { "1280x960", 1280, 960 },
+    WTF_DISPLAY_MODE { "1600x1200", 1600, 1200 },
+    WTF_DISPLAY_MODE { "3200x2400", 3200, 2400 },
+
+    // 16:9
+    WTF_DISPLAY_MODE { "1920x1080", 1920, 1080 },
+    WTF_DISPLAY_MODE { "2560x1440", 2560, 1440 },
+    WTF_DISPLAY_MODE { "3840x2160", 3840, 2160 },
+
+    // 21:9
+    WTF_DISPLAY_MODE { "2520x1080", 2520, 1080 },
+    WTF_DISPLAY_MODE { "3440x1440", 3440, 1440 },
+    WTF_DISPLAY_MODE { "5120x2160", 5120, 2160 }
+};
 
 }
 

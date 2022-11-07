@@ -33,18 +33,6 @@
 namespace wte {
 
 /*!
- * \struct WTE_DISPLAY_RESOLUTION
- * \brief Represents a display resolution option.
- */
-typedef struct WTE_DISPLAY_RESOLUTION {
-    std::string label;
-    int width;
-    int height;
-} WTE_DISPLAY_RESOLUTION;
-
-typedef std::vector<WTE_DISPLAY_RESOLUTION> display_results;
-
-/*!
  * \class display
  * \brief Handles control of the display.
  */
@@ -94,16 +82,6 @@ class display {
          */
         static void resize_display(int w, int h);
 
-        /*!
-         * \brief
-         */
-        static void add_res_check(ALLEGRO_DISPLAY_MODE mode);
-
-        /*!
-         * \brief
-         */
-        static const display_results get_available_res(void);
-
     protected:
         display();
 
@@ -114,22 +92,6 @@ class display {
         static bool initialized;            //  Restrict to one instance.
 
         static ALLEGRO_DISPLAY* _display;   //  Allegro object for the display.
-
-        //  Default list of resolutions the engine will check for
-        inline static std::vector<WTF_DISPLAY_MODE> check_res = {
-            // 4:3
-            WTF_DISPLAY_MODE { 1280, 960, WTF_PIXEL_FORMAT_ANY, 0 },
-            WTF_DISPLAY_MODE { 1600, 1200, WTF_PIXEL_FORMAT_ANY, 0 },
-            WTF_DISPLAY_MODE { 3200, 2400, WTF_PIXEL_FORMAT_ANY, 0 },
-            // 16:9
-            WTF_DISPLAY_MODE { 1920, 1080, WTF_PIXEL_FORMAT_ANY, 0 },
-            WTF_DISPLAY_MODE { 2560, 1440, WTF_PIXEL_FORMAT_ANY, 0 },
-            WTF_DISPLAY_MODE { 3840, 2160, WTF_PIXEL_FORMAT_ANY, 0 },
-            // 21:9
-            WTF_DISPLAY_MODE { 2520, 1080, WTF_PIXEL_FORMAT_ANY, 0 },
-            WTF_DISPLAY_MODE { 3440, 1440, WTF_PIXEL_FORMAT_ANY, 0 },
-            WTF_DISPLAY_MODE { 5120, 2160, WTF_PIXEL_FORMAT_ANY, 0 }
-        };
 };
 
 }  //  end namespace wte

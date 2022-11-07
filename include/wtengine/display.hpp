@@ -63,13 +63,6 @@ class display {
         static void set_display_mode(std::size_t m);
 
         /*!
-         * \brief Set the screen size.  Call during engine setup.
-         * \param w Screen width.
-         * \param h Screen height.
-         */
-        static void set_screen_size(int w, int h);
-
-        /*!
          * \brief Set the vsync setting.
          * \param v New vsync setting.
          */

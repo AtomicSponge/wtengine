@@ -67,6 +67,8 @@ bool config::load(void) {
         dfile.read(reinterpret_cast<char*>(&_gfx::vsync), sizeof _gfx::vsync);
         dfile.read(reinterpret_cast<char*>(&_gfx::display_mode), sizeof _gfx::display_mode);
         dfile.read(reinterpret_cast<char*>(&_gfx::scale_factor), sizeof _gfx::scale_factor);
+        dfile.read(reinterpret_cast<char*>(&_gfx::screen_w), sizeof _gfx::screen_w);
+        dfile.read(reinterpret_cast<char*>(&_gfx::screen_h), sizeof _gfx::screen_h);
         dfile.read(reinterpret_cast<char*>(&_volume::main), sizeof _volume::main);
         dfile.read(reinterpret_cast<char*>(&_volume::music), sizeof _volume::music);
         dfile.read(reinterpret_cast<char*>(&_volume::sample), sizeof _volume::sample);
@@ -150,6 +152,8 @@ bool config::save(void) {
         dfile.write(reinterpret_cast<const char*>(&gfx::vsync), sizeof gfx::vsync);
         dfile.write(reinterpret_cast<const char*>(&gfx::display_mode), sizeof gfx::display_mode);
         dfile.write(reinterpret_cast<const char*>(&gfx::scale_factor), sizeof gfx::scale_factor);
+        dfile.write(reinterpret_cast<const char*>(&gfx::screen_w), sizeof gfx::screen_w);
+        dfile.write(reinterpret_cast<const char*>(&gfx::screen_h), sizeof gfx::screen_h);
         dfile.write(reinterpret_cast<const char*>(&volume::main), sizeof volume::main);
         dfile.write(reinterpret_cast<const char*>(&volume::music), sizeof volume::music);
         dfile.write(reinterpret_cast<const char*>(&volume::sample), sizeof volume::sample);

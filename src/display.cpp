@@ -47,16 +47,6 @@ void display::set_display_mode(std::size_t m) {
 /*
  *
  */
-void display::set_screen_size(int w, int h) {
-    if(w < 1) w = 1;
-    if(h < 1) h = 1;
-    config::_gfx::screen_w = w;
-    config::_gfx::screen_h = h;
-}
-
-/*
- *
- */
 void display::resize_display(int w, int h) {
     if(w < 1) w = 1;
     if(h < 1) h = 1;
@@ -79,6 +69,9 @@ void display::set_vsync(std::size_t v) {
  *
  */
 void display::create_display(void) {
+    if(config::gfx::screen_w == 0) config::_gfx::screen_w = 1440;
+    if(config::gfx::screen_h == 0) config::_gfx::screen_h = 1080;
+
     al_reset_new_display_options();
 
     //  Configure vsync options.  Gfx driver may override this.

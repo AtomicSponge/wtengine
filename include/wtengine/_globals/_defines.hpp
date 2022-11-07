@@ -192,17 +192,6 @@ inline std::vector<WTF_DISPLAY_MODE> wtf_display_modes = {
 #endif
 
 /*
- * More Allegro re-defines.
- */
-#if !defined(WTF_DISPLAY_MODE)
-    #define WTF_DISPLAY_MODE ALLEGRO_DISPLAY_MODE
-#endif
-
-#if !defined(WTF_PIXEL_FORMAT_ANY)
-    #define WTF_PIXEL_FORMAT_ANY ALLEGRO_PIXEL_FORMAT_ANY
-#endif
-
-/*
  * Define keyboard keys for use in the engine.
  * These just map to the Allegro defines.
  */

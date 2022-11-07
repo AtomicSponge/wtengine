@@ -146,7 +146,7 @@ typedef struct WTF_DISPLAY_MODE {
 
 inline std::vector<WTF_DISPLAY_MODE> wtf_display_modes = {
     // 4:3
-    WTF_DISPLAY_MODE { "1280x960", 1280, 960 },
+    WTF_DISPLAY_MODE { "1280x960", 1440, 1080 },
     WTF_DISPLAY_MODE { "1600x1200", 1600, 1200 },
     WTF_DISPLAY_MODE { "3200x2400", 3200, 2400 },
 

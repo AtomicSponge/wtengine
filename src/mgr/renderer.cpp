@@ -352,7 +352,10 @@ void renderer::render(void) {
         //  Draw the title screen.
         al_draw_scaled_bitmap(**title_bitmap, 0, 0,
             title_bitmap->get_width(), title_bitmap->get_height(),
-            0, 0, config::gfx::screen_w, config::gfx::screen_h, 0);
+            (config::gfx::screen_w / 2) - (title_bitmap->get_width() * config::gfx::scale_factor / 2),
+            (config::gfx::screen_h / 2) - (title_bitmap->get_height() * config::gfx::scale_factor / 2),
+            title_bitmap->get_width() * config::gfx::scale_factor,
+            title_bitmap->get_height() * config::gfx::scale_factor, 0);
     }
 
     //  Draw frame rate.

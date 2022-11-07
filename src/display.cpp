@@ -70,7 +70,7 @@ void display::set_vsync(std::size_t v) {
  */
 void display::create_display(void) {
     //  Set a default screen size
-    if(config::gfx::screen_w == 0) config::_gfx::screen_w = 1440;
+    if(config::gfx::screen_w == 0) config::_gfx::screen_w = 1920;
     if(config::gfx::screen_h == 0) config::_gfx::screen_h = 1080;
 
     al_reset_new_display_options();

@@ -151,7 +151,7 @@ typedef struct WTF_DISPLAY_MODE {
 /*!
  * \brief Default engine display modes.
  */
-inline std::vector<WTF_DISPLAY_MODE> wtf_display_modes = {
+inline std::vector<WTF_DISPLAY_MODE> display_modes = {
     // 4:3
     WTF_DISPLAY_MODE { "1440x1080", 1440, 1080 },
     WTF_DISPLAY_MODE { "1600x1200", 1600, 1200 },
@@ -171,7 +171,7 @@ inline std::vector<WTF_DISPLAY_MODE> wtf_display_modes = {
 /*!
  * \brief Default engine scale factors.
  */
-inline float wtf_scale_factors[] = { .75f, 1.0f, 1.25f, 1.5f, 2.0f };
+inline float scale_factors[] = { .75f, 1.0f, 1.25f, 1.5f, 2.0f };
 
 }
 

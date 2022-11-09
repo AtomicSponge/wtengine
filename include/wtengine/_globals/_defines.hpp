@@ -138,12 +138,19 @@ struct wte_build_options {
 };
 inline constexpr wte_build_options build_options;
 
+/*!
+ * \struct WTF_DISPLAY_MODE
+ * \brief Contains information on configurable display modes.
+ */
 typedef struct WTF_DISPLAY_MODE {
     std::string label;
     int width;
     int height;
 } WTF_DISPLAY_MODE;
 
+/*!
+ * \brief Default engine display modes.
+ */
 inline std::vector<WTF_DISPLAY_MODE> wtf_display_modes = {
     // 4:3
     WTF_DISPLAY_MODE { "1440x1080", 1440, 1080 },
@@ -161,6 +168,9 @@ inline std::vector<WTF_DISPLAY_MODE> wtf_display_modes = {
     WTF_DISPLAY_MODE { "5120x2160", 5120, 2160 }
 };
 
+/*!
+ * \brief Default engine scale factors.
+ */
 inline float wtf_scale_factors[] = { .75f, 1.0f, 1.25f, 1.5f, 2.0f };
 
 }

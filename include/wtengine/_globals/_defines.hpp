@@ -161,6 +161,8 @@ inline std::vector<WTF_DISPLAY_MODE> wtf_display_modes = {
     WTF_DISPLAY_MODE { "5120x2160", 5120, 2160 }
 };
 
+inline float wtf_scale_factors[] = { .75f, 1.0f, 1.25f, 1.5f, 2.0f };
+
 }
 
 /*

@@ -171,7 +171,7 @@ inline std::vector<WTF_DISPLAY_MODE> display_modes = {
 /*!
  * \brief Default engine scale factors.
  */
-inline float scale_factors[] = { .75f, 1.0f, 1.25f, 1.5f, 2.0f };
+inline std::vector<float> scale_factors = { .75f, 1.0f, 1.25f, 1.5f, 2.0f };
 
 }
 

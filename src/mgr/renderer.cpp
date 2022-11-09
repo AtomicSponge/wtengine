@@ -52,7 +52,7 @@ void renderer::initialize(void) {
     if(title_screen_file.empty()) {
         title_bitmap = make_asset(al_bitmap(1, 1));
         al_set_target_bitmap(**title_bitmap);
-        al_clear_to_color(WTE_COLOR_BLACK);
+        al_clear_to_color(al_map_rgb(0,0,0));
     } else {
         title_bitmap = make_asset(al_bitmap());
         title_bitmap->load(title_screen_file);
@@ -109,10 +109,10 @@ void renderer::draw_hitboxes(void) {
                 //  Select color based on team.
                 ALLEGRO_COLOR team_color;
                 switch(it.second->team) {
-                    case 0: team_color = WTE_COLOR_GREEN; break;
-                    case 1: team_color = WTE_COLOR_RED; break;
-                    case 2: team_color = WTE_COLOR_BLUE; break;
-                    default: team_color = WTE_COLOR_YELLOW;
+                    case 0: team_color = al_map_rgb(0,255,0); break;
+                    case 1: team_color = al_map_rgb(255,0,0); break;
+                    case 2: team_color = al_map_rgb(0,0,255); break;
+                    default: team_color = al_map_rgb(255,255,0);
                 }
                 //  Draw the hitbox.
                 ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap(
@@ -138,7 +138,7 @@ void renderer::draw_hitboxes(void) {
 void renderer::draw_timer(void) {
     if constexpr (build_options.debug_mode) {
         const std::string timer_string = "Timer: " + std::to_string(engine_time::check());
-        al_draw_text(**renderer_font, WTE_COLOR_YELLOW, config::gfx::screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
+        al_draw_text(**renderer_font, al_map_rgb(255,255,0), config::gfx::screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     }
 }
 
@@ -163,13 +163,13 @@ void renderer::render(void) {
 
     //  Set drawing to the screen.
     al_set_target_backbuffer(al_get_current_display());
-    al_clear_to_color(WTE_COLOR_BLACK);
+    al_clear_to_color(al_map_rgb(0,0,0));
 
     //  Render world if the game is running.
     if(config::flags::engine_started) {
         //  Set drawing to the arena bitmap.
         al_set_target_bitmap(**viewport_bitmap);
-        al_clear_to_color(WTE_COLOR_BLACK);
+        al_clear_to_color(al_map_rgb(0,0,0));
 
         //  Draw the backgrounds.
         const const_component_container<cmp::gfx::background> background_components =
@@ -361,7 +361,7 @@ void renderer::render(void) {
     //  Draw frame rate.
     if(config::flags::draw_fps) {
         const std::string fps_string = "FPS: " + std::to_string(fps);
-        al_draw_text(**renderer_font, WTE_COLOR_YELLOW, config::gfx::screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
+        al_draw_text(**renderer_font, al_map_rgb(255,255,0), config::gfx::screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
     if constexpr (build_options.debug_mode) draw_timer();
 

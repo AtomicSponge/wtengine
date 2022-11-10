@@ -13,10 +13,8 @@ namespace wte::mgr {
 
 template <> bool manager<messages>::initialized = false;
 
-#if WTE_BUILD_DEBUG
 message_container messages::_messages;
 std::ofstream messages::debug_log_file;
-#endif
 
 /*
  *

@@ -59,10 +59,7 @@ class config {
             static const bool& audio_installed;        //!<  Flag to check if audio was installed.
             inline static bool draw_fps = true;        //!<  Flag to check if fps should be drawn.
             inline static bool input_enabled = true;   //!<  Flag to check if game input is enabled.
-
-            #if WTE_DEBUG_MODE
-            static const bool& show_hitboxes;         //!<  Flag to enable/disable hitbox rendering.
-            #endif
+            static const bool& show_hitboxes;          //!<  Flag to enable/disable hitbox rendering.
         };
 
         /*!
@@ -210,10 +207,7 @@ class config {
             inline static bool joystick_installed = false;
             inline static bool touch_installed = false;
             inline static bool audio_installed = false;
-
-            #if WTE_DEBUG_MODE
             inline static bool show_hitboxes = false;
-            #endif
         };
 
         struct _volume {

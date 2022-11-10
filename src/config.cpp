@@ -21,10 +21,7 @@ const bool& config::flags::mouse_installed = config::_flags::mouse_installed;
 const bool& config::flags::joystick_installed = config::_flags::joystick_installed;
 const bool& config::flags::touch_installed = config::_flags::touch_installed;
 const bool& config::flags::audio_installed = config::_flags::audio_installed;
-
-#if WTE_DEBUG_MODE
 const bool& config::flags::show_hitboxes = config::_flags::show_hitboxes;
-#endif
 
 const float& config::volume::main = config::_volume::main;
 const float& config::volume::music = config::_volume::music;

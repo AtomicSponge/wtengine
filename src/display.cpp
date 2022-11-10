@@ -136,13 +136,12 @@ void display::create_display(void) {
 /*
  *
  */
-void display::destroy_display(void) { 
+void display::destroy_display(void) {
     if constexpr (build_options.use_imgui) {
         //  Shut down Dear ImGui
         ImGui_ImplAllegro5_Shutdown();
         ImGui::DestroyContext();
     }
-
     al_destroy_display(_display);
 }
 

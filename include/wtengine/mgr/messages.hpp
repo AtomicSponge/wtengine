@@ -99,13 +99,11 @@ class messages final : private manager<messages> {
             std::string& cmd,
             std::string& args
         );
-        //  Write a message to the debug log file if debugging is enabled.
-        #if WTE_BUILD_DEBUG
-        static void log(const message& msg);
+
+        static message_container _messages;   //  Vector of all messages to be processed
+
+        static void log(const message& msg);  //  Write a message to the debug log file
         static std::ofstream debug_log_file;  //  For message logging
-        #endif
-        //  Vector of all messages to be processed
-        static message_container _messages;
 };
 
 }  //  end namespace wte::mgr

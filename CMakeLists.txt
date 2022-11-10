@@ -20,7 +20,7 @@ enable_language(CXX)
 
 #  If a build type is not set, set it to Release
 if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release)
+    set(CMAKE_BUILD_TYPE Release)
 endif()
 
 #  Set compiler flags
@@ -39,9 +39,9 @@ endif()
 if(DEFINED WTE_REQUIRE_OPENGL_LATEST)
     list(APPEND WTE_BUILD_LIST "-DWTE_REQUIRE_OPENGL_LATEST")
 endif()
-if(DEFINED WTE_BUILD_DEBUG)
+#if(DEFINED WTE_BUILD_DEBUG)
     list(APPEND WTE_BUILD_LIST "-DWTE_BUILD_DEBUG")
-endif()
+#endif()
 if(DEFINED WTE_DISABLE_KEYBOARD)
     list(APPEND WTE_BUILD_LIST "-DWTE_DISABLE_KEYBOARD")
 endif()

@@ -76,8 +76,14 @@ void input::record_event(const int64_t& time, const ALLEGRO_EVENT& event) {
 void input::check_events(void) {
     ALLEGRO_EVENT event;
     while(al_get_next_event(input_event_queue, &event)) {
+        if constexpr (build_options.debug_mode) {
+            if(event.type == ALLEGRO_EVENT_KEY_DOWN && event.keyboard.keycode == WTE_KEY_TOGGLE_HITBOX)
+                (config::flags::show_hitboxes ?
+                    config::_flags::show_hitboxes = false :
+                    config::_flags::show_hitboxes = true);
+        }
         //  Process Dear ImGui events
-        if constexpr(build_options.use_imgui)
+        if constexpr (build_options.use_imgui)
             ImGui_ImplAllegro5_ProcessEvent(&event);
         //  Record input if enabled.
         if(config::flags::record_input) record_event(engine_time::check(), event);

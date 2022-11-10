@@ -100,34 +100,32 @@ void renderer::set_font(wte_asset<al_font> font) { renderer_font = font; }
  *
  */
 void renderer::draw_hitboxes(void) {
-    if constexpr (build_options.debug_mode) {
-        const const_component_container<cmp::hitbox> hitbox_components =
-            mgr::world::get_components<cmp::hitbox>();
+    const const_component_container<cmp::hitbox> hitbox_components =
+        mgr::world::get_components<cmp::hitbox>();
 
-        for(auto& it: hitbox_components) {
-            if(it.second->solid) {
-                //  Select color based on team.
-                ALLEGRO_COLOR team_color;
-                switch(it.second->team) {
-                    case 0: team_color = al_map_rgb(0,255,0); break;
-                    case 1: team_color = al_map_rgb(255,0,0); break;
-                    case 2: team_color = al_map_rgb(0,0,255); break;
-                    default: team_color = al_map_rgb(255,255,0);
-                }
-                //  Draw the hitbox.
-                ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap(
-                    it.second->width,
-                    it.second->height);
-                al_set_target_bitmap(temp_bitmap);
-                al_clear_to_color(team_color);
-                al_set_target_bitmap(**viewport_bitmap);
-                try {
-                    al_draw_bitmap(temp_bitmap,
-                        mgr::world::get_component<cmp::location>(it.first)->pos_x,
-                        mgr::world::get_component<cmp::location>(it.first)->pos_y, 0);
-                } catch(const std::exception& e) { throw e; }
-                al_destroy_bitmap(temp_bitmap);
+    for(auto& it: hitbox_components) {
+        if(it.second->solid) {
+            //  Select color based on team.
+            ALLEGRO_COLOR team_color;
+            switch(it.second->team) {
+                case 0: team_color = al_map_rgb(0,255,0); break;
+                case 1: team_color = al_map_rgb(255,0,0); break;
+                case 2: team_color = al_map_rgb(0,0,255); break;
+                default: team_color = al_map_rgb(255,255,0);
             }
+            //  Draw the hitbox.
+            ALLEGRO_BITMAP* temp_bitmap = al_create_bitmap(
+                it.second->width,
+                it.second->height);
+            al_set_target_bitmap(temp_bitmap);
+            al_clear_to_color(team_color);
+            al_set_target_bitmap(**viewport_bitmap);
+            try {
+                al_draw_bitmap(temp_bitmap,
+                    mgr::world::get_component<cmp::location>(it.first)->pos_x,
+                    mgr::world::get_component<cmp::location>(it.first)->pos_y, 0);
+            } catch(const std::exception& e) { throw e; }
+            al_destroy_bitmap(temp_bitmap);
         }
     }
 }
@@ -287,9 +285,8 @@ void renderer::render(void) {
         }
 
         //  Draw hitboxes if debug is enabled.
-        #if WTE_DEBUG_MODE
-        if(config::flags::show_hitboxes) draw_hitboxes();
-        #endif
+        if constexpr (build_options.debug_mode)
+            if(config::flags::show_hitboxes) draw_hitboxes();
 
         //  Draw the overlays.
         const const_component_container<cmp::gfx::overlay> overlay_components =

@@ -13,8 +13,10 @@ namespace wte::mgr {
 
 template <> bool manager<messages>::initialized = false;
 
+#if WTE_BUILD_DEBUG
 message_container messages::_messages;
 std::ofstream messages::debug_log_file;
+#endif
 
 /*
  *
@@ -67,25 +69,25 @@ void messages::add(const message& msg) {
 /*
  *
  */
+#if WTE_BUILD_DEBUG
 void messages::log(const message& msg) {
-    if constexpr (build_options.debug_mode) {
-        debug_log_file << "PROC AT:  " << engine_time::check() << " | ";
-        debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
-        debug_log_file << "SYS:  " << msg.get_sys() << " | ";
-        if((msg.get_to() != "") || (msg.get_from() != "")) {
-            debug_log_file << "TO:  " << msg.get_to() << " | ";
-            debug_log_file << "FROM:  " << msg.get_from() << " | ";
-        }
-        debug_log_file << "CMD:  " << msg.get_cmd() << " | ";
-        debug_log_file << "ARGS:  ";
-        msg_args arglist = msg.get_args();
-        for(auto i = arglist.begin(); i != arglist.end(); i++) {
-            debug_log_file << *i;
-            if(std::next(i, 1) != arglist.end()) debug_log_file << ";";
-        }
-        debug_log_file << std::endl;
+    debug_log_file << "PROC AT:  " << engine_time::check() << " | ";
+    debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
+    debug_log_file << "SYS:  " << msg.get_sys() << " | ";
+    if((msg.get_to() != "") || (msg.get_from() != "")) {
+        debug_log_file << "TO:  " << msg.get_to() << " | ";
+        debug_log_file << "FROM:  " << msg.get_from() << " | ";
     }
+    debug_log_file << "CMD:  " << msg.get_cmd() << " | ";
+    debug_log_file << "ARGS:  ";
+    msg_args arglist = msg.get_args();
+    for(auto i = arglist.begin(); i != arglist.end(); i++) {
+        debug_log_file << *i;
+        if(std::next(i, 1) != arglist.end()) debug_log_file << ";";
+    }
+    debug_log_file << std::endl;
 }
+#endif
 
 /*
  *
@@ -122,7 +124,7 @@ const message_container messages::get(const std::string& sys) {
         //  End early if events are in the future
         if(it->get_timer() > engine_time::check()) break;
         if((it->get_timer() == -1 || it->get_timer() == engine_time::check()) && it->get_sys() == sys) {
-            log(*it);
+            if constexpr (build_options.debug_mode) log(*it);
             temp_messages.push_back(*it);  //  Add the message to the temp vector to be returned.
             it = _messages.erase(it);  //  Erase the message once processed.
         } else it++;  //  Message not processed, iterate to next.

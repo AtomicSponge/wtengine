@@ -44,6 +44,27 @@ class messages final : private manager<messages> {
     friend class wte::engine;
     friend class systems;
 
+    public:
+        /*!
+         * \brief Adds a message object to the start of the msg_queue vector.
+         * 
+         * Then sorts if it's a timed event.
+         * 
+         * \param msg Message to add.
+         */
+        static void add(const message& msg);
+
+        /*!
+         * \brief Load additional data into the message queue.
+         * 
+         * Can be called by a system message to load additional game data.
+         * Note the timer value used for scripts is adjusted by the game timer.
+         * 
+         * \param fname Filename to load.
+         * \return True if loaded, false if not.
+         */
+        static bool load_script(const std::string& fname);
+
     private:
         messages();
         ~messages();
@@ -79,31 +100,12 @@ class messages final : private manager<messages> {
             std::string& args
         );
         //  Write a message to the debug log file if debugging is enabled.
+        #if WTE_BUILD_DEBUG
         static void log(const message& msg);
         static std::ofstream debug_log_file;  //  For message logging
+        #endif
         //  Vector of all messages to be processed
         static message_container _messages;
-
-    public:
-        /*!
-         * \brief Adds a message object to the start of the msg_queue vector.
-         * 
-         * Then sorts if it's a timed event.
-         * 
-         * \param msg Message to add.
-         */
-        static void add(const message& msg);
-
-        /*!
-         * \brief Load additional data into the message queue.
-         * 
-         * Can be called by a system message to load additional game data.
-         * Note the timer value used for scripts is adjusted by the game timer.
-         * 
-         * \param fname Filename to load.
-         * \return True if loaded, false if not.
-         */
-        static bool load_script(const std::string& fname);
 };
 
 }  //  end namespace wte::mgr

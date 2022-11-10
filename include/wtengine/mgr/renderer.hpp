@@ -36,10 +36,8 @@
 #include "wtengine/config.hpp"
 #include "wtengine/display.hpp"
 
-#if WTE_USE_IMGUI
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_allegro5.h"
-#endif
 
 namespace wte {
     class display;

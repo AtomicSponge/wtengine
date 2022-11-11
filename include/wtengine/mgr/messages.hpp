@@ -67,8 +67,8 @@ class messages final : private manager<messages> {
         static bool load_script(const std::string& fname);
 
     private:
-        messages();
-        ~messages();
+        messages() = default;
+        ~messages() = default;
         //  Clear the message queue.
         static void clear(void);
         /*
@@ -103,6 +103,8 @@ class messages final : private manager<messages> {
 
         static message_container _messages;   //  Vector of all messages to be processed
 
+        static void message_log_start(void);
+        static void message_log_stop(void);
         static void log(           //  Write a message to the debug log file
             const message& msg,
             const bool& deleted);

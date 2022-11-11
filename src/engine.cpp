@@ -119,7 +119,10 @@ engine::engine(const int& argc, char** const& argv) {
         display::set_scale_factor(std::stof(args[0]));
     });
 
-    if constexpr (build_options.debug_mode) logger::start();
+    if constexpr (build_options.debug_mode) {
+        mgr::messages::message_log_start();
+        logger::start();
+    }
     std::cout << "Engine started successfully!\n\n";
 }
 
@@ -141,7 +144,10 @@ engine::~engine() {
     al_uninstall_system();
     std::cout << "OK!\n";
 
-    if constexpr (build_options.debug_mode) logger::stop();
+    if constexpr (build_options.debug_mode) {
+        logger::stop();
+        mgr::messages::message_log_stop();
+    }
 
     initialized = false;
     std::cout << "\nGood bye!\n\n";

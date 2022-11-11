@@ -19,26 +19,6 @@ std::ofstream messages::debug_log_file;
 /*
  *
  */
-messages::messages() {
-    if constexpr (build_options.debug_mode) {
-        std::time_t t = std::time(nullptr);
-        std::ostringstream date_stream;
-        date_stream << std::put_time(std::localtime(&t), "%d-%m-%Y_%H-%M-%S");
-        std::string date = date_stream.str();
-        std::cout << "Logging messages to:  messages_" + date + ".log.txt";
-        debug_log_file.open("messages_" + date + ".log.txt", std::ios::trunc);
-        debug_log_file << "Logging messages..." << std::endl << std::endl;
-    }
-}
-
-/*
- *
- */
-messages::~messages() { if constexpr (build_options.debug_mode) debug_log_file.close(); }
-
-/*
- *
- */
 void messages::clear(void) { _messages.clear(); }
 
 /*
@@ -59,29 +39,6 @@ void messages::prune(void) {
 void messages::add(const message& msg) {
     _messages.insert(_messages.begin(), msg);
     if(msg.is_timed_event()) std::sort(_messages.begin(), _messages.end());
-}
-
-/*
- *
- */
-void messages::log(const message& msg, const bool& deleted = false) {
-    (deleted ?
-        debug_log_file << "MESSAGE DELETED | " :
-        debug_log_file << "PROC AT:  " << engine_time::check() << " | ");
-    debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
-    debug_log_file << "SYS:  " << msg.get_sys() << " | ";
-    if((msg.get_to() != "") || (msg.get_from() != "")) {
-        debug_log_file << "TO:  " << msg.get_to() << " | ";
-        debug_log_file << "FROM:  " << msg.get_from() << " | ";
-    }
-    debug_log_file << "CMD:  " << msg.get_cmd() << " | ";
-    debug_log_file << "ARGS:  ";
-    msg_args arglist = msg.get_args();
-    for(auto i = arglist.begin(); i != arglist.end(); i++) {
-        debug_log_file << *i;
-        if(std::next(i, 1) != arglist.end()) debug_log_file << ";";
-    }
-    debug_log_file << std::endl;
 }
 
 /*
@@ -119,7 +76,7 @@ const message_container messages::get(const std::string& sys) {
         //  End early if events are in the future
         if(it->get_timer() > engine_time::check()) break;
         if((it->get_timer() == -1 || it->get_timer() == engine_time::check()) && it->get_sys() == sys) {
-            if constexpr (build_options.debug_mode) log(*it);
+            if constexpr (build_options.debug_mode) log(*it, false);
             temp_messages.push_back(*it);  //  Add the message to the temp vector to be returned.
             it = _messages.erase(it);  //  Erase the message once processed.
         } else it++;  //  Message not processed, iterate to next.
@@ -258,6 +215,47 @@ void messages::read(
         }
         args += ch;
     }
+}
+
+/*
+ *
+ */
+void messages::message_log_start(void) {
+    std::time_t t = std::time(nullptr);
+    std::ostringstream date_stream;
+    date_stream << std::put_time(std::localtime(&t), "%d-%m-%Y_%H-%M-%S");
+    std::string date = date_stream.str();
+    std::cout << "Logging messages to:  messages_" + date + ".log.txt";
+    debug_log_file.open("messages_" + date + ".log.txt", std::ios::trunc);
+    debug_log_file << "Logging messages..." << std::endl << std::endl;
+}
+
+/*
+ *
+ */
+void messages::message_log_stop(void) { debug_log_file.close(); }
+
+/*
+ *
+ */
+void messages::log(const message& msg, const bool& deleted) {
+    (deleted ?
+        debug_log_file << "MESSAGE DELETED | " :
+        debug_log_file << "PROC AT:  " << engine_time::check() << " | ");
+    debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
+    debug_log_file << "SYS:  " << msg.get_sys() << " | ";
+    if((msg.get_to() != "") || (msg.get_from() != "")) {
+        debug_log_file << "TO:  " << msg.get_to() << " | ";
+        debug_log_file << "FROM:  " << msg.get_from() << " | ";
+    }
+    debug_log_file << "CMD:  " << msg.get_cmd() << " | ";
+    debug_log_file << "ARGS:  ";
+    msg_args arglist = msg.get_args();
+    for(auto i = arglist.begin(); i != arglist.end(); i++) {
+        debug_log_file << *i;
+        if(std::next(i, 1) != arglist.end()) debug_log_file << ";";
+    }
+    debug_log_file << std::endl;
 }
 
 }  //  end namespace wte::mgr

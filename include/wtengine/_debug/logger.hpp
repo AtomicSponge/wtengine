@@ -45,26 +45,18 @@ class logger final {
          * \param c Error code of item.
          * \param t Engine time of item.
          */
-        static const void add(
+        static const void log(
             const std::string& d, const std::string& l,
             const uint& c, const int64_t& t);
 
     private:
         logger() = default;
-        ~logger();
+        ~logger() = default;
 
         static void start(void);
-        static void run(void);
         static void stop(void);
 
-        static std::stack<
-            std::tuple<std::string, std::string, uint, int64_t>
-        > _error_queue;
-
-        static std::promise<void> exit_signal;
-        static std::future<void> future_obj;
-
-        static std::mutex log_mtx;
+        static std::ofstream log_file;
 };
 
 }  //  end namespace wte

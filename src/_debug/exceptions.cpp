@@ -21,7 +21,7 @@ exception_item::exception_item(const std::string& d, const std::string& l, const
  *
  */
 engine_error::engine_error(const std::string& d) : item(exception_item(d.c_str(), "Engine", 1)) {
-    if constexpr (build_options.debug_mode) logger::add(
+    if constexpr (build_options.debug_mode) logger::log(
         item.description, item.location, item.code, item.time);
 }
 
@@ -54,7 +54,7 @@ engine_error::~engine_error() {
  */
 engine_exception::engine_exception(const std::string& d, const std::string& l, const uint& c) :
 item(exception_item(d, l, c)) {
-    if constexpr (build_options.debug_mode) logger::add(
+    if constexpr (build_options.debug_mode) logger::log(
         item.description, item.location, item.code, item.time);
 }
 

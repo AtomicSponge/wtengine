@@ -127,22 +127,24 @@ engine::engine(const int& argc, char** const& argv) {
  *
  */
 engine::~engine() {
-    std::cout << "Stopping WTEngine...\n";
+    std::cout << "\nStopping WTEngine...\n";
     PHYSFS_deinit();
 
-    std::cout << "Cleaning up engine objects...\n";
+    std::cout << "Cleaning up engine objects... ";
     al_destroy_timer(main_timer);
     al_destroy_event_queue(main_event_queue);
     input::destroy_event_queue();
     destroy_display();
     al_inhibit_screensaver(false);
-    std::cout << "Stopping Allegro...\n";
+    std::cout << "OK!\n";
+    std::cout << "Stopping Allegro... ";
     al_uninstall_system();
+    std::cout << "OK!\n";
 
     if constexpr (build_options.debug_mode) logger::stop();
 
     initialized = false;
-    std::cout << "Good bye!\n\n";
+    std::cout << "\nGood bye!\n\n";
 }
 
 /*
@@ -209,6 +211,7 @@ void engine::process_new_game(const std::string& game_script) {
         config::flags::engine_paused = false;
         al_start_timer(main_timer);
     } catch(const std::exception& e) { throw e; }
+    std::cout << "READY!\n";
 }
 
 /*
@@ -237,6 +240,7 @@ void engine::process_end_game(const bool& force) {
         mgr::systems::clear();
         mgr::messages::clear();
     } catch(const std::exception& e) { throw e; }
+    std::cout << "DONE!\n";
 }
 
 /*

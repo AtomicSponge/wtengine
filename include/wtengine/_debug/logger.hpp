@@ -65,18 +65,6 @@ class logger final {
         static std::mutex log_mtx;
 };
 
-inline const bool logger_add(
-    const std::string& d, const std::string& l,
-    const uint& c, const int64_t& t)
-{
-    try {
-        logger::add(d, l, c, t);
-    } catch (const std::exception& e) { 
-        return false;
-    }
-    return true;
-}
-
 }  //  end namespace wte
 
 #endif  //  WTE_LOGGER_HPP

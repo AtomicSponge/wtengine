@@ -23,12 +23,9 @@
 #include <mutex>
 #include <chrono>
 
-#include "wtengine/_globals/engine_time.hpp"
-
 namespace wte {
 
 class engine;
-class logger;
 
 /*!
  * \class logger
@@ -41,6 +38,13 @@ class logger final {
         logger(const logger&) = delete;          //!<  Delete copy constructor.
         void operator=(logger const&) = delete;  //!<  Delete assignment operator.
 
+        /*!
+         * \brief Add exception information to the logger.
+         * \param d Description of item.
+         * \param l Location of item.
+         * \param c Error code of item.
+         * \param t Engine time of item.
+         */
         static const void add(
             const std::string& d, const std::string& l,
             const uint& c, const int64_t& t);

@@ -11,6 +11,12 @@
 
 namespace wte {
 
+std::stack<std::tuple<std::string, std::string, uint, int64_t>> logger::_error_queue;
+std::ofstream logger::log_file;
+std::promise<void> logger::exit_signal;
+std::future<void> logger::future_obj;
+std::mutex logger::log_mtx;
+
 /*
  *
  */

@@ -10,7 +10,6 @@
 #if !defined(WTE_EXCEPTION_HPP)
 #define WTE_EXCEPTION_HPP
 
-#include <iostream>
 #include <string>
 #include <fstream>
 #include <exception>

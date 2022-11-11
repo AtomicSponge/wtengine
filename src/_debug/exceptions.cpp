@@ -43,11 +43,7 @@ int64_t engine_error::when() const noexcept { return item.time; }
 /*
  *
  */
-engine_error::~engine_error() {
-    std::cout << "ERROR:  ";
-    std::cout << item.description << std::endl;
-    std::exit(item.code);
-}
+engine_error::~engine_error() {}
 
 /*
  *
@@ -76,13 +72,6 @@ int64_t engine_exception::when() const noexcept { return item.time; };
 /*
  *
  */
-engine_exception::~engine_exception() {
-    std::cout << "WARNING:  ";
-    std::cout << item.description << std::endl;
-    std::cout << "CODE:  ";
-    std::cout << item.code;
-    std::cout << "\tAT:  ";
-    std::cout << item.time << std::endl;
-}
+engine_exception::~engine_exception() {}
 
 }  //  end namespace wte

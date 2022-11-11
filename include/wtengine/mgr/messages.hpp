@@ -11,6 +11,7 @@
 #define WTE_MGR_MESSAGES_HPP
 
 #include <string>
+#include <fstream>
 #include <iostream>
 #include <sstream>
 #include <vector>

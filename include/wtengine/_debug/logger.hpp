@@ -11,6 +11,7 @@
 #define WTE_LOGGER_HPP
 
 #include <string>
+#include <fstream>
 #include <iostream>
 #include <sstream>
 #include <iomanip>
@@ -28,8 +29,6 @@ namespace wte {
 
 class engine;
 class logger;
-
-#if WTE_DEBUG_MODE  //  Debug mode set if true
 
 /*!
  * \class logger
@@ -50,7 +49,7 @@ class logger final {
         logger();
         ~logger();
 
-        static const bool start(void);
+        static void start(void);
         static void run(void);
         static void stop(void);
 
@@ -77,40 +76,6 @@ inline const bool logger_add(
     }
     return true;
 }
-
-#else  // not WTE_DEBUG_MODE
-
-/*!
- * \class logger
- * \brief Skip logging.  This option is built when the engine is NOT in debug mode.
- */
-class logger final {
-    friend class engine;
-
-    public:
-        logger(const logger&) = delete;          //!<  Delete copy constructor.
-        void operator=(logger const&) = delete;  //!<  Delete assignment operator.
-
-        static void add(
-            const std::string& d, const std::string& l,
-            const uint& c, const int64_t& t);
-
-    private:
-        logger() = default;
-        ~logger() = default;
-        
-        static bool start(void);
-        static void run(void);
-        static void stop(void);
-};
-
-template <typename... Args>
-inline bool logger_add(Args... args)
-{
-    return false;
-}
-
-#endif  //  WTE_DEBUG_MODE
 
 }  //  end namespace wte
 

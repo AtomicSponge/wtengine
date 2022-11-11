@@ -11,10 +11,6 @@
 
 namespace wte {
 
-#if WTE_DEBUG_MODE  //  Debug mode set if true
-
-const bool& logger::is_running = logger::_is_running;
-
 /*
  *
  */
@@ -41,12 +37,10 @@ logger::~logger() {
 /*
  *
  */
-const bool logger::start(void) {
-    if(_is_running == true) return false;
+void logger::start(void) {
     future_obj = exit_signal.get_future();
     std::thread th([&]() { run(); });
     th.detach();
-    return _is_running = true;
 }
 
 /*
@@ -79,7 +73,6 @@ void logger::run(void) {
  */
 void logger::stop(void) {
     exit_signal.set_value();
-    _is_running = false;
     exit_signal = std::promise<void>();
 }
 
@@ -94,31 +87,5 @@ const void logger::add(
     _error_queue.push(std::make_tuple(d, l, c, t));
     log_mtx.unlock();
 }
-
-#else  // not WTE_DEBUG_MODE
-
-/*
- *
- */
-bool logger::start(void) { return false; }
-
-/*
- *
- */
-void logger::run(void) {}
-
-/*
- *
- */
-void logger::stop(void) {}
-
-/*
- *
- */
-void logger::add(
-    const std::string& d, const std::string& l,
-    const uint& c, const int64_t& t) {}
-
-#endif  //  WTE_DEBUG_MODE
 
 }  //  end namespace wte

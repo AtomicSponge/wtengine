@@ -26,8 +26,7 @@ messages::messages() {
         date_stream << std::put_time(std::localtime(&t), "%d-%m-%Y_%H-%M-%S");
         std::string date = date_stream.str();
         std::cout << "Logging messages to:  messages_" + date + ".log.txt";
-        //debug_log_file.open("messages_" + date + ".log.txt", std::ios::trunc);
-        debug_log_file.open("messages.txt", std::ios::trunc);
+        debug_log_file.open("messages_" + date + ".log.txt", std::ios::trunc);
         debug_log_file << "Logging messages..." << std::endl << std::endl;
     }
 }
@@ -49,10 +48,7 @@ void messages::prune(void) {
     for(auto it = _messages.begin(); it != _messages.end();) {
         //  End early if events are in the future.
         if(it->get_timer() > engine_time::check()) break;
-        if constexpr (build_options.debug_mode) {
-            debug_log_file << "MESSAGE DELETED | ";
-            log(*it);
-        }
+        if constexpr (build_options.debug_mode) log(*it, true);
         it = _messages.erase(it);
     }
 }
@@ -68,8 +64,10 @@ void messages::add(const message& msg) {
 /*
  *
  */
-void messages::log(const message& msg) {
-    debug_log_file << "PROC AT:  " << engine_time::check() << " | ";
+void messages::log(const message& msg, const bool& deleted = false) {
+    (deleted ?
+        debug_log_file << "MESSAGE DELETED | " :
+        debug_log_file << "PROC AT:  " << engine_time::check() << " | ");
     debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
     debug_log_file << "SYS:  " << msg.get_sys() << " | ";
     if((msg.get_to() != "") || (msg.get_from() != "")) {

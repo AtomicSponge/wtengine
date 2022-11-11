@@ -103,7 +103,9 @@ class messages final : private manager<messages> {
 
         static message_container _messages;   //  Vector of all messages to be processed
 
-        static void log(const message& msg);  //  Write a message to the debug log file
+        static void log(           //  Write a message to the debug log file
+            const message& msg,
+            const bool& deleted);
         static std::ofstream debug_log_file;  //  For message logging
 };
 

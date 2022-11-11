@@ -107,9 +107,7 @@ class renderer final : private manager<renderer> {
         static const time_point<system_clock>& start_time;   //!<  Point in time the renderer started
         static const duration& delta_time;                   //!<  Time between frame renders
 
-        #if WTE_USE_IMGUI
         inline static std::function<void(void)> draw_gui =  ([](){});
-        #endif
 
     private:
         renderer() = default;

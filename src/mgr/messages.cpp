@@ -225,7 +225,7 @@ void messages::message_log_start(void) {
     std::ostringstream date_stream;
     date_stream << std::put_time(std::localtime(&t), "%d-%m-%Y_%H-%M-%S");
     std::string date = date_stream.str();
-    std::cout << "Logging messages to:  messages_" + date + ".log.txt";
+    std::cout << "Logging messages to:  messages_" + date + ".log.txt\n";
     debug_log_file.open("messages_" + date + ".log.txt", std::ios::trunc);
     debug_log_file << "Logging messages..." << std::endl << std::endl;
 }

@@ -50,7 +50,7 @@ class logger final {
             const uint& c, const int64_t& t);
 
     private:
-        logger();
+        logger() = default;
         ~logger();
 
         static void start(void);
@@ -60,8 +60,6 @@ class logger final {
         static std::stack<
             std::tuple<std::string, std::string, uint, int64_t>
         > _error_queue;
-
-        static std::ofstream log_file;
 
         static std::promise<void> exit_signal;
         static std::future<void> future_obj;

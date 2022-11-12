@@ -27,6 +27,9 @@
 
 namespace wte::mgr {
 
+template <typename T>
+using asset_map = std::map<const std::string, wte_asset<T>>;
+
 /*!
  * \class assets
  * \brief Stores an index of assets.
@@ -182,12 +185,7 @@ class assets final : private manager<assets<>> {
         };
 
         //  Store the asset map.
-        inline static std::tuple<
-            std::map<
-                const std::string,
-                wte_asset<Types>
-            >
-        ...> _assets;
+        inline static std::tuple<asset_map<Types>...> _assets;
 };
 
 template <> inline bool manager<assets<>>::initialized = false;

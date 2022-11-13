@@ -29,87 +29,67 @@
     #define FALSE (0)
 #endif
 
-/*!
- * Enable debug mode
- */
+//  Enable debug mode
 #if defined(WTE_BUILD_DEBUG)
     #define WTE_DEBUG_MODE TRUE
 #else
     #define WTE_DEBUG_MODE FALSE
 #endif
 
-/*!
- * Require OpenGL 3.0
- */
+//  Require OpenGL 3.0
 #if !defined(WTE_REQUIRE_OPENGL_LATEST)
     #define WTE_OPENGL_LATEST TRUE
 #else
     #define WTE_OPENGL_LATEST FALSE
 #endif
 
-/*!
- * Disable Dear ImGui
- */
+//  Disable Dear ImGui
 #if !defined(WTE_DISABLE_IMGUI)
     #define WTE_USE_IMGUI TRUE
 #else
     #define WTE_USE_IMGUI FALSE
 #endif
 
-/*!
- * Toggle Dear ImGui Lightmode
- */
+//  Toggle Dear ImGui Lightmode
 #if !defined(WTE_IMGUI_LIGHTMODE)
     #define WTE_IMGUI_DARKMODE TRUE
 #else
     #define WTE_IMGUI_DARKMODE FALSE
 #endif
 
-/*!
- * Set the timer rate.
- * Number of ticks per second as a float.
- */
+//  Set the timer rate.
+//  Number of ticks per second as a float.
 #if !defined(WTE_TICKS_PER_SECOND)
     #define WTE_TICKS_PER_SECOND (60.0f)
 #endif
 
-/*!
- * Set max number of playing samples.
- */
+//  Set max number of playing samples.
 #if !defined(WTE_MAX_PLAYING_SAMPLES)
     #define WTE_MAX_PLAYING_SAMPLES (8)
 #endif
 
-/*!
- * Toggle keyboard building
- */
+//  Toggle keyboard building
 #if !defined(WTE_DISABLE_KEYBOARD)
     #define WTE_USE_KEYBOARD TRUE
 #else
     #define WTE_USE_KEYBOARD FALSE
 #endif
 
-/*!
- * Toggle mouse building
- */
+//  Toggle mouse building
 #if !defined(WTE_DISABLE_MOUSE)
     #define WTE_USE_MOUSE TRUE
 #else
     #define WTE_USE_MOUSE FALSE
 #endif
 
-/*!
- * Toggle joystick building
- */
+//  Toggle joystick building
 #if !defined(WTE_DISABLE_JOYSTICK)
     #define WTE_USE_JOYSTICK TRUE
 #else
     #define WTE_USE_JOYSTICK FALSE
 #endif
 
-/*!
- * Toggle touch building
- */
+//  Toggle touch building
 #if !defined(WTE_DISABLE_TOUCH)
     #define WTE_USE_TOUCH TRUE
 #else
@@ -118,10 +98,7 @@
 
 namespace wte {
 
-/*!
- * \struct build_options
- * \brief Build options
- */
+//  Convert flags for use in constexpr
 struct wte_build_options {
     inline constexpr static bool debug_mode = static_cast<bool>(WTE_DEBUG_MODE);
     inline constexpr static bool opengl_latest = static_cast<bool>(WTE_OPENGL_LATEST);
@@ -143,9 +120,9 @@ inline constexpr wte_build_options build_options;
  * \brief Contains information on configurable display modes.
  */
 typedef struct WTF_DISPLAY_MODE {
-    std::string label;
-    int width;
-    int height;
+    std::string label;  //!<  Label for display setting.
+    int width;          //!<  Width of the display.
+    int height;         //!<  Height of the display.
 } WTF_DISPLAY_MODE;
 
 /*!

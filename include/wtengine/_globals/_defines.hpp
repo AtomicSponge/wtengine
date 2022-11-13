@@ -65,7 +65,7 @@
 
 //  Set max number of playing samples.
 #if !defined(WTE_MAX_PLAYING_SAMPLES)
-    #define WTE_MAX_PLAYING_SAMPLES (8)
+    #define WTE_MAX_PLAYING_SAMPLES (12)
 #endif
 
 //  Toggle keyboard building

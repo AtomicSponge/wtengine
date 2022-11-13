@@ -19,7 +19,7 @@ const __dirname = dirname(__filename)
 
 const wtf = {}
 
-let appInfo = fs.readFileSync('../package.json')
+let appInfo = fs.readFileSync(`${__dirname}/../package.json`)
 appInfo = JSON.parse(appInfo)
 
 /**

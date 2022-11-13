@@ -184,7 +184,7 @@ class assets final : private manager<assets<>> {
             }
         };
 
-        //  Store the asset map.
+        //  Store each asset map in a tuple.
         inline static std::tuple<asset_map<Types>...> _assets;
 };
 

@@ -25,6 +25,10 @@
 #include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
 
+namespace wte {
+    class engine;
+}
+
 namespace wte::mgr {
 
 template <typename T>
@@ -37,6 +41,8 @@ using asset_map = std::map<const std::string, wte_asset<T>>;
  */
 template <typename... Types>
 class assets final : private manager<assets<>> {
+    friend class engine;
+
     public:
         /*!
          * \brief Load an existing asset.
@@ -106,6 +112,27 @@ class assets final : private manager<assets<>> {
     private:
         assets() = default;
         ~assets() = default;
+
+        //  Private delete_all for the engine to do cleanup & its specilizations.
+        template <typename T>
+        inline void delete_all(void) {
+            delete_all_impl<T, 0, Types...>::delete_all();
+        };
+
+        template <typename T, size_t idx, typename U, typename... Ts>
+        struct delete_all_impl {
+            inline static void delete_all(void) {
+                static_assert((sizeof ...(Ts)) > 0, "Asset template type error.");
+                delete_all_impl<T, idx + 1, Ts&&...>::delete_all();
+            };
+        };
+
+        template <typename T, size_t idx, typename... Ts>
+        struct delete_all_impl<T, idx, T, Ts...> {
+            inline static void delete_all(void) {
+                std::get<idx>(assets::_assets).clear();
+            };
+        };
 
         /*
          * The template specializations below generate a tuple of maps

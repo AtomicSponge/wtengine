@@ -102,6 +102,7 @@ class assets final : private manager<assets> {
         assets() = default;
         ~assets() = default;
 
+        //  Engine calls this during de-init to clean up.
         inline static void clear_al_objects(void) {
             _assets<ALLEGRO_BITMAP>.clear();
             _assets<ALLEGRO_FONT>.clear();

@@ -90,10 +90,10 @@ class assets final : private manager<assets> {
             try {
                 return _assets<T>.at(label);
             } catch(std::out_of_range& e) {
-                std::string err_msg = "Could not get asset: " + label;
+                std::string err_msg = "Asset not found: " + label;
                 throw engine_exception(err_msg, "Assets", 4);
             } catch(...) {
-                std::string err_msg = "Error reading asset: " + label;
+                std::string err_msg = "Asset error: " + label;
                 throw engine_exception(err_msg, "Assets", 4);
             }
         };

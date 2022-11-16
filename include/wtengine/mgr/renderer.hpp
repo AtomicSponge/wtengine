@@ -31,6 +31,7 @@
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/cmp/_components.hpp"
+#include "wtengine/mgr/assets.hpp"
 #include "wtengine/mgr/world.hpp"
 #include "wtengine/config.hpp"
 #include "wtengine/display.hpp"

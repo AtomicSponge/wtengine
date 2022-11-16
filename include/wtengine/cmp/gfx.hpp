@@ -16,7 +16,6 @@
 
 #include "wtengine/cmp/component.hpp"
 
-#include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/mgr/world.hpp"
 

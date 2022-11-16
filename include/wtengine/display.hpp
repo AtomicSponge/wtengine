@@ -22,7 +22,6 @@
 
 #include "wtengine/_debug/exceptions.hpp"
 #include "wtengine/_globals/_defines.hpp"
-#include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/mgr/renderer.hpp"
 
 #include "imgui/imgui.h"

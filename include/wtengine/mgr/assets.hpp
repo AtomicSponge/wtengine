@@ -92,6 +92,13 @@ class assets final : private manager<assets> {
             }
         };
 
+        inline static void clear_al_objects(void) {
+            _assets<ALLEGRO_BITMAP>.clear();
+            _assets<ALLEGRO_FONT>.clear();
+            _assets<ALLEGRO_SAMPLE>.clear();
+            _assets<ALLEGRO_AUDIO_STREAM>.clear();
+        }
+
     private:
         assets() = default;
         ~assets() = default;

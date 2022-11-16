@@ -178,6 +178,7 @@ void engine::wte_load(void) {
 void engine::wte_unload(void) {
     mgr::audio::de_init();
     mgr::gfx::renderer::de_init();
+    mgr::assets::clear_al_objects();
 }
 
 /*

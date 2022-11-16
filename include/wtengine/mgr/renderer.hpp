@@ -29,7 +29,6 @@
 #include "wtengine/_debug/exceptions.hpp"
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/engine_time.hpp"
-#include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/cmp/_components.hpp"
 #include "wtengine/mgr/world.hpp"
@@ -100,7 +99,7 @@ class renderer final : private manager<renderer> {
          * 
          * \param fone Font asset to use.
          */
-        static void set_font(wte_asset<al_font> font);
+        static void set_font(wte_asset<ALLEGRO_FONT> font);
 
         static const std::size_t& fps;                       //!<  Frames per second
         static const time_point<system_clock>& last_render;  //!<  Point in time last render completed
@@ -135,9 +134,9 @@ class renderer final : private manager<renderer> {
         static ALLEGRO_EVENT_QUEUE* fps_event_queue;
         static ALLEGRO_EVENT fps_event;
 
-        static wte_asset<al_bitmap> viewport_bitmap;
-        static wte_asset<al_bitmap> title_bitmap;
-        static wte_asset<al_font> renderer_font;
+        static wte_asset<ALLEGRO_BITMAP> viewport_bitmap;
+        static wte_asset<ALLEGRO_BITMAP> title_bitmap;
+        static wte_asset<ALLEGRO_FONT> renderer_font;
 
         static std::size_t fps_counter, _fps;
         static time_point<system_clock> _last_render, _start_time;

@@ -15,7 +15,7 @@ namespace wte::cmp::gfx {
  *
  */
 sprite::sprite(
-    wte_asset<al_bitmap> bmp,
+    wte_asset<ALLEGRO_BITMAP> bmp,
     const std::size_t& l,
     const float& sw, const float& sh,
     const float& dox, const float& doy,
@@ -40,8 +40,8 @@ sprite::sprite(
     start_frame(0), stop_frame(0), current_frame(0), rate(rt)
 {
     if(rate == 0) rate = 1;
-    sheet_width = _bitmap->get_width();
-    sheet_height = _bitmap->get_height();
+    sheet_width = al_get_bitmap_width(_bitmap.get());
+    sheet_height = al_get_bitmap_height(_bitmap.get());
 }
 
 /*

@@ -88,13 +88,13 @@ class gfx : public component {
          * \param func Animation function.
          */
         gfx(
-            wte_asset<al_bitmap> bmp,
+            wte_asset<ALLEGRO_BITMAP> bmp,
             const std::size_t& l,
             const std::function<void(const entity_id&)>& func
         );
 
         //!  Stores the bitmap used by the animator.
-        wte_asset<al_bitmap> _bitmap;
+        wte_asset<ALLEGRO_BITMAP> _bitmap;
 
     private:
         bool tinted;               //  Flag to set tint.
@@ -103,18 +103,6 @@ class gfx : public component {
         //  Animation function.
         const std::function<void(const entity_id&)> animate;
 };
-
-/*!
- * \class g2d
- * \brief Interface class for 2d graphics.
- */
-class g2d : public gfx {};
-
-/*!
- * \class g3d
- * \brief Interface class for 3d graphics.
- */
-class g3d : public gfx {};
 
 }  //  end namespace wte::cmp
 

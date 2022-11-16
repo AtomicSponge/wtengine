@@ -22,7 +22,6 @@
 #include "wtengine/_debug/exceptions.hpp"
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/engine_time.hpp"
-#include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
 
 namespace wte::mgr {
@@ -35,8 +34,7 @@ using asset_map = std::map<const std::string, wte_asset<T>>;
  * \brief Stores an index of assets.
  * \tparam ...Types Types of assets used in game code.
  */
-template <typename... Types>
-class assets final : private manager<assets<>> {
+class assets final : private manager<assets> {
     public:
         /*!
          * \brief Load an existing asset.
@@ -50,22 +48,8 @@ class assets final : private manager<assets<>> {
             const std::string& label,
             const wte_asset<T> obj
         ) {
-            return load_impl<T, 0, Types...>::load(label, obj);
-        };
-
-        /*!
-         * \brief Load an asset using a new object.
-         * \tparam T Asset type to add.
-         * \param label Reference label for asset.
-         * \param obj Asset to add.
-         * \return True if loaded.  False if not.
-         */
-        template <typename T>
-        inline static bool load(
-            const std::string& label,
-            const T& obj
-        ) {
-            return load_impl<T, 0, Types...>::load(label, make_asset(obj));
+            auto ret = _assets<T>.insert(std::make_pair(label, std::move(obj)));
+            return ret.second;
         };
 
         /*!
@@ -78,7 +62,12 @@ class assets final : private manager<assets<>> {
         inline static bool unload(
             const std::string& label
         ) {
-            return unload_impl<T, 0, Types...>::unload(label);
+            auto it = _assets<T>.find(label);
+            if(it != _assets<T>.end()) {
+                _assets<T>.erase(it);
+                return true;
+            }
+            return false;
         };
 
         /*!
@@ -93,7 +82,7 @@ class assets final : private manager<assets<>> {
             const std::string& label
         ) {
             try {
-                return get_impl<T, 0, Types...>::get(label);
+                return _assets<T>.at(label);
             } catch(std::out_of_range& e) {
                 std::string err_msg = "Could not get asset: " + label;
                 throw engine_exception(err_msg, "Assets", 4);
@@ -107,88 +96,12 @@ class assets final : private manager<assets<>> {
         assets() = default;
         ~assets() = default;
 
-        /*
-         * The template specializations below generate a tuple of maps
-         * for each asset type found in the game code.
-         *
-         * First template does compile-time matching for asset load/unload/get implementations.
-         * Second template is the actual specialization of each member.
-         */
-        template <typename T, size_t idx, typename U, typename... Ts>
-        struct load_impl {
-            inline static bool load(
-                const std::string& label,
-                const wte_asset<T>& obj
-            ) {
-                static_assert((sizeof ...(Ts)) > 0, "Asset template type error.");
-                return load_impl<T, idx + 1, Ts&&...>::load(label, obj);
-            }
-        };
-
-        template <typename T, size_t idx, typename... Ts>
-        struct load_impl<T, idx, T, Ts...> {
-            inline static bool load(
-                const std::string& label,
-                const wte_asset<T>& obj
-            ) {
-                auto ret =
-                    std::get<idx>(assets::_assets).insert(std::make_pair(label, obj));
-                return ret.second;
-            }
-        };
-
-        template <typename T, size_t idx, typename U, typename... Ts>
-        struct unload_impl {
-            inline static bool unload(
-                const std::string& label
-            ) {
-                static_assert((sizeof ...(Ts)) > 0, "Asset template type error.");
-                return unload_impl<T, idx + 1, Ts&&...>::unload(label);
-            }
-        };
-
-        template <typename T, size_t idx, typename... Ts>
-        struct unload_impl<T, idx, T, Ts...> {
-            inline static bool unload(
-                const std::string& label
-            ) {
-                auto it = std::get<idx>(assets::_assets).find(label);
-                if(it != std::get<idx>(assets::_assets).end()) {
-                    std::get<idx>(assets::_assets).erase(it);
-                    return true;
-                }
-                return false;
-            }
-        };
-
-        template <typename T, size_t idx, typename U, typename... Ts>
-        struct get_impl {
-            inline static const wte_asset<T> get(
-                const std::string& label
-            ) {
-                static_assert((sizeof ...(Ts)) > 0, "Asset template type error.");
-                try {
-                    return get_impl<T, idx + 1, Ts&&...>::get(label);
-                } catch(...) { throw; }
-            }
-        };
-
-        template <typename T, size_t idx, typename... Ts>
-        struct get_impl<T, idx, T, Ts...> {
-            inline static const wte_asset<T> get(
-                const std::string& label
-            ) {
-                try {
-                    return std::get<idx>(assets::_assets).at(label);
-                } catch(...) { throw; }
-            }
-        };
-
         //  Store each asset map in a tuple.
-        inline static std::tuple<asset_map<Types>...> _assets;
+        template <typename T>
+        inline static asset_map<T> _assets;
 };
 
-template <> inline bool manager<assets<>>::initialized = false;
+template <> inline bool manager<assets>::initialized = false;
 
 }  //  end namespace wte::mgr
 

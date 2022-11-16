@@ -22,10 +22,10 @@ ALLEGRO_MIXER* audio::_mixer_1_b = NULL;
 ALLEGRO_MIXER* audio::_mixer_2 = NULL;
 ALLEGRO_MIXER* audio::_mixer_3 = NULL;
 ALLEGRO_MIXER* audio::_mixer_4 = NULL;
-wte_asset<al_audio> audio::music_stream_a;
-wte_asset<al_audio> audio::music_stream_b;
-wte_asset<al_audio> audio::ambiance_stream;
-wte_asset<al_audio> audio::voice_stream;
+wte_asset<ALLEGRO_AUDIO_STREAM> audio::music_stream_a = nullptr;
+wte_asset<ALLEGRO_AUDIO_STREAM> audio::music_stream_b = nullptr;
+wte_asset<ALLEGRO_AUDIO_STREAM> audio::ambiance_stream = nullptr;
+wte_asset<ALLEGRO_AUDIO_STREAM> audio::voice_stream = nullptr;
 std::map<const std::string, ALLEGRO_SAMPLE_ID> audio::sample_instances;
 
 /*
@@ -73,9 +73,9 @@ void audio::initialize(void) {
     });
     cmds.add("music-play", 2, [](const msg_args& args) {
         if(args[0] == "a")
-            audio::music::a::play(mgr::assets<al_audio>::get<al_audio>(args[1]));
+            audio::music::a::play(mgr::assets::get<ALLEGRO_AUDIO_STREAM>(args[1]));
         if(args[0] == "b")
-            audio::music::b::play(mgr::assets<al_audio>::get<al_audio>(args[1]));
+            audio::music::b::play(mgr::assets::get<ALLEGRO_AUDIO_STREAM>(args[1]));
     });
     cmds.add("music-stop", 1, [](const msg_args& args) {
         if(args[0] == "a") audio::music::a::stop();
@@ -108,7 +108,7 @@ void audio::initialize(void) {
             if(speed <= 0.0f || speed > 2.0f) speed = 1.0f;
         }
         audio::sample::play(
-            mgr::assets<al_sample>::get<al_sample>(args[0]),
+            mgr::assets::get<ALLEGRO_SAMPLE>(args[0]),
             args[1], gain, pan, speed
         );
     });
@@ -120,7 +120,7 @@ void audio::initialize(void) {
     });
     //  Mixer 3
     cmds.add("voice-play", 1, [](const msg_args& args) {
-        audio::voice::play(mgr::assets<al_audio>::get<al_audio>(args[0]));
+        audio::voice::play(mgr::assets::get<ALLEGRO_AUDIO_STREAM>(args[0]));
     });
     cmds.add("voice-stop", 0, [](const msg_args& args) {
         audio::voice::stop();
@@ -137,7 +137,7 @@ void audio::initialize(void) {
         else audio::ambiance::loop(true);
     });
     cmds.add("ambiance-play", 1, [](const msg_args& args) {
-        audio::ambiance::play(mgr::assets<al_audio>::get<al_audio>(args[0]));
+        audio::ambiance::play(mgr::assets::get<ALLEGRO_AUDIO_STREAM>(args[0]));
     });
     cmds.add("ambiance-stop", 0, [](const msg_args& args) {
         audio::ambiance::stop();
@@ -300,20 +300,20 @@ void audio::process_messages(const message_container& messages) { cmds.process_m
  */
 void audio::music::a::loop(const bool& loop) {
     if(!al_get_mixer_attached(_mixer_1)) return;  //  Music not loaded, end.
-    (loop ? al_set_audio_stream_playmode(**music_stream_a, ALLEGRO_PLAYMODE_LOOP) :
-        al_set_audio_stream_playmode(**music_stream_a, ALLEGRO_PLAYMODE_ONCE));
+    (loop ? al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_LOOP) :
+        al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_ONCE));
 }
 
 /*
  *
  */
-void audio::music::a::play(wte_asset<al_audio> audio) {
+void audio::music::a::play(wte_asset<ALLEGRO_AUDIO_STREAM> audio) {
     music::a::stop();
     music_stream_a = audio;
-    al_attach_audio_stream_to_mixer(**music_stream_a, _mixer_1_a);
-    al_set_audio_stream_playmode(**music_stream_a, ALLEGRO_PLAYMODE_LOOP);
-    al_rewind_audio_stream(**music_stream_a);
-    al_set_audio_stream_playing(**music_stream_a, true);
+    al_attach_audio_stream_to_mixer(music_stream_a.get(), _mixer_1_a);
+    al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_LOOP);
+    al_rewind_audio_stream(music_stream_a.get());
+    al_set_audio_stream_playing(music_stream_a.get(), true);
 }
 
 /*
@@ -321,9 +321,9 @@ void audio::music::a::play(wte_asset<al_audio> audio) {
  */
 void audio::music::a::stop(void) {
     if(al_get_mixer_attached(_mixer_1_a)) {
-        al_set_audio_stream_playing(**music_stream_a, false);
-        al_drain_audio_stream(**music_stream_a);
-        al_detach_audio_stream(**music_stream_a);
+        al_set_audio_stream_playing(music_stream_a.get(), false);
+        al_drain_audio_stream(music_stream_a.get());
+        al_detach_audio_stream(music_stream_a.get());
     }
 }
 
@@ -332,14 +332,14 @@ void audio::music::a::stop(void) {
  */
 void audio::music::a::pause(void) {
     if(al_get_mixer_attached(_mixer_1_a) && al_get_mixer_playing(_mixer_1_a))
-        al_set_audio_stream_playing(**music_stream_a, false);
+        al_set_audio_stream_playing(music_stream_a.get(), false);
 }
 
 /*
  *
  */
 void audio::music::a::unpause(void) {
-    if(al_get_mixer_attached(_mixer_1)) al_set_audio_stream_playing(**music_stream_a, true);
+    if(al_get_mixer_attached(_mixer_1)) al_set_audio_stream_playing(music_stream_a.get(), true);
 }
 
 /*
@@ -347,20 +347,20 @@ void audio::music::a::unpause(void) {
  */
 void audio::music::b::loop(const bool& loop) {
     if(!al_get_mixer_attached(_mixer_1_a)) return;  //  Music not loaded, end.
-    (loop ? al_set_audio_stream_playmode(**music_stream_a, ALLEGRO_PLAYMODE_LOOP) :
-        al_set_audio_stream_playmode(**music_stream_a, ALLEGRO_PLAYMODE_ONCE));
+    (loop ? al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_LOOP) :
+        al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_ONCE));
 }
 
 /*
  *
  */
-void audio::music::b::play(wte_asset<al_audio> audio) {
+void audio::music::b::play(wte_asset<ALLEGRO_AUDIO_STREAM> audio) {
     music::b::stop();
     music_stream_b = audio;
-    al_attach_audio_stream_to_mixer(**music_stream_b, _mixer_1_b);
-    al_set_audio_stream_playmode(**music_stream_b, ALLEGRO_PLAYMODE_LOOP);
-    al_rewind_audio_stream(**music_stream_b);
-    al_set_audio_stream_playing(**music_stream_b, true);
+    al_attach_audio_stream_to_mixer(music_stream_b.get(), _mixer_1_b);
+    al_set_audio_stream_playmode(music_stream_b.get(), ALLEGRO_PLAYMODE_LOOP);
+    al_rewind_audio_stream(music_stream_b.get());
+    al_set_audio_stream_playing(music_stream_b.get(), true);
 }
 
 /*
@@ -368,9 +368,9 @@ void audio::music::b::play(wte_asset<al_audio> audio) {
  */
 void audio::music::b::stop(void) {
     if(al_get_mixer_attached(_mixer_1_b)) {
-        al_set_audio_stream_playing(**music_stream_b, false);
-        al_drain_audio_stream(**music_stream_b);
-        al_detach_audio_stream(**music_stream_b);
+        al_set_audio_stream_playing(music_stream_b.get(), false);
+        al_drain_audio_stream(music_stream_b.get());
+        al_detach_audio_stream(music_stream_b.get());
     }
 }
 
@@ -379,21 +379,21 @@ void audio::music::b::stop(void) {
  */
 void audio::music::b::pause(void) {
     if(al_get_mixer_attached(_mixer_1_b) && al_get_mixer_playing(_mixer_1_b))
-        al_set_audio_stream_playing(**music_stream_b, false);
+        al_set_audio_stream_playing(music_stream_b.get(), false);
 }
 
 /*
  *
  */
 void audio::music::b::unpause(void) {
-    if(al_get_mixer_attached(_mixer_1_b)) al_set_audio_stream_playing(**music_stream_b, true);
+    if(al_get_mixer_attached(_mixer_1_b)) al_set_audio_stream_playing(music_stream_b.get(), true);
 }
 
 /*
  *
  */
 void audio::sample::play(
-    wte_asset<al_sample> sample,
+    wte_asset<ALLEGRO_SAMPLE> sample,
     const std::string& ref
 ) { play(sample, ref, 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.0f); }
 
@@ -401,7 +401,7 @@ void audio::sample::play(
  *
  */
 void audio::sample::play(
-    wte_asset<al_sample> sample,
+    wte_asset<ALLEGRO_SAMPLE> sample,
     const std::string& ref,
     const float& gain,
     const float& pan,
@@ -409,13 +409,13 @@ void audio::sample::play(
 ) {
     if(ref == "once") {
         // Play the sample once.
-        al_play_sample(**sample, gain, pan, speed, ALLEGRO_PLAYMODE_ONCE, NULL);
+        al_play_sample(sample.get(), gain, pan, speed, ALLEGRO_PLAYMODE_ONCE, NULL);
     } else {
         //  If the reference is already playing, end.
         if(sample_instances.find(ref) != sample_instances.end()) return;
         //  Store playing reference
         ALLEGRO_SAMPLE_ID temp_sample_id;
-        if(al_play_sample(**sample, gain, pan, speed, ALLEGRO_PLAYMODE_LOOP, &temp_sample_id))
+        if(al_play_sample(sample.get(), gain, pan, speed, ALLEGRO_PLAYMODE_LOOP, &temp_sample_id))
             sample_instances.insert(std::make_pair(ref, temp_sample_id));
     }
 }
@@ -444,13 +444,13 @@ void audio::sample::clear_instances(void) {
 /*
  *
  */
-void audio::voice::play(wte_asset<al_audio> audio) {
+void audio::voice::play(wte_asset<ALLEGRO_AUDIO_STREAM> audio) {
     voice::stop();
     voice_stream = audio;
-    al_attach_audio_stream_to_mixer(**voice_stream, _mixer_3);
-    al_set_audio_stream_playmode(**voice_stream, ALLEGRO_PLAYMODE_ONCE);
-    al_rewind_audio_stream(**voice_stream);
-    al_set_audio_stream_playing(**voice_stream, true);
+    al_attach_audio_stream_to_mixer(voice_stream.get(), _mixer_3);
+    al_set_audio_stream_playmode(voice_stream.get(), ALLEGRO_PLAYMODE_ONCE);
+    al_rewind_audio_stream(voice_stream.get());
+    al_set_audio_stream_playing(voice_stream.get(), true);
 }
 
 /*
@@ -458,9 +458,9 @@ void audio::voice::play(wte_asset<al_audio> audio) {
  */
 void audio::voice::stop(void) {
     if(al_get_mixer_attached(_mixer_3)) {
-        al_set_audio_stream_playing(**voice_stream, false);
-        al_drain_audio_stream(**voice_stream);
-        al_detach_audio_stream(**voice_stream);
+        al_set_audio_stream_playing(voice_stream.get(), false);
+        al_drain_audio_stream(voice_stream.get());
+        al_detach_audio_stream(voice_stream.get());
     }
 }
 
@@ -469,14 +469,14 @@ void audio::voice::stop(void) {
  */
 void audio::voice::pause(void) {
     if(al_get_mixer_attached(_mixer_3) && al_get_mixer_playing(_mixer_3))
-        al_set_audio_stream_playing(**voice_stream, false);
+        al_set_audio_stream_playing(voice_stream.get(), false);
 }
 
 /*
  *
  */
 void audio::voice::unpause(void) {
-    if(al_get_mixer_attached(_mixer_3)) al_set_audio_stream_playing(**voice_stream, true);
+    if(al_get_mixer_attached(_mixer_3)) al_set_audio_stream_playing(voice_stream.get(), true);
 }
 
 /*
@@ -484,20 +484,20 @@ void audio::voice::unpause(void) {
  */
 void audio::ambiance::loop(const bool& loop) {
     if(!al_get_mixer_attached(_mixer_4)) return;  //  Ambiance not loaded, end.
-    (loop ? al_set_audio_stream_playmode(**ambiance_stream, ALLEGRO_PLAYMODE_LOOP) :
-        al_set_audio_stream_playmode(**ambiance_stream, ALLEGRO_PLAYMODE_ONCE));
+    (loop ? al_set_audio_stream_playmode(ambiance_stream.get(), ALLEGRO_PLAYMODE_LOOP) :
+        al_set_audio_stream_playmode(ambiance_stream.get(), ALLEGRO_PLAYMODE_ONCE));
 }
 
 /*
  *
  */
-void audio::ambiance::play(wte_asset<al_audio> audio) {
+void audio::ambiance::play(wte_asset<ALLEGRO_AUDIO_STREAM> audio) {
     ambiance::stop();
     ambiance_stream = audio;
-    al_attach_audio_stream_to_mixer(**ambiance_stream, _mixer_4);
-    al_set_audio_stream_playmode(**ambiance_stream, ALLEGRO_PLAYMODE_LOOP);
-    al_rewind_audio_stream(**ambiance_stream);
-    al_set_audio_stream_playing(**ambiance_stream, true);
+    al_attach_audio_stream_to_mixer(ambiance_stream.get(), _mixer_4);
+    al_set_audio_stream_playmode(ambiance_stream.get(), ALLEGRO_PLAYMODE_LOOP);
+    al_rewind_audio_stream(ambiance_stream.get());
+    al_set_audio_stream_playing(ambiance_stream.get(), true);
 }
 
 /*
@@ -505,9 +505,9 @@ void audio::ambiance::play(wte_asset<al_audio> audio) {
  */
 void audio::ambiance::stop(void) {
     if(al_get_mixer_attached(_mixer_4)) {
-        al_set_audio_stream_playing(**ambiance_stream, false);
-        al_drain_audio_stream(**ambiance_stream);
-        al_detach_audio_stream(**ambiance_stream);
+        al_set_audio_stream_playing(ambiance_stream.get(), false);
+        al_drain_audio_stream(ambiance_stream.get());
+        al_detach_audio_stream(ambiance_stream.get());
     }
 }
 
@@ -516,14 +516,14 @@ void audio::ambiance::stop(void) {
  */
 void audio::ambiance::pause(void) {
     if(al_get_mixer_attached(_mixer_4) && al_get_mixer_playing(_mixer_4))
-        al_set_audio_stream_playing(**ambiance_stream, false);
+        al_set_audio_stream_playing(ambiance_stream.get(), false);
 }
 
 /*
  *
  */
 void audio::ambiance::unpause(void) {
-    if(al_get_mixer_attached(_mixer_4)) al_set_audio_stream_playing(**ambiance_stream, true);
+    if(al_get_mixer_attached(_mixer_4)) al_set_audio_stream_playing(ambiance_stream.get(), true);
 }
 
 }  //  end namespace wte::mgr

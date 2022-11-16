@@ -38,8 +38,8 @@ class overlay final : public gfx {
          * \param func Function to define what is displayed in the overlay.
          */
         overlay(
-            wte_asset<al_bitmap> bmp,
-            wte_asset<al_font> font,
+            wte_asset<ALLEGRO_BITMAP> bmp,
+            wte_asset<ALLEGRO_FONT> font,
             const std::size_t& l,
             const float& x,
             const float& y,
@@ -69,7 +69,7 @@ class overlay final : public gfx {
         float pos_y;  //!<  Y position.
 
     private:
-        wte_asset<al_font> overlay_font;  //  Font for overlay.
+        wte_asset<ALLEGRO_FONT> overlay_font;  //  Font for overlay.
 };
 
 }  //  end namespace wte::cmp

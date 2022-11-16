@@ -34,7 +34,7 @@ class background final : public gfx {
          * \param y Y position of background.
          */
         background(
-            wte_asset<al_bitmap> bmp,
+            wte_asset<ALLEGRO_BITMAP> bmp,
             const std::size_t& l,
             const float& x,
             const float& y
@@ -49,7 +49,7 @@ class background final : public gfx {
          * \param func Animcation function.
          */
         background(
-            wte_asset<al_bitmap> bmp,
+            wte_asset<ALLEGRO_BITMAP> bmp,
             const std::size_t& l,
             const float& x,
             const float& y,

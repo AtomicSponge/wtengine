@@ -15,7 +15,7 @@ namespace wte::cmp::gfx {
  *
  */
 gfx::gfx(
-    wte_asset<al_bitmap> bmp,
+    wte_asset<ALLEGRO_BITMAP> bmp,
     const std::size_t& l,
     const std::function<void(const entity_id&)>& func
 ) : layer(l), visible(true), rotated(false), direction(0.0f),
@@ -25,7 +25,7 @@ _bitmap(bmp), tinted(false), animate(func) {}
 /*
  *
  */
-void gfx::set_drawing(void) { al_set_target_bitmap(**_bitmap); }
+void gfx::set_drawing(void) { al_set_target_bitmap(_bitmap.get()); }
 
 /*
  *

@@ -15,7 +15,7 @@ namespace wte::cmp::gfx {
  *
  */
 background::background(
-    wte_asset<al_bitmap> bmp,
+    wte_asset<ALLEGRO_BITMAP> bmp,
     const std::size_t& l,
     const float& x,
     const float& y
@@ -25,7 +25,7 @@ background::background(
  *
  */
 background::background(
-    wte_asset<al_bitmap> bmp,
+    wte_asset<ALLEGRO_BITMAP> bmp,
     const std::size_t& l,
     const float& x,
     const float& y,

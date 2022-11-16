@@ -15,8 +15,8 @@ namespace wte::cmp::gfx {
  *
  */
 overlay::overlay(
-    wte_asset<al_bitmap> bmp,
-    wte_asset<al_font> font,
+    wte_asset<ALLEGRO_BITMAP> bmp,
+    wte_asset<ALLEGRO_FONT> font,
     const std::size_t& l,
     const float& x,
     const float& y,
@@ -32,7 +32,7 @@ void overlay::draw_text(
     const float& x, const float& y,
     const int& f
 ) {
-    al_draw_text(**overlay_font, color, x, y, f, txt.c_str());
+    al_draw_text(overlay_font.get(), color, x, y, f, txt.c_str());
 }
 
 }  //  end namespace wte::cmp

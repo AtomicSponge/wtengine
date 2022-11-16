@@ -49,7 +49,7 @@ class sprite final : public gfx {
          * \param rt Rate in engine timer ticks for animation.
          */
         sprite(
-            wte_asset<al_bitmap> bmp,
+            wte_asset<ALLEGRO_BITMAP> bmp,
             const std::size_t& l,
             const float& sw,
             const float& sh,

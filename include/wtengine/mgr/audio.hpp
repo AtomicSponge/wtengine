@@ -21,7 +21,6 @@
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/commands.hpp"
 #include "wtengine/_globals/message.hpp"
-#include "wtengine/_globals/wrappers.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/mgr/assets.hpp"
 #include "wtengine/config.hpp"
@@ -76,7 +75,7 @@ class audio final : private manager<audio> {
                  * \brief Play a music asset.
                  * \param audio Audio asset.
                  */
-                static void play(wte_asset<al_audio> audio);
+                static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio);
 
                 /*!
                  * \brief Stop playing music.
@@ -115,7 +114,7 @@ class audio final : private manager<audio> {
                  * \brief Play a music asset.
                  * \param audio Audio asset.
                  */
-                static void play(wte_asset<al_audio> audio);
+                static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio);
 
                 /*!
                  * \brief Stop playing music.
@@ -162,7 +161,7 @@ class audio final : private manager<audio> {
             * \param ref Playmode.
             */
             static void play(
-                wte_asset<al_sample> sample,
+                wte_asset<ALLEGRO_SAMPLE> sample,
                 const std::string& ref
             );
 
@@ -175,7 +174,7 @@ class audio final : private manager<audio> {
             * \param speed Speed value.  See allegro docs on al_play_sample for more info.
             */
             static void play(
-                wte_asset<al_sample> sample,
+                wte_asset<ALLEGRO_SAMPLE> sample,
                 const std::string& ref,
                 const float& gain,
                 const float& pan,
@@ -209,7 +208,7 @@ class audio final : private manager<audio> {
             * \brief Play an audio asset on the voice channel.
             * \param audio Audio asset.
             */
-            static void play(wte_asset<al_audio> audio);
+            static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio);
 
             /*!
             * \brief Stop a playing audio file.
@@ -248,7 +247,7 @@ class audio final : private manager<audio> {
             * \brief Play an audio asset on the ambiance channel.
             * \param audio Audio asset.
             */
-            static void play(wte_asset<al_audio> audio);
+            static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio);
 
             /*!
             * \brief Stop playing ambiance.
@@ -302,10 +301,10 @@ class audio final : private manager<audio> {
         static ALLEGRO_MIXER* _mixer_4;
 
         // Streams
-        static wte_asset<al_audio> music_stream_a;
-        static wte_asset<al_audio> music_stream_b;
-        static wte_asset<al_audio> ambiance_stream;
-        static wte_asset<al_audio> voice_stream;
+        static wte_asset<ALLEGRO_AUDIO_STREAM> music_stream_a;
+        static wte_asset<ALLEGRO_AUDIO_STREAM> music_stream_b;
+        static wte_asset<ALLEGRO_AUDIO_STREAM> ambiance_stream;
+        static wte_asset<ALLEGRO_AUDIO_STREAM> voice_stream;
 
         //  Store a reference of playing samples.
         static std::map<const std::string, ALLEGRO_SAMPLE_ID> sample_instances;

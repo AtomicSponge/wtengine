@@ -16,9 +16,9 @@ namespace wte::mgr::gfx {
 ALLEGRO_TIMER* renderer::fps_timer = NULL;
 ALLEGRO_EVENT_QUEUE* renderer::fps_event_queue = NULL;
 ALLEGRO_EVENT renderer::fps_event;
-wte_asset<al_bitmap> renderer::viewport_bitmap;
-wte_asset<al_bitmap> renderer::title_bitmap;
-wte_asset<al_font> renderer::renderer_font;
+wte_asset<ALLEGRO_BITMAP> renderer::viewport_bitmap = nullptr;
+wte_asset<ALLEGRO_BITMAP> renderer::title_bitmap = nullptr;
+wte_asset<ALLEGRO_FONT> renderer::renderer_font = nullptr;
 std::size_t renderer::fps_counter = 0, renderer::_fps = 0;
 time_point<system_clock> renderer::_last_render;
 time_point<system_clock> renderer::_start_time;
@@ -40,22 +40,19 @@ void renderer::initialize(void) {
     if(config::gfx::screen_w == 0 || config::gfx::screen_h == 0) throw std::runtime_error("Screen size not defined!");
     if(config::gfx::viewport_w == 0 || config::gfx::viewport_h == 0) throw std::runtime_error("Arena size not defined!");
     //  Create the arena bitmap.
-    viewport_bitmap = make_asset(al_bitmap(config::gfx::viewport_w, config::gfx::viewport_h));
-    //  Add reference to Asset manager so bitmap can be reloaded.
-    mgr::assets<al_bitmap>::load<al_bitmap>("wte_renderer_arena_bitmap", viewport_bitmap);
+    viewport_bitmap = make_asset<ALLEGRO_BITMAP>(config::gfx::viewport_w, config::gfx::viewport_h);
     arena_created = true;
 
     //  Set the overlay's font to the system default.
-    renderer_font = mgr::assets<al_font>::get<al_font>("wte_default_font");
+    renderer_font = mgr::assets::get<ALLEGRO_FONT>("wte_default_font");
 
     //  Load the title screen bitmap.
     if(title_screen_file.empty()) {
-        title_bitmap = make_asset(al_bitmap(1, 1));
-        al_set_target_bitmap(**title_bitmap);
+        title_bitmap = make_asset<ALLEGRO_BITMAP>(1, 1);
+        al_set_target_bitmap(title_bitmap.get());
         al_clear_to_color(al_map_rgb(0,0,0));
     } else {
-        title_bitmap = make_asset(al_bitmap());
-        title_bitmap->load(title_screen_file);
+        title_bitmap = make_asset<ALLEGRO_BITMAP>(title_screen_file);
     }
 
     fps_timer = al_create_timer(1);
@@ -94,7 +91,7 @@ void renderer::set_title_screen(const std::string& fname) { title_screen_file = 
 /*
  *
  */
-void renderer::set_font(wte_asset<al_font> font) { renderer_font = font; }
+void renderer::set_font(wte_asset<ALLEGRO_FONT> font) { renderer_font = font; }
 
 /*
  *
@@ -119,7 +116,7 @@ void renderer::draw_hitboxes(void) {
                 it.second->height);
             al_set_target_bitmap(temp_bitmap);
             al_clear_to_color(team_color);
-            al_set_target_bitmap(**viewport_bitmap);
+            al_set_target_bitmap(viewport_bitmap.get());
             try {
                 al_draw_bitmap(temp_bitmap,
                     mgr::world::get_component<cmp::location>(it.first)->pos_x,
@@ -136,7 +133,7 @@ void renderer::draw_hitboxes(void) {
 void renderer::draw_timer(void) {
     if constexpr (build_options.debug_mode) {
         const std::string timer_string = "Timer: " + std::to_string(engine_time::check());
-        al_draw_text(**renderer_font, al_map_rgb(255,255,0), config::gfx::screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
+        al_draw_text(renderer_font.get(), al_map_rgb(255,255,0), config::gfx::screen_w, 10, ALLEGRO_ALIGN_RIGHT, timer_string.c_str());
     }
 }
 
@@ -166,7 +163,7 @@ void renderer::render(void) {
     //  Render world if the game is running.
     if(config::flags::engine_started) {
         //  Set drawing to the arena bitmap.
-        al_set_target_bitmap(**viewport_bitmap);
+        al_set_target_bitmap(viewport_bitmap.get());
         al_clear_to_color(al_map_rgb(0,0,0));
 
         //  Draw the backgrounds.
@@ -187,13 +184,13 @@ void renderer::render(void) {
 
                 if(it.second->rotated) {
                     angle = it.second->direction;
-                    center_x = (al_get_bitmap_width(**it.second->_bitmap) / 2);
-                    center_y = (al_get_bitmap_height(**it.second->_bitmap) / 2);
+                    center_x = (al_get_bitmap_width(it.second->_bitmap.get()) / 2);
+                    center_y = (al_get_bitmap_height(it.second->_bitmap.get()) / 2);
 
                     destination_x = it.second->pos_x +
-                        (al_get_bitmap_width(**it.second->_bitmap) * it.second->scale_factor_x / 2);
+                        (al_get_bitmap_width(it.second->_bitmap.get()) * it.second->scale_factor_x / 2);
                     destination_y = it.second->pos_y +
-                        (al_get_bitmap_height(**it.second->_bitmap) * it.second->scale_factor_y / 2);
+                        (al_get_bitmap_height(it.second->_bitmap.get()) * it.second->scale_factor_y / 2);
                 } else {
                         destination_x = it.second->pos_x;
                         destination_y = it.second->pos_y;
@@ -201,7 +198,7 @@ void renderer::render(void) {
 
                 if(it.second->tinted)
                     al_draw_tinted_scaled_rotated_bitmap(
-                        **it.second->_bitmap, it.second->get_tint(),
+                        it.second->_bitmap.get(), it.second->get_tint(),
                         center_x, center_y, destination_x, destination_y,
                         it.second->scale_factor_x,
                         it.second->scale_factor_y,
@@ -209,7 +206,7 @@ void renderer::render(void) {
                     );
                 else
                     al_draw_scaled_rotated_bitmap(
-                        **it.second->_bitmap,
+                        it.second->_bitmap.get(),
                         center_x, center_y, destination_x, destination_y,
                         it.second->scale_factor_x,
                         it.second->scale_factor_y,
@@ -232,7 +229,7 @@ void renderer::render(void) {
             if(it.second->visible) {
                 //  Get the current sprite frame.
                 ALLEGRO_BITMAP* temp_bitmap = al_create_sub_bitmap(
-                    **it.second->_bitmap,
+                    it.second->_bitmap.get(),
                     it.second->sprite_x,
                     it.second->sprite_y,
                     it.second->sprite_width,
@@ -306,13 +303,13 @@ void renderer::render(void) {
 
                 if(it.second->rotated) {
                     angle = it.second->direction;
-                    center_x = (al_get_bitmap_width(**it.second->_bitmap) / 2);
-                    center_y = (al_get_bitmap_height(**it.second->_bitmap) / 2);
+                    center_x = (al_get_bitmap_width(it.second->_bitmap.get()) / 2);
+                    center_y = (al_get_bitmap_height(it.second->_bitmap.get()) / 2);
 
                     destination_x = it.second->pos_x +
-                        (al_get_bitmap_width(**it.second->_bitmap) * it.second->scale_factor_x / 2);
+                        (al_get_bitmap_width(it.second->_bitmap.get()) * it.second->scale_factor_x / 2);
                     destination_y = it.second->pos_y +
-                        (al_get_bitmap_height(**it.second->_bitmap) * it.second->scale_factor_y / 2);
+                        (al_get_bitmap_height(it.second->_bitmap.get()) * it.second->scale_factor_y / 2);
                 } else {
                         destination_x = it.second->pos_x;
                         destination_y = it.second->pos_y;
@@ -320,7 +317,7 @@ void renderer::render(void) {
 
                 if(it.second->tinted)
                     al_draw_tinted_scaled_rotated_bitmap(
-                        **it.second->_bitmap, it.second->get_tint(),
+                        it.second->_bitmap.get(), it.second->get_tint(),
                         center_x, center_y, destination_x, destination_y,
                         it.second->scale_factor_x,
                         it.second->scale_factor_y,
@@ -328,7 +325,7 @@ void renderer::render(void) {
                     );
                 else
                     al_draw_scaled_rotated_bitmap(
-                        **it.second->_bitmap,
+                        it.second->_bitmap.get(),
                         center_x, center_y, destination_x, destination_y,
                         it.second->scale_factor_x,
                         it.second->scale_factor_y,
@@ -340,25 +337,25 @@ void renderer::render(void) {
         //  Draw the viewport bitmap to the screen.
         al_set_target_backbuffer(al_get_current_display());
         al_draw_scaled_bitmap(
-            **viewport_bitmap, 0, 0, config::gfx::viewport_w, config::gfx::viewport_h,
+            viewport_bitmap.get(), 0, 0, config::gfx::viewport_w, config::gfx::viewport_h,
             (config::gfx::screen_w / 2) - (config::gfx::viewport_w * config::gfx::scale_factor / 2),
             (config::gfx::screen_h / 2) - (config::gfx::viewport_h * config::gfx::scale_factor / 2),
             config::gfx::viewport_w * config::gfx::scale_factor,
             config::gfx::viewport_h * config::gfx::scale_factor, 0);
     } else {  //  Game is not running
         //  Draw the title screen.
-        al_draw_scaled_bitmap(**title_bitmap, 0, 0,
-            title_bitmap->get_width(), title_bitmap->get_height(),
-            (config::gfx::screen_w / 2) - (title_bitmap->get_width() * config::gfx::scale_factor / 2),
-            (config::gfx::screen_h / 2) - (title_bitmap->get_height() * config::gfx::scale_factor / 2),
-            title_bitmap->get_width() * config::gfx::scale_factor,
-            title_bitmap->get_height() * config::gfx::scale_factor, 0);
+        al_draw_scaled_bitmap(title_bitmap.get(), 0, 0,
+            al_get_bitmap_width(title_bitmap.get()), al_get_bitmap_height(title_bitmap.get()),
+            (config::gfx::screen_w / 2) - (al_get_bitmap_width(title_bitmap.get()) * config::gfx::scale_factor / 2),
+            (config::gfx::screen_h / 2) - (al_get_bitmap_height(title_bitmap.get()) * config::gfx::scale_factor / 2),
+            al_get_bitmap_width(title_bitmap.get()) * config::gfx::scale_factor,
+            al_get_bitmap_height(title_bitmap.get()) * config::gfx::scale_factor, 0);
     }
 
     //  Draw frame rate.
     if(config::flags::draw_fps) {
         const std::string fps_string = "FPS: " + std::to_string(fps);
-        al_draw_text(**renderer_font, al_map_rgb(255,255,0), config::gfx::screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
+        al_draw_text(renderer_font.get(), al_map_rgb(255,255,0), config::gfx::screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
     }
     if constexpr (build_options.debug_mode) draw_timer();
 

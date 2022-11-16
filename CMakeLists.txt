@@ -104,7 +104,6 @@ add_library(wtengine STATIC
     src/_globals/commands.cpp
     src/_globals/engine_time.cpp
     src/_globals/message.cpp
-    src/_globals/wrappers.cpp
     src/cmp/ai.cpp
     src/cmp/background.cpp
     src/cmp/bounding_box.cpp

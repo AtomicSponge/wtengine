@@ -24,6 +24,10 @@
 #include "wtengine/_globals/engine_time.hpp"
 #include "wtengine/_globals/wte_asset.hpp"
 
+namespace wte {
+    class engine;
+}
+
 namespace wte::mgr {
 
 template <typename T>
@@ -35,6 +39,8 @@ using asset_map = std::map<const std::string, wte_asset<T>>;
  * \tparam ...Types Types of assets used in game code.
  */
 class assets final : private manager<assets> {
+    friend class wte::engine;
+
     public:
         /*!
          * \brief Load an existing asset.
@@ -92,16 +98,16 @@ class assets final : private manager<assets> {
             }
         };
 
+    private:
+        assets() = default;
+        ~assets() = default;
+
         inline static void clear_al_objects(void) {
             _assets<ALLEGRO_BITMAP>.clear();
             _assets<ALLEGRO_FONT>.clear();
             _assets<ALLEGRO_SAMPLE>.clear();
             _assets<ALLEGRO_AUDIO_STREAM>.clear();
-        }
-
-    private:
-        assets() = default;
-        ~assets() = default;
+        };
 
         //  Store each asset map in a tuple.
         template <typename T>

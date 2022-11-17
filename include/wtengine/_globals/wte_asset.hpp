@@ -50,20 +50,24 @@ inline static const wte_asset<ALLEGRO_FONT> make_asset() {
 /*!
  * \brief 
  */
-template <typename T>
-inline static const wte_asset<T> make_asset(
-    const std::string& fname, const int& dx, const int& dy
+template <typename ALLEGRO_FONT>
+inline static const wte_asset<ALLEGRO_FONT> make_asset(
+    const std::string& fname, const int& size, const int& flags
 ) {
-    if constexpr (std::is_same_v<T, ALLEGRO_FONT>) {
-        std::shared_ptr<ALLEGRO_FONT> temp_ptr(al_load_font(fname.c_str(), dx, dy), al_destroy_font);
-        return temp_ptr;
-    }
+    std::shared_ptr<ALLEGRO_FONT> temp_ptr(al_load_font(fname.c_str(), size, flags), al_destroy_font);
+    return temp_ptr;
+};
 
-    if constexpr (std::is_same_v<T, ALLEGRO_AUDIO_STREAM>) {
-        std::shared_ptr<T> temp_ptr(al_load_audio_stream(fname.c_str(), dx, dy), al_destroy_audio_stream);
-        al_set_audio_stream_playing(temp_ptr.get(), false);
-        return temp_ptr;
-    }
+/*!
+ * \brief 
+ */
+template <typename ALLEGRO_AUDIO_STREAM>
+inline static const wte_asset<ALLEGRO_AUDIO_STREAM> make_asset(
+    const std::string& fname, const std::size_t& buffer, const int& samples
+) {
+    std::shared_ptr<ALLEGRO_AUDIO_STREAM> temp_ptr(al_load_audio_stream(fname.c_str(), buffer, samples), al_destroy_audio_stream);
+    al_set_audio_stream_playing(temp_ptr.get(), false);
+    return temp_ptr;
 };
 
 /*!
@@ -71,6 +75,10 @@ inline static const wte_asset<T> make_asset(
  */
 template <typename T>
 inline static const wte_asset<T> make_asset(const std::string& fname) {
+    static_assert(std::is_same_v<T, ALLEGRO_BITMAP> ||
+                  std::is_same_v<T, ALLEGRO_SAMPLE> ||
+                  std::is_same_v<T, ALLEGRO_AUDIO_STREAM>, "Must be an Allegro type to load by filename.");
+
     if constexpr (std::is_same_v<T, ALLEGRO_BITMAP>) {
         std::shared_ptr<ALLEGRO_BITMAP> temp_ptr(al_load_bitmap(fname.c_str()), al_destroy_bitmap);
         return temp_ptr;
@@ -101,7 +109,9 @@ inline static const wte_asset<T> make_asset(T& obj) {
  * \brief 
  */
 template <typename T>
-inline static const wte_asset<T> make_asset(std::function<T()> func, std::function<void()> deleter) {
+inline static const wte_asset<T> make_asset(
+    std::function<T()> func, std::function<void()> deleter
+) {
     std::shared_ptr<T> temp_ptr(func, deleter);
     return temp_ptr;
 };

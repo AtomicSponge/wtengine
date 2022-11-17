@@ -11,6 +11,7 @@
 #define WTE_ASSET_HPP
 
 #include <string>
+#include <functional>
 #include <memory>
 
 #include <allegro5/allegro.h>
@@ -37,12 +38,18 @@ inline static const wte_asset<ALLEGRO_BITMAP> make_asset(const int& w, const int
     return temp_ptr;
 };
 
+/*!
+ * \brief 
+ */
 template <typename ALLEGRO_FONT>
 inline static const wte_asset<ALLEGRO_FONT> make_asset() {
     std::shared_ptr<ALLEGRO_FONT> temp_ptr(al_create_builtin_font(), al_destroy_font);
     return temp_ptr;
 };
 
+/*!
+ * \brief 
+ */
 template <typename T>
 inline static const wte_asset<T> make_asset(
     const std::string& fname, const int& dx, const int& dy
@@ -59,6 +66,9 @@ inline static const wte_asset<T> make_asset(
     }
 };
 
+/*!
+ * \brief 
+ */
 template <typename T>
 inline static const wte_asset<T> make_asset(const std::string& fname) {
     if constexpr (std::is_same_v<T, ALLEGRO_BITMAP>) {
@@ -78,10 +88,22 @@ inline static const wte_asset<T> make_asset(const std::string& fname) {
     }
 };
 
+/*!
+ * \brief 
+ */
 template <typename T>
 inline static const wte_asset<T> make_asset(T& obj) {
-    std::shared_ptr<T> temp_prt(obj);
-    return temp_prt;
+    std::shared_ptr<T> temp_ptr(obj);
+    return temp_ptr;
+};
+
+/*!
+ * \brief 
+ */
+template <typename T>
+inline static const wte_asset<T> make_asset(std::function<T()> func, std::function<void()> deleter) {
+    std::shared_ptr<T> temp_ptr(func, deleter);
+    return temp_ptr;
 };
 
 }  //  end namespace wte

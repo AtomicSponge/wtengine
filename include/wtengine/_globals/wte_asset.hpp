@@ -40,9 +40,9 @@ inline static const wte_asset<ALLEGRO_BITMAP> make_asset(const int& w, const int
 };
 
 /*!
- * \brief 
- * \tparam 
- * \return 
+ * \brief Create the Allegro built-in font.
+ * \tparam ALLEGRO_FONT Allegro font structure.
+ * \return A new Allegro font asset with the default font.
  */
 template <typename ALLEGRO_FONT>
 inline static const wte_asset<ALLEGRO_FONT> make_asset() {
@@ -51,12 +51,12 @@ inline static const wte_asset<ALLEGRO_FONT> make_asset() {
 };
 
 /*!
- * \brief 
- * \tparam 
- * \param 
- * \param 
- * \param 
- * \return 
+ * \brief Create an Allegro font asset.
+ * \tparam ALLEGRO_FONT Allegro font structure.
+ * \param fname Filename to load.
+ * \param size Size of text.
+ * \param flags Font flags (see Allegro documentation).
+ * \return A new Allegro font asset with the loaded font.
  */
 template <typename ALLEGRO_FONT>
 inline static const wte_asset<ALLEGRO_FONT> make_asset(
@@ -67,12 +67,12 @@ inline static const wte_asset<ALLEGRO_FONT> make_asset(
 };
 
 /*!
- * \brief 
- * \tparam 
- * \param 
- * \param 
- * \param 
- * \return 
+ * \brief Create an Allegro audio stream asset.
+ * \tparam ALLEGRO_AUDIO_STREAM Allegro audio stream structure.
+ * \param fname Filename to load.
+ * \param buffer Buffer size.
+ * \param samples Number of samples (see Allegro documentation).
+ * \return A new Allegro audio stream asset with the loaded file.
  */
 template <typename ALLEGRO_AUDIO_STREAM>
 inline static const wte_asset<ALLEGRO_AUDIO_STREAM> make_asset(
@@ -84,10 +84,10 @@ inline static const wte_asset<ALLEGRO_AUDIO_STREAM> make_asset(
 };
 
 /*!
- * \brief 
- * \tparam 
- * \param 
- * \return 
+ * \brief Create an Allegro asset from file.
+ * \tparam T Type of Allegro asset.
+ * \param fname Filename to load.
+ * \return A new asset of loaded type.
  */
 template <typename T>
 inline static const wte_asset<T> make_asset(const std::string& fname) {

@@ -27,10 +27,11 @@ template <typename T>
 using wte_asset = std::shared_ptr<T>;
 
 /*!
- * \brief Create an asset (shared) pointer.
- * \tparam T Asset type.
- * \param obj Object to create asset from.
- * \return A new asset (shared pointer).
+ * \brief Create an Allegro bitmap asset of size width x height.
+ * \tparam ALLEGRO_BITMAP Allegro bitmap structure.
+ * \param w Width of new bitmap.
+ * \param h Height of new bitmap.
+ * \return A new Allegro bitmap asset.
  */
 template <typename ALLEGRO_BITMAP>
 inline static const wte_asset<ALLEGRO_BITMAP> make_asset(const int& w, const int& h) {

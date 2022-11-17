@@ -55,7 +55,7 @@ inline static const wte_asset<ALLEGRO_FONT> make_asset() {
  * \tparam ALLEGRO_FONT Allegro font structure.
  * \param fname Filename to load.
  * \param size Size of text.
- * \param flags Font flags (see Allegro documentation).
+ * \param flags Font flags (see Allegro documentation on al_load_font).
  * \return A new Allegro font asset with the loaded font.
  */
 template <typename ALLEGRO_FONT>
@@ -71,7 +71,7 @@ inline static const wte_asset<ALLEGRO_FONT> make_asset(
  * \tparam ALLEGRO_AUDIO_STREAM Allegro audio stream structure.
  * \param fname Filename to load.
  * \param buffer Buffer size.
- * \param samples Number of samples (see Allegro documentation).
+ * \param samples Number of samples (see Allegro documentation on al_load_audio_stream).
  * \return A new Allegro audio stream asset with the loaded file.
  */
 template <typename ALLEGRO_AUDIO_STREAM>

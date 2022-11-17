@@ -41,6 +41,8 @@ inline static const wte_asset<ALLEGRO_BITMAP> make_asset(const int& w, const int
 
 /*!
  * \brief 
+ * \tparam 
+ * \return 
  */
 template <typename ALLEGRO_FONT>
 inline static const wte_asset<ALLEGRO_FONT> make_asset() {
@@ -50,6 +52,11 @@ inline static const wte_asset<ALLEGRO_FONT> make_asset() {
 
 /*!
  * \brief 
+ * \tparam 
+ * \param 
+ * \param 
+ * \param 
+ * \return 
  */
 template <typename ALLEGRO_FONT>
 inline static const wte_asset<ALLEGRO_FONT> make_asset(
@@ -61,6 +68,11 @@ inline static const wte_asset<ALLEGRO_FONT> make_asset(
 
 /*!
  * \brief 
+ * \tparam 
+ * \param 
+ * \param 
+ * \param 
+ * \return 
  */
 template <typename ALLEGRO_AUDIO_STREAM>
 inline static const wte_asset<ALLEGRO_AUDIO_STREAM> make_asset(
@@ -73,6 +85,9 @@ inline static const wte_asset<ALLEGRO_AUDIO_STREAM> make_asset(
 
 /*!
  * \brief 
+ * \tparam 
+ * \param 
+ * \return 
  */
 template <typename T>
 inline static const wte_asset<T> make_asset(const std::string& fname) {
@@ -99,6 +114,9 @@ inline static const wte_asset<T> make_asset(const std::string& fname) {
 
 /*!
  * \brief 
+ * \tparam 
+ * \param 
+ * \return 
  */
 template <typename T>
 inline static const wte_asset<T> make_asset(T& obj) {
@@ -108,6 +126,10 @@ inline static const wte_asset<T> make_asset(T& obj) {
 
 /*!
  * \brief 
+ * \tparam 
+ * \param 
+ * \param 
+ * \return 
  */
 template <typename T>
 inline static const wte_asset<T> make_asset(

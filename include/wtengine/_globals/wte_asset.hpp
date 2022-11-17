@@ -113,10 +113,10 @@ inline static const wte_asset<T> make_asset(const std::string& fname) {
 };
 
 /*!
- * \brief 
- * \tparam 
- * \param 
- * \return 
+ * \brief Create an asset from an object.
+ * \tparam T Object type.
+ * \param obj The object to load as an asset.
+ * \return The object as an asset.
  */
 template <typename T>
 inline static const wte_asset<T> make_asset(T& obj) {
@@ -125,11 +125,11 @@ inline static const wte_asset<T> make_asset(T& obj) {
 };
 
 /*!
- * \brief 
- * \tparam 
- * \param 
- * \param 
- * \return 
+ * \brief Create an asset from an incomplete type.
+ * \tparam T Data structure.
+ * \param func Function to create asset with.
+ * \param deleter Deleter function to clean up data.
+ * \return A new asset of the loaded type.
  */
 template <typename T>
 inline static const wte_asset<T> make_asset(

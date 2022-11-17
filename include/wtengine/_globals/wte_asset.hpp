@@ -2,7 +2,7 @@
  * wtengine | File:  wte_asset.hpp
  * 
  * \author Matthew Evans
- * \version 0.8.0
+ * \version 0.8.1
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2022
  */
@@ -76,6 +76,12 @@ inline static const wte_asset<T> make_asset(const std::string& fname) {
         al_set_audio_stream_playing(temp_ptr.get(), false);
         return temp_ptr;
     }
+};
+
+template <typename T>
+inline static const wte_asset<T> make_asset(T& obj) {
+    std::shared_ptr<T> temp_prt(obj);
+    return temp_prt;
 };
 
 }  //  end namespace wte

@@ -2,7 +2,7 @@
  * wtengine | File:  renderer.cpp
  * 
  * \author Matthew Evans
- * \version 0.8.0
+ * \version 0.8.1
  * \copyright See LICENSE.md for copyright information.
  * \date 2019-2022
  */

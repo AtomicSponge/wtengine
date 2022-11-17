@@ -79,7 +79,6 @@ inline static const wte_asset<ALLEGRO_AUDIO_STREAM> make_asset(
     const std::string& fname, const std::size_t& buffer, const int& samples
 ) {
     std::shared_ptr<ALLEGRO_AUDIO_STREAM> temp_ptr(al_load_audio_stream(fname.c_str(), buffer, samples), al_destroy_audio_stream);
-    al_set_audio_stream_playing(temp_ptr.get(), false);
     return temp_ptr;
 };
 
@@ -107,7 +106,6 @@ inline static const wte_asset<T> make_asset(const std::string& fname) {
 
     if constexpr (std::is_same_v<T, ALLEGRO_AUDIO_STREAM>) {
         std::shared_ptr<T> temp_ptr(al_load_audio_stream(fname.c_str(), 4, 2048), al_destroy_audio_stream);
-        al_set_audio_stream_playing(temp_ptr.get(), false);
         return temp_ptr;
     }
 };

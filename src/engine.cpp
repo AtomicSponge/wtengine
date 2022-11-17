@@ -80,7 +80,7 @@ engine::engine(const int& argc, char** const& argv) {
 
     //  Allegro extras
     al_init_primitives_addon();
-    al_init_acodec_addon();
+    if(config::flags::audio_installed) al_init_acodec_addon();
 
     //  Main engine commands.
     cmds.add("exit", 0, [this](const msg_args& args) {
@@ -145,6 +145,7 @@ engine::~engine() {
     al_inhibit_screensaver(false);
     std::cout << "OK!\n";
     std::cout << "Stopping Allegro... ";
+    al_shutdown_font_addon();
     if(config::flags::audio_installed) al_uninstall_audio();
     al_shutdown_primitives_addon();
     al_uninstall_system();

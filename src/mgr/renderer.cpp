@@ -68,6 +68,9 @@ void renderer::initialize(void) {
  *
  */
 void renderer::de_init(void) {
+    viewport_bitmap.reset();
+    title_bitmap.reset();
+    renderer_font.reset();
     al_destroy_event_queue(fps_event_queue);
     al_destroy_timer(fps_timer);
 }

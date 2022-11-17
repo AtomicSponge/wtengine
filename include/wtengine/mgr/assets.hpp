@@ -104,6 +104,19 @@ class assets final : private manager<assets> {
 
         //  Engine calls this during de-init to clean up.
         inline static void clear_al_objects(void) {
+            for(auto& it : _assets<ALLEGRO_BITMAP>) {
+                it.second.reset();
+            }
+            for(auto& it : _assets<ALLEGRO_FONT>) {
+                it.second.reset();
+            }
+            for(auto& it : _assets<ALLEGRO_SAMPLE>) {
+                it.second.reset();
+            }
+            for(auto& it : _assets<ALLEGRO_AUDIO_STREAM>) {
+                it.second.reset();
+            }
+
             _assets<ALLEGRO_BITMAP>.clear();
             _assets<ALLEGRO_FONT>.clear();
             _assets<ALLEGRO_SAMPLE>.clear();

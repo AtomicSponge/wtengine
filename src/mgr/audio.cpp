@@ -191,6 +191,11 @@ void audio::de_init(void) {
 
     //  Unload main audio output.
     al_destroy_voice(voice);
+
+    music_stream_a.reset();
+    music_stream_b.reset();
+    ambiance_stream.reset();
+    voice_stream.reset();
 }
 
 /*

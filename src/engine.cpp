@@ -78,6 +78,10 @@ engine::engine(const int& argc, char** const& argv) {
     //  Create the input event queue
     input::create_event_queue();
 
+    //  Allegro extras
+    al_init_primitives_addon();
+    al_init_acodec_addon();
+
     //  Main engine commands.
     cmds.add("exit", 0, [this](const msg_args& args) {
         if(config::flags::engine_started) process_end_game(true);
@@ -141,6 +145,7 @@ engine::~engine() {
     al_inhibit_screensaver(false);
     std::cout << "OK!\n";
     std::cout << "Stopping Allegro... ";
+    al_shutdown_primitives_addon();
     al_uninstall_system();
     std::cout << "OK!\n";
 

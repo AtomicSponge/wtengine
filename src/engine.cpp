@@ -145,6 +145,7 @@ engine::~engine() {
     al_inhibit_screensaver(false);
     std::cout << "OK!\n";
     std::cout << "Stopping Allegro... ";
+    if(config::flags::audio_installed) al_uninstall_audio();
     al_shutdown_primitives_addon();
     al_uninstall_system();
     std::cout << "OK!\n";

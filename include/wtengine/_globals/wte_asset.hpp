@@ -133,7 +133,7 @@ inline static const wte_asset<T> make_asset(T& obj) {
  */
 template <typename T>
 inline static const wte_asset<T> make_asset(
-    std::function<T()> func, std::function<void()> deleter
+    std::function<T()>& func, std::function<void()>& deleter
 ) {
     std::shared_ptr<T> temp_ptr(func, deleter);
     return temp_ptr;

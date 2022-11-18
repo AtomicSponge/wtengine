@@ -24,7 +24,7 @@ namespace wte::cmp {
 
 /*!
  * \class dispatcher
- * \brief Tag components to be processed by the Logic system.
+ * \brief Tag components to receive messages.
  * 
  * Define message processing in handle_msg lambda.
  */

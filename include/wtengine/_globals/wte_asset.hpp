@@ -123,7 +123,7 @@ inline static const wte_asset<T> make_asset(T& obj) {
 /*!
  * \brief Create an asset from an incomplete type.
  * \tparam T Data structure.
- * \param func Function to create asset with.
+ * \param func Function to create the asset with.
  * \param deleter Deleter function to clean up data.
  * \return A new asset of the loaded type.
  */

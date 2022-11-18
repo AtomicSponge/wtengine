@@ -18,9 +18,8 @@
 
 namespace wte {
 
-/*!
- * \class exception_item
- * \brief Creates an info object that can be passed to the engine exceptions.
+/*
+ * Creates an info object that can be passed to the engine exceptions.
  */
 class exception_item final {
     friend class engine_error;
@@ -39,15 +38,12 @@ class exception_item final {
 };
 
 /*!
- * \class runtime_error
+ * \class engine_error
  * \brief Throws an engine runtime error.
  *
  * Exceptions thrown this way will terminate the engine.
  */
 class engine_error final : public std::exception {
-    private:
-        const exception_item item;  //  Store the exception item.
-
     public:
         /*!
          * \brief Create a new runtime error object.  Sets the location to Engine and code to 1.
@@ -75,10 +71,13 @@ class engine_error final : public std::exception {
          * \return Time of thrown exception.
          */
         int64_t when() const noexcept;
+
+    private:
+        const exception_item item;  //  Store the exception item.
 };
 
 /*!
- * \class exception
+ * \class engine_exception
  * \brief Throws an internal engine exception.
  *
  * Exceptions thrown this way will not terminate the engine. \n

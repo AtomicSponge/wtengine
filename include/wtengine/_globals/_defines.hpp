@@ -161,10 +161,10 @@ inline std::vector<float> scale_factors = { .75f, 1.0f, 1.25f, 1.5f, 2.0f };
 
 //  Define default keys
 #if !defined(WTE_KEY_PAUSE)
-    #define WTE_KEY_PAUSE            ALLEGRO_KEY_ESCAPE
+    #define WTE_KEY_PAUSE           ALLEGRO_KEY_ESCAPE
 #endif
 #if !defined(WTE_KEY_TOGGLE_HITBOX)
-    #define WTE_KEY_TOGGLE_HITBOX           ALLEGRO_KEY_F2
+    #define WTE_KEY_TOGGLE_HITBOX   ALLEGRO_KEY_F2
 #endif
 
 #endif

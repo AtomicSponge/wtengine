@@ -30,8 +30,8 @@ class motion final : public component {
             const float& yv
         );
 
-        motion() = delete;    //!<  Delete default constructor.
-        ~motion() = default;  //!<  Default destructor.
+        motion() = delete;    //  Delete default constructor.
+        ~motion() = default;  //  Default destructor.
 
         float direction;  //!<  Angle of direction.
         float x_vel;      //!<  X velocity.

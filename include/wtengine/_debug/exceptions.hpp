@@ -55,12 +55,8 @@ class engine_error final : public std::exception {
          */
         engine_error(const std::string& d);
 
-        engine_error() = delete;    //!<  Delete default constructor.
-
-        /*!
-         * \brief Terminates engine after handling exception.
-         */
-        virtual ~engine_error();
+        engine_error() = delete;  //  Delete default constructor.
+        virtual ~engine_error() = default;  // Default destructor.
 
         /*!
          * \brief Returns the description of the thrown exception.
@@ -98,12 +94,8 @@ class engine_exception final : public std::exception {
          */
         engine_exception(const std::string& d, const std::string& l, const uint& c);
 
-        engine_exception() = delete;  //!<  Delete default constructor.
-
-        /*!
-         * \brief Prints exception to console.
-         */
-        virtual ~engine_exception();
+        engine_exception() = delete;  //  Delete default constructor.
+        virtual ~engine_exception() = default;  // Default destructor.
 
         /*!
          * \brief Returns the description of the thrown exception.

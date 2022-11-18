@@ -23,9 +23,9 @@ namespace wte::sys {
  */
 class system {
     public:
-        virtual ~system() = default;             //!<  Default virtual destructor.
-        system(const system&) = delete;          //!<  Delete copy constructor.
-        void operator=(system const&) = delete;  //!<  Delete assignment operator.
+        virtual ~system() = default;             //  Default virtual destructor.
+        system(const system&) = delete;          //  Delete copy constructor.
+        void operator=(system const&) = delete;  //  Delete assignment operator.
 
         //!  Override this to create custom System run method.
         virtual void run(void) = 0;

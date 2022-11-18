@@ -38,9 +38,9 @@ class input {
     friend class engine;
 
     public:
-        virtual ~input() = default;             //!<  Default virtual destructor.
-        input(const input&) = delete;           //!<  Delete copy constructor.
-        void operator=(input const&) = delete;  //!<  Delete assignment operator.
+        virtual ~input() = default;             //  Default virtual destructor.
+        input(const input&) = delete;           //  Delete copy constructor.
+        void operator=(input const&) = delete;  //  Delete assignment operator.
 
         /*!
          * \brief Start input recording.
@@ -53,7 +53,7 @@ class input {
         static void stop_recording(void);
 
     protected:
-        input();  //!<  Constructor
+        input();  //  Constructor
 
     private:
         template <handler_scopes S>

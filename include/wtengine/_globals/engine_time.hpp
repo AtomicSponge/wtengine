@@ -20,10 +20,10 @@ class engine_time final {
     friend class engine;
 
     public:
-        engine_time() = delete;                       //!<  Delete constructor.
-        ~engine_time() = delete;                      //!<  Delete destructor.
-        engine_time(const engine_time&) = delete;     //!<  Delete copy constructor.
-        void operator=(engine_time const&) = delete;  //!<  Delete assignment operator.
+        engine_time() = delete;                       //  Delete constructor.
+        ~engine_time() = delete;                      //  Delete destructor.
+        engine_time(const engine_time&) = delete;     //  Delete copy constructor.
+        void operator=(engine_time const&) = delete;  //  Delete assignment operator.
 
         /*!
          * \brief Check the internal engine timer.

@@ -38,8 +38,8 @@ class dispatcher final : public component {
          */
         dispatcher(const std::function<void(const entity_id&, const message&)>& func);
 
-        dispatcher() = delete;    //!<  Delete default constructor.
-        ~dispatcher() = default;  //!<  Default destructor.
+        dispatcher() = delete;    //  Delete default constructor.
+        ~dispatcher() = default;  //  Default destructor.
 
     private:
         //  Message handler.

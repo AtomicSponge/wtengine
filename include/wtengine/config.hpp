@@ -37,9 +37,9 @@ class config {
     friend class mgr::gfx::renderer;
 
     public:
-        virtual ~config() = default;                  //!<  Default virtual destructor.
-        config(const config&) = delete;               //!<  Delete copy constructor.
-        void operator=(config const&) = delete;       //!<  Delete assignment operator.
+        virtual ~config() = default;                  //  Default virtual destructor.
+        config(const config&) = delete;               //  Delete copy constructor.
+        void operator=(config const&) = delete;       //  Delete assignment operator.
 
         /*!
          * \struct flags

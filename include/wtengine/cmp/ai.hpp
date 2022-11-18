@@ -47,8 +47,8 @@ class ai final : public component {
             const std::function<void(const entity_id&)>& func_b
         );
 
-        ai() = delete;    //!<  Delete default constructor.
-        ~ai() = default;  //!<  Default destructor.
+        ai() = delete;    //  Delete default constructor.
+        ~ai() = default;  //  Default destructor.
 
         bool enabled;     //!<  Flag to enable or disable the entity.
 

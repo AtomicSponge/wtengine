@@ -35,9 +35,9 @@ class display {
     friend class engine;
 
     public:
-        virtual ~display() = default;             //!<  Default virtual destructor.
-        display(const display&) = delete;         //!<  Delete copy constructor.
-        void operator=(display const&) = delete;  //!<  Delete assignment operator.
+        virtual ~display() = default;             //  Default virtual destructor.
+        display(const display&) = delete;         //  Delete copy constructor.
+        void operator=(display const&) = delete;  //  Delete assignment operator.
 
         /*!
          * \brief Set the window title.

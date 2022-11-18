@@ -23,8 +23,8 @@ namespace wte {
  */
 class commands final {
     public:
-        commands() = default;   //!<  Default constructor.
-        ~commands() = default;  //!<  Default destructor.
+        commands() = default;   //  Default constructor.
+        ~commands() = default;  //  Default destructor.
 
         /*!
          * \brief Add a command to the command processor.

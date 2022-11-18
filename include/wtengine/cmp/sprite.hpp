@@ -56,8 +56,8 @@ class sprite final : public gfx {
             const std::size_t& rt
         );
 
-        sprite() = delete;    //!<  Delete default constructor.
-        ~sprite() = default;  //!<  Default destructor.
+        sprite() = delete;    //  Delete default constructor.
+        ~sprite() = default;  //  Default destructor.
 
         /*!
          * \brief Add animation cycle.

@@ -44,8 +44,8 @@ class hitbox final : public component {
             const bool& s
         );
 
-        hitbox() = delete;    //!<  Delete default constructor.
-        ~hitbox() = default;  //!<  Default destructor.
+        hitbox() = delete;    //  Delete default constructor.
+        ~hitbox() = default;  //  Default destructor.
 
         float width;       //!<  Width of the hitbox.
         float height;      //!<  Height of the hitbox.

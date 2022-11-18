@@ -20,9 +20,9 @@ namespace wte::mgr {
 template <class D>
 class manager {
     public:
-        virtual ~manager() = default;             //!<  Default virtual destructor.
-        manager(const manager&) = delete;         //!<  Delete copy constructor.
-        void operator=(manager const&) = delete;  //!<  Delete assignment operator.
+        virtual ~manager() = default;             //  Default virtual destructor.
+        manager(const manager&) = delete;         //  Delete copy constructor.
+        void operator=(manager const&) = delete;  //  Delete assignment operator.
 
     protected:
         /*!

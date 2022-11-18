@@ -43,11 +43,6 @@ int64_t engine_error::when() const noexcept { return item.time; }
 /*
  *
  */
-engine_error::~engine_error() {}
-
-/*
- *
- */
 engine_exception::engine_exception(const std::string& d, const std::string& l, const uint& c) :
 item(exception_item(d, l, c)) {
     if constexpr (build_options.debug_mode) logger::log(
@@ -68,10 +63,5 @@ const char* engine_exception::where() const noexcept { return item.location; };
  *
  */
 int64_t engine_exception::when() const noexcept { return item.time; };
-
-/*
- *
- */
-engine_exception::~engine_exception() {}
 
 }  //  end namespace wte

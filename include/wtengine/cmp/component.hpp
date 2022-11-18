@@ -20,12 +20,12 @@ namespace wte::cmp {
  */
 class component {
     public:
-        virtual ~component() = default;             //!<  Default virtual destructor.
-        component(const component&) = delete;       //!<  Delete copy constructor.
-        void operator=(component const&) = delete;  //!<  Delete assignment operator.
+        virtual ~component() = default;             //  Default virtual destructor.
+        component(const component&) = delete;       //  Delete copy constructor.
+        void operator=(component const&) = delete;  //  Delete assignment operator.
 
     protected:
-        component() = default;                      //!<  Default constructor.
+        component() = default;                      //  Default constructor.
 };
 
 /*!

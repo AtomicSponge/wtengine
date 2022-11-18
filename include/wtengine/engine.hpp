@@ -49,15 +49,14 @@ namespace wte {
  */
 class engine : public config, public input, public display {
     public:
-        /*!
-         * \brief Unloads the game engine.
-         * 
+        /*
+         * Unloads the game engine. 
          * Frees up instance, set initialized flag to false.
          */
         ~engine();
 
-        engine(const engine&) = delete;          //!<  Delete copy constructor.
-        void operator=(engine const&) = delete;  //!<  Delete assignment operator.
+        engine(const engine&) = delete;          //  Delete copy constructor.
+        void operator=(engine const&) = delete;  //  Delete assignment operator.
 
         /*!
          * \brief Add file path to provide to PhysFS.

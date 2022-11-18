@@ -33,8 +33,8 @@ class logger final {
     friend class engine;
 
     public:
-        logger(const logger&) = delete;          //!<  Delete copy constructor.
-        void operator=(logger const&) = delete;  //!<  Delete assignment operator.
+        logger(const logger&) = delete;          //  Delete copy constructor.
+        void operator=(logger const&) = delete;  //  Delete assignment operator.
 
         /*!
          * \brief Add exception information to the logger.

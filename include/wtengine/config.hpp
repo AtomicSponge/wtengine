@@ -95,7 +95,7 @@ class config {
          * \brief Control binding settings.
          */
         struct controls {
-            inline static int key_menu = WTE_KEY_MENU_DEFAULT;
+            inline static int key_menu = WTE_KEY_PAUSE;
 
             /*
              * Player 1 keyboard

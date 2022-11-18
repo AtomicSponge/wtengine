@@ -88,10 +88,8 @@ class message final {
             const std::string& a
         );
 
-        /*!
-         * \brief Overload < operator to sort by timer value.
-         * \param m Object to compare to.
-         * \return True if less than, false if greater than.
+        /*
+         * Overload < operator to sort by timer value.
          */
         bool operator<(const message& m) const;
 

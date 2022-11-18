@@ -1,10 +1,8 @@
-/*!
- * wtengine | File:  bounding_box.hpp
- * 
- * \author Matthew Evans
- * \version 0.8.1
- * \copyright See LICENSE.md for copyright information.
- * \date 2019-2022
+/*
+ * wtengine
+ * --------
+ * By Matthew Evans
+ * See LICENSE.md for copyright information.
  */
 
 #if !defined(WTE_CMP_BOUNDING_BOX_HPP)

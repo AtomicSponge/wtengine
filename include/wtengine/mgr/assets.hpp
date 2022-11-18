@@ -1,10 +1,8 @@
-/*!
- * wtengine | File:  assets.hpp
- * 
- * \author Matthew Evans
- * \version 0.8.1
- * \copyright See LICENSE.md for copyright information.
- * \date 2019-2022
+/*
+ * wtengine
+ * --------
+ * By Matthew Evans
+ * See LICENSE.md for copyright information.
  */
 
 #if !defined(WTE_MGR_ASSETS_HPP)
@@ -123,7 +121,7 @@ class assets final : private manager<assets> {
             _assets<ALLEGRO_AUDIO_STREAM>.clear();
         };
 
-        //  Store each asset map in a tuple.
+        //  Store each asset map.
         template <typename T>
         inline static asset_map<T> _assets;
 };

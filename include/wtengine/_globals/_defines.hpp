@@ -98,7 +98,10 @@
 
 namespace wte {
 
-//  Convert flags for use in constexpr
+/*!
+ * \struct wte_build_options
+ * \brief Build flags for configuring the engine.
+ */
 struct wte_build_options {
     inline constexpr static bool debug_mode = static_cast<bool>(WTE_DEBUG_MODE);
     inline constexpr static bool opengl_latest = static_cast<bool>(WTE_OPENGL_LATEST);

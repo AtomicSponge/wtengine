@@ -1,10 +1,8 @@
-/*!
- * wtengine | File:  world.hpp
- * 
- * \author Matthew Evans
- * \version 0.8.1
- * \copyright See LICENSE.md for copyright information.
- * \date 2019-2022
+/*
+ * wtengine
+ * --------
+ * By Matthew Evans
+ * See LICENSE.md for copyright information.
  */
 
 #if !defined(WTE_MGR_WORLD_HPP)

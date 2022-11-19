@@ -96,9 +96,8 @@
 
 namespace wte {
 
-/*!
- * \struct wte_build_options
- * \brief Build flags for configuring the engine.
+/*
+ * Build flags for configuring the engine.
  */
 struct wte_build_options {
     inline constexpr static bool debug_mode = static_cast<bool>(WTE_DEBUG_MODE);

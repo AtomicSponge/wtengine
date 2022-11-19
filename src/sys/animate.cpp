@@ -22,9 +22,7 @@ void animate::run(void) {
         mgr::world::set_components<cmp::gfx::gfx>();
 
     for(auto& it: animation_components)
-        try {
-            if(it.second->visible) it.second->animate(it.first);
-        } catch(...) { throw; }
+        if(it.second->visible) it.second->animate(it.first);
 }
 
 }  //  end namespace wte::sys

@@ -237,46 +237,44 @@ void renderer::render(void) {
                     it.second->sprite_height
                 );
 
-                try {
-                    float angle = 0.0f;
-                    float center_x = 0.0f, center_y = 0.0f;
-                    float destination_x = 0.0f, destination_y = 0.0f;
-                    cmp::const_comp_ptr<cmp::location> temp_get = mgr::world::get_component<cmp::location>(it.first);
+                float angle = 0.0f;
+                float center_x = 0.0f, center_y = 0.0f;
+                float destination_x = 0.0f, destination_y = 0.0f;
+                cmp::const_comp_ptr<cmp::location> temp_get = mgr::world::get_component<cmp::location>(it.first);
 
-                    //  Check if the sprite should be rotated.
-                    if(it.second->rotated) {
-                        angle = it.second->direction;
-                        center_x = (al_get_bitmap_width(temp_bitmap) / 2);
-                        center_y = (al_get_bitmap_height(temp_bitmap) / 2);
+                //  Check if the sprite should be rotated.
+                if(it.second->rotated) {
+                    angle = it.second->direction;
+                    center_x = (al_get_bitmap_width(temp_bitmap) / 2);
+                    center_y = (al_get_bitmap_height(temp_bitmap) / 2);
 
-                        destination_x = temp_get->pos_x +
-                            (al_get_bitmap_width(temp_bitmap) * it.second->scale_factor_x / 2) +
-                            (it.second->draw_offset_x * it.second->scale_factor_x);
-                        destination_y = temp_get->pos_y +
-                            (al_get_bitmap_height(temp_bitmap) * it.second->scale_factor_y / 2) +
-                            (it.second->draw_offset_y * it.second->scale_factor_y);
-                    } else {
-                            destination_x = temp_get->pos_x + it.second->draw_offset_x;
-                            destination_y = temp_get->pos_y + it.second->draw_offset_y;
-                    }
+                    destination_x = temp_get->pos_x +
+                        (al_get_bitmap_width(temp_bitmap) * it.second->scale_factor_x / 2) +
+                        (it.second->draw_offset_x * it.second->scale_factor_x);
+                    destination_y = temp_get->pos_y +
+                        (al_get_bitmap_height(temp_bitmap) * it.second->scale_factor_y / 2) +
+                        (it.second->draw_offset_y * it.second->scale_factor_y);
+                } else {
+                        destination_x = temp_get->pos_x + it.second->draw_offset_x;
+                        destination_y = temp_get->pos_y + it.second->draw_offset_y;
+                }
 
-                    //  Draw the sprite.
-                    if(it.second->tinted)
-                        al_draw_tinted_scaled_rotated_bitmap(
-                            temp_bitmap, it.second->get_tint(),
-                            center_x, center_y, destination_x, destination_y,
-                            it.second->scale_factor_x,
-                            it.second->scale_factor_y,
-                            angle, 0
-                        );
-                    else
-                        al_draw_scaled_rotated_bitmap(
-                            temp_bitmap, center_x, center_y, destination_x, destination_y,
-                            it.second->scale_factor_x,
-                            it.second->scale_factor_y,
-                            angle, 0
-                        );
-                } catch(...) { throw; }
+                //  Draw the sprite.
+                if(it.second->tinted)
+                    al_draw_tinted_scaled_rotated_bitmap(
+                        temp_bitmap, it.second->get_tint(),
+                        center_x, center_y, destination_x, destination_y,
+                        it.second->scale_factor_x,
+                        it.second->scale_factor_y,
+                        angle, 0
+                    );
+                else
+                    al_draw_scaled_rotated_bitmap(
+                        temp_bitmap, center_x, center_y, destination_x, destination_y,
+                        it.second->scale_factor_x,
+                        it.second->scale_factor_y,
+                        angle, 0
+                    );
 
                 al_destroy_bitmap(temp_bitmap);
             }

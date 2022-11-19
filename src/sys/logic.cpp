@@ -24,11 +24,9 @@ void logic::run(void) {
 
     //  Process enabled or disabled ai
     for(auto& it: ai_components) {
-        try {
-            (it.second->enabled ?
-                it.second->enabled_ai(it.first) :
-                it.second->disabled_ai(it.first));
-        } catch(...) { throw; }
+        (it.second->enabled ?
+            it.second->enabled_ai(it.first) :
+            it.second->disabled_ai(it.first));
     }
 }
 

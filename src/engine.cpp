@@ -121,6 +121,35 @@ engine::engine(const int& argc, char** const& argv) {
         display::set_scale_factor(std::stof(args[0]));
     });
 
+    //  Asset commands.
+    cmds.add("load-bitmap-asset", 2, [](const msg_args& args) {
+        wte::mgr::assets::load<ALLEGRO_BITMAP>(args[0], wte::make_asset<ALLEGRO_BITMAP>(args[1]));
+    });
+    cmds.add("load-font-asset", 4, [](const msg_args& args) {
+        wte::mgr::assets::load<ALLEGRO_FONT>(args[0], wte::make_asset<ALLEGRO_FONT>(args[1], std::stoi(args[2]), std::stoi(args[3])));
+    });
+    cmds.add("load-sample-asset", 2, [](const msg_args& args) {
+        wte::mgr::assets::load<ALLEGRO_SAMPLE>(args[0], wte::make_asset<ALLEGRO_SAMPLE>(args[1]));
+    });
+    cmds.add("load-audio-asset", 2, [](const msg_args& args) {
+        if(args.size() == 2)
+            wte::mgr::assets::load<ALLEGRO_AUDIO_STREAM>(args[0], wte::make_asset<ALLEGRO_AUDIO_STREAM>(args[1]));
+        if(args.size() == 4)
+            wte::mgr::assets::load<ALLEGRO_AUDIO_STREAM>(args[0], wte::make_asset<ALLEGRO_AUDIO_STREAM>(args[1], std::stoul(args[2]), std::stoi(args[3])));
+    });
+    cmds.add("unload-bitmap-asset", 1, [](const msg_args& args) {
+        wte::mgr::assets::unload<ALLEGRO_BITMAP>(args[0]);
+    });
+    cmds.add("unload-font-asset", 1, [](const msg_args& args) {
+        wte::mgr::assets::unload<ALLEGRO_FONT>(args[0]);
+    });
+    cmds.add("unload-sample-asset", 1, [](const msg_args& args) {
+        wte::mgr::assets::unload<ALLEGRO_SAMPLE>(args[0]);
+    });
+    cmds.add("unload-audio-asset", 1, [](const msg_args& args) {
+        wte::mgr::assets::unload<ALLEGRO_AUDIO_STREAM>(args[0]);
+    });
+
     if constexpr (build_options.debug_mode) {
         mgr::messages::message_log_start();
         logger::start();

@@ -33,6 +33,7 @@
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/_globals/commands.hpp"
 #include "wtengine/_globals/engine_time.hpp"
+#include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/mgr/_managers.hpp"
 
 #include "imgui/imgui.h"

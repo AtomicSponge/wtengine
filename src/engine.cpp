@@ -220,38 +220,36 @@ void engine::wte_unload(void) {
  */
 void engine::process_new_game(const std::string& game_script) {
     std::cout << "Starting new game... ";
-    try {
-        std::srand(std::time(nullptr));  //  Seed random, using time.
+    std::srand(std::time(nullptr));  //  Seed random, using time.
 
-        //  Load a new message data file.
-        if(!game_script.empty()) mgr::messages::load_file(game_script);
+    //  Load a new message data file.
+    if(!game_script.empty()) mgr::messages::load_file(game_script);
 
-        //  Load systems and prevent further systems from being loaded.
-        load_systems();
-        mgr::systems::finalized = true;
-        if(mgr::systems::empty()) throw engine_error("No systems have been loaded!");
+    //  Load systems and prevent further systems from being loaded.
+    load_systems();
+    mgr::systems::finalized = true;
+    if(mgr::systems::empty()) throw engine_error("No systems have been loaded!");
 
-        //  Stop audio manager from playing sounds.
-        mgr::audio::music::a::stop();
-        mgr::audio::music::b::stop();
-        mgr::audio::ambiance::stop();
-        mgr::audio::voice::stop();
-        mgr::audio::sample::clear_instances();
-        
-        //  Clear world and load starting entities.
-        mgr::world::clear();
-        
-        //  Call custom start game process
-        new_game();
+    //  Stop audio manager from playing sounds.
+    mgr::audio::music::a::stop();
+    mgr::audio::music::b::stop();
+    mgr::audio::ambiance::stop();
+    mgr::audio::voice::stop();
+    mgr::audio::sample::clear_instances();
+    
+    //  Clear world and load starting entities.
+    mgr::world::clear();
+    
+    //  Call custom start game process
+    new_game();
 
-        //  Restart the timer at zero.
-        al_stop_timer(main_timer);
-        al_set_timer_count(main_timer, 0);
-        engine_time::set(al_get_timer_count(main_timer));
-        config::_flags::engine_started = true;
-        config::flags::engine_paused = false;
-        al_start_timer(main_timer);
-    } catch(const std::exception& e) { throw e; }
+    //  Restart the timer at zero.
+    al_stop_timer(main_timer);
+    al_set_timer_count(main_timer, 0);
+    engine_time::set(al_get_timer_count(main_timer));
+    config::_flags::engine_started = true;
+    config::flags::engine_paused = false;
+    al_start_timer(main_timer);
     std::cout << "READY!\n";
 }
 
@@ -260,27 +258,25 @@ void engine::process_new_game(const std::string& game_script) {
  */
 void engine::process_end_game(const bool& force) {
     std::cout << "Ending game... ";
-    try {
-        al_stop_timer(main_timer);
-        config::_flags::engine_started = false;
-        al_set_timer_count(main_timer, 0);
-        engine_time::set(al_get_timer_count(main_timer));
+    al_stop_timer(main_timer);
+    config::_flags::engine_started = false;
+    al_set_timer_count(main_timer, 0);
+    engine_time::set(al_get_timer_count(main_timer));
 
-        //  Stop audio manager from playing sounds.
-        mgr::audio::music::a::stop();
-        mgr::audio::music::b::stop();
-        mgr::audio::ambiance::stop();
-        mgr::audio::voice::stop();
-        mgr::audio::sample::clear_instances();
+    //  Stop audio manager from playing sounds.
+    mgr::audio::music::a::stop();
+    mgr::audio::music::b::stop();
+    mgr::audio::ambiance::stop();
+    mgr::audio::voice::stop();
+    mgr::audio::sample::clear_instances();
 
-        //  Call custom end game process.
-        if(!force) end_game();
+    //  Call custom end game process.
+    if(!force) end_game();
 
-        //  Clear managers.
-        mgr::world::clear();
-        mgr::systems::clear();
-        mgr::messages::clear();
-    } catch(const std::exception& e) { throw e; }
+    //  Clear managers.
+    mgr::world::clear();
+    mgr::systems::clear();
+    mgr::messages::clear();
     std::cout << "DONE!\n";
 }
 

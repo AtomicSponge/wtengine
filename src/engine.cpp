@@ -284,6 +284,7 @@ void engine::process_end_game(const bool& force) {
  *
  */
 void engine::do_game(void) {
+    //  Load engine.
     wte_load();
 
     //  Set default states.
@@ -291,78 +292,80 @@ void engine::do_game(void) {
     config::_flags::engine_started = false;
     config::flags::engine_paused = false;
 
-    /*
-     * Start Engine Loop
-     */
-    while(config::flags::is_running) {
-        input::check_events();  //  Check for input.
+    //  MAIN ENGINE LOOP
+    while(config::flags::is_running) main_loop();
 
-        //  Game not running, make sure the timer isn't.
-        if(!config::flags::engine_started) al_stop_timer(main_timer);
-        else {
-            //  Pause / resume timer check.  Also process the on_pause events.
-            if(config::flags::engine_paused && al_get_timer_started(main_timer)) {
-                al_stop_timer(main_timer);
-                on_engine_pause();
-            }
-            if(!config::flags::engine_paused && !al_get_timer_started(main_timer)) {
-                on_engine_unpause();
-                al_resume_timer(main_timer);
-            }
-        }
-
-        ALLEGRO_EVENT event;
-        if(al_get_next_event(main_event_queue, &event)) {
-            switch(event.type) {
-            //  Call our game logic update on timer events.
-            //  Timer is only running when the game is running.
-            case ALLEGRO_EVENT_TIMER:
-                //  Set the engine_time object to the current time.
-                engine_time::set(al_get_timer_count(main_timer));
-                //  Run all systems.
-                mgr::systems::run();
-                //  Process messages.
-                mgr::messages::dispatch();
-                //  Get any spawner messages and pass to handler.
-                mgr::spawner::process_messages(mgr::messages::get("spawner"));
-                break;
-            //  Check if display looses focus.
-            case ALLEGRO_EVENT_DISPLAY_SWITCH_OUT:
-                out_of_focus();
-                break;
-            //  Check if display returns to focus.
-            case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
-                back_in_focus();
-                break;
-            //  Force quit if the game window is closed.
-            case ALLEGRO_EVENT_DISPLAY_CLOSE:
-                if(config::flags::engine_started) process_end_game(true);
-                config::_flags::is_running = false;
-                break;
-            //  Window has been resized.
-            case ALLEGRO_EVENT_DISPLAY_RESIZE:
-                if constexpr (build_options.use_imgui)
-                    ImGui_ImplAllegro5_InvalidateDeviceObjects();
-                al_acknowledge_resize(_display);
-                if constexpr (build_options.use_imgui)
-                    ImGui_ImplAllegro5_CreateDeviceObjects();
-                break;
-            }
-        }
-
-        //  Render the screen.
-        mgr::gfx::renderer::render();
-        //  Get any system messages and pass to handler.
-        cmds.process_messages(mgr::messages::get("system"));
-        //  Send audio messages to the audio queue.
-        mgr::audio::process_messages(mgr::messages::get("audio"));
-        //  Delete unprocessed messages.
-        mgr::messages::prune();
-    }
-    /*
-     * End Engine Loop
-     */
+    // Unload engine.
     wte_unload();
+}
+
+/*
+ *
+ */
+void engine::main_loop(void) {
+    input::check_events();  //  Check for input.
+
+    //  Game not running, make sure the timer isn't.
+    if(!config::flags::engine_started) al_stop_timer(main_timer);
+    else {
+        //  Pause / resume timer check.  Also process the on_pause events.
+        if(config::flags::engine_paused && al_get_timer_started(main_timer)) {
+            al_stop_timer(main_timer);
+            on_engine_pause();
+        }
+        if(!config::flags::engine_paused && !al_get_timer_started(main_timer)) {
+            on_engine_unpause();
+            al_resume_timer(main_timer);
+        }
+    }
+
+    ALLEGRO_EVENT event;
+    if(al_get_next_event(main_event_queue, &event)) {
+        switch(event.type) {
+        //  Call our game logic update on timer events.
+        //  Timer is only running when the game is running.
+        case ALLEGRO_EVENT_TIMER:
+            //  Set the engine_time object to the current time.
+            engine_time::set(al_get_timer_count(main_timer));
+            //  Run all systems.
+            mgr::systems::run();
+            //  Process messages.
+            mgr::messages::dispatch();
+            //  Get any spawner messages and pass to handler.
+            mgr::spawner::process_messages(mgr::messages::get("spawner"));
+            break;
+        //  Check if display looses focus.
+        case ALLEGRO_EVENT_DISPLAY_SWITCH_OUT:
+            out_of_focus();
+            break;
+        //  Check if display returns to focus.
+        case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
+            back_in_focus();
+            break;
+        //  Force quit if the game window is closed.
+        case ALLEGRO_EVENT_DISPLAY_CLOSE:
+            if(config::flags::engine_started) process_end_game(true);
+            config::_flags::is_running = false;
+            break;
+        //  Window has been resized.
+        case ALLEGRO_EVENT_DISPLAY_RESIZE:
+            if constexpr (build_options.use_imgui)
+                ImGui_ImplAllegro5_InvalidateDeviceObjects();
+            al_acknowledge_resize(_display);
+            if constexpr (build_options.use_imgui)
+                ImGui_ImplAllegro5_CreateDeviceObjects();
+            break;
+        }
+    }
+
+    //  Render the screen.
+    mgr::gfx::renderer::render();
+    //  Get any system messages and pass to handler.
+    cmds.process_messages(mgr::messages::get("system"));
+    //  Send audio messages to the audio queue.
+    mgr::audio::process_messages(mgr::messages::get("audio"));
+    //  Delete unprocessed messages.
+    mgr::messages::prune();
 }
 
 }  //  end namespace wte

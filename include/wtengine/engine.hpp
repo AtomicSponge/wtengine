@@ -116,6 +116,11 @@ class engine : public config, public input, public display {
         void wte_unload(void);
 
         /*
+         * Main engine loop (single pass)
+         */
+        void main_loop(void);
+
+        /*
          * Call to start a new game.
          * Loads a game data file and user defined systems and starting entities.
          * Gets passed game data file to load.

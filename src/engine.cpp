@@ -283,26 +283,7 @@ void engine::process_end_game(const bool& force) {
 /*
  *
  */
-void engine::do_game(void) {
-    //  Load engine.
-    wte_load();
-
-    //  Set default states.
-    config::_flags::is_running = true;
-    config::_flags::engine_started = false;
-    config::flags::engine_paused = false;
-
-    //  MAIN ENGINE LOOP
-    while(config::flags::is_running) main_loop();
-
-    // Unload engine.
-    wte_unload();
-}
-
-/*
- *
- */
-void engine::main_loop(void) {
+EM_BOOL engine::main_loop(void) {
     input::check_events();  //  Check for input.
 
     //  Game not running, make sure the timer isn't.
@@ -366,6 +347,8 @@ void engine::main_loop(void) {
     mgr::audio::process_messages(mgr::messages::get("audio"));
     //  Delete unprocessed messages.
     mgr::messages::prune();
+
+    return EM_TRUE;
 }
 
 }  //  end namespace wte

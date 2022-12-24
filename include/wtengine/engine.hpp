@@ -14,6 +14,14 @@
 #include <vector>
 #include <map>
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten/emscripten.h>
+#include <emscripten/html5.h>
+#else
+#define EM_BOOL bool
+#define EM_TRUE TRUE
+#endif
+
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_opengl.h>
 #include <allegro5/allegro_image.h>
@@ -71,7 +79,25 @@ class engine : public config, public input, public display {
         /*!
          * \brief The main engine loop.
          */
-        void do_game(void);
+        inline void do_game(void) {
+            //  Load engine.
+            wte_load();
+
+            //  Set default states.
+            config::_flags::is_running = true;
+            config::_flags::engine_started = false;
+            config::flags::engine_paused = false;
+
+            //  MAIN ENGINE LOOP
+            #ifdef __EMSCRIPTEN__
+                emscripten_request_animation_frame_loop(main_loop);
+            #else
+                while(config::flags::is_running) main_loop();
+            #endif
+
+            // Unload engine.
+            wte_unload();
+        }
 
     protected:
         /*!
@@ -118,7 +144,7 @@ class engine : public config, public input, public display {
         /*
          * Main engine loop (single pass)
          */
-        void main_loop(void);
+        EM_BOOL main_loop(void);
 
         /*
          * Call to start a new game.

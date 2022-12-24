@@ -90,7 +90,8 @@ class engine : public config, public input, public display {
 
             //  MAIN ENGINE LOOP
             #ifdef __EMSCRIPTEN__
-                emscripten_request_animation_frame_loop(main_loop);
+                if(config::flags::is_running)
+                    emscripten_request_animation_frame_loop(main_loop);
             #else
                 while(config::flags::is_running) main_loop();
             #endif

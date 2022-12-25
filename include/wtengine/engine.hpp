@@ -15,8 +15,7 @@
 #include <map>
 
 #ifdef __EMSCRIPTEN__
-#include <emscripten/emscripten.h>
-#include <emscripten/html5.h>
+#include <emscripten.h>
 #else
 #define EM_BOOL bool
 #define EM_TRUE TRUE

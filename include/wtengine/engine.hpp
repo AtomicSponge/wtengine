@@ -89,7 +89,7 @@ class engine : public config, public input, public display {
 
             //  MAIN ENGINE LOOP
             #ifdef __EMSCRIPTEN__
-                emscripten_set_main_loop(main_loop, 0, true);
+                emscripten_set_main_loop(main_loop(), 0, true);
             #else
                 while(config::flags::is_running) main_loop();
             #endif

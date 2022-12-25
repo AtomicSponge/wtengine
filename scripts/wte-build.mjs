@@ -67,7 +67,6 @@ const workers = {
         else runCmd = runCmd.replace(`___SET_PATH___`, wtf.paths.ENGINE_BUILD_LOCATION)
 
         //  Set additional parameters for the build
-        if(settings.useNinja) runCmd += " -G Ninja"
         if(args.debugMode) runCmd += ` -DWTE_BUILD_DEBUG:BOOL=ON`
         if(settings.noBuildKeyboard) runCmd += ` -DWTE_DISABLE_KEYBOARD:BOOL=ON`
         if(settings.noBuildMouse) runCmd += ` -DWTE_DISABLE_MOUSE:BOOL=ON`

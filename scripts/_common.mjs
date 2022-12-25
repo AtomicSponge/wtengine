@@ -28,7 +28,6 @@ appInfo = JSON.parse(appInfo)
 const config = {
     checkApps: [ "cmake", "git" ],
     gitURLs: [
-        { name: "sdl2", url: "https://github.com/libsdl-org/SDL" },
         { name: "allegro5", url: "https://github.com/liballeg/allegro5" },
         { name: "physfs", url: "https://github.com/icculus/physfs" }
     ]

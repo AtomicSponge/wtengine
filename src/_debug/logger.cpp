@@ -36,7 +36,7 @@ void logger::stop(void) {
  */
 const void logger::log(
     const std::string& d, const std::string& l,
-    const uint& c, const int64_t& t)
+    const unsigned int& c, const int64_t& t)
 {
     log_file <<
         d + ", " + l + ", " + std::to_string(c) + ", " + std::to_string(t) + "\n";

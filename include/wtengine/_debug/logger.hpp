@@ -45,7 +45,7 @@ class logger final {
          */
         static const void log(
             const std::string& d, const std::string& l,
-            const uint& c, const int64_t& t);
+            const unsigned int& c, const int64_t& t);
 
     private:
         logger() = default;

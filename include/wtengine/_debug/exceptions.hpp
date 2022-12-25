@@ -28,7 +28,7 @@ class exception_item final {
     private:
         const char* description;  //  Exception description.
         const char* location;     //  Exception location.
-        const uint code;          //  Code of error
+        const unsigned int code;          //  Code of error
         const int64_t time;       //  Time of exception.
     
         exception_item() = delete;    //  Delete default constructor.
@@ -91,7 +91,7 @@ class engine_exception final : public std::exception {
          * \param l Location in engine of exception.
          * \param c Code of exception.
          */
-        engine_exception(const std::string& d, const std::string& l, const uint& c);
+        engine_exception(const std::string& d, const std::string& l, const unsigned int& c);
 
         engine_exception() = delete;  //  Delete default constructor.
         virtual ~engine_exception() = default;  // Default destructor.

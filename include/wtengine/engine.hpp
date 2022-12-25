@@ -14,8 +14,9 @@
 #include <vector>
 #include <map>
 
-#ifdef __EMSCRIPTEN__
+#if defined(__EMSCRIPTEN__)
 #include <emscripten.h>
+#include <emscripten/html5.h>
 #else
 #define EM_BOOL bool
 #define EM_TRUE TRUE
@@ -88,8 +89,8 @@ class engine : public config, public input, public display {
             config::flags::engine_paused = false;
 
             //  MAIN ENGINE LOOP
-            #ifdef __EMSCRIPTEN__
-                emscripten_set_main_loop(main_loop(), 0, true);
+            #if defined(__EMSCRIPTEN__)
+                emscripten_request_animation_frame_loop(main_loop, 0);
             #else
                 while(config::flags::is_running) main_loop();
             #endif
@@ -143,7 +144,7 @@ class engine : public config, public input, public display {
         /*
          * Main engine loop (single pass)
          */
-        EM_BOOL main_loop(void);
+        EM_BOOL main_loop(double time, void* userData);
 
         /*
          * Call to start a new game.

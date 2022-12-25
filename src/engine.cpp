@@ -283,7 +283,7 @@ void engine::process_end_game(const bool& force) {
 /*
  *
  */
-EM_BOOL engine::main_loop(void) {
+EM_BOOL engine::main_loop(double time, void* userData) {
     input::check_events();  //  Check for input.
 
     //  Game not running, make sure the timer isn't.

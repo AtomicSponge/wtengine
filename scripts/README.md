@@ -1,3 +1,4 @@
 ## NodeJS script files
 
-### WIP
+### wte-mkscript
+Converts csv files for use as data files with the engine.

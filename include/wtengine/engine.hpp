@@ -16,7 +16,6 @@
 
 #if defined(__EMSCRIPTEN__)
 #include <emscripten.h>
-#include <emscripten/html5.h>
 #else
 #define EM_BOOL bool
 #define EM_TRUE TRUE
@@ -90,9 +89,9 @@ class engine : public config, public input, public display {
 
             //  MAIN ENGINE LOOP
             #if defined(__EMSCRIPTEN__)
-                emscripten_request_animation_frame_loop(main_loop, 0);
+                emscripten_set_main_loop(main_loop, 0, false);
             #else
-                while(config::flags::is_running) main_loop();
+                while(config::flags::is_running) main_loop(0, 0);
             #endif
 
             // Unload engine.

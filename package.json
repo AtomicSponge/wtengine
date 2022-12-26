@@ -18,19 +18,12 @@
   },
   "homepage": "https://github.com/wtfsystems/wtengine#readme",
   "type": "module",
-  "scripts": {
-    "postinstall": "scripts/install.mjs",
-    "test": "scripts/wte-syscheck.mjs"
-  },
+  "scripts": {},
   "bin": {
-    "wte-config": "scripts/wte-config.mjs",
-    "wte-build": "scripts/wte-build.mjs",
-    "wte-mkscript": "scripts/wte-mkscript.mjs",
-    "wte-syscheck": "scripts/wte-syscheck.mjs"
+    "wte-mkscript": "scripts/wte-mkscript.mjs"
   },
   "dependencies": {
-    "command-exists": "^1.2.9",
-    "csv": "^6.2.2",
+    "csv": "^6.2.5",
     "inquirer": "^9.1.4"
   }
 }

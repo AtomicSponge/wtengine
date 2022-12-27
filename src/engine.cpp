@@ -204,6 +204,11 @@ void engine::wte_load(void) {
     //  Initialize managers that require it.
     mgr::audio::initialize();
     mgr::gfx::renderer::initialize();
+
+    //  Set default states.
+    config::_flags::is_running = true;
+    config::_flags::engine_started = false;
+    config::flags::engine_paused = false;
 }
 
 /*

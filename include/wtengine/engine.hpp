@@ -82,11 +82,6 @@ class engine : public config, public input, public display {
             //  Load engine.
             wte_load();
 
-            //  Set default states.
-            config::_flags::is_running = true;
-            config::_flags::engine_started = false;
-            config::flags::engine_paused = false;
-
             //  MAIN ENGINE LOOP
             #if defined(__EMSCRIPTEN__)
                 emscripten_set_main_loop(main_loop, 0, false);
@@ -132,13 +127,13 @@ class engine : public config, public input, public display {
          * Load the engine's managers.
          * Called before the main loop starts.
          */
-        void wte_load(void);
+        static void wte_load(void);
 
         /*
          * Unload the engine's managers.
          * Called after the main loop ends running.
          */
-        void wte_unload(void);
+        static void wte_unload(void);
 
         /*
          * Main engine loop (single pass)

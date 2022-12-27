@@ -58,9 +58,6 @@ namespace wte {
  */
 class engine : public config, public input, public display {
     public:
-        engine() = default;
-        ~engine() = default;
-
         engine(const engine&) = delete;          //  Delete copy constructor.
         void operator=(engine const&) = delete;  //  Delete assignment operator.
 
@@ -110,6 +107,9 @@ class engine : public config, public input, public display {
         inline static std::function<void(void)> back_in_focus = [](){};
 
     private:
+        engine() = default;
+        ~engine() = default;
+
         /*
          * Load the engine's managers.
          * Called before the main loop starts.

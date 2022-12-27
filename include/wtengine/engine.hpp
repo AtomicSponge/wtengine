@@ -13,6 +13,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <functional>
 
 #if defined(__EMSCRIPTEN__)
 #include <emscripten.h>
@@ -57,11 +58,8 @@ namespace wte {
  */
 class engine : public config, public input, public display {
     public:
-        /*
-         * Unloads the game engine. 
-         * Frees up instance, set initialized flag to false.
-         */
-        ~engine();
+        engine() = default;
+        ~engine() = default;
 
         engine(const engine&) = delete;          //  Delete copy constructor.
         void operator=(engine const&) = delete;  //  Delete assignment operator.
@@ -75,10 +73,13 @@ class engine : public config, public input, public display {
          */
         static void add_file_location(const std::string& flocation);
 
+        static void initialize(const int& argc, char** const& argv);
+        static void de_init(void);
+
         /*!
          * \brief The main engine loop.
          */
-        inline void do_game(void) {
+        inline static void do_game(void) {
             //  Load engine.
             wte_load();
 
@@ -93,34 +94,20 @@ class engine : public config, public input, public display {
             wte_unload();
         }
 
-    protected:
-        /*!
-         * \brief Create a new instance of the game engine.
-         * 
-         * Force single instance, set initialized flag to true.
-         * Throws a runtime error if another instance is called.
-         * 
-         * \param argc Command line arguments.
-         * \param argv Command line arguments count.
-         */
-        engine(const int& argc, char** const& argv);
-
-        /* These function members are overridden in the derived class */
         //!  Define this to load all systems to be used by the game.
-        virtual void load_systems(void) = 0;
+        inline static std::function<void(void)> load_systems = [](){};
         //!  Define what gets loaded when a game starts.
-        virtual void new_game(void) = 0;
+        inline static std::function<void(void)> new_game = [](){};
         //!  Define what happens at the end of a game.
-        virtual void end_game(void) = 0;
+        inline static std::function<void(void)> end_game = [](){};
         //!  Optional:  On engine pause handler.
-        virtual void on_engine_pause(void) {};
+        inline static std::function<void(void)> on_engine_pause = [](){};
         //!  Optional:  On engine unpause handler.
-        virtual void on_engine_unpause(void) {};
+        inline static std::function<void(void)> on_engine_unpause = [](){};
         //!  Optional:  Window out of focus handler.
-        virtual void out_of_focus(void) {};
+        inline static std::function<void(void)> out_of_focus = [](){};
         //!  Optional:  Window back in focus handler.
-        virtual void back_in_focus(void) {};
-        /* *** End overridden function members *** */
+        inline static std::function<void(void)> back_in_focus = [](){};
 
     private:
         /*
@@ -138,21 +125,21 @@ class engine : public config, public input, public display {
         /*
          * Main engine loop (single pass)
          */
-        EM_BOOL main_loop(double time, void* userData);
+        static EM_BOOL main_loop(double time, void* userData);
 
         /*
          * Call to start a new game.
          * Loads a game data file and user defined systems and starting entities.
          * Gets passed game data file to load.
          */
-        void process_new_game(const std::string& game_data);
+        static void process_new_game(const std::string& game_data);
 
         /*
          * Call to end the game.
          * Clears out the entities and systems and runs user defined end process.
          * If passed true, skips the custom game cleanup.
          */
-        void process_end_game(const bool& force);
+        static void process_end_game(const bool& force);
 
         //  Internal commands for the engine.
         static commands cmds;

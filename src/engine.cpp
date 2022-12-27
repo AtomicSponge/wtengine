@@ -18,7 +18,7 @@ bool engine::initialized = false;
 /*
  *
  */
-engine::engine(const int& argc, char** const& argv) {
+void engine::initialize(const int& argc, char** const& argv) {
     std::cout << "Starting WTEngine...\n";
     if(initialized == true) throw engine_error(display::window_title + " already running!");
     initialized = true;
@@ -81,16 +81,16 @@ engine::engine(const int& argc, char** const& argv) {
     if(config::flags::audio_installed) al_init_acodec_addon();
 
     //  Main engine commands.
-    cmds.add("exit", 0, [this](const msg_args& args) {
+    cmds.add("exit", 0, [](const msg_args& args) {
         if(config::flags::engine_started) process_end_game(true);
         config::_flags::is_running = false;
     });
-    cmds.add("new-game", 1, [this](const msg_args& args) {
+    cmds.add("new-game", 1, [](const msg_args& args) {
         if(!config::flags::engine_started) {
             process_new_game(args[0]);
         }
     });
-    cmds.add("end-game", 0, [this](const msg_args& args) {
+    cmds.add("end-game", 0, [](const msg_args& args) {
         if(config::flags::engine_started) {
             process_end_game(false);
         }
@@ -160,7 +160,7 @@ engine::engine(const int& argc, char** const& argv) {
 /*
  *
  */
-engine::~engine() {
+void engine::de_init(void) {
     std::cout << "\nStopping WTEngine...\n";
     PHYSFS_deinit();
 

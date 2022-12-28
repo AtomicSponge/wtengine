@@ -17,9 +17,6 @@
 
 #if defined(__EMSCRIPTEN__)
 #include <emscripten.h>
-#else
-#define EM_BOOL bool
-#define EM_TRUE TRUE
 #endif
 
 #include <allegro5/allegro.h>

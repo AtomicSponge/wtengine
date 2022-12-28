@@ -46,6 +46,10 @@
 
 namespace wte {
 
+#if defined(__EMSCRIPTEN__)
+void em_looper(void);
+#endif
+
 /*!
  * \class engine
  * \brief The main engine class.
@@ -54,6 +58,8 @@ namespace wte {
  * Contains the main game loop and members for managing the game and engine.
  */
 class engine final : public config, public input, public display {
+    friend void em_looper(void);
+
     public:
         engine(const engine&) = delete;          //  Delete copy constructor.
         void operator=(engine const&) = delete;  //  Delete assignment operator.
@@ -88,7 +94,7 @@ class engine final : public config, public input, public display {
 
             //  MAIN ENGINE LOOP
             #if defined(__EMSCRIPTEN__)
-                emscripten_set_main_loop(main_loop, 0, true);
+                emscripten_set_main_loop(em_looper, 0, true);
             #else
                 while(config::flags::is_running) main_loop();
             #endif
@@ -159,6 +165,12 @@ class engine final : public config, public input, public display {
         //  Restrict to one instance of the engine running.
         static bool initialized;
 };
+
+#if defined(__EMSCRIPTEN__)
+inline void em_looper(void) {
+    engine::main_loop();
+}
+#endif
 
 }  //  end namespace wte
 

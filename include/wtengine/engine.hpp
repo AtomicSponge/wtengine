@@ -88,7 +88,7 @@ class engine final : public config, public input, public display {
 
             //  MAIN ENGINE LOOP
             #if defined(__EMSCRIPTEN__)
-                emscripten_set_main_loop(main_loop, 0, false);
+                emscripten_set_main_loop(main_loop, 0, true);
             #else
                 while(config::flags::is_running) main_loop();
             #endif

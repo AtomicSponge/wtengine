@@ -16,7 +16,7 @@ WTEngine also uses the library [Dear ImGui](https://github.com/ocornut/imgui) in
 ### Documentation:
  - [Manual](https://github.com/wtfsystems/wtengine/wiki)
  - [API](https://www.wtfsystems.net/docs/wtengine/index.html)
- - [Example game](https://github.com/wtfsystems/wte_demo_01/blob/master/src/wte_demo.cpp)
+ - [Example game](https://github.com/wtfsystems/wte_demo_01/blob/master/src/main.cpp)
 
 -----
 

@@ -70,7 +70,16 @@ class engine : public config, public input, public display {
          */
         static void add_file_location(const std::string& flocation);
 
+        /*!
+         * \brief Initialize the engine.
+         * \param argc Command line arguments count.
+         * \param argv Command line arguments.
+         */
         static void initialize(const int& argc, char** const& argv);
+        
+        /*!
+         * \brief De-initialize the engine.
+         */
         static void de_init(void);
 
         /*!

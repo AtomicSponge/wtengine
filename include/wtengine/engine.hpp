@@ -53,7 +53,7 @@ namespace wte {
  * Sets up various system objects used by the engine.
  * Contains the main game loop and members for managing the game and engine.
  */
-class engine : public config, public input, public display {
+class engine final : public config, public input, public display {
     public:
         engine(const engine&) = delete;          //  Delete copy constructor.
         void operator=(engine const&) = delete;  //  Delete assignment operator.

@@ -47,7 +47,7 @@
 namespace wte {
 
 #if defined(__EMSCRIPTEN__)
-void em_looper(void);
+EM_BOOL em_looper(double time, void *userData);
 #endif
 
 /*!
@@ -58,7 +58,9 @@ void em_looper(void);
  * Contains the main game loop and members for managing the game and engine.
  */
 class engine final : public config, public input, public display {
-    friend void em_looper(void);
+    #if defined(__EMSCRIPTEN__)
+    friend EM_BOOL em_looper(double time, void *userData);
+    #endif
 
     public:
         engine(const engine&) = delete;          //  Delete copy constructor.
@@ -94,7 +96,7 @@ class engine final : public config, public input, public display {
 
             //  MAIN ENGINE LOOP
             #if defined(__EMSCRIPTEN__)
-                emscripten_set_main_loop(em_looper, 0, true);
+                emscripten_request_animation_frame_loop(em_looper, 0);
             #else
                 while(config::flags::is_running) main_loop();
             #endif
@@ -167,8 +169,10 @@ class engine final : public config, public input, public display {
 };
 
 #if defined(__EMSCRIPTEN__)
-inline void em_looper(void) {
+inline EM_BOOL em_looper(double time, void *userData) {
     engine::main_loop();
+    if(config::flags::is_running) return EM_TRUE;
+    else return EM_FALSE;
 }
 #endif
 

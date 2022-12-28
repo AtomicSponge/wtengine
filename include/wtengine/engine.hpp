@@ -93,7 +93,7 @@ class engine : public config, public input, public display {
             #if defined(__EMSCRIPTEN__)
                 emscripten_set_main_loop(main_loop, 0, false);
             #else
-                while(config::flags::is_running) main_loop(0, 0);
+                while(config::flags::is_running) main_loop();
             #endif
 
             // Unload engine.
@@ -134,7 +134,7 @@ class engine : public config, public input, public display {
         /*
          * Main engine loop (single pass)
          */
-        static EM_BOOL main_loop(double time, void* userData);
+        static void main_loop(void);
 
         /*
          * Call to start a new game.

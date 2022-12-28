@@ -288,7 +288,7 @@ void engine::process_end_game(const bool& force) {
 /*
  *
  */
-EM_BOOL engine::main_loop(double time, void* userData) {
+void engine::main_loop(void) {
     input::check_events();  //  Check for input.
 
     //  Game not running, make sure the timer isn't.
@@ -352,8 +352,6 @@ EM_BOOL engine::main_loop(double time, void* userData) {
     mgr::audio::process_messages(mgr::messages::get("audio"));
     //  Delete unprocessed messages.
     mgr::messages::prune();
-
-    return EM_TRUE;
 }
 
 }  //  end namespace wte

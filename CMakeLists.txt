@@ -140,10 +140,10 @@ add_library(wtengine STATIC
 #
 ########################################
 #  Set include folder for building
-target_include_directories(wtengine PRIVATE include ${OPENGL_INCLUDE_DIRS}  ${GLUT_INCLUDE_DIRS})
+target_include_directories(wtengine PRIVATE include ${OPENGL_INCLUDE_DIRS})
 
 #  Link libraries
-target_link_libraries(wtengine PRIVATE ${ALLEGRO_LIBRARIES} ${OPENGL_LIBRARIES} ${GLUT_LIBRARY})
+target_link_libraries(wtengine PRIVATE ${ALLEGRO_LIBRARIES} ${OPENGL_LIBRARIES})
 
 #  Set complie options
 target_compile_options(wtengine PRIVATE ${WTE_BUILD_LIST})

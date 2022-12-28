@@ -17,6 +17,7 @@
 
 #if defined(__EMSCRIPTEN__)
 #include <emscripten.h>
+#include <emscripten/html5.h>
 #endif
 
 #include <allegro5/allegro.h>

@@ -47,6 +47,7 @@
 
 namespace wte {
 
+void do_game(void);
 #if defined(__EMSCRIPTEN__)
 EM_BOOL em_looper(double time, void *userData);
 #endif
@@ -59,6 +60,7 @@ EM_BOOL em_looper(double time, void *userData);
  * Contains the main game loop and members for managing the game and engine.
  */
 class engine final : public config, public input, public display {
+    friend void do_game(void);
     #if defined(__EMSCRIPTEN__)
     friend EM_BOOL em_looper(double time, void *userData);
     #endif
@@ -87,24 +89,6 @@ class engine final : public config, public input, public display {
          * \brief De-initialize the engine.
          */
         static void de_init(void);
-
-        /*!
-         * \brief The main engine loop.
-         */
-        inline static void do_game(void) {
-            //  Load engine.
-            wte_load();
-
-            //  MAIN ENGINE LOOP
-            #if defined(__EMSCRIPTEN__)
-                emscripten_request_animation_frame_loop(em_looper, 0);
-            #else
-                while(config::flags::is_running) main_loop();
-            #endif
-
-            // Unload engine.
-            wte_unload();
-        }
 
         //!  Define this to load all systems to be used by the game.
         inline static std::function<void(void)> load_systems = [](){};
@@ -169,9 +153,27 @@ class engine final : public config, public input, public display {
         static bool initialized;
 };
 
+/*!
+ * \brief The main engine loop.
+ */
+inline void do_game(void) {
+    //  Load engine.
+    engine::wte_load();
+
+    //  MAIN ENGINE LOOP
+    #if defined(__EMSCRIPTEN__)
+        emscripten_request_animation_frame_loop(em_looper, 0);
+    #else
+        while(config::flags::is_running) engine::main_loop();
+    #endif
+
+    // Unload engine.
+    engine::wte_unload();
+}
+
 #if defined(__EMSCRIPTEN__)
 inline EM_BOOL em_looper(double time, void *userData) {
-    engine::main_loop();  // wip, doing this may not work with emscripten?
+    engine::main_loop();
     if(config::flags::is_running) return EM_TRUE;
     else return EM_FALSE;
 }

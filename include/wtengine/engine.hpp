@@ -170,7 +170,7 @@ class engine final : public config, public input, public display {
 };
 
 #if defined(__EMSCRIPTEN__)
-inline static EM_BOOL em_looper(double time, void *userData) {
+inline EM_BOOL em_looper(double time, void *userData) {
     engine::main_loop();  // wip, doing this may not work with emscripten?
     if(config::flags::is_running) return EM_TRUE;
     else return EM_FALSE;

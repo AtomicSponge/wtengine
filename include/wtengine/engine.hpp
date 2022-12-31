@@ -153,6 +153,14 @@ class engine final : public config, public input, public display {
         static bool initialized;
 };
 
+#if defined(__EMSCRIPTEN__)
+inline EM_BOOL em_looper(double time, void *userData) {
+    engine::main_loop();
+    if(config::flags::is_running) return EM_TRUE;
+    else return EM_FALSE;
+}
+#endif
+
 /*!
  * \brief The main engine loop.
  */
@@ -170,14 +178,6 @@ inline void do_game(void) {
     // Unload engine.
     engine::wte_unload();
 }
-
-#if defined(__EMSCRIPTEN__)
-inline EM_BOOL em_looper(double time, void *userData) {
-    engine::main_loop();
-    if(config::flags::is_running) return EM_TRUE;
-    else return EM_FALSE;
-}
-#endif
 
 }  //  end namespace wte
 

@@ -49,7 +49,7 @@ namespace wte {
 
 void do_game(void);
 #if defined(__EMSCRIPTEN__)
-EM_BOOL em_looper(double time, void *userData);
+void em_looper(void);
 #endif
 
 /*!
@@ -62,7 +62,7 @@ EM_BOOL em_looper(double time, void *userData);
 class engine final : public config, public input, public display {
     friend void do_game(void);
     #if defined(__EMSCRIPTEN__)
-    friend EM_BOOL em_looper(double time, void *userData);
+    friend void em_looper(void);
     #endif
 
     public:
@@ -154,10 +154,9 @@ class engine final : public config, public input, public display {
 };
 
 #if defined(__EMSCRIPTEN__)
-inline EM_BOOL em_looper(double time, void *userData) {
+inline void em_looper(void) {
     engine::main_loop();
-    if(config::flags::is_running) return EM_TRUE;
-    else return EM_FALSE;
+    if(!config::flags::is_running) emscripten_cancel_main_loop();
 }
 #endif
 
@@ -170,7 +169,7 @@ inline void do_game(void) {
 
     //  MAIN ENGINE LOOP
     #if defined(__EMSCRIPTEN__)
-        emscripten_request_animation_frame_loop(em_looper, 0);
+        emscripten_set_main_loop(em_looper, 0, true);
     #else
         while(config::flags::is_running) engine::main_loop();
     #endif

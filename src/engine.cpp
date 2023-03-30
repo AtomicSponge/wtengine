@@ -132,10 +132,7 @@ void engine::initialize(const int& argc, char** const& argv) {
         wte::mgr::assets::load<ALLEGRO_SAMPLE>(args[0], wte::make_asset<ALLEGRO_SAMPLE>(args[1]));
     });
     cmds.add("load-audio-asset", 2, [](const msg_args& args) {
-        if(args.size() == 2)
-            wte::mgr::assets::load<ALLEGRO_AUDIO_STREAM>(args[0], wte::make_asset<ALLEGRO_AUDIO_STREAM>(args[1]));
-        if(args.size() == 4)
-            wte::mgr::assets::load<ALLEGRO_AUDIO_STREAM>(args[0], wte::make_asset<ALLEGRO_AUDIO_STREAM>(args[1], std::stoul(args[2]), std::stoi(args[3])));
+        wte::mgr::assets::load<ALLEGRO_AUDIO_STREAM>(args[0], wte::make_asset<ALLEGRO_AUDIO_STREAM>(args[1]));
     });
     cmds.add("unload-bitmap-asset", 1, [](const msg_args& args) {
         wte::mgr::assets::unload<ALLEGRO_BITMAP>(args[0]);

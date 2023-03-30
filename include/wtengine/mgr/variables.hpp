@@ -229,7 +229,7 @@ class variables final : private manager<variables> {
                 std::is_same<int16_t, T>::value ||
                 std::is_same<int32_t, T>::value ||
                 std::is_same<int64_t, T>::value ||
-                std::is_same<uint, T>::value ||
+                std::is_same<unsigned int, T>::value ||
                 std::is_same<uint16_t, T>::value ||
                 std::is_same<uint32_t, T>::value ||
                 std::is_same<uint64_t, T>::value ||

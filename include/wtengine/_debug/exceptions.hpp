@@ -34,7 +34,7 @@ class exception_item final {
         exception_item() = delete;    //  Delete default constructor.
         ~exception_item() = default;  //  Default destructor.
         //  Create a new exception item.
-        exception_item(const std::string& d, const std::string& l, const uint& c);
+        exception_item(const std::string& d, const std::string& l, const unsigned int& c);
 };
 
 /*!

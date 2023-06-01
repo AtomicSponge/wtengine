@@ -34,31 +34,31 @@ namespace wte {
     * \typedef std::size_t entity_id
     * Container to store an entity id.
     */
-    typedef std::size_t entity_id;
+    using entity_id = std::size_t;
 
     /*!
     * \typedef std::pair<entity_id, std::string> entity
     * Container to store an entity reference.
     */
-    typedef std::pair<entity_id, std::string> entity;
+    using entity = std::pair<entity_id, std::string>;
 
     /*!
     * \typedef std::vector<entity> entities
     * Container for storing a group of entity references.
     */
-    typedef std::vector<entity> entities;
+    using entities = std::vector<entity>;
 
     /*!
     * \typedef std::vector<cmp::component_sptr> entity_container
     * Container to store a group of components related to an entity.
     */
-    typedef std::vector<cmp::component_sptr> entity_container;
+    using entity_container = std::vector<cmp::component_sptr>;
 
     /*!
     * \typedef std::vector<cmp::component_csptr> const_entity_container
     * Constant container to store a group of components related to an entity.
     */
-    typedef std::vector<cmp::component_csptr> const_entity_container;
+    using const_entity_container = std::vector<cmp::component_csptr>;
 
     /*!
     * Container for storing components of similar type.
@@ -78,7 +78,7 @@ namespace wte {
     * \typedef std::unordered_multimap<entity_id, cmp::component_sptr> world_map
     * Container to store the entire game world.
     */
-    typedef std::unordered_multimap<entity_id, cmp::component_sptr> world_map;
+    using world_map = std::unordered_multimap<entity_id, cmp::component_sptr>;
 }
 
 namespace wte::mgr {

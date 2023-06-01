@@ -44,8 +44,8 @@ namespace wte {
     template <typename T>
     using time_point = std::chrono::time_point<T>;
 
-    typedef std::chrono::system_clock system_clock;
-    typedef std::chrono::system_clock::duration duration;
+    using system_clock = std::chrono::system_clock;
+    using duration = std::chrono::system_clock::duration;
 }
 
 namespace wte::mgr::gfx {

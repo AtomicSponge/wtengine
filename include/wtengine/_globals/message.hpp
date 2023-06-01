@@ -19,7 +19,7 @@ namespace wte {
  * \typedef std::vector<std::string> msg_args
  * Container to store each message argument separately.
  */
-typedef std::vector<std::string> msg_args;
+using msg_args = std::vector<std::string>;
 
 /*!
  * \class message

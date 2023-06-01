@@ -32,13 +32,13 @@ class component {
  * \typedef std::shared_ptr<cmp::component> component_sptr
  * Component shared pointer.
  */
-typedef std::shared_ptr<cmp::component> component_sptr;
+using component_sptr = std::shared_ptr<cmp::component>;
 
 /*!
  * \typedef std::shared_ptr<const cmp::component> component_csptr
  * Constant component shared pointer.
  */
-typedef std::shared_ptr<const cmp::component> component_csptr;
+using component_csptr = std::shared_ptr<const cmp::component>;
 
 /*!
  * \typedef

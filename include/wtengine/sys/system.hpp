@@ -46,7 +46,7 @@ class system {
  * \typedef std::unique_ptr<system> system_uptr
  * System unique pointer.
  */
-typedef std::unique_ptr<system> system_uptr;
+using system_uptr = std::unique_ptr<system>;
 
 }  //  end namespace wte::sys
 

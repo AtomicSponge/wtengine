@@ -32,54 +32,54 @@ namespace wte {
  * \brief Handles control of the display.
  */
 class display {
-    friend class engine;
+  friend class engine;
 
-    public:
-        virtual ~display() = default;             //  Default virtual destructor.
-        display(const display&) = delete;         //  Delete copy constructor.
-        void operator=(display const&) = delete;  //  Delete assignment operator.
+  public:
+    virtual ~display() = default;             //  Default virtual destructor.
+    display(const display&) = delete;         //  Delete copy constructor.
+    void operator=(display const&) = delete;  //  Delete assignment operator.
 
-        /*!
-         * \brief Set the window title.
-         * \param title Window title.
-         */
-        static void set_window_title(const std::string& title);
+    /*!
+     * \brief Set the window title.
+     * \param title Window title.
+     */
+    static void set_window_title(const std::string& title);
 
-        /*!
-         * \brief Set the scale factor.
-         * \param f Scale factor value.
-         */
-        static void set_scale_factor(float f);
+    /*!
+     * \brief Set the scale factor.
+     * \param f Scale factor value.
+     */
+    static void set_scale_factor(float f);
 
-        /*!
-         * \brief Change the display mode.  Requires engine restart.
-         * \param m New display mode.
-         */
-        static void set_display_mode(std::size_t m);
+    /*!
+     * \brief Change the display mode.  Requires engine restart.
+     * \param m New display mode.
+     */
+    static void set_display_mode(std::size_t m);
 
-        /*!
-         * \brief Set the vsync setting.
-         * \param v New vsync setting.
-         */
-        static void set_vsync(std::size_t v);
+    /*!
+     * \brief Set the vsync setting.
+     * \param v New vsync setting.
+     */
+    static void set_vsync(std::size_t v);
 
-        /*!
-         * \brief Resize the display.
-         * \param w Screen width.
-         * \param h Screen height.
-         */
-        static void resize_display(int w, int h);
+    /*!
+     * \brief Resize the display.
+     * \param w Screen width.
+     * \param h Screen height.
+     */
+    static void resize_display(int w, int h);
 
-    protected:
-        display();
+  protected:
+    display();
 
-    private:
-        static void create_display(void);   //  Configure the display.
-        static void destroy_display(void);  //  Destroy the display.
-        static std::string window_title;    //  Title for application window.
-        static bool initialized;            //  Restrict to one instance.
+  private:
+    static void create_display(void);   //  Configure the display.
+    static void destroy_display(void);  //  Destroy the display.
+    static std::string window_title;    //  Title for application window.
+    static bool initialized;            //  Restrict to one instance.
 
-        static ALLEGRO_DISPLAY* _display;   //  Allegro object for the display.
+    static ALLEGRO_DISPLAY* _display;   //  Allegro object for the display.
 };
 
 }  //  end namespace wte

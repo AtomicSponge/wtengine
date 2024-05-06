@@ -19,16 +19,16 @@ namespace wte::sys {
  * \brief Moves entities based on their velocity.
  */
 class movement final : public system {
-    public:
-        movement();
-        ~movement() = default;
+  public:
+    movement();
+    ~movement() = default;
 
-        /*!
-         * \brief All entities with a velocity component will be moved.
-         * 
-         * Also checks entities are within their bounding boxes.
-         */
-        void run(void) override;
+    /*!
+     * \brief All entities with a velocity component will be moved.
+     * 
+     * Also checks entities are within their bounding boxes.
+     */
+    void run(void) override;
 };
 
 }  //  namespace wte::sys

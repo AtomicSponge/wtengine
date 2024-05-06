@@ -38,14 +38,14 @@
 #include "imgui/imgui_impl_allegro5.h"
 
 namespace wte {
-    class display;
-    class engine;
+  class display;
+  class engine;
 
-    template <typename T>
-    using time_point = std::chrono::time_point<T>;
+  template <typename T>
+  using time_point = std::chrono::time_point<T>;
 
-    using system_clock = std::chrono::system_clock;
-    using duration = std::chrono::system_clock::duration;
+  using system_clock = std::chrono::system_clock;
+  using duration = std::chrono::system_clock::duration;
 }
 
 namespace wte::mgr::gfx {
@@ -62,92 +62,92 @@ using entity_component_pair = std::pair<const entity_id, std::shared_ptr<const T
  * \brief An object that handles drawing the world to the screen.
  */
 class renderer final : private manager<renderer> {
-    friend class wte::display;
-    friend class wte::engine;
+  friend class wte::display;
+  friend class wte::engine;
 
-    public:
-        /*!
-         * \brief Set the viewport size.
-         * 
-         * Once the renderer has been initialized it can not be changed.
-         * This should be called during engine initialization before the main object is created.
-         * 
-         * \param w Viewport width in pixels.
-         * \param h Viewport height in pixels.
-         */
-        static void set_viewport_size(
-            const int& w,
-            const int& h
-        );
+  public:
+    /*!
+     * \brief Set the viewport size.
+     * 
+     * Once the renderer has been initialized it can not be changed.
+     * This should be called during engine initialization before the main object is created.
+     * 
+     * \param w Viewport width in pixels.
+     * \param h Viewport height in pixels.
+     */
+    static void set_viewport_size(
+      const int& w,
+      const int& h
+    );
 
-        /*!
-         * \brief Set the title screen.
-         * 
-         * This should be called during engine initialization before the main object is created.
-         * 
-         * \param fname Filename of the title screen.
-         */
-        static void set_title_screen(const std::string& fname);
+    /*!
+     * \brief Set the title screen.
+     * 
+     * This should be called during engine initialization before the main object is created.
+     * 
+     * \param fname Filename of the title screen.
+     */
+    static void set_title_screen(const std::string& fname);
 
-        /*!
-         * \brief Set the font to be used by the renderer.
-         * 
-         * If not called, Allegro's default font will be used.
-         * This should be called during engine initialization before the main object is created.
-         * See the Allegro docs for more information on al_load_font and the parameters used.
-         * 
-         * \param fone Font asset to use.
-         */
-        static void set_font(wte_asset<ALLEGRO_FONT> font);
+    /*!
+     * \brief Set the font to be used by the renderer.
+     * 
+     * If not called, Allegro's default font will be used.
+     * This should be called during engine initialization before the main object is created.
+     * See the Allegro docs for more information on al_load_font and the parameters used.
+     * 
+     * \param fone Font asset to use.
+     */
+    static void set_font(wte_asset<ALLEGRO_FONT> font);
 
-        static const std::size_t& fps;                       //!<  Frames per second
-        static const time_point<system_clock>& last_render;  //!<  Point in time last render completed
-        static const time_point<system_clock>& start_time;   //!<  Point in time the renderer started
-        static const duration& delta_time;                   //!<  Time between frame renders
+    static const std::size_t& fps;                       //!<  Frames per second
+    static const time_point<system_clock>& last_render;  //!<  Point in time last render completed
+    static const time_point<system_clock>& start_time;   //!<  Point in time the renderer started
+    static const duration& delta_time;                   //!<  Time between frame renders
 
-        /*!
-         * \brief Implement this function to render a gui.
-         */
-        inline static std::function<void(void)> draw_gui =  ([](){});
+    /*!
+     * \brief Implement this function to render a gui.
+     */
+    inline static std::function<void(void)> draw_gui =  ([](){});
 
-    private:
-        renderer() = default;
-        ~renderer() = default;
+  private:
+    renderer() = default;
+    ~renderer() = default;
 
-        //  Configures the internal objects for the render manager to use.
-        static void initialize(void);
-        //  Destories the internal objects.
-        static void de_init(void);
-        //  Draw the game screen.
-        static void render(void);
-        //  Draw hitboxes if debug mode is enabled.
-        static void draw_hitboxes(void);
-        //  Draw time if debug mode is enabled.
-        static void draw_timer(void);
+    //  Configures the internal objects for the render manager to use.
+    static void initialize(void);
+    //  Destories the internal objects.
+    static void de_init(void);
+    //  Draw the game screen.
+    static void render(void);
+    //  Draw hitboxes if debug mode is enabled.
+    static void draw_hitboxes(void);
+    //  Draw time if debug mode is enabled.
+    static void draw_timer(void);
 
-        //  For sorting.
-        template <typename T> struct comparator {
-            bool operator() (const T& a, const T& b) const {
-                return *a.second < *b.second;
-            }
-        };
+    //  For sorting.
+    template <typename T> struct comparator {
+      bool operator() (const T& a, const T& b) const {
+        return *a.second < *b.second;
+      }
+    };
 
-        static ALLEGRO_TIMER* fps_timer;
-        static ALLEGRO_EVENT_QUEUE* fps_event_queue;
-        static ALLEGRO_EVENT fps_event;
+    static ALLEGRO_TIMER* fps_timer;
+    static ALLEGRO_EVENT_QUEUE* fps_event_queue;
+    static ALLEGRO_EVENT fps_event;
 
-        static wte_asset<ALLEGRO_BITMAP> viewport_bitmap;
-        static wte_asset<ALLEGRO_BITMAP> title_bitmap;
-        static wte_asset<ALLEGRO_FONT> renderer_font;
+    static wte_asset<ALLEGRO_BITMAP> viewport_bitmap;
+    static wte_asset<ALLEGRO_BITMAP> title_bitmap;
+    static wte_asset<ALLEGRO_FONT> renderer_font;
 
-        static std::size_t fps_counter, _fps;
-        static time_point<system_clock> _last_render, _start_time;
-        static duration _delta_time;
+    static std::size_t fps_counter, _fps;
+    static time_point<system_clock> _last_render, _start_time;
+    static duration _delta_time;
 
-        static bool arena_created;
+    static bool arena_created;
 
-        static std::string title_screen_file;
-        static std::string background_file;
+    static std::string title_screen_file;
+    static std::string background_file;
 };
 
 }  //  end namespace wte::mgr

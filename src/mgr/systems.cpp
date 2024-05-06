@@ -18,8 +18,8 @@ bool systems::finalized = false;
  *
  */
 void systems::clear(void) {
-    _systems.clear();
-    finalized = false;
+  _systems.clear();
+  finalized = false;
 }
 
 /*
@@ -31,10 +31,10 @@ bool systems::empty(void) { return (_systems.empty()); }
  *
  */
 void systems::run() {
-    for(auto& it: _systems)
-        try { 
-            (it)->run();
-        } catch(const std::exception& e) { throw e; }
+  for(auto& it: _systems)
+    try { 
+      (it)->run();
+    } catch(const std::exception& e) { throw e; }
 }
 
 }  //  end namespace wte::mgr

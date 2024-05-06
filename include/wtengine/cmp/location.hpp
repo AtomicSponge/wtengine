@@ -17,22 +17,22 @@ namespace wte::cmp {
  * \brief Store the X/Y location of an entity in the arena.
  */
 class location final : public component {
-    public:
-        /*!
-         * \brief Create a new Location component.
-         * \param x Horizontal location of the entity.
-         * \param y Vertical location of the entity.
-         */
-        location(
-            const float& x,
-            const float& y
-        );
+  public:
+    /*!
+     * \brief Create a new Location component.
+     * \param x Horizontal location of the entity.
+     * \param y Vertical location of the entity.
+     */
+    location(
+      const float& x,
+      const float& y
+    );
 
-        location() = delete;    //  Delete default constructor.
-        ~location() = default;  //  Default destructor.
+    location() = delete;    //  Delete default constructor.
+    ~location() = default;  //  Default destructor.
 
-        float pos_x;  //!<  Entity X location.
-        float pos_y;  //!<  Entity Y location.
+    float pos_x;  //!<  Entity X location.
+    float pos_y;  //!<  Entity Y location.
 };
 
 } //  namespace wte::cmp

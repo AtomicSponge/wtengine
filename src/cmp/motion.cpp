@@ -13,9 +13,9 @@ namespace wte::cmp {
  *
  */
 motion::motion(
-    const float& d,
-    const float& xv,
-    const float& yv
+  const float& d,
+  const float& xv,
+  const float& yv
 ) : direction(d), x_vel(xv), y_vel(yv) {}
 
 }  //  end namespace wte::cmp

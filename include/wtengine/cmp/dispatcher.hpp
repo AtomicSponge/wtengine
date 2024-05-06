@@ -17,7 +17,7 @@
 #include "wtengine/mgr/world.hpp"
 
 namespace wte::mgr {
-    class messages;
+  class messages;
 }
 
 namespace wte::cmp {
@@ -29,21 +29,21 @@ namespace wte::cmp {
  * Define message processing in handle_msg lambda.
  */
 class dispatcher final : public component {
-    friend class mgr::messages;
+  friend class mgr::messages;
 
-    public:
-        /*!
-         * \brief Create a new Dispatcher component.
-         * \param func Function to define message processing.
-         */
-        dispatcher(const std::function<void(const entity_id&, const message&)>& func);
+  public:
+    /*!
+     * \brief Create a new Dispatcher component.
+     * \param func Function to define message processing.
+     */
+    dispatcher(const std::function<void(const entity_id&, const message&)>& func);
 
-        dispatcher() = delete;    //  Delete default constructor.
-        ~dispatcher() = default;  //  Default destructor.
+    dispatcher() = delete;    //  Delete default constructor.
+    ~dispatcher() = default;  //  Default destructor.
 
-    private:
-        //  Message handler.
-        const std::function<void(const entity_id&, const message&)> handle_msg;
+  private:
+    //  Message handler.
+    const std::function<void(const entity_id&, const message&)> handle_msg;
 };
 
 }  //  end namespace wte::cmp

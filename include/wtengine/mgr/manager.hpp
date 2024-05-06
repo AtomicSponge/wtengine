@@ -19,23 +19,23 @@ namespace wte::mgr {
  */
 template <class D>
 class manager {
-    public:
-        virtual ~manager() = default;             //  Default virtual destructor.
-        manager(const manager&) = delete;         //  Delete copy constructor.
-        void operator=(manager const&) = delete;  //  Delete assignment operator.
+  public:
+    virtual ~manager() = default;             //  Default virtual destructor.
+    manager(const manager&) = delete;         //  Delete copy constructor.
+    void operator=(manager const&) = delete;  //  Delete assignment operator.
 
-    protected:
-        /*!
-         * \brief Create a new engine manager.
-         * \exception runtime_error Manager is already running.
-         */
-        manager() {
-            if(initialized == true) throw engine_error("An instance of this manager is already running!");
-            initialized = true;
-        };
+  protected:
+    /*!
+     * \brief Create a new engine manager.
+     * \exception runtime_error Manager is already running.
+     */
+    manager() {
+      if(initialized == true) throw engine_error("An instance of this manager is already running!");
+      initialized = true;
+    };
 
-    private:
-        static bool initialized;  //  Force single instance.
+  private:
+    static bool initialized;  //  Force single instance.
 };
 
 }  //  end namespace wte::mgr

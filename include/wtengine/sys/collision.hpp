@@ -17,14 +17,14 @@ namespace wte::sys {
  * \brief Selects components by team and tests for colisions.
  */
 class colision final : public system {
-    public:
-        colision();
-        ~colision() = default;
+  public:
+    colision();
+    ~colision() = default;
 
-        /*!
-         * \brief Selects components by team, then tests each team to see if there is a colision.
-         */
-        void run(void) override;
+    /*!
+     * \brief Selects components by team, then tests each team to see if there is a colision.
+     */
+    void run(void) override;
 };
 
 }  //  end namespace wte::sys

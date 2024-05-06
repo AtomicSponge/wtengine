@@ -26,11 +26,11 @@ appInfo = JSON.parse(appInfo)
  * Configuration settings
  */
 const config = {
-    checkApps: [ "cmake", "git" ],
-    gitURLs: [
-        { name: "allegro5", url: "https://github.com/liballeg/allegro5" },
-        { name: "physfs", url: "https://github.com/icculus/physfs" }
-    ]
+  checkApps: [ "cmake", "git" ],
+  gitURLs: [
+    { name: "allegro5", url: "https://github.com/liballeg/allegro5" },
+    { name: "physfs", url: "https://github.com/icculus/physfs" }
+  ]
 }
 wtf.config = config
 
@@ -38,10 +38,10 @@ wtf.config = config
  * Constants
  */
 const constants = {
-    APP_NAME:              `${appInfo['name']}`,
-    APP_VERSION:           `${appInfo['version']}`,
-    APP_URL:               `${appInfo['url']}`,
-    ENGINE_ROOT_LOCATION:  __dirname.substring(0, __dirname.lastIndexOf(`/`)),
+  APP_NAME:              `${appInfo['name']}`,
+  APP_VERSION:           `${appInfo['version']}`,
+  APP_URL:               `${appInfo['url']}`,
+  ENGINE_ROOT_LOCATION:  __dirname.substring(0, __dirname.lastIndexOf(`/`)),
 }
 wtf.constants = constants
 
@@ -49,10 +49,10 @@ wtf.constants = constants
  * Folder paths
  */
 const paths = {
-    ENGINE_BUILD_LOCATION:       `${constants.ENGINE_ROOT_LOCATION}/wte-build`,
-    ENGINE_BUILD_DEBUG_LOCATION: `${constants.ENGINE_ROOT_LOCATION}/wte-build-debug`,
-    ENGINE_LOG_LOCATION:         `${constants.ENGINE_ROOT_LOCATION}/wte-logs`,
-    ENGINE_TEMP_LOCATION:        `${constants.ENGINE_ROOT_LOCATION}/wte-temp`
+  ENGINE_BUILD_LOCATION:       `${constants.ENGINE_ROOT_LOCATION}/wte-build`,
+  ENGINE_BUILD_DEBUG_LOCATION: `${constants.ENGINE_ROOT_LOCATION}/wte-build-debug`,
+  ENGINE_LOG_LOCATION:         `${constants.ENGINE_ROOT_LOCATION}/wte-logs`,
+  ENGINE_TEMP_LOCATION:        `${constants.ENGINE_ROOT_LOCATION}/wte-temp`
 }
 wtf.paths = paths
 
@@ -60,10 +60,10 @@ wtf.paths = paths
  * Files
  */
 const files = {
-    CONFIG_SCRIPT:    `${__dirname}/wte-config.mjs`,
-    SYSCHECK_SCRIPT:  `${__dirname}/wte-syscheck.mjs`,
-    SETTINGS_FILE:    `${constants.ENGINE_ROOT_LOCATION}/settings.json`,
-    LOG_FILE: ``      //  Set by script
+  CONFIG_SCRIPT:    `${__dirname}/wte-config.mjs`,
+  SYSCHECK_SCRIPT:  `${__dirname}/wte-syscheck.mjs`,
+  SETTINGS_FILE:    `${constants.ENGINE_ROOT_LOCATION}/settings.json`,
+  LOG_FILE: ``      //  Set by script
 }
 wtf.files = files
 
@@ -71,13 +71,13 @@ wtf.files = files
  * Font colors
  */
 const colors = {
-    RED:     `\x1b[31m`,
-    GREEN:   `\x1b[32m`,
-    YELLOW:  `\x1b[33m`,
-    BLUE:    `\x1b[34m`,
-    CYAN:    `\x1b[36m`,
-    DIM:     `\x1b[2m`,
-    CLEAR:   `\x1b[0m`
+  RED:     `\x1b[31m`,
+  GREEN:   `\x1b[32m`,
+  YELLOW:  `\x1b[33m`,
+  BLUE:    `\x1b[34m`,
+  CYAN:    `\x1b[36m`,
+  DIM:     `\x1b[2m`,
+  CLEAR:   `\x1b[0m`
 }
 wtf.colors = colors
 
@@ -86,11 +86,11 @@ wtf.colors = colors
  * @param {String} title Script title to use
  */
 const scriptTitle = (title) => {
-    process.stdout.write(`${colors.CYAN}${title}${colors.CLEAR} - `)
-    process.stdout.write(`${colors.DIM}${colors.CYAN}${constants.APP_NAME}${colors.CLEAR} - `)
-    process.stdout.write(`${colors.DIM}${colors.CYAN}ver ${constants.APP_VERSION}${colors.CLEAR}\n`)
-    process.stdout.write(`${colors.DIM}${colors.YELLOW}${constants.APP_URL}${colors.CLEAR}\n`)
-    process.stdout.write(`\n`)
+  process.stdout.write(`${colors.CYAN}${title}${colors.CLEAR} - `)
+  process.stdout.write(`${colors.DIM}${colors.CYAN}${constants.APP_NAME}${colors.CLEAR} - `)
+  process.stdout.write(`${colors.DIM}${colors.CYAN}ver ${constants.APP_VERSION}${colors.CLEAR}\n`)
+  process.stdout.write(`${colors.DIM}${colors.YELLOW}${constants.APP_URL}${colors.CLEAR}\n`)
+  process.stdout.write(`\n`)
 }
 wtf.scriptTitle = scriptTitle
 
@@ -99,8 +99,8 @@ wtf.scriptTitle = scriptTitle
  * @param {String} message Message to display.
  */
 const scriptError = (message) => {
-    process.stdout.write(`${colors.RED}Error:  ${message}  Exiting...${colors.CLEAR}\n`)
-    process.exit(1)
+  process.stdout.write(`${colors.RED}Error:  ${message}  Exiting...${colors.CLEAR}\n`)
+  process.exit(1)
 }
 wtf.scriptError = scriptError
 
@@ -109,10 +109,10 @@ wtf.scriptError = scriptError
  * Will exit script if the log filename was not set.
  */
 const clearLog = () => {
-    if(files.LOG_FILE === '') scriptError(`Must set a log file in the script first!`)
-    try {
-        fs.unlinkSync(`${paths.ENGINE_LOG_LOCATION}/${files.LOG_FILE}`)
-    } catch (err) {}
+  if(files.LOG_FILE === '') scriptError(`Must set a log file in the script first!`)
+  try {
+    fs.unlinkSync(`${paths.ENGINE_LOG_LOCATION}/${files.LOG_FILE}`)
+  } catch (err) {}
 }
 wtf.clearLog = clearLog
 
@@ -123,10 +123,10 @@ wtf.clearLog = clearLog
  * @throws Error on fail then exits script.
  */
 const writeLog = (message) => {
-    if(files.LOG_FILE === '') scriptError(`Must set a log file in the script first!`)
-    try {
-        fs.appendFileSync(`${paths.ENGINE_LOG_LOCATION}/${files.LOG_FILE}`, message)
-    } catch (err) { scriptError(err) }
+  if(files.LOG_FILE === '') scriptError(`Must set a log file in the script first!`)
+  try {
+    fs.appendFileSync(`${paths.ENGINE_LOG_LOCATION}/${files.LOG_FILE}`, message)
+  } catch (err) { scriptError(err) }
 }
 wtf.writeLog = writeLog
 
@@ -137,30 +137,30 @@ wtf.writeLog = writeLog
  * @returns {Object} Argument object.
  */
 const parseArgs = (args, commands) => {
-    let _args = {}
-    //  Build the object using supplied command names
+  let _args = {}
+  //  Build the object using supplied command names
+  commands.forEach(command => {
+    (command.name.includes('=') ?
+      _args[command.name] = null : _args[command.name] = false)
+  })
+  //  Now parse the arguments
+  args.forEach(arg => {
+    var matchMe = null
+    var newVal = null
+    if(arg.includes('=')) {
+      matchMe = arg.substring(0, arg.indexOf('='))
+      newVal = arg.substring(arg.indexOf('=') + 1)
+    } else {
+      matchMe = arg
+      newVal = true
+    }
     commands.forEach(command => {
-        (command.name.includes('=') ?
-            _args[command.name] = null : _args[command.name] = false)
+      command.flags.replace(/\s+/g, '').split(',').forEach(item => {
+        if(item == matchMe) _args[command.name] = newVal
+      })
     })
-    //  Now parse the arguments
-    args.forEach(arg => {
-        var matchMe = null
-        var newVal = null
-        if(arg.includes('=')) {
-            matchMe = arg.substring(0, arg.indexOf('='))
-            newVal = arg.substring(arg.indexOf('=') + 1)
-        } else {
-            matchMe = arg
-            newVal = true
-        }
-        commands.forEach(command => {
-            command.flags.replace(/\s+/g, '').split(',').forEach(item => {
-                if(item == matchMe) _args[command.name] = newVal
-            })
-        })
-    })
-    return _args
+  })
+  return _args
 }
 wtf.parseArgs = parseArgs
 
@@ -171,13 +171,13 @@ wtf.parseArgs = parseArgs
  * @returns {boolean} True if default answer, else false
  */
 const confirmPrompt = async (message, dvalue) => {
-    if(dvalue == undefined) dvalue = true
-    return await inquirer.prompt([{
-        default: dvalue,
-        name: 'conf',
-        type: 'confirm',
-        message: `${colors.YELLOW}${message}`
-    }]).then(res => { return res.conf })
+  if(dvalue == undefined) dvalue = true
+  return await inquirer.prompt([{
+    default: dvalue,
+    name: 'conf',
+    type: 'confirm',
+    message: `${colors.YELLOW}${message}`
+  }]).then(res => { return res.conf })
 }
 wtf.confirmPrompt = confirmPrompt
 
@@ -187,8 +187,8 @@ wtf.confirmPrompt = confirmPrompt
  * @returns {boolean} True if the folder exists, else false.
  */
 const checkFolder = (folder) => {
-    try { fs.accessSync(folder) } catch (err) { return false }
-    return true
+  try { fs.accessSync(folder) } catch (err) { return false }
+  return true
 }
 wtf.checkFolder = checkFolder
 
@@ -198,13 +198,13 @@ wtf.checkFolder = checkFolder
  * @throws Error on fail then exits script
  */
 const makeFolder = (folder) => {
+  try {
+    fs.accessSync(folder)
+  } catch (err) {
     try {
-        fs.accessSync(folder)
-    } catch (err) {
-        try {
-            fs.mkdirSync(folder)
-        } catch (err) { scriptError(err) }
-    }
+      fs.mkdirSync(folder)
+    } catch (err) { scriptError(err) }
+  }
 }
 wtf.makeFolder = makeFolder
 
@@ -214,22 +214,22 @@ wtf.makeFolder = makeFolder
  * @returns {boolean} True if tests succeded, else false
  */
 const checkSettings = (permissions) => {
-    let checkFlags = []
-    if(permissions === undefined) checkFlags.push(fs.constants.F_OK)
-    else {
-        if(permissions.includes("r") || permissions.includes("R")) checkFlags.push(fs.constants.R_OK)
-        if(permissions.includes("w") || permissions.includes("W")) checkFlags.push(fs.constants.W_OK)
-        if(permissions.includes("x") || permissions.includes("X")) checkFlags.push(fs.constants.X_OK)
-    }
+  let checkFlags = []
+  if(permissions === undefined) checkFlags.push(fs.constants.F_OK)
+  else {
+    if(permissions.includes("r") || permissions.includes("R")) checkFlags.push(fs.constants.R_OK)
+    if(permissions.includes("w") || permissions.includes("W")) checkFlags.push(fs.constants.W_OK)
+    if(permissions.includes("x") || permissions.includes("X")) checkFlags.push(fs.constants.X_OK)
+  }
 
-    if(checkFlags.length == 0) scriptError(`Unable to check settings file!  No proper tests requested!`)
+  if(checkFlags.length == 0) scriptError(`Unable to check settings file!  No proper tests requested!`)
 
-    var result = true
-    checkFlags.forEach(fFlag => {
-        try { fs.accessSync(files.SETTINGS_FILE, fFlag)
-        } catch (err) { result = false }
-    })
-    return result
+  let result = true
+  checkFlags.forEach(fFlag => {
+    try { fs.accessSync(files.SETTINGS_FILE, fFlag)
+    } catch (err) { result = false }
+  })
+  return result
 }
 wtf.checkSettings = checkSettings
 
@@ -238,12 +238,12 @@ wtf.checkSettings = checkSettings
  * @returns {JSON} Settings JSON object.  False on fail.
  */
 const loadSettings = () => {
-    try {
-        const settings = fs.readFileSync(files.SETTINGS_FILE)
-        return JSON.parse(settings)
-    } catch (err) {
-        return false
-    }
+  try {
+    const settings = fs.readFileSync(files.SETTINGS_FILE)
+    return JSON.parse(settings)
+  } catch (err) {
+    return false
+  }
 }
 wtf.loadSettings = loadSettings
 
@@ -253,17 +253,17 @@ wtf.loadSettings = loadSettings
  * On fail, display error and exit running script.
  */
 const saveSettings = (settings) => {
-    if(!(settings instanceof Object)) scriptError(`Settings format not valid.`)
+  if(!(settings instanceof Object)) scriptError(`Settings format not valid.`)
 
-    const oldSettings = loadSettings()
-    if(oldSettings) settings = oldSettings.concat(settings)
+  const oldSettings = loadSettings()
+  if(oldSettings) settings = oldSettings.concat(settings)
 
-    try {
-        fs.writeFileSync(files.SETTINGS_FILE, JSON.stringify(settings))
-        process.stdout.write(`${colors.GREEN}Settings saved.${colors.CLEAR}\n`)
-    } catch (err) {
-        scriptError(err)
-    }
+  try {
+    fs.writeFileSync(files.SETTINGS_FILE, JSON.stringify(settings))
+    process.stdout.write(`${colors.GREEN}Settings saved.${colors.CLEAR}\n`)
+  } catch (err) {
+    scriptError(err)
+  }
 }
 wtf.saveSettings = saveSettings
 
@@ -273,8 +273,8 @@ wtf.saveSettings = saveSettings
  * @param {Function} callback Callback function
  */
 const asyncForEach = async (array, callback) => {
-    for(let index = 0; index < array.length; index++)
-        await callback(array[index], index, array)
+  for(let index = 0; index < array.length; index++)
+    await callback(array[index], index, array)
 }
 wtf.asyncForEach = asyncForEach
 
@@ -287,24 +287,24 @@ wtf.asyncForEach = asyncForEach
  * @returns {boolean} True if the command was successful, else false.
  */
  const runCommand = async (cmd, opts, log) => {
-    opts = opts || {}
-    opts.cwd = opts.cwd || process.cwd()
-    opts.env = opts.env || process.env
-    opts.timeout = opts.timeout || 0
-    log = log || true
+  opts = opts || {}
+  opts.cwd = opts.cwd || process.cwd()
+  opts.env = opts.env || process.env
+  opts.timeout = opts.timeout || 0
+  log = log || true
 
-    if(log) writeLog(`Running command:  ${cmd}\n`)
+  if(log) writeLog(`Running command:  ${cmd}\n`)
 
-    return await new Promise ((resolve, reject) => {
-        const proc = exec(cmd, opts, (error, stdout, stderr) => {
-            if(log) {
-                if(stdout != ``) writeLog(`Output:  ${stdout}\n`)
-                if(stderr != ``) writeLog(`Output:  ${stderr}\n`)
-            }
-            if(error) resolve(false)
-            resolve(true)
-        })
+  return await new Promise ((resolve, reject) => {
+    const proc = exec(cmd, opts, (error, stdout, stderr) => {
+      if(log) {
+        if(stdout != ``) writeLog(`Output:  ${stdout}\n`)
+        if(stderr != ``) writeLog(`Output:  ${stderr}\n`)
+      }
+      if(error) resolve(false)
+      resolve(true)
     })
+  })
 }
 wtf.runCommand = runCommand
 
@@ -314,18 +314,18 @@ wtf.runCommand = runCommand
  * @returns {Promise} A fulfilled promise with the result.
  */
  const onProcessExit = async (proc, log) => {
-    log = log || false
-    return new Promise((resolve, reject) => {
-        proc.once('exit', (code) => {
-            if(log) writeLog(`Return code:  ${code}\n`)
-            if(code === 0) resolve(true)
-            else resolve(false)
-        })
-        proc.once('error', (error) => {
-            if(log) writeLog(`Error:  ${error}\n`)
-            reject(error)
-        })
+  log = log || false
+  return new Promise((resolve, reject) => {
+    proc.once('exit', (code) => {
+      if(log) writeLog(`Return code:  ${code}\n`)
+      if(code === 0) resolve(true)
+      else resolve(false)
     })
+    proc.once('error', (error) => {
+      if(log) writeLog(`Error:  ${error}\n`)
+      reject(error)
+    })
+  })
 }
 wtf.onProcessExit = onProcessExit
 
@@ -335,12 +335,12 @@ wtf.onProcessExit = onProcessExit
  * @returns {boolean} True if the script was successful, else false.
  */
 const runSysCheckScript = async (args) => {
-    process.stdout.write(`\n`)
-    const proc = spawn(files.SYSCHECK_SCRIPT, args,
-                       { stdio: [ process.stdin, process.stdout, process.stderr ] })
-    //
-    if(await onProcessExit(proc) === true) return true
-    else return false
+  process.stdout.write(`\n`)
+  const proc = spawn(files.SYSCHECK_SCRIPT, args,
+                     { stdio: [ process.stdin, process.stdout, process.stderr ] })
+  //
+  if(await onProcessExit(proc) === true) return true
+  else return false
 }
 wtf.runSysCheckScript = runSysCheckScript
 
@@ -350,11 +350,11 @@ wtf.runSysCheckScript = runSysCheckScript
  * @returns {boolean} True if the script was successful, else false.
  */
 const runConfigScript = async (args) => {
-    process.stdout.write(`\n`)
-    const proc = spawn(files.CONFIG_SCRIPT, args,
-                       { stdio: [ process.stdin, process.stdout, process.stderr ] })
-    if(await onProcessExit(proc) === true) return true
-    else return false
+  process.stdout.write(`\n`)
+  const proc = spawn(files.CONFIG_SCRIPT, args,
+                     { stdio: [ process.stdin, process.stdout, process.stderr ] })
+  if(await onProcessExit(proc) === true) return true
+  else return false
 }
 wtf.runConfigScript = runConfigScript
 

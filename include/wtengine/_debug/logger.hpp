@@ -30,31 +30,31 @@ class engine;
  * \brief Logs exceptions to file.  This option is built when the engine is in debug mode.
  */
 class logger final {
-    friend class engine;
+  friend class engine;
 
-    public:
-        logger(const logger&) = delete;          //  Delete copy constructor.
-        void operator=(logger const&) = delete;  //  Delete assignment operator.
+  public:
+    logger(const logger&) = delete;          //  Delete copy constructor.
+    void operator=(logger const&) = delete;  //  Delete assignment operator.
 
-        /*!
-         * \brief Add exception information to the logger.
-         * \param d Description of item.
-         * \param l Location of item.
-         * \param c Error code of item.
-         * \param t Engine time of item.
-         */
-        static const void log(
-            const std::string& d, const std::string& l,
-            const unsigned int& c, const int64_t& t);
+    /*!
+     * \brief Add exception information to the logger.
+     * \param d Description of item.
+     * \param l Location of item.
+     * \param c Error code of item.
+     * \param t Engine time of item.
+     */
+    static const void log(
+      const std::string& d, const std::string& l,
+      const unsigned int& c, const int64_t& t);
 
-    private:
-        logger() = default;
-        ~logger() = default;
+  private:
+    logger() = default;
+    ~logger() = default;
 
-        static void start(void);
-        static void stop(void);
+    static void start(void);
+    static void stop(void);
 
-        static std::ofstream log_file;
+    static std::ofstream log_file;
 };
 
 }  //  end namespace wte

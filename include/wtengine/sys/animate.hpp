@@ -17,16 +17,16 @@ namespace wte::sys::gfx {
  * \brief Find the animate components and process them.
  */
 class animate final : public system {
-    public:
-        animate();
-        ~animate() = default;
+  public:
+    animate();
+    ~animate() = default;
 
-        /*!
-         * \brief Gets all animation components and processes their run members.
-         * 
-         * The entity must also have the visible component and is set visible to be drawn.
-         */
-        void run(void) override;
+    /*!
+     * \brief Gets all animation components and processes their run members.
+     * 
+     * The entity must also have the visible component and is set visible to be drawn.
+     */
+    void run(void) override;
 };
 
 }  //  end namespace wte::sys

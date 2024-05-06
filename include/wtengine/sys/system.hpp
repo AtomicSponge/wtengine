@@ -22,24 +22,24 @@ namespace wte::sys {
  * \brief Interface class for creating Systems.
  */
 class system {
-    public:
-        virtual ~system() = default;             //  Default virtual destructor.
-        system(const system&) = delete;          //  Delete copy constructor.
-        void operator=(system const&) = delete;  //  Delete assignment operator.
+  public:
+    virtual ~system() = default;             //  Default virtual destructor.
+    system(const system&) = delete;          //  Delete copy constructor.
+    void operator=(system const&) = delete;  //  Delete assignment operator.
 
-        //!  Override this to create custom System run method.
-        virtual void run(void) = 0;
+    //!  Override this to create custom System run method.
+    virtual void run(void) = 0;
 
-        const std::string name;  //!<  System name.
+    const std::string name;  //!<  System name.
 
-    protected:
-        /*!
-         * \brief Create a new timed System object.
-         * \param n System name.
-         */
-        system(
-            const std::string& n
-        ) : name(n) {};
+  protected:
+    /*!
+     * \brief Create a new timed System object.
+     * \param n System name.
+     */
+    system(
+      const std::string& n
+    ) : name(n) {};
 };
 
 /*!

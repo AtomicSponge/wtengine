@@ -24,7 +24,7 @@
 #include "wtengine/config.hpp"
 
 namespace wte {
-    class engine;
+  class engine;
 }
 
 namespace wte::mgr {
@@ -44,268 +44,268 @@ namespace wte::mgr {
  * Mixer 4 - Play ambiance - Load a file and play in a loop.  Looping can be disabled.
  */
 class audio final : private manager<audio> {
-    friend class wte::engine;
+  friend class wte::engine;
 
-    public:
+  public:
+    /*!
+     * \brief Adjust main mixer volume level.
+     * \param l Volume level to set.
+     */
+    static void set_level(const float& l);
+
+    /*!
+     * \struct music
+     * \brief Music commands.
+     */
+    struct music {
+      /*!
+       * \struct a
+       * \brief Music track A
+       */
+      struct a {
         /*!
-         * \brief Adjust main mixer volume level.
+         * \brief Toggle music looping.
+         * \param loop True to enable, false to disable.
+         */
+        static void loop(const bool& loop);
+
+        /*!
+         * \brief Play a music asset.
+         * \param audio Audio asset.
+         */
+        static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio);
+
+        /*!
+         * \brief Stop playing music.
+         */
+        static void stop(void);
+
+        /*!
+         * \brief Pause music.
+         */
+        static void pause(void);
+
+        /*!
+         * \brief Unpause music.
+         */
+        static void unpause(void);
+
+        /*!
+         * \brief Adjust music track A mixer volume level.
          * \param l Volume level to set.
          */
         static void set_level(const float& l);
+      };
+
+      /*!
+       * \struct b
+       * \brief Music track B
+       */
+      struct b {
+        /*!
+         * \brief Toggle music looping.
+         * \param loop True to enable, false to disable.
+         */
+        static void loop(const bool& loop);
 
         /*!
-         * \struct music
-         * \brief Music commands.
+         * \brief Play a music asset.
+         * \param audio Audio asset.
          */
-        struct music {
-            /*!
-             * \struct a
-             * \brief Music track A
-             */
-            struct a {
-                /*!
-                 * \brief Toggle music looping.
-                 * \param loop True to enable, false to disable.
-                 */
-                static void loop(const bool& loop);
-
-                /*!
-                 * \brief Play a music asset.
-                 * \param audio Audio asset.
-                 */
-                static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio);
-
-                /*!
-                 * \brief Stop playing music.
-                 */
-                static void stop(void);
-
-                /*!
-                 * \brief Pause music.
-                 */
-                static void pause(void);
-
-                /*!
-                 * \brief Unpause music.
-                 */
-                static void unpause(void);
-
-                /*!
-                 * \brief Adjust music track A mixer volume level.
-                 * \param l Volume level to set.
-                 */
-                static void set_level(const float& l);
-            };
-
-            /*!
-             * \struct b
-             * \brief Music track B
-             */
-            struct b {
-                /*!
-                 * \brief Toggle music looping.
-                 * \param loop True to enable, false to disable.
-                 */
-                static void loop(const bool& loop);
-
-                /*!
-                 * \brief Play a music asset.
-                 * \param audio Audio asset.
-                 */
-                static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio);
-
-                /*!
-                 * \brief Stop playing music.
-                 */
-                static void stop(void);
-
-                /*!
-                 * \brief Pause music.
-                 */
-                static void pause(void);
-
-                /*!
-                 * \brief Unpause music.
-                 */
-                static void unpause(void);
-
-                /*!
-                 * \brief Adjust music track B mixer volume level.
-                 * \param l Volume level to set.
-                 */
-                static void set_level(const float& l);
-            };
-
-            /*!
-             * \brief Adjust the music mixer volume level.
-             * \param l Volume level to set.
-             */
-            static void set_level(const float& l);
-        };
+        static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio);
 
         /*!
-         * \struct sample
-         * \brief Sample commands.
+         * \brief Stop playing music.
          */
-        struct sample {
-            /*!
-            * \brief Play a sample.
-            *
-            * When setting the playmode, passing "once" will play the sample once.
-            * Passing a reference name will play the sample in a loop.
-            * The sample can be stopped later using this reference name.
-            *
-            * \param sample Sample asset.
-            * \param ref Playmode.
-            */
-            static void play(
-                wte_asset<ALLEGRO_SAMPLE> sample,
-                const std::string& ref
-            );
-
-            /*!
-            * \brief Play a sample.
-            * \param sample Sample asset.
-            * \param ref Playmode.
-            * \param gain Gain value.  See allegro docs on al_play_sample for more info.
-            * \param pan Pan value.  See allegro docs on al_play_sample for more info.
-            * \param speed Speed value.  See allegro docs on al_play_sample for more info.
-            */
-            static void play(
-                wte_asset<ALLEGRO_SAMPLE> sample,
-                const std::string& ref,
-                const float& gain,
-                const float& pan,
-                const float& speed
-            );
-
-            /*!
-            * \brief Stop a playing sample.
-            * \param ref Playing sample reference name.
-            */
-            static void stop(const std::string& ref);
-
-            /*!
-            * \brief Claer all playing sample instances.
-            */
-            static void clear_instances(void);
-
-            /*!
-             * \brief Adjust the sample mixer volume level.
-             * \param l Volume level to set.
-             */
-            static void set_level(const float& l);
-        };
+        static void stop(void);
 
         /*!
-         * \struct voice
-         * \brief Voice commands.
+         * \brief Pause music.
          */
-        struct voice {
-            /*!
-            * \brief Play an audio asset on the voice channel.
-            * \param audio Audio asset.
-            */
-            static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio);
-
-            /*!
-            * \brief Stop a playing audio file.
-            */
-            static void stop(void);
-
-            /*!
-            * \brief Pause playing audio file.
-            */
-            static void pause(void);
-
-            /*!
-            * \brief Resume playing audio file.
-            */
-            static void unpause(void);
-
-            /*!
-             * \brief Adjust the voice mixer volume level.
-             * \param l Volume level to set.
-             */
-            static void set_level(const float& l);
-        };
+        static void pause(void);
 
         /*!
-         * \struct ambiance
-         * \brief Ambiance commands.
+         * \brief Unpause music.
          */
-        struct ambiance {
-            /*!
-            * \brief Toggle ambiance looping.
-            * \param loop True to enable, false to disable.
-            */
-            static void loop(const bool& loop);
+        static void unpause(void);
 
-            /*!
-            * \brief Play an audio asset on the ambiance channel.
-            * \param audio Audio asset.
-            */
-            static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio);
+        /*!
+         * \brief Adjust music track B mixer volume level.
+         * \param l Volume level to set.
+         */
+        static void set_level(const float& l);
+      };
 
-            /*!
-            * \brief Stop playing ambiance.
-            */
-            static void stop(void);
+      /*!
+       * \brief Adjust the music mixer volume level.
+       * \param l Volume level to set.
+       */
+      static void set_level(const float& l);
+    };
 
-            /*!
-            * \brief Pause playing ambiance.
-            */
-            static void pause(void);
+    /*!
+     * \struct sample
+     * \brief Sample commands.
+     */
+    struct sample {
+      /*!
+       * \brief Play a sample.
+       *
+       * When setting the playmode, passing "once" will play the sample once.
+       * Passing a reference name will play the sample in a loop.
+       * The sample can be stopped later using this reference name.
+       *
+       * \param sample Sample asset.
+       * \param ref Playmode.
+       */
+      static void play(
+        wte_asset<ALLEGRO_SAMPLE> sample,
+        const std::string& ref
+      );
 
-            /*!
-            * \brief Resume playing ambiance.
-            */
-            static void unpause(void);
+      /*!
+       * \brief Play a sample.
+       * \param sample Sample asset.
+       * \param ref Playmode.
+       * \param gain Gain value.  See allegro docs on al_play_sample for more info.
+       * \param pan Pan value.  See allegro docs on al_play_sample for more info.
+       * \param speed Speed value.  See allegro docs on al_play_sample for more info.
+       */
+      static void play(
+        wte_asset<ALLEGRO_SAMPLE> sample,
+        const std::string& ref,
+        const float& gain,
+        const float& pan,
+        const float& speed
+      );
 
-            /*!
-             * \brief Adjust the ambiance mixer volume level.
-             * \param l Volume level to set.
-             */
-            static void set_level(const float& l);
-        };
+      /*!
+       * \brief Stop a playing sample.
+       * \param ref Playing sample reference name.
+       */
+      static void stop(const std::string& ref);
 
-    private:
-        audio() = default;
-        ~audio() = default;
+      /*!
+       * \brief Claer all playing sample instances.
+       */
+      static void clear_instances(void);
 
-        //  Sets up the various Allegro objects for the audio manager to use.
-        static void initialize(void);
-        //  Destroies the Allegro objects used by the manager.
-        static void de_init(void);
-        //  Process audio manager messages
-        static void process_messages(const message_container& messages);
-        //  Set volume levels based on engine cfg settings.
-        static void set_volume(void);
+      /*!
+       * \brief Adjust the sample mixer volume level.
+       * \param l Volume level to set.
+       */
+      static void set_level(const float& l);
+    };
 
-        constexpr static int max_playing_samples = build_options.max_playing_samples;
-        
-        static commands cmds;
+    /*!
+     * \struct voice
+     * \brief Voice commands.
+     */
+    struct voice {
+      /*!
+       * \brief Play an audio asset on the voice channel.
+       * \param audio Audio asset.
+       */
+      static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio);
 
-        //  Main audio output
-        static ALLEGRO_VOICE* voice;
+      /*!
+       * \brief Stop a playing audio file.
+       */
+      static void stop(void);
 
-        //  Mixers
-        static ALLEGRO_MIXER* _mixer_main;
-        static ALLEGRO_MIXER* _mixer_1;
-        static ALLEGRO_MIXER* _mixer_1_a;
-        static ALLEGRO_MIXER* _mixer_1_b;
-        static ALLEGRO_MIXER* _mixer_2;
-        static ALLEGRO_MIXER* _mixer_3;
-        static ALLEGRO_MIXER* _mixer_4;
+      /*!
+       * \brief Pause playing audio file.
+       */
+      static void pause(void);
 
-        // Streams
-        static wte_asset<ALLEGRO_AUDIO_STREAM> music_stream_a;
-        static wte_asset<ALLEGRO_AUDIO_STREAM> music_stream_b;
-        static wte_asset<ALLEGRO_AUDIO_STREAM> ambiance_stream;
-        static wte_asset<ALLEGRO_AUDIO_STREAM> voice_stream;
+      /*!
+       * \brief Resume playing audio file.
+       */
+      static void unpause(void);
 
-        //  Store a reference of playing samples.
-        static std::map<const std::string, ALLEGRO_SAMPLE_ID> sample_instances;
+      /*!
+       * \brief Adjust the voice mixer volume level.
+       * \param l Volume level to set.
+       */
+      static void set_level(const float& l);
+    };
+
+    /*!
+     * \struct ambiance
+     * \brief Ambiance commands.
+     */
+    struct ambiance {
+      /*!
+       * \brief Toggle ambiance looping.
+       * \param loop True to enable, false to disable.
+       */
+      static void loop(const bool& loop);
+
+      /*!
+       * \brief Play an audio asset on the ambiance channel.
+       * \param audio Audio asset.
+       */
+      static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio);
+
+      /*!
+       * \brief Stop playing ambiance.
+       */
+      static void stop(void);
+
+      /*!
+       * \brief Pause playing ambiance.
+       */
+      static void pause(void);
+
+      /*!
+       * \brief Resume playing ambiance.
+       */
+      static void unpause(void);
+
+      /*!
+       * \brief Adjust the ambiance mixer volume level.
+       * \param l Volume level to set.
+       */
+      static void set_level(const float& l);
+    };
+
+  private:
+    audio() = default;
+    ~audio() = default;
+
+    //  Sets up the various Allegro objects for the audio manager to use.
+    static void initialize(void);
+    //  Destroies the Allegro objects used by the manager.
+    static void de_init(void);
+    //  Process audio manager messages
+    static void process_messages(const message_container& messages);
+    //  Set volume levels based on engine cfg settings.
+    static void set_volume(void);
+
+    constexpr static int max_playing_samples = build_options.max_playing_samples;
+    
+    static commands cmds;
+
+    //  Main audio output
+    static ALLEGRO_VOICE* voice;
+
+    //  Mixers
+    static ALLEGRO_MIXER* _mixer_main;
+    static ALLEGRO_MIXER* _mixer_1;
+    static ALLEGRO_MIXER* _mixer_1_a;
+    static ALLEGRO_MIXER* _mixer_1_b;
+    static ALLEGRO_MIXER* _mixer_2;
+    static ALLEGRO_MIXER* _mixer_3;
+    static ALLEGRO_MIXER* _mixer_4;
+
+    // Streams
+    static wte_asset<ALLEGRO_AUDIO_STREAM> music_stream_a;
+    static wte_asset<ALLEGRO_AUDIO_STREAM> music_stream_b;
+    static wte_asset<ALLEGRO_AUDIO_STREAM> ambiance_stream;
+    static wte_asset<ALLEGRO_AUDIO_STREAM> voice_stream;
+
+    //  Store a reference of playing samples.
+    static std::map<const std::string, ALLEGRO_SAMPLE_ID> sample_instances;
 };
 
 }  //  end namespace wte::mgr

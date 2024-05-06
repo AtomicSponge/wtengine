@@ -60,103 +60,103 @@ void em_looper(void);
  * Contains the main game loop and members for managing the game and engine.
  */
 class engine final : public config, public input, public display {
-    friend void do_game(void);
-    #if defined(__EMSCRIPTEN__)
-    friend void em_looper(void);
-    #endif
+  friend void do_game(void);
+  #if defined(__EMSCRIPTEN__)
+  friend void em_looper(void);
+  #endif
 
-    public:
-        engine(const engine&) = delete;          //  Delete copy constructor.
-        void operator=(engine const&) = delete;  //  Delete assignment operator.
+  public:
+    engine(const engine&) = delete;          //  Delete copy constructor.
+    void operator=(engine const&) = delete;  //  Delete assignment operator.
 
-        /*!
-         * \brief Add file path to provide to PhysFS.
-         * 
-         * This should be called during engine initialization before the main object is created.
-         * 
-         * \param flocation File location to add to PhysFS.
-         */
-        static void add_file_location(const std::string& flocation);
+    /*!
+     * \brief Add file path to provide to PhysFS.
+     * 
+     * This should be called during engine initialization before the main object is created.
+     * 
+     * \param flocation File location to add to PhysFS.
+     */
+    static void add_file_location(const std::string& flocation);
 
-        /*!
-         * \brief Initialize the engine.
-         * \param argc Command line arguments count.
-         * \param argv Command line arguments.
-         */
-        static void initialize(const int& argc, char** const& argv);
-        
-        /*!
-         * \brief De-initialize the engine.
-         */
-        static void de_init(void);
+    /*!
+     * \brief Initialize the engine.
+     * \param argc Command line arguments count.
+     * \param argv Command line arguments.
+     */
+    static void initialize(const int& argc, char** const& argv);
+    
+    /*!
+     * \brief De-initialize the engine.
+     */
+    static void de_init(void);
 
-        //!  Define this to load all systems to be used by the game.
-        inline static std::function<void(void)> load_systems = [](){};
-        //!  Define what gets loaded when a game starts.
-        inline static std::function<void(void)> new_game = [](){};
-        //!  Define what happens at the end of a game.
-        inline static std::function<void(void)> end_game = [](){};
-        //!  Optional:  On engine pause handler.
-        inline static std::function<void(void)> on_engine_pause = [](){};
-        //!  Optional:  On engine unpause handler.
-        inline static std::function<void(void)> on_engine_unpause = [](){};
-        //!  Optional:  Window out of focus handler.
-        inline static std::function<void(void)> out_of_focus = [](){};
-        //!  Optional:  Window back in focus handler.
-        inline static std::function<void(void)> back_in_focus = [](){};
+    //!  Define this to load all systems to be used by the game.
+    inline static std::function<void(void)> load_systems = [](){};
+    //!  Define what gets loaded when a game starts.
+    inline static std::function<void(void)> new_game = [](){};
+    //!  Define what happens at the end of a game.
+    inline static std::function<void(void)> end_game = [](){};
+    //!  Optional:  On engine pause handler.
+    inline static std::function<void(void)> on_engine_pause = [](){};
+    //!  Optional:  On engine unpause handler.
+    inline static std::function<void(void)> on_engine_unpause = [](){};
+    //!  Optional:  Window out of focus handler.
+    inline static std::function<void(void)> out_of_focus = [](){};
+    //!  Optional:  Window back in focus handler.
+    inline static std::function<void(void)> back_in_focus = [](){};
 
-    private:
-        engine() = default;
-        ~engine() = default;
+  private:
+    engine() = default;
+    ~engine() = default;
 
-        /*
-         * Load the engine's managers.
-         * Called before the main loop starts.
-         */
-        static void wte_load(void);
+    /*
+     * Load the engine's managers.
+     * Called before the main loop starts.
+     */
+    static void wte_load(void);
 
-        /*
-         * Unload the engine's managers.
-         * Called after the main loop ends running.
-         */
-        static void wte_unload(void);
+    /*
+     * Unload the engine's managers.
+     * Called after the main loop ends running.
+     */
+    static void wte_unload(void);
 
-        /*
-         * Main engine loop (single pass)
-         */
-        static void main_loop(void);
+    /*
+     * Main engine loop (single pass)
+     */
+    static void main_loop(void);
 
-        /*
-         * Call to start a new game.
-         * Loads a game data file and user defined systems and starting entities.
-         * Gets passed game data file to load.
-         */
-        static void process_new_game(const std::string& game_data);
+    /*
+     * Call to start a new game.
+     * Loads a game data file and user defined systems and starting entities.
+     * Gets passed game data file to load.
+     */
+    static void process_new_game(const std::string& game_data);
 
-        /*
-         * Call to end the game.
-         * Clears out the entities and systems and runs user defined end process.
-         * If passed true, skips the custom game cleanup.
-         */
-        static void process_end_game(const bool& force);
+    /*
+     * Call to end the game.
+     * Clears out the entities and systems and runs user defined end process.
+     * If passed true, skips the custom game cleanup.
+     */
+    static void process_end_game(const bool& force);
 
-        //  Internal commands for the engine.
-        static commands cmds;
+    //  Internal commands for the engine.
+    static commands cmds;
 
-        //  Allegro objects used by the engine.
-        static ALLEGRO_TIMER* main_timer;
-        static ALLEGRO_EVENT_QUEUE* main_event_queue;
+    //  Allegro objects used by the engine.
+    static ALLEGRO_TIMER* main_timer;
+    static ALLEGRO_EVENT_QUEUE* main_event_queue;
 
-        //  Vector of file paths to provide to PhysFS.
-        static std::vector<std::string> file_locations;
-        //  Restrict to one instance of the engine running.
-        static bool initialized;
+    //  Vector of file paths to provide to PhysFS.
+    static std::vector<std::string> file_locations;
+    //  Restrict to one instance of the engine running.
+    static bool initialized;
 };
 
 #if defined(__EMSCRIPTEN__)
 inline void em_looper(void) {
-    engine::main_loop();
-    if(!config::flags::is_running) emscripten_cancel_main_loop();
+  engine::main_loop();
+  if(!config::flags::is_running) emscripten_cancel_main_loop();
 }
 #endif
 
@@ -164,18 +164,18 @@ inline void em_looper(void) {
  * \brief The main engine loop.
  */
 inline void do_game(void) {
-    //  Load engine.
-    engine::wte_load();
+  //  Load engine.
+  engine::wte_load();
 
-    //  MAIN ENGINE LOOP
-    #if defined(__EMSCRIPTEN__)
-        emscripten_set_main_loop(em_looper, 0, true);
-    #else
-        while(config::flags::is_running) engine::main_loop();
-    #endif
+  //  MAIN ENGINE LOOP
+  #if defined(__EMSCRIPTEN__)
+    emscripten_set_main_loop(em_looper, 0, true);
+  #else
+    while(config::flags::is_running) engine::main_loop();
+  #endif
 
-    // Unload engine.
-    engine::wte_unload();
+  // Unload engine.
+  engine::wte_unload();
 }
 
 }  //  end namespace wte

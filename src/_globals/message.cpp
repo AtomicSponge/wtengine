@@ -42,15 +42,15 @@ bool message::operator<(const message& m) const { return timer < m.timer; }
  *
  */
 void message::split_args(const std::string& a) {
-    if(a == "") args.push_back("");
-    else {
-        std::stringstream arg_stream(a);
-        std::string segment;
+  if(a == "") args.push_back("");
+  else {
+    std::stringstream arg_stream(a);
+    std::string segment;
 
-        while(std::getline(arg_stream, segment, ';')) {
-            args.push_back(segment);
-        }
+    while(std::getline(arg_stream, segment, ';')) {
+      args.push_back(segment);
     }
+  }
 }
 
 /*
@@ -92,16 +92,16 @@ const msg_args message::get_args(void) const { return args; }
  *
  */
 const std::string message::get_arg(const std::size_t& pos) const {
-    if(pos >= args.size()) return "";  //  Out of range, return empty string.
-    else return args[pos];
+  if(pos >= args.size()) return "";  //  Out of range, return empty string.
+  else return args[pos];
 }
 
 /*
  *
  */
 bool message::is_timed_event(void) const {
-    if(timer == -1) return false;
-    else return true;
+  if(timer == -1) return false;
+  else return true;
 }
 
 }  //  end namespace wte

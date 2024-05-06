@@ -19,14 +19,14 @@ namespace wte::sys {
  * Also sends messages to entities with dispatch components.
  */
 class logic final : public system {
-    public:
-        logic();
-        ~logic() = default;
+  public:
+    logic();
+    ~logic() = default;
 
-        /*!
-         * \brief Finds all entities with an ai component and processes their logic.
-         */
-        void run(void) override;
+    /*!
+     * \brief Finds all entities with an ai component and processes their logic.
+     */
+    void run(void) override;
 };
 
 }  //  end namespace wte::sys

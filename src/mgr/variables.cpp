@@ -18,38 +18,38 @@ std::map<const std::string, std::any> variables::_map;
  *
  */
 void variables::set_data_file(const std::string& fname) {
-    data_file_name = fname;
+  data_file_name = fname;
 }
 
 /*
  *
  */
 bool variables::clear_save(void) {
-    std::ofstream dfile(data_file_name, std::ofstream::trunc);
-    if(!dfile.good()) return false;
-    dfile.close();
-    return true;
+  std::ofstream dfile(data_file_name, std::ofstream::trunc);
+  if(!dfile.good()) return false;
+  dfile.close();
+  return true;
 }
 
 /*
  *
  */
 bool variables::isreg(const std::string& var) {
-    auto it = _map.find(var);
-    if(it != _map.end()) return true;
-    return false;
+  auto it = _map.find(var);
+  if(it != _map.end()) return true;
+  return false;
 }
 
 /*
  *
  */
 bool variables::del(const std::string& var) {
-    auto it = _map.find(var);
-    if(it != _map.end()) {
-        _map.erase(it);
-        return true;
-    }
-    return false;
+  auto it = _map.find(var);
+  if(it != _map.end()) {
+    _map.erase(it);
+    return true;
+  }
+  return false;
 }
 
 }  //  end namespace wte::mgr

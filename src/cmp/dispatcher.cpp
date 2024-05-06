@@ -13,7 +13,7 @@ namespace wte::cmp {
  *
  */
 dispatcher::dispatcher(
-    const std::function<void(const entity_id&, const message&)>& func
+  const std::function<void(const entity_id&, const message&)>& func
 ) : handle_msg(func) {}
 
 }  //  end namespace wte::cmp

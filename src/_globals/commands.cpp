@@ -13,26 +13,26 @@ namespace wte {
  *
  */
 bool commands::add(
-    const std::string& cmd,
-    const std::size_t& nargs,
-    const std::function<void(const msg_args&)>& func
+  const std::string& cmd,
+  const std::size_t& nargs,
+  const std::function<void(const msg_args&)>& func
 ) {
-    auto ret = _commands.insert(std::make_pair(cmd, std::make_pair(nargs, func)));
-    return ret.second;
+  auto ret = _commands.insert(std::make_pair(cmd, std::make_pair(nargs, func)));
+  return ret.second;
 }
 
 /*
  *
  */
 void commands::process_messages(
-    const message_container& messages
+  const message_container& messages
 ) {
-    for(auto& it: messages) {
-        auto res = _commands.find(it.get_cmd());
-        //  Check to make sure there are enough arguments to run the command.
-        if(res != _commands.end() && it.num_args() >= res->second.first)
-            res->second.second(it.get_args());
-    }
+  for(auto& it: messages) {
+    auto res = _commands.find(it.get_cmd());
+    //  Check to make sure there are enough arguments to run the command.
+    if(res != _commands.end() && it.num_args() >= res->second.first)
+      res->second.second(it.get_args());
+  }
 }
 
 } //  end namespace wte

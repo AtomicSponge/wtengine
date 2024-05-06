@@ -41,8 +41,8 @@ const float& config::gfx::scale_factor = config::_gfx::scale_factor;
  *
  */
 config::config() {
-    if(initialized == true) throw engine_error("Config instance already running!");
-    initialized = true;
+  if(initialized == true) throw engine_error("Config instance already running!");
+  initialized = true;
 }
 
 /*

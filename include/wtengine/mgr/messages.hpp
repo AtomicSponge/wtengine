@@ -103,9 +103,7 @@ class messages final : private manager<messages> {
 
     static void message_log_start(void);
     static void message_log_stop(void);
-    static void log(           //  Write a message to the debug log file
-      const message& msg,
-      const bool& deleted);
+    static void log(const message& msg, const bool& deleted);  //  Write a message to the debug log file
     static std::ofstream debug_log_file;  //  For message logging
 };
 

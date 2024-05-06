@@ -73,7 +73,7 @@ class engine_error final : public std::exception {
     int64_t when() const noexcept;
 
   private:
-      const exception_item item;  //  Store the exception item.
+    const exception_item item;  //  Store the exception item.
 };
 
 /*!
@@ -115,7 +115,7 @@ class engine_exception final : public std::exception {
     int64_t when() const noexcept;
 
   private:
-      const exception_item item;  //  Store the exception item.
+    const exception_item item;  //  Store the exception item.
 };
 
 }  //  end namespace wte

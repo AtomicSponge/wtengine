@@ -19,14 +19,14 @@ colision::colision() : system("colision") {}
  */
 void colision::run(void) {
   const_component_container<cmp::hitbox> hitbox_components =
-      mgr::world::get_components<cmp::hitbox>();
+    mgr::world::get_components<cmp::hitbox>();
 
   for(auto& it_a: hitbox_components) {
     for(auto& it_b: hitbox_components) {
       cmp::const_comp_ptr<cmp::location> temp_location_a =
-          mgr::world::get_component<cmp::location>(it_a.first);
+        mgr::world::get_component<cmp::location>(it_a.first);
       cmp::const_comp_ptr<cmp::location> temp_location_b =
-          mgr::world::get_component<cmp::location>(it_b.first);
+        mgr::world::get_component<cmp::location>(it_b.first);
 
       /*
        * Only test if:  Not the same entity.

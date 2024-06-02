@@ -58,17 +58,29 @@ class systems final : private manager<systems> {
     ~systems() = default;
 
     //  Clear the system manager and allow systems to be loaded again.
-    static void clear(void);
+    static void clear(void) {
+      _systems.clear();
+      finalized = false;
+    };
+
     //  Check if systems were loaded into the manager.
-    static bool empty(void);
+    static bool empty(void) { return (_systems.empty()); };
+
     //  Run all systems.
-    static void run(void);
+    static void run(void) {
+      for(auto& it: _systems)
+        try { 
+          (it)->run();
+        } catch(const std::exception& e) { throw e; }
+    };
 
     // Store the vector of systems.
     static std::vector<sys::system_uptr> _systems;
     //  Flag to disallow loading of additional systems.
-    static bool finalized;
+    static bool finalized = false;
 };
+
+//template <> bool manager<systems>::initialized = false;
 
 }  //  end namespace wte::mgr
 

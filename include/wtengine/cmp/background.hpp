@@ -36,7 +36,7 @@ class background final : public gfx {
       const std::size_t& l,
       const float& x,
       const float& y
-    );
+    ) : gfx(bmp, l, [](const entity_id& e_id) {}), pos_x(x), pos_y(y) {};
 
     /*!
      * \brief Create a Background component with custom animation.
@@ -52,7 +52,7 @@ class background final : public gfx {
       const float& x,
       const float& y,
       const std::function<void(const entity_id&)>& func
-    );
+    ) : gfx(bmp, l, func), pos_x(x), pos_y(y) {};
 
     background() = delete;    //  Delete default constructor.
     ~background() = default;  //  Default destructor.

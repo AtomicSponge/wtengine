@@ -51,24 +51,27 @@ class gfx : public component {
     /*!
      * \brief Set drawing to the internal bitmap.
      */
-    void set_drawing(void);
+    void set_drawing(void) { al_set_target_bitmap(_bitmap.get()); };
 
     /*!
      * \brief Set a tint color.
      * \param c Allegro color.
      */
-    void set_tint(const ALLEGRO_COLOR& c);
+    void set_tint(const ALLEGRO_COLOR& c) {
+      tint_color = c;
+      tinted = true;
+    };
 
     /*!
      * \brief Get the tint color.
      * \return Allegro color.
      */
-    const ALLEGRO_COLOR get_tint(void) const;
+    const ALLEGRO_COLOR get_tint(void) const { return tint_color; };
 
     /*!
      * \brief Clear tint color.
      */
-    void clear_tint(void);
+    void clear_tint(void) { tinted = false; };
 
     std::size_t layer;     //!<  Layer position.
     bool visible;          //!<  Flag to set visibility.
@@ -88,7 +91,9 @@ class gfx : public component {
       wte_asset<ALLEGRO_BITMAP> bmp,
       const std::size_t& l,
       const std::function<void(const entity_id&)>& func
-    );
+    ) : layer(l), visible(true), rotated(false), direction(0.0f),
+        scale_factor_x(1.0f), scale_factor_y(1.0f),
+        _bitmap(bmp), tinted(false), animate(func) {};
 
     //!  Stores the bitmap used by the animator.
     wte_asset<ALLEGRO_BITMAP> _bitmap;

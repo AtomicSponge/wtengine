@@ -28,7 +28,7 @@ class hitbox final : public component {
       const float& w,
       const float& h,
       const std::size_t& t
-    );
+    ) : width(w), height(h), team(t), solid(true) {};
 
     /*!
      * \brief Create a new Hitbox component, set solid flag.
@@ -42,7 +42,7 @@ class hitbox final : public component {
       const float& h,
       const std::size_t& t,
       const bool& s
-    );
+    ) : width(w), height(h), team(t), solid(s) {};
 
     hitbox() = delete;    //  Delete default constructor.
     ~hitbox() = default;  //  Default destructor.

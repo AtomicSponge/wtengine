@@ -32,7 +32,7 @@ class bounding_box final : public component {
       const float& ly,
       const float& rx,
       const float& ry
-    );
+    ) : min_x(lx), min_y(ly), max_x(rx), max_y(ry) {};
 
     bounding_box() = delete;    //  Delete default constructor.
     ~bounding_box() = default;  //  Default destructor.

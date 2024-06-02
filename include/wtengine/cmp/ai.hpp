@@ -35,7 +35,8 @@ class ai final : public component {
      * \brief Create an AI component with enabled only AI.
      * \param func Function to define AI process.
      */
-    ai(const std::function<void(const entity_id&)>& func);
+    ai(const std::function<void(const entity_id&)>& func) :
+      enabled(true), enabled_ai(func), disabled_ai([](const entity_id& e_id){}) {};
 
     /*!
      * \brief Create an AI component with enabled and disabled AI.
@@ -45,7 +46,7 @@ class ai final : public component {
     ai(
       const std::function<void(const entity_id&)>& func_a,
       const std::function<void(const entity_id&)>& func_b
-    );
+    ) : enabled(true), enabled_ai(func_a), disabled_ai(func_b) {};
 
     ai() = delete;    //  Delete default constructor.
     ~ai() = default;  //  Default destructor.

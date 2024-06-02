@@ -98,12 +98,6 @@ find_package(OpenGL REQUIRED)
 #
 ########################################
 add_library(wtengine STATIC 
-  src/cmp/ai.cpp
-  src/cmp/background.cpp
-  src/cmp/bounding_box.cpp
-  src/cmp/dispatcher.cpp
-  src/cmp/gfx.cpp
-  src/cmp/hitbox.cpp
   src/cmp/location.cpp
   src/cmp/motion.cpp
   src/cmp/overlay.cpp

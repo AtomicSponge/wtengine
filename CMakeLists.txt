@@ -98,9 +98,6 @@ find_package(OpenGL REQUIRED)
 #
 ########################################
 add_library(wtengine STATIC 
-  src/cmp/location.cpp
-  src/cmp/motion.cpp
-  src/cmp/overlay.cpp
   src/cmp/sprite.cpp
   src/mgr/audio.cpp
   src/mgr/messages.cpp

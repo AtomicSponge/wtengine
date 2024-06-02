@@ -26,7 +26,7 @@ class location final : public component {
     location(
       const float& x,
       const float& y
-    );
+    ) : pos_x(x), pos_y(y) {};
 
     location() = delete;    //  Delete default constructor.
     ~location() = default;  //  Default destructor.

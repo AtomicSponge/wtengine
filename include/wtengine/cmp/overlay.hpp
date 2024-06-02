@@ -42,7 +42,7 @@ class overlay final : public gfx {
       const float& x,
       const float& y,
       const std::function<void(const entity_id&)>& func
-    );
+    ) : gfx(bmp, l, func), pos_x(x), pos_y(y), overlay_font(font) {};
 
     overlay() = delete;    //  Delete default constructor.
     ~overlay() = default;  //  Default destructor.
@@ -61,7 +61,9 @@ class overlay final : public gfx {
       const float& x,
       const float& y,
       const int& f
-    );
+    ) {
+      al_draw_text(overlay_font.get(), color, x, y, f, txt.c_str());
+    };
 
     float pos_x;  //!<  X position.
     float pos_y;  //!<  Y position.

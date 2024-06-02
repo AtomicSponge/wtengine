@@ -33,13 +33,18 @@ class variables final : private manager<variables> {
      * \brief Set the file the game config variables will be written to.
      * \param fname Filename to set saving to.
      */
-    static void set_data_file(const std::string& fname);
+    static void set_data_file(const std::string& fname) { data_file_name = fname; };
 
     /*!
      * \brief Clear the current game config save.
      * \return False on fail, true on success.
      */
-    static bool clear_save(void);
+    static bool clear_save(void) {
+      std::ofstream dfile(data_file_name, std::ofstream::trunc);
+      if(!dfile.good()) return false;
+      dfile.close();
+      return true;
+    };
 
     /*!
      * \brief Save a game config variable to file.
@@ -164,14 +169,25 @@ class variables final : private manager<variables> {
      * \param var Variable name.
      * \return True if it is, false if not.
      */
-    static bool isreg(const std::string& var);
+    static bool isreg(const std::string& var) {
+      auto it = _map.find(var);
+      if(it != _map.end()) return true;
+      return false;
+    };
 
     /*!
      * \brief Delete a variable.
      * \param var Variable name.
      * \return True if deleted, false if not.
      */
-    static bool del(const std::string& var);
+    static bool del(const std::string& var) {
+      auto it = _map.find(var);
+      if(it != _map.end()) {
+        _map.erase(it);
+        return true;
+      }
+      return false;
+    };
 
     /*!
      * \brief Set a variable's value.
@@ -241,9 +257,11 @@ class variables final : private manager<variables> {
       );
     };
 
-    static std::string data_file_name;  //  File to save variables to.
+    static std::string data_file_name = "game.cfg";  //  File to save variables to.
     static std::map<const std::string, std::any> _map;  //  Map of variables.
 };
+
+//template <> bool manager<variables>::initialized = false;
 
 }  //  end namespace wte::mgr
 

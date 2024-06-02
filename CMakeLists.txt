@@ -98,11 +98,6 @@ find_package(OpenGL REQUIRED)
 #
 ########################################
 add_library(wtengine STATIC 
-  src/_debug/exceptions.cpp    
-  src/_debug/logger.cpp
-  src/_globals/commands.cpp
-  src/_globals/engine_time.cpp
-  src/_globals/message.cpp
   src/cmp/ai.cpp
   src/cmp/background.cpp
   src/cmp/bounding_box.cpp

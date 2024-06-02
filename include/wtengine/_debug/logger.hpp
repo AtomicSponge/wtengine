@@ -45,14 +45,27 @@ class logger final {
      */
     static const void log(
       const std::string& d, const std::string& l,
-      const unsigned int& c, const int64_t& t);
+      const unsigned int& c, const int64_t& t) {
+      log_file << d + ", " + l + ", " + std::to_string(c) + ", " + std::to_string(t) + "\n";
+    };
 
   private:
     logger() = default;
     ~logger() = default;
 
-    static void start(void);
-    static void stop(void);
+    static void start(void) {
+      std::time_t t = std::time(nullptr);
+      std::ostringstream date_stream;
+      date_stream << std::put_time(std::localtime(&t), "%d-%m-%Y_%H-%M-%S");
+      std::string date = date_stream.str();
+      std::cout << "Logging exceptions to:  exceptions_" + date + ".log.csv\n";
+      log_file.open("exceptions_" + date + ".log.csv", std::ios::out | std::ios::trunc);
+      log_file << "Description, Location, Time, Code" << std::endl;
+    };
+
+    static void stop(void) {
+      log_file.close();
+    };
 
     static std::ofstream log_file;
 };

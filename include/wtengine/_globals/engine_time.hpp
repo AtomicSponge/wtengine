@@ -29,12 +29,12 @@ class engine_time final {
      * \brief Check the internal engine timer.
      * \return Timer value.
      */
-    static int64_t check(void);
+    static int64_t check(void) { return current_time; };
 
   private:
     //  Sets the internal timer. Called internally by engine.
-    static void set(const int64_t& t);
-    static int64_t current_time;  //  Track game timer
+    static void set(const int64_t& t) {  current_time = t; };
+    static int64_t current_time = 0;  //  Track game timer
 };
 
 }  //  end namespace wte

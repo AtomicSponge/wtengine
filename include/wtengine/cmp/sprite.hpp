@@ -70,14 +70,24 @@ class sprite final : public gfx {
       const std::string& name,
       const std::size_t& start,
       const std::size_t& stop
-    );
+    ) {
+      auto ret = cycles.insert(std::make_pair(name, std::make_pair(start, stop)));
+      return ret.second;
+    };
 
     /*!
      * \brief Set the active cycle.
      * \param name Name of cycle to set.
      * \return True if set, false if not.
      */
-    bool set_cycle(const std::string& name);
+    bool set_cycle(const std::string& name) {
+      auto it = cycles.find(name);
+      if(it != cycles.end()) {
+        start_frame = it->second.first;
+        stop_frame = it->second.second;
+        return true;
+      } else return false;
+    };
 
   private:
     //  Animation cycle index.

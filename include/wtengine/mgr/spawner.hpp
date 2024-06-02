@@ -46,14 +46,25 @@ class spawner final : private manager<spawner> {
       const std::string& name,
       const std::size_t& num_args,
       const std::function<void(const entity_id&, const msg_args&)>& func
-    );
+    ) {
+      auto ret = spawns.insert(std::make_pair(name, std::make_pair(num_args, func)));
+      return ret.second;
+    };
 
     /*!
      * \brief Delete a spawn.
      * \param name Name of spawn to delete.
      * \return True if removed, else false.
      */
-    static bool remove(const std::string& name);
+    static bool remove(const std::string& name) {
+      auto it = std::find_if(spawns.begin(), spawns.end(),
+                            [&name](const auto& e){ return e.first == name; });
+      if(it != spawns.end()) {
+        spawns.erase(it);
+        return true;
+      }
+      return false;
+    };
 
     /*!
      * \brief Spawn entity.
@@ -61,14 +72,46 @@ class spawner final : private manager<spawner> {
      * \param args Arguments to entity creation.
      * \return True if spawned, else false.
      */
-    static bool spawn(const std::string& name, const msg_args& args);
+    static bool spawn(const std::string& name, const msg_args& args) {
+      auto it = spawns.find(name);
+      if(it != spawns.end()) {
+        if(args.size() == it->second.first) {
+          try {
+            it->second.second(mgr::world::new_entity(), args);
+          } catch(const std::exception& e) { throw e; }
+          return true;
+        }
+      }
+      return false;
+    };
 
   private:
     spawner() = default;
     ~spawner() = default;
 
     //  Takes spawner messages and processes.
-    static void process_messages(const message_container& messages);
+    static void process_messages(const message_container& messages) {
+      for(auto& m_it: messages) {
+        if(m_it.get_cmd() == "new") {
+          auto s_it = spawns.find(m_it.get_arg(0));
+          if(s_it != spawns.end())
+            //  Make sure the number of arguments match what's expected.
+            //  Note that we do not count the first argument.
+            if(m_it.num_args() == s_it->second.first + 1) {
+              try {
+                s_it->second.second(mgr::world::new_entity(), m_it.get_args());
+              } catch(const std::exception& e) { throw e; }
+            }
+        }
+
+        if(m_it.get_cmd() == "delete") {
+          entity_id delete_entity_id = mgr::world::get_id(m_it.get_arg(0));
+          if(delete_entity_id != mgr::world::ENTITY_ERROR) {
+            mgr::world::delete_entity(delete_entity_id);
+          }
+        }
+      }  //  End for(m_it)
+    };
 
     static std::map<
       const std::string,
@@ -77,6 +120,8 @@ class spawner final : private manager<spawner> {
         const std::function<void(const entity_id&, const msg_args&)>
     >> spawns;
 };
+
+//template <> bool manager<spawner>::initialized = false;
 
 }  //  end namespace wte::mgr
 

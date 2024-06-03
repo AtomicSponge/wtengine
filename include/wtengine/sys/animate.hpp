@@ -18,7 +18,7 @@ namespace wte::sys::gfx {
  */
 class animate final : public system {
   public:
-    animate();
+    animate() : system("animate") {};
     ~animate() = default;
 
     /*!
@@ -26,7 +26,13 @@ class animate final : public system {
      * 
      * The entity must also have the visible component and is set visible to be drawn.
      */
-    void run(void) override;
+    void run(void) override {
+      component_container<cmp::gfx::gfx> animation_components =
+        mgr::world::set_components<cmp::gfx::gfx>();
+
+      for(auto& it: animation_components)
+        if(it.second->visible) it.second->animate(it.first);
+    };
 };
 
 }  //  end namespace wte::sys

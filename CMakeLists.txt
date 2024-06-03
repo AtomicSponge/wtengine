@@ -100,7 +100,6 @@ find_package(OpenGL REQUIRED)
 add_library(wtengine STATIC 
   src/cmp/sprite.cpp
   src/config.cpp
-  src/input.cpp
   src/engine.cpp
   src/imgui/imgui_draw.cpp
   src/imgui/imgui_impl_allegro5.cpp

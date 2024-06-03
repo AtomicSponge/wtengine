@@ -45,15 +45,25 @@ class input {
     /*!
      * \brief Start input recording.
      */
-    static void start_recording(void);
+    static void start_recording(void) {
+      input_event_file.open("input_events", std::ios::binary | std::ofstream::app);
+      config::_flags::record_input = true;
+    };
 
     /*!
      * \brief Stop input recording.
      */
-    static void stop_recording(void);
+    static void stop_recording(void) {
+      if(input_event_file.is_open()) input_event_file.close();
+      config::_flags::record_input = false;
+    };
 
   protected:
-    input();  //  Constructor
+    //  Constructor
+    input() {
+      if(initialized == true) throw engine_error("Input instance already running!");
+      initialized = true;
+    };
 
   private:
     template <handler_scopes S>
@@ -160,15 +170,66 @@ class input {
       }
     };
 
-    static void create_event_queue(void);                //  Create the input queue.
-    static void destroy_event_queue(void);               //  Destroy the input queue.
-    static void record_event(const int64_t&, const ALLEGRO_EVENT&);  //  Record input events
-    static void check_events(void);                      //  Check the input queue for events.
-    static void run_game_handler(const ALLEGRO_EVENT&);  //  Process in-game input events.
+
+    //  Create the input queue.
+    static void create_event_queue(void) {
+      input_event_queue = al_create_event_queue();
+      if(!input_event_queue) throw engine_error("Failed to create input event queue!");
+
+      if(build_options.keyboard_enabled && config::flags::keyboard_installed)
+        al_register_event_source(input_event_queue, al_get_keyboard_event_source());
+      if(build_options.mouse_enabled && config::flags::mouse_installed)
+        al_register_event_source(input_event_queue, al_get_mouse_event_source());
+      if(build_options.joystick_enabled && config::flags::joystick_installed)
+        al_register_event_source(input_event_queue, al_get_joystick_event_source());
+      if(build_options.touch_enabled && config::flags::touch_installed)
+        al_register_event_source(input_event_queue, al_get_touch_input_event_source());
+    };
+
+    //  Destroy the input queue.
+    static void destroy_event_queue(void) {
+      al_destroy_event_queue(input_event_queue);
+    };
+
+    //  Record input events
+    static void record_event(const int64_t&, const ALLEGRO_EVENT&) { 
+      input_event_file.write(reinterpret_cast<const char*>(time), sizeof(int64_t));
+      input_event_file.write(reinterpret_cast<const char*>(sizeof(event)), sizeof(std::size_t));
+      input_event_file.write(reinterpret_cast<const char*>(&event), sizeof(event));
+    };
+
+    //  Check the input queue for events.
+    static void check_events(void) {
+      ALLEGRO_EVENT event;
+      while(al_get_next_event(input_event_queue, &event)) {
+        if constexpr (build_options.debug_mode) {
+          if(event.type == ALLEGRO_EVENT_KEY_DOWN && event.keyboard.keycode == WTE_KEY_TOGGLE_HITBOX)
+            (config::flags::show_hitboxes ?
+                config::_flags::show_hitboxes = false :
+                config::_flags::show_hitboxes = true);
+        }
+        //  Process Dear ImGui events
+        if constexpr (build_options.use_imgui)
+          ImGui_ImplAllegro5_ProcessEvent(&event);
+        //  Record input if enabled.
+        if(config::flags::record_input) record_event(engine_time::check(), event);
+        //  Run the handles
+        run_handles<GLOBAL_HANDLES>(event);        //  Run global handles
+        if(config::flags::engine_started) {
+          if(config::flags::input_enabled)
+            run_handles<GAME_HANDLES>(event);  //  Run game handles
+        } else {
+          run_handles<NONGAME_HANDLES>(event);   //  Run non-game handles
+        }
+      }
+    };
+
+    //  Process in-game input events.
+    static void run_game_handler(const ALLEGRO_EVENT&);
 
     static ALLEGRO_EVENT_QUEUE* input_event_queue;  //  Input event queue.
     static std::ofstream input_event_file;          //  Event record file.
-    static bool initialized;                        //  Restrict to one instance.
+    static bool initialized = false;                //  Restrict to one instance.
 };
 
 }  //  end namespace wte

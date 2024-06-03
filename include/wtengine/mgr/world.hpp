@@ -95,21 +95,69 @@ class world final : private manager<world> {
      * \brief Create a new entity by name, using the next available ID.
      * \return The newly created entity ID.  WTE_ENTITY_ERROR on fail.
      */
-    static entity_id new_entity(void);
+    static entity_id new_entity(void) {
+      entity_id next_id;
+
+      if(entity_counter == ENTITY_MAX) {  //  Counter hit max.
+        bool test = false;
+        //  Look for the first available ID.
+        for(next_id = ENTITY_START; !test; next_id++) {
+          if(next_id == ENTITY_MAX) return ENTITY_ERROR;  //  No available ID, error.
+          //  See if the new ID does not exist.
+          test = (std::find_if(entity_vec.begin(), entity_vec.end(),
+                              [&next_id](const entity& e){ return e.first == next_id; })
+                  == entity_vec.end());
+        }
+      } else {  //  Counter not max, use the counter for entity ID.
+        next_id = entity_counter;
+        entity_counter++;
+      }
+
+      //  Set a new name.  Make sure name doesn't exist.
+      std::string entity_name = "Entity" + std::to_string(next_id);
+      bool test = false;
+      for(entity_id temp_id = ENTITY_START; !test; temp_id++) {
+        if(temp_id == ENTITY_MAX) return ENTITY_ERROR;  //  Couldn't name entity, error.
+        //  See if the new name does not exist.
+        test = (std::find_if(entity_vec.begin(), entity_vec.end(),
+                            [&entity_name](const entity& e){ return e.second == entity_name; })
+                == entity_vec.end());
+        //  If it does, append the temp number and try that.
+        if(!test) entity_name = "Entity" + std::to_string(next_id) + std::to_string(temp_id);
+      }
+
+      //  Tests complete, insert new entity.
+      entity_vec.push_back(std::make_pair(next_id, entity_name));
+      return next_id;  //  Return new entity ID.
+    };
 
     /*!
      * \brief Delete entity by ID.
      * \param e_id The entity ID to delete.
      * \return Return true on success, false if entity does not exist.
      */
-    static bool delete_entity(const entity_id& e_id);
+    static bool delete_entity(const entity_id& e_id) {
+      auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),
+                              [&e_id](const entity& e){ return e.first == e_id; });
+      if(e_it == entity_vec.end()) return false;
+
+      _world.erase(e_id);      //  Remove all associated componenets.
+      entity_vec.erase(e_it);  //  Delete the entity.
+
+      return true;
+    };
 
     /*!
      * \brief Check if an entity exists by ID.
      * \param e_id The entity ID to check.
      * \return Return true if found, return false if not found.
      */
-    static bool entity_exists(const entity_id& e_id);
+    static bool entity_exists(const entity_id& e_id) {
+      const bool result = (std::find_if(entity_vec.begin(), entity_vec.end(),
+        [&e_id](const entity& e){ return e.first == e_id; })
+        != entity_vec.end());
+      return result;
+    };
 
     /*!
      * \brief Get entity name.
@@ -117,7 +165,16 @@ class world final : private manager<world> {
      * \return Entity name string.
      * \exception wte_exception Entity does not exist.
      */
-    static const std::string get_name(const entity_id& e_id);
+    static const std::string get_name(const entity_id& e_id) {
+      auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),
+                              [&e_id](const entity& e){ return e.first == e_id; });
+      if(e_it == entity_vec.end()) {
+        //  Not found, throw error.
+        throw engine_exception(
+          "Entity " + std::to_string(e_id) + " does not exist", "World", 4);
+      }
+      return e_it->second;
+    };
 
     /*!
      * \brief Set the entity name.
@@ -128,20 +185,39 @@ class world final : private manager<world> {
     static bool set_name(
       const entity_id& e_id,
       const std::string& name
-    );
+    ) {
+      auto n_it = std::find_if(entity_vec.begin(), entity_vec.end(),
+                              [&name](const entity& e){ return e.second == name; });
+      if(n_it != entity_vec.end()) return false;  //  Entity with the new name exists, error.
+
+      auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),
+                              [&e_id](const entity& e){ return e.first == e_id; });
+      if(e_it == entity_vec.end()) return false;  //  Didn't find entity_id, error.
+
+      e_it->second = name;
+      return true;
+    };
 
     /*!
      * \brief Get entity ID by name.
      * \param name Name to search.
      * \return Entity ID, WTE_ENTITY_ERROR if not found.
      */
-    static entity_id get_id(const std::string& name);
+    static entity_id get_id(const std::string& name) {
+      auto n_it = std::find_if(entity_vec.begin(), entity_vec.end(),
+                              [&name](const entity& e){ return e.second == name; });
+      if(n_it == entity_vec.end()) return ENTITY_ERROR;
+      return n_it->first;
+    };
 
     /*!
      * \brief Get the entity reference vector.
      * \return Returns a vector of all entity IDs and names.
      */
-    static const entities get_entities(void);
+    static const entities get_entities(void) {
+      entities temp_vec = entity_vec;
+      return temp_vec;
+    };
 
     /*!
      * \brief Set all components related to an entity.
@@ -149,7 +225,20 @@ class world final : private manager<world> {
      * \return Returns a container of components based by entity ID.
      * \exception wte_exception Entity does not exist.
      */
-    static const entity_container set_entity(const entity_id& e_id);
+    static const entity_container set_entity(const entity_id& e_id) {
+      if(!entity_exists(e_id)) {
+        throw engine_exception(
+          "Entity " + std::to_string(e_id) + " does not exist", "World", 4);
+      }
+
+      entity_container temp_container;
+      const auto results = _world.equal_range(e_id);
+
+      for(auto it = results.first; it != results.second; it++) {
+        temp_container.emplace_back(cmp::component_sptr((*it).second));
+      }
+      return temp_container;
+    };
 
     /*!
      * \brief Get all components related to an entity.
@@ -157,7 +246,20 @@ class world final : private manager<world> {
      * \return Returns a constant container of components based by entity ID.
      * \exception wte_exception Entity does not exist.
      */
-    static const const_entity_container get_entity(const entity_id& e_id);
+    static const const_entity_container get_entity(const entity_id& e_id) {
+      if(!entity_exists(e_id)) {
+        throw engine_exception(
+          "Entity " + std::to_string(e_id) + " does not exist", "World", 4);
+      }
+
+      const_entity_container temp_container;
+      const auto results = _world.equal_range(e_id);
+
+      for(auto it = results.first; it != results.second; it++) {
+        temp_container.emplace_back(cmp::component_csptr((*it).second));
+      }
+      return temp_container;
+    };
 
     /*!
      * \brief Add a component to an entity.
@@ -306,12 +408,19 @@ class world final : private manager<world> {
     world() = default;
     ~world() = default;
 
-    static void clear(void);  //  Clear the entity manager.
+    //  Clear the entity manager.
+    static void clear(void) {
+      entity_counter = ENTITY_START;
+      entity_vec.clear();     //  Clear entities vector
+      _world.clear();         //  Clear the world block
+    };
 
-    static entity_id entity_counter;  //  Last Entity ID used.
-    static entities entity_vec;       //  Container for all entities.
-    static world_map _world;          //  Container for all components.
+    static entity_id entity_counter = ENTITY_START;  //  Last Entity ID used.
+    static entities entity_vec;                      //  Container for all entities.
+    static world_map _world;                         //  Container for all components.
 };
+
+//template <> bool manager<world>::initialized = false;
 
 }  //  namespace wte::mgr
 

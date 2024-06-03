@@ -99,7 +99,6 @@ find_package(OpenGL REQUIRED)
 ########################################
 add_library(wtengine STATIC 
   src/cmp/sprite.cpp
-  src/mgr/world.cpp
   src/sys/animate.cpp
   src/sys/collision.cpp
   src/sys/logic.cpp

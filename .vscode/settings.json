@@ -1,0 +1,8 @@
+{
+  "files.exclude": {
+    "**/build": true,
+    "**/docs": true,
+
+    "**/imgui": true
+  }
+}

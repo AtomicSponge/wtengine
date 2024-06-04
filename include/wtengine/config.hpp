@@ -36,6 +36,39 @@ class config {
   friend class mgr::audio;
   friend class mgr::gfx::renderer;
 
+  private:
+    struct _flags {
+      inline static bool is_running = true;
+      inline static bool engine_started = false;
+      inline static bool record_input = false;
+      inline static bool keyboard_installed = false;
+      inline static bool mouse_installed = false;
+      inline static bool joystick_installed = false;
+      inline static bool touch_installed = false;
+      inline static bool audio_installed = false;
+      inline static bool show_hitboxes = false;
+    };
+
+    struct _volume {
+      inline static float main = 1.0f;
+      inline static float music = 1.0f;
+      inline static float music_a = 1.0f;
+      inline static float music_b = 1.0f;
+      inline static float sample = 1.0f;
+      inline static float voice = 1.0f;
+      inline static float ambiance = 1.0f;
+    };
+
+    struct _gfx {
+      inline static int screen_w = 0, screen_h = 0;
+      inline static int viewport_w = 0, viewport_h = 0;
+      inline static std::size_t vsync = 2;
+      inline static std::size_t display_mode = 0;
+      inline static float scale_factor = 1.0f;
+    };
+
+    inline static bool initialized = false;  //  Restrict to one instance.
+
   public:
     virtual ~config() = default;                  //  Default virtual destructor.
     config(const config&) = delete;               //  Delete copy constructor.
@@ -46,18 +79,18 @@ class config {
      * \brief Engine flags.
      */
     struct flags {
-      static const bool& is_running;             //!<  Flag for if the program itself is running.
-      static const bool& engine_started;         //!<  Flag to check if the engine is running.
-      inline static bool engine_paused = false;  //!<  Flag to check if the engine if paused.
-      static const bool& record_input;           //!<  Flag to enable/disable input recording.
-      static const bool& keyboard_installed;     //!<  Flag to check if a keyboard is installed.
-      static const bool& mouse_installed;        //!<  Flag to check if a mouse is installed.
-      static const bool& joystick_installed;     //!<  Flag to check if a joystick is installed.
-      static const bool& touch_installed;        //!<  Flag to check if touch input is installed.
-      static const bool& audio_installed;        //!<  Flag to check if audio was installed.
-      inline static bool draw_fps = true;        //!<  Flag to check if fps should be drawn.
-      inline static bool input_enabled = true;   //!<  Flag to check if game input is enabled.
-      static const bool& show_hitboxes;          //!<  Flag to enable/disable hitbox rendering.
+      inline static const bool& is_running = _flags::is_running;                  //!<  Flag for if the program itself is running.
+      inline static const bool& engine_started = _flags::engine_started;          //!<  Flag to check if the engine is running.
+      inline static bool engine_paused = false;                                   //!<  Flag to check if the engine if paused.
+      inline static const bool& record_input = _flags::record_input;              //!<  Flag to enable/disable input recording.
+      inline static const bool& keyboard_installed = _flags::keyboard_installed;  //!<  Flag to check if a keyboard is installed.
+      inline static const bool& mouse_installed = _flags::mouse_installed;        //!<  Flag to check if a mouse is installed.
+      inline static const bool& joystick_installed = _flags::joystick_installed;  //!<  Flag to check if a joystick is installed.
+      inline static const bool& touch_installed = _flags::touch_installed;        //!<  Flag to check if touch input is installed.
+      inline static const bool& audio_installed = _flags::audio_installed;        //!<  Flag to check if audio was installed.
+      inline static bool draw_fps = true;                                         //!<  Flag to check if fps should be drawn.
+      inline static bool input_enabled = true;                                    //!<  Flag to check if game input is enabled.
+      inline static const bool& show_hitboxes = _flags::show_hitboxes;            //!<  Flag to enable/disable hitbox rendering.
     };
 
     /*!
@@ -65,13 +98,13 @@ class config {
      * \brief Volume levels.
      */
     struct volume {
-      static const float& main;                 //!<  Main volume level.
-      static const float& music;                //!<  Mix 1 volume level.
-      static const float& music_a;              //!<  Mix 1a volume level.
-      static const float& music_b;              //!<  Mix 1b volume level.
-      static const float& sample;               //!<  Mix 2 volume level.
-      static const float& voice;                //!<  Mix 3 volume level.
-      static const float& ambiance;             //!<  Mix 4 volume level.
+      inline static const float& main = _volume::main;          //!<  Main volume level.
+      inline static const float& music = _volume::music;        //!<  Mix 1 volume level.
+      inline static const float& music_a = _volume::music_a;    //!<  Mix 1a volume level.
+      inline static const float& music_b = _volume::music_b;    //!<  Mix 1b volume level.
+      inline static const float& sample = _volume::sample;      //!<  Mix 2 volume level.
+      inline static const float& voice = _volume::voice;        //!<  Mix 3 volume level.
+      inline static const float& ambiance = _volume::ambiance;  //!<  Mix 4 volume level.
     };
 
     /*!
@@ -363,39 +396,6 @@ class config {
         throw engine_error("Config instance already running!");
       initialized = true;
     };
-
-  private:
-    struct _flags {
-      inline static bool is_running = true;
-      inline static bool engine_started = false;
-      inline static bool record_input = false;
-      inline static bool keyboard_installed = false;
-      inline static bool mouse_installed = false;
-      inline static bool joystick_installed = false;
-      inline static bool touch_installed = false;
-      inline static bool audio_installed = false;
-      inline static bool show_hitboxes = false;
-    };
-
-    struct _volume {
-      inline static float main = 1.0f;
-      inline static float music = 1.0f;
-      inline static float music_a = 1.0f;
-      inline static float music_b = 1.0f;
-      inline static float sample = 1.0f;
-      inline static float voice = 1.0f;
-      inline static float ambiance = 1.0f;
-    };
-
-    struct _gfx {
-      inline static int screen_w = 0, screen_h = 0;
-      inline static int viewport_w = 0, viewport_h = 0;
-      inline static std::size_t vsync = 2;
-      inline static std::size_t display_mode = 0;
-      inline static float scale_factor = 1.0f;
-    };
-
-    static bool initialized;  //  Restrict to one instance.
 };
 
 }  //  end namespace wte

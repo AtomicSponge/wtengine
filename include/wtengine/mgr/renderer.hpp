@@ -65,52 +65,6 @@ class renderer final : private manager<renderer> {
   friend class wte::display;
   friend class wte::engine;
 
-  public:
-    /*!
-     * \brief Set the viewport size.
-     * 
-     * Once the renderer has been initialized it can not be changed.
-     * This should be called during engine initialization before the main object is created.
-     * 
-     * \param w Viewport width in pixels.
-     * \param h Viewport height in pixels.
-     */
-    static void set_viewport_size(
-      const int& w,
-      const int& h
-    ) {
-      assert(w > 0 && h > 0);
-      if(!arena_created) {
-        config::_gfx::viewport_w = w;
-        config::_gfx::viewport_h = h;
-      }
-    };
-
-    /*!
-     * \brief Set the title screen.
-     * 
-     * This should be called during engine initialization before the main object is created.
-     * 
-     * \param fname Filename of the title screen.
-     */
-    static void set_title_screen(const std::string& fname) { title_screen_file = fname; };
-
-    /*!
-     * \brief Set the font to be used by the renderer.
-     * 
-     * If not called, Allegro's default font will be used.
-     * This should be called during engine initialization before the main object is created.
-     * See the Allegro docs for more information on al_load_font and the parameters used.
-     * 
-     * \param fone Font asset to use.
-     */
-    static void set_font(wte_asset<ALLEGRO_FONT> font) { renderer_font = font; };
-
-    static const std::size_t& fps = renderer::_fps;                               //!<  Frames per second
-    static const time_point<system_clock>& last_render = renderer::_last_render;  //!<  Point in time last render completed
-    static const time_point<system_clock>& start_time = renderer::_start_time;    //!<  Point in time the renderer started
-    static const duration& delta_time = renderer::_delta_time;                    //!<  Time between frame renders
-
     /*!
      * \brief Implement this function to render a gui.
      */
@@ -433,22 +387,69 @@ class renderer final : private manager<renderer> {
       _last_render = system_clock::now();
     }
 
-    static ALLEGRO_TIMER* fps_timer = NULL;
-    static ALLEGRO_EVENT_QUEUE* fps_event_queue = NULL;
+    inline static ALLEGRO_TIMER* fps_timer = NULL;
+    inline static ALLEGRO_EVENT_QUEUE* fps_event_queue = NULL;
     static ALLEGRO_EVENT fps_event;
 
-    static wte_asset<ALLEGRO_BITMAP> viewport_bitmap = nullptr;
-    static wte_asset<ALLEGRO_BITMAP> title_bitmap = nullptr;
-    static wte_asset<ALLEGRO_FONT> renderer_font = nullptr;
+    inline static wte_asset<ALLEGRO_BITMAP> viewport_bitmap = nullptr;
+    inline static wte_asset<ALLEGRO_BITMAP> title_bitmap = nullptr;
+    inline static wte_asset<ALLEGRO_FONT> renderer_font = nullptr;
 
-    static std::size_t fps_counter = 0, _fps = 0;
+    inline static std::size_t fps_counter = 0, _fps = 0;
     static time_point<system_clock> _last_render, _start_time;
     static duration _delta_time;
 
-    static bool arena_created = false;
+    inline static bool arena_created = false;
 
     static std::string title_screen_file;
     static std::string background_file;
+
+  public:
+    /*!
+     * \brief Set the viewport size.
+     * 
+     * Once the renderer has been initialized it can not be changed.
+     * This should be called during engine initialization before the main object is created.
+     * 
+     * \param w Viewport width in pixels.
+     * \param h Viewport height in pixels.
+     */
+    static void set_viewport_size(
+      const int& w,
+      const int& h
+    ) {
+      assert(w > 0 && h > 0);
+      if(!arena_created) {
+        config::_gfx::viewport_w = w;
+        config::_gfx::viewport_h = h;
+      }
+    };
+
+    /*!
+     * \brief Set the title screen.
+     * 
+     * This should be called during engine initialization before the main object is created.
+     * 
+     * \param fname Filename of the title screen.
+     */
+    static void set_title_screen(const std::string& fname) { title_screen_file = fname; };
+
+    /*!
+     * \brief Set the font to be used by the renderer.
+     * 
+     * If not called, Allegro's default font will be used.
+     * This should be called during engine initialization before the main object is created.
+     * See the Allegro docs for more information on al_load_font and the parameters used.
+     * 
+     * \param fone Font asset to use.
+     */
+    static void set_font(wte_asset<ALLEGRO_FONT> font) { renderer_font = font; };
+
+    inline static const std::size_t& fps = _fps;                               //!<  Frames per second
+    inline static const time_point<system_clock>& last_render = _last_render;  //!<  Point in time last render completed
+    inline static const time_point<system_clock>& start_time = _start_time;    //!<  Point in time the renderer started
+    inline static const duration& delta_time = _delta_time;                    //!<  Time between frame renders
+
 };
 
 //template <> bool wte::mgr::manager<wte::mgr::gfx::renderer>::initialized = false;

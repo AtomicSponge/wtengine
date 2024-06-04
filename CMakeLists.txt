@@ -98,7 +98,6 @@ find_package(OpenGL REQUIRED)
 #
 ########################################
 add_library(wtengine STATIC 
-  src/config.cpp
   src/engine.cpp
   src/imgui/imgui_draw.cpp
   src/imgui/imgui_impl_allegro5.cpp

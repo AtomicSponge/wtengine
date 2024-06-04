@@ -112,13 +112,13 @@ class config {
      * \brief Graphics settings.
      */
     struct gfx {
-      static const int& screen_w;               //!<  Screen width.
-      static const int& screen_h;               //!<  Screen height.
-      static const int& viewport_w;             //!<  Viewport width.
-      static const int& viewport_h;             //!<  Viewport height.
-      static const std::size_t& vsync;          //!<  Vsync setting.
-      static const std::size_t& display_mode;   //!<  Display mode setting.
-      static const float& scale_factor;         //!<  Arena scale factor.
+      inline static const int& screen_w = _gfx::screen_w;                  //!<  Screen width.
+      inline static const int& screen_h = _gfx::screen_h;                  //!<  Screen height.
+      inline static const int& viewport_w = _gfx::viewport_w;              //!<  Viewport width.
+      inline static const int& viewport_h = _gfx::viewport_h;              //!<  Viewport height.
+      inline static const std::size_t& vsync = _gfx::vsync;                //!<  Vsync setting.
+      inline static const std::size_t& display_mode = _gfx::display_mode;  //!<  Display mode setting.
+      inline static const float& scale_factor = _gfx::scale_factor;        //!<  Arena scale factor.
     };
 
     /*!

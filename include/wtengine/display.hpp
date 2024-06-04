@@ -174,8 +174,8 @@ class display {
     };
 
 
-    static std::string window_title = "WtEngine";  //  Title for application window.
-    static bool initialized = false;               //  Restrict to one instance.
+    inline static std::string window_title = "WtEngine";  //  Title for application window.
+    inline static bool initialized = false;               //  Restrict to one instance.
 
     static ALLEGRO_DISPLAY* _display;   //  Allegro object for the display.
 };

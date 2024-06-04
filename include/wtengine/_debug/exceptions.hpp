@@ -52,7 +52,7 @@ class engine_error final : public std::exception {
      */
     engine_error(const std::string& d) : item(exception_item(d.c_str(), "Engine", 1)) {
       if constexpr (build_options.debug_mode) logger::log(
-        item.description, item.location, item.code, item.time) 
+        item.description, item.location, item.code, item.time);
     };
 
     engine_error() = delete;  //  Delete default constructor.

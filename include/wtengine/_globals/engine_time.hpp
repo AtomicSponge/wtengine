@@ -34,7 +34,7 @@ class engine_time final {
   private:
     //  Sets the internal timer. Called internally by engine.
     static void set(const int64_t& t) {  current_time = t; };
-    static int64_t current_time = 0;  //  Track game timer
+    inline static int64_t current_time = 0;  //  Track game timer
 };
 
 }  //  end namespace wte

@@ -192,7 +192,7 @@ class input {
     };
 
     //  Record input events
-    static void record_event(const int64_t&, const ALLEGRO_EVENT&) { 
+    static void record_event(const int64_t& time, const ALLEGRO_EVENT& event) { 
       input_event_file.write(reinterpret_cast<const char*>(time), sizeof(int64_t));
       input_event_file.write(reinterpret_cast<const char*>(sizeof(event)), sizeof(std::size_t));
       input_event_file.write(reinterpret_cast<const char*>(&event), sizeof(event));
@@ -229,7 +229,7 @@ class input {
 
     static ALLEGRO_EVENT_QUEUE* input_event_queue;  //  Input event queue.
     static std::ofstream input_event_file;          //  Event record file.
-    static bool initialized = false;                //  Restrict to one instance.
+    inline static bool initialized = false;                //  Restrict to one instance.
 };
 
 }  //  end namespace wte

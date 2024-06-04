@@ -257,7 +257,7 @@ class variables final : private manager<variables> {
       );
     };
 
-    static std::string data_file_name = "game.cfg";  //  File to save variables to.
+    inline static std::string data_file_name = "game.cfg";  //  File to save variables to.
     static std::map<const std::string, std::any> _map;  //  Map of variables.
 };
 

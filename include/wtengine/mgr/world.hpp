@@ -415,9 +415,9 @@ class world final : private manager<world> {
       _world.clear();         //  Clear the world block
     };
 
-    static entity_id entity_counter = ENTITY_START;  //  Last Entity ID used.
-    static entities entity_vec;                      //  Container for all entities.
-    static world_map _world;                         //  Container for all components.
+    inline static entity_id entity_counter = ENTITY_START;  //  Last Entity ID used.
+    static entities entity_vec;  //  Container for all entities.
+    static world_map _world;     //  Container for all components.
 };
 
 //template <> bool manager<world>::initialized = false;

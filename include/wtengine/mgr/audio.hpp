@@ -614,19 +614,19 @@ class audio final : private manager<audio> {
     static ALLEGRO_VOICE* voice;
 
     //  Mixers
-    static ALLEGRO_MIXER* _mixer_main = NULL;
-    static ALLEGRO_MIXER* _mixer_1 = NULL;
-    static ALLEGRO_MIXER* _mixer_1_a = NULL;
-    static ALLEGRO_MIXER* _mixer_1_b = NULL;
-    static ALLEGRO_MIXER* _mixer_2 = NULL;
-    static ALLEGRO_MIXER* _mixer_3 = NULL;
-    static ALLEGRO_MIXER* _mixer_4 = NULL;
+    inline static ALLEGRO_MIXER* _mixer_main = NULL;
+    inline static ALLEGRO_MIXER* _mixer_1 = NULL;
+    inline static ALLEGRO_MIXER* _mixer_1_a = NULL;
+    inline static ALLEGRO_MIXER* _mixer_1_b = NULL;
+    inline static ALLEGRO_MIXER* _mixer_2 = NULL;
+    inline static ALLEGRO_MIXER* _mixer_3 = NULL;
+    inline static ALLEGRO_MIXER* _mixer_4 = NULL;
 
     // Streams
-    static wte_asset<ALLEGRO_AUDIO_STREAM> music_stream_a = nullptr;
-    static wte_asset<ALLEGRO_AUDIO_STREAM> music_stream_b = nullptr;
-    static wte_asset<ALLEGRO_AUDIO_STREAM> ambiance_stream = nullptr;
-    static wte_asset<ALLEGRO_AUDIO_STREAM> voice_stream = nullptr;
+    inline static wte_asset<ALLEGRO_AUDIO_STREAM> music_stream_a = nullptr;
+    inline static wte_asset<ALLEGRO_AUDIO_STREAM> music_stream_b = nullptr;
+    inline static wte_asset<ALLEGRO_AUDIO_STREAM> ambiance_stream = nullptr;
+    inline static wte_asset<ALLEGRO_AUDIO_STREAM> voice_stream = nullptr;
 
     //  Store a reference of playing samples.
     static std::map<const std::string, ALLEGRO_SAMPLE_ID> sample_instances;

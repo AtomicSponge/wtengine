@@ -452,7 +452,7 @@ class renderer final : private manager<renderer> {
 
 };
 
-//template <> bool wte::mgr::manager<wte::mgr::gfx::renderer>::initialized = false;
+template <> bool wte::mgr::manager<wte::mgr::gfx::renderer>::initialized = false;
 
 }  //  end namespace wte::mgr
 

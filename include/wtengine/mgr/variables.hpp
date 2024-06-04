@@ -261,7 +261,7 @@ class variables final : private manager<variables> {
     static std::map<const std::string, std::any> _map;  //  Map of variables.
 };
 
-//template <> bool manager<variables>::initialized = false;
+template <> bool manager<variables>::initialized = false;
 
 }  //  end namespace wte::mgr
 

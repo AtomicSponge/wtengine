@@ -80,7 +80,7 @@ class systems final : private manager<systems> {
     inline static bool finalized = false;
 };
 
-//template <> bool manager<systems>::initialized = false;
+template <> bool manager<systems>::initialized = false;
 
 }  //  end namespace wte::mgr
 

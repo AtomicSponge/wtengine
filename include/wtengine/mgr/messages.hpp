@@ -296,7 +296,7 @@ class messages final : private manager<messages> {
     static std::ofstream debug_log_file;  //  For message logging
 };
 
-// template <> bool manager<messages>::initialized = false;
+template <> bool manager<messages>::initialized = false;
 
 }  //  end namespace wte::mgr
 

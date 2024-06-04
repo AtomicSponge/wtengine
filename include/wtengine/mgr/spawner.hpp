@@ -121,7 +121,7 @@ class spawner final : private manager<spawner> {
     >> spawns;
 };
 
-//template <> bool manager<spawner>::initialized = false;
+template <> bool manager<spawner>::initialized = false;
 
 }  //  end namespace wte::mgr
 

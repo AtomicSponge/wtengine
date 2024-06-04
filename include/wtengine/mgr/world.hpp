@@ -420,7 +420,7 @@ class world final : private manager<world> {
     static world_map _world;     //  Container for all components.
 };
 
-//template <> bool manager<world>::initialized = false;
+template <> bool manager<world>::initialized = false;
 
 }  //  namespace wte::mgr
 

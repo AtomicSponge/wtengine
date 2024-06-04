@@ -632,8 +632,8 @@ class audio final : private manager<audio> {
     static std::map<const std::string, ALLEGRO_SAMPLE_ID> sample_instances;
 };
 
-}  //  end namespace wte::mgr
+template <> bool manager<audio>::initialized = false;
 
-//template <> bool manager<audio>::initialized = false;
+}  //  end namespace wte::mgr
 
 #endif

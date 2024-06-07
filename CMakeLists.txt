@@ -18,10 +18,8 @@ cmake_minimum_required(VERSION 3.11)
 project(wtengine VERSION 0.7.3 DESCRIPTION "What the Engine?")
 enable_language(CXX)
 
-#  If a build type is not set, set it to Release
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release)
-endif()
+#  Always build release
+set(CMAKE_BUILD_TYPE Release)
 
 #  Set compiler flags
 set(CMAKE_CXX_FLAGS "-Wall")
@@ -35,60 +33,23 @@ if(EMSCRIPTEN)
   set(CMAKE_EXECUTABLE_SUFFIX ".wasm")
 endif()
 
-#  Set build variables
-if(DEFINED WTE_REQUIRE_OPENGL_LATEST)
-  list(APPEND WTE_BUILD_LIST "-DWTE_REQUIRE_OPENGL_LATEST")
-endif()
-if(DEFINED WTE_BUILD_DEBUG)
-  list(APPEND WTE_BUILD_LIST "-DWTE_BUILD_DEBUG")
-endif()
-if(DEFINED WTE_DISABLE_KEYBOARD)
-  list(APPEND WTE_BUILD_LIST "-DWTE_DISABLE_KEYBOARD")
-endif()
-if(DEFINED WTE_DISABLE_MOUSE)
-  list(APPEND WTE_BUILD_LIST "-DWTE_DISABLE_MOUSE")
-endif()
-if(DEFINED WTE_DISABLE_JOYSTICK)
-  list(APPEND WTE_BUILD_LIST "-DWTE_DISABLE_JOYSTICK")
-endif()
-if(DEFINED WTE_DISABLE_TOUCH)
-  list(APPEND WTE_BUILD_LIST "-DWTE_DISABLE_TOUCH")
-endif()
-if(DEFINED WTE_DISABLE_IMGUI)
-  list(APPEND WTE_BUILD_LIST "-DWTE_DISABLE_IMGUI")
-endif()
-
-#  Set tick rate if defined
-if(DEFINED WTE_TICKS_PER_SECOND)
-  list(APPEND WTE_BUILD_LIST "-DWTE_TICKS_PER_SECOND=${WTE_TICKS_PER_SECOND}")
-endif(DEFINED WTE_TICKS_PER_SECOND)
-
-#  Set max samples if defined
-if(DEFINED WTE_MAX_PLAYING_SAMPLES)
-  list(APPEND WTE_BUILD_LIST "-DWTE_MAX_PLAYING_SAMPLES=${WTE_MAX_PLAYING_SAMPLES}")
-endif(DEFINED WTE_MAX_PLAYING_SAMPLES)
-
 ########################################
 #
 #  Library Detection
 #
 ########################################
-#  Check for PhysFS
-find_library(PHYSFS_LIB NAMES physfs libphysfs)
-if(NOT PHYSFS_LIB)
-  message("Error! PhysFS not found!  Aborting.")
-  return()
-endif()
-
-#  Check for Allegro and its required modules
 find_package(PkgConfig REQUIRED)
-  pkg_check_modules(ALLEGRO REQUIRED allegro-5)           #  Allegro base
-  pkg_check_modules(ALLEGRO REQUIRED allegro_main-5)      #  Allegro main
-  pkg_check_modules(ALLEGRO REQUIRED allegro_physfs-5)    #  PhysFS add-on
-  pkg_check_modules(ALLEGRO REQUIRED allegro_audio-5)     #  Audio add-on
-  pkg_check_modules(ALLEGRO REQUIRED allegro_font-5)      #  Font add-on
-  pkg_check_modules(ALLEGRO REQUIRED allegro_image-5)     #  Image add-on
-
+    #  Check for Allegro and its required modules
+    pkg_check_modules(ALLEGRO REQUIRED IMPORTED_TARGET allegro-5)
+    pkg_check_modules(ALLEGRO_MAIN REQUIRED IMPORTED_TARGET allegro_main-5)
+    pkg_check_modules(ALLEGRO_PHYSFS REQUIRED IMPORTED_TARGET allegro_physfs-5)
+    pkg_check_modules(ALLEGRO_AUDIO REQUIRED IMPORTED_TARGET allegro_audio-5)
+    pkg_check_modules(ALLEGRO_ACODEC REQUIRED IMPORTED_TARGET allegro_acodec-5)
+    pkg_check_modules(ALLEGRO_FONT REQUIRED IMPORTED_TARGET allegro_font-5)
+    pkg_check_modules(ALLEGRO_IMAGE REQUIRED IMPORTED_TARGET allegro_image-5)
+    pkg_check_modules(ALLEGRO_PRIMV REQUIRED IMPORTED_TARGET allegro_primitives-5)
+    #  Check for physfs
+    pkg_check_modules(PHYSFS REQUIRED IMPORTED_TARGET physfs)
 #  Check for OpenGL
 find_package(OpenGL REQUIRED)
 

@@ -15,6 +15,9 @@ __WTEngine__ is a lightweight cross-platform game engine written in C++17 using 
  - [API](https://www.wtfsystems.net/docs/wtengine/index.html)
  - [Example game](https://github.com/wtfsystems/wte_demo_01/blob/master/src/main.cpp)
 
+
+__WTEngine__ can also be built with [imgui](https://github.com/ocornut/imgui)
+
 -----
 
 ## Library Installation

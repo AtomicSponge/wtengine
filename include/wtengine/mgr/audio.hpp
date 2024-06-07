@@ -629,7 +629,9 @@ class audio final : private manager<audio> {
     inline static wte_asset<ALLEGRO_AUDIO_STREAM> voice_stream = nullptr;
 
     //  Store a reference of playing samples.
-    inline static message_container _messages;   //  Vector of all messages to be processedstatic std::map<const std::string, ALLEGRO_SAMPLE_ID> sample_instances;
+    inline static message_container _messages;
+    //  Vector of all messages to be processed
+    inline static std::map<const std::string, ALLEGRO_SAMPLE_ID> sample_instances;
 };
 
 template <> bool manager<audio>::initialized = false;

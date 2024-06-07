@@ -34,9 +34,6 @@
 #include "wtengine/config.hpp"
 #include "wtengine/display.hpp"
 
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_allegro5.h"
-
 namespace wte {
   class display;
   class engine;
@@ -372,9 +369,6 @@ class renderer final : private manager<renderer> {
         al_draw_text(renderer_font.get(), al_map_rgb(255,255,0), config::gfx::screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
       }
       if constexpr (build_options.debug_mode) draw_timer();
-
-      //  Render Dear ImGui
-      if constexpr (build_options.use_imgui) draw_gui();
       
       //  Update the screen & delta time.
       al_flip_display();

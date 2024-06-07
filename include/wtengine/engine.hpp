@@ -42,9 +42,6 @@
 #include "wtengine/_globals/wte_asset.hpp"
 #include "wtengine/mgr/_managers.hpp"
 
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_allegro5.h"
-
 namespace wte {
 
 void do_game(void);
@@ -147,11 +144,7 @@ class engine final : public config, public input, public display {
           break;
         //  Window has been resized.
         case ALLEGRO_EVENT_DISPLAY_RESIZE:
-          if constexpr (build_options.use_imgui)
-            ImGui_ImplAllegro5_InvalidateDeviceObjects();
           al_acknowledge_resize(_display);
-          if constexpr (build_options.use_imgui)
-            ImGui_ImplAllegro5_CreateDeviceObjects();
           break;
         }
       }

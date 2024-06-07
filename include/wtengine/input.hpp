@@ -25,9 +25,6 @@
 #include "wtengine/_globals/handlers.hpp"
 #include "wtengine/config.hpp"
 
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_allegro5.h"
-
 namespace wte {
 
 /*!
@@ -208,9 +205,6 @@ class input {
                 config::_flags::show_hitboxes = false :
                 config::_flags::show_hitboxes = true);
         }
-        //  Process Dear ImGui events
-        if constexpr (build_options.use_imgui)
-          ImGui_ImplAllegro5_ProcessEvent(&event);
         //  Record input if enabled.
         if(config::flags::record_input) record_event(engine_time::check(), event);
         //  Run the handles

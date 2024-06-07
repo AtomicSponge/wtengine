@@ -148,25 +148,10 @@ class display {
         al_destroy_bitmap(icon_bitmap);
       }
       al_fclose(file);
-
-      if constexpr (build_options.use_imgui) {
-        //  Configure Dear ImGui
-        IMGUI_CHECKVERSION();
-        ImGui::CreateContext();
-        ImGuiIO& io = ImGui::GetIO(); (void)io;
-        if constexpr (build_options.imgui_darkmode) ImGui::StyleColorsDark();
-        else ImGui::StyleColorsLight();
-        ImGui_ImplAllegro5_Init(_display);
-      }
     };
 
     //  Destroy the display.
     static void destroy_display(void) {
-      if constexpr (build_options.use_imgui) {
-        //  Shut down Dear ImGui
-        ImGui_ImplAllegro5_Shutdown();
-        ImGui::DestroyContext();
-      }
       al_destroy_display(_display);
     };
 

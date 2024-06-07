@@ -65,11 +65,6 @@ class renderer final : private manager<renderer> {
   friend class wte::display;
   friend class wte::engine;
 
-    /*!
-     * \brief Implement this function to render a gui.
-     */
-    inline static std::function<void(void)> draw_gui =  ([](){});
-
   private:
     renderer() = default;
     ~renderer() = default;
@@ -405,6 +400,11 @@ class renderer final : private manager<renderer> {
     static std::string background_file;
 
   public:
+    /*!
+     * \brief Implement this function to render a gui.
+     */
+    inline static std::function<void(void)> draw_gui =  ([](){});
+
     /*!
      * \brief Set the viewport size.
      * 

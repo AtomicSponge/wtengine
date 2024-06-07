@@ -41,20 +41,6 @@
   #define WTE_OPENGL_LATEST FALSE
 #endif
 
-//  Disable Dear ImGui
-#if !defined(WTE_DISABLE_IMGUI)
-  #define WTE_USE_IMGUI TRUE
-#else
-  #define WTE_USE_IMGUI FALSE
-#endif
-
-//  Toggle Dear ImGui Lightmode
-#if !defined(WTE_IMGUI_LIGHTMODE)
-  #define WTE_IMGUI_DARKMODE TRUE
-#else
-  #define WTE_IMGUI_DARKMODE FALSE
-#endif
-
 //  Set the timer rate.
 //  Number of ticks per second as a float.
 #if !defined(WTE_TICKS_PER_SECOND)
@@ -102,8 +88,6 @@ namespace wte {
 struct wte_build_options {
   inline constexpr static bool debug_mode = static_cast<bool>(WTE_DEBUG_MODE);
   inline constexpr static bool opengl_latest = static_cast<bool>(WTE_OPENGL_LATEST);
-  inline constexpr static bool use_imgui = static_cast<bool>(WTE_USE_IMGUI);
-  inline constexpr static bool imgui_darkmode = static_cast<bool>(WTE_IMGUI_DARKMODE);
   inline constexpr static float ticks_per_sec = static_cast<float>(WTE_TICKS_PER_SECOND);
   inline constexpr static int max_playing_samples = static_cast<int>(WTE_MAX_PLAYING_SAMPLES);
 

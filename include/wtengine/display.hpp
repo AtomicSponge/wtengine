@@ -22,11 +22,6 @@
 #include "wtengine/_globals/_defines.hpp"
 #include "wtengine/mgr/renderer.hpp"
 
-#if defined(WTE_USE_IMGUI)
-  #include <imgui.h>
-  #include <imgui_impl_allegro5.h>
-#endif
-
 namespace wte {
 
 /*!

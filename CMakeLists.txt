@@ -94,47 +94,11 @@ find_package(OpenGL REQUIRED)
 
 ########################################
 #
-#  Configure Sources
-#
-########################################
-add_library(wtengine STATIC 
-  src/imgui/imgui_draw.cpp
-  src/imgui/imgui_impl_allegro5.cpp
-  src/imgui/imgui_tables.cpp
-  src/imgui/imgui_widgets.cpp
-  src/imgui/imgui.cpp)
-
-########################################
-#
-#  Build Process
-#
-########################################
-#  Set include folder for building
-target_include_directories(wtengine PRIVATE include ${OPENGL_INCLUDE_DIRS})
-
-#  Link libraries
-target_link_libraries(wtengine PRIVATE ${ALLEGRO_LIBRARIES} ${OPENGL_LIBRARIES})
-
-#  Set complie options
-target_compile_options(wtengine PRIVATE ${WTE_BUILD_LIST})
-
-#  Set the build target
-set_target_properties(wtengine PROPERTIES
-  VERSION ${PROJECT_VERSION}
-  CXX_STANDARD 17
-  CXX_STANDARD_REQUIRED True)
-
-########################################
-#
 #  Install Process
 #
 ########################################
 #  Get GNUInstallDirs
 include(GNUInstallDirs)
-
-#  Install the built library
-install(TARGETS wtengine LIBRARY
-  DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 #  Now install the headers, preserving subfolders
 install(DIRECTORY include/

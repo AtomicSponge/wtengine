@@ -10,8 +10,6 @@ __WTEngine__ is a lightweight cross-platform game engine written in C++17 using 
     - [PhysicsFS](https://www.icculus.org/physfs/)
     - [OpenGL](https://www.opengl.org) *(2d only)*
 
-WTEngine also uses the library [Dear ImGui](https://github.com/ocornut/imgui) integrated into its codebase.
-
 ### Documentation:
  - [Manual](https://github.com/wtfsystems/wtengine/wiki)
  - [API](https://www.wtfsystems.net/docs/wtengine/index.html)

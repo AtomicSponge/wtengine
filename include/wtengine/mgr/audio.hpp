@@ -608,10 +608,10 @@ class audio final : private manager<audio> {
 
     constexpr static int max_playing_samples = build_options.max_playing_samples;
     
-    static commands cmds;
+    inline static message_container _messages;   //  Vector of all messages to be processedstatic commands cmds;
 
     //  Main audio output
-    static ALLEGRO_VOICE* voice;
+    inline static message_container _messages;   //  Vector of all messages to be processedstatic ALLEGRO_VOICE* voice;
 
     //  Mixers
     inline static ALLEGRO_MIXER* _mixer_main = NULL;
@@ -629,7 +629,7 @@ class audio final : private manager<audio> {
     inline static wte_asset<ALLEGRO_AUDIO_STREAM> voice_stream = nullptr;
 
     //  Store a reference of playing samples.
-    static std::map<const std::string, ALLEGRO_SAMPLE_ID> sample_instances;
+    inline static message_container _messages;   //  Vector of all messages to be processedstatic std::map<const std::string, ALLEGRO_SAMPLE_ID> sample_instances;
 };
 
 template <> bool manager<audio>::initialized = false;

@@ -258,8 +258,6 @@ class messages final : private manager<messages> {
       }
     };
 
-    static message_container _messages;   //  Vector of all messages to be processed
-
     static void message_log_start(void) {
       std::time_t t = std::time(nullptr);
       std::ostringstream date_stream;
@@ -293,7 +291,8 @@ class messages final : private manager<messages> {
       debug_log_file << std::endl;
     };
 
-    static std::ofstream debug_log_file;  //  For message logging
+    inline static message_container _messages;   //  Vector of all messages to be processed
+    inline static std::ofstream debug_log_file;  //  For message logging
 };
 
 template <> bool manager<messages>::initialized = false;

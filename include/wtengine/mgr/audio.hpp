@@ -608,10 +608,10 @@ class audio final : private manager<audio> {
 
     constexpr static int max_playing_samples = build_options.max_playing_samples;
     
-    inline static message_container _messages;   //  Vector of all messages to be processedstatic commands cmds;
+    inline static commands cmds;
 
     //  Main audio output
-    inline static message_container _messages;   //  Vector of all messages to be processedstatic ALLEGRO_VOICE* voice;
+    inline static ALLEGRO_VOICE* voice;
 
     //  Mixers
     inline static ALLEGRO_MIXER* _mixer_main = NULL;

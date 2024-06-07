@@ -113,12 +113,11 @@ class spawner final : private manager<spawner> {
       }  //  End for(m_it)
     };
 
-    static std::map<
+    inline static std::map<
       const std::string,
       std::pair<
         const std::size_t,
-        const std::function<void(const entity_id&, const msg_args&)>
-    >> spawns;
+        const std::function<void(const entity_id&, const msg_args&)>>> spawns;
 };
 
 template <> bool manager<spawner>::initialized = false;

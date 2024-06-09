@@ -70,9 +70,9 @@ class config {
     inline static bool initialized = false;  //  Restrict to one instance.
 
   public:
-    virtual ~config() = default;                  //  Default virtual destructor.
-    config(const config&) = delete;               //  Delete copy constructor.
-    void operator=(config const&) = delete;       //  Delete assignment operator.
+    virtual ~config() = default;             //  Default virtual destructor.
+    config(const config&) = delete;          //  Delete copy constructor.
+    void operator=(config const&) = delete;  //  Delete assignment operator.
 
     /*!
      * \struct flags

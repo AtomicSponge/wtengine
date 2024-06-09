@@ -221,8 +221,8 @@ class input {
     //  Process in-game input events.
     static void run_game_handler(const ALLEGRO_EVENT&);
 
-    static ALLEGRO_EVENT_QUEUE* input_event_queue;  //  Input event queue.
-    static std::ofstream input_event_file;          //  Event record file.
+    inline static ALLEGRO_EVENT_QUEUE* input_event_queue;  //  Input event queue.
+    inline static std::ofstream input_event_file;          //  Event record file.
     inline static bool initialized = false;                //  Restrict to one instance.
 };
 

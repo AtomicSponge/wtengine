@@ -378,20 +378,20 @@ class renderer final : private manager<renderer> {
 
     inline static ALLEGRO_TIMER* fps_timer = NULL;
     inline static ALLEGRO_EVENT_QUEUE* fps_event_queue = NULL;
-    static ALLEGRO_EVENT fps_event;
+    inline static ALLEGRO_EVENT fps_event;
 
     inline static wte_asset<ALLEGRO_BITMAP> viewport_bitmap = nullptr;
     inline static wte_asset<ALLEGRO_BITMAP> title_bitmap = nullptr;
     inline static wte_asset<ALLEGRO_FONT> renderer_font = nullptr;
 
     inline static std::size_t fps_counter = 0, _fps = 0;
-    static time_point<system_clock> _last_render, _start_time;
-    static duration _delta_time;
+    inline static time_point<system_clock> _last_render, _start_time;
+    inline static duration _delta_time;
 
     inline static bool arena_created = false;
 
-    static std::string title_screen_file;
-    static std::string background_file;
+    inline static std::string title_screen_file;
+    inline static std::string background_file;
 
   public:
     /*!

@@ -46,366 +46,6 @@ namespace wte::mgr {
 class audio final : private manager<audio> {
   friend class wte::engine;
 
-  public:
-    /*!
-     * \brief Adjust main mixer volume level.
-     * \param l Volume level to set.
-     */
-    static void set_level(const float& l) {
-      (l >= 0.0f && l <= 1.0f ?
-        config::_volume::main = l :
-        config::_volume::main = 0.0f);
-      set_volume();
-    };
-
-    /*!
-     * \struct music
-     * \brief Music commands.
-     */
-    struct music {
-      /*!
-       * \struct a
-       * \brief Music track A
-       */
-      struct a {
-        /*!
-         * \brief Toggle music looping.
-         * \param loop True to enable, false to disable.
-         */
-        static void loop(const bool& loop) {
-          if(!al_get_mixer_attached(_mixer_1)) return;  //  Music not loaded, end.
-          (loop ? al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_LOOP) :
-            al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_ONCE));
-        };
-
-        /*!
-         * \brief Play a music asset.
-         * \param audio Audio asset.
-         */
-        static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio) {
-          music::a::stop();
-          music_stream_a = audio;
-          al_attach_audio_stream_to_mixer(music_stream_a.get(), _mixer_1_a);
-          al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_LOOP);
-          al_rewind_audio_stream(music_stream_a.get());
-          al_set_audio_stream_playing(music_stream_a.get(), true);
-        };
-
-        /*!
-         * \brief Stop playing music.
-         */
-        static void stop(void) {
-          if(al_get_mixer_attached(_mixer_1_a)) {
-            al_set_audio_stream_playing(music_stream_a.get(), false);
-            al_drain_audio_stream(music_stream_a.get());
-            al_detach_audio_stream(music_stream_a.get());
-          }
-        };
-
-        /*!
-         * \brief Pause music.
-         */
-        static void pause(void) {
-          if(al_get_mixer_attached(_mixer_1_a) && al_get_mixer_playing(_mixer_1_a))
-            al_set_audio_stream_playing(music_stream_a.get(), false);
-        };
-
-        /*!
-         * \brief Unpause music.
-         */
-        static void unpause(void) {
-          if(al_get_mixer_attached(_mixer_1)) al_set_audio_stream_playing(music_stream_a.get(), true);
-        };
-
-        /*!
-         * \brief Adjust music track A mixer volume level.
-         * \param l Volume level to set.
-         */
-        static void set_level(const float& l) {
-          (l >= 0.0f && l <= 1.0f ?
-            config::_volume::music = l :
-            config::_volume::music = 0.0f);
-          set_volume();
-        };
-      };
-
-      /*!
-       * \struct b
-       * \brief Music track B
-       */
-      struct b {
-        /*!
-         * \brief Toggle music looping.
-         * \param loop True to enable, false to disable.
-         */
-        static void loop(const bool& loop) {
-          if(!al_get_mixer_attached(_mixer_1_a)) return;  //  Music not loaded, end.
-          (loop ? al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_LOOP) :
-            al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_ONCE));
-        };
-
-        /*!
-         * \brief Play a music asset.
-         * \param audio Audio asset.
-         */
-        static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio) {
-          music::b::stop();
-          music_stream_b = audio;
-          al_attach_audio_stream_to_mixer(music_stream_b.get(), _mixer_1_b);
-          al_set_audio_stream_playmode(music_stream_b.get(), ALLEGRO_PLAYMODE_LOOP);
-          al_rewind_audio_stream(music_stream_b.get());
-          al_set_audio_stream_playing(music_stream_b.get(), true);
-        };
-
-        /*!
-         * \brief Stop playing music.
-         */
-        static void stop(void) {
-          if(al_get_mixer_attached(_mixer_1_b)) {
-            al_set_audio_stream_playing(music_stream_b.get(), false);
-            al_drain_audio_stream(music_stream_b.get());
-            al_detach_audio_stream(music_stream_b.get());
-          }
-        };
-
-        /*!
-         * \brief Pause music.
-         */
-        static void pause(void) {
-          if(al_get_mixer_attached(_mixer_1_b) && al_get_mixer_playing(_mixer_1_b))
-            al_set_audio_stream_playing(music_stream_b.get(), false);
-        };
-
-        /*!
-         * \brief Unpause music.
-         */
-        static void unpause(void) {
-          if(al_get_mixer_attached(_mixer_1_b)) al_set_audio_stream_playing(music_stream_b.get(), true);
-        };
-
-        /*!
-         * \brief Adjust music track B mixer volume level.
-         * \param l Volume level to set.
-         */
-        static void set_level(const float& l) {
-          (l >= 0.0f && l <= 1.0f ?
-            config::_volume::music_b = l :
-            config::_volume::music_b = 0.0f);
-          set_volume();
-        };
-      };
-
-      /*!
-       * \brief Adjust the music mixer volume level.
-       * \param l Volume level to set.
-       */
-      static void set_level(const float& l);
-    };
-
-    /*!
-     * \struct sample
-     * \brief Sample commands.
-     */
-    struct sample {
-      /*!
-       * \brief Play a sample.
-       *
-       * When setting the playmode, passing "once" will play the sample once.
-       * Passing a reference name will play the sample in a loop.
-       * The sample can be stopped later using this reference name.
-       *
-       * \param sample Sample asset.
-       * \param ref Playmode.
-       */
-      static void play(
-        wte_asset<ALLEGRO_SAMPLE> sample,
-        const std::string& ref
-      ) { play(sample, ref, 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.0f); };
-
-      /*!
-       * \brief Play a sample.
-       * \param sample Sample asset.
-       * \param ref Playmode.
-       * \param gain Gain value.  See allegro docs on al_play_sample for more info.
-       * \param pan Pan value.  See allegro docs on al_play_sample for more info.
-       * \param speed Speed value.  See allegro docs on al_play_sample for more info.
-       */
-      static void play(
-        wte_asset<ALLEGRO_SAMPLE> sample,
-        const std::string& ref,
-        const float& gain,
-        const float& pan,
-        const float& speed
-      ) {
-        if(ref == "once") {
-          // Play the sample once.
-          al_play_sample(sample.get(), gain, pan, speed, ALLEGRO_PLAYMODE_ONCE, NULL);
-        } else {
-          //  If the reference is already playing, end.
-          if(sample_instances.find(ref) != sample_instances.end()) return;
-          //  Store playing reference
-          ALLEGRO_SAMPLE_ID temp_sample_id;
-          if(al_play_sample(sample.get(), gain, pan, speed, ALLEGRO_PLAYMODE_LOOP, &temp_sample_id))
-            sample_instances.insert(std::make_pair(ref, temp_sample_id));
-        }
-      };
-
-      /*!
-       * \brief Stop a playing sample.
-       * \param ref Playing sample reference name.
-       */
-      static void stop(const std::string& ref) {
-        //  If instance does not exist, end.
-        if(sample_instances.find(ref) == sample_instances.end()) return;
-        al_stop_sample(&sample_instances.find(ref)->second);
-        sample_instances.erase(sample_instances.find(ref));
-      };
-
-      /*!
-       * \brief Claer all playing sample instances.
-       */
-      static void clear_instances(void) {
-        for(auto sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
-          al_stop_sample(&sample_instance->second);
-          sample_instances.erase(sample_instance);
-          sample_instance = sample_instances.begin();
-        }
-      };
-
-      /*!
-       * \brief Adjust the sample mixer volume level.
-       * \param l Volume level to set.
-       */
-      static void set_level(const float& l) {
-        (l >= 0.0f && l <= 1.0f ?
-          config::_volume::sample = l :
-          config::_volume::sample = 0.0f);
-        set_volume();
-      };
-    };
-
-    /*!
-     * \struct voice
-     * \brief Voice commands.
-     */
-    struct voice {
-      /*!
-       * \brief Play an audio asset on the voice channel.
-       * \param audio Audio asset.
-       */
-      static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio) {
-        voice::stop();
-        voice_stream = audio;
-        al_attach_audio_stream_to_mixer(voice_stream.get(), _mixer_3);
-        al_set_audio_stream_playmode(voice_stream.get(), ALLEGRO_PLAYMODE_ONCE);
-        al_rewind_audio_stream(voice_stream.get());
-        al_set_audio_stream_playing(voice_stream.get(), true);
-      };
-
-      /*!
-       * \brief Stop a playing audio file.
-       */
-      static void stop(void) {
-        if(al_get_mixer_attached(_mixer_3)) {
-          al_set_audio_stream_playing(voice_stream.get(), false);
-          al_drain_audio_stream(voice_stream.get());
-          al_detach_audio_stream(voice_stream.get());
-        }
-      };
-
-      /*!
-       * \brief Pause playing audio file.
-       */
-      static void pause(void) {
-        if(al_get_mixer_attached(_mixer_3) && al_get_mixer_playing(_mixer_3))
-          al_set_audio_stream_playing(voice_stream.get(), false);
-      };
-
-      /*!
-       * \brief Resume playing audio file.
-       */
-      static void unpause(void) {
-        if(al_get_mixer_attached(_mixer_3)) al_set_audio_stream_playing(voice_stream.get(), true);
-      };
-
-      /*!
-       * \brief Adjust the voice mixer volume level.
-       * \param l Volume level to set.
-       */
-      static void set_level(const float& l) {
-        (l >= 0.0f && l <= 1.0f ?
-          config::_volume::voice = l :
-          config::_volume::voice = 0.0f);
-        set_volume();
-      };
-    };
-
-    /*!
-     * \struct ambiance
-     * \brief Ambiance commands.
-     */
-    struct ambiance {
-      /*!
-       * \brief Toggle ambiance looping.
-       * \param loop True to enable, false to disable.
-       */
-      static void loop(const bool& loop) {
-        if(!al_get_mixer_attached(_mixer_4)) return;  //  Ambiance not loaded, end.
-        (loop ? al_set_audio_stream_playmode(ambiance_stream.get(), ALLEGRO_PLAYMODE_LOOP) :
-          al_set_audio_stream_playmode(ambiance_stream.get(), ALLEGRO_PLAYMODE_ONCE));
-      };
-
-      /*!
-       * \brief Play an audio asset on the ambiance channel.
-       * \param audio Audio asset.
-       */
-      static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio) {
-        ambiance::stop();
-        ambiance_stream = audio;
-        al_attach_audio_stream_to_mixer(ambiance_stream.get(), _mixer_4);
-        al_set_audio_stream_playmode(ambiance_stream.get(), ALLEGRO_PLAYMODE_LOOP);
-        al_rewind_audio_stream(ambiance_stream.get());
-        al_set_audio_stream_playing(ambiance_stream.get(), true);
-      };
-
-      /*!
-       * \brief Stop playing ambiance.
-       */
-      static void stop(void) {
-        if(al_get_mixer_attached(_mixer_4)) {
-          al_set_audio_stream_playing(ambiance_stream.get(), false);
-          al_drain_audio_stream(ambiance_stream.get());
-          al_detach_audio_stream(ambiance_stream.get());
-        }
-      };
-
-      /*!
-       * \brief Pause playing ambiance.
-       */
-      static void pause(void) {
-        if(al_get_mixer_attached(_mixer_4) && al_get_mixer_playing(_mixer_4))
-          al_set_audio_stream_playing(ambiance_stream.get(), false);
-      };
-
-      /*!
-       * \brief Resume playing ambiance.
-       */
-      static void unpause(void) {
-        if(al_get_mixer_attached(_mixer_4)) al_set_audio_stream_playing(ambiance_stream.get(), true);
-      };
-
-      /*!
-       * \brief Adjust the ambiance mixer volume level.
-       * \param l Volume level to set.
-       */
-      static void set_level(const float& l) {
-        (l >= 0.0f && l <= 1.0f ?
-          config::_volume::ambiance = l :
-          config::_volume::ambiance = 0.0f);
-        set_volume();
-      };
-    };
-
   private:
     audio() = default;
     ~audio() = default;
@@ -632,6 +272,370 @@ class audio final : private manager<audio> {
     inline static message_container _messages;
     //  Vector of all messages to be processed
     inline static std::map<const std::string, ALLEGRO_SAMPLE_ID> sample_instances;
+
+  public:
+    /*!
+     * \brief Adjust main mixer volume level.
+     * \param l Volume level to set.
+     */
+    static void set_level(const float& l) {
+      (l >= 0.0f && l <= 1.0f ?
+        config::_volume::main = l :
+        config::_volume::main = 0.0f);
+      set_volume();
+    };
+
+    /*!
+     * \struct music
+     * \brief Music commands.
+     */
+    struct music {
+      /*!
+       * \brief Adjust the music mixer volume level.
+       * \param l Volume level to set.
+       */
+      static void set_level(const float& l) {
+        (l >= 0.0f && l <= 1.0f ?
+          config::_volume::music = l :
+          config::_volume::music = 0.0f);
+        set_volume();
+      };
+      /*!
+       * \struct a
+       * \brief Music track A
+       */
+      struct a {
+        /*!
+         * \brief Toggle music looping.
+         * \param loop True to enable, false to disable.
+         */
+        static void loop(const bool& loop) {
+          if(!al_get_mixer_attached(_mixer_1)) return;  //  Music not loaded, end.
+          (loop ? al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_LOOP) :
+            al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_ONCE));
+        };
+
+        /*!
+         * \brief Play a music asset.
+         * \param audio Audio asset.
+         */
+        static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio) {
+          music::a::stop();
+          music_stream_a = audio;
+          al_attach_audio_stream_to_mixer(music_stream_a.get(), _mixer_1_a);
+          al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_LOOP);
+          al_rewind_audio_stream(music_stream_a.get());
+          al_set_audio_stream_playing(music_stream_a.get(), true);
+        };
+
+        /*!
+         * \brief Stop playing music.
+         */
+        static void stop(void) {
+          if(al_get_mixer_attached(_mixer_1_a)) {
+            al_set_audio_stream_playing(music_stream_a.get(), false);
+            al_drain_audio_stream(music_stream_a.get());
+            al_detach_audio_stream(music_stream_a.get());
+          }
+        };
+
+        /*!
+         * \brief Pause music.
+         */
+        static void pause(void) {
+          if(al_get_mixer_attached(_mixer_1_a) && al_get_mixer_playing(_mixer_1_a))
+            al_set_audio_stream_playing(music_stream_a.get(), false);
+        };
+
+        /*!
+         * \brief Unpause music.
+         */
+        static void unpause(void) {
+          if(al_get_mixer_attached(_mixer_1)) al_set_audio_stream_playing(music_stream_a.get(), true);
+        };
+
+        /*!
+         * \brief Adjust music track A mixer volume level.
+         * \param l Volume level to set.
+         */
+        static void set_level(const float& l) {
+          (l >= 0.0f && l <= 1.0f ?
+            config::_volume::music_a = l :
+            config::_volume::music_a = 0.0f);
+          set_volume();
+        };
+      };
+
+      /*!
+       * \struct b
+       * \brief Music track B
+       */
+      struct b {
+        /*!
+         * \brief Toggle music looping.
+         * \param loop True to enable, false to disable.
+         */
+        static void loop(const bool& loop) {
+          if(!al_get_mixer_attached(_mixer_1_a)) return;  //  Music not loaded, end.
+          (loop ? al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_LOOP) :
+            al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_ONCE));
+        };
+
+        /*!
+         * \brief Play a music asset.
+         * \param audio Audio asset.
+         */
+        static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio) {
+          music::b::stop();
+          music_stream_b = audio;
+          al_attach_audio_stream_to_mixer(music_stream_b.get(), _mixer_1_b);
+          al_set_audio_stream_playmode(music_stream_b.get(), ALLEGRO_PLAYMODE_LOOP);
+          al_rewind_audio_stream(music_stream_b.get());
+          al_set_audio_stream_playing(music_stream_b.get(), true);
+        };
+
+        /*!
+         * \brief Stop playing music.
+         */
+        static void stop(void) {
+          if(al_get_mixer_attached(_mixer_1_b)) {
+            al_set_audio_stream_playing(music_stream_b.get(), false);
+            al_drain_audio_stream(music_stream_b.get());
+            al_detach_audio_stream(music_stream_b.get());
+          }
+        };
+
+        /*!
+         * \brief Pause music.
+         */
+        static void pause(void) {
+          if(al_get_mixer_attached(_mixer_1_b) && al_get_mixer_playing(_mixer_1_b))
+            al_set_audio_stream_playing(music_stream_b.get(), false);
+        };
+
+        /*!
+         * \brief Unpause music.
+         */
+        static void unpause(void) {
+          if(al_get_mixer_attached(_mixer_1_b)) al_set_audio_stream_playing(music_stream_b.get(), true);
+        };
+
+        /*!
+         * \brief Adjust music track B mixer volume level.
+         * \param l Volume level to set.
+         */
+        static void set_level(const float& l) {
+          (l >= 0.0f && l <= 1.0f ?
+            config::_volume::music_b = l :
+            config::_volume::music_b = 0.0f);
+          set_volume();
+        };
+      };
+    };
+
+    /*!
+     * \struct sample
+     * \brief Sample commands.
+     */
+    struct sample {
+      /*!
+       * \brief Play a sample.
+       *
+       * When setting the playmode, passing "once" will play the sample once.
+       * Passing a reference name will play the sample in a loop.
+       * The sample can be stopped later using this reference name.
+       *
+       * \param sample Sample asset.
+       * \param ref Playmode.
+       */
+      static void play(
+        wte_asset<ALLEGRO_SAMPLE> sample,
+        const std::string& ref
+      ) { play(sample, ref, 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.0f); };
+
+      /*!
+       * \brief Play a sample.
+       * \param sample Sample asset.
+       * \param ref Playmode.
+       * \param gain Gain value.  See allegro docs on al_play_sample for more info.
+       * \param pan Pan value.  See allegro docs on al_play_sample for more info.
+       * \param speed Speed value.  See allegro docs on al_play_sample for more info.
+       */
+      static void play(
+        wte_asset<ALLEGRO_SAMPLE> sample,
+        const std::string& ref,
+        const float& gain,
+        const float& pan,
+        const float& speed
+      ) {
+        if(ref == "once") {
+          // Play the sample once.
+          al_play_sample(sample.get(), gain, pan, speed, ALLEGRO_PLAYMODE_ONCE, NULL);
+        } else {
+          //  If the reference is already playing, end.
+          if(sample_instances.find(ref) != sample_instances.end()) return;
+          //  Store playing reference
+          ALLEGRO_SAMPLE_ID temp_sample_id;
+          if(al_play_sample(sample.get(), gain, pan, speed, ALLEGRO_PLAYMODE_LOOP, &temp_sample_id))
+            sample_instances.insert(std::make_pair(ref, temp_sample_id));
+        }
+      };
+
+      /*!
+       * \brief Stop a playing sample.
+       * \param ref Playing sample reference name.
+       */
+      static void stop(const std::string& ref) {
+        //  If instance does not exist, end.
+        if(sample_instances.find(ref) == sample_instances.end()) return;
+        al_stop_sample(&sample_instances.find(ref)->second);
+        sample_instances.erase(sample_instances.find(ref));
+      };
+
+      /*!
+       * \brief Claer all playing sample instances.
+       */
+      static void clear_instances(void) {
+        for(auto sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
+          al_stop_sample(&sample_instance->second);
+          sample_instances.erase(sample_instance);
+          sample_instance = sample_instances.begin();
+        }
+      };
+
+      /*!
+       * \brief Adjust the sample mixer volume level.
+       * \param l Volume level to set.
+       */
+      static void set_level(const float& l) {
+        (l >= 0.0f && l <= 1.0f ?
+          config::_volume::sample = l :
+          config::_volume::sample = 0.0f);
+        set_volume();
+      };
+    };
+
+    /*!
+     * \struct voice
+     * \brief Voice commands.
+     */
+    struct voice {
+      /*!
+       * \brief Play an audio asset on the voice channel.
+       * \param audio Audio asset.
+       */
+      static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio) {
+        voice::stop();
+        voice_stream = audio;
+        al_attach_audio_stream_to_mixer(voice_stream.get(), _mixer_3);
+        al_set_audio_stream_playmode(voice_stream.get(), ALLEGRO_PLAYMODE_ONCE);
+        al_rewind_audio_stream(voice_stream.get());
+        al_set_audio_stream_playing(voice_stream.get(), true);
+      };
+
+      /*!
+       * \brief Stop a playing audio file.
+       */
+      static void stop(void) {
+        if(al_get_mixer_attached(_mixer_3)) {
+          al_set_audio_stream_playing(voice_stream.get(), false);
+          al_drain_audio_stream(voice_stream.get());
+          al_detach_audio_stream(voice_stream.get());
+        }
+      };
+
+      /*!
+       * \brief Pause playing audio file.
+       */
+      static void pause(void) {
+        if(al_get_mixer_attached(_mixer_3) && al_get_mixer_playing(_mixer_3))
+          al_set_audio_stream_playing(voice_stream.get(), false);
+      };
+
+      /*!
+       * \brief Resume playing audio file.
+       */
+      static void unpause(void) {
+        if(al_get_mixer_attached(_mixer_3)) al_set_audio_stream_playing(voice_stream.get(), true);
+      };
+
+      /*!
+       * \brief Adjust the voice mixer volume level.
+       * \param l Volume level to set.
+       */
+      static void set_level(const float& l) {
+        (l >= 0.0f && l <= 1.0f ?
+          config::_volume::voice = l :
+          config::_volume::voice = 0.0f);
+        set_volume();
+      };
+    };
+
+    /*!
+     * \struct ambiance
+     * \brief Ambiance commands.
+     */
+    struct ambiance {
+      /*!
+       * \brief Toggle ambiance looping.
+       * \param loop True to enable, false to disable.
+       */
+      static void loop(const bool& loop) {
+        if(!al_get_mixer_attached(_mixer_4)) return;  //  Ambiance not loaded, end.
+        (loop ? al_set_audio_stream_playmode(ambiance_stream.get(), ALLEGRO_PLAYMODE_LOOP) :
+          al_set_audio_stream_playmode(ambiance_stream.get(), ALLEGRO_PLAYMODE_ONCE));
+      };
+
+      /*!
+       * \brief Play an audio asset on the ambiance channel.
+       * \param audio Audio asset.
+       */
+      static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio) {
+        ambiance::stop();
+        ambiance_stream = audio;
+        al_attach_audio_stream_to_mixer(ambiance_stream.get(), _mixer_4);
+        al_set_audio_stream_playmode(ambiance_stream.get(), ALLEGRO_PLAYMODE_LOOP);
+        al_rewind_audio_stream(ambiance_stream.get());
+        al_set_audio_stream_playing(ambiance_stream.get(), true);
+      };
+
+      /*!
+       * \brief Stop playing ambiance.
+       */
+      static void stop(void) {
+        if(al_get_mixer_attached(_mixer_4)) {
+          al_set_audio_stream_playing(ambiance_stream.get(), false);
+          al_drain_audio_stream(ambiance_stream.get());
+          al_detach_audio_stream(ambiance_stream.get());
+        }
+      };
+
+      /*!
+       * \brief Pause playing ambiance.
+       */
+      static void pause(void) {
+        if(al_get_mixer_attached(_mixer_4) && al_get_mixer_playing(_mixer_4))
+          al_set_audio_stream_playing(ambiance_stream.get(), false);
+      };
+
+      /*!
+       * \brief Resume playing ambiance.
+       */
+      static void unpause(void) {
+        if(al_get_mixer_attached(_mixer_4)) al_set_audio_stream_playing(ambiance_stream.get(), true);
+      };
+
+      /*!
+       * \brief Adjust the ambiance mixer volume level.
+       * \param l Volume level to set.
+       */
+      static void set_level(const float& l) {
+        (l >= 0.0f && l <= 1.0f ?
+          config::_volume::ambiance = l :
+          config::_volume::ambiance = 0.0f);
+        set_volume();
+      };
+    };
 };
 
 template <> bool manager<audio>::initialized = false;

@@ -229,14 +229,14 @@ class engine final : public config, public input, public display {
     };
 
     //  Internal commands for the engine.
-    static commands cmds;
+    inline static commands cmds;
 
     //  Allegro objects used by the engine.
     inline static ALLEGRO_TIMER* main_timer = NULL;
     inline static ALLEGRO_EVENT_QUEUE* main_event_queue = NULL;
 
     //  Vector of file paths to provide to PhysFS.
-    static std::vector<std::string> file_locations;
+    inline static std::vector<std::string> file_locations;
     //  Restrict to one instance of the engine running.
     inline static bool initialized = false;
 

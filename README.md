@@ -1,7 +1,5 @@
 #  What the Engine?
 
-__WIP__ Undergoing some work, changing the engine to a full header implementation.  May have issues building.
-
 __WTEngine__ is a lightweight cross-platform game engine written in C++17 using an [ECS](https://en.wikipedia.org/wiki/Entity_component_system) design.
 
 ### Requirements

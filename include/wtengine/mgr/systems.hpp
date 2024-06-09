@@ -75,7 +75,7 @@ class systems final : private manager<systems> {
     };
 
     // Store the vector of systems.
-    static std::vector<sys::system_uptr> _systems;
+    inline static std::vector<sys::system_uptr> _systems;
     //  Flag to disallow loading of additional systems.
     inline static bool finalized = false;
 };

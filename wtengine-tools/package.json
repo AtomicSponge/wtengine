@@ -1,0 +1,57 @@
+{
+  "name": "@wtfsystems/wtengine-tools",
+  "version": "0.2.2",
+  "description": "WTEngine Development Tools",
+  "author": "Matthew Evans",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wtfsystems/wtengine-tools.git"
+  },
+  "keywords": [
+    "engine",
+    "gamedev",
+    "development",
+    "tools",
+    "scripts"
+  ],
+  "url": "https://www.npmjs.com/package/@wtfsystems/wtengine-tools",
+  "homepage": "https://github.com/wtfsystems/wtengine-tools#readme",
+  "bugs": {
+    "url": "https://github.com/wtfsystems/wtengine-tools/issues"
+  },
+  "scripts": {
+    "build": "tsup",
+    "prepublishOnly": "npm run build"
+  },
+  "bin": {
+    "wte-config": "dist/wte-config.js",
+    "wte-mkscript": "dist/wte-mkscript.js",
+    "wte-syscheck": "dist/wte-syscheck.js"
+  },
+  "type": "module",
+  "files": [
+    "./dist",
+    "LICENSE.md",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@spongex/script-error": "^1.0.0",
+    "@spongex/system-locale": "^1.0.0",
+    "commander": "^12.1.0",
+    "csv-parse": "^5.5.6",
+    "find-bin": "^1.1.0",
+    "inquirer": "^9.2.23",
+    "kolorist": "^1.8.0",
+    "yaml": "^2.4.3"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.14.0",
+    "tsup": "^8.1.0",
+    "typescript": "^5.4.5"
+  }
+}

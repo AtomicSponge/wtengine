@@ -1,0 +1,5 @@
+250,entities,starfield,,up,
+350,entities,starfield,,up,
+650,entities,starfield,,down,
+750,entities,starfield,,down,
+1200,system,,,load-script,background_control.sdf

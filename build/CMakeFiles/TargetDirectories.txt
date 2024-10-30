@@ -1,6 +1,0 @@
-/home/matt/Projects/wtengine/wtengine/build/CMakeFiles/edit_cache.dir
-/home/matt/Projects/wtengine/wtengine/build/CMakeFiles/rebuild_cache.dir
-/home/matt/Projects/wtengine/wtengine/build/CMakeFiles/list_install_components.dir
-/home/matt/Projects/wtengine/wtengine/build/CMakeFiles/install.dir
-/home/matt/Projects/wtengine/wtengine/build/CMakeFiles/install/local.dir
-/home/matt/Projects/wtengine/wtengine/build/CMakeFiles/install/strip.dir

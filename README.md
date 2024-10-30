@@ -55,4 +55,3 @@ pkg-config --libs --exists wtengine
 ## Demo Game
 
 <https://github.com/AtomicSponge/slv-demo-01>
-test

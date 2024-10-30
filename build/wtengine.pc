@@ -1,0 +1,9 @@
+prefix=/usr/local
+includedir=${prefix}/include
+
+Name: wtengine
+Description: What the Engine?
+Version: 0.7.3
+
+Requires:
+Cflags: -I${includedir}

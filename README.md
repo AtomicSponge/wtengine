@@ -49,3 +49,9 @@ You can verify pkg-config can locate the engine by:
 ```
 pkg-config --libs --exists wtengine 
 ```
+
+-----
+
+## Demo Game
+
+<https://github.com/AtomicSponge/slv-demo-01>

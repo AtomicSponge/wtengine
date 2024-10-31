@@ -19,7 +19,7 @@ __WTEngine__ is a lightweight cross-platform game engine written in C++17 using 
 
 ## Library Installation
 
-Build and installation is handled by [CMake](https://cmake.org/).  To build just the library:
+Build and installation is handled by [CMake](https://cmake.org/).  To download and prepare the library for installation run:
 ```
 git clone https://github.com/wtfsystems/wtengine.git
 cd wtengine

@@ -1,9 +1,0 @@
-prefix=@CMAKE_INSTALL_PREFIX@
-includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
-
-Name: @PROJECT_NAME@
-Description: @PROJECT_DESCRIPTION@
-Version: @PROJECT_VERSION@
-
-Requires:
-Cflags: -I${includedir}

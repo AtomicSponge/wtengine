@@ -21,18 +21,6 @@ enable_language(CXX)
 #  Always build release
 set(CMAKE_BUILD_TYPE Release)
 
-#  Set compiler flags
-set(CMAKE_CXX_FLAGS "-Wall")
-set(CMAKE_CXX_FLAGS_DEBUG "-g")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-
-#  Set up flags for building with Emscripten
-if(EMSCRIPTEN)
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s USE_FREETYPE=1 -s USE_VORBIS=1 -s USE_OGG=1 -s USE_LIBJPEG=1 -s USE_SDL=2 -s USE_LIBPNG=1 -O3")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_FREETYPE=1 -s USE_VORBIS=1 -s USE_OGG=1 -s USE_LIBJPEG=1 -s USE_SDL=2 -s USE_LIBPNG=1 -O3")
-  set(CMAKE_EXECUTABLE_SUFFIX ".wasm")
-endif()
-
 ########################################
 #
 #  Library Detection

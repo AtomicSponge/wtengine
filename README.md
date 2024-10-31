@@ -23,13 +23,15 @@ Build and installation is handled by [CMake](https://cmake.org/).  To build just
 ```
 git clone https://github.com/wtfsystems/wtengine.git
 cd wtengine
-cmake .
-make
+mkdir build
+cd build
+cmake ..
+cd ..
 ```
 
 Then to install the library run:
 ```
-sudo make install
+sudo cmake --build build --target install --config Build
 ```
 
 -----

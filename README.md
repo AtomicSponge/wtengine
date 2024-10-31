@@ -19,7 +19,7 @@ __WTEngine__ is a lightweight cross-platform game engine written in C++17 using 
 
 ## Library Installation
 
-Build and installation is handled by [CMake](https://cmake.org/).  To download and prepare the library for installation run:
+Installation is handled by [CMake](https://cmake.org/).  To download and prepare the library for installation run:
 ```
 git clone https://github.com/wtfsystems/wtengine.git
 cd wtengine
@@ -32,24 +32,6 @@ cd ..
 Then to install the library run:
 ```
 sudo cmake --build build --target install --config Build
-```
-
------
-
-## Troubleshooting
-
-### pkg-config can't find wtengine
-
-Make sure the install location used for pkg-config is in PKG_CONFIG_PATH, example:
-```
-export PKG_CONFIG_PATH=/usr/local/share/pkgconfig
-```
-
-Check __install_manifest.txt__ to see where __wtengine.pc__ was placed.
-
-You can verify pkg-config can locate the engine by:
-```
-pkg-config --libs --exists wtengine 
 ```
 
 -----

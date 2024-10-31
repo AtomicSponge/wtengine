@@ -53,10 +53,3 @@ include(GNUInstallDirs)
 install(DIRECTORY include/
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
   FILES_MATCHING PATTERN "*.hpp" PATTERN "*.h")
-
-#  Create pkg-config and install
-configure_file(wtengine.pc.in wtengine.pc @ONLY)
-install(FILES ${CMAKE_BINARY_DIR}/wtengine.pc
-  DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
-
-#  Done!

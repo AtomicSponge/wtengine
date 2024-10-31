@@ -8,6 +8,7 @@
 #if !defined(WTE_HANDLERS_HPP)
 #define WTE_HANDLERS_HPP
 
+#include <functional>
 #include <variant>
 
 #include <allegro5/allegro.h>

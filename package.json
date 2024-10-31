@@ -1,6 +1,5 @@
 {
   "devDependencies": {
-    "moxygen": "^0.8.0",
     "vitepress": "^1.4.3"
   }
 }

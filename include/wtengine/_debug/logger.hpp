@@ -67,7 +67,7 @@ class logger final {
       log_file.close();
     };
 
-    static std::ofstream log_file;
+    inline static std::ofstream log_file;
 };
 
 }  //  end namespace wte

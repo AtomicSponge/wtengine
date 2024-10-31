@@ -240,19 +240,8 @@ class variables final : private manager<variables> {
     inline static void verify(void) {
       static_assert(
         std::is_same<bool, T>::value ||
-        std::is_same<char, T>::value ||
-        std::is_same<int, T>::value ||
-        std::is_same<int16_t, T>::value ||
-        std::is_same<int32_t, T>::value ||
         std::is_same<int64_t, T>::value ||
-        std::is_same<unsigned int, T>::value ||
-        std::is_same<uint16_t, T>::value ||
-        std::is_same<uint32_t, T>::value ||
-        std::is_same<uint64_t, T>::value ||
-        std::is_same<float, T>::value ||
         std::is_same<double, T>::value ||
-        std::is_same<long double, T>::value ||
-        std::is_same<std::size_t, T>::value ||
         std::is_same<std::string, T>::value
       );
     };

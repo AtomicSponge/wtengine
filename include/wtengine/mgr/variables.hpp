@@ -242,7 +242,8 @@ class variables final : private manager<variables> {
         std::is_same<bool, T>::value ||
         std::is_same<int64_t, T>::value ||
         std::is_same<double, T>::value ||
-        std::is_same<std::string, T>::value
+        std::is_same<std::string, T>::value,
+        "Variable must be a valid data type!"
       );
     };
 

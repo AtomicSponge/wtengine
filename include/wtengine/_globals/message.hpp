@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_MSG_MESSAGE_HPP)
-#define WTE_MSG_MESSAGE_HPP
+#if !defined(WTE_MESSAGE_HPP)
+#define WTE_MESSAGE_HPP
 
 #include <string>
 #include <vector>

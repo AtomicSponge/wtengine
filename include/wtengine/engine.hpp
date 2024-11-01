@@ -458,7 +458,7 @@ inline void do_game(void) {
 
   //  MAIN ENGINE LOOP
   #if defined(__EMSCRIPTEN__)
-    emscripten_set_main_loop(em_looper, 0, true);
+    emscripten_set_main_loop(&em_looper, -1, true);
   #else
     while(config::flags::is_running) engine::main_loop();
   #endif

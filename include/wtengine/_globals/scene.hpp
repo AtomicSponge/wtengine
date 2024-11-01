@@ -16,7 +16,10 @@ namespace wte {
  */
 class scene {
   public:
-    //
+    virtual ~scene() = default;
+
+  protected:
+    scene() = default;
 
   private:
     //

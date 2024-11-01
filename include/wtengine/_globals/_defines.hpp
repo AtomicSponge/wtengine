@@ -80,6 +80,10 @@
   #define WTE_USE_TOUCH FALSE
 #endif
 
+#if !WTE_USE_KEYBOARD && !WTE_USE_MOUSE && !WTE_USE_JOYSTICK && !WTE_USE_TOUCH
+  #error Must define at least one input device to be used
+#endif
+
 namespace wte {
 
 /*
@@ -99,56 +103,6 @@ struct wte_build_options {
 };
 inline constexpr wte_build_options build_options;
 
-/*!
- * \struct WTE_DISPLAY_MODE
- * \brief Contains information on configurable display modes.
- */
-typedef struct WTE_DISPLAY_MODE {
-  std::string label;  //!<  Label for display setting.
-  int width;          //!<  Width of the display.
-  int height;         //!<  Height of the display.
-} WTE_DISPLAY_MODE;
-
-/*!
- * \brief Default engine display modes.
- */
-inline std::vector<WTE_DISPLAY_MODE> display_modes = {
-  // 4:3
-  WTE_DISPLAY_MODE { "1440x1080", 1440, 1080 },
-  WTE_DISPLAY_MODE { "1600x1200", 1600, 1200 },
-  WTE_DISPLAY_MODE { "3200x2400", 3200, 2400 },
-
-  // 16:9
-  WTE_DISPLAY_MODE { "1920x1080", 1920, 1080 },
-  WTE_DISPLAY_MODE { "2560x1440", 2560, 1440 },
-  WTE_DISPLAY_MODE { "3840x2160", 3840, 2160 },
-
-  // 21:9
-  WTE_DISPLAY_MODE { "2520x1080", 2520, 1080 },
-  WTE_DISPLAY_MODE { "3440x1440", 3440, 1440 },
-  WTE_DISPLAY_MODE { "5120x2160", 5120, 2160 }
-};
-
-/*!
- * \brief Default engine scale factors.
- */
-inline std::vector<float> scale_factors = { .75f, 1.0f, 1.25f, 1.5f, 2.0f };
-
 }
-
-/*
- * Error checking
- */
-#if !WTE_USE_KEYBOARD && !WTE_USE_MOUSE && !WTE_USE_JOYSTICK && !WTE_USE_TOUCH
-  #error Must define at least one input device to be used
-#endif
-
-//  Define default keys
-#if !defined(WTE_KEY_PAUSE)
-  #define WTE_KEY_PAUSE           ALLEGRO_KEY_ESCAPE
-#endif
-#if !defined(WTE_KEY_TOGGLE_HITBOX)
-  #define WTE_KEY_TOGGLE_HITBOX   ALLEGRO_KEY_F2
-#endif
 
 #endif

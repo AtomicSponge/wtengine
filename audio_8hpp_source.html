@@ -469,7 +469,7 @@ $(function() {
 <div class="line"><a id="l00493" name="l00493"></a><span class="lineno">  493</span>      };</div>
 <div class="line"><a id="l00494" name="l00494"></a><span class="lineno">  494</span> </div>
 <div class="line"><a id="l00498" name="l00498"></a><span class="lineno"><a class="line" href="structwte_1_1mgr_1_1audio_1_1sample.html#a663f2964c6764c6ed221324f06b50bfd">  498</a></span>      <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="structwte_1_1mgr_1_1audio_1_1sample.html#a663f2964c6764c6ed221324f06b50bfd">clear_instances</a>(<span class="keywordtype">void</span>) {</div>
-<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span>        <span class="keywordflow">for</span>(<span class="keyword">auto</span> sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {</div>
+<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {</div>
 <div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>          al_stop_sample(&amp;sample_instance-&gt;second);</div>
 <div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>          sample_instances.erase(sample_instance);</div>
 <div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>          sample_instance = sample_instances.begin();</div>

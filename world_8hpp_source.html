@@ -159,7 +159,7 @@ $(function() {
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>      <span class="keywordflow">if</span> (entity_counter == ENTITY_MAX) {  <span class="comment">//  Counter hit max.</span></div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="keywordtype">bool</span> test = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="comment">//  Look for the first available ID.</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keywordflow">for</span>(next_id = ENTITY_START; !test; next_id++) {</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keywordflow">for</span> (next_id = ENTITY_START; !test; next_id++) {</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>          <span class="keywordflow">if</span> (next_id == ENTITY_MAX) <span class="keywordflow">return</span> ENTITY_ERROR;  <span class="comment">//  No available ID, error.</span></div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>          <span class="comment">//  See if the new ID does not exist.</span></div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>          test = (std::find_if (entity_vec.begin(), entity_vec.end(),</div>
@@ -255,7 +255,7 @@ $(function() {
 <div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>      entity_container temp_container;</div>
 <div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>      <span class="keyword">const</span> <span class="keyword">auto</span> results = _world.equal_range(e_id);</div>
 <div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>      <span class="keywordflow">for</span>(<span class="keyword">auto</span> it = results.first; it != results.second; it++) {</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = results.first; it != results.second; it++) {</div>
 <div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        temp_container.emplace_back(cmp::component_sptr((*it).second));</div>
 <div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>      }</div>
 <div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>      <span class="keywordflow">return</span> temp_container;</div>
@@ -270,7 +270,7 @@ $(function() {
 <div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>      const_entity_container temp_container;</div>
 <div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>      <span class="keyword">const</span> <span class="keyword">auto</span> results = _world.equal_range(e_id);</div>
 <div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>      <span class="keywordflow">for</span>(<span class="keyword">auto</span> it = results.first; it != results.second; it++) {</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = results.first; it != results.second; it++) {</div>
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        temp_container.emplace_back(cmp::component_csptr((*it).second));</div>
 <div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>      }</div>
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>      <span class="keywordflow">return</span> temp_container;</div>
@@ -286,7 +286,7 @@ $(function() {
 <div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>      <span class="comment">//  Check derived types of existing components, make sure one does not already exist.</span></div>
 <div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>      <span class="keyword">const</span> <span class="keyword">auto</span> check_entity = <a class="code hl_function" href="classwte_1_1mgr_1_1world.html#a5530e7c9ca4585b1e1fe071aca4ef809">get_entity</a>(e_id);</div>
 <div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>      <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; it: check_entity) {</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; it: check_entity) {</div>
 <div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        <span class="keyword">auto</span>&amp; r = *it.get();</div>
 <div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        <span class="keywordflow">if</span> (<span class="keyword">typeid</span>(r).name() == <span class="keyword">typeid</span>(T).name()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>      }</div>
@@ -299,7 +299,7 @@ $(function() {
 <div class="line"><a id="l00320" name="l00320"></a><span class="lineno"><a class="line" href="classwte_1_1mgr_1_1world.html#a8ee00e9256e2fd4859cb220cb4b405a0">  320</a></span>    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classwte_1_1mgr_1_1world.html#a8ee00e9256e2fd4859cb220cb4b405a0">delete_component</a>(<span class="keyword">const</span> entity_id&amp; e_id) {</div>
 <div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>      <span class="keyword">auto</span> results = _world.equal_range(e_id);</div>
 <div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>      <span class="keywordflow">for</span>(<span class="keyword">auto</span> it = results.first; it != results.second; it++) {</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = results.first; it != results.second; it++) {</div>
 <div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        <span class="keywordflow">if</span> (std::dynamic_pointer_cast&lt;T&gt;(it-&gt;second)) {</div>
 <div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>          it = _world.erase(it);</div>
 <div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>          <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
@@ -312,7 +312,7 @@ $(function() {
 <div class="line"><a id="l00340" name="l00340"></a><span class="lineno"><a class="line" href="classwte_1_1mgr_1_1world.html#a76279c11520c4aa53fb3d4789d015c8b">  340</a></span>    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classwte_1_1mgr_1_1world.html#a76279c11520c4aa53fb3d4789d015c8b">has_component</a>(<span class="keyword">const</span> entity_id&amp; e_id) {</div>
 <div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>      <span class="keyword">const</span> <span class="keyword">auto</span> results = _world.equal_range(e_id);</div>
 <div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span> </div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>      <span class="keywordflow">for</span>(<span class="keyword">auto</span> it = results.first; it != results.second; it++) {</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = results.first; it != results.second; it++) {</div>
 <div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        <span class="keywordflow">if</span> (std::dynamic_pointer_cast&lt;T&gt;(it-&gt;second))</div>
 <div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>          <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>      }</div>
@@ -323,7 +323,7 @@ $(function() {
 <div class="line"><a id="l00358" name="l00358"></a><span class="lineno"><a class="line" href="classwte_1_1mgr_1_1world.html#a536f15ca8b8a4fd73121bca48ff32009">  358</a></span>    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">const</span> std::shared_ptr&lt;T&gt; <a class="code hl_function" href="classwte_1_1mgr_1_1world.html#a536f15ca8b8a4fd73121bca48ff32009">set_component</a>(<span class="keyword">const</span> entity_id&amp; e_id) {</div>
 <div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>      <span class="keyword">const</span> <span class="keyword">auto</span> results = _world.equal_range(e_id);</div>
 <div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span> </div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>      <span class="keywordflow">for</span>(<span class="keyword">auto</span> it = results.first; it != results.second; it++) {</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = results.first; it != results.second; it++) {</div>
 <div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>        <span class="keywordflow">if</span> (std::dynamic_pointer_cast&lt;T&gt;(it-&gt;second))</div>
 <div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>          <span class="keywordflow">return</span> std::static_pointer_cast&lt;T&gt;(it-&gt;second);</div>
 <div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>      }</div>
@@ -336,7 +336,7 @@ $(function() {
 <div class="line"><a id="l00378" name="l00378"></a><span class="lineno"><a class="line" href="classwte_1_1mgr_1_1world.html#ab7f7cf991482e2026a7c30a7c42446d9">  378</a></span>    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">const</span> std::shared_ptr&lt;const T&gt; <a class="code hl_function" href="classwte_1_1mgr_1_1world.html#ab7f7cf991482e2026a7c30a7c42446d9">get_component</a>(<span class="keyword">const</span> entity_id&amp; e_id) {</div>
 <div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>      <span class="keyword">const</span> <span class="keyword">auto</span> results = _world.equal_range(e_id);</div>
 <div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span> </div>
-<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>      <span class="keywordflow">for</span>(<span class="keyword">auto</span> it = results.first; it != results.second; it++) {</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = results.first; it != results.second; it++) {</div>
 <div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>        <span class="keywordflow">if</span> (std::dynamic_pointer_cast&lt;T&gt;(it-&gt;second))</div>
 <div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>          <span class="keywordflow">return</span> std::static_pointer_cast&lt;const T&gt;(it-&gt;second);</div>
 <div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>      }</div>
@@ -349,7 +349,7 @@ $(function() {
 <div class="line"><a id="l00396" name="l00396"></a><span class="lineno"><a class="line" href="classwte_1_1mgr_1_1world.html#a4ea7a44464ed5feb29e62d3e0680e0f5">  396</a></span>    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">const</span> component_container&lt;T&gt; <a class="code hl_function" href="classwte_1_1mgr_1_1world.html#a4ea7a44464ed5feb29e62d3e0680e0f5">set_components</a>(<span class="keywordtype">void</span>) {</div>
 <div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>      component_container&lt;T&gt; temp_components;</div>
 <div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span> </div>
-<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>      <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; it: _world) {</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; it: _world) {</div>
 <div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>        <span class="keywordflow">if</span> (std::dynamic_pointer_cast&lt;T&gt;(it.second))</div>
 <div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>          temp_components.insert(std::make_pair(it.first, std::static_pointer_cast&lt;T&gt;(it.second)));</div>
 <div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>      }</div>
@@ -360,7 +360,7 @@ $(function() {
 <div class="line"><a id="l00412" name="l00412"></a><span class="lineno"><a class="line" href="classwte_1_1mgr_1_1world.html#a10ba157fd774620fc5941f39e8360101">  412</a></span>    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">const</span> const_component_container&lt;T&gt; <a class="code hl_function" href="classwte_1_1mgr_1_1world.html#a10ba157fd774620fc5941f39e8360101">get_components</a>(<span class="keywordtype">void</span>) {</div>
 <div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>      const_component_container&lt;T&gt; temp_components;</div>
 <div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span> </div>
-<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>      <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; it: _world) {</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; it: _world) {</div>
 <div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>        <span class="keywordflow">if</span> (std::dynamic_pointer_cast&lt;T&gt;(it.second))</div>
 <div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>          temp_components.insert(std::make_pair(it.first, std::static_pointer_cast&lt;T&gt;(it.second)));</div>
 <div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>      }</div>

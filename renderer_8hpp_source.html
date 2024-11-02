@@ -180,7 +180,7 @@ $(function() {
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>      <span class="keyword">const</span> const_component_container&lt;cmp::hitbox&gt; hitbox_components =</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        mgr::world::get_components&lt;cmp::hitbox&gt;();</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>      <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; it: hitbox_components) {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; it: hitbox_components) {</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordflow">if</span> (it.second-&gt;solid) {</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>          <span class="comment">//  Select color based on team.</span></div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>          ALLEGRO_COLOR team_color;</div>
@@ -259,7 +259,7 @@ $(function() {
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>          background_components.begin(), background_components.end());</div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
 <div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        <span class="comment">//  Draw each background by layer.</span></div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; it: background_componenet_set) {</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; it: background_componenet_set) {</div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>          <span class="keywordflow">if</span> (it.second-&gt;visible) {</div>
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>            <span class="keywordtype">float</span> angle = 0.0f;</div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>            <span class="keywordtype">float</span> center_x = 0.0f, center_y = 0.0f;</div>
@@ -308,7 +308,7 @@ $(function() {
 <div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>          sprite_components.begin(), sprite_components.end());</div>
 <div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
 <div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        <span class="comment">//  Draw each sprite in order.</span></div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; it: sprite_componenet_set) {</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; it: sprite_componenet_set) {</div>
 <div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>          <span class="keywordflow">if</span> (it.second-&gt;visible) {</div>
 <div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>            <span class="comment">//  Get the current sprite frame.</span></div>
 <div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>            ALLEGRO_BITMAP* temp_bitmap = al_create_sub_bitmap(</div>
@@ -376,7 +376,7 @@ $(function() {
 <div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>          overlay_components.begin(), overlay_components.end());</div>
 <div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
 <div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        <span class="comment">//  Draw each overlay by layer.</span></div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; it: overlay_componenet_set) {</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; it: overlay_componenet_set) {</div>
 <div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>          <span class="keywordflow">if</span> (it.second-&gt;visible) {</div>
 <div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>            <span class="keywordtype">float</span> angle = 0.0f;</div>
 <div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>            <span class="keywordtype">float</span> center_x = 0.0f, center_y = 0.0f;</div>

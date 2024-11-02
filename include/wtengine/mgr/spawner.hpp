@@ -37,7 +37,7 @@ class spawner final : private manager<spawner> {
 
     //  Takes spawner messages and processes.
     static void process_messages(const message_container& messages) {
-      for(auto& m_it: messages) {
+      for (auto& m_it: messages) {
         if (m_it.get_cmd() == "new") {
           auto s_it = spawns.find(m_it.get_arg(0));
           if (s_it != spawns.end())
@@ -56,7 +56,7 @@ class spawner final : private manager<spawner> {
             mgr::world::delete_entity(delete_entity_id);
           }
         }
-      }  //  End for(m_it)
+      }
     };
 
     inline static std::map<

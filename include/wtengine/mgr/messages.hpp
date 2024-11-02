@@ -59,22 +59,24 @@ class messages final : private manager<messages> {
       component_container<cmp::dispatcher> dispatch_components =
         mgr::world::set_components<cmp::dispatcher>();
 
-      while(true) {  //  Infinite loop to verify all current messages are processed.
+      while (true) {  //  Infinite loop to verify all current messages are processed.
         message_container temp_msgs = get("entities");
         if (temp_msgs.empty()) break;  //  No messages, end while(true) loop.
 
         //  For all messages, check each dispatch component.
-        for(auto& m_it: temp_msgs) { for(auto& c_it: dispatch_components) {
-          try {
-            if (m_it.get_to() == mgr::world::get_name(c_it.first)) {
-              c_it.second->handle_msg(c_it.first, m_it);
-              break;  //  Found, stop checking dispatch components.
-            }
-          } catch(const std::exception& e) {
-            throw e;
-            break;
-          } catch(...) { break; }
-        }}  //  End double for
+        for (auto& m_it: temp_msgs) {
+          for (auto& c_it: dispatch_components) {
+            try {
+              if (m_it.get_to() == mgr::world::get_name(c_it.first)) {
+                c_it.second->handle_msg(c_it.first, m_it);
+                break;  //  Found, stop checking dispatch components.
+              }
+            } catch(const std::exception& e) {
+              throw e;
+              break;
+            } catch (...) { break; }
+          }
+        }  //  End double for
       }
     };
 
@@ -95,7 +97,7 @@ class messages final : private manager<messages> {
       }
 
       //  Loop through the entire data file loading into the queue.
-      while(true) {
+      while (true) {
         if (al_feof(file)) break;  //  End loop if eof.
 
         int64_t timer = -1;
@@ -106,7 +108,7 @@ class messages final : private manager<messages> {
           read(*file, timer, sys, to, from, cmd, args);
           //  Add message to queue.  Ignore incomplete messages.
           if (sys != "" && cmd != "") _messages.push_back(message(timer, sys, to, from, cmd, args));
-        } catch(const std::exception& e) {
+        } catch (const std::exception& e) {
           throw engine_error("Unable to read game data file!");
         }
       }
@@ -122,7 +124,7 @@ class messages final : private manager<messages> {
      */
     static const message_container get(const std::string& sys) {
       message_container temp_messages;
-      for(auto it = _messages.begin(); it != _messages.end();) {
+      for (auto it = _messages.begin(); it != _messages.end();) {
         //  End early if events are in the future
         if (it->get_timer() > engine_time::check()) break;
         if ((it->get_timer() == -1 || it->get_timer() == engine_time::check()) && it->get_sys() == sys) {
@@ -136,7 +138,7 @@ class messages final : private manager<messages> {
 
     //  Deletes timed messages that were not processed.
     static void prune(void) {
-      for(auto it = _messages.begin(); it != _messages.end();) {
+      for (auto it = _messages.begin(); it != _messages.end();) {
         //  End early if events are in the future.
         if (it->get_timer() > engine_time::check()) break;
         if constexpr (build_options.debug_mode) log(*it, true);
@@ -159,7 +161,7 @@ class messages final : private manager<messages> {
 
       //  For each of the strings above, loop through and read
       //  each charecter, ending if we reach null termed or eof.
-      while(true) {
+      while (true) {
         const char ch = al_fgetc(&file);
         if (ch == '\0') break;  //  End loop if null terminated.
         if (ch == EOF) {
@@ -168,7 +170,7 @@ class messages final : private manager<messages> {
         }
         sys += ch;
       }
-      while(true) {
+      while (true) {
         const char ch = al_fgetc(&file);
         if (ch == '\0') break;  //  End loop if null terminated.
         if (ch == EOF) {
@@ -177,7 +179,7 @@ class messages final : private manager<messages> {
         }
         to += ch;
       }
-      while(true) {
+      while (true) {
         const char ch = al_fgetc(&file);
         if (ch == '\0') break;  //  End loop if null terminated.
         if (ch == EOF) {
@@ -186,7 +188,7 @@ class messages final : private manager<messages> {
         }
         from += ch;
       }
-      while(true) {
+      while (true) {
         const char ch = al_fgetc(&file);
         if (ch == '\0') break;  //  End loop if null terminated.
         if (ch == EOF) {
@@ -195,7 +197,7 @@ class messages final : private manager<messages> {
         }
         cmd += ch;
       }
-      while(true) {
+      while (true) {
         const char ch = al_fgetc(&file);
         if (ch == '\0') break;  //  End loop if null terminated.
         if (ch == EOF) {
@@ -232,7 +234,7 @@ class messages final : private manager<messages> {
       debug_log_file << "CMD:  " << msg.get_cmd() << " | ";
       debug_log_file << "ARGS:  ";
       msg_args arglist = msg.get_args();
-      for(auto i = arglist.begin(); i != arglist.end(); i++) {
+      for (auto i = arglist.begin(); i != arglist.end(); i++) {
         debug_log_file << *i;
         if (std::next(i, 1) != arglist.end()) debug_log_file << ";";
       }

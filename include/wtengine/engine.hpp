@@ -101,21 +101,21 @@ class engine final : public config, public input, public display {
       input::check_events();  //  Check for input.
 
       //  Game not running, make sure the timer isn't.
-      if(!config::flags::engine_started) al_stop_timer(main_timer);
+      if (!config::flags::engine_started) al_stop_timer(main_timer);
       else {
         //  Pause / resume timer check.  Also process the on_pause events.
-        if(config::flags::engine_paused && al_get_timer_started(main_timer)) {
+        if (config::flags::engine_paused && al_get_timer_started(main_timer)) {
           al_stop_timer(main_timer);
           on_engine_pause();
         }
-        if(!config::flags::engine_paused && !al_get_timer_started(main_timer)) {
+        if (!config::flags::engine_paused && !al_get_timer_started(main_timer)) {
           on_engine_unpause();
           al_resume_timer(main_timer);
         }
       }
 
       ALLEGRO_EVENT event;
-      if(al_get_next_event(main_event_queue, &event)) {
+      if (al_get_next_event(main_event_queue, &event)) {
         switch(event.type) {
         //  Call our game logic update on timer events.
         //  Timer is only running when the game is running.
@@ -139,7 +139,7 @@ class engine final : public config, public input, public display {
           break;
         //  Force quit if the game window is closed.
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
-          if(config::flags::engine_started) process_end_game(true);
+          if (config::flags::engine_started) process_end_game(true);
           config::_flags::is_running = false;
           break;
         //  Window has been resized.
@@ -169,12 +169,12 @@ class engine final : public config, public input, public display {
       std::srand(std::time(nullptr));  //  Seed random, using time.
 
       //  Load a new message data file.
-      if(!game_script.empty()) mgr::messages::load_file(game_script);
+      if (!game_script.empty()) mgr::messages::load_file(game_script);
 
       //  Load systems and prevent further systems from being loaded.
       load_systems();
       mgr::systems::finalized = true;
-      if(mgr::systems::empty()) throw engine_error("No systems have been loaded!");
+      if (mgr::systems::empty()) throw engine_error("No systems have been loaded!");
 
       //  Stop audio manager from playing sounds.
       mgr::audio::music::a::stop();
@@ -219,7 +219,7 @@ class engine final : public config, public input, public display {
       mgr::audio::sample::clear_instances();
 
       //  Call custom end game process.
-      if(!force) end_game();
+      if (!force) end_game();
 
       //  Clear managers.
       mgr::world::clear();
@@ -262,18 +262,18 @@ class engine final : public config, public input, public display {
      */
     static void initialize(const int& argc, char** const& argv) {
       std::cout << "Starting WTEngine...\n";
-      if(initialized == true) throw engine_error(display::window_title + " already running!");
+      if (initialized == true) throw engine_error(display::window_title + " already running!");
       initialized = true;
 
       std::cout << "Loading Allegro Game Library... ";
       //  Initialize Allegro.
-      if(!al_init()) throw engine_error("Allegro failed to load!");
+      if (!al_init()) throw engine_error("Allegro failed to load!");
       std::cout << "OK!\n";
 
       //  Initialize additional Allegro components.
       std::cout << "Loading Allegro add-ons... ";
-      if(!al_init_image_addon()) throw engine_error("Failed to load Allegro image addon!");
-      if(!al_init_font_addon()) throw engine_error("Failed to load Allegro font addon!");
+      if (!al_init_image_addon()) throw engine_error("Failed to load Allegro image addon!");
+      if (!al_init_font_addon()) throw engine_error("Failed to load Allegro font addon!");
       std::cout << "OK!\n";
       config::_flags::audio_installed = al_install_audio();
       //  Input detection.
@@ -288,9 +288,9 @@ class engine final : public config, public input, public display {
 
       //  Configure PhysFS.
       std::cout << "Loading PhysicsFS... ";
-      if(!PHYSFS_init(argv[0])) throw engine_error("Failed to load PhysicsFS!");
-      if(file_locations.empty()) throw engine_error("Need to configure locations for PhysFS!");
-      for(auto& it: file_locations) PHYSFS_mount(it.c_str(), NULL, 1);
+      if (!PHYSFS_init(argv[0])) throw engine_error("Failed to load PhysicsFS!");
+      if (file_locations.empty()) throw engine_error("Need to configure locations for PhysFS!");
+      for (auto& it: file_locations) PHYSFS_mount(it.c_str(), NULL, 1);
       al_set_physfs_file_interface();
       std::cout << "OK!\n";
 
@@ -305,10 +305,10 @@ class engine final : public config, public input, public display {
       std::cout << "Creating main timer and event queue... ";
       //  Configure main timer.
       main_timer = al_create_timer(1.0f / build_options.ticks_per_sec);
-      if(!main_timer) throw engine_error("Failed to create timer!");
+      if (!main_timer) throw engine_error("Failed to create timer!");
       //  Configure main event queue.
       main_event_queue = al_create_event_queue();
-      if(!main_event_queue) throw engine_error("Failed to create main event queue!");
+      if (!main_event_queue) throw engine_error("Failed to create main event queue!");
       std::cout << "OK!\n";
 
       //  Register event sources.
@@ -320,30 +320,30 @@ class engine final : public config, public input, public display {
 
       //  Allegro extras
       al_init_primitives_addon();
-      if(config::flags::audio_installed) al_init_acodec_addon();
+      if (config::flags::audio_installed) al_init_acodec_addon();
 
       //  Main engine commands.
       cmds.add("exit", 0, [](const msg_args& args) {
-        if(config::flags::engine_started) process_end_game(true);
+        if (config::flags::engine_started) process_end_game(true);
         config::_flags::is_running = false;
       });
       cmds.add("new-game", 1, [](const msg_args& args) {
-        if(!config::flags::engine_started) {
+        if (!config::flags::engine_started) {
           process_new_game(args[0]);
         }
       });
       cmds.add("end-game", 0, [](const msg_args& args) {
-        if(config::flags::engine_started) {
+        if (config::flags::engine_started) {
           process_end_game(false);
         }
       });
       cmds.add("fps-counter", 1, [](const msg_args& args) {
-        if(args[0] == "on") config::flags::draw_fps = true;
-        if(args[0] == "off") config::flags::draw_fps = false;
+        if (args[0] == "on") config::flags::draw_fps = true;
+        if (args[0] == "off") config::flags::draw_fps = false;
       });
       cmds.add("load-script", 1, [](const msg_args& args) {
-        if(config::flags::engine_started && args[0] != "") {
-          if(!mgr::messages::load_script(args[0]))
+        if (config::flags::engine_started && args[0] != "") {
+          if (!mgr::messages::load_script(args[0]))
             throw engine_exception("Error loading script:  " + args[0], "engine", 2);
         }
       });
@@ -386,7 +386,7 @@ class engine final : public config, public input, public display {
       std::cout << "OK!\n";
       std::cout << "Stopping Allegro... ";
       al_shutdown_font_addon();
-      if(config::flags::audio_installed) al_uninstall_audio();
+      if (config::flags::audio_installed) al_uninstall_audio();
       al_shutdown_primitives_addon();
       al_uninstall_system();
       std::cout << "OK!\n";
@@ -419,7 +419,7 @@ class engine final : public config, public input, public display {
 #if defined(__EMSCRIPTEN__)
 inline void em_looper(void) {
   engine::main_loop();
-  if(!config::flags::is_running) emscripten_cancel_main_loop();
+  if (!config::flags::is_running) emscripten_cancel_main_loop();
 }
 #endif
 

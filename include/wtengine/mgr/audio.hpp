@@ -496,7 +496,7 @@ class audio final : private manager<audio> {
        * \brief Claer all playing sample instances.
        */
       static void clear_instances(void) {
-        for(auto sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
+        for (auto sample_instance = sample_instances.begin(); sample_instance != sample_instances.end();) {
           al_stop_sample(&sample_instance->second);
           sample_instances.erase(sample_instance);
           sample_instance = sample_instances.begin();

@@ -121,7 +121,7 @@ class world final : private manager<world> {
       if (entity_counter == ENTITY_MAX) {  //  Counter hit max.
         bool test = false;
         //  Look for the first available ID.
-        for(next_id = ENTITY_START; !test; next_id++) {
+        for (next_id = ENTITY_START; !test; next_id++) {
           if (next_id == ENTITY_MAX) return ENTITY_ERROR;  //  No available ID, error.
           //  See if the new ID does not exist.
           test = (std::find_if (entity_vec.begin(), entity_vec.end(),
@@ -254,7 +254,7 @@ class world final : private manager<world> {
       entity_container temp_container;
       const auto results = _world.equal_range(e_id);
 
-      for(auto it = results.first; it != results.second; it++) {
+      for (auto it = results.first; it != results.second; it++) {
         temp_container.emplace_back(cmp::component_sptr((*it).second));
       }
       return temp_container;
@@ -275,7 +275,7 @@ class world final : private manager<world> {
       const_entity_container temp_container;
       const auto results = _world.equal_range(e_id);
 
-      for(auto it = results.first; it != results.second; it++) {
+      for (auto it = results.first; it != results.second; it++) {
         temp_container.emplace_back(cmp::component_csptr((*it).second));
       }
       return temp_container;
@@ -300,7 +300,7 @@ class world final : private manager<world> {
       //  Check derived types of existing components, make sure one does not already exist.
       const auto check_entity = get_entity(e_id);
 
-      for(auto& it: check_entity) {
+      for (auto& it: check_entity) {
         auto& r = *it.get();
         if (typeid(r).name() == typeid(T).name()) return false;
       }
@@ -320,7 +320,7 @@ class world final : private manager<world> {
     inline static bool delete_component(const entity_id& e_id) {
       auto results = _world.equal_range(e_id);
 
-      for(auto it = results.first; it != results.second; it++) {
+      for (auto it = results.first; it != results.second; it++) {
         if (std::dynamic_pointer_cast<T>(it->second)) {
           it = _world.erase(it);
           return true;
@@ -340,7 +340,7 @@ class world final : private manager<world> {
     inline static bool has_component(const entity_id& e_id) {
       const auto results = _world.equal_range(e_id);
 
-      for(auto it = results.first; it != results.second; it++) {
+      for (auto it = results.first; it != results.second; it++) {
         if (std::dynamic_pointer_cast<T>(it->second))
           return true;
       }
@@ -358,7 +358,7 @@ class world final : private manager<world> {
     inline static const std::shared_ptr<T> set_component(const entity_id& e_id) {
       const auto results = _world.equal_range(e_id);
 
-      for(auto it = results.first; it != results.second; it++) {
+      for (auto it = results.first; it != results.second; it++) {
         if (std::dynamic_pointer_cast<T>(it->second))
           return std::static_pointer_cast<T>(it->second);
       }
@@ -378,7 +378,7 @@ class world final : private manager<world> {
     inline static const std::shared_ptr<const T> get_component(const entity_id& e_id) {
       const auto results = _world.equal_range(e_id);
 
-      for(auto it = results.first; it != results.second; it++) {
+      for (auto it = results.first; it != results.second; it++) {
         if (std::dynamic_pointer_cast<T>(it->second))
           return std::static_pointer_cast<const T>(it->second);
       }
@@ -396,7 +396,7 @@ class world final : private manager<world> {
     inline static const component_container<T> set_components(void) {
       component_container<T> temp_components;
 
-      for(auto& it: _world) {
+      for (auto& it: _world) {
         if (std::dynamic_pointer_cast<T>(it.second))
           temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
       }
@@ -412,7 +412,7 @@ class world final : private manager<world> {
     inline static const const_component_container<T> get_components(void) {
       const_component_container<T> temp_components;
 
-      for(auto& it: _world) {
+      for (auto& it: _world) {
         if (std::dynamic_pointer_cast<T>(it.second))
           temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
       }

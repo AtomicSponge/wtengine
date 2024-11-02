@@ -71,7 +71,7 @@ class systems final : private manager<systems> {
     template <typename T, typename... Args>
     static bool add(Args... args) {
       if (finalized == true) return false;
-      for(auto& it: _systems) {
+      for (auto& it: _systems) {
         auto& r = *it.get();
         if (typeid(r) == typeid(T)) return false;
       }

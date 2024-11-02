@@ -110,7 +110,7 @@ class renderer final : private manager<renderer> {
       const const_component_container<cmp::hitbox> hitbox_components =
         mgr::world::get_components<cmp::hitbox>();
 
-      for(auto& it: hitbox_components) {
+      for (auto& it: hitbox_components) {
         if (it.second->solid) {
           //  Select color based on team.
           ALLEGRO_COLOR team_color;
@@ -189,7 +189,7 @@ class renderer final : private manager<renderer> {
           background_components.begin(), background_components.end());
 
         //  Draw each background by layer.
-        for(auto& it: background_componenet_set) {
+        for (auto& it: background_componenet_set) {
           if (it.second->visible) {
             float angle = 0.0f;
             float center_x = 0.0f, center_y = 0.0f;
@@ -238,7 +238,7 @@ class renderer final : private manager<renderer> {
           sprite_components.begin(), sprite_components.end());
 
         //  Draw each sprite in order.
-        for(auto& it: sprite_componenet_set) {
+        for (auto& it: sprite_componenet_set) {
           if (it.second->visible) {
             //  Get the current sprite frame.
             ALLEGRO_BITMAP* temp_bitmap = al_create_sub_bitmap(
@@ -306,7 +306,7 @@ class renderer final : private manager<renderer> {
           overlay_components.begin(), overlay_components.end());
 
         //  Draw each overlay by layer.
-        for(auto& it: overlay_componenet_set) {
+        for (auto& it: overlay_componenet_set) {
           if (it.second->visible) {
             float angle = 0.0f;
             float center_x = 0.0f, center_y = 0.0f;

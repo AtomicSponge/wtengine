@@ -28,6 +28,25 @@ namespace wte::mgr {
  * \brief Store game variables
  */
 class variables final : private manager<variables> {
+  private:
+    variables() = default;
+    ~variables() = default;
+
+    //  Verify valid data type.
+    template <typename T>
+    inline static void verify(void) {
+      static_assert(
+        std::is_same<bool, T>::value ||
+        std::is_same<int64_t, T>::value ||
+        std::is_same<double, T>::value ||
+        std::is_same<std::string, T>::value,
+        "Variable must be a valid data type!"
+      );
+    };
+
+    inline static std::string data_file_name = "game.cfg";  //  File to save variables to.
+    inline static std::map<const std::string, std::any> _map;  //  Map of variables.
+
   public:
     /*!
      * \brief Set the file the game config variables will be written to.
@@ -230,25 +249,6 @@ class variables final : private manager<variables> {
         throw engine_exception(err_msg.c_str(), "variables", engine_time::check());
       }
     };
-
-  private:
-    variables() = default;
-    ~variables() = default;
-
-    //  Verify valid data type.
-    template <typename T>
-    inline static void verify(void) {
-      static_assert(
-        std::is_same<bool, T>::value ||
-        std::is_same<int64_t, T>::value ||
-        std::is_same<double, T>::value ||
-        std::is_same<std::string, T>::value,
-        "Variable must be a valid data type!"
-      );
-    };
-
-    inline static std::string data_file_name = "game.cfg";  //  File to save variables to.
-    inline static std::map<const std::string, std::any> _map;  //  Map of variables.
 };
 
 template <> bool manager<variables>::initialized = false;

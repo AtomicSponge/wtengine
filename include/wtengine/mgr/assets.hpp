@@ -39,6 +39,35 @@ using asset_map = std::map<const std::string, wte_asset<T>>;
 class assets final : private manager<assets> {
   friend class wte::engine;
 
+  private:
+    assets() = default;
+    ~assets() = default;
+
+    //  Engine calls this during de-init to clean up.
+    inline static void clear_al_objects(void) {
+      for(auto& it : _assets<ALLEGRO_BITMAP>) {
+        it.second.reset();
+      }
+      for(auto& it : _assets<ALLEGRO_FONT>) {
+        it.second.reset();
+      }
+      for(auto& it : _assets<ALLEGRO_SAMPLE>) {
+        it.second.reset();
+      }
+      for(auto& it : _assets<ALLEGRO_AUDIO_STREAM>) {
+        it.second.reset();
+      }
+
+      _assets<ALLEGRO_BITMAP>.clear();
+      _assets<ALLEGRO_FONT>.clear();
+      _assets<ALLEGRO_SAMPLE>.clear();
+      _assets<ALLEGRO_AUDIO_STREAM>.clear();
+    };
+
+    //  Store each asset map.
+    template <typename T>
+    inline static asset_map<T> _assets;
+
   public:
     /*!
      * \brief Load an existing asset.
@@ -95,35 +124,6 @@ class assets final : private manager<assets> {
         throw engine_exception(err_msg, "Assets", 4);
       }
     };
-
-  private:
-    assets() = default;
-    ~assets() = default;
-
-    //  Engine calls this during de-init to clean up.
-    inline static void clear_al_objects(void) {
-      for(auto& it : _assets<ALLEGRO_BITMAP>) {
-        it.second.reset();
-      }
-      for(auto& it : _assets<ALLEGRO_FONT>) {
-        it.second.reset();
-      }
-      for(auto& it : _assets<ALLEGRO_SAMPLE>) {
-        it.second.reset();
-      }
-      for(auto& it : _assets<ALLEGRO_AUDIO_STREAM>) {
-        it.second.reset();
-      }
-
-      _assets<ALLEGRO_BITMAP>.clear();
-      _assets<ALLEGRO_FONT>.clear();
-      _assets<ALLEGRO_SAMPLE>.clear();
-      _assets<ALLEGRO_AUDIO_STREAM>.clear();
-    };
-
-    //  Store each asset map.
-    template <typename T>
-    inline static asset_map<T> _assets;
 };
 
 template <> inline bool manager<assets>::initialized = false;

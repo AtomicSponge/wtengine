@@ -19,10 +19,8 @@ namespace wte::mgr {
  */
 template <class D>
 class manager {
-  public:
-    virtual ~manager() = default;             //  Default virtual destructor.
-    manager(const manager&) = delete;         //  Delete copy constructor.
-    void operator=(manager const&) = delete;  //  Delete assignment operator.
+  private:
+    static bool initialized;  //  Force single instance.
 
   protected:
     /*!
@@ -34,8 +32,10 @@ class manager {
       initialized = true;
     };
 
-  private:
-    static bool initialized;  //  Force single instance.
+  public:
+    virtual ~manager() = default;             //  Default virtual destructor.
+    manager(const manager&) = delete;         //  Delete copy constructor.
+    void operator=(manager const&) = delete;  //  Delete assignment operator.
 };
 
 }  //  end namespace wte::mgr

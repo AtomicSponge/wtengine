@@ -83,12 +83,32 @@ namespace wte {
 
 namespace wte::mgr {
 
+inline static const entity_id ENTITY_ERROR = 0;  //!<  Entity error code.
+inline static const entity_id ENTITY_START = 1;  //!<  Start of Entity counter.
+inline static const entity_id ENTITY_MAX =       //!<  Entity max value.
+  std::numeric_limits<entity_id>::max();
+
 /*!
  * \class world
  * \brief Store a collection of entities and their corresponding components in memory.
  */
 class world final : private manager<world> {
   friend class wte::engine;
+
+  private:
+    world() = default;
+    ~world() = default;
+
+    //  Clear the entity manager.
+    static void clear(void) {
+      entity_counter = ENTITY_START;
+      entity_vec.clear();     //  Clear entities vector
+      _world.clear();         //  Clear the world block
+    };
+
+    inline static entity_id entity_counter = ENTITY_START;  //  Last Entity ID used.
+    inline static entities entity_vec;  //  Container for all entities.
+    inline static world_map _world;     //  Container for all components.
 
   public:
     /*!
@@ -398,26 +418,6 @@ class world final : private manager<world> {
       }
       return temp_components;
     };
-
-    inline static const entity_id ENTITY_ERROR = 0;  //!<  Entity error code.
-    inline static const entity_id ENTITY_START = 1;  //!<  Start of Entity counter.
-    inline static const entity_id ENTITY_MAX =       //!<  Entity max value.
-      std::numeric_limits<entity_id>::max();
-
-  private:
-    world() = default;
-    ~world() = default;
-
-    //  Clear the entity manager.
-    static void clear(void) {
-      entity_counter = ENTITY_START;
-      entity_vec.clear();     //  Clear entities vector
-      _world.clear();         //  Clear the world block
-    };
-
-    inline static entity_id entity_counter = ENTITY_START;  //  Last Entity ID used.
-    inline static entities entity_vec;  //  Container for all entities.
-    inline static world_map _world;     //  Container for all components.
 };
 
 template <> bool manager<world>::initialized = false;

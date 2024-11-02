@@ -22,6 +22,15 @@ namespace wte::sys {
  * \brief Interface class for creating Systems.
  */
 class system {
+  protected:
+    /*!
+     * \brief Create a new timed System object.
+     * \param n System name.
+     */
+    system(
+      const std::string& n
+    ) : name(n) {};
+
   public:
     virtual ~system() = default;             //  Default virtual destructor.
     system(const system&) = delete;          //  Delete copy constructor.
@@ -31,15 +40,6 @@ class system {
     virtual void run(void) = 0;
 
     const std::string name;  //!<  System name.
-
-  protected:
-    /*!
-     * \brief Create a new timed System object.
-     * \param n System name.
-     */
-    system(
-      const std::string& n
-    ) : name(n) {};
 };
 
 /*!

@@ -31,28 +31,6 @@ namespace wte::mgr {
 class systems final : private manager<systems> {
   friend class wte::engine;
 
-  public:
-    /*!
-     * \brief Add a new system to the manager.
-     * 
-     * Enters system into the vector of systems.
-     * Systems run in the order they were added.
-     * Can fail if the system exists or if the game is running.
-     *
-     * \param new_system System to add.
-     * \return True if added, false if not.
-     */
-    template <typename T, typename... Args>
-    static bool add(Args... args) {
-      if(finalized == true) return false;
-      for(auto& it: _systems) {
-        auto& r = *it.get();
-        if(typeid(r) == typeid(T)) return false;
-      }
-      _systems.push_back(std::make_unique<T>(args...));
-      return true;
-    };
-
   private:
     systems() = default;
     ~systems() = default;
@@ -78,6 +56,28 @@ class systems final : private manager<systems> {
     inline static std::vector<sys::system_uptr> _systems;
     //  Flag to disallow loading of additional systems.
     inline static bool finalized = false;
+
+  public:
+    /*!
+     * \brief Add a new system to the manager.
+     * 
+     * Enters system into the vector of systems.
+     * Systems run in the order they were added.
+     * Can fail if the system exists or if the game is running.
+     *
+     * \param new_system System to add.
+     * \return True if added, false if not.
+     */
+    template <typename T, typename... Args>
+    static bool add(Args... args) {
+      if(finalized == true) return false;
+      for(auto& it: _systems) {
+        auto& r = *it.get();
+        if(typeid(r) == typeid(T)) return false;
+      }
+      _systems.push_back(std::make_unique<T>(args...));
+      return true;
+    };
 };
 
 template <> bool manager<systems>::initialized = false;

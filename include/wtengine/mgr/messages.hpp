@@ -43,58 +43,6 @@ class messages final : private manager<messages> {
   friend class wte::engine;
   friend class systems;
 
-  public:
-    /*!
-     * \brief Adds a message object to the start of the msg_queue vector.
-     * 
-     * Then sorts if it's a timed event.
-     * 
-     * \param msg Message to add.
-     */
-    static void add(const message& msg) {
-      _messages.insert(_messages.begin(), msg);
-      if(msg.is_timed_event()) std::sort(_messages.begin(), _messages.end());
-    };
-
-    /*!
-     * \brief Load additional data into the message queue.
-     * 
-     * Can be called by a system message to load additional game data.
-     * Note the timer value used for scripts is adjusted by the game timer.
-     * 
-     * \param fname Filename to load.
-     * \return True if loaded, false if not.
-     */
-    static bool load_script(const std::string& fname) {
-      //  Open data file - read binary mode.
-      ALLEGRO_FILE* file;
-      file = al_fopen(fname.c_str(), "rb");
-      //  File not found, error.
-      if(!file) {
-        al_fclose(file);
-        return false;
-      }
-
-      //  Loop through the entire data file loading into the queue.
-      while(true) {
-        if(al_feof(file)) break;  //  End loop if eof.
-
-        int64_t timer = -1;
-        std::string sys, to, from, cmd, args;
-
-        try {
-          //  Read the message from file.
-          read(*file, timer, sys, to, from, cmd, args);
-          //  Add the current time to the timer value.
-          if(timer != -1) timer += engine_time::check();
-          //  Add message to queue.  Ignore incomplete messages.  Sort while adding.
-          if(sys != "" && cmd != "") add(message(timer, sys, to, from, cmd, args));
-        } catch(const std::exception& e) { throw e; }
-      }
-      al_fclose(file);
-      return true;
-    };
-
   private:
     messages() = default;
     ~messages() = default;
@@ -293,6 +241,58 @@ class messages final : private manager<messages> {
 
     inline static message_container _messages;   //  Vector of all messages to be processed
     inline static std::ofstream debug_log_file;  //  For message logging
+  
+  public:
+    /*!
+     * \brief Adds a message object to the start of the msg_queue vector.
+     * 
+     * Then sorts if it's a timed event.
+     * 
+     * \param msg Message to add.
+     */
+    static void add(const message& msg) {
+      _messages.insert(_messages.begin(), msg);
+      if(msg.is_timed_event()) std::sort(_messages.begin(), _messages.end());
+    };
+
+    /*!
+     * \brief Load additional data into the message queue.
+     * 
+     * Can be called by a system message to load additional game data.
+     * Note the timer value used for scripts is adjusted by the game timer.
+     * 
+     * \param fname Filename to load.
+     * \return True if loaded, false if not.
+     */
+    static bool load_script(const std::string& fname) {
+      //  Open data file - read binary mode.
+      ALLEGRO_FILE* file;
+      file = al_fopen(fname.c_str(), "rb");
+      //  File not found, error.
+      if(!file) {
+        al_fclose(file);
+        return false;
+      }
+
+      //  Loop through the entire data file loading into the queue.
+      while(true) {
+        if(al_feof(file)) break;  //  End loop if eof.
+
+        int64_t timer = -1;
+        std::string sys, to, from, cmd, args;
+
+        try {
+          //  Read the message from file.
+          read(*file, timer, sys, to, from, cmd, args);
+          //  Add the current time to the timer value.
+          if(timer != -1) timer += engine_time::check();
+          //  Add message to queue.  Ignore incomplete messages.  Sort while adding.
+          if(sys != "" && cmd != "") add(message(timer, sys, to, from, cmd, args));
+        } catch(const std::exception& e) { throw e; }
+      }
+      al_fclose(file);
+      return true;
+    };
 };
 
 template <> bool manager<messages>::initialized = false;

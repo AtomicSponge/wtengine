@@ -99,7 +99,7 @@ $(function() {
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="comment">//  Split arguments into a vector of strings.</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">void</span> split_args(<span class="keyword">const</span> std::string&amp; a) {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>      <span class="keywordflow">if</span>(a == <span class="stringliteral">&quot;&quot;</span>) args.push_back(<span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>      <span class="keywordflow">if</span> (a == <span class="stringliteral">&quot;&quot;</span>) args.push_back(<span class="stringliteral">&quot;&quot;</span>);</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>      <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        std::stringstream arg_stream(a);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        std::string segment;</div>
@@ -170,12 +170,12 @@ $(function() {
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="classwte_1_1message.html#a6f3f24073dbdf3281cb7e36c62684f64">  158</a></span>    <span class="keyword">const</span> msg_args <a class="code hl_function" href="classwte_1_1message.html#a6f3f24073dbdf3281cb7e36c62684f64">get_args</a>(<span class="keywordtype">void</span>)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> args; };</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="classwte_1_1message.html#af616c78f816af96a67863f6fc8839f13">  165</a></span>    <span class="keyword">const</span> std::string <a class="code hl_function" href="classwte_1_1message.html#af616c78f816af96a67863f6fc8839f13">get_arg</a>(<span class="keyword">const</span> std::size_t&amp; pos)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>      <span class="keywordflow">if</span>(pos &gt;= args.size()) <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;  <span class="comment">//  Out of range, return empty string.</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>      <span class="keywordflow">if</span> (pos &gt;= args.size()) <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;  <span class="comment">//  Out of range, return empty string.</span></div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>      <span class="keywordflow">else</span> <span class="keywordflow">return</span> args[pos];</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    };</div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="classwte_1_1message.html#a34d8605455e34adbef7f8c6edfcb5817">  174</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classwte_1_1message.html#a34d8605455e34adbef7f8c6edfcb5817">is_timed_event</a>(<span class="keywordtype">void</span>)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>      <span class="keywordflow">if</span>(timer == -1) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>      <span class="keywordflow">if</span> (timer == -1) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>      <span class="keywordflow">else</span> <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    };</div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>};</div>

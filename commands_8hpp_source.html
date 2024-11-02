@@ -119,10 +119,10 @@ $(function() {
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    };</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="classwte_1_1commands.html#ac602f1e05131792ddf452de22f5f2ce3">   58</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classwte_1_1commands.html#ac602f1e05131792ddf452de22f5f2ce3">process_messages</a>(<span class="keyword">const</span> message_container&amp; messages) {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>      <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; it: messages) {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; it: messages) {</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keyword">auto</span> res = _commands.find(it.get_cmd());</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="comment">//  Check to make sure there are enough arguments to run the command.</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">if</span>(res != _commands.end() &amp;&amp; it.num_args() &gt;= res-&gt;second.first)</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">if</span> (res != _commands.end() &amp;&amp; it.num_args() &gt;= res-&gt;second.first)</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>          res-&gt;second.second(it.get_args());</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>      }</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    };</div>

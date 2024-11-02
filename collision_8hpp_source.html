@@ -111,13 +111,13 @@ $(function() {
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">          *                Entities are on different teams.</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">          *                Both entities are solid.</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">          */</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>          <span class="keywordflow">if</span>(</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>          <span class="keywordflow">if</span> (</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            it_a.first != it_b.first &amp;&amp;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            it_a.second-&gt;team != it_b.second-&gt;team &amp;&amp;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            it_a.second-&gt;solid &amp;&amp; it_b.second-&gt;solid</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>          ) {</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="comment">//  Use AABB to test colision</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            <span class="keywordflow">if</span>(</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            <span class="keywordflow">if</span> (</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>              temp_location_a-&gt;pos_x &lt; temp_location_b-&gt;pos_x + it_b.second-&gt;width &amp;&amp;</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>              temp_location_a-&gt;pos_x + it_a.second-&gt;width &gt; temp_location_b-&gt;pos_x &amp;&amp;</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>              temp_location_a-&gt;pos_y &lt; temp_location_b-&gt;pos_y + it_b.second-&gt;height &amp;&amp;</div>

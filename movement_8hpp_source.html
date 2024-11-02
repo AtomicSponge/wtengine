@@ -101,7 +101,7 @@ $(function() {
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>      <span class="comment">//  Find the entities with a motion component.</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>      const_component_container&lt;cmp::motion&gt; vel_components</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        = mgr::world::get_components&lt;cmp::motion&gt;();</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>      <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; it: vel_components) {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; it: vel_components) {</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        cmp::const_comp_ptr&lt;cmp::location&gt; temp_get =</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>          mgr::world::get_component&lt;cmp::location&gt;(it.first);</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        cmp::comp_ptr&lt;cmp::location&gt; temp_set =</div>
@@ -114,17 +114,17 @@ $(function() {
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>      <span class="comment">//  Now check all bounding boxes.</span></div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>      const_component_container&lt;cmp::bounding_box&gt; bbox_components =</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        mgr::world::get_components&lt;cmp::bounding_box&gt;();</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>      <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; it: bbox_components) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; it: bbox_components) {</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        cmp::const_comp_ptr&lt;cmp::location&gt; temp_get =</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>          mgr::world::get_component&lt;cmp::location&gt;(it.first);</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        cmp::comp_ptr&lt;cmp::location&gt; temp_set =</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>          mgr::world::set_component&lt;cmp::location&gt;(it.first);</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">if</span>(temp_get-&gt;pos_x &lt; it.second-&gt;min_x) temp_set-&gt;pos_x = it.second-&gt;min_x;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(temp_get-&gt;pos_x &gt; it.second-&gt;max_x) temp_set-&gt;pos_x = it.second-&gt;max_x;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">if</span> (temp_get-&gt;pos_x &lt; it.second-&gt;min_x) temp_set-&gt;pos_x = it.second-&gt;min_x;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (temp_get-&gt;pos_x &gt; it.second-&gt;max_x) temp_set-&gt;pos_x = it.second-&gt;max_x;</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">if</span>(temp_get-&gt;pos_y &lt; it.second-&gt;min_y) temp_set-&gt;pos_y = it.second-&gt;min_y;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(temp_get-&gt;pos_y &gt; it.second-&gt;max_y) temp_set-&gt;pos_y = it.second-&gt;max_y;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">if</span> (temp_get-&gt;pos_y &lt; it.second-&gt;min_y) temp_set-&gt;pos_y = it.second-&gt;min_y;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (temp_get-&gt;pos_y &gt; it.second-&gt;max_y) temp_set-&gt;pos_y = it.second-&gt;max_y;</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>      }</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    };</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>};</div>

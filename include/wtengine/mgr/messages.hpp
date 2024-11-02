@@ -61,7 +61,7 @@ class messages final : private manager<messages> {
 
       while (true) {  //  Infinite loop to verify all current messages are processed.
         message_container temp_msgs = get("entities");
-        if (temp_msgs.empty()) break;  //  No messages, end while(true) loop.
+        if (temp_msgs.empty()) break;  //  No messages, end loop.
 
         //  For all messages, check each dispatch component.
         for (auto& m_it: temp_msgs) {
@@ -277,7 +277,7 @@ class messages final : private manager<messages> {
       }
 
       //  Loop through the entire data file loading into the queue.
-      while(true) {
+      while (true) {
         if (al_feof(file)) break;  //  End loop if eof.
 
         int64_t timer = -1;

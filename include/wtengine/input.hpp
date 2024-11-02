@@ -198,7 +198,7 @@ class input {
     //  Check the input queue for events.
     static void check_events(void) {
       ALLEGRO_EVENT event;
-      while(al_get_next_event(input_event_queue, &event)) {
+      while (al_get_next_event(input_event_queue, &event)) {
         //  Record input if enabled.
         if (config::flags::record_input) record_event(engine_time::check(), event);
         //  Run the handles

@@ -34,7 +34,7 @@ class message final {
         std::stringstream arg_stream(a);
         std::string segment;
 
-        while(std::getline(arg_stream, segment, ';')) {
+        while (std::getline(arg_stream, segment, ';')) {
           args.push_back(segment);
         }
       }

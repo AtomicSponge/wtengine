@@ -123,7 +123,7 @@ class variables final : private manager<variables> {
         if (!dfile.good()) return false;
         dfile.seekg(0, dfile.beg);
 
-        while(true) {  //  Check entire file.
+        while (true) {  //  Check entire file.
           try {
             if (dfile.peek() == EOF) return false;  //  Hit end of file and not found.
             std::string in_var;

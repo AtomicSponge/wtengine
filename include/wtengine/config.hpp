@@ -71,7 +71,7 @@ class config {
 
   protected:
     config() {
-      if(initialized == true)
+      if (initialized == true)
         throw engine_error("Config instance already running!");
       initialized = true;
     };
@@ -135,11 +135,11 @@ class config {
   static bool load(void) {
     std::ifstream dfile("settings.cfg", std::ios::binary);
     //  Data file doesn't exist, create one
-    if(!dfile.good()) {
-      if(!save()) return false;
+    if (!dfile.good()) {
+      if (!save()) return false;
       dfile.open("settings.cfg", std::ios::binary);
     }
-    if(!dfile.good()) return false;
+    if (!dfile.good()) return false;
 
     try {
       dfile.read(reinterpret_cast<char*>(&flags::draw_fps), sizeof flags::draw_fps);
@@ -168,7 +168,7 @@ class config {
    */
   static bool save(void) {
     std::ofstream dfile("settings.cfg", std::ios::binary | std::ofstream::trunc);
-    if(!dfile.good()) return false;
+    if (!dfile.good()) return false;
 
     try {
       dfile.write(reinterpret_cast<const char*>(&flags::draw_fps), sizeof flags::draw_fps);

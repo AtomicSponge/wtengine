@@ -46,10 +46,10 @@ class systems final : private manager<systems> {
 
     //  Run all systems.
     static void run(void) {
-      for(auto& it: _systems)
+      for (auto& it: _systems)
         try { 
           (it)->run();
-        } catch(const std::exception& e) { throw e; }
+        } catch (const std::exception& e) { throw e; }
     };
 
     // Store the vector of systems.
@@ -70,10 +70,10 @@ class systems final : private manager<systems> {
      */
     template <typename T, typename... Args>
     static bool add(Args... args) {
-      if(finalized == true) return false;
+      if (finalized == true) return false;
       for(auto& it: _systems) {
         auto& r = *it.get();
-        if(typeid(r) == typeid(T)) return false;
+        if (typeid(r) == typeid(T)) return false;
       }
       _systems.push_back(std::make_unique<T>(args...));
       return true;

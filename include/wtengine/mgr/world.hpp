@@ -118,13 +118,13 @@ class world final : private manager<world> {
     static entity_id new_entity(void) {
       entity_id next_id;
 
-      if(entity_counter == ENTITY_MAX) {  //  Counter hit max.
+      if (entity_counter == ENTITY_MAX) {  //  Counter hit max.
         bool test = false;
         //  Look for the first available ID.
         for(next_id = ENTITY_START; !test; next_id++) {
-          if(next_id == ENTITY_MAX) return ENTITY_ERROR;  //  No available ID, error.
+          if (next_id == ENTITY_MAX) return ENTITY_ERROR;  //  No available ID, error.
           //  See if the new ID does not exist.
-          test = (std::find_if(entity_vec.begin(), entity_vec.end(),
+          test = (std::find_if (entity_vec.begin(), entity_vec.end(),
                               [&next_id](const entity& e){ return e.first == next_id; })
                   == entity_vec.end());
         }
@@ -136,14 +136,14 @@ class world final : private manager<world> {
       //  Set a new name.  Make sure name doesn't exist.
       std::string entity_name = "Entity" + std::to_string(next_id);
       bool test = false;
-      for(entity_id temp_id = ENTITY_START; !test; temp_id++) {
-        if(temp_id == ENTITY_MAX) return ENTITY_ERROR;  //  Couldn't name entity, error.
+      for (entity_id temp_id = ENTITY_START; !test; temp_id++) {
+        if (temp_id == ENTITY_MAX) return ENTITY_ERROR;  //  Couldn't name entity, error.
         //  See if the new name does not exist.
-        test = (std::find_if(entity_vec.begin(), entity_vec.end(),
+        test = (std::find_if (entity_vec.begin(), entity_vec.end(),
                             [&entity_name](const entity& e){ return e.second == entity_name; })
                 == entity_vec.end());
         //  If it does, append the temp number and try that.
-        if(!test) entity_name = "Entity" + std::to_string(next_id) + std::to_string(temp_id);
+        if (!test) entity_name = "Entity" + std::to_string(next_id) + std::to_string(temp_id);
       }
 
       //  Tests complete, insert new entity.
@@ -157,9 +157,9 @@ class world final : private manager<world> {
      * \return Return true on success, false if entity does not exist.
      */
     static bool delete_entity(const entity_id& e_id) {
-      auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),
+      auto e_it = std::find_if (entity_vec.begin(), entity_vec.end(),
                               [&e_id](const entity& e){ return e.first == e_id; });
-      if(e_it == entity_vec.end()) return false;
+      if (e_it == entity_vec.end()) return false;
 
       _world.erase(e_id);      //  Remove all associated componenets.
       entity_vec.erase(e_it);  //  Delete the entity.
@@ -173,7 +173,7 @@ class world final : private manager<world> {
      * \return Return true if found, return false if not found.
      */
     static bool entity_exists(const entity_id& e_id) {
-      const bool result = (std::find_if(entity_vec.begin(), entity_vec.end(),
+      const bool result = (std::find_if (entity_vec.begin(), entity_vec.end(),
         [&e_id](const entity& e){ return e.first == e_id; })
         != entity_vec.end());
       return result;
@@ -186,9 +186,9 @@ class world final : private manager<world> {
      * \exception wte_exception Entity does not exist.
      */
     static const std::string get_name(const entity_id& e_id) {
-      auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),
+      auto e_it = std::find_if (entity_vec.begin(), entity_vec.end(),
                               [&e_id](const entity& e){ return e.first == e_id; });
-      if(e_it == entity_vec.end()) {
+      if (e_it == entity_vec.end()) {
         //  Not found, throw error.
         throw engine_exception(
           "Entity " + std::to_string(e_id) + " does not exist", "World", 4);
@@ -206,13 +206,13 @@ class world final : private manager<world> {
       const entity_id& e_id,
       const std::string& name
     ) {
-      auto n_it = std::find_if(entity_vec.begin(), entity_vec.end(),
+      auto n_it = std::find_if (entity_vec.begin(), entity_vec.end(),
                               [&name](const entity& e){ return e.second == name; });
-      if(n_it != entity_vec.end()) return false;  //  Entity with the new name exists, error.
+      if (n_it != entity_vec.end()) return false;  //  Entity with the new name exists, error.
 
-      auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),
+      auto e_it = std::find_if (entity_vec.begin(), entity_vec.end(),
                               [&e_id](const entity& e){ return e.first == e_id; });
-      if(e_it == entity_vec.end()) return false;  //  Didn't find entity_id, error.
+      if (e_it == entity_vec.end()) return false;  //  Didn't find entity_id, error.
 
       e_it->second = name;
       return true;
@@ -224,9 +224,9 @@ class world final : private manager<world> {
      * \return Entity ID, WTE_ENTITY_ERROR if not found.
      */
     static entity_id get_id(const std::string& name) {
-      auto n_it = std::find_if(entity_vec.begin(), entity_vec.end(),
+      auto n_it = std::find_if (entity_vec.begin(), entity_vec.end(),
                               [&name](const entity& e){ return e.second == name; });
-      if(n_it == entity_vec.end()) return ENTITY_ERROR;
+      if (n_it == entity_vec.end()) return ENTITY_ERROR;
       return n_it->first;
     };
 
@@ -246,7 +246,7 @@ class world final : private manager<world> {
      * \exception wte_exception Entity does not exist.
      */
     static const entity_container set_entity(const entity_id& e_id) {
-      if(!entity_exists(e_id)) {
+      if (!entity_exists(e_id)) {
         throw engine_exception(
           "Entity " + std::to_string(e_id) + " does not exist", "World", 4);
       }
@@ -267,7 +267,7 @@ class world final : private manager<world> {
      * \exception wte_exception Entity does not exist.
      */
     static const const_entity_container get_entity(const entity_id& e_id) {
-      if(!entity_exists(e_id)) {
+      if (!entity_exists(e_id)) {
         throw engine_exception(
           "Entity " + std::to_string(e_id) + " does not exist", "World", 4);
       }
@@ -295,14 +295,14 @@ class world final : private manager<world> {
       const entity_id& e_id,
       Args... args
     ) {
-      if(!entity_exists(e_id)) return false;
+      if (!entity_exists(e_id)) return false;
 
       //  Check derived types of existing components, make sure one does not already exist.
       const auto check_entity = get_entity(e_id);
 
       for(auto& it: check_entity) {
         auto& r = *it.get();
-        if(typeid(r).name() == typeid(T).name()) return false;
+        if (typeid(r).name() == typeid(T).name()) return false;
       }
 
       _world.insert(std::make_pair(e_id, std::make_shared<T>(args...)));
@@ -321,7 +321,7 @@ class world final : private manager<world> {
       auto results = _world.equal_range(e_id);
 
       for(auto it = results.first; it != results.second; it++) {
-        if(std::dynamic_pointer_cast<T>(it->second)) {
+        if (std::dynamic_pointer_cast<T>(it->second)) {
           it = _world.erase(it);
           return true;
         }
@@ -341,7 +341,7 @@ class world final : private manager<world> {
       const auto results = _world.equal_range(e_id);
 
       for(auto it = results.first; it != results.second; it++) {
-        if(std::dynamic_pointer_cast<T>(it->second))
+        if (std::dynamic_pointer_cast<T>(it->second))
           return true;
       }
       return false;
@@ -359,7 +359,7 @@ class world final : private manager<world> {
       const auto results = _world.equal_range(e_id);
 
       for(auto it = results.first; it != results.second; it++) {
-        if(std::dynamic_pointer_cast<T>(it->second))
+        if (std::dynamic_pointer_cast<T>(it->second))
           return std::static_pointer_cast<T>(it->second);
       }
 
@@ -379,7 +379,7 @@ class world final : private manager<world> {
       const auto results = _world.equal_range(e_id);
 
       for(auto it = results.first; it != results.second; it++) {
-        if(std::dynamic_pointer_cast<T>(it->second))
+        if (std::dynamic_pointer_cast<T>(it->second))
           return std::static_pointer_cast<const T>(it->second);
       }
 
@@ -397,7 +397,7 @@ class world final : private manager<world> {
       component_container<T> temp_components;
 
       for(auto& it: _world) {
-        if(std::dynamic_pointer_cast<T>(it.second))
+        if (std::dynamic_pointer_cast<T>(it.second))
           temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
       }
       return temp_components;
@@ -413,7 +413,7 @@ class world final : private manager<world> {
       const_component_container<T> temp_components;
 
       for(auto& it: _world) {
-        if(std::dynamic_pointer_cast<T>(it.second))
+        if (std::dynamic_pointer_cast<T>(it.second))
           temp_components.insert(std::make_pair(it.first, std::static_pointer_cast<T>(it.second)));
       }
       return temp_components;

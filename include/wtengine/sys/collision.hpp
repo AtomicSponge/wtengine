@@ -40,13 +40,13 @@ class colision final : public system {
           *                Entities are on different teams.
           *                Both entities are solid.
           */
-          if(
+          if (
             it_a.first != it_b.first &&
             it_a.second->team != it_b.second->team &&
             it_a.second->solid && it_b.second->solid
           ) {
             //  Use AABB to test colision
-            if(
+            if (
               temp_location_a->pos_x < temp_location_b->pos_x + it_b.second->width &&
               temp_location_a->pos_x + it_a.second->width > temp_location_b->pos_x &&
               temp_location_a->pos_y < temp_location_b->pos_y + it_b.second->height &&

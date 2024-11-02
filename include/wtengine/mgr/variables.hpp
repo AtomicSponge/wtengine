@@ -60,7 +60,7 @@ class variables final : private manager<variables> {
      */
     static bool clear_save(void) {
       std::ofstream dfile(data_file_name, std::ofstream::trunc);
-      if(!dfile.good()) return false;
+      if (!dfile.good()) return false;
       dfile.close();
       return true;
     };
@@ -76,9 +76,9 @@ class variables final : private manager<variables> {
       const std::string& var
     ) {
       verify<T>();
-      if(!isreg(var)) return false;
+      if (!isreg(var)) return false;
       std::ofstream dfile(data_file_name, std::ios::binary | std::ofstream::app);
-      if(!dfile.good()) return false;
+      if (!dfile.good()) return false;
 
       try {
         T tempv = get<T>(var);
@@ -118,14 +118,14 @@ class variables final : private manager<variables> {
         const std::string& var
     ) {
         verify<T>();
-        if(!isreg(var)) return false;
+        if (!isreg(var)) return false;
         std::ifstream dfile(data_file_name, std::ios::binary);
-        if(!dfile.good()) return false;
+        if (!dfile.good()) return false;
         dfile.seekg(0, dfile.beg);
 
         while(true) {  //  Check entire file.
           try {
-            if(dfile.peek() == EOF) return false;  //  Hit end of file and not found.
+            if (dfile.peek() == EOF) return false;  //  Hit end of file and not found.
             std::string in_var;
 
             //  Read in variable name.
@@ -139,7 +139,7 @@ class variables final : private manager<variables> {
             //  Read in variable size.
             int32_t size;
             dfile.read(reinterpret_cast<char*>(&size), sizeof(int32_t));
-            if(var == in_var) {  //  Found variable.
+            if (var == in_var) {  //  Found variable.
               if constexpr (std::is_same_v<std::string, T>) {
                 //  Variable is a string, read accordingly.
                 char* buffer = new char[size];
@@ -190,7 +190,7 @@ class variables final : private manager<variables> {
      */
     static bool isreg(const std::string& var) {
       auto it = _map.find(var);
-      if(it != _map.end()) return true;
+      if (it != _map.end()) return true;
       return false;
     };
 
@@ -201,7 +201,7 @@ class variables final : private manager<variables> {
      */
     static bool del(const std::string& var) {
       auto it = _map.find(var);
-      if(it != _map.end()) {
+      if (it != _map.end()) {
         _map.erase(it);
         return true;
       }

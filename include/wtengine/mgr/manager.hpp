@@ -28,7 +28,7 @@ class manager {
      * \exception runtime_error Manager is already running.
      */
     manager() {
-      if(initialized == true) throw engine_error("An instance of this manager is already running!");
+      if (initialized == true) throw engine_error("An instance of this manager is already running!");
       initialized = true;
     };
 

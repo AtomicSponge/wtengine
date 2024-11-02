@@ -70,11 +70,11 @@ class sprite final : public gfx {
       const std::size_t& rt
     ) :gfx(bmp, l,[this](const entity_id& e_id) {
         //  Define sprite animation process.
-        if(engine_time::check() % rate == 0) {
+        if (engine_time::check() % rate == 0) {
           //  Increment frame.
           current_frame++;
           //  Loop frame.
-          if(current_frame > stop_frame) {
+          if (current_frame > stop_frame) {
               current_frame = start_frame;
           }
           //  Calculate the X position in the sprite sheet.
@@ -87,7 +87,7 @@ class sprite final : public gfx {
       sprite_x(0.0f), sprite_y(0.0f),
       start_frame(0), stop_frame(0), current_frame(0), rate(rt)
     {
-      if(rate == 0) rate = 1;
+      if (rate == 0) rate = 1;
       sheet_width = al_get_bitmap_width(_bitmap.get());
       sheet_height = al_get_bitmap_height(_bitmap.get());
     };
@@ -118,7 +118,7 @@ class sprite final : public gfx {
      */
     bool set_cycle(const std::string& name) {
       auto it = cycles.find(name);
-      if(it != cycles.end()) {
+      if (it != cycles.end()) {
         start_frame = it->second.first;
         stop_frame = it->second.second;
         return true;

@@ -38,21 +38,21 @@ class spawner final : private manager<spawner> {
     //  Takes spawner messages and processes.
     static void process_messages(const message_container& messages) {
       for(auto& m_it: messages) {
-        if(m_it.get_cmd() == "new") {
+        if (m_it.get_cmd() == "new") {
           auto s_it = spawns.find(m_it.get_arg(0));
-          if(s_it != spawns.end())
+          if (s_it != spawns.end())
             //  Make sure the number of arguments match what's expected.
             //  Note that we do not count the first argument.
-            if(m_it.num_args() == s_it->second.first + 1) {
+            if (m_it.num_args() == s_it->second.first + 1) {
               try {
                 s_it->second.second(mgr::world::new_entity(), m_it.get_args());
               } catch(const std::exception& e) { throw e; }
             }
         }
 
-        if(m_it.get_cmd() == "delete") {
+        if (m_it.get_cmd() == "delete") {
           entity_id delete_entity_id = mgr::world::get_id(m_it.get_arg(0));
-          if(delete_entity_id != wte::mgr::ENTITY_ERROR) {
+          if (delete_entity_id != wte::mgr::ENTITY_ERROR) {
             mgr::world::delete_entity(delete_entity_id);
           }
         }
@@ -91,9 +91,9 @@ class spawner final : private manager<spawner> {
      * \return True if removed, else false.
      */
     static bool remove(const std::string& name) {
-      auto it = std::find_if(spawns.begin(), spawns.end(),
+      auto it = std::find_if (spawns.begin(), spawns.end(),
                             [&name](const auto& e){ return e.first == name; });
-      if(it != spawns.end()) {
+      if (it != spawns.end()) {
         spawns.erase(it);
         return true;
       }
@@ -108,8 +108,8 @@ class spawner final : private manager<spawner> {
      */
     static bool spawn(const std::string& name, const msg_args& args) {
       auto it = spawns.find(name);
-      if(it != spawns.end()) {
-        if(args.size() == it->second.first) {
+      if (it != spawns.end()) {
+        if (args.size() == it->second.first) {
           try {
             it->second.second(mgr::world::new_entity(), args);
           } catch(const std::exception& e) { throw e; }

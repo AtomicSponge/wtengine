@@ -82,32 +82,32 @@ class audio final : private manager<audio> {
       //  Map the audio commands.
       //  Mixer 1
       cmds.add("music-loop", 2, [](const msg_args& args) {
-        if(args[0] == "a") {
-          if(args[1] == "disable") audio::music::a::loop(false);
+        if (args[0] == "a") {
+          if (args[1] == "disable") audio::music::a::loop(false);
           else audio::music::a::loop(true);
         }
-        if(args[0] == "b") {
-          if(args[1] == "disable") audio::music::b::loop(false);
+        if (args[0] == "b") {
+          if (args[1] == "disable") audio::music::b::loop(false);
           else audio::music::b::loop(true);
         }
       });
       cmds.add("music-play", 2, [](const msg_args& args) {
-        if(args[0] == "a")
+        if (args[0] == "a")
           audio::music::a::play(mgr::assets::get<ALLEGRO_AUDIO_STREAM>(args[1]));
-        if(args[0] == "b")
+        if (args[0] == "b")
           audio::music::b::play(mgr::assets::get<ALLEGRO_AUDIO_STREAM>(args[1]));
       });
       cmds.add("music-stop", 1, [](const msg_args& args) {
-        if(args[0] == "a") audio::music::a::stop();
-        if(args[0] == "b") audio::music::b::stop();
+        if (args[0] == "a") audio::music::a::stop();
+        if (args[0] == "b") audio::music::b::stop();
       });
       cmds.add("music-pause", 1, [](const msg_args& args) {
-        if(args[0] == "a") audio::music::a::pause();
-        if(args[0] == "b") audio::music::b::pause();
+        if (args[0] == "a") audio::music::a::pause();
+        if (args[0] == "b") audio::music::b::pause();
       });
       cmds.add("music-unpause", 1, [](const msg_args& args) {
-        if(args[0] == "a") audio::music::a::unpause();
-        if(args[0] == "b") audio::music::a::unpause();
+        if (args[0] == "a") audio::music::a::unpause();
+        if (args[0] == "b") audio::music::a::unpause();
       });
       //  Mixer 2
       cmds.add("sample-play", 2, [](const msg_args& args) {
@@ -115,17 +115,17 @@ class audio final : private manager<audio> {
         float pan = ALLEGRO_AUDIO_PAN_NONE;
         float speed = 1.0f;
 
-        if(args.size() >= 3) {
+        if (args.size() >= 3) {
           gain = std::stof(args[2]);
-          if(gain < 0.0f || gain > 1.0f) gain = 1.0f;
+          if (gain < 0.0f || gain > 1.0f) gain = 1.0f;
         }
-        if(args.size() >= 4) {
+        if (args.size() >= 4) {
           pan = std::stof(args[3]);
-          if(pan < -1.0f || pan > 1.0f) pan = ALLEGRO_AUDIO_PAN_NONE;
+          if (pan < -1.0f || pan > 1.0f) pan = ALLEGRO_AUDIO_PAN_NONE;
         }
-        if(args.size() >= 5) {
+        if (args.size() >= 5) {
           speed = std::stof(args[4]);
-          if(speed <= 0.0f || speed > 2.0f) speed = 1.0f;
+          if (speed <= 0.0f || speed > 2.0f) speed = 1.0f;
         }
         audio::sample::play(
           mgr::assets::get<ALLEGRO_SAMPLE>(args[0]),
@@ -153,7 +153,7 @@ class audio final : private manager<audio> {
       });
       //  Mixer 4
       cmds.add("ambiance-loop", 1, [](const msg_args& args) {
-        if(args[0] == "disable") audio::ambiance::loop(false);
+        if (args[0] == "disable") audio::ambiance::loop(false);
         else audio::ambiance::loop(true);
       });
       cmds.add("ambiance-play", 1, [](const msg_args& args) {
@@ -310,7 +310,7 @@ class audio final : private manager<audio> {
          * \param loop True to enable, false to disable.
          */
         static void loop(const bool& loop) {
-          if(!al_get_mixer_attached(_mixer_1)) return;  //  Music not loaded, end.
+          if (!al_get_mixer_attached(_mixer_1)) return;  //  Music not loaded, end.
           (loop ? al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_LOOP) :
             al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_ONCE));
         };
@@ -332,7 +332,7 @@ class audio final : private manager<audio> {
          * \brief Stop playing music.
          */
         static void stop(void) {
-          if(al_get_mixer_attached(_mixer_1_a)) {
+          if (al_get_mixer_attached(_mixer_1_a)) {
             al_set_audio_stream_playing(music_stream_a.get(), false);
             al_drain_audio_stream(music_stream_a.get());
             al_detach_audio_stream(music_stream_a.get());
@@ -343,7 +343,7 @@ class audio final : private manager<audio> {
          * \brief Pause music.
          */
         static void pause(void) {
-          if(al_get_mixer_attached(_mixer_1_a) && al_get_mixer_playing(_mixer_1_a))
+          if (al_get_mixer_attached(_mixer_1_a) && al_get_mixer_playing(_mixer_1_a))
             al_set_audio_stream_playing(music_stream_a.get(), false);
         };
 
@@ -351,7 +351,7 @@ class audio final : private manager<audio> {
          * \brief Unpause music.
          */
         static void unpause(void) {
-          if(al_get_mixer_attached(_mixer_1)) al_set_audio_stream_playing(music_stream_a.get(), true);
+          if (al_get_mixer_attached(_mixer_1)) al_set_audio_stream_playing(music_stream_a.get(), true);
         };
 
         /*!
@@ -376,7 +376,7 @@ class audio final : private manager<audio> {
          * \param loop True to enable, false to disable.
          */
         static void loop(const bool& loop) {
-          if(!al_get_mixer_attached(_mixer_1_a)) return;  //  Music not loaded, end.
+          if (!al_get_mixer_attached(_mixer_1_a)) return;  //  Music not loaded, end.
           (loop ? al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_LOOP) :
             al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_ONCE));
         };
@@ -398,7 +398,7 @@ class audio final : private manager<audio> {
          * \brief Stop playing music.
          */
         static void stop(void) {
-          if(al_get_mixer_attached(_mixer_1_b)) {
+          if (al_get_mixer_attached(_mixer_1_b)) {
             al_set_audio_stream_playing(music_stream_b.get(), false);
             al_drain_audio_stream(music_stream_b.get());
             al_detach_audio_stream(music_stream_b.get());
@@ -409,7 +409,7 @@ class audio final : private manager<audio> {
          * \brief Pause music.
          */
         static void pause(void) {
-          if(al_get_mixer_attached(_mixer_1_b) && al_get_mixer_playing(_mixer_1_b))
+          if (al_get_mixer_attached(_mixer_1_b) && al_get_mixer_playing(_mixer_1_b))
             al_set_audio_stream_playing(music_stream_b.get(), false);
         };
 
@@ -417,7 +417,7 @@ class audio final : private manager<audio> {
          * \brief Unpause music.
          */
         static void unpause(void) {
-          if(al_get_mixer_attached(_mixer_1_b)) al_set_audio_stream_playing(music_stream_b.get(), true);
+          if (al_get_mixer_attached(_mixer_1_b)) al_set_audio_stream_playing(music_stream_b.get(), true);
         };
 
         /*!
@@ -468,15 +468,15 @@ class audio final : private manager<audio> {
         const float& pan,
         const float& speed
       ) {
-        if(ref == "once") {
+        if (ref == "once") {
           // Play the sample once.
           al_play_sample(sample.get(), gain, pan, speed, ALLEGRO_PLAYMODE_ONCE, NULL);
         } else {
           //  If the reference is already playing, end.
-          if(sample_instances.find(ref) != sample_instances.end()) return;
+          if (sample_instances.find(ref) != sample_instances.end()) return;
           //  Store playing reference
           ALLEGRO_SAMPLE_ID temp_sample_id;
-          if(al_play_sample(sample.get(), gain, pan, speed, ALLEGRO_PLAYMODE_LOOP, &temp_sample_id))
+          if (al_play_sample(sample.get(), gain, pan, speed, ALLEGRO_PLAYMODE_LOOP, &temp_sample_id))
             sample_instances.insert(std::make_pair(ref, temp_sample_id));
         }
       };
@@ -487,7 +487,7 @@ class audio final : private manager<audio> {
        */
       static void stop(const std::string& ref) {
         //  If instance does not exist, end.
-        if(sample_instances.find(ref) == sample_instances.end()) return;
+        if (sample_instances.find(ref) == sample_instances.end()) return;
         al_stop_sample(&sample_instances.find(ref)->second);
         sample_instances.erase(sample_instances.find(ref));
       };
@@ -537,7 +537,7 @@ class audio final : private manager<audio> {
        * \brief Stop a playing audio file.
        */
       static void stop(void) {
-        if(al_get_mixer_attached(_mixer_3)) {
+        if (al_get_mixer_attached(_mixer_3)) {
           al_set_audio_stream_playing(voice_stream.get(), false);
           al_drain_audio_stream(voice_stream.get());
           al_detach_audio_stream(voice_stream.get());
@@ -548,7 +548,7 @@ class audio final : private manager<audio> {
        * \brief Pause playing audio file.
        */
       static void pause(void) {
-        if(al_get_mixer_attached(_mixer_3) && al_get_mixer_playing(_mixer_3))
+        if (al_get_mixer_attached(_mixer_3) && al_get_mixer_playing(_mixer_3))
           al_set_audio_stream_playing(voice_stream.get(), false);
       };
 
@@ -556,7 +556,7 @@ class audio final : private manager<audio> {
        * \brief Resume playing audio file.
        */
       static void unpause(void) {
-        if(al_get_mixer_attached(_mixer_3)) al_set_audio_stream_playing(voice_stream.get(), true);
+        if (al_get_mixer_attached(_mixer_3)) al_set_audio_stream_playing(voice_stream.get(), true);
       };
 
       /*!
@@ -581,7 +581,7 @@ class audio final : private manager<audio> {
        * \param loop True to enable, false to disable.
        */
       static void loop(const bool& loop) {
-        if(!al_get_mixer_attached(_mixer_4)) return;  //  Ambiance not loaded, end.
+        if (!al_get_mixer_attached(_mixer_4)) return;  //  Ambiance not loaded, end.
         (loop ? al_set_audio_stream_playmode(ambiance_stream.get(), ALLEGRO_PLAYMODE_LOOP) :
           al_set_audio_stream_playmode(ambiance_stream.get(), ALLEGRO_PLAYMODE_ONCE));
       };
@@ -603,7 +603,7 @@ class audio final : private manager<audio> {
        * \brief Stop playing ambiance.
        */
       static void stop(void) {
-        if(al_get_mixer_attached(_mixer_4)) {
+        if (al_get_mixer_attached(_mixer_4)) {
           al_set_audio_stream_playing(ambiance_stream.get(), false);
           al_drain_audio_stream(ambiance_stream.get());
           al_detach_audio_stream(ambiance_stream.get());
@@ -614,7 +614,7 @@ class audio final : private manager<audio> {
        * \brief Pause playing ambiance.
        */
       static void pause(void) {
-        if(al_get_mixer_attached(_mixer_4) && al_get_mixer_playing(_mixer_4))
+        if (al_get_mixer_attached(_mixer_4) && al_get_mixer_playing(_mixer_4))
           al_set_audio_stream_playing(ambiance_stream.get(), false);
       };
 
@@ -622,7 +622,7 @@ class audio final : private manager<audio> {
        * \brief Resume playing ambiance.
        */
       static void unpause(void) {
-        if(al_get_mixer_attached(_mixer_4)) al_set_audio_stream_playing(ambiance_stream.get(), true);
+        if (al_get_mixer_attached(_mixer_4)) al_set_audio_stream_playing(ambiance_stream.get(), true);
       };
 
       /*!

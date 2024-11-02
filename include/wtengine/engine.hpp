@@ -369,7 +369,7 @@ class engine final : public config, public input, public display {
       }
       std::cout << "Engine started successfully!\n\n";
     };
-    
+
     /*!
      * \brief De-initialize the engine.
      */

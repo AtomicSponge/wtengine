@@ -32,7 +32,7 @@ class logic final : public system {
         mgr::world::set_components<cmp::ai>();
 
       //  Process enabled or disabled ai
-      for(auto& it: ai_components) {
+      for (auto& it: ai_components) {
         (it.second->enabled ?
           it.second->enabled_ai(it.first) :
           it.second->disabled_ai(it.first));

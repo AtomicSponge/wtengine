@@ -61,12 +61,12 @@ class messages final : private manager<messages> {
 
       while(true) {  //  Infinite loop to verify all current messages are processed.
         message_container temp_msgs = get("entities");
-        if(temp_msgs.empty()) break;  //  No messages, end while(true) loop.
+        if (temp_msgs.empty()) break;  //  No messages, end while(true) loop.
 
         //  For all messages, check each dispatch component.
         for(auto& m_it: temp_msgs) { for(auto& c_it: dispatch_components) {
           try {
-            if(m_it.get_to() == mgr::world::get_name(c_it.first)) {
+            if (m_it.get_to() == mgr::world::get_name(c_it.first)) {
               c_it.second->handle_msg(c_it.first, m_it);
               break;  //  Found, stop checking dispatch components.
             }
@@ -89,14 +89,14 @@ class messages final : private manager<messages> {
       ALLEGRO_FILE* file;
       file = al_fopen(fname.c_str(), "rb");
       //  File not found, error.
-      if(!file) {
+      if (!file) {
         al_fclose(file);
         throw engine_error("Can not load game data!");
       }
 
       //  Loop through the entire data file loading into the queue.
       while(true) {
-        if(al_feof(file)) break;  //  End loop if eof.
+        if (al_feof(file)) break;  //  End loop if eof.
 
         int64_t timer = -1;
         std::string sys, to, from, cmd, args;
@@ -105,7 +105,7 @@ class messages final : private manager<messages> {
           //  Read the message from file.
           read(*file, timer, sys, to, from, cmd, args);
           //  Add message to queue.  Ignore incomplete messages.
-          if(sys != "" && cmd != "") _messages.push_back(message(timer, sys, to, from, cmd, args));
+          if (sys != "" && cmd != "") _messages.push_back(message(timer, sys, to, from, cmd, args));
         } catch(const std::exception& e) {
           throw engine_error("Unable to read game data file!");
         }
@@ -124,8 +124,8 @@ class messages final : private manager<messages> {
       message_container temp_messages;
       for(auto it = _messages.begin(); it != _messages.end();) {
         //  End early if events are in the future
-        if(it->get_timer() > engine_time::check()) break;
-        if((it->get_timer() == -1 || it->get_timer() == engine_time::check()) && it->get_sys() == sys) {
+        if (it->get_timer() > engine_time::check()) break;
+        if ((it->get_timer() == -1 || it->get_timer() == engine_time::check()) && it->get_sys() == sys) {
           if constexpr (build_options.debug_mode) log(*it, false);
           temp_messages.push_back(*it);  //  Add the message to the temp vector to be returned.
           it = _messages.erase(it);  //  Erase the message once processed.
@@ -138,7 +138,7 @@ class messages final : private manager<messages> {
     static void prune(void) {
       for(auto it = _messages.begin(); it != _messages.end();) {
         //  End early if events are in the future.
-        if(it->get_timer() > engine_time::check()) break;
+        if (it->get_timer() > engine_time::check()) break;
         if constexpr (build_options.debug_mode) log(*it, true);
         it = _messages.erase(it);
       }
@@ -161,8 +161,8 @@ class messages final : private manager<messages> {
       //  each charecter, ending if we reach null termed or eof.
       while(true) {
         const char ch = al_fgetc(&file);
-        if(ch == '\0') break;  //  End loop if null terminated.
-        if(ch == EOF) {
+        if (ch == '\0') break;  //  End loop if null terminated.
+        if (ch == EOF) {
           throw engine_exception("Bad message file format!", "Messages", 2);
           return;
         }
@@ -170,8 +170,8 @@ class messages final : private manager<messages> {
       }
       while(true) {
         const char ch = al_fgetc(&file);
-        if(ch == '\0') break;  //  End loop if null terminated.
-        if(ch == EOF) {
+        if (ch == '\0') break;  //  End loop if null terminated.
+        if (ch == EOF) {
           throw engine_exception("Bad message file format!", "Messages", 2);
           return;
         }
@@ -179,8 +179,8 @@ class messages final : private manager<messages> {
       }
       while(true) {
         const char ch = al_fgetc(&file);
-        if(ch == '\0') break;  //  End loop if null terminated.
-        if(ch == EOF) {
+        if (ch == '\0') break;  //  End loop if null terminated.
+        if (ch == EOF) {
           throw engine_exception("Bad message file format!", "Messages", 2);
           return;
         }
@@ -188,8 +188,8 @@ class messages final : private manager<messages> {
       }
       while(true) {
         const char ch = al_fgetc(&file);
-        if(ch == '\0') break;  //  End loop if null terminated.
-        if(ch == EOF) {
+        if (ch == '\0') break;  //  End loop if null terminated.
+        if (ch == EOF) {
           throw engine_exception("Bad message file format!", "Messages", 2);
           return;
         }
@@ -197,8 +197,8 @@ class messages final : private manager<messages> {
       }
       while(true) {
         const char ch = al_fgetc(&file);
-        if(ch == '\0') break;  //  End loop if null terminated.
-        if(ch == EOF) {
+        if (ch == '\0') break;  //  End loop if null terminated.
+        if (ch == EOF) {
           throw engine_exception("Bad message file format!", "Messages", 2);
           return;
         }
@@ -225,7 +225,7 @@ class messages final : private manager<messages> {
         debug_log_file << "PROC AT:  " << engine_time::check() << " | ");
       debug_log_file << "TIMER:  " << msg.get_timer() << " | ";
       debug_log_file << "SYS:  " << msg.get_sys() << " | ";
-      if((msg.get_to() != "") || (msg.get_from() != "")) {
+      if ((msg.get_to() != "") || (msg.get_from() != "")) {
         debug_log_file << "TO:  " << msg.get_to() << " | ";
         debug_log_file << "FROM:  " << msg.get_from() << " | ";
       }
@@ -234,7 +234,7 @@ class messages final : private manager<messages> {
       msg_args arglist = msg.get_args();
       for(auto i = arglist.begin(); i != arglist.end(); i++) {
         debug_log_file << *i;
-        if(std::next(i, 1) != arglist.end()) debug_log_file << ";";
+        if (std::next(i, 1) != arglist.end()) debug_log_file << ";";
       }
       debug_log_file << std::endl;
     };
@@ -252,7 +252,7 @@ class messages final : private manager<messages> {
      */
     static void add(const message& msg) {
       _messages.insert(_messages.begin(), msg);
-      if(msg.is_timed_event()) std::sort(_messages.begin(), _messages.end());
+      if (msg.is_timed_event()) std::sort(_messages.begin(), _messages.end());
     };
 
     /*!
@@ -269,14 +269,14 @@ class messages final : private manager<messages> {
       ALLEGRO_FILE* file;
       file = al_fopen(fname.c_str(), "rb");
       //  File not found, error.
-      if(!file) {
+      if (!file) {
         al_fclose(file);
         return false;
       }
 
       //  Loop through the entire data file loading into the queue.
       while(true) {
-        if(al_feof(file)) break;  //  End loop if eof.
+        if (al_feof(file)) break;  //  End loop if eof.
 
         int64_t timer = -1;
         std::string sys, to, from, cmd, args;
@@ -285,9 +285,9 @@ class messages final : private manager<messages> {
           //  Read the message from file.
           read(*file, timer, sys, to, from, cmd, args);
           //  Add the current time to the timer value.
-          if(timer != -1) timer += engine_time::check();
+          if (timer != -1) timer += engine_time::check();
           //  Add message to queue.  Ignore incomplete messages.  Sort while adding.
-          if(sys != "" && cmd != "") add(message(timer, sys, to, from, cmd, args));
+          if (sys != "" && cmd != "") add(message(timer, sys, to, from, cmd, args));
         } catch(const std::exception& e) { throw e; }
       }
       al_fclose(file);

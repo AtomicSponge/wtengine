@@ -96,7 +96,7 @@ class assets final : private manager<assets> {
       const std::string& label
     ) {
       auto it = _assets<T>.find(label);
-      if(it != _assets<T>.end()) {
+      if (it != _assets<T>.end()) {
         _assets<T>.erase(it);
         return true;
       }

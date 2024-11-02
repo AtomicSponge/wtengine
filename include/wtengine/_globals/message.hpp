@@ -29,7 +29,7 @@ class message final {
   private:
     //  Split arguments into a vector of strings.
     void split_args(const std::string& a) {
-      if(a == "") args.push_back("");
+      if (a == "") args.push_back("");
       else {
         std::stringstream arg_stream(a);
         std::string segment;
@@ -163,7 +163,7 @@ class message final {
      * \return The argument string by position.
      */
     const std::string get_arg(const std::size_t& pos) const {
-      if(pos >= args.size()) return "";  //  Out of range, return empty string.
+      if (pos >= args.size()) return "";  //  Out of range, return empty string.
       else return args[pos];
     };
 
@@ -172,7 +172,7 @@ class message final {
      * \return Returns false if the timer value is -1, else true.
      */
     bool is_timed_event(void) const {
-      if(timer == -1) return false;
+      if (timer == -1) return false;
       else return true;
     };
 };

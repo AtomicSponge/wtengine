@@ -69,8 +69,8 @@ class renderer final : private manager<renderer> {
     //  Configures the internal objects for the render manager to use.
     static void initialize(void) {
       //  Check that screen and arena sizes were defined.
-      if(config::gfx::screen_w == 0 || config::gfx::screen_h == 0) throw std::runtime_error("Screen size not defined!");
-      if(config::gfx::viewport_w == 0 || config::gfx::viewport_h == 0) throw std::runtime_error("Arena size not defined!");
+      if (config::gfx::screen_w == 0 || config::gfx::screen_h == 0) throw std::runtime_error("Screen size not defined!");
+      if (config::gfx::viewport_w == 0 || config::gfx::viewport_h == 0) throw std::runtime_error("Arena size not defined!");
       //  Create the arena bitmap.
       viewport_bitmap = make_asset<ALLEGRO_BITMAP>(config::gfx::viewport_w, config::gfx::viewport_h);
       arena_created = true;
@@ -79,7 +79,7 @@ class renderer final : private manager<renderer> {
       renderer_font = mgr::assets::get<ALLEGRO_FONT>("wte_default_font");
 
       //  Load the title screen bitmap.
-      if(title_screen_file.empty()) {
+      if (title_screen_file.empty()) {
         title_bitmap = make_asset<ALLEGRO_BITMAP>(1, 1);
         al_set_target_bitmap(title_bitmap.get());
         al_clear_to_color(al_map_rgb(0,0,0));
@@ -111,7 +111,7 @@ class renderer final : private manager<renderer> {
         mgr::world::get_components<cmp::hitbox>();
 
       for(auto& it: hitbox_components) {
-        if(it.second->solid) {
+        if (it.second->solid) {
           //  Select color based on team.
           ALLEGRO_COLOR team_color;
           switch(it.second->team) {
@@ -160,7 +160,7 @@ class renderer final : private manager<renderer> {
       fps_counter++;
       //  Update fps on unique ticks only.
       const bool queue_not_empty = al_get_next_event(fps_event_queue, &fps_event);
-      if(queue_not_empty && fps_event.type == ALLEGRO_EVENT_TIMER) {
+      if (queue_not_empty && fps_event.type == ALLEGRO_EVENT_TIMER) {
         _fps = fps_counter;
         fps_counter = 0;
         al_set_timer_count(fps_timer, 0);
@@ -174,7 +174,7 @@ class renderer final : private manager<renderer> {
       al_clear_to_color(al_map_rgb(0,0,0));
 
       //  Render world if the game is running.
-      if(config::flags::engine_started) {
+      if (config::flags::engine_started) {
         //  Set drawing to the arena bitmap.
         al_set_target_bitmap(viewport_bitmap.get());
         al_clear_to_color(al_map_rgb(0,0,0));
@@ -190,12 +190,12 @@ class renderer final : private manager<renderer> {
 
         //  Draw each background by layer.
         for(auto& it: background_componenet_set) {
-          if(it.second->visible) {
+          if (it.second->visible) {
             float angle = 0.0f;
             float center_x = 0.0f, center_y = 0.0f;
             float destination_x = 0.0f, destination_y = 0.0f;
 
-            if(it.second->rotated) {
+            if (it.second->rotated) {
               angle = it.second->direction;
               center_x = (al_get_bitmap_width(it.second->_bitmap.get()) / 2);
               center_y = (al_get_bitmap_height(it.second->_bitmap.get()) / 2);
@@ -209,7 +209,7 @@ class renderer final : private manager<renderer> {
               destination_y = it.second->pos_y;
             }
 
-            if(it.second->tinted)
+            if (it.second->tinted)
               al_draw_tinted_scaled_rotated_bitmap(
                 it.second->_bitmap.get(), it.second->get_tint(),
                 center_x, center_y, destination_x, destination_y,
@@ -239,7 +239,7 @@ class renderer final : private manager<renderer> {
 
         //  Draw each sprite in order.
         for(auto& it: sprite_componenet_set) {
-          if(it.second->visible) {
+          if (it.second->visible) {
             //  Get the current sprite frame.
             ALLEGRO_BITMAP* temp_bitmap = al_create_sub_bitmap(
               it.second->_bitmap.get(),
@@ -255,7 +255,7 @@ class renderer final : private manager<renderer> {
             cmp::const_comp_ptr<cmp::location> temp_get = mgr::world::get_component<cmp::location>(it.first);
 
             //  Check if the sprite should be rotated.
-            if(it.second->rotated) {
+            if (it.second->rotated) {
               angle = it.second->direction;
               center_x = (al_get_bitmap_width(temp_bitmap) / 2);
               center_y = (al_get_bitmap_height(temp_bitmap) / 2);
@@ -272,7 +272,7 @@ class renderer final : private manager<renderer> {
             }
 
             //  Draw the sprite.
-            if(it.second->tinted)
+            if (it.second->tinted)
               al_draw_tinted_scaled_rotated_bitmap(
                   temp_bitmap, it.second->get_tint(),
                   center_x, center_y, destination_x, destination_y,
@@ -294,7 +294,7 @@ class renderer final : private manager<renderer> {
 
         //  Draw hitboxes if debug is enabled.
         if constexpr (build_options.debug_mode)
-          if(config::flags::show_hitboxes) draw_hitboxes();
+          if (config::flags::show_hitboxes) draw_hitboxes();
 
         //  Draw the overlays.
         const const_component_container<cmp::gfx::overlay> overlay_components =
@@ -307,12 +307,12 @@ class renderer final : private manager<renderer> {
 
         //  Draw each overlay by layer.
         for(auto& it: overlay_componenet_set) {
-          if(it.second->visible) {
+          if (it.second->visible) {
             float angle = 0.0f;
             float center_x = 0.0f, center_y = 0.0f;
             float destination_x = 0.0f, destination_y = 0.0f;
 
-            if(it.second->rotated) {
+            if (it.second->rotated) {
               angle = it.second->direction;
               center_x = (al_get_bitmap_width(it.second->_bitmap.get()) / 2);
               center_y = (al_get_bitmap_height(it.second->_bitmap.get()) / 2);
@@ -326,7 +326,7 @@ class renderer final : private manager<renderer> {
               destination_y = it.second->pos_y;
             }
 
-            if(it.second->tinted)
+            if (it.second->tinted)
               al_draw_tinted_scaled_rotated_bitmap(
                 it.second->_bitmap.get(), it.second->get_tint(),
                 center_x, center_y, destination_x, destination_y,
@@ -364,7 +364,7 @@ class renderer final : private manager<renderer> {
       }
 
       //  Draw frame rate.
-      if(config::flags::draw_fps) {
+      if (config::flags::draw_fps) {
         const std::string fps_string = "FPS: " + std::to_string(fps);
         al_draw_text(renderer_font.get(), al_map_rgb(255,255,0), config::gfx::screen_w, 1, ALLEGRO_ALIGN_RIGHT, fps_string.c_str());
       }
@@ -413,7 +413,7 @@ class renderer final : private manager<renderer> {
       const int& h
     ) {
       assert(w > 0 && h > 0);
-      if(!arena_created) {
+      if (!arena_created) {
         config::_gfx::viewport_w = w;
         config::_gfx::viewport_h = h;
       }

@@ -30,8 +30,8 @@ class animate final : public system {
       component_container<cmp::gfx::gfx> animation_components =
         mgr::world::set_components<cmp::gfx::gfx>();
 
-      for(auto& it: animation_components)
-        if(it.second->visible) it.second->animate(it.first);
+      for (auto& it: animation_components)
+        if (it.second->visible) it.second->animate(it.first);
     };
 };
 

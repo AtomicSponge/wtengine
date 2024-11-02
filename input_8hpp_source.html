@@ -266,7 +266,7 @@ $(function() {
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <span class="comment">//  Check the input queue for events.</span></div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> check_events(<span class="keywordtype">void</span>) {</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>      ALLEGRO_EVENT event;</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>      <span class="keywordflow">while</span>(al_get_next_event(input_event_queue, &amp;event)) {</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>      <span class="keywordflow">while</span> (al_get_next_event(input_event_queue, &amp;event)) {</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        <span class="comment">//  Record input if enabled.</span></div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="structwte_1_1config_1_1flags.html#a66135c0224f2b159e0ca8fdc04733314">config::flags::record_input</a>) record_event(<a class="code hl_function" href="classwte_1_1engine__time.html#a16f0c70ecf5202ee38bcb645d68f5e72">engine_time::check</a>(), event);</div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        <span class="comment">//  Run the handles</span></div>

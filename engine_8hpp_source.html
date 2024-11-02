@@ -480,7 +480,7 @@ $(function() {
 <div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span><span class="preprocessor">  #if defined(__EMSCRIPTEN__)</span></div>
 <div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>    emscripten_set_main_loop(&amp;em_looper, -1, <span class="keyword">true</span>);</div>
 <div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span><span class="preprocessor">  #else</span></div>
-<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>    <span class="keywordflow">while</span>(<a class="code hl_variable" href="structwte_1_1config_1_1flags.html#aa4114cdf838bede2cf33dd1d1b7bf7e8">config::flags::is_running</a>) engine::main_loop();</div>
+<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>    <span class="keywordflow">while</span> (<a class="code hl_variable" href="structwte_1_1config_1_1flags.html#aa4114cdf838bede2cf33dd1d1b7bf7e8">config::flags::is_running</a>) engine::main_loop();</div>
 <div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span><span class="preprocessor">  #endif</span></div>
 <div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span> </div>
 <div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span>  <span class="comment">// Unload engine.</span></div>

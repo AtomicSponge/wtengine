@@ -135,7 +135,7 @@ $(function() {
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>      <span class="keywordflow">while</span> (<span class="keyword">true</span>) {  <span class="comment">//  Infinite loop to verify all current messages are processed.</span></div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        message_container temp_msgs = get(<span class="stringliteral">&quot;entities&quot;</span>);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">if</span> (temp_msgs.empty()) <span class="keywordflow">break</span>;  <span class="comment">//  No messages, end while(true) loop.</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">if</span> (temp_msgs.empty()) <span class="keywordflow">break</span>;  <span class="comment">//  No messages, end loop.</span></div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="comment">//  For all messages, check each dispatch component.</span></div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; m_it: temp_msgs) {</div>
@@ -335,7 +335,7 @@ $(function() {
 <div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>      }</div>
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>      <span class="comment">//  Loop through the entire data file loading into the queue.</span></div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>      <span class="keywordflow">while</span>(<span class="keyword">true</span>) {</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>      <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        <span class="keywordflow">if</span> (al_feof(file)) <span class="keywordflow">break</span>;  <span class="comment">//  End loop if eof.</span></div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        int64_t timer = -1;</div>

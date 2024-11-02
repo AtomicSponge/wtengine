@@ -35,6 +35,31 @@ class gfx : public component {
   friend class mgr::gfx::renderer;
   friend class sys::gfx::animate;
 
+  private:
+    bool tinted;               //  Flag to set tint.
+    ALLEGRO_COLOR tint_color;  //  Color of tint.
+
+    //  Animation function.
+    const std::function<void(const entity_id&)> animate;
+
+  protected:
+    /*!
+     * \brief Extend to create a gfx component.
+     * \param bmp Bitmap asset to use.
+     * \param l Layer position.
+     * \param func Animation function.
+     */
+    gfx(
+      wte_asset<ALLEGRO_BITMAP> bmp,
+      const std::size_t& l,
+      const std::function<void(const entity_id&)>& func
+    ) : layer(l), visible(true), rotated(false), direction(0.0f),
+        scale_factor_x(1.0f), scale_factor_y(1.0f),
+        _bitmap(bmp), tinted(false), animate(func) {};
+
+    //!  Stores the bitmap used by the animator.
+    wte_asset<ALLEGRO_BITMAP> _bitmap;
+
   public:
     gfx() = delete;            //  Delete default constructor.
     virtual ~gfx() = default;  //  Default virtual destructor.
@@ -79,31 +104,6 @@ class gfx : public component {
     float direction;       //!<  Direction to draw when rotated.
     float scale_factor_x;  //!<  X scale factor.
     float scale_factor_y;  //!<  Y scale factor.
-
-  protected:
-    /*!
-     * \brief Extend to create a gfx component.
-     * \param bmp Bitmap asset to use.
-     * \param l Layer position.
-     * \param func Animation function.
-     */
-    gfx(
-      wte_asset<ALLEGRO_BITMAP> bmp,
-      const std::size_t& l,
-      const std::function<void(const entity_id&)>& func
-    ) : layer(l), visible(true), rotated(false), direction(0.0f),
-        scale_factor_x(1.0f), scale_factor_y(1.0f),
-        _bitmap(bmp), tinted(false), animate(func) {};
-
-    //!  Stores the bitmap used by the animator.
-    wte_asset<ALLEGRO_BITMAP> _bitmap;
-
-  private:
-    bool tinted;               //  Flag to set tint.
-    ALLEGRO_COLOR tint_color;  //  Color of tint.
-
-    //  Animation function.
-    const std::function<void(const entity_id&)> animate;
 };
 
 }  //  end namespace wte::cmp

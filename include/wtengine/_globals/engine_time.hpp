@@ -19,6 +19,11 @@ namespace wte {
 class engine_time final {
   friend class engine;
 
+  private:
+    //  Sets the internal timer. Called internally by engine.
+    static void set(const int64_t& t) {  current_time = t; };
+    inline static int64_t current_time = 0;  //  Track game timer
+
   public:
     engine_time() = delete;                       //  Delete constructor.
     ~engine_time() = delete;                      //  Delete destructor.
@@ -30,11 +35,6 @@ class engine_time final {
      * \return Timer value.
      */
     static int64_t check(void) { return current_time; };
-
-  private:
-    //  Sets the internal timer. Called internally by engine.
-    static void set(const int64_t& t) {  current_time = t; };
-    inline static int64_t current_time = 0;  //  Track game timer
 };
 
 }  //  end namespace wte

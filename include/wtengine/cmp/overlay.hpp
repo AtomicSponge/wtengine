@@ -24,6 +24,8 @@ namespace wte::cmp::gfx {
  * \brief Component for storing an overlay image and defining its animation process.
  */
 class overlay final : public gfx {
+  private:
+    wte_asset<ALLEGRO_FONT> overlay_font;  //  Font for overlay.
 
   public:
     /*!
@@ -67,9 +69,6 @@ class overlay final : public gfx {
 
     float pos_x;  //!<  X position.
     float pos_y;  //!<  Y position.
-
-  private:
-    wte_asset<ALLEGRO_FONT> overlay_font;  //  Font for overlay.
 };
 
 }  //  end namespace wte::cmp

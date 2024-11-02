@@ -22,6 +22,15 @@ namespace wte {
  * \brief Container for storing engine commands expressed as a lambda.
  */
 class commands final {
+  private:
+    //  Container for commands.
+    std::map<
+      std::string,
+      std::pair<
+        std::size_t,
+        std::function<void(const msg_args&)>
+    >> _commands;
+
   public:
     commands() = default;   //  Default constructor.
     ~commands() = default;  //  Default destructor.
@@ -54,15 +63,6 @@ class commands final {
           res->second.second(it.get_args());
       }
     };
-
-  private:
-    //  Container for commands.
-    std::map<
-      std::string,
-      std::pair<
-        std::size_t,
-        std::function<void(const msg_args&)>
-    >> _commands;
 };
 
 }  //  end namespace wte

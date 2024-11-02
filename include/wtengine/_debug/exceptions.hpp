@@ -45,6 +45,9 @@ class exception_item final {
  * Exceptions thrown this way will terminate the engine.
  */
 class engine_error final : public std::exception {
+  private:
+    const exception_item item;  //  Store the exception item.
+
   public:
     /*!
      * \brief Create a new runtime error object.  Sets the location to Engine and code to 1.
@@ -75,9 +78,6 @@ class engine_error final : public std::exception {
      * \return Time of thrown exception.
      */
     int64_t when() const noexcept { return item.time; };
-
-  private:
-    const exception_item item;  //  Store the exception item.
 };
 
 /*!
@@ -88,6 +88,9 @@ class engine_error final : public std::exception {
 * If debugging is enabled, they will also be logged to file.
 */
 class engine_exception final : public std::exception {
+  private:
+    const exception_item item;  //  Store the exception item.
+
   public:
     /*!
      * \brief Create an engine exception.
@@ -123,9 +126,6 @@ class engine_exception final : public std::exception {
      * \return Time of thrown exception.
      */
     int64_t when() const noexcept{ return item.time; };
-
-  private:
-    const exception_item item;  //  Store the exception item.
 };
 
 }  //  end namespace wte

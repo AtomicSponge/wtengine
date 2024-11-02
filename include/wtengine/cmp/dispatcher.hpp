@@ -31,6 +31,10 @@ namespace wte::cmp {
 class dispatcher final : public component {
   friend class mgr::messages;
 
+  private:
+    //  Message handler.
+    const std::function<void(const entity_id&, const message&)> handle_msg;
+
   public:
     /*!
      * \brief Create a new Dispatcher component.
@@ -40,10 +44,6 @@ class dispatcher final : public component {
 
     dispatcher() = delete;    //  Delete default constructor.
     ~dispatcher() = default;  //  Default destructor.
-
-  private:
-    //  Message handler.
-    const std::function<void(const entity_id&, const message&)> handle_msg;
 };
 
 }  //  end namespace wte::cmp

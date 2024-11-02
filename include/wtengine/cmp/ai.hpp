@@ -30,6 +30,10 @@ namespace wte::cmp {
 class ai final : public component {
   friend class sys::logic;
 
+  private:
+    const std::function<void(const entity_id&)> enabled_ai;   //  AI to run when enabled.
+    const std::function<void(const entity_id&)> disabled_ai;  //  AI to run when disabled.
+
   public:
     /*!
      * \brief Create an AI component with enabled only AI.
@@ -52,10 +56,6 @@ class ai final : public component {
     ~ai() = default;  //  Default destructor.
 
     bool enabled;     //!<  Flag to enable or disable the entity.
-
-  private:
-    const std::function<void(const entity_id&)> enabled_ai;   //  AI to run when enabled.
-    const std::function<void(const entity_id&)> disabled_ai;  //  AI to run when disabled.
 };
 
 }  //  end namespace wte::cmp

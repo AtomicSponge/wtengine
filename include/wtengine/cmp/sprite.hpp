@@ -36,6 +36,20 @@ namespace wte::cmp::gfx {
 class sprite final : public gfx {
   friend class mgr::gfx::renderer;
 
+  private:
+    //  Animation cycle index.
+    std::map<
+      const std::string,
+      const std::pair<const std::size_t, const std::size_t>
+    > cycles;
+
+    float sprite_width, sprite_height;      //  Sprite width & height.
+    float draw_offset_x, draw_offset_y;     //  Sprite draw offset x/y.
+    float sprite_x, sprite_y;               //  Sprite location.
+    int sheet_width, sheet_height;          //  Sprite sheet size (w/h).
+    std::size_t start_frame, stop_frame;    //  Current start/stop frame postitions.
+    std::size_t current_frame, rate;        //  Current frame counter and frame rate.
+
   public:
     /*!
      * \brief Create a new Sprite component.
@@ -110,20 +124,6 @@ class sprite final : public gfx {
         return true;
       } else return false;
     };
-
-  private:
-    //  Animation cycle index.
-    std::map<
-      const std::string,
-      const std::pair<const std::size_t, const std::size_t>
-    > cycles;
-
-    float sprite_width, sprite_height;      //  Sprite width & height.
-    float draw_offset_x, draw_offset_y;     //  Sprite draw offset x/y.
-    float sprite_x, sprite_y;               //  Sprite location.
-    int sheet_width, sheet_height;          //  Sprite sheet size (w/h).
-    std::size_t start_frame, stop_frame;    //  Current start/stop frame postitions.
-    std::size_t current_frame, rate;        //  Current frame counter and frame rate.
 };
 
 }  //  end namespace wte::cmp

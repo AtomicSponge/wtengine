@@ -19,13 +19,13 @@ namespace wte::cmp {
  * Extend this to creata a component that can be loaded into the Entity Manager.
  */
 class component {
+  protected:
+    component() = default;                      //  Default constructor.
+
   public:
     virtual ~component() = default;             //  Default virtual destructor.
     component(const component&) = delete;       //  Delete copy constructor.
     void operator=(component const&) = delete;  //  Delete assignment operator.
-
-  protected:
-    component() = default;                      //  Default constructor.
 };
 
 /*!

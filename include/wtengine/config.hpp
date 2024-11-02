@@ -69,6 +69,13 @@ class config {
 
     inline static bool initialized = false;  //  Restrict to one instance.
 
+  protected:
+    config() {
+      if(initialized == true)
+        throw engine_error("Config instance already running!");
+      initialized = true;
+    };
+
   public:
     virtual ~config() = default;             //  Default virtual destructor.
     config(const config&) = delete;          //  Delete copy constructor.
@@ -183,13 +190,6 @@ class config {
     dfile.close();
     return true;
   };
-
-  protected:
-    config() {
-      if(initialized == true)
-        throw engine_error("Config instance already running!");
-      initialized = true;
-    };
 };
 
 }  //  end namespace wte

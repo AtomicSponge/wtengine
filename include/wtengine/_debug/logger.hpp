@@ -32,23 +32,6 @@ class engine;
 class logger final {
   friend class engine;
 
-  public:
-    logger(const logger&) = delete;          //  Delete copy constructor.
-    void operator=(logger const&) = delete;  //  Delete assignment operator.
-
-    /*!
-     * \brief Add exception information to the logger.
-     * \param d Description of item.
-     * \param l Location of item.
-     * \param c Error code of item.
-     * \param t Engine time of item.
-     */
-    static const void log(
-      const std::string& d, const std::string& l,
-      const unsigned int& c, const int64_t& t) {
-      log_file << d + ", " + l + ", " + std::to_string(c) + ", " + std::to_string(t) + "\n";
-    };
-
   private:
     logger() = default;
     ~logger() = default;
@@ -68,6 +51,23 @@ class logger final {
     };
 
     inline static std::ofstream log_file;
+
+  public:
+    logger(const logger&) = delete;          //  Delete copy constructor.
+    void operator=(logger const&) = delete;  //  Delete assignment operator.
+
+    /*!
+     * \brief Add exception information to the logger.
+     * \param d Description of item.
+     * \param l Location of item.
+     * \param c Error code of item.
+     * \param t Engine time of item.
+     */
+    static const void log(
+      const std::string& d, const std::string& l,
+      const unsigned int& c, const int64_t& t) {
+      log_file << d + ", " + l + ", " + std::to_string(c) + ", " + std::to_string(t) + "\n";
+    };
 };
 
 }  //  end namespace wte

@@ -15,14 +15,14 @@ namespace wte {
  * \brief Extend this to create a scene.
  */
 class scene {
-  public:
-    virtual ~scene() = default;
+  private:
+    //
 
   protected:
     scene() = default;
 
-  private:
-    //
+  public:
+    virtual ~scene() = default;
 };
 
 }  //  end namespace wte

@@ -26,6 +26,27 @@ using msg_args = std::vector<std::string>;
  * \brief Define individual message objects.
  */
 class message final {
+  private:
+    //  Split arguments into a vector of strings.
+    void split_args(const std::string& a) {
+      if(a == "") args.push_back("");
+      else {
+        std::stringstream arg_stream(a);
+        std::string segment;
+
+        while(std::getline(arg_stream, segment, ';')) {
+          args.push_back(segment);
+        }
+      }
+    };
+
+    int64_t timer;      //  Timer value that the message will be processed at
+    std::string sys;    //  System that will process the message
+    std::string to;     //  Message to entity field
+    std::string from;   //  Message from entity field
+    std::string cmd;    //  Message command
+    msg_args args;      //  Message arguments
+
   public:
     message() = delete;  //  Delete default constructor.
 
@@ -154,27 +175,6 @@ class message final {
       if(timer == -1) return false;
       else return true;
     };
-
-    private:
-      //  Split arguments into a vector of strings.
-      void split_args(const std::string& a) {
-        if(a == "") args.push_back("");
-        else {
-          std::stringstream arg_stream(a);
-          std::string segment;
-
-          while(std::getline(arg_stream, segment, ';')) {
-            args.push_back(segment);
-          }
-        }
-      };
-
-      int64_t timer;      //  Timer value that the message will be processed at
-      std::string sys;    //  System that will process the message
-      std::string to;     //  Message to entity field
-      std::string from;   //  Message from entity field
-      std::string cmd;    //  Message command
-      msg_args args;      //  Message arguments
 };
 
 /*!

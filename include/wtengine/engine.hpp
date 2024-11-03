@@ -260,7 +260,7 @@ class engine final : public config, public input, public display {
      * \param argc Command line arguments count.
      * \param argv Command line arguments.
      */
-    static void initialize(const int& argc, char** const& argv) {
+    static void initialize(int w, int h, const int& argc, char** const& argv) {
       std::cout << "Starting WTEngine...\n";
       if (initialized == true) throw engine_error(display::window_title + " already running!");
       initialized = true;
@@ -296,7 +296,7 @@ class engine final : public config, public input, public display {
 
       //  Configure display.  Called from wte_display class.
       std::cout << "Configuring display... ";
-      create_display();
+      create_display(w, h);
       std::cout << "OK!\n";
 
       //  Disable pesky screensavers.

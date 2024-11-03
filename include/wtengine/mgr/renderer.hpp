@@ -414,8 +414,6 @@ class renderer final : private manager<renderer> {
     ) {
       assert(w > 0 && h > 0);
       if (!arena_created) {
-        config::_gfx::screen_w = w;
-        config::_gfx::screen_h = h;
         config::_gfx::viewport_w = w;
         config::_gfx::viewport_h = h;
       }

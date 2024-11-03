@@ -95,10 +95,10 @@ class display {
 
   private:
     //  Configure the display.
-    static void create_display(void) {
+    static void create_display(int w, int h) {
       //  Set a default screen size
-      if (config::gfx::screen_w == 0) config::_gfx::screen_w = 1920;
-      if (config::gfx::screen_h == 0) config::_gfx::screen_h = 1080;
+      config::_gfx::screen_w = w;
+      config::_gfx::screen_h = h;
 
       al_reset_new_display_options();
 

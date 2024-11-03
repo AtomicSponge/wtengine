@@ -142,7 +142,6 @@ class config {
     if (!dfile.good()) return false;
 
     try {
-      dfile.read(reinterpret_cast<char*>(&flags::draw_fps), sizeof flags::draw_fps);
       dfile.read(reinterpret_cast<char*>(&_gfx::vsync), sizeof _gfx::vsync);
       dfile.read(reinterpret_cast<char*>(&_gfx::display_mode), sizeof _gfx::display_mode);
       dfile.read(reinterpret_cast<char*>(&_gfx::scale_factor), sizeof _gfx::scale_factor);
@@ -171,7 +170,6 @@ class config {
     if (!dfile.good()) return false;
 
     try {
-      dfile.write(reinterpret_cast<const char*>(&flags::draw_fps), sizeof flags::draw_fps);
       dfile.write(reinterpret_cast<const char*>(&gfx::vsync), sizeof gfx::vsync);
       dfile.write(reinterpret_cast<const char*>(&gfx::display_mode), sizeof gfx::display_mode);
       dfile.write(reinterpret_cast<const char*>(&gfx::scale_factor), sizeof gfx::scale_factor);

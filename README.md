@@ -7,7 +7,6 @@ __WTEngine__ is a lightweight cross-platform game engine written in C++17 using 
     - A working C++ build environment with [CMake](https://cmake.org)
  - __Libraries__:
     - [Allegro Game Library](https://liballeg.org)
-    - [PhysicsFS](https://www.icculus.org/physfs/)
     - [OpenGL](https://www.opengl.org) *(2d only)*
 
 -----

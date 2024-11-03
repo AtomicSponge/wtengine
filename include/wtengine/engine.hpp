@@ -244,6 +244,8 @@ class engine final : public config, public input, public display {
 
     /*!
      * \brief Initialize the engine.
+     * \param w Initial screen width.
+     * \param h Initial screen height.
      */
     static void initialize(int w, int h) {
       std::cout << "Starting WTEngine...\n";

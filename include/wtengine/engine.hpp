@@ -235,8 +235,6 @@ class engine final : public config, public input, public display {
     inline static ALLEGRO_TIMER* main_timer = NULL;
     inline static ALLEGRO_EVENT_QUEUE* main_event_queue = NULL;
 
-    //  Vector of file paths to provide to PhysFS.
-    inline static std::vector<std::string> file_locations;
     //  Restrict to one instance of the engine running.
     inline static bool initialized = false;
 
@@ -245,22 +243,9 @@ class engine final : public config, public input, public display {
     void operator=(engine const&) = delete;  //  Delete assignment operator.
 
     /*!
-     * \brief Add file path to provide to PhysFS.
-     * 
-     * This should be called during engine initialization before the main object is created.
-     * 
-     * \param flocation File location to add to PhysFS.
-     */
-    static void add_file_location(const std::string& flocation) {
-      file_locations.push_back(flocation);
-    };
-
-    /*!
      * \brief Initialize the engine.
-     * \param argc Command line arguments count.
-     * \param argv Command line arguments.
      */
-    static void initialize(int w, int h, const int& argc, char** const& argv) {
+    static void initialize(int w, int h) {
       std::cout << "Starting WTEngine...\n";
       if (initialized == true) throw engine_error(display::window_title + " already running!");
       initialized = true;
@@ -285,14 +270,6 @@ class engine final : public config, public input, public display {
         config::_flags::joystick_installed = al_install_joystick();
       if constexpr (build_options.touch_enabled)
         config::_flags::touch_installed = al_install_touch_input();
-
-      //  Configure PhysFS.
-      std::cout << "Loading PhysicsFS... ";
-      if (!PHYSFS_init(argv[0])) throw engine_error("Failed to load PhysicsFS!");
-      if (file_locations.empty()) throw engine_error("Need to configure locations for PhysFS!");
-      for (auto& it: file_locations) PHYSFS_mount(it.c_str(), NULL, 1);
-      al_set_physfs_file_interface();
-      std::cout << "OK!\n";
 
       //  Configure display.  Called from wte_display class.
       std::cout << "Configuring display... ";
@@ -375,7 +352,6 @@ class engine final : public config, public input, public display {
      */
     static void de_init(void) {
       std::cout << "\nStopping WTEngine...\n";
-      PHYSFS_deinit();
 
       std::cout << "Cleaning up engine objects... ";
       al_destroy_timer(main_timer);

@@ -123,9 +123,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a848c9ff6e143f4a3f414164fb8a93311"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwte_1_1engine.html#a848c9ff6e143f4a3f414164fb8a93311">add_file_location</a> (const std::string &amp;flocation)</td></tr>
 <tr class="memdesc:a848c9ff6e143f4a3f414164fb8a93311"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add file path to provide to PhysFS.  <br /></td></tr>
 <tr class="separator:a848c9ff6e143f4a3f414164fb8a93311"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5dfa8182de1d1788d0ea1f9659c083b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwte_1_1engine.html#af5dfa8182de1d1788d0ea1f9659c083b">initialize</a> (const int &amp;argc, char **const &amp;argv)</td></tr>
-<tr class="memdesc:af5dfa8182de1d1788d0ea1f9659c083b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the engine.  <br /></td></tr>
-<tr class="separator:af5dfa8182de1d1788d0ea1f9659c083b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b961b0897b275e0a48b15d80a02a2aa"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwte_1_1engine.html#a6b961b0897b275e0a48b15d80a02a2aa">initialize</a> (int w, int h, const int &amp;argc, char **const &amp;argv)</td></tr>
+<tr class="memdesc:a6b961b0897b275e0a48b15d80a02a2aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the engine.  <br /></td></tr>
+<tr class="separator:a6b961b0897b275e0a48b15d80a02a2aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64018c7fe38bba18a6d9d0401a8eb11f"><td class="memItemLeft" align="right" valign="top"><a id="a64018c7fe38bba18a6d9d0401a8eb11f" name="a64018c7fe38bba18a6d9d0401a8eb11f"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>de_init</b> (void)</td></tr>
 <tr class="memdesc:a64018c7fe38bba18a6d9d0401a8eb11f"><td class="mdescLeft">&#160;</td><td class="mdescRight">De-initialize the engine. <br /></td></tr>
@@ -240,8 +240,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>do_game</b> (void)</t
 
 </div>
 </div>
-<a id="af5dfa8182de1d1788d0ea1f9659c083b" name="af5dfa8182de1d1788d0ea1f9659c083b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5dfa8182de1d1788d0ea1f9659c083b">&#9670;&#160;</a></span>initialize()</h2>
+<a id="a6b961b0897b275e0a48b15d80a02a2aa" name="a6b961b0897b275e0a48b15d80a02a2aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b961b0897b275e0a48b15d80a02a2aa">&#9670;&#160;</a></span>initialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -252,6 +252,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>do_game</b> (void)</t
         <tr>
           <td class="memname">static void wte::engine::initialize </td>
           <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const int &amp;&#160;</td>
           <td class="paramname"><em>argc</em>, </td>
         </tr>

@@ -217,16 +217,19 @@ class engine final : public config, public input, public display {
       //  Generate Allegro's default font and load into asset mgr.
       mgr::assets::load<ALLEGRO_FONT>("wte_default_font", make_asset<ALLEGRO_FONT>());
 
-      //  Set default states.
-      config::flags::engine_paused = true;
-
       if constexpr (build_options.debug_mode) {
         mgr::messages::message_log_start();
         logger::start();
       }
 
+      config::flags::engine_paused = false;
       config::_flags::is_running = true;
       std::cout << "Engine started successfully!\n\n";
+
+      al_stop_timer(main_timer);
+      al_set_timer_count(main_timer, 0);
+      engine_time::set(al_get_timer_count(main_timer));
+      al_start_timer(main_timer);
     };
 
     /*!
@@ -283,12 +286,6 @@ class engine final : public config, public input, public display {
       for (auto& it: scenes) {
         if (it->name == name) current_scene = it;
       }
-
-      //  Restart the timer at zero.
-      al_stop_timer(main_timer);
-      al_set_timer_count(main_timer, 0);
-      engine_time::set(al_get_timer_count(main_timer));
-      al_start_timer(main_timer);
 
       current_scene->load();
     };

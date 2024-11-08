@@ -78,15 +78,6 @@ class renderer final : private manager<renderer> {
       //  Set the overlay's font to the system default.
       renderer_font = mgr::assets::get<ALLEGRO_FONT>("wte_default_font");
 
-      //  Load the title screen bitmap.
-      if (title_screen_file.empty()) {
-        title_bitmap = make_asset<ALLEGRO_BITMAP>(1, 1);
-        al_set_target_bitmap(title_bitmap.get());
-        al_clear_to_color(al_map_rgb(0,0,0));
-      } else {
-        title_bitmap = make_asset<ALLEGRO_BITMAP>(title_screen_file);
-      }
-
       fps_timer = al_create_timer(1);
       fps_event_queue = al_create_event_queue();
       al_register_event_source(fps_event_queue, al_get_timer_event_source(fps_timer));
@@ -99,7 +90,6 @@ class renderer final : private manager<renderer> {
     //  Destories the internal objects.
     static void de_init(void) {
       viewport_bitmap.reset();
-      title_bitmap.reset();
       renderer_font.reset();
       al_destroy_event_queue(fps_event_queue);
       al_destroy_timer(fps_timer);
@@ -173,195 +163,184 @@ class renderer final : private manager<renderer> {
       al_set_target_backbuffer(al_get_current_display());
       al_clear_to_color(al_map_rgb(0,0,0));
 
-      //  Render world if the game is running.
-      if (config::flags::engine_started) {
-        //  Set drawing to the arena bitmap.
-        al_set_target_bitmap(viewport_bitmap.get());
-        al_clear_to_color(al_map_rgb(0,0,0));
+      //  Set drawing to the arena bitmap.
+      al_set_target_bitmap(viewport_bitmap.get());
+      al_clear_to_color(al_map_rgb(0,0,0));
 
-        //  Draw the backgrounds.
-        const const_component_container<cmp::gfx::background> background_components =
-          mgr::world::get_components<cmp::gfx::background>();
+      //  Draw the backgrounds.
+      const const_component_container<cmp::gfx::background> background_components =
+        mgr::world::get_components<cmp::gfx::background>();
 
-        //  Sort the background layers.
-        std::multiset<entity_component_pair<cmp::gfx::background>,
-          comparator<entity_component_pair<cmp::gfx::background>>> background_componenet_set(
-          background_components.begin(), background_components.end());
+      //  Sort the background layers.
+      std::multiset<entity_component_pair<cmp::gfx::background>,
+        comparator<entity_component_pair<cmp::gfx::background>>> background_componenet_set(
+        background_components.begin(), background_components.end());
 
-        //  Draw each background by layer.
-        for (auto& it: background_componenet_set) {
-          if (it.second->visible) {
-            float angle = 0.0f;
-            float center_x = 0.0f, center_y = 0.0f;
-            float destination_x = 0.0f, destination_y = 0.0f;
+      //  Draw each background by layer.
+      for (auto& it: background_componenet_set) {
+        if (it.second->visible) {
+          float angle = 0.0f;
+          float center_x = 0.0f, center_y = 0.0f;
+          float destination_x = 0.0f, destination_y = 0.0f;
 
-            if (it.second->rotated) {
-              angle = it.second->direction;
-              center_x = (al_get_bitmap_width(it.second->_bitmap.get()) / 2);
-              center_y = (al_get_bitmap_height(it.second->_bitmap.get()) / 2);
+          if (it.second->rotated) {
+            angle = it.second->direction;
+            center_x = (al_get_bitmap_width(it.second->_bitmap.get()) / 2);
+            center_y = (al_get_bitmap_height(it.second->_bitmap.get()) / 2);
 
-              destination_x = it.second->pos_x +
-                (al_get_bitmap_width(it.second->_bitmap.get()) * it.second->scale_factor_x / 2);
-              destination_y = it.second->pos_y +
-                (al_get_bitmap_height(it.second->_bitmap.get()) * it.second->scale_factor_y / 2);
-            } else {
-              destination_x = it.second->pos_x;
-              destination_y = it.second->pos_y;
-            }
-
-            if (it.second->tinted)
-              al_draw_tinted_scaled_rotated_bitmap(
-                it.second->_bitmap.get(), it.second->get_tint(),
-                center_x, center_y, destination_x, destination_y,
-                it.second->scale_factor_x,
-                it.second->scale_factor_y,
-                angle, 0
-              );
-            else
-              al_draw_scaled_rotated_bitmap(
-                it.second->_bitmap.get(),
-                center_x, center_y, destination_x, destination_y,
-                it.second->scale_factor_x,
-                it.second->scale_factor_y,
-                angle, 0
-              );
+            destination_x = it.second->pos_x +
+              (al_get_bitmap_width(it.second->_bitmap.get()) * it.second->scale_factor_x / 2);
+            destination_y = it.second->pos_y +
+              (al_get_bitmap_height(it.second->_bitmap.get()) * it.second->scale_factor_y / 2);
+          } else {
+            destination_x = it.second->pos_x;
+            destination_y = it.second->pos_y;
           }
-        }
 
-        //  Draw the sprites.
-        const const_component_container<cmp::gfx::sprite> sprite_components =
-          mgr::world::get_components<cmp::gfx::sprite>();
-
-        //  Sort the sprite components.
-        std::multiset<entity_component_pair<cmp::gfx::sprite>,
-          comparator<entity_component_pair<cmp::gfx::sprite>>> sprite_componenet_set(
-          sprite_components.begin(), sprite_components.end());
-
-        //  Draw each sprite in order.
-        for (auto& it: sprite_componenet_set) {
-          if (it.second->visible) {
-            //  Get the current sprite frame.
-            ALLEGRO_BITMAP* temp_bitmap = al_create_sub_bitmap(
+          if (it.second->tinted)
+            al_draw_tinted_scaled_rotated_bitmap(
+              it.second->_bitmap.get(), it.second->get_tint(),
+              center_x, center_y, destination_x, destination_y,
+              it.second->scale_factor_x,
+              it.second->scale_factor_y,
+              angle, 0
+            );
+          else
+            al_draw_scaled_rotated_bitmap(
               it.second->_bitmap.get(),
-              it.second->sprite_x,
-              it.second->sprite_y,
-              it.second->sprite_width,
-              it.second->sprite_height
+              center_x, center_y, destination_x, destination_y,
+              it.second->scale_factor_x,
+              it.second->scale_factor_y,
+              angle, 0
+            );
+        }
+      }
+
+      //  Draw the sprites.
+      const const_component_container<cmp::gfx::sprite> sprite_components =
+        mgr::world::get_components<cmp::gfx::sprite>();
+
+      //  Sort the sprite components.
+      std::multiset<entity_component_pair<cmp::gfx::sprite>,
+        comparator<entity_component_pair<cmp::gfx::sprite>>> sprite_componenet_set(
+        sprite_components.begin(), sprite_components.end());
+
+      //  Draw each sprite in order.
+      for (auto& it: sprite_componenet_set) {
+        if (it.second->visible) {
+          //  Get the current sprite frame.
+          ALLEGRO_BITMAP* temp_bitmap = al_create_sub_bitmap(
+            it.second->_bitmap.get(),
+            it.second->sprite_x,
+            it.second->sprite_y,
+            it.second->sprite_width,
+            it.second->sprite_height
+          );
+
+          float angle = 0.0f;
+          float center_x = 0.0f, center_y = 0.0f;
+          float destination_x = 0.0f, destination_y = 0.0f;
+          cmp::const_comp_ptr<cmp::location> temp_get = mgr::world::get_component<cmp::location>(it.first);
+
+          //  Check if the sprite should be rotated.
+          if (it.second->rotated) {
+            angle = it.second->direction;
+            center_x = (al_get_bitmap_width(temp_bitmap) / 2);
+            center_y = (al_get_bitmap_height(temp_bitmap) / 2);
+
+            destination_x = temp_get->pos_x +
+              (al_get_bitmap_width(temp_bitmap) * it.second->scale_factor_x / 2) +
+              (it.second->draw_offset_x * it.second->scale_factor_x);
+            destination_y = temp_get->pos_y +
+              (al_get_bitmap_height(temp_bitmap) * it.second->scale_factor_y / 2) +
+              (it.second->draw_offset_y * it.second->scale_factor_y);
+          } else {
+            destination_x = temp_get->pos_x + it.second->draw_offset_x;
+            destination_y = temp_get->pos_y + it.second->draw_offset_y;
+          }
+
+          //  Draw the sprite.
+          if (it.second->tinted)
+            al_draw_tinted_scaled_rotated_bitmap(
+                temp_bitmap, it.second->get_tint(),
+                center_x, center_y, destination_x, destination_y,
+                it.second->scale_factor_x,
+                it.second->scale_factor_y,
+                angle, 0
+            );
+          else
+            al_draw_scaled_rotated_bitmap(
+                temp_bitmap, center_x, center_y, destination_x, destination_y,
+                it.second->scale_factor_x,
+                it.second->scale_factor_y,
+                angle, 0
             );
 
-            float angle = 0.0f;
-            float center_x = 0.0f, center_y = 0.0f;
-            float destination_x = 0.0f, destination_y = 0.0f;
-            cmp::const_comp_ptr<cmp::location> temp_get = mgr::world::get_component<cmp::location>(it.first);
-
-            //  Check if the sprite should be rotated.
-            if (it.second->rotated) {
-              angle = it.second->direction;
-              center_x = (al_get_bitmap_width(temp_bitmap) / 2);
-              center_y = (al_get_bitmap_height(temp_bitmap) / 2);
-
-              destination_x = temp_get->pos_x +
-                (al_get_bitmap_width(temp_bitmap) * it.second->scale_factor_x / 2) +
-                (it.second->draw_offset_x * it.second->scale_factor_x);
-              destination_y = temp_get->pos_y +
-                (al_get_bitmap_height(temp_bitmap) * it.second->scale_factor_y / 2) +
-                (it.second->draw_offset_y * it.second->scale_factor_y);
-            } else {
-              destination_x = temp_get->pos_x + it.second->draw_offset_x;
-              destination_y = temp_get->pos_y + it.second->draw_offset_y;
-            }
-
-            //  Draw the sprite.
-            if (it.second->tinted)
-              al_draw_tinted_scaled_rotated_bitmap(
-                  temp_bitmap, it.second->get_tint(),
-                  center_x, center_y, destination_x, destination_y,
-                  it.second->scale_factor_x,
-                  it.second->scale_factor_y,
-                  angle, 0
-              );
-            else
-              al_draw_scaled_rotated_bitmap(
-                  temp_bitmap, center_x, center_y, destination_x, destination_y,
-                  it.second->scale_factor_x,
-                  it.second->scale_factor_y,
-                  angle, 0
-              );
-
-            al_destroy_bitmap(temp_bitmap);
-          }
+          al_destroy_bitmap(temp_bitmap);
         }
-
-        //  Draw hitboxes if debug is enabled.
-        if constexpr (build_options.debug_mode)
-          if (config::flags::show_hitboxes) draw_hitboxes();
-
-        //  Draw the overlays.
-        const const_component_container<cmp::gfx::overlay> overlay_components =
-          mgr::world::get_components<cmp::gfx::overlay>();
-
-        //  Sort the overlay layers.
-        std::multiset<entity_component_pair<cmp::gfx::overlay>,
-          comparator<entity_component_pair<cmp::gfx::overlay>>> overlay_componenet_set(
-          overlay_components.begin(), overlay_components.end());
-
-        //  Draw each overlay by layer.
-        for (auto& it: overlay_componenet_set) {
-          if (it.second->visible) {
-            float angle = 0.0f;
-            float center_x = 0.0f, center_y = 0.0f;
-            float destination_x = 0.0f, destination_y = 0.0f;
-
-            if (it.second->rotated) {
-              angle = it.second->direction;
-              center_x = (al_get_bitmap_width(it.second->_bitmap.get()) / 2);
-              center_y = (al_get_bitmap_height(it.second->_bitmap.get()) / 2);
-
-              destination_x = it.second->pos_x +
-                (al_get_bitmap_width(it.second->_bitmap.get()) * it.second->scale_factor_x / 2);
-              destination_y = it.second->pos_y +
-                (al_get_bitmap_height(it.second->_bitmap.get()) * it.second->scale_factor_y / 2);
-            } else {
-              destination_x = it.second->pos_x;
-              destination_y = it.second->pos_y;
-            }
-
-            if (it.second->tinted)
-              al_draw_tinted_scaled_rotated_bitmap(
-                it.second->_bitmap.get(), it.second->get_tint(),
-                center_x, center_y, destination_x, destination_y,
-                it.second->scale_factor_x,
-                it.second->scale_factor_y,
-                angle, 0
-              );
-            else
-              al_draw_scaled_rotated_bitmap(
-                it.second->_bitmap.get(),
-                center_x, center_y, destination_x, destination_y,
-                it.second->scale_factor_x,
-                it.second->scale_factor_y,
-                angle, 0
-              );
-          }
-        }
-
-        //  Draw the viewport bitmap to the screen.
-        al_set_target_backbuffer(al_get_current_display());
-        al_draw_scaled_bitmap(
-          viewport_bitmap.get(), 0, 0, config::gfx::viewport_w, config::gfx::viewport_h,
-          (config::gfx::screen_w / 2) - (config::gfx::viewport_w * config::gfx::scale_factor / 2),
-          (config::gfx::screen_h / 2) - (config::gfx::viewport_h * config::gfx::scale_factor / 2),
-          config::gfx::viewport_w * config::gfx::scale_factor,
-          config::gfx::viewport_h * config::gfx::scale_factor, 0);
-      } else {  //  Game is not running
-        //  Draw the title screen.
-        al_draw_scaled_bitmap(title_bitmap.get(), 0, 0,
-          al_get_bitmap_width(title_bitmap.get()), al_get_bitmap_height(title_bitmap.get()),
-          (config::gfx::screen_w / 2) - (al_get_bitmap_width(title_bitmap.get()) * config::gfx::scale_factor / 2),
-          (config::gfx::screen_h / 2) - (al_get_bitmap_height(title_bitmap.get()) * config::gfx::scale_factor / 2),
-          al_get_bitmap_width(title_bitmap.get()) * config::gfx::scale_factor,
-          al_get_bitmap_height(title_bitmap.get()) * config::gfx::scale_factor, 0);
       }
+
+      //  Draw hitboxes if debug is enabled.
+      if constexpr (build_options.debug_mode)
+        if (config::flags::show_hitboxes) draw_hitboxes();
+
+      //  Draw the overlays.
+      const const_component_container<cmp::gfx::overlay> overlay_components =
+        mgr::world::get_components<cmp::gfx::overlay>();
+
+      //  Sort the overlay layers.
+      std::multiset<entity_component_pair<cmp::gfx::overlay>,
+        comparator<entity_component_pair<cmp::gfx::overlay>>> overlay_componenet_set(
+        overlay_components.begin(), overlay_components.end());
+
+      //  Draw each overlay by layer.
+      for (auto& it: overlay_componenet_set) {
+        if (it.second->visible) {
+          float angle = 0.0f;
+          float center_x = 0.0f, center_y = 0.0f;
+          float destination_x = 0.0f, destination_y = 0.0f;
+
+          if (it.second->rotated) {
+            angle = it.second->direction;
+            center_x = (al_get_bitmap_width(it.second->_bitmap.get()) / 2);
+            center_y = (al_get_bitmap_height(it.second->_bitmap.get()) / 2);
+
+            destination_x = it.second->pos_x +
+              (al_get_bitmap_width(it.second->_bitmap.get()) * it.second->scale_factor_x / 2);
+            destination_y = it.second->pos_y +
+              (al_get_bitmap_height(it.second->_bitmap.get()) * it.second->scale_factor_y / 2);
+          } else {
+            destination_x = it.second->pos_x;
+            destination_y = it.second->pos_y;
+          }
+
+          if (it.second->tinted)
+            al_draw_tinted_scaled_rotated_bitmap(
+              it.second->_bitmap.get(), it.second->get_tint(),
+              center_x, center_y, destination_x, destination_y,
+              it.second->scale_factor_x,
+              it.second->scale_factor_y,
+              angle, 0
+            );
+          else
+            al_draw_scaled_rotated_bitmap(
+              it.second->_bitmap.get(),
+              center_x, center_y, destination_x, destination_y,
+              it.second->scale_factor_x,
+              it.second->scale_factor_y,
+              angle, 0
+            );
+        }
+      }
+
+      //  Draw the viewport bitmap to the screen.
+      al_set_target_backbuffer(al_get_current_display());
+      al_draw_scaled_bitmap(
+        viewport_bitmap.get(), 0, 0, config::gfx::viewport_w, config::gfx::viewport_h,
+        (config::gfx::screen_w / 2) - (config::gfx::viewport_w * config::gfx::scale_factor / 2),
+        (config::gfx::screen_h / 2) - (config::gfx::viewport_h * config::gfx::scale_factor / 2),
+        config::gfx::viewport_w * config::gfx::scale_factor,
+        config::gfx::viewport_h * config::gfx::scale_factor, 0);
 
       //  Draw frame rate.
       if (config::flags::draw_fps) {
@@ -381,7 +360,6 @@ class renderer final : private manager<renderer> {
     inline static ALLEGRO_EVENT fps_event;
 
     inline static wte_asset<ALLEGRO_BITMAP> viewport_bitmap = nullptr;
-    inline static wte_asset<ALLEGRO_BITMAP> title_bitmap = nullptr;
     inline static wte_asset<ALLEGRO_FONT> renderer_font = nullptr;
 
     inline static std::size_t fps_counter = 0, _fps = 0;
@@ -418,15 +396,6 @@ class renderer final : private manager<renderer> {
         config::_gfx::viewport_h = h;
       }
     };
-
-    /*!
-     * \brief Set the title screen.
-     * 
-     * This should be called during engine initialization before the main object is created.
-     * 
-     * \param fname Filename of the title screen.
-     */
-    static void set_title_screen(const std::string& fname) { title_screen_file = fname; };
 
     /*!
      * \brief Set the font to be used by the renderer.

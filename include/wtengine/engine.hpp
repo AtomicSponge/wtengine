@@ -254,6 +254,11 @@ class engine final : public config, public input, public display {
       al_init_primitives_addon();
       if (config::flags::audio_installed) al_init_acodec_addon();
 
+      //  Load systems and prevent further systems from being loaded.
+      load_systems();
+      mgr::systems::finalized = true;
+      if (mgr::systems::empty()) throw engine_error("No systems have been loaded!");
+
       if constexpr (build_options.debug_mode) {
         mgr::messages::message_log_start();
         logger::start();
@@ -303,11 +308,6 @@ class engine final : public config, public input, public display {
      */
     static void load_scene(void) {
       std::cout << "Starting new game... ";
-
-      //  Load systems and prevent further systems from being loaded.
-      load_systems();
-      mgr::systems::finalized = true;
-      if (mgr::systems::empty()) throw engine_error("No systems have been loaded!");
 
       //  Stop audio manager from playing sounds.
       mgr::audio::music::a::stop();

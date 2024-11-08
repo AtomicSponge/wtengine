@@ -8,7 +8,6 @@
 #if !defined(WTE_ENGINE_HPP)
 #define WTE_ENGINE_HPP
 
-#include <ctime>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -150,52 +149,10 @@ class engine final : public config, public input, public display {
 
       //  Render the screen.
       mgr::gfx::renderer::render();
-      //  Get any system messages and pass to handler.
-      cmds.process_messages(mgr::messages::get("system"));
       //  Send audio messages to the audio queue.
       mgr::audio::process_messages(mgr::messages::get("audio"));
       //  Delete unprocessed messages.
       mgr::messages::prune();
-    };
-
-    /*
-     * Call to start a new game.
-     * Loads a game data file and user defined systems and starting entities.
-     * Gets passed game data file to load.
-     */
-    static void process_new_game(const std::string& game_script) {
-      std::cout << "Starting new game... ";
-      std::srand(std::time(nullptr));  //  Seed random, using time.
-
-      //  Load a new message data file.
-      if (!game_script.empty()) mgr::messages::load_file(game_script);
-
-      //  Load systems and prevent further systems from being loaded.
-      load_systems();
-      mgr::systems::finalized = true;
-      if (mgr::systems::empty()) throw engine_error("No systems have been loaded!");
-
-      //  Stop audio manager from playing sounds.
-      mgr::audio::music::a::stop();
-      mgr::audio::music::b::stop();
-      mgr::audio::ambiance::stop();
-      mgr::audio::voice::stop();
-      mgr::audio::sample::clear_instances();
-      
-      //  Clear world and load starting entities.
-      mgr::world::clear();
-      
-      //  Call custom start game process
-      new_game();
-
-      //  Restart the timer at zero.
-      al_stop_timer(main_timer);
-      al_set_timer_count(main_timer, 0);
-      engine_time::set(al_get_timer_count(main_timer));
-      config::_flags::engine_started = true;
-      config::flags::engine_paused = false;
-      al_start_timer(main_timer);
-      std::cout << "READY!\n";
     };
 
     /*
@@ -226,9 +183,6 @@ class engine final : public config, public input, public display {
       mgr::messages::clear();
       std::cout << "DONE!\n";
     };
-
-    //  Internal commands for the engine.
-    inline static commands cmds;
 
     //  Allegro objects used by the engine.
     inline static ALLEGRO_TIMER* main_timer = NULL;
@@ -300,47 +254,6 @@ class engine final : public config, public input, public display {
       al_init_primitives_addon();
       if (config::flags::audio_installed) al_init_acodec_addon();
 
-      //  Main engine commands.
-      cmds.add("exit", 0, [](const msg_args& args) {
-        if (config::flags::engine_started) process_end_game(true);
-        config::_flags::is_running = false;
-      });
-      cmds.add("new-game", 1, [](const msg_args& args) {
-        if (!config::flags::engine_started) {
-          process_new_game(args[0]);
-        }
-      });
-      cmds.add("end-game", 0, [](const msg_args& args) {
-        if (config::flags::engine_started) {
-          process_end_game(false);
-        }
-      });
-      cmds.add("fps-counter", 1, [](const msg_args& args) {
-        if (args[0] == "on") config::flags::draw_fps = true;
-        if (args[0] == "off") config::flags::draw_fps = false;
-      });
-      cmds.add("load-script", 1, [](const msg_args& args) {
-        if (config::flags::engine_started && args[0] != "") {
-          if (!mgr::messages::load_script(args[0]))
-            throw engine_exception("Error loading script:  " + args[0], "engine", 2);
-        }
-      });
-      cmds.add("enable-input", 0, [](const msg_args& args) {
-        config::flags::input_enabled = true;
-      });
-      cmds.add("disable-input", 0, [](const msg_args& args) {
-        config::flags::input_enabled = false;
-      });
-      cmds.add("resize-display", 2, [](const msg_args& args) {
-        display::resize_display(std::stoi(args[0]), std::stoi(args[1]));
-      });
-      cmds.add("display-mode", 1, [](const msg_args& args) {
-        display::set_display_mode(std::stoul(args[0], NULL, 0));
-      });
-      cmds.add("scale-factor", 1, [](const msg_args& args) {
-        display::set_scale_factor(std::stof(args[0]));
-      });
-
       if constexpr (build_options.debug_mode) {
         mgr::messages::message_log_start();
         logger::start();
@@ -375,6 +288,42 @@ class engine final : public config, public input, public display {
 
       initialized = false;
       std::cout << "\nGood bye!\n\n";
+    };
+
+    /*
+     * Call to start a new game.
+     * Loads a game data file and user defined systems and starting entities.
+     * Gets passed game data file to load.
+     */
+    static void load_scene(void) {
+      std::cout << "Starting new game... ";
+
+      //  Load systems and prevent further systems from being loaded.
+      load_systems();
+      mgr::systems::finalized = true;
+      if (mgr::systems::empty()) throw engine_error("No systems have been loaded!");
+
+      //  Stop audio manager from playing sounds.
+      mgr::audio::music::a::stop();
+      mgr::audio::music::b::stop();
+      mgr::audio::ambiance::stop();
+      mgr::audio::voice::stop();
+      mgr::audio::sample::clear_instances();
+      
+      //  Clear world and load starting entities.
+      mgr::world::clear();
+      
+      //  Call custom start game process
+      new_game();
+
+      //  Restart the timer at zero.
+      al_stop_timer(main_timer);
+      al_set_timer_count(main_timer, 0);
+      engine_time::set(al_get_timer_count(main_timer));
+      config::_flags::engine_started = true;
+      config::flags::engine_paused = false;
+      al_start_timer(main_timer);
+      std::cout << "READY!\n";
     };
 
     //!  Define this to load all systems to be used by the game.

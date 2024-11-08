@@ -105,7 +105,7 @@ class engine final : public config, public input, public display {
           break;
         //  Force quit if the game window is closed.
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
-          de_init();
+          deinitialize();
           break;
         //  Window has been resized.
         case ALLEGRO_EVENT_DISPLAY_RESIZE:

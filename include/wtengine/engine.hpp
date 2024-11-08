@@ -65,51 +65,19 @@ class engine final : public config, public input, public display {
     ~engine() = default;
 
     /*
-     * Load the engine's managers.
-     * Called before the main loop starts.
-     */
-    static void wte_load(void) {
-      //  Generate Allegro's default font and load into asset mgr.
-      mgr::assets::load<ALLEGRO_FONT>("wte_default_font", make_asset<ALLEGRO_FONT>());
-
-      //  Initialize managers that require it.
-      mgr::audio::initialize();
-      mgr::gfx::renderer::initialize();
-
-      //  Set default states.
-      config::_flags::is_running = true;
-      config::_flags::engine_started = false;
-      config::flags::engine_paused = false;
-    };
-
-    /*
-     * Unload the engine's managers.
-     * Called after the main loop ends running.
-     */
-    static void wte_unload(void) {
-      mgr::audio::de_init();
-      mgr::gfx::renderer::de_init();
-      mgr::assets::clear_al_objects();
-    };
-
-    /*
      * Main engine loop (single pass)
      */
     static void main_loop(void) {
       input::check_events();  //  Check for input.
 
-      //  Game not running, make sure the timer isn't.
-      if (!config::flags::engine_started) al_stop_timer(main_timer);
-      else {
-        //  Pause / resume timer check.  Also process the on_pause events.
-        if (config::flags::engine_paused && al_get_timer_started(main_timer)) {
-          al_stop_timer(main_timer);
-          on_engine_pause();
-        }
-        if (!config::flags::engine_paused && !al_get_timer_started(main_timer)) {
-          on_engine_unpause();
-          al_resume_timer(main_timer);
-        }
+      //  Pause / resume timer check.  Also process the on_pause events.
+      if (config::flags::engine_paused && al_get_timer_started(main_timer)) {
+        al_stop_timer(main_timer);
+        on_engine_pause();
+      }
+      if (!config::flags::engine_paused && !al_get_timer_started(main_timer)) {
+        on_engine_unpause();
+        al_resume_timer(main_timer);
       }
 
       ALLEGRO_EVENT event;
@@ -137,8 +105,7 @@ class engine final : public config, public input, public display {
           break;
         //  Force quit if the game window is closed.
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
-          if (config::flags::engine_started) process_end_game();
-          config::_flags::is_running = false;
+          de_init();
           break;
         //  Window has been resized.
         case ALLEGRO_EVENT_DISPLAY_RESIZE:
@@ -156,6 +123,7 @@ class engine final : public config, public input, public display {
     };
 
     /*
+     * TODO:  Depercate
      * Call to end the game.
      * Clears out the entities and systems and runs user defined end process.
      * If passed true, skips the custom game cleanup.
@@ -163,7 +131,6 @@ class engine final : public config, public input, public display {
     static void process_end_game(void) {
       std::cout << "Ending game... ";
       al_stop_timer(main_timer);
-      config::_flags::engine_started = false;
       al_set_timer_count(main_timer, 0);
       engine_time::set(al_get_timer_count(main_timer));
 
@@ -259,18 +226,36 @@ class engine final : public config, public input, public display {
       mgr::systems::finalized = true;
       if (mgr::systems::empty()) throw engine_error("No systems have been loaded!");
 
+      //  Initialize managers that require it.
+      mgr::audio::initialize();
+      mgr::gfx::renderer::initialize();
+
+      //  Generate Allegro's default font and load into asset mgr.
+      mgr::assets::load<ALLEGRO_FONT>("wte_default_font", make_asset<ALLEGRO_FONT>());
+
+      //  Set default states.
+      config::flags::engine_paused = true;
+
       if constexpr (build_options.debug_mode) {
         mgr::messages::message_log_start();
         logger::start();
       }
+
+      config::_flags::is_running = true;
       std::cout << "Engine started successfully!\n\n";
     };
 
     /*!
      * \brief De-initialize the engine.
      */
-    static void de_init(void) {
+    static void deinitialize(void) {
       std::cout << "\nStopping WTEngine...\n";
+
+      config::_flags::is_running = false;
+
+      mgr::audio::de_init();
+      mgr::gfx::renderer::de_init();
+      mgr::assets::clear_al_objects();
 
       std::cout << "Cleaning up engine objects... ";
       al_destroy_timer(main_timer);
@@ -326,8 +311,6 @@ class engine final : public config, public input, public display {
       al_stop_timer(main_timer);
       al_set_timer_count(main_timer, 0);
       engine_time::set(al_get_timer_count(main_timer));
-      config::_flags::engine_started = true;
-      config::flags::engine_paused = false;
       al_start_timer(main_timer);
       std::cout << "READY!\n";
     };
@@ -355,18 +338,12 @@ inline void em_looper(void) {
  * \brief The main engine loop.
  */
 inline void do_game(void) {
-  //  Load engine.
-  engine::wte_load();
-
   //  MAIN ENGINE LOOP
   #if defined(__EMSCRIPTEN__)
     emscripten_set_main_loop(&em_looper, -1, true);
   #else
     while (config::flags::is_running) engine::main_loop();
   #endif
-
-  // Unload engine.
-  engine::wte_unload();
 }
 
 }  //  end namespace wte

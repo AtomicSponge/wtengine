@@ -39,7 +39,6 @@ class config {
   private:
     struct _flags {
       inline static bool is_running = true;
-      inline static bool engine_started = false;
       inline static bool record_input = false;
       inline static bool keyboard_installed = false;
       inline static bool mouse_installed = false;
@@ -87,7 +86,6 @@ class config {
      */
     struct flags {
       inline static const bool& is_running = _flags::is_running;                  //!<  Flag for if the program itself is running.
-      inline static const bool& engine_started = _flags::engine_started;          //!<  Flag to check if the engine is running.
       inline static bool engine_paused = false;                                   //!<  Flag to check if the engine if paused.
       inline static const bool& record_input = _flags::record_input;              //!<  Flag to enable/disable input recording.
       inline static const bool& keyboard_installed = _flags::keyboard_installed;  //!<  Flag to check if a keyboard is installed.

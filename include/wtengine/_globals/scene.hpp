@@ -17,19 +17,31 @@ namespace wte {
  * \brief Extend this to create a scene.
  */
 class scene {
-  private:
-    //
-
   protected:
-    scene() = default;
+    /*!
+     * \brief
+     * \param n Scene name.
+     */
+    scene(const std::string& n) : name(n) {};
 
   public:
     virtual ~scene() = default;             //  Default virtual destructor.
     scene(const scene&) = delete;           //  Delete copy constructor.
     void operator=(scene const&) = delete;  //  Delete assignment operator.
 
+    /*!
+     * \brief
+     */
     virtual void load(void) {};
+    
+    /*!
+     * \brief
+     */
     virtual void unload(void) {};
+    
+    /*!
+     * \brief
+     */
     virtual void loop(void) {};
 
     const std::string name;  //!<  Scene name.

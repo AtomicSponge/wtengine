@@ -122,32 +122,6 @@ class engine final : public config, public input, public display {
       mgr::messages::prune();
     };
 
-    /*
-     * TODO:  Depercate
-     * Call to end the game.
-     * Clears out the entities and systems and runs user defined end process.
-     * If passed true, skips the custom game cleanup.
-     */
-    static void process_end_game(void) {
-      std::cout << "Ending game... ";
-      al_stop_timer(main_timer);
-      al_set_timer_count(main_timer, 0);
-      engine_time::set(al_get_timer_count(main_timer));
-
-      //  Stop audio manager from playing sounds.
-      mgr::audio::music::a::stop();
-      mgr::audio::music::b::stop();
-      mgr::audio::ambiance::stop();
-      mgr::audio::voice::stop();
-      mgr::audio::sample::clear_instances();
-
-      //  Clear managers.
-      mgr::world::clear();
-      mgr::systems::clear();
-      mgr::messages::clear();
-      std::cout << "DONE!\n";
-    };
-
     //  Scenes
     inline static std::vector<std::unique_ptr<scene>> _scenes;
 
@@ -292,20 +266,9 @@ class engine final : public config, public input, public display {
      * \brief Load a scene.
      */
     static void load_scene(void) {
-      std::cout << "Starting new game... ";
-
-      //  Stop audio manager from playing sounds.
-      mgr::audio::music::a::stop();
-      mgr::audio::music::b::stop();
-      mgr::audio::ambiance::stop();
-      mgr::audio::voice::stop();
-      mgr::audio::sample::clear_instances();
-      
-      //  Clear world and load starting entities.
       mgr::world::clear();
-      
-      //  Call custom start game process
-      //new_game(); --> replace with scene
+
+      //
 
       //  Restart the timer at zero.
       al_stop_timer(main_timer);

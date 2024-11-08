@@ -320,51 +320,51 @@ $(function() {
 <div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>      al_init_primitives_addon();</div>
 <div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>      <span class="keywordflow">if</span> (<a class="code hl_variable" href="structwte_1_1config_1_1flags.html#a799cca9c328adc109857681f13488b62">config::flags::audio_installed</a>) al_init_acodec_addon();</div>
 <div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>      <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (build_options.debug_mode) {</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        mgr::messages::message_log_start();</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        logger::start();</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>      }</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>      std::cout &lt;&lt; <span class="stringliteral">&quot;Engine started successfully!\n\n&quot;</span>;</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    };</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno"><a class="line" href="classwte_1_1engine.html#a64018c7fe38bba18a6d9d0401a8eb11f">  267</a></span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classwte_1_1engine.html#a64018c7fe38bba18a6d9d0401a8eb11f">de_init</a>(<span class="keywordtype">void</span>) {</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>      std::cout &lt;&lt; <span class="stringliteral">&quot;\nStopping WTEngine...\n&quot;</span>;</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>      std::cout &lt;&lt; <span class="stringliteral">&quot;Cleaning up engine objects... &quot;</span>;</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>      al_destroy_timer(main_timer);</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>      al_destroy_event_queue(main_event_queue);</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>      input::destroy_event_queue();</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>      destroy_display();</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>      al_inhibit_screensaver(<span class="keyword">false</span>);</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>      std::cout &lt;&lt; <span class="stringliteral">&quot;OK!\n&quot;</span>;</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>      std::cout &lt;&lt; <span class="stringliteral">&quot;Stopping Allegro... &quot;</span>;</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>      al_shutdown_font_addon();</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>      <span class="keywordflow">if</span> (<a class="code hl_variable" href="structwte_1_1config_1_1flags.html#a799cca9c328adc109857681f13488b62">config::flags::audio_installed</a>) al_uninstall_audio();</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>      al_shutdown_primitives_addon();</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>      al_uninstall_system();</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>      std::cout &lt;&lt; <span class="stringliteral">&quot;OK!\n&quot;</span>;</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span> </div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>      <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (build_options.debug_mode) {</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        logger::stop();</div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        mgr::messages::message_log_stop();</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>      }</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>      <span class="comment">//  Load systems and prevent further systems from being loaded.</span></div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>      <a class="code hl_variable" href="classwte_1_1engine.html#a11451b1938b14ad9b3a6e256c54ad0d6">load_systems</a>();</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>      mgr::systems::finalized = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>      <span class="keywordflow">if</span> (mgr::systems::empty()) <span class="keywordflow">throw</span> <a class="code hl_class" href="classwte_1_1engine__error.html">engine_error</a>(<span class="stringliteral">&quot;No systems have been loaded!&quot;</span>);</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>      <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (build_options.debug_mode) {</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        mgr::messages::message_log_start();</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        logger::start();</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>      }</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>      std::cout &lt;&lt; <span class="stringliteral">&quot;Engine started successfully!\n\n&quot;</span>;</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    };</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno"><a class="line" href="classwte_1_1engine.html#a64018c7fe38bba18a6d9d0401a8eb11f">  272</a></span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classwte_1_1engine.html#a64018c7fe38bba18a6d9d0401a8eb11f">de_init</a>(<span class="keywordtype">void</span>) {</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>      std::cout &lt;&lt; <span class="stringliteral">&quot;\nStopping WTEngine...\n&quot;</span>;</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>      std::cout &lt;&lt; <span class="stringliteral">&quot;Cleaning up engine objects... &quot;</span>;</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>      al_destroy_timer(main_timer);</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>      al_destroy_event_queue(main_event_queue);</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>      input::destroy_event_queue();</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>      destroy_display();</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>      al_inhibit_screensaver(<span class="keyword">false</span>);</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>      std::cout &lt;&lt; <span class="stringliteral">&quot;OK!\n&quot;</span>;</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>      std::cout &lt;&lt; <span class="stringliteral">&quot;Stopping Allegro... &quot;</span>;</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>      al_shutdown_font_addon();</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>      <span class="keywordflow">if</span> (<a class="code hl_variable" href="structwte_1_1config_1_1flags.html#a799cca9c328adc109857681f13488b62">config::flags::audio_installed</a>) al_uninstall_audio();</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>      al_shutdown_primitives_addon();</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>      al_uninstall_system();</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>      std::cout &lt;&lt; <span class="stringliteral">&quot;OK!\n&quot;</span>;</div>
 <div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>      initialized = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>      std::cout &lt;&lt; <span class="stringliteral">&quot;\nGood bye!\n\n&quot;</span>;</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    };</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span> </div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno"><a class="line" href="classwte_1_1engine.html#aec3774a54ab8db7dc15e7bafea015b79">  297</a></span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classwte_1_1engine.html#aec3774a54ab8db7dc15e7bafea015b79">add_scene</a>(Args... args) {</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>      _scenes.push_back(std::make_unique&lt;T&gt;(args...));</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    };</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno"><a class="line" href="classwte_1_1engine.html#a0485d16bd49d4676ed5b91a21797cc41">  304</a></span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classwte_1_1engine.html#a0485d16bd49d4676ed5b91a21797cc41">load_scene</a>(<span class="keywordtype">void</span>) {</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>      std::cout &lt;&lt; <span class="stringliteral">&quot;Starting new game... &quot;</span>;</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>      <span class="comment">//  Load systems and prevent further systems from being loaded.</span></div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>      <a class="code hl_variable" href="classwte_1_1engine.html#a11451b1938b14ad9b3a6e256c54ad0d6">load_systems</a>();</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>      mgr::systems::finalized = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>      <span class="keywordflow">if</span> (mgr::systems::empty()) <span class="keywordflow">throw</span> <a class="code hl_class" href="classwte_1_1engine__error.html">engine_error</a>(<span class="stringliteral">&quot;No systems have been loaded!&quot;</span>);</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>      <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (build_options.debug_mode) {</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>        logger::stop();</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        mgr::messages::message_log_stop();</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>      }</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>      initialized = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>      std::cout &lt;&lt; <span class="stringliteral">&quot;\nGood bye!\n\n&quot;</span>;</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    };</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno"><a class="line" href="classwte_1_1engine.html#aec3774a54ab8db7dc15e7bafea015b79">  302</a></span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classwte_1_1engine.html#aec3774a54ab8db7dc15e7bafea015b79">add_scene</a>(Args... args) {</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>      _scenes.push_back(std::make_unique&lt;T&gt;(args...));</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    };</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span> </div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno"><a class="line" href="classwte_1_1engine.html#a0485d16bd49d4676ed5b91a21797cc41">  309</a></span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classwte_1_1engine.html#a0485d16bd49d4676ed5b91a21797cc41">load_scene</a>(<span class="keywordtype">void</span>) {</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>      std::cout &lt;&lt; <span class="stringliteral">&quot;Starting new game... &quot;</span>;</div>
 <div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
 <div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>      <span class="comment">//  Stop audio manager from playing sounds.</span></div>
 <div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>      <a class="code hl_function" href="structwte_1_1mgr_1_1audio_1_1music_1_1a.html#a1bb2d03fbcf2d2797c5e3dbb4c2ed1fe">mgr::audio::music::a::stop</a>();</div>
@@ -425,13 +425,13 @@ $(function() {
 <div class="ttc" id="aclasswte_1_1display_html"><div class="ttname"><a href="classwte_1_1display.html">wte::display</a></div><div class="ttdoc">Handles control of the display.</div><div class="ttdef"><b>Definition:</b> display.hpp:31</div></div>
 <div class="ttc" id="aclasswte_1_1engine__error_html"><div class="ttname"><a href="classwte_1_1engine__error.html">wte::engine_error</a></div><div class="ttdoc">Throws an engine runtime error.</div><div class="ttdef"><b>Definition:</b> exceptions.hpp:47</div></div>
 <div class="ttc" id="aclasswte_1_1engine_html"><div class="ttname"><a href="classwte_1_1engine.html">wte::engine</a></div><div class="ttdoc">The main engine class.</div><div class="ttdef"><b>Definition:</b> engine.hpp:57</div></div>
-<div class="ttc" id="aclasswte_1_1engine_html_a0485d16bd49d4676ed5b91a21797cc41"><div class="ttname"><a href="classwte_1_1engine.html#a0485d16bd49d4676ed5b91a21797cc41">wte::engine::load_scene</a></div><div class="ttdeci">static void load_scene(void)</div><div class="ttdoc">Load a scene.</div><div class="ttdef"><b>Definition:</b> engine.hpp:304</div></div>
+<div class="ttc" id="aclasswte_1_1engine_html_a0485d16bd49d4676ed5b91a21797cc41"><div class="ttname"><a href="classwte_1_1engine.html#a0485d16bd49d4676ed5b91a21797cc41">wte::engine::load_scene</a></div><div class="ttdeci">static void load_scene(void)</div><div class="ttdoc">Load a scene.</div><div class="ttdef"><b>Definition:</b> engine.hpp:309</div></div>
 <div class="ttc" id="aclasswte_1_1engine_html_a11451b1938b14ad9b3a6e256c54ad0d6"><div class="ttname"><a href="classwte_1_1engine.html#a11451b1938b14ad9b3a6e256c54ad0d6">wte::engine::load_systems</a></div><div class="ttdeci">static std::function&lt; void(void)&gt; load_systems</div><div class="ttdoc">Define this to load all systems to be used by the game.</div><div class="ttdef"><b>Definition:</b> engine.hpp:336</div></div>
 <div class="ttc" id="aclasswte_1_1engine_html_a4fd00eee57d6ac045447085794adf9da"><div class="ttname"><a href="classwte_1_1engine.html#a4fd00eee57d6ac045447085794adf9da">wte::engine::do_game</a></div><div class="ttdeci">friend void do_game(void)</div><div class="ttdoc">The main engine loop.</div><div class="ttdef"><b>Definition:</b> engine.hpp:357</div></div>
-<div class="ttc" id="aclasswte_1_1engine_html_a64018c7fe38bba18a6d9d0401a8eb11f"><div class="ttname"><a href="classwte_1_1engine.html#a64018c7fe38bba18a6d9d0401a8eb11f">wte::engine::de_init</a></div><div class="ttdeci">static void de_init(void)</div><div class="ttdoc">De-initialize the engine.</div><div class="ttdef"><b>Definition:</b> engine.hpp:267</div></div>
+<div class="ttc" id="aclasswte_1_1engine_html_a64018c7fe38bba18a6d9d0401a8eb11f"><div class="ttname"><a href="classwte_1_1engine.html#a64018c7fe38bba18a6d9d0401a8eb11f">wte::engine::de_init</a></div><div class="ttdeci">static void de_init(void)</div><div class="ttdoc">De-initialize the engine.</div><div class="ttdef"><b>Definition:</b> engine.hpp:272</div></div>
 <div class="ttc" id="aclasswte_1_1engine_html_a9613c6eca78e4de4ed7eb3dca8c9052b"><div class="ttname"><a href="classwte_1_1engine.html#a9613c6eca78e4de4ed7eb3dca8c9052b">wte::engine::on_engine_pause</a></div><div class="ttdeci">static std::function&lt; void(void)&gt; on_engine_pause</div><div class="ttdoc">Optional: On engine pause handler.</div><div class="ttdef"><b>Definition:</b> engine.hpp:338</div></div>
 <div class="ttc" id="aclasswte_1_1engine_html_ab5f781bd1bba4fb7bf656ddc041b4775"><div class="ttname"><a href="classwte_1_1engine.html#ab5f781bd1bba4fb7bf656ddc041b4775">wte::engine::initialize</a></div><div class="ttdeci">static void initialize(int w, int h)</div><div class="ttdoc">Initialize the engine.</div><div class="ttdef"><b>Definition:</b> engine.hpp:203</div></div>
-<div class="ttc" id="aclasswte_1_1engine_html_aec3774a54ab8db7dc15e7bafea015b79"><div class="ttname"><a href="classwte_1_1engine.html#aec3774a54ab8db7dc15e7bafea015b79">wte::engine::add_scene</a></div><div class="ttdeci">static void add_scene(Args... args)</div><div class="ttdoc">Add a scene.</div><div class="ttdef"><b>Definition:</b> engine.hpp:297</div></div>
+<div class="ttc" id="aclasswte_1_1engine_html_aec3774a54ab8db7dc15e7bafea015b79"><div class="ttname"><a href="classwte_1_1engine.html#aec3774a54ab8db7dc15e7bafea015b79">wte::engine::add_scene</a></div><div class="ttdeci">static void add_scene(Args... args)</div><div class="ttdoc">Add a scene.</div><div class="ttdef"><b>Definition:</b> engine.hpp:302</div></div>
 <div class="ttc" id="aclasswte_1_1engine_html_af62d8baa4e21ba3939e93cb51712b33f"><div class="ttname"><a href="classwte_1_1engine.html#af62d8baa4e21ba3939e93cb51712b33f">wte::engine::out_of_focus</a></div><div class="ttdeci">static std::function&lt; void(void)&gt; out_of_focus</div><div class="ttdoc">Optional: Window out of focus handler.</div><div class="ttdef"><b>Definition:</b> engine.hpp:342</div></div>
 <div class="ttc" id="aclasswte_1_1engine_html_af6ea7bfdec8a7d5170badc8f2fbc74d3"><div class="ttname"><a href="classwte_1_1engine.html#af6ea7bfdec8a7d5170badc8f2fbc74d3">wte::engine::on_engine_unpause</a></div><div class="ttdeci">static std::function&lt; void(void)&gt; on_engine_unpause</div><div class="ttdoc">Optional: On engine unpause handler.</div><div class="ttdef"><b>Definition:</b> engine.hpp:340</div></div>
 <div class="ttc" id="aclasswte_1_1engine_html_afe2a17809e14f00213dfb5359c328588"><div class="ttname"><a href="classwte_1_1engine.html#afe2a17809e14f00213dfb5359c328588">wte::engine::back_in_focus</a></div><div class="ttdeci">static std::function&lt; void(void)&gt; back_in_focus</div><div class="ttdoc">Optional: Window back in focus handler.</div><div class="ttdef"><b>Definition:</b> engine.hpp:344</div></div>

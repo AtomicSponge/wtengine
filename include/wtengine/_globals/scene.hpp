@@ -16,7 +16,9 @@ namespace wte {
  */
 class scene {
   private:
-    //
+    virtual void load(void) {};
+    virtual void unload(void) {};
+    virtual void loop(void) {};
 
   protected:
     scene() = default;

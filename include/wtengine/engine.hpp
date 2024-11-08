@@ -184,6 +184,9 @@ class engine final : public config, public input, public display {
       std::cout << "DONE!\n";
     };
 
+    //  Scenes
+    inline static std::vector<std::unique_ptr<scene>> _scenes;
+
     //  Allegro objects used by the engine.
     inline static ALLEGRO_TIMER* main_timer = NULL;
     inline static ALLEGRO_EVENT_QUEUE* main_event_queue = NULL;
@@ -290,10 +293,16 @@ class engine final : public config, public input, public display {
       std::cout << "\nGood bye!\n\n";
     };
 
-    /*
-     * Call to start a new game.
-     * Loads a game data file and user defined systems and starting entities.
-     * Gets passed game data file to load.
+    /*!
+     * \brief Add a scene.
+     */
+    template <typename T, typename... Args>
+    static void add_scene(Args... args) {
+      _scenes.push_back(std::make_unique<T>(args...));
+    };
+
+    /*!
+     * \brief Load a scene.
      */
     static void load_scene(void) {
       std::cout << "Starting new game... ";

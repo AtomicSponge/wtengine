@@ -27,9 +27,7 @@ class system {
      * \brief Create a new timed System object.
      * \param n System name.
      */
-    system(
-      const std::string& n
-    ) : name(n) {};
+    system(const std::string& n) : name(n) {};
 
   public:
     virtual ~system() = default;             //  Default virtual destructor.

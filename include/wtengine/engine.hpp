@@ -211,7 +211,7 @@ class engine final : public config, public input, public display {
 
       //  Generate Allegro's default font and load into asset mgr.
       mgr::assets::load<ALLEGRO_FONT>("wte_default_font", make_asset<ALLEGRO_FONT>());
-      
+
       std::cout << "Initializing graphics... ";
       mgr::gfx::renderer::set_viewport_size(width, height);
       mgr::gfx::renderer::initialize();

@@ -126,7 +126,7 @@ class engine final : public config, public input, public display {
 
     //  Scenes
     inline static std::vector<std::shared_ptr<scene>> scenes;
-    inline static std::shared_ptr<scene> current_scene;
+    inline static std::shared_ptr<scene> current_scene = nullptr;
 
     //  Allegro objects used by the engine.
     inline static ALLEGRO_TIMER* main_timer = NULL;

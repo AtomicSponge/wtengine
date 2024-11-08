@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['de_5finit_0',['de_init',['../classwte_1_1engine.html#a64018c7fe38bba18a6d9d0401a8eb11f',1,'wte::engine']]],
+  ['deinitialize_0',['deinitialize',['../classwte_1_1engine.html#a3e36e7336651764d8203659ad399d002',1,'wte::engine']]],
   ['del_1',['del',['../classwte_1_1mgr_1_1variables.html#a45d68560a0e18c742b4b4d8ad0ec18e0',1,'wte::mgr::variables']]],
   ['delete_5fcomponent_2',['delete_component',['../classwte_1_1mgr_1_1world.html#a8ee00e9256e2fd4859cb220cb4b405a0',1,'wte::mgr::world']]],
   ['delete_5fentity_3',['delete_entity',['../classwte_1_1mgr_1_1world.html#ac3838421bc757938e42302b4da31fe7e',1,'wte::mgr::world']]],

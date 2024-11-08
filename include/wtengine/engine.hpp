@@ -114,6 +114,8 @@ class engine final : public config, public input, public display {
         }
       }
 
+      if (current_scene != nullptr) current_scene->loop();
+
       //  Render the screen.
       mgr::gfx::renderer::render();
       //  Send audio messages to the audio queue.
@@ -123,7 +125,8 @@ class engine final : public config, public input, public display {
     };
 
     //  Scenes
-    inline static std::vector<std::unique_ptr<scene>> _scenes;
+    inline static std::vector<std::shared_ptr<scene>> scenes;
+    inline static std::shared_ptr<scene> current_scene;
 
     //  Allegro objects used by the engine.
     inline static ALLEGRO_TIMER* main_timer = NULL;
@@ -138,10 +141,10 @@ class engine final : public config, public input, public display {
 
     /*!
      * \brief Initialize the engine.
-     * \param w Initial screen width.
-     * \param h Initial screen height.
+     * \param width Initial screen width.
+     * \param height Initial screen height.
      */
-    static void initialize(int w, int h) {
+    static void initialize(int width, int height) {
       std::cout << "Starting WTEngine...\n";
       if (initialized == true) throw engine_error(display::window_title + " already running!");
       initialized = true;
@@ -169,7 +172,7 @@ class engine final : public config, public input, public display {
 
       //  Configure display.  Called from wte_display class.
       std::cout << "Configuring display... ";
-      create_display(w, h);
+      create_display(width, height);
       std::cout << "OK!\n";
 
       //  Disable pesky screensavers.
@@ -259,23 +262,28 @@ class engine final : public config, public input, public display {
      */
     template <typename T, typename... Args>
     static void add_scene(Args... args) {
-      _scenes.push_back(std::make_unique<T>(args...));
+      scenes.push_back(std::make_shared<T>(args...));
     };
 
     /*!
      * \brief Load a scene.
      */
-    static void load_scene(void) {
+    static void load_scene(const std::string& name) {
       mgr::world::clear();
 
-      //
+      if (current_scene != nullptr) current_scene->unload();
+
+      for (auto& it: scenes) {
+        if (it->name == name) current_scene = it;
+      }
 
       //  Restart the timer at zero.
       al_stop_timer(main_timer);
       al_set_timer_count(main_timer, 0);
       engine_time::set(al_get_timer_count(main_timer));
       al_start_timer(main_timer);
-      std::cout << "READY!\n";
+
+      current_scene->load();
     };
 
     //!  Define this to load all systems to be used by the game.

@@ -22,7 +22,7 @@ class scene {
      * \brief
      * \param n Scene name.
      */
-    scene(const std::string& n) : name(n) {};
+    scene(const std::string& name) : name(name) {};
 
   public:
     virtual ~scene() = default;             //  Default virtual destructor.

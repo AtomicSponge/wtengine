@@ -209,13 +209,13 @@ class engine final : public config, public input, public display {
       mgr::audio::initialize();
       std::cout << "OK!\n";
 
+      //  Generate Allegro's default font and load into asset mgr.
+      mgr::assets::load<ALLEGRO_FONT>("wte_default_font", make_asset<ALLEGRO_FONT>());
+      
       std::cout << "Initializing graphics... ";
       mgr::gfx::renderer::set_viewport_size(width, height);
       mgr::gfx::renderer::initialize();
       std::cout << "OK!\n";
-
-      //  Generate Allegro's default font and load into asset mgr.
-      mgr::assets::load<ALLEGRO_FONT>("wte_default_font", make_asset<ALLEGRO_FONT>());
 
       if constexpr (build_options.debug_mode) {
         mgr::messages::message_log_start();

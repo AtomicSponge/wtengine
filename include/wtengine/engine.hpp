@@ -137,7 +137,7 @@ class engine final : public config, public input, public display {
           break;
         //  Force quit if the game window is closed.
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
-          if (config::flags::engine_started) process_end_game(true);
+          if (config::flags::engine_started) process_end_game();
           config::_flags::is_running = false;
           break;
         //  Window has been resized.
@@ -160,7 +160,7 @@ class engine final : public config, public input, public display {
      * Clears out the entities and systems and runs user defined end process.
      * If passed true, skips the custom game cleanup.
      */
-    static void process_end_game(const bool& force) {
+    static void process_end_game(void) {
       std::cout << "Ending game... ";
       al_stop_timer(main_timer);
       config::_flags::engine_started = false;
@@ -173,9 +173,6 @@ class engine final : public config, public input, public display {
       mgr::audio::ambiance::stop();
       mgr::audio::voice::stop();
       mgr::audio::sample::clear_instances();
-
-      //  Call custom end game process.
-      if (!force) end_game();
 
       //  Clear managers.
       mgr::world::clear();
@@ -323,7 +320,7 @@ class engine final : public config, public input, public display {
       mgr::world::clear();
       
       //  Call custom start game process
-      new_game();
+      //new_game(); --> replace with scene
 
       //  Restart the timer at zero.
       al_stop_timer(main_timer);
@@ -337,10 +334,6 @@ class engine final : public config, public input, public display {
 
     //!  Define this to load all systems to be used by the game.
     inline static std::function<void(void)> load_systems = [](){};
-    //!  Define what gets loaded when a game starts.
-    inline static std::function<void(void)> new_game = [](){};
-    //!  Define what happens at the end of a game.
-    inline static std::function<void(void)> end_game = [](){};
     //!  Optional:  On engine pause handler.
     inline static std::function<void(void)> on_engine_pause = [](){};
     //!  Optional:  On engine unpause handler.

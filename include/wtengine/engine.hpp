@@ -199,13 +199,20 @@ class engine final : public config, public input, public display {
       if (config::flags::audio_installed) al_init_acodec_addon();
 
       //  Load systems and prevent further systems from being loaded.
+      std::cout << "Loading systems... ";
       load_systems();
       mgr::systems::finalized = true;
       if (mgr::systems::empty()) throw engine_error("No systems have been loaded!");
+      std::cout << "OK!\n";
 
-      //  Initialize managers that require it.
+      std::cout << "Loading audio... ";
       mgr::audio::initialize();
+      std::cout << "OK!\n";
+
+      std::cout << "Initializing graphics... ";
+      mgr::gfx::renderer::set_viewport_size(width, height);
       mgr::gfx::renderer::initialize();
+      std::cout << "OK!\n";
 
       //  Generate Allegro's default font and load into asset mgr.
       mgr::assets::load<ALLEGRO_FONT>("wte_default_font", make_asset<ALLEGRO_FONT>());

@@ -16,15 +16,17 @@ namespace wte {
  */
 class scene {
   private:
-    virtual void load(void) {};
-    virtual void unload(void) {};
-    virtual void loop(void) {};
+    //
 
   protected:
     scene() = default;
 
   public:
     virtual ~scene() = default;
+
+    virtual void load(void) {};
+    virtual void unload(void) {};
+    virtual void loop(void) {};
 };
 
 }  //  end namespace wte

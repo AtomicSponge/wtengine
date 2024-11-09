@@ -279,12 +279,12 @@ class engine final : public config, public input, public display {
      * \brief Load a scene.
      */
     static void load_scene(const std::string& name) {
-      mgr::world::clear();
-
       if (current_scene != nullptr) current_scene->unload();
+      mgr::world::clear();
 
       for (auto& it: scenes) {
         if (it->name == name) current_scene = it;
+        else throw engine_error("Scene " + name + " does not exist!");
       }
 
       current_scene->load();

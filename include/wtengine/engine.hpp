@@ -68,7 +68,6 @@ class engine final : public config, public input, public display {
      * Main engine loop (single pass)
      */
     static void main_loop(void) {
-      std::cout << "main_loop\n";
       input::check_events();  //  Check for input.
 
       //  Pause / resume timer check.  Also process the on_pause events.

@@ -28,7 +28,7 @@ class exception_item final {
   private:
     const char* description;  //  Exception description.
     const char* location;     //  Exception location.
-    const unsigned int code;          //  Code of error
+    const unsigned int code;  //  Code of error
     const int64_t time;       //  Time of exception.
 
     exception_item() = delete;    //  Delete default constructor.
@@ -53,7 +53,7 @@ class engine_error final : public std::exception {
      * \brief Create a new runtime error object.  Sets the location to Engine and code to 1.
      * \param d An exception description.
      */
-    engine_error(const std::string& d) : item(exception_item(d.c_str(), "Engine", 1)) {
+    engine_error(const std::string& d) : item(exception_item(d, "Engine", 1)) {
       if constexpr (build_options.debug_mode) logger::log(
         item.description, item.location, item.code, item.time);
     };

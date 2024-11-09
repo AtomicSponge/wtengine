@@ -106,6 +106,7 @@ class engine final : public config, public input, public display {
         //  Force quit if the game window is closed.
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
           deinitialize();
+          std::exit(0);
           break;
         //  Window has been resized.
         case ALLEGRO_EVENT_DISPLAY_RESIZE:
@@ -284,8 +285,8 @@ class engine final : public config, public input, public display {
 
       for (auto& it: scenes) {
         if (it->name == name) current_scene = it;
-        else throw engine_error("Scene " + name + " does not exist!");
       }
+      if (current_scene == nullptr) throw engine_error("Scene " + name + " does not exist!");
 
       current_scene->load();
     };

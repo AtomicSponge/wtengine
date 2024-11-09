@@ -336,12 +336,12 @@ $(function() {
 <div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    };</div>
 <div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno"><a class="line" href="classwte_1_1engine.html#a3848001ee94f0db1b64e5c7b030e24b2">  281</a></span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classwte_1_1engine.html#a3848001ee94f0db1b64e5c7b030e24b2">load_scene</a>(<span class="keyword">const</span> std::string&amp; name) {</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>      mgr::world::clear();</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span> </div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>      <span class="keywordflow">if</span> (current_scene != <span class="keyword">nullptr</span>) current_scene-&gt;unload();</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; it: scenes) {</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        <span class="keywordflow">if</span> (it-&gt;name == name) current_scene = it;</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>      <span class="keywordflow">if</span> (current_scene != <span class="keyword">nullptr</span>) current_scene-&gt;unload();</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>      mgr::world::clear();</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; it: scenes) {</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        <span class="keywordflow">if</span> (it-&gt;name == name) current_scene = it;</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        <span class="keywordflow">else</span> <span class="keywordflow">throw</span> <a class="code hl_class" href="classwte_1_1engine__error.html">engine_error</a>(<span class="stringliteral">&quot;Scene &quot;</span> + name + <span class="stringliteral">&quot; does not exist!&quot;</span>);</div>
 <div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>      }</div>
 <div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
 <div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>      current_scene-&gt;load();</div>

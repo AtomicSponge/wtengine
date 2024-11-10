@@ -117,7 +117,7 @@ class engine final : public config, public input, public display {
       current_scene->loop();
 
       //  Render the screen.
-      mgr::gfx::renderer::render([](){current_scene->draw();});
+      mgr::gfx::renderer::render();
       //  Send audio messages to the audio queue.
       mgr::audio::process_messages(mgr::messages::get("audio"));
       //  Delete unprocessed messages.

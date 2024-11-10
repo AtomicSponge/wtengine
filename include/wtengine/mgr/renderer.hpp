@@ -143,7 +143,7 @@ class renderer final : private manager<renderer> {
     };
 
     //  Draw the game screen.
-    static void render(const std::function<void(void)>& draw_scene) {
+    static void render(void) {
       /*
       * Calculate fps.
       */
@@ -332,8 +332,6 @@ class renderer final : private manager<renderer> {
             );
         }
       }
-
-      draw_scene();
 
       //  Draw the viewport bitmap to the screen.
       al_set_target_backbuffer(al_get_current_display());

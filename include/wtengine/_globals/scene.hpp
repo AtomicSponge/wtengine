@@ -47,7 +47,7 @@ class scene {
     /*!
      * \brief
      */
-    virtual void draw(void) {};
+    //virtual void draw(void) {};
 
     const std::string name;  //!<  Scene name.
 };

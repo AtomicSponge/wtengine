@@ -106,7 +106,6 @@ class engine final : public config, public input, public display {
         //  Force quit if the game window is closed.
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
           deinitialize();
-          std::exit(0);
           break;
         //  Window has been resized.
         case ALLEGRO_EVENT_DISPLAY_RESIZE:
@@ -115,10 +114,10 @@ class engine final : public config, public input, public display {
         }
       }
 
-      if (current_scene != nullptr) current_scene->loop();
+      current_scene->loop();
 
       //  Render the screen.
-      mgr::gfx::renderer::render();
+      mgr::gfx::renderer::render([](){current_scene->draw();});
       //  Send audio messages to the audio queue.
       mgr::audio::process_messages(mgr::messages::get("audio"));
       //  Delete unprocessed messages.

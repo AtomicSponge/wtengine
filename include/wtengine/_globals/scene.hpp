@@ -44,6 +44,11 @@ class scene {
      */
     virtual void loop(void) {};
 
+    /*!
+     * \brief
+     */
+    virtual void draw(void) {};
+
     const std::string name;  //!<  Scene name.
 };
 

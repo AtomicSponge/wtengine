@@ -1,5 +1,5 @@
 /*
- * wtengine
+ * silvergun
  * --------
  * By Matthew Evans
  * See LICENSE.md for copyright information.
@@ -14,14 +14,14 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_audio.h>
 
-#include "wtengine/mgr/manager.hpp"
+#include "silvergun/mgr/manager.hpp"
 
-#include "wtengine/_globals/_defines.hpp"
-#include "wtengine/_globals/commands.hpp"
-#include "wtengine/_globals/message.hpp"
-#include "wtengine/_globals/wte_asset.hpp"
-#include "wtengine/mgr/assets.hpp"
-#include "wtengine/config.hpp"
+#include "silvergun/_globals/_defines.hpp"
+#include "silvergun/_globals/commands.hpp"
+#include "silvergun/_globals/message.hpp"
+#include "silvergun/_globals/wte_asset.hpp"
+#include "silvergun/mgr/assets.hpp"
+#include "silvergun/config.hpp"
 
 namespace wte {
   class engine;

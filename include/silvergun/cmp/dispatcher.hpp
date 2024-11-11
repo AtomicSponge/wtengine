@@ -1,5 +1,5 @@
 /*
- * wtengine
+ * silvergun
  * --------
  * By Matthew Evans
  * See LICENSE.md for copyright information.
@@ -10,11 +10,11 @@
 
 #include <functional>
 
-#include "wtengine/cmp/component.hpp"
+#include "silvergun/cmp/component.hpp"
 
-#include "wtengine/_globals/message.hpp"
-#include "wtengine/mgr/messages.hpp"
-#include "wtengine/mgr/world.hpp"
+#include "silvergun/_globals/message.hpp"
+#include "silvergun/mgr/messages.hpp"
+#include "silvergun/mgr/world.hpp"
 
 namespace wte::mgr {
   class messages;

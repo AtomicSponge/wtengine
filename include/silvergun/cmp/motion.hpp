@@ -1,5 +1,5 @@
 /*
- * wtengine
+ * silvergun
  * --------
  * By Matthew Evans
  * See LICENSE.md for copyright information.
@@ -8,7 +8,7 @@
 #if !defined(WTE_CMP_MOTION_HPP)
 #define WTE_CMP_MOTION_HPP
 
-#include "wtengine/cmp/component.hpp"
+#include "silvergun/cmp/component.hpp"
 
 namespace wte::cmp {
 

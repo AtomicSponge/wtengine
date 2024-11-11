@@ -1,5 +1,5 @@
 /*
- * wtengine
+ * silvergun
  * --------
  * By Matthew Evans
  * See LICENSE.md for copyright information.
@@ -12,10 +12,10 @@
 
 #include <allegro5/allegro.h>
 
-#include "wtengine/cmp/component.hpp"
+#include "silvergun/cmp/component.hpp"
 
-#include "wtengine/_globals/wte_asset.hpp"
-#include "wtengine/mgr/world.hpp"
+#include "silvergun/_globals/wte_asset.hpp"
+#include "silvergun/mgr/world.hpp"
 
 namespace wte::mgr::gfx {
   class renderer;

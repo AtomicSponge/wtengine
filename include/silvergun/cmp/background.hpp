@@ -1,5 +1,5 @@
 /*
- * wtengine
+ * silvergun
  * --------
  * By Matthew Evans
  * See LICENSE.md for copyright information.
@@ -14,7 +14,7 @@
 
 #include <allegro5/allegro.h>
 
-#include "wtengine/cmp/gfx.hpp"
+#include "silvergun/cmp/gfx.hpp"
 
 namespace wte::cmp::gfx {
 

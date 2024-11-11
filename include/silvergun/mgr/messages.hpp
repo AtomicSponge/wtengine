@@ -1,5 +1,5 @@
 /*
- * wtengine
+ * silvergun
  * --------
  * By Matthew Evans
  * See LICENSE.md for copyright information.
@@ -20,14 +20,14 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_physfs.h>
 
-#include "wtengine/mgr/manager.hpp"
+#include "silvergun/mgr/manager.hpp"
 
-#include "wtengine/_debug/exceptions.hpp"
-#include "wtengine/_globals/_defines.hpp"
-#include "wtengine/_globals/engine_time.hpp"
-#include "wtengine/_globals/message.hpp"
-#include "wtengine/cmp/dispatcher.hpp"
-#include "wtengine/mgr/world.hpp"
+#include "silvergun/_debug/exceptions.hpp"
+#include "silvergun/_globals/_defines.hpp"
+#include "silvergun/_globals/engine_time.hpp"
+#include "silvergun/_globals/message.hpp"
+#include "silvergun/cmp/dispatcher.hpp"
+#include "silvergun/mgr/world.hpp"
 
 namespace wte {
   class engine;

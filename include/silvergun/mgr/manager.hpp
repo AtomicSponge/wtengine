@@ -1,5 +1,5 @@
 /*
- * wtengine
+ * silvergun
  * --------
  * By Matthew Evans
  * See LICENSE.md for copyright information.
@@ -8,7 +8,7 @@
 #if !defined(WTE_MGR_MANAGER_HPP)
 #define WTE_MGR_MANAGER_HPP
 
-#include "wtengine/_debug/exceptions.hpp"
+#include "silvergun/_debug/exceptions.hpp"
 
 namespace wte::mgr {
 

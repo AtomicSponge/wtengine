@@ -1,6 +1,6 @@
 ############################################################
 #
-#  WTEngine CMake
+#  Silvergun CMake
 #
 #  See LICENSE.md for copyright information.
 #
@@ -15,7 +15,7 @@
 ########################################
 #  Configure build project
 cmake_minimum_required(VERSION 3.11)
-project(wtengine VERSION 0.7.3 DESCRIPTION "What the Engine?")
+project(silvergun VERSION 0.7.3 DESCRIPTION "Silvergun Game Engine")
 enable_language(CXX)
 
 #  Always build release

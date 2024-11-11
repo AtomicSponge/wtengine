@@ -1,5 +1,5 @@
 /*
- * wtengine
+ * silvergun
  * --------
  * By Matthew Evans
  * See LICENSE.md for copyright information.
@@ -13,7 +13,7 @@
 
 #include <allegro5/allegro.h>
 
-#include "wtengine/_globals/_defines.hpp"
+#include "silvergun/_globals/_defines.hpp"
 
 namespace wte::handler {
 

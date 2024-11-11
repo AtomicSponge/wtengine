@@ -1,6 +1,6 @@
-#  What the Engine?
+#  Silvergun Game Engine
 
-__WTEngine__ is a lightweight cross-platform game engine written in C++17 using an [ECS](https://en.wikipedia.org/wiki/Entity_component_system) design.
+__Silvergun__ is a lightweight cross-platform game engine written in C++17 using an [ECS](https://en.wikipedia.org/wiki/Entity_component_system) design.
 
 ### Requirements
  - __Build tools__:
@@ -15,8 +15,8 @@ __WTEngine__ is a lightweight cross-platform game engine written in C++17 using 
 
 Installation is handled by [CMake](https://cmake.org/).  To download and prepare the library for installation run:
 ```
-git clone https://github.com/wtfsystems/wtengine.git
-cd wtengine
+git clone https://github.com/AtomicSponge/silvergun.git
+cd silvergun
 mkdir build
 cd build
 cmake ..

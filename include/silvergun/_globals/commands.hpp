@@ -1,5 +1,5 @@
 /*
- * wtengine
+ * silvergun
  * --------
  * By Matthew Evans
  * See LICENSE.md for copyright information.
@@ -13,7 +13,7 @@
 #include <utility>
 #include <functional>
 
-#include "wtengine/_globals/message.hpp"
+#include "silvergun/_globals/message.hpp"
 
 namespace wte {
 

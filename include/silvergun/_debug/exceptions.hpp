@@ -1,5 +1,5 @@
 /*
-* wtengine
+* silvergun
 * --------
 * By Matthew Evans
 * See LICENSE.md for copyright information.
@@ -12,9 +12,9 @@
 #include <fstream>
 #include <exception>
 
-#include "wtengine/_debug/logger.hpp"
-#include "wtengine/_globals/_defines.hpp"
-#include "wtengine/_globals/engine_time.hpp"
+#include "silvergun/_debug/logger.hpp"
+#include "silvergun/_globals/_defines.hpp"
+#include "silvergun/_globals/engine_time.hpp"
 
 namespace wte {
 

@@ -2,7 +2,7 @@ var searchData=
 [
   ['last_5frender_0',['last_render',['../classwte_1_1mgr_1_1gfx_1_1renderer.html#ad43e54487434fe73646174cf73c20dbf',1,'wte::mgr::gfx::renderer']]],
   ['layer_1',['layer',['../classwte_1_1cmp_1_1gfx_1_1gfx.html#a75523649b69ed356e5800128693b7a6f',1,'wte::cmp::gfx::gfx']]],
-  ['load_2',['load',['../classwte_1_1config.html#a65ce57c8f78574e7ff3e133f211a4ddb',1,'wte::config::load()'],['../classwte_1_1mgr_1_1assets.html#a2a47ec833f8e2e3d269e89005780edc1',1,'wte::mgr::assets::load()'],['../classwte_1_1mgr_1_1variables.html#ab761edf8188918e0620eabfa78252548',1,'wte::mgr::variables::load()']]],
+  ['load_2',['load',['../classwte_1_1mgr_1_1assets.html#a2a47ec833f8e2e3d269e89005780edc1',1,'wte::mgr::assets::load()'],['../classwte_1_1mgr_1_1variables.html#ab761edf8188918e0620eabfa78252548',1,'wte::mgr::variables::load()']]],
   ['load_5fscene_3',['load_scene',['../classwte_1_1engine.html#a3848001ee94f0db1b64e5c7b030e24b2',1,'wte::engine']]],
   ['load_5fscript_4',['load_script',['../classwte_1_1mgr_1_1messages.html#ad5d3786b4bf4c232df8003cd08dc95e7',1,'wte::mgr::messages']]],
   ['load_5fsystems_5',['load_systems',['../classwte_1_1engine.html#a11451b1938b14ad9b3a6e256c54ad0d6',1,'wte::engine']]],

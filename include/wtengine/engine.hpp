@@ -68,7 +68,7 @@ class engine final : public config, public input, public display {
      * Main engine loop (single pass)
      */
     static void main_loop(void) {
-      input::check_events();  //  Check for input.
+      input::check_events(current_scene->scope);  //  Check for input.
 
       //  Pause / resume timer check.  Also process the on_pause events.
       if (config::flags::engine_paused && al_get_timer_started(main_timer)) {
@@ -82,7 +82,7 @@ class engine final : public config, public input, public display {
 
       ALLEGRO_EVENT event;
       if (al_get_next_event(main_event_queue, &event)) {
-        switch(event.type) {
+        switch (event.type) {
         //  Call our game logic update on timer events.
         //  Timer is only running when the game is running.
         case ALLEGRO_EVENT_TIMER:

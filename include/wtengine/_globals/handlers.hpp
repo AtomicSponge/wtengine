@@ -46,9 +46,9 @@ namespace wte {
  * Defines when the handlers are to be used.
  */
 enum handler_scopes {
-  GLOBAL_HANDLES,     //!<  Global input handles that are always active.
-  GAME_HANDLES,       //!<  In-game input handles.
-  NONGAME_HANDLES,    //!<  Out-of-game input handles.
+  SCOPE_A,
+  SCOPE_B,
+  SCOPE_C,
 };
 
 /*!
@@ -146,8 +146,8 @@ struct handlers<S, IDX, handler::touch> {
  */
 template <handler_scopes S, handler_events IDX, typename T>
 constexpr void add_handler(const handler_types& handle) {
-  static_assert(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,
-    "Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES");
+  static_assert(S == SCOPE_A || S == SCOPE_B || S == SCOPE_C,
+    "Scope must be one of the following: SCOPE_A, SCOPE_B, SCOPE_C");
   static_assert(IDX < HANDLER_EVENT_MAX, "Invalid Handler Event Index");
   static_assert(std::is_same_v<T, handler::key> ||
     std::is_same_v<T, handler::mouse_axis> ||

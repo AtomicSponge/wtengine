@@ -22,7 +22,7 @@ class scene {
      * \brief
      * \param n Scene name.
      */
-    scene(const std::string& name) : name(name) {};
+    scene(const std::string& name, const std::size_t& scope) : name(name), scope(scope) {};
 
   public:
     virtual ~scene() = default;             //  Default virtual destructor.
@@ -33,23 +33,24 @@ class scene {
      * \brief
      */
     virtual void load(void) {};
-    
+
     /*!
      * \brief
      */
     virtual void unload(void) {};
-    
+
+    /*!
+     * \brief
+     */
+    virtual void handlers(void) {};
+
     /*!
      * \brief
      */
     virtual void loop(void) {};
 
-    /*!
-     * \brief
-     */
-    //virtual void draw(void) {};
-
-    const std::string name;  //!<  Scene name.
+    const std::string name;   //!<  Scene name.
+    const std::size_t scope;  //!<  Scene scope.
 };
 
 }  //  end namespace wte

@@ -196,14 +196,25 @@ class input {
     };
 
     //  Check the input queue for events.
-    static void check_events(void) {
+    static void check_events(const std::size_t& scope) {
       ALLEGRO_EVENT event;
       while (al_get_next_event(input_event_queue, &event)) {
-        //  Record input if enabled.
-        if (config::flags::record_input) record_event(engine_time::check(), event);
-        //  Run the handles
-        run_handles<GLOBAL_HANDLES>(event);        //  Run global handles
-        if (config::flags::input_enabled) run_handles<GAME_HANDLES>(event);  //  Run game handles
+        if (config::flags::input_enabled) {
+          //  Record input if enabled.
+          if (config::flags::record_input) record_event(engine_time::check(), event);
+          //  Run the handles
+          switch (scope) {
+            case 0:
+              run_handles<SCOPE_A>(event);
+              break;
+            case 1:
+              run_handles<SCOPE_B>(event);
+              break;
+            case 2:
+              run_handles<SCOPE_C>(event);
+              break;
+          }
+        }
       }
     };
 

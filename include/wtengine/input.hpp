@@ -167,7 +167,6 @@ class input {
       }
     };
 
-
     //  Create the input queue.
     static void create_event_queue(void) {
       input_event_queue = al_create_event_queue();

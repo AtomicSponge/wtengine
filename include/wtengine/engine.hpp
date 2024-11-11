@@ -241,6 +241,9 @@ class engine final : public config, public input, public display {
 
       config::_flags::is_running = false;
 
+      current_scene->unload();
+
+      mgr::world::clear();
       mgr::audio::de_init();
       mgr::gfx::renderer::de_init();
       mgr::assets::clear_al_objects();

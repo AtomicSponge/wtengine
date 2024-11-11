@@ -125,67 +125,6 @@ class config {
       inline static const std::size_t& display_mode = _gfx::display_mode;  //!<  Display mode setting.
       inline static const float& scale_factor = _gfx::scale_factor;        //!<  Arena scale factor.
     };
-
-  /*!
-   * \brief Load engine config settings from file.
-   * \return False on fail, true on success.
-   */
-  static bool load(void) {
-    std::ifstream dfile("settings.cfg", std::ios::binary);
-    //  Data file doesn't exist, create one
-    if (!dfile.good()) {
-      if (!save()) return false;
-      dfile.open("settings.cfg", std::ios::binary);
-    }
-    if (!dfile.good()) return false;
-
-    try {
-      dfile.read(reinterpret_cast<char*>(&_gfx::vsync), sizeof _gfx::vsync);
-      dfile.read(reinterpret_cast<char*>(&_gfx::display_mode), sizeof _gfx::display_mode);
-      dfile.read(reinterpret_cast<char*>(&_gfx::scale_factor), sizeof _gfx::scale_factor);
-      dfile.read(reinterpret_cast<char*>(&_gfx::screen_w), sizeof _gfx::screen_w);
-      dfile.read(reinterpret_cast<char*>(&_gfx::screen_h), sizeof _gfx::screen_h);
-      dfile.read(reinterpret_cast<char*>(&_volume::main), sizeof _volume::main);
-      dfile.read(reinterpret_cast<char*>(&_volume::music), sizeof _volume::music);
-      dfile.read(reinterpret_cast<char*>(&_volume::sample), sizeof _volume::sample);
-      dfile.read(reinterpret_cast<char*>(&_volume::voice), sizeof _volume::voice);
-      dfile.read(reinterpret_cast<char*>(&_volume::ambiance), sizeof _volume::ambiance);
-    } catch(...) {
-      dfile.close();
-      return false;
-    }
-
-    dfile.close();
-    return true;
-  };
-
-  /*!
-   * \brief Save engine config settings to file.
-   * \return False on fail, true on success.
-   */
-  static bool save(void) {
-    std::ofstream dfile("settings.cfg", std::ios::binary | std::ofstream::trunc);
-    if (!dfile.good()) return false;
-
-    try {
-      dfile.write(reinterpret_cast<const char*>(&gfx::vsync), sizeof gfx::vsync);
-      dfile.write(reinterpret_cast<const char*>(&gfx::display_mode), sizeof gfx::display_mode);
-      dfile.write(reinterpret_cast<const char*>(&gfx::scale_factor), sizeof gfx::scale_factor);
-      dfile.write(reinterpret_cast<const char*>(&gfx::screen_w), sizeof gfx::screen_w);
-      dfile.write(reinterpret_cast<const char*>(&gfx::screen_h), sizeof gfx::screen_h);
-      dfile.write(reinterpret_cast<const char*>(&volume::main), sizeof volume::main);
-      dfile.write(reinterpret_cast<const char*>(&volume::music), sizeof volume::music);
-      dfile.write(reinterpret_cast<const char*>(&volume::sample), sizeof volume::sample);
-      dfile.write(reinterpret_cast<const char*>(&volume::voice), sizeof volume::voice);
-      dfile.write(reinterpret_cast<const char*>(&volume::ambiance), sizeof volume::ambiance);      
-    } catch(...) {
-      dfile.close();
-      return false;
-    }
-
-    dfile.close();
-    return true;
-  };
 };
 
 }  //  end namespace wte

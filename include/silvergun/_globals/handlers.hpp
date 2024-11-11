@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_HANDLERS_HPP)
-#define WTE_HANDLERS_HPP
+#if !defined(SLV_HANDLERS_HPP)
+#define SLV_HANDLERS_HPP
 
 #include <functional>
 #include <variant>
@@ -15,7 +15,7 @@
 
 #include "silvergun/_globals/_defines.hpp"
 
-namespace wte::handler {
+namespace slv::handler {
 
 /*!
  * Handler function template definitions.
@@ -39,7 +39,7 @@ using touch = std::function<void(
 
 }
 
-namespace wte {
+namespace slv {
 
 /*!
  * Handler scopes.
@@ -80,7 +80,7 @@ enum handler_events {
 
 }
 
-namespace wte {
+namespace slv {
 
 /*!
  * Handler types.
@@ -182,6 +182,6 @@ constexpr void add_handler(const handler_types& handle) {
   handlers<S, IDX, T>::_handle = handle;
 };
 
-}  //  end namespace wte
+}
 
 #endif

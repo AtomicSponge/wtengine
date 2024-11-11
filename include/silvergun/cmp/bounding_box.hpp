@@ -5,12 +5,12 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_CMP_BOUNDING_BOX_HPP)
-#define WTE_CMP_BOUNDING_BOX_HPP
+#if !defined(SLV_CMP_BOUNDING_BOX_HPP)
+#define SLV_CMP_BOUNDING_BOX_HPP
 
 #include "silvergun/cmp/component.hpp"
 
-namespace wte::cmp {
+namespace slv::cmp {
 
 /*!
  * \class bounding_box
@@ -43,6 +43,6 @@ class bounding_box final : public component {
     float max_y;  //!<  Bottom right Y position of bounding box.
 };
 
-}  //  end namespace wte::cmp
+}
 
 #endif

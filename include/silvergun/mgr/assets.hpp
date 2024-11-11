@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_MGR_ASSETS_HPP)
-#define WTE_MGR_ASSETS_HPP
+#if !defined(SLV_MGR_ASSETS_HPP)
+#define SLV_MGR_ASSETS_HPP
 
 #include <string>
 #include <tuple>
@@ -20,16 +20,16 @@
 #include "silvergun/_debug/exceptions.hpp"
 #include "silvergun/_globals/_defines.hpp"
 #include "silvergun/_globals/engine_time.hpp"
-#include "silvergun/_globals/wte_asset.hpp"
+#include "silvergun/_globals/slv_asset.hpp"
 
-namespace wte {
+namespace slv {
   class engine;
 }
 
-namespace wte::mgr {
+namespace slv::mgr {
 
 template <typename T>
-using asset_map = std::map<const std::string, wte_asset<T>>;
+using asset_map = std::map<const std::string, slv_asset<T>>;
 
 /*!
  * \class assets
@@ -37,7 +37,7 @@ using asset_map = std::map<const std::string, wte_asset<T>>;
  * \tparam ...Types Types of assets used in game code.
  */
 class assets final : private manager<assets> {
-  friend class wte::engine;
+  friend class slv::engine;
 
   private:
     assets() = default;
@@ -79,7 +79,7 @@ class assets final : private manager<assets> {
     template <typename T>
     inline static bool load(
       const std::string& label,
-      const wte_asset<T> obj
+      const slv_asset<T> obj
     ) {
       auto ret = _assets<T>.insert(std::make_pair(label, std::move(obj)));
       return ret.second;
@@ -111,7 +111,7 @@ class assets final : private manager<assets> {
      * \exception Asset not found.
      */
     template <typename T>
-    inline static const wte_asset<T> get(
+    inline static const slv_asset<T> get(
       const std::string& label
     ) {
       try {
@@ -128,6 +128,6 @@ class assets final : private manager<assets> {
 
 template <> inline bool manager<assets>::initialized = false;
 
-}  //  end namespace wte::mgr
+}
 
 #endif

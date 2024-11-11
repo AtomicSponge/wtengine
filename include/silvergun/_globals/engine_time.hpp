@@ -5,12 +5,12 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_ENGINE_TIME_HPP)
-#define WTE_ENGINE_TIME_HPP
+#if !defined(SLV_ENGINE_TIME_HPP)
+#define SLV_ENGINE_TIME_HPP
 
 #include <cstdint>
 
-namespace wte {
+namespace slv {
 
 /*!
  * \class engine_time
@@ -37,6 +37,6 @@ class engine_time final {
     static int64_t check(void) { return current_time; };
 };
 
-}  //  end namespace wte
+}
 
 #endif

@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_CMP_ANIMATOR_HPP)
-#define WTE_CMP_ANIMATOR_HPP
+#if !defined(SLV_CMP_ANIMATOR_HPP)
+#define SLV_CMP_ANIMATOR_HPP
 
 #include <functional>
 
@@ -14,18 +14,18 @@
 
 #include "silvergun/cmp/component.hpp"
 
-#include "silvergun/_globals/wte_asset.hpp"
+#include "silvergun/_globals/slv_asset.hpp"
 #include "silvergun/mgr/world.hpp"
 
-namespace wte::mgr::gfx {
+namespace slv::mgr::gfx {
   class renderer;
 }
 
-namespace wte::sys::gfx {
+namespace slv::sys::gfx {
   class animate;
 }
 
-namespace wte::cmp::gfx {
+namespace slv::cmp::gfx {
 
 /*!
  * \class gfx
@@ -50,7 +50,7 @@ class gfx : public component {
      * \param func Animation function.
      */
     gfx(
-      wte_asset<ALLEGRO_BITMAP> bmp,
+      slv_asset<ALLEGRO_BITMAP> bmp,
       const std::size_t& l,
       const std::function<void(const entity_id&)>& func
     ) : layer(l), visible(true), rotated(false), direction(0.0f),
@@ -58,7 +58,7 @@ class gfx : public component {
         _bitmap(bmp), tinted(false), animate(func) {};
 
     //!  Stores the bitmap used by the animator.
-    wte_asset<ALLEGRO_BITMAP> _bitmap;
+    slv_asset<ALLEGRO_BITMAP> _bitmap;
 
   public:
     gfx() = delete;            //  Delete default constructor.
@@ -106,6 +106,6 @@ class gfx : public component {
     float scale_factor_y;  //!<  Y scale factor.
 };
 
-}  //  end namespace wte::cmp
+}
 
 #endif

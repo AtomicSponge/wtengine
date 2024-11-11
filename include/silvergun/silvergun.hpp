@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_MAIN_INCLUDE_HPP)
-#define WTE_MAIN_INCLUDE_HPP
+#if !defined(SLV_MAIN_INCLUDE_HPP)
+#define SLV_MAIN_INCLUDE_HPP
 
 #include "silvergun/_globals/_defines.hpp"
 

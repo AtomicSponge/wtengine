@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_CMP_SPRITE_HPP)
-#define WTE_CMP_SPRITE_HPP
+#if !defined(SLV_CMP_SPRITE_HPP)
+#define SLV_CMP_SPRITE_HPP
 
 #include <string>
 #include <utility>
@@ -23,11 +23,11 @@
 #include "silvergun/_globals/engine_time.hpp"
 #include "silvergun/mgr/world.hpp"
 
-namespace wte::mgr::gfx {
+namespace slv::mgr::gfx {
     class renderer;
 }
 
-namespace wte::cmp::gfx {
+namespace slv::cmp::gfx {
 
 /*!
  * \class sprite
@@ -61,7 +61,7 @@ class sprite final : public gfx {
      * \param rt Rate in engine timer ticks for animation.
      */
     sprite(
-      wte_asset<ALLEGRO_BITMAP> bmp,
+      slv_asset<ALLEGRO_BITMAP> bmp,
       const std::size_t& l,
       const float& sw,
       const float& sh,
@@ -126,6 +126,6 @@ class sprite final : public gfx {
     };
 };
 
-}  //  end namespace wte::cmp
+}
 
 #endif

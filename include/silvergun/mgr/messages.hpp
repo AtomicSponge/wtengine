@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_MGR_MESSAGES_HPP)
-#define WTE_MGR_MESSAGES_HPP
+#if !defined(SLV_MGR_MESSAGES_HPP)
+#define SLV_MGR_MESSAGES_HPP
 
 #include <string>
 #include <fstream>
@@ -29,18 +29,18 @@
 #include "silvergun/cmp/dispatcher.hpp"
 #include "silvergun/mgr/world.hpp"
 
-namespace wte {
+namespace slv {
   class engine;
 }
 
-namespace wte::mgr {
+namespace slv::mgr {
 
 /*!
  * \class messages
  * \brief Store a collection of message objects in a vector for processing.
  */
 class messages final : private manager<messages> {
-  friend class wte::engine;
+  friend class slv::engine;
   friend class systems;
 
   private:
@@ -299,6 +299,6 @@ class messages final : private manager<messages> {
 
 template <> bool manager<messages>::initialized = false;
 
-}  //  end namespace wte::mgr
+}
 
 #endif

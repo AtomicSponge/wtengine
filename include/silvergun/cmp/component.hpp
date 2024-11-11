@@ -5,12 +5,12 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_CMP_COMPONENT_HPP)
-#define WTE_CMP_COMPONENT_HPP
+#if !defined(SLV_CMP_COMPONENT_HPP)
+#define SLV_CMP_COMPONENT_HPP
 
 #include <memory>
 
-namespace wte::cmp {
+namespace slv::cmp {
 
 /*!
  * \class component
@@ -52,6 +52,6 @@ using comp_ptr = std::shared_ptr<T>;
 template <typename T>
 using const_comp_ptr = std::shared_ptr<const T>;
 
-}  //  end namespace wte::cmp
+}
 
 #endif

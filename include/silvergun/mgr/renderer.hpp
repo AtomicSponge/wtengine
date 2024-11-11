@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_MGR_RENDERER_HPP)
-#define WTE_MGR_RENDERER_HPP
+#if !defined(SLV_MGR_RENDERER_HPP)
+#define SLV_MGR_RENDERER_HPP
 
 #include <string>
 #include <utility>
@@ -27,14 +27,14 @@
 #include "silvergun/_debug/exceptions.hpp"
 #include "silvergun/_globals/_defines.hpp"
 #include "silvergun/_globals/engine_time.hpp"
-#include "silvergun/_globals/wte_asset.hpp"
+#include "silvergun/_globals/slv_asset.hpp"
 #include "silvergun/cmp/_components.hpp"
 #include "silvergun/mgr/assets.hpp"
 #include "silvergun/mgr/world.hpp"
 #include "silvergun/config.hpp"
 #include "silvergun/display.hpp"
 
-namespace wte {
+namespace slv {
   class display;
   class engine;
 
@@ -45,7 +45,7 @@ namespace wte {
   using duration = std::chrono::system_clock::duration;
 }
 
-namespace wte::mgr::gfx {
+namespace slv::mgr::gfx {
 
 /*!
  * Container for an entity and component pair.  Used for sorting.
@@ -59,8 +59,8 @@ using entity_component_pair = std::pair<const entity_id, std::shared_ptr<const T
  * \brief An object that handles drawing the world to the screen.
  */
 class renderer final : private manager<renderer> {
-  friend class wte::display;
-  friend class wte::engine;
+  friend class slv::display;
+  friend class slv::engine;
 
   private:
     renderer() = default;
@@ -76,7 +76,7 @@ class renderer final : private manager<renderer> {
       arena_created = true;
 
       //  Set the overlay's font to the system default.
-      renderer_font = mgr::assets::get<ALLEGRO_FONT>("wte_default_font");
+      renderer_font = mgr::assets::get<ALLEGRO_FONT>("slv_default_font");
 
       fps_timer = al_create_timer(1);
       fps_event_queue = al_create_event_queue();
@@ -359,8 +359,8 @@ class renderer final : private manager<renderer> {
     inline static ALLEGRO_EVENT_QUEUE* fps_event_queue = NULL;
     inline static ALLEGRO_EVENT fps_event;
 
-    inline static wte_asset<ALLEGRO_BITMAP> viewport_bitmap = nullptr;
-    inline static wte_asset<ALLEGRO_FONT> renderer_font = nullptr;
+    inline static slv_asset<ALLEGRO_BITMAP> viewport_bitmap = nullptr;
+    inline static slv_asset<ALLEGRO_FONT> renderer_font = nullptr;
 
     inline static std::size_t fps_counter = 0, _fps = 0;
     inline static time_point<system_clock> _last_render, _start_time;
@@ -406,7 +406,7 @@ class renderer final : private manager<renderer> {
      * 
      * \param fone Font asset to use.
      */
-    static void set_font(wte_asset<ALLEGRO_FONT> font) { renderer_font = font; };
+    static void set_font(slv_asset<ALLEGRO_FONT> font) { renderer_font = font; };
 
     inline static const std::size_t& fps = _fps;                               //!<  Frames per second
     inline static const time_point<system_clock>& last_render = _last_render;  //!<  Point in time last render completed
@@ -415,9 +415,9 @@ class renderer final : private manager<renderer> {
 
 };
 
-}  //  end namespace wte::mgr::gfx
+}
 
-namespace wte::mgr {
+namespace slv::mgr {
   template <> bool manager<gfx::renderer>::initialized = false;
 }
 

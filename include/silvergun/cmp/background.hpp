@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_CMP_BACKGROUND_HPP)
-#define WTE_CMP_BACKGROUND_HPP
+#if !defined(SLV_CMP_BACKGROUND_HPP)
+#define SLV_CMP_BACKGROUND_HPP
 
 #include <string>
 #include <map>
@@ -16,7 +16,7 @@
 
 #include "silvergun/cmp/gfx.hpp"
 
-namespace wte::cmp::gfx {
+namespace slv::cmp::gfx {
 
 /*!
  * \class background
@@ -32,7 +32,7 @@ class background final : public gfx {
      * \param y Y position of background.
      */
     background(
-      wte_asset<ALLEGRO_BITMAP> bmp,
+      slv_asset<ALLEGRO_BITMAP> bmp,
       const std::size_t& l,
       const float& x,
       const float& y
@@ -47,7 +47,7 @@ class background final : public gfx {
      * \param func Animcation function.
      */
     background(
-      wte_asset<ALLEGRO_BITMAP> bmp,
+      slv_asset<ALLEGRO_BITMAP> bmp,
       const std::size_t& l,
       const float& x,
       const float& y,
@@ -61,6 +61,6 @@ class background final : public gfx {
     float pos_y;  //!<  Y position.
 };
 
-}  //  end namespace wte::cmp
+}
 
 #endif

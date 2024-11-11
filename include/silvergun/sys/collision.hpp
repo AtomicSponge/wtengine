@@ -5,12 +5,12 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_SYS_COLISION_HPP)
-#define WTE_SYS_COLISION_HPP
+#if !defined(SLV_SYS_COLISION_HPP)
+#define SLV_SYS_COLISION_HPP
 
 #include "silvergun/sys/system.hpp"
 
-namespace wte::sys {
+namespace slv::sys {
 
 /*!
  * \class colision
@@ -68,6 +68,6 @@ class colision final : public system {
     };
 };
 
-}  //  end namespace wte::sys
+}
 
 #endif

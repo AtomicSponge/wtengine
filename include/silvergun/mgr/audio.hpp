@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_MGR_AUDIO_HPP)
-#define WTE_MGR_AUDIO_HPP
+#if !defined(SLV_MGR_AUDIO_HPP)
+#define SLV_MGR_AUDIO_HPP
 
 #include <string>
 #include <map>
@@ -19,15 +19,15 @@
 #include "silvergun/_globals/_defines.hpp"
 #include "silvergun/_globals/commands.hpp"
 #include "silvergun/_globals/message.hpp"
-#include "silvergun/_globals/wte_asset.hpp"
+#include "silvergun/_globals/slv_asset.hpp"
 #include "silvergun/mgr/assets.hpp"
 #include "silvergun/config.hpp"
 
-namespace wte {
+namespace slv {
   class engine;
 }
 
-namespace wte::mgr {
+namespace slv::mgr {
 
 /*!
  * \class audio
@@ -44,7 +44,7 @@ namespace wte::mgr {
  * Mixer 4 - Play ambiance - Load a file and play in a loop.  Looping can be disabled.
  */
 class audio final : private manager<audio> {
-  friend class wte::engine;
+  friend class slv::engine;
 
   private:
     audio() = default;
@@ -259,10 +259,10 @@ class audio final : private manager<audio> {
     inline static ALLEGRO_MIXER* _mixer_4 = NULL;
 
     // Streams
-    inline static wte_asset<ALLEGRO_AUDIO_STREAM> music_stream_a = nullptr;
-    inline static wte_asset<ALLEGRO_AUDIO_STREAM> music_stream_b = nullptr;
-    inline static wte_asset<ALLEGRO_AUDIO_STREAM> ambiance_stream = nullptr;
-    inline static wte_asset<ALLEGRO_AUDIO_STREAM> voice_stream = nullptr;
+    inline static slv_asset<ALLEGRO_AUDIO_STREAM> music_stream_a = nullptr;
+    inline static slv_asset<ALLEGRO_AUDIO_STREAM> music_stream_b = nullptr;
+    inline static slv_asset<ALLEGRO_AUDIO_STREAM> ambiance_stream = nullptr;
+    inline static slv_asset<ALLEGRO_AUDIO_STREAM> voice_stream = nullptr;
 
     //  Store a reference of playing samples.
     inline static message_container _messages;
@@ -315,7 +315,7 @@ class audio final : private manager<audio> {
          * \brief Play a music asset.
          * \param audio Audio asset.
          */
-        static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio) {
+        static void play(slv_asset<ALLEGRO_AUDIO_STREAM> audio) {
           music::a::stop();
           music_stream_a = audio;
           al_attach_audio_stream_to_mixer(music_stream_a.get(), _mixer_1_a);
@@ -381,7 +381,7 @@ class audio final : private manager<audio> {
          * \brief Play a music asset.
          * \param audio Audio asset.
          */
-        static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio) {
+        static void play(slv_asset<ALLEGRO_AUDIO_STREAM> audio) {
           music::b::stop();
           music_stream_b = audio;
           al_attach_audio_stream_to_mixer(music_stream_b.get(), _mixer_1_b);
@@ -445,7 +445,7 @@ class audio final : private manager<audio> {
        * \param ref Playmode.
        */
       static void play(
-        wte_asset<ALLEGRO_SAMPLE> sample,
+        slv_asset<ALLEGRO_SAMPLE> sample,
         const std::string& ref
       ) { play(sample, ref, 1.0f, ALLEGRO_AUDIO_PAN_NONE, 1.0f); };
 
@@ -458,7 +458,7 @@ class audio final : private manager<audio> {
        * \param speed Speed value.  See allegro docs on al_play_sample for more info.
        */
       static void play(
-        wte_asset<ALLEGRO_SAMPLE> sample,
+        slv_asset<ALLEGRO_SAMPLE> sample,
         const std::string& ref,
         const float& gain,
         const float& pan,
@@ -520,7 +520,7 @@ class audio final : private manager<audio> {
        * \brief Play an audio asset on the voice channel.
        * \param audio Audio asset.
        */
-      static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio) {
+      static void play(slv_asset<ALLEGRO_AUDIO_STREAM> audio) {
         voice::stop();
         voice_stream = audio;
         al_attach_audio_stream_to_mixer(voice_stream.get(), _mixer_3);
@@ -586,7 +586,7 @@ class audio final : private manager<audio> {
        * \brief Play an audio asset on the ambiance channel.
        * \param audio Audio asset.
        */
-      static void play(wte_asset<ALLEGRO_AUDIO_STREAM> audio) {
+      static void play(slv_asset<ALLEGRO_AUDIO_STREAM> audio) {
         ambiance::stop();
         ambiance_stream = audio;
         al_attach_audio_stream_to_mixer(ambiance_stream.get(), _mixer_4);
@@ -636,6 +636,6 @@ class audio final : private manager<audio> {
 
 template <> bool manager<audio>::initialized = false;
 
-}  //  end namespace wte::mgr
+}
 
 #endif

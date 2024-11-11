@@ -5,14 +5,14 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_SCENE_HPP)
-#define WTE_SCENE_HPP
+#if !defined(SLV_SCENE_HPP)
+#define SLV_SCENE_HPP
 
 #include <string>
 
 #include "silvergun/_globals/handlers.hpp"
 
-namespace wte {
+namespace slv {
 
 /*!
  * \class scene
@@ -58,6 +58,6 @@ class scene {
     const std::size_t scope;  //!<  Scene handler scope.
 };
 
-}  //  end namespace wte
+}
 
 #endif

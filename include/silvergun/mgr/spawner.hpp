@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_MGR_SPAWNER_HPP)
-#define WTE_MGR_SPAWNER_HPP
+#if !defined(SLV_MGR_SPAWNER_HPP)
+#define SLV_MGR_SPAWNER_HPP
 
 #include <string>
 #include <utility>
@@ -18,18 +18,18 @@
 #include "silvergun/_globals/message.hpp"
 #include "silvergun/mgr/world.hpp"
 
-namespace wte {
+namespace slv {
   class engine;
 }
 
-namespace wte::mgr {
+namespace slv::mgr {
 
 /*!
  * \class spawner
  * \brief Create or delete entities while the engine is running.
  */
 class spawner final : private manager<spawner> {
-  friend class wte::engine;
+  friend class slv::engine;
 
   private:
     spawner() = default;
@@ -52,7 +52,7 @@ class spawner final : private manager<spawner> {
 
         if (m_it.get_cmd() == "delete") {
           entity_id delete_entity_id = mgr::world::get_id(m_it.get_arg(0));
-          if (delete_entity_id != wte::mgr::ENTITY_ERROR) {
+          if (delete_entity_id != slv::mgr::ENTITY_ERROR) {
             mgr::world::delete_entity(delete_entity_id);
           }
         }
@@ -122,6 +122,6 @@ class spawner final : private manager<spawner> {
 
 template <> bool manager<spawner>::initialized = false;
 
-}  //  end namespace wte::mgr
+}
 
 #endif

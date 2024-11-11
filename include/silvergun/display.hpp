@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_DISPLAY_HPP)
-#define WTE_DISPLAY_HPP
+#if !defined(SLV_DISPLAY_HPP)
+#define SLV_DISPLAY_HPP
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_opengl.h>
@@ -22,7 +22,7 @@
 #include "silvergun/_globals/_defines.hpp"
 #include "silvergun/mgr/renderer.hpp"
 
-namespace wte {
+namespace slv {
 
 /*!
  * \class display
@@ -162,6 +162,6 @@ class display {
     inline static ALLEGRO_DISPLAY* _display;   //  Allegro object for the display.
 };
 
-}  //  end namespace wte
+}
 
 #endif

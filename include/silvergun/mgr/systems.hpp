@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_MGR_SYSTEMS_HPP)
-#define WTE_MGR_SYSTEMS_HPP
+#if !defined(SLV_MGR_SYSTEMS_HPP)
+#define SLV_MGR_SYSTEMS_HPP
 
 #include <string>
 #include <vector>
@@ -18,18 +18,18 @@
 #include "silvergun/_debug/exceptions.hpp"
 #include "silvergun/sys/system.hpp"
 
-namespace wte {
+namespace slv {
   class engine;
 }
 
-namespace wte::mgr {
+namespace slv::mgr {
 
 /*!
  * \class systems
  * \brief Store the configured systems and process their runs and dispatches.
  */
 class systems final : private manager<systems> {
-  friend class wte::engine;
+  friend class slv::engine;
 
   private:
     systems() = default;
@@ -82,6 +82,6 @@ class systems final : private manager<systems> {
 
 template <> bool manager<systems>::initialized = false;
 
-}  //  end namespace wte::mgr
+}
 
 #endif

@@ -5,12 +5,12 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_SYS_ANIMATE_HPP)
-#define WTE_SYS_ANIMATE_HPP
+#if !defined(SLV_SYS_ANIMATE_HPP)
+#define SLV_SYS_ANIMATE_HPP
 
 #include "silvergun/sys/system.hpp"
 
-namespace wte::sys::gfx {
+namespace slv::sys::gfx {
 
 /*!
  * \class animate
@@ -35,6 +35,6 @@ class animate final : public system {
     };
 };
 
-}  //  end namespace wte::sys
+}
 
 #endif

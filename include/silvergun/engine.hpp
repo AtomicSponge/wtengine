@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_ENGINE_HPP)
-#define WTE_ENGINE_HPP
+#if !defined(SLV_ENGINE_HPP)
+#define SLV_ENGINE_HPP
 
 #include <iostream>
 #include <string>
@@ -37,10 +37,10 @@
 #include "silvergun/_globals/commands.hpp"
 #include "silvergun/_globals/engine_time.hpp"
 #include "silvergun/_globals/scene.hpp"
-#include "silvergun/_globals/wte_asset.hpp"
+#include "silvergun/_globals/slv_asset.hpp"
 #include "silvergun/mgr/_managers.hpp"
 
-namespace wte {
+namespace slv {
 
 void do_game(void);
 #if defined(__EMSCRIPTEN__)
@@ -170,7 +170,7 @@ class engine final : public config, public input, public display {
       if constexpr (build_options.touch_enabled)
         config::_flags::touch_installed = al_install_touch_input();
 
-      //  Configure display.  Called from wte_display class.
+      //  Configure display.  Called from display class.
       std::cout << "Configuring display... ";
       create_display(width, height);
       std::cout << "OK!\n";
@@ -210,7 +210,7 @@ class engine final : public config, public input, public display {
       std::cout << "OK!\n";
 
       //  Generate Allegro's default font and load into asset mgr.
-      mgr::assets::load<ALLEGRO_FONT>("wte_default_font", make_asset<ALLEGRO_FONT>());
+      mgr::assets::load<ALLEGRO_FONT>("slv_default_font", make_asset<ALLEGRO_FONT>());
 
       std::cout << "Initializing graphics... ";
       mgr::gfx::renderer::set_viewport_size(width, height);
@@ -325,6 +325,6 @@ inline void do_game(void) {
   #endif
 }
 
-}  //  end namespace wte
+}  //  end namespace slv
 
 #endif

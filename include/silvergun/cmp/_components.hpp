@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_COMPONENTS_HPP)
-#define WTE_COMPONENTS_HPP
+#if !defined(SLV_COMPONENTS_HPP)
+#define SLV_COMPONENTS_HPP
 
 #include "silvergun/cmp/ai.hpp"
 #include "silvergun/cmp/background.hpp"

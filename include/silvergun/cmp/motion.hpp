@@ -5,12 +5,12 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_CMP_MOTION_HPP)
-#define WTE_CMP_MOTION_HPP
+#if !defined(SLV_CMP_MOTION_HPP)
+#define SLV_CMP_MOTION_HPP
 
 #include "silvergun/cmp/component.hpp"
 
-namespace wte::cmp {
+namespace slv::cmp {
 
 /*!
  * \class motion
@@ -38,6 +38,6 @@ class motion final : public component {
     float y_vel;      //!<  Y velocity.
 };
 
-}  //  end namespace wte::cmp
+}
 
 #endif

@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_SYS_SYSTEM_HPP)
-#define WTE_SYS_SYSTEM_HPP
+#if !defined(SLV_SYS_SYSTEM_HPP)
+#define SLV_SYS_SYSTEM_HPP
 
 #include <string>
 #include <memory>
@@ -15,7 +15,7 @@
 #include "silvergun/mgr/messages.hpp"
 #include "silvergun/mgr/world.hpp"
 
-namespace wte::sys {
+namespace slv::sys {
 
 /*!
  * \class system
@@ -46,6 +46,6 @@ class system {
  */
 using system_uptr = std::unique_ptr<system>;
 
-}  //  end namespace wte::sys
+}
 
 #endif

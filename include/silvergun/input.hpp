@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_INPUT_HPP)
-#define WTE_INPUT_HPP
+#if !defined(SLV_INPUT_HPP)
+#define SLV_INPUT_HPP
 
 #include <string>
 #include <vector>
@@ -25,7 +25,7 @@
 #include "silvergun/_globals/handlers.hpp"
 #include "silvergun/config.hpp"
 
-namespace wte {
+namespace slv {
 
 /*!
  * \class input
@@ -222,6 +222,6 @@ class input {
     inline static bool initialized = false;                //  Restrict to one instance.
 };
 
-}  //  end namespace wte
+}
 
 #endif

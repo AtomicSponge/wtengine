@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_CONFIG_HPP)
-#define WTE_CONFIG_HPP
+#if !defined(SLV_CONFIG_HPP)
+#define SLV_CONFIG_HPP
 
 #include <allegro5/allegro.h>
 
@@ -15,15 +15,15 @@
 #include "silvergun/_debug/exceptions.hpp"
 #include "silvergun/_globals/_defines.hpp"
 
-namespace wte::mgr {
+namespace slv::mgr {
   class audio;
 }
 
-namespace wte::mgr::gfx {
+namespace slv::mgr::gfx {
   class renderer;
 }
 
-namespace wte {
+namespace slv {
 
 /*!
  * \class config
@@ -70,8 +70,7 @@ class config {
 
   protected:
     config() {
-      if (initialized == true)
-        throw engine_error("Config instance already running!");
+      if (initialized == true) throw engine_error("Config instance already running!");
       initialized = true;
     };
 
@@ -127,6 +126,6 @@ class config {
     };
 };
 
-}  //  end namespace wte
+}
 
 #endif

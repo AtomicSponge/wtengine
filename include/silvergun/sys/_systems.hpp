@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_SYSTEMS_HPP)
-#define WTE_SYSTEMS_HPP
+#if !defined(SLV_SYSTEMS_HPP)
+#define SLV_SYSTEMS_HPP
 
 #include "silvergun/sys/animate.hpp"
 #include "silvergun/sys/collision.hpp"

@@ -5,8 +5,8 @@
 * See LICENSE.md for copyright information.
 */
 
-#if !defined(WTE_EXCEPTION_HPP)
-#define WTE_EXCEPTION_HPP
+#if !defined(SLV_EXCEPTION_HPP)
+#define SLV_EXCEPTION_HPP
 
 #include <string>
 #include <fstream>
@@ -16,7 +16,7 @@
 #include "silvergun/_globals/_defines.hpp"
 #include "silvergun/_globals/engine_time.hpp"
 
-namespace wte {
+namespace slv {
 
 /*
  * Creates an info object that can be passed to the engine exceptions.
@@ -128,6 +128,6 @@ class engine_exception final : public std::exception {
     int64_t when() const noexcept{ return item.time; };
 };
 
-}  //  end namespace wte
+}
 
 #endif

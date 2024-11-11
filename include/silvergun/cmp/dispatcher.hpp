@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_CMP_DISPATCHER_HPP)
-#define WTE_CMP_DISPATCHER_HPP
+#if !defined(SLV_CMP_DISPATCHER_HPP)
+#define SLV_CMP_DISPATCHER_HPP
 
 #include <functional>
 
@@ -16,11 +16,11 @@
 #include "silvergun/mgr/messages.hpp"
 #include "silvergun/mgr/world.hpp"
 
-namespace wte::mgr {
+namespace slv::mgr {
   class messages;
 }
 
-namespace wte::cmp {
+namespace slv::cmp {
 
 /*!
  * \class dispatcher
@@ -46,6 +46,6 @@ class dispatcher final : public component {
     ~dispatcher() = default;  //  Default destructor.
 };
 
-}  //  end namespace wte::cmp
+}
 
 #endif

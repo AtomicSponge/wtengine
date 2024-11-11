@@ -5,12 +5,12 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_CMP_LOCATION_HPP)
-#define WTE_CMP_LOCATION_HPP
+#if !defined(SLV_CMP_LOCATION_HPP)
+#define SLV_CMP_LOCATION_HPP
 
 #include "silvergun/cmp/component.hpp"
 
-namespace wte::cmp {
+namespace slv::cmp {
 
 /*!
  * \class location
@@ -35,6 +35,6 @@ class location final : public component {
     float pos_y;  //!<  Entity Y location.
 };
 
-} //  namespace wte::cmp
+}
 
 #endif

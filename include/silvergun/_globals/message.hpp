@@ -5,15 +5,15 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_MESSAGE_HPP)
-#define WTE_MESSAGE_HPP
+#if !defined(SLV_MESSAGE_HPP)
+#define SLV_MESSAGE_HPP
 
 #include <string>
 #include <vector>
 #include <sstream>
 #include <cstdint>
 
-namespace wte {
+namespace slv {
 
 /*!
  * \typedef std::vector<std::string> msg_args
@@ -183,6 +183,6 @@ class message final {
  */
 typedef std::vector<message> message_container;
 
-}  //  end namespace wte
+}
 
 #endif

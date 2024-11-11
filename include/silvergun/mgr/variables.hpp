@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_MGR_VARIABLES_HPP)
-#define WTE_MGR_VARIABLES_HPP
+#if !defined(SLV_MGR_VARIABLES_HPP)
+#define SLV_MGR_VARIABLES_HPP
 
 #include <string>
 #include <cstring>
@@ -21,7 +21,7 @@
 #include "silvergun/_debug/exceptions.hpp"
 #include "silvergun/_globals/engine_time.hpp"
 
-namespace wte::mgr {
+namespace slv::mgr {
 
 /*!
  * \class variables
@@ -253,6 +253,6 @@ class variables final : private manager<variables> {
 
 template <> bool manager<variables>::initialized = false;
 
-}  //  end namespace wte::mgr
+}
 
 #endif

@@ -5,14 +5,14 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_SYS_MOVEMENT_HPP)
-#define WTE_SYS_MOVEMENT_HPP
+#if !defined(SLV_SYS_MOVEMENT_HPP)
+#define SLV_SYS_MOVEMENT_HPP
 
 #include <cmath>
 
 #include "silvergun/sys/system.hpp"
 
-namespace wte::sys {
+namespace slv::sys {
 
 /*!
  * \class movement
@@ -60,6 +60,6 @@ class movement final : public system {
     };
 };
 
-}  //  namespace wte::sys
+}
 
 #endif

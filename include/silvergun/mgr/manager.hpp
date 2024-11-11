@@ -5,12 +5,12 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_MGR_MANAGER_HPP)
-#define WTE_MGR_MANAGER_HPP
+#if !defined(SLV_MGR_MANAGER_HPP)
+#define SLV_MGR_MANAGER_HPP
 
 #include "silvergun/_debug/exceptions.hpp"
 
-namespace wte::mgr {
+namespace slv::mgr {
 
 /*!
  * \class manager
@@ -38,6 +38,6 @@ class manager {
     void operator=(manager const&) = delete;  //  Delete assignment operator.
 };
 
-}  //  end namespace wte::mgr
+}
 
 #endif

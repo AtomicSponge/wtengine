@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_MGR_MANAGERS_HPP)
-#define WTE_MGR_MANAGERS_HPP
+#if !defined(SLV_MGR_MANAGERS_HPP)
+#define SLV_MGR_MANAGERS_HPP
 
 #include "silvergun/mgr/assets.hpp"
 #include "silvergun/mgr/audio.hpp"

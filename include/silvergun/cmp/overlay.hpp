@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_CMP_OVERLAY_HPP)
-#define WTE_CMP_OVERLAY_HPP
+#if !defined(SLV_CMP_OVERLAY_HPP)
+#define SLV_CMP_OVERLAY_HPP
 
 #include <string>
 #include <map>
@@ -17,7 +17,7 @@
 
 #include "silvergun/cmp/gfx.hpp"
 
-namespace wte::cmp::gfx {
+namespace slv::cmp::gfx {
 
 /*!
  * \class overlay
@@ -25,7 +25,7 @@ namespace wte::cmp::gfx {
  */
 class overlay final : public gfx {
   private:
-    wte_asset<ALLEGRO_FONT> overlay_font;  //  Font for overlay.
+    slv_asset<ALLEGRO_FONT> overlay_font;  //  Font for overlay.
 
   public:
     /*!
@@ -38,8 +38,8 @@ class overlay final : public gfx {
      * \param func Function to define what is displayed in the overlay.
      */
     overlay(
-      wte_asset<ALLEGRO_BITMAP> bmp,
-      wte_asset<ALLEGRO_FONT> font,
+      slv_asset<ALLEGRO_BITMAP> bmp,
+      slv_asset<ALLEGRO_FONT> font,
       const std::size_t& l,
       const float& x,
       const float& y,

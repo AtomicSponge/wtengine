@@ -5,12 +5,12 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_CMP_HITBOX_HPP)
-#define WTE_CMP_HITBOX_HPP
+#if !defined(SLV_CMP_HITBOX_HPP)
+#define SLV_CMP_HITBOX_HPP
 
 #include "silvergun/cmp/component.hpp"
 
-namespace wte::cmp {
+namespace slv::cmp {
 
 /*!
  * \class hitbox
@@ -53,6 +53,6 @@ class hitbox final : public component {
     bool solid;        //!<  Solid (enabled) flag.
 };
 
-}  //  end namespace wte::cmp
+}
 
 #endif

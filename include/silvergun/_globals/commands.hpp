@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_COMMANDS_HPP)
-#define WTE_COMMANDS_HPP
+#if !defined(SLV_COMMANDS_HPP)
+#define SLV_COMMANDS_HPP
 
 #include <string>
 #include <map>
@@ -15,7 +15,7 @@
 
 #include "silvergun/_globals/message.hpp"
 
-namespace wte {
+namespace slv {
 
 /*!
  * \class commands
@@ -65,6 +65,6 @@ class commands final {
     };
 };
 
-}  //  end namespace wte
+}
 
 #endif

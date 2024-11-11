@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_LOGGER_HPP)
-#define WTE_LOGGER_HPP
+#if !defined(SLV_LOGGER_HPP)
+#define SLV_LOGGER_HPP
 
 #include <string>
 #include <fstream>
@@ -21,7 +21,7 @@
 #include <mutex>
 #include <chrono>
 
-namespace wte {
+namespace slv {
 
 class engine;
 
@@ -70,6 +70,6 @@ class logger final {
     };
 };
 
-}  //  end namespace wte
+}
 
-#endif  //  WTE_LOGGER_HPP
+#endif

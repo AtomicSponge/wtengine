@@ -5,8 +5,8 @@
  * See LICENSE.md for copyright information.
  */
 
-#if !defined(WTE_CMP_AI_HPP)
-#define WTE_CMP_AI_HPP
+#if !defined(SLV_CMP_AI_HPP)
+#define SLV_CMP_AI_HPP
 
 #include <functional>
 
@@ -15,11 +15,11 @@
 #include "silvergun/mgr/messages.hpp"
 #include "silvergun/mgr/world.hpp"
 
-namespace wte::sys {
+namespace slv::sys {
   class logic;
 }
 
-namespace wte::cmp {
+namespace slv::cmp {
 
 /*!
  * \class ai
@@ -58,6 +58,6 @@ class ai final : public component {
     bool enabled;     //!<  Flag to enable or disable the entity.
 };
 
-}  //  end namespace wte::cmp
+}
 
 #endif

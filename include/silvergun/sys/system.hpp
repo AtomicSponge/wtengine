@@ -1,5 +1,5 @@
 /*
- * wtengine
+ * silvergun
  * --------
  * By Matthew Evans
  * See LICENSE.md for copyright information.
@@ -11,9 +11,9 @@
 #include <string>
 #include <memory>
 
-#include "wtengine/cmp/_components.hpp"
-#include "wtengine/mgr/messages.hpp"
-#include "wtengine/mgr/world.hpp"
+#include "silvergun/cmp/_components.hpp"
+#include "silvergun/mgr/messages.hpp"
+#include "silvergun/mgr/world.hpp"
 
 namespace wte::sys {
 

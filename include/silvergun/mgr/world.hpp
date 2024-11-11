@@ -1,5 +1,5 @@
 /*
- * wtengine
+ * silvergun
  * --------
  * By Matthew Evans
  * See LICENSE.md for copyright information.
@@ -20,11 +20,11 @@
 #include <memory>
 #include <mutex>
 
-#include "wtengine/mgr/manager.hpp"
+#include "silvergun/mgr/manager.hpp"
 
-#include "wtengine/_debug/exceptions.hpp"
-#include "wtengine/_globals/engine_time.hpp"
-#include "wtengine/cmp/component.hpp"
+#include "silvergun/_debug/exceptions.hpp"
+#include "silvergun/_globals/engine_time.hpp"
+#include "silvergun/cmp/component.hpp"
 
 namespace wte {
   class engine;

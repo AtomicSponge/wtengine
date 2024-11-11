@@ -1,5 +1,5 @@
 /*
- * wtengine
+ * silvergun
  * --------
  * By Matthew Evans
  * See LICENSE.md for copyright information.
@@ -18,9 +18,9 @@
 #include <utility>
 #include <type_traits>
 
-#include "wtengine/_debug/exceptions.hpp"
-#include "wtengine/_globals/_defines.hpp"
-#include "wtengine/mgr/renderer.hpp"
+#include "silvergun/_debug/exceptions.hpp"
+#include "silvergun/_globals/_defines.hpp"
+#include "silvergun/mgr/renderer.hpp"
 
 namespace wte {
 
@@ -156,7 +156,7 @@ class display {
     };
 
 
-    inline static std::string window_title = "WtEngine";  //  Title for application window.
+    inline static std::string window_title = "Silvergun Game Engine";  //  Title for application window.
     inline static bool initialized = false;               //  Restrict to one instance.
 
     inline static ALLEGRO_DISPLAY* _display;   //  Allegro object for the display.

@@ -1,5 +1,5 @@
 /*
- * wtengine
+ * silvergun
  * --------
  * By Matthew Evans
  * See LICENSE.md for copyright information.
@@ -22,17 +22,17 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 
-#include "wtengine/mgr/manager.hpp"
+#include "silvergun/mgr/manager.hpp"
 
-#include "wtengine/_debug/exceptions.hpp"
-#include "wtengine/_globals/_defines.hpp"
-#include "wtengine/_globals/engine_time.hpp"
-#include "wtengine/_globals/wte_asset.hpp"
-#include "wtengine/cmp/_components.hpp"
-#include "wtengine/mgr/assets.hpp"
-#include "wtengine/mgr/world.hpp"
-#include "wtengine/config.hpp"
-#include "wtengine/display.hpp"
+#include "silvergun/_debug/exceptions.hpp"
+#include "silvergun/_globals/_defines.hpp"
+#include "silvergun/_globals/engine_time.hpp"
+#include "silvergun/_globals/wte_asset.hpp"
+#include "silvergun/cmp/_components.hpp"
+#include "silvergun/mgr/assets.hpp"
+#include "silvergun/mgr/world.hpp"
+#include "silvergun/config.hpp"
+#include "silvergun/display.hpp"
 
 namespace wte {
   class display;

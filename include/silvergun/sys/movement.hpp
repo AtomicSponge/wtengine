@@ -1,5 +1,5 @@
 /*
- * wtengine
+ * silvergun
  * --------
  * By Matthew Evans
  * See LICENSE.md for copyright information.
@@ -10,7 +10,7 @@
 
 #include <cmath>
 
-#include "wtengine/sys/system.hpp"
+#include "silvergun/sys/system.hpp"
 
 namespace wte::sys {
 

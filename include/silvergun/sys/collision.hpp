@@ -1,5 +1,5 @@
 /*
- * wtengine
+ * silvergun
  * --------
  * By Matthew Evans
  * See LICENSE.md for copyright information.
@@ -8,7 +8,7 @@
 #if !defined(WTE_SYS_COLISION_HPP)
 #define WTE_SYS_COLISION_HPP
 
-#include "wtengine/sys/system.hpp"
+#include "silvergun/sys/system.hpp"
 
 namespace wte::sys {
 

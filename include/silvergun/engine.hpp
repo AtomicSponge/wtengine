@@ -1,5 +1,5 @@
 /*
- * wtengine
+ * silvergun
  * --------
  * By Matthew Evans
  * See LICENSE.md for copyright information.
@@ -27,18 +27,18 @@
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_primitives.h>
 
-#include "wtengine/config.hpp"
-#include "wtengine/display.hpp"
-#include "wtengine/input.hpp"
+#include "silvergun/config.hpp"
+#include "silvergun/display.hpp"
+#include "silvergun/input.hpp"
 
-#include "wtengine/_debug/exceptions.hpp"
-#include "wtengine/_debug/logger.hpp"
-#include "wtengine/_globals/_defines.hpp"
-#include "wtengine/_globals/commands.hpp"
-#include "wtengine/_globals/engine_time.hpp"
-#include "wtengine/_globals/scene.hpp"
-#include "wtengine/_globals/wte_asset.hpp"
-#include "wtengine/mgr/_managers.hpp"
+#include "silvergun/_debug/exceptions.hpp"
+#include "silvergun/_debug/logger.hpp"
+#include "silvergun/_globals/_defines.hpp"
+#include "silvergun/_globals/commands.hpp"
+#include "silvergun/_globals/engine_time.hpp"
+#include "silvergun/_globals/scene.hpp"
+#include "silvergun/_globals/wte_asset.hpp"
+#include "silvergun/mgr/_managers.hpp"
 
 namespace wte {
 
@@ -145,7 +145,7 @@ class engine final : public config, public input, public display {
      * \param height Initial screen height.
      */
     static void initialize(int width, int height) {
-      std::cout << "Starting WTEngine...\n";
+      std::cout << "Starting silvergun...\n";
       if (initialized == true) throw engine_error(display::window_title + " already running!");
       initialized = true;
 
@@ -237,7 +237,7 @@ class engine final : public config, public input, public display {
      * \brief De-initialize the engine.
      */
     static void deinitialize(void) {
-      std::cout << "\nStopping WTEngine...\n";
+      std::cout << "\nStopping silvergun...\n";
 
       config::_flags::is_running = false;
 

@@ -1,5 +1,5 @@
 /*
- * wtengine
+ * silvergun
  * --------
  * By Matthew Evans
  * See LICENSE.md for copyright information.
@@ -13,10 +13,10 @@
 #include <iterator>
 #include <memory>
 
-#include "wtengine/mgr/manager.hpp"
+#include "silvergun/mgr/manager.hpp"
 
-#include "wtengine/_debug/exceptions.hpp"
-#include "wtengine/sys/system.hpp"
+#include "silvergun/_debug/exceptions.hpp"
+#include "silvergun/sys/system.hpp"
 
 namespace wte {
   class engine;

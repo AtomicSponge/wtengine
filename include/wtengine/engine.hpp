@@ -218,6 +218,7 @@ class engine final : public config, public input, public display {
       std::cout << "OK!\n";
 
       if constexpr (build_options.debug_mode) {
+        std::cout << "DEBUG MODE --- LOGGING ENABLED\n";
         mgr::messages::message_log_start();
         logger::start();
       }

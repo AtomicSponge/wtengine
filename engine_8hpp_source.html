@@ -139,7 +139,7 @@ $(function() {
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">     * Main engine loop (single pass)</span></div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">     */</span></div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> main_loop(<span class="keywordtype">void</span>) {</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>      input::check_events();  <span class="comment">//  Check for input.</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>      input::check_events(current_scene-&gt;scope);  <span class="comment">//  Check for input.</span></div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>      <span class="comment">//  Pause / resume timer check.  Also process the on_pause events.</span></div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>      <span class="keywordflow">if</span> (<a class="code hl_variable" href="structwte_1_1config_1_1flags.html#a7f27df2a5a44a67d3b88f3e32880e53d">config::flags::engine_paused</a> &amp;&amp; al_get_timer_started(main_timer)) {</div>
@@ -153,7 +153,7 @@ $(function() {
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>      ALLEGRO_EVENT event;</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>      <span class="keywordflow">if</span> (al_get_next_event(main_event_queue, &amp;event)) {</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">switch</span>(event.type) {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">switch</span> (event.type) {</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="comment">//  Call our game logic update on timer events.</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="comment">//  Timer is only running when the game is running.</span></div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">case</span> ALLEGRO_EVENT_TIMER:</div>

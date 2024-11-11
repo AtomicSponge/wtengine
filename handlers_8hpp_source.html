@@ -115,9 +115,9 @@ $(function() {
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">namespace </span>wte {</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">enum</span> handler_scopes {</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  GLOBAL_HANDLES,     </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  GAME_HANDLES,       </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  NONGAME_HANDLES,    </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  SCOPE_A,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  SCOPE_B,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  SCOPE_C,</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>};</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">enum</span> handler_events {</div>
@@ -200,8 +200,8 @@ $(function() {
 <div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="keyword">template</span> &lt;handler_scopes S, handler_events IDX, <span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="keyword">constexpr</span> <span class="keywordtype">void</span> add_handler(<span class="keyword">const</span> handler_types&amp; handle) {</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>  <span class="keyword">static_assert</span>(S == GLOBAL_HANDLES || S == NONGAME_HANDLES || S == GAME_HANDLES,</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="stringliteral">&quot;Scope must be one of the following: GLOBAL_HANDLES, NONGAME_HANDLES, GAME_HANDLES&quot;</span>);</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>  <span class="keyword">static_assert</span>(S == SCOPE_A || S == SCOPE_B || S == SCOPE_C,</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="stringliteral">&quot;Scope must be one of the following: SCOPE_A, SCOPE_B, SCOPE_C&quot;</span>);</div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>  <span class="keyword">static_assert</span>(IDX &lt; HANDLER_EVENT_MAX, <span class="stringliteral">&quot;Invalid Handler Event Index&quot;</span>);</div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>  <span class="keyword">static_assert</span>(std::is_same_v&lt;T, handler::key&gt; ||</div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    std::is_same_v&lt;T, handler::mouse_axis&gt; ||</div>

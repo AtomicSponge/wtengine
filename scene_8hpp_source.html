@@ -92,7 +92,7 @@ $(function() {
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classwte_1_1scene.html">   19</a></span><span class="keyword">class </span><a class="code hl_class" href="classwte_1_1scene.html">scene</a> {</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classwte_1_1scene.html#adf26c49a9f6b217b8f1e35013ae0be70">   25</a></span>    <a class="code hl_function" href="classwte_1_1scene.html#adf26c49a9f6b217b8f1e35013ae0be70">scene</a>(<span class="keyword">const</span> std::string&amp; <a class="code hl_variable" href="classwte_1_1scene.html#a60d393c30f2cc87175effb80d2d00098">name</a>) : <a class="code hl_variable" href="classwte_1_1scene.html#a60d393c30f2cc87175effb80d2d00098">name</a>(<a class="code hl_variable" href="classwte_1_1scene.html#a60d393c30f2cc87175effb80d2d00098">name</a>) {};</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classwte_1_1scene.html#a66d830f1a9e82423b7b985ba9016f2cc">   25</a></span>    <a class="code hl_function" href="classwte_1_1scene.html#a66d830f1a9e82423b7b985ba9016f2cc">scene</a>(<span class="keyword">const</span> std::string&amp; <a class="code hl_variable" href="classwte_1_1scene.html#a60d393c30f2cc87175effb80d2d00098">name</a>, <span class="keyword">const</span> std::size_t&amp; <a class="code hl_variable" href="classwte_1_1scene.html#a7ec26f8c6e5b56e685ca12c94f4b9d51">scope</a>) : <a class="code hl_variable" href="classwte_1_1scene.html#a60d393c30f2cc87175effb80d2d00098">name</a>(<a class="code hl_variable" href="classwte_1_1scene.html#a60d393c30f2cc87175effb80d2d00098">name</a>), <a class="code hl_variable" href="classwte_1_1scene.html#a7ec26f8c6e5b56e685ca12c94f4b9d51">scope</a>(<a class="code hl_variable" href="classwte_1_1scene.html#a7ec26f8c6e5b56e685ca12c94f4b9d51">scope</a>) {};</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classwte_1_1scene.html">~scene</a>() = <span class="keywordflow">default</span>;             <span class="comment">//  Default virtual destructor.</span></div>
@@ -100,22 +100,24 @@ $(function() {
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordtype">void</span> operator=(<a class="code hl_class" href="classwte_1_1scene.html">scene</a> <span class="keyword">const</span>&amp;) = <span class="keyword">delete</span>;  <span class="comment">//  Delete assignment operator.</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> load(<span class="keywordtype">void</span>) {};</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> unload(<span class="keywordtype">void</span>) {};</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> loop(<span class="keywordtype">void</span>) {};</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handlers(<span class="keywordtype">void</span>) {};</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="comment">//virtual void draw(void) {};</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> loop(<span class="keywordtype">void</span>) {};</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="classwte_1_1scene.html#a60d393c30f2cc87175effb80d2d00098">   52</a></span>    <span class="keyword">const</span> std::string <a class="code hl_variable" href="classwte_1_1scene.html#a60d393c30f2cc87175effb80d2d00098">name</a>;  </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>};</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}  <span class="comment">//  end namespace wte</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="classwte_1_1scene.html#a60d393c30f2cc87175effb80d2d00098">   52</a></span>    <span class="keyword">const</span> std::string <a class="code hl_variable" href="classwte_1_1scene.html#a60d393c30f2cc87175effb80d2d00098">name</a>;   </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="classwte_1_1scene.html#a7ec26f8c6e5b56e685ca12c94f4b9d51">   53</a></span>    <span class="keyword">const</span> std::size_t <a class="code hl_variable" href="classwte_1_1scene.html#a7ec26f8c6e5b56e685ca12c94f4b9d51">scope</a>;  </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}  <span class="comment">//  end namespace wte</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclasswte_1_1scene_html"><div class="ttname"><a href="classwte_1_1scene.html">wte::scene</a></div><div class="ttdoc">Extend this to create a scene.</div><div class="ttdef"><b>Definition:</b> scene.hpp:19</div></div>
-<div class="ttc" id="aclasswte_1_1scene_html_a60d393c30f2cc87175effb80d2d00098"><div class="ttname"><a href="classwte_1_1scene.html#a60d393c30f2cc87175effb80d2d00098">wte::scene::name</a></div><div class="ttdeci">const std::string name</div><div class="ttdef"><b>Definition:</b> scene.hpp:52</div></div>
-<div class="ttc" id="aclasswte_1_1scene_html_adf26c49a9f6b217b8f1e35013ae0be70"><div class="ttname"><a href="classwte_1_1scene.html#adf26c49a9f6b217b8f1e35013ae0be70">wte::scene::scene</a></div><div class="ttdeci">scene(const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> scene.hpp:25</div></div>
+<div class="ttc" id="aclasswte_1_1scene_html_a60d393c30f2cc87175effb80d2d00098"><div class="ttname"><a href="classwte_1_1scene.html#a60d393c30f2cc87175effb80d2d00098">wte::scene::name</a></div><div class="ttdeci">const std::string name</div><div class="ttdoc">Scene name.</div><div class="ttdef"><b>Definition:</b> scene.hpp:52</div></div>
+<div class="ttc" id="aclasswte_1_1scene_html_a66d830f1a9e82423b7b985ba9016f2cc"><div class="ttname"><a href="classwte_1_1scene.html#a66d830f1a9e82423b7b985ba9016f2cc">wte::scene::scene</a></div><div class="ttdeci">scene(const std::string &amp;name, const std::size_t &amp;scope)</div><div class="ttdef"><b>Definition:</b> scene.hpp:25</div></div>
+<div class="ttc" id="aclasswte_1_1scene_html_a7ec26f8c6e5b56e685ca12c94f4b9d51"><div class="ttname"><a href="classwte_1_1scene.html#a7ec26f8c6e5b56e685ca12c94f4b9d51">wte::scene::scope</a></div><div class="ttdeci">const std::size_t scope</div><div class="ttdoc">Scene scope.</div><div class="ttdef"><b>Definition:</b> scene.hpp:53</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

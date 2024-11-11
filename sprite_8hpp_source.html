@@ -83,8 +83,8 @@ $(function() {
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * See LICENSE.md for copyright information.</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#if !defined(WTE_CMP_SPRITE_HPP)</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define WTE_CMP_SPRITE_HPP</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#if !defined(SLV_CMP_SPRITE_HPP)</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define SLV_CMP_SPRITE_HPP</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
@@ -101,14 +101,14 @@ $(function() {
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;silvergun/_globals/engine_time.hpp&quot;</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;silvergun/mgr/world.hpp&quot;</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">namespace </span>wte::mgr::gfx {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">namespace </span>slv::mgr::gfx {</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">class </span>renderer;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">namespace </span>wte::cmp::gfx {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">namespace </span>slv::cmp::gfx {</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classwte_1_1cmp_1_1gfx_1_1sprite.html">   36</a></span><span class="keyword">class </span><a class="code hl_class" href="classwte_1_1cmp_1_1gfx_1_1sprite.html">sprite</a> final : <span class="keyword">public</span> <a class="code hl_class" href="classwte_1_1cmp_1_1gfx_1_1gfx.html">gfx</a> {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classwte_1_1mgr_1_1gfx_1_1renderer.html">mgr::gfx::renderer</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classslv_1_1cmp_1_1gfx_1_1sprite.html">   36</a></span><span class="keyword">class </span><a class="code hl_class" href="classslv_1_1cmp_1_1gfx_1_1sprite.html">sprite</a> final : <span class="keyword">public</span> <a class="code hl_class" href="classslv_1_1cmp_1_1gfx_1_1gfx.html">gfx</a> {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classslv_1_1mgr_1_1gfx_1_1renderer.html">mgr::gfx::renderer</a>;</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="comment">//  Animation cycle index.</span></div>
@@ -125,17 +125,17 @@ $(function() {
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    std::size_t current_frame, rate;        <span class="comment">//  Current frame counter and frame rate.</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="classwte_1_1cmp_1_1gfx_1_1sprite.html#aeb64a701e2566be173fd32996ec3191d">   63</a></span>    <a class="code hl_function" href="classwte_1_1cmp_1_1gfx_1_1sprite.html#aeb64a701e2566be173fd32996ec3191d">sprite</a>(</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>      wte_asset&lt;ALLEGRO_BITMAP&gt; bmp,</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#afe00bdc5236cdec139973ce90a159bf6">   63</a></span>    <a class="code hl_function" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#afe00bdc5236cdec139973ce90a159bf6">sprite</a>(</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>      slv_asset&lt;ALLEGRO_BITMAP&gt; bmp,</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>      <span class="keyword">const</span> std::size_t&amp; l,</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>      <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; sw,</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>      <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; sh,</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>      <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; dox,</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>      <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; doy,</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>      <span class="keyword">const</span> std::size_t&amp; rt</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    ) :<a class="code hl_class" href="classwte_1_1cmp_1_1gfx_1_1gfx.html">gfx</a>(bmp, l,[this](const entity_id&amp; e_id) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    ) :<a class="code hl_class" href="classslv_1_1cmp_1_1gfx_1_1gfx.html">gfx</a>(bmp, l,[this](const entity_id&amp; e_id) {</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="comment">//  Define sprite animation process.</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classwte_1_1engine__time.html#a16f0c70ecf5202ee38bcb645d68f5e72">engine_time::check</a>() % rate == 0) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classslv_1_1engine__time.html#a157c8d4993c7e61be0453eb693ec02ae">engine_time::check</a>() % rate == 0) {</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>          <span class="comment">//  Increment frame.</span></div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>          current_frame++;</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>          <span class="comment">//  Loop frame.</span></div>
@@ -153,14 +153,14 @@ $(function() {
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>      start_frame(0), stop_frame(0), current_frame(0), rate(rt)</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    {</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>      <span class="keywordflow">if</span> (rate == 0) rate = 1;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>      sheet_width = al_get_bitmap_width(<a class="code hl_variable" href="classwte_1_1cmp_1_1gfx_1_1gfx.html#ad69037fc5fe2fc4c658459384666018f">_bitmap</a>.get());</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>      sheet_height = al_get_bitmap_height(<a class="code hl_variable" href="classwte_1_1cmp_1_1gfx_1_1gfx.html#ad69037fc5fe2fc4c658459384666018f">_bitmap</a>.get());</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>      sheet_width = al_get_bitmap_width(<a class="code hl_variable" href="classslv_1_1cmp_1_1gfx_1_1gfx.html#a73af5926b46861292720e8c82713de5b">_bitmap</a>.get());</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>      sheet_height = al_get_bitmap_height(<a class="code hl_variable" href="classslv_1_1cmp_1_1gfx_1_1gfx.html#a73af5926b46861292720e8c82713de5b">_bitmap</a>.get());</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    };</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    sprite() = <span class="keyword">delete</span>;    <span class="comment">//  Delete default constructor.</span></div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    ~sprite() = <span class="keywordflow">default</span>;  <span class="comment">//  Default destructor.</span></div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="classwte_1_1cmp_1_1gfx_1_1sprite.html#ac0cd15481459c0e75c8e545d8adab7b7">  105</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classwte_1_1cmp_1_1gfx_1_1sprite.html#ac0cd15481459c0e75c8e545d8adab7b7">add_cycle</a>(</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a381d8c68eda8d734e0f151878f52cf54">  105</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a381d8c68eda8d734e0f151878f52cf54">add_cycle</a>(</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>      <span class="keyword">const</span> std::string&amp; name,</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>      <span class="keyword">const</span> std::size_t&amp; start,</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>      <span class="keyword">const</span> std::size_t&amp; stop</div>
@@ -169,7 +169,7 @@ $(function() {
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>      <span class="keywordflow">return</span> ret.second;</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    };</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="classwte_1_1cmp_1_1gfx_1_1sprite.html#a8e06833aa1fba7824db20dd91effd255">  119</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classwte_1_1cmp_1_1gfx_1_1sprite.html#a8e06833aa1fba7824db20dd91effd255">set_cycle</a>(<span class="keyword">const</span> std::string&amp; name) {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a598107dbbb8fcb0fe7c4f5e546306a97">  119</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a598107dbbb8fcb0fe7c4f5e546306a97">set_cycle</a>(<span class="keyword">const</span> std::string&amp; name) {</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>      <span class="keyword">auto</span> it = cycles.find(name);</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>      <span class="keywordflow">if</span> (it != cycles.end()) {</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        start_frame = it-&gt;second.first;</div>
@@ -179,17 +179,17 @@ $(function() {
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    };</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>};</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>}  <span class="comment">//  end namespace wte::cmp</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>}</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aclasswte_1_1cmp_1_1gfx_1_1gfx_html"><div class="ttname"><a href="classwte_1_1cmp_1_1gfx_1_1gfx.html">wte::cmp::gfx::gfx</a></div><div class="ttdoc">Interface class for components that display graphics.</div><div class="ttdef"><b>Definition:</b> gfx.hpp:34</div></div>
-<div class="ttc" id="aclasswte_1_1cmp_1_1gfx_1_1gfx_html_ad69037fc5fe2fc4c658459384666018f"><div class="ttname"><a href="classwte_1_1cmp_1_1gfx_1_1gfx.html#ad69037fc5fe2fc4c658459384666018f">wte::cmp::gfx::gfx::_bitmap</a></div><div class="ttdeci">wte_asset&lt; ALLEGRO_BITMAP &gt; _bitmap</div><div class="ttdoc">Stores the bitmap used by the animator.</div><div class="ttdef"><b>Definition:</b> gfx.hpp:61</div></div>
-<div class="ttc" id="aclasswte_1_1cmp_1_1gfx_1_1sprite_html"><div class="ttname"><a href="classwte_1_1cmp_1_1gfx_1_1sprite.html">wte::cmp::gfx::sprite</a></div><div class="ttdoc">Component for loading a sprite sheet and storing its animation frames.</div><div class="ttdef"><b>Definition:</b> sprite.hpp:36</div></div>
-<div class="ttc" id="aclasswte_1_1cmp_1_1gfx_1_1sprite_html_a8e06833aa1fba7824db20dd91effd255"><div class="ttname"><a href="classwte_1_1cmp_1_1gfx_1_1sprite.html#a8e06833aa1fba7824db20dd91effd255">wte::cmp::gfx::sprite::set_cycle</a></div><div class="ttdeci">bool set_cycle(const std::string &amp;name)</div><div class="ttdoc">Set the active cycle.</div><div class="ttdef"><b>Definition:</b> sprite.hpp:119</div></div>
-<div class="ttc" id="aclasswte_1_1cmp_1_1gfx_1_1sprite_html_ac0cd15481459c0e75c8e545d8adab7b7"><div class="ttname"><a href="classwte_1_1cmp_1_1gfx_1_1sprite.html#ac0cd15481459c0e75c8e545d8adab7b7">wte::cmp::gfx::sprite::add_cycle</a></div><div class="ttdeci">bool add_cycle(const std::string &amp;name, const std::size_t &amp;start, const std::size_t &amp;stop)</div><div class="ttdoc">Add animation cycle.</div><div class="ttdef"><b>Definition:</b> sprite.hpp:105</div></div>
-<div class="ttc" id="aclasswte_1_1cmp_1_1gfx_1_1sprite_html_aeb64a701e2566be173fd32996ec3191d"><div class="ttname"><a href="classwte_1_1cmp_1_1gfx_1_1sprite.html#aeb64a701e2566be173fd32996ec3191d">wte::cmp::gfx::sprite::sprite</a></div><div class="ttdeci">sprite(wte_asset&lt; ALLEGRO_BITMAP &gt; bmp, const std::size_t &amp;l, const float &amp;sw, const float &amp;sh, const float &amp;dox, const float &amp;doy, const std::size_t &amp;rt)</div><div class="ttdoc">Create a new Sprite component.</div><div class="ttdef"><b>Definition:</b> sprite.hpp:63</div></div>
-<div class="ttc" id="aclasswte_1_1engine__time_html_a16f0c70ecf5202ee38bcb645d68f5e72"><div class="ttname"><a href="classwte_1_1engine__time.html#a16f0c70ecf5202ee38bcb645d68f5e72">wte::engine_time::check</a></div><div class="ttdeci">static int64_t check(void)</div><div class="ttdoc">Check the internal engine timer.</div><div class="ttdef"><b>Definition:</b> engine_time.hpp:37</div></div>
-<div class="ttc" id="aclasswte_1_1mgr_1_1gfx_1_1renderer_html"><div class="ttname"><a href="classwte_1_1mgr_1_1gfx_1_1renderer.html">wte::mgr::gfx::renderer</a></div><div class="ttdoc">An object that handles drawing the world to the screen.</div><div class="ttdef"><b>Definition:</b> renderer.hpp:61</div></div>
+<div class="ttc" id="aclassslv_1_1cmp_1_1gfx_1_1gfx_html"><div class="ttname"><a href="classslv_1_1cmp_1_1gfx_1_1gfx.html">slv::cmp::gfx::gfx</a></div><div class="ttdoc">Interface class for components that display graphics.</div><div class="ttdef"><b>Definition:</b> gfx.hpp:34</div></div>
+<div class="ttc" id="aclassslv_1_1cmp_1_1gfx_1_1gfx_html_a73af5926b46861292720e8c82713de5b"><div class="ttname"><a href="classslv_1_1cmp_1_1gfx_1_1gfx.html#a73af5926b46861292720e8c82713de5b">slv::cmp::gfx::gfx::_bitmap</a></div><div class="ttdeci">slv_asset&lt; ALLEGRO_BITMAP &gt; _bitmap</div><div class="ttdoc">Stores the bitmap used by the animator.</div><div class="ttdef"><b>Definition:</b> gfx.hpp:61</div></div>
+<div class="ttc" id="aclassslv_1_1cmp_1_1gfx_1_1sprite_html"><div class="ttname"><a href="classslv_1_1cmp_1_1gfx_1_1sprite.html">slv::cmp::gfx::sprite</a></div><div class="ttdoc">Component for loading a sprite sheet and storing its animation frames.</div><div class="ttdef"><b>Definition:</b> sprite.hpp:36</div></div>
+<div class="ttc" id="aclassslv_1_1cmp_1_1gfx_1_1sprite_html_a381d8c68eda8d734e0f151878f52cf54"><div class="ttname"><a href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a381d8c68eda8d734e0f151878f52cf54">slv::cmp::gfx::sprite::add_cycle</a></div><div class="ttdeci">bool add_cycle(const std::string &amp;name, const std::size_t &amp;start, const std::size_t &amp;stop)</div><div class="ttdoc">Add animation cycle.</div><div class="ttdef"><b>Definition:</b> sprite.hpp:105</div></div>
+<div class="ttc" id="aclassslv_1_1cmp_1_1gfx_1_1sprite_html_a598107dbbb8fcb0fe7c4f5e546306a97"><div class="ttname"><a href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a598107dbbb8fcb0fe7c4f5e546306a97">slv::cmp::gfx::sprite::set_cycle</a></div><div class="ttdeci">bool set_cycle(const std::string &amp;name)</div><div class="ttdoc">Set the active cycle.</div><div class="ttdef"><b>Definition:</b> sprite.hpp:119</div></div>
+<div class="ttc" id="aclassslv_1_1cmp_1_1gfx_1_1sprite_html_afe00bdc5236cdec139973ce90a159bf6"><div class="ttname"><a href="classslv_1_1cmp_1_1gfx_1_1sprite.html#afe00bdc5236cdec139973ce90a159bf6">slv::cmp::gfx::sprite::sprite</a></div><div class="ttdeci">sprite(slv_asset&lt; ALLEGRO_BITMAP &gt; bmp, const std::size_t &amp;l, const float &amp;sw, const float &amp;sh, const float &amp;dox, const float &amp;doy, const std::size_t &amp;rt)</div><div class="ttdoc">Create a new Sprite component.</div><div class="ttdef"><b>Definition:</b> sprite.hpp:63</div></div>
+<div class="ttc" id="aclassslv_1_1engine__time_html_a157c8d4993c7e61be0453eb693ec02ae"><div class="ttname"><a href="classslv_1_1engine__time.html#a157c8d4993c7e61be0453eb693ec02ae">slv::engine_time::check</a></div><div class="ttdeci">static int64_t check(void)</div><div class="ttdoc">Check the internal engine timer.</div><div class="ttdef"><b>Definition:</b> engine_time.hpp:37</div></div>
+<div class="ttc" id="aclassslv_1_1mgr_1_1gfx_1_1renderer_html"><div class="ttname"><a href="classslv_1_1mgr_1_1gfx_1_1renderer.html">slv::mgr::gfx::renderer</a></div><div class="ttdoc">An object that handles drawing the world to the screen.</div><div class="ttdef"><b>Definition:</b> renderer.hpp:61</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['name_0',['name',['../classwte_1_1scene.html#a60d393c30f2cc87175effb80d2d00098',1,'wte::scene::name()'],['../classwte_1_1sys_1_1system.html#a5ff92811ae45f90dcb8dabc1f3771093',1,'wte::sys::system::name()']]],
-  ['new_5fentity_1',['new_entity',['../classwte_1_1mgr_1_1world.html#a44c6bc5435d666d97b419daa408f2bc4',1,'wte::mgr::world']]],
-  ['num_5fargs_2',['num_args',['../classwte_1_1message.html#ada0362bc261d875f4e2791b9faedec79',1,'wte::message']]]
+  ['name_0',['name',['../classslv_1_1scene.html#a7aa81b9d2f27c8e7f6886a81c5b9e9a2',1,'slv::scene::name()'],['../classslv_1_1sys_1_1system.html#aa3e0f7b6c7565c88fd94917ce3cc5378',1,'slv::sys::system::name()']]],
+  ['new_5fentity_1',['new_entity',['../classslv_1_1mgr_1_1world.html#a798396cc0387cccd68621b9184dd89f7',1,'slv::mgr::world']]],
+  ['num_5fargs_2',['num_args',['../classslv_1_1message.html#a6d262c1b98a0a57cab8d3153a53981e8',1,'slv::message']]]
 ];

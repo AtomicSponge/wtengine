@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['name_0',['name',['../classwte_1_1scene.html#a60d393c30f2cc87175effb80d2d00098',1,'wte::scene::name()'],['../classwte_1_1sys_1_1system.html#a5ff92811ae45f90dcb8dabc1f3771093',1,'wte::sys::system::name()']]]
+  ['name_0',['name',['../classslv_1_1scene.html#a7aa81b9d2f27c8e7f6886a81c5b9e9a2',1,'slv::scene::name()'],['../classslv_1_1sys_1_1system.html#aa3e0f7b6c7565c88fd94917ce3cc5378',1,'slv::sys::system::name()']]]
 ];

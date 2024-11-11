@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['unload_0',['unload',['../classwte_1_1mgr_1_1assets.html#ab1ccfe80cc892bc2745fce5db2229d9b',1,'wte::mgr::assets']]],
-  ['unpause_1',['unpause',['../structwte_1_1mgr_1_1audio_1_1music_1_1a.html#a2598a3483215e51ab43a384f48365d91',1,'wte::mgr::audio::music::a::unpause()'],['../structwte_1_1mgr_1_1audio_1_1music_1_1b.html#a20d1f4fc85bea041bfe86ba32fd67c52',1,'wte::mgr::audio::music::b::unpause()'],['../structwte_1_1mgr_1_1audio_1_1voice.html#afa46149e53f7fcd8630f47558645e923',1,'wte::mgr::audio::voice::unpause()'],['../structwte_1_1mgr_1_1audio_1_1ambiance.html#aa7d0df1494281da4627ae3e3af1fa6e1',1,'wte::mgr::audio::ambiance::unpause()']]]
+  ['unload_0',['unload',['../classslv_1_1mgr_1_1assets.html#a8299aeb045a54a16e8ed1bce93ac81dd',1,'slv::mgr::assets']]],
+  ['unpause_1',['unpause',['../structslv_1_1mgr_1_1audio_1_1music_1_1a.html#a0f545ca37fa4f095338c12817b34fb26',1,'slv::mgr::audio::music::a::unpause()'],['../structslv_1_1mgr_1_1audio_1_1music_1_1b.html#ae68985fef3db1c6d35e3cb2c0ffba28b',1,'slv::mgr::audio::music::b::unpause()'],['../structslv_1_1mgr_1_1audio_1_1voice.html#aa7edc937d91411892317f795a7e94c20',1,'slv::mgr::audio::voice::unpause()'],['../structslv_1_1mgr_1_1audio_1_1ambiance.html#a835d448136b96e12ad642943f9dcc762',1,'slv::mgr::audio::ambiance::unpause()']]]
 ];

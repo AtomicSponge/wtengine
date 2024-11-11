@@ -1,16 +1,16 @@
 var searchData=
 [
-  ['deinitialize_0',['deinitialize',['../classwte_1_1engine.html#a3e36e7336651764d8203659ad399d002',1,'wte::engine']]],
-  ['del_1',['del',['../classwte_1_1mgr_1_1variables.html#a45d68560a0e18c742b4b4d8ad0ec18e0',1,'wte::mgr::variables']]],
-  ['delete_5fcomponent_2',['delete_component',['../classwte_1_1mgr_1_1world.html#a8ee00e9256e2fd4859cb220cb4b405a0',1,'wte::mgr::world']]],
-  ['delete_5fentity_3',['delete_entity',['../classwte_1_1mgr_1_1world.html#ac3838421bc757938e42302b4da31fe7e',1,'wte::mgr::world']]],
-  ['delta_5ftime_4',['delta_time',['../classwte_1_1mgr_1_1gfx_1_1renderer.html#a50db7b2f16d460571f75f48f6f518532',1,'wte::mgr::gfx::renderer']]],
-  ['direction_5',['direction',['../classwte_1_1cmp_1_1gfx_1_1gfx.html#aae29bb5063530aa751a0abb1ddb93584',1,'wte::cmp::gfx::gfx::direction()'],['../classwte_1_1cmp_1_1motion.html#a1434e834a4ac7842e3a19c4a3bfc3957',1,'wte::cmp::motion::direction()']]],
-  ['dispatcher_6',['dispatcher',['../classwte_1_1cmp_1_1dispatcher.html#a605fa6d6f3953f28591e20cd08985f05',1,'wte::cmp::dispatcher::dispatcher()'],['../classwte_1_1cmp_1_1dispatcher.html',1,'wte::cmp::dispatcher']]],
-  ['display_7',['display',['../classwte_1_1display.html',1,'wte']]],
-  ['display_5fmode_8',['display_mode',['../structwte_1_1config_1_1gfx.html#a1b680a81f3e295f397a5be93fe345907',1,'wte::config::gfx']]],
-  ['do_5fgame_9',['do_game',['../classwte_1_1engine.html#a4fd00eee57d6ac045447085794adf9da',1,'wte::engine']]],
-  ['draw_5ffps_10',['draw_fps',['../structwte_1_1config_1_1flags.html#a5f0b610b2badd1c1b74c054c71b5ed67',1,'wte::config::flags']]],
-  ['draw_5fgui_11',['draw_gui',['../classwte_1_1mgr_1_1gfx_1_1renderer.html#af024e5973b9ea163d6dab270a502dc55',1,'wte::mgr::gfx::renderer']]],
-  ['draw_5ftext_12',['draw_text',['../classwte_1_1cmp_1_1gfx_1_1overlay.html#a2647f18fdd017e0244d40c5084c0c6e8',1,'wte::cmp::gfx::overlay']]]
+  ['deinitialize_0',['deinitialize',['../classslv_1_1engine.html#a49e271b36084cc0880c64bf75b27a88e',1,'slv::engine']]],
+  ['del_1',['del',['../classslv_1_1mgr_1_1variables.html#a42e3150d214ed307ed0e4b17dc0879f4',1,'slv::mgr::variables']]],
+  ['delete_5fcomponent_2',['delete_component',['../classslv_1_1mgr_1_1world.html#a6393d09eb77b154b9248f7a0db767259',1,'slv::mgr::world']]],
+  ['delete_5fentity_3',['delete_entity',['../classslv_1_1mgr_1_1world.html#a83c348487efc23ce901d4b6632edaa55',1,'slv::mgr::world']]],
+  ['delta_5ftime_4',['delta_time',['../classslv_1_1mgr_1_1gfx_1_1renderer.html#ac1dd1a1c5b33f137b6686e01924073c1',1,'slv::mgr::gfx::renderer']]],
+  ['direction_5',['direction',['../classslv_1_1cmp_1_1gfx_1_1gfx.html#a4180ac9e7a0d5e103a629f442c3a71c6',1,'slv::cmp::gfx::gfx::direction()'],['../classslv_1_1cmp_1_1motion.html#ae614ba955a8b0a16fe50e9ea12bcb8d6',1,'slv::cmp::motion::direction()']]],
+  ['dispatcher_6',['dispatcher',['../classslv_1_1cmp_1_1dispatcher.html#af9f506fe2459e4b5ce6ba74136ac69e6',1,'slv::cmp::dispatcher::dispatcher()'],['../classslv_1_1cmp_1_1dispatcher.html',1,'slv::cmp::dispatcher']]],
+  ['display_7',['display',['../classslv_1_1display.html',1,'slv']]],
+  ['display_5fmode_8',['display_mode',['../structslv_1_1config_1_1gfx.html#a86469695cf421f7ec948f7b850b32dd1',1,'slv::config::gfx']]],
+  ['do_5fgame_9',['do_game',['../classslv_1_1engine.html#a4fd00eee57d6ac045447085794adf9da',1,'slv::engine']]],
+  ['draw_5ffps_10',['draw_fps',['../structslv_1_1config_1_1flags.html#a8c9195ac0381550f4dd2ecbdacacd3b8',1,'slv::config::flags']]],
+  ['draw_5fgui_11',['draw_gui',['../classslv_1_1mgr_1_1gfx_1_1renderer.html#a2f66ca0df1088ee12860f91a9faba452',1,'slv::mgr::gfx::renderer']]],
+  ['draw_5ftext_12',['draw_text',['../classslv_1_1cmp_1_1gfx_1_1overlay.html#a82acd936ac6e8c5b2743d32e3d273cdd',1,'slv::cmp::gfx::overlay']]]
 ];

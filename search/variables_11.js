@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['team_0',['team',['../classwte_1_1cmp_1_1hitbox.html#a9a56bcb2bb60b1ac83988cfd19a5ce3a',1,'wte::cmp::hitbox']]],
-  ['touch_5finstalled_1',['touch_installed',['../structwte_1_1config_1_1flags.html#a5becd185b8b4035b329e66b5cd3960d9',1,'wte::config::flags']]]
+  ['team_0',['team',['../classslv_1_1cmp_1_1hitbox.html#a0ac4e877a79f9d7c6db07244586266c6',1,'slv::cmp::hitbox']]],
+  ['touch_5finstalled_1',['touch_installed',['../structslv_1_1config_1_1flags.html#a1bb351f4a20a347215a35b5c81c5d3a2',1,'slv::config::flags']]]
 ];

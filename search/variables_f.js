@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['record_5finput_0',['record_input',['../structwte_1_1config_1_1flags.html#a66135c0224f2b159e0ca8fdc04733314',1,'wte::config::flags']]],
-  ['rotated_1',['rotated',['../classwte_1_1cmp_1_1gfx_1_1gfx.html#ad96461b20536ed3913ee34422aba558d',1,'wte::cmp::gfx::gfx']]]
+  ['record_5finput_0',['record_input',['../structslv_1_1config_1_1flags.html#a7cc1228977ef4164f6346a7a0321b4da',1,'slv::config::flags']]],
+  ['rotated_1',['rotated',['../classslv_1_1cmp_1_1gfx_1_1gfx.html#a6b4bee0177b73cbc6daacb91072cdefd',1,'slv::cmp::gfx::gfx']]]
 ];

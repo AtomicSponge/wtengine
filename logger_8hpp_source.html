@@ -83,8 +83,8 @@ $(function() {
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * See LICENSE.md for copyright information.</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#if !defined(WTE_LOGGER_HPP)</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define WTE_LOGGER_HPP</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#if !defined(SLV_LOGGER_HPP)</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define SLV_LOGGER_HPP</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;fstream&gt;</span></div>
@@ -99,16 +99,16 @@ $(function() {
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;mutex&gt;</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;chrono&gt;</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span>wte {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span>slv {</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">class </span>engine;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classwte_1_1logger.html">   32</a></span><span class="keyword">class </span><a class="code hl_class" href="classwte_1_1logger.html">logger</a> final {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classwte_1_1engine.html">engine</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classslv_1_1logger.html">   32</a></span><span class="keyword">class </span><a class="code hl_class" href="classslv_1_1logger.html">logger</a> final {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classslv_1_1engine.html">engine</a>;</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_class" href="classwte_1_1logger.html">logger</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_class" href="classwte_1_1logger.html">~logger</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_class" href="classslv_1_1logger.html">logger</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_class" href="classslv_1_1logger.html">~logger</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> start(<span class="keywordtype">void</span>) {</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>      std::time_t t = std::time(<span class="keyword">nullptr</span>);</div>
@@ -127,22 +127,22 @@ $(function() {
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">inline</span> <span class="keyword">static</span> std::ofstream log_file;</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_class" href="classwte_1_1logger.html">logger</a>(<span class="keyword">const</span> <a class="code hl_class" href="classwte_1_1logger.html">logger</a>&amp;) = <span class="keyword">delete</span>;          <span class="comment">//  Delete copy constructor.</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">void</span> operator=(<a class="code hl_class" href="classwte_1_1logger.html">logger</a> <span class="keyword">const</span>&amp;) = <span class="keyword">delete</span>;  <span class="comment">//  Delete assignment operator.</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_class" href="classslv_1_1logger.html">logger</a>(<span class="keyword">const</span> <a class="code hl_class" href="classslv_1_1logger.html">logger</a>&amp;) = <span class="keyword">delete</span>;          <span class="comment">//  Delete copy constructor.</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">void</span> operator=(<a class="code hl_class" href="classslv_1_1logger.html">logger</a> <span class="keyword">const</span>&amp;) = <span class="keyword">delete</span>;  <span class="comment">//  Delete assignment operator.</span></div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="classwte_1_1logger.html#a69d999c0a8cc3d5d81bcf4c4fa2f6eb5">   66</a></span>    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classwte_1_1logger.html#a69d999c0a8cc3d5d81bcf4c4fa2f6eb5">log</a>(</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="classslv_1_1logger.html#a981cd15a68887a64f2f6c2ed58cd86fa">   66</a></span>    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classslv_1_1logger.html#a981cd15a68887a64f2f6c2ed58cd86fa">log</a>(</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>      <span class="keyword">const</span> std::string&amp; d, <span class="keyword">const</span> std::string&amp; l,</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>      <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>&amp; c, <span class="keyword">const</span> int64_t&amp; t) {</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>      log_file &lt;&lt; d + <span class="stringliteral">&quot;, &quot;</span> + l + <span class="stringliteral">&quot;, &quot;</span> + std::to_string(c) + <span class="stringliteral">&quot;, &quot;</span> + std::to_string(t) + <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    };</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>};</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}  <span class="comment">//  end namespace wte</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#endif  </span><span class="comment">//  WTE_LOGGER_HPP</span></div>
-<div class="ttc" id="aclasswte_1_1engine_html"><div class="ttname"><a href="classwte_1_1engine.html">wte::engine</a></div><div class="ttdoc">The main engine class.</div><div class="ttdef"><b>Definition:</b> engine.hpp:57</div></div>
-<div class="ttc" id="aclasswte_1_1logger_html"><div class="ttname"><a href="classwte_1_1logger.html">wte::logger</a></div><div class="ttdoc">Logs exceptions to file. This option is built when the engine is in debug mode.</div><div class="ttdef"><b>Definition:</b> logger.hpp:32</div></div>
-<div class="ttc" id="aclasswte_1_1logger_html_a69d999c0a8cc3d5d81bcf4c4fa2f6eb5"><div class="ttname"><a href="classwte_1_1logger.html#a69d999c0a8cc3d5d81bcf4c4fa2f6eb5">wte::logger::log</a></div><div class="ttdeci">static const void log(const std::string &amp;d, const std::string &amp;l, const unsigned int &amp;c, const int64_t &amp;t)</div><div class="ttdoc">Add exception information to the logger.</div><div class="ttdef"><b>Definition:</b> logger.hpp:66</div></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aclassslv_1_1engine_html"><div class="ttname"><a href="classslv_1_1engine.html">slv::engine</a></div><div class="ttdoc">The main engine class.</div><div class="ttdef"><b>Definition:</b> engine.hpp:57</div></div>
+<div class="ttc" id="aclassslv_1_1logger_html"><div class="ttname"><a href="classslv_1_1logger.html">slv::logger</a></div><div class="ttdoc">Logs exceptions to file. This option is built when the engine is in debug mode.</div><div class="ttdef"><b>Definition:</b> logger.hpp:32</div></div>
+<div class="ttc" id="aclassslv_1_1logger_html_a981cd15a68887a64f2f6c2ed58cd86fa"><div class="ttname"><a href="classslv_1_1logger.html#a981cd15a68887a64f2f6c2ed58cd86fa">slv::logger::log</a></div><div class="ttdeci">static const void log(const std::string &amp;d, const std::string &amp;l, const unsigned int &amp;c, const int64_t &amp;t)</div><div class="ttdoc">Add exception information to the logger.</div><div class="ttdef"><b>Definition:</b> logger.hpp:66</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

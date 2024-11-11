@@ -83,15 +83,15 @@ $(function() {
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * See LICENSE.md for copyright information.</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#if !defined(WTE_ENGINE_TIME_HPP)</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define WTE_ENGINE_TIME_HPP</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#if !defined(SLV_ENGINE_TIME_HPP)</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define SLV_ENGINE_TIME_HPP</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>wte {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>slv {</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classwte_1_1engine__time.html">   19</a></span><span class="keyword">class </span><a class="code hl_class" href="classwte_1_1engine__time.html">engine_time</a> final {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classwte_1_1engine.html">engine</a>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classslv_1_1engine__time.html">   19</a></span><span class="keyword">class </span><a class="code hl_class" href="classslv_1_1engine__time.html">engine_time</a> final {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classslv_1_1engine.html">engine</a>;</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="comment">//  Sets the internal timer. Called internally by engine.</span></div>
@@ -99,20 +99,20 @@ $(function() {
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">inline</span> <span class="keyword">static</span> int64_t current_time = 0;  <span class="comment">//  Track game timer</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_class" href="classwte_1_1engine__time.html">engine_time</a>() = <span class="keyword">delete</span>;                       <span class="comment">//  Delete constructor.</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_class" href="classwte_1_1engine__time.html">~engine_time</a>() = <span class="keyword">delete</span>;                      <span class="comment">//  Delete destructor.</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_class" href="classwte_1_1engine__time.html">engine_time</a>(<span class="keyword">const</span> <a class="code hl_class" href="classwte_1_1engine__time.html">engine_time</a>&amp;) = <span class="keyword">delete</span>;     <span class="comment">//  Delete copy constructor.</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">void</span> operator=(<a class="code hl_class" href="classwte_1_1engine__time.html">engine_time</a> <span class="keyword">const</span>&amp;) = <span class="keyword">delete</span>;  <span class="comment">//  Delete assignment operator.</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_class" href="classslv_1_1engine__time.html">engine_time</a>() = <span class="keyword">delete</span>;                       <span class="comment">//  Delete constructor.</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_class" href="classslv_1_1engine__time.html">~engine_time</a>() = <span class="keyword">delete</span>;                      <span class="comment">//  Delete destructor.</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_class" href="classslv_1_1engine__time.html">engine_time</a>(<span class="keyword">const</span> <a class="code hl_class" href="classslv_1_1engine__time.html">engine_time</a>&amp;) = <span class="keyword">delete</span>;     <span class="comment">//  Delete copy constructor.</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">void</span> operator=(<a class="code hl_class" href="classslv_1_1engine__time.html">engine_time</a> <span class="keyword">const</span>&amp;) = <span class="keyword">delete</span>;  <span class="comment">//  Delete assignment operator.</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classwte_1_1engine__time.html#a16f0c70ecf5202ee38bcb645d68f5e72">   37</a></span>    <span class="keyword">static</span> int64_t <a class="code hl_function" href="classwte_1_1engine__time.html#a16f0c70ecf5202ee38bcb645d68f5e72">check</a>(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> current_time; };</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classslv_1_1engine__time.html#a157c8d4993c7e61be0453eb693ec02ae">   37</a></span>    <span class="keyword">static</span> int64_t <a class="code hl_function" href="classslv_1_1engine__time.html#a157c8d4993c7e61be0453eb693ec02ae">check</a>(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span> current_time; };</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>};</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}  <span class="comment">//  end namespace wte</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aclasswte_1_1engine__time_html"><div class="ttname"><a href="classwte_1_1engine__time.html">wte::engine_time</a></div><div class="ttdoc">Tracks current time of the engine.</div><div class="ttdef"><b>Definition:</b> engine_time.hpp:19</div></div>
-<div class="ttc" id="aclasswte_1_1engine__time_html_a16f0c70ecf5202ee38bcb645d68f5e72"><div class="ttname"><a href="classwte_1_1engine__time.html#a16f0c70ecf5202ee38bcb645d68f5e72">wte::engine_time::check</a></div><div class="ttdeci">static int64_t check(void)</div><div class="ttdoc">Check the internal engine timer.</div><div class="ttdef"><b>Definition:</b> engine_time.hpp:37</div></div>
-<div class="ttc" id="aclasswte_1_1engine_html"><div class="ttname"><a href="classwte_1_1engine.html">wte::engine</a></div><div class="ttdoc">The main engine class.</div><div class="ttdef"><b>Definition:</b> engine.hpp:57</div></div>
+<div class="ttc" id="aclassslv_1_1engine__time_html"><div class="ttname"><a href="classslv_1_1engine__time.html">slv::engine_time</a></div><div class="ttdoc">Tracks current time of the engine.</div><div class="ttdef"><b>Definition:</b> engine_time.hpp:19</div></div>
+<div class="ttc" id="aclassslv_1_1engine__time_html_a157c8d4993c7e61be0453eb693ec02ae"><div class="ttname"><a href="classslv_1_1engine__time.html#a157c8d4993c7e61be0453eb693ec02ae">slv::engine_time::check</a></div><div class="ttdeci">static int64_t check(void)</div><div class="ttdoc">Check the internal engine timer.</div><div class="ttdef"><b>Definition:</b> engine_time.hpp:37</div></div>
+<div class="ttc" id="aclassslv_1_1engine_html"><div class="ttname"><a href="classslv_1_1engine.html">slv::engine</a></div><div class="ttdoc">The main engine class.</div><div class="ttdef"><b>Definition:</b> engine.hpp:57</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

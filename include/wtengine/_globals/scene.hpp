@@ -10,6 +10,8 @@
 
 #include <string>
 
+#include "wtengine/_globals/handlers.hpp"
+
 namespace wte {
 
 /*!
@@ -22,7 +24,10 @@ class scene {
      * \brief
      * \param n Scene name.
      */
-    scene(const std::string& name, const std::size_t& scope) : name(name), scope(scope) {};
+    scene(const std::string& name, const std::size_t& scope) : name(name), scope(scope) {
+      assert(scope == SCOPE_A || scope == SCOPE_B || scope == SCOPE_C &&
+        "Scope must be one of the following: SCOPE_A, SCOPE_B, SCOPE_C");
+    };
 
   public:
     virtual ~scene() = default;             //  Default virtual destructor.
@@ -50,7 +55,7 @@ class scene {
     virtual void loop(void) {};
 
     const std::string name;   //!<  Scene name.
-    const std::size_t scope;  //!<  Scene scope.
+    const std::size_t scope;  //!<  Scene handler scope.
 };
 
 }  //  end namespace wte

@@ -1,50 +1,45 @@
-# WTEngine Tools
+# Silvergun Game Engine Tools
 
-Toolkit for [WTEngine](https://github.com/wtfsystems/wtengine)
+Toolkit for [Silvergun](https://github.com/AtomicSponge/silvergun)
 
-Requires [NodeJS](https://nodejs.org/) to install and run
-
-Install per-project as a dev-dependency:
-```
-npm i -D @spongex/wtengine-tools
-```
+Requires [NodeJS](https://nodejs.org/) to install and run.
 
 -----
 
-# wte-config
+# slv-config
 
 Configure a project for building
 
 ## Usage
 
 ```
-npx wte-config
+npx slv-config
 ```
 
 -----
 
-# wte-mkscript
+# slv-mkscript
 
-Convert csv, json or (wip) yml files to WTEngine scripts
+Convert csv, json or (wip) yml files to Silvergun Engine scripts
 
 ## Usage
 
 ```
-npx wte-mkscript <inFile> [outFile]
+npx slv-mkscript <inFile> [outFile]
 ```
 
 Output file can be left blank.  The script will use `inFile.sdf` automatically.
 
 -----
 
-# wte-syscheck
+# slv-syscheck
 
 Checks your system for necessary tools
 
 ## Usage
 
 ```
-npx wte-syscheck
+npx slv-syscheck
 ```
 
 # Changelog

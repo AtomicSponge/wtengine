@@ -1,12 +1,13 @@
 {
-  "name": "@wtfsystems/wtengine-tools",
+  "name": "silvergun-tools",
   "version": "0.2.2",
   "description": "WTEngine Development Tools",
   "author": "Matthew Evans",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wtfsystems/wtengine-tools.git"
+    "url": "git+https://github.com/AtomicSponge/silvergun.git",
+    "directory": "tools"
   },
   "keywords": [
     "engine",
@@ -15,19 +16,19 @@
     "tools",
     "scripts"
   ],
-  "url": "https://www.npmjs.com/package/@wtfsystems/wtengine-tools",
-  "homepage": "https://github.com/wtfsystems/wtengine-tools#readme",
+  "url": "https://github.com/AtomicSponge/silvergun",
+  "homepage": "https://github.com/AtomicSponge/silvergun#readme",
   "bugs": {
-    "url": "https://github.com/wtfsystems/wtengine-tools/issues"
+    "url": "https://github.com/AtomicSponge/silvergun/issues"
   },
   "scripts": {
     "build": "tsup",
     "prepublishOnly": "npm run build"
   },
   "bin": {
-    "wte-config": "dist/wte-config.js",
-    "wte-mkscript": "dist/wte-mkscript.js",
-    "wte-syscheck": "dist/wte-syscheck.js"
+    "wte-config": "dist/slv-config.js",
+    "wte-mkscript": "dist/slv-mkscript.js",
+    "wte-syscheck": "dist/slv-syscheck.js"
   },
   "type": "module",
   "files": [

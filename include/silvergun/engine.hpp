@@ -222,6 +222,7 @@ class engine final : public config, public input, public display {
       mgr::gfx::renderer::initialize();
       std::cout << "OK!\n";
 
+      //  Engine (system) commands
       cmds.add("load-script", 1, [](const msg_args& args) {
         mgr::messages::load_script(args[0]);
       });

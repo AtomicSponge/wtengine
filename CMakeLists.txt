@@ -15,7 +15,7 @@
 ########################################
 #  Configure build project
 cmake_minimum_required(VERSION 3.11)
-project(silvergun VERSION 0.7.3 DESCRIPTION "Silvergun Game Engine")
+project(silvergun VERSION 0.8.0 DESCRIPTION "Silvergun Game Engine")
 enable_language(CXX)
 
 #  Always build release

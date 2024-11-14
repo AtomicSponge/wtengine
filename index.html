@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Silvergun Game Engine: Main Page</title>
+<title>Silvergun Game Engine: Silvergun Game Engine</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,10 +68,39 @@ $(function() {
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">Silvergun Game Engine Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">Silvergun Game Engine </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md_README"></a> <b>Silvergun</b> is a lightweight cross-platform game engine written in C++17 using an <a href="https://en.wikipedia.org/wiki/Entity_component_system">ECS</a> design.</p>
+<h2><a class="anchor" id="autotoc_md1"></a>
+Requirements</h2>
+<ul>
+<li><b>Build tools</b>:<ul>
+<li>A working C++ build environment with <a href="https://cmake.org">CMake</a></li>
+</ul>
+</li>
+<li><b>Libraries</b>:<ul>
+<li><a href="https://liballeg.org">Allegro Game Library</a></li>
+<li><a href="https://www.opengl.org">OpenGL</a> *(2d only)*</li>
+</ul>
+</li>
+</ul>
+<hr  />
+<h1><a class="anchor" id="autotoc_md3"></a>
+Library Installation</h1>
+<p>Installation is handled by <a href="https://cmake.org/">CMake</a>. To download and prepare the library for installation run: </p><div class="fragment"><div class="line">git clone https://github.com/AtomicSponge/silvergun.git</div>
+<div class="line">cd silvergun</div>
+<div class="line">mkdir build</div>
+<div class="line">cd build</div>
+<div class="line">cmake ..</div>
+<div class="line">cd ..</div>
+</div><!-- fragment --><p>Then to install the library run: </p><div class="fragment"><div class="line">sudo cmake --build build --target install --config Build</div>
+</div><!-- fragment --><hr  />
+<h1><a class="anchor" id="autotoc_md5"></a>
+Demo Game</h1>
+<p><a href="https://github.com/AtomicSponge/slv-demo-01">https://github.com/AtomicSponge/slv-demo-01</a> </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

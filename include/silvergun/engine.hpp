@@ -226,6 +226,15 @@ class engine final : public config, public input, public display {
       cmds.add("load-script", 1, [](const msg_args& args) {
         mgr::messages::load_script(args[0]);
       });
+      cmds.add("load-scene", 1, [](const msg_args& args) {
+        engine::load_scene(args[0]);
+      });
+      cmds.add("enable-input", 0, [](const msg_args& args) {
+        config::flags::input_enabled = true;
+      });
+      cmds.add("disable-input", 0, [](const msg_args& args) {
+        config::flags::input_enabled = false;
+      });
 
       if constexpr (build_options.debug_mode) {
         std::cout << "DEBUG MODE --- LOGGING ENABLED\n";

@@ -118,6 +118,8 @@ class engine final : public config, public input, public display {
 
       //  Render the screen.
       mgr::gfx::renderer::render();
+      //  Process system messages
+      cmds.process_messages(mgr::messages::get("system"));
       //  Send audio messages to the audio queue.
       mgr::audio::process_messages(mgr::messages::get("audio"));
       //  Delete unprocessed messages.
@@ -127,6 +129,9 @@ class engine final : public config, public input, public display {
     //  Scenes
     inline static std::vector<std::shared_ptr<scene>> scenes;
     inline static std::shared_ptr<scene> current_scene = nullptr;
+
+    //  Engine commands
+    inline static commands cmds;
 
     //  Allegro objects used by the engine.
     inline static ALLEGRO_TIMER* main_timer = NULL;
@@ -216,6 +221,10 @@ class engine final : public config, public input, public display {
       mgr::gfx::renderer::set_viewport_size(width, height);
       mgr::gfx::renderer::initialize();
       std::cout << "OK!\n";
+
+      cmds.add("load-script", 1, [](const msg_args& args) {
+        mgr::messages::load_script(args[0]);
+      });
 
       if constexpr (build_options.debug_mode) {
         std::cout << "DEBUG MODE --- LOGGING ENABLED\n";

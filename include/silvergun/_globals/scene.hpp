@@ -47,11 +47,6 @@ class scene {
     /*!
      * \brief
      */
-    virtual void handlers(void) {};
-
-    /*!
-     * \brief
-     */
     virtual void loop(void) {};
 
     const std::string name;   //!<  Scene name.

@@ -316,7 +316,7 @@ class audio final : private manager<audio> {
          * \param audio Audio asset.
          */
         static void play(slv_asset<ALLEGRO_AUDIO_STREAM> audio) {
-          music::a::stop();
+          //music::a::stop();
           music_stream_a = audio;
           al_attach_audio_stream_to_mixer(music_stream_a.get(), _mixer_1_a);
           al_set_audio_stream_playmode(music_stream_a.get(), ALLEGRO_PLAYMODE_LOOP);

@@ -76,46 +76,8 @@ class messages final : private manager<messages> {
               break;
             } catch (...) { break; }
           }
-        }  //  End double for
-      }
-    };
-
-    /*
-     * Load a new data file into the message queue.
-     * This is called when a new game is created.
-     * Events are placed in order according to the timer value.
-     */
-    static void load_file(const std::string& fname) {
-      _messages.clear();
-      //  Open data file - read binary mode.
-      ALLEGRO_FILE* file;
-      file = al_fopen(fname.c_str(), "rb");
-      //  File not found, error.
-      if (!file) {
-        al_fclose(file);
-        throw engine_error("Can not load game data!");
-      }
-
-      //  Loop through the entire data file loading into the queue.
-      while (true) {
-        if (al_feof(file)) break;  //  End loop if eof.
-
-        int64_t timer = -1;
-        std::string sys, to, from, cmd, args;
-
-        try{
-          //  Read the message from file.
-          read(*file, timer, sys, to, from, cmd, args);
-          //  Add message to queue.  Ignore incomplete messages.
-          if (sys != "" && cmd != "") _messages.push_back(message(timer, sys, to, from, cmd, args));
-        } catch (const std::exception& e) {
-          throw engine_error("Unable to read game data file!");
         }
       }
-      al_fclose(file);
-
-      //  Sort the queue so timed events are in order first to last.
-      std::sort(_messages.begin(), _messages.end());
     };
 
     /*

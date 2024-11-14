@@ -249,9 +249,9 @@ class engine final : public config, public input, public display {
     static void deinitialize(void) {
       std::cout << "\nStopping silvergun...\n";
 
-      config::_flags::is_running = false;
-
       current_scene->unload();
+      
+      config::_flags::is_running = false;
 
       mgr::world::clear();
       mgr::audio::de_init();

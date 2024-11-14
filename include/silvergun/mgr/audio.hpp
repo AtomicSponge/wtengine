@@ -191,7 +191,7 @@ class audio final : private manager<audio> {
     };
 
     //  Destroies the Allegro objects used by the manager.
-    static void de_init(void) {
+    static void deinitialize(void) {
       audio::sample::clear_instances();
 
       //  Unload all mixers.

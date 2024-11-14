@@ -254,8 +254,8 @@ class engine final : public config, public input, public display {
       config::_flags::is_running = false;
 
       mgr::world::clear();
-      mgr::audio::de_init();
-      mgr::gfx::renderer::de_init();
+      mgr::audio::deinitialize();
+      mgr::gfx::renderer::deinitialize();
       mgr::assets::clear_al_objects();
 
       std::cout << "Cleaning up engine objects... ";

@@ -88,7 +88,7 @@ class renderer final : private manager<renderer> {
     };
     
     //  Destories the internal objects.
-    static void de_init(void) {
+    static void deinitialize(void) {
       viewport_bitmap.reset();
       renderer_font.reset();
       al_destroy_event_queue(fps_event_queue);

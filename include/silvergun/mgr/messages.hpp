@@ -71,10 +71,11 @@ class messages final : private manager<messages> {
                 c_it.second->handle_msg(c_it.first, m_it);
                 break;  //  Found, stop checking dispatch components.
               }
-            } catch(const std::exception& e) {
+            } catch (...) { break; }
+            /*catch(const std::exception& e) {
               throw e;
               break;
-            } catch (...) { break; }
+            } catch (...) { break; }*/
           }
         }
       }

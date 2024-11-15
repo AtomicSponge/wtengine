@@ -14,11 +14,6 @@
 #include <sstream>
 #include <iomanip>
 #include <ctime>
-#include <stack>
-#include <tuple>
-#include <thread>
-#include <future>
-#include <mutex>
 #include <chrono>
 
 namespace slv {

@@ -305,6 +305,7 @@ class engine final : public config, public input, public display {
     static void load_scene(const std::string& name) {
       if (current_scene != nullptr) current_scene->unload();
       mgr::world::clear();
+      mgr::messages::clear();
 
       const auto find_scene = [name](const std::shared_ptr<scene>& s) { return s->name == name; };
       if (auto it = std::find_if(scenes.begin(), scenes.end(), find_scene); it != scenes.end()) {

@@ -114,6 +114,7 @@ class engine final : public config, public input, public display {
         }
       }
 
+      //  Run any custom scene code
       current_scene->loop();
 
       //  Render the screen.

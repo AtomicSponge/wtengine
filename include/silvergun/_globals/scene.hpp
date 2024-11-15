@@ -21,11 +21,12 @@ namespace slv {
 class scene {
   protected:
     /*!
-     * \brief
+     * \brief Construct a new scene.
      * \param n Scene name.
+     * \param s Scene scope.
      */
-    scene(const std::string& name, const std::size_t& scope) : name(name), scope(scope) {
-      assert(scope == SCOPE_A || scope == SCOPE_B || scope == SCOPE_C &&
+    scene(const std::string& n, const std::size_t& s) : name(n), scope(s) {
+      assert(s == SCOPE_A || s == SCOPE_B || s == SCOPE_C &&
         "Scope must be one of the following: SCOPE_A, SCOPE_B, SCOPE_C");
     };
 
@@ -35,17 +36,17 @@ class scene {
     void operator=(scene const&) = delete;  //  Delete assignment operator.
 
     /*!
-     * \brief
+     * \brief Load the scene.
      */
     virtual void load(void) {};
 
     /*!
-     * \brief
+     * \brief Unload the scene.
      */
     virtual void unload(void) {};
 
     /*!
-     * \brief
+     * \brief Custom engine loop code.
      */
     virtual void loop(void) {};
 

@@ -306,7 +306,7 @@ class engine final : public config, public input, public display {
       if (current_scene != nullptr) current_scene->unload();
       mgr::world::clear();
 
-      auto find_scene = [name](const auto& s) { return s->name == name; };
+      const auto find_scene = [name](const auto& s) { return s->name == name; };
       if (auto it = std::find_if(scenes.begin(), scenes.end(), find_scene); it != scenes.end()) {
         current_scene = *it;
       } else {

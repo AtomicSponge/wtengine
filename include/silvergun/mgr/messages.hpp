@@ -71,7 +71,7 @@ class messages final : private manager<messages> {
                 c_it.second->handle_msg(c_it.first, m_it);
                 break;  //  Found, stop checking dispatch components.
               }
-            } catch (...) {} //  Entity not found, just continue.
+            } catch (...) { break; }  //  Entity not found, just continue.
           }
         }
       }

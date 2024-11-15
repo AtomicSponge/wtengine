@@ -23,7 +23,7 @@ class scene {
     /*!
      * \brief Construct a new scene.
      * \param n Scene name.
-     * \param s Scene scope.
+     * \param s Scene handler scope.
      */
     scene(const std::string& n, const std::size_t& s) : name(n), scope(s) {
       assert(s == SCOPE_A || s == SCOPE_B || s == SCOPE_C &&

@@ -97,12 +97,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a cla
 <tr class="separator:afa69f32a2fa6a94ddd1321dec09675b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaca92fe71e97caac8acf80f6025b41b1"><td class="memItemLeft" align="right" valign="top"><a id="aaca92fe71e97caac8acf80f6025b41b1" name="aaca92fe71e97caac8acf80f6025b41b1"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>load</b> (void)</td></tr>
+<tr class="memdesc:aaca92fe71e97caac8acf80f6025b41b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the scene. <br /></td></tr>
 <tr class="separator:aaca92fe71e97caac8acf80f6025b41b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2f62fd91d56d6c36786455ffe9016fa"><td class="memItemLeft" align="right" valign="top"><a id="aa2f62fd91d56d6c36786455ffe9016fa" name="aa2f62fd91d56d6c36786455ffe9016fa"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>unload</b> (void)</td></tr>
+<tr class="memdesc:aa2f62fd91d56d6c36786455ffe9016fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unload the scene. <br /></td></tr>
 <tr class="separator:aa2f62fd91d56d6c36786455ffe9016fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a328c4707dfdfc8d0120507b7d4f4df6a"><td class="memItemLeft" align="right" valign="top"><a id="a328c4707dfdfc8d0120507b7d4f4df6a" name="a328c4707dfdfc8d0120507b7d4f4df6a"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>loop</b> (void)</td></tr>
+<tr class="memdesc:a328c4707dfdfc8d0120507b7d4f4df6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Custom engine loop code. <br /></td></tr>
 <tr class="separator:a328c4707dfdfc8d0120507b7d4f4df6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -118,14 +121,15 @@ const std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>scope</b
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:aa9f7ea3520edfb5ca1ce186cdd5d0577"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classslv_1_1scene.html#aa9f7ea3520edfb5ca1ce186cdd5d0577">scene</a> (const std::string &amp;<a class="el" href="classslv_1_1scene.html#a7aa81b9d2f27c8e7f6886a81c5b9e9a2">name</a>, const std::size_t &amp;<a class="el" href="classslv_1_1scene.html#aa10a1cf305856fddaf4e81ba3b278dda">scope</a>)</td></tr>
-<tr class="separator:aa9f7ea3520edfb5ca1ce186cdd5d0577"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a611895d477f39e77715c910c497af4ec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classslv_1_1scene.html#a611895d477f39e77715c910c497af4ec">scene</a> (const std::string &amp;n, const std::size_t &amp;s)</td></tr>
+<tr class="memdesc:a611895d477f39e77715c910c497af4ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new scene.  <br /></td></tr>
+<tr class="separator:a611895d477f39e77715c910c497af4ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Extend this to create a scene. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa9f7ea3520edfb5ca1ce186cdd5d0577" name="aa9f7ea3520edfb5ca1ce186cdd5d0577"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9f7ea3520edfb5ca1ce186cdd5d0577">&#9670;&#160;</a></span>scene()</h2>
+<a id="a611895d477f39e77715c910c497af4ec" name="a611895d477f39e77715c910c497af4ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a611895d477f39e77715c910c497af4ec">&#9670;&#160;</a></span>scene()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -137,13 +141,13 @@ Protected Member Functions</h2></td></tr>
           <td class="memname">slv::scene::scene </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramname"><em>n</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::size_t &amp;&#160;</td>
-          <td class="paramname"><em>scope</em>&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -157,9 +161,12 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Construct a new scene. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">n</td><td>Scene name. </td></tr>
+    <tr><td class="paramname">s</td><td>Scene scope. </td></tr>
   </table>
   </dd>
 </dl>

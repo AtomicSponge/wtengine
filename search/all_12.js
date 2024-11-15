@@ -5,7 +5,7 @@ var searchData=
   ['scale_5ffactor_2',['scale_factor',['../structslv_1_1config_1_1gfx.html#af0b3e722dd5f5948e1958f2ec5bab4b6',1,'slv::config::gfx']]],
   ['scale_5ffactor_5fx_3',['scale_factor_x',['../classslv_1_1cmp_1_1gfx_1_1gfx.html#a8447d78ee6c7642818ae8c732d01a039',1,'slv::cmp::gfx::gfx']]],
   ['scale_5ffactor_5fy_4',['scale_factor_y',['../classslv_1_1cmp_1_1gfx_1_1gfx.html#afc810062957738fce44ad4430fa41d38',1,'slv::cmp::gfx::gfx']]],
-  ['scene_5',['scene',['../classslv_1_1scene.html#aa9f7ea3520edfb5ca1ce186cdd5d0577',1,'slv::scene::scene()'],['../classslv_1_1scene.html',1,'slv::scene']]],
+  ['scene_5',['scene',['../classslv_1_1scene.html#a611895d477f39e77715c910c497af4ec',1,'slv::scene::scene()'],['../classslv_1_1scene.html',1,'slv::scene']]],
   ['scope_6',['scope',['../classslv_1_1scene.html#aa10a1cf305856fddaf4e81ba3b278dda',1,'slv::scene']]],
   ['screen_5fh_7',['screen_h',['../structslv_1_1config_1_1gfx.html#a5b548ceac6ce8a9710f773823d32db6d',1,'slv::config::gfx']]],
   ['screen_5fw_8',['screen_w',['../structslv_1_1config_1_1gfx.html#ac152c50cd3d99cfd129a161d986d10e5',1,'slv::config::gfx']]],

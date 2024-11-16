@@ -38,10 +38,7 @@ class sprite final : public gfx {
 
   private:
     //  Animation cycle index.
-    std::map<
-      const std::string,
-      const std::pair<const std::size_t, const std::size_t>
-    > cycles;
+    std::map<const std::string, const std::pair<const std::size_t, const std::size_t>> cycles;
 
     float sprite_width, sprite_height;      //  Sprite width & height.
     float draw_offset_x, draw_offset_y;     //  Sprite draw offset x/y.

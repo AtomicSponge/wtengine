@@ -24,7 +24,7 @@
 #include "silvergun/mgr/world.hpp"
 
 namespace slv::mgr::gfx {
-    class renderer;
+  class renderer;
 }
 
 namespace slv::cmp::gfx {

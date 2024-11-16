@@ -30,10 +30,8 @@ class colision final : public system {
 
       for (auto& it_a: hitbox_components) {
         for (auto& it_b: hitbox_components) {
-          cmp::const_comp_ptr<cmp::location> temp_location_a =
-            mgr::world::get_component<cmp::location>(it_a.first);
-          cmp::const_comp_ptr<cmp::location> temp_location_b =
-            mgr::world::get_component<cmp::location>(it_b.first);
+          cmp::const_comp_ptr<cmp::location> temp_location_a = mgr::world::get_component<cmp::location>(it_a.first);
+          cmp::const_comp_ptr<cmp::location> temp_location_b = mgr::world::get_component<cmp::location>(it_b.first);
 
           /*
           * Only test if:  Not the same entity.
@@ -55,11 +53,7 @@ class colision final : public system {
               //  Send a message that two entities colided.
               //  Each entity will get a colision message.
               //  Ex:  A hit B, B hit A.
-              mgr::messages::add(
-                message("entities",
-                        mgr::world::get_name(it_a.first),
-                        mgr::world::get_name(it_b.first),
-                        "colision", "")
+              mgr::messages::add(message("entities", mgr::world::get_name(it_a.first), mgr::world::get_name(it_b.first), "colision", "")
               );
             }
           } //  End skip self check

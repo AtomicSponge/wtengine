@@ -11,12 +11,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_opengl.h>
 
-#include <cmath>
 #include <string>
-#include <map>
-#include <tuple>
-#include <utility>
-#include <type_traits>
 
 #include "silvergun/_debug/exceptions.hpp"
 #include "silvergun/_globals/_defines.hpp"
@@ -129,8 +124,7 @@ class display {
         (build_options.opengl_latest ?
           al_set_new_display_flags(ALLEGRO_OPENGL_3_0 | ALLEGRO_WINDOWED):
           al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_WINDOWED));
-        _display = al_create_display(config::gfx::screen_w,
-                                    config::gfx::screen_h);
+        _display = al_create_display(config::gfx::screen_w, config::gfx::screen_h);
         if (!_display) throw engine_error("Failed to configure display!");
         config::_gfx::display_mode = 0;
         config::_gfx::scale_factor = 1.0f;
@@ -155,11 +149,11 @@ class display {
       al_destroy_display(_display);
     };
 
+    //  Title for application window.
+    inline static std::string window_title = "Silvergun Game Engine";
+    inline static bool initialized = false;  //  Restrict to one instance.
 
-    inline static std::string window_title = "Silvergun Game Engine";  //  Title for application window.
-    inline static bool initialized = false;               //  Restrict to one instance.
-
-    inline static ALLEGRO_DISPLAY* _display;   //  Allegro object for the display.
+    inline static ALLEGRO_DISPLAY* _display;  //  Allegro object for the display.
 };
 
 }

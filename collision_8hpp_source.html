@@ -101,47 +101,41 @@ $(function() {
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; it_a: hitbox_components) {</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; it_b: hitbox_components) {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>          cmp::const_comp_ptr&lt;cmp::location&gt; temp_location_a =</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            mgr::world::get_component&lt;cmp::location&gt;(it_a.first);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>          cmp::const_comp_ptr&lt;cmp::location&gt; temp_location_b =</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            mgr::world::get_component&lt;cmp::location&gt;(it_b.first);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>          <span class="comment">/*</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">          * Only test if:  Not the same entity.</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">          *                Entities are on different teams.</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">          *                Both entities are solid.</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">          */</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>          <span class="keywordflow">if</span> (</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            it_a.first != it_b.first &amp;&amp;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            it_a.second-&gt;team != it_b.second-&gt;team &amp;&amp;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            it_a.second-&gt;solid &amp;&amp; it_b.second-&gt;solid</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>          ) {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="comment">//  Use AABB to test colision</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            <span class="keywordflow">if</span> (</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>              temp_location_a-&gt;pos_x &lt; temp_location_b-&gt;pos_x + it_b.second-&gt;width &amp;&amp;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>              temp_location_a-&gt;pos_x + it_a.second-&gt;width &gt; temp_location_b-&gt;pos_x &amp;&amp;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>              temp_location_a-&gt;pos_y &lt; temp_location_b-&gt;pos_y + it_b.second-&gt;height &amp;&amp;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>              temp_location_a-&gt;pos_y + it_a.second-&gt;height &gt; temp_location_b-&gt;pos_y</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            ) {</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>              <span class="comment">//  Send a message that two entities colided.</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>              <span class="comment">//  Each entity will get a colision message.</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>              <span class="comment">//  Ex:  A hit B, B hit A.</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>              <a class="code hl_function" href="classslv_1_1mgr_1_1messages.html#aa5697d46b1745b0286a0a0c7eeb8c310">mgr::messages::add</a>(</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                <a class="code hl_class" href="classslv_1_1message.html">message</a>(<span class="stringliteral">&quot;entities&quot;</span>,</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                        <a class="code hl_function" href="classslv_1_1mgr_1_1world.html#a8db7f95ea8a3058b0db39faf109fb5e7">mgr::world::get_name</a>(it_a.first),</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                        <a class="code hl_function" href="classslv_1_1mgr_1_1world.html#a8db7f95ea8a3058b0db39faf109fb5e7">mgr::world::get_name</a>(it_b.first),</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                        <span class="stringliteral">&quot;colision&quot;</span>, <span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>              );</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            }</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>          } <span class="comment">//  End skip self check</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        } <span class="comment">//  End it_b loop</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>      } <span class="comment">//  End it_a loop</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    };</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>};</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>          cmp::const_comp_ptr&lt;cmp::location&gt; temp_location_a = mgr::world::get_component&lt;cmp::location&gt;(it_a.first);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>          cmp::const_comp_ptr&lt;cmp::location&gt; temp_location_b = mgr::world::get_component&lt;cmp::location&gt;(it_b.first);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>          <span class="comment">/*</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">          * Only test if:  Not the same entity.</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">          *                Entities are on different teams.</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">          *                Both entities are solid.</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">          */</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>          <span class="keywordflow">if</span> (</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            it_a.first != it_b.first &amp;&amp;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            it_a.second-&gt;team != it_b.second-&gt;team &amp;&amp;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            it_a.second-&gt;solid &amp;&amp; it_b.second-&gt;solid</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>          ) {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="comment">//  Use AABB to test colision</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="keywordflow">if</span> (</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>              temp_location_a-&gt;pos_x &lt; temp_location_b-&gt;pos_x + it_b.second-&gt;width &amp;&amp;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>              temp_location_a-&gt;pos_x + it_a.second-&gt;width &gt; temp_location_b-&gt;pos_x &amp;&amp;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>              temp_location_a-&gt;pos_y &lt; temp_location_b-&gt;pos_y + it_b.second-&gt;height &amp;&amp;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>              temp_location_a-&gt;pos_y + it_a.second-&gt;height &gt; temp_location_b-&gt;pos_y</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            ) {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>              <span class="comment">//  Send a message that two entities colided.</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>              <span class="comment">//  Each entity will get a colision message.</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>              <span class="comment">//  Ex:  A hit B, B hit A.</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>              <a class="code hl_function" href="classslv_1_1mgr_1_1messages.html#aa5697d46b1745b0286a0a0c7eeb8c310">mgr::messages::add</a>(<a class="code hl_class" href="classslv_1_1message.html">message</a>(<span class="stringliteral">&quot;entities&quot;</span>, <a class="code hl_function" href="classslv_1_1mgr_1_1world.html#a8db7f95ea8a3058b0db39faf109fb5e7">mgr::world::get_name</a>(it_a.first), <a class="code hl_function" href="classslv_1_1mgr_1_1world.html#a8db7f95ea8a3058b0db39faf109fb5e7">mgr::world::get_name</a>(it_b.first), <span class="stringliteral">&quot;colision&quot;</span>, <span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>              );</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>          } <span class="comment">//  End skip self check</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        } <span class="comment">//  End it_b loop</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>      } <span class="comment">//  End it_a loop</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    };</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>};</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassslv_1_1message_html"><div class="ttname"><a href="classslv_1_1message.html">slv::message</a></div><div class="ttdoc">Define individual message objects.</div><div class="ttdef"><b>Definition:</b> message.hpp:28</div></div>
 <div class="ttc" id="aclassslv_1_1mgr_1_1messages_html_aa5697d46b1745b0286a0a0c7eeb8c310"><div class="ttname"><a href="classslv_1_1mgr_1_1messages.html#aa5697d46b1745b0286a0a0c7eeb8c310">slv::mgr::messages::add</a></div><div class="ttdeci">static void add(const message &amp;msg)</div><div class="ttdoc">Adds a message object to the start of the msg_queue vector.</div><div class="ttdef"><b>Definition:</b> messages.hpp:214</div></div>
 <div class="ttc" id="aclassslv_1_1mgr_1_1world_html_a8db7f95ea8a3058b0db39faf109fb5e7"><div class="ttname"><a href="classslv_1_1mgr_1_1world.html#a8db7f95ea8a3058b0db39faf109fb5e7">slv::mgr::world::get_name</a></div><div class="ttdeci">static const std::string get_name(const entity_id &amp;e_id)</div><div class="ttdoc">Get entity name.</div><div class="ttdef"><b>Definition:</b> world.hpp:181</div></div>

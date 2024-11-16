@@ -96,11 +96,11 @@ $(function() {
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_class" href="classslv_1_1sys_1_1gfx_1_1animate.html">~animate</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classslv_1_1sys_1_1gfx_1_1animate.html#a11d0fb46577c3cfe7e09f75726fe74cc">   29</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classslv_1_1sys_1_1gfx_1_1animate.html#a11d0fb46577c3cfe7e09f75726fe74cc">run</a>(<span class="keywordtype">void</span>)<span class="keyword"> override </span>{</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>      component_container&lt;cmp::gfx::gfx&gt; animation_components =</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        mgr::world::set_components&lt;cmp::gfx::gfx&gt;();</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; it: animation_components)</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">if</span> (it.second-&gt;visible) it.second-&gt;animate(it.first);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>      component_container&lt;cmp::gfx::gfx&gt; animation_components = mgr::world::set_components&lt;cmp::gfx::gfx&gt;();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; it: animation_components) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">if</span> (it.second-&gt;visible) it.second-&gt;animate(it.first);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>      }</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    };</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>};</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>

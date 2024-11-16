@@ -112,82 +112,79 @@ $(function() {
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="comment">//  Animation cycle index.</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    std::map&lt;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>      <span class="keyword">const</span> std::string,</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>      <span class="keyword">const</span> std::pair&lt;const std::size_t, const std::size_t&gt;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    &gt; cycles;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">float</span> sprite_width, sprite_height;      <span class="comment">//  Sprite width &amp; height.</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">float</span> draw_offset_x, draw_offset_y;     <span class="comment">//  Sprite draw offset x/y.</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">float</span> sprite_x, sprite_y;               <span class="comment">//  Sprite location.</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordtype">int</span> sheet_width, sheet_height;          <span class="comment">//  Sprite sheet size (w/h).</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    std::size_t start_frame, stop_frame;    <span class="comment">//  Current start/stop frame postitions.</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    std::size_t current_frame, rate;        <span class="comment">//  Current frame counter and frame rate.</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#afe00bdc5236cdec139973ce90a159bf6">   63</a></span>    <a class="code hl_function" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#afe00bdc5236cdec139973ce90a159bf6">sprite</a>(</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>      slv_asset&lt;ALLEGRO_BITMAP&gt; bmp,</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>      <span class="keyword">const</span> std::size_t&amp; l,</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>      <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; sw,</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>      <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; sh,</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>      <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; dox,</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>      <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; doy,</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>      <span class="keyword">const</span> std::size_t&amp; rt</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    ) :<a class="code hl_class" href="classslv_1_1cmp_1_1gfx_1_1gfx.html">gfx</a>(bmp, l,[this](const entity_id&amp; e_id) {</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="comment">//  Define sprite animation process.</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classslv_1_1engine__time.html#a157c8d4993c7e61be0453eb693ec02ae">engine_time::check</a>() % rate == 0) {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>          <span class="comment">//  Increment frame.</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>          current_frame++;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>          <span class="comment">//  Loop frame.</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>          <span class="keywordflow">if</span> (current_frame &gt; stop_frame) {</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>              current_frame = start_frame;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>          }</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>          <span class="comment">//  Calculate the X position in the sprite sheet.</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>          sprite_x = (float)((<span class="keywordtype">int</span>)(current_frame * sprite_width + sheet_width) % sheet_width);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>          <span class="comment">//  Calculate the Y position in the sprite sheet.</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>          sprite_y = (float)((<span class="keywordtype">int</span>)((current_frame * sprite_width) / sheet_width) * sprite_height);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        }</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>      }),</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>      sprite_width(sw), sprite_height(sh), draw_offset_x(dox), draw_offset_y(doy),</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>      sprite_x(0.0f), sprite_y(0.0f),</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>      start_frame(0), stop_frame(0), current_frame(0), rate(rt)</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    {</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>      <span class="keywordflow">if</span> (rate == 0) rate = 1;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>      sheet_width = al_get_bitmap_width(<a class="code hl_variable" href="classslv_1_1cmp_1_1gfx_1_1gfx.html#a73af5926b46861292720e8c82713de5b">_bitmap</a>.get());</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>      sheet_height = al_get_bitmap_height(<a class="code hl_variable" href="classslv_1_1cmp_1_1gfx_1_1gfx.html#a73af5926b46861292720e8c82713de5b">_bitmap</a>.get());</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    };</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    std::map&lt;const std::string, const std::pair&lt;const std::size_t, const std::size_t&gt;&gt; cycles;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordtype">float</span> sprite_width, sprite_height;      <span class="comment">//  Sprite width &amp; height.</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordtype">float</span> draw_offset_x, draw_offset_y;     <span class="comment">//  Sprite draw offset x/y.</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">float</span> sprite_x, sprite_y;               <span class="comment">//  Sprite location.</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">int</span> sheet_width, sheet_height;          <span class="comment">//  Sprite sheet size (w/h).</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    std::size_t start_frame, stop_frame;    <span class="comment">//  Current start/stop frame postitions.</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    std::size_t current_frame, rate;        <span class="comment">//  Current frame counter and frame rate.</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#afe00bdc5236cdec139973ce90a159bf6">   60</a></span>    <a class="code hl_function" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#afe00bdc5236cdec139973ce90a159bf6">sprite</a>(</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>      slv_asset&lt;ALLEGRO_BITMAP&gt; bmp,</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>      <span class="keyword">const</span> std::size_t&amp; l,</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>      <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; sw,</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>      <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; sh,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>      <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; dox,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>      <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; doy,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>      <span class="keyword">const</span> std::size_t&amp; rt</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    ) :<a class="code hl_class" href="classslv_1_1cmp_1_1gfx_1_1gfx.html">gfx</a>(bmp, l,[this](const entity_id&amp; e_id) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="comment">//  Define sprite animation process.</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classslv_1_1engine__time.html#a157c8d4993c7e61be0453eb693ec02ae">engine_time::check</a>() % rate == 0) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>          <span class="comment">//  Increment frame.</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>          current_frame++;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>          <span class="comment">//  Loop frame.</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>          <span class="keywordflow">if</span> (current_frame &gt; stop_frame) {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>              current_frame = start_frame;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>          }</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>          <span class="comment">//  Calculate the X position in the sprite sheet.</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>          sprite_x = (float)((<span class="keywordtype">int</span>)(current_frame * sprite_width + sheet_width) % sheet_width);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>          <span class="comment">//  Calculate the Y position in the sprite sheet.</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>          sprite_y = (float)((<span class="keywordtype">int</span>)((current_frame * sprite_width) / sheet_width) * sprite_height);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>      }),</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>      sprite_width(sw), sprite_height(sh), draw_offset_x(dox), draw_offset_y(doy),</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>      sprite_x(0.0f), sprite_y(0.0f),</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>      start_frame(0), stop_frame(0), current_frame(0), rate(rt)</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    {</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>      <span class="keywordflow">if</span> (rate == 0) rate = 1;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>      sheet_width = al_get_bitmap_width(<a class="code hl_variable" href="classslv_1_1cmp_1_1gfx_1_1gfx.html#a73af5926b46861292720e8c82713de5b">_bitmap</a>.get());</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>      sheet_height = al_get_bitmap_height(<a class="code hl_variable" href="classslv_1_1cmp_1_1gfx_1_1gfx.html#a73af5926b46861292720e8c82713de5b">_bitmap</a>.get());</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    };</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    sprite() = <span class="keyword">delete</span>;    <span class="comment">//  Delete default constructor.</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    ~sprite() = <span class="keywordflow">default</span>;  <span class="comment">//  Default destructor.</span></div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    sprite() = <span class="keyword">delete</span>;    <span class="comment">//  Delete default constructor.</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    ~sprite() = <span class="keywordflow">default</span>;  <span class="comment">//  Default destructor.</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a381d8c68eda8d734e0f151878f52cf54">  105</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a381d8c68eda8d734e0f151878f52cf54">add_cycle</a>(</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>      <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>      <span class="keyword">const</span> std::size_t&amp; start,</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>      <span class="keyword">const</span> std::size_t&amp; stop</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    ) {</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>      <span class="keyword">auto</span> ret = cycles.insert(std::make_pair(name, std::make_pair(start, stop)));</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>      <span class="keywordflow">return</span> ret.second;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    };</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a598107dbbb8fcb0fe7c4f5e546306a97">  119</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a598107dbbb8fcb0fe7c4f5e546306a97">set_cycle</a>(<span class="keyword">const</span> std::string&amp; name) {</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>      <span class="keyword">auto</span> it = cycles.find(name);</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>      <span class="keywordflow">if</span> (it != cycles.end()) {</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        start_frame = it-&gt;second.first;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        stop_frame = it-&gt;second.second;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>      } <span class="keywordflow">else</span> <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    };</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>};</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>}</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a381d8c68eda8d734e0f151878f52cf54">  102</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a381d8c68eda8d734e0f151878f52cf54">add_cycle</a>(</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>      <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>      <span class="keyword">const</span> std::size_t&amp; start,</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>      <span class="keyword">const</span> std::size_t&amp; stop</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    ) {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>      <span class="keyword">auto</span> ret = cycles.insert(std::make_pair(name, std::make_pair(start, stop)));</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>      <span class="keywordflow">return</span> ret.second;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    };</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a598107dbbb8fcb0fe7c4f5e546306a97">  116</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a598107dbbb8fcb0fe7c4f5e546306a97">set_cycle</a>(<span class="keyword">const</span> std::string&amp; name) {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>      <span class="keyword">auto</span> it = cycles.find(name);</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>      <span class="keywordflow">if</span> (it != cycles.end()) {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        start_frame = it-&gt;second.first;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        stop_frame = it-&gt;second.second;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>      } <span class="keywordflow">else</span> <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    };</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>};</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>}</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassslv_1_1cmp_1_1gfx_1_1gfx_html"><div class="ttname"><a href="classslv_1_1cmp_1_1gfx_1_1gfx.html">slv::cmp::gfx::gfx</a></div><div class="ttdoc">Interface class for components that display graphics.</div><div class="ttdef"><b>Definition:</b> gfx.hpp:34</div></div>
 <div class="ttc" id="aclassslv_1_1cmp_1_1gfx_1_1gfx_html_a73af5926b46861292720e8c82713de5b"><div class="ttname"><a href="classslv_1_1cmp_1_1gfx_1_1gfx.html#a73af5926b46861292720e8c82713de5b">slv::cmp::gfx::gfx::_bitmap</a></div><div class="ttdeci">slv_asset&lt; ALLEGRO_BITMAP &gt; _bitmap</div><div class="ttdoc">Stores the bitmap used by the animator.</div><div class="ttdef"><b>Definition:</b> gfx.hpp:61</div></div>
 <div class="ttc" id="aclassslv_1_1cmp_1_1gfx_1_1sprite_html"><div class="ttname"><a href="classslv_1_1cmp_1_1gfx_1_1sprite.html">slv::cmp::gfx::sprite</a></div><div class="ttdoc">Component for loading a sprite sheet and storing its animation frames.</div><div class="ttdef"><b>Definition:</b> sprite.hpp:36</div></div>
-<div class="ttc" id="aclassslv_1_1cmp_1_1gfx_1_1sprite_html_a381d8c68eda8d734e0f151878f52cf54"><div class="ttname"><a href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a381d8c68eda8d734e0f151878f52cf54">slv::cmp::gfx::sprite::add_cycle</a></div><div class="ttdeci">bool add_cycle(const std::string &amp;name, const std::size_t &amp;start, const std::size_t &amp;stop)</div><div class="ttdoc">Add animation cycle.</div><div class="ttdef"><b>Definition:</b> sprite.hpp:105</div></div>
-<div class="ttc" id="aclassslv_1_1cmp_1_1gfx_1_1sprite_html_a598107dbbb8fcb0fe7c4f5e546306a97"><div class="ttname"><a href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a598107dbbb8fcb0fe7c4f5e546306a97">slv::cmp::gfx::sprite::set_cycle</a></div><div class="ttdeci">bool set_cycle(const std::string &amp;name)</div><div class="ttdoc">Set the active cycle.</div><div class="ttdef"><b>Definition:</b> sprite.hpp:119</div></div>
-<div class="ttc" id="aclassslv_1_1cmp_1_1gfx_1_1sprite_html_afe00bdc5236cdec139973ce90a159bf6"><div class="ttname"><a href="classslv_1_1cmp_1_1gfx_1_1sprite.html#afe00bdc5236cdec139973ce90a159bf6">slv::cmp::gfx::sprite::sprite</a></div><div class="ttdeci">sprite(slv_asset&lt; ALLEGRO_BITMAP &gt; bmp, const std::size_t &amp;l, const float &amp;sw, const float &amp;sh, const float &amp;dox, const float &amp;doy, const std::size_t &amp;rt)</div><div class="ttdoc">Create a new Sprite component.</div><div class="ttdef"><b>Definition:</b> sprite.hpp:63</div></div>
+<div class="ttc" id="aclassslv_1_1cmp_1_1gfx_1_1sprite_html_a381d8c68eda8d734e0f151878f52cf54"><div class="ttname"><a href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a381d8c68eda8d734e0f151878f52cf54">slv::cmp::gfx::sprite::add_cycle</a></div><div class="ttdeci">bool add_cycle(const std::string &amp;name, const std::size_t &amp;start, const std::size_t &amp;stop)</div><div class="ttdoc">Add animation cycle.</div><div class="ttdef"><b>Definition:</b> sprite.hpp:102</div></div>
+<div class="ttc" id="aclassslv_1_1cmp_1_1gfx_1_1sprite_html_a598107dbbb8fcb0fe7c4f5e546306a97"><div class="ttname"><a href="classslv_1_1cmp_1_1gfx_1_1sprite.html#a598107dbbb8fcb0fe7c4f5e546306a97">slv::cmp::gfx::sprite::set_cycle</a></div><div class="ttdeci">bool set_cycle(const std::string &amp;name)</div><div class="ttdoc">Set the active cycle.</div><div class="ttdef"><b>Definition:</b> sprite.hpp:116</div></div>
+<div class="ttc" id="aclassslv_1_1cmp_1_1gfx_1_1sprite_html_afe00bdc5236cdec139973ce90a159bf6"><div class="ttname"><a href="classslv_1_1cmp_1_1gfx_1_1sprite.html#afe00bdc5236cdec139973ce90a159bf6">slv::cmp::gfx::sprite::sprite</a></div><div class="ttdeci">sprite(slv_asset&lt; ALLEGRO_BITMAP &gt; bmp, const std::size_t &amp;l, const float &amp;sw, const float &amp;sh, const float &amp;dox, const float &amp;doy, const std::size_t &amp;rt)</div><div class="ttdoc">Create a new Sprite component.</div><div class="ttdef"><b>Definition:</b> sprite.hpp:60</div></div>
 <div class="ttc" id="aclassslv_1_1engine__time_html_a157c8d4993c7e61be0453eb693ec02ae"><div class="ttname"><a href="classslv_1_1engine__time.html#a157c8d4993c7e61be0453eb693ec02ae">slv::engine_time::check</a></div><div class="ttdeci">static int64_t check(void)</div><div class="ttdoc">Check the internal engine timer.</div><div class="ttdef"><b>Definition:</b> engine_time.hpp:37</div></div>
 <div class="ttc" id="aclassslv_1_1mgr_1_1gfx_1_1renderer_html"><div class="ttname"><a href="classslv_1_1mgr_1_1gfx_1_1renderer.html">slv::mgr::gfx::renderer</a></div><div class="ttdoc">An object that handles drawing the world to the screen.</div><div class="ttdef"><b>Definition:</b> renderer.hpp:61</div></div>
 </div><!-- fragment --></div><!-- contents -->

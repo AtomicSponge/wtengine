@@ -24,12 +24,7 @@ namespace slv {
 class commands final {
   private:
     //  Container for commands.
-    std::map<
-      std::string,
-      std::pair<
-        std::size_t,
-        std::function<void(const msg_args&)>
-    >> _commands;
+    std::map<std::string, std::pair<std::size_t, std::function<void(const msg_args&)>>> _commands;
 
   public:
     commands() = default;   //  Default constructor.

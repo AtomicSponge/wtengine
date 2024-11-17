@@ -42,7 +42,8 @@
 
 namespace slv {
 
-void do_game(void);
+void start_game(void);
+void stop_game(void);
 #if defined(__EMSCRIPTEN__)
 void em_looper(void);
 #endif
@@ -55,7 +56,8 @@ void em_looper(void);
  * Contains the main game loop and members for managing the game and engine.
  */
 class engine final : public config, public input, public display {
-  friend void do_game(void);
+  friend void start_game(void);
+  friend void stop_game(void);
   #if defined(__EMSCRIPTEN__)
   friend void em_looper(void);
   #endif
@@ -127,6 +129,12 @@ class engine final : public config, public input, public display {
       mgr::messages::prune();
     };
 
+    static void stop(void) {
+      current_scene->unload();
+      
+      config::_flags::is_running = false;
+    };
+
     //  Scenes
     inline static std::vector<std::shared_ptr<scene>> scenes;
     inline static std::shared_ptr<scene> current_scene = nullptr;
@@ -151,7 +159,7 @@ class engine final : public config, public input, public display {
      * \param height Initial screen height.
      */
     static void initialize(int width, int height) {
-      std::cout << "Starting silvergun...\n";
+      std::cout << "Initializing Silvergun Game Engine...\n";
       if (initialized == true) throw engine_error(display::window_title + " already running!");
       initialized = true;
 
@@ -257,10 +265,8 @@ class engine final : public config, public input, public display {
      * \brief De-initialize the engine.
      */
     static void deinitialize(void) {
-      std::cout << "\nStopping silvergun...\n";
+      std::cout << "\nDeinitializing Silvergun Game Engine...\n";
 
-      current_scene->unload();
-      
       config::_flags::is_running = false;
 
       mgr::world::clear();
@@ -339,13 +345,20 @@ inline void em_looper(void) {
 /*!
  * \brief The main engine loop.
  */
-inline void do_game(void) {
+inline void start_game(void) {
   //  MAIN ENGINE LOOP
   #if defined(__EMSCRIPTEN__)
     emscripten_set_main_loop(&em_looper, -1, true);
   #else
     while (config::flags::is_running) engine::main_loop();
   #endif
+}
+
+/*!
+ * \brief Stop the running game.
+ */
+inline void stop_game(void) {
+  engine::stop();
 }
 
 }  //  end namespace slv

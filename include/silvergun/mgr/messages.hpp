@@ -18,7 +18,6 @@
 #include <fstream>
 
 #include <allegro5/allegro.h>
-#include <allegro5/allegro_physfs.h>
 
 #include "silvergun/mgr/manager.hpp"
 

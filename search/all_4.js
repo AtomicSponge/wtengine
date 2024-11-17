@@ -9,8 +9,7 @@ var searchData=
   ['dispatcher_6',['dispatcher',['../classslv_1_1cmp_1_1dispatcher.html#af9f506fe2459e4b5ce6ba74136ac69e6',1,'slv::cmp::dispatcher::dispatcher()'],['../classslv_1_1cmp_1_1dispatcher.html',1,'slv::cmp::dispatcher']]],
   ['display_7',['display',['../classslv_1_1display.html',1,'slv']]],
   ['display_5fmode_8',['display_mode',['../structslv_1_1config_1_1gfx.html#a86469695cf421f7ec948f7b850b32dd1',1,'slv::config::gfx']]],
-  ['do_5fgame_9',['do_game',['../classslv_1_1engine.html#a4fd00eee57d6ac045447085794adf9da',1,'slv::engine']]],
-  ['draw_5ffps_10',['draw_fps',['../structslv_1_1config_1_1flags.html#a8c9195ac0381550f4dd2ecbdacacd3b8',1,'slv::config::flags']]],
-  ['draw_5fgui_11',['draw_gui',['../classslv_1_1mgr_1_1gfx_1_1renderer.html#a2f66ca0df1088ee12860f91a9faba452',1,'slv::mgr::gfx::renderer']]],
-  ['draw_5ftext_12',['draw_text',['../classslv_1_1cmp_1_1gfx_1_1overlay.html#a82acd936ac6e8c5b2743d32e3d273cdd',1,'slv::cmp::gfx::overlay']]]
+  ['draw_5ffps_9',['draw_fps',['../structslv_1_1config_1_1flags.html#a8c9195ac0381550f4dd2ecbdacacd3b8',1,'slv::config::flags']]],
+  ['draw_5fgui_10',['draw_gui',['../classslv_1_1mgr_1_1gfx_1_1renderer.html#a2f66ca0df1088ee12860f91a9faba452',1,'slv::mgr::gfx::renderer']]],
+  ['draw_5ftext_11',['draw_text',['../classslv_1_1cmp_1_1gfx_1_1overlay.html#a82acd936ac6e8c5b2743d32e3d273cdd',1,'slv::cmp::gfx::overlay']]]
 ];

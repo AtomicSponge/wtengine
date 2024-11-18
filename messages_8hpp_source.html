@@ -301,7 +301,7 @@ $(function() {
 <div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>          <span class="keywordflow">if</span> (timer != -1) timer += <a class="code hl_function" href="classslv_1_1engine__time.html#a157c8d4993c7e61be0453eb693ec02ae">engine_time::check</a>();</div>
 <div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>          <span class="comment">//  Add message to queue.  Ignore incomplete messages.  Sort while adding.</span></div>
 <div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>          <span class="keywordflow">if</span> (sys != <span class="stringliteral">&quot;&quot;</span> &amp;&amp; cmd != <span class="stringliteral">&quot;&quot;</span>) <a class="code hl_function" href="classslv_1_1mgr_1_1messages.html#aa5697d46b1745b0286a0a0c7eeb8c310">add</a>(<a class="code hl_class" href="classslv_1_1message.html">message</a>(timer, sys, to, from, cmd, args));</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        } <span class="keywordflow">catch</span>(<span class="keyword">const</span> std::exception&amp; e) {}</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        } <span class="keywordflow">catch</span>(...) {}</div>
 <div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>      }</div>
 <div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>      al_fclose(file);</div>
 <div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>      <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>

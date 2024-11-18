@@ -253,7 +253,7 @@ class engine final : public config, public input, public display {
 
       config::flags::engine_paused = false;
       config::_flags::is_running = true;
-      std::cout << "Engine started successfully!\n\n";
+      std::cout << "Engine started successfully!\n";
 
       al_stop_timer(main_timer);
       al_set_timer_count(main_timer, 0);
@@ -294,7 +294,7 @@ class engine final : public config, public input, public display {
       }
 
       initialized = false;
-      std::cout << "\nGood bye!\n\n";
+      std::cout << "Good bye!\n";
     };
 
     /*!

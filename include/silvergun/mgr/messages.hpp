@@ -251,7 +251,7 @@ class messages final : private manager<messages> {
           if (timer != -1) timer += engine_time::check();
           //  Add message to queue.  Ignore incomplete messages.  Sort while adding.
           if (sys != "" && cmd != "") add(message(timer, sys, to, from, cmd, args));
-        } catch(const std::exception& e) { throw e; }
+        } catch(const std::exception& e) {}
       }
       al_fclose(file);
       return true;

@@ -234,6 +234,8 @@ class messages final : private manager<messages> {
         return false;
       }
 
+      std::cout << "\nfile found\n";
+
       //  Loop through the entire data file loading into the queue.
       while (true) {
         if (al_feof(file)) break;  //  End loop if eof.

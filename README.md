@@ -11,12 +11,12 @@ __Silvergun__ is a lightweight cross-platform game engine written in C++17 using
 
 -----
 
-## Library Installation
+### Library Installation
 
 Installation is handled by [CMake](https://cmake.org/).
 
 -----
 
-## Demo Game
+### Demo Game
 
 <https://github.com/AtomicSponge/slv-demo-01>

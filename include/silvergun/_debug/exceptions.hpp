@@ -53,11 +53,7 @@ class engine_error final : public std::exception {
      * \brief Create a new runtime error object.  Sets the location to Engine and code to 1.
      * \param d An exception description.
      */
-    engine_error(const std::string& d) : item(exception_item(d, "Engine", 1)) {
-      if constexpr (build_options.debug_mode) {
-        logger::log(item.description, item.location, item.code, item.time);
-      }
-    };
+    engine_error(const std::string& d) : item(exception_item(d, "Engine", 1)) {};
 
     engine_error() = delete;  //  Delete default constructor.
     virtual ~engine_error() = default;  // Default destructor.

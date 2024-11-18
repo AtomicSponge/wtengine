@@ -234,10 +234,9 @@ class messages final : private manager<messages> {
         return false;
       }
 
-      std::cout << "\nfile found\n";
-
       //  Loop through the entire data file loading into the queue.
       while (true) {
+        std::cout << "\nstart of loop\n";
         if (al_feof(file)) break;  //  End loop if eof.
 
         int64_t timer = -1;
@@ -245,7 +244,9 @@ class messages final : private manager<messages> {
 
         try {
           //  Read the message from file.
+          std::cout << "\nbefore read\n";
           read(*file, timer, sys, to, from, cmd, args);
+          std::cout << "\nafter read\n";
           //  Add the current time to the timer value.
           if (timer != -1) timer += engine_time::check();
           //  Add message to queue.  Ignore incomplete messages.  Sort while adding.

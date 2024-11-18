@@ -13,20 +13,7 @@ __Silvergun__ is a lightweight cross-platform game engine written in C++17 using
 
 ## Library Installation
 
-Installation is handled by [CMake](https://cmake.org/).  To download and prepare the library for installation run:
-```
-git clone https://github.com/AtomicSponge/silvergun.git
-cd silvergun
-mkdir build
-cd build
-cmake ..
-cd ..
-```
-
-Then to install the library run:
-```
-sudo cmake --build build --target install --config Build
-```
+Installation is handled by [CMake](https://cmake.org/).
 
 -----
 

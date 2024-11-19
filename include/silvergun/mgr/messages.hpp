@@ -124,7 +124,6 @@ class messages final : private manager<messages> {
         if (ch == '\0') break;  //  End loop if null terminated.
         if (ch == EOF) {
           throw engine_exception("Bad message file format!", "Messages", 2);
-          return;
         }
         sys += ch;
       }
@@ -133,7 +132,6 @@ class messages final : private manager<messages> {
         if (ch == '\0') break;  //  End loop if null terminated.
         if (ch == EOF) {
           throw engine_exception("Bad message file format!", "Messages", 2);
-          return;
         }
         to += ch;
       }
@@ -142,7 +140,6 @@ class messages final : private manager<messages> {
         if (ch == '\0') break;  //  End loop if null terminated.
         if (ch == EOF) {
           throw engine_exception("Bad message file format!", "Messages", 2);
-          return;
         }
         from += ch;
       }
@@ -151,7 +148,6 @@ class messages final : private manager<messages> {
         if (ch == '\0') break;  //  End loop if null terminated.
         if (ch == EOF) {
           throw engine_exception("Bad message file format!", "Messages", 2);
-          return;
         }
         cmd += ch;
       }
@@ -160,7 +156,6 @@ class messages final : private manager<messages> {
         if (ch == '\0') break;  //  End loop if null terminated.
         if (ch == EOF) {
           throw engine_exception("Bad message file format!", "Messages", 2);
-          return;
         }
         args += ch;
       }
@@ -252,7 +247,7 @@ class messages final : private manager<messages> {
           if (timer != -1) timer += engine_time::check();
           //  Add message to queue.  Ignore incomplete messages.  Sort while adding.
           if (sys != "" && cmd != "") add(message(timer, sys, to, from, cmd, args));
-        } catch(...) {}
+        } catch(...) { break; }
       }
       al_fclose(file);
       return true;

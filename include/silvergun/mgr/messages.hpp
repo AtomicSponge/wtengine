@@ -222,7 +222,9 @@ class messages final : private manager<messages> {
     static bool load_script(const std::string& fname) {
       //  Open data file - read binary mode.
       ALLEGRO_FILE* file;
+      std::cout << "file not yet opened\n";
       file = al_fopen(fname.c_str(), "rb");
+      std::cout << "file opened\n";
       //  File not found, error.
       if (!file) {
         al_fclose(file);
@@ -238,7 +240,9 @@ class messages final : private manager<messages> {
 
         try {
           //  Read the message from file.
+          std::cout << "before read\n";
           read(*file, timer, sys, to, from, cmd, args);
+          std::cout << "after read\n";
           //  Add the current time to the timer value.
           if (timer != -1) timer += engine_time::check();
           //  Add message to queue.  Ignore incomplete messages.  Sort while adding.

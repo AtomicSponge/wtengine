@@ -132,7 +132,8 @@ class messages final : private manager<messages> {
         const char ch = al_fgetc(&file);
         if (ch == '\0') break;  //  End loop if null terminated.
         if (ch == EOF) {
-          throw engine_exception("Bad message file format!", "Messages", 2);
+          //throw engine_exception("Bad message file format!", "Messages", 2);
+          break;
         }
         to += ch;
       }
@@ -140,7 +141,8 @@ class messages final : private manager<messages> {
         const char ch = al_fgetc(&file);
         if (ch == '\0') break;  //  End loop if null terminated.
         if (ch == EOF) {
-          throw engine_exception("Bad message file format!", "Messages", 2);
+          //throw engine_exception("Bad message file format!", "Messages", 2);
+          break;
         }
         from += ch;
       }
@@ -148,7 +150,8 @@ class messages final : private manager<messages> {
         const char ch = al_fgetc(&file);
         if (ch == '\0') break;  //  End loop if null terminated.
         if (ch == EOF) {
-          throw engine_exception("Bad message file format!", "Messages", 2);
+          //throw engine_exception("Bad message file format!", "Messages", 2);
+          break;
         }
         cmd += ch;
       }
@@ -156,7 +159,8 @@ class messages final : private manager<messages> {
         const char ch = al_fgetc(&file);
         if (ch == '\0') break;  //  End loop if null terminated.
         if (ch == EOF) {
-          throw engine_exception("Bad message file format!", "Messages", 2);
+          //throw engine_exception("Bad message file format!", "Messages", 2);
+          break;
         }
         args += ch;
       }

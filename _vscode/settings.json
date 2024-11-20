@@ -1,0 +1,10 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/build": true,
+    "**/docs": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    "**/pnpm-lock.yaml": true
+  }
+}

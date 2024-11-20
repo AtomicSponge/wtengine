@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * @author Matthew Evans
- * @module wtfsystems/wtengine-tools
+ * @module silvergun-tools
  * @see README.md
  * @copyright MIT see LICENSE.md
  */
@@ -10,11 +10,11 @@ import fs from 'node:fs'
 import { Buffer } from 'node:buffer'
 
 import { Command } from 'commander'
+import { confirm } from '@inquirer/prompts'
 import { parse as csvParse } from 'csv-parse/sync'
-import { dim, cyan } from 'kolorist'
+import { dim, cyan, yellow } from 'kolorist'
 
 import { scriptError } from '@spongex/script-error'
-import { scriptTitle, confirmPrompt } from './_common.js'
 
 /** Save version number - relevant to itself and not the script */
 const SAVE_FILE_VERSION = 'v0.9.0'
@@ -124,11 +124,11 @@ const createScriptData = (inFile:string, outFile:string):void => {
 /*
  * SCRIPT START
  */
-scriptTitle(`WTEngine Make Script Utility`)
+console.log(cyan(`Silvergun Game Engine Script Utility`))
 const program = new Command()
 program
-  .name('wte-mkscript')
-  .description('Convert csv, json, or (soon) yml files to WTEngine scripts')
+  .name('slv-mkscript')
+  .description('Convert csv, json, or (soon) yml files to Silvergun Game Engine scripts')
   .argument('<inFile>', 'Input file - required')
   .argument('[outFile]', 'Output file - optional, will use input name if not provided')
   .action(async (inFile, outFile) => {
@@ -138,9 +138,12 @@ program
       outFile += '.sdf'
 
     await (async () => {
-      if (fs.existsSync(outFile) &&
-          !await confirmPrompt(`Output file '${outFile}' exists, overwrite?`))
+      if (
+        fs.existsSync(outFile) &&
+        !await confirm({ message: yellow(`Output file '${outFile}' exists, overwrite?`) })
+      ) {
         scriptError(`Output file '${outFile}' already exists!`)
+      }
     })()
 
     createScriptData(inFile, outFile)

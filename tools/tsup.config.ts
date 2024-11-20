@@ -2,9 +2,7 @@ import { defineConfig } from 'tsup'
 
 export default defineConfig({
   entry: [
-    "./src/wte-config.ts",
-    "./src/wte-mkscript.ts",
-    "./src/wte-syscheck.ts"
+    "./src/slv-mkscript.ts"
   ],
   platform: "node",
   format: "esm",

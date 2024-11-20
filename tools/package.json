@@ -1,6 +1,5 @@
 {
   "name": "silvergun-tools",
-  "version": "0.2.2",
   "description": "WTEngine Development Tools",
   "author": "Matthew Evans",
   "license": "MIT",
@@ -22,13 +21,10 @@
     "url": "https://github.com/AtomicSponge/silvergun/issues"
   },
   "scripts": {
-    "build": "tsup",
-    "prepublishOnly": "npm run build"
+    "build": "tsup"
   },
   "bin": {
-    "wte-config": "dist/slv-config.js",
-    "wte-mkscript": "dist/slv-mkscript.js",
-    "wte-syscheck": "dist/slv-syscheck.js"
+    "slv-mkscript": "dist/slv-mkscript.js"
   },
   "type": "module",
   "files": [
@@ -40,18 +36,15 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
+    "@inquirer/prompts": "^7.1.0",
     "@spongex/script-error": "^1.0.1",
-    "@spongex/system-locale": "^1.0.1",
     "commander": "^12.1.0",
     "csv-parse": "^5.5.6",
-    "find-bin": "^1.1.0",
-    "inquirer": "^12.0.1",
     "kolorist": "^1.8.0",
-    "yaml": "^2.6.0"
+    "yaml": "^2.6.1"
   },
   "devDependencies": {
-    "@types/inquirer": "^9.0.7",
-    "@types/node": "^22.8.2",
+    "@types/node": "^22.9.1",
     "tsup": "^8.3.5",
     "typescript": "^5.6.3"
   }

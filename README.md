@@ -20,7 +20,7 @@ Installation is handled by [CMake](https://cmake.org/).
 ### Demo Game
 
 Playable Demo:
-<https://atomicsponge.github.io/slv-demo-01/slvdemo.html>
+<https://atomicsponge.github.io/slv-demo-01/>
 
 Source Code:
 <https://github.com/AtomicSponge/slv-demo-01>

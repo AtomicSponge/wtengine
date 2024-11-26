@@ -1,6 +1,6 @@
 #  Silvergun Game Engine
 
-__Silvergun__ is a lightweight cross-platform game engine written in C++17 using an [ECS](https://en.wikipedia.org/wiki/Entity_component_system) design.
+__Silvergun__ is a lightweight cross-platform 2D game engine written in C++17 using an [ECS](https://en.wikipedia.org/wiki/Entity_component_system) design.
 
 ### Requirements
  - __Build tools__:

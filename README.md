@@ -16,6 +16,12 @@ See the API documentation at <https://atomicsponge.github.io/silvergun/>.  Docum
 
 -----
 
+### Tools
+
+ - [slv-mkscript](https://github.com/AtomicSponge/slv-mkscript) - Generate game scripts.  Requires [NodeJS](https://nodejs.org/)
+
+-----
+
 ### Demo Game
 
 For a live demo and simple example of the the API usage, see the following:

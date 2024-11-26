@@ -7,19 +7,21 @@ __Silvergun__ is a lightweight cross-platform game engine written in C++17 using
     - A working C++ build environment with [CMake](https://cmake.org)
  - __Libraries__:
     - [Allegro Game Library](https://liballeg.org)
+ - __Optional__:
+    - [PhysFS](https://icculus.org/physfs/)
 
 -----
 
-### Library Installation
+### Documentation
 
-Installation is handled by [CMake](https://cmake.org/).
+See the API documentation at <https://atomicsponge.github.io/silvergun/>.  Documentation can be built locally using [Doxygen](https://doxygen.nl/index.html).
 
 -----
 
 ### Demo Game
 
-Playable Demo:
-<https://atomicsponge.github.io/slv-demo-01/>
+For a live demo and simple example of the the API usage, see the following:
 
-Source Code:
-<https://github.com/AtomicSponge/slv-demo-01>
+- [Playable Demo](https://atomicsponge.github.io/slv-demo-01/)
+
+- [Source Code](https://github.com/AtomicSponge/slv-demo-01)
